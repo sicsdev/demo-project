@@ -5,16 +5,18 @@ import React, { useState } from 'react'
 const Header = () => {
     const [navbar, setNavbar] = useState(false);
     return (
-        <div>
+        <div className='sticky top-0'>
 
             <nav className="w-full bg-slate-950 shadow">
                 <div className="justify-between mx-auto lg:max-w-[90%] md:items-center md:flex">
                     <div>
-                        <div className="flex items-center justify-between py-3 md:py-5 md:block">
+                        <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
                             <a href="#">
                                 <h2 className="text-2xl text-white font-bold">Tempo</h2>
 
-                                <div className="md:hidden">
+                                
+                            </a>
+                            <div className="md:hidden">
                                     <button
                                         className="p-2 text-gray-700 rounded-md outline-none focus:border-gray-400 focus:border"
                                         onClick={() => setNavbar(!navbar)}
@@ -50,8 +52,6 @@ const Header = () => {
                                         )}
                                     </button>
                                 </div>
-                            </a>
-
                         </div>
                     </div>
                     <div>
@@ -59,17 +59,17 @@ const Header = () => {
                             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'block' : 'hidden'}`}
                         >
                             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                                <li className="text-white">
+                                <li className="text-white text-center">
                                     <Link href="/">
                                         Product
                                     </Link>
                                 </li>
-                                <li className="text-white">
+                                <li className="text-white text-center">
                                     <Link href="/blogs">
                                         Plateform
                                     </Link>
                                 </li>
-                                <li className="text-white">
+                                <li className="text-white text-center">
                                     <Link href="/about">
                                         Resources
                                     </Link>
@@ -83,17 +83,17 @@ const Header = () => {
                             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'block' : 'hidden'}`}
                         >
                             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                                <li className="text-white">
+                                <li className="text-white text-center">
                                     <Link href="/">
                                         Demo
                                     </Link>
                                 </li>
-                                <li className="text-white">
+                                <li className="text-white text-center">
                                     <Link href="/blogs">
                                         Pricing
                                     </Link>
                                 </li>
-                                <li className="text-white   font-bold">
+                                <li className="text-white   font-bold text-center">
                                     <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent py-1 px-2">Free Trial</button>
                                 </li>
                             </ul>

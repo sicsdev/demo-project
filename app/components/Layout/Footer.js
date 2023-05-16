@@ -33,7 +33,7 @@ const Footer = () => {
 
         <footer className="bg-slate-950 shadow">
 
-            <div className="mx-auto w-full  lg:max-w-[90%] ">
+            <div className="mx-3 md:mx-auto lg:mx-auto w-full  lg:max-w-[90%] ">
 
                 <div className="py-11 md:flex md:items-center md:justify-between">
                     <span className="text-xl sm:text-center text-white font-semibold">Contact Tempo  <a className='text-sm ml-5 font-normal' >+1 (000) 000 0000 or sales@tempo.com</a>
@@ -74,8 +74,8 @@ const Footer = () => {
                 </div>
 
             </div>
-            <hr className='mx-auto w-full  lg:max-w-[90%] ' />
-            <div className="py-6 bg-slate-950 shadow md:flex md:items-center md:justify-between lg:max-w-[90%] m-auto">
+            <hr className='mx-3 md:mx-auto w-full  lg:mx-auto lg:max-w-[90%] ' />
+            <div className="py-6 lg:mx-auto  md:mx-auto bg-slate-950 shadow md:flex md:items-center md:justify-between lg:max-w-[90%]  mx-3">
 
                 <ul className="flex flex-wrap items-center mt-3 text-sm font-normal text-white sm:mt-0">
 
