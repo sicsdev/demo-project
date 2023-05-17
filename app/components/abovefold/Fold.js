@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Fold = () => {
+const AboveFold = () => {
     return (
         <div className='bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%  text-white text-center py-24 lg:py-44 md:py-44 '>
             <h1 className="mb-4 text-5xl font-extrabold leading-none tracking-tight bg-gradient-to-r from-fuchsia-600 via-pink-100 to-yellow-400 inline-block text-transparent bg-clip-text md:text-5xl lg:text-7xl  ">Tempo</h1>
@@ -16,4 +16,4 @@ const Fold = () => {
     )
 }
 
-export default Fold
+export default AboveFold
