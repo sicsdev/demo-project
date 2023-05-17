@@ -1,5 +1,5 @@
 
-import Direction from "@/app/components/Abovefold/Above";
+import Direction from "./components/Direction-logo/Direction";
 import Industry from "./components/Industry-Experts/Industry";
 import Info from "./components/Info-Screen/Info";
 import Trail from "./components/Trail/Trail";
