@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 const Header = () => {
     const [navbar, setNavbar] = useState(false);
     return (
-        <div className='sticky top-0'>
+        <div className='sticky top-0 start-0	z-40'>
 
             <nav className="w-full bg-slate-950 shadow">
                 <div className="justify-between mx-auto lg:max-w-[90%] md:items-center md:flex">
