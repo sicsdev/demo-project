@@ -2,13 +2,13 @@ import React from 'react'
 
 const Above = () => {
     return (
-        <div className='bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%  text-white text-center py-24 lg:py-44 md:py-44 '>
-            <h1 className="mb-4 text-5xl font-extrabold leading-none tracking-tight bg-gradient-to-r from-fuchsia-600 via-pink-100 to-yellow-400 inline-block text-transparent bg-clip-text md:text-5xl lg:text-7xl  ">Tempo</h1>
-            <p className="mb-6 text-3xl font-normal sm:px-16 xl:px-48 text-white ">Scale support experiences without scaling costs</p>
-            <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-lg font-medium  text-white bg-indigo-600 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                Start free trial
+        <div className=' bg-home-gradient  text-white text-center py-24 lg:py-44 md:py-44 '>
+            <h1 className="mb-4  font-semibold  text-5xl  leading-none tracking-tight bg-gradient-to-r from-fuchsia via-pink to-yellow inline-block text-transparent bg-clip-text md:text-5xl lg:text-7xl  ">Tempo</h1>
+            <p className="mb-6 text-base font-base md:text-4xl lg:text-4xl sm:px-16 xl:px-48 text-white ">Scale support experiences without scaling costs</p>
+            <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-lg font-semibold border-white text-white bg-voilet rounded-lg hover:bg-white hover:text-voilet hover:border-voilet border-2 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+                Start Free Trail
             </a>
-            <a href="#" className="inline-flex items-center justify-center mx-4 px-5 py-3 text-lg font-medium border-2 border-gray-50  text-white bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+            <a href="#" className="inline-flex  items-center justify-center mx-4 px-5 py-3 text-lg  font-semibold border-2 border-black  hover:bg-voilet hover:text-white hover:border-white  text-black bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                 Request Demo
             </a>
 

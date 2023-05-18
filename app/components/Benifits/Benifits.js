@@ -20,7 +20,7 @@ const slides = [
     },
     {
         background: `number-slide3`,
-        title: "Tempo has scaled with us. What I love most is that I don't need an administrator to maintain it. Ticket automation, screen-share through the chat, customized portals for different segments of our users—all those things are really helping us bring response times down.",
+        title: "Tempo has scaled with us. What I love most is that I don't need an administrator to maintain it. Ticket automation, screen-share through the chat.",
         editor: "Kris Sundberg",
         position: "VP of Customer Success",
   
@@ -30,7 +30,7 @@ const slides = [
 const Benifits = () => {
     return (
         <div>
-            <h1 className='text-center text-5xl my-8 font-semibold text-gray-600'>
+              <h1 className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>
                 Why customers love Tempo
             </h1>
             <Carasual slides={slides}/>

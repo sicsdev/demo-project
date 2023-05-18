@@ -7,7 +7,7 @@ const Header = () => {
     return (
         <div className='sticky top-0 start-0	z-40'>
 
-            <nav className="w-full bg-slate-950 shadow">
+            <nav className="w-full bg-black shadow">
                 <div className="justify-between mx-auto lg:max-w-[90%] md:items-center md:flex">
                     <div>
                         <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
@@ -94,7 +94,7 @@ const Header = () => {
                                     </Link>
                                 </li>
                                 <li className="text-white   font-bold text-center">
-                                    <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent py-1 px-2">Free Trial</button>
+                                    <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">Free Trial</button>
                                 </li>
                             </ul>
                         </div>
