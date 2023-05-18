@@ -125,7 +125,7 @@ const Footer = () => {
                                 Support & Success
                             </h6>
                             {support.map((element, key) =>
-                                <p className="mb-4">
+                                <p className="mb-4" key={key}>
                                     <a href="#!" className="text-neutral-600 dark:text-neutral-200"
                                     >{element}</a
                                     >
