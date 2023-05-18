@@ -30,7 +30,7 @@ const slides = [
 const Benifits = () => {
     return (
         <div>
-              <h1 className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>
+              <h1 className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-8 font-bold text-heading'>
                 Why customers love Tempo
             </h1>
             <Carasual slides={slides}/>

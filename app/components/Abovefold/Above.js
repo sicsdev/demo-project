@@ -8,7 +8,7 @@ const Above = () => {
             <a href="#" className="inline-flex items-center justify-center px-5 py-3 text-lg font-semibold border-white text-white bg-voilet rounded-lg hover:bg-white hover:text-voilet hover:border-voilet border-2 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                 Start Free Trail
             </a>
-            <a href="#" className="inline-flex  items-center justify-center mx-4 px-5 py-3 text-lg  font-semibold border-2 border-black  hover:bg-voilet hover:text-white hover:border-white  text-black bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
+            <a href="#" className="inline-flex  items-center justify-center ml-4 px-5 py-3 text-lg  font-semibold border-2 border-black  hover:bg-voilet hover:text-white hover:border-white  text-black bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
                 Request Demo
             </a>
 
