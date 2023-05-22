@@ -5,9 +5,11 @@ import Info from "./components/Info-Screen/Info";
 import Trail from "./components/Trail/Trail";
 import Benifits from "./components/Benifits/Benifits";
 import Above from "./components/Abovefold/Above";
+import Start from "./components/Get-Start/Start";
 export default function Home() {
   return (
     <main className="scroll-smooth">
+      <Start />
       <Above />
       <Direction />
       <Info />

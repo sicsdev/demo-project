@@ -89,7 +89,7 @@ const Header = () => {
                                     </Link>
                                 </li>
                                 <li className="text-white text-center">
-                                    <Link href="/blogs">
+                                    <Link href="/">
                                         Pricing
                                     </Link>
                                 </li>

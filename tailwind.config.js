@@ -21,7 +21,9 @@ module.exports = {
       'yellow': color.yellow[100],
       'home-gradient-shade': "rgb(0,7,36);",
       'heading': "#09162A",
-      cyan: color.cyan[100]
+       cyan: color.cyan[100],
+       background: color.slate[800],
+      input_color:color.gray[400]
     },
     extend: {
       backgroundImage: {
