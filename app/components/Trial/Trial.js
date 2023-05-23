@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Image from 'next/image';
-const Trail = () => {
+const Trial = () => {
     return (
         <div className="bg-cyan ">
             <div className='mx-auto  max-w-[90%]'>
@@ -37,4 +37,4 @@ const Trail = () => {
     )
 }
 
-export default Trail
+export default Trial

@@ -2,6 +2,8 @@ import React from 'react'
 import { Input } from '../Common/Input/Input'
 import Select from '../Common/Select/Select'
 import Card from '../Common/Card/Card'
+import WarningBtn from '../Common/Button/Button'
+import Button from '../Common/Button/Button'
 
 const Start = () => {
     const list = [
@@ -11,9 +13,6 @@ const Start = () => {
         "Reveal insights into every customer journey and buying intent",
         "Feed the ad platforms AI for better ad optimization",
         "Analyze accurate data to make better optimization decisions",
-        "Optimize ads 7x faster from directly within Cometly",
-        "Save wasted ad spend by turning off ads with bad performance",
-        "Improve ROAS instantly with better ad optimization decisions"
     ]
     const drop_data = ["$0 - $5k", "$5k - $25k", "$25k - $100k", "$100k - $500k", "$500+"]
     return (
@@ -21,7 +20,7 @@ const Start = () => {
             <div className='justify-between mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  pt-10'>
                 <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2'>
                     <div className='md:px-8 lg:px-8 sm:px-8 py-8  sm:py-12 md:py-12 lg:py-12'>
-                    <h1 className="mb-4  font-semibold  text-xl  leading-none tracking-tight bg-gradient-to-r from-voilet via-yellow to-white inline-block text-transparent bg-clip-text md:text-5xl lg:text-5xl sm:text-5xl">
+                        <h1 className="mb-4  font-semibold  text-xl  leading-none tracking-tight bg-gradient-to-r from-voilet via-yellow to-white inline-block text-transparent bg-clip-text md:text-5xl lg:text-5xl sm:text-5xl">
                             Attribute purchases back to the correct ads
                         </h1>
                         <ul className='list-none my-8'>
@@ -66,9 +65,12 @@ const Start = () => {
                                         <Select value={''} placeholder={"select"} data={drop_data} onChange={(value) => { console.log(value) }} />
                                     </label>
                                 </div>
-
-
-                                <button className="inline-flex  transition-all ease-in duration-75 items-center w-full justify-center px-5 py-2 mt-5 text-lg font-semibold border-white text-white rounded-lg hover:bg-white  bg-voilet  hover:text-voilet hover:border-voilet border-2 ">Save Changes</button>
+                                <Button
+                                    type={'submit'}
+                                    className={'mt-4 w-full focus:ring-yellow-300 text-white bg-btn_y_main hover:bg-btn_y_hover dark:focus:ring-yellow-900'}
+                                    >
+                                    Save Changes
+                                </Button>
                             </form>
                         </Card>
                     </div>
