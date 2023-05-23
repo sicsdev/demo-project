@@ -1,10 +1,9 @@
-"use client" 
-import { Provider } from 'react-redux'
+
 import Footer from './components/Layout/Footer'
 import Header from './components/Layout/Header'
+import ProviderWrapper from './components/store/Provider'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import store from './components/store/store'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'Tempo',
@@ -15,11 +14,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning={true} className={inter.className}>
-        <Provider store={store}>
+        <ProviderWrapper>
           <Header />
           {children}
           <Footer />
-        </Provider>
+        </ProviderWrapper>
       </body>
     </html>
   )
