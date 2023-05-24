@@ -34,13 +34,13 @@ const ChatBot = () => {
                     <div className='block p-4 overflow-y-scroll max-h-[60vh]'>
                         <div className=' snap-y  w-full'>
                             <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left p-4 w-[75%] text-white text-sm'}><p>Are you an Intercom customer?</p></div>
-                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You'll get a reply from the team.</p></div>
+                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You&aposl;l get a reply from the team.</p></div>
                             <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>Are you an Intercom customer?</p></div>
                             <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>Are you an Intercom customer?</p></div>
-                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You'll get a reply from the team.</p></div>
+                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You&apos;ll get a reply from the team.</p></div>
                             <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>Are you an Intercom customer?</p></div>
-                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You'll get a reply from the team.</p></div>
-                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You'll get a reply from the team.</p></div>
+                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You&apos;ll get a reply from the team.</p></div>
+                            <div className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold  float-left  p-4 w-[75%] text-white text-sm'}><p>Welcome! You&apos;ll get a reply from the team.</p></div>
 
                         </div>
 
