@@ -22,10 +22,10 @@ const Info = () => {
     return (
         <div className="justify-between mx-auto max-w-[90%] ">
             <h1 className='text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>
-                Intuitive and contextual support
+            Intelligent and dynamic support
             </h1>
             <h3 className='text-center text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading'>
-                Empower your support teams to deliver timely and consistent support at any scale
+            Scale your sales operations and customer service without scaling your time
             </h3>
             <div className="grid grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-16">
                 <div className="text-start sm:text-start md:text-start lg:text-start order-1">

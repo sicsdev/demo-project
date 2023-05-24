@@ -9,8 +9,9 @@ const DTC = () => {
 
     ]
     return (
+        <div className='bg-cyan-50 py-5'>
         <div className='my-8 cursor-pointer mx-auto max-w-[90%]'>
-            <h1 className='text-center font-normal'>Used daily by 11,907+ DTC brands</h1>
+            <h1 className='text-center font-normal'>Trusted by top ecommerce and service brands</h1>
             <div className='block sm:flex md:flex lg:flex justify-evenly items-center text-center'>
 
                 {images.map((element, key) =>
@@ -24,6 +25,7 @@ const DTC = () => {
                     </div>
                 )}
             </div>
+        </div>
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 
 import Image from 'next/image';
+import Button from '../Common/Button/Button';
 const Trial = () => {
     return (
-        <div className="bg-cyan ">
+        <div className="">
             <div className='mx-auto  max-w-[90%]'>
                 {/* <div className="flex items-center justify-center"> */}
                 <div className="grid text-center grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 sm:p-4 md:p-20 lg:p-20 gap-4">
@@ -12,12 +13,19 @@ const Trial = () => {
                             Sign up for your <span className="text-voilet">free trial today</span>
                         </h1>
                         <h3 className='text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading'>21 days. Unlimited Agents. No credit card required. No strings attached.</h3>
-                        <a href="#" className="inline-flex items-center justify-center p-2 sm:mx-4 md:mx-4 lg:mx-4 sm:px-5 lg:px-5 md:px-5 sm:py-3 md:py-3 lg:py-3 text-lg font-semibold border-white text-white bg-voilet rounded-lg hover:bg-white hover:text-voilet hover:border-voilet border-2 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                        Start Free Trail
-                        </a>
-                        <a href="#" className="inline-flex  items-center justify-center mx-2 p-2 sm:mx-4 md:mx-4 lg:mx-4 sm:px-5 lg:px-5 md:px-5 sm:py-3 md:py-3 lg:py-3 text-lg  font-semibold border-2 border-voilet  hover:bg-voilet hover:text-white hover:border-white  text-voilet bg-transparent rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:focus:ring-blue-900">
-                            Request Demo
-                        </a>
+                        <Button
+                            type={'submit'}
+                            className={'group py-[11px] px-2 focus:ring-yellow-300 text-white bg-voilet hover:bg-black dark:focus:ring-voilet-900'}
+                        >
+                            Start Free Trail
+                        </Button>
+                        <Button
+                            type={'submit'}
+                            className={'py-[11px]  px-2 focus:ring-yellow-300 text-white bg-black hover:bg-voilet dark:focus:ring-voilet-900'}
+                        >
+                             Request Demo
+                        </Button>
+                      
                     </div>
                     <div className="relative border-solid m-auto text-center">
                         <div className="m-auto w-[100%]">

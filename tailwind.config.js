@@ -23,6 +23,7 @@ module.exports = {
       'home-gradient-shade': "rgb(0,7,36);",
       'heading': "#09162A",
       'cyan': color.cyan[100],
+      'cyan-50': color.cyan[50],
       'background': color.slate[800],
       'border': color.slate[400],
       'input_color': color.gray[400],
