@@ -55,7 +55,7 @@ const Testimonial = () => {
     return (
         <div className='bg-cyan-50 py-5'>
             <div className='my-16 cursor-pointer mx-auto max-w-[90%]'>
-                <Card className={'relative'}>
+                <Card className={'bg-white relative'}>
                     <div className='block sm:flex md:flex lg:flex justify-evenly items-center'>
                         <div className='relative h-[200px] w-[200px]'>
                             <Image
@@ -65,16 +65,18 @@ const Testimonial = () => {
                                 className='m-auto object-contain'
                             />
                         </div>
-                        <div className='text-start animate__fadeIn'>
-                            <h1 className='text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading'>{team_data[index].title}</h1>
-                            <h1 className='text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-xl md:text-xl lg:text-xl my-2 font-bold text-heading'>{team_data[index].name}</h1>
+                        <div className='text-start transition  ease-in duration-300'>
+                            <h1 data-te-animation-ref className='text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading '>{team_data[index].title}</h1>
+                            <h1  data-te-animation-add-ref
+    data-te-ripple-init
+    data-te-ripple-color="light" className='text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-xl md:text-xl lg:text-xl my-2 font-bold text-heading'>{team_data[index].name}</h1>
                             <p className='text-border'>{team_data[index].position}</p>
                         </div>
                         <div
                             className="hidden sm:inline-block md:inline-block lg:inline-block h-[200px] min-h-[1em] w-1 self-stretch bg-voilet opacity-100 dark:opacity-50"></div>
                         <div className='relative '>
-                            <h1 className='text-start w-full mx-auto text-xl sm:text-3xl md:text-3xl lg:text-3xl my-2 font-bold text-sky-2 animate__animated animate__fadeIn'>{team_data[index].precent}</h1>
-                            <h1 className='animate__fadeIn text-start sm:text-start md:text-start lg:text-start sm:w-[200px] md:w-[200px] lg:w-[200px]  text-2xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading'>
+                            <h1 className='text-start w-full mx-auto text-xl sm:text-3xl md:text-3xl lg:text-3xl my-2 font-bold text-sky-2 '>{team_data[index].precent}</h1>
+                            <h1 className=' text-start sm:text-start md:text-start lg:text-start sm:w-[200px] md:w-[200px] lg:w-[200px]  text-2xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading'>
                                 {team_data[index].quote}</h1>
                             <p className=' text-xl sm:text-xl md:text-xl lg:text-xl '>Read their story</p>
                         </div>

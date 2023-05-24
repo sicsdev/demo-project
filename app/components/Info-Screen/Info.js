@@ -70,20 +70,6 @@ const Info = () => {
                     style={{ backgroundImage: `url(https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75)` }}
                     className='h-64 sm:h-full md:h-full lg:h-full md:w-full sm:w-full lg:w-full bg-cover bg-center md:my-8 lg:my-8 sm:my-8  order-6'
                 ></div>
-                <div
-                    style={{ backgroundImage: `url(https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75)` }}
-                    className='h-64 sm:h-full md:h-full lg:h-full md:w-full sm:w-full lg:w-full bg-cover bg-center md:my-8 lg:my-8 sm:my-8  order-8 md:order-7 sm:order-7 lg:order-7'
-                ></div>
-                <div className="text-start sm:text-start md:text-start lg:text-start md:my-8 lg:my-8 sm:my-8 order-7 md:order-8 sm:order-8 lg:order-8">
-                    <h3 className='text-lg my-3 font-medium text-heading'>CONTACT CENTER</h3>
-                    <h1 className='text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading'>
-                        Conversations made easy with built-in telephony
-                    </h1>
-                    <h3 className='text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading'>Make it easy for your agents to provide exceptional service on voice with an intuitive, all-in-one contact center solution.</h3>
-                    <div className='text-voilet font-semibold'>
-                        <Link href={"/"} >Explore Support Desk</Link>
-                    </div>
-                </div>
             </div>
         </div>
     )

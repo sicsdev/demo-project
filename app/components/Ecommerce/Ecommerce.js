@@ -53,7 +53,7 @@ const Ecommerce = () => {
                 built for your <span className='text-voilet'>entire stack</span></h1>
             <div className='grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4'>
                 {card_data.map((item, index) =>
-                    <Card key={index} className={"group mt-8 border border-border cursor-pointer hover:border-1 hover:border-primary"}>
+                    <Card key={index} className={"bg-white group mt-8 border border-border cursor-pointer hover:border-1 hover:border-primary"}>
                         <div className=''>
                             <div className='relative mx-auto h-[100px] w-[150px]'>
                                 <Image
@@ -76,7 +76,7 @@ const Ecommerce = () => {
 
             <div className='grid grid-cols-2 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 gap-4 mt-5'>
                 {small_card_data.map((item, index) =>
-                    <Card key={index} className={"group mt-8 border border-border cursor-pointer hover:border-1 hover:border-primary"}>
+                    <Card key={index} className={"bg-white group mt-8 border border-border cursor-pointer hover:border-1 hover:border-primary"}>
                         <div className=''>
                             <div className='relative mx-auto h-[80px] w-[80px] my-10'>
                                 <Image

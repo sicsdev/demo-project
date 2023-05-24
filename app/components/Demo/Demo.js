@@ -6,7 +6,7 @@ import Card from '../Common/Card/Card'
 const Demo = () => {
     return (
         <div className="mx-auto">
-            <Card >
+            <Card className={'bg-white'}>
                 <h1 className='text-center text-2xl sm:text-4xl md:text-4xl lg:text-4xl my-2 font-semibold text-heading'>Join the <span className='text-voilet'>11,907+ brands</span> that use Gorgias every day</h1>
                 <form className='grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8'>
                     <div className='inline col-span-2 '>

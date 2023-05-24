@@ -34,18 +34,21 @@ module.exports = {
       'background_color': color.slate[50],
       'slate-light': color.slate[100],
       'orange': '#fb923c',
-      'neon':'#a3e635',
-      'sky':'#60a5fa',
-      'sky-2':'#0369a1',
+      'neon': '#a3e635',
+      'sky': '#60a5fa',
+      'sky-2': '#0369a1',
+      'bot':"#0057FF",
+      'time-bot':"#60a5fa"
     },
-  extend: {
-    backgroundImage: {
-      'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-      'gradient-conic':
-        'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      'home-gradient': "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
+    extend: {
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'home-gradient': "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
+      },
     },
   },
-},
   plugins: [],
+  safelist: ['animate-[fade-in_1s_ease-in-out]', 'animate-[fade-in-down_1s_ease-in-out]']
 }
