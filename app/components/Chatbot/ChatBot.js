@@ -12,7 +12,7 @@ const ChatBot = () => {
     return (
         <>
             {show && (
-                <div className={'rounded-lg shadow-2xl fixed bottom-28 right-12 w-[400px] cursor-pointer z-50 bg-white'}>
+                <div className={'rounded-lg shadow-2xl fixed bottom-28  lg:left-none right-5 sm:right-12 md:right-12 lg:right-12 w-[90%] sm:w-[400px] md:w-[400px] lg:w-[400px] cursor-pointer z-50 bg-white'}>
                     <div className=' rounded-t-lg  flex justify-start gap-2 items-center p-3 bg-bot'>
                         <div>
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-time-bot">
