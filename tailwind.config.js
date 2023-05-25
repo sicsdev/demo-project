@@ -37,8 +37,8 @@ module.exports = {
       'neon': '#a3e635',
       'sky': '#60a5fa',
       'sky-2': '#0369a1',
-      'bot':"#0057FF",
-      'time-bot':"#60a5fa"
+      'bot': "#0057FF",
+      'time-bot': "#60a5fa"
     },
     extend: {
       backgroundImage: {
@@ -47,6 +47,73 @@ module.exports = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'home-gradient': "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
       },
+      keyframes: {
+        typing: {
+          "0%": {
+            width: "0%",
+            visibility: "hidden"
+          },
+          "75%": {
+            width: "75%"
+          },
+          "100%": {
+            width: "100%"
+          }
+        },
+        thinking: {
+          "0%": {
+            width: "0%",
+            visibility: "hidden"
+          },
+          "25%": {
+            width: "25%"
+
+          },
+          "50%": {
+            width: "50%"
+          },
+          "75%": {
+            width: "75%"
+          },
+          "100%": {
+            width: "100%"
+          }
+        },
+        wiggle: {
+          '0%': { height: "200px" },
+          '100%': { height: "536px" },
+        },
+        blink: {
+          "50%": {
+            borderColor: "transparent"
+          },
+          "100%": {
+            borderColor: "white"
+          }
+        },
+        bottoggle: {
+          "100%": {
+            transform: 'rotate(360deg)'
+          }
+        },
+        backbottoggle: {
+          "100%": {
+            transform: 'rotate(-360deg)'
+          }
+        },
+        chattile:{
+          "0%": {width:"15%"},
+          "100%": {width:"75%"},
+        }
+      },
+      animation: {
+        thinking: "typing 1.5s steps(20) infinite alternate, blink .5s infinite",
+        typing: "typing 3s steps(50)  alternate, blink .5s",
+        wiggle: "wiggle .5s ease-in-out",
+        bottoggle: "bottoggle 0.7s ease-in-out",
+        backbottoggle: "backbottoggle 0.7s ease-in-out",
+        chattile: "chattile 1s ease-in",
+      }
     },
   },
   plugins: [],
