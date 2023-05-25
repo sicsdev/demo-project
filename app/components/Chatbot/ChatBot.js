@@ -16,10 +16,10 @@ const ChatBot = () => {
         }
     }
 
-    useEffect(() => {
-        scrollToBottom()
-    }, [messageEl.current])
-    console.log(messageEl.current)
+    // useEffect(() => {
+    //     scrollToBottom()
+    // }, [messageEl.current])
+    // console.log(messageEl.current)
 
     {/* text area height maintaince */ }
     const ref = useRef(null);
