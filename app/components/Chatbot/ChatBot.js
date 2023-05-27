@@ -65,20 +65,23 @@ const ChatBot = () => {
             5000,
         );
         setText('')
+        ref.current.style.height = 'auto'
         scrollToBottom()
     }
 
 
 
     useEffect(() => {
+        if (messageEl.current) {
         messageEl.current?.scrollIntoView({ behavior: 'smooth' });
         messageEl.current.scrollTop = messageEl.current.scrollHeight;
+        }
     }, [messages.length]);
     return (
         <>
-            <div className={`${show ? "block animate-wiggle" : "hidden"} rounded-lg shadow-2xl fixed bottom-28 h-[${height}px] lg:left-none right-5 sm:right-12 md:right-12 lg:right-12 w-[90%] sm:w-[400px] md:w-[400px] lg:w-[400px] cursor-pointer z-50 bg-white`}>
+            <div className={`${show ? "block animate-wiggle" : "hidden"} rounded-lg shadow-2xl fixed bottom-28 h-[536px] lg:left-none right-5 sm:right-12 md:right-12 lg:right-12 w-[90%] sm:w-[400px] md:w-[400px] lg:w-[400px] cursor-pointer z-50 bg-white`}>
                 <div className=' rounded-t-lg  flex justify-start gap-2 items-center p-3 bg-bot'>
-                    <div>
+                    <div onClick={()=>{ setShow(!show)}}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-time-bot">
                             <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                         </svg>
@@ -95,7 +98,7 @@ const ChatBot = () => {
                     </div>
                 </div>
                 <div>
-                    <div className='block p-4 overflow-y-scroll h-[500px] pb-[60px] relative ' ref={messageEl}>
+                    <div className='block p-4 overflow-y-scroll h-[420px] pb-[60px] relative ' ref={messageEl}>
 
                         {messages.map((element, key) =>
                             <>
@@ -104,16 +107,16 @@ const ChatBot = () => {
                                     (
                                         <>
                                             {thinking && messages.length - 1 === key ?
-                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-normal tracking-wider float-left p-4 w-[35%] text-white text-sm '}><p className='animate-thinking overflow-hidden whitespace-nowrap  border-r-white  font-normal'>Thinking...</p></div>
+                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-normal tracking-wider float-left p-4 w-[35%] text-white text-sm '}><p className='animate-thinking   border-r-white  font-normal'>Thinking...</p></div>
 
                                                 :
-                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left p-4 w-[75%] text-white text-sm'}><p className='animate-typing overflow-hidden whitespace-nowrap h-full'>{element.text}</p></div>}
+                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left p-4 w-[75%] text-white text-sm'}><p className='break-words'>{element.text}</p></div>}
 
                                         </>
 
                                     )}
                                 {element.from === 'user' &&
-                                    (<div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer  z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>{element.text}</p></div>)}
+                                    (<div key={key} className={'rounded-lg  break-words shadow-2xl my-2 cursor-pointer  z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>{element.text}</p></div>)}
 
                             </>
                         )}

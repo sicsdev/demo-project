@@ -15,13 +15,13 @@ const Trial = () => {
                         <h3 className='text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading'>21 days. Unlimited Agents. No credit card required. No strings attached.</h3>
                         <Button
                             type={'submit'}
-                            className={'group py-[11px] px-2 focus:ring-yellow-300 text-white bg-voilet hover:bg-black dark:focus:ring-voilet-900'}
+                            className={'mr-2  group py-[11px] px-2 focus:ring-yellow-300 text-white bg-voilet hover:bg-black dark:focus:ring-voilet-900'}
                         >
                             Start Free Trail
                         </Button>
                         <Button
                             type={'submit'}
-                            className={'py-[11px]  px-2 focus:ring-yellow-300 text-white bg-black hover:bg-voilet dark:focus:ring-voilet-900'}
+                            className={'mr-2 py-[11px]  px-2 focus:ring-yellow-300 text-white bg-black hover:bg-voilet dark:focus:ring-voilet-900'}
                         >
                              Request Demo
                         </Button>

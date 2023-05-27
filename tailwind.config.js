@@ -38,7 +38,9 @@ module.exports = {
       'sky': '#60a5fa',
       'sky-2': '#0369a1',
       'bot': "#0057FF",
-      'time-bot': "#60a5fa"
+      'time-bot': "#60a5fa",
+      'card_bg':"#e4e4e7",
+      "table_bg":"#f1fbfd"
     },
     extend: {
       backgroundImage: {
@@ -80,7 +82,8 @@ module.exports = {
           }
         },
         wiggle: {
-          '0%': { height: "200px" },
+          '0%': { height: "200px" , visibility: "hidden",overflow:"hidden"},
+          '5%': { height: "300px" , visibility: "hidden",overflow:"hidden"},
           '100%': { height: "536px" },
         },
         blink: {
@@ -107,7 +110,7 @@ module.exports = {
         }
       },
       animation: {
-        thinking: "typing 1.5s steps(20) infinite alternate, blink .5s infinite",
+        thinking: "typing .5s steps(20) infinite alternate, blink .5s infinite",
         typing: "typing 3s steps(50)  alternate, blink .5s",
         wiggle: "wiggle .5s ease-in-out",
         bottoggle: "bottoggle 0.7s ease-in-out",
