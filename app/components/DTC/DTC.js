@@ -19,7 +19,7 @@ const DTC = () => {
                             src={element}
                             fill={true}
                             alt="Picture of the author"
-                            className='m-auto object-contain img-div'
+                            className='m-auto object-contain img-div-1'
                         />
                     </div>
                 )}

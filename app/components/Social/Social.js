@@ -6,7 +6,7 @@ const Social = () => {
         "shopify.svg",
         "zapier.svg",
         "gorgias.svg",
-        "zendesk.svg",
+        "zendesk-icon-svgrepo-com.svg",
 
     ]
     return (
