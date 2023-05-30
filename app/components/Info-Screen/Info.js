@@ -64,7 +64,7 @@ const Info = () => {
 
           </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-          Don't worry ever again about bad reviews, unnecessary chargebacks, and complaints on social media. We'll use AI insights to catch potential customer problems before they become a public headache.
+          Don&#39;t worry ever again about bad reviews, unnecessary chargebacks, and complaints on social media. We&#39;ll use AI insights to catch potential customer problems before they become a public headache.
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
@@ -76,7 +76,7 @@ const Info = () => {
           Easy same-day, no-code setup
           </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-          No developers? No problem. After signing up, simply copy and paste oursimple snippet, and we'll take care of the rest of the integration. Get onboarded same-day.
+          No developers? No problem. After signing up, simply copy and paste oursimple snippet, and we&#39;ll take care of the rest of the integration. Get onboarded same-day.
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
