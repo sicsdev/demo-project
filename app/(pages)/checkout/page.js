@@ -1,10 +1,10 @@
 'use client'
 import React from 'react'
-import Container from '../components/Container/Container'
-import { Input } from '../components/Common/Input/Input'
-import Logos from '../components/Checkout/Logos'
-import Button from '../components/Common/Button/Button'
-import Card from '../components/Common/Card/Card'
+import Container from '../../components/Container/Container'
+import { Input } from '../../components/Common/Input/Input'
+import Logos from '../../components/Checkout/Logos'
+import Button from '../../components/Common/Button/Button'
+import Card from '../../components/Common/Card/Card'
 import Image from 'next/image'
 
 const Checkout = () => {

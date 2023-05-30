@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import Desktop from '../components/Checkout/Desktop'
-import Mobile from '../components/Checkout/Mobile'
+import Desktop from '../../components/Checkout/Desktop'
+import Mobile from '../../components/Checkout/Mobile'
 
 const Page = () => {
     const [select, setSelect] = useState(1)

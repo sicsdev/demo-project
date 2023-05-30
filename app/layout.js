@@ -15,12 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="scroll-smooth bg-background_color">
       <body suppressHydrationWarning={true} className={inter.className}>
-        <ChatBot/>
+        <ChatBot />
         <ProviderWrapper>
-          
-          <Header />
+          {/* <Header /> */}
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </ProviderWrapper>
       </body>
     </html>

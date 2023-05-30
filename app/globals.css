@@ -2,3 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+pre code.hljs{
+    padding: 0 !important;
+}
+
+span.hljs-tag {
+    font-size: 13px;
+}

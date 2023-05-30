@@ -40,7 +40,11 @@ module.exports = {
       'bot': "#0057FF",
       'time-bot': "#60a5fa",
       'card_bg':"#e4e4e7",
-      "table_bg":"#f1fbfd"
+      "table_bg":"#f1fbfd",
+      'sidebar':"rgb(18, 17, 66)",
+      'linkhover':"rgb(40, 47, 92)",
+      'headone':"rgb(18, 17, 66)",
+      'danger':"#dc2626"
     },
     extend: {
       backgroundImage: {

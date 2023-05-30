@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import Container from '../components/Container/Container'
-import Button from '../components/Common/Button/Button'
-import { Input } from '../components/Common/Input/Input'
+import Container from '../../components/Container/Container'
+import Button from '../../components/Common/Button/Button'
+import { Input } from '../../components/Common/Input/Input'
 import Link from 'next/link'
 
 const Login = () => {
@@ -40,7 +40,7 @@ const Login = () => {
                         </div>
                         <div><Link href="#" className="font-normal text-border dark:text-blue-500 underline">Forgot your password?</Link></div>
                     </div>
-                    <Link href="/free-trial"> <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}> Sign In</Button></Link>
+                    <Link href="/dashboard"> <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}> Sign In</Button></Link>
                 </form>
             </div>
         </Container>
