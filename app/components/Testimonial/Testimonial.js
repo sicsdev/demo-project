@@ -77,7 +77,7 @@ const Testimonial = () => {
                 "py-2 px-8 w-full sm:px-20 md:px-20 lg:px-20 sm:py-8 md:py-8 lg:py-8 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
-           Join Waitlist &#8594;
+           Demo Now! &#8594;
             </button>
             <button
               type={"submit"}

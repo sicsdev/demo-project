@@ -9,7 +9,8 @@ const Demo = () => {
       <Card className={"bg-white"}>
         <h1 className="text-center text-2xl sm:text-4xl md:text-4xl lg:text-4xl my-2 font-semibold text-heading">
         Unlock the power of 
-              <span className="text-first-section-color"> ChatGPT + Agents</span> today 
+              <span className="text-first-section-color"> ChatGPT Powered</span> customer service
+ 
         </h1>
         <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8">
           <div className="inline col-span-2 ">

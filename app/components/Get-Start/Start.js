@@ -3,10 +3,10 @@ import Demo from '../Demo/Demo'
 
 const Start = () => {
     const list = [
-        "Eliminate refunds",
-        "Prevent chargebacks",
-        "Solve fulfillment",
-        "Improve reputation",
+        "Eliminates refunds",
+        "Automates shipping & returns",
+        "Handles customer complaints",
+        "Manages subscriptions & cancellations",
     ]
     return (
         <div className='bg-background'>
@@ -14,7 +14,8 @@ const Start = () => {
                 <div className='block sm:flex md:flex lg:flex justify-evenly items-center'>
                     <div className=''>
                         <h1 className=" font-bold  text-2xl text-white  md:text-5xl lg:text-5xl sm:text-5xl">
-                            Never think  about customer service again
+                        <span className="text-first-section-color">
+                            Never think </span>  about customer service again
                         </h1>
                         <ul className='list-none my-8'>
                             {list.map((element, key) =>

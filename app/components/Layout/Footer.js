@@ -73,7 +73,7 @@ const Footer = () => {
             className="font-thin text-neutral-600 dark:text-neutral-400 "
             href="https://tailwind-elements.com/"
           >
-            Made with in USA & World © 2023 Copyright | Privacy | Terms & Conditions          </a>
+            © Tempo AI Ventures, LLC </a>
         </div>
       </div>
     </footer>

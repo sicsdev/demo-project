@@ -22,22 +22,19 @@ const Info = () => {
   return (
     <div className="justify-between mx-auto max-w-[90%] ">
       <h1 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
-        Intelligent and dynamic support
+      Save Millions with Tempo AI. 
       </h1>
       <h3 className="text-center text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-        Scale your sales operations and customer service without scaling your
-        time
+      Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
+
       </h3>
       <div className="grid grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-10">
         <div className="text-start sm:text-start md:text-start lg:text-start order-1">
           {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">
-            Over 1000 agents available now
-          </h1>
+          ChatGPT becomes the brain of your business.          </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-            Interviewing, staffing, and onboarding is a problem of yesterday.
-            Our team of veteran agents is ready to plug into your stack
-            seamlessly, and begin delighting your customers within minutes.
+          Tempo connects to your existing ticketing, billing, and order management systems. Unlike ChatGPT, Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. If Tempo is unsure of an answer, it'll hand the question to a real human. The best part? Your customers will never know they're speaking to an AI.
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
