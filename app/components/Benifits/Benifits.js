@@ -8,7 +8,7 @@ const slides = [
       "Customer service is a solved problem. Automating support for our enterprise clients has been an immense cost-saver and has provided us with an industry-leading advantage.        ",
     editor: "Dean Zimberg",
     position: "CEO & Founder ",
-    img: "https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2Fc96c1c95d29140a%2Foriginal%2FTravix-Company-logo.webp&w=640&q=75",
+    img: "perry-color.svg",
   },
   {
     background: `bg-orange`,
@@ -16,7 +16,8 @@ const slides = [
       "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
     editor: "Frank Patrick",
     position: "Vice President   ",
-    img: "https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F29af53505aef9f5d%2Foriginal%2FKlarna-logo-testimonial.webp&w=640&q=75",
+    img: "labpass-color.svg",
+
   },
   {
     background: `bg-neon`,
@@ -25,7 +26,7 @@ const slides = [
     editor: "Matthew Epstein",
     position: "Founder ",
 
-    img: "https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F4846f24e15880b54%2Foriginal%2FRestaurant-365-logo.webp&w=640&q=75",
+    img: "simplesentiments-color.svg",
   },
 ];
 const Benifits = () => {
