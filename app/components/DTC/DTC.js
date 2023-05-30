@@ -2,11 +2,10 @@ import React from 'react'
 import Image from 'next/image'
 const DTC = () => {
     const images = [
-        "https://assets-global.website-files.com/5e78f62c08f1bb8c2d788576/5f05a0705c64239df6a2be0f_dark.svg",
-        "https://assets-global.website-files.com/5e78f62c08f1bb8c2d788576/61efe73840cd6db96f532c76_olipop-logo%20(1).png",
-        "https://assets-global.website-files.com/5e78f62c08f1bb8c2d788576/5f05a6217d606ce53594885d_dark.svg",
-        "https://assets-global.website-files.com/5e78f62c08f1bb8c2d788576/5f04b8ee97b4139f0f5eec9c_bokksu-1.svg",
-
+        "nextmed.svg",
+        "simplesentiments.svg",
+        "labpass.svg",
+        "perry.svg",
     ]
     return (
         <div className='bg-cyan-50 py-5'>

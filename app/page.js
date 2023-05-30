@@ -12,10 +12,11 @@ export default function Home() {
       <Start />
       <DTC />
       <Info />
+      <Trial />
+
       <Benifits />
       <Ecommerce />
       <Testimonial />
-      <Trial />
     </main>
   )
 }
