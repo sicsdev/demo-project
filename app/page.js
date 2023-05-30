@@ -8,6 +8,7 @@ import Testimonial from "./components/Testimonial/Testimonial";
 import DTC from "./components/DTC/DTC";
 import Head from "next/head";
 import SecondBan from "./components/Layout/SecondBan";
+import Social from "./components/Social/Social";
 export default function Home() {
   return (
     <main className="scroll-smooth">
@@ -19,8 +20,10 @@ export default function Home() {
       <DTC />
       <Info />
       <Trial />
+
       <SecondBan/>
       <Benifits />
+      <Social />
       {/* <Ecommerce /> */}
       <Testimonial />
     </main>
