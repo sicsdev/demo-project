@@ -5,7 +5,7 @@ import Button from "../Common/Button/Button";
 const Trial = () => {
   return (
     <div className="">
-      <div className="mx-auto  max-w-[80%]">
+      <div className="mx-auto  max-w-[80%] py-6">
         {/* <div className="flex items-center justify-center"> */}
         <div className="block sm:flex md:flex   :flex justify-between  items-center gap-4">
           <div className=" my-5 sm:text-start md:text-start lg:text-start  ">
