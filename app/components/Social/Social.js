@@ -16,7 +16,7 @@ const Social = () => {
             <div className='block sm:flex md:flex lg:flex justify-evenly items-center text-center'>
 
                 {images.map((element, key) =>
-                    <div className='relative h-[50px] w-[60px] py-20 mx-auto sm:m-0 md:m-0 lg:m-0 hover:text-white' key={key}>
+                    <div className='relative h-[120px] w-[100px] py-20 mx-auto sm:m-0 md:m-0 lg:m-0 hover:text-white' key={key}>
                         <Image
                             src={element}
                             fill={true}
