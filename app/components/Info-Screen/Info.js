@@ -34,7 +34,7 @@ const Info = () => {
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">
           ChatGPT becomes the brain of your business.          </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-          Tempo connects to your existing ticketing, billing, and order management systems. Unlike ChatGPT, Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. If Tempo is unsure of an answer, it'll hand the question to a real human. The best part? Your customers will never know they're speaking to an AI.
+          Tempo connects to your existing ticketing, billing, and order management systems. Unlike ChatGPT, Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. If Tempo is unsure of an answer, it&apos;ll hand the question to a real human. The best part? Your customers will never know they&apos;re speaking to an AI.
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
@@ -57,7 +57,7 @@ const Info = () => {
             CONTACT CENTER
           </h3>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">
-          We'll save you money while you sleep.
+          We&apos;ll save you money while you sleep.
           </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
           Tempo AI runs your ops in the background. Tempo is trained to issue refunds to angry customers, offer credits to subscribers who want to cancel, and push delivery speeds ahead of holidays. Tempo combines a super smart AI bot with humans in the background overseeing it all. We know customer service is hard, let Tempo take it off your plate.
