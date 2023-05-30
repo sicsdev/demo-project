@@ -57,11 +57,10 @@ const Info = () => {
             CONTACT CENTER
           </h3>
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">
-          24/7 omnichannel brand management
-
+          We'll save you money while you sleep.
           </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-          Don&#39;t worry ever again about bad reviews, unnecessary chargebacks, and complaints on social media. We&#39;ll use AI insights to catch potential customer problems before they become a public headache.
+          Tempo AI runs your ops in the background. Tempo is trained to issue refunds to angry customers, offer credits to subscribers who want to cancel, and push delivery speeds ahead of holidays. Tempo combines a super smart AI bot with humans in the background overseeing it all. We know customer service is hard, let Tempo take it off your plate.
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
@@ -70,10 +69,10 @@ const Info = () => {
         <div className="text-start sm:text-start md:text-start lg:text-start md:my-8 lg:my-8 sm:my-8  order-5">
           {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">
-          Easy same-day, no-code setup
-          </h1>
+          Instant integration process.          </h1>
           <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-heading">
-          No developers? No problem. After signing up, simply copy and paste oursimple snippet, and we&#39;ll take care of the rest of the integration. Get onboarded same-day.
+          Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform (custom too), billing platform, and ERP systems so you can get up and running in minutes, not months. Literally just fill out a form, click a few buttons, and never think about customer service again.
+
           </h3>
           <div className="text-voilet font-semibold">
             {/* <Link href={"/"}>Explore Support Desk</Link> */}
