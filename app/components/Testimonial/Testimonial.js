@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Card from "../Common/Card/Card";
+import Button from "../Common/Button/Button";
 const Testimonial = () => {
   const [index, setIndex] = useState(0);
   const team_data = [
@@ -56,83 +57,38 @@ const Testimonial = () => {
     }
   };
   return (
-    <div className="bg-[#D8DADC] py-5">
+    <div className="bg-[#D8DADC] py-5 ">
       <div className="my-16 cursor-pointer mx-auto max-w-[90%]">
-        <Card className={"bg-white relative"}>
-          <div className="block sm:flex md:flex lg:flex justify-evenly items-center">
-            <div className="relative h-[200px] w-[200px]">
-              <Image
-                src={team_data[index].img}
-                fill={true}
-                alt="Picture of the author"
-                className="m-auto object-contain"
-              />
-            </div>
-            <div className="text-start transition  ease-in duration-300">
-              <h1
-                data-te-animation-ref
-                className="text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading "
-              >
-                {team_data[index].title}
-              </h1>
-              <h1
-                data-te-animation-add-ref
-                data-te-ripple-init
-                data-te-ripple-color="light"
-                className="text-start w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-xl sm:text-xl md:text-xl lg:text-xl my-2 font-bold text-heading"
-              >
-                {team_data[index].name}
-              </h1>
-              <p className="text-border">{team_data[index].position}</p>
-            </div>
-            <div className="hidden sm:inline-block md:inline-block lg:inline-block h-[200px] min-h-[1em] w-1 self-stretch bg-voilet opacity-100 dark:opacity-50"></div>
-            <div className="relative ">
-              <h1 className="text-start w-full mx-auto text-xl sm:text-3xl md:text-3xl lg:text-3xl my-2 font-bold text-sky-2 ">
-                {team_data[index].precent}
-              </h1>
-              <h1 className=" text-start sm:text-start md:text-start lg:text-start sm:w-[200px] md:w-[200px] lg:w-[200px]  text-2xl sm:text-2xl md:text-2xl lg:text-2xl my-2 font-bold text-heading">
-                {team_data[index].quote}
-              </h1>
-              <p className=" text-xl sm:text-xl md:text-xl lg:text-xl ">
-                Read their story
-              </p>
-            </div>
+        <div
+          className={
+            "bg-type-section   block sm:flex md:flex lg:flex justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
+          }
+        >
+          <div className=" sm:w-[50%] md:w-[50%] lg:w-[50%]">
+            {" "}
+            <h1 className=" font-bold  text-2xl text-heading  md:text-5xl lg:text-5xl sm:text-5xl">
+             Try Tempo with your own support content now
+            </h1>
+          </div>
+          <div className="block sm:grid md:grid lg:grid grid-cols-2 gap-4">
             <button
-              className=" absolute top-[20%] sm:top-[50%] md:top-[50%] lg:top-[50%] -translate-x-0 translate-y-[-50%] left-0 sm:-left-5 md:-left-5 lg:-left-5 text-2xl rounded-full p-2 bg-white border-2 border-border hover:border-primary text-primary cursor-pointer"
-              onClick={() => prevData()}
+              type={"submit"}       
+              className={
+                "py-2 px-8 w-full sm:px-20 md:px-20 lg:px-20 sm:py-8 md:py-8 lg:py-8 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              }
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M20.25 12a.75.75 0 01-.75.75H6.31l5.47 5.47a.75.75 0 11-1.06 1.06l-6.75-6.75a.75.75 0 010-1.06l6.75-6.75a.75.75 0 111.06 1.06l-5.47 5.47H19.5a.75.75 0 01.75.75z"
-                  clipRule="evenodd"
-                />
-              </svg>
+           Join Waitlist &#8594;
             </button>
             <button
-              className=" absolute top-[20%] sm:top-[50%] md:top-[50%] lg:top-[50%] -translate-x-0 translate-y-[-50%] right-0 sm:-right-5 md:-right-5 lg:-right-5 text-2xl rounded-full p-2 bg-white  border-2 border-border text-primary hover:border-primary cursor-pointer"
-              onClick={() => nextData()}
+              type={"submit"}
+              className={
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-black hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              }
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3.75 12a.75.75 0 01.75-.75h13.19l-5.47-5.47a.75.75 0 011.06-1.06l6.75 6.75a.75.75 0 010 1.06l-6.75 6.75a.75.75 0 11-1.06-1.06l5.47-5.47H4.5a.75.75 0 01-.75-.75z"
-                  clipRule="evenodd"
-                />
-              </svg>
+              Try Tempo &#8594;
             </button>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   );

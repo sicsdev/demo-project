@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+.img-div:hover {
+    filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg)     brightness(51%) contrast(196%);
+}

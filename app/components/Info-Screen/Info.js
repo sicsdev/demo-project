@@ -28,7 +28,7 @@ const Info = () => {
         Scale your sales operations and customer service without scaling your
         time
       </h3>
-      <div className="grid grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-16">
+      <div className="grid grid-col-1 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-10">
         <div className="text-start sm:text-start md:text-start lg:text-start order-1">
           {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
           <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-5xl md:my-8 lg:my-8 sm:my-8 font-bold text-heading">

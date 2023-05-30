@@ -23,7 +23,6 @@ const Demo = () => {
               }}
             />
           </div>
-          
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
             <Button
               type={"submit"}
@@ -36,9 +35,12 @@ const Demo = () => {
           </div>
         </form>
         <div className="block sm:flex md:flex lg:flex justify-start items-center gap-5">
-          <small className="text-border">No credit card required</small>
-          <small className="text-border">Instant setup</small>
-          <small className="text-border">7-day free trial</small>
+          <small className="text-border" style={{color:"#36454F"}}>1000+ agents
+</small>
+          <small className="text-border" style={{color:"#36454F"}}>24/7 support
+ </small>
+          <small className="text-border" style={{color:"#36454F"}}>No-code setup
+</small>
         </div>
       </Card>
     </div>

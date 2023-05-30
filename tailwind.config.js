@@ -43,7 +43,8 @@ module.exports = {
       "table_bg":"#f1fbfd",
       'custom_text':"#E8E8E8",
       'custom-small':"#8ed1fc",
-      'first-section-color':"#7ec1ec"
+      'first-section-color':"#7ec1ec",
+      'text-dark-color':"#36454F"
 
     },
     extend: {
@@ -52,6 +53,7 @@ module.exports = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
         'home-gradient': "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
+        'type-section':"linear-gradient(to right, rgb(199, 210, 254), rgb(254, 202, 202), rgb(254, 249, 195))"
       },
       keyframes: {
         typing: {

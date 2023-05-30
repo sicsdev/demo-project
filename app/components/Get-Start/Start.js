@@ -13,7 +13,7 @@ const Start = () => {
             <div className=' mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10'>
                 <div className='block sm:flex md:flex lg:flex justify-evenly items-center'>
                     <div className=''>
-                        <h1 className=" font-bold  text-2xl text-custom_text  md:text-5xl lg:text-5xl sm:text-5xl">
+                        <h1 className=" font-bold  text-2xl text-white  md:text-5xl lg:text-5xl sm:text-5xl">
                             Never think  about customer service again
                         </h1>
                         <ul className='list-none my-8'>
