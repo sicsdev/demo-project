@@ -57,7 +57,7 @@ const Testimonial = () => {
     }
   };
   return (
-    <div className="bg-[#D8DADC] py-5 ">
+    <div className="py-5 ">
       <div className="my-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
@@ -82,7 +82,7 @@ const Testimonial = () => {
             <button
               type={"submit"}
               className={
-                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-black hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-black hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               Try Tempo &#8594;

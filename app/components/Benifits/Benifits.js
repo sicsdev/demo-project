@@ -31,7 +31,7 @@ const slides = [
 ];
 const Benifits = () => {
   return (
-    <div className="bg-cyan-50 py-5  ">
+    <div className=" py-5  ">
       <h1 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl text-center  my-8  text-heading">
         Why customers love Tempo
       </h1>
@@ -43,13 +43,13 @@ const Benifits = () => {
           >
             <div className="block p-2 sm:p-5 md:p-5 lg:p-5 sm:flex md:flex lg:flex justify-center items-center gap-4">
               <div className="sm:w-[900px] md:w-[900px] lg:w-[900px] text-xs sm:text-lg md:text-lg lg:text-lg  col-span-2 font-bold text-center p-2 sm:p-10 md:p-10 lg:p-10 sm:my-16 md:my-16 lg:my-16  rounded-lg order-2 sm:-order-none md:-order-none lg:-order-none ">
-                <h1 className="text-start sm:text-start md:text-start lg:text-start   text-lg sm:text-2xl md:text-3xl lg:text-4xl my-2 font-semibold sm:font-normal md:font-normal lg:font-normal text-heading">
+                <h1 className="text-start sm:text-start md:text-start lg:text-start   text-lg sm:text-2xl md:text-3xl lg:text-4xl my-2 font-semibold sm:font-normal md:font-normal lg:font-normal text-white">
                   {element.title}
                 </h1>
-                <h3 className="text-start text-lg font-normal text-gray-600">
+                <h3 className="text-start text-lg font-normal text-gray-600 text-white">
                   {element.editor}
                 </h3>
-                <h3 className="text-start text-lg  font-semibold  text-violet-700">
+                <h3 className="text-start text-lg  font-semibold  text-violet-700 text-white">
                   {element.position}
                 </h3>
               </div>

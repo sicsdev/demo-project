@@ -13,7 +13,7 @@ const Header = () => {
           <div>
             <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
               <Link href="/">
-                <h2 className="text-2xl text-white font-bold">Tempo</h2>
+                <img src="logo.png" alt="logo"   class="w-24 h-15 object-contain"  />
               </Link>
               <div className="md:hidden">
                 <button

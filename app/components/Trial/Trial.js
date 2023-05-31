@@ -4,7 +4,7 @@ import Image from "next/image";
 import Button from "../Common/Button/Button";
 const Trial = () => {
   return (
-    <div className="bg-cyan-50">
+    <div className="">
       <div className="mx-auto  max-w-[80%] py-6">
         {/* <div className="flex items-center justify-center"> */}
         <div className="block sm:flex md:flex   :flex justify-between  items-center gap-4">

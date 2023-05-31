@@ -11,7 +11,7 @@ const Start = () => {
     return (
         <div className='bg-background'>
             <div className=' mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10'>
-                <div className='block sm:flex md:flex lg:flex justify-evenly items-center'>
+                <div className='block sm:flex md:flex lg:flex justify-evenly items-center gap-10'>
                     <div className=''>
                         <h1 className=" font-bold  text-2xl text-white  md:text-5xl lg:text-5xl sm:text-5xl">
                         <span className="text-first-section-color">
