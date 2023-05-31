@@ -23,10 +23,10 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                         <Card className={`bg-card_bg border border-border mx-auto`}>
                             <div>
                                 <div className="flex items-center mr-4">
-                                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">Pro</span>
+                                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">Standard</span>
                                 </div>
-                                <p className='text-slate font-normal text-sm my-4'>7 days free, then <span className='font-bold text-heading'>$119.95/</span>mo</p>
-                                <h3 className='font-bold text-heading my-6'> 55+ tools including:</h3>
+                                <p className='text-slate font-normal text-sm my-4'>7 days free, then <span className='font-bold text-heading'>$449.99/</span>mo</p>
+                                <h3 className='font-bold text-heading my-6'> Plan includes:</h3>
                                 <ul>
                                     {pro.map((element, key) =>
                                         <li key={key} className='text-sm flex gap-3 items-center my-2'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" className="w-5 h-5 text-voilet">
@@ -42,10 +42,10 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                         <Card className={'bg-card_bg border border-border mx-auto'}>
                             <div>
                                 <div className="flex items-center mr-4">
-                                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">Guru</span>
+                                    <span className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">Pro</span>
                                 </div>
-                                <p className='text-slate font-normal text-sm my-4'>7 days free, then <span className='font-bold text-heading'>$229.95/</span>mo</p>
-                                <h3 className='font-bold text-heading my-6'> 55+ tools including:</h3>
+                                <p className='text-slate font-normal text-sm my-4'>7 days free, then <span className='font-bold text-heading'>$599.99/</span>mo</p>
+                                <h3 className='font-bold text-heading my-6'> Plan includes:</h3>
                                 <ul>
                                     {guru.map((element, key) =>
                                         <li key={key} className='flex gap-3 my-2 items-center text-sm'><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -60,7 +60,7 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                 </div>
                
                 <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}>Get Free Trial</Button></Link>
-                <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-black hover:border hover:bg-black hover:text-white bg-white border border-gray-300 rounded-md shadow-sm" disabled={false}>Skip Trial</Button></Link>
+                {/* <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-black hover:border hover:bg-black hover:text-white bg-white border border-gray-300 rounded-md shadow-sm" disabled={false}>Skip Trial</Button></Link> */}
             </Container>
         </div>
     )

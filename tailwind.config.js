@@ -44,7 +44,8 @@ module.exports = {
       'sidebar':"rgb(18, 17, 66)",
       'linkhover':"rgb(40, 47, 92)",
       'headone':"rgb(18, 17, 66)",
-      'danger':"#dc2626"
+      'danger':"#dc2626",
+      'modal':"#fef2f2"
     },
     extend: {
       backgroundImage: {
