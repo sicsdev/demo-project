@@ -16,13 +16,13 @@ const Sidebar = ({ children }) => {
         {
             href: '/dashboard/policies',
             name: 'Policies',
-            icon: <CodeBracketSquareIcon  class="h-6 w-6 text-gray-500" />,
+            icon: <CodeBracketSquareIcon  className="h-6 w-6 text-gray-500" />,
 
         },
         {
             href: '/dashboard/integrations',
             name: 'Integrations',
-            icon: <ShareIcon class="h-6 w-6 text-gray-500" />,
+            icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
 
         },
         {
@@ -62,7 +62,6 @@ const Sidebar = ({ children }) => {
                                 </svg>
                             </button>
                             <Link href="/" className="flex ml-2 md:mr-24">
-                                {/* <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="FlowBite Logo" /> */}
                                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Tempo</span>
                             </Link>
                         </div>
@@ -71,7 +70,7 @@ const Sidebar = ({ children }) => {
                                 <div>
                                     <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                         <span className="sr-only">Open user menu</span>
-                                        <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                                        {/* <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" /> */}
                                     </button>
                                 </div>
                                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
