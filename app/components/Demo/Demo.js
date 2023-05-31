@@ -2,20 +2,19 @@ import React from "react";
 import { Input } from "../Common/Input/Input";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Demo = () => {
   const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    if (email?.includes("@")) {
+      window._learnq.push(["identify", { email: email }]);
+    }
+  }, [email]);
+
   const handleBlur = (email) => {
     if (email?.includes("@")) {
-      console.log("Emil", email);
-      
-      window._learnq.push([
-        "identify",
-        {
-          $email: email,
-        },
-      ]);
       window._learnq.push([
         "track",
         "$email",
@@ -23,12 +22,9 @@ const Demo = () => {
           $email: email,
         },
       ]);
-    } else {
-      console.log("no");
-    }
+    } 
   };
 
-  
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>

@@ -8,7 +8,7 @@ const slides = [
       "Customer service is a solved problem. Automating support for our enterprise clients has been an immense cost-saver and has provided us with an industry-leading advantage.        ",
     editor: "Dean Zimberg",
     position: "CEO & Founder ",
-    img: "perry-color.svg",
+    img: "perry-color4.svg",
   },
   {
     background: `bg-orange`,
@@ -16,7 +16,7 @@ const slides = [
       "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
     editor: "Frank Patrick",
     position: "Vice President   ",
-    img: "labpass-color.svg",
+    img: "labpass-color2.svg",
 
   },
   {
@@ -26,7 +26,7 @@ const slides = [
     editor: "Matthew Epstein",
     position: "Founder ",
 
-    img: "simplesentiments-color.svg",
+    img: "simplesentiments-color3.svg",
   },
 ];
 const Benifits = () => {
