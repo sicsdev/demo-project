@@ -2,50 +2,56 @@ import React, { useState } from 'react'
 import { CardElement, Elements, useElements, useStripe } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
 import { submitCheckout } from '@/app/API/pages/Checkout';
+import { useRouter } from 'next/navigation';
+import { subscribeCustomer } from '@/app/API/pages/Checkout';
 
 const stripe_api = 'pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW'
 const stripeLib = loadStripe(stripe_api);
 
-const CheckOutForm = ({ checkoutForm }) => {
-
+const CheckOutForm = ({ checkoutForm, validateForm }) => {
+    const router = useRouter();
     const stripe = useStripe();
     const elements = useElements();
-    const [error, setError] = useState('asdasd');
+
+    const [error, setError] = useState('');
     const [loading, setLoading] = useState();
+
+    const handleSubscribe = async (paymentMethod, userToken) => {
+        let bodyForSubscribe = {
+            token: paymentMethod.id,
+            price: '77f3ee07-46ab-4c6d-8d3e-8da3d42bee54'
+        }
+        subscribeCustomer(bodyForSubscribe, userToken)
+    }
 
     const handleCheckout = async (e) => {
         e.preventDefault();
         setLoading(true);
-        
         try {
-          const { error, paymentMethod } = await stripe.createPaymentMethod({
-            type: "card",
-            card: elements.getElement(CardElement),
-          });
-        
-          if (error) {
-            setError(error);
-            setLoading(false);
-            return;
-          }
-        
-          console.log(paymentMethod); // <<< we have payment info here
-        
-          const result = await submitCheckout(checkoutForm);
-        
-          if (result.token) {
-            localStorage.setItem("token", result.token);
-            router.push("/dashboard");
-            setError(null);
-          } else {
-            setError(result);
-          }
+            validateForm();
+            const { error, paymentMethod } = await stripe.createPaymentMethod({
+                type: "card",
+                card: elements.getElement(CardElement),
+            });
+            if (error) { setError(error); setLoading(false); return; }
+
+            const result = await submitCheckout(checkoutForm);
+            if (result.token) {
+                handleSubscribe(paymentMethod, result.token);
+                localStorage.setItem("token", result.token);
+                router.push("/dashboard");
+                setError(null);
+            } else {
+                setError({message: 'Check user form fields and try again.'});
+            }
+
         } catch (error) {
-          setError(error);
+            setError(error);
         }
-        
+
         setLoading(false);
     };
+
 
     return (
         <form onSubmit={handleCheckout}>

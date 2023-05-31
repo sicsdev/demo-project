@@ -17,6 +17,7 @@ const stripeLib = loadStripe(stripe_api);
 const Checkout = () => {
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
+    const [userformErrors, setUserformErrors] = useState([])
 
     const handleFormValues = (e) => {
         setCheckoutForm({
@@ -24,6 +25,21 @@ const Checkout = () => {
             [e.target.name]: e.target.value
         })
     }
+
+    function validateForm() {
+        setUserformErrors([])
+        let email = checkoutForm.email;
+        let password = checkoutForm.password;
+        let password_confirm = checkoutForm.password_confirm;
+        let newErrors = []
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {newErrors.push('Please enter a valid email address') }
+        if (password.length < 6) { newErrors.push('Password must be at least 6 characters') }
+        if (password !== password_confirm) {    newErrors.push('Passwords do not match') }
+        setUserformErrors([...newErrors])
+    }
+
 
     return (
         <Container>
@@ -57,6 +73,12 @@ const Checkout = () => {
                         <input id="link-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked onChange={() => { console.log("") }} />
                         <label htmlFor="link-checkbox" className="ml-2 text-sm font-medium text-border ">I agree with the <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">terms and conditions</a>.</label>
                     </div>
+                    <div className="flex justify-center flex flex-col">
+                        {userformErrors && userformErrors.map((error, index) => {
+                            return <div key={index}><p className="text-red-500 text-sm">&#9888; {error}</p></div>
+                        })}
+                    </div>
+
                     <h3 className='text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading '>2. Select Payment Method</h3>
                     <div className='border border-border rounded-lg p-4 bg-white'>
                         <div className='flex items-center justify-between'>
@@ -65,7 +87,7 @@ const Checkout = () => {
                         </div>
                         <div className='my-3 p-3'>
                             <Elements stripe={stripeLib}>
-                                <CheckOutForm checkoutForm={checkoutForm} />
+                                <CheckOutForm checkoutForm={checkoutForm} validateForm={validateForm} />
                             </Elements>
                         </div>
                     </div>
