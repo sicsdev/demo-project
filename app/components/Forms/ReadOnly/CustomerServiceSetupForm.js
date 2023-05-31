@@ -2,7 +2,7 @@ import React from 'react'
 
 const CustomerServiceSetupForm = () => {
     return (
-        <div className='p-5 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 '>
+        <div className='p-5 block sm:grid md:block lg:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 '>
             <div className='my-5'>
                 <h3 className='font-semibold text-xl text-heading'>Enable Refunds</h3>
                 <p className='font-normal'>Yes</p>
