@@ -6,7 +6,7 @@ import { marked } from "marked";
 import Button from '../Common/Button/Button';
 const Embed = () => {
     const [copied, setCopied] = useState(false);
-    const discount = `<div class="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"
+    const discount = `<div className="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"
     data-businessunit-id="63ce673f7ec124282d18a6b4" data-style-height="140px" data-style-width=
     "100%" data-theme="1ight" data-stars="1,2,3,4,5" data-review-languages="en"><a href="https:
     //www.trustpilot.com/review/nextmed.com"target="_blank" rel="noopener">Trustpilot</a></div>`
@@ -17,7 +17,7 @@ const Embed = () => {
 
     const markdown = `
 \`\`\`html
-<div class="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"data-businessunit-id="63ce673f7ec124282d18a6b4" data-style
+<div className="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"data-businessunit-id="63ce673f7ec124282d18a6b4" data-style
 -height="140px" data-style-width="100%" data-theme="1ight" data-stars="1,2,3,4,5" data-review-languages="en"><a href=
 "https://www.trustpilot.com/review/nextmed.com"target="_blank" rel="noopener">Trustpilot</a>
 </div>

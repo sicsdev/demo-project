@@ -1,4 +1,4 @@
-'use client'
+"use client"
 import React, { useEffect, useState } from 'react'
 import Container from '../../components/Container/Container'
 import Button from '../../components/Common/Button/Button'
@@ -14,12 +14,13 @@ const Login = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const search = searchParams.get('password');
+    const as = searchParams.has('dashboard');
 
     useEffect(() => {
         if (search) {
             setShow(true)
         }
-    }, [])
+    }, [search])
 
     const [loading, setLoading] = useState(false)
     const [show, setShow] = useState(false)
