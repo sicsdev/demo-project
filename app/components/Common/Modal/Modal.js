@@ -4,7 +4,7 @@ import Card from '../Card/Card'
 
 const Modal = ({ title, show, setShow, children, className, showCancel = false }) => {
     return (
-        <>
+        <div>
             {show ? (
                 <>
                     <Card className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -26,7 +26,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false }
                     </Card>
                     <div className="opacity-75 fixed inset-0 z-40 bg-black"></div>
                 </>
-            ) : null}</>
+            ) : null}</div>
     )
 }
 

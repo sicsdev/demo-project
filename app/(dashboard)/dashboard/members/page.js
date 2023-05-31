@@ -9,7 +9,7 @@ const Page = () => {
     const [teamModal, setTeamModal] = useState(false)
     return (
         <div>
-            <div className='flex justify-between items-center mb-2'>
+            <div className='block sm:flex md:flex lg:flex justify-between items-center mb-2'>
                 <div>
                     <h3 className='font-bold text-heading text-xl'>Manage Team</h3>
                     <p className='text-heading font-normal text-normal'>Invite and manage team members on this integration.</p>
