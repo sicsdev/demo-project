@@ -1,11 +1,24 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../../components/Container/Container'
 import Button from '../../components/Common/Button/Button'
 import { Input } from '../../components/Common/Input/Input'
 import Link from 'next/link'
 
 const Login = () => {
+
+    const [formValues, setFormValues] = useState({
+        email: '',
+        password: ''
+    })
+
+    const handleFormValues = (e) => {
+        setFormValues({
+            ...formValues,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <Container>
             <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center'>
@@ -21,21 +34,22 @@ const Login = () => {
                 </Button>
                 <div className="flex items-center w-full mx-auto mt-4">
                     <hr className="flex-grow border-gray-300" />
-                    <p className="mx-4">Or, sign in with your email  </p>
+                    <p className="mx-4">Or, sign in with your email</p>
                     <hr className="flex-grow border-gray-300" />
                 </div>
                 <form>
                     <label className="block my-5" htmlFor='email'>
                         <span className="block text-start text-sm font-normal text-border">Work Email</span>
-                        <Input type={"email"} placeholder={"name@company.com"} className={"w-full border mx-auto mt-4"}   value={''} id={"email"} onChange={(value) => { console.log(value) }} />
+                        <Input type={"email"} placeholder={"name@company.com"} className={"w-full border mx-auto mt-4"} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
+                    <button onClick={() => console.log(formValues)}>asdasd</button>
                     <label className="block my-5" htmlFor='email'>
                         <span className="block text-start text-sm font-normal text-border">Password</span>
-                        <Input type={"password"} placeholder={"password"} className={"w-full border mx-auto mt-4"} value={''} id={"password"} onChange={(value) => { console.log(value) }} />
+                        <Input type={"password"} placeholder={"password"} className={"w-full border mx-auto mt-4"} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
                     <div className='flex justify-between'>
                         <div className="flex items-center mr-4">
-                            <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value)=>{console.log(value)}}/>
+                            <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value) => { console.log(value) }} />
                             <label htmlFor="inline-checkbox" className="ml-2 text-sm font-normal text-gray-900 dark:text-gray-300">Keep me signed in</label>
                         </div>
                         <div><Link href="#" className="font-normal text-border dark:text-blue-500 underline">Forgot your password?</Link></div>
