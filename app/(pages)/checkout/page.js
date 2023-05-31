@@ -19,14 +19,19 @@ const Checkout = () => {
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
                             <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"email"} />
                         </div>
+                        <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
+                            <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
+                            <input type={"text"} placeholder={"Enter your full name"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"name"} />
+                        </div>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Cell Phone</span>
                             <input type={"number"} placeholder={"Cell Phone"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"mobile"} />
                         </div>
-                        <div className='flex justify-start gap-4 items-center pl-5 p-1'>
-                            <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
-                            <input type={"text"} placeholder={"Enter your full name"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"name"} />
+                        <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border'>
+                            <span className="text-start text-sm font-normal w-[20%] text-border">Password</span>
+                            <input type={"password"} placeholder={"Password"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"mobile"} />
                         </div>
+                       
                     </div>
                     <div className="flex items-center my-6">
                         <input id="link-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked onChange={() => { console.log("") }} />
@@ -48,57 +53,61 @@ const Checkout = () => {
                 </div>
 
                 <div>
-                    <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-table_bg border border-border" >
-                        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400 bg-soft-blue">
-                                <tr>
-                                    <th scope="col" className="px-6 py-3 text-base rounded-l-lg">
-                                        Product name
-                                    </th>
-                                    <th scope="col" className="px-6 py-3 text-base rounded-r-lg">
-                                        Price
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="bg-table_bg dark:bg-gray-800">
-                                    <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap dark:text-white">
-                                        Guru 7 days free
-                                    </th>
-                                    <td className="px-6 py-4 text-base">
-                                        Free Trial
-                                    </td>
-                                </tr>
+                    <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border" >
+                        <Card className={'border bg-white border-border '}>
+                            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 bg-white dark:text-gray-400 ">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3 text-base ">
+                                            Selected Product
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-base ">
+                                            Price
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr className="dark:bg-gray-800 bg-white">
+                                        <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap dark:text-white">
+                                            Guru 7 days free
+                                        </th>
+                                        <td className="px-6 py-4 text-base">
+                                            Free Trial
+                                        </td>
+                                    </tr>
 
-                            </tbody>
-                            <tfoot>
-                                <tr className="text-base text-gray-900 dark:text-white">
-                                    <th scope="row" className="px-6 py-3 text-base">Total</th>
-                                    <td className="px-6 py-3">$0</td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                    <tr className="text-base text-gray-900 bg-white dark:text-white">
+                                        <th scope="row" className="px-6 py-3 text-base">Total</th>
+                                        <td className="px-6 py-3">$0</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </Card>
+
                         <div className='p-4 sm:p-8 md:p-8 lg:p-8'>
-                        <Card className={'border border-border my-10'}>
-                        <h1 className='my-2 text-lg text-heading'>Lorem ipsum dolor sit amet</h1>
-                            <p className='my-2 text-sm text-heading'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            <div className='flex justify-start gap-4 items-center'>
-                                <div className='relative w-[80px] h-[80px]'>
-                                    <Image fill={true} src={"https://static.intercomassets.com/avatars/4448521/square_128/4448521-1665142820.jpg"} className='bg-contain rounded-full mx-auto' alt='img'/>
+                            <Card className={'border bg-white border-border my-10'}>
+                                <h1 className='my-2 text-lg text-heading'>Customer service headaches are history.</h1>
+                                <p className='my-2 text-sm text-heading'>Customer service is a solved problem. Automating support for our enterprise clients has been an immense cost-saver and has provided us with an industry-leading advantage.
+                                </p>
+                                <div className='flex justify-start gap-4 items-center'>
+                                    <div className='relative w-[80px] h-[80px]'>
+                                        <Image fill={true} src={"/images/checkout-testimonial-1.png"} className='bg-contain rounded-full mx-auto' alt='img' />
+                                    </div>
+                                    <h1 className='my-2 text-heading text-lg font-semibold'>Dean Zimberg, Perry</h1>
                                 </div>
-                                <h1 className='my-2 text-heading text-lg font-semibold'>Lorem ipsum dolor sit amet</h1>
-                            </div>
-                        </Card>
-                        <Card className={'border border-border my-10'}>
-                            <h1 className='my-2 text-lg text-heading'>Lorem ipsum dolor sit amet</h1>
-                            <p className='my-2 text-sm text-heading'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                            <div className='flex justify-start gap-4 items-center'>
-                                <div className='relative w-[80px] h-[80px]'>
-                                    <Image fill={true} src={"https://static.intercomassets.com/avatars/4448521/square_128/4448521-1665142820.jpg"} className='bg-contain rounded-full mx-auto' alt='img'/>
+                            </Card>
+                            <Card className={'border bg-white border-border my-10'}>
+                                <h1 className='my-2 text-lg text-heading'>We supercharged our business with Tempo.</h1>
+                                <p className='my-2 text-sm text-heading'>The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.</p>
+                                <div className='flex justify-start gap-4 items-center'>
+                                    <div className='relative w-[80px] h-[80px]'>
+                                        <Image fill={true} src={"/images/checkout-testimonial-2.png"} className='bg-contain rounded-full mx-auto' alt='img' />
+                                    </div>
+                                    <h1 className='my-2 text-heading text-lg font-semibold'>Frank Patrick, LabPass</h1>
                                 </div>
-                                <h1 className='my-2 text-heading text-lg font-semibold'>Lorem ipsum dolor sit amet</h1>
-                            </div>
-                        </Card>
+                            </Card>
                         </div>
                     </div>
                 </div>
