@@ -35,13 +35,12 @@ export default function CustomerServiceSetupForm({ formData, setFormData, intake
   });
   console.log(errors)
   const onSubmit = (data) => {
-    debugger
     console.log(data.faq_upload[0].name)
     setFormData(data)
     setIntakeStep(2)
   };
   return (
-    <form className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 p-5 gap-1' onSubmit={handleSubmit(onSubmit)}>
+    <form className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 p-5 gap-10' onSubmit={handleSubmit(onSubmit)}>
       <RadioLabel id={'enable_refund'} title={"Enable Refunds"} error={errors.enable_refund} >
         <RadioField value={'Yes'} id={'enable_refund'} name={'enable_refund'} error={errors.enable_refund} register={register('enable_refund')} />
         <RadioField value={'No'} id={'enable_refund'} name={'enable_refund'} error={errors.enable_refund} register={register('enable_refund')} />

@@ -5,8 +5,8 @@ import Modal from '../Common/Modal/Modal';
 import CustomerServiceSetupForm from '../Forms/CustomerServiceSetupForm';
 const Intake = () => {
     const [formData, setFormData] = useState({})
-    const [showModal, setShowModal] = useState(false);
-    const [intakeStep, setIntakeStep] = useState(1)
+    const [showModal, setShowModal] = useState(true);
+    const [intakeStep, setIntakeStep] = useState(0)
 
     const GetStepForm = () => {
         switch (intakeStep) {
@@ -34,7 +34,7 @@ const Intake = () => {
         }
     }
     return (
-        <Modal className={"w-[60%]"} show={showModal} setShow={setShowModal} title={SendTitle()}>
+        <Modal className={"w-[60%]"} show={showModal} setShow={setShowModal} title={SendTitle()} showCancel={true}>
             {GetStepForm()}
         </Modal>
     );
