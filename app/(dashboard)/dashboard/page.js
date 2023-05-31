@@ -5,7 +5,7 @@ import { QrCodeIcon  } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 const Page = () => {
     return (
-        <>
+        <div>
         <div className="border-b border-border dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
@@ -19,7 +19,7 @@ const Page = () => {
             </div>
             <Embed />
            <Intake />
-        </>
+        </div>
     );
 }
 
