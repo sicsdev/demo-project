@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '../../components/Container/Container'
 import { Input } from '../../components/Common/Input/Input'
 import Logos from '../../components/Checkout/Logos'
@@ -18,6 +18,13 @@ const stripeLib = loadStripe(stripe_api);
 const Checkout = () => {
     const tempPlan = localStorage.getItem('tempPlan')
     const tempEmail = localStorage.getItem('tempEmail')
+    useEffect(() => {
+        return () => {
+            localStorage.removeItem('tempPlan')
+            localStorage.removeItem('tempEmail')
+        }
+    }, [])
+
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
     const [userformErrors, setUserformErrors] = useState([])
