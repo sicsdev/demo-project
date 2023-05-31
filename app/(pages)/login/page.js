@@ -6,14 +6,31 @@ import { Input } from '../../components/Common/Input/Input'
 import Link from 'next/link'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
+import { submitLogin } from '@/app/API/pages/Login'
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
 
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const search = searchParams.get('password');
+
+    useEffect(() => {
+        if (search) {
+            setShow(true)
+        }
+    }, [])
+
+    const [loading, setLoading] = useState(false)
+    const [show, setShow] = useState(false)
+    const [error, setError] = useState('')
     const [formValues, setFormValues] = useState({
         email: '',
         password: ''
     })
 
+
+    // Handlers
     const handleFormValues = (e) => {
         setFormValues({
             ...formValues,
@@ -21,15 +38,22 @@ const Login = () => {
         })
     }
 
-    const [show, setShow] = useState(false)
-    const searchParams = useSearchParams();
-
-    const search = searchParams.get('password');
-    useEffect(()=>{
-    if (search) {
-        setShow(true)
+    const handleLogin = async () => {
+        setLoading(true);
+        try {
+            let result = await submitLogin(formValues);
+            if (result.token) {
+                router.push('/dashboard');
+            } else {
+                setError(result);
+            }
+        } catch (error) {
+            setError('The login process encountered an error.');
+        } finally {
+            setLoading(false);
+        }
     }
-},[])
+
     return (
         <Container>
             {show && (
@@ -74,11 +98,12 @@ const Login = () => {
                         <span className="block text-start text-sm font-normal text-border">Work Email</span>
                         <Input type={"email"} placeholder={"name@company.com"} className={"w-full border mx-auto mt-4"} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
-                    <button onClick={() => console.log(formValues)}>asdasd</button>
                     <label className="block my-5" htmlFor='email'>
                         <span className="block text-start text-sm font-normal text-border">Password</span>
                         <Input type={"password"} placeholder={"password"} className={"w-full border mx-auto mt-4"} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
+                    {error && <p className="text-red-500 text-sm text-center mb-2"> &#9888; {error}</p>}
+
                     <div className='flex justify-between'>
                         <div className="flex items-center mr-4">
                             <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value) => { console.log(value) }} />
@@ -86,7 +111,7 @@ const Login = () => {
                         </div>
                         <div><Link href="/forgot-password" className="font-normal text-border dark:text-blue-500 underline">Forgot your password?</Link></div>
                     </div>
-                    <Link href="/dashboard"> <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}> Sign In</Button></Link>
+                    <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false} onClick={handleLogin}>{loading ? 'Loading...' : 'Sign In'}</Button>
                 </form>
             </div>
         </Container>
