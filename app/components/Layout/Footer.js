@@ -30,13 +30,13 @@ const Footer = () => {
     "Tempoworks Neo",
   ];
   return (
-    <footer className=" bg-[#142543] shadow text-center text-white">
+    <footer className=" bg-[#142543] shadow text-center text-white ">
       <div className=" mx-auto lg:max-w-[90%]">
         <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
           <div className="flex justify-between gap-9">
       
             <div>
-              <h6 className="mb-4 text-2xl cursor-pointer border-2 p-2 ">
+              <h6 className="mb-4  text-white   font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                 Schedule Demo
               </h6>
             </div>

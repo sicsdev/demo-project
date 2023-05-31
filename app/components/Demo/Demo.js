@@ -6,9 +6,10 @@ import { useState } from "react";
 
 const Demo = () => {
   const [email, setEmail] = useState("");
-  const handleBlur = (e) => {
-    console.log(email);
+  const handleBlur = (email) => {
     if (email?.includes("@")) {
+      console.log("Emil", email);
+      
       window._learnq.push([
         "identify",
         {
@@ -49,7 +50,7 @@ const Demo = () => {
               }
               id={"email"}
               value={email}
-              onBlur={(e) => handleBlur(e.target.value)}
+              onBlur={(e) => handleBlur(email)}
               onChange={(e) => {
                 setEmail(e.target.value);
                 console.log(e.target.value);
