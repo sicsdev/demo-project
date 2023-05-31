@@ -2,8 +2,18 @@ import React from 'react'
 import { Input } from '../Common/Input/Input'
 import Button from '../Common/Button/Button'
 import Card from '../Common/Card/Card'
+import { useRouter } from 'next/navigation';
 
 const Demo = () => {
+
+    const router = useRouter();
+    const handleNavigate = () => {
+        let emailInput = document.getElementById('email').value;
+        console.log(emailInput)
+        localStorage.setItem('tempEmail', emailInput);
+        router.push(`/free-trial`);
+    }
+
     return (
         <div className="mx-auto">
             <Card className={'bg-white'}>
@@ -14,7 +24,7 @@ const Demo = () => {
                     </div>
                     <div className='inline mt-5 sm:m-0 md:m-0 lg:m-0'>
                         <Button
-                            type={'submit'}
+                            onClick={handleNavigate}
                             className={'py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900'}
                         >
                             Start your Free Trial

@@ -7,6 +7,7 @@ import Button from '../../components/Common/Button/Button'
 import Card from '../../components/Common/Card/Card'
 import Image from 'next/image'
 import CheckOutForm from '@/app/components/Checkout/CheckOutForm'
+import { useRouter } from 'next/navigation';
 
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
@@ -15,6 +16,8 @@ const stripe_api = 'pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkb
 const stripeLib = loadStripe(stripe_api);
 
 const Checkout = () => {
+    const tempPlan = localStorage.getItem('tempPlan')
+    const tempEmail = localStorage.getItem('tempEmail')
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
     const [userformErrors, setUserformErrors] = useState([])
@@ -34,9 +37,9 @@ const Checkout = () => {
         let newErrors = []
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {newErrors.push('Please enter a valid email address') }
+        if (!emailRegex.test(email)) { newErrors.push('Please enter a valid email address') }
         if (password.length < 6) { newErrors.push('Password must be at least 6 characters') }
-        if (password !== password_confirm) {    newErrors.push('Passwords do not match') }
+        if (password !== password_confirm) { newErrors.push('Passwords do not match') }
         setUserformErrors([...newErrors])
     }
 
@@ -50,7 +53,7 @@ const Checkout = () => {
                     <div className='border bg-white rounded-lg border-border'>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
-                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} />
+                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={tempEmail && tempEmail} />
                         </div>
                         <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
@@ -100,7 +103,7 @@ const Checkout = () => {
                                 <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 bg-white dark:text-gray-400 ">
                                     <tr>
                                         <th scope="col" className="px-6 py-3 text-base ">
-                                            Selected Product
+                                            Selected Plan
                                         </th>
                                         <th scope="col" className="px-6 py-3 text-base ">
                                             Price
@@ -109,8 +112,9 @@ const Checkout = () => {
                                 </thead>
                                 <tbody>
                                     <tr className="dark:bg-gray-800 bg-white">
-                                        <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap dark:text-white">
-                                            Guru 7 days free
+                                        <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
+                                            {tempPlan == 1 && "Pro Plan"}
+                                            {tempPlan == 0 && "Standard Plan"}
                                         </th>
                                         <td className="px-6 py-4 text-base">
                                             Free Trial
@@ -119,7 +123,7 @@ const Checkout = () => {
 
                                 </tbody>
                                 <tfoot>
-                                    <tr className="text-base text-gray-900 bg-white dark:text-white">
+                                    <tr className="text-base text-gray-900 bg-white text-black text-black">
                                         <th scope="row" className="px-6 py-3 text-base">Total</th>
                                         <td className="px-6 py-3">$0</td>
                                     </tr>

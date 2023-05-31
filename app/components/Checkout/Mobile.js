@@ -3,8 +3,16 @@ import Container from '../Container/Container'
 import Card from '../Common/Card/Card'
 import Button from '../Common/Button/Button'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const Mobile = ({ pro, guru, setSelect, select }) => {
+
+    const router = useRouter()
+    const handleGetFreeTrial = () => {
+        localStorage.setItem('tempPlan', select);
+        router.push(`/checkout`);
+    }
+
     return (
         <div className='block  lg:hidden'>
             <Container>
@@ -59,7 +67,7 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                     )}
                 </div>
                
-                <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}>Get Free Trial</Button></Link>
+                <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false} onClick={handleGetFreeTrial}>Get Free Trial</Button>
                 {/* <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-black hover:border hover:bg-black hover:text-white bg-white border border-gray-300 rounded-md shadow-sm" disabled={false}>Skip Trial</Button></Link> */}
             </Container>
         </div>
