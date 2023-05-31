@@ -1,13 +1,30 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../../components/Container/Container'
 import { Input } from '../../components/Common/Input/Input'
 import Logos from '../../components/Checkout/Logos'
 import Button from '../../components/Common/Button/Button'
 import Card from '../../components/Common/Card/Card'
 import Image from 'next/image'
+import CheckOutForm from '@/app/components/Checkout/CheckOutForm'
+
+import { Elements } from "@stripe/react-stripe-js"
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripe_api = 'pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW'
+const stripeLib = loadStripe(stripe_api);
 
 const Checkout = () => {
+
+    const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
+
+    const handleFormValues = (e) => {
+        setCheckoutForm({
+            ...checkoutForm,
+            [e.target.name]: e.target.value
+        })
+    }
+
     return (
         <Container>
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8'>
@@ -17,21 +34,24 @@ const Checkout = () => {
                     <div className='border bg-white rounded-lg border-border'>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
-                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"email"} />
+                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} />
                         </div>
                         <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
-                            <input type={"text"} placeholder={"Enter your full name"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"name"} />
+                            <input type={"text"} placeholder={"Enter your full name"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='name' id={"name"} onChange={handleFormValues} />
                         </div>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Cell Phone</span>
-                            <input type={"number"} placeholder={"Cell Phone"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"mobile"} />
+                            <input type={"number"} placeholder={"Cell Phone"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='phone' id={"mobile"} onChange={handleFormValues} />
                         </div>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Password</span>
-                            <input type={"password"} placeholder={"Password"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"mobile"} />
+                            <input type={"password"} placeholder={"Password"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password' id={"password"} onChange={handleFormValues} />
                         </div>
-                       
+                        <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border border-b-0'>
+                            <span className="text-start text-sm font-normal w-[20%] text-border">Confirm Password</span>
+                            <input type={"password"} placeholder={"Password confirm"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password_confirm' id={"passwordConfirm"} onChange={handleFormValues} />
+                        </div>
                     </div>
                     <div className="flex items-center my-6">
                         <input id="link-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked onChange={() => { console.log("") }} />
@@ -43,12 +63,11 @@ const Checkout = () => {
                             <div className="payment-element-child"><h3 className='text-sm text-black'>Credit or Debit Card</h3><p className="text-sm text-black mt-1">HSA / FSA accepted</p></div>
                             <Logos />
                         </div>
-                        <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-border rounded-lg my-4'>
-                            <input type={"text"} placeholder={"Card Number"} className={"p-1 sm:p-4 md:p-4 lg:p-4 w-[50%] sm:w-[60%] md:w-[60%] lg:w-[60%]  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"card"} />
-                            <input type={"text"} placeholder={"MM/YY"} className={"p-1 sm:p-4 md:p-4 lg:p-4 w-[30%] sm:w-[20%] md:w-[20%] lg:w-[20%]  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"exp"} />
-                            <input type={"text"} placeholder={"CVV"} className={"p-1 sm:p-4 md:p-4 lg:p-4  w-[30%] sm:w-[20%] md:w-[20%] lg:w-[20%]  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} id={"cvv"} />
+                        <div className='my-3 p-3'>
+                            <Elements stripe={stripeLib}>
+                                <CheckOutForm checkoutForm={checkoutForm} />
+                            </Elements>
                         </div>
-                        <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}>Checkout</Button>
                     </div>
                 </div>
 

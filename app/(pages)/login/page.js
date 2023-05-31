@@ -43,6 +43,7 @@ const Login = () => {
         try {
             let result = await submitLogin(formValues);
             if (result.token) {
+                localStorage.setItem('token', result.token);
                 router.push('/dashboard');
             } else {
                 setError(result);
