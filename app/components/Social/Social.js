@@ -12,7 +12,7 @@ const Social = () => {
     return (
         <div className='bg-cyan-50 py-0'>
         <div className='my-8  mx-auto max-w-[90%]'>
-            <h1 className='text-center font-bold  text-2xl text-blue  md:text-5xl lg:text-5xl sm:text-5xl'>One platform, infinite possibilities</h1>
+            <h1 className='text-center font-bold  text-2xl text-blue  md:text-5xl lg:text-5xl sm:text-5xl  '>One platform, infinite possibilities</h1>
             <div className='block sm:flex md:flex lg:flex justify-evenly items-center text-center'>
 
                 {images.map((element, key) =>

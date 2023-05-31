@@ -9,7 +9,7 @@ const Trial = () => {
         {/* <div className="flex items-center justify-center"> */}
         <div className="block sm:flex md:flex   :flex justify-between  items-center gap-4">
           <div className=" my-5 sm:text-start md:text-start lg:text-start  ">
-            <h1 className=" text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
+            <h1 className="font-bold  text-2xl   md:text-5xl lg:text-5xl sm:text-5xl  my-2  text-heading">
               Sign up for your{" "}
               <span className="text-voilet">free trial today</span>
             </h1>

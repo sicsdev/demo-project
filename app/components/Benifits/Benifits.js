@@ -31,8 +31,8 @@ const slides = [
 ];
 const Benifits = () => {
   return (
-    <div className="bg-cyan-50 py-5 ">
-      <h1 className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-8 font-bold text-heading">
+    <div className="bg-cyan-50 py-5  ">
+      <h1 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl text-center  my-8  text-heading">
         Why customers love Tempo
       </h1>
       <Carasual>
