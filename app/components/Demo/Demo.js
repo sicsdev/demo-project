@@ -1,11 +1,21 @@
-import React from "react";
-import { Input } from "../Common/Input/Input";
-import Button from "../Common/Button/Button";
-import Card from "../Common/Card/Card";
-import { useState, useEffect } from "react";
+
+import React from 'react'
+import { Input } from '../Common/Input/Input'
+import Button from '../Common/Button/Button'
+import Card from '../Common/Card/Card'
+import { useRouter } from 'next/navigation';
 
 const Demo = () => {
+
   const [email, setEmail] = useState("");
+    const router = useRouter();
+    const handleNavigate = () => {
+        let emailInput = document.getElementById('email').value;
+        console.log(emailInput)
+        localStorage.setItem('tempEmail', emailInput);
+        router.push(`/free-trial`);
+    }
+
 
   useEffect(() => {
     if (email?.includes("@")) {

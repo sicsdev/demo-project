@@ -34,6 +34,7 @@ const Embed = ({ form = true }) => {
 
     const getBotWidgetData = async () => {
         const widget = await getBotWidget(state.id)
+
         setmarkdown(widget.data.code)
     }
     return (
