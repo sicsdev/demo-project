@@ -1,9 +1,15 @@
 import axios from 'axios'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const getWindow = () => {
+    if (typeof window !== "undefined") {
+      return window;
+    }
+    return null;
+  };
 const config = {
     headers: {
-        "Authorization": "Token " + window.localStorage.getItem("Token")
+        "Authorization": "Token " +  getWindow()?.localStorage.getItem("Token")
     },
 }
 export const createEnterpriseAccount = async (body) => {

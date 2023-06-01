@@ -1,6 +1,5 @@
 
-import React from 'react'
-import { Input } from '../Common/Input/Input'
+import React, { useEffect, useState } from 'react'
 import Button from '../Common/Button/Button'
 import Card from '../Common/Card/Card'
 import { useRouter } from 'next/navigation';
