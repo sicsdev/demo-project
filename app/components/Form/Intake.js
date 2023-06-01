@@ -4,16 +4,17 @@ import Embed from '../Embed/Embed';
 import Modal from '../Common/Modal/Modal';
 import CustomerServiceSetupForm from '../Forms/CustomerServiceSetupForm';
 const Intake = () => {
-    const [formData, setFormData] = useState({})
+    const [basicFormData, setBasicFormData] = useState({})
+    const [formCustomerData, setCustomerFormData] = useState({})
     const [showModal, setShowModal] = useState(true);
-    const [intakeStep, setIntakeStep] = useState(0)
+    const [intakeStep, setIntakeStep] = useState(1)
 
     const GetStepForm = () => {
         switch (intakeStep) {
             case 0:
-                return <BasicDetails formData={formData} setFormData={setFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
+                return <BasicDetails basicFormData={basicFormData} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 1:
-                return <CustomerServiceSetupForm formData={formData} setFormData={setFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
+                return <CustomerServiceSetupForm formCustomerData={formCustomerData} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 2:
                 return <Embed />
             default:

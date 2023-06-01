@@ -13,7 +13,7 @@ const RadioField = ({ value, id, name, error, register }) => {
             />
             <label
                 className="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"
-                htmlFor={name}
+                htmlFor={id}
             >{value}</label
             >
         </div>
