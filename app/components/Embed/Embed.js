@@ -6,10 +6,11 @@ import Button from '../Common/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBotWidget } from '@/app/API/pages/Bot';
 import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
+import Loading from '../Loading/Loading';
 const Embed = ({ form = true }) => {
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
-    const [copied, setCopied] = useState(null);
+    const [copied, setCopied] = useState({ key: null, message: null });
     const [markdown, setmarkdown] = useState('');
     const [detailsData, setDetailsData] = useState(null)
     const discount = `<div className="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"
@@ -56,11 +57,28 @@ const Embed = ({ form = true }) => {
                 <>
                     {markdown && (
                         <div className='p-5'>
-                            <div className='p-5 mt-5 border border-border'>
+                            <div className='p-5 mt-5 border border-border  bg-white'>
                                 <h3 className='font-xl font-bold text-heading my-2'>Add this code to the HTML of your website where you’re displaying your TrustBox.</h3>
                                 <div><pre lang='html'>{`${markdown}`}</pre></div>
                                 <div className='flex justify-between'>
-                                    <CopyToClipboard text={discount} onCopy={() => setCopied('copied')}>
+                                    <CopyToClipboard text={discount} onCopy={() => {
+                                        setCopied((prev) => {
+                                            return {
+                                                ...prev,
+                                                message: "copied !",
+                                                key: "0"
+                                            }
+                                        })
+                                        setTimeout(() => {
+                                            setCopied((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    message: null,
+                                                    key: null
+                                                }
+                                            })
+                                        }, 3000)
+                                    }}>
                                         <Button type={"submit"}
                                             className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                                         >
@@ -74,6 +92,9 @@ const Embed = ({ form = true }) => {
                                         Close
                                     </Button>
                                 </div>
+                                {copied.message && (
+                                    <small className='text-xs text-soft-green font-bold'>{copied.message}</small>
+                                )}
                             </div>
 
                         </div>
@@ -81,25 +102,54 @@ const Embed = ({ form = true }) => {
                 </>
                 :
                 <>
-                    {detailsData && detailsData.map((element, key) =>
-                        <div className='p-5' key={key}>
-                            <div className='p-5 mt-5 border border-border'>
-                                <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
-                                <div><pre lang='html'>{`${element.code}`}</pre></div>
-                                <div className='flex justify-between'>
-                                    <CopyToClipboard text={element.code} onCopy={() => setCopied('copied')}>
-                                        <Button type={"submit"}
-                                            className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                        >
-                                            Copy
-                                        </Button>
-                                    </CopyToClipboard>
-                                    <small className='xs'>{copied} </small>
-                                </div>
-                            </div>
+                    {state.botData.isLoading === true ?
+                        <Loading /> :
+                        <>
+                            {detailsData && detailsData.map((element, key) =>
+                                <div className='p-5 ' key={key}>
+                                    <div className='p-5 mt-5 border border-border bg-white'>
+                                        <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
+                                        <div><pre lang='html'>{`${element.code}`}</pre></div>
+                                        <div className='flex justify-between'>
+                                            <CopyToClipboard text={element.code} onCopy={() => setCopied((prev) => {
+                                                setCopied((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        message: "Copied !",
+                                                        key: key
+                                                    }
+                                                })
+                                                setTimeout(() => {
+                                                    setCopied((prev) => {
+                                                        return {
+                                                            ...prev,
+                                                            message: null,
+                                                            key: null
+                                                        }
+                                                    })
+                                                }, 3000)
+                                            })}>
+                                                <Button type={"submit"}
+                                                    className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                >
+                                                    Copy
+                                                </Button>
+                                            </CopyToClipboard>
 
-                        </div>
-                    )}
+                                        </div>
+                                        {copied?.key != null && copied?.key === key && (
+                                            <small className='text-xs text-soft-green font-bold'>{copied.message}</small>
+                                        )}
+                                    </div>
+                                </div>
+
+                            )}
+
+                            {state.botData.error && (
+                                <span className='sm text-danger fixed left-[50%] top-[50%] font-semibold text-center'>{state.botData.error}</span>
+                            )}
+                        </>
+                    }
                 </>
             }
         </>

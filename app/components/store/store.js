@@ -1,13 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import versionReducer from './slices/versionSlice';
 import botIdReducer from './slices/botIdSlice';
-import userInfoReducer from './slices/userInfoSlice';
-
+import userReducer from './slices/userSlice';
 const store = configureStore({
     reducer: {
         version: versionReducer,
         botId: botIdReducer,
-        userInfo: userInfoReducer
+        user: userReducer,
     },
 });
 
