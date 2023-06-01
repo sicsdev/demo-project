@@ -76,6 +76,7 @@ const Benifits = () => {
         <div className="max-w-[1400px]  w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
           <h2 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl text-center  my-8  text-heading">
             Why customers love Tempo
+            
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4">
             {slides.map((item, key) => (
