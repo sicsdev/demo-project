@@ -7,7 +7,6 @@ import Button from '../../components/Common/Button/Button'
 import Card from '../../components/Common/Card/Card'
 import Image from 'next/image'
 import CheckOutForm from '@/app/components/Checkout/CheckOutForm'
-import { useRouter } from 'next/navigation';
 
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
@@ -16,12 +15,12 @@ const stripe_api = 'pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkb
 const stripeLib = loadStripe(stripe_api);
 
 const Checkout = () => {
-    const tempPlan = localStorage.getItem('tempPlan')
-    const tempEmail = localStorage.getItem('tempEmail')
+    const tempPlan = window?.localStorage.getItem('tempPlan')
+    const tempEmail = window?.localStorage.getItem('tempEmail')
     useEffect(() => {
         return () => {
-            localStorage.removeItem('tempPlan')
-            localStorage.removeItem('tempEmail')
+            window?.localStorage.removeItem('tempPlan')
+            window?.localStorage.removeItem('tempEmail')
         }
     }, [])
 

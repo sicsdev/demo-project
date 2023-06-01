@@ -5,16 +5,21 @@ import Button from '../../Common/Button/Button'
 import { usePathname, useRouter } from 'next/navigation';
 import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { getUserProfile } from '@/app/API/components/Sidebar';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProfile } from '../../store/slices/userSlice';
 
 const Sidebar = ({ children }) => {
+    const dispatch = useDispatch()
+    const state = useSelector(state => state.user.data)
     const router = useRouter();
     const pathname = usePathname();
     const defaultPhoto = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
-    const [userProfile, setUserProfile] = useState([])
-
+    console.log("ussr", state)
     useEffect(() => {
-        getUserProfile().then(res => setUserProfile(res.data))
-    }, [])
+        if (!state) {
+            dispatch(fetchProfile())
+        }
+    }, [state])
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -23,8 +28,8 @@ const Sidebar = ({ children }) => {
     };
 
     const handleLogout = () => {
-            localStorage.removeItem('Token');
-            router.push('/');
+        localStorage.removeItem('Token');
+        router.push('/');
     };
 
 
@@ -91,7 +96,7 @@ const Sidebar = ({ children }) => {
                             <div className="flex items-center ml-3">
 
                                 <div className='mx-4'>
-                                    {userProfile?.email}
+                                    {state?.email}
                                 </div>
                                 <div className="relative">
                                     <button
@@ -102,7 +107,7 @@ const Sidebar = ({ children }) => {
                                         data-dropdown-toggle="dropdown-user"
                                     >
                                         <span className="sr-only">Open user menu</span>
-                                        <img className="w-8 h-8 rounded-full" src={userProfile?.thumbnail || defaultPhoto} alt="user photo" />
+                                        <img className="w-8 h-8 rounded-full" src={state?.thumbnail || defaultPhoto} alt="user photo" />
                                     </button>
 
                                     {isOpen && (
