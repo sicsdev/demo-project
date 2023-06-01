@@ -7,6 +7,8 @@ const getWindow = () => {
     }
     return null;
   };
+
+  
 const config = {
     headers: {
         "Authorization": "Token " +  getWindow()?.localStorage.getItem("Token")
