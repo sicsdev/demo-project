@@ -1,4 +1,4 @@
-import { getBotAllData } from "@/app/API/pages/Bot";
+import { getAllBotData, getAllWidgetData, getBotAllData, getBotWidget } from "@/app/API/pages/Bot";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -24,14 +24,15 @@ export const botIdSlice = createSlice({
             .addCase(fetchBot.fulfilled, (state, action) => {
                 state.botData.isLoading = false;
                 state.botData.data = action.payload;
-                if (action.payload.results?.length > 0) {
-                    state.showModal = false
+                if (action.payload.main_bot_data.results.length === 0) {
+                    state.showModal = true
                 }
 
             })
             .addCase(fetchBot.rejected, (state, action) => {
                 state.botData.isLoading = false;
-                state.isLoading.error = action.error.message;
+                state.botData.error = action.error.message;
+                debugger
             });
     },
 })
@@ -42,5 +43,19 @@ export default botIdSlice.reducer;
 
 export const fetchBot = createAsyncThunk('bot_id/fetchBotData', async () => {
     const response = await getBotAllData()
-    return response
+    if (response.results.length > 0) {
+        const ids = response.results.map(element => element.id)
+        const widgets = await getAllWidgetData(ids)  
+        const bots = await getAllBotData(ids)  
+        return {
+            main_bot_data : response,
+            widgets : widgets.map(element=>element.data),
+            bots : bots.map(element=>element.data),
+        }
+    }
+    return {
+        main_bot_data : response,
+        widgets : widgets.map(element=>element.data),
+        bots : bots.map(element=>element.data),
+    }
 });
