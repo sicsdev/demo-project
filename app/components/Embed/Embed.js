@@ -6,7 +6,7 @@ import { marked } from "marked";
 import Button from '../Common/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBotWidget } from '@/app/API/pages/Bot';
-import { fetchBot } from '../store/slices/botIdSlice';
+import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
 const Embed = ({ form = true }) => {
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
