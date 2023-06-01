@@ -24,7 +24,7 @@ export const botIdSlice = createSlice({
             .addCase(fetchBot.fulfilled, (state, action) => {
                 state.botData.isLoading = false;
                 state.botData.data = action.payload;
-                if (action.payload.results.length > 0) {
+                if (action.payload.results?.length > 0) {
                     state.showModal = false
                 }
 

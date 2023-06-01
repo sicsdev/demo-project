@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Input } from '../Common/Input/Input'
 import Button from '../Common/Button/Button'
 import Card from '../Common/Card/Card'
@@ -11,7 +11,6 @@ const Demo = () => {
     const router = useRouter();
     const handleNavigate = () => {
         let emailInput = document.getElementById('email').value;
-        console.log(emailInput)
         localStorage.setItem('tempEmail', emailInput);
         router.push(`/free-trial`);
     }
