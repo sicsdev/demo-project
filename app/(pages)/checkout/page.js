@@ -19,13 +19,10 @@ const Checkout = () => {
     const router = useRouter()
     const searchParams = useSearchParams();
     const [planQuery, setPlanQuery] = useState('')
-    const [emailQuery, setEmailQuery] = useState('')
 
     useEffect(() => {
-
         searchParams.get('plan') ? setPlanQuery(searchParams.get('plan')) : setPlanQuery('')
-        searchParams.get('email') ? setEmailQuery(searchParams.get('email')) : setEmailQuery('')
-
+        searchParams.get('email') ? setCheckoutForm({ ...checkoutForm, email: searchParams.get('email') }) : setCheckoutForm({ ...checkoutForm, email: '' })
     }, [])
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
@@ -62,7 +59,7 @@ const Checkout = () => {
                     <div className='border bg-white rounded-lg border-border'>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
-                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={emailQuery && emailQuery} />
+                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={checkoutForm.email} />
                         </div>
                         <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
