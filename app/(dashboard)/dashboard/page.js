@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { QrCodeIcon  } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 const Page = () => {
+
     return (
         <div>
         <div className="border-b border-border dark:border-gray-700">
@@ -17,8 +18,12 @@ const Page = () => {
                 </ul>
                 
             </div>
-            <Embed />
+            <Embed form={false}/>
+
+
            <Intake />
+
+           
         </div>
     );
 }
