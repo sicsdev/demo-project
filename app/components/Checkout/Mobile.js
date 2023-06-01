@@ -3,15 +3,18 @@ import Container from '../Container/Container'
 import Card from '../Common/Card/Card'
 import Button from '../Common/Button/Button'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const Mobile = ({ pro, guru, setSelect, select }) => {
 
     const router = useRouter()
+    const searchParams = useSearchParams();
+    const emailQuery = searchParams.get('email')
+
     const handleGetFreeTrial = () => {
-        localStorage.setItem('tempPlan', select);
-        router.push(`/checkout`);
+        router.push(`/checkout?email=${emailQuery}&plan=${select}`);
     }
+
 
     return (
         <div className='block  lg:hidden'>

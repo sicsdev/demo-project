@@ -4,14 +4,16 @@ import Card from '../Common/Card/Card'
 import Button from '../Common/Button/Button'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const Desktop = ({ pro, guru, setSelect, select, tempEmail }) => {
 
     const router = useRouter()
+    const searchParams = useSearchParams();
+    const emailQuery = searchParams.get('email')
+
     const handleGetFreeTrial = () => {
-        localStorage.setItem('tempPlan', select);
-        router.push(`/checkout`);
+        router.push(`/checkout?email=${emailQuery}&plan=${select}`);
     }
 
     return (

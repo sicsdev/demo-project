@@ -13,7 +13,8 @@ const Sidebar = ({ children }) => {
     const [userProfile, setUserProfile] = useState([])
 
     useEffect(() => {
-        getUserProfile().then(res => setUserProfile(res.data))
+        const token = localStorage.getItem('Token');
+        getUserProfile(token).then(res => {console.log(res); setUserProfile(res)})
     }, [])
 
     const [isOpen, setIsOpen] = useState(false);
@@ -91,7 +92,7 @@ const Sidebar = ({ children }) => {
                             <div className="flex items-center ml-3">
 
                                 <div className='mx-4'>
-                                    {userProfile?.email}
+                                    {userProfile && userProfile.email}
                                 </div>
                                 <div className="relative">
                                     <button

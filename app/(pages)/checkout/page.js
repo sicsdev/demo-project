@@ -10,20 +10,23 @@ import CheckOutForm from '@/app/components/Checkout/CheckOutForm'
 
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js";
+import { useRouter, useSearchParams } from 'next/navigation'
 
 const stripe_api = 'pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW'
 const stripeLib = loadStripe(stripe_api);
 
 const Checkout = () => {
-    const tempPlan = window?.localStorage.getItem('tempPlan')
-    const tempEmail = window?.localStorage.getItem('tempEmail')
-    useEffect(() => {
-        return () => {
-            window?.localStorage.removeItem('tempPlan')
-            window?.localStorage.removeItem('tempEmail')
-        }
-    }, [])
+    const router = useRouter()
+    const searchParams = useSearchParams();
+    const [planQuery, setPlanQuery] = useState('')
+    const [emailQuery, setEmailQuery] = useState('')
 
+    useEffect(() => {
+
+        searchParams.get('plan') ? setPlanQuery(searchParams.get('plan')) : setPlanQuery('')
+        searchParams.get('email') ? setEmailQuery(searchParams.get('email')) : setEmailQuery('')
+
+    }, [])
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
     const [userformErrors, setUserformErrors] = useState([])
@@ -59,7 +62,7 @@ const Checkout = () => {
                     <div className='border bg-white rounded-lg border-border'>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
-                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={tempEmail && tempEmail} />
+                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={emailQuery && emailQuery} />
                         </div>
                         <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
@@ -119,8 +122,8 @@ const Checkout = () => {
                                 <tbody>
                                     <tr className="dark:bg-gray-800 bg-white">
                                         <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
-                                            {tempPlan == 1 && "Pro Plan"}
-                                            {tempPlan == 0 && "Standard Plan"}
+                                            {planQuery == 1 && "Pro Plan"}
+                                            {planQuery == 0 && "Standard Plan"}
                                         </th>
                                         <td className="px-6 py-4 text-base">
                                             Free Trial
@@ -139,8 +142,8 @@ const Checkout = () => {
                             </table>
                             <div className='text-center text-xs'>
                                 <span className='text-xs'>
-                                    {tempPlan == 1 && "7 days free, then $599.99/mo"}
-                                    {tempPlan == 0 && "7 days free, then $449.99/mo"}
+                                    {planQuery == 1 && "7 days free, then $599.99/mo"}
+                                    {planQuery == 0 && "7 days free, then $449.99/mo"}
                                     </span>
                             </div>
 

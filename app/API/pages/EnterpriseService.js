@@ -1,18 +1,17 @@
 import axios from 'axios'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-const getWindow = () => {
-    if (typeof window !== "undefined") {
-      return window;
+const returnConfig = () => {
+    const config = {
+        headers: {
+            "Authorization": "Token " + localStorage.getItem("Token")
+        },
     }
-    return null;
-  };
-const config = {
-    headers: {
-        "Authorization": "Token " +  getWindow()?.localStorage.getItem("Token")
-    },
+    return config
 }
+
 export const createEnterpriseAccount = async (body) => {
+    let config = returnConfig()
     try {
         const response = await axios.patch(`${API_URL}/api/v1/accounts/enterprises/`, body, config);
         return response;

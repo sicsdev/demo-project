@@ -38,6 +38,5 @@ export default userSlice.reducer;
 
 export const fetchProfile = createAsyncThunk('user_profile/fetchUserData', async () => {
     const response = await getUserProfile()
-    debugger
     return response
 });
