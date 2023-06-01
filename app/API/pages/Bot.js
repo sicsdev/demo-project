@@ -30,5 +30,13 @@ export const getBotWidget = async (id,body) => {
         return error
     }
 };
+export const getBotAllData = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/`,config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
 
 

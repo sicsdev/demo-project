@@ -1,13 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BasicDetails from '../Forms/BasicDetails';
 import Embed from '../Embed/Embed';
 import Modal from '../Common/Modal/Modal';
 import CustomerServiceSetupForm from '../Forms/CustomerServiceSetupForm';
+import { useSelector } from 'react-redux';
 const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
+    let state = useSelector((state) => state.botId.showModal)
+    console.log("dsifhbjksfla", state)
     const [formCustomerData, setCustomerFormData] = useState({})
-    const [showModal, setShowModal] = useState(true);
-    const [intakeStep, setIntakeStep] = useState(0)
+    const [showModal, setShowModal] = useState(false);
+    const [intakeStep, setIntakeStep] = useState(0);
+
+    useEffect(() => {
+            setShowModal(state);
+    }, [state])
 
     const GetStepForm = () => {
         switch (intakeStep) {

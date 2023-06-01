@@ -30,14 +30,15 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const dispatch = useDispatch()
   const [showRefund_friendliness, setShowRefund_friendliness] = useState(true)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [error, setErrorMessage] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
   const [faqFile, setFaqFile] = useState(formCustomerData?.faq_upload ? formCustomerData.faq_upload : '')
 
   const [howCancelFriendliness, setShowCancelFriendliness] = useState(true)
 
-
-  const { register, handleSubmit, resetField, setValue, getValues, formState: { errors } } = useForm({
+  const allowedFormatsFaq = ['application/msword', 'application/vnd.oasis.opendocument.text', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.template', 'application/epub+zip', 'application/pdf', 'text/html', 'text/plain']
+  const allowFormatsLogo = ['image/jpeg', 'image/png', 'image/gif'];
+  const { register, handleSubmit, resetField, setValue, setError, getValues, formState: { errors } } = useForm({
     defaultValues: {
       enable_refund: formCustomerData?.enable_refund ? formCustomerData.enable_refund : '',
       refund_friendliness: formCustomerData?.refund_friendliness ? formCustomerData.refund_friendliness : '',
@@ -86,15 +87,14 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         dispatch(setBotId(bot.data.id))
         setCustomerFormData(data)
         setLoading(false)
-        setError(null)
+        setErrorMessage(null)
         setIntakeStep(2)
       } else {
-        setError(bot_faq.message)
-
+        setErrorMessage(bot_faq.message)
         setLoading(false)
       }
     } else {
-      setError(bot.message)
+      setErrorMessage(bot.message)
       setLoading(false)
     }
   };
@@ -184,25 +184,41 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         <FileField title={'FAQ Upload'} register={register('faq_upload', {
           onChange: (e) => {
             let file = e.target.files[0]
-            getBase64(file)
-              .then(result => {
-                setFaqFile(result)
-              })
-              .catch(err => {
-                console.log(err);
-              });
+            if (allowedFormatsFaq.includes(file.type)) {
+              getBase64(file)
+                .then(result => {
+                  setFaqFile(result)
+
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              setErrorMessage(null)
+            } else {
+              setError('faq_upload', {type:'custom', message: 'Invalid file format. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.' })
+              setErrorMessage('Invalid file format. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.')
+              resetField('faq_upload')
+            }
+
           },
         })} error={errors.faq_upload} placeholder={"FAQ Upload"} type={'file'} id={"faq_upload"} />
         <FileField title={'Logo Upload'} register={register('logo_upload', {
           onChange: (e) => {
             let file = e.target.files[0]
-            getBase64(file)
-              .then(result => {
-                setBotLogo(result)
-              })
-              .catch(err => {
-                console.log(err);
-              });
+            if (allowFormatsLogo.includes(file.type)) {
+              getBase64(file)
+                .then(result => {
+                  setBotLogo(result)
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+              setErrorMessage(null)
+            } else {
+              setError('faq_upload', {type:'custom', message: 'Invalid file format. Please select a JPEG, PNG, or GIF file.' })
+              setErrorMessage('Invalid file format. Please select a JPEG, PNG, or GIF file.')
+            }
+
           },
         })} error={errors.logo_upload} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} />
 
