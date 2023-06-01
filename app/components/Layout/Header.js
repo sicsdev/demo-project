@@ -1,9 +1,19 @@
 "use client";
+import { getUserProfile } from '@/app/API/components/Sidebar';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Header = () => {
     const [navbar, setNavbar] = useState(false);
+    const [isLogged, setIsLogged] = useState(false);
+    const defaultPhoto = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
+    const [userProfile, setUserProfile] = useState([])
+
+    useEffect(() => {
+        localStorage.getItem('Token') ? setIsLogged(true) : setIsLogged(false);
+        getUserProfile().then(res => setUserProfile(res.data))
+    }, [])
+
     return (
         <div className='sticky top-0 start-0	z-40'>
 
@@ -59,19 +69,39 @@ const Header = () => {
                             className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${navbar ? 'block' : 'hidden'}`}
                         >
                             <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                                <li className="text-white text-center">
-                                    <Link href="/login">
-                                        Login
-                                    </Link>
-                                </li>
-                                <li className="text-white text-center">
-                                    <Link href="/free-trial">
-                                        Pricing
-                                    </Link>
-                                </li>
-                                <li className="text-white   font-bold text-center">
-                                    <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2"><Link href="/free-trial">Free Trial</Link></button>
-                                </li>
+                                {isLogged ?
+
+                                    (<>
+                                        <li className="text-white text-center">
+                                            <Link href="/dashboard">
+                                                Dashboard
+                                            </Link>
+                                        </li>
+                                        <li className="text-white text-center">
+                                            <img className="w-8 h-8 rounded-full" src={userProfile?.thumbnail || defaultPhoto} alt="user photo" />
+                                        </li>
+                                    </>
+
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <li className="text-white text-center">
+                                                <Link href="/login">
+                                                    Login
+                                                </Link>
+                                            </li>
+                                            <li className="text-white text-center">
+                                                <Link href="/free-trial">
+                                                    Pricing
+                                                </Link>
+                                            </li>
+                                            <li className="text-white   font-bold text-center">
+                                                <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2"><Link href="/free-trial">Free Trial</Link></button>
+                                            </li>
+                                        </>
+                                    )
+                                }
                             </ul>
                         </div>
 
