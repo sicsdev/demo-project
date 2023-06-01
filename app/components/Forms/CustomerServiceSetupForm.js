@@ -33,6 +33,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const [error, setError] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
   const [faqFile, setFaqFile] = useState(formCustomerData?.faq_upload ? formCustomerData.faq_upload : '')
+
   const [howCancelFriendliness, setShowCancelFriendliness] = useState(true)
 
 
@@ -89,6 +90,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         setIntakeStep(2)
       } else {
         setError(bot_faq.message)
+
         setLoading(false)
       }
     } else {
@@ -119,6 +121,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       <form className='block sm:grid md:block lg:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 p-5 gap-10' onSubmit={handleSubmit(onSubmit)}>
 
         <TextField subtitle={'This will show on the top of your bot'} title={'Chat Title'} register={register("bot_name")} error={errors.bot_name} placeholder={"Chat Title"} type={'text'} id={"bot_name"} className="py-1" />
+
         <RadioLabel className={'mt-3'} id={'enable_refund'} title={"Enable Refunds"} error={errors.enable_refund} >
           <RadioField value={'Yes'} id={'enable_refund1'} name={'enable_refund'} error={errors.enable_refund} register={register('enable_refund')} />
           <RadioField value={'No'} id={'enable_refund2'} name={'enable_refund'} error={errors.enable_refund} register={register('enable_refund', {
@@ -150,15 +153,18 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             onChange: (e) => {
               if (e.target.value === "No") {
                 setShowRefund_friendliness(false)
+
                 setShowCancelFriendliness(false)
                 resetField('refund_friendliness')
                 resetField('cancellation_friendliness')
+
               }
               else {
                 if (getValues().enable_refund === "Yes" || getValues().enable_refund === "") {
                   setShowRefund_friendliness(true)
                 }
                 setShowCancelFriendliness(true)
+
               }
             },
           })} />
@@ -171,6 +177,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             <RadioField value={'Low'} id={'cancellation_friendliness3'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
           </RadioLabel>
         )}
+
         <SelectField values={email_ticketing_system_data} register={register("email_ticketing_system")} title={"Email Ticketing System"} id={'email_ticketing_system'} error={errors.email_ticketing_system} />
         <SelectField values={ecommerce_platform_data} register={register("ecommerce_platform")} title={"Ecommerce Platform"} id={'ecommerce_platform'} error={errors.ecommerce_platform} />
         <SelectField values={payments_platform_data} register={register("payments_platform")} title={"Payments Platform"} id={'payments_platform'} error={errors.payments_platform} />

@@ -16,10 +16,12 @@ const Login = () => {
     const search = searchParams.get('password');
     const as = searchParams.has('dashboard');
 
+    const isLogged = localStorage.getItem('Token');
+
     useEffect(() => {
-        if (search) {
-            setShow(true)
-        }
+        if (search) {setShow(true) }
+        if (isLogged) {router.push('/dashboard')}
+
     }, [search])
 
     const [loading, setLoading] = useState(false)
