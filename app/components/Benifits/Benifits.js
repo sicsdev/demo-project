@@ -78,8 +78,8 @@ const Benifits = () => {
             Why customers love Tempo
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4">
-            {slides.map((item) => (
-              <div className="bg-black shadow-lg rounded-lg p-12 md:py-10 md:px-8">
+            {slides.map((item, key) => (
+              <div className="bg-black shadow-lg rounded-lg p-12 md:py-10 md:px-8" key={key}>
                 <div className="py-45 px-35">
                   <div>
                     <h3 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-white mb-3 js-show-on-scroll">
@@ -90,7 +90,7 @@ const Benifits = () => {
                     </p>
                   </div>
                   <div className="flex flex-co justify-start items-center gap-4 js-show-on-scroll">
-                    <img src={item.img} alt="" className="w-24" />
+                    <img src={item.img} alt="img" className="w-24" />
                     <div className="js-show-on-scroll">
                       <p className="text-100 bold color-neutral-100 text-white opacity-80">
                       {item.editor}
