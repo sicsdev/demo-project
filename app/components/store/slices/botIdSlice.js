@@ -25,7 +25,7 @@ export const botIdSlice = createSlice({
                 state.botData.isLoading = false;
                 state.botData.data = action.payload;
                 if (action.payload.results.length > 0) {
-                    state.showModal = true
+                    state.showModal = false
                 }
 
             })
@@ -36,7 +36,7 @@ export const botIdSlice = createSlice({
     },
 })
 
-export const { setBotId,setModalValue } = botIdSlice.actions;
+export const { setBotId, setModalValue } = botIdSlice.actions;
 export default botIdSlice.reducer;
 
 

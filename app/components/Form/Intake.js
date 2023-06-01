@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
     let state = useSelector((state) => state.botId.showModal)
-    console.log("dsifhbjksfla", state)
     const [formCustomerData, setCustomerFormData] = useState({})
     const [showModal, setShowModal] = useState(false);
     const [intakeStep, setIntakeStep] = useState(0);
