@@ -40,6 +40,7 @@ const Sidebar = ({ children }) => {
             name: 'Policies',
             icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
 
+
         },
         {
             href: '/dashboard/integrations',
@@ -88,6 +89,7 @@ const Sidebar = ({ children }) => {
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ml-3">
+
                                 <div className='mx-4'>
                                     {userProfile?.email}
                                 </div>
@@ -116,6 +118,7 @@ const Sidebar = ({ children }) => {
                                             </li>
                                         </ul>
                                     )}
+
                                 </div>
                                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                                     <div className="px-4 py-3" role="none">
@@ -170,7 +173,9 @@ const Sidebar = ({ children }) => {
                         <ul className="space-y-2 font-medium flex flex-col ">
                             {SideBarSetting.map((element, key) =>
                                 <li key={key}>
+
                                     <Link href={element.href} className={`${pathname === element.href && ("bg-linkhover")} flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
+
                                         {element.icon}
                                         <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">{element.name}</span>
                                     </Link>

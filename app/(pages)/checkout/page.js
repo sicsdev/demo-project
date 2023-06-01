@@ -136,6 +136,7 @@ const Checkout = () => {
                                     </tr>
                                 </tfoot>
 
+
                             </table>
                             <div className='text-center text-xs'>
                                 <span className='text-xs'>
@@ -143,6 +144,7 @@ const Checkout = () => {
                                     {tempPlan == 0 && "7 days free, then $449.99/mo"}
                                     </span>
                             </div>
+
                         </Card>
 
                         <div className='p-4 sm:p-8 md:p-8 lg:p-8'>

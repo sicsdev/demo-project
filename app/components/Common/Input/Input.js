@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 export const Input = ({ id, placeholder, className, onChange, value, type, disabled,...rest }) => {
     const handleChange = (e) => {

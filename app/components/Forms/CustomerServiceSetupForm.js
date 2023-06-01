@@ -17,7 +17,7 @@ const schema = yup.object({
   enable_refund: yup.string().required(),
   refund_friendliness: yup.string(),
   enable_cancellations: yup.string().required(),
-  cancellation_friendliness: yup.string().required(),
+  cancellation_friendliness: yup.string(),
   faq_upload: yup.string().required(),
   logo_upload: yup.string(),
   bot_name: yup.string().required(),
@@ -33,6 +33,10 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const [error, setError] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
   const [faqFile, setFaqFile] = useState(formCustomerData?.faq_upload ? formCustomerData.faq_upload : '')
+
+  const [howCancelFriendliness, setShowCancelFriendliness] = useState(true)
+
+
   const { register, handleSubmit, resetField, setValue, getValues, formState: { errors } } = useForm({
     defaultValues: {
       enable_refund: formCustomerData?.enable_refund ? formCustomerData.enable_refund : '',
@@ -85,7 +89,8 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         setError(null)
         setIntakeStep(2)
       } else {
-        setError(bot.message)
+        setError(bot_faq.message)
+
         setLoading(false)
       }
     } else {
@@ -148,21 +153,31 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             onChange: (e) => {
               if (e.target.value === "No") {
                 setShowRefund_friendliness(false)
+
+                setShowCancelFriendliness(false)
                 resetField('refund_friendliness')
+                resetField('cancellation_friendliness')
+
               }
               else {
                 if (getValues().enable_refund === "Yes" || getValues().enable_refund === "") {
                   setShowRefund_friendliness(true)
                 }
+                setShowCancelFriendliness(true)
+
               }
             },
           })} />
         </RadioLabel>
-        <RadioLabel id={'cancellation_friendliness'} title={"Cancellation Friendliness"} error={errors.cancellation_friendliness} >
-          <RadioField value={'High'} id={'cancellation_friendliness1'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
-          <RadioField value={'Normal'} id={'cancellation_friendliness2'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
-          <RadioField value={'Low'} id={'cancellation_friendliness3'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
-        </RadioLabel>
+
+        {howCancelFriendliness && (
+          <RadioLabel id={'cancellation_friendliness'} title={"Cancellation Friendliness"} error={errors.cancellation_friendliness} >
+            <RadioField value={'High'} id={'cancellation_friendliness1'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
+            <RadioField value={'Normal'} id={'cancellation_friendliness2'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
+            <RadioField value={'Low'} id={'cancellation_friendliness3'} name={'cancellation_friendliness'} error={errors.cancellation_friendliness} register={register('cancellation_friendliness')} />
+          </RadioLabel>
+        )}
+
         <SelectField values={email_ticketing_system_data} register={register("email_ticketing_system")} title={"Email Ticketing System"} id={'email_ticketing_system'} error={errors.email_ticketing_system} />
         <SelectField values={ecommerce_platform_data} register={register("ecommerce_platform")} title={"Ecommerce Platform"} id={'ecommerce_platform'} error={errors.ecommerce_platform} />
         <SelectField values={payments_platform_data} register={register("payments_platform")} title={"Payments Platform"} id={'payments_platform'} error={errors.payments_platform} />
