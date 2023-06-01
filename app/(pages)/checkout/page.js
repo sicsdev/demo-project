@@ -135,7 +135,14 @@ const Checkout = () => {
                                         <td className="px-6 py-3">$0</td>
                                     </tr>
                                 </tfoot>
+
                             </table>
+                            <div className='text-center text-xs'>
+                                <span className='text-xs'>
+                                    {tempPlan == 1 && "7 days free, then $599.99/mo"}
+                                    {tempPlan == 0 && "7 days free, then $449.99/mo"}
+                                    </span>
+                            </div>
                         </Card>
 
                         <div className='p-4 sm:p-8 md:p-8 lg:p-8'>
