@@ -9,7 +9,7 @@ import DTC from "../components/DTC/DTC";
 export default function Home() {
   return (
     <main className="scroll-smooth">
-      <Start />
+      <Start />``
       <DTC />
       <Info />
       <Benifits />
