@@ -11,14 +11,14 @@ const Demo = () => {
     const handleNavigate = () => {
         let emailInput = document.getElementById('email').value;
         localStorage.setItem('tempEmail', emailInput);
-        router.push(`/free-trial`);
+        router.push(`/free-trial?email=${emailInput}`);
     }
 
 
   useEffect(() => {
-    if (email?.includes("@")) {
-      window._learnq.push(["identify", { email: email }]);
-    }
+    // if (email?.includes("@")) {
+    //   window._learnq.push(["identify", { email: email }]);
+    // }
   }, [email]);
 
   const handleBlur = (email) => {
@@ -54,7 +54,7 @@ const Demo = () => {
               }
               id={"email"}
               value={email}
-              onBlur={(e) => handleBlur(email)}
+              // onBlur={(e) => handleBlur(email)}
               onChange={(e) => {
                 setEmail(e.target.value);
                 console.log(e.target.value);
@@ -63,10 +63,10 @@ const Demo = () => {
           </div>
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
             <Button
-              type={"submit"}
               className={
                 "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
               }
+              onClick={handleNavigate}
             >
               Start Free Trial
             </Button>
