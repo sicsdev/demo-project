@@ -14,10 +14,10 @@ const Sidebar = ({ children }) => {
     const router = useRouter();
     const pathname = usePathname();
     const defaultPhoto = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
-    console.log("ussr", state)
     useEffect(() => {
         if (!state) {
             dispatch(fetchProfile())
+            console.log("calling")
         }
     }, [state])
 

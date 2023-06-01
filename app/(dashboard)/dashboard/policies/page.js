@@ -1,5 +1,5 @@
 'use client'
-import CustomerServiceSetupForm from '@/app/components/Forms/ReadOnly/CustomerServiceSetupForm'
+import BasicDetails from '@/app/components/Forms/ReadOnly/BasicDetails'
 import React from 'react'
 
 import { CodeBracketSquareIcon } from '@heroicons/react/24/outline';
@@ -19,7 +19,7 @@ const Page = () => {
             </div>
             <p className='float-right my-5 cursor-pointer'>Edit</p>
 
-            <CustomerServiceSetupForm />
+            <BasicDetails />
         </>
     )
 }
