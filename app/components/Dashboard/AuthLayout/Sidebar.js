@@ -14,6 +14,7 @@ const Sidebar = ({ children }) => {
 
     useEffect(() => {
         getUserProfile().then(res => setUserProfile(res.data))
+        localStorage.getItem('Token') ? null : router.push('/login');
     }, [])
 
     const [isOpen, setIsOpen] = useState(false);
