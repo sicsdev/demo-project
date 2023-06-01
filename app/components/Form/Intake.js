@@ -7,7 +7,7 @@ const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
     const [formCustomerData, setCustomerFormData] = useState({})
     const [showModal, setShowModal] = useState(true);
-    const [intakeStep, setIntakeStep] = useState(1)
+    const [intakeStep, setIntakeStep] = useState(0)
 
     const GetStepForm = () => {
         switch (intakeStep) {
