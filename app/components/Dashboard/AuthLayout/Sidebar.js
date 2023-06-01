@@ -14,6 +14,7 @@ const Sidebar = ({ children }) => {
 
     useEffect(() => {
         const token = localStorage.getItem('Token');
+        if (!token) router.push('/login');
         getUserProfile(token).then(res => {console.log(res); setUserProfile(res)})
     }, [])
 
