@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-const Desktop = ({ pro, guru, setSelect, select, tempEmail }) => {
+const Desktop = ({ pro, guru, setSelect, select }) => {
 
     const router = useRouter()
     const searchParams = useSearchParams();
