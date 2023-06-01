@@ -6,11 +6,13 @@ import { Input } from '../../components/Common/Input/Input'
 import Link from 'next/link'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useSearchParams } from 'next/navigation';
-import { submitLogin } from '@/app/API/pages/Login'
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux'
+import { setUserInfo, userLogin } from '../../components/store/slices/userInfoSlice'
 
 const Login = () => {
 
+    const dispatch = useDispatch();
     const router = useRouter();
     const searchParams = useSearchParams();
     const search = searchParams.get('password');
@@ -19,9 +21,8 @@ const Login = () => {
     const isLogged = localStorage.getItem('Token');
 
     useEffect(() => {
-        if (search) {setShow(true) }
-        if (isLogged) {router.push('/dashboard')}
-
+        if (search) { setShow(true) }
+        if (isLogged) { router.push('/dashboard') }
     }, [search])
 
     const [loading, setLoading] = useState(false)
@@ -43,19 +44,15 @@ const Login = () => {
 
     const handleLogin = async () => {
         setLoading(true);
-        try {
-            let result = await submitLogin(formValues);
-            if (result.token) {
-                localStorage.setItem('Token', result.token);
+        let result = dispatch(userLogin(formValues));
+        result.then(res => {
+            console.log(res.payload)
+            if (res.payload.token) {
+                localStorage.setItem('Token', res.payload.token);
                 router.push('/dashboard');
-            } else {
-                setError(result);
             }
-        } catch (error) {
-            setError('The login process encountered an error.');
-        } finally {
-            setLoading(false);
-        }
+        })
+        setLoading(false);
     }
 
     return (

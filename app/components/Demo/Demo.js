@@ -10,7 +10,6 @@ const Demo = () => {
     const router = useRouter();
     const handleNavigate = () => {
         let emailInput = document.getElementById('email').value;
-        console.log(emailInput)
         localStorage.setItem('tempEmail', emailInput);
         router.push(`/free-trial`);
     }
