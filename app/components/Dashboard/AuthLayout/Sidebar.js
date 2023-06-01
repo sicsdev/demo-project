@@ -1,11 +1,33 @@
 'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../Common/Button/Button'
-import { usePathname } from 'next/navigation';
-import { CodeBracketSquareIcon , ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon ,RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { usePathname, useRouter } from 'next/navigation';
+import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { getUserProfile } from '@/app/API/components/Sidebar';
+
 const Sidebar = ({ children }) => {
+    const router = useRouter();
     const pathname = usePathname();
+    const defaultPhoto = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
+    const [userProfile, setUserProfile] = useState([])
+
+    useEffect(() => {
+        getUserProfile().then(res => setUserProfile(res.data))
+    }, [])
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const handleToggle = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const handleLogout = () => {
+            localStorage.removeItem('Token');
+            router.push('/');
+    };
+
+
     const SideBarRoutes = [
         {
             href: '/dashboard',
@@ -16,7 +38,7 @@ const Sidebar = ({ children }) => {
         {
             href: '/dashboard/policies',
             name: 'Policies',
-            icon: <CodeBracketSquareIcon  className="h-6 w-6 text-gray-500" />,
+            icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
 
         },
         {
@@ -47,7 +69,6 @@ const Sidebar = ({ children }) => {
 
         },
     ]
-    console.log(pathname)
     return (
         <>
 
@@ -67,11 +88,34 @@ const Sidebar = ({ children }) => {
                         </div>
                         <div className="flex items-center">
                             <div className="flex items-center ml-3">
-                                <div>
-                                    <button type="button" className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <div className='mx-4'>
+                                    {userProfile?.email}
+                                </div>
+                                <div className="relative">
+                                    <button
+                                        type="button"
+                                        className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                        aria-expanded={isOpen}
+                                        onClick={handleToggle}
+                                        data-dropdown-toggle="dropdown-user"
+                                    >
                                         <span className="sr-only">Open user menu</span>
-                                        {/* <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" /> */}
+                                        <img className="w-8 h-8 rounded-full" src={userProfile?.thumbnail || defaultPhoto} alt="user photo" />
                                     </button>
+
+                                    {isOpen && (
+                                        <ul className="absolute right-0 mt-2 py-2 bg-white rounded shadow-lg">
+                                            <li>
+                                                <button
+                                                    type="button"
+                                                    className="block px-4 text-black hover:bg-gray-200"
+                                                    onClick={handleLogout}
+                                                >
+                                                    Logout
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    )}
                                 </div>
                                 <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
                                     <div className="px-4 py-3" role="none">
@@ -126,7 +170,7 @@ const Sidebar = ({ children }) => {
                         <ul className="space-y-2 font-medium flex flex-col ">
                             {SideBarSetting.map((element, key) =>
                                 <li key={key}>
-                                    <Link href={element.href} className={`${pathname === element.href &&("bg-linkhover")} flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
+                                    <Link href={element.href} className={`${pathname === element.href && ("bg-linkhover")} flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
                                         {element.icon}
                                         <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">{element.name}</span>
                                     </Link>
