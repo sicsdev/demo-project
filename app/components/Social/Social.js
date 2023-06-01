@@ -17,11 +17,11 @@ const Social = () => {
 
                 {images.map((element, key) =>
                     <div className='relative h-[120px] w-[100px] py-20 mx-auto sm:m-0 md:m-0 lg:m-0 hover:text-white' key={key}>
-                        <Image
+                        <img
                             src={element}
                             fill={true}
                             alt="Picture of the author"
-                            className='m-auto object-contain img-div'
+                            className='m-auto object-contain img-platform'
                         />
                     </div>
                 )}

@@ -9,23 +9,24 @@ import DTC from "./components/DTC/DTC";
 import Head from "next/head";
 import SecondBan from "./components/Layout/SecondBan";
 import Social from "./components/Social/Social";
+import Faq from "./components/Faq/Faq";
+import Newstandard from "./components/Newstandardpage/Newstandard";
+import Brandpercentage from "./components/Brandpercentage/Brandpercentage";
 export default function Home() {
   return (
     <main className="scroll-smooth">
-      <Head>
-
-        
-      </Head>
+      <Head></Head>
       <Start />
       <DTC />
       <Info />
       <Trial />
-
-      <SecondBan/>
-      <Benifits />
+      <SecondBan />
+      <Benifits />        {/* new */}
+      <Brandpercentage/>  {/* new */}
       <Social />
-      {/* <Ecommerce /> */}
       <Testimonial />
+      <Newstandard/>      {/* new */}
+      <Faq />             {/* new */}
     </main>
-  )
+  );
 }

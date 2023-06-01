@@ -3,10 +3,19 @@
 @tailwind utilities;
 
 .img-div-1:hover {
-    filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg)     brightness(51%) contrast(196%);
-}.img-div {
-        width: 55px !important;
-        height: 50px !important;
-        object-fit: cover;
-
+  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%)
+    hue-rotate(510deg) brightness(51%) contrast(196%);
 }
+
+.img-platform {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+}
+
+.rotate-180{
+  transition-timing-function: ease;
+  transition-duration: 0.125s;
+  transition-delay: 0.1s;
+}
+
