@@ -23,7 +23,6 @@ const Login = () => {
     useEffect(() => {
         if (search) { setShow(true) }
         if (isLogged) { router.push('/dashboard') }
-        dispatch(setUserInfo());
     }, [search])
 
     const [loading, setLoading] = useState(false)

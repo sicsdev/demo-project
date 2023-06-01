@@ -5,8 +5,11 @@ import Button from '../../Common/Button/Button'
 import { usePathname, useRouter } from 'next/navigation';
 import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
 import { getUserProfile } from '@/app/API/components/Sidebar';
+import { useDispatch } from 'react-redux';
+import { setUserInfo } from '../../store/slices/userInfoSlice';
 
 const Sidebar = ({ children }) => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const pathname = usePathname();
     const defaultPhoto = 'https://cdn-icons-png.flaticon.com/256/149/149071.png'
@@ -25,6 +28,7 @@ const Sidebar = ({ children }) => {
 
     const handleLogout = () => {
             localStorage.removeItem('Token');
+            dispatch(setUserInfo(null))
             router.push('/');
     };
 
