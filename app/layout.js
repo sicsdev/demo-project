@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <head>
         {/* <link rel="icon" href="/favicon.ico" /> */}
         <meta property="og:title" content="Tempo" />
-        <meta property="og:image" content="https://dev.usetempo.ai/tempo_preview.jpg" />
+        <meta property="og:image" content="https://usetempo.ai/tempo_preview.jpg" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
