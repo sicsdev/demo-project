@@ -22,7 +22,6 @@ export const memberSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchMembers.fulfilled, (state, action) => {
-                debugger
                 state.isLoading = false;
                 state.data = action.payload;
 
