@@ -44,7 +44,7 @@ const Info = () => {
   return (
     <div className="bg-background pt-5 sm:pt-8 py-0 sm:py-8">
       <div className="justify-between mx-auto max-w-[90%] py-3">
-        <h1 className="text-center text-3xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
+        <h1 className="text-center text-3xl md:text-5xl lg:text-5xl sm:text-5xl my-2 py-4 font-bold text-white">
           Save Millions with Tempo AI.
         </h1>
         {/* <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">

@@ -52,7 +52,9 @@ const Footer = () => {
               </div>
               <div>
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+              <Link href='/login'>
                   Login
+                  </Link>
                 </h6>
               </div>
               <div className="flex">
@@ -83,13 +85,13 @@ const Footer = () => {
 
           <div className="flex justify-between items-center gap-4 bg-slate-950 shadow  p-6 text-center dark:bg-neutral-700">
             <span className="text-4xl">
-              <Link href="/">
+              {/* <Link href="/"> */}
                 <img
                   src="logo.png"
                   alt="logo"
                   class="w-24 h-15 object-contain"
                 />
-              </Link>
+              {/* </Link> */}
             </span>
             <a
               className="font-thin text-neutral-600 dark:text-neutral-400 "
