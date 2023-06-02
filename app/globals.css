@@ -25,7 +25,34 @@ pre code.hljs {
 span.hljs-tag {
   font-size: 13px;
 }
+.img-div-2{
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+.img-div-2  img{object-fit: contain;}
+body {
+  background-color: 
+  #e5e7eb
+  ;
+}
+@media (min-width: 1400px) {
+  .tempo_container {
+    width: 1450px;
+    margin: auto;
+  }
+}
 
+@media (max-width: 768px) {
+  .img-div-2{
+    width: 120px;
+  }
+  .img-platform {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+  }
+}
 pre {
   overflow-x: auto;
   white-space: pre-wrap;
