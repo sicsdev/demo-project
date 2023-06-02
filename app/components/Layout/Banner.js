@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 const Banner = () => {
   return (
     <div className="z-40 text-center p-3 bg-[#142543]">
@@ -7,15 +7,13 @@ const Banner = () => {
         Onboard real agents powered by ChatGPT to plug into Shopify, Salesforce,
         Zendesk, or your custom store.{" "}
         {/* <span className="underline cursor-pointer "> Start Now</span> */}
-        <div className="mt-2 sm:mt-0 inline pl-2 underline"
-          dangerouslySetInnerHTML={{
-            __html: `
-       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
-       <span className="underline cursor-pointer text-white">Start Now</span>
-       </a>
-      `,
-          }}
-        />
+        <span className="mt-2 sm:mt-0 inline pl-2 underline"
+        
+        >
+          <Link  href='/free-trial'>
+           start now
+           </Link>
+           </span>
       </h6>
     </div>
   );
