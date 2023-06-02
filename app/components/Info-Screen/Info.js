@@ -51,8 +51,6 @@ const Info = () => {
           Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
         </h3>
 
-
-
         <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-20">
           <div className="text-start sm:text-start md:text-start lg:text-start order-1">
             {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
@@ -71,19 +69,20 @@ const Info = () => {
               {/* <Link href={"/"}>Explore Support Desk</Link> */}
             </div>
           </div>
-          <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full order-2 js-show-on-scroll">
-            <img
-              src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
-              fill={true}
-              className="bg-contain mx-auto right-0 left-0 w-100 h-100"
+
+          <div className=" flex items-center mx-auto order-2 js-show-on-scroll">
+            <video autoPlay muted src="firstvideo.mp4" 
             />
           </div>
-          <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full    order-4 js-show-on-scroll">
-            <img
+          <div className="flex items-center mx-auto  order-4 js-show-on-scroll">
+            {/* <iframe class="w-full aspect-video" autoplay="1" mute  allow="autoplay" src="secondvideo.mp4" ></iframe> */}
+            <video autoPlay muted src="secondvideo.mp4" />
+
+            {/* <img
               src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
               fill={true}
               className="bg-contain mx-auto w-100 h-100"
-            />
+            /> */}
           </div>
           {/* <div
           style={{
@@ -126,12 +125,15 @@ const Info = () => {
               {/* <Link href={"/"}>Explore Support Desk</Link> */}
             </div>
           </div>
-          <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full   order-6 js-show-on-scroll">
-            <img
+          <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full flex items-center   order-6 js-show-on-scroll">
+            {/* <iframe class="w-full aspect-video ..."  autoplay="1" allow="autoplay" src="thirdvideo.mp4"></iframe> */}
+            <video autoPlay muted src="thirdvideo.mp4" />
+
+            {/* <img
               src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
               fill={true}
               className="bg-contain mx-auto w-100 h-100"
-            />
+            /> */}
           </div>
           {/* <div
           style={{

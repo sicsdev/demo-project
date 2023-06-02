@@ -18,8 +18,8 @@ const Brandpercentage = () => {
               <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">No-code setup</p>
             </div>
             <div class="data-wrapper text-center">
-              <p class="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">1000+</p>
-              <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">GPT-powered agents available 1:50 PM</p>
+              <p class="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">1,000+</p>
+              <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">GPT-powered agents available </p>
             </div>
         </div>
       </div>

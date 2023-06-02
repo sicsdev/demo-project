@@ -61,10 +61,10 @@ const Testimonial = () => {
       <div className="pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
-            "bg-type-section block sm:flex md:flex lg:flex justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
+            "bg-type-section block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
           }
         >
-          <div className=" sm:w-[50%] md:w-[50%] lg:w-[50%]">
+          <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
             {" "}
             <h1 className=" font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl   text-heading  ">
              Try Tempo with your own support content now
@@ -74,7 +74,7 @@ const Testimonial = () => {
             <button
               type={"submit"}       
               className={
-                "py-2 px-8 w-full sm:px-20 md:px-20 lg:px-20 sm:py-8 md:py-8 lg:py-8 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 w-full sm:px-20 md:px-20 lg:px-8 sm:py-8 md:py-8 lg:py-8 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
            Demo Now! &#8594;

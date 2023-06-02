@@ -68,7 +68,7 @@ const Trial = () => {
                   "mr-2  group py-[11px] px-2 focus:ring-yellow-300 text-white bg-voilet hover:bg-black dark:focus:ring-voilet-900"
                 }
               >
-                Start Free Trail
+                Start Free Trial
               </Button>
               <Button
                 type={"submit"}

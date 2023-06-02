@@ -14,12 +14,12 @@ const slides = [
   {
     title: "Train on your policies    ",
     text: "Utilize our LLM connectors to analyze your FAQ and shipping/return policy to customize your workflows.    ",
-    tag: "",
+    tag: "New",
   },
   {
     title: "Self-learning AI model    ",
     text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
-    tag: "",
+    tag: "New",
   },
 ];
 const Newstandard = () => {
