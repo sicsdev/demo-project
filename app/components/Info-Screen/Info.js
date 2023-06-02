@@ -47,9 +47,9 @@ const Info = () => {
         <h1 className="text-center text-3xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
           Save Millions with Tempo AI.
         </h1>
-        <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
+        {/* <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
           Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
-        </h3>
+        </h3> */}
 
         <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-20">
           <div className="text-start sm:text-start md:text-start lg:text-start order-1">
@@ -58,12 +58,8 @@ const Info = () => {
               ChatGPT becomes the brain of your business.{" "}
             </h1>
             <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-white js-show-on-scroll">
-              Tempo connects to your existing ticketing, billing, and order
-              management systems. Unlike ChatGPT, Tempo is branded to your
-              business, fulfills orders, issues refunds, and handles all
-              inquiries 24/7. If Tempo is unsure of an answer, it&apos;ll hand
-              the question to a real human. The best part? Your customers will
-              never know they&apos;re speaking to an AI.
+            Tempo connects to your existing systems. Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. The best part? Your customers will never know they're speaking to an AI.
+
             </h3>
             <div className="text-voilet font-semibold">
               {/* <Link href={"/"}>Explore Support Desk</Link> */}
@@ -98,12 +94,8 @@ const Info = () => {
               We&apos;ll save you money while you sleep.
             </h1>
             <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-white js-show-on-scroll">
-              Tempo AI runs your ops in the background. Tempo is trained to
-              issue refunds to angry customers, offer credits to subscribers who
-              want to cancel, and push delivery speeds ahead of holidays. Tempo
-              combines a super smart AI bot with humans in the background
-              overseeing it all. We know customer service is hard, let Tempo
-              take it off your plate.
+            Runs your ops in the background. Automatically issue refunds to angry customers, retain subscribers, and reduce churn. Tempo combines a super smart AI bot with humans when you need it.
+
             </h3>
             <div className="text-voilet font-semibold">
               {/* <Link href={"/"}>Explore Support Desk</Link> */}
@@ -115,11 +107,8 @@ const Info = () => {
               Instant integration process.{" "}
             </h1>
             <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-white js-show-on-scroll">
-              Time is money, so we make things fast and easy. Tempo AI
-              integrates into your existing ecommerce platform (custom too),
-              billing platform, and ERP systems so you can get up and running in
-              minutes, not months. Literally just fill out a form, click a few
-              buttons, and never think about customer service again.
+            Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.
+
             </h3>
             <div className="text-voilet font-semibold">
               {/* <Link href={"/"}>Explore Support Desk</Link> */}

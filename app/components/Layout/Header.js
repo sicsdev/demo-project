@@ -67,7 +67,8 @@ const Header = () => {
                
 
                 <li className="text-[#ADD8E6] text-center flex items-center " >
-                <img src="phone.png" className="w-4 h-15 object-contain" /> <a href="tel:123-456-7890" style={{marginLeft:"5px"}}>123-456-7890</a>
+                <img src="phone.png" className="w-4 h-15 object-contain" /> <a href="tel:123-456-7890" style={{marginLeft:"5px"}}>1-855-30TEMPO
+</a>
                 </li>
                 {/* <li className="text-white text-center">
                   <Link href="/free-trial">Pricing</Link>
