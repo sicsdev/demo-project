@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 const Footer = () => {
   const company = [
     "About",
@@ -35,14 +35,28 @@ const Footer = () => {
       <footer className=" bg-[#142543] shadow text-center text-white ">
         <div className=" mx-auto lg:max-w-[90%]">
           <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
-            <div className="flex justify-between gap-9">
+            <div className="flex justify-between gap-3 flex-col items-start">
               <div>
-                <h6 className="mb-4  text-white   font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                  Schedule Demo
+                <h6
+                  dangerouslySetInnerHTML={{
+                    __html: `
+             <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
+             <span className="underline cursor-pointer text-white">                            Schedule Demo
+
+             </span>
+             </a>
+            `,
+                  }}
+                  className="mb-4  text-white   font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 "
+                ></h6>
+              </div>
+              <div>
+                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                  Login
                 </h6>
               </div>
               <div className="flex">
-                <a href="#!" className="mr-6 text-white dark:text-neutral-200">
+                {/* <a href="#!" className="mr-6 text-white dark:text-neutral-200">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="h-4 w-4"
@@ -62,13 +76,21 @@ const Footer = () => {
                   >
                     <path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z" />
                   </svg>
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
 
           <div className="flex justify-between items-center gap-4 bg-slate-950 shadow  p-6 text-center dark:bg-neutral-700">
-            <span className="text-4xl">Tempo</span>
+            <span className="text-4xl">
+              <Link href="/">
+                <img
+                  src="logo.png"
+                  alt="logo"
+                  class="w-24 h-15 object-contain"
+                />
+              </Link>
+            </span>
             <a
               className="font-thin text-neutral-600 dark:text-neutral-400 "
               href="https://tailwind-elements.com/"

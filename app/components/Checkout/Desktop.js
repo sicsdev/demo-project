@@ -66,7 +66,7 @@ const Desktop = ({ pro, guru, setSelect, select }) => {
 
                     </div>
                     <div className='block text-center relative w-[400px] mx-auto' >
-                        <Image src="https://www.semrush.com/static/images/trial-plan-redesign.3d76d0fc07a992c8d951.svg" alt='img' fill={true} className='bg-contain mx-auto ' />
+                        <Image src="isometric-recolored2.svg" alt='img' fill={true} className='bg-contain mx-auto ' />
 
                     </div>
                 </div>
