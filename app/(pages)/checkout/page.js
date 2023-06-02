@@ -29,11 +29,11 @@ const Checkout = () => {
         searchParams.get("email")
             ? setCheckoutForm({
                 ...checkoutForm,
-                "email": searchParams.get("email")
+                email: searchParams.get("email")
             })
             : setCheckoutForm({
                 ...checkoutForm,
-                "email": ""
+                email: ' '
             })
     }, []);
 
@@ -111,7 +111,7 @@ const Checkout = () => {
                                 name="email"
                                 id={"email"}
                                 onChange={handleFormValues}
-                                value={checkoutForm.email && checkoutForm.email}
+                                value={checkoutForm.email ?  checkoutForm.email : ' '} 
                             />
                         </div>
                         <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
