@@ -8,14 +8,26 @@ const Start = () => {
         "Handles customer complaints",
         "Manages subscriptions & cancellations",
     ]
-    return (
+    return (<>
+        <pre lang="js">
+            <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+            <script
+                dangerouslySetInnerHTML={{
+                    __html: `
+              ChatBot.Widget({
+                id: "2bc35b89-0e39-43ab-964c-cc0212e081ad",
+              });
+            `,
+                }}
+            />
+        </pre>
         <div className='bg-background'>
             <div className=' mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10'>
                 <div className='block sm:flex md:flex lg:flex justify-evenly items-center gap-10'>
                     <div className=''>
                         <h1 className=" font-bold  text-2xl text-white  md:text-5xl lg:text-5xl sm:text-5xl">
-                        <span className="text-first-section-color">
-                            Never think </span>  about customer service again
+                            <span className="text-first-section-color">
+                                Never think </span>  about customer service again
                         </h1>
                         <ul className='list-none my-6 sm:my-6'>
                             {list.map((element, key) =>
@@ -29,6 +41,7 @@ const Start = () => {
                 </div>
             </div>
         </div>
+    </>
     )
 }
 
