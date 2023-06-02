@@ -35,14 +35,18 @@ const CheckOutForm = ({ checkoutForm, validateForm }) => {
             });
             if (error) { setError(error); setLoading(false); return; }
 
-            const result = await submitCheckout(checkoutForm);
+            let checkoutForm2 = { ...checkoutForm, password_confirm: checkoutForm.password }
+            // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
+
+            const result = await submitCheckout(checkoutForm2);
+
             if (result.token) {
                 handleSubscribe(paymentMethod, result.token);
-                localStorage.setItem("token", result.token);
+                localStorage.setItem("Token", result.token);
                 router.push("/dashboard");
                 setError(null);
             } else {
-                setError({message: 'Check user form fields and try again.'});
+                setError({ message: 'Check user form fields and try again.' });
             }
 
         } catch (error) {
@@ -55,18 +59,20 @@ const CheckOutForm = ({ checkoutForm, validateForm }) => {
 
     return (
         <form onSubmit={handleCheckout}>
-            <CardElement className="form-control" options={{
-                style: {
-                    base: {
-                        fontSize: '16px',
-                        padding: '2vh',
-                        lineHeight: '2.5',
-                        color: '#495057',
-                        border: 'solid',
-                        borderRadius: '1vh',
+            <div className='border rounded px-2 border-gray-100' style={{borderColor: '#80808080'}}>
+                <CardElement className="form-control" options={{
+                    style: {
+                        base: {
+                            fontSize: '16px',
+                            padding: '2vh',
+                            lineHeight: '2.5',
+                            color: '#495057',
+                            borderRadius: '1vh',
+                            borderStyle: 'solid',
+                        },
                     },
-                },
-            }} />
+                }} />
+            </div>
             {error && <p className="message">{error.message}</p>}
             {loading && <p className="message">Processing Payment...</p>}
             <button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout" disabled={false}>Checkout</button>

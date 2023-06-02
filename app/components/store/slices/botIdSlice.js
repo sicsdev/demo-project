@@ -55,7 +55,7 @@ export const fetchBot = createAsyncThunk('bot_id/fetchBotData', async () => {
     }
     return {
         main_bot_data : response,
-        widgets : widgets.map(element=>element.data),
-        bots : bots.map(element=>element.data),
+        widgets : null,
+        bots : null,
     }
 });
