@@ -17,9 +17,9 @@ const Start = () => {
                         <span className="text-first-section-color">
                             Never think </span>  about customer service again
                         </h1>
-                        <ul className='list-none my-8'>
+                        <ul className='list-none my-6 sm:my-6'>
                             {list.map((element, key) =>
-                                <li key={key} className='my-4 tracking-normal'>
+                                <li key={key} className='my-2 sm:my-2 tracking-normal'>
                                     <span className='flex gap-3  text-custom-small  text-xl align-bottom font-semibold'> &#x2713; {element}</span>
                                 </li>
                             )}

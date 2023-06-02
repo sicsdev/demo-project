@@ -43,3 +43,14 @@ body {
     margin: auto;
   }
 }
+
+@media (max-width: 768px) {
+  .img-div-2{
+    width: 120px;
+  }
+  .img-platform {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+  }
+}

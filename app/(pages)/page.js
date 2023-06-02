@@ -25,7 +25,7 @@ export default function Home() {
       <Social />
       <Testimonial />
       <Newstandard/>      {/* new */}
-      <Faq />             {/* new */}
+      {/* <Faq />   */}
     </main>
   );
 }

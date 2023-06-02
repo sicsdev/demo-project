@@ -57,11 +57,11 @@ const Testimonial = () => {
     }
   };
   return (
-    <div className="bg-white py-5 ">
-      <div className="my-16 cursor-pointer mx-auto max-w-[90%]">
+    <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5">
+      <div className="pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
-            "bg-type-section   block sm:flex md:flex lg:flex justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
+            "bg-type-section block sm:flex md:flex lg:flex justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
           }
         >
           <div className=" sm:w-[50%] md:w-[50%] lg:w-[50%]">

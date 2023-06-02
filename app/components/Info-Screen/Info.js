@@ -42,21 +42,21 @@ const Info = () => {
   }, []);
 
   return (
-    <div className="bg-background py-8 ">
+    <div className="bg-background pt-5 sm:pt-8 py-0 sm:py-8">
       <div className="justify-between mx-auto max-w-[90%] py-3">
-        <h1 className="text-center text-2xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
+        <h1 className="text-center text-3xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
           Save Millions with Tempo AI.
         </h1>
-        <h3 className="text-center text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
+        <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
           Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
         </h3>
 
 
 
-        <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-40">
+        <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-20">
           <div className="text-start sm:text-start md:text-start lg:text-start order-1">
             {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
-            <h1 className="font-bold  text-2xl   md:text-5xl lg:text-5xl sm:text-5xl   md:my-8 lg:my-8 sm:my-8  text-white js-show-on-scroll">
+            <h1 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl   md:my-8 lg:my-8 sm:my-8  text-white js-show-on-scroll">
               ChatGPT becomes the brain of your business.{" "}
             </h1>
             <h3 className="text-base sm:text-2xl md:text-2xl lg:text-2xl  my-2 font-base text-white js-show-on-scroll">
