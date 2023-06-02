@@ -79,16 +79,15 @@ const Testimonial = () => {
                 "py-2 px-8 w-full sm:px-20 md:px-20 lg:px-8 sm:py-8 md:py-8 lg:py-8 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
-              <span  dangerouslySetInnerHTML={{
+              <div  dangerouslySetInnerHTML={{
             __html: `
        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
        <span className="underline cursor-pointer text-white">           Demo Now! &#8594;
        </span>
        </a>
       `,
-          }}> 
+          }} /> 
           
-          </span>
             </button>
             <button
         
