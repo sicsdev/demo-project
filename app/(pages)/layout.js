@@ -9,7 +9,7 @@ export const metadata = {
 export default function PageLayout({ children }) {
 
     return (
-        <div className='w-[1400px] m-auto'>
+        <div className='sm:w-[1400px]  lg:w-[1400px] md:w-[1400px]  m-auto'>
             <Header /> {children}<Footer />
         </div>
     )
