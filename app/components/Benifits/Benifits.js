@@ -4,18 +4,21 @@ import Image from "next/image";
 const slides = [
   {
     background: `bg-sky`,
+    name:"Customer service headaches are history.",
     title:
       "Customer service is a solved problem. Automating support for our enterprise clients has been an immense cost-saver and has provided us with an industry-leading advantage.        ",
     editor: "Dean Zimberg",
     position: "CEO & Founder ",
     brand: "Perry",
-    img: "/testimonial/perry.svg",
+    img: "/perry-color4.svg",
   },
   {
     background: `bg-orange`,
     title:
       "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
-    editor: "Frank Patrick",
+      name:"We supercharged our business with Tempo.",
+   
+      editor: "Frank Patrick",
     position: "Vice President",
     brand: "LabPass",
     img: "labpass-color2.svg",
@@ -24,7 +27,8 @@ const slides = [
     background: `bg-neon`,
     title:
       "Instead of wasting my time hiring freelancers and trying to figure out new software platforms, I plugged into Tempo and was able to focus on what matters: growing my business.      ",
-    editor: "Matthew Epstein",
+    name:"I can finally focus on what matters.",
+      editor: "Matthew Epstein",
     brand: "Simple Senti",
     position: "Founder ",
 
@@ -72,7 +76,7 @@ const Benifits = () => {
         </Carasual>
       </div> */}
 
-      <div className="py-5">
+      <div className="bg-white py-5">
         <div className="max-w-[1400px]  w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
           <h2 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl text-center  my-8  text-heading">
             Why customers love Tempo
@@ -84,7 +88,9 @@ const Benifits = () => {
                 <div className="py-45 px-35">
                   <div>
                     <h3 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-white mb-3 js-show-on-scroll">
-                      Siena has been a game-changer.
+                   {item.name}
+
+
                     </h3>
                     <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
                       {item.title}
@@ -96,9 +102,9 @@ const Benifits = () => {
                       <p className="text-100 bold color-neutral-100 text-white opacity-80">
                       {item.editor}
                       </p>
-                      <p className="text-100 bold color-neutral-100 text-white opacity-80">
+                      {/* <p className="text-100 bold color-neutral-100 text-white opacity-80">
                       {item.brand}
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>

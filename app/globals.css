@@ -13,16 +13,33 @@
   object-fit: cover;
 }
 
-.rotate-180{
+.rotate-180 {
   transition-timing-function: ease;
   transition-duration: 0.125s;
   transition-delay: 0.1s;
 }
 
-pre code.hljs{
-    padding: 0 !important;
+pre code.hljs {
+  padding: 0 !important;
 }
 
 span.hljs-tag {
-    font-size: 13px;
+  font-size: 13px;
+}
+.img-div-2{
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+.img-div-2  img{object-fit: contain;}
+body {
+  background-color: 
+  #e5e7eb
+  ;
+}
+@media (min-width: 1400px) {
+  .tempo_container {
+    width: 1450px;
+    margin: auto;
+  }
 }

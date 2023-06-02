@@ -20,7 +20,7 @@ const slides = [
 ];
 const Newstandard = () => {
   return (
-    <div className="bg-background py-8 mb-12">
+    <div className="bg-background py-8 ">
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
         <h2 className="text-center  text-2xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
           A new standard for intelligent automation

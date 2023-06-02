@@ -57,7 +57,7 @@ const Testimonial = () => {
     }
   };
   return (
-    <div className="py-5 ">
+    <div className="bg-white py-5 ">
       <div className="my-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={

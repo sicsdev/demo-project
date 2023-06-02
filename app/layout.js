@@ -50,9 +50,11 @@ _learnq.push(['account', 'UVQx8p']);
         />
       </head>
       <body suppressHydrationWarning={true} className={inter.className}>
+        <div className='tempo_container'>
         <ProviderWrapper>
           {children}
         </ProviderWrapper>
+        </div>
       </body>
     </html>
   );

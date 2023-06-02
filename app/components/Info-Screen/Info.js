@@ -42,7 +42,7 @@ const Info = () => {
   }, []);
 
   return (
-    <div className="bg-background py-8 mb-12">
+    <div className="bg-background py-8 ">
       <div className="justify-between mx-auto max-w-[90%] py-3">
         <h1 className="text-center text-2xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
           Save Millions with Tempo AI.
