@@ -66,6 +66,7 @@ const Header = () => {
                 {/* <li className="text-white text-center">
                   <Link href="/free-trial">Pricing</Link>
                 </li> */}
+                
                 <li className="text-white   font-bold text-center">
                   <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">
                     <Link href="/free-trial">Start Now</Link>
