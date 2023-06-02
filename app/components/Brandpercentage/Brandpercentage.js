@@ -15,7 +15,7 @@ const Brandpercentage = () => {
             </div>
             <div class="data-wrapper text-center">
               <p class="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">0</p>
-              <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">No-code setup</p>
+              <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">Lines of code needed</p>
             </div>
             <div class="data-wrapper text-center">
               <p class="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">1,000+</p>
