@@ -15,7 +15,7 @@ const Start = () => {
                 dangerouslySetInnerHTML={{
                     __html: `
               ChatBot.Widget({
-                id: "2bc35b89-0e39-43ab-964c-cc0212e081ad",
+                id: "42b15a2e-1975-41fc-8157-fd03b602a36d",
               });
             `,
                 }}
