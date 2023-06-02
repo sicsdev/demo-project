@@ -164,7 +164,7 @@ module.exports = {
         bottoggle: "bottoggle 0.7s ease-in-out",
         backbottoggle: "backbottoggle 0.7s ease-in-out",
         chattile: "chattile 1s ease-in",
-        fadeIn: "fadeIn 1s ease-in forwards",
+        fadeIn: "fadeIn .5s ease-in forwards",
       },
     },
   },

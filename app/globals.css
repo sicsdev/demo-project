@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 .img-div-1:hover {
-  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%)
-    hue-rotate(510deg) brightness(51%) contrast(196%);
+  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
 }
 
 .img-platform {
@@ -13,16 +12,49 @@
   object-fit: cover;
 }
 
-.rotate-180{
+.rotate-180 {
   transition-timing-function: ease;
   transition-duration: 0.125s;
   transition-delay: 0.1s;
 }
 
-pre code.hljs{
-    padding: 0 !important;
+pre code.hljs {
+  padding: 0 !important;
 }
 
 span.hljs-tag {
-    font-size: 13px;
+  font-size: 13px;
+}
+.img-div-2{
+  display: flex;
+  align-items: center;
+  width: 140px;
+}
+.img-div-2  img{object-fit: contain;}
+body {
+  background-color: 
+  #e5e7eb
+  ;
+}
+/* @media (min-width: 1400px) {
+  .tempo_container {
+    width: 1450px;
+    margin: auto;
+  }
+} */
+
+@media (max-width: 768px) {
+  .img-div-2{
+    width: 120px;
+  }
+  .img-platform {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+  }
+}
+pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

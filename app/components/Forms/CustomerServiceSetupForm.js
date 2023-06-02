@@ -12,7 +12,7 @@ import { useState } from "react";
 import TextField from "../Common/Input/TextField";
 import { createBot, createBotFaqFile } from "@/app/API/pages/Bot";
 import { useDispatch } from "react-redux";
-import { setBotId } from "../store/slices/botIdSlice";
+import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 const schema = yup.object({
   enable_refund: yup.string().required(),
   refund_friendliness: yup.string(),
@@ -26,7 +26,7 @@ const schema = yup.object({
   payments_platform: yup.string().required(),
 }).required();
 
-export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep }) {
+export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal ,form = true }) {
   const dispatch = useDispatch()
   const [showRefund_friendliness, setShowRefund_friendliness] = useState(true)
   const [loading, setLoading] = useState(false)
@@ -81,21 +81,39 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     }
     console.log("payload", payload)
     const bot = await createBot(payload)
-    if (bot?.status === 201) {
-      const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile })
-      if (bot_faq?.status === 201) {
-        dispatch(setBotId(bot.data.id))
-        setCustomerFormData(data)
-        setLoading(false)
-        setErrorMessage(null)
-        setIntakeStep(2)
+    if (form === true) {
+      if (bot?.status === 201) {
+        const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile })
+        if (bot_faq?.status === 201) {
+          dispatch(setBotId(bot.data.id))
+          setCustomerFormData(data)
+          setLoading(false)
+          setErrorMessage(null)
+          setIntakeStep(2)
+        } else {
+          setErrorMessage(bot_faq.message)
+          setLoading(false)
+        }
       } else {
-        setErrorMessage(bot_faq.message)
+        setErrorMessage(bot.message)
         setLoading(false)
       }
     } else {
-      setErrorMessage(bot.message)
-      setLoading(false)
+      if (bot?.status === 201) {
+        const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile })
+        if (bot_faq?.status === 201) {
+          setLoading(false)
+          setErrorMessage(null)
+          setShowModal(false)
+          dispatch(fetchBot())
+        } else {
+          setErrorMessage(bot_faq.message)
+          setLoading(false)
+        }
+      } else {
+        setErrorMessage(bot.message)
+        setLoading(false)
+      }
     }
   };
 
@@ -195,7 +213,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
                 });
               setErrorMessage(null)
             } else {
-              setError('faq_upload', {type:'custom', message: 'Invalid file format. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.' })
+              setError('faq_upload', { type: 'custom', message: 'Invalid file format. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.' })
               setErrorMessage('Invalid file format. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.')
               resetField('faq_upload')
             }
@@ -215,7 +233,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
                 });
               setErrorMessage(null)
             } else {
-              setError('faq_upload', {type:'custom', message: 'Invalid file format. Please select a JPEG, PNG, or GIF file.' })
+              setError('faq_upload', { type: 'custom', message: 'Invalid file format. Please select a JPEG, PNG, or GIF file.' })
               setErrorMessage('Invalid file format. Please select a JPEG, PNG, or GIF file.')
             }
 
@@ -224,17 +242,19 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
         {error && (<span className="text-xs text-danger col-span-3 mt-2 text-center">{error}</span>)}
         <div className="flex col-span-3  items-center justify-between p-2 rounded-b">
-          <Button type={"button"}
-            className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-            onClick={() => { setIntakeStep(0) }}
-          >
-            Back
-          </Button>
+          {form === true && (
+            <Button type={"button"}
+              className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+              onClick={() => { setIntakeStep(0) }}
+            >
+              Back
+            </Button>
+          )}
           <Button type={"submit"}
             className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
             disabled={loading ? true : false}
           >
-            {loading ? 'Loading...' : 'Next'}
+            {loading ? 'Loading...' : form ? 'Next' : "Submit"}
           </Button>
         </div>
       </form>

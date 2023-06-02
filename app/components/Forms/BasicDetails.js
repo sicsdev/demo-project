@@ -16,9 +16,10 @@ const schema = yup.object({
     business_company_size: yup.string().required(),
 }).required();
 
-export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep }) {
+export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep, form = true, setIsEdit }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+    console.log(basicFormData)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             business_address: basicFormData?.business_address ? basicFormData.business_address : '',
@@ -41,14 +42,23 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
             "ecommerce_platform": data.ecommerce_platform
         }
         const createEnterprise = await createEnterpriseAccount(payload)
-        if (createEnterprise?.status === 201) {
-            setBasicFormData(data)
-            setIntakeStep(1)
-            setError(null)
-            setLoading(false)
+
+        if (form === true) {
+            if (createEnterprise?.status === 201) {
+                setBasicFormData(data)
+                setIntakeStep(1)
+                setError(null)
+                setLoading(false)
+            } else {
+                setError(createEnterprise.message)
+                setLoading(false)
+            }
         } else {
-            setError(createEnterprise.message)
-            setLoading(false)
+            if (createEnterprise?.status === 201) {
+                setBasicFormData(data)
+                setIsEdit(true)
+                setLoading(false)
+            }
         }
     };
     return (
@@ -59,13 +69,13 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
                 <SelectField values={business_industry_data} register={register("business_industry")} title={"Business Industry"} id={'business_industry'} error={errors.business_industry} className="py-3" />
                 <SelectField values={business_company_size_data} register={register("business_company_size")} title={"Business Company Size"} id={'business_company_size'} error={errors.business_company_size} className="py-3" />
                 <SelectField values={ecommerce_platform_data} register={register("ecommerce_platform")} title={"Ecommerce Platform"} id={'ecommerce_platform'} error={errors.ecommerce_platform} className="py-3" labelClassName={'col-span-2'} />
-                {error &&(<span className="text-xs text-danger col-span-2 mt-2 text-center">{error}</span>)}
+                {error && (<span className="text-xs text-danger col-span-2 mt-2 text-center">{error}</span>)}
                 <div className="flex col-span-2 items-center justify-end p-2 rounded-b">
                     <Button type={"submit"}
                         className="inline-block float-right rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                         disabled={loading ? true : false}
                     >
-                        {loading ? 'Loading...' : 'Next'}
+                        {loading ? 'Loading...' : form === true ? 'Next' : 'Submit'}
 
                     </Button>
                 </div>

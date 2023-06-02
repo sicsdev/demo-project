@@ -15,7 +15,7 @@ const Start = () => {
                 dangerouslySetInnerHTML={{
                     __html: `
               ChatBot.Widget({
-                id: "2bc35b89-0e39-43ab-964c-cc0212e081ad",
+                id: "42b15a2e-1975-41fc-8157-fd03b602a36d",
               });
             `,
                 }}
@@ -29,9 +29,9 @@ const Start = () => {
                             <span className="text-first-section-color">
                                 Never think </span>  about customer service again
                         </h1>
-                        <ul className='list-none my-8'>
+                        <ul className='list-none my-6 sm:my-6'>
                             {list.map((element, key) =>
-                                <li key={key} className='my-4 tracking-normal'>
+                                <li key={key} className='my-2 sm:my-2 tracking-normal'>
                                     <span className='flex gap-3  text-custom-small  text-xl align-bottom font-semibold'> &#x2713; {element}</span>
                                 </li>
                             )}
