@@ -42,7 +42,7 @@ const CheckOutForm = ({ checkoutForm, validateForm }) => {
 
             if (result.token) {
                 handleSubscribe(paymentMethod, result.token);
-                localStorage.setItem("token", result.token);
+                localStorage.setItem("Token", result.token);
                 router.push("/dashboard");
                 setError(null);
             } else {
