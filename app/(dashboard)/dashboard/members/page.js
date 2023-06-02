@@ -46,8 +46,7 @@ const Page = () => {
 
                 </ul>
             </div>
-
-            {state?.data?.isLoading === true? 
+            {state?.isLoading === true? 
             <Loading /> 
             :
                 <div className='mt-5'>

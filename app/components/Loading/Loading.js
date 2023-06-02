@@ -3,7 +3,7 @@ import { ThreeDots } from 'react-loader-spinner'
 
 const Loading = () => {
     return (
-        <div className='fixed left-[50%] top-[50%]'>
+        <div className='fixed left-[36%] sm:left-[55%] md:left-[55%] lg:left-[55%] top-[50%]'>
             <ThreeDots
             height="80"
             width="100"

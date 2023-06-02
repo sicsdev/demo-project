@@ -16,7 +16,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className="scroll-smooth ">
       <head>
         {/* <link rel="icon" href="/favicon.ico" /> */}
-
+        <meta property="og:title" content="iPhone" />
+        <meta property="og:image" content="https://www.apple.com/v/iphone/home/t/images/home/og.png?201610171354" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
