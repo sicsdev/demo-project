@@ -21,7 +21,7 @@ const Desktop = ({ pro, guru, setSelect, select }) => {
             <Container>
                 <div className='flex gap-4 ' >
                     <div className=''>
-                        <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading'>Choose your trial plan</h1>
+                        <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading'>Choose your plan</h1>
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 my-12'>
                             <Card className={'cursor-pointer hover:bg-card_bg border border-border'} onClick={() => { setSelect(0) }}>
                                 <div>
