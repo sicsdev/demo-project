@@ -36,12 +36,12 @@ body {
   #e5e7eb
   ;
 }
-@media (min-width: 1400px) {
+/* @media (min-width: 1400px) {
   .tempo_container {
     width: 1450px;
     margin: auto;
   }
-}
+} */
 
 @media (max-width: 768px) {
   .img-div-2{
