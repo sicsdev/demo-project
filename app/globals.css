@@ -52,7 +52,7 @@ body {
     height: 45px;
     object-fit: cover;
   }
-
+}
 pre {
   overflow-x: auto;
   white-space: pre-wrap;
