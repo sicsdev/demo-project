@@ -2,20 +2,27 @@ import React from "react";
 
 const slides = [
   {
-    title: "GPT-4 infrastructure",
-    text: "Automate more resolutions with less effort and radically advanced automation experiences.",
+    title: "ChatGPT and GPT-4 Power    ",
+    text: "Harness the latest models to intelligently streamline your operations.    ",
+    tag:"New"
   },
   {
-    title: "GPT-4 infrastructure",
-    text: "Automate more resolutions with less effort and radically advanced automation experiences.",
+    title: "Plug-and-play integration    ",
+    text: "Connect your payments, CRM, inventory management, and backend with one click.    ",
+    tag:"New"
+
   },
   {
-    title: "GPT-4 infrastructure",
-    text: "Automate more resolutions with less effort and radically advanced automation experiences.",
+    title: "Train on your policies    ",
+    text: "Utilize our LLM connectors to analyze your FAQ and shipping/return policy to customize your workflows.    ",
+    tag:""
+
   },
   {
-    title: "GPT-4 infrastructure",
-    text: "Automate more resolutions with less effort and radically advanced automation experiences.",
+    title: "Self-learning AI model    ",
+    text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
+    tag:""
+
   },
 ];
 const Newstandard = () => {
@@ -36,12 +43,14 @@ const Newstandard = () => {
                 <h3 className="font-semibold text-xl md:text-xl lg:text-xl sm:text-xl text-white js-show-on-scroll">
                   {item.title}
                 </h3>
+                {item.tag  &&  
                 <button
                   class="font-semibold rounded-full px-4 py-1 text-black js-show-on-scroll"
                   style={{ background: "#dbff1d" }}
                 >
-                  New
+                  {item?.tag}
                 </button>
+}
               </div>
               <div className="flex flex-co justify-start items-center gap-4">
                 <p className="text-white opacity-80 js-show-on-scroll">{item.text}</p>
