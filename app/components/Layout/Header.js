@@ -66,8 +66,8 @@ const Header = () => {
             </div>
           </div>
           <div>
-            {getWindow?.location?.href.includes("checkout") ||
-            getWindow?.location?.href.includes("/free-trial") ? (
+            {getWindow()?.location?.href.includes("checkout") ||
+            getWindow()?.location?.href.includes("free-trial") ? (
               ""
             ) : (
               <div

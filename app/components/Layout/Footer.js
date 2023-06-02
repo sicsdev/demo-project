@@ -52,7 +52,9 @@ const Footer = () => {
               </div>
               <div>
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+              <Link href='/login'>
                   Login
+                  </Link>
                 </h6>
               </div>
               <div className="flex">
