@@ -19,6 +19,7 @@ const Checkout = () => {
     const router = useRouter()
     const searchParams = useSearchParams();
     const [planQuery, setPlanQuery] = useState('')
+    const [showSummary, setShowSummary] = useState(false)
 
     useEffect(() => {
         searchParams.get('plan') ? setPlanQuery(searchParams.get('plan')) : setPlanQuery('')
@@ -39,20 +40,65 @@ const Checkout = () => {
         setUserformErrors([])
         let email = checkoutForm.email;
         let password = checkoutForm.password;
-        let password_confirm = checkoutForm.password_confirm;
         let newErrors = []
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) { newErrors.push('Please enter a valid email address') }
         if (password.length < 6) { newErrors.push('Password must be at least 6 characters') }
-        if (password !== password_confirm) { newErrors.push('Passwords do not match') }
         setUserformErrors([...newErrors])
     }
 
+    const toggleClass = () => {
+        setShowSummary(!showSummary)
+    }
 
     return (
         <Container>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 '>
+
+                <div className="text-center hidden">
+                    <div
+                        className="order-summary-moblie mobile-view"
+                        onClick={toggleClass}
+                        style={{ position: "relative", cursor: "pointer" }}
+                    >
+                        {showSummary ? (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                &nbsp; - Hide Order Summary&nbsp;
+                                <hr className='opacity-10 my-1'></hr>
+                                <div>
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                                        <tbody>
+                                            <tr className="dark:bg-gray-800 bg-white">
+                                                <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
+                                                    {planQuery == 1 && "Pro Plan"}
+                                                    {planQuery == 0 && "Standard Plan"}
+                                                </th>
+                                                <td className="px-6 py-4 text-base">
+                                                    Free Trial
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr className="text-base text-gray-900 bg-white text-black text-black">
+                                                <th scope="row" className="px-6 py-3 text-base">Total</th>
+                                                <td className="px-6 py-3">$0</td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                <span>&nbsp; + Show Order Summary&nbsp;</span>
+                                <hr className='opacity-10 my-1'></hr>
+                            </>
+                        )}
+                    </div>
+                </div>
                 <div>
                     <h1 className='text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading'>Checkout</h1>
                     <h3 className='text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading '>1. Enter Your Info</h3>
@@ -73,10 +119,6 @@ const Checkout = () => {
                             <span className="text-start text-sm font-normal w-[20%] text-border">Password</span>
                             <input type={"password"} placeholder={"Password"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password' id={"password"} onChange={handleFormValues} />
                         </div>
-                        <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border border-b-0'>
-                            <span className="text-start text-sm font-normal w-[20%] text-border">Confirm Password</span>
-                            <input type={"password"} placeholder={"Password confirm"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password_confirm' id={"passwordConfirm"} onChange={handleFormValues} />
-                        </div>
                     </div>
                     <div className="flex items-center my-6">
                         <input id="link-checkbox" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked onChange={() => { console.log("") }} />
@@ -91,7 +133,7 @@ const Checkout = () => {
                     <h3 className='text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading '>2. Select Payment Method</h3>
                     <div className='border border-border rounded-lg p-4 bg-white'>
                         <div className='flex items-center justify-between'>
-                            <div className="payment-element-child"><h3 className='text-sm text-black'>Credit or Debit Card</h3><p className="text-sm text-black mt-1">HSA / FSA accepted</p></div>
+                            <div className="payment-element-child"><h3 className='text-sm text-black'>Credit or Debit Card</h3><p className="text-sm text-black mt-1"></p></div>
                             <Logos />
                         </div>
                         <div className='my-3 p-3'>
@@ -102,20 +144,12 @@ const Checkout = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className="hidden md:block">
                     <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border" >
                         <Card className={'border bg-white border-border '}>
+                            <h5>Order Summary</h5>
+                            <hr className='opacity-10 my-1'></hr>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 bg-white dark:text-gray-400 ">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Selected Plan
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Price
-                                        </th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr className="dark:bg-gray-800 bg-white">
                                         <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
@@ -135,14 +169,7 @@ const Checkout = () => {
                                     </tr>
                                 </tfoot>
 
-
                             </table>
-                            <div className='text-center text-xs'>
-                                <span className='text-xs'>
-                                    {planQuery == 1 && "7 days free, then $599.99/mo"}
-                                    {planQuery == 0 && "7 days free, then $449.99/mo"}
-                                    </span>
-                            </div>
 
                         </Card>
 
