@@ -3,29 +3,26 @@ import Container from '../Container/Container'
 import Card from '../Common/Card/Card'
 import Button from '../Common/Button/Button'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const Mobile = ({ pro, guru, setSelect, select }) => {
 
     const router = useRouter()
-    const searchParams = useSearchParams();
-    const emailQuery = searchParams.get('email')
-
     const handleGetFreeTrial = () => {
-        router.push(`/checkout?email=${emailQuery}&plan=${select}`);
+        localStorage.setItem('tempPlan', select);
+        router.push(`/checkout`);
     }
 
-
     return (
-        <div className='block  lg:hidden'>
+        <div className='block lg:hidden'>
             <Container>
-                <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading'>Choose your trial plan</h1>
+                <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading'>Choose your plan</h1>
                 <ul className=" text-sm font-medium text-center flex my-4">
-                    <li className={`w-full border border-border ${select === 0 ?"bg-card_bg":"bg-white"}`} onClick={() => setSelect(0)}>
-                        <a href="#" className="inline-block w-full p-4 text-gray-900 bg-gray-100 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white" aria-current="page">Pro</a>
+                    <li className={`w-full border border-border ${select === 0 ?"bg-primary":"bg-white"}`} onClick={() => setSelect(0)}>
+                        <a href="#" className="inline-block w-full p-4 text-gray-900 bg-gray-100 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700" aria-current="page">Pro</a>
                     </li>
-                    <li className={`w-full border border-border ${select === 1 ?"bg-card_bg":"bg-white"}`} onClick={() => setSelect(1)}>
-                        <a href="#" className="inline-block w-full p-4  hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Guru</a>
+                    <li className={`w-full border border-border ${select === 1 ?"bg-primary":"bg-white"}`} onClick={() => setSelect(1)}>
+                        <a href="#" className="inline-block w-full p-4  hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none  dark:bg-gray-800 dark:hover:bg-gray-700">Guru</a>
                     </li>
                 </ul>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 my-12'>

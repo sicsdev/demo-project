@@ -19,13 +19,11 @@ const Checkout = () => {
     const router = useRouter()
     const searchParams = useSearchParams();
     const [planQuery, setPlanQuery] = useState('')
-    const [emailQuery, setEmailQuery] = useState('')
+    const [showSummary, setShowSummary] = useState(false)
 
     useEffect(() => {
-
         searchParams.get('plan') ? setPlanQuery(searchParams.get('plan')) : setPlanQuery('')
-        searchParams.get('email') ? setEmailQuery(searchParams.get('email')) : setEmailQuery('')
-
+        searchParams.get('email') ? setCheckoutForm({ ...checkoutForm, email: searchParams.get('email') }) : setCheckoutForm({ ...checkoutForm, email: '' })
     }, [])
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }) // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
@@ -42,27 +40,92 @@ const Checkout = () => {
         setUserformErrors([])
         let email = checkoutForm.email;
         let password = checkoutForm.password;
-        let password_confirm = checkoutForm.password_confirm;
         let newErrors = []
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) { newErrors.push('Please enter a valid email address') }
         if (password.length < 6) { newErrors.push('Password must be at least 6 characters') }
-        if (password !== password_confirm) { newErrors.push('Passwords do not match') }
         setUserformErrors([...newErrors])
     }
 
+    const toggleClass = () => {
+        setShowSummary(!showSummary)
+    }
 
     return (
         <Container>
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8'>
+            <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 '>
+
+                <div className="text-center lg:hidden">
+                    <div
+                        className="rounded text-center"
+                        onClick={toggleClass}
+                        style={{ position: "relative", cursor: "pointer" }}
+                    >
+                        {showSummary ? (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='text-center flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'> Hide Order Summary</span>
+                                    </div>
+                                </div>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='border rounded-lg border-border'>
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" >
+                                        <tbody>
+                                            <tr className="dark:bg-gray-800">
+                                                <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
+                                                    {planQuery == 1 && "Pro Plan"}
+                                                    {planQuery == 0 && "Standard Plan"}
+                                                </th>
+                                                <td className="px-6 py-4 text-base">
+                                                    Free Trial
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr className=" text-gray-900 text-black text-black">
+                                                <th className="px-6 py-3 text-base">Total</th>
+                                                <td className="px-6 py-3">$0</td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'>Show Order Summary</span>
+                                    </div>
+                                    <div className='text-right'>
+                                        $0
+                                    </div>
+                                </div>
+                                <hr className='opacity-10 my-1'></hr>
+                            </>
+                        )}
+                    </div>
+                </div>
                 <div>
                     <h1 className='text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading'>Checkout</h1>
                     <h3 className='text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading '>1. Enter Your Info</h3>
                     <div className='border bg-white rounded-lg border-border'>
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Work Email</span>
-                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={emailQuery && emailQuery} />
+                            <input type={"email"} placeholder={"Email"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='email' id={"email"} onChange={handleFormValues} value={checkoutForm.email} />
                         </div>
                         <div className='flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Full Name</span>
@@ -75,10 +138,6 @@ const Checkout = () => {
                         <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border'>
                             <span className="text-start text-sm font-normal w-[20%] text-border">Password</span>
                             <input type={"password"} placeholder={"Password"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password' id={"password"} onChange={handleFormValues} />
-                        </div>
-                        <div className='flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border border-b-0'>
-                            <span className="text-start text-sm font-normal w-[20%] text-border">Confirm Password</span>
-                            <input type={"password"} placeholder={"Password confirm"} className={"p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "} name='password_confirm' id={"passwordConfirm"} onChange={handleFormValues} />
                         </div>
                     </div>
                     <div className="flex items-center my-6">
@@ -94,7 +153,7 @@ const Checkout = () => {
                     <h3 className='text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading '>2. Select Payment Method</h3>
                     <div className='border border-border rounded-lg p-4 bg-white'>
                         <div className='flex items-center justify-between'>
-                            <div className="payment-element-child"><h3 className='text-sm text-black'>Credit or Debit Card</h3><p className="text-sm text-black mt-1">HSA / FSA accepted</p></div>
+                            <div className="payment-element-child"><h3 className='text-sm text-black'>Credit or Debit Card</h3><p className="text-sm text-black mt-1"></p></div>
                             <Logos />
                         </div>
                         <div className='my-3 p-3'>
@@ -105,20 +164,12 @@ const Checkout = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className="hidden md:block">
                     <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border" >
                         <Card className={'border bg-white border-border '}>
+                            <h5>Order Summary</h5>
+                            <hr className='opacity-10 my-1'></hr>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 bg-white dark:text-gray-400 ">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Selected Plan
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Price
-                                        </th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr className="dark:bg-gray-800 bg-white">
                                         <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
@@ -138,14 +189,7 @@ const Checkout = () => {
                                     </tr>
                                 </tfoot>
 
-
                             </table>
-                            <div className='text-center text-xs'>
-                                <span className='text-xs'>
-                                    {planQuery == 1 && "7 days free, then $599.99/mo"}
-                                    {planQuery == 0 && "7 days free, then $449.99/mo"}
-                                    </span>
-                            </div>
 
                         </Card>
 
