@@ -13,7 +13,7 @@ const Header = () => {
           <div>
             <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
               <Link href="/">
-                <img src="logo.png" alt="logo"   class="w-24 h-15 object-contain"  />
+                <img src="logo.png" alt="logo" class="w-24 h-15 object-contain" />
               </Link>
               <div className="md:hidden">
                 <button
@@ -55,25 +55,22 @@ const Header = () => {
           </div>
           <div>
             <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-                navbar ? "block" : "hidden"
-              }`}
+              className={`flex-1 justify-self-center pb-3 mt-2 md:block md:pb-0 md:mt-0 ${navbar ? "block" : "hidden"
+                }`}
             >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-                <li className="text-white text-center">
+              <ul className="flex items-center justify-center space-x-6 md:space-x-4 md:mx-3">
+                <li className="text-white text-center" onClick={() => setNavbar(false)}>
                   <Link href="/login">Login</Link>
                 </li>
-                {/* <li className="text-white text-center">
-                  <Link href="/free-trial">Pricing</Link>
-                </li> */}
-                <li className="text-white   font-bold text-center">
-                  <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">
+                <li className="text-white font-bold text-center" onClick={() => setNavbar(false)}>
+                  <button className="rounded-lg border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black py-1 px-2">
                     <Link href="/free-trial">Start Now</Link>
                   </button>
                 </li>
               </ul>
             </div>
           </div>
+
         </div>
       </nav>
     </div>

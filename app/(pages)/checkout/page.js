@@ -55,21 +55,30 @@ const Checkout = () => {
         <Container>
             <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 '>
 
-                <div className="text-center hidden">
+                <div className="text-center lg:hidden">
                     <div
-                        className="order-summary-moblie mobile-view"
+                        className="rounded text-center"
                         onClick={toggleClass}
                         style={{ position: "relative", cursor: "pointer" }}
                     >
                         {showSummary ? (
                             <>
                                 <hr className='opacity-10 my-1'></hr>
-                                &nbsp; - Hide Order Summary&nbsp;
+                                <div className='text-center flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'> Hide Order Summary</span>
+                                    </div>
+                                </div>
                                 <hr className='opacity-10 my-1'></hr>
-                                <div>
-                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                                <div className='border rounded-lg border-border'>
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" >
                                         <tbody>
-                                            <tr className="dark:bg-gray-800 bg-white">
+                                            <tr className="dark:bg-gray-800">
                                                 <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
                                                     {planQuery == 1 && "Pro Plan"}
                                                     {planQuery == 0 && "Standard Plan"}
@@ -78,11 +87,10 @@ const Checkout = () => {
                                                     Free Trial
                                                 </td>
                                             </tr>
-
                                         </tbody>
                                         <tfoot>
-                                            <tr className="text-base text-gray-900 bg-white text-black text-black">
-                                                <th scope="row" className="px-6 py-3 text-base">Total</th>
+                                            <tr className=" text-gray-900 text-black text-black">
+                                                <th className="px-6 py-3 text-base">Total</th>
                                                 <td className="px-6 py-3">$0</td>
                                             </tr>
                                         </tfoot>
@@ -93,7 +101,19 @@ const Checkout = () => {
                         ) : (
                             <>
                                 <hr className='opacity-10 my-1'></hr>
-                                <span>&nbsp; + Show Order Summary&nbsp;</span>
+                                <div className='flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'>Show Order Summary</span>
+                                    </div>
+                                    <div className='text-right'>
+                                        $0
+                                    </div>
+                                </div>
                                 <hr className='opacity-10 my-1'></hr>
                             </>
                         )}
