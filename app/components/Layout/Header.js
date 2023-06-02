@@ -5,6 +5,14 @@ import Banner from "./Banner";
 
 const Header = () => {
   const [navbar, setNavbar] = useState(false);
+
+  const getWindow = () => {
+    if (typeof window !== "undefined") {
+      return window;
+    }
+    return null;
+  };
+
   return (
     <div className="sticky top-0 start-0	z-40">
       <Banner />
@@ -58,33 +66,39 @@ const Header = () => {
             </div>
           </div>
           <div>
-            <div
-              className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
-                navbar ? "block" : "hidden"
-              }`}
-              onClick={() => setNavbar(false)}
-
-            >
-              <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
-               
-
-                <li className="text-[#ADD8E6] text-center flex items-center justify-center" >
-                <img src="phone.png" className="w-4 h-15 object-contain" /> <a href="tel:+1 (855) 308-3676
-" style={{marginLeft:"5px"}}>+1 (855) 308-3676
-
-</a>
-                </li>
-                {/* <li className="text-white text-center">
+            {getWindow?.location?.href.includes("checkout") ||
+            getWindow?.location?.href.includes("/free-trial") ? (
+              ""
+            ) : (
+              <div
+                className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                  navbar ? "block" : "hidden"
+                }`}
+                onClick={() => setNavbar(false)}
+              >
+                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                  <li className="text-[#ADD8E6] text-center flex items-center justify-center">
+                    <img src="phone.png" className="w-4 h-15 object-contain" />{" "}
+                    <a
+                      href="tel:+1 (855) 308-3676
+"
+                      style={{ marginLeft: "5px" }}
+                    >
+                      +1 (855) 308-3676
+                    </a>
+                  </li>
+                  {/* <li className="text-white text-center">
                   <Link href="/free-trial">Pricing</Link>
                 </li> */}
 
-                <li className="text-white   font-bold text-center">
-                  <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">
-                    <Link href="/free-trial">Start Now</Link>
-                  </button>
-                </li>
-              </ul>
-            </div>
+                  <li className="text-white   font-bold text-center">
+                    <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">
+                      <Link href="/free-trial">Start Now</Link>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </nav>

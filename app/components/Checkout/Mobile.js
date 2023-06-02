@@ -24,7 +24,7 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                     <li className={`w-full border border-border ${select === 0 ?"bg-card_bg":"bg-white"}`} onClick={() => setSelect(0)}>
                         <a href="#" className="inline-block w-full p-4 text-gray-900 bg-gray-100 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white" aria-current="page">Pro</a>
                     </li>
-                    <li className={`w-full border border-border ${select === 1 ?"bg-card_bg":"bg-white"}`} onClick={() => setSelect(1)}>
+                    <li className={`w-full border border-border ${select === 1 ?"bg-[#87a5e9]":"bg-white"}`} onClick={() => setSelect(1)} style={{backgroundColor:"#87a5e9"}}>
                         <a href="#" className="inline-block w-full p-4  hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Guru</a>
                     </li>
                 </ul>
