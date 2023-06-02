@@ -51,6 +51,7 @@ const Info = () => {
           Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
         </h3>
 
+
         <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-40">
           <div className="text-start sm:text-start md:text-start lg:text-start order-1">
             {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
