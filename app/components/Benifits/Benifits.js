@@ -91,6 +91,7 @@ const Benifits = () => {
                    {item.name}
 
 
+
                     </h3>
                     <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
                       {item.title}
