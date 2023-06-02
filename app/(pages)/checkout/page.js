@@ -31,7 +31,10 @@ const Checkout = () => {
                 ...checkoutForm,
                 "email": searchParams.get("email")
             })
-            : setEmailQuery("");
+            : setCheckoutForm({
+                ...checkoutForm,
+                "email": ""
+            })
     }, []);
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
