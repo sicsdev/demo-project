@@ -29,12 +29,9 @@ const Checkout = () => {
         searchParams.get("email")
             ? setCheckoutForm({
                 ...checkoutForm,
-                email: searchParams.get("email")
+                "email": ''
             })
-            : setCheckoutForm({
-                ...checkoutForm,
-                email: ' '
-            })
+            : setEmailQuery("");
     }, []);
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
@@ -111,7 +108,7 @@ const Checkout = () => {
                                 name="email"
                                 id={"email"}
                                 onChange={handleFormValues}
-                                value={checkoutForm.email ?  checkoutForm.email : ' '} 
+                                value={checkoutForm.email && checkoutForm.email}
                             />
                         </div>
                         <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">

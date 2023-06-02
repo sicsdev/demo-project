@@ -7,7 +7,7 @@ const Banner = () => {
         Onboard real agents powered by ChatGPT to plug into Shopify, Salesforce,
         Zendesk, or your custom store.{" "}
         {/* <span className="underline cursor-pointer "> Start Now</span> */}
-        <span className="mt-2 sm:mt-0 inline pl-2 underline"
+        <span className="mt-2 sm:mt-0 inline pl-2 underline uppercase"
         
         >
           <Link  href='/free-trial'>
