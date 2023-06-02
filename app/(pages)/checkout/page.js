@@ -29,7 +29,7 @@ const Checkout = () => {
         searchParams.get("email")
             ? setCheckoutForm({
                 ...checkoutForm,
-                "email": searchParams.get("email")
+                "email": ''
             })
             : setEmailQuery("");
     }, []);
