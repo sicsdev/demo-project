@@ -72,9 +72,9 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className="block sm:flex md:flex lg:flex justify-start items-center gap-5">
+        <div className=" flex justify-center sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-5">
           <small className="text-border" style={{ color: "#36454F" }}>
-            1000+ agents
+            1,000+ agents
           </small>
           <small className="text-border" style={{ color: "#36454F" }}>
             24/7 support

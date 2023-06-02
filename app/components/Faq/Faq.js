@@ -31,7 +31,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
+    <div className="bg-white  w-full  sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
       <h2 className="font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl text-center my-8 text-heading">
         FAQ
       </h2>
