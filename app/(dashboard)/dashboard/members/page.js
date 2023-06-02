@@ -55,7 +55,7 @@ const Page = () => {
                     <div className="relative overflow-x-auto sm:rounded-lg">
                         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <tbody>
-                                {state?.data && state.data.map((element, key) =>
+                                {state?.data && state?.data.map((element, key) =>
                                     <tr className=" border-b border-border dark:bg-gray-800 dark:border-gray-700" key={key}>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-full dark:bg-gray-600">
