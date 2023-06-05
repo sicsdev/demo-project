@@ -32,16 +32,55 @@ span.hljs-tag {
 }
 .img-div-2  img{object-fit: contain;}
 body {
-  background-color: 
-  #e5e7eb
-  ;
+  background-color: #e5e7eb;
 }
-/* @media (min-width: 1400px) {
-  .tempo_container {
-    width: 1450px;
-    margin: auto;
+
+/* for icon_animation */
+.animation_icon_section .col_section{
+  padding: 184px 0px;
+}
+.leftimg_sec.animation2 {
+  animation: shake 15s infinite;
+}
+.leftimg_sec.animation{
+  animation: shake2 15s infinite;
+}
+.leftimg_sec.animation3{
+  animation: shake3 15s infinite;
+}
+@keyframes shake {
+  0%, 100% {
+    transform: translateY(0);
   }
-} */
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateY(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateY(5px); 
+  }
+}
+@keyframes shake2 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateY(-5px); 
+  }
+  10%, 30%, 50%, 70%, 90%  {
+    transform: translateY(5px); 
+  }
+}
+@keyframes shake3 {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateY(-3px); 
+  }
+  10%, 30%, 50%, 70%, 90%  {
+    transform: translateY(3px);
+  }
+}
 
 @media (max-width: 768px) {
   .img-div-2{
@@ -52,6 +91,12 @@ body {
     height: 45px;
     object-fit: cover;
   }
+  .animation_icon_section .col_section.content{
+    padding: 0px 0px !important;
+  }
+  .animation_icon_section .col_section {
+    padding: 75px 0px;
+}
 }
 pre {
   overflow-x: auto;
