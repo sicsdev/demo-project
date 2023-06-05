@@ -1,11 +1,11 @@
-"use client";
+'use client'
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import data from "../../../data/article.json";
 import articleData from "../../../data/subarticle.json";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [article, setArticle] = useState();
   const [subArticle, setSubArticle] = useState();
 
@@ -181,4 +181,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
