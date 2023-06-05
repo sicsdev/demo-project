@@ -93,11 +93,11 @@ const Help = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 px-4 lg:px-4 mb-6">
             {slides.map((item, key) => (
-              <Link href="/help">
+              <Link href="/help"  key={key}>
                 <div
                   className="bg-white shadow-lg rounded-lg p-6"
                   style={{ border: "1px solid #e5e7eb" }}
-                  key={key}
+                 
                 >
                   <div className="py-45 px-35">
                     <div>
