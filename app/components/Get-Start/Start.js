@@ -32,7 +32,7 @@ const Start = () => {
                         <ul className='list-none my-6 sm:my-6'>
                             {list.map((element, key) =>
                                 <li key={key} className='my-2 sm:my-2 tracking-normal'>
-                                    <span className='flex gap-3  text-custom-small  text-xl align-bottom font-semibold'> &#x2713; {element}</span>
+                                    <span className='flex gap-3  text-custom-small  text-xl align-bottom font-generalSans-medium'> &#x2713; {element}</span>
                                 </li>
                             )}
                         </ul>
