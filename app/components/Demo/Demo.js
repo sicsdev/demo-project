@@ -36,7 +36,7 @@ const Demo = () => {
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>
-        <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-clash-semibold text-heading">
+        <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-semibold text-heading">
           Unlock the power of
           <span className="text-first-section-color">
             {" "}

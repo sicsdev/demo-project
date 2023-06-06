@@ -184,7 +184,6 @@ const handleSearch = e => {
 
   setSearchResults(results);
 };
- console.log(searchResults)
   return (
     <>
       <div className="bg-white py-6 sm:py-5 help">

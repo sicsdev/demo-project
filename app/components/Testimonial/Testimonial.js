@@ -67,7 +67,7 @@ const Testimonial = () => {
         >
           <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
             {" "}
-            <h2 className=" font-clash-semibold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none   text-heading  ">
+            <h2 className=" font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none   text-heading  ">
              Try Tempo with your own support content now
             </h2>
           </div>

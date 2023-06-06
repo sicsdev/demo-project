@@ -13,7 +13,7 @@ const Social = () => {
     return (
         <div className=' bg-[white] py-2 sm:py-10'>
         <div className='my-8  mx-auto max-w-[90%]'>
-            <h2 className='text-center font-clash-semibold mb-4 sm:mb-0 text-2xl text-blue  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8  js-show-on-scroll '>One platform, infinite possibilities</h2>
+            <h2 className='text-center font-bold mb-4 sm:mb-0 text-2xl text-blue  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8  js-show-on-scroll '>One platform, infinite possibilities</h2>
             <div className='grid grid-cols-2 sm:grid-cols-6  text-center'>
                 {images.map((element, key) =>
                     <div className='relative h-auto w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll' key={key}>
