@@ -9,15 +9,15 @@
         "data": [
           {
             "name": "What is Intercom?",
-            "slug": "help/intercom-overview/what-is-intercom"
+            "slug": "help/intercom-overview#what-is-intercom"
           },
           {
             "name": "Watch a demo of Intercom ",
-            "slug": "help/intercom-overview/watch-a-demo-of-intercom"
+            "slug": "help/intercom-overview#watch-a-demo-of-intercom"
           },
           {
             "name": "Intercom features explained",
-            "slug": "help/intercom-overview/intercom-features-explained"
+            "slug": "help/intercom-overview#intercom-features-explained"
           }
         ]
       }
@@ -33,15 +33,15 @@
         "data": [
           {
             "name": "What is getting started",
-            "slug": "help/getting-started/what-is-getting-started"
+            "slug": "help/getting-started#what-is-getting-started"
           },
           {
             "name": "Watch a demo of getting started ",
-            "slug": "help/getting-started/watch-a-demo-of-Intercom "
+            "slug": "help/getting-started#watch-a-demo-of-Intercom "
           },
           {
             "name": "Intercom features getting started",
-            "slug": "help/getting-started/intercom-features-explained"
+            "slug": "help/getting-started#intercom-features-explained"
           }
         ]
       }
@@ -57,15 +57,15 @@
         "data": [
           {
             "name": "What is inbox?",
-            "slug": "help/inbox/what-is-inbox"
+            "slug": "help/inbox#what-is-inbox"
           },
           {
             "name": "Watch a demo of inbox ",
-            "slug": "help/inbox/Watch-a-demo-of-inbox"
+            "slug": "help/inbox#watch-a-demo-of-inbox"
           },
           {
             "name": "Intercom features inbox",
-            "slug": "help/inbox/intercom-features-inbox"
+            "slug": "help/inbox#intercom-features-inbox"
           }
         ]
       }
