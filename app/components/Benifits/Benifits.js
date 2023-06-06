@@ -77,7 +77,7 @@ const Benifits = () => {
 
       <div className="bg-white py-6 sm:py-5">
         <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
-          <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center  my-8  text-heading">
+          <h2 className="font-clash-semibold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center  my-8  text-heading">
             Why customers love Tempo
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 px-4 lg:px-4 mb-6">
@@ -88,10 +88,10 @@ const Benifits = () => {
               >
                 <div className="py-45 px-35">
                   <div>
-                    <h4 className="font-semibold text-2xl md:text-h4 lg:text-h4 sm:text-h4sm:leading-8 text-white mb-3 js-show-on-scroll">
+                    <h4 className="font-clash-semibold text-2xl md:text-h4 lg:text-h4 sm:text-h4sm:leading-8 text-white mb-3 js-show-on-scroll">
                       {item.name}
                     </h4>
-                    <p className="font-normal text-base sm:text-para my-4 text-white  sm:leading-8 opacity-80 js-show-on-scroll">
+                    <p className="font-generalSans-medium text-base sm:text-para my-4 text-white  sm:leading-8 opacity-80 js-show-on-scroll">
                      "{item.title}"
                     </p>
                   </div>

@@ -15,11 +15,11 @@ const Trial = () => {
         </div>
         <div className="w-full sm:w-1/2 flex items-center justify-center">
           <div className="  items-center flex-col text-center my-5 sm:text-center md:text-center lg:text-center px-4 sm:px-8 ">
-            <h2 className="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none my-4 text-heading">
+            <h2 className="font-clash-semibold text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none my-4 text-heading">
               Sign up for your{" "}
               <span className="text-primary">free trial today</span>
             </h2>
-            <p className="text-base flex- sm:text-para md:text-para lg:text-para my-4 sm:my-8 font-base text-heading">
+            <p className="text-base  flex- sm:text-para md:text-para lg:text-para my-4 sm:my-8 font-generalSans-medium text-heading">
               7 days. No commitment. No strings attached.
             </p>
             <Button

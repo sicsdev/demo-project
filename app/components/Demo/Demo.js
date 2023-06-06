@@ -36,7 +36,7 @@ const Demo = () => {
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>
-        <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-semibold text-heading">
+        <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-clash-semibold text-heading">
           Unlock the power of
           <span className="text-first-section-color">
             {" "}
@@ -64,7 +64,7 @@ const Demo = () => {
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
             <Button
               className={
-                "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
+                "py-[11px] px-2 w-full  focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
               }
               onClick={handleNavigate}
             >

@@ -25,7 +25,7 @@ const Start = () => {
             <div className=' mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10'>
                 <div className='block sm:flex md:flex lg:flex justify-evenly items-center gap-10'>
                     <div className=''>
-                        <h1 className=" font-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+                        <h1 className=" font-clash-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
                             <span className="text-first-section-color">
                                 Never think </span>  about customer service again
                         </h1>

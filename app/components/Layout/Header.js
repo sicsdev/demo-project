@@ -104,7 +104,7 @@ const Header = () => {
                         src="/phone.png"
                         className="w-4  h-15 object-contain"
                       />{" "}
-                      <span className="mx-2">+1 (855) 308-3676</span>
+                      <span className="mx-2 font-generalSans-medium">+1 (855) 308-3676</span>
                     </a>
                   </li>
                   {/* <li className="text-white text-center">
