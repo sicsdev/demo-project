@@ -1,8 +1,9 @@
 'use client'
 import { data } from "autoprefixer";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
+import { getHelpContent } from "@/app/API/pages/Wpdata";
 
 const slides = [
   {
@@ -173,6 +174,12 @@ const [searchResults, setSearchResults] = useState( [
     brand: "Perry",
   },
 ]);
+const [WpData, setWpData] = useState([])
+useEffect(() =>{
+getHelpContent().then((res)=> setWpData(res.data))
+},[])
+ 
+ console.log("WpData", WpData)
 
 const handleSearch = e => {
   const searchTerm = e.target.value;
