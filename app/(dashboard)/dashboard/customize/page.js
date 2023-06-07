@@ -1,20 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { QrCodeIcon, EyeIcon} from '@heroicons/react/24/outline';
-import { useSearchParams } from 'next/navigation';
+import { QrCodeIcon, EyeIcon } from '@heroicons/react/24/outline';
+import { useSearchParams, useRouter } from 'next/navigation';
 import './widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
 
 const Page = () => {
     const [botDetails, setBotDetails] = useState({ id: 'null', name: '' });
     const searchParams = useSearchParams();
-
+    const router = useRouter()
 
     useEffect(() => {
         const bot_id = searchParams.get("id")
         const bot_name = searchParams.get("name")
         bot_id && setBotDetails({ ...botDetails, id: bot_id })
-        bot_name && setBotDetails({ ...botDetails, name: bot_name })
+        bot_name && setPreferences({ ...preferences, chat_title: bot_name })
+
+        if (!bot_id) { router.push('/dashboard') }
     }, []);
 
 
@@ -26,7 +28,7 @@ const Page = () => {
         category: "all",
         message_after_hours: "We are currently offline. Please leave a message and we will get back to you as soon as possible.",
         message_business_hours: "We are currently online. Please leave a message and we will get back to you as soon as possible.",
-        chat_title: "Chat with us",
+        chat_title: botDetails.name,
         description: "Chat with us",
         language: "en",
         refund_tolerance: 0,
@@ -72,9 +74,12 @@ const Page = () => {
                 <div className="flex space-x-20">
                     <div className="">
 
-                        <a className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
-                            <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Widget "{botDetails.name}"
-                        </a>
+                        <div className='mb-4'>
+                            <a className="flex justify-start gap-2 items-center px-4 pt-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
+                                <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Widget "{preferences.chat_title || ''}"
+                            </a>
+                            <small className="flex justify-start gap-2 items-center px-4 text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group">ID: {botDetails.id}</small>
+                        </div>
 
                         <label className="flex justify-between items-center">
                             <span className="text-gray-700">Primary Color</span>
@@ -210,9 +215,9 @@ const Page = () => {
                                 <div className="chat_content">
                                     <div className="first_answer">
                                         <img className='profile-photo_ChatBot' src={preferences.thumbnail} alt='Profile Photo' width='35px' />
-                                        <div className="answer_text" style={{backgroundColor: preferences.secondary_color}}>How can I help you today?</div>
+                                        <div className="answer_text" style={{ backgroundColor: preferences.secondary_color }}>How can I help you today?</div>
                                     </div>
-                                    <div className="question" style={{backgroundColor: preferences.primary_color}}>What is the price of the product?</div>
+                                    <div className="question" style={{ backgroundColor: preferences.primary_color }}>What is the price of the product?</div>
                                 </div>
 
 
