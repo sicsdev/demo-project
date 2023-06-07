@@ -67,12 +67,12 @@ const Info = () => {
           </div>
 
           <div className=" flex items-center mx-auto order-2 js-show-on-scroll">
-            <video autoPlay muted src="firstvideo.mp4" 
+            <video autoPlay muted src="firstvideo.mp4"  loop playsInline
             />
           </div>
           <div className="flex items-center mx-auto  order-4 js-show-on-scroll">
             {/* <iframe class="w-full aspect-video" autoplay="1" mute  allow="autoplay" src="secondvideo.mp4" ></iframe> */}
-            <video autoPlay muted src="secondvideo.mp4" />
+            <video autoPlay muted src="secondvideo.mp4" playsInline />
 
             {/* <img
               src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
@@ -116,7 +116,7 @@ const Info = () => {
           </div>
           <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full flex items-center   order-6 js-show-on-scroll">
             {/* <iframe class="w-full aspect-video ..."  autoplay="1" allow="autoplay" src="thirdvideo.mp4"></iframe> */}
-            <video autoPlay muted src="thirdvideo.mp4" />
+            <video autoPlay muted playsInline src="thirdvideo.mp4"  />
 
             {/* <img
               src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"

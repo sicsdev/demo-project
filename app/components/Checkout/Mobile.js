@@ -19,10 +19,10 @@ const Mobile = ({ pro, guru, setSelect, select }) => {
                 <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading'>Choose your plan</h1>
                 <ul className=" text-sm font-medium text-center flex my-4">
                     <li className={`w-full border border-border ${select === 0 ?"bg-primary":"bg-white"}`} onClick={() => setSelect(0)}>
-                        <a href="#" className="inline-block w-full p-4 text-gray-900 bg-gray-100 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700" aria-current="page">Pro</a>
+                        <a href="#" className="inline-block w-full p-4 text-gray-900 bg-gray-100 focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700" aria-current="page">Standard</a>
                     </li>
                     <li className={`w-full border border-border ${select === 1 ?"bg-[#87a5e9]":"bg-white"}`} onClick={() => setSelect(1)} style={{backgroundColor:"#87a5e9"}}>
-                        <a href="#" className="inline-block w-full p-4  hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Guru</a>
+                        <a href="#" className="inline-block w-full p-4  hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Pro</a>
                     </li>
                 </ul>
                 <div className='grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4 my-12'>

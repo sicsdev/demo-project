@@ -20,13 +20,13 @@ export const getAllMembers = async () => {
     }
 };
 
-export const InviteMembers = async () => {
+export const InviteMembers = async (body) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/accounts/users/`, config);
-        return response.data;
+        const response = await axios.post(`${API_URL}/api/v1/accounts/users/invite/`,body, config);
+        return response;
     } catch (error) {
-        return error
+        return error.response.data
     }
 };
 

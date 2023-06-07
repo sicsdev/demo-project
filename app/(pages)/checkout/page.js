@@ -29,7 +29,7 @@ const Checkout = () => {
         searchParams.get("email")
             ? setCheckoutForm({
                 ...checkoutForm,
-                "email": searchParams.get("email")
+                "email": ''
             })
             : setEmailQuery("");
     }, []);
@@ -64,8 +64,7 @@ const Checkout = () => {
         setUserformErrors([...newErrors]);
     }
 
-    const handleDownload = (e) => {
-        if (e.target.checked == true) {
+    const handleDownload = () => {
             // Replace "path/to/pdf/file.pdf" with the actual path to your PDF file
             const pdfPath = "Tempo.docx.pdf";
 
@@ -81,7 +80,7 @@ const Checkout = () => {
 
             // Remove the link from the body
             document.body.removeChild(link);
-        }
+        
     };
 
     return (
@@ -177,7 +176,7 @@ const Checkout = () => {
                             id="link-checkbox"
                             type="checkbox"
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                            onChange={(e) => handleDownload(e)}
+                           
                         />
                         <label
                             htmlFor="link-checkbox"
@@ -187,13 +186,14 @@ const Checkout = () => {
                             <a
                                 href="#"
                                 className="text-blue-600 dark:text-blue-500 hover:underline"
+                                onClick={(e) => handleDownload()}
                             >
                                 terms and conditions
                             </a>
                             .
                         </label>
                     </div>
-                    <div className="flex justify-center flex flex-col">
+                    <div className="flex justify-center flex-col">
                         {userformErrors &&
                             userformErrors.map((error, index) => {
                                 return (

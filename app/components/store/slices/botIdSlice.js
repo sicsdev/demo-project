@@ -32,7 +32,6 @@ export const botIdSlice = createSlice({
             .addCase(fetchBot.rejected, (state, action) => {
                 state.botData.isLoading = false;
                 state.botData.error = action.error.message;
-                debugger
             });
     },
 })
