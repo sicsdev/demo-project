@@ -8,7 +8,10 @@ import { getBotWidget } from '@/app/API/pages/Bot';
 import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
 import Loading from '../Loading/Loading';
 import { fetchProfile } from '../store/slices/userSlice';
+import { useRouter } from 'next/navigation';
+
 const Embed = ({ form = true }) => {
+    const router = useRouter()
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
     const [copied, setCopied] = useState({ key: null, message: null });
@@ -51,6 +54,10 @@ const Embed = ({ form = true }) => {
     const getBotWidgetData = async () => {
         const widget = await getBotWidget(state.id)
         setmarkdown(widget.data.code)
+    }
+
+    const handleCustomize = (element) => {
+       router.push(`/dashboard/customize?id=${element.id}&name=${element.title}`)
     }
     return (
         <>
@@ -145,7 +152,16 @@ const Embed = ({ form = true }) => {
                                                 </Button>
                                             </CopyToClipboard>
 
+                                        
+                                            <Button onClick={() => handleCustomize(element)}
+                                                    className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                >
+                                                    Customize
+                                                </Button>
+
                                         </div>
+
+
                                         {copied?.key != null && copied?.key === key && (
                                             <small className='text-xs text-soft-green font-bold'>{copied.message}</small>
                                         )}
