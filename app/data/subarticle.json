@@ -1,6 +1,7 @@
 [
   {
     "name": "What is Intercom?",
+    "first_slug": "intercom-overview",
     "slug": "#what-is-intercom",
 
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
@@ -23,6 +24,8 @@
   },
   {
     "name": "Intercom features explained ",
+    "first_slug": "intercom-overview",
+
     "slug": "#intercom-features-explained",
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
@@ -43,8 +46,10 @@
     "button_two": "Register now"
   },
   {
-    "name": "Watch a demo of Intercom  ",
+    "name": "Watch a demo of Intercom",
     "slug": "#watch-a-demo-of-intercom",
+    "first_slug": "intercom-overview",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -66,6 +71,8 @@
   {
     "name": "What is getting started",
     "slug": "#what-is-getting-started",
+    "first_slug": "getting-started",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -87,6 +94,8 @@
   {
     "name": "Watch a demo of getting started",
     "slug": "#watch-a-demo-of-getting-started",
+    "first_slug": "getting-started",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -108,6 +117,8 @@
   {
     "name": "Intercom features getting started",
     "slug": "#intercom features getting started",
+    "first_slug": "getting-started",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -129,6 +140,8 @@
   {
     "name": "What is  inbox",
     "slug": "#what-is-inbox",
+    "first_slug": "inbox",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -150,6 +163,8 @@
   {
     "name": "Watch a demo of inbox",
     "slug": "#watch-a-demo-of-inbox",
+    "first_slug": "inbox",
+
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
@@ -171,6 +186,7 @@
   {
     "name": "Intercom features inbox",
     "slug": "#intercom-features-inbox",
+    "first_slug":"inbox",
     "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
     "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
     "button_one": "view demo",
