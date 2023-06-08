@@ -24,8 +24,9 @@ const Checkout = () => {
     const [emailQuery, setEmailQuery] = useState("");
     const [showSummary, setShowSummary] = useState(false)
 
-    const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
-    const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
+    // Local states for changing testimonials (not using until we have more real testimonials)
+    // const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
+    // const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
 
     useEffect(() => {
         searchParams.get("plan")
@@ -38,14 +39,15 @@ const Checkout = () => {
             })
             : setEmailQuery("");
 
-        const interval = setInterval(() => {
-            let random = Math.floor(Math.random() * (testimonialsArray.length - 2))
-            let random2 = Math.floor(Math.random() * (testimonialsArray.length - 2))
-            setRandomIndex(random)
-            setRandomIndex2(random2)
-        }, 9000);
+        // Changing testimonials every 9 seconds
+        // const interval = setInterval(() => {
+        //     let random = Math.floor(Math.random() * (testimonialsArray.length - 2))
+        //     let random2 = Math.floor(Math.random() * (testimonialsArray.length - 2))
+        //     setRandomIndex(random)
+        //     setRandomIndex2(random2)
+        // }, 9000);
+        // return () => clearInterval(interval);
 
-        return () => clearInterval(interval);
     }, []);
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
@@ -322,36 +324,7 @@ const Checkout = () => {
 
                         <div className="p-4 sm:p-8 md:p-8 lg:p-8">
 
-                            {testimonialsArray.slice(randomIndex, randomIndex + 1).map((item, index) => {
-                                return (
-                                    <Card
-                                        className={`border bg-white border-border my-10 animate-fadeIn`}
-                                        key={index}
-                                    >
-                                        <h1 className="my-2 text-lg text-heading font-bold">
-                                            {item.Title}
-                                        </h1>
-                                        <p className="my-2 text-sm text-heading mb-4">
-                                            {item.Text}
-                                        </p>
-                                        <div className="flex justify-start gap-4 items-center">
-                                            <div className="relative w-[70px] h-[70px]">
-                                                <Image
-                                                    fill={true}
-                                                    src={item.Photo}
-                                                    className="bg-contain rounded-full mx-auto"
-                                                    alt="img"
-                                                />
-                                            </div>
-                                            <h1 className="my-2 text-heading text-lg font-semibold">
-                                                {item.Name}
-                                            </h1>
-                                        </div>
-                                    </Card>
-                                );
-                            })}
-
-                            {testimonialsArray.slice(randomIndex2, randomIndex2 + 1).map((item, index) => {
+                            {testimonialsArray.map((item, index) => {
                                 return (
                                     <Card
                                         className={`border bg-white border-border my-10 animate-fadeIn`}
