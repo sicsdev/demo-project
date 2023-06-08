@@ -62,13 +62,26 @@ const Page = () => {
     return (
         <div>
             <div className="">
+                <div>
+                    <h3 className='font-bold text-heading text-xl'>Customize Widget <span style={{ color: '#8B5CF6' }}>{preferences.chat_title || ''}</span></h3>
+                </div>
+
+                <div className='float-right mx-5 hidden lg:block absolute right-0 '>
+                    <Button type={"button"}
+                        className="inline-block justify-end font-bold rounded bg-voilet px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                    >
+                        Save
+                    </Button>
+                </div>
+
                 <small className="flex justify-start gap-2 items-center text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group">
                     <b>ID: </b>{botDetails.id}</small>
-                <div className="flex flex-col lg:flex-row lg:justify-around mt-3">
+
+                <div className="flex flex-col lg:flex-row lg:justify-around mt-3 gap-4">
                     <div className="">
                         <div className='mb-4'>
                             <a className="flex justify-start gap-2 items-center px-4 pt-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
-                                <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Widget "{preferences.chat_title || ''}"
+                                <QrCodeIcon className="h-6 w-6 text-gray-500" /> Edit
                             </a>
                         </div>
 
@@ -240,13 +253,14 @@ const Page = () => {
 
                         </div>
 
-                        <div className='flex justify-center mt-5 pt-5'>
+                        <div className='mx-5 justify-end flex mt-8 lg:hidden'>
                             <Button type={"button"}
                                 className="inline-block justify-end font-bold rounded bg-voilet px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                             >
                                 Save
                             </Button>
                         </div>
+
                     </div>
 
 
@@ -303,7 +317,7 @@ const Page = () => {
 
 
             </div>
-        </div>
+        </div >
     )
 }
 
