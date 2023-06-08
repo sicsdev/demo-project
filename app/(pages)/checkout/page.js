@@ -21,6 +21,7 @@ const Checkout = () => {
     const searchParams = useSearchParams();
     const [planQuery, setPlanQuery] = useState("");
     const [emailQuery, setEmailQuery] = useState("");
+    const [showSummary, setShowSummary] = useState(false)
 
     useEffect(() => {
         searchParams.get("plan")
@@ -65,27 +66,96 @@ const Checkout = () => {
     }
 
     const handleDownload = () => {
-            // Replace "path/to/pdf/file.pdf" with the actual path to your PDF file
-            const pdfPath = "Tempo.docx.pdf";
+        // Replace "path/to/pdf/file.pdf" with the actual path to your PDF file
+        const pdfPath = "Tempo.docx.pdf";
 
-            // Create a temporary link element
-            const link = document.createElement("a");
-            link.href = pdfPath;
-            link.target = "_blank";
-            link.download = "downloaded_file.pdf";
+        // Create a temporary link element
+        const link = document.createElement("a");
+        link.href = pdfPath;
+        link.target = "_blank";
+        link.download = "downloaded_file.pdf";
 
-            // Append the link to the body and trigger the download
-            document.body.appendChild(link);
-            link.click();
+        // Append the link to the body and trigger the download
+        document.body.appendChild(link);
+        link.click();
 
-            // Remove the link from the body
-            document.body.removeChild(link);
-        
+        // Remove the link from the body
+        document.body.removeChild(link);
+
     };
+
+    const toggleClass = () => {
+        setShowSummary(!showSummary)
+    }
 
     return (
         <Container>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
+            <div className="text-center lg:hidden">
+                    <div
+                        className="rounded text-center"
+                        onClick={toggleClass}
+                        style={{ position: "relative", cursor: "pointer" }}
+                    >
+                        {showSummary ? (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='text-center flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'> Hide Order Summary</span>
+                                    </div>
+                                </div>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='border rounded-lg border-border bg-white rounded'>
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" >
+                                        <tbody>
+                                            <tr className="dark:bg-gray-800">
+                                                <th scope="row" className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black">
+                                                    {planQuery == 1 && "Pro Plan"}
+                                                    {planQuery == 0 && "Standard Plan"}
+                                                </th>
+                                                <td className="px-6 py-4 text-base">
+                                                    Free Trial
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr className=" text-gray-900 text-black text-black">
+                                                <th className="px-6 py-3 text-base">Total</th>
+                                                <td className="px-6 py-3">$0</td>
+                                            </tr>
+                                        </tfoot>
+
+                                    </table>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <hr className='opacity-10 my-1'></hr>
+                                <div className='flex'>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                        </svg>
+                                    </div>
+                                    <div >
+                                        <span className='text-right mx-3'>Show Order Summary</span>
+                                    </div>
+                                    <div className='text-right'>
+                                        $0
+                                    </div>
+                                </div>
+                                <hr className='opacity-10 my-1'></hr>
+                            </>
+                        )}
+                    </div>
+                </div>
+
                 <div>
                     <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
                         Checkout
@@ -176,7 +246,7 @@ const Checkout = () => {
                             id="link-checkbox"
                             type="checkbox"
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                           
+
                         />
                         <label
                             htmlFor="link-checkbox"
@@ -226,20 +296,12 @@ const Checkout = () => {
                     </div>
                 </div>
 
-                <div>
+                <div className='hidden lg:block'>
                     <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border">
                         <Card className={"border bg-white border-border "}>
+                            <h2 className='text-center text-xl mb-2'>Order Summary</h2>
+                            <hr style={{ borderColor: '#CCCCCC' }}></hr>
                             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-                                <thead className="text-xs text-gray-700 uppercase bg-gray-100 dark:bg-gray-700 bg-white dark:text-gray-400 ">
-                                    <tr>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Selected Plan
-                                        </th>
-                                        <th scope="col" className="px-6 py-3 text-base ">
-                                            Price
-                                        </th>
-                                    </tr>
-                                </thead>
                                 <tbody>
                                     <tr className="dark:bg-gray-800 bg-white">
                                         <th
@@ -261,20 +323,14 @@ const Checkout = () => {
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div className="text-center text-xs">
-                                <span className="text-xs">
-                                    {planQuery == 1 && "7 days free, then $599.99/mo"}
-                                    {planQuery == 0 && "7 days free, then $449.99/mo"}
-                                </span>
-                            </div>
                         </Card>
 
                         <div className="p-4 sm:p-8 md:p-8 lg:p-8">
                             <Card className={"border bg-white border-border my-10"}>
-                                <h1 className="my-2 text-lg text-heading">
+                                <h1 className="my-2 text-lg text-heading font-bold">
                                     Customer service headaches are history.
                                 </h1>
-                                <p className="my-2 text-sm text-heading">
+                                <p className="my-2 text-sm text-heading mb-4">
                                     Customer service is a solved problem. Automating support for
                                     our enterprise clients has been an immense cost-saver and has
                                     provided us with an industry-leading advantage.
@@ -294,10 +350,10 @@ const Checkout = () => {
                                 </div>
                             </Card>
                             <Card className={"border bg-white border-border my-10"}>
-                                <h1 className="my-2 text-lg text-heading">
+                                <h1 className="my-2 text-lg text-heading font-bold">
                                     We supercharged our business with Tempo.
                                 </h1>
-                                <p className="my-2 text-sm text-heading">
+                                <p className="my-2 text-sm text-heading mb-4">
                                     The ability to scale up customer-facing staffing and back
                                     office operations, coupled with Tempo's ChatGPT-powered
                                     automations, has really powered our business's fulfillment.
