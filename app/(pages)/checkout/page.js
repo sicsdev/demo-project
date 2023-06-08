@@ -7,10 +7,11 @@ import Button from "../../components/Common/Button/Button";
 import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
-
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useRouter, useSearchParams } from "next/navigation";
+
+import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
 
 const stripe_api =
     "pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW";
@@ -23,6 +24,9 @@ const Checkout = () => {
     const [emailQuery, setEmailQuery] = useState("");
     const [showSummary, setShowSummary] = useState(false)
 
+    const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
+    const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
+
     useEffect(() => {
         searchParams.get("plan")
             ? setPlanQuery(searchParams.get("plan"))
@@ -33,6 +37,15 @@ const Checkout = () => {
                 "email": ''
             })
             : setEmailQuery("");
+
+        const interval = setInterval(() => {
+            let random = Math.floor(Math.random() * (testimonialsArray.length - 2))
+            let random2 = Math.floor(Math.random() * (testimonialsArray.length - 2))
+            setRandomIndex(random)
+            setRandomIndex2(random2)
+        }, 9000);
+
+        return () => clearInterval(interval);
     }, []);
 
     const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
@@ -59,9 +72,6 @@ const Checkout = () => {
         if (password.length < 6) {
             newErrors.push("Password must be at least 6 characters");
         }
-        // if (password !== password_confirm) {
-        //     newErrors.push("Passwords do not match");
-        // }
         setUserformErrors([...newErrors]);
     }
 
@@ -91,7 +101,7 @@ const Checkout = () => {
     return (
         <Container>
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
-            <div className="text-center lg:hidden">
+                <div className="text-center lg:hidden">
                     <div
                         className="rounded text-center"
                         onClick={toggleClass}
@@ -225,21 +235,6 @@ const Checkout = () => {
                                 onChange={handleFormValues}
                             />
                         </div>
-                        {/* <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border border-b-0">
-                            <span className="text-start text-sm font-normal w-[20%] text-border">
-                                Confirm Password
-                            </span>
-                            <input
-                                type={"password"}
-                                placeholder={"Password confirm"}
-                                className={
-                                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                                }
-                                name="password_confirm"
-                                id={"passwordConfirm"}
-                                onChange={handleFormValues}
-                            />
-                        </div> */}
                     </div>
                     <div className="flex items-center my-6">
                         <input
@@ -326,52 +321,64 @@ const Checkout = () => {
                         </Card>
 
                         <div className="p-4 sm:p-8 md:p-8 lg:p-8">
-                            <Card className={"border bg-white border-border my-10"}>
-                                <h1 className="my-2 text-lg text-heading font-bold">
-                                    Customer service headaches are history.
-                                </h1>
-                                <p className="my-2 text-sm text-heading mb-4">
-                                    Customer service is a solved problem. Automating support for
-                                    our enterprise clients has been an immense cost-saver and has
-                                    provided us with an industry-leading advantage.
-                                </p>
-                                <div className="flex justify-start gap-4 items-center">
-                                    <div className="relative w-[80px] h-[80px]">
-                                        <Image
-                                            fill={true}
-                                            src={"/images/checkout-testimonial-1.png"}
-                                            className="bg-contain rounded-full mx-auto"
-                                            alt="img"
-                                        />
-                                    </div>
-                                    <h1 className="my-2 text-heading text-lg font-semibold">
-                                        Dean Zimberg, Perry
-                                    </h1>
-                                </div>
-                            </Card>
-                            <Card className={"border bg-white border-border my-10"}>
-                                <h1 className="my-2 text-lg text-heading font-bold">
-                                    We supercharged our business with Tempo.
-                                </h1>
-                                <p className="my-2 text-sm text-heading mb-4">
-                                    The ability to scale up customer-facing staffing and back
-                                    office operations, coupled with Tempo's ChatGPT-powered
-                                    automations, has really powered our business's fulfillment.
-                                </p>
-                                <div className="flex justify-start gap-4 items-center">
-                                    <div className="relative w-[80px] h-[80px]">
-                                        <Image
-                                            fill={true}
-                                            src={"/images/checkout-testimonial-2.png"}
-                                            className="bg-contain rounded-full mx-auto"
-                                            alt="img"
-                                        />
-                                    </div>
-                                    <h1 className="my-2 text-heading text-lg font-semibold">
-                                        Frank Patrick, LabPass
-                                    </h1>
-                                </div>
-                            </Card>
+
+                            {testimonialsArray.slice(randomIndex, randomIndex + 1).map((item, index) => {
+                                return (
+                                    <Card
+                                        className={`border bg-white border-border my-10 animate-fadeIn`}
+                                        key={index}
+                                    >
+                                        <h1 className="my-2 text-lg text-heading font-bold">
+                                            {item.Title}
+                                        </h1>
+                                        <p className="my-2 text-sm text-heading mb-4">
+                                            {item.Text}
+                                        </p>
+                                        <div className="flex justify-start gap-4 items-center">
+                                            <div className="relative w-[70px] h-[70px]">
+                                                <Image
+                                                    fill={true}
+                                                    src={item.Photo}
+                                                    className="bg-contain rounded-full mx-auto"
+                                                    alt="img"
+                                                />
+                                            </div>
+                                            <h1 className="my-2 text-heading text-lg font-semibold">
+                                                {item.Name}
+                                            </h1>
+                                        </div>
+                                    </Card>
+                                );
+                            })}
+
+                            {testimonialsArray.slice(randomIndex2, randomIndex2 + 1).map((item, index) => {
+                                return (
+                                    <Card
+                                        className={`border bg-white border-border my-10 animate-fadeIn`}
+                                        key={index}
+                                    >
+                                        <h1 className="my-2 text-lg text-heading font-bold">
+                                            {item.Title}
+                                        </h1>
+                                        <p className="my-2 text-sm text-heading mb-4">
+                                            {item.Text}
+                                        </p>
+                                        <div className="flex justify-start gap-4 items-center">
+                                            <div className="relative w-[70px] h-[70px]">
+                                                <Image
+                                                    fill={true}
+                                                    src={item.Photo}
+                                                    className="bg-contain rounded-full mx-auto"
+                                                    alt="img"
+                                                />
+                                            </div>
+                                            <h1 className="my-2 text-heading text-lg font-semibold">
+                                                {item.Name}
+                                            </h1>
+                                        </div>
+                                    </Card>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
