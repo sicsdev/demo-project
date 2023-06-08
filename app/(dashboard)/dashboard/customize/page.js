@@ -52,109 +52,153 @@ const Page = () => {
         setPreferences({ ...preferences, [name]: value });
     }
 
-
-
-    const [selectedFile, setSelectedFile] = useState(null);
-
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setPreferences({ ...preferences, thumbnail: file });
-
+        console.log(file)
     };
 
 
     return (
         <div>
-            <div className="border-b border-border dark:border-gray-700">
-
-            </div>
-
-            <div className="mt-4">
-
-                <div className="flex space-x-20">
+            <div className="">
+                <small className="flex justify-start gap-2 items-center text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group">
+                    <b>ID: </b>{botDetails.id}</small>
+                <div className="flex flex-col lg:flex-row lg:justify-around mt-3">
                     <div className="">
-
                         <div className='mb-4'>
                             <a className="flex justify-start gap-2 items-center px-4 pt-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
                                 <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Widget "{preferences.chat_title || ''}"
                             </a>
-                            <small className="flex justify-start gap-2 items-center px-4 text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group">ID: {botDetails.id}</small>
                         </div>
 
-                        <label className="flex justify-between items-center">
-                            <span className="text-gray-700">Primary Color</span>
-                            <input type="color" value={preferences.primary_color} className="mt-3 rounded-lg " placeholder="Enter primary color" onChange={handlePrimaryColorChange} />
-                        </label>
+                        <hr className='opacity-10'></hr>
+                        <div className='mt-5' style={{ minWidth: '420px' }} >
 
-                        <label className="flex justify-between items-center">
-                            <span className="text-gray-700">Secondary Color</span>
-                            <input type="color" value={preferences.secondary_color} c className="mt-3 rounded-lg " placeholder="Enter secondary color" onChange={handleSecondaryColorChange} />
-                        </label>
-
-                        <label className="flex justify-between items-center">
-                            <span className="text-gray-700">Widget Location</span>
-                            <select className="mt-3 block border-gray-300 rounded-md px-2">
-                                <option value="bottom-right">Bottom Right</option>
-                                <option value="bottom-left">Bottom Left</option>
-                                <option value="top-left">Top Left</option>
-                                <option value="top-right">Top Right</option>
-                            </select>
-                        </label>
-
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Language</span>
-                            <select className="mt-3 block border-gray-300 rounded-md  px-2">
-                                <option value="bottom-right">English</option>
-                                <option value="bottom-left">Spanish</option>
-                            </select>
-                        </label>
-
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Automation Tolerance</span>
-                            <input onChange={handleInputChange} name='automation_tolerance' type="number" className="w-12 h-8 mt-3 text-center border-gray-300 rounded-md" value={preferences.automation_tolerance} placeholder="" min="0" max="10" />
-                        </label>
-                        <label className="flex justify-between items-center space-x-20 mt-2">
-                            <span className="text-gray-700">Thumbnail</span>
-                            <div className="relative">
-                                <input
-                                    type="file"
-                                    accept="image/jpeg, image/jpg, image/png"
-                                    className="opacity-0 absolute inset-0 w-full h-full z-50 cursor-pointer"
-                                    placeholder="Select thumbnail image"
-                                    onChange={handleFileChange}
-                                />
-                                <div className="bg-white border border-gray-300 rounded-md px-2 flex items-center justify-between">
-                                    <span className="truncate">
-                                        {/* {preferences.thumbnail ? preferences.thumbnail.name : 'No file'} */}
-                                        Select a image
-                                    </span>
-                                    <button className="bg-blue-500 text-white px-3 py-1 rounded-md">
-                                        Browse
-                                    </button>
+                            <div className="flex items-center w-full mt-2 gap-2">
+                                <div className="flex justify-end w-1/2 items-center">
+                                    <span className="text-gray-700">Chat title</span>
+                                </div>
+                                <div className="flex justify-start w-1/2">
+                                    <input onChange={handleInputChange} maxLength={20} name='chat_title' value={preferences.chat_title} type="text" className="block border-gray-300 rounded-md p-2 items-center" placeholder="Enter chat title" />
                                 </div>
                             </div>
-                        </label>
 
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Category</span>
-                            <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter category" />
-                        </label>
 
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Chat Message After Hours</span>
-                            <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message after hours" />
-                        </label>
+                            <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-end w-1/2">
+                                    <span className="text-gray-700">Primary Color</span>
+                                </div>
+                                <div className="flex justify-start w-1/2">
+                                    <input
+                                        type="color"
+                                        value={preferences.primary_color}
+                                        className="mt-3 my-2 border px-1 cursor-pointer"
+                                        placeholder="Enter primary color"
+                                        onChange={handlePrimaryColorChange}
+                                    />
+                                </div>
+                            </div>
 
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Chat Message Business Hours</span>
-                            <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message business hours" />
-                        </label>
+                            <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-end w-1/2">
+                                    <span className="text-gray-700">Secondary Color</span>
+                                </div>
+                                <div className="flex justify-start w-1/2">
+                                    <input
+                                        type="color"
+                                        value={preferences.secondary_color}
+                                        className="mt-3 my-2 border cursor-pointer"
+                                        placeholder="Enter secondary color"
+                                        onChange={handleSecondaryColorChange}
+                                    />
+                                </div>
+                            </div>
 
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Chat Title</span>
-                            <input onChange={handleInputChange} name='chat_title' value={preferences.chat_title} type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat title" />
-                        </label>
+                            <div className="flex items-center w-full mt-1 gap-2">
+                                <div className="flex justify-end w-1/2 items-center">
+                                    <span className="text-gray-700">Widget Location</span>
+                                </div>
+                                <div className="flex justify-start w-1/2 items-center">
+                                    <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                        <option value="bottom-right">Bottom Right</option>
+                                        <option value="bottom-left">Bottom Left</option>
+                                        <option value="top-left">Top Left</option>
+                                        <option value="top-right">Top Right</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                            <div className="flex items-center w-full mt-2 gap-2">
+                                <div className="flex justify-end w-1/2 items-center">
+                                    <span className="text-gray-700">Language</span>
+                                </div>
+                                <div className="flex justify-start w-1/2 items-center">
+                                    <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                        <option value="bottom-right">English</option>
+                                        <option value="bottom-left">Spanish</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div className="flex items-center w-full mt-2 gap-2">
+                                <div className="flex justify-end w-1/2 items-center">
+                                    <span className="text-gray-700">Thumbnail</span>
+                                </div>
+                                <div className="relative inline-flex justify-start w-1/2 items-center">
+                                    <label className="cursor-pointer bg-white rounded">
+                                        <span className="bg-gray-200 py-2 p-2 rounded-md shadow-sm flex items-center">
+                                            {preferences.thumbnail.name ?
+                                                (preferences.thumbnail.name)
+                                                :
+                                                (<>
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke="currentColor"
+                                                        className="w-4 h-4 mr-2"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            strokeWidth="2"
+                                                            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                                        />
+                                                    </svg>
+                                                    Select file
+                                                </>)
+                                            }
+                                        </span>
+                                        <input type="file"
+                                            accept="image/jpeg, image/jpg, image/png"
+                                            className="hidden"
+                                            placeholder="Select thumbnail image"
+                                            onChange={handleFileChange} />
+                                    </label>
+                                </div>
+                            </div>
+
+                            {/* <div className="flex items-center w-full mt-2">
+                            <div className="flex justify-end w-1/2 items-center">
+                                <span className="text-gray-700">Category</span>
+                            </div>
+                            <div className="flex justify-start w-1/2 mx-2 items-center">
+                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter category" />
+                            </div>
+                        </div> */}
+                            {/* 
+                        
+                        <div className="flex items-center w-full mt-2">
+                            <div className="flex justify-end w-1/2 items-center">
+                                <span className="text-gray-700">Automation Tolerance</span>
+                            </div>
+                            <div className="flex justify-start w-1/2 mx-2 items-center">
+                                <input onChange={handleInputChange} name='automation_tolerance' type="number" className="w-12 h-8 mt-3 text-center border-gray-300 rounded-md" value={preferences.automation_tolerance} placeholder="" min="0" max="10" />
+                            </div>
+                        </div>
+                        
                         <label className="flex justify-between items-center space-x-20">
                             <span className="text-gray-700">Description</span>
                             <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter description" />
@@ -165,21 +209,38 @@ const Page = () => {
                             <input type="number" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter refund tolerance" />
                         </label>
 
+                        <div className="flex items-center w-full mt-2">
+                            <div className="flex justify-end w-1/2 items-center">
+                                <span className="text-gray-700">Chat Message After Hours</span>
+                            </div>
+                            <div className="flex justify-start w-1/2 mx-2 items-center">
+                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message after hours" />
+                            </div>
+                        </div>
 
-                        {/* <label className="flex justify-between items-center">
-                                <span className="text-gray-700">Widget Offset Horizontal</span>
-                                <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset horizontal"/>
-                            </label>
+                        <div className="flex items-center w-full mt-2">
+                            <div className="flex justify-end w-1/2 items-center">
+                                <span className="text-gray-700">Chat Message Business Hours</span>
+                            </div>
+                            <div className="flex justify-start w-1/2 mx-2 items-center">
+                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message business hours" />
+                            </div>
+                        </div>
 
-                            <label className="flex justify-between items-center">
-                                <span className="text-gray-700">Widget Offset Vertical</span>
-                                <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset vertical"/>
-                            </label> */}
+                        <label className="flex justify-between items-center">
+                            <span className="text-gray-700">Widget Offset Horizontal</span>
+                            <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset horizontal" />
+                        </label>
+
+                        <label className="flex justify-between items-center">
+                            <span className="text-gray-700">Widget Offset Vertical</span>
+                            <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset vertical" />
+                        </label> */}
 
 
+                        </div>
 
-
-                        <div className='mt-5 float-right'>
+                        <div className='flex justify-center mt-5 pt-5'>
                             <Button type={"button"}
                                 className="inline-block justify-end font-bold rounded bg-voilet px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                             >
@@ -190,12 +251,15 @@ const Page = () => {
 
 
                     <div id='chatbot_widget'>
+                        <div className='mb-4'>
+                            <a className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="preview">
+                                <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
+                            </a>
+                            <hr className='opacity-10'></hr>
 
-                        <a className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="preview">
-                            <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
-                        </a>
+                        </div>
 
-                        <div className="containerChatBot_entire">
+                        <div className="containerChatBot_entire justify-center flex">
                             <div className="widget_container active">
                                 <div className="header_ChatBotWidget">
                                     <div className="left_arrow_container" onclick="handleShowChat()"><img width="20px" src="https://widget-dev.usetempo.ai/v1/assets/img/left-arrow.png" /></div>
@@ -236,6 +300,7 @@ const Page = () => {
                     </div>
 
                 </div>
+
 
             </div>
         </div>
