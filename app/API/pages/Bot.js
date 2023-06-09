@@ -1,28 +1,6 @@
 import axios from 'axios'
-
+import { returnConfig } from '../_helpers/returnConfig';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
-// const getWindow = () => {
-//     if (typeof window !== "undefined") {
-//       return window;
-//     }
-//     return null;
-//   };
-
-
-// const config = {
-//     headers: {
-//         "Authorization": "Token " + localStorage.getItem("Token")
-//     },
-// }
-
-const returnConfig = () => {
-    const config = {
-        headers: {
-            "Authorization": "Token " + localStorage.getItem("Token")
-        },
-    }
-    return config
-}
 
 export const createBot = async (body) => {
     let config = returnConfig()

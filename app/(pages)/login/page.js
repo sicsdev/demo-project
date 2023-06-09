@@ -60,7 +60,7 @@ const Login = () => {
             console.log(res.payload)
             if (res.payload.token) {
                 localStorage.setItem('Token', res.payload.token);
-                // router.push('/dashboard');
+                router.push('/dashboard');
             }
         })
         setLoading(false);

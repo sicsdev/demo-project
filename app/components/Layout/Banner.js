@@ -8,12 +8,12 @@ const Banner = () => {
         Zendesk, or your custom store.{" "}
         {/* <span className="underline cursor-pointer "> Start Now</span> */}
         <span className="mt-2 sm:mt-0 inline pl-2 underline "
-        
+
         >
-          <Link  href='/free-trial'>
-           Start Now
-           </Link>
-           </span>
+          <Link href='/free-trial'>
+            Start Now
+          </Link>
+        </span>
       </h6>
     </div>
   );

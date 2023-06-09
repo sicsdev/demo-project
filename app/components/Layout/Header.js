@@ -87,12 +87,12 @@ const Header = () => {
               ""
             ) : (
               <div
-                className={`flex-1 justify-self-center pb-3 mt-8 md:block md:pb-0 md:mt-0 ${
+                className={`flex-1 justify-self-center pb-3 mt-2 md:block md:pb-0 md:mt-0 ${
                   navbar ? "block" : "hidden"
                 }`}
                 onClick={() => setNavbar(false)}
               >
-                <ul className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
+                <ul className="flex items-center justify-center space-x-6 md:space-x-4 md:mx-3">
                   <li className="text-[#ADD8E6] text-center flex items-center justify-center">
                     <a
                       href="tel:+1 (855) 308-3676
@@ -111,7 +111,7 @@ const Header = () => {
                   <Link href="/free-trial">Pricing</Link>
                 </li> */}
 
-                  <li className="text-white   font-bold text-center">
+                  <li className="text-white font-bold text-center items-center">
                     <button className="rounded-lg  border-2 border-gray-50 text-xl bg-transparent hover:bg-white hover:text-black hover:border-black    py-1 px-2">
                       <Link href="/free-trial">Start Now</Link>
                     </button>
