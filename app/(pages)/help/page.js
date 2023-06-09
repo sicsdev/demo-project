@@ -211,53 +211,50 @@ const Help = () => {
             {showSearch ? (
               <>
                 <div
-                  className="absolute  	justify-start z-10 w-[100%]   max-h-[auto]  min-h-[100px] flex items-baseline  p-8 shadow-none mb-16  "
-                  style={{ background: "white" }}
+                  className="absolute  	justify-start z-10 w-[100%]  bg-white max-h-[auto]  min-h-[100px] flex items-baseline  p-8 shadow-none mb-16  "
                 >
                   <div className="flex flex-col	justify-center w-[100%]">
                     {searchResults.map((ele, key) => (
                       <div key={key}>
-                      <Link href={`help/${ele.first_slug + "" + ele.slug}`}>
-                        <div className="mb-14 shadow p-5 " >
-                          <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-3 js-show-on-scroll">
-                            {ele.name}
-                          </h2>
-                          <p
-                            className="font-normal text-base sm:text-lg  text-black opacity-80 js-show-on-scroll
+                        <Link href={`help/${ele.first_slug + "" + ele.slug}`}>
+                          <div className="mb-14 shadow p-5 ">
+                            <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-3 js-show-on-scroll">
+                              {ele.name}
+                            </h2>
+                            <p
+                              className="font-normal text-base sm:text-lg  text-black opacity-80 js-show-on-scroll
                     overflow-hidden line-clamp-3 font-medium text-lg h-18 mb-4
                     "
-                          >
-                            {ele.subheader}
-                          </p>
-                          <div className="flex flex-co justify-start items-center gap-2 js-show-on-scroll">
-                            <div className="mr-2 flex shrink-0 items-center justify-center rounded-full leading-normal ">
-                              <img
-                                width="24"
-                                height="24"
-                                src="https://static.intercomassets.com/avatars/2/square_128/0000002-1665139916.jpg"
-                                alt=""
-                                className="inline-flex items-center justify-center rounded-full bg-primary text-lg font-bold leading-6 text-white shadow-solid-2 shadow-white [&amp;:nth-child(n+2)]:hidden lg:[&amp;:nth-child(n+2)]:inline-flex h-6 w-6 z-4"
-                              />
-                       
-                            </div>
+                            >
+                              {ele.subheader}
+                            </p>
+                            <div className="flex flex-co justify-start items-center gap-2 js-show-on-scroll">
+                              <div className="mr-2 flex shrink-0 items-center justify-center rounded-full leading-normal ">
+                                <img
+                                  width="24"
+                                  height="24"
+                                  src="https://static.intercomassets.com/avatars/2/square_128/0000002-1665139916.jpg"
+                                  alt=""
+                                  className="inline-flex items-center justify-center rounded-full bg-primary text-lg font-bold leading-6 text-white shadow-solid-2 shadow-white [&amp;:nth-child(n+2)]:hidden lg:[&amp;:nth-child(n+2)]:inline-flex h-6 w-6 z-4"
+                                />
+                              </div>
 
+                              <div className="flex flex-col">
+                                <div className="js-show-on-scroll ">
+                                  <p className="text-100 bold color-neutral-100 text-black opacity-70">
+                                    Written by Damon Alexander
+                                  </p>
+                                </div>
 
-<div className="flex flex-col">
-                            <div className="js-show-on-scroll ">
-                              <p className="text-100 bold color-neutral-100 text-black opacity-70">
-                                Written by Damon Alexander
-                              </p>
-                            </div>
-
-                            <div className="js-show-on-scroll">
-                              <p className="text-100 bold color-neutral-100 text-black opacity-70">
-                                Updated over a week ago
-                              </p>
-                            </div>
+                                <div className="js-show-on-scroll">
+                                  <p className="text-100 bold color-neutral-100 text-black opacity-70">
+                                    Updated over a week ago
+                                  </p>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </Link>
+                        </Link>
                       </div>
                     ))}
                   </div>
