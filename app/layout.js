@@ -17,7 +17,10 @@ export default function RootLayout({ children }) {
       <head>
         {/* <link rel="icon" href="/favicon.ico" /> */}
         <meta property="og:title" content="Tempo" />
-        <meta property="og:image" content="https://usetempo.ai/tempo_preview.jpg" />
+        <meta
+          property="og:image"
+          content="https://usetempo.ai/tempo_preview.jpg"
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -34,6 +37,37 @@ export default function RootLayout({ children }) {
           `,
           }}
         ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-P3BH433')
+`,
+          }}
+        />
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
+            height="0"
+            width="0"
+            style={{display:"none", visibility:"hidden"}}
+          ></iframe>
+        </noscript>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-P3BH433')
+`,
+          }}
+        />
+
         <script
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
