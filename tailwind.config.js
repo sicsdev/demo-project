@@ -96,6 +96,31 @@ module.exports = {
         "type-section":
           "linear-gradient(to right, rgb(199, 210, 254), rgb(254, 202, 202), rgb(254, 249, 195))",
       },
+      fontSize: {
+        "h1": "55px",
+        "h2":"45px",
+        "h3": "35px",
+        "h4":"30px",
+        "h5":"25px",
+        "h6":"20px",
+        "para":"16px",
+        "small-para":"14px"
+      },
+      fontFamily: {
+        'generalSans-extraLight': ['GeneralSans-Extralight'],
+        'generalSans-light': ['GeneralSans-light'],
+        'generalSans-regular': ['GeneralSans-Regular'],
+        'generalSans-medium': ['GeneralSans-Medium'],
+        'generalSans-semibold': ['GeneralSans-Semibold'],
+        'generalSans-bold': ['GeneralSans-Bold'],
+        'clash-extraLight': ['ClashDisplay-Extralight'],
+        'clash-light': ['ClashDisplay-Light'],
+        'clash-regular': ['ClashDisplay-Regular'],
+        'clash-medium': ['ClashDisplay-Medium'],
+        'clash-semibold': ['ClashDisplay-Semibold'],
+        'clash-bold': ['ClashDisplay-Bold'],
+
+      },
       keyframes: {
         fadeIn: {
           "0%": { opacity: 0 },

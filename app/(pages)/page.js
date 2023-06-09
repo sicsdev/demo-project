@@ -1,4 +1,4 @@
-"use client";
+'use client'
 import Info from "../components/Info-Screen/Info";
 import Trial from "../components/Trial/Trial";
 import Benifits from "../components/Benifits/Benifits";
