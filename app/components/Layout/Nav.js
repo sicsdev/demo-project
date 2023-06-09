@@ -7,11 +7,16 @@ import { Bars4Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Accordian from '../Accordian/Accordian'
 import { useState } from 'react'
 import Link from 'next/link'
+import Banner from './Banner'
 const Nav = () => {
     const [show, setShow] = useState(false)
     return (
-        <nav className="sticky top-0 start-0 z-40 w-full  shadow-xl bg-heading border-gray-200 flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">
+        <nav className="sticky top-0 start-0 z-50 w-full  shadow-xl bg-heading border-gray-200 ">
+          <Banner />
+
+          <div className='flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]'>
             <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[60px]">
+            
                 <div className='relative w-28 h-8 mr-24'>
                     <Image fill={"true"} className='bg-contain mx-auto w-full' alt="logo.png" src={'/logo.png'} />
                 </div>
@@ -46,11 +51,15 @@ const Nav = () => {
                         : <XMarkIcon className="animate-fadeIn h-8 w-8 text-white" onClick={(e) => { setShow(false) }} />}
                 </div>
             </div>
+            </div>
+
             {show === true && (
                 <div className='block md:hidden lg:hidden sm:hidden w-full '>
                     <Accordian setShow={setShow}/>
                 </div>
             )}
+
+
         </nav>
 
     )
