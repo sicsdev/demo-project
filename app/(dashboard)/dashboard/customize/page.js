@@ -264,7 +264,7 @@ const Page = () => {
                     </div>
 
 
-                    <div id='chatbot_widget'>
+                    <div id='chatbot_preview'>
                         <div className='mb-4'>
                             <a className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="preview">
                                 <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
