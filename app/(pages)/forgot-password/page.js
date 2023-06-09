@@ -32,7 +32,7 @@ const Page = () => {
           router.push(`/forgot-password/recovery?email=${email}`)
         })
         .catch(() => {
-          setError('Email not found, please check your email address')
+          setError('Something went wrong, please try again')
         })
 
     } else {
