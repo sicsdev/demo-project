@@ -50,7 +50,7 @@
   padding-bottom: 0.5vh;
   opacity: 1;
   transform: translateY(0);
-  z-index: 100;
+  /* z-index: 100; */
   margin-top: 0;
 }
 
