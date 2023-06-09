@@ -24,7 +24,6 @@ const Info = () => {
   useEffect(() => {
     const callback = function (entries) {
       entries.forEach((entry) => {
-        console.log(entry);
 
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fadeIn");
@@ -71,7 +70,7 @@ const Info = () => {
             />
           </div>
           <div className="flex items-center mx-auto  order-4 js-show-on-scroll">
-            {/* <iframe class="w-full aspect-video" autoplay="1" mute  allow="autoplay" src="secondvideo.mp4" ></iframe> */}
+            {/* <iframe className="w-full aspect-video" autoplay="1" mute  allow="autoplay" src="secondvideo.mp4" ></iframe> */}
             <video autoPlay muted src="secondvideo.mp4" playsInline />
 
             {/* <img
@@ -115,7 +114,7 @@ const Info = () => {
             </div>
           </div>
           <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full flex items-center   order-6 js-show-on-scroll">
-            {/* <iframe class="w-full aspect-video ..."  autoplay="1" allow="autoplay" src="thirdvideo.mp4"></iframe> */}
+            {/* <iframe className="w-full aspect-video ..."  autoplay="1" allow="autoplay" src="thirdvideo.mp4"></iframe> */}
             <video autoPlay muted playsInline src="thirdvideo.mp4"  />
 
             {/* <img

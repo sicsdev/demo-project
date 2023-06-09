@@ -3,7 +3,7 @@ import Link from "next/link";
 const Banner = () => {
   return (
     <div className="z-40 text-center p-3 bg-[#142543]">
-      <h5 class="text-blue-400 text-white text-xs sm:text-base md:text-base">
+      <h5 className="text-blue-400 text-white text-xs sm:text-base md:text-base">
         Onboard real agents powered by ChatGPT to plug into Shopify, Salesforce,
         Zendesk, or your custom store.{" "}
         {/* <span className="underline cursor-pointer "> Start Now</span> */}

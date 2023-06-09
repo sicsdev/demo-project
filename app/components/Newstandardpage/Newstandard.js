@@ -42,7 +42,7 @@ const Newstandard = () => {
                 </h3>
                 {item.tag && (
                   <button
-                    class="font-semibold rounded-full px-4 py-1 text-black js-show-on-scroll"
+                    className="font-semibold rounded-full px-4 py-1 text-black js-show-on-scroll"
                     style={{ background: "#59f2f6" }}
                   >
                     {item?.tag}
