@@ -216,7 +216,7 @@ const Help = () => {
                   <div className="flex flex-col	justify-center w-[100%]">
                     {searchResults.map((ele, key) => (
                       <div key={key}>
-                        <Link href={`help/${ele.first_slug + "" + ele.slug}`}>
+                        <Link href={`help/${ele.first_slug+""+ele.slug}`}>
                           <div className="mb-14 shadow p-5 ">
                             <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-3 js-show-on-scroll">
                               {ele.name}
