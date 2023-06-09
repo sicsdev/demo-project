@@ -19,7 +19,6 @@ const schema = yup.object({
 export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep, form = true, setIsEdit }) {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    console.log(basicFormData)
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             business_address: basicFormData?.business_address ? basicFormData.business_address : '',
@@ -30,7 +29,6 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         },
         resolver: yupResolver(schema)
     });
-    console.log(errors)
     const onSubmit = async (data) => {
         setLoading(true)
         let payload = {

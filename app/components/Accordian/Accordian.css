@@ -1,0 +1,28 @@
+.nav-accordian .accordion {
+    border: none !important;
+    border-radius: 2px;
+}
+
+.nav-accordian .accordion__panel,
+.accordion__button,
+.accordion__button {
+    background-color: white !important;
+}
+
+.nav-accordian .accordion__button {
+    position: relative !important;
+}
+
+.nav-accordian .accordion__button:before {
+    position: absolute !important;
+    right: 0 !important;
+    top: 23px !important;
+}
+
+.nav-accordian {
+    padding: 9px;
+    background: white;
+}
+.accordion__item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.139);
+}

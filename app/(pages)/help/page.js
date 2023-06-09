@@ -239,12 +239,14 @@ const Help = () => {
                                 />
                               </div>
 
+
                               <div className="flex flex-col">
                                 <div className="js-show-on-scroll ">
                                   <p className="text-100 bold color-neutral-100 text-black opacity-70">
                                     Written by Damon Alexander
                                   </p>
                                 </div>
+
 
                                 <div className="js-show-on-scroll">
                                   <p className="text-100 bold color-neutral-100 text-black opacity-70">

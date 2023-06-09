@@ -1,7 +1,6 @@
 import React from 'react'
 
 const BasicDetailsReadOnly = ({state}) => {
-    console.log(state)
     return (
         <div>
             {state && (

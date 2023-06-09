@@ -27,7 +27,6 @@ const ChatBot = () => {
         if (ref.current) {
             ref.current.style.height = "auto";
             ref.current.style.height = `${e.target.scrollHeight}px`;
-            console.log(height - e.target.scrollHeight)
             setText(ref.current.value)
         }
     };

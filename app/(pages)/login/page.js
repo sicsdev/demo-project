@@ -51,13 +51,11 @@ const Login = () => {
 
     const handleLogin = async () => {
         setLoading(true);
-        console.log(formValues)
 
         let result = dispatch(userLogin(formValues));
         // let result = dispatch(fetchProfile(formValues))
 
         result.then(res => {
-            console.log(res.payload)
             if (res.payload.token) {
                 localStorage.setItem('Token', res.payload.token);
                 router.push('/dashboard');

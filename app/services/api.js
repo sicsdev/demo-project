@@ -71,7 +71,6 @@ export const KLAVIYO_TRACK_EVENT = async (data) => {
         },
       },
     );
-    console.log(response.data); // Handle the response as needed
   } catch (error) {
     console.error(error);
   }

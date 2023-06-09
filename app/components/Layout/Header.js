@@ -37,7 +37,7 @@ const Header = () => {
                 <img
                   src="/logo.png"
                   alt="logo"
-                  class="w-24 h-15 object-contain"
+                  className="w-24 h-15 object-contain"
                 />
               {/* </Link> */}
               {pathName === "/checkout" || pathName === "/free-trial" ? (

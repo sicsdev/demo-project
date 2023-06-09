@@ -79,7 +79,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       payload.refund_tolerance = 3
       payload.cancellation_tolerance = 3
     }
-    console.log("payload", payload)
     const bot = await createBot(payload)
     if (form === true) {
       if (bot?.status === 201) {
@@ -124,11 +123,9 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log("Called", reader);
         baseURL = reader.result;
         resolve(baseURL);
       };
-      console.log(fileInfo);
     });
   };
 
