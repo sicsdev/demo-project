@@ -47,10 +47,10 @@ const Iconanimation = () => {
             </div>
         </div>
         <div className="col-span-12 sm:col-span-5 bg-gray-300 col_section content">
-          <h3 className="text-center text-2xl md:text-3xl lg:text-3xl sm:text-3xl my-2 font-bold text-black">
+          <h3 className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black">
             Integrate your favorite apps — or build your own
           </h3>
-          <p className="text-heading font-normal text-normal text-center pt-3">
+          <p className="text-heading font-normal text-para text-center pt-3">
             Take back your browser tabs. Integrate your apps, data, and channels
             into the same tool you use to message your customers.
           </p>

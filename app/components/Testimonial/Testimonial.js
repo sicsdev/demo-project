@@ -67,9 +67,9 @@ const Testimonial = () => {
         >
           <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
             {" "}
-            <h1 className=" font-bold  text-2xl  md:text-5xl lg:text-5xl sm:text-5xl   text-heading  ">
+            <h2 className=" font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none   text-heading  ">
              Try Tempo with your own support content now
-            </h1>
+            </h2>
           </div>
           <div className="block sm:grid md:grid lg:grid grid-cols-2 gap-4">
             <button

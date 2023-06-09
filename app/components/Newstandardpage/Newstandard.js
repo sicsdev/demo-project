@@ -26,7 +26,7 @@ const Newstandard = () => {
   return (
     <div className="bg-background py-8 ">
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
-        <h2 className="text-center  text-2xl md:text-5xl lg:text-5xl sm:text-5xl my-2 font-bold text-white">
+        <h2 className="text-center  text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-white">
           Extremely powerful automated synergy
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4 mt-10">
@@ -37,9 +37,9 @@ const Newstandard = () => {
               key={key}
             >
               <div className="flex flex-col-reverse sm:flex-row justify-start sm:justify-center items-start sm:items-center gap-4 mb-6 sm:mb-10">
-                <h3 className="font-semibold text-xl md:text-xl lg:text-xl sm:text-xl text-white js-show-on-scroll">
+                <h5 className="font-semibold text-xl md:text-h6 sm:leading-2 lg:text-h6 sm:text-h6 text-white js-show-on-scroll">
                   {item.title}
-                </h3>
+                </h5>
                 {item.tag && (
                   <button
                     className="font-semibold rounded-full px-4 py-1 text-black js-show-on-scroll"
@@ -50,7 +50,7 @@ const Newstandard = () => {
                 )}
               </div>
               <div className="flex flex-co justify-start items-center gap-4">
-                <p className="text-white text-base sm:text-lg opacity-70 js-show-on-scroll">
+                <p className="text-white text-base sm:text-para opacity-70 js-show-on-scroll">
                   {item.text}
                 </p>
               </div>

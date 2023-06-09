@@ -87,7 +87,7 @@ const Footer = () => {
             <span className="text-4xl">
               {/* <Link href="/"> */}
                 <img
-                  src="logo.png"
+                  src="/logo.png"
                   alt="logo"
                   className="w-24 h-15 object-contain"
                 />

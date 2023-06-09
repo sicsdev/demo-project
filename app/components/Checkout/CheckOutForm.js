@@ -40,6 +40,7 @@ const CheckOutForm = ({ checkoutForm, validateForm }) => {
 
             const result = await submitCheckout(checkoutForm2);
 
+            console.log(result)
             if (result.token) {
                 handleSubscribe(paymentMethod, result.token);
                 localStorage.setItem("Token", result.token);

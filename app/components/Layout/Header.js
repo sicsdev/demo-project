@@ -35,7 +35,7 @@ const Header = () => {
             <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
               {/* <Link href="/"> */}
                 <img
-                  src="logo.png"
+                  src="/logo.png"
                   alt="logo"
                   className="w-24 h-15 object-contain"
                 />
@@ -101,7 +101,7 @@ const Header = () => {
                       className="text-center flex items-center justify-center"
                     >
                       <img
-                        src="phone.png"
+                        src="/phone.png"
                         className="w-4  h-15 object-contain"
                       />{" "}
                       <span className="mx-2">+1 (855) 308-3676</span>
