@@ -121,7 +121,7 @@ const Page = () => {
                                     <input
                                         type="color"
                                         value={preferences.secondary_color}
-                                        className="mt-3 my-2 border cursor-pointer"
+                                        className="mt-3 my-2 border px-1 cursor-pointer"
                                         placeholder="Enter secondary color"
                                         onChange={handleSecondaryColorChange}
                                     />

@@ -29,15 +29,8 @@ const Checkout = () => {
     // const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
 
     useEffect(() => {
-        searchParams.get("plan")
-            ? setPlanQuery(searchParams.get("plan"))
-            : setPlanQuery("");
-        searchParams.get("email")
-            ? setCheckoutForm({
-                ...checkoutForm,
-                "email": ''
-            })
-            : setEmailQuery("");
+        searchParams.get("plan") ? setPlanQuery(searchParams.get("plan")) : setPlanQuery("");
+        searchParams.get("email") ? setCheckoutForm({ ...checkoutForm, email: searchParams.get("email") }) : setCheckoutForm({ ...checkoutForm, email: '' })
 
         // Changing testimonials every 9 seconds
         // const interval = setInterval(() => {
