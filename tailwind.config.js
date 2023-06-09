@@ -84,6 +84,7 @@ module.exports = {
       'danger':"#dc2626",
       'modal':"#fef2f2",
       'gray': "#e4e4e7",
+      'red': "#dc2626",
     },
     extend: {
       backgroundImage: {

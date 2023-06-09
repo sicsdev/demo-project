@@ -1,24 +1,69 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import Container from '../../components/Container/Container'
 import Button from '../../components/Common/Button/Button'
 import { Input } from '../../components/Common/Input/Input'
 import Link from 'next/link'
+import { forgotPassword } from '@/app/API/pages/Forgot-password'
+import Swal from 'sweetalert2'
+import { useRouter } from 'next/navigation'
+
 const Page = () => {
+  const router = useRouter()
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+
+  function validator() {
+    const pattern = /^[\w\.-]+(\+\w+)?@[\w\.-]+\.\w+$/;
+    return pattern.test(email);
+  }
+
+  const handleForgotPassword = () => {
+    if (validator()) {
+
+      forgotPassword({ email: email })
+        .then((res) => {
+          Swal.fire({
+            title: 'Success!',
+            text: `Please check your email for reset instructions`,
+            timer: 3500,
+            showConfirmButton: false,
+          })
+          router.push(`/forgot-password/recovery?email=${email}`)
+        })
+        .catch(() => {
+          setError('Email not found, please check your email address')
+        })
+
+    } else {
+      setError('Please enter a valid email address')
+    }
+  }
+
+  const handleInputValue = (e) => {
+    setEmail(e.target.value)
+    setError('')
+  }
+
   return (
     <Container>
-    <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center'>
+      <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center'>
         <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>Reset password</h1>
-      
+
         <form>
-            <label className="block my-5" htmlFor='email'>
-                <span className="block text-start text-sm font-normal text-heading">Email Address</span>
-                <Input type={"email"} placeholder={"name@company.com"} className={"w-full border mx-auto mt-4"}   value={''} id={"email"} onChange={(value) => { console.log(value) }} />
-            </label>
-            <Link href="/login?password=true"> <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false}> Send Reset Instructions</Button></Link>
+          <label className="block my-5" htmlFor='email'>
+            <span className="block text-start text-sm font-normal text-heading">Email Address</span>
+            <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto mt-4 ${error ? 'border border-red' : ''}`} value={email} id={"email"} onChange={handleInputValue} />
+          </label>
+          <p className="text-red-500 text-sm text-center text-red">{error}</p>
+          <Button
+            className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
+            disabled={false}
+            onClick={handleForgotPassword}
+          > Send Reset Instructions</Button>
         </form>
-    </div>
-</Container>
+      </div>
+    </Container>
   )
 }
 

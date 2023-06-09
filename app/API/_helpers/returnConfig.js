@@ -1,8 +1,8 @@
 export const returnConfig = () => {
-    const config = {
-        headers: {
-            "Authorization": "Token " + localStorage.getItem("Token")
-        },
-    }
-    return config
-}
+    const token = localStorage.getItem("Token");
+
+    const config = { headers: { "Content-Type": "application/json",}, };
+    if (token) { config.headers["Authorization"] = "Token " + token }
+
+    return config;
+  };
