@@ -16,6 +16,12 @@ const Page = () => {
     const handleComponentClick = (componentName, event) => {
         event.preventDefault();
         setSelectedComponent(componentName);
+        setTimeout(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     };
 
     return (
@@ -30,14 +36,14 @@ const Page = () => {
 
 
             <div className='mt-4'>
-                <div className='justify-center flex mb-5'>
-                    <div className='border rounded border-gray hover:border-voilet' style={{ width: '30%', marginRight: '10px' }} onClick={(event) => handleComponentClick('TicketsOverTime', event)}>
+                <div className='justify-center lg:flex mb-5 gap-3'>
+                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={(event) => handleComponentClick('TicketsOverTime', event)}>
                         <TicketsOverTimePreview />
                     </div>
-                    <div className='border rounded border-gray hover:border-voilet' style={{ width: '30%', marginRight: '10px' }} onClick={(event) => handleComponentClick('TicketsDistribution', event)}>
+                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={(event) => handleComponentClick('TicketsDistribution', event)}>
                         <TicketsDistributionPreview />
                     </div>
-                    <div className='border rounded border-gray hover:border-voilet' style={{ width: '30%' }} onClick={(event) => handleComponentClick('TicketsSpikes', event)}>
+                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={(event) => handleComponentClick('TicketsSpikes', event)}>
                         <TicketsSpikesPreview />
                     </div>
                 </div>

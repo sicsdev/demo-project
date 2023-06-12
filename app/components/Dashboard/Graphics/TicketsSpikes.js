@@ -31,11 +31,11 @@ const TicketsSpikes = () => {
                     enabled: false
                 },
                 markers: {
-                    size: 6,
-                    strokeWidth: 0,
+                    size: 2,
+                    strokeWidth: 5,
                     hover: {
                         size: 8
-                    }
+                    },
                 },
                 title: {
                     text: 'Cancellation Requests',
@@ -81,6 +81,7 @@ const TicketsSpikes = () => {
                     }
                 }
             };
+
             const chart = new ApexCharts(chartRef.current, options);
             chart.render();
 
@@ -95,13 +96,26 @@ const TicketsSpikes = () => {
     return (
         <div className="mt-5 rounded">
             <div className='lg:p-5'>
-                <h5 className="font-bold text-center text-gray hover:text-black">Ticket Quantity Variation</h5>
+                <h5 className="font-bold hover:text-black mb-5">Ticket Quantity Variation</h5>
+
+                <div className='flex justify-center my-2'>
+                    <select className="block bg-transparent p-2 border border-gray rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="">Select ticket</option>
+                        <option value="Refunds">Refunds</option>
+                        <option value="Cancellation Requests">Cancellation Requests</option>
+                        <option value="Account Issues">Account Issues</option>
+                        <option value="Technical Support">Technical Support</option>
+                        <option value="Billing Inquiries">Billing Inquiries</option>
+                        <option value="Feature Requests">Feature Requests</option>
+                    </select>
+                </div>
+
                 <div
                     ref={chartRef}
                     className="lg:w-3/4 mx-auto "
                 />
-                <div className='text-center'>
-                &#9888; We notice a increment
+                <div className='text-center text-orange'>
+                    &#9888; We notice a increment in Cancellation Requests
                 </div>
             </div>
         </div>

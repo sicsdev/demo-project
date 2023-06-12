@@ -43,19 +43,11 @@ const TicketsOverTimePreview = () => {
             xaxis: {
                 categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
                 labels: {
-                    show: false
+                    show: true
                 }
             },
-            yaxis: [
-                {
-                    show: false
-                },
-                {
-                    show: false
-                }
-            ],
             legend: {
-                show: false
+                show: true
             },
             grid: {
                 show: false,

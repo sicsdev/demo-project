@@ -7,7 +7,6 @@ const TicketsDistribution = () => {
 
     const chartRef = useRef(null);
 
-    const [currentMonth, setCurrentMonth] = useState('February');
     const [dataByMonth, setDataByMonth] = useState({
         January: [120, 200, 150, 80, 70, 90],
         February: [160, 180, 140, 90, 100, 120],
@@ -16,6 +15,8 @@ const TicketsDistribution = () => {
         May: [130, 210, 180, 100, 80, 140],
         June: [140, 230, 190, 120, 110, 150]
     });
+
+    const [currentMonth, setCurrentMonth] = useState('');
 
     const handleClick = (month) => {
         setCurrentMonth(month);
@@ -77,6 +78,10 @@ const TicketsDistribution = () => {
             const chart = new ApexCharts(chartRef.current, options);
             chart.render();
 
+            const keys = Object.keys(dataByMonth);
+            const lastKey = keys[keys.length - 1];
+            setCurrentMonth(prevMonth => prevMonth || lastKey);
+
             return () => {
                 chart.destroy();
             };
@@ -87,7 +92,7 @@ const TicketsDistribution = () => {
     return (
         <div className="mt-5 rounded">
             <div className="lg:p-5">
-                <h5 className="font-bold text-center text-gray hover:text-black">Tickets Distribution By Month</h5>
+                <h5 className="font-bold hover:text-black mb-5">Tickets Distribution By Month</h5>
                 <div className="lg:w-3/4 mx-auto mt-4">
 
                     <div className="flex justify-center mb-4">

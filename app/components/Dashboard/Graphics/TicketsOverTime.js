@@ -118,7 +118,7 @@ const TicketsOverTime = () => {
     return (
         <div className="mt-5 rounded">
             <div className='lg:p-5'>
-                <h5 className="font-bold text-center text-gray hover:text-black">Ticket/Interaction Count Over Time</h5>
+                <h5 className="font-bold hover:text-black mb-5">Ticket/Interaction Count Over Time</h5>
                 <div
                     ref={chartRef}
                     className="lg:w-3/4 mx-auto "

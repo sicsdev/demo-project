@@ -7,7 +7,7 @@ const TicketsDistributionPreview = () => {
 
     const chartRef = useRef(null);
 
-    const [currentMonth, setCurrentMonth] = useState('February');
+    const [currentMonth, setCurrentMonth] = useState('');
     const [dataByMonth, setDataByMonth] = useState({
         January: [120, 200, 150, 80, 70, 90],
         February: [160, 180, 140, 90, 100, 120],
@@ -80,7 +80,10 @@ const TicketsDistributionPreview = () => {
     
           const chart = new ApexCharts(chartRef.current, options);
           chart.render();
-    
+          const keys = Object.keys(dataByMonth);
+          const lastKey = keys[keys.length - 1];
+          setCurrentMonth(prevMonth => prevMonth || lastKey);
+
           return () => {
             chart.destroy();
           };

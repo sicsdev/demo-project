@@ -49,11 +49,6 @@ const TicketsSpikesPreview = () => {
               },
             },
             yaxis: {
-              labels: {
-                formatter: function (val) {
-                  return val.toFixed(0);
-                },
-              },
               title: {
                 text: 'Quantity'
               },
