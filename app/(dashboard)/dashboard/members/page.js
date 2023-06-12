@@ -13,7 +13,6 @@ const Page = () => {
     const [teamModal, setTeamModal] = useState(false)
     const state = useSelector(state => state.members)
     const dispatch = useDispatch()
-    console.log("state", state)
     const getMembersData = () => {
         dispatch(fetchMembers())
     }

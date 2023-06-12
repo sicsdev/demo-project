@@ -83,7 +83,8 @@ module.exports = {
       'headone':"rgb(18, 17, 66)",
       'danger':"#dc2626",
       'modal':"#fef2f2",
-      'gray': "#b5b5b5",
+      'gray': "#e4e4e7",
+      'red': "#dc2626",
     },
     extend: {
       backgroundImage: {
@@ -94,6 +95,31 @@ module.exports = {
           "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)",
         "type-section":
           "linear-gradient(to right, rgb(199, 210, 254), rgb(254, 202, 202), rgb(254, 249, 195))",
+      },
+      fontSize: {
+        "h1": "55px",
+        "h2":"45px",
+        "h3": "35px",
+        "h4":"30px",
+        "h5":"25px",
+        "h6":"20px",
+        "para":"16px",
+        "small-para":"14px"
+      },
+      fontFamily: {
+        'generalSans-extraLight': ['GeneralSans-Extralight'],
+        'generalSans-light': ['GeneralSans-light'],
+        'generalSans-regular': ['GeneralSans-Regular'],
+        'generalSans-medium': ['GeneralSans-Medium'],
+        'generalSans-semibold': ['GeneralSans-Semibold'],
+        'generalSans-bold': ['GeneralSans-Bold'],
+        'clash-extraLight': ['ClashDisplay-Extralight'],
+        'clash-light': ['ClashDisplay-Light'],
+        'clash-regular': ['ClashDisplay-Regular'],
+        'clash-medium': ['ClashDisplay-Medium'],
+        'clash-semibold': ['ClashDisplay-Semibold'],
+        'clash-bold': ['ClashDisplay-Bold'],
+
       },
       keyframes: {
         fadeIn: {
@@ -166,6 +192,8 @@ module.exports = {
         backbottoggle: "backbottoggle 0.7s ease-in-out",
         chattile: "chattile 1s ease-in",
         fadeIn: "fadeIn .5s ease-in forwards",
+        
+
       },
     },
   },
