@@ -103,3 +103,12 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+.my-side-hover{
+
+  position: absolute;
+  z-index: 9;
+  top: -21px;
+  width: 100%;
+  left: 250px;
+}
