@@ -82,7 +82,8 @@ module.exports = {
       'linkhover':"rgb(40, 47, 92)",
       'headone':"rgb(18, 17, 66)",
       'danger':"#dc2626",
-      'modal':"#fef2f2"
+      'modal':"#fef2f2",
+      'gray': "#b5b5b5",
     },
     extend: {
       backgroundImage: {

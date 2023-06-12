@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import Button from '../../Common/Button/Button'
 import { usePathname, useRouter } from 'next/navigation';
-import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon } from '@heroicons/react/24/outline';
+import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../../store/slices/userSlice';
@@ -60,6 +60,11 @@ const Sidebar = ({ children }) => {
             name: 'Members',
             icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
 
+        },
+        {
+            href: '/dashboard/graphics',
+            name: 'Graphics',
+            icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
         },
     ]
     const SideBarSetting = [
