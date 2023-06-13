@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import ApexCharts from 'apexcharts'
 import { useEffect } from 'react';
