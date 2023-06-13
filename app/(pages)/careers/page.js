@@ -111,101 +111,31 @@ const Page = () => {
           </h1>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="flex items-start ">
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                width="60"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
+           
               Communicating efficiently and effectively with our customers - we
               use our own product to do most of our support, but you'll also be
               talking to customers on the phone every now and then
             </div>
             <div className="flex  items-start">
-            <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                width="60"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
+        
               Being the one responsible, along with the Support team, to ensure
               that all customers have a great experience with the product - a
               crucial part of the role is ensuring we make the product as easy
               to use, reliable, bug-free, and fast as possible
             </div>
             <div className="flex items-start">
-            <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                width="24"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
+       
               Owning customer communications and issues from initial contact
               until resolution
             </div>{" "}
             <div className="flex  items-start">
-            <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                width="60"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
+       
               Working directly with product teams to identify current issues
               and, synthesizing the diverse feedback you hear from our
               customers, offer informed opinions on potential solutions
             </div>{" "}
             <div className="flex  items-start">
-            <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                width="30"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M4.5 12.75l6 6 9-13.5"
-                ></path>
-              </svg>
+       
               Becoming an encyclopedia of knowledge about how Intercom works and
               what it is capable of
             </div>
