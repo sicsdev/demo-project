@@ -203,26 +203,14 @@ const BlogSidebar = ({ children }) => {
                   </AccordionItemButton>
                 </AccordionItemHeading>
                 {upperTitle.map((ele, key) => (
-                  <div
-                    className="group "
-                    key={key}
-               
-                  >
+                  <div className="group " key={key}>
                     <AccordionItemPanel>{ele.name}</AccordionItemPanel>
                   </div>
                 ))}
               </AccordionItem>
             </Accordion>
           </div>
-          <div className="ml-4 mt-5 ">
-            <h1 className=" font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-              The Tempo Blog
-            </h1>{" "}
-            <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-              Articles on Customer Service, Customer Support, Product Design,
-              and more
-            </p>
-          </div>
+
           <hr class="h-px my-8 bg-gray-200 border-b-0 dark:bg-gray-700 left-0" />
           {children}
           <Footer />

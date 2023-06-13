@@ -2,7 +2,7 @@ import React from "react";
 import Demo from "../Demo/Demo";
 import { useSearchParams } from "next/navigation";
 
-const Start = ({ params }) => {
+const Startkeyword = ({ params }) => {
   const searchParams = useSearchParams();
   const search = searchParams.get("kw");
   const removeDash = (str) => {
@@ -34,12 +34,13 @@ const Start = ({ params }) => {
         <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10">
           <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
             <div className="">
-              <h1 className="font-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none mb-2">
-                Your one stop {removeDash(search)} solution{" "}
-              </h1>
               <h1 className=" font-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-                <span className="text-first-section-color">Never think </span>{" "}
-                about customer service again
+                Your one stop
+                <span className="text-first-section-color">
+                  {" "}
+                  {removeDash(search)}{" "}
+                </span>{" "}
+                solution
               </h1>
               <ul className="list-none my-6 sm:my-6">
                 {list.map((element, key) => (
@@ -60,4 +61,4 @@ const Start = ({ params }) => {
   );
 };
 
-export default Start;
+export default Startkeyword;

@@ -31,6 +31,7 @@ const News = () => {
   ];
   return (
     <div className=" bg-white  ">
+      
       <div className="my-8 mx-auto max-w-[100%]">
         <h1 className="text-center text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
           Latest News

@@ -2,10 +2,20 @@ import React from "react";
 import Link from "next/link";
 import News from "@/app/components/Blog/News";
 import Blogmail from "@/app/components/Blog/Blogmail";
+import Blogs from "@/app/components/Blog/Blogs";
 const Blog = () => {
   return (
     <div className="mb-4 ">
       <div className="bg-white  p-0">
+      <div className="ml-4 mt-5 ">
+            <h1 className=" font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+              The Tempo Blog
+            </h1>{" "}
+            <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
+              Articles on Customer Service, Customer Support, Product Design,
+              and more
+            </p>
+          </div>
         <div className="flex flex-wrap">
           <div className="w-full sm:w-1/2">
             <img
@@ -50,7 +60,9 @@ const Blog = () => {
         </div>
       </div>
       <News/>
+      <Blogs/>
       <Blogmail/>
+
     </div>
   );
 };
