@@ -2,21 +2,17 @@
 import React from 'react'
 import { useState } from 'react';
 import { ChartBarIcon } from '@heroicons/react/24/outline';
-// import TicketsOverTime from '@/app/components/Dashboard/Graphics/TicketsOverTime';
-// import TicketsDistribution from '@/app/components/Dashboard/Graphics/TicketsDistribution';
-// import TicketsSpikes from '@/app/components/Dashboard/Graphics/TicketsSpikes';
-// import TicketsOverTimePreview from '@/app/components/Dashboard/Graphics/Previews/TicketsOverTimePreview';
-// import TicketsDistributionPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsDistributionPreview';
-// import TicketsSpikesPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsSpikesPreview';
+import TicketsOverTime from '@/app/components/Dashboard/Graphics/TicketsOverTime';
+import TicketsDistribution from '@/app/components/Dashboard/Graphics/TicketsDistribution';
+import TicketsSpikes from '@/app/components/Dashboard/Graphics/TicketsSpikes';
+import TicketsOverTimePreview from '@/app/components/Dashboard/Graphics/Previews/TicketsOverTimePreview';
+import TicketsDistributionPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsDistributionPreview';
+import TicketsSpikesPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsSpikesPreview';
 
-let TicketsOverTime
-if (typeof window !== 'undefined') {
-    TicketsOverTime = require('@/app/components/Dashboard/Graphics/TicketsOverTime').default;
-  }
 
 const Page = () => {
 
-    const [selectedComponent, setSelectedComponent] = useState('TicketsDistribution');
+    const [selectedComponent, setSelectedComponent] = useState('TicketsSpikes');
 
     const handleComponentClick = (componentName) => {
         setSelectedComponent(componentName);
@@ -34,31 +30,28 @@ const Page = () => {
 
 
             <div className='mt-4'>
-                {/* <div className='justify-center lg:flex mb-5 gap-3'>
-                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={() => handleComponentClick('TicketsOverTime')}>
+                <div className='justify-center lg:flex mb-5 gap-3'>
+                    <div className='lg:w-1/3 mt-2 cursor-pointer' onClick={() => handleComponentClick('TicketsOverTime')}>
+                        <small className='flex justify-center mb-1'>Tickets/Interactions Rate Over Time</small>
                         <TicketsOverTimePreview />
                     </div>
-                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={() => handleComponentClick('TicketsDistribution')}>
+                    <div className='lg:w-1/3 mt-2 cursor-pointer' onClick={() => handleComponentClick('TicketsDistribution')}>
+                        <small className='flex justify-center mb-1'>Tickets distribution/categories</small>
                         <TicketsDistributionPreview />
                     </div>
-                    <div className='border rounded border-gray hover:border-voilet lg:w-1/3 mt-2' onClick={() => handleComponentClick('TicketsSpikes')}>
+                    <div className='lg:w-1/3 mt-2 cursor-pointer' onClick={() => handleComponentClick('TicketsSpikes')}>
+                        <small className='flex justify-center mb-1'>Tickets spikes</small>
                         <TicketsSpikesPreview />
                     </div>
                 </div>
 
-                <div className='mt-5 pt-5'> 
+                <div className='mt-5 pt-5 w-3/4 m-auto'>
                     {selectedComponent === 'TicketsOverTime' && <TicketsOverTime />}
                     {selectedComponent === 'TicketsDistribution' && <TicketsDistribution />}
                     {selectedComponent === 'TicketsSpikes' && <TicketsSpikes />}
-                </div> */}
-
-{/* 
-
-                {(typeof window !== 'undefined') &&
-                    <TicketsOverTime></TicketsOverTime>} */}
-
-
+                </div>
             </div>
+
         </div>
     )
 }
