@@ -53,22 +53,6 @@ const Checkout = () => {
         });
     };
 
-    function validateForm() {
-        setUserformErrors([]);
-        let email = checkoutForm.email;
-        let password = checkoutForm.password;
-        let password_confirm = checkoutForm.password_confirm;
-        let newErrors = [];
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            newErrors.push("Please enter a valid email address");
-        }
-        if (password.length < 6) {
-            newErrors.push("Password must be at least 6 characters");
-        }
-        setUserformErrors([...newErrors]);
-    }
 
     const handleDownload = () => {
         // Replace "path/to/pdf/file.pdf" with the actual path to your PDF file
@@ -279,7 +263,6 @@ const Checkout = () => {
                             <Elements stripe={stripeLib}>
                                 <CheckOutForm
                                     checkoutForm={checkoutForm}
-                                    validateForm={validateForm}
                                 />
                             </Elements>
                         </div>
