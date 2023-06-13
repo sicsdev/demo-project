@@ -1,30 +1,27 @@
-"use client";
 import React from "react";
 import Jobsection from "@/app/components/career/Jobsection";
 import Container from "@/app/components/Container/Container";
 import axios from "axios";
-import { useEffect } from "react";
-
-import { useState } from "react";
 const Page = () => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    axios
-      .get(
-        "https://public-api.wordpress.com/rest/v1.1/sites/usetempo.ai/posts?category=careers"
-      )
-      .then((res) => setData(res.data));
-  }, []);
-
+ 
   return (
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[90%]">
-        <div className="text-center text-h6 sm:text-h2 md:text-h2 lg:text-h2 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-          {data?.posts[0]?.title}
-        </div>
-<div>
-        <div dangerouslySetInnerHTML={{ __html: data?.posts[0]?.content }}></div>
-        </div>
+        <h1 className="text-center text-h6 sm:text-h2 md:text-h2 lg:text-h2 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          A little bit about our company
+        </h1>
+        <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
+          Intercom creates modern Customer Service software that redefines how
+          businesses support their customers. Our platform connects businesses
+          directly to customers using powerful messaging and automation. We
+          enable teams to scale support without investing more resources -
+          leading to happier customers and more efficient support teams.
+        </p>
+        <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
+          Customer service teams from more than 25,000 global organizations rely
+          on Intercom to deliver efficient and personal customer experiences at
+          scale.
+        </p>
         <p
           type={"submit"}
           className={
@@ -134,7 +131,7 @@ const Page = () => {
               talking to customers on the phone every now and then
             </div>
             <div className="flex  items-start">
-              <svg
+            <svg
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
@@ -155,7 +152,7 @@ const Page = () => {
               to use, reliable, bug-free, and fast as possible
             </div>
             <div className="flex items-start">
-              <svg
+            <svg
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
@@ -174,7 +171,7 @@ const Page = () => {
               until resolution
             </div>{" "}
             <div className="flex  items-start">
-              <svg
+            <svg
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
@@ -194,7 +191,7 @@ const Page = () => {
               customers, offer informed opinions on potential solutions
             </div>{" "}
             <div className="flex  items-start">
-              <svg
+            <svg
                 fill="none"
                 stroke="currentColor"
                 stroke-width="1.5"
