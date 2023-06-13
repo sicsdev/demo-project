@@ -89,6 +89,7 @@ const Jobsection = () => {
   ];
   const organizationCounts = {};
 
+  
   // Iterate over the data array
   data.forEach((item) => {
     const organization = item.organization.trim();
