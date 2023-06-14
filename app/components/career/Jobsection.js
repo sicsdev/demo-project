@@ -204,8 +204,8 @@ const Jobsection = () => {
             </div>
           </div>
         </div>
-        {data.map((ele) => (
-          <div className="p-4 flex gap-4 flex-col">
+        {data.map((ele,key) => (
+          <div className="p-4 flex gap-4 flex-col" key={key}>
             <p className="text-h6">{ele.organization}</p>
             <p className="underline mt-3">{ele.jobName}</p>
             <p className="text-para mt-3">{ele.location}</p>
