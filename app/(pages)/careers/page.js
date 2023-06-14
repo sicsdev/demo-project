@@ -1,9 +1,6 @@
 import React from "react";
-import Jobsection from "@/app/components/career/Jobsection";
 import Container from "@/app/components/Container/Container";
-import axios from "axios";
-const Page = () => {
- 
+const Career = () => {
   return (
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[90%]">
@@ -147,4 +144,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Career;
