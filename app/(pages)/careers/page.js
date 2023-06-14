@@ -108,31 +108,26 @@ const Career = () => {
           </h1>
           <div className="grid grid-cols-2 gap-4 text-center">
             <div className="flex items-start ">
-           
               Communicating efficiently and effectively with our customers - we
               use our own product to do most of our support, but you'll also be
               talking to customers on the phone every now and then
             </div>
             <div className="flex  items-start">
-        
               Being the one responsible, along with the Support team, to ensure
               that all customers have a great experience with the product - a
               crucial part of the role is ensuring we make the product as easy
               to use, reliable, bug-free, and fast as possible
             </div>
             <div className="flex items-start">
-       
               Owning customer communications and issues from initial contact
               until resolution
             </div>{" "}
             <div className="flex  items-start">
-       
               Working directly with product teams to identify current issues
               and, synthesizing the diverse feedback you hear from our
               customers, offer informed opinions on potential solutions
             </div>{" "}
             <div className="flex  items-start">
-       
               Becoming an encyclopedia of knowledge about how Intercom works and
               what it is capable of
             </div>

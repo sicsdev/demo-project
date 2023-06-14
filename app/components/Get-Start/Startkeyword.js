@@ -2,14 +2,13 @@ import React from "react";
 import Demo from "../Demo/Demo";
 import { useSearchParams } from "next/navigation";
 
-const Startkeyword = ({ params }) => {
+const Startkeyword = () => {
   const searchParams = useSearchParams();
   const search = searchParams.get("kw");
   const removeDash = (str) => {
     return str.replace(/_/g, " ");
   };
 
-  console.log("params", removeDash(search));
   const list = [
     "Eliminates refunds",
     "Automates shipping & returns",
