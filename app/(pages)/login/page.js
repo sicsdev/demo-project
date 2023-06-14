@@ -17,7 +17,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
 
-    const clientID = "291660548280-kgl41h6mlimvvsba82ktv5mfq6rd3or6.apps.googleusercontent.com"
+    const clientID = "821512105375-igr0acbkf596l3pplt856u0ratimdr0u.apps.googleusercontent.com"
 
     const dispatch = useDispatch();
     const router = useRouter();

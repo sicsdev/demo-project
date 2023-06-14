@@ -8,6 +8,7 @@ import TicketsSpikes from '@/app/components/Dashboard/Graphics/TicketsSpikes';
 import TicketsOverTimePreview from '@/app/components/Dashboard/Graphics/Previews/TicketsOverTimePreview';
 import TicketsDistributionPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsDistributionPreview';
 import TicketsSpikesPreview from '@/app/components/Dashboard/Graphics/Previews/TicketsSpikesPreview';
+import GoogleAnalytics from './googleAnalytics';
 
 
 const Page = () => {
@@ -51,7 +52,7 @@ const Page = () => {
                     {selectedComponent === 'TicketsSpikes' && <TicketsSpikes />}
                 </div>
             </div>
-
+            <GoogleAnalytics></GoogleAnalytics>
         </div>
     )
 }
