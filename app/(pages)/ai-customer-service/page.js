@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react'
-import Startkeyword from '@/app/components/Get-Start/Startkeyword'
+import Startkeyword from '@/app/components/Get-Start/Startkeyword';
 import DTC from '@/app/components/DTC/DTC'
 import Info from '@/app/components/Info-Screen/Info'
 import Trial from '@/app/components/Trial/Trial'

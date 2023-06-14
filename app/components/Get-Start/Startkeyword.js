@@ -17,18 +17,7 @@ const Startkeyword = () => {
   ];
   return (
     <>
-      <pre lang="js">
-        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              ChatBot.Widget({
-                id: "42b15a2e-1975-41fc-8157-fd03b602a36d",
-              });
-            `,
-          }}
-        />
-      </pre>
+      
       <div className="bg-background">
         <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10">
           <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
