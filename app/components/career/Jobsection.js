@@ -132,7 +132,7 @@ const Jobsection = () => {
                       className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
                       aria-labelledby="dropdownSearchButton"
                     >
-                      {data.map((ele) => (
+                      {data.map((ele,key) => (
                         <li key={key}>
                           <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
                             <input
@@ -169,7 +169,7 @@ const Jobsection = () => {
                 {showOrganization === 1 && (
                   <div className="z-10 border  bg-white absolute divide-y divide-gray-100 rounded-lg shadow w-44 ">
                     <ul className="py-2 p-3  text-sm text-gray-700 ">
-                      {duplicateOrganizations.map((ele) => (
+                      {duplicateOrganizations.map((ele,key) => (
                         <div className="flex items-center  rounded hover:bg-gray-100 dark:hover:bg-gray-600" key={key}>
                           <input
                             id="checkbox-item-11"
