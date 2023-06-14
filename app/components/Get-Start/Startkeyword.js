@@ -37,7 +37,7 @@ const Startkeyword = () => {
                 Your one stop
                 <span className="text-first-section-color">
                   {" "}
-                  {removeDash(search)}{" "}
+                  {search && removeDash(search)}{" "}
                 </span>{" "}
                 solution
               </h1>
