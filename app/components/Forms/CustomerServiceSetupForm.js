@@ -194,7 +194,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         });
       setErrorMessage(null)
     } else {
-      setErrorMessage('Invalid file format. Please select a JPEG, PNG, or GIF file.')
+      setErrorMessage('Invalid image format. Please select a JPEG, PNG, or GIF file.')
     }
   }
 
@@ -314,7 +314,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         </>
       }
 
-      {error && (<div className='mt-2'><span className="text-red text-start" >{error}</span></div>)}
+      {error && (<div className='mt-2'><small className="text-red text-start" >{error}</small></div>)}
 
       <div className="flex col-span-3  items-center justify-between p-2 rounded-b mt-5">
         {form === true && (
