@@ -17,7 +17,7 @@ import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
 
-    const clientID = "291660548280-kgl41h6mlimvvsba82ktv5mfq6rd3or6.apps.googleusercontent.com"
+    const clientID = "821512105375-igr0acbkf596l3pplt856u0ratimdr0u.apps.googleusercontent.com"
 
     const dispatch = useDispatch();
     const router = useRouter();
@@ -25,9 +25,9 @@ const Login = () => {
     const search = searchParams.get('password');
     const as = searchParams.has('dashboard');
 
-    const isLogged = localStorage.getItem('Token');
 
     useEffect(() => {
+        const isLogged = window.localStorage.getItem('Token');
         if (search) { setShow(true) }
         if (isLogged) { router.push('/dashboard') }
     }, [search])
@@ -43,27 +43,43 @@ const Login = () => {
 
     // Handlers
     const handleFormValues = (e) => {
+        setError('')
         setFormValues({
             ...formValues,
             [e.target.name]: e.target.value
         })
     }
 
+    const validateForm = () => {
+        const emailRegex = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+
+        if (formValues.email === '' || formValues.password === '') {
+            setError('Please fill all fields');
+            return false;
+        }
+        if (!emailRegex.test(formValues.email)) {
+            setError('Please enter a valid email address');
+            return false;
+        }
+        return true;
+    }
+
     const handleLogin = async () => {
         setLoading(true);
-        console.log(formValues)
+        if (!validateForm()) { setLoading(false); return; }
 
         let result = dispatch(userLogin(formValues));
         // let result = dispatch(fetchProfile(formValues))
 
         result.then(res => {
-            console.log(res.payload)
-            if (res.payload.token) {
+            if (res.payload?.token) {
                 localStorage.setItem('Token', res.payload.token);
-                // router.push('/dashboard');
+                router.push('/dashboard');
+            } else {
+                setError('Unable to log in with provided credentials.');
+                setLoading(false);
             }
         })
-        setLoading(false);
     }
 
     const onSuccess = (res) => {
@@ -129,22 +145,23 @@ const Login = () => {
                     <form>
                         <label className="block my-5" htmlFor='email'>
                             <span className="block text-start text-sm font-normal text-border">Work Email</span>
-                            <Input type={"email"} placeholder={"name@company.com"} className={"w-full border mx-auto mt-4"} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
+                            <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto mt-4 ${error.includes('email') && 'border-red'}`} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
                         </label>
                         <label className="block my-5" htmlFor='email'>
                             <span className="block text-start text-sm font-normal text-border">Password</span>
-                            <Input type={"password"} placeholder={"password"} className={"w-full border mx-auto mt-4"} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
+                            <Input type={"password"} placeholder={"password"} className={`w-full border mx-auto mt-4 ${error && 'border-red'}`} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
                         </label>
-                        {error && <p className="text-red-500 text-sm text-center mb-2"> &#9888; {error}</p>}
+
+                        {error && <p className="text-red text-sm text-center mb-4">{error}</p>}
 
                         <div className='flex justify-between'>
                             <div className="flex items-center mr-4">
                                 <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value) => { console.log(value) }} />
                                 <label htmlFor="inline-checkbox" className="ml-2 text-sm font-normal text-gray-900 dark:text-gray-300">Keep me signed in</label>
                             </div>
-                            <div><Link href="/forgot-password" className="font-normal text-border dark:text-blue-500 underline">Forgot your password?</Link></div>
+                            <div><Link href="/forgot-password" className={`${error && 'text-sky underline'} font-normal text-border dark:text-blue-500`}>Forgot your password?</Link></div>
                         </div>
-                        <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={false} onClick={handleLogin}>{loading ? 'Loading...' : 'Sign In'}</Button>
+                        <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={loading} onClick={handleLogin}>{loading ? 'Loading...' : 'Sign In'}</Button>
                     </form>
                 </div>
             </Container >

@@ -7,6 +7,7 @@ import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon,
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../../store/slices/userSlice';
+import { UserCircleIcon, WrenchIcon } from '@heroicons/react/24/outline';
 
 const Sidebar = ({ children }) => {
     const router = useRouter();
@@ -93,7 +94,7 @@ const Sidebar = ({ children }) => {
                             </button>
 
                             {/* <Link href="/" className="flex ml-2 md:mr-24"> */}
-                                    <img src="/logo.png" alt="logo" class="w-24 h-15 object-contain" />
+                            <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
                             {/* </Link> */}
 
                         </div>
@@ -113,11 +114,33 @@ const Sidebar = ({ children }) => {
                                     </button>
 
                                     {isOpen && (
-                                        <ul className="absolute w-[200px]  text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
-                                            <li>
-                                              <p className='text-sm text-heading'>{state?.email}</p>
+                                        <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
+                                            <li className='m-2'>
+                                                <p className='text-sm text-heading'><b>{state?.email}</b></p>
                                             </li>
-                                            <li>
+
+                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
+                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
+                                                    <UserCircleIcon className="w-5 h-5 mr-2" />
+                                                    My account
+                                                </p>
+                                            </li>
+
+                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
+                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
+                                                    <WrenchIcon className="w-5 h-5 mr-2" />
+                                                    Settings
+                                                </p>
+                                            </li>
+
+                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
+                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
+                                                    <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
+                                                    Help
+                                                </p>
+                                            </li>
+
+                                            <li className='text-center'>
                                                 <button
                                                     type="button"
                                                     className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
