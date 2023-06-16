@@ -1,6 +1,6 @@
 import React from 'react'
 
-const RadioField = ({ value, id, name, error, register }) => {
+const RadioField = ({ value, id, name, error, register, checked }) => {
     return (
         <div className="mb-[0.125rem] mr-4 inline-block min-h-[1.5rem] pl-[1.5rem]">
             <input
@@ -10,6 +10,7 @@ const RadioField = ({ value, id, name, error, register }) => {
                 name={name}
                 id={id}
                 value={value}
+                checked={checked}
             />
             <label
                 className="mt-px inline-block pl-[0.15rem] hover:cursor-pointer"

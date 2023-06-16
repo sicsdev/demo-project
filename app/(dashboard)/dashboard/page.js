@@ -6,6 +6,8 @@ import Embed from '@/app/components/Embed/Embed';
 import Button from '@/app/components/Common/Button/Button';
 import Modal from '@/app/components/Common/Modal/Modal';
 import CustomerServiceSetupForm from '@/app/components/Forms/CustomerServiceSetupForm';
+import { ChatBubbleOvalLeftIcon  } from '@heroicons/react/24/outline'
+
 const Page = () => {
     const [showModal, setShowModal] = useState(false)
     return (
@@ -31,8 +33,10 @@ const Page = () => {
             </div>
             <Embed form={false} />
 
-            <Modal className={"w-[90%]  sm:w-[60%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal}  title={'Create New Widget'} showCancel={true}>
-                <CustomerServiceSetupForm form={false} setShowModal={setShowModal}/>
+            <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[40%]"} show={showModal} setShow={setShowModal}
+                title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>} 
+                showCancel={true}>
+                <CustomerServiceSetupForm form={false} setShowModal={setShowModal} />
             </Modal>
             <Intake />
 

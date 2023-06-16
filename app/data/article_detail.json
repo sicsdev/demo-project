@@ -1,0 +1,68 @@
+[
+  {
+    "name": "What is Intercom?",
+    "slug": "what-is-intercom",
+
+    "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
+    "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
+    "button_one": "view demo",
+    "questions_one": {
+      "name": "What can I do with Intercom?",
+      "answer": [
+        {
+          "start": "Speed and scale like never before with automated customer service ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        },
+        {
+          "start": "Maximize team productivity with the world's fastest shared Inbox   ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        }
+      ]
+    },
+    "button_two": "Register now"
+  },
+  {
+    "name": "Watch a demo of Intercom",
+    "slug": "watch-a-demo-of-intercom",
+
+    "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
+    "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
+    "button_one": "view demo",
+    "questions_one": {
+      "name": "What can I do with Intercom?",
+      "answer": [
+        {
+          "start": "Speed and scale like never before with automated customer service ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        },
+        {
+          "start": "Maximize team productivity with the world's fastest shared Inbox   ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        }
+      ]
+    },
+    "button_two": "Register now"
+  },
+  {
+    "name": "Intercom features explained",
+    "slug": "intercom-features-explained",
+
+    "subheader": "How Intercom works, what it can do for your business and what makes it different to other solutions",
+    "title_def": "Intercom is a Customer Service Solution. Resolve issues faster and boost customer satisfaction—all while reducing team workload—with the only customer service solution you'll ever need. Combine automation and human support today.",
+    "button_one": "view demo",
+    "questions_one": {
+      "name": "What can I do with Intercom?",
+      "answer": [
+        {
+          "start": "Speed and scale like never before with automated customer service ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        },
+        {
+          "start": "Maximize team productivity with the world's fastest shared Inbox   ",
+          "para": "Free your team from repetitive questions using automated chatbots. Maximize team efficiency with AI-powered tools."
+        }
+      ]
+    },
+    "button_two": "Register now"
+  }
+]
