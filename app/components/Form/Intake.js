@@ -4,6 +4,8 @@ import Embed from '../Embed/Embed';
 import Modal from '../Common/Modal/Modal';
 import CustomerServiceSetupForm from '../Forms/CustomerServiceSetupForm';
 import { useSelector } from 'react-redux';
+import { UserCircleIcon, CogIcon } from '@heroicons/react/24/outline'
+
 const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
     let state = useSelector((state) => state.botId.showModal)
@@ -12,7 +14,7 @@ const Intake = () => {
     const [intakeStep, setIntakeStep] = useState(0);
 
     useEffect(() => {
-            setShowModal(state);
+        setShowModal(state);
     }, [state])
 
     const GetStepForm = () => {
@@ -31,9 +33,9 @@ const Intake = () => {
     const SendTitle = () => {
         switch (intakeStep) {
             case 0:
-                return 'Business Information'
+                return <><UserCircleIcon className="w-10 h-10 mr-2" />Business Information</>
             case 1:
-                return 'Customer Service Set Up'
+                return <><CogIcon className="w-10 h-10 mr-2" />Customer Service set up</>
             case 2:
                 return 'Download Script'
             default:
@@ -41,7 +43,7 @@ const Intake = () => {
         }
     }
     return (
-        <Modal className={"w-[90%]  sm:w-[60%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal} title={SendTitle()} showCancel={false}>
+        <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[40%]"} show={showModal} setShow={setShowModal} title={SendTitle()} showCancel={false}>
             {GetStepForm()}
         </Modal>
     );
