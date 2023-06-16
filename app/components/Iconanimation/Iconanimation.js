@@ -2,7 +2,7 @@ import React from "react";
 
 const Iconanimation = () => {
   return (
-    <div className="animation_icon_section mx-auto max-w-[90%] py-3">
+    <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll">
       <div className="grid grid-cols-11 gap-4 justify-center">
         <div className="col-span-12 sm:col-span-3 relative col_section">
             <div className="leftimg_sec animation2 one w-10 sm:w-24 absolute bottom-0 sm:bottom-20 sm:left-0">

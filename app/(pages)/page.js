@@ -14,7 +14,7 @@ import Brandpercentage from "../components/Brandpercentage/Brandpercentage";
 import Iconanimation from "../components/Iconanimation/Iconanimation";
 export default function Home() {
   return (
-    <main className="scroll-smooth">
+    <main className="">
       <Head></Head>
       <Start />
       <DTC />

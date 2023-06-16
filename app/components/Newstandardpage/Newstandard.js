@@ -14,12 +14,10 @@ const slides = [
   {
     title: "Train on your policies    ",
     text: "Utilize our LLM connectors to analyze your FAQ and shipping/return policy to customize your workflows.    ",
-    tag: "New",
   },
   {
     title: "Self-learning AI model    ",
     text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
-    tag: "New",
   },
 ];
 const Newstandard = () => {
@@ -36,11 +34,11 @@ const Newstandard = () => {
               style={{ border: "1px solid #2f2f2f", borderRadius: "20px" }}
               key={key}
             >
-              <div className="flex flex-col-reverse sm:flex-row justify-start sm:justify-center items-start sm:items-center gap-4 mb-6 sm:mb-10">
+              <div className="flex flex-col-reverse sm:flex-row justify-start sm:justify-start items-start sm:items-center gap-4 mb-6 sm:mb-10">
                 <h5 className="font-semibold text-xl md:text-h6 sm:leading-2 lg:text-h6 sm:text-h6 text-white js-show-on-scroll">
                   {item.title}
                 </h5>
-                {item.tag && (
+                {item?.tag && (
                   <button
                     className="font-semibold rounded-full px-4 py-1 text-black js-show-on-scroll"
                     style={{ background: "#59f2f6" }}

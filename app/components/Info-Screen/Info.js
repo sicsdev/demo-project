@@ -24,7 +24,6 @@ const Info = () => {
   useEffect(() => {
     const callback = function (entries) {
       entries.forEach((entry) => {
-
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-fadeIn");
         } else {

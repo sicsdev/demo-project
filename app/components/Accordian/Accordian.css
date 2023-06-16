@@ -5,8 +5,8 @@
 }
 
 .nav-accordian .accordion__panel,
-.accordion__button,
-.accordion__button {
+.nav-accordian  .accordion__button,
+.nav-accordian  .accordion__button {
     background-color: white !important;
 }
 
@@ -28,6 +28,7 @@
     overflow-y: auto;
 
 }
-.accordion__item {
+
+.nav-accordian .accordion__item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.139);
 }

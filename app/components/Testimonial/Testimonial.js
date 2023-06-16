@@ -1,68 +1,12 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import Card from "../Common/Card/Card";
-import Button from "../Common/Button/Button";
-import Link from "next/link";
+import Link from 'next/link'
 const Testimonial = () => {
-  const [index, setIndex] = useState(0);
-  const team_data = [
-    {
-      img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/5ea74e6622cbe24966972138_dave.png",
-      title:
-        "“Thanks to Gorgias, my customer service team has been able to increase customer satisfaction and drive customer loyalty. ”",
-      name: "Dave Szymaszek",
-      position: "Head of Customer Experience @ Marine Layer",
-      precent: "68%",
-      quote: "Decrease in resolution time",
-    },
-    {
-      img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/5ea74e9263bac005ccc061cd_guita.png",
-      title:
-        "“I like the pricing structure: in a startup, everybody should be an agent. Zendesk charges per agent. Gorgias' pricing is smarter.”",
-      name: "Danny Taing",
-      position: "Danny Taing, Founder & CEO @ Bokksu",
-      precent: "120",
-      quote: "Number of tickets by agent per day",
-    },
-    {
-      img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/5ea74f82f6e60aff2cc3fa3f_danny.png",
-      title:
-        "“With all the Gorgias integrations, my team doesn't need to jump between tools. This has helped us dramatically improve customer satisfaction.”",
-      name: "Dave",
-      position: "Amanda, Director of Operations @ Darn Good Yarn",
-      precent: "90%",
-      quote: "Customer queries form Messenger",
-    },
-    {
-      img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/5ea750175e12ffd822de29c9_amanda_darn_good_yarn.png",
-      title:
-        "We’ve stopped hunting and matching Facebook users to customer accounts on Shopify. The information we need is surfaced so we can respond better and faster.",
-      name: "Guita Gopalan",
-      position: "Head of Customer Experience @ Marine Layer",
-      precent: "10x",
-      quote: "Growth over the last 2 years",
-    },
-  ];
-  const nextData = () => {
-    if (team_data.length - 1 === index) {
-      setIndex(0);
-    } else {
-      setIndex(index + 1);
-    }
-  };
-  const prevData = () => {
-    if (index === 0) {
-      setIndex(team_data.length - 1);
-    } else {
-      setIndex(index - 1);
-    }
-  };
   return (
     <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5">
       <div className="pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
-            "bg-type-section block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
+            "js-show-on-scroll bg-type-section block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
           }
         >
           <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
