@@ -59,4 +59,4 @@ jobs:
         CI=false npm run build
     - name: deploy
       run: |
-        aws s3 sync --exact-timestamps .next/ s3://$S3 --delete --acl private
+        aws s3 sync --exact-timestamps out/ s3://$S3 --delete --acl private
