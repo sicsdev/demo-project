@@ -41,6 +41,8 @@ jobs:
         bevOverwrite: true
         S3: |
           dev:dev.usetempo.ai
+        NEXT_PUBLIC_API_URL: |
+          dev:https://server-dev.usetempo.ai
     - name: checkout
       uses: actions/checkout@v3
     - name: set up AWS credentials
