@@ -21,6 +21,7 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://usetempo.ai/tempo_preview.jpg"
         />
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `
