@@ -19,7 +19,8 @@ const Career = () => {
       }
     );
   };
-
+  
+  
 
   return (
     <div className=" bg-white py-4 ">
