@@ -40,7 +40,7 @@ export const business_industry_data = [
     "Other",
 ]
 export const business_company_size_data = ["1-50", "50-100", "100-200", "200-500", "500+"]
-export const ecommerce_platform_data = ['Shopify', 'WooCommerce', 'Magento', 'Wix', 'Square', 'BigCommerce', 'Other / Custom']
+export const ecommerce_platform_data = ['Other / Custom', 'Shopify', 'WooCommerce', 'Magento', 'Wix', 'Square', 'BigCommerce']
 
-export const email_ticketing_system_data = ['Zendesk', 'Freshdesk', 'Zoho Desk', 'Intercom', 'Gorgias', 'Slack', 'GMail', 'Outlook', 'Other']
-export const payments_platform_data = ['Shopify Pay', 'Stripe', 'Square', 'Amazon Pay', 'BrainTree', 'PayPal', 'NMI', 'Other']
+export const email_ticketing_system_data = ['Other', 'Zendesk', 'Freshdesk', 'Zoho Desk', 'Gorgias']
+export const payments_platform_data = ['Other', 'Shopify Pay', 'Stripe', 'Square', 'Amazon Pay', 'BrainTree', 'PayPal', 'NMI']

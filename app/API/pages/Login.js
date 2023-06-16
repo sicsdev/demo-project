@@ -7,8 +7,7 @@ export const submitLogin = async (body) => {
         const response = await axios.post(`${API_URL}/api/v1/auth/login/`, body);
         return response.data;
     } catch (error) {
-        if (error.response.data.non_field_errors) return error.response.data.non_field_errors[0]
-        return error.message
+        throw new Error(error.response)
     }
 };
 

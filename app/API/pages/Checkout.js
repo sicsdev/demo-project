@@ -7,7 +7,7 @@ export const submitCheckout = async (body) => {
         const response = await axios.post(`${API_URL}/api/v1/accounts/users/`, body);
         return response.data;
     } catch (error) {
-        if (error.response.data.non_field_errors) return error.response.data.non_field_errors[0]
+        if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
         return error
     }
 };
@@ -22,7 +22,7 @@ export const subscribeCustomer = async (body, token) => {
         const response = await axios.post(`${API_URL}/api/v1/payments/subscriptions/`, body, configForSubscribe);
         return response.data;
     } catch (error) {
-        if (error.response.data.non_field_errors) return error.response.data.non_field_errors[0]
+        if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
         return error
     }
 };
