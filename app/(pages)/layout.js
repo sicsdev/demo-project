@@ -7,7 +7,7 @@ import Nav from '../components/Layout/Nav'
 export default function PageLayout({ children }) {
 
     return (
-        <div className='sm:w-[1400px]  lg:w-[1400px] md:w-[1400px]  m-auto'>
+        <div className='sm:w-[1400px] scroll-smooth lg:w-[1400px] md:w-[1400px] bg-[#e5e7eb] m-auto'>
             <Nav />
             {/* <Header /> */}
             {children}
