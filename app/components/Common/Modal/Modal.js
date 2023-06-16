@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Button from '../Button/Button'
 import Card from '../Card/Card'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const Modal = ({ title, show, setShow, children, className, showCancel = false }) => {
     return (
@@ -16,7 +17,9 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false }
                                         {title}
                                     </span>
                                     {showCancel && (
-                                        <Button className="text-border font-normal font-sm" onClick={() => setShow(false)}>X</Button>
+                                        <Button className="text-border font-normal font-sm" onClick={() => setShow(false)}>
+                                            <XMarkIcon className="w-6 h-6 mr-2" />
+                                        </Button>
                                     )}
                                 </div>
                                 {/*body*/}

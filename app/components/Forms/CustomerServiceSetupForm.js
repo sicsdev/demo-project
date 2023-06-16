@@ -1,7 +1,4 @@
 
-import { set, useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import Button from "../Common/Button/Button";
 import RadioField from "../Common/Input/RadioField";
 import RadioLabel from "../Common/Label/RadioLabel";
@@ -13,28 +10,14 @@ import TextField from "../Common/Input/TextField";
 import { createBot, createBotFaqFile } from "@/app/API/pages/Bot";
 import { useDispatch } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
-const schema = yup.object({
-  enable_refund: yup.string().required(),
-  refund_friendliness: yup.string(),
-  enable_cancellations: yup.string().required(),
-  cancellation_friendliness: yup.string(),
-  faq_upload: yup.string().required(),
-  logo_upload: yup.string(),
-  bot_name: yup.string().required(),
-  email_ticketing_system: yup.string().required(),
-  ecommerce_platform: yup.string().required(),
-  payments_platform: yup.string().required(),
-}).required();
 
 export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true }) {
   const dispatch = useDispatch()
 
-  const [showRefund_friendliness, setShowRefund_friendliness] = useState(true)
   const [loading, setLoading] = useState(false)
   const [error, setErrorMessage] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
   const [faqFile, setFaqFile] = useState(formCustomerData?.faq_upload ? formCustomerData.faq_upload : '')
-  const [howCancelFriendliness, setShowCancelFriendliness] = useState(true)
   const [serviceSetupSteps, setServiceSetupSteps] = useState(1)
 
   const allowedFormatsFaq = ['application/msword', 'application/vnd.oasis.opendocument.text', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.template', 'application/epub+zip', 'application/pdf', 'text/html', 'text/plain']
@@ -70,47 +53,31 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       "ecommerce_platform": formValues.ecommerce_platform,
     }
 
-    console.log("payload", payload)
+    const bot = await createBot(payload);
 
-    setTimeout(() => {
-      setLoading(false)
-    }, 2000)
+    if (bot?.status === 201) {
+      const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile });
 
-    const bot = await createBot(payload)
-    if (form === true) {
-      if (bot?.status === 201) {
-        const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile })
-        if (bot_faq?.status === 201) {
-          dispatch(setBotId(bot.data.id))
-          setCustomerFormData(data)
-          setLoading(false)
-          setErrorMessage(null)
-          setIntakeStep(2)
+      if (bot_faq?.status === 201) {
+        dispatch(setBotId(bot.data.id));
+        setErrorMessage(null);
+
+        if (form === true) {
+          setCustomerFormData(data);
+          setIntakeStep(2);
         } else {
-          setErrorMessage(bot_faq.message)
-          setLoading(false)
+          setShowModal(false);
+          dispatch(fetchBot());
         }
       } else {
-        setErrorMessage(bot.message)
-        setLoading(false)
+        setErrorMessage(bot_faq.message);
       }
     } else {
-      if (bot?.status === 201) {
-        const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile })
-        if (bot_faq?.status === 201) {
-          setLoading(false)
-          setErrorMessage(null)
-          setShowModal(false)
-          dispatch(fetchBot())
-        } else {
-          setErrorMessage(bot_faq.message)
-          setLoading(false)
-        }
-      } else {
-        setErrorMessage(bot.message)
-        setLoading(false)
-      }
+      setErrorMessage(bot.message);
     }
+
+    setLoading(false);
+
   };
 
   // Form Handlers
@@ -317,10 +284,11 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       {error && (<div className='mt-2'><small className="text-red text-start" >{error}</small></div>)}
 
       <div className="flex col-span-3  items-center justify-between p-2 rounded-b mt-5">
-        {form === true && (
+        {(
           <Button type={"button"}
             className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
             onClick={handleBack}
+            disabled={form == false && serviceSetupSteps == 1}
           >
             Back
           </Button>
