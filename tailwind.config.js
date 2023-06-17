@@ -89,7 +89,10 @@ module.exports = {
       'label':"#59f2f6"
     },
     extend: {
-      backgroundImage: {
+      gridTemplateColumns:{
+        sideBar: "270px auto", 
+              },
+                    backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
