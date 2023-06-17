@@ -32,14 +32,11 @@ export const price_data = [
     },
 ]
 export const questions = [
-    { question: "How does the free trial work?", answer: <p className='tracking-wide text-sm text-text-dark-color'>When you start your trial you’ll have access to all features on the Starter plan. Just select the Support Starter plan and any add-ons you need, then enter your credit card details to start your free 14 day trial. If you want to trial a specific plan, simply contact us. After your free trial ends, your subscription will begin automatically to prevent any interruption to your service. But if you cancel in the first 14 days you won't be charged.</p> },
-    { question: "What payment methods do you offer?", answer: <p className='tracking-wide text-sm text-text-dark-color'>We accept all major credit cards, ACH, checks, and wire transfer payments.</p> },
+    { question: "How does the free trial work?", answer: <p className='tracking-wide text-sm text-text-dark-color'> When you sign up for the free trial, you will have complete access to the Tempo suite of products. The 7-day free trial begins once you sign up, and after 7 days the payment on file will be charged for your first month. Within 7 days, you can cancel for any reason by reaching out to sales@usetempo.ai.</p> },
+    { question: "What payment methods do you offer?", answer: <p className='tracking-wide text-sm text-text-dark-color'>Currently all major credit cards are accepted. If you would prefer to use ACH or pay via wire transfer, please reach out to sales@usetempo.ai.</p> },
     {
-        question: "How does seat pricing work?", answer: <><p className='tracking-wide text-sm text-text-dark-color'>The number of unique people you’ve reached this past month using Outbound messaging.</p><p className='tracking-wide text-sm text-text-dark-color'>People Reached means you only pay for the value you get from Intercom. The ‘people reached’ are the individual users who in the last 30 days received at least one Outbound message from you.
+        question: "How does seat pricing work?", answer: <><p className='tracking-wide text-sm text-text-dark-color'>For large clients, we're able to customize pricing and feature set to your use case. Please reach out to enterprise@usetempo.ai to connect with our enterprise sales team.
         </p></>
     },
-    {
-        question: "What happens if I hit my contracted ‘people reached’ limit?", answer: <><p className='tracking-wide text-sm text-text-dark-color'>Intercom will automatically bill you for your overages. As long as you pay for your overages on time, we will not stop your campaigns or pause your account.
-        </p></>
-    },
+  
 ]
