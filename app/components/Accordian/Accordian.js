@@ -18,7 +18,7 @@ const Accordian = ({ setShow, nav_links }) => {
                     <AccordionItem key={key}>
                         <AccordionItemHeading>
                             <AccordionItemButton>
-                                <h3 className='text-heading text-md font-semibold'> {element.name}</h3>
+                              <h3 className='text-heading text-md font-semibold'> {element.name}</h3>
                             </AccordionItemButton>
                         </AccordionItemHeading>
                         {element.card.links.length > 0 && (
