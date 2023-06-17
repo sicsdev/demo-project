@@ -100,6 +100,8 @@ const Iconanimation = () => {
                 src="/icons/Square,_Inc._-_Square_logo.svg"
               />  
             </div>
+
+            
             <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute bottom-10 sm:bottom-20 right-16 sm:right-0 sm:bg-white rounded-full">
               <img
                 className="sm:w-[50%] sm:mx-auto sm:my-4"
