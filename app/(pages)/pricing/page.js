@@ -10,6 +10,7 @@ import DTC from '@/app/components/DTC/DTC';
 import Testimonial from '@/app/components/Testimonial/Testimonial';
 import Resource from '@/app/components/Resource/Resource';
 import Iconanimation from '@/app/components/Iconanimation/Iconanimation';
+import Trial from '@/app/components/Trial/Trial';
 const Pricing = () => {
 
     const router = useRouter()
@@ -67,7 +68,8 @@ const Pricing = () => {
             <DTC />
             <Testimonial />
             <Iconanimation />
-            <Resource />
+            <Trial/>
+            {/* <Resource /> */}
             <Container>
                 <FaqAccordian title={"Frequently Asked Questions"} items={questions} />
             </Container>
