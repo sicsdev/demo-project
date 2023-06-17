@@ -130,10 +130,13 @@ const Login = () => {
                         </svg>
                         <span className="text-sm font-medium text-gray-700">Sign in with Google</span>
                     </Button> */}
+
                     <div className='flex w-full mx-auto mt-4 justify-center px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm"'>
                         <GoogleLogin
                             onSuccess={onSuccess}
                             onFailure={onFailure}
+                            className="google-login-button"
+
                         >
                         </GoogleLogin>
                     </div>

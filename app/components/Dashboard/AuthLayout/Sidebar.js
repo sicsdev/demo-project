@@ -93,9 +93,9 @@ const Sidebar = ({ children }) => {
 
                             </button>
 
-                            {/* <Link href="/" className="flex ml-2 md:mr-24"> */}
+                            <Link href="/" className="flex ml-2 md:mr-24">
                             <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
-                            {/* </Link> */}
+                            </Link>
 
                         </div>
                         <div className="flex items-center">

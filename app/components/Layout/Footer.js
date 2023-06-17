@@ -85,13 +85,13 @@ const Footer = () => {
 
           <div className="flex justify-between items-center gap-4 bg-slate-950 shadow  p-6 text-center dark:bg-neutral-700">
             <span className="text-4xl">
-              {/* <Link href="/"> */}
+              <Link href="/">
                 <img
                   src="/logo.png"
                   alt="logo"
                   className="w-24 h-15 object-contain"
                 />
-              {/* </Link> */}
+              </Link>
             </span>
             <a
               className="font-thin text-neutral-600 dark:text-neutral-400 "

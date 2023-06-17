@@ -19,7 +19,10 @@ const Nav = () => {
                 <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[60px]">
 
                     <div className='relative w-28 h-8 mr-24'>
+              <Link href="/">
+                        
                         <Image fill={"true"} className='bg-contain mx-auto w-full' alt="logo.png" src={'/logo.png'} />
+                   </Link>
                     </div>
                     <ul className='hidden relative md:flex text-white gap-8 flex-row'>
                         {nav_links.map((element, key) =>
