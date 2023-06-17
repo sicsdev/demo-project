@@ -12,6 +12,7 @@ module.exports = {
       current: "currentColor",
       white: "#ffffff",
       primary: "#2563eb",
+      primary_hover: "#3b82f6",
       voilet: "#5B00CC",
       black: "#000000",
       "soft-green": "#53CB89",
@@ -85,6 +86,7 @@ module.exports = {
       'modal':"#fef2f2",
       'gray': "#e4e4e7",
       'red': "#dc2626",
+      'label':"#59f2f6"
     },
     extend: {
       gridTemplateColumns:{

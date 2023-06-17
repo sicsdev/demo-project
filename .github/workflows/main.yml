@@ -41,6 +41,8 @@ jobs:
         bevOverwrite: true
         S3: |
           dev:dev.usetempo.ai
+        NEXT_PUBLIC_API_URL: |
+          dev:https://server-dev.usetempo.ai
     - name: checkout
       uses: actions/checkout@v3
     - name: set up AWS credentials
@@ -52,11 +54,11 @@ jobs:
     - name: set up Node
       uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        node-version: '18'
     - name: configure
       run: |
         npm install
         CI=false npm run build
     - name: deploy
       run: |
-        aws s3 sync --exact-timestamps .next/ s3://$S3 --delete --acl private
+        aws s3 sync --exact-timestamps out/ s3://$S3 --delete --acl private

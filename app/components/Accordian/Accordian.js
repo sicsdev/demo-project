@@ -10,40 +10,24 @@ import {
 import 'react-accessible-accordion/dist/fancy-example.css';
 import List from '../Layout/components/List';
 import Link from 'next/link';
-const Accordian = ({ setShow }) => {
+const Accordian = ({ setShow, nav_links }) => {
     return (
         <div className='nav-accordian  h-[100vh] overflow-y-scroll'>
             <Accordion allowZeroExpanded>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton>
-                            <h3 className='text-heading text-md font-semibold'> Products</h3>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <List className={'grid grid-cols-1 gap-8'} />
-                    </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton>
-                            <h3 className='text-heading text-md font-semibold'> Solutions</h3>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <List className={'grid grid-cols-1 gap-8'} />
-                    </AccordionItemPanel>
-                </AccordionItem>
-                <AccordionItem>
-                    <AccordionItemHeading>
-                        <AccordionItemButton>
-                            <h3 className='text-heading text-md font-semibold'>  Pricing</h3>
-                        </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
-                        <List className={'grid grid-cols-1 gap-8'} />
-                    </AccordionItemPanel>
-                </AccordionItem>
+                {nav_links.map((element, key) =>
+                    <AccordionItem key={key}>
+                        <AccordionItemHeading>
+                            <AccordionItemButton>
+                              <h3 className='text-heading text-md font-semibold'> {element.name}</h3>
+                            </AccordionItemButton>
+                        </AccordionItemHeading>
+                        {element.card.links.length > 0 && (
+                            <AccordionItemPanel>
+                                <List className={'grid grid-cols-1 gap-8'} nav_links={element.card.links}/>
+                            </AccordionItemPanel>
+                        )}
+                    </AccordionItem>
+                )}
 
             </Accordion>
             <div className='text-center my-10'>

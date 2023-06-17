@@ -6,13 +6,13 @@ import articleData from "../../../data/subarticle.json";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
 import article_detail from "../../../data/article_detail.json";
+import Container from "@/app/components/Container/Container";
 
 const Page = ({ params }) => {
   const [article, setArticle] = useState();
   const [subArticle, setSubArticle] = useState();
 
   const hobbies = article_detail.map((element, index) => (
-    <>
       <div key={index} id={element.slug}>
         <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-5 mt-6 js-show-on-scroll">
           {element?.name}
@@ -34,7 +34,7 @@ const Page = ({ params }) => {
           <div className="js-show-on-scroll">
             <p className="text-100 bold color-neutral-100 text-black opacity-70">
               Written by Damon Alexander{" "}
-            </p>
+            </p>  
           </div>
           <svg
             width="4"
@@ -58,7 +58,6 @@ const Page = ({ params }) => {
           </Button>
         </div>
       </div>
-    </>
   ));
 
   useEffect(() => {
@@ -75,63 +74,65 @@ const Page = ({ params }) => {
 
   return (
     <div className="bg-white py-6 sm:py-5 help" >
-      <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
-        <div class="grid grid-cols-1 sm:grid-cols-12">
-          <div class="col-span-1 sm:col-span-8 my-2 ml-5 sm:ml-4">
-            {article === undefined ? (
-              " "
-            ) : (
-              <>
-                <div className="">
-                  <div>
-                    <h5
-                      className="text-left text-1xl mb-6 tracking-wide sm:text-1xl md:text-1xl lg:text-1xl"
-                      style={{ color: "rgba(34,34,34)" }}
-                    >
-                      All Collections &#8594; {article.name}
-                    </h5>
-                    <h1 className="text-left text-2xl mb-6 tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading ">
-                      {/* {params?.slug}  */}
-                      {article.name}
-                    </h1>
-                    <p
-                      className="font-normal text-base sm:text-lg my-4 text-black opacity-80 js-show-on-scroll
+      <Container>
+        <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
+          <div className="grid grid-cols-1 sm:grid-cols-12">
+            <div className="col-span-1 sm:col-span-8 my-2 ml-5 sm:ml-4">
+              {article === undefined ? (
+                " "
+              ) : (
+                <>
+                  <div className="">
+                    <div>
+                      <h5
+                        className="text-left text-1xl mb-6 tracking-wide sm:text-1xl md:text-1xl lg:text-1xl"
+                        style={{ color: "rgba(34,34,34)" }}
+                      >
+                        All Collections &#8594; {article.name}
+                      </h5>
+                      <h1 className="text-left text-2xl mb-6 tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading ">
+                        {/* {params?.slug}  */}
+                        {article.name}
+                      </h1>
+                      <p
+                        className="font-normal text-base sm:text-lg my-4 text-black opacity-80 js-show-on-scroll
                     overflow-hidden line-clamp-3 sm:font-medium h-18 
                     "
-                    >
-                      See how your customer service solution works.
-                    </p>
+                      >
+                        See how your customer service solution works.
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </>
-            )}
+                </>
+              )}
 
-            {hobbies}
-          </div>
-
-          <div class="col-span-1 sm:col-span-4">
-            {/* sidebar */}
-            <div
-              className="border-1 mt-10 relative sm:fixed top-auto sm:top-48"
-              style={{ borderLeft: "2px solid #e5e7eb" }}
-            >
-              {article?.article[0]?.data?.map((faq, index) => (
-                <Link href={`${faq?.slug}`} key={index}>
-                  <div class="relative">
-                    <p
-                      className="flex items-center space-x-2 px-4 py-2"
-                      style={{ color: "rgb(115 115 115)" }}
-                    >
-                      <span>{faq?.name}</span>
-                    </p>
-                  </div>
-                </Link>
-              ))}
+              {hobbies}
             </div>
-            {/* sidebar */}
+
+            <div className="col-span-1 sm:col-span-4">
+              {/* sidebar */}
+              <div
+                className="border-1 mt-10 relative sm:fixed top-auto sm:top-48"
+                style={{ borderLeft: "2px solid #e5e7eb" }}
+              >
+                {article?.article[0]?.data?.map((faq, index) => (
+                  <Link href={`${faq?.slug}`} key={index}>
+                    <div className="relative">
+                      <p
+                        className="flex items-center space-x-2 px-4 py-2"
+                        style={{ color: "rgb(115 115 115)" }}
+                      >
+                        <span>{faq?.name}</span>
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              {/* sidebar */}
+            </div>
           </div>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
