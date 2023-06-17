@@ -134,6 +134,8 @@ const Login = () => {
                         <GoogleLogin
                             onSuccess={onSuccess}
                             onFailure={onFailure}
+                            className="google-login-button"
+
                         >
                         </GoogleLogin>
                     </div>

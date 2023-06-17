@@ -5,44 +5,45 @@ const Iconanimation = () => {
     <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll">
       <div className="grid grid-cols-11 gap-4 justify-center">
         <div className="col-span-12 sm:col-span-3 relative col_section">
-            <div className="leftimg_sec animation2 one w-10 sm:w-24 absolute bottom-0 sm:bottom-20 sm:left-0">
+            <div className="leftimg_sec animation2  rounded-full  first-letter:one w-10 sm:w-24 absolute bottom-0 sm:bottom-20 sm:left-0 sm:bg-white ">
               <img
-                className="rounded-full"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                className=" sm:w-[50%] sm:mx-auto sm:my-6"
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Intercom logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fintercom.jpg&w=256&q=75"
+                src="/icons/freshdesk-vector-logo.svg"
               />
             </div>
-            <div className="leftimg_sec animation two w-10 sm:w-24 absolute top-10 sm:top-20 left-16 sm:left-12">
+            <div className="leftimg_sec rounded-full  animation two w-10 sm:w-24 absolute top-10 sm:top-20 left-16 sm:left-12 sm:bg-white ">
               <img
-                className="rounded-full"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                className="sm:w-[55%] sm:mx-auto sm:my-5"
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Whatsapp logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fwhatsapp.jpg&w=256&q=75"
+                src="/icons/gorgias-logo-vector.svg"
+                // width={40}
               />
             </div>
-            <div className="leftimg_sec animation3 three w-10 sm:w-24 absolute top-50 right-1/2 sm:right-28">
+            <div className="leftimg_sec animation3 three w-10 sm:w-24  rounded-full  absolute top-50 right-1/2 sm:right-28 sm:p-6 ml-6 sm:mx-auto sm:my-5 sm:bg-white">
               <img
-                className="rounded-full ml-6 sm:ml-auto sm:mt-7"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                className=" sm:w-[90%] sm:mx-auto" 
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Salesforce logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fsalesforce.jpg&w=256&q=75"
+                src="/icons/shopify-logo-svg-vector.svg"
               />
             </div>
-            <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute top-10 sm:top-auto sm:bottom-14 right-12 sm:right-0">
+            <div className="leftimg_sec  rounded-full   sm:p-5 p-0 animation2 four w-10 sm:w-[100px] absolute top-10 sm:top-auto sm:bottom-14 right-12 sm:right-0 sm:bg-white ">
               <img
-                className="rounded-full"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                  // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                  className="sm:w-[90%] sm:mx-auto sm:my-2"
                 alt="Slack logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fslack.jpg&w=256&q=75"
+                src="/icons/Zendesk_logo.svg"
               />
             </div>
-            <div className="leftimg_sec animation five w-10 sm:w-24 absolute bottom-0 sm:top-14 right-0 sm:right-0">
+            <div className="leftimg_sec rounded-full  sm:p-5 p-0 five animation four w-10 sm:w-24 absolute   sm:top-14 right-0 sm:right-0 sm:bg-white ">
               <img
-                className="rounded-full"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                className="sm:w-[90%] sm:mx-auto"
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Asana logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fasana.jpg&w=256&q=75"
+                src="/icons/ZOHO.svg"
               />
             </div>
         </div>
@@ -54,46 +55,65 @@ const Iconanimation = () => {
             Take back your browser tabs. Integrate your apps, data, and channels
             into the same tool you use to message your customers.
           </p>
+          <div className="text-center my-3" >
+          <button
+              type={"submit"}       
+              
+              className={
+                "py-2 px-8 sm:w-[40%] w-[100%] sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              }
+            >
+              <div  dangerouslySetInnerHTML={{
+            __html: `
+       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
+       <span className="underline cursor-pointer text-white">           Demo Now! &#8594;
+       </span>
+       </a>
+      `,
+          }} /> 
+          
+            </button>
+            </div>
         </div>
         <div className="col-span-12 sm:col-span-3 relative col_section">
-            <div className="leftimg_sec animation2 one w-10 sm:w-24 absolute top-0 sm:top-auto sm:bottom-14 left-0 sm:left-0">
+            <div className="leftimg_sec animation2 one w-10 sm:w-24 absolute top-0 sm:top-auto sm:bottom-14 left-0 sm:left-0 sm:bg-white rounded-full">
               <img
-                className="rounded-full"
+                className=" sm:w-[45%]  sm:mx-auto sm:my-8"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Intercom logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fintercom.jpg&w=256&q=75"
+                src="/icons/bigcommerce-ar21.svg"
               />
             </div>
-            <div className="leftimg_sec animation two w-10 sm:w-24 absolute bottom:10 sm:top-14 left-16 sm:left-12">
+            <div className="leftimg_sec animation two w-10 sm:w-24 absolute bottom:10 sm:top-14 left-16 sm:left-12  sm:bg-white rounded-full">
               <img
-                className="rounded-full"
+                className="sm:w-[45%] sm:mx-auto sm:my-8"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Whatsapp logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fwhatsapp.jpg&w=256&q=75"
+                src="/icons/Gmail_icon_(2020).svg"
               />
             </div>
-            <div className="leftimg_sec animation3 three w-10 sm:w-24 absolute bottom-1/2 sm:bottom-auto top-auto sm:top-50 right-1/2 sm:right-28">
+            <div className="leftimg_sec animation3 three w-10 sm:w-24 absolute bottom-1/2 sm:bottom-auto top-auto sm:top-50 right-1/2 sm:right-28  sm:bg-white rounded-full">
               <img
-                className="rounded-full ml-6 sm:ml-auto mt-7"
+                className="sm:w-[45%] sm:mx-auto sm:my-7"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Salesforce logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fsalesforce.jpg&w=256&q=75"
-              />
+                src="/icons/Square,_Inc._-_Square_logo.svg"
+              />  
             </div>
-            <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute bottom-10 sm:bottom-20 right-16 sm:right-0">
+            <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute bottom-10 sm:bottom-20 right-16 sm:right-0 sm:bg-white rounded-full">
               <img
-                className="rounded-full"
+                className="sm:w-[52%] sm:mx-auto sm:my-10"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Slack logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fslack.jpg&w=256&q=75"
+                src="/icons/PayPal.svg"
               />
             </div>
-            <div className="leftimg_sec animation five w-10 sm:w-24 absolute right-0 sm:right-0 top-0 sm:top-20 ">
+            <div className="leftimg_sec animation five w-10 sm:w-24 absolute right-0 sm:right-0 top-0 sm:top-20 sm:bg-white rounded-full">
               <img
-                className="rounded-full"
+                className="sm:w-[45%] sm:mx-auto sm:my-7"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Asana logo"
-                src="https://front.com/_next/image?url=%2Fstaticwebassets%2Fmodules%2Fintegrationscloud%2Fasana.jpg&w=256&q=75"
+                src="/icons/stripe-icon.svg"
               />
             </div>
         </div>

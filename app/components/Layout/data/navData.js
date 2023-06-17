@@ -1,6 +1,6 @@
 export const nav_links = [
     {
-        name: "Developers",
+        name: "Solutions",
         link: "https://docs.usetempo.ai",
         card: {
             links: [
@@ -10,7 +10,7 @@ export const nav_links = [
                         {
                             "heading": "Chat Bot",
                             label: "",
-                            link: "https://docs.usetempo.ai",
+                            link: "/",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
@@ -18,7 +18,7 @@ export const nav_links = [
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
                             </span>,
-                            link: "https://docs.usetempo.ai",
+                            link: "/",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
                         }
                     ]
@@ -31,7 +31,7 @@ export const nav_links = [
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
                             </span>,
-                            link: "https://docs.usetempo.ai",
+                            link: "/",
                             "para": "GPT4-powered phone support for CS needs. "
                         },
                         {
@@ -39,7 +39,7 @@ export const nav_links = [
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
                             </span>,
-                            link: "https://docs.usetempo.ai",
+                            link: "/",
                             "para": "Make phone calls to customers, leads, or clients automatically powered by GPT4."
                         }
                     ]
@@ -48,7 +48,7 @@ export const nav_links = [
         }
     },
     {
-        name: "Solution",
+        name: "Developers",
         link: "",
         card: {
             links: [

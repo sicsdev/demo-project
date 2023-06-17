@@ -33,13 +33,13 @@ const Header = () => {
         >
           <div>
             <div className="flex items-center mx-3 lg:mx-0 md:mx-0 justify-between py-3 md:py-5 md:block">
-              {/* <Link href="/"> */}
+              <Link href="/">
                 <img
                   src="/logo.png"
                   alt="logo"
                   className="w-24 h-15 object-contain"
                 />
-              {/* </Link> */}
+              </Link>
               {pathName === "/checkout" || pathName === "/free-trial" ? (
                 ""
               ) : (
