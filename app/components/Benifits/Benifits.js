@@ -19,6 +19,8 @@ const slides = [
       "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
     name: "We supercharged our business with Tempo.",
 
+
+    
     editor: "Frank",
     position: "Vice President",
     brand: "LabPass",
