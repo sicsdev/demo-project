@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 const List = ({ nav_links, className }) => {
     return (
@@ -8,10 +9,12 @@ const List = ({ nav_links, className }) => {
                     <ul className='mt-5'>
                         {element.data.map((element, key) =>
                             <li className='cursor-pointer' key={key}>
+                                <Link href={element.link}>
                                 <div className='hover:bg-gray p-2 rounded-lg'>
                                     <h3 className='text-heading text-semibold flex items-center justify-between'>{element.heading}{" "} {element.label}</h3>
                                     <p className='text-border text-xs mt-2 min-h-[34px]'>{element.para}</p>
                                 </div>
+                                </Link>
                             </li>
                         )}
                     </ul>
