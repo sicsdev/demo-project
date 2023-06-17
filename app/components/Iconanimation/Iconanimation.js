@@ -102,10 +102,10 @@ const Iconanimation = () => {
             </div>
             <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute bottom-10 sm:bottom-20 right-16 sm:right-0 sm:bg-white rounded-full">
               <img
-                className="sm:w-[52%] sm:mx-auto sm:my-10"
+                className="sm:w-[50%] sm:mx-auto sm:my-4"
                 style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Slack logo"
-                src="/icons/PayPal.svg"
+                src="/icons/PayPal1.svg"
               />
             </div>
             <div className="leftimg_sec animation five w-10 sm:w-24 absolute right-0 sm:right-0 top-0 sm:top-20 sm:bg-white rounded-full">
