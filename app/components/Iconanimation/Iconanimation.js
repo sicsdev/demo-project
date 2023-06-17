@@ -2,7 +2,7 @@ import React from "react";
 
 const Iconanimation = () => {
   return (
-    <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll">
+    <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll bg:white">
       <div className="grid grid-cols-11 gap-4 justify-center">
         <div className="col-span-12 sm:col-span-3 relative col_section">
             <div className="leftimg_sec animation2  rounded-full  first-letter:one w-10 sm:w-24 absolute bottom-0 sm:bottom-20 sm:left-0 sm:bg-white ">
@@ -79,7 +79,7 @@ const Iconanimation = () => {
             <div className="leftimg_sec animation2 one w-10 sm:w-24 absolute top-0 sm:top-auto sm:bottom-14 left-0 sm:left-0 sm:bg-white rounded-full">
               <img
                 className=" sm:w-[45%]  sm:mx-auto sm:my-8"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Intercom logo"
                 src="/icons/bigcommerce-ar21.svg"
               />
@@ -87,7 +87,7 @@ const Iconanimation = () => {
             <div className="leftimg_sec animation two w-10 sm:w-24 absolute bottom:10 sm:top-14 left-16 sm:left-12  sm:bg-white rounded-full">
               <img
                 className="sm:w-[45%] sm:mx-auto sm:my-8"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Whatsapp logo"
                 src="/icons/Gmail_icon_(2020).svg"
               />
@@ -100,18 +100,20 @@ const Iconanimation = () => {
                 src="/icons/Square,_Inc._-_Square_logo.svg"
               />  
             </div>
+
+            
             <div className="leftimg_sec animation2 four w-10 sm:w-24 absolute bottom-10 sm:bottom-20 right-16 sm:right-0 sm:bg-white rounded-full">
               <img
-                className="sm:w-[52%] sm:mx-auto sm:my-10"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                className="sm:w-[50%] sm:mx-auto sm:my-4"
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Slack logo"
-                src="/icons/PayPal.svg"
+                src="/icons/MicrosoftTeams-image.png"
               />
             </div>
             <div className="leftimg_sec animation five w-10 sm:w-24 absolute right-0 sm:right-0 top-0 sm:top-20 sm:bg-white rounded-full">
               <img
                 className="sm:w-[45%] sm:mx-auto sm:my-7"
-                style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
+                // style={{ boxShadow: "rgba(0, 27, 56, 0.1) 0px 0px 24px" }}
                 alt="Asana logo"
                 src="/icons/stripe-icon.svg"
               />

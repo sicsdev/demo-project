@@ -8,7 +8,7 @@ const slides = [
     name: "Customer service headaches are history.",
     title:
       "Customer service is a solved problem. Automating support for our enterprise clients has been an immense cost-saver and has provided us with an industry-leading advantage.        ",
-    editor: "Dean Zimberg",
+    editor: "Dean",
     position: "CEO & Founder ",
     brand: "Perry",
     img: "/testimonial/perry.svg",
@@ -19,7 +19,9 @@ const slides = [
       "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
     name: "We supercharged our business with Tempo.",
 
-    editor: "Frank Patrick",
+
+    
+    editor: "Frank",
     position: "Vice President",
     brand: "LabPass",
     img: "labpass-color2.svg",
@@ -29,7 +31,7 @@ const slides = [
     title:
       "Instead of wasting my time hiring freelancers and trying to figure out new software platforms, I plugged into Tempo and was able to focus on what matters: growing my business.      ",
     name: "I can finally focus on what matters.",
-    editor: "Matthew Epstein",
+    editor: "Matthew",
     brand: "Simple Senti",
     position: "Founder ",
 
