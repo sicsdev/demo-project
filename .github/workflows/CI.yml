@@ -62,10 +62,11 @@ jobs:
     - name: stage
       run: |
          echo "STAGE=${GITHUB_BASE_REF##*/}" >> $GITHUB_ENV
-         echo "ID=${GITHUB_REF_NAME//[a-z'/']/}" >> $GITHUB_ENV
          echo "datetime=$(date '+%Y-%m-%d %H:%M %Z')" >> $GITHUB_ENV
     - name: deployment-start
       uses: bobheadxi/deployments@v1
+      env:
+        ID: ${{ github.event.number }}
       id: deployment
       with:
         step: start
@@ -93,14 +94,16 @@ jobs:
         CI=false npm run build
     - name: deploy
       env:
+        ID: ${{ github.event.number }}
         ZONE: usetempo.ai
       run: |
         aws s3 sync --exact-timestamps out/ s3://$STAGE-$ID-${GITHUB_HEAD_REF_SLUG}.$ZONE --delete --acl private
     - name: deployment-status
+      if: always()
       uses: bobheadxi/deployments@v1
       env:
+        ID: ${{ github.event.number }}
         ZONE: usetempo.ai
-      if: always()
       with:
         step: finish
         token: ${{ github.token }}
@@ -112,6 +115,7 @@ jobs:
       if: success()
       uses: marocchino/sticky-pull-request-comment@v2
       env:
+        ID: ${{ github.event.number }}
         ZONE: usetempo.ai
       with:
         header: pr-preview

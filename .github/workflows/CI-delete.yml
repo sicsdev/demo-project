@@ -27,7 +27,6 @@ jobs:
     - name: stage
       run: |
          echo "STAGE=${GITHUB_BASE_REF##*/}" >> $GITHUB_ENV
-         echo "ID=${GITHUB_REF_NAME//[a-z'/']/}" >> $GITHUB_ENV
          echo "datetime=$(date '+%Y-%m-%d %H:%M %Z')" >> $GITHUB_ENV
     - name: terraform-setup
       uses: hashicorp/setup-terraform@v2
@@ -35,6 +34,7 @@ jobs:
         terraform_version: 1.5.0
     - name: run
       env:
+        ID: ${{ github.event.number }}
         NAME: www.usetempo.ai
         ZONE: usetempo.ai
       run: |
@@ -51,8 +51,10 @@ jobs:
           -var 'website='$STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG}'.'$ZONE \
           -var 'zone='$ZONE
     - name: deployment-deactivate
-      uses: bobheadxi/deployments@v1
       if: always()
+      uses: bobheadxi/deployments@v1
+      env:
+        ID: ${{ github.event.number }}
       with:
         step: deactivate-env
         token: ${{ github.token }}
