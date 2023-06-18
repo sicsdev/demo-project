@@ -1,0 +1,130 @@
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    branches:
+    - dev
+    
+name: CI
+
+permissions: write-all
+    
+jobs:
+  infrastructure:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: env
+      uses: rlespinasse/github-slug-action@v4
+      with:
+        slug-maxlength: 35
+    - name: stage
+      run: |
+         echo "STAGE=${GITHUB_BASE_REF##*/}" >> $GITHUB_ENV
+         echo "ID=${GITHUB_REF_NAME//[a-z'/']/}" >> $GITHUB_ENV
+    - name: configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: terraform-setup
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.5.0
+    - name: run
+      env:
+        NAME: www.usetempo.ai
+        ZONE: usetempo.ai
+      run: |
+        cd ./infrastructure/
+        terraform fmt -check -diff -recursive -no-color
+        terraform init -backend=true -get=true -reconfigure -upgrade
+        terraform workspace select -or-create $STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG}
+        terraform plan -no-color -refresh=true \
+          -var 'name='$NAME'/'$STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG} \
+          -var 'website='$STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG}'.'$ZONE \
+          -var 'zone='$ZONE
+        terraform apply -no-color -auto-approve \
+          -var 'name='$NAME'/'$STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG} \
+          -var 'website='$STAGE'-'$ID'-'${GITHUB_HEAD_REF_SLUG}'.'$ZONE \
+          -var 'zone='$ZONE
+  code:
+    runs-on: ubuntu-latest
+    needs: infrastructure
+    steps:
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: env
+      uses: rlespinasse/github-slug-action@v4
+      with:
+        slug-maxlength: 35
+    - name: stage
+      run: |
+         echo "STAGE=${GITHUB_BASE_REF##*/}" >> $GITHUB_ENV
+         echo "ID=${GITHUB_REF_NAME//[a-z'/']/}" >> $GITHUB_ENV
+         echo "datetime=$(date '+%Y-%m-%d %H:%M %Z')" >> $GITHUB_ENV
+    - name: deployment-start
+      uses: bobheadxi/deployments@v1
+      id: deployment
+      with:
+        step: start
+        token: ${{ github.token }}
+        env: ${{ env.STAGE }}-${{ env.ID }}-${{ env.GITHUB_HEAD_REF_SLUG }}
+    - name: env
+      uses: iamtheyammer/branch-env-vars@v1.2.1
+      with:
+        bevOverwrite: true
+        NEXT_PUBLIC_API_URL: |
+          dev:https://server-dev.usetempo.ai
+    - name: configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+    - name: set up Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: configure
+      run: |
+        npm install
+        CI=false npm run build
+    - name: deploy
+      env:
+        ZONE: usetempo.ai
+      run: |
+        aws s3 sync --exact-timestamps out/ s3://$STAGE-$ID-${GITHUB_HEAD_REF_SLUG}.$ZONE --delete --acl private
+    - name: deployment-status
+      uses: bobheadxi/deployments@v1
+      env:
+        ZONE: usetempo.ai
+      if: always()
+      with:
+        step: finish
+        token: ${{ github.token }}
+        status: ${{ job.status }}
+        env: ${{ steps.deployment.outputs.env }}
+        env_url: https://${{ env.STAGE }}-${{ env.ID }}-${{ env.GITHUB_HEAD_REF_SLUG }}.${{ env.ZONE }}
+        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+    - name: deployment-comment
+      if: success()
+      uses: marocchino/sticky-pull-request-comment@v2
+      env:
+        ZONE: usetempo.ai
+      with:
+        header: pr-preview
+        message: "\
+          [PR-preview]
+
+          :---:
+
+          :robot: deployed to
+          https://${{ env.STAGE }}-${{ env.ID }}-${{ env.GITHUB_HEAD_REF_SLUG }}.${{ env.ZONE }}
+
+          branch [`${{ env.GITHUB_HEAD_REF }}`](\
+          ${{ github.server_url }}/${{ github.repository }}\
+          /tree/${{ env.GITHUB_HEAD_REF }})
+          at ${{ env.datetime }}
+          "
