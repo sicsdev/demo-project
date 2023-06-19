@@ -10,24 +10,13 @@ const Start = () => {
         "Manages subscriptions & cancellations",
     ]
 
-useEffect(()=>{
-    if (window.navigator.userAgent.match(/Android/i)
-    || window.navigator.userAgent.match(/webOS/i)
-    || window.navigator.userAgent.match(/iPhone/i)
-    || window.navigator.userAgent.match(/iPad/i)
-    || window.navigator.userAgent.match(/iPod/i)
-    || window.navigator.userAgent.match(/BlackBerry/i)
-    || window.navigator.userAgent.match(/Windows Phone/i)) {
-       setShow(false);
-    } else {
-        setShow(true);
-       }
-})
+
 
 
     return (<>
 
-    {show == true? <><pre lang="js">
+
+    <pre lang="js">
             <script src="https://widget-dev.usetempo.ai/v1/main.js" />
             <script
                 dangerouslySetInnerHTML={{
@@ -38,8 +27,8 @@ useEffect(()=>{
             `,
                 }}
             />
-        </pre></> : ""}
-        
+        </pre> 
+         
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"></script>
         <script
