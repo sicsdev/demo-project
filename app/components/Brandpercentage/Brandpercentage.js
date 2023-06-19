@@ -40,7 +40,7 @@ const Brandpercentage = () => {
                     "animate-fadeIn w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
                   }
                 >
-                  <p className="text-heading">
+                  <p className="text-heading" onMouseLeave={()=>setHide({first:false})}  >
                     Enterprise contracts only. Guarantee of 50% in CS costs over
                     first 12 months on contract taken as a whole. Costs are
                     inclusive of labor, exclusive of SaaS fees and other
@@ -73,7 +73,7 @@ const Brandpercentage = () => {
                     "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
                   }
                 >
-                  <p className="text-heading">
+                  <p className="text-heading"  onMouseLeave={()=>setHide({second:false})}>
                     Chat and email support updates at least once per hour, every
                     hour of the week, aside from scheduled maintenance and
                     updates. Maintenance and updates will be announced at least
@@ -106,7 +106,7 @@ const Brandpercentage = () => {
                     "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
                   }
                 >
-                  <p className="text-heading">
+                  <p className="text-heading"   onMouseLeave={()=>setHide({third:false})} >
                     5 minute SLAs reconciled on a monthly basis, of all blended
                     chat and email support tickets for individual clients.
                   </p>
@@ -137,7 +137,7 @@ const Brandpercentage = () => {
                     "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
                   }
                 >
-                  <p className="text-heading">
+                  <p className="text-heading" onMouseLeave={()=>setHide({fourth:false})} >
                     Onboarding timeline of 1,000+ agents depends on the
                     complexity of service and protocols.
                   </p>
