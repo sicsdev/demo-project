@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://usetempo.ai/tempo_preview.jpg"
         />
-        
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -54,7 +54,7 @@ export default function RootLayout({ children }) {
             src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
             height="0"
             width="0"
-            style={{display:"none", visibility:"hidden"}}
+            style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
         <script
@@ -68,17 +68,17 @@ export default function RootLayout({ children }) {
 `,
           }}
         />
-{/* <!-- Google tag (gtag.js) --> */}
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"></script>
-<script  
- dangerouslySetInnerHTML={{
-  __html:  `window.dataLayer = window.dataLayer || [];
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-GEYJNVQCQE')`
- }}
-/>
+          }}
+        />
 
         <script
           async
@@ -99,11 +99,15 @@ _learnq.push(['account', 'UVQx8p']);
           rel="stylesheet"
         />
       </head>
+
       <body suppressHydrationWarning={true} className={inter.className}>
-        <div className="tempo_container">
-          <ProviderWrapper>{children}</ProviderWrapper>
-        </div>
+        <ProviderWrapper>
+          <div className="tempo_container">
+            {children}
+          </div>
+        </ProviderWrapper>
       </body>
+
 
       <script
         src="https://assets.calendly.com/assets/external/widget.js"
