@@ -110,3 +110,9 @@ pre {
   width: 100%;
   left: 250px;
 }
+
+
+@media (max-width: 768px) {
+.chatbot_widget {
+  display: none;
+}}
