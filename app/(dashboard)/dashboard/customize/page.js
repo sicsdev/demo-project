@@ -82,7 +82,6 @@ const Page = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value)
         setPreferences({ ...preferences, [name]: value });
     }
 
@@ -106,7 +105,6 @@ const Page = () => {
 
         getBase64(file)
             .then(result => {
-                console.log(file.name)
                 setPreferences({ ...preferences, logo: result, logo_file_name: file.name })
             })
             .catch(err => {
@@ -115,7 +113,6 @@ const Page = () => {
     };
 
     const savePreferences = () => {
-        console.log(preferences)
         setLoading(true)
 
         let payload = { ...preferences, logo: preferences.logo_file_name ? preferences.logo : '' }
@@ -205,7 +202,7 @@ const Page = () => {
                                             <span className="text-gray-700">Description</span>
                                         </div>
                                         <div className="flex justify-start w-1/2">
-                                            <input onChange={handleInputChange} maxLength={20} name='description' value={preferences.description} type="text" className="block border-gray border rounded-md p-2 items-center" placeholder="Enter chat title" />
+                                            <input onChange={handleInputChange} maxLength={20} name='description' value={preferences.description} type="text" className="block border-gray border rounded-md p-2 items-center" placeholder="Enter description" />
                                         </div>
                                     </div>
 
