@@ -1,7 +1,7 @@
 export const nav_links = [
     {
         name: "Solutions",
-        link: "",
+        link: "/",
         card: {
             links: [
                 {
