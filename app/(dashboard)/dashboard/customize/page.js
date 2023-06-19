@@ -200,6 +200,14 @@ const Page = () => {
                                         </div>
                                     </div>
 
+                                    <div className="flex items-center w-full mt-2 gap-2">
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <span className="text-gray-700">Description</span>
+                                        </div>
+                                        <div className="flex justify-start w-1/2">
+                                            <input onChange={handleInputChange} maxLength={20} name='description' value={preferences.description} type="text" className="block border-gray border rounded-md p-2 items-center" placeholder="Enter chat title" />
+                                        </div>
+                                    </div>
 
                                     <div className="flex items-center w-full gap-2">
                                         <div className="flex justify-start w-1/2">
@@ -369,7 +377,7 @@ const Page = () => {
                                                 </div>
                                                 <div className="subtitle_div">
                                                     <span className="subtitle_ChatBotWidget">
-                                                        <span className="ai_icon">AI</span> Answer instantly
+                                                        <span className="ai_icon">AI</span> {preferences.description || 'Powered by Tempo'} 
                                                     </span>
                                                 </div>
                                             </div>
