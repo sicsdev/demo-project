@@ -1,7 +1,7 @@
 export const nav_links = [
     {
         name: "Solutions",
-        link: "https://docs.usetempo.ai",
+        link: "",
         card: {
             links: [
                 {
@@ -49,7 +49,7 @@ export const nav_links = [
     },
     {
         name: "Developers",
-        link: "",
+        link: "https://docs.usetempo.ai",
         card: {
             links: [
             ]

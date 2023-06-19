@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Button from '../../Common/Button/Button'
 import { usePathname, useRouter } from 'next/navigation';
 import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon, HomeIcon, QuestionMarkCircleIcon, ArrowLeftIcon, RocketLaunchIcon, ChartBarIcon } from '@heroicons/react/24/outline';
@@ -44,18 +44,18 @@ const Sidebar = ({ children }) => {
 
         },
         {
-            href: '/dashboard/enterprise',
-            name: 'Enterprise',
+            href: '/dashboard/about',
+            name: 'About',
             icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
 
 
         },
-        {
-            href: '/dashboard/integrations',
-            name: 'Integrations',
-            icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+        // {
+        //     href: '/dashboard/integrations',
+        //     name: 'Integrations',
+        //     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
 
-        },
+        // },
         {
             href: '/dashboard/members',
             name: 'Members',
@@ -78,9 +78,29 @@ const Sidebar = ({ children }) => {
 
         },
     ]
+
+    const divRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+          if (divRef.current && !divRef.current.contains(event.target)) {
+            setIsOpen(false);
+            console.log("outside")
+    
+          }
+        };
+    
+        document.addEventListener('click', handleOutsideClick);
+    
+        return () => {
+          document.removeEventListener('click', handleOutsideClick);
+        };
+      }, []);
+
+
+console.log("isOpem", isOpen)
+
     return (
         <>
-
             <nav className="fixed top-0 z-50 w-full bg-sidebar">
                 <div className="px-3 py-3 lg:px-5 lg:pl-3">
                     <div className="flex items-center justify-between text-white    ">
@@ -98,7 +118,7 @@ const Sidebar = ({ children }) => {
                             </Link>
 
                         </div>
-                        <div className="flex items-center">
+                        <div className="flex items-center" ref={divRef}>
                             <div className="flex items-center ml-3">
 
                                 <div className="relative">
@@ -114,7 +134,7 @@ const Sidebar = ({ children }) => {
                                     </button>
 
                                     {isOpen && (
-                                        <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
+                                        <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg" >
                                             <li className='m-2'>
                                                 <p className='text-sm text-heading'><b>{state?.email}</b></p>
                                             </li>
@@ -143,7 +163,7 @@ const Sidebar = ({ children }) => {
                                             <li className='text-center'>
                                                 <button
                                                     type="button"
-                                                    className="inline-block mt-2 rounded-full bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                    className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                                                     onClick={handleLogout}
                                                 >
                                                     Logout
@@ -177,7 +197,7 @@ const Sidebar = ({ children }) => {
 
                                 <a href={'mailto:team@usetempo.ai'} className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
 
-                                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">Support Center</span>
+                                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">Get Support</span>
                                 </a>
                             </li>
                         </ul>
@@ -190,10 +210,10 @@ const Sidebar = ({ children }) => {
                 <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
                     <ul className="space-y-2 font-medium  w-full relative">
                         <li>
-                            <Link href="#" className=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <p className=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <svg aria-hidden="true" className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path></svg>
                                 <span className="ml-3">Default Agent</span>
-                            </Link>
+                            </p>
                         </li>
                         {SideBarRoutes.map((element, key) =>
                             <li key={key}>
@@ -213,7 +233,7 @@ const Sidebar = ({ children }) => {
                                 <a href={'mailto:team@usetempo.ai'} className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
 
                                     <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />
-                                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">Support Center</span>
+                                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">Get Support</span>
                                 </a>
                             </li>
                             {/* {SideBarSetting.map((element, key) =>

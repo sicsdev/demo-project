@@ -67,7 +67,7 @@ const Desktop = ({ pro, guru, setSelect, select }) => {
                         {/* <Link href={'/checkout'}><Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-black hover:border hover:bg-black hover:text-white bg-white border border-gray-300 rounded-md shadow-sm" disabled={false}>Skip Trial</Button></Link> */}
 
                     </div>
-                    <div className='block text-center relative w-[400px] mx-auto' >
+                    <div className='block text-center relative  w-[600px] sm-w-[600] mx-auto' >
                         <Image src="isometric-recolored2.svg" alt='img' fill={true} className='bg-contain mx-auto ' />
 
                     </div>

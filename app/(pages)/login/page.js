@@ -148,20 +148,20 @@ const Login = () => {
                     <form>
                         <label className="block my-5" htmlFor='email'>
                             <span className="block text-start text-sm font-normal text-border">Work Email</span>
-                            <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto mt-4 ${error.includes('email') && 'border-red'}`} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
+                            <Input type={"email"} placeholder={"NAME@COMPANY.COM"} className={`w-full border mx-auto mt-4 ${error.includes('email') && 'border-red'}`} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
                         </label>
                         <label className="block my-5" htmlFor='email'>
                             <span className="block text-start text-sm font-normal text-border">Password</span>
-                            <Input type={"password"} placeholder={"password"} className={`w-full border mx-auto mt-4 ${error && 'border-red'}`} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
+                            <Input type={"password"} placeholder={"PASSWORD"} className={`w-full border mx-auto mt-4 ${error && 'border-red'}`} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
                         </label>
 
                         {error && <p className="text-red text-sm text-center mb-4">{error}</p>}
 
                         <div className='flex justify-between'>
-                            <div className="flex items-center mr-4">
+                            {/* <div className="flex items-center mr-4">
                                 <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value) => { console.log(value) }} />
                                 <label htmlFor="inline-checkbox" className="ml-2 text-sm font-normal text-gray-900 dark:text-gray-300">Keep me signed in</label>
-                            </div>
+                            </div> */}
                             <div><Link href="/forgot-password" className={`${error && 'text-sky underline'} font-normal text-border dark:text-blue-500`}>Forgot your password?</Link></div>
                         </div>
                         <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm" disabled={loading} onClick={handleLogin}>{loading ? 'Loading...' : 'Sign In'}</Button>
