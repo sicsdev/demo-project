@@ -21,6 +21,9 @@ const Sidebar = ({ children }) => {
         if (!state) {
             dispatch(fetchProfile())
         }
+        //delete widget from DOM
+        const chatbot = document.getElementById('chatbot_widget')
+        if (chatbot) { chatbot.remove()}
     }, [])
 
     const [isOpen, setIsOpen] = useState(false);
@@ -37,9 +40,7 @@ const Sidebar = ({ children }) => {
     };
 
     const clearCookies = () => {
-        console.log(document.cookie)
         const cookies = document.cookie.split(";")
-        console.log(cookies)
         for (var i = 0; i < cookies.length; i++) {
           var cookie = cookies[i];
           var eqPos = cookie.indexOf("=");
