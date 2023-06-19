@@ -138,7 +138,7 @@ console.log("isOpem", isOpen)
                                             <li className='m-2'>
                                                 <p className='text-sm text-heading'><b>{state?.email}</b></p>
                                             </li>
-
+{/* 
                                             <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
                                                 <p className="text-sm text-heading py-2 px-1 flex items-center">
                                                     <UserCircleIcon className="w-5 h-5 mr-2" />
@@ -158,7 +158,7 @@ console.log("isOpem", isOpen)
                                                     <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
                                                     Help
                                                 </p>
-                                            </li>
+                                            </li> */}
 
                                             <li className='text-center'>
                                                 <button

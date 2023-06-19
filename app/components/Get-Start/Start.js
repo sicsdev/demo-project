@@ -1,15 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Demo from '../Demo/Demo'
 
 const Start = () => {
+    const [show, setShow] = useState(true);
     const list = [
         "Eliminates refunds",
         "Automates shipping & returns",
         "Handles customer complaints",
         "Manages subscriptions & cancellations",
     ]
+
+useEffect(()=>{
+    if (navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+    || navigator.userAgent.match(/iPad/i)
+    || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)) {
+       setShow(false);
+    } else {
+        setShow(true);
+       }
+})
+
+
     return (<>
-        <pre lang="js">
+
+    {show == true? <><pre lang="js">
             <script src="https://widget-dev.usetempo.ai/v1/main.js" />
             <script
                 dangerouslySetInnerHTML={{
@@ -20,7 +38,8 @@ const Start = () => {
             `,
                 }}
             />
-        </pre>
+        </pre></> : ""}
+        
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"></script>
         <script
