@@ -4,12 +4,15 @@ import { QrCodeIcon, EyeIcon, ArrowDownCircleIcon, CpuChipIcon } from '@heroicon
 import { useSearchParams, useRouter } from 'next/navigation';
 import './widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
-import { getAllBotData } from '@/app/API/pages/Bot';
+import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
 import { getBotAllData } from '@/app/API/pages/Bot';
+import Swal from 'sweetalert2';
+import { email_ticketing_system_data, payments_platform_data } from '@/app/components/Forms/data/FormData';
 
 const Page = () => {
     const [botDetails, setBotDetails] = useState({});
     const [allBots, setAllBots] = useState([]);
+    const [loading, setLoading] = useState(false)
 
     const searchParams = useSearchParams();
     const router = useRouter()
@@ -17,21 +20,8 @@ const Page = () => {
     useEffect(() => {
         const bot_id = searchParams.get("id")
         const bot_name = searchParams.get("name")
-        bot_id && setBotDetails({ ...botDetails, id: bot_id })
-        bot_name && setPreferences({ ...preferences, chat_title: bot_name })
-
-
-        getBotAllData().then((res) => {
-            setAllBots(res.results)
-            console.log('all', res)
-        })
-
-
-        // getAllBotData([bot_id]).then((res) => {
-        //     console.log('this id', res)
-        // })
-
-        // if (!bot_id) { router.push('/dashboard') }
+        getAllBots()
+        if (bot_id) { getBotInfo(bot_id) }
     }, []);
 
     const [preferences, setPreferences] = useState({
@@ -53,37 +43,96 @@ const Page = () => {
         widget_offset_vertical: 0,
         language: "en",
         cancellation_tolerance: "0",
-        payment_platform: "NMI",
-        ticketing_platform: "Freshdesk"
+        payment_platform: "Other",
+        ticketing_platform: "Other",
+        logo_file_name: ""
     })
+
+
+    // Primary functions
+    const getBotInfo = (id) => {
+        getAllBotData([id]).then((res) => {
+            setBotDetails(res[0].data)
+            setPreferences(res[0].data)
+        })
+    }
+
+    const getAllBots = () => {
+        getBotAllData().then((res) => {
+            setAllBots(res.results)
+        })
+    }
+
+    const handleSetBot = (e) => {
+        getBotInfo(e.target.value)
+    }
+
+
+    // Form handlers
 
     const handlePrimaryColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, primary_color: color });
-        console.log(color)
     };
 
     const handleSecondaryColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, secondary_color: color });
-        console.log(color)
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        console.log(name, value)
         setPreferences({ ...preferences, [name]: value });
     }
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        setPreferences({ ...preferences, thumbnail: file });
-        console.log(file)
+    // Logo & thumbnail upload + base64 conversion 
+
+    const getBase64 = (file) => {
+        return new Promise(resolve => {
+            let baseURL = "";
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                baseURL = reader.result;
+                resolve(baseURL);
+            };
+        });
     };
 
-    const handleSetBot = (e) => {
-        getAllBotData([e.target.value]).then((res) => {
-            setBotDetails(res[0].data)
-            setPreferences(res[0].data)
+    const handleFileChange = (event) => {
+        const name = event.target.name
+        const file = event.target.files[0];
+
+        getBase64(file)
+            .then(result => {
+                console.log(file.name)
+                setPreferences({ ...preferences, logo: result, logo_file_name: file.name })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    };
+
+    const savePreferences = () => {
+        console.log(preferences)
+        setLoading(true)
+
+        let payload = { ...preferences, logo: preferences.logo_file_name ? preferences.logo : '' }
+        !payload.logo && delete payload.logo
+
+        modifyBot(preferences.id, payload).then((res) => {
+            Swal.fire({
+                text: 'Preferences saved successfully',
+                timer: 1500,
+                showConfirmButton: false,
+            })
+            setLoading(false)
+            getBotInfo(preferences.id)
+            getAllBots()
+        }).catch((err) => {
+            console.log(err)
+            setLoading(false)
         })
     }
 
@@ -95,9 +144,9 @@ const Page = () => {
                     <a className="flex justify-start gap-2 items-center text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
                         <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
                     </a>
-                    <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and language of your widget.</small>
+                    <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and preferences of your widget.</small>
                 </div>
-
+                <hr className='opacity-10'></hr>
                 <div>
 
                     <div className='m-auto justify-center flex mt-4'>
@@ -115,8 +164,8 @@ const Page = () => {
                                     ))}
                                 </select>
                                 {botDetails.id && <div className='m-auto mx-5 align-center'>
-                                    <Button type={"button"} className="align-center mt-2 inline-block font-bold rounded bg-voilet px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
-                                        Save
+                                    <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center mt-3 inline-block font-bold rounded bg-voilet px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                                        {loading ? 'Saving...' : 'Save'}
                                     </Button>
                                 </div>}
                             </div>
@@ -143,17 +192,17 @@ const Page = () => {
                                 <div className='mt-5' style={{ minWidth: '420px' }} >
 
                                     <div className="flex items-center w-full mt-2 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
+                                        <div className="flex justify-start w-1/2 items-center">
                                             <span className="text-gray-700">Chat title</span>
                                         </div>
                                         <div className="flex justify-start w-1/2">
-                                            <input onChange={handleInputChange} maxLength={20} name='chat_title' value={preferences.chat_title} type="text" className="block border-gray-300 rounded-md p-2 items-center" placeholder="Enter chat title" />
+                                            <input onChange={handleInputChange} maxLength={20} name='chat_title' value={preferences.chat_title} type="text" className="block border-gray border rounded-md p-2 items-center" placeholder="Enter chat title" />
                                         </div>
                                     </div>
 
 
                                     <div className="flex items-center w-full gap-2">
-                                        <div className="flex justify-end w-1/2">
+                                        <div className="flex justify-start w-1/2">
                                             <span className="text-gray-700">Primary Color</span>
                                         </div>
                                         <div className="flex justify-start w-1/2">
@@ -168,7 +217,7 @@ const Page = () => {
                                     </div>
 
                                     <div className="flex items-center w-full gap-2">
-                                        <div className="flex justify-end w-1/2">
+                                        <div className="flex justify-start w-1/2">
                                             <span className="text-gray-700">Secondary Color</span>
                                         </div>
                                         <div className="flex justify-start w-1/2">
@@ -183,11 +232,11 @@ const Page = () => {
                                     </div>
 
                                     <div className="flex items-center w-full mt-1 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
+                                        <div className="flex justify-start w-1/2 items-center">
                                             <span className="text-gray-700">Widget Location</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select name='widget_location' onChange={handleInputChange} className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                            <select value={preferences.widget_location} name='widget_location' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer">
                                                 <option value="bottom_right">Bottom Right</option>
                                                 <option value="bottom_left">Bottom Left</option>
                                                 <option value="top_left">Top Left</option>
@@ -196,25 +245,14 @@ const Page = () => {
                                         </div>
                                     </div>
 
-                                    {/* <div className="flex items-center w-full mt-2 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
-                                            <span className="text-gray-700">Language</span>
-                                        </div>
-                                        <div className="flex justify-start w-1/2 items-center">
-                                            <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
-                                                <option value="bottom-right">English</option>
-                                                <option value="bottom-left">Spanish</option>
-                                            </select>
-                                        </div>
-                                    </div> */}
 
                                     <div className="flex items-center w-full mt-1 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
+                                        <div className="flex justify-start w-1/2 items-center">
                                             <span className="text-gray-700">Refund tolerance</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select name='refund_tolerance' onChange={handleInputChange}  className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
-                                                <option value="0">No refunds</option>
+                                            <select value={preferences.refund_tolerance} name='refund_tolerance' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer">
+                                                <option value="0">No</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
@@ -223,29 +261,59 @@ const Page = () => {
                                     </div>
 
 
-                                     <div className="flex items-center w-full mt-1 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
+                                    <div className="flex items-center w-full mt-1 gap-2">
+                                        <div className="flex justify-start w-1/2 items-center">
                                             <span className="text-gray-700">Cancellation tolerance</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select name='cancellation_tolerance' onChange={handleInputChange} className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
-                                                <option value="0">No cancellations</option>
+                                            <select value={preferences.cancellation_tolerance} name='cancellation_tolerance' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer">
+                                                <option value="0">No</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
                                                 <option value="3">3</option>
                                             </select>
                                         </div>
-                                    </div> 
+                                    </div>
+
+
+                                    <div className="flex items-center w-full mt-1 gap-2">
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <span className="text-gray-700">Payment platform</span>
+                                        </div>
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <select value={preferences.payment_platform} name='payment_platform' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer">
+                                                {payments_platform_data.map((platform, index) => (
+                                                    <option key={index} value={platform}>{platform}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className="flex items-center w-full mt-1 gap-2">
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <span className="text-gray-700">Ticketing platform</span>
+                                        </div>
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <select value={preferences.ticketing_platform} name='ticketing_platform' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer">
+                                                {email_ticketing_system_data.map((platform, index) => (
+                                                    <option key={index} value={platform}>{platform}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
 
                                     <div className="flex items-center w-full mt-2 gap-2">
-                                        <div className="flex justify-end w-1/2 items-center">
-                                            <span className="text-gray-700">Thumbnail</span>
+                                        <div className="flex justify-start w-1/2 items-center">
+                                            <span className="text-gray-700">
+                                                {preferences.logo && !preferences.logo_file_name ? <a className='text-sky' target='_blank' href={preferences.logo}>Logo</a> : 'Logo'}
+                                            </span>
                                         </div>
                                         <div className="relative inline-flex justify-start w-1/2 items-center">
                                             <label className="cursor-pointer bg-white rounded">
-                                                <span className="bg-gray-200 py-2 p-2 rounded-md shadow-sm flex items-center">
-                                                    {preferences.thumbnail.name ?
-                                                        (preferences.thumbnail.name)
+                                                <span className="border-gray border py-2 p-2 rounded-md shadow-sm flex items-center hover:bg-gray">
+                                                    {preferences.logo_file_name ?
+                                                        (preferences.logo_file_name)
                                                         :
                                                         (<>
                                                             <svg
@@ -262,76 +330,19 @@ const Page = () => {
                                                                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
                                                                 />
                                                             </svg>
-                                                            Select file
+                                                            {'...' + preferences.thumbnail?.slice(preferences.thumbnail.length - 10, preferences.thumbnail.length) || "Select file"}
                                                         </>)
                                                     }
                                                 </span>
                                                 <input type="file"
                                                     accept="image/jpeg, image/jpg, image/png"
                                                     className="hidden"
-                                                    placeholder="Select thumbnail image"
+                                                    placeholder="Select logo"
+                                                    name='logo'
                                                     onChange={handleFileChange} />
                                             </label>
                                         </div>
                                     </div>
-
-                                    {/* <div className="flex items-center w-full mt-2">
-                            <div className="flex justify-end w-1/2 items-center">
-                                <span className="text-gray-700">Category</span>
-                            </div>
-                            <div className="flex justify-start w-1/2 mx-2 items-center">
-                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter category" />
-                            </div>
-                        </div> */}
-                                    {/* 
-                        
-                        <div className="flex items-center w-full mt-2">
-                            <div className="flex justify-end w-1/2 items-center">
-                                <span className="text-gray-700">Automation Tolerance</span>
-                            </div>
-                            <div className="flex justify-start w-1/2 mx-2 items-center">
-                                <input onChange={handleInputChange} name='automation_tolerance' type="number" className="w-12 h-8 mt-3 text-center border-gray-300 rounded-md" value={preferences.automation_tolerance} placeholder="" min="0" max="10" />
-                            </div>
-                        </div>
-                        
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Description</span>
-                            <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter description" />
-                        </label>
-
-                        <label className="flex justify-between items-center space-x-20">
-                            <span className="text-gray-700">Refund Tolerance</span>
-                            <input type="number" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter refund tolerance" />
-                        </label>
-
-                        <div className="flex items-center w-full mt-2">
-                            <div className="flex justify-end w-1/2 items-center">
-                                <span className="text-gray-700">Chat Message After Hours</span>
-                            </div>
-                            <div className="flex justify-start w-1/2 mx-2 items-center">
-                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message after hours" />
-                            </div>
-                        </div>
-
-                        <div className="flex items-center w-full mt-2">
-                            <div className="flex justify-end w-1/2 items-center">
-                                <span className="text-gray-700">Chat Message Business Hours</span>
-                            </div>
-                            <div className="flex justify-start w-1/2 mx-2 items-center">
-                                <input type="text" className="mt-3 block border-gray-300 rounded-md px-2" placeholder="Enter chat message business hours" />
-                            </div>
-                        </div>
-
-                        <label className="flex justify-between items-center">
-                            <span className="text-gray-700">Widget Offset Horizontal</span>
-                            <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset horizontal" />
-                        </label>
-
-                        <label className="flex justify-between items-center">
-                            <span className="text-gray-700">Widget Offset Vertical</span>
-                            <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset vertical" />
-                        </label> */}
-
 
                                 </div>
 
@@ -350,8 +361,8 @@ const Page = () => {
                                 <div className="containerChatBot_entire justify-center flex">
                                     <div className="widget_container active">
                                         <div className="header_ChatBotWidget">
-                                            <div className="left_arrow_container" onclick="handleShowChat()"><img width="20px" src="https://widget-dev.usetempo.ai/v1/assets/img/left-arrow.png" /></div>
-                                            <div className="profile_photo_container"><img width="45px" src={preferences.logo} /></div>
+                                            <div className="left_arrow_container"><img width="20px" src="https://widget-dev.usetempo.ai/v1/assets/img/left-arrow.png" /></div>
+                                            <div className="profile_photo_container"><img width="45px" src={preferences.logo || preferences.thumbnail} /></div>
                                             <div>
                                                 <div>
                                                     <b>{preferences.chat_title}</b>
@@ -366,7 +377,7 @@ const Page = () => {
                                         <hr className="custom_hr" />
                                         <div className="chat_content">
                                             <div className="first_answer">
-                                                <img className='profile-photo_ChatBot' src={preferences.thumbnail} alt='Profile Photo' width='35px' />
+                                                <img className='profile-photo_ChatBot' src={preferences.logo || preferences.thumbnail} alt='Profile Photo' width='35px' />
                                                 <div className="answer_text" style={{ backgroundColor: preferences.secondary_color }}>How can I help you today?</div>
                                             </div>
                                             <div className="question" style={{ backgroundColor: preferences.primary_color }}>What is the price of the product?</div>
@@ -376,9 +387,9 @@ const Page = () => {
 
                                         <hr className="custom_hr" />
                                         <div className="reply_container">
-                                            <textarea className="input_question" type="text" maxlength="1000" placeholder="Write a reply..."></textarea>
-                                            <div className="send_button" onclick="handleSubmitQuestion()" id="sendButton">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" fill="currentColor" className="">
+                                            <textarea className="input_question" type="text" maxLength="1000" placeholder="Write a reply..."></textarea>
+                                            <div className="send_button" id="sendButton">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" fill={preferences.primary_color} className="">
                                                     <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
                                                 </svg>
                                             </div>
