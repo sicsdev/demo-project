@@ -9,6 +9,7 @@ const Career = () => {
   useEffect(() => {
     getContent();
   }, []);
+
   const getContent = async () => {
     getCareersContent().then(
       (res) => {
@@ -20,8 +21,6 @@ const Career = () => {
     );
   };
   
-  
-
   return (
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[90%]">
