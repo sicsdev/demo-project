@@ -80,6 +80,9 @@ const Page = () => {
         console.log(file)
     };
 
+  const backTodash=()=>{
+ router.push("/dashboard");
+  }
     const handleSetBot = (e) => {
         getAllBotData([e.target.value]).then((res) => {
             setBotDetails(res[0].data)
@@ -331,6 +334,7 @@ const Page = () => {
                             <span className="text-gray-700">Widget Offset Vertical</span>
                             <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset vertical" />
                         </label> */}
+            </div>
 
 
                                 </div>
@@ -393,5 +397,3 @@ const Page = () => {
         </div >
     )
 }
-
-export default Page
