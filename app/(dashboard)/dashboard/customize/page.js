@@ -80,9 +80,6 @@ const Page = () => {
         console.log(file)
     };
 
-  const backTodash=()=>{
- router.push("/dashboard");
-  }
     const handleSetBot = (e) => {
         getAllBotData([e.target.value]).then((res) => {
             setBotDetails(res[0].data)
@@ -190,11 +187,11 @@ const Page = () => {
                                             <span className="text-gray-700">Widget Location</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
-                                                <option value="bottom-right">Bottom Right</option>
-                                                <option value="bottom-left">Bottom Left</option>
-                                                <option value="top-left">Top Left</option>
-                                                <option value="top-right">Top Right</option>
+                                            <select name='widget_location' onChange={handleInputChange} className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                                <option value="bottom_right">Bottom Right</option>
+                                                <option value="bottom_left">Bottom Left</option>
+                                                <option value="top_left">Top Left</option>
+                                                <option value="top_right">Top Right</option>
                                             </select>
                                         </div>
                                     </div>
@@ -216,7 +213,7 @@ const Page = () => {
                                             <span className="text-gray-700">Refund tolerance</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                            <select name='refund_tolerance' onChange={handleInputChange}  className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
                                                 <option value="0">No refunds</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -231,7 +228,7 @@ const Page = () => {
                                             <span className="text-gray-700">Cancellation tolerance</span>
                                         </div>
                                         <div className="flex justify-start w-1/2 items-center">
-                                            <select className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
+                                            <select name='cancellation_tolerance' onChange={handleInputChange} className="block border-gray-300 rounded-md p-2 items-center cursor-pointer">
                                                 <option value="0">No cancellations</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -334,7 +331,6 @@ const Page = () => {
                             <span className="text-gray-700">Widget Offset Vertical</span>
                             <input type="number" className="mt-3 block border-gray-300 rounded-md" placeholder="Enter widget offset vertical" />
                         </label> */}
-            </div>
 
 
                                 </div>
@@ -397,3 +393,5 @@ const Page = () => {
         </div >
     )
 }
+
+export default Page
