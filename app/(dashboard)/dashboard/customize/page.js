@@ -299,10 +299,11 @@ const Page = () => {
               <hr className="opacity-10"></hr>
             </div>
 
-            <div className="containerChatBot_entire justify-center flex">
+            <div className=" containerChatBot_entire justify-center flex">
               <div className="widget_container active">
                 <div className="header_ChatBotWidget">
                   <div
+                  
                     className="left_arrow_container"
                     onclick="handleShowChat()"
                   >
