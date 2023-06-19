@@ -7,13 +7,14 @@ import SelectField from "../Common/Input/SelectField";
 import { ecommerce_platform_data, email_ticketing_system_data, payments_platform_data } from "./data/FormData";
 import { useState } from "react";
 import TextField from "../Common/Input/TextField";
-import { createBot, createBotFaqFile } from "@/app/API/pages/Bot";
+import { createBot, createBotKnowledge } from "@/app/API/pages/Bot";
 import { useDispatch } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 
-export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true }) {
+export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep }) {
   const dispatch = useDispatch()
 
+  const [errors, setErrors] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setErrorMessage] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
@@ -27,17 +28,23 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     enable_refund: formCustomerData?.enable_refund ?? '',
     refund_friendliness: formCustomerData?.refund_friendliness ?? '1',
     logo_upload: formCustomerData?.logo_upload ?? '',
+    faq_upload: formCustomerData?.faq_upload ?? '',
     bot_name: formCustomerData?.bot_name ?? '',
     enable_cancellations: formCustomerData?.enable_cancellations ?? false,
     cancellation_friendliness: formCustomerData?.cancellation_friendliness ?? '1',
-    faq_upload: formCustomerData?.faq_upload ?? '',
     email_ticketing_system: formCustomerData?.email_ticketing_system ?? 'Other',
     ecommerce_platform: formCustomerData?.ecommerce_platform ?? 'Other',
     payments_platform: formCustomerData?.payments_platform ?? 'Other',
     refund_tolerance: false,
     payment_platform: formCustomerData?.payment_platform ?? '',
+    faq_url: formCustomerData?.faq_url ?? '',
+    help_center_url: formCustomerData?.help_center_url ?? '',
+    refund_return_url: formCustomerData?.refund_return_url ?? '',
+    membership_policy_url: formCustomerData?.membership_policy_url ?? '',
+    shipping_policy_url: formCustomerData?.shipping_policy_url ?? '',
+    other_url: formCustomerData?.other_url ?? '',
   })
-
+  console.log(formValues)
   const onSubmit = async (data) => {
     setLoading(true)
     let payload = {
@@ -54,17 +61,15 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     }
 
     const bot = await createBot(payload);
-
     if (bot?.status === 201) {
-      const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile });
-
+      const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
       if (bot_faq?.status === 201) {
         dispatch(setBotId(bot.data.id));
         setErrorMessage(null);
-
         if (form === true) {
           setCustomerFormData(data);
           setIntakeStep(2);
+          setIntakeCompleteStep(2)
         } else {
           setShowModal(false);
           dispatch(fetchBot());
@@ -75,19 +80,24 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     } else {
       setErrorMessage(bot.message);
     }
-
     setLoading(false);
 
   };
 
+  const returnFilesUrl = () => {
+    let all_url = [formValues.faq_url, formValues.membership_policy_url, formValues.help_center_url, formValues.refund_return_url, formValues.shipping_policy_url, formValues.other_url]
+    const filter_urls = all_url.filter((x) => x !== "")
+    return { urls: filter_urls }
+  }
+
   // Form Handlers
   const handleInputValues = (e) => {
-    setErrorMessage(null)
+    setErrors([])
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   }
   const handleCheckbox = (e) => {
-    setErrorMessage(null)
+    setErrors([])
     const { name, checked } = e.target;
     setFormValues({ ...formValues, [name]: checked });
   }
@@ -104,16 +114,31 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   }
 
   const handleForward = () => {
-    if (serviceSetupSteps === 1 && !formValues.bot_name) { setErrorMessage('Title is required'); return }
-    if (serviceSetupSteps === 5) {
-      onSubmit()
-    } else {
-      setServiceSetupSteps(serviceSetupSteps + 1)
-    }
+
+    if (validateForm(1)) { onSubmit() }
+
   }
 
+  const validateForm = (formNumber) => {
+    const formFields = {
+      1: {
+        bot_name: "Bot Title",
+        faq_url: "FAQ Url"
+      },
+    };
+
+    const requiredFields = formFields[formNumber];
+    const errors = Object.entries(requiredFields)
+      .filter(([field, label]) => formValues[field] === '')
+      .map(([field, label]) => { return { field, message: `${label} is required` } });
+
+    setErrors(errors);
+    return errors.length === 0;
+  };
 
 
+
+  console.log("wrref", error)
   // FAQ && File Uploads handlers 
   const getBase64 = (file) => {
     return new Promise(resolve => {
@@ -167,141 +192,105 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
 
   // Get title
-
-  const getTitle = () => {
-    switch (serviceSetupSteps) {
-      case 1:
-        return 'Set your customer service preferences to handle refunds, cancellations, and more.'
-      case 2:
-        return 'Refund Options: Configure Automated Refund Acceptance and Personalize Sensitivity'
-      case 3:
-        return 'Cancellation Options: Configure Automated Cancellation Acceptance and Personalize Sensitivity'
-      case 4:
-        return 'Select your payment platform, ecommerce platform, and email ticketing system.'
-      case 5:
-        return 'Upload your FAQ file to help our bot answer questions about your business and your logo to customize your bot.'
-      default:
-        return 'Set your customer service preferences to handle refunds, cancellations, and more.'
+  const returnErrorMessage = (key) => {
+    if (errors.length) {
+      const findErr = errors.find((x) => x.field === key)
+      if (findErr) {
+        return findErr.message
+      }
     }
+    return null
   }
-
-  return (<>
-
-    <div className='p-3 mx-2 mx-3'>
-      <span className="text-sm text-[#808080]">
-        {getTitle()}
-      </span>
-    </div>
-
-    <div className='p-4'>
+  return (
+    <div className="w-full">
 
 
       {serviceSetupSteps === 1 &&
 
-        <>
-          {/* subtitle={'This will show on the top of your bot'} */}
-          <TextField onChange={handleInputValues} name='bot_name' value={formValues.bot_name} title={'Chatbot Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
-        </>
-      }
+        <div className="">
+          <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chatbot Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
+          <FileField title={'Logo Upload'} error={returnErrorMessage("logo_upload")} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 my-4  md:grid-cols-2 lg:grid-cols-2 gap-4">
+            <div>
+              <div className='rounded-full border border-gray p-3'>
 
-      {serviceSetupSteps === 2 &&
-
-        <>
-          <div className='rounded-full border border-gray p-3 w-2/3'>
-
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input onChange={handleCheckbox} name='refund_tolerance' value='' checked={formValues.refund_tolerance} type="checkbox" className="sr-only peer" />
-              <div className="w-11 h-6 bg-gray peer-focus:ring-4 peer-focus:ring-blue dark:peer-focus:ring-blue rounded-full peer dark:bg-gray peer-checked:after:translate-x-full peer-checked:after:border-sky after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray after:border border-black border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray peer-checked:bg-sky"></div>
-              <span className="ml-3 text-sm font-medium text-gray dark:text-black">Enable Refunds</span>
-            </label>
-          </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input onChange={handleCheckbox} name='refund_tolerance' value='' checked={formValues.refund_tolerance} type="checkbox" className="" />
+                  <span className="ml-3 text-sm font-medium text-heading ">Enable Refunds</span>
+                </label>
+              </div>
 
 
-          {formValues.refund_tolerance !== false && (
-            <div className='m-5 w-2/3'>
+              {formValues.refund_tolerance !== false && (
+                <div className='m-5 '>
 
-              <RadioLabel onClick={handleInputValues} name='refund_friendliness' id={'refund_friendliness'} title={"Refund Friendliness"} className={'mt-3 m-auto'}>
-                <RadioField value={'1'} id={'refund_friendliness1'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '1'} />
-                <RadioField value={'2'} id={'refund_friendliness2'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '2'} />
-                <RadioField value={'3'} id={'refund_friendliness3'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '3'} />
-              </RadioLabel>
+                  <RadioLabel onClick={handleInputValues} name='refund_friendliness' id={'refund_friendliness'} title={"Refund Friendliness"} className={'mt-3 m-auto'}>
+                    <RadioField value={'1'} id={'refund_friendliness1'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '1'} />
+                    <RadioField value={'2'} id={'refund_friendliness2'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '2'} />
+                    <RadioField value={'3'} id={'refund_friendliness3'} name={'refund_friendliness'} checked={formValues.refund_friendliness === '3'} />
+                  </RadioLabel>
+                </div>
+
+              )}
             </div>
+            <div>
+              <div className='rounded-full border border-gray p-3'>
 
-          )}
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input onChange={handleCheckbox} name='enable_cancellations' value='' checked={formValues.enable_cancellations} type="checkbox" className="" />
+                  <span className="ml-3 text-sm font-medium text-gray dark:text-black">Enable Cancellation</span>
+                </label>
+              </div>
 
-        </>
-      }
+              {formValues.enable_cancellations !== false && (
+                <div className='m-5 '>
 
-      {serviceSetupSteps === 3 &&
-        <>
-          <div className='rounded-full border border-gray p-3 w-2/3'>
-
-            <label className="relative inline-flex items-center cursor-pointer">
-              <input onChange={handleCheckbox} name='enable_cancellations' value='' checked={formValues.enable_cancellations} type="checkbox" className="sr-only peer" />
-              <div className="w-11 h-6 bg-gray peer-focus:ring-4 peer-focus:ring-blue dark:peer-focus:ring-blue rounded-full peer dark:bg-gray peer-checked:after:translate-x-full peer-checked:after:border-sky after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray after:border border-black border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray peer-checked:bg-sky"></div>
-              <span className="ml-3 text-sm font-medium text-gray dark:text-black">Enable Cancellation</span>
-            </label>
-          </div>
-
-          {formValues.enable_cancellations !== false && (
-            <div className='m-5 w-2/3'>
-
-              <RadioLabel onClick={handleInputValues} name='cancellation_friendliness' id={'cancellation_friendliness'} title={"Refund Friendliness"} className={'mt-3 m-auto'}>
-                <RadioField value={'1'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '1'} />
-                <RadioField value={'2'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '2'} />
-                <RadioField value={'3'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '3'} />
-              </RadioLabel>
+                  <RadioLabel onClick={handleInputValues} name='cancellation_friendliness' id={'cancellation_friendliness'} title={"Refund Friendliness"} className={'mt-3 m-auto'}>
+                    <RadioField value={'1'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '1'} />
+                    <RadioField value={'2'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '2'} />
+                    <RadioField value={'3'} id={'cancellation_friendliness'} name={'cancellation_friendliness'} checked={formValues.cancellation_friendliness === '3'} />
+                  </RadioLabel>
+                </div>
+              )}
             </div>
-          )}
-        </>
-      }
-
-
-      {serviceSetupSteps === 4 &&
-
-        <>
-
-          <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" />
-
-          <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" />
-
-          <SelectField onChange={handleInputValues} value={formValues.payments_platform} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" />
-
-        </>
-      }
-
-      {serviceSetupSteps === 5 &&
-
-        <>
-          <div className='mx-4'>
-            <FileField title={'FAQ Upload'} placeholder={"FAQ Upload"} type={'file'} id={"faq_upload"} onChange={handleUploadFaq} />
-            <br />
-            <FileField title={'Logo Upload'} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} />
+            <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} error={returnErrorMessage("ticketing_platform")} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" />
+            <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} error={returnErrorMessage("ecommerce_platform")} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" />
+            <SelectField onChange={handleInputValues} value={formValues.payments_platform} error={returnErrorMessage("payments_platform")} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" />
+            <TextField onChange={handleInputValues} name='faq_url' value={formValues.faq_url} error={returnErrorMessage("faq_url")} title={'FAQ Url'} placeholder={"FAQ url"} type={'text'} id={"faq_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='help_center_url' error={returnErrorMessage("help_center_url")} value={formValues.help_center_url} title={'Help Center Url'} placeholder={"Help center url"} type={'text'} id={"help_center_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='refund_return_url' error={returnErrorMessage("refund_return_url")} value={formValues.refund_return_url} title={'Refund & Return Policy Url'} placeholder={"Refund & Return Policy Url"} type={'text'} id={"refund_return_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='membership_policy_url' error={returnErrorMessage("membership_policy_url")} value={formValues.membership_policy_url} title={'Membership Policy Url'} placeholder={"Membership Policy Url"} type={'text'} id={"membership_policy_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='shipping_policy_url' error={returnErrorMessage("shipping_policy_url")} value={formValues.shipping_policy_url} title={'Shipping Policy Url'} placeholder={"Shipping Policy Url"} type={'text'} id={"shipping_policy_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Other'} placeholder={"Other"} type={'text'} id={"other_url"} className="py-3 mt-1" />
           </div>
-        </>
+        </div>
       }
 
-      {error && (<div className='mt-2'><small className="text-red text-start" >{error}</small></div>)}
+
+
+
+
+
+
 
       <div className="flex col-span-3  items-center justify-between p-2 rounded-b mt-5">
-        {(
+        {form == true && (
           <Button type={"button"}
-            className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
             onClick={handleBack}
-            disabled={form == false && serviceSetupSteps == 1}
+            disabled={form == false}
           >
             Back
           </Button>
         )}
         <Button type={"button"}
-          className="inline-block rounded bg-voilet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+          className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
           onClick={handleForward}
           disabled={error || loading}
         >
-          {serviceSetupSteps === 5 ? (loading ? 'Loading...' : 'Submit') : 'Next'}
+          {loading ? 'Loading...' : 'Submit'}
 
         </Button>
       </div>
-    </div>
-  </>);
+    </div>);
 }
