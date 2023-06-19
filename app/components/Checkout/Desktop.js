@@ -14,7 +14,7 @@ const Desktop = ({ pro, guru, setSelect, select }) => {
     const emailQuery = searchParams.get('email')
 
     const handleGetFreeTrial = () => {
-        router.push(`/checkout?plan=${select}`);
+        router.push(`/checkout?email=${emailQuery || ''}&plan=${select}`);
     }
 
 
