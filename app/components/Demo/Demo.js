@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react'
 import Button from '../Common/Button/Button'
 import Card from '../Common/Card/Card'
 import { useRouter } from 'next/navigation';
+import validator from 'validator';
 
 const Demo = () => {
 
   const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
     const router = useRouter();
     const handleNavigate = () => {
         let emailInput = document.getElementById('email').value;
-        localStorage.setItem('tempEmail', emailInput);
         router.push(`/free-trial?email=${emailInput}`);
     }
 
@@ -32,6 +33,14 @@ const Demo = () => {
       ]);
     } 
   };
+
+  const validateEmail=(e)=>{
+    console.log("clicked");
+var email = e.target.value;
+if(validator.isEmail(email)){
+  setValidEmail(false);
+}else{setValidEmail(true);}
+  }
 
   return (
     <div className="mx-auto">
@@ -55,9 +64,12 @@ const Demo = () => {
               id={"email"}
               value={email}
               // onBlur={(e) => handleBlur(email)}
-              onChange={(e) => {
+              onChange={(e) => {{
                 setEmail(e.target.value);
-              }}
+              };
+             validateEmail(e);
+            
+            }}
             />
           </div>
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
@@ -66,6 +78,7 @@ const Demo = () => {
                 "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
               }
               onClick={handleNavigate}
+         disabled={validEmail}
             >
               Start Free Trial
             </Button>
