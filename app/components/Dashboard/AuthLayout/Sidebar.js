@@ -7,7 +7,7 @@ import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon,
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../../store/slices/userSlice';
-import { UserCircleIcon, WrenchIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, WrenchIcon, QrCodeIcon} from '@heroicons/react/24/outline';
 
 const Sidebar = ({ children }) => {
     const router = useRouter();
@@ -50,12 +50,12 @@ const Sidebar = ({ children }) => {
 
 
         },
-        {
-            href: '/dashboard/integrations',
-            name: 'Integrations',
-            icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+        // {
+        //     href: '/dashboard/integrations',
+        //     name: 'Integrations',
+        //     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
 
-        },
+        // },
         {
             href: '/dashboard/members',
             name: 'Members',
@@ -66,6 +66,11 @@ const Sidebar = ({ children }) => {
             href: '/dashboard/graphics',
             name: 'Graphics',
             icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+            href: '/dashboard/customize',
+            name: 'Widgets',
+            icon: <QrCodeIcon className="h-6 w-6 text-gray-500" />,
         },
     ]
     const SideBarSetting = [
@@ -94,7 +99,7 @@ const Sidebar = ({ children }) => {
                             </button>
 
                             <Link href="/" className="flex ml-2 md:mr-24">
-                            <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
+                                <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
                             </Link>
 
                         </div>

@@ -52,7 +52,7 @@ const Page = () => {
                     {selectedComponent === 'TicketsSpikes' && <TicketsSpikes />}
                 </div>
             </div>
-            <GoogleAnalytics></GoogleAnalytics>
+            {/* <GoogleAnalytics></GoogleAnalytics> */}
         </div>
     )
 }
