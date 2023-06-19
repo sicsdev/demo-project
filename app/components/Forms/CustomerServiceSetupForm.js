@@ -57,7 +57,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
     if (bot?.status === 201) {
       const bot_faq = await createBotFaqFile(bot.data.id, { file: faqFile });
-
+      console.log(faqFile)
       if (bot_faq?.status === 201) {
         dispatch(setBotId(bot.data.id));
         setErrorMessage(null);
@@ -70,7 +70,8 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
           dispatch(fetchBot());
         }
       } else {
-        setErrorMessage(bot_faq.message);
+        let errorMessage = bot_faq.response?.data?.non_field_errors[0]
+        setErrorMessage(errorMessage ? 'FAQ File error: ' + errorMessage : 'Upload a valid FAQ file');
       }
     } else {
       setErrorMessage(bot.message);
@@ -106,13 +107,15 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const handleForward = () => {
     if (serviceSetupSteps === 1 && !formValues.bot_name) { setErrorMessage('Title is required'); return }
     if (serviceSetupSteps === 5) {
-      onSubmit()
+      lastStep()
     } else {
       setServiceSetupSteps(serviceSetupSteps + 1)
     }
   }
 
-
+  const lastStep = () => {
+    faqFile && botLogo ? onSubmit() : setErrorMessage('Please upload both files')
+  }
 
   // FAQ && File Uploads handlers 
   const getBase64 = (file) => {
@@ -131,7 +134,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const handleUploadFaq = async (e) => {
     setErrorMessage('')
     let file = e.target.files[0]
-    if (allowedFormatsFaq.includes(file.type)) {
+    if (file && allowedFormatsFaq.includes(file.type)) {
       getBase64(file)
         .then(result => {
           console.log(result)
