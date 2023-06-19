@@ -10,6 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { submitCheckout } from "@/app/API/pages/Checkout";
 import { useRouter } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
+import Button from "../Common/Button/Button";
 
 const stripe_api =
   "pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW";
@@ -106,11 +107,11 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
         </div>
 
         {loading && <p className="message">Processing Payment...</p>}
-        <button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
+        <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
         disabled={boxValid}
         >
           Checkout
-        </button>
+        </Button>
       </form>
       <br />
       <div>
