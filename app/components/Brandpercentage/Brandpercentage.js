@@ -37,7 +37,7 @@ const Brandpercentage = () => {
               {hide.first == true ? (
                 <Card
                   className={
-                    "animate-fadeIn w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p className="text-heading" onMouseLeave={()=>setHide({first:false})}  >
@@ -70,7 +70,7 @@ const Brandpercentage = () => {
               {hide.second == true ? (
                 <Card
                   className={
-                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
+                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p className="text-heading"  onMouseLeave={()=>setHide({second:false})}>
@@ -103,7 +103,7 @@ const Brandpercentage = () => {
               {hide.third == true ? (
                 <Card
                   className={
-                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
+                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p className="text-heading"   onMouseLeave={()=>setHide({third:false})} >
@@ -134,7 +134,7 @@ const Brandpercentage = () => {
               {hide.fourth == true ? (
                 <Card
                   className={
-                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white"
+                    "animate-fadeIn  w-[320px]	   sm:w-[400px]  absolute top-[92px] sm:top-[120px] bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p className="text-heading" onMouseLeave={()=>setHide({fourth:false})} >

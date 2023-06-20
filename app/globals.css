@@ -160,4 +160,15 @@ select::-ms-expand {
 @media (max-width: 768px) {
 .chatbot_widget {
   display: none;
-}}
+}
+.accordion__item:nth-child(2) .accordion__button:before, .accordion__item:nth-child(3) .accordion__button:before {
+  display: none;
+}
+
+}
+/* 
+@media (min-width: 768px) {
+  .mobile.leftimg_sec {
+    animation: none;
+  }
+} */
