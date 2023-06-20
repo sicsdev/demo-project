@@ -25,7 +25,7 @@ console.log("setCareer", blog)
   return (
     <div className="mb-4 ">
       {blog.map((ele, key)=>
-       <div className="bg-white  p-0">
+       <div className="bg-white  p-0" key={key}>
        <div className="ml-4 mt-5 ">
              <h1 className=" font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
                The Tempo Blog
