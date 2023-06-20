@@ -75,20 +75,6 @@ const Page = () => {
                                                 Admin
                                             </span>
                                         </td>
-                                        {/* <td className="px-6 py-4 w-[20px] cursor-pointer">
-                                        <div className='p-2 border border-border'>
-                                            <Cog6ToothIcon className="h-6 w-6 text-gray-500" />
-                                        </div>
-                                        <div className="z-40 hidden absolute right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700">
-                                            <ul className="py-2 text-sm text-heading font-semibold dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                                <li>
-                                                    <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove Team Member</a>
-                                                </li>
-
-                                            </ul>
-                                        </div>
-
-                                    </td> */}
                                     </tr>
                                 )}
                             </tbody>

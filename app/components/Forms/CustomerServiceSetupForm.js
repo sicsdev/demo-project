@@ -10,6 +10,7 @@ import TextField from "../Common/Input/TextField";
 import { createBot, createBotKnowledge } from "@/app/API/pages/Bot";
 import { useDispatch } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
+import LoaderButton from "../Common/Button/Loaderbutton";
 
 export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep }) {
   const dispatch = useDispatch()
@@ -44,6 +45,28 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     shipping_policy_url: formCustomerData?.shipping_policy_url ?? '',
     other_url: formCustomerData?.other_url ?? '',
   })
+
+  const checkValue = () => {
+    if (formValues.faq_url !== "") {
+      return true
+    }
+    if (formValues.help_center_url !== "") {
+      return true
+    }
+    if (formValues.refund_return_url !== "") {
+      return true
+    }
+    if (formValues.membership_policy_url !== "") {
+      return true
+    }
+    if (formValues.shipping_policy_url !== "") {
+      return true
+    }
+    if (formValues.other_url !== "") {
+      return true
+    }
+    return false
+  }
   console.log(formValues)
   const onSubmit = async (data) => {
     setLoading(true)
@@ -67,7 +90,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         dispatch(setBotId(bot.data.id));
         setErrorMessage(null);
         if (form === true) {
-          setCustomerFormData(data);
+          setCustomerFormData(formValues);
           setIntakeStep(2);
           setIntakeCompleteStep(2)
         } else {
@@ -75,6 +98,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
           dispatch(fetchBot());
         }
       } else {
+        debugger
         setErrorMessage(bot_faq.message);
       }
     } else {
@@ -118,12 +142,10 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     if (validateForm(1)) { onSubmit() }
 
   }
-
   const validateForm = (formNumber) => {
     const formFields = {
       1: {
-        bot_name: "Bot Title",
-        faq_url: "FAQ Url"
+        bot_name: "Chat Title"
       },
     };
 
@@ -190,7 +212,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     }
   }
 
-
+  const isButtonDisabled = checkValue()
   // Get title
   const returnErrorMessage = (key) => {
     if (errors.length) {
@@ -208,17 +230,15 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       {serviceSetupSteps === 1 &&
 
         <div className="">
-          <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chatbot Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
-          <FileField title={'Logo Upload'} error={returnErrorMessage("logo_upload")} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} />
+          <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chat Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
+          {/* <FileField title={'Logo Upload'} error={returnErrorMessage("logo_upload")} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} /> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 my-4  md:grid-cols-2 lg:grid-cols-2 gap-4">
-            <div>
-              <div className='rounded-full border border-gray p-3'>
+            {/* <div>
 
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input onChange={handleCheckbox} name='refund_tolerance' value='' checked={formValues.refund_tolerance} type="checkbox" className="" />
-                  <span className="ml-3 text-sm font-medium text-heading ">Enable Refunds</span>
-                </label>
-              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input onChange={handleCheckbox} name='refund_tolerance' value='' checked={formValues.refund_tolerance} type="checkbox" className="" />
+                <span className="ml-3 text-sm font-medium text-heading ">Enable Refunds</span>
+              </label>
 
 
               {formValues.refund_tolerance !== false && (
@@ -234,13 +254,11 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
               )}
             </div>
             <div>
-              <div className='rounded-full border border-gray p-3'>
 
-                <label className="relative inline-flex items-center cursor-pointer">
-                  <input onChange={handleCheckbox} name='enable_cancellations' value='' checked={formValues.enable_cancellations} type="checkbox" className="" />
-                  <span className="ml-3 text-sm font-medium text-gray dark:text-black">Enable Cancellation</span>
-                </label>
-              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input onChange={handleCheckbox} name='enable_cancellations' value='' checked={formValues.enable_cancellations} type="checkbox" className="" />
+                <span className="ml-3 text-sm font-medium ">Enable Cancellation</span>
+              </label>
 
               {formValues.enable_cancellations !== false && (
                 <div className='m-5 '>
@@ -252,23 +270,23 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
                   </RadioLabel>
                 </div>
               )}
-            </div>
-            <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} error={returnErrorMessage("ticketing_platform")} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" />
-            <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} error={returnErrorMessage("ecommerce_platform")} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" />
-            <SelectField onChange={handleInputValues} value={formValues.payments_platform} error={returnErrorMessage("payments_platform")} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" />
+            </div> */}
+            {/* <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} error={returnErrorMessage("ticketing_platform")} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" /> */}
+            {/* <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} error={returnErrorMessage("ecommerce_platform")} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" /> */}
+            {/* <SelectField onChange={handleInputValues} value={formValues.payments_platform} error={returnErrorMessage("payments_platform")} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" /> */}
             <TextField onChange={handleInputValues} name='faq_url' value={formValues.faq_url} error={returnErrorMessage("faq_url")} title={'FAQ Url'} placeholder={"FAQ url"} type={'text'} id={"faq_url"} className="py-3 mt-1" />
             <TextField onChange={handleInputValues} name='help_center_url' error={returnErrorMessage("help_center_url")} value={formValues.help_center_url} title={'Help Center Url'} placeholder={"Help center url"} type={'text'} id={"help_center_url"} className="py-3 mt-1" />
             <TextField onChange={handleInputValues} name='refund_return_url' error={returnErrorMessage("refund_return_url")} value={formValues.refund_return_url} title={'Refund & Return Policy Url'} placeholder={"Refund & Return Policy Url"} type={'text'} id={"refund_return_url"} className="py-3 mt-1" />
             <TextField onChange={handleInputValues} name='membership_policy_url' error={returnErrorMessage("membership_policy_url")} value={formValues.membership_policy_url} title={'Membership Policy Url'} placeholder={"Membership Policy Url"} type={'text'} id={"membership_policy_url"} className="py-3 mt-1" />
             <TextField onChange={handleInputValues} name='shipping_policy_url' error={returnErrorMessage("shipping_policy_url")} value={formValues.shipping_policy_url} title={'Shipping Policy Url'} placeholder={"Shipping Policy Url"} type={'text'} id={"shipping_policy_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Other'} placeholder={"Other"} type={'text'} id={"other_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Other Url'} placeholder={"Other Url"} type={'text'} id={"other_url"} className="py-3 mt-1" />
           </div>
         </div>
       }
 
 
 
-
+      {error && (<small className="text-danger text-center mx-auto">{error}</small>)}
 
 
 
@@ -283,14 +301,22 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             Back
           </Button>
         )}
-        <Button type={"button"}
-          className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-          onClick={handleForward}
-          disabled={error || loading}
-        >
-          {loading ? 'Loading...' : 'Submit'}
+        {loading ?
+          <LoaderButton />
+          :
+          <Button type={"button"}
+            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+            onClick={handleForward}
+            disabled={loading ||
+              formValues.bot_name === '' ||
+              checkValue() == false
+            }
+          >
+            {loading ? 'Loading...' : form ? "Next" : 'Submit'}
 
-        </Button>
+          </Button>}
+
+
       </div>
     </div>);
 }

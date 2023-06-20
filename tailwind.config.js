@@ -13,6 +13,8 @@ module.exports = {
       white: "#ffffff",
       primary: "#2563eb",
       primary_hover: "#3b82f6",
+      success: "#4cbb17",
+      badge_blue:"#93c5fd",
       voilet: "#5B00CC",
       black: "#000000",
       "soft-green": "#53CB89",
@@ -77,22 +79,22 @@ module.exports = {
       'sky-2': '#0369a1',
       'bot': "#0057FF",
       'time-bot': "#60a5fa",
-      'card_bg':"#e4e4e7",
-      "table_bg":"#f1fbfd",
-      'sidebar':"rgb(18, 17, 66)",
-      'linkhover':"rgb(40, 47, 92)",
-      'headone':"rgb(18, 17, 66)",
-      'danger':"#dc2626",
-      'modal':"#fef2f2",
+      'card_bg': "#e4e4e7",
+      "table_bg": "#f1fbfd",
+      'sidebar': "rgb(18, 17, 66)",
+      'linkhover': "rgb(40, 47, 92)",
+      'headone': "rgb(18, 17, 66)",
+      'danger': "#dc2626",
+      'modal': "#fef2f2",
       'gray': "#e4e4e7",
       'red': "#dc2626",
-      'label':"#59f2f6"
+      'label': "#59f2f6"
     },
     extend: {
-      gridTemplateColumns:{
-        sideBar: "270px auto", 
-              },
-                    backgroundImage: {
+      gridTemplateColumns: {
+        sideBar: "270px auto",
+      },
+      backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
@@ -103,13 +105,13 @@ module.exports = {
       },
       fontSize: {
         "h1": "55px",
-        "h2":"45px",
+        "h2": "45px",
         "h3": "35px",
-        "h4":"30px",
-        "h5":"25px",
-        "h6":"20px",
-        "para":"16px",
-        "small-para":"14px"
+        "h4": "30px",
+        "h5": "25px",
+        "h6": "20px",
+        "para": "16px",
+        "small-para": "14px"
       },
       fontFamily: {
         'generalSans-extraLight': ['GeneralSans-Extralight'],
@@ -197,7 +199,7 @@ module.exports = {
         backbottoggle: "backbottoggle 0.7s ease-in-out",
         chattile: "chattile 1s ease-in",
         fadeIn: "fadeIn .5s ease-in forwards",
-        
+
 
       },
     },
