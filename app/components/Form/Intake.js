@@ -11,8 +11,8 @@ const Intake = () => {
     let state = useSelector((state) => state.botId.showModal)
     const [formCustomerData, setCustomerFormData] = useState({})
     const [showModal, setShowModal] = useState(false);
-    const [intakeStep, setIntakeStep] = useState(1);
-    const [intakeCompleteStep, setIntakeCompleteStep] = useState(1);
+    const [intakeStep, setIntakeStep] = useState(0);
+    const [intakeCompleteStep, setIntakeCompleteStep] = useState(0);
 
     useEffect(() => {
         setShowModal(state);
