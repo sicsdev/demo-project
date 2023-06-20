@@ -9,7 +9,7 @@
 .img-platform {
   width: 65px;
   height: 65px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .rotate-180 {
@@ -87,7 +87,7 @@ span.hljs-tag {
   .img-platform {
     width: 45px;
     height: 45px;
-    object-fit: cover;
+    object-fit: contain;
   }
   .animation_icon_section .col_section.content{
     padding: 0px 0px !important;
