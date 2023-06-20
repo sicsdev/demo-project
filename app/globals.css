@@ -156,3 +156,8 @@ select::-ms-expand {
   -ms-word-break: normal;
   word-break: normal;
 }
+
+@media (max-width: 768px) {
+.chatbot_widget {
+  display: none;
+}}

@@ -196,12 +196,12 @@
   margin-bottom: 0.8vh;
 }
 
-#chatbot_preview .send_button svg {
+/* #chatbot_preview .send_button svg {
   fill: var(--primary-color);
-}
+} */
 
 #chatbot_preview .send_button svg:hover {
-  fill: var(--primary-color-darkened);
+  /* fill: var(--primary-color-darkened); */
   transform : scale(1.1);
 }
 

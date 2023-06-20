@@ -25,7 +25,7 @@ const Header = () => {
 
   return (
     <div className="sticky top-0 start-0	z-40">
-      <Banner />
+      {/* <Banner /> */}
       <nav className="w-full bg-black shadow">
         <div
           className="justify-between mx-auto lg:max-w-[90%] md:items-center md:flex"
