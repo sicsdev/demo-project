@@ -11,16 +11,16 @@ export const createBot = async (body) => {
         return error
     }
 };
-export const createBotFaqFile = async (id, body) => {
-    let config = returnConfig()
+// export const createBotFaqFile = async (id, body) => {
+//     let config = returnConfig()
 
-    try {
-        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/knowledge/`, body, config);
-        return response;
-    } catch (error) {
-        return error
-    }
-};
+//     try {
+//         const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/knowledge/`, body, config);
+//         return response;
+//     } catch (error) {
+//         return error
+//     }
+// };
 
 export const getBotWidget = async (id) => {
     let config = returnConfig()
@@ -66,3 +66,14 @@ export const getAllBotData = async (ids) => {
         throw error;
     }
 }
+
+export const createBotKnowledge = async (id, body) => {
+    let config = returnConfig()
+
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/knowledge/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

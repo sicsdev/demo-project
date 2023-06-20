@@ -7,12 +7,11 @@ import validator from "validator";
 const Demo = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
-  const router = useRouter();
-  const handleNavigate = () => {
-    let emailInput = document.getElementById("email").value;
-    localStorage.setItem("tempEmail", emailInput);
-    router.push(`/free-trial?email=${emailInput}`);
-  };
+    const router = useRouter();
+    const handleNavigate = () => {
+        let emailInput = document.getElementById('email').value;
+        router.push(`/free-trial?email=${emailInput}`);
+    }
 
   useEffect(() => {
     // if (email?.includes("@")) {

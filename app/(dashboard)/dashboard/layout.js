@@ -1,7 +1,14 @@
-import Sidebar from "@/app/components/Dashboard/AuthLayout/Sidebar";
+
+import Dashboard from "@/app/components/DashboardSubLayout/Dashboard";
 
 
 
 export default function DashboardLayout({ children }) {
-    return <Sidebar>{children}</Sidebar>;
-  }
+  return (
+    <>
+      <Dashboard>
+        {children}
+      </Dashboard>
+    </>
+  );
+}

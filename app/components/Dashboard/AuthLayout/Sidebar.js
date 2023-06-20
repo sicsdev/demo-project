@@ -7,7 +7,7 @@ import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon,
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../../store/slices/userSlice';
-import { UserCircleIcon, WrenchIcon } from '@heroicons/react/24/outline';
+import { UserCircleIcon, WrenchIcon, QrCodeIcon} from '@heroicons/react/24/outline';
 
 const Sidebar = ({ children }) => {
     const router = useRouter();
@@ -21,6 +21,9 @@ const Sidebar = ({ children }) => {
         if (!state) {
             dispatch(fetchProfile())
         }
+        //delete widget from DOM
+        const chatbot = document.getElementById('chatbot_widget')
+        if (chatbot) { chatbot.remove()}
     }, [])
 
     const [isOpen, setIsOpen] = useState(false);
@@ -32,9 +35,19 @@ const Sidebar = ({ children }) => {
 
     const handleLogout = () => {
         localStorage.removeItem('Token');
+        clearCookies()
         router.push('/');
     };
 
+    const clearCookies = () => {
+        const cookies = document.cookie.split(";")
+        for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i];
+          var eqPos = cookie.indexOf("=");
+          var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
+        }
+      }
 
     const SideBarRoutes = [
         {
@@ -66,6 +79,11 @@ const Sidebar = ({ children }) => {
             href: '/dashboard/graphics',
             name: 'Graphics',
             icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+            href: '/dashboard/customize',
+            name: 'Widgets',
+            icon: <QrCodeIcon className="h-6 w-6 text-gray-500" />,
         },
     ]
     const SideBarSetting = [
@@ -114,7 +132,7 @@ console.log("isOpem", isOpen)
                             </button>
 
                             <Link href="/" className="flex ml-2 md:mr-24">
-                            <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
+                                <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
                             </Link>
 
                         </div>
