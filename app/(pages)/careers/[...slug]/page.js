@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { getCareersJobs } from "@/app/API/pages/Wpdata";
 import Loading from "@/app/components/Loading/Loading";
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -96,4 +96,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
