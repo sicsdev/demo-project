@@ -232,7 +232,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         <div className="">
           <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chat Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
           {/* <FileField title={'Logo Upload'} error={returnErrorMessage("logo_upload")} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} /> */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 my-4  md:grid-cols-2 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1  my-4 gap-4">
             {/* <div>
 
               <label className="relative inline-flex items-center cursor-pointer">
@@ -274,12 +274,23 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             {/* <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} error={returnErrorMessage("ticketing_platform")} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" /> */}
             {/* <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} error={returnErrorMessage("ecommerce_platform")} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" /> */}
             {/* <SelectField onChange={handleInputValues} value={formValues.payments_platform} error={returnErrorMessage("payments_platform")} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" /> */}
-            <TextField onChange={handleInputValues} name='faq_url' value={formValues.faq_url} error={returnErrorMessage("faq_url")} title={'FAQ Url'} placeholder={"FAQ url"} type={'text'} id={"faq_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='help_center_url' error={returnErrorMessage("help_center_url")} value={formValues.help_center_url} title={'Help Center Url'} placeholder={"Help center url"} type={'text'} id={"help_center_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='refund_return_url' error={returnErrorMessage("refund_return_url")} value={formValues.refund_return_url} title={'Refund & Return Policy Url'} placeholder={"Refund & Return Policy Url"} type={'text'} id={"refund_return_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='membership_policy_url' error={returnErrorMessage("membership_policy_url")} value={formValues.membership_policy_url} title={'Membership Policy Url'} placeholder={"Membership Policy Url"} type={'text'} id={"membership_policy_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='shipping_policy_url' error={returnErrorMessage("shipping_policy_url")} value={formValues.shipping_policy_url} title={'Shipping Policy Url'} placeholder={"Shipping Policy Url"} type={'text'} id={"shipping_policy_url"} className="py-3 mt-1" />
-            <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Other Url'} placeholder={"Other Url"} type={'text'} id={"other_url"} className="py-3 mt-1" />
+            <TextField onChange={handleInputValues} name='faq_url' value={formValues.faq_url} error={returnErrorMessage("faq_url")} title={'Add your Help Center or FAQ URL'} placeholder={"Help Center or FAQ URL"} type={'text'} id={"faq_url"} className="py-3 mt-1" />
+            {formValues.faq_url && (
+              <TextField onChange={handleInputValues} name='help_center_url' error={returnErrorMessage("help_center_url")} value={formValues.help_center_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"help_center_url"} className="py-3 mt-1" />
+            )}
+            {formValues.help_center_url && (
+              <TextField onChange={handleInputValues} name='refund_return_url' error={returnErrorMessage("refund_return_url")} value={formValues.refund_return_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"refund_return_url"} className="py-3 mt-1" />)}
+            {formValues.refund_return_url && (
+              <TextField onChange={handleInputValues} name='membership_policy_url' error={returnErrorMessage("membership_policy_url")} value={formValues.membership_policy_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"membership_policy_url"} className="py-3 mt-1" />
+            )}
+            {formValues.membership_policy_url && (
+
+              <TextField onChange={handleInputValues} name='shipping_policy_url' error={returnErrorMessage("shipping_policy_url")} value={formValues.shipping_policy_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"shipping_policy_url"} className="py-3 mt-1" />
+            )}
+            {formValues.shipping_policy_url && (
+
+              <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"other_url"} className="py-3 mt-1" />
+            )}
           </div>
         </div>
       }

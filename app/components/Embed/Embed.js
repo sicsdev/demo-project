@@ -4,13 +4,16 @@ import hljs from "highlight.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
 import Button from '../Common/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBotWidget } from '@/app/API/pages/Bot';
+import { checkBotInstallation, getBotWidget } from '@/app/API/pages/Bot';
 import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
 import Loading from '../Loading/Loading';
 import { fetchProfile } from '../store/slices/userSlice';
 import { useRouter } from 'next/navigation';
 import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
 
+import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vsDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { vs } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
     const router = useRouter()
     const state = useSelector((state) => state.botId)
@@ -29,9 +32,9 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
 
 
     useEffect(() => {
-        if (state.id && form) {
+        // if (state.id && form) {
         getBotWidgetData()
-        }
+        // }
         if (!form && state.botData.data === null) {
             dispatch(fetchBot())
         }
@@ -53,8 +56,11 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
         }
     }, [state.botData.data])
     const getBotWidgetData = async () => {
-        const widget = await getBotWidget(state.id)
-        setmarkdown(widget.data.code)
+        const widget = await getBotWidget(state)
+        if (widget.data.code) {
+            setmarkdown(widget.data.code)
+            const detail = await checkBotInstallation(state)
+        }
     }
 
     const handleCustomize = (element) => {
@@ -70,7 +76,6 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                 <>
                     {markdown && (
                         <div className='p-5'>
-
 
                             <div className='mt-5 border rounded-md border-border  bg-white'>
                                 <div className='bg-border rounded-t-md p-2 justify-end cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
@@ -104,7 +109,10 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                                 </div>
                                 <div className='p-5 '>
                                     <div>
-                                        <pre lang='html'>{`${markdown}`}</pre></div>
+                                        <SyntaxHighlighter language="javascript" style={vs} wrapLongLines={true}>
+                                            {markdown.trim()}
+                                        </SyntaxHighlighter>
+                                    </div>
                                     <div className='flex justify-between'>
                                         <Button
                                             onClick={handleBack}
@@ -130,6 +138,7 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                 </>
                 :
                 <>
+
                     {state.botData.isLoading === true ?
                         <Loading /> :
                         <>
@@ -168,7 +177,10 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                                         </div>
                                         <div className='p-5 '>
                                             <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
-                                            <div><pre lang='html'>{`${element.code}`}</pre></div>
+                                            <div>
+                                                <SyntaxHighlighter language="javascript" style={vs} wrapLongLines={true}>
+                                                    {element.code.trim()}
+                                                </SyntaxHighlighter></div>
                                             <div className='flex justify-end'>
 
 

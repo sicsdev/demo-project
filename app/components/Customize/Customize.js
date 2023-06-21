@@ -26,7 +26,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
             getAllBots()
             if (bot_id) { getBotInfo(bot_id) }
         } else {
-            getBotInfo(id)
+            getBotInfo(bot_id)
         }
     }, []);
 
@@ -37,6 +37,8 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         description: "",
         refund_tolerance: 0,
         automation_tolerance: 0,
+        primary_text_color: "#ffffff",
+        secondary_text_color: "#000000",
         primary_color: "#0057ff",
         secondary_color: "#f5f5f5",
         logo: "https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg",
@@ -60,6 +62,8 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         getAllBotData([id]).then((res) => {
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
+            setPreferences({ ...preferences, secondary_text_color: "#000000" });
+            setPreferences({ ...preferences, primary_text_color: "#ffffff" });
         })
     }
 
@@ -84,6 +88,15 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
     const handleSecondaryColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, secondary_color: color });
+    };
+    const handlePrimaryTextColorChange = (event) => {
+        const color = event.target.value;
+        setPreferences({ ...preferences, primary_text_color: color });
+    };
+
+    const handleSecondaryTextColorChange = (event) => {
+        const color = event.target.value;
+        setPreferences({ ...preferences, secondary_text_color: color });
     };
 
     const handleInputChange = (e) => {
@@ -134,7 +147,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
             getBotInfo(preferences.id)
             if (form === false) {
                 getAllBots()
-            }else{
+            } else {
                 setIntakeStep(3)
                 setIntakeCompleteStep(3)
             }
@@ -248,6 +261,35 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     />
                                 </div>
                             </div>
+                            <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-start w-1/2">
+                                    <span className="text-gray-700">Primary Text Color</span>
+                                </div>
+                                <div className="flex justify-start w-1/2">
+                                    <input
+                                        type="color"
+                                        value={preferences.primary_text_color}
+                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        placeholder="Enter primary color"
+                                        onChange={handlePrimaryTextColorChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-start w-1/2">
+                                    <span className="text-gray-700">Secondary Text Color</span>
+                                </div>
+                                <div className="flex justify-start w-1/2">
+                                    <input
+                                        type="color"
+                                        value={preferences.secondary_text_color}
+                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        placeholder="Enter secondary color"
+                                        onChange={handleSecondaryTextColorChange}
+                                    />
+                                </div>
+                            </div>
 
                             <div className="flex items-center w-full mt-1 gap-2">
                                 <div className="flex justify-start w-1/2 items-center">
@@ -325,7 +367,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                 <div className="flex justify-start w-1/2 items-center">
                                     <span className="text-gray-700  flex items-center gap-4 break-all">
                                         {preferences.logo && !preferences.logo_file_name ? <a className='text-heading' target='_blank' href={preferences.logo}>Logo</a> : 'Logo'}
-                                        
+
                                     </span>
                                 </div>
                                 <div className="relative inline-flex justify-start w-1/2 items-center">
@@ -394,9 +436,9 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     <div className="chat_content">
                                         <div className="first_answer">
                                             <img className='profile-photo_ChatBot' src={preferences.logo || preferences.thumbnail} alt='Profile Photo' width='35px' />
-                                            <div className="answer_text" style={{ backgroundColor: preferences.secondary_color }}>How can I help you today?</div>
+                                            <div className="answer_text" style={{ backgroundColor: preferences.secondary_color, color: preferences.secondary_text_color }}>How can I help you today?</div>
                                         </div>
-                                        <div className="question" style={{ backgroundColor: preferences.primary_color }}>What is the price of the product?</div>
+                                        <div className="question" style={{ backgroundColor: preferences.primary_color, color: preferences.primary_text_color }}>What is the price of the product?</div>
                                     </div>
 
 

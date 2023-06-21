@@ -27,7 +27,7 @@ const Intake = () => {
             case 1:
                 return <CustomerServiceSetupForm formCustomerData={formCustomerData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 2:
-                return  <Customize form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
+                return <Customize form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 3:
                 return <Embed form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 4:
@@ -61,23 +61,33 @@ const Intake = () => {
         { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> }
     ]
 
-    const sendActiveValue = (element) =>{
-        if(intakeStep === element.step){
+    const sendActiveValue = (element) => {
+        if (intakeStep === element.step) {
             return 'text-heading'
         }
-        if(intakeCompleteStep > element.step){
+        if (intakeCompleteStep > element.step) {
             return 'text-primary'
         }
         return 'text-border'
     }
-    const sendActiveValueLabel = (element) =>{
-        if(intakeStep === element.step){
+    const sendActiveValueLabel = (element) => {
+        if (intakeStep === element.step) {
             return 'text-white bg-heading'
         }
-        if(intakeCompleteStep > element.step){
+        if (intakeCompleteStep > element.step) {
             return 'text-white bg-primary'
         }
         return 'text-white bg-border '
+    }
+
+    const sendTextAndNumber = (element, key) => {
+        if (intakeStep == element.step) {
+            return key + 1
+        }
+        if (intakeCompleteStep > element.step) {
+            return <CheckCircleIcon className="bg-white text-primary rounded-full w-full h-full " />
+        }
+        return key + 1
     }
     return (
         <>
@@ -94,7 +104,7 @@ const Intake = () => {
                                     {headings.map((element, key) =>
                                         <li key={key} className={`flex gap-2 items-center ${sendActiveValue(element)}`}>
                                             <span className={`${key === 0 && ("rounded-t-3xl")} ${headings.length - 1 === key && ("rounded-b-3xl")} bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}>
-                                                <h1 className={`flex w-[20px] h-[20px]  text-xs font-bold items-center justify-center shadow-md rounded-full ${sendActiveValueLabel(element)}`}>{intakeCompleteStep > element.step ? <CheckCircleIcon className="bg-white text-primary rounded-full w-full h-full " /> : key + 1} </h1>
+                                                <h1 className={`flex w-[20px] h-[20px]  text-xs font-bold items-center justify-center shadow-md rounded-full ${sendActiveValueLabel(element)}`}>{sendTextAndNumber(element, key)} </h1>
                                             </span>
                                             <h3 className="flex items-center font-bold h-[30px] m-0 text-xs leading-tight">{element.text}</h3>
                                         </li>
