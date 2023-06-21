@@ -44,7 +44,7 @@ const Career = () => {
           on Intercom to deliver efficient and personal customer experiences at
           scale.
         </p>
-        <div className="pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
+        <div className="pb-4 sm:pb-16  mx-auto max-w-[90%]">
           <div
             className={
               "bg-background block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
@@ -63,9 +63,9 @@ const Career = () => {
                   " w-full  p-2  focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
                 }
               >
-                <Link href="mailto:careers@usetempo.ai">
+                <a href="mailto:socail@gmail.com" target="_blank">
                   Contact Us &#8594;
-                </Link>
+                </a>
               </p>
             </div>
           </div>
