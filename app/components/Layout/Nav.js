@@ -15,7 +15,7 @@ const Nav = () => {
 
   return (
     <>
-        <nav className="sticky top-0 start-0 z-50 w-full  shadow-xl bg-heading border-gray-200 ">
+        <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-heading border-gray-200 ">
           <Banner />
 
           <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">

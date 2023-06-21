@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { getCareersJobs } from "@/app/API/pages/Wpdata";
 import Loading from "@/app/components/Loading/Loading";
 const Page = ({ params }) => {
   const [jobs, setJobs] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setLoading(true);
     getCareersJobs(params).then((res) => {
       setJobs(res.data);
-      setLoading(false);
+      setLoading(true);
     });
   }, []);
-  console.log("jobs", jobs.length);
   return (
     <div>
       {loading == true ? (
@@ -88,6 +88,10 @@ const Page = ({ params }) => {
 
             
             </p>
+            <p className="text-heading font-bold  sm:mt-8">
+      To apply, please send an email to  <span className="text-[blue]"> <Link href="mailto:careers@usetempo.ai"> careers@usetempo.ai </Link></span> with the name of the position to which you’re applying in the title. Applications without a resume and cover letter will not be considered.
+   
+      </p>
           </div>
         </div>
       )}

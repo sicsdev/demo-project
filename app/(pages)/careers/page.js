@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import Container from "@/app/components/Container/Container";
 import { getCareersContent } from "@/app/API/pages/Wpdata";
 import { useEffect } from "react";
 import { useState } from "react";
+import Link from "next/link";
 import Jobsection from "@/app/components/career/Jobsection";
 const Career = () => {
   const [career, setCareer] = useState([]);
@@ -26,9 +26,18 @@ const Career = () => {
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[90%]">
         <h3 className="text-h4 font-semibold">
-        Discovering New Possibilities Through Disruption: Join the Tempo Team        </h3>
+          Discovering New Possibilities Through Disruption: Join the Tempo Team{" "}
+        </h3>
         <p class="text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-        Tempo is a cutting-edge company that is leading the way in the field of generalizable AI. Our team of skilled developers specialize in LLMs, AI, and machine learning, allowing us to provide clients with groundbreaking solutions for their customer experience needs. We have an ambitious vision to use our technology to revolutionize the service industry and create a lasting impact on how businesses interact with their customers. By investing in our innovative team and leveraging our proprietary technology, we are confident that we can make this vision a reality.
+          Tempo is a cutting-edge company that is leading the way in the field
+          of generalizable AI. Our team of skilled developers specialize in
+          LLMs, AI, and machine learning, allowing us to provide clients with
+          groundbreaking solutions for their customer experience needs. We have
+          an ambitious vision to use our technology to revolutionize the service
+          industry and create a lasting impact on how businesses interact with
+          their customers. By investing in our innovative team and leveraging
+          our proprietary technology, we are confident that we can make this
+          vision a reality.
         </p>
         <p class=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
           Customer service teams from more than 25,000 global organizations rely
@@ -44,19 +53,20 @@ const Career = () => {
             <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
               {" "}
               <h2 className=" font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none   text-white  ">
-                Don't see the role you're interested in? Sign up to our Talent
-                Community to stay in touch.
+                Interested in a different role? Contact us to connect with our
+                talent manager today.
               </h2>
             </div>
             <div className="block sm:grid md:grid lg:grid grid-cols-2 gap-4">
-              <button
-                type={"submit"}
+              <p
                 className={
                   " w-full  p-2  focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
                 }
               >
-                sign up &#8594;
-              </button>
+                <Link href="mailto:careers@usetempo.ai">
+                  Contact Us &#8594;
+                </Link>
+              </p>
             </div>
           </div>
         </div>
