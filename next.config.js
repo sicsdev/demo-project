@@ -9,6 +9,10 @@ const nextConfig = {
         ignoreDuringBuilds: true,
     },
     output: 'export',
+ 
+                source: '/robots.txt',
+                destination: '/api/robots'
+            
 }
 
 module.exports = nextConfig
