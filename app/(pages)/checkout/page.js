@@ -256,7 +256,7 @@ const Checkout = () => {
               <Logos />
             </div>
 
-            <div className="my-3 p-3">
+            <div className="my-3 mb-0 p-3 pb-0">
               <Elements stripe={stripeLib}>
                 <CheckOutForm
                   checkoutForm={checkoutForm}

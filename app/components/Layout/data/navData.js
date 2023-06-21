@@ -10,7 +10,7 @@ export const nav_links = [
                         {
                             "heading": "Chat Bot",
                             label: "",
-                            link: "/",
+                            link: "/solutions/chat-bot",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {

@@ -43,7 +43,7 @@ const Info = () => {
     <div className="bg-background pt-5 sm:pt-8 py-0 sm:py-8">
       <div className="justify-between mx-auto max-w-[90%] py-3">
         <h2 className="text-center text-3xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none  my-2 py-4 font-bold text-white">
-          Save Millions with Tempo AI.
+          Save Millions with Tempo.
         </h2>
         {/* <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
           Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
