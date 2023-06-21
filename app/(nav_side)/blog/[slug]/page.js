@@ -3,7 +3,7 @@ import React from 'react'
 import { useEffect , useState} from 'react';
 import { getSingleBlogsPage } from '@/app/API/pages/Wpdata';
 const Page = ({params}) => {
-  const [single, setSingle] = useState([])
+  const [single, setSingle] = useState("");
     console.log(params)
     useEffect(() =>{
       getSingleBlogsPage(params).then((res)=>{
