@@ -12,3 +12,29 @@ export const getCareersContent = async (body) => {
     return error.response;
   }
 };
+export const getCareersJobs = async ( params) => {
+  // let config = returnConfig()
+  try {
+    const response = await axios.get(
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params.slug}`
+      
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+export const getAllJobs = async ( params) => {
+  // let config = returnConfig()
+  try {
+    const response = await axios.get(
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=20466`
+      
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+

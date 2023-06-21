@@ -160,4 +160,50 @@ select::-ms-expand {
 @media (max-width: 768px) {
 .chatbot_widget {
   display: none;
-}}
+}
+.accordion__item:nth-child(2) .accordion__button:before, .accordion__item:nth-child(3) .accordion__button:before {
+  display: none;
+}
+
+}
+
+.filter_checkboxes input[type=checkbox] {
+  position: relative;
+  cursor: pointer;
+}
+.filter_checkboxes input[type=checkbox]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  background-color:#e9e9e9;
+}
+.filter_checkboxes input[type=checkbox]:checked:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  background-color:#fff;
+  color: #000;
+}
+.filter_checkboxes input[type=checkbox]:checked:after {
+  content: "";
+  display: block;
+  width: 6px;
+  height: 13px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  color: #000;
+}

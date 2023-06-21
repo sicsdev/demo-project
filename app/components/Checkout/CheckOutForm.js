@@ -113,7 +113,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
           Checkout
         </Button>
       </form>
-      <br />
+ 
       <div>
         {errors.map((error, i) => (
           <p key={i} className="text-red text-center">
