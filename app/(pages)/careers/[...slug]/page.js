@@ -8,7 +8,6 @@ const Page = ({ params }) => {
 
   useEffect(() => {
     setLoading(true);
-
     getCareersJobs(params).then((res) => {
       setJobs(res.data);
       setLoading(false);

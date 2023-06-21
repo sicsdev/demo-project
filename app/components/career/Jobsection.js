@@ -4,98 +4,102 @@ import Container from "../Container/Container";
 import { useState, useEffect } from "react";
 import { getAllJobs } from "@/app/API/pages/Wpdata";
 import Link from "next/link";
+import Image from "next/image";
+
 const Jobsection = () => {
   const [showOrganization, setShowOrganization] = useState(null);
-  const data = [
-    {
-      organization: "Customer Support",
-      jobName: "Customer Support Specialist 1",
-      location: "Chicago, Illinois",
-    },
-    {
-      organization: "Customer Support",
-      jobName: "Customer Support Engineer",
-      location: "Dublin, Ireland",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Billing Operations Specialist",
-      location: "Chicago, Illinois",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Accounts Payable Specialist        ",
-      location: "Dublin, Ireland",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Senior Manager, Strategic Planning & Operations  ",
-      location: "San Francisco, California      ",
-    },
-    {
-      organization: "Marketing",
-      jobName: "Senior Brand Designer, Web      ",
-      location: "San Francisco, California      ",
-    },
-    {
-      organization: "Marketing",
-      jobName: "Senior Social Content Creator      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "People      ",
-      jobName: "Senior HR Business Partner",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Product",
-      jobName: "Director of Web      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "DevRel Engineer      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "DevRel Engineer      ",
-      location: "London, England        ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "Engineering Manager, Machine Learning Team      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "Product Engineer      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Product Management    ",
-      jobName: "Product Manager",
-      location: "Dublin, Ireland  ",
-    },
-    {
-      organization: "Product Management    ",
-      jobName: "Product Manager - Web",
-      location: "London, England",
-    },
-    {
-      organization: "Sales Business Systems        ",
-      jobName: "Senior Salesforce CPQ Engineer        ",
-      location: "USA, Remote",
-    },
-  ];
+  // const data = [
+  //   {
+  //     organization: "Customer Support",
+  //     jobName: "Customer Support Specialist 1",
+  //     location: "Chicago, Illinois",
+  //   },
+  //   {
+  //     organization: "Customer Support",
+  //     jobName: "Customer Support Engineer",
+  //     location: "Dublin, Ireland",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Billing Operations Specialist",
+  //     location: "Chicago, Illinois",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Accounts Payable Specialist        ",
+  //     location: "Dublin, Ireland",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Senior Manager, Strategic Planning & Operations  ",
+  //     location: "San Francisco, California      ",
+  //   },
+  //   {
+  //     organization: "Marketing",
+  //     jobName: "Senior Brand Designer, Web      ",
+  //     location: "San Francisco, California      ",
+  //   },
+  //   {
+  //     organization: "Marketing",
+  //     jobName: "Senior Social Content Creator      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "People      ",
+  //     jobName: "Senior HR Business Partner",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Product",
+  //     jobName: "Director of Web      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "DevRel Engineer      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "DevRel Engineer      ",
+  //     location: "London, England        ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "Engineering Manager, Machine Learning Team      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "Product Engineer      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Product Management    ",
+  //     jobName: "Product Manager",
+  //     location: "Dublin, Ireland  ",
+  //   },
+  //   {
+  //     organization: "Product Management    ",
+  //     jobName: "Product Manager - Web",
+  //     location: "London, England",
+  //   },
+  //   {
+  //     organization: "Sales Business Systems        ",
+  //     jobName: "Senior Salesforce CPQ Engineer        ",
+  //     location: "USA, Remote",
+  //   },
+  // ];
   const [myjob, setMyJob] = useState([]);
   const [job, setJob] = useState([]);
+  const [selectedValue, setSelectedValues] = useState([]);
+  const [showfiltercheckboxes, setShowfiltercheckboxes] = useState(false);
 
   useEffect(() => {
     getAllJobs().then((res) => {
       setMyJob(res.data);
       setJob(res.data);
-      setShowOrganization(res.data)
+      setShowOrganization(res.data);
     });
   }, []);
 
@@ -109,6 +113,27 @@ const Jobsection = () => {
     );
     setMyJob(results);
   };
+
+  const handleCheckboxChange = (value) => {
+    const updatedValues = [...selectedValue];
+    const index = updatedValues.indexOf(value);
+    if (index === -1) {
+      updatedValues.push(value);
+    } else {
+      updatedValues.splice(index, 1);
+    }
+    setSelectedValues(updatedValues);
+  };
+  const filteredData = job?.filter((ele) => {
+    return selectedValue.includes(ele?.title?.rendered);
+  });
+  const handlerShowFilterCheckboxes = () => {
+    setShowfiltercheckboxes((showfiltercheckboxes) => !showfiltercheckboxes);
+  };
+
+  useEffect(() => {
+    setSelectedValues(myjob.map((ele) => ele?.title?.rendered));
+  }, [myjob]);
 
   return (
     <Container>
@@ -126,16 +151,21 @@ const Jobsection = () => {
             <div className="flex rounded-3xl justify-end items-center">
               <div className="relative py-1 px-5 border ">
                 <button
-                  className=""
+                  className="flex justify-center items-center gap-3"
                   type="btn"
-                  // onClick={() => {
-                  //   showOrganization === 1
-                  //     ? setShowOrganization(null)
-                  //     : setShowOrganization(1);
-                  // }}
+                  onClick={handlerShowFilterCheckboxes}
                 >
                   Organization
+                  <div className="relative w-[30px] h-[30px]">
+                        <Image
+                          fill={true}
+                          src="/down-arrow.png"
+                          className="bg-contain rounded-full mx-auto"
+                          alt="img"
+                        />
+                  </div>
                 </button>
+
                 {showOrganization === 1 && (
                   <div className="z-10 border  bg-white absolute divide-y divide-gray-100 rounded-lg shadow w-44 ">
                     <ul className="py-2 p-3  text-sm text-gray-700 ">
@@ -161,12 +191,39 @@ const Jobsection = () => {
                             for="checkbox-item-11"
                             className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                           >
-{ele?.title?.rendered}                          </label>
+                            {ele?.title?.rendered}{" "}
+                          </label>
                         </div>
                       ))}
                     </ul>
                   </div>
                 )}
+
+                {/* filter_checkboxes */}
+                {showfiltercheckboxes ? (
+                  <div
+                    className="sm:min-w-[262px] filter_checkboxes absolute shadow-lg z-30 p-4 rounded-lg flex flex-col justify-start text-left
+                 bg-white ml-auto mr-auto top-10 left-auto right-auto
+                "
+                  >
+                    {myjob?.map((ele, key) => (
+                      <div key={key} className="p-2 flex gap-3 w-full">
+                        <input
+                          type="checkbox"
+                          value={ele.id}
+                          checked={selectedValue.includes(ele?.title?.rendered)}
+                          onChange={() =>
+                            handleCheckboxChange(ele?.title?.rendered)
+                          }
+                        />
+                        <span>{ele?.title?.rendered}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  " "
+                )}
+                {/* filter_checkboxes end */}
               </div>
             </div>
             <div
@@ -176,14 +233,14 @@ const Jobsection = () => {
               <input
                 type="text"
                 onChange={(e) => handleSearch(e)}
-                placeholder="Search "
+                placeholder="Search"
                 className="w-full rounded-l px-4 pl-16 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <img className="w-8 absolute left-5" src="/search.png" />
             </div>
           </div>
         </div>
-        {myjob?.map((ele, key) => (
+        {filteredData?.map((ele, key) => (
           <div className="p-4 flex gap-4 flex-col" key={key}>
             <p className="text-h6">{ele?.title?.rendered}</p>
             <Link href={`careers/${ele?.slug}`}>
