@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { getCareersJobs } from "@/app/API/pages/Wpdata";
 import Loading from "@/app/components/Loading/Loading";
 const Page = ({ params }) => {
@@ -13,7 +14,7 @@ const Page = ({ params }) => {
       setLoading(false);
     });
   }, []);
-  console.log("jobs", jobs.length);
+
   return (
     <div>
       {loading == true ? (
@@ -75,18 +76,24 @@ const Page = ({ params }) => {
                 &#10003; {jobs[0]?.acf?.job_requirements_f4}
               </p>
             </div>
-            <h3 className="text-h6 sm:text-h4 md:text-h4 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+            <h3 className="text-h6 sm:text-h4 md:text-h4 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading" >
               {jobs[0]?.acf?.equal_opportunity}
             </h3>
             <p className="text-heading font-normal text-para  pt-3">
-            {jobs[0]?.acf?.equal_opportunity_1}
-
-            
+              {jobs[0]?.acf?.equal_opportunity_1}
             </p>
             <p className="text-heading font-normal text-para  pt-3">
-            {jobs[0]?.acf?.equal_opportunity_2}
-
-            
+              {jobs[0]?.acf?.equal_opportunity_2}
+            </p>
+            <p className="text-heading font-bold  sm:mt-8">
+              To apply, please send an email to{" "}
+              <span className="text-[blue]">
+                {" "}
+                <a href="mailto:careers@usetempo.ai" target="_blank"> careers@usetempo.ai </a>
+              </span>{" "}
+              with the name of the position to which you’re applying in the
+              title. Applications without a resume and cover letter will not be
+              considered.
             </p>
           </div>
         </div>

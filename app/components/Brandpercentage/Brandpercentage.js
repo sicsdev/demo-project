@@ -19,7 +19,7 @@ const Brandpercentage = () => {
     >
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 mt-10">
-          <div className="data-wrapper text-center  relative z-[9999]">
+          <div className="data-wrapper text-center  relative sm:z-0 z-[9999]">
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               50%
             </p>
@@ -52,7 +52,7 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative z-[999]">
+          <div className="data-wrapper text-center relative  sm:z-0 z-[999]">
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               24/7
             </p>
@@ -85,7 +85,7 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative z-[99]">
+          <div className="data-wrapper text-center relative sm:z-0 z-[99]">
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               0
             </p>
@@ -116,7 +116,7 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative z-[9]">
+          <div className="data-wrapper text-center relative sm:z-0 z-[9]">
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               1,000+
             </p>
