@@ -19,7 +19,14 @@ const Accordian = ({ setShow, nav_links }) => {
             <AccordionItemHeading className="mobile_arrow">
               <AccordionItemButton>
                 <Link href={element.link}>
-                  <h3 className="text-heading text-md font-semibold">
+                  <h3
+                    className="text-heading text-md font-semibold"
+                    onClick={() => {
+                      if (element.name == "Pricing") {
+                        setShow(false);
+                      }
+                    }}
+                  >
                     {" "}
                     {element.name}
                   </h3>
