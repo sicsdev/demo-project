@@ -161,3 +161,8 @@ select::-ms-expand {
 .chatbot_widget {
   display: none;
 }}
+
+
+.singleblog ol{
+  list-style: auto !important;
+}

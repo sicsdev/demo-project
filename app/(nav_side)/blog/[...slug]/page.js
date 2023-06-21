@@ -15,7 +15,7 @@ const Page = ({params}) => {
     return (
   <>
 
-  <div>
+  <div className="singleblog">
     <h1 className=" font-bold  text-1xl   md:text-h3 lg:text-h3 sm:text-h3 sm:leading-none ">{single?.title?.rendered}</h1>
     <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
              {single?.acf?.para1}
@@ -29,70 +29,22 @@ const Page = ({params}) => {
              {single?.acf?.para3}
              </p>
              <h1 className=" font-bold  text-1xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">{single?.acf?.headingg}</h1>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.text1}
-             </p><p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.text2}
-             </p><p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.text3}
-             </p><p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.text4}
-             </p><p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.text5}
+             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading" dangerouslySetInnerHTML={{__html: single?.acf?.heading_points1}} >
              </p>
              <h1 className=" font-bold  text-1xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">{single?.acf?.heading3}</h1>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.head3_text1}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.head3_text2}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.head3_text3}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.head3_text4}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.head3_text5}
+             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading" dangerouslySetInnerHTML={{__html: single?.acf?.heading_points_2}} >
              </p>
              <h1 className=" font-bold  text-1xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">{single?.acf?.heading4}</h1>
              <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
              {single?.acf?.heading4_text}
              </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading4_text1}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading4_text2}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading4_text3}
+             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading" dangerouslySetInnerHTML={{__html: single?.acf?.heading_points3}} >
              </p>
              <h1 className=" font-bold  text-1xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">{single?.acf?.heading5}</h1>
              <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
              {single?.acf?.heading5_text}
              </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text1}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text2}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text3}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text4}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text5}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text6}
-             </p>
-             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-             {single?.acf?.heading5_text7}
+             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading" dangerouslySetInnerHTML={{__html: single?.acf?.heading_points4}} >
              </p>
              <h1 className=" font-bold  text-1xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">{single?.acf?.heading6}</h1>
              <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
