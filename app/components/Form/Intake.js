@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { UserCircleIcon, CogIcon, InboxArrowDownIcon, CheckCircleIcon } from '@heroicons/react/24/solid'
 import Customize from '../Customize/Customize';
 import EmailConfig from '../EmailConfig/EmailConfig';
+import EmailAgentSetting from '../EmailAgentSetting/EmailAgentSetting';
 
 const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
@@ -31,6 +32,8 @@ const Intake = () => {
             case 3:
                 return <Embed form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 4:
+                return <EmailAgentSetting form={true} basicFormData={basicFormData} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
+            case 5:
                 return <EmailConfig form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             default:
                 return <h1>Something wrong !</h1>
@@ -49,6 +52,8 @@ const Intake = () => {
                 return 'Install Bot'
             case 4:
                 return 'Configure Email'
+            case 5:
+                return 'Email Agent Settings'
             default:
                 return <h1>Something wrong !</h1>
         }
@@ -58,7 +63,8 @@ const Intake = () => {
         { step: 1, text: "Customer Service set up", logo: <CogIcon className="w-10 h-10 mr-2" /> },
         { step: 2, text: "Customize Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
         { step: 3, text: "Install  Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
-        { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> }
+        { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
+        { step: 5, text: "Email Agent Settings", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
     ]
 
     const sendActiveValue = (element) => {
@@ -98,7 +104,7 @@ const Intake = () => {
                     </span> </h3>
                     <hr className='my-5 mb-0 border-border' />
                     <div className='flex items-start  bg-[#f6f8fa] h-full w-full overflow-y-auto justify-start gap-16'>
-                        <div className='flex items-start  bg-white w-full h-full sm:h-auto md:h-auto lg:h-auto sm:w-auto md:w-auto lg:w-auto pt-[25px] px-[25px]'>
+                        <div className='flex items-start  bg-white w-full h-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px] px-[25px]'>
                             <div className='w-[250px] hidden sm:block md:block lg:block'>
                                 <ol className="fixed">
                                     {headings.map((element, key) =>
@@ -111,7 +117,7 @@ const Intake = () => {
                                     )}
                                 </ol>
                             </div>
-                            <div className='w-full  sm:w-[800px] md:w-[800px] lg:w-[800px]  pb-[40px]   flex items-start'>
+                            <div className='w-full  sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]   flex items-start'>
                                 {GetStepForm()}
                             </div>
                         </div>

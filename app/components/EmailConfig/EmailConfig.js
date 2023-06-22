@@ -16,8 +16,6 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
     const [errors, setErrors] = useState([])
     const [tileAgentName, setTileAgentName] = useState([])
     const [formValues, setFormValues] = useState({
-        email_prefix: basicFormData?.email_prefix ?? '',
-        domain_name: basicFormData?.domain_name ?? '',
         email_introduction: basicFormData?.email_introduction ?? '',
         email_signOff: basicFormData?.email_signOff ?? '',
         agent_title: basicFormData?.agent_title ?? '',
@@ -58,23 +56,7 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
         }
     }
 
-    const validateForm = (formNumber) => {
-        const formFields = {
-            1: {
-                email_prefix: 'Email Prefix',
-                domain_name: 'Domain Name',
-            },
-        };
-
-        const requiredFields = formFields[formNumber];
-
-        const errors = Object.entries(requiredFields)
-            .filter(([field, label]) => formValues[field] === '')
-            .map(([field, label]) => { return { field, message: `${label} is required` } });
-
-        setErrors(errors);
-        return errors.length === 0;
-    };
+   
     const returnErrorMessage = (key) => {
         if (errors.length) {
             const findErr = errors.find((x) => x.field === key)
@@ -105,15 +87,9 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
         <div className='container'>
             <div className='grid grid-cols-1'>
                 <div className='my-2'>
-                    <TextField onChange={handleInputValues} value={formValues.email_prefix} name='email_prefix' className='py-3 mt-1' title={'Email Prefix'} placeholder={"Email Prefix"} type={'text'} id={"email_prefix"} error={returnErrorMessage("email_prefix")} />
-                </div>
+                    <SelectField onChange={handleInputValues} value={formValues.email_introduction} error={returnErrorMessage("email_introduction")} name='email_introduction' values={email_introduction_data} title={"Email Introduction"} id={'email_introduction'} className="py-3" /> </div>
                 <div className='my-2'>
-                    <TextField onChange={handleInputValues} value={formValues.domain_name} name='domain_name' className='py-3 mt-1' title={'Domain Name'} placeholder={"Domain Name"} type={'text'} id={"domain_name"} error={returnErrorMessage("domain_name")} />
-                </div>
-                <div className='my-2'>
-                    <SelectField onChange={handleInputValues} value={formValues.email_introduction} error={returnErrorMessage("email_introduction")} name='email_introduction' values={email_introduction_data} title={"Email Introduction"} id={'email_ticketing_system'} className="py-3" /> </div>
-                <div className='my-2'>
-                    <SelectField onChange={handleInputValues} value={formValues.email_signOff} error={returnErrorMessage("email_signOff")} name='email_introduction' values={email_sign_off_data} title={"Email Sign-Off"} id={'email_ticketing_system'} className="py-3" /> </div>
+                    <SelectField onChange={handleInputValues} value={formValues.email_signOff} error={returnErrorMessage("email_signOff")} name='email_introduction' values={email_sign_off_data} title={"Email Sign-Off"} id={'email_signOff'} className="py-3" /> </div>
 
                 <div className='my-2'>
                     <TextField onChange={handleInputValues} value={formValues.agent_title} name='agent_title' className='py-3 mt-1' title={'Agent Title'} placeholder={"Agent Title"} type={'text'} id={"agent_title"} error={returnErrorMessage("agent_title")} />
@@ -144,41 +120,7 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
 
                 </div>
             </div>
-            <div className="relative mt-8 overflow-x-auto sm:rounded-lg">
-
-                <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-                    <table className="w-full text-sm text-left text-heading">
-                        <thead className="text-white uppercase bg-border">
-                            <tr>
-                                <th scope="col" className="px-6 py-3 text-white">
-                                    <h1 className='flex items-center gap-1'>Record Name:</h1>
-                                </th>
-                                <th scope="col" className="px-6 py-3">
-                                    <h1 className='flex items-center gap-1'>Value:</h1>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className="bg-white border-b border-border">
-                                <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                                    TXT
-                                </th>
-                            </tr>
-                            <tr className="bg-white border-b border-border">
-                                <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap dark:text-white">
-                                    CNAME
-                                </th>
-                            </tr>
-                            <tr className="bg-white border-b border-border">
-                                <th scope="row" className="px-6 py-4 font-medium text-heading whitespace-nowrap dark:text-white">
-                                    MX
-                                </th>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
+          
             <div className={`flex p-2 rounded-b mt-5 justify-between`}>
 
                 <button
@@ -194,7 +136,6 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                         dispatch(fetchBot())
                         dispatch(fetchProfile())
                     }}
-                        disabled={formValues.domain_name === '' || formValues.email_prefix === ''}
                     >
 
                         Submit

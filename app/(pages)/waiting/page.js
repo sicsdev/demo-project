@@ -186,7 +186,6 @@ const Help = () => {
 
     setSearchResults(results);
   };
-  console.log(searchResults);
 
   return (
     <>

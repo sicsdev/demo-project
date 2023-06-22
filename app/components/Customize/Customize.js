@@ -26,7 +26,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
             getAllBots()
             if (bot_id) { getBotInfo(bot_id) }
         } else {
-            getBotInfo(bot_id)
+            getBotInfo(id)
         }
     }, []);
 
@@ -365,7 +365,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
                             <div className="flex items-center w-full mt-2 gap-2">
                                 <div className="flex justify-start w-1/2 items-center">
-                                    <span className="text-gray-700  flex items-center gap-4 break-all">
+                                <span className="text-gray-700">
                                         {preferences.logo && !preferences.logo_file_name ? <a className='text-heading' target='_blank' href={preferences.logo}>Logo</a> : 'Logo'}
 
                                     </span>
