@@ -274,7 +274,7 @@ console.log("isOpem", isOpen)
                 </div>
             </aside>
 
-            <div className="p-4 sm:ml-64 ">
+            <div className="sm:p-4 md:p-4 lg:p-4 sm:ml-64 ">
 
                 <div className="p-4  rounded-lg dark:border-gray-700 mt-14">
                     {children}

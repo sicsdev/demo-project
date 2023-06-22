@@ -10,9 +10,10 @@ const Page = () => {
     const parseAddress = (address) => {
         let returned = {};
         const splitAddr = address.split(",");
-        returned.country = splitAddr[splitAddr.length - 1];
-        returned.state = splitAddr[splitAddr.length - 2];
-        returned.city = splitAddr[splitAddr.length - 3];
+        returned.zipcode = splitAddr[splitAddr.length - 1];
+        returned.country = splitAddr[splitAddr.length - 2];
+        returned.state = splitAddr[splitAddr.length - 3];
+        returned.city = splitAddr[splitAddr.length - 4];
         // returned.addrline = splitAddr.splice(0, splitAddr.length-3).concat(', ')?.replace(/^,+|,+$/g, '');
         let addr_line = splitAddr.splice(0, splitAddr.length - 3).concat(", ");
         if (addr_line.length > 0) {
@@ -37,6 +38,7 @@ const Page = () => {
                 business_street: address.addrline,
                 business_city: address.city,
                 business_state: returnStateName(address.state),
+                business_zipcode: address.zipcode,
 
             })
         }
