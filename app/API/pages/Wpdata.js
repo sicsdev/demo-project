@@ -1,10 +1,11 @@
 import axios from "axios";
+const API_URL = process.env.NEXT_PUBLIC_WP_POST_API;
 
 export const getCareersContent = async (body) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `https://public-api.wordpress.com/rest/v1.1/sites/usetempo.ai/posts?category=careers`
+      `${API_URL}?category=careers`
     );
     return response;
   } catch (error) {
@@ -15,7 +16,7 @@ export const getCareersJobs = async (params) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params.slug}`
+      `${API_URL}?slug=${params.slug}`
     );
     return response;
   } catch (error) {
@@ -26,7 +27,7 @@ export const getAllJobs = async (params) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=20466`
+      `${API_URL}?categories=20466`
     );
     return response;
   } catch (error) {
@@ -39,7 +40,7 @@ export const getAllJobs = async (params) => {
 export const getHelpPosts = async (params) => {
   try {
     const response = await axios.get(
-      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026347`
+      `${API_URL}?categories=763026347`
     );
     return response;
   } catch (error) {

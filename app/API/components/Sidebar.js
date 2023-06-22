@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { returnConfig } from '../_helpers/returnConfig';
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_WP_POST_DATA_API;
 
 export const getUserProfile = async (token) => {
     const config = returnConfig()
