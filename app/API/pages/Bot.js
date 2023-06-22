@@ -88,3 +88,15 @@ export const modifyBot = async (id, body) => {
         return error
     }
 }
+
+export const checkBotInstallation = async (id) => {
+    debugger
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/widget/check/`, config);
+       
+        return response;
+    } catch (error) {
+        return error
+    }
+}

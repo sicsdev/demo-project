@@ -3,6 +3,8 @@ import SelectField from "../Common/Input/SelectField";
 import { business_company_size_data, business_industry_data, ecommerce_platform_data, state_data } from "./data/FormData";
 import { createEnterpriseAccount } from "@/app/API/pages/EnterpriseService";
 import { useState } from "react";
+import LoaderButton from "../Common/Button/Loaderbutton";
+import Button from "../Common/Button/Button";
 
 export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep, form = true, setIsEdit, setIntakeCompleteStep, intakeCompleteStep }) {
 
@@ -78,7 +80,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         let payload = {
             "name": formValues.business_name,
             "country": "US",
-            "address": formValues.business_street + ", " + formValues.business_city + ", " + getAbbrevationOfState(formValues.business_state) + ", USA",
+            "address": formValues.business_street + ", " + formValues.business_city + ", " + getAbbrevationOfState(formValues.business_state) + ", USA" + ', ' + formValues.business_zipcode,
             "industry": formValues.business_industry,
             "company_size": formValues.business_company_size,
             "ecommerce_platform": formValues.ecommerce_platform
@@ -115,6 +117,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         }
         return null
     }
+    console.log(formValues)
     return (
         <div >
             <span className="text-sm my-5 text-[#808080]">
@@ -122,7 +125,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
             </span>
 
             {/* Step 1 */}
-            <div className=''>
+            <div className='mt-3'>
                 {basicDetailsSteps === 1 &&
                     <>
 
@@ -162,14 +165,27 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
                         Back
                     </button>
                 )}
+                {loading ? <LoaderButton /> :
+                    <>
+                        <Button type={"button"}
+                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                            onClick={handleForward}
+                            disabled={
+                                formValues.business_street === ''||
+                                formValues.business_city === ''||
+                                formValues.business_zipcode === ''||
+                                formValues.business_state === ''||
+                                formValues.business_industry === ''||
+                                formValues.business_name === ''||
+                                formValues.business_company_size === '' 
+                        
+                        }
+                        >
+                            {form === true ? 'Next' : 'Submit'}
 
-                <button
-                    onClick={handleForward}
-                    className="inline-block float-right rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                    disabled={loading ? true : false}
-                >
-                    {loading ? 'Loading...' : form === true ? 'Next' : 'Submit'}
-                </button>
+                        </Button>
+
+                    </>}
             </div>
 
 
