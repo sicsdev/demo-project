@@ -20,7 +20,7 @@ const Page = ({ params }) => {
       {loading == true ? (
         <Loading />
       ) : (
-        <div className=" bg-white py-4 ">
+        <div className=" bg-white py-4">
           <div className="my-8 mx-auto max-w-[90%]">
             <h1 className="text-h6 sm:text-h2 md:text-h2 lg:text-h2 sm:leading-8 my-2 sm:mt-6 font-semibold text-heading">
               {jobs[0]?.title.rendered}

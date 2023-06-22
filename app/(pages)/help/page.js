@@ -5,6 +5,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { getHelpContent } from "@/app/API/pages/Wpdata";
 import subArticle from "../../data/subarticle.json";
+import { getHelpPosts } from "@/app/API/pages/Wpdata";
+
 const slides = [
   {
     logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
@@ -167,9 +169,9 @@ const Help = () => {
     },
   ]);
   const [WpData, setWpData] = useState([]);
-  useEffect(() => {
-    getHelpContent().then((res) => setWpData(res.data));
-  }, []);
+  // useEffect(() => {
+  //   getHelpContent().then((res) => setWpData(res.data));
+  // }, []);
 
   const [showSearch, setShowSearch] = useState(false);
   const handleSearch = (e) => {
@@ -186,6 +188,18 @@ const Help = () => {
 
     setSearchResults(results);
   };
+
+
+  //////////////////// help category
+  
+  const [helpdata, setHelpdata] = useState([]);
+  useEffect(() => {
+    getHelpPosts().then((res) => {
+      setHelpdata(res.data);
+    });
+  }, []);
+
+  /////////////////// help category
 
   return (
     <>
@@ -209,20 +223,18 @@ const Help = () => {
             </div>
             {showSearch ? (
               <>
-                <div
-                  className="absolute  	justify-start z-10 w-[100%]  bg-white max-h-[auto]  min-h-[100px] flex items-baseline  p-8 shadow-none mb-16  "
-                >
+                <div className="absolute  	justify-start z-10 w-[100%]  bg-white max-h-[auto]  min-h-[100px] flex items-baseline  p-8 shadow-none mb-16  ">
                   <div className="flex flex-col	justify-center w-[100%]">
                     {searchResults.map((ele, key) => (
                       <div key={key}>
-                        <Link href={`help/${ele.first_slug+""+ele.slug}`}>
+                        <Link href={`help/${ele.first_slug + "" + ele.slug}`}>
                           <div className="mb-14 shadow p-5 ">
                             <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-3 js-show-on-scroll">
                               {ele.name}
                             </h2>
                             <p
                               className="font-normal text-base sm:text-lg  text-black opacity-80 js-show-on-scroll
-                    overflow-hidden line-clamp-3 font-medium text-lg h-18 mb-4
+                    overflow-hidden line-clamp-3 h-18 mb-4
                     "
                             >
                               {ele.subheader}
@@ -238,14 +250,12 @@ const Help = () => {
                                 />
                               </div>
 
-
                               <div className="flex flex-col">
                                 <div className="js-show-on-scroll ">
                                   <p className="text-100 bold color-neutral-100 text-black opacity-70">
                                     Written by Damon Alexander
                                   </p>
                                 </div>
-
 
                                 <div className="js-show-on-scroll">
                                   <p className="text-100 bold color-neutral-100 text-black opacity-70">
@@ -286,8 +296,8 @@ const Help = () => {
                         {item.name}
                       </h2>
                       <p
-                        className="font-normal text-base sm:text-lg my-4 text-black opacity-80 js-show-on-scroll
-                    overflow-hidden line-clamp-3 font-medium text-lg h-18 mb-14
+                        className="text-base sm:text-lg my-4 text-black opacity-80 js-show-on-scroll
+                    overflow-hidden line-clamp-3 font-medium h-18 mb-14
                     "
                       >
                         "{item.title}"
@@ -347,6 +357,24 @@ const Help = () => {
           </div>
         </div>
       </div>
+
+      {/* help category api*/}
+
+      {/* <div className="">
+        <h2 className="text-center">help categories</h2>
+        {helpdata?.map((ele, key) => (
+          <div className="p-4 flex gap-4 flex-col" key={key}>
+            <p className="text-h6">{ele?.title?.rendered}</p>
+            <Link href={`help/${ele?.slug}`}>
+              <p className="underline mt-3">{ele?.title?.rendered}</p>
+            </Link>
+            <p className="text-para mt-3">{ele?.acf?.location}</p>
+          </div>
+        ))}
+      </div> */}
+
+      {/* help category api*/}
+
     </>
   );
 };
