@@ -22,10 +22,20 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         business_company_size: basicFormData?.business_company_size ?? '',
         business_unit_no: basicFormData?.business_unit_no ?? '',
     })
-
+    const makeCapital = (str) => {
+        if (str.includes(" ")) {
+            return str
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+        } else {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    }
     const handleInputValues = (e) => {
         setErrors([])
-        setFormValues({ ...formValues, [e.target.name]: e.target.value })
+        
+        setFormValues({ ...formValues, [e.target.name]: makeCapital(e.target.value) })
     }
 
     const validateForm = (formNumber) => {
@@ -133,7 +143,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
                         <br />
                         <h3 className="text-heading mb-4 font-semibold">Business Address</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                            <TextField onChange={handleInputValues} value={formValues.business_street} name='business_street' className='py-3 mt-1' title={'Street'} placeholder={"Please enter street"} type={'text'} id={"business_street"} error={returnErrorMessage("business_street")} />
+                            <TextField onChange={handleInputValues} value={formValues.business_street} name='business_street' className='py-3 mt-1' title={'Street Address'} placeholder={"Please enter Street Address"} type={'text'} id={"business_street"} error={returnErrorMessage("business_street")} />
                             <TextField onChange={handleInputValues} value={formValues.business_city} name='business_city' className='py-3 mt-1' title={'City'} placeholder={"Please enter city"} type={'text'} id={"business_city"} error={returnErrorMessage("business_city")} />
                             <SelectField onChange={handleInputValues} value={formValues.business_state} name='business_state' values={provideStateNames()} title={"State"} id={'business_state'} className="py-3" error={returnErrorMessage("business_state")} />
                             <div className="">

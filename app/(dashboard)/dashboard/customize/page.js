@@ -1,6 +1,6 @@
 'use client'
 import Customize from '@/app/components/Customize/Customize'
-import React from 'react'
+import React     from 'react'
 
 const Page = () => {
    

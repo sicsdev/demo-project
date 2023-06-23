@@ -1,9 +1,5 @@
 
 import Button from "../Common/Button/Button";
-import RadioField from "../Common/Input/RadioField";
-import RadioLabel from "../Common/Label/RadioLabel";
-import FileField from "../Common/Input/FileField";
-import SelectField from "../Common/Input/SelectField";
 import { ecommerce_platform_data, email_ticketing_system_data, payments_platform_data } from "./data/FormData";
 import { useState } from "react";
 import TextField from "../Common/Input/TextField";
@@ -12,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 import LoaderButton from "../Common/Button/Loaderbutton";
 
-export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep }) {
+export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep, intakeCompleteStep }) {
   const dispatch = useDispatch()
 
   const [errors, setErrors] = useState([])
@@ -70,41 +66,74 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   console.log(formValues)
   const onSubmit = async (data) => {
     setLoading(true)
-    let payload = {
-      "category": "standard",
-      "description": "",
-      "automation_tolerance": 0,
-      "logo": botLogo,
-      "chat_title": formValues.bot_name,
-      "payment_platform": formValues.payments_platform,
-      "ticketing_platform": formValues.email_ticketing_system,
-      "cancellation_tolerance": formValues.enable_cancellations ? formValues.cancellation_friendliness : 0,
-      "refund_tolerance": formValues.refund_tolerance ? formValues.refund_friendliness : 0,
-      "ecommerce_platform": formValues.ecommerce_platform,
-    }
 
-    const bot = await createBot(payload);
-    if (bot?.status === 201) {
-      const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
-      if (bot_faq?.status === 201) {
-        dispatch(setBotId(bot.data.id));
-        setErrorMessage(null);
-        if (form === true) {
-          setCustomerFormData(formValues);
-          setIntakeStep(2);
-          setIntakeCompleteStep(2)
-        } else {
-          setShowModal(false);
-          dispatch(fetchBot());
+    if (form === true) {
+      if (intakeCompleteStep === intakeStep) {
+        let payload = {
+          "category": "standard",
+          "description": "",
+          "automation_tolerance": 0,
+          "logo": botLogo,
+          "chat_title": 'Tempo Agent',
+          "payment_platform": formValues.payments_platform,
+          "ticketing_platform": formValues.email_ticketing_system,
+          "cancellation_tolerance": formValues.enable_cancellations ? formValues.cancellation_friendliness : 0,
+          "refund_tolerance": formValues.refund_tolerance ? formValues.refund_friendliness : 0,
+          "ecommerce_platform": formValues.ecommerce_platform,
         }
+
+        const bot = await createBot(payload);
+        if (bot?.status === 201) {
+          const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
+          if (bot_faq?.status === 201) {
+            dispatch(setBotId(bot.data.id));
+            setErrorMessage(null);
+            setCustomerFormData(formValues);
+            setIntakeStep(2);
+            setIntakeCompleteStep(2)
+          } else {
+            setErrorMessage(bot_faq.message);
+          }
+        } else {
+          setErrorMessage(bot.message);
+        }
+        setLoading(false);
       } else {
-        debugger
-        setErrorMessage(bot_faq.message);
+        setIntakeStep(2)
       }
     } else {
-      setErrorMessage(bot.message);
+      let payload = {
+        "category": "standard",
+        "description": "",
+        "automation_tolerance": 0,
+        "logo": botLogo,
+        "chat_title": 'Tempo Agent',
+        "payment_platform": formValues.payments_platform,
+        "ticketing_platform": formValues.email_ticketing_system,
+        "cancellation_tolerance": formValues.enable_cancellations ? formValues.cancellation_friendliness : 0,
+        "refund_tolerance": formValues.refund_tolerance ? formValues.refund_friendliness : 0,
+        "ecommerce_platform": formValues.ecommerce_platform,
+      }
+
+      const bot = await createBot(payload);
+      if (bot?.status === 201) {
+        const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
+        if (bot_faq?.status === 201) {
+          dispatch(setBotId(bot.data.id));
+          setErrorMessage(null);
+          setShowModal(false);
+          dispatch(fetchBot());
+
+        } else {
+          setErrorMessage(bot_faq.message);
+        }
+      } else {
+        setErrorMessage(bot.message);
+      }
+      setLoading(false);
     }
-    setLoading(false);
+
+
 
   };
 
@@ -120,11 +149,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
   }
-  const handleCheckbox = (e) => {
-    setErrors([])
-    const { name, checked } = e.target;
-    setFormValues({ ...formValues, [name]: checked });
-  }
 
 
 
@@ -138,8 +162,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   }
 
   const handleForward = () => {
-
-    if (validateForm(1)) { onSubmit() }
+    onSubmit()
 
   }
   const validateForm = (formNumber) => {
@@ -175,44 +198,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     });
   };
 
-  const handleUploadFaq = async (e) => {
-    setErrorMessage('')
-    let file = e.target.files[0]
-    if (allowedFormatsFaq.includes(file.type)) {
-      getBase64(file)
-        .then(result => {
-          console.log(result)
-          setFaqFile(result)
-
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      setErrorMessage(null)
-    } else {
-      setErrorMessage('Invalid file format for FAQ. Please select a doc, dot, odt, docx, dotx, epub, pdf, html or txt file.')
-    }
-  }
-
-  const handleLogoUpload = async (e) => {
-    setErrorMessage('')
-    let file = e.target.files[0]
-    if (allowFormatsLogo.includes(file.type)) {
-      getBase64(file)
-        .then(result => {
-          console.log(result)
-          setBotLogo(result)
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      setErrorMessage(null)
-    } else {
-      setErrorMessage('Invalid image format. Please select a JPEG, PNG, or GIF file.')
-    }
-  }
-
-  const isButtonDisabled = checkValue()
   // Get title
   const returnErrorMessage = (key) => {
     if (errors.length) {
@@ -230,7 +215,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       {serviceSetupSteps === 1 &&
 
         <div className="">
-          <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chat Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" />
+          {/* <TextField onChange={handleInputValues} name='bot_name' error={returnErrorMessage("bot_name")} value={formValues.bot_name} title={'Chat Title'} placeholder={"Tempo AI Chatbot"} type={'text'} id={"bot_name"} className="py-3 mt-1" /> */}
           {/* <FileField title={'Logo Upload'} error={returnErrorMessage("logo_upload")} placeholder={"Logo Upload"} type={'file'} id={"logo_upload"} onChange={handleLogoUpload} /> */}
           <div className="grid grid-cols-1  my-4 gap-4">
             {/* <div>
@@ -319,7 +304,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
             onClick={handleForward}
             disabled={loading ||
-              formValues.bot_name === '' ||
               checkValue() == false
             }
           >

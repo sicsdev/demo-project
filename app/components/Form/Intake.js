@@ -45,7 +45,7 @@ const Intake = () => {
             case 0:
                 return <>Business Information</>
             case 1:
-                return <>Customer Service set up</>
+                return <>Help Center URL's</>
             case 2:
                 return 'Customize Bot'
             case 3:
@@ -60,7 +60,7 @@ const Intake = () => {
     }
     const headings = [
         { step: 0, text: "Business Information", logo: <UserCircleIcon className="w-10 h-10 mr-2" /> },
-        { step: 1, text: "Customer Service set up", logo: <CogIcon className="w-10 h-10 mr-2" /> },
+        { step: 1, text: "Help Center URL's", logo: <CogIcon className="w-10 h-10 mr-2" /> },
         { step: 2, text: "Customize Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
         { step: 3, text: "Install  Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
         { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
@@ -75,6 +75,11 @@ const Intake = () => {
             return 'text-primary'
         }
         return 'text-border'
+    }
+    const changeStep = (element) => {
+        if (intakeCompleteStep > element.step) {
+            setIntakeStep(element.step)
+        }
     }
     const sendActiveValueLabel = (element) => {
         if (intakeStep === element.step) {
@@ -107,14 +112,18 @@ const Intake = () => {
                         <div className='flex items-start  bg-white w-full h-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px] px-[25px]'>
                             <div className='w-[250px] hidden sm:block md:block lg:block'>
                                 <ol className="fixed">
+
+
                                     {headings.map((element, key) =>
-                                        <li key={key} className={`flex gap-2 items-center ${sendActiveValue(element)}`}>
+                                        <li key={key} className={`cursor-pointer flex gap-2 items-center ${sendActiveValue(element)}`} onClick={(e) => { changeStep(element) }}>
                                             <span className={`${key === 0 && ("rounded-t-3xl")} ${headings.length - 1 === key && ("rounded-b-3xl")} bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}>
                                                 <h1 className={`flex w-[20px] h-[20px]  text-xs font-bold items-center justify-center shadow-md rounded-full ${sendActiveValueLabel(element)}`}>{sendTextAndNumber(element, key)} </h1>
                                             </span>
                                             <h3 className="flex items-center font-bold h-[30px] m-0 text-xs leading-tight">{element.text}</h3>
                                         </li>
                                     )}
+
+
                                 </ol>
                             </div>
                             <div className='w-full  sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]   flex items-start'>
