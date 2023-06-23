@@ -11,6 +11,7 @@ import Testimonial from "@/app/components/Testimonial/Testimonial";
 import Resource from "@/app/components/Resource/Resource";
 import Iconanimation from "@/app/components/Iconanimation/Iconanimation";
 import Trial from "@/app/components/Trial/Trial";
+import Image from "next/image";
 const Pricing = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,24 +49,39 @@ const Pricing = () => {
             <Card
               className={
                 ele.title == "Starter"
-                  ? "cursor-pointer bg-white hover:bg-card_bg border border-border"
-                  : "cursor-pointer  bg-type-section hover:bg-card_bg border border-border"
+                  ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
+                  : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
               }
               key={key}
             >
               <div>
                 <div className="flex items-center mr-4">
-                  <label
+                <div className="relative w-[22px] h-[22px]">
+                        <Image
+                          fill={true}
+                          src={ele.icons_svg}
+                          className="bg-contain mx-auto"
+                          alt="img"
+                        />
+                      </div>                  <label
                     htmlFor="purple-radio"
                     className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
                   >
-                    {ele.title}
+                {ele.title}
                   </label>
                 </div>
-                <p className="text-slate font-normal text-sm my-4">
-                  7 days free, then{" "}
-                  <span className="font-bold text-heading">$449.99/</span>mo
-                </p>
+                {ele.title == "Starter" ? (
+                  <p className="text-slate font-normal text-sm my-4">
+                    7 days free, then{" "}
+                    <span className="font-bold text-heading">$299 </span>mo + $1
+                    per chat resolution, $4 per email resolution
+                  </p>
+                ) : (
+                  <p className="text-slate font-normal text-sm my-4">
+                    Custom pricing. Schedule demo for proposal.
+                  </p>
+                )}
+
                 <h3 className="font-bold text-heading my-6"> Plan includes:</h3>
                 <ul>
                   {ele.feature_list.map((element, key) => (
@@ -92,7 +108,7 @@ const Pricing = () => {
               </div>
               {ele.title == "Starter" ? (
                 <Button
-                  className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
+                  className="flex w-full mx-auto mt-[52px] justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
                   disabled={false}
                   onClick={(e) => handleGetFreeTrial(key)}
                 >

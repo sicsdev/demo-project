@@ -4,15 +4,15 @@ export const price_data = [
     sub_title:
       "Maximize your power, speed, and flexibility to support your customers and team.",
     pricing_title: "CUSTOM",
+    icons_svg :'/BuildingStorefront.svg',
     pricing_plan: "$74 / month",
     btn_title: "Get a demo",
     feature_title: "PRO KEY FEATURES, PLUS",
     feature_list: [
-      { title: "Intercom Messenger", alert_icon: "" },
-      { title: "Chat and email channels", alert_icon: "" },
-      { title: "Shared Inbox", alert_icon: "" },
-      { title: "Basic help center", alert_icon: "" },
-      { title: "Conversation routing bot", alert_icon: "" },
+      { title: "Customizable chatbot", alert_icon: "" },
+      { title: "Smart email responses", alert_icon: "" },
+      { title: "24/7 shared support", alert_icon: "" },
+      // { title: "Conversation routing bot", alert_icon: "" },
     ],
   },
   {
@@ -20,15 +20,17 @@ export const price_data = [
     sub_title:
       "Maximize your power, speed, and flexibility to support your customers and team.",
     pricing_title: "CUSTOM",
+    icons_svg :'/BuildingOffice2.svg',
+
     pricing_plan: "$74 / month",
     btn_title: "Get a demo",
     feature_title: "STARTER KEY FEATURES, PLUS",
     feature_list: [
-      { title: "Intercom Messenger", alert_icon: "" },
-      { title: "Chat and email channels", alert_icon: "" },
-      { title: "Shared Inbox", alert_icon: "" },
-      { title: "Basic help center", alert_icon: "" },
-      { title: "Conversation routing bot", alert_icon: "" },
+      { title: "Customizable chatbot", alert_icon: "" },
+      { title: "Smart email responses", alert_icon: "" },
+      { title: "White glove onboarding", alert_icon: "" },
+      { title: "Dedicated account manager", alert_icon: "" },
+      { title: "Early access to new features", alert_icon: "" },
     ],
   },
 ];
