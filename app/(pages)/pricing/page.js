@@ -56,25 +56,26 @@ const Pricing = () => {
             >
               <div>
                 <div className="flex items-center mr-4">
-                <div className="relative w-[22px] h-[22px]">
-                        <Image
-                          fill={true}
-                          src={ele.icons_svg}
-                          className="bg-contain mx-auto"
-                          alt="img"
-                        />
-                      </div>                  <label
+                  <div className="relative w-[22px] h-[22px]">
+                    <Image
+                      fill={true}
+                      src={ele.icons_svg}
+                      className="bg-contain mx-auto"
+                      alt="img"
+                    />
+                  </div>{" "}
+                  <label
                     htmlFor="purple-radio"
                     className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
                   >
-                {ele.title}
+                    {ele.title}
                   </label>
                 </div>
                 {ele.title == "Starter" ? (
                   <p className="text-slate font-normal text-sm my-4">
                     7 days free, then{" "}
-                    <span className="font-bold text-heading">$299 </span>mo + $1
-                    per chat resolution, $4 per email resolution
+                    <span className="font-bold text-heading">$299 </span>/mo +
+                    25¢ per chat, 50¢ per email
                   </p>
                 ) : (
                   <p className="text-slate font-normal text-sm my-4">
