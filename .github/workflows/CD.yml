@@ -49,6 +49,8 @@ jobs:
           dev:1fr9cnt34uvj90r4m7c5iqadq8m2ond3n1kobu1dv9t2j2a2hfa5
         NEXT_PUBLIC_CLIENT_GOOGLE: |
           dev:24um0utvb6qtum1u3beb6bafr
+        NEXT_PUBLIC_WP_POST_API: |
+          dev:https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts
     - name: configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1-node16
       with:
