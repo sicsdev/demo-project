@@ -24,7 +24,8 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
     const handleInputValues = (e) => {
         const { value } = e.target
         setErrors([])
-        setFormValues({ ...formValues, [e.target.name]: value })
+
+        setFormValues({ ...formValues, [e.target.name]: makeCapital(value) })
 
     }
     const handleAgentNameValue = (e) => {
@@ -92,7 +93,9 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                     <SelectField onChange={handleInputValues} value={formValues.email_signOff} error={returnErrorMessage("email_signOff")} name='email_introduction' values={email_sign_off_data} title={"Email Sign-Off"} id={'email_signOff'} className="py-3" /> </div>
 
                 <div className='my-2'>
-                    <TextField onChange={handleInputValues} value={formValues.agent_title} name='agent_title' className='py-3 mt-1' title={'Agent Title'} placeholder={"Agent Title"} type={'text'} id={"agent_title"} error={returnErrorMessage("agent_title")} />
+                    <TextField onChange={handleInputValues} value={formValues.agent_title} name='agent_title' className='py-3 mt-1' title={<span className='flex items-center gap-2'>Agent Job Title
+                            <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>An example job description is "Customer Service Representative"</span></Card></div>
+                        </span>} placeholder={"Agent Job Title"} type={'text'} id={"agent_title"} error={returnErrorMessage("agent_title")} />
                 </div>
                 <div className='my-2'>
                     <div className={`inline`}>

@@ -107,7 +107,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
         </div>
 
         {loading && <p className="message">Processing Payment...</p>}
-        <Button className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
+        <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
         disabled={boxValid}
         >
           Checkout

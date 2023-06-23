@@ -41,8 +41,8 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         secondary_text_color: "#000000",
         primary_color: "#0057ff",
         secondary_color: "#f5f5f5",
-        logo: "https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg",
-        thumbnail: "https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg",
+        logo: "",
+        thumbnail: "",
         chat_title: "Tempo AI Chatbot",
         chat_message_business_hours: "How can we help?",
         chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
@@ -60,13 +60,17 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
     // Primary functions
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
+            debugger
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
-            setPreferences({ ...preferences, secondary_text_color: "#000000" });
-            setPreferences({ ...preferences, primary_text_color: "#ffffff" });
         })
     }
-
+    useEffect(() => {
+        if (preferences.secondary_text_color === '') {
+            setPreferences({ ...preferences, secondary_text_color: "#000000" });
+            setPreferences({ ...preferences, primary_text_color: "#ffffff" });
+        }
+    }, [preferences])
     const getAllBots = () => {
         getBotAllData().then((res) => {
             setAllBots(res.results)
@@ -136,17 +140,14 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
         let payload = { ...preferences, logo: preferences.logo_file_name ? preferences.logo : '' }
         !payload.logo && delete payload.logo
-
-        modifyBot(preferences.id, payload).then((res) => {
-            Swal.fire({
-                text: 'Preferences saved successfully',
-                timer: 1500,
-                showConfirmButton: false,
-            })
+        delete payload.primary_text_color
+        delete payload.secondary_text_color
+        modifyBot(botDetails.id, payload).then((res) => {
             setLoading(false)
-            getBotInfo(preferences.id)
+            getBotInfo(botDetails.id)
             if (form === false) {
                 getAllBots()
+                router.push("/dashboard")
             } else {
                 setIntakeStep(3)
                 setIntakeCompleteStep(3)
@@ -165,7 +166,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
             {form === false && (
                 <>
                     <div className='mb-4'>
-                        <a className="flex justify-start gap-2 items-center text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
+                        <a className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
                             <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
                         </a>
                         <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and preferences of your widget.</small>
@@ -173,30 +174,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                     <hr className='opacity-10'></hr>
                     <div>
 
-                        <div className='m-auto justify-center flex mt-4'>
-                            <div className='lg:w-1/2'>
-                                <div className='mb-4 m-auto justify-center flex'>
-                                    <a className="flex justify-start gap-2 items-center px-4 pt-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
-                                        <ArrowDownCircleIcon className="h-6 w-6 text-gray-500" /> Select a bot to customize
-                                    </a>
-                                </div>
-                                <div className='justify-center flex items-center gap-4'>
-                                    <select className="py-3 border border-gray block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" name="botHandler" onChange={handleSetBot}>
-                                        <option value="">Select a bot</option>
-                                        {allBots.map((bot) => (
-                                            <option key={bot.id} value={bot.id}>{bot.chat_title}</option>
-                                        ))}
-                                    </select>
-                                    {botDetails.id && <div className='m-auto align-center'>
-                                        {loading ? <LoaderButton /> :
-                                            <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
-                                                Save
-                                            </Button>}
-                                    </div>}
-                                </div>
-                            </div>
 
-                        </div>
                     </div>
                 </>
             )}
@@ -236,11 +214,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Primary Color</span>
                                 </div>
-                                <div className="flex justify-start w-1/2">
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
                                     <input
                                         type="color"
                                         value={preferences.primary_color}
-                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        className=" border-none bg-white px-1 cursor-pointer w-full block   rounded-md items-center "
                                         placeholder="Enter primary color"
                                         onChange={handlePrimaryColorChange}
                                     />
@@ -251,11 +229,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Secondary Color</span>
                                 </div>
-                                <div className="flex justify-start w-1/2">
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
                                     <input
                                         type="color"
                                         value={preferences.secondary_color}
-                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        className=" border-none bg-white px-1 cursor-pointer w-full block   rounded-md items-center "
                                         placeholder="Enter secondary color"
                                         onChange={handleSecondaryColorChange}
                                     />
@@ -265,11 +243,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Primary Text Color</span>
                                 </div>
-                                <div className="flex justify-start w-1/2">
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
                                     <input
                                         type="color"
                                         value={preferences.primary_text_color}
-                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        className=" border-none bg-white px-1 cursor-pointer w-full block   rounded-md items-center "
                                         placeholder="Enter primary color"
                                         onChange={handlePrimaryTextColorChange}
                                     />
@@ -280,11 +258,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Secondary Text Color</span>
                                 </div>
-                                <div className="flex justify-start w-1/2">
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
                                     <input
                                         type="color"
                                         value={preferences.secondary_text_color}
-                                        className="mt-3 my-2 border px-1 cursor-pointer w-full block border-gray  rounded-md items-center "
+                                        className=" border-none bg-white px-1 cursor-pointer w-full block   rounded-md items-center "
                                         placeholder="Enter secondary color"
                                         onChange={handleSecondaryTextColorChange}
                                     />
@@ -365,7 +343,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
                             <div className="flex items-center w-full mt-2 gap-2">
                                 <div className="flex justify-start w-1/2 items-center">
-                                <span className="text-gray-700">
+                                    <span className="text-gray-700">
                                         {preferences.logo && !preferences.logo_file_name ? <a className='text-heading' target='_blank' href={preferences.logo}>Logo</a> : 'Logo'}
 
                                     </span>
@@ -420,7 +398,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                             <div className="containerChatBot_entire justify-center flex">
                                 <div className="widget_container active w-[90%]">
                                     <div className="header_ChatBotWidget">
-                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || preferences.thumbnail} /></div>
+                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || 'https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg'} /></div>
                                         <div>
                                             <div>
                                                 <b>{preferences.chat_title}</b>
@@ -435,7 +413,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     <hr className="custom_hr" />
                                     <div className="chat_content">
                                         <div className="first_answer">
-                                            <img className='profile-photo_ChatBot' src={preferences.logo || preferences.thumbnail} alt='Profile Photo' width='35px' />
+                                            <img className='profile-photo_ChatBot' src={preferences.logo || 'https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg'} alt='Profile Photo' width='35px' />
                                             <div className="answer_text" style={{ backgroundColor: preferences.secondary_color, color: preferences.secondary_text_color }}>How can I help you today?</div>
                                         </div>
                                         <div className="question" style={{ backgroundColor: preferences.primary_color, color: preferences.primary_text_color }}>What is the price of the product?</div>
@@ -457,6 +435,17 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                         </div>
 
                     </div>
+                    {form === false && (
+                        <div className='m-auto justify-center flex mt-4'>
+                            <div className='m-auto align-center'>
+                                {loading ? <LoaderButton /> :
+                                    <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                                        Save
+                                    </Button>}
+                            </div>
+
+                        </div>
+                    )}
                     {form === true && (
                         <div className={`flex p-2 rounded-b mt-5 justify-between`}>
 

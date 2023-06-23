@@ -35,10 +35,10 @@ const Page = () => {
                 </div>
             </div>
 
-            <div className="border-b border-border dark:border-gray-700">
+            <div className="border-b border-primary dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
-                        <a href="#" className=" flex justify-start gap-2 items-center p-4 text-heading font-bold border-b-2 border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
+                        <a href="#" className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
                             <UserGroupIcon className="h-6 w-6 text-gray-500" /> Team Members
                         </a>
                     </li>
