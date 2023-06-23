@@ -29,35 +29,46 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
 
     }
     const handleAgentNameValue = (e) => {
+        const { value } = e.target;
 
-        const { value } = e.target
-        setFormValues({ ...formValues, agent_name: value })
-        if (value.includes(',') === true) {
-            let remove_comma = value.replace(/,/g, '');
-            if (remove_comma) {
-                if (tileAgentName.includes(remove_comma)) {
-                    setFormValues(prev => {
-                        return {
-                            ...prev,
-                            agent_name: ''
-                        }
-                    })
-                } else {
-                    setTileAgentName([...tileAgentName, remove_comma])
-                    setFormValues(prev => {
-                        return {
-                            ...prev,
-                            agent_name: ''
-                        }
-                    })
+        if (value.includes(',')) {
+            const agentNames = value.split(',');
+            setFormValues((prev) => {
+                return {
+                    ...prev,
+                    agent_name: '',
+                };
+            });
+            agentNames.forEach((name) => {
+                const trimmedName = name.trim();
+                if (trimmedName && !tileAgentName.includes(trimmedName)) {
+                    setTileAgentName((prev) => [...prev, makeCapital(value)(trimmedName)]);
                 }
-            } else {
-                setTileAgentName([])
-            }
+            });
+        } else {
+            setFormValues({ ...formValues, agent_name: value });
+        }
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            const { value } = e.target;
+                const agentNames = value.split(',');
+                setFormValues((prev) => {
+                    return {
+                        ...prev,
+                        agent_name: '',
+                    };
+                });
+                agentNames.forEach((name) => {
+                    const trimmedName = name.trim();
+                    if (trimmedName && !tileAgentName.includes(trimmedName)) {
+                        setTileAgentName((prev) => [...prev, trimmedName]);
+                    }
+                });
         }
     }
 
-   
     const returnErrorMessage = (key) => {
         if (errors.length) {
             const findErr = errors.find((x) => x.field === key)
@@ -94,8 +105,8 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
 
                 <div className='my-2'>
                     <TextField onChange={handleInputValues} value={formValues.agent_title} name='agent_title' className='py-3 mt-1' title={<span className='flex items-center gap-2'>Agent Job Title
-                            <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>An example job description is "Customer Service Representative"</span></Card></div>
-                        </span>} placeholder={"Agent Job Title"} type={'text'} id={"agent_title"} error={returnErrorMessage("agent_title")} />
+                        <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>An example job description is "Customer Service Representative"</span></Card></div>
+                    </span>} placeholder={"Agent Job Title"} type={'text'} id={"agent_title"} error={returnErrorMessage("agent_title")} />
                 </div>
                 <div className='my-2'>
                     <div className={`inline`}>
@@ -115,15 +126,9 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                             <input value={formValues.agent_name} required onChange={handleAgentNameValue} type={"text"} placeholder={"Enter names separate by ,"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"agent_name"} name={"agent_name"} />
                         </div>
                     </div>
-
-
-
-
-
-
                 </div>
             </div>
-          
+
             <div className={`flex p-2 rounded-b mt-5 justify-between`}>
 
                 <button
@@ -141,7 +146,7 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                     }}
                     >
 
-                        Submit
+                        Finish
                     </Button>}
             </div>
 

@@ -32,7 +32,6 @@ const Demo = () => {
   };
 
   const validateEmail = (e) => {
-    console.log("clicked");
     var email = e.target.value;
     if (validator.isEmail(email)) {
       setValidEmail(false);
