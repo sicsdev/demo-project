@@ -97,7 +97,7 @@ const Pricing = () => {
                   Get Free Trial
                 </Button>
               ) : (
-                <div
+                <Button
                   dangerouslySetInnerHTML={{
                     __html: `
              <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
@@ -108,7 +108,7 @@ const Pricing = () => {
             `,
                   }}
                   className="flex w-full font-bold mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
-                ></div>
+                ></Button>
               )}
             </Card>
           ))}
