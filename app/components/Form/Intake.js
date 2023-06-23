@@ -24,9 +24,9 @@ const Intake = () => {
     const GetStepForm = () => {
         switch (intakeStep) {
             case 0:
-                return <BasicDetails basicFormData={basicFormData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
+                return <BasicDetails  setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} basicFormData={basicFormData} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 1:
-                return <CustomerServiceSetupForm  formCustomerData={formCustomerData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
+                return <CustomerServiceSetupForm basicFormData={basicFormData} setBasicFormData={setBasicFormData} formCustomerData={formCustomerData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 2:
                 return <Customize basicFormData={basicFormData} form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 3:
@@ -34,7 +34,7 @@ const Intake = () => {
             case 4:
                 return <EmailAgentSetting form={true} basicFormData={basicFormData} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 5:
-                return <EmailConfig form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
+                return <EmailConfig form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIntakeCompleteStep={setIntakeCompleteStep} />
             default:
                 return <h1>Something wrong !</h1>
         }

@@ -6,6 +6,9 @@ import { WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 import BasicDetails from '@/app/components/Forms/BasicDetails';
 import { useSelector } from 'react-redux';
 import { state_data } from '@/app/components/Forms/data/FormData';
+import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting';
+import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
+import Button from '@/app/components/Common/Button/Button';
 const Page = () => {
     const parseAddress = (address) => {
         let returned = {};
@@ -14,7 +17,6 @@ const Page = () => {
         returned.country = splitAddr[splitAddr.length - 2];
         returned.state = splitAddr[splitAddr.length - 3];
         returned.city = splitAddr[splitAddr.length - 4];
-        // returned.addrline = splitAddr.splice(0, splitAddr.length-3).concat(', ')?.replace(/^,+|,+$/g, '');
         let addr_line = splitAddr.splice(0, splitAddr.length - 3).concat(", ");
         if (addr_line.length > 0) {
             returned.addrline = addr_line.toString().replace(/[^\w\s]/gi, "");
@@ -60,22 +62,39 @@ const Page = () => {
                     <p className='float-right my-5 cursor-pointer' onClick={() => { setIsEdit(true) }}>Back</p>
                 </>
             }
-           <div className="border-b border-border dark:border-gray-700">
+            <div className="border-b border-primary dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
-                        <a href="#" className=" flex justify-start gap-2 items-center p-4 text-heading font-bold border-b-2 border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
-                            <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" /> Setting
+                        <a href="#" className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="page">
+                            <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" /> Settings
                         </a>
                     </li>
                 </ul>
             </div>
             {isEdit == true ?
                 <>
-
                     <BasicDetailsReadOnly state={basicFormData} />
                 </> :
                 <>
-                    <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                    <EmailAgentSetting form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                    <EmailConfig form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                    <div className='my-3'>
+                        <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                    </div>
+                    {/* <div className={`flex p-2 rounded-b mt-5 justify-between`}>
+
+
+                        <>
+                            <Button type={"button"}
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+
+                            >
+                                Submit
+
+                            </Button>
+
+                        </>
+                    </div> */}
                 </>
             }
         </div>

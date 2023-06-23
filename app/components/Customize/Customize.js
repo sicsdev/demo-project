@@ -53,13 +53,15 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         cancellation_tolerance: "0",
         payment_platform: "Other",
         ticketing_platform: "Other",
-        logo_file_name: ""
+        logo_file_name: "",
+        active: true
     })
-    console.log(basicFormData?.business_name)
+
 
     // Primary functions
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
+            debugger
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
         })
@@ -104,10 +106,17 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        debugger
         setPreferences({ ...preferences, [name]: value });
+    }
+    const handleCheckBoxChange = (e) => {
+        const { name } = e.target;
+        setPreferences({ ...preferences, [name]: preferences.active === false ? true : false });
     }
 
     // Logo & thumbnail upload + base64 conversion 
+
+
 
     const getBase64 = (file) => {
         return new Promise(resolve => {
@@ -381,7 +390,18 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     </label>
                                 </div>
                             </div>
+                            <div className="flex items-center w-full mt-2 gap-2">
+                                <div className="flex justify-start w-1/2 items-center">
+                                    <span className="text-gray-700">Hide Chat Bot</span>
+                                </div>
+                                <div className="flex justify-start w-1/2 items-center">
 
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" value="" id="active" name="active" onChange={handleCheckBoxChange} className="sr-only peer" checked={preferences.active === true} />
+                                        <div className={`w-11 h-6 ${preferences.active === false ? 'bg-border' : 'bg-primary'} peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}></div>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
 

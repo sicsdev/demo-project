@@ -7,7 +7,7 @@ import LoaderButton from "../Common/Button/Loaderbutton";
 import Button from "../Common/Button/Button";
 
 export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep, form = true, setIsEdit, setIntakeCompleteStep, intakeCompleteStep }) {
-
+   
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState([])
     const [basicDetailsSteps, setBasicDetailSteps] = useState(1)
@@ -34,8 +34,15 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
     }
     const handleInputValues = (e) => {
         setErrors([])
-        
+
         setFormValues({ ...formValues, [e.target.name]: makeCapital(e.target.value) })
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: makeCapital(e.target.value)
+            }
+        })
+
     }
 
     const validateForm = (formNumber) => {
@@ -162,41 +169,40 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
 
             </div>
 
+                <div className={`flex p-2 rounded-b mt-5 ${basicDetailsSteps > 1 ? 'justify-between' : 'justify-end'}`}>
 
-            <div className={`flex p-2 rounded-b mt-5 ${basicDetailsSteps > 1 ? 'justify-between' : 'justify-end'}`}>
-
-                {basicDetailsSteps > 1 && (
-                    <button
-                        onClick={handleBack}
-                        className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                        disabled={loading ? true : false}
-                    >
-                        Back
-                    </button>
-                )}
-                {loading ? <LoaderButton /> :
-                    <>
-                        <Button type={"button"}
-                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                            onClick={handleForward}
-                            disabled={
-                                formValues.business_street === ''||
-                                formValues.business_city === ''||
-                                formValues.business_zipcode === ''||
-                                formValues.business_state === ''||
-                                formValues.business_industry === ''||
-                                formValues.business_name === ''||
-                                formValues.business_company_size === '' 
-                        
-                        }
+                    {basicDetailsSteps > 1 && (
+                        <button
+                            onClick={handleBack}
+                            className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                            disabled={loading ? true : false}
                         >
-                            {form === true ? 'Next' : 'Submit'}
+                            Back
+                        </button>
+                    )}
+                    {loading ? <LoaderButton /> :
+                        <>
+                            <Button type={"button"}
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                onClick={handleForward}
+                                disabled={
+                                    formValues.business_street === '' ||
+                                    formValues.business_city === '' ||
+                                    formValues.business_zipcode === '' ||
+                                    formValues.business_state === '' ||
+                                    formValues.business_industry === '' ||
+                                    formValues.business_name === '' ||
+                                    formValues.business_company_size === ''
 
-                        </Button>
+                                }
+                            >
+                                {form === true ? 'Next' : 'Submit'}
 
-                    </>}
-            </div>
+                            </Button>
 
+                        </>}
+                </div>
+            
 
 
         </div>
