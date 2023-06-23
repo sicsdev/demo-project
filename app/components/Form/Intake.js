@@ -14,7 +14,7 @@ const Intake = () => {
     let state = useSelector((state) => state.botId.showModal)
     const [formCustomerData, setCustomerFormData] = useState({})
     const [showModal, setShowModal] = useState(false);
-    const [intakeStep, setIntakeStep] = useState(0);
+    const [intakeStep, setIntakeStep] = useState(0)
     const [intakeCompleteStep, setIntakeCompleteStep] = useState(0);
 
     useEffect(() => {
@@ -26,9 +26,9 @@ const Intake = () => {
             case 0:
                 return <BasicDetails basicFormData={basicFormData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setBasicFormData={setBasicFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 1:
-                return <CustomerServiceSetupForm formCustomerData={formCustomerData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
+                return <CustomerServiceSetupForm  formCustomerData={formCustomerData} setIntakeCompleteStep={setIntakeCompleteStep} intakeCompleteStep={intakeCompleteStep} setCustomerFormData={setCustomerFormData} intakeStep={intakeStep} setIntakeStep={setIntakeStep} />
             case 2:
-                return <Customize form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
+                return <Customize basicFormData={basicFormData} form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 3:
                 return <Embed form={true} intakeStep={intakeStep} setIntakeStep={setIntakeStep} setIntakeCompleteStep={setIntakeCompleteStep} />
             case 4:
@@ -45,7 +45,7 @@ const Intake = () => {
             case 0:
                 return <>Business Information</>
             case 1:
-                return <>Help Center URL's</>
+                return <>Help Center URL</>
             case 2:
                 return 'Customize Bot'
             case 3:
@@ -60,7 +60,7 @@ const Intake = () => {
     }
     const headings = [
         { step: 0, text: "Business Information", logo: <UserCircleIcon className="w-10 h-10 mr-2" /> },
-        { step: 1, text: "Help Center URL's", logo: <CogIcon className="w-10 h-10 mr-2" /> },
+        { step: 1, text: "Help Center URL", logo: <CogIcon className="w-10 h-10 mr-2" /> },
         { step: 2, text: "Customize Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
         { step: 3, text: "Install  Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
         { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
@@ -109,8 +109,8 @@ const Intake = () => {
                     </span> </h3>
                     <hr className='my-5 mb-0 border-border' />
                     <div className='flex items-start  bg-[#f6f8fa] h-full w-full overflow-y-auto justify-start gap-16'>
-                        <div className='flex items-start  bg-white w-full h-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px] px-[25px]'>
-                            <div className='w-[250px] hidden sm:block md:block lg:block'>
+                        <div className='flex px-0  items-start h-[100vh] bg-white w-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px]'>
+                            <div className='w-[250px] h-[105vh] bg-white hidden sm:block md:block lg:block pl-6'>
                                 <ol className="fixed">
 
 
@@ -126,7 +126,7 @@ const Intake = () => {
 
                                 </ol>
                             </div>
-                            <div className='w-full  sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]   flex items-start'>
+                            <div className='w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  pr-6 flex items-start'>
                                 {GetStepForm()}
                             </div>
                         </div>

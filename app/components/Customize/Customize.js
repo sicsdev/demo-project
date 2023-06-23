@@ -11,7 +11,7 @@ import { email_ticketing_system_data, payments_platform_data } from '@/app/compo
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useSelector } from 'react-redux';
 
-const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
+const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteStep, basicFormData }) => {
     const [botDetails, setBotDetails] = useState({});
     const [allBots, setAllBots] = useState([]);
     const [loading, setLoading] = useState(false)
@@ -43,7 +43,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         secondary_color: "#f5f5f5",
         logo: "",
         thumbnail: "",
-        chat_title: "Tempo AI Chatbot",
+        chat_title: basicFormData?.business_name ?? "Tempo AI Chatbot",
         chat_message_business_hours: "How can we help?",
         chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
         widget_location: "bottom_right",
@@ -55,12 +55,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         ticketing_platform: "Other",
         logo_file_name: ""
     })
-
+    console.log(basicFormData?.business_name)
 
     // Primary functions
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
-            debugger
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
         })
@@ -398,7 +397,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                             <div className="containerChatBot_entire justify-center flex">
                                 <div className="widget_container active w-[90%]">
                                     <div className="header_ChatBotWidget">
-                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || 'https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg'} /></div>
+                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || 'https://usetempo.ai/teams.png'} /></div>
                                         <div>
                                             <div>
                                                 <b>{preferences.chat_title}</b>
@@ -413,7 +412,7 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     <hr className="custom_hr" />
                                     <div className="chat_content">
                                         <div className="first_answer">
-                                            <img className='profile-photo_ChatBot' src={preferences.logo || 'https://media-server-dev.usetempo.ai/bots/logos/334-3341544_black-square-logo-square-point-of-sale-logo.jpeg'} alt='Profile Photo' width='35px' />
+                                            <img className='profile-photo_ChatBot' src={preferences.logo || 'https://usetempo.ai/teams.png'} alt='Profile Photo' width='35px' />
                                             <div className="answer_text" style={{ backgroundColor: preferences.secondary_color, color: preferences.secondary_text_color }}>How can I help you today?</div>
                                         </div>
                                         <div className="question" style={{ backgroundColor: preferences.primary_color, color: preferences.primary_text_color }}>What is the price of the product?</div>
@@ -423,8 +422,8 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
                                     <hr className="custom_hr" />
                                     <div className="reply_container">
-                                        <textarea className="input_question" type="text" maxLength="1000" placeholder="Write a reply..."></textarea>
-                                        <div className="send_button" id="sendButton">
+                                        <textarea className="input_question" disabled type="text" maxLength="1000" placeholder="Write a reply..."></textarea>
+                                        <div className="send_button" id="sendButton" >
                                             <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" fill={preferences.primary_color} className="">
                                                 <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
                                             </svg>
