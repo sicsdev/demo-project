@@ -48,8 +48,9 @@ const Iconanimation = () => {
             </div>
         </div>
         <div className="col-span-12 sm:col-span-5 bg-gray-300 col_section content">
-          <h3 className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black">
-            Integrate your favorite apps — or build your own
+          <h3 className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black" style={{lineHeight:"35px"}}>
+            Integrate your favorite apps <br/>— or — <br/>build your own
+            
           </h3>
           <p className="text-heading font-normal text-para text-center pt-3">
             Take back your browser tabs. Integrate your apps, data, and channels
@@ -60,7 +61,7 @@ const Iconanimation = () => {
               type={"submit"}       
               
               className={
-                "py-2 px-8 sm:w-[40%] w-[100%] sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 sm:w-[40%] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               <div  dangerouslySetInnerHTML={{
