@@ -162,11 +162,11 @@ const Login = () => {
                 <form>
                     <label className="block my-5" htmlFor='email'>
                         <span className="block text-start text-sm font-normal text-border">Work Email</span>
-                        <Input type={"email"} placeholder={"NAME@COMPANY.COM"} className={`w-full border mx-auto mt-4 ${error.includes('email') && 'border-red'}`} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
+                        <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto mt-4 ${error.includes('email') && 'border-red'}`} name='email' value={formValues.email} id={"email"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
                     <label className="block my-5" htmlFor='email'>
                         <span className="block text-start text-sm font-normal text-border">Password</span>
-                        <Input type={"password"} placeholder={"PASSWORD"} className={`w-full border mx-auto mt-4 ${error && 'border-red'}`} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
+                        <Input type={"password"} placeholder={"password"} className={`w-full border mx-auto mt-4 ${error && 'border-red'}`} name='password' value={formValues.password} id={"password"} onChange={(value) => { handleFormValues(value) }} />
                     </label>
 
                     {error && <p className="text-red text-sm text-center mb-4">{error}</p>}

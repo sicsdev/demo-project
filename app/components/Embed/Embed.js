@@ -78,9 +78,9 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                 <>
                     {markdown && (
                         <div className=' sm:p-5 md:p-5 lg:p-5 '>
-
+                            <h3 className='font-bold text-heading text-center'>Copy and Install Bot HTML Code</h3>
                             <div className='mt-5 border rounded-md border-border  bg-white'>
-                                <div className='bg-border rounded-t-md p-2 justify-end cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
+                                <div className='bg-border rounded-t-md py-2 px-6 justify-end cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
                                     {copied.message ? <>
                                         <span className='flex items-center'> <CheckIcon className="h-5 w-5 " /> Copied!</span> </> :
                                         <CopyToClipboard text={markdown.trim()} onCopy={() => {
@@ -158,7 +158,7 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                                     <div className=' sm:p-5 md:p-5 lg:p-5 ' key={key}>
 
                                         <div className='mt-5 border rounded-md border-border  bg-white'>
-                                            <div className='bg-border rounded-t-md p-2 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
+                                            <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
                                                 <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
                                                 >
                                                     <PencilSquareIcon className='h-5 w-5' />

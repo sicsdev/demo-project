@@ -81,13 +81,13 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, intakeStep, setInt
                 </div>
                 {formValues.email_prefix && formValues.custom_email && (
                     <div className='my-2'>
-                        <label htmlFor={'check_email_forwarding'} className="block text-sm font-medium text-heading">Enable Mail Forwarding (i)</label>
+                        <label htmlFor={'check_email_forwarding'} className="block text-sm font-medium text-heading">Enable Mail Forwarding</label>
                         <div className='flex gap-2 mt-1'>
-                            <div className="flex items-center w-full pl-4 border border-border rounded cursor-pointer" onClick={(e) => handleCheckbox("Yes")}>
+                            <div className="flex items-center w-full pl-4 border border-border rounded-md cursor-pointer" onClick={(e) => handleCheckbox("Yes")}>
                                 <input id="enable_email_forwarding" type="checkbox" value="Yes" name="enable_email_forwarding" className="w-4 h-4 text-sky bg-white border-border rounded focus:ring-sky  cursor-pointer focus:ring-2 " checked={formValues.enable_email_forwarding === 'Yes'} />
                                 <label for="enable_email_forwarding" className=" cursor-pointer w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
                             </div>
-                            <div className="flex items-center pl-4 border w-full border-border rounded cursor-pointer" onClick={(e) => handleCheckbox("No")} >
+                            <div className="flex items-center pl-4 border w-full border-border rounded-md cursor-pointer" onClick={(e) => handleCheckbox("No")} >
                                 <input id="enable_email_forwarding1" type="checkbox" value="No" name="enable_email_forwarding" className="w-4 h-4 text-sky bg-white border-border rounded focus:ring-sky  focus:ring-2 " checked={formValues.enable_email_forwarding === 'No'} />
                                 <label for="enable_email_forwarding1" className=" cursor-pointer w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
                             </div>
