@@ -15,6 +15,7 @@ const nextConfig = {
     eslint: {
       ignoreDuringBuilds: true,
     },
+    output: 'export',
     reactStrictMode: true,
     async rewrites() {
       return [
@@ -27,3 +28,6 @@ const nextConfig = {
   };
   
   module.exports = nextConfig;
+
+
+  
