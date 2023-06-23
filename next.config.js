@@ -17,14 +17,16 @@ const nextConfig = {
     },
     output: 'export',
     reactStrictMode: true,
-    async rewrites() {
-      return [
-        {
-          source: "/robots.txt",
-          destination: "/api/robots",
-        },
-      ];
-    },
+    // async rewrites() {
+    //   return [
+    //     {
+    //       source: "/robots.txt",
+    //       destination: "/api/robots",
+    //     },
+    //   ];
+    // },
+
+    // To use Amazon s3 we need to use output export, but this is not compatible with rewrites.
   };
   
   module.exports = nextConfig;
