@@ -139,6 +139,7 @@ const Login = () => {
             <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center'>
 
                 <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>Welcome.</h1>
+               
                 <Button className="gap-4 items-center flex w-full mx-auto mt-4 justify-center px-4 py-2 bg-[#3c6df1] border border-gray-300 rounded-md shadow-sm" onClick={handleLoginWithGoogle}>
                     
                     <div>
@@ -151,9 +152,11 @@ const Login = () => {
                     <img width='25px' src='/icons/google-g.svg'></img>
                     </div>
                     <span className="text-sm font-medium text-white">
-                        Sign in with Google
+                        Sign in with Google 
                     </span>
                 </Button>
+                
+                
                 <div className="flex items-center w-full mx-auto mt-4">
                     <hr className="flex-grow border-gray-300" />
                     <p className="mx-4">Or, sign in with your email</p>
