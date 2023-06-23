@@ -135,6 +135,13 @@ const Jobsection = () => {
     setSelectedValues(myjob.map((ele) => ele?.title?.rendered));
   }, [myjob]);
 
+  function deleteTxtExtension(fileName) {
+    if (fileName.endsWith('.txt')) {
+      return fileName.slice(0, -4);
+    }
+    return fileName;
+  }
+
   return (
     <Container>
       <div className="grid grid-cols-2 gap-4 text-center">
@@ -243,7 +250,7 @@ const Jobsection = () => {
         {filteredData?.map((ele, key) => (
           <div className="p-4 flex gap-4 flex-col" key={key}>
             <p className="text-h6">{ele?.title?.rendered}</p>
-            <Link href={`careers/${ele?.slug}`}>
+            <Link href={`careers/${deleteTxtExtension(ele?.slug)}`}>
               <p className="underline mt-3">{ele?.title?.rendered}</p>
             </Link>
             <p className="text-para mt-3">{ele?.acf?.location}</p>
