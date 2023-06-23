@@ -7,6 +7,7 @@ import { createBot, createBotKnowledge } from "@/app/API/pages/Bot";
 import { useDispatch } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 import LoaderButton from "../Common/Button/Loaderbutton";
+import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep, intakeCompleteStep }) {
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const [loading, setLoading] = useState(false)
   const [error, setErrorMessage] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
-  const [faqFile, setFaqFile] = useState(formCustomerData?.faq_upload ? formCustomerData.faq_upload : '')
+  const [urls, setUrls] = useState([])
   const [serviceSetupSteps, setServiceSetupSteps] = useState(1)
 
   const allowedFormatsFaq = ['application/msword', 'application/vnd.oasis.opendocument.text', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.template', 'application/epub+zip', 'application/pdf', 'text/html', 'text/plain']
@@ -41,29 +42,47 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     shipping_policy_url: formCustomerData?.shipping_policy_url ?? '',
     other_url: formCustomerData?.other_url ?? '',
   })
+  const handleUrlValue = (e) => {
+    const { value } = e.target;
+    if (value.includes(' ')) {
+      const url_values = value.split(' ');
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          faq_url: '',
+        };
+      });
+      url_values.forEach((name) => {
+        const trimmedUrl = name.trim();
+        if (trimmedUrl && !urls.includes(trimmedUrl)) {
+          setUrls((prev) => [...prev, trimmedUrl]);
+        }
+      });
+    } else {
+      setFormValues({ ...formValues, faq_url: value });
+    }
 
-  const checkValue = () => {
-    if (formValues.faq_url !== "") {
-      return true
-    }
-    if (formValues.help_center_url !== "") {
-      return true
-    }
-    if (formValues.refund_return_url !== "") {
-      return true
-    }
-    if (formValues.membership_policy_url !== "") {
-      return true
-    }
-    if (formValues.shipping_policy_url !== "") {
-      return true
-    }
-    if (formValues.other_url !== "") {
-      return true
-    }
-    return false
   }
-  console.log(formValues)
+
+  const handleKeyDown = (e)=>{
+    if (e.key === 'Enter') {
+      const { value } = e.target;
+        const url_values = value.split(' ');
+        setFormValues((prev) => {
+          return {
+            ...prev,
+            faq_url: '',
+          };
+        });
+        url_values.forEach((name) => {
+          const trimmedUrl = name.trim();
+          if (trimmedUrl && !urls.includes(trimmedUrl)) {
+            setUrls((prev) => [...prev, trimmedUrl]);
+          }
+        });
+    }
+  }
+
   const onSubmit = async (data) => {
     setLoading(true)
 
@@ -84,7 +103,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
         const bot = await createBot(payload);
         if (bot?.status === 201) {
-          const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
+          const bot_faq = await createBotKnowledge(bot.data.id, {urls:urls});
           if (bot_faq?.status === 201) {
             dispatch(setBotId(bot.data.id));
             setErrorMessage(null);
@@ -117,7 +136,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
       const bot = await createBot(payload);
       if (bot?.status === 201) {
-        const bot_faq = await createBotKnowledge(bot.data.id, returnFilesUrl());
+        const bot_faq = await createBotKnowledge(bot.data.id, {urls:urls});
         if (bot_faq?.status === 201) {
           dispatch(setBotId(bot.data.id));
           setErrorMessage(null);
@@ -183,7 +202,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
 
 
-  console.log("wrref", error)
   // FAQ && File Uploads handlers 
   const getBase64 = (file) => {
     return new Promise(resolve => {
@@ -191,7 +209,6 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       let reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        console.log("Called", reader);
         baseURL = reader.result;
         resolve(baseURL);
       };
@@ -207,6 +224,20 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       }
     }
     return null
+  }
+  const makeCapital = (str) => {
+    if (str.includes(" ")) {
+      return str
+        .split(" ")
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    } else {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  }
+  const RemoveUrls = (element) => {
+    const updatedChips = urls.filter((x) => x !== element);
+    setUrls(updatedChips);
   }
   return (
     <div className="w-full">
@@ -259,23 +290,26 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
             {/* <SelectField onChange={handleInputValues} value={formValues.ticketing_platform} error={returnErrorMessage("ticketing_platform")} name='ticketing_platform' values={email_ticketing_system_data} title={"Email Ticketing System"} id={'email_ticketing_system'} className="py-3" /> */}
             {/* <SelectField onChange={handleInputValues} value={formValues.ecommerce_platform} error={returnErrorMessage("ecommerce_platform")} name='ecommerce_platform' values={ecommerce_platform_data} title={"Ecommerce Platform"} id={'ecommerce_platform'} className="py-3" /> */}
             {/* <SelectField onChange={handleInputValues} value={formValues.payments_platform} error={returnErrorMessage("payments_platform")} name='payments_platform' values={payments_platform_data} title={"Payments Platform"} id={'payments_platform'} className="py-3" /> */}
-            <TextField onChange={handleInputValues} name='faq_url' value={formValues.faq_url} error={returnErrorMessage("faq_url")} title={'Add your Help Center or FAQ URL'} placeholder={"Help Center or FAQ URL"} type={'text'} id={"faq_url"} className="py-3 mt-1" />
-            {formValues.faq_url && (
-              <TextField onChange={handleInputValues} name='help_center_url' error={returnErrorMessage("help_center_url")} value={formValues.help_center_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"help_center_url"} className="py-3 mt-1" />
-            )}
-            {formValues.help_center_url && (
-              <TextField onChange={handleInputValues} name='refund_return_url' error={returnErrorMessage("refund_return_url")} value={formValues.refund_return_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"refund_return_url"} className="py-3 mt-1" />)}
-            {formValues.refund_return_url && (
-              <TextField onChange={handleInputValues} name='membership_policy_url' error={returnErrorMessage("membership_policy_url")} value={formValues.membership_policy_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"membership_policy_url"} className="py-3 mt-1" />
-            )}
-            {formValues.membership_policy_url && (
 
-              <TextField onChange={handleInputValues} name='shipping_policy_url' error={returnErrorMessage("shipping_policy_url")} value={formValues.shipping_policy_url} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"shipping_policy_url"} className="py-3 mt-1" />
-            )}
-            {formValues.shipping_policy_url && (
+            <div className='my-2'>
+              <div className={`inline`}>
+                <label htmlFor={"agent_name"} className="block text-sm font-medium text-heading"><span className='flex items-center gap-2'>Add your Help Center or FAQ URL
+                </span></label>
+                <div className='flex flex-wrap justify-start items-center border h-auto w-auto border-border p-1 rounded-md mt-2'>
+                  <div className='flex flex-wrap items-center justify-start gap-1'>
+                    {urls.length > 0 && urls.map((element, key) =>
+                      <div
+                        className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border" key={key}>
+                        {makeCapital(element.trim())}
+                        <XMarkIcon className=" h-4 w-4 cursor-pointer " onClick={(e) => { RemoveUrls(element) }} />
+                      </div>
+                    )}
+                  </div>
+                  <input onKeyDown={handleKeyDown} value={formValues.faq_url} required onChange={handleUrlValue} type={"text"} placeholder={"Add your Help Center or FAQ URL"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"faq_url"} name={"faq_url"} />
+                </div>
+              </div>
 
-              <TextField onChange={handleInputValues} name='other_url' value={formValues.other_url} error={returnErrorMessage("other_url")} title={'Optional Additional URL'} placeholder={"Optional Additional URL"} type={'text'} id={"other_url"} className="py-3 mt-1" />
-            )}
+            </div>
           </div>
         </div>
       }
@@ -303,8 +337,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
           <Button type={"button"}
             className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
             onClick={handleForward}
-            disabled={loading ||
-              checkValue() == false
+            disabled={loading || urls.length === 0
             }
           >
             {loading ? 'Loading...' : form ? "Next" : 'Submit'}

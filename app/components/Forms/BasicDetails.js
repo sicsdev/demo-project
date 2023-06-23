@@ -127,7 +127,6 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         }
         return null
     }
-    console.log(formValues)
     return (
         <div >
             <span className="text-sm my-5 text-[#808080]">
