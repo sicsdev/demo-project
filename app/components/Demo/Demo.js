@@ -10,7 +10,7 @@ const Demo = () => {
     const router = useRouter();
     const handleNavigate = () => {
         let emailInput = document.getElementById('email').value;
-        router.push(`/free-trial?email=${emailInput}`);
+        router.push(`/checkout?email=${emailInput}`);
     }
 
   useEffect(() => {

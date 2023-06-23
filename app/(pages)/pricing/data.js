@@ -1,6 +1,6 @@
 export const price_data = [
   {
-    title: "Standard",
+    title: "Starter",
     sub_title:
       "Maximize your power, speed, and flexibility to support your customers and team.",
     pricing_title: "CUSTOM",
@@ -16,7 +16,7 @@ export const price_data = [
     ],
   },
   {
-    title: "Pro",
+    title: "Enterprise",
     sub_title:
       "Maximize your power, speed, and flexibility to support your customers and team.",
     pricing_title: "CUSTOM",

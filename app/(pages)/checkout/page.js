@@ -280,8 +280,8 @@ const Checkout = () => {
                       scope="row"
                       className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
                     >
-                      {planQuery == 1 && "Pro Plan"}
-                      {planQuery == 0 && "Standard Plan"}
+                      {planQuery == 1 && "Enterprise Plan"}
+                      {planQuery == 0 && "Starter Plan"}
                     </th>
                     <td className="px-6 py-4 text-base">Free Trial</td>
                   </tr>

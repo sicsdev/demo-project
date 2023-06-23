@@ -41,8 +41,7 @@ const Testimonial = () => {
                 "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-black hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
               }
             >
-              <Link href='/free-trial
-'>
+              <Link href='/checkout'>
               Try Tempo &#8594; </Link>
             </button>
           </div>
