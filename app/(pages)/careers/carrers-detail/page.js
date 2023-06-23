@@ -3,16 +3,27 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { getCareersJobs } from "@/app/API/pages/Wpdata";
 import Loading from "@/app/components/Loading/Loading";
+import { useSearchParams } from "next/navigation";
+
 const Page = ({ params }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const carrerName = searchParams.get("carrerName");
 
   useEffect(() => {
+    const payload = {slug: [carrerName]}
     setLoading(true);
-    getCareersJobs(params).then((res) => {
+    // getCareersJobs(params).then((res) => {
+    //   console.log(params)
+    //   setJobs(res.data);
+    //   setLoading(false);
+    // });
+    getCareersJobs(payload).then((res) => {
       setJobs(res.data);
       setLoading(false);
     });
+
   }, []);
 
   return (

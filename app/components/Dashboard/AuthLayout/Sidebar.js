@@ -54,8 +54,8 @@ const Sidebar = ({ children }) => {
 
         },
         {
-            href: '/dashboard/setting',
-            name: 'Setting',
+            href: '/dashboard/settings',
+            name: 'Settings',
             icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
 
 
@@ -83,7 +83,6 @@ const Sidebar = ({ children }) => {
         const handleOutsideClick = (event) => {
           if (divRef.current && !divRef.current.contains(event.target)) {
             setIsOpen(false);
-            console.log("outside")
     
           }
         };
@@ -96,7 +95,6 @@ const Sidebar = ({ children }) => {
       }, []);
 
 
-console.log("isOpem", isOpen)
 
     return (
         <>
