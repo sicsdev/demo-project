@@ -5,7 +5,7 @@ export const getCareersContent = async (body) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `${API_URL}?category=careers`
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?category=careers`
     );
     return response;
   } catch (error) {
@@ -16,7 +16,7 @@ export const getCareersJobs = async (params) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `${API_URL}?slug=${params.slug}`
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params.slug}`
     );
     return response;
   } catch (error) {
@@ -27,7 +27,7 @@ export const getAllJobs = async (params) => {
   // let config = returnConfig()
   try {
     const response = await axios.get(
-      `${API_URL}?categories=20466`
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=20466`
     );
     return response;
   } catch (error) {
@@ -40,7 +40,7 @@ export const getAllJobs = async (params) => {
 export const getHelpPosts = async (params) => {
   try {
     const response = await axios.get(
-      `${API_URL}?categories=763026347`
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026347`
     );
     return response;
   } catch (error) {
