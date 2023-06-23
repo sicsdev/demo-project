@@ -7,7 +7,7 @@ const DTC = () => {
       url: "simplesentiments-color3.svg", animation: "mobile leftimg_sec animation2",
     },
     { url: "labpass-color2.svg", animation: "mobile leftimg_sec animation3" },
-    { url: "perry-color4.svg", animation: "mobile leftimg_sec animation" }
+    { url: "perry-color4.svg", animation: "mobile leftimg_sec animation2" }
   ];
   const images1 = [
     "nextmed.svg",
