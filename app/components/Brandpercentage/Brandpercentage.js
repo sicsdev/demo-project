@@ -87,7 +87,7 @@ const Brandpercentage = () => {
           </div>
           <div className="data-wrapper text-center relative sm:z-0 z-[99]">
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              0
+              5
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               5 Minute SLAs
