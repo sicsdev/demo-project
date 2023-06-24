@@ -243,7 +243,7 @@ const Jobsection = () => {
         {filteredData?.map((ele, key) => (
           <div className="p-4 flex gap-4 flex-col" key={key}>
             <p className="text-h6">{ele?.title?.rendered}</p>
-            <Link href={`careers/${ele?.slug}`}>
+            <Link href={`careers/carrers-detail?carrerName=${ele?.slug}`}>
               <p className="underline mt-3">{ele?.title?.rendered}</p>
             </Link>
             <p className="text-para mt-3">{ele?.acf?.location}</p>
