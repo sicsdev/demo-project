@@ -10,8 +10,9 @@ import { email_introduction_data, email_sign_off_data } from './data'
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SelectField from '../Common/Input/SelectField'
 import Card from '../Common/Card/Card'
-const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
+const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeCompleteStep, form = true, setBasicFormData }) => {
     const dispatch = useDispatch()
+    console.log("basicFormData",basicFormData)
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState([])
     const [tileAgentName, setTileAgentName] = useState([])
@@ -26,6 +27,12 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
         setErrors([])
 
         setFormValues({ ...formValues, [e.target.name]: makeCapital(value) })
+        setBasicFormData(prev => {
+            return {
+                ...prev,
+                [e.target.name]: makeCapital(value)
+            }
+        })
 
     }
     const handleAgentNameValue = (e) => {
@@ -42,7 +49,15 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
             agentNames.forEach((name) => {
                 const trimmedName = name.trim();
                 if (trimmedName && !tileAgentName.includes(trimmedName)) {
-                    setTileAgentName((prev) => [...prev, makeCapital(value)(trimmedName)]);
+                    setTileAgentName((prev) => { 
+                        setBasicFormData((prev_state) => {
+                            return {
+                              ...prev_state,
+                              agent_name: [...prev, trimmedName]
+                            }
+                          })
+                        return [...prev, makeCapital(trimmedName)] 
+                    });
                 }
             });
         } else {
@@ -53,19 +68,27 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             const { value } = e.target;
-                const agentNames = value.split(',');
-                setFormValues((prev) => {
-                    return {
-                        ...prev,
-                        agent_name: '',
-                    };
-                });
-                agentNames.forEach((name) => {
-                    const trimmedName = name.trim();
-                    if (trimmedName && !tileAgentName.includes(trimmedName)) {
-                        setTileAgentName((prev) => [...prev, trimmedName]);
-                    }
-                });
+            const agentNames = value.split(',');
+            setFormValues((prev) => {
+                return {
+                    ...prev,
+                    agent_name: '',
+                };
+            });
+            agentNames.forEach((name) => {
+                const trimmedName = name.trim();
+                if (trimmedName && !tileAgentName.includes(trimmedName)) {
+                    setTileAgentName((prev) => { 
+                        setBasicFormData((prev_state) => {
+                            return {
+                              ...prev_state,
+                              agent_name: [...prev, trimmedName]
+                            }
+                          })
+                        return [...prev, makeCapital(trimmedName)] 
+                    });
+                }
+            });
         }
     }
 
@@ -84,6 +107,12 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
     const RemoveFromAgentNameArr = (element) => {
         const updatedChips = tileAgentName.filter((x) => x !== element);
         setTileAgentName(updatedChips);
+        setBasicFormData((prev_state) => {
+            return {
+              ...prev_state,
+              agent_name: [...updatedChips]
+            }
+          })
     }
     const makeCapital = (str) => {
         if (str.includes(" ")) {
@@ -123,32 +152,33 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                                     </div>
                                 )}
                             </div>
-                            <input value={formValues.agent_name} required onChange={handleAgentNameValue} type={"text"} placeholder={"Enter names separate by ,"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"agent_name"} name={"agent_name"} />
+                            <input value={formValues.agent_name} onKeyDown={handleKeyDown} required onChange={handleAgentNameValue} type={"text"} placeholder={"Enter names separate by ,"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"agent_name"} name={"agent_name"} />
                         </div>
                     </div>
                 </div>
             </div>
+            {form === true && (
+                <div className={`flex p-2 rounded-b mt-5 justify-between`}>
 
-            <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-
-                <button
-                    onClick={handleBack}
-                    className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                // disabled={loading ? true : false}
-                >
-                    Back
-                </button>
-                {loading ? <LoaderButton /> :
-                    <Button type={"button"} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]" onClick={() => {
-                        dispatch(setModalValue(false))
-                        dispatch(fetchBot())
-                        dispatch(fetchProfile())
-                    }}
+                    <button
+                        onClick={handleBack}
+                        className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                    // disabled={loading ? true : false}
                     >
+                        Back
+                    </button>
+                    {loading ? <LoaderButton /> :
+                        <Button type={"button"} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]" onClick={() => {
+                            dispatch(setModalValue(false))
+                            dispatch(fetchBot())
+                            dispatch(fetchProfile())
+                        }}
+                        >
 
-                        Finish
-                    </Button>}
-            </div>
+                            Finish
+                        </Button>}
+                </div>
+            )}
 
         </div>
     )

@@ -9,16 +9,15 @@ import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 import LoaderButton from "../Common/Button/Loaderbutton";
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function CustomerServiceSetupForm({ formCustomerData, setCustomerFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep, intakeCompleteStep }) {
+export default function CustomerServiceSetupForm({ setBasicFormData, formCustomerData, setCustomerFormData, basicFormData, intakeStep, setIntakeStep, setShowModal, form = true, setIntakeCompleteStep, intakeCompleteStep }) {
   const dispatch = useDispatch()
-
   const [errors, setErrors] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setErrorMessage] = useState(null)
   const [botLogo, setBotLogo] = useState(formCustomerData?.logo_upload ? formCustomerData.logo_upload : '')
-  const [urls, setUrls] = useState([])
+  const [urls, setUrls] = useState(formCustomerData?.urls ?? [])
   const [serviceSetupSteps, setServiceSetupSteps] = useState(1)
-
+  console.log("formCustomerData", formCustomerData)
   const allowedFormatsFaq = ['application/msword', 'application/vnd.oasis.opendocument.text', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.wordprocessingml.template', 'application/epub+zip', 'application/pdf', 'text/html', 'text/plain']
   const allowFormatsLogo = ['image/jpeg', 'image/png', 'image/gif'];
 
@@ -27,7 +26,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
     refund_friendliness: formCustomerData?.refund_friendliness ?? '1',
     logo_upload: formCustomerData?.logo_upload ?? '',
     faq_upload: formCustomerData?.faq_upload ?? '',
-    bot_name: formCustomerData?.bot_name ?? '',
+    bot_name: basicFormData?.business_name ?? '',
     enable_cancellations: formCustomerData?.enable_cancellations ?? false,
     cancellation_friendliness: formCustomerData?.cancellation_friendliness ?? '1',
     email_ticketing_system: formCustomerData?.email_ticketing_system ?? 'Other',
@@ -55,7 +54,16 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
       url_values.forEach((name) => {
         const trimmedUrl = name.trim();
         if (trimmedUrl && !urls.includes(trimmedUrl)) {
-          setUrls((prev) => [...prev, trimmedUrl]);
+          setUrls((prev) => {
+            setBasicFormData((prev_state) => {
+              return {
+                ...prev_state,
+                urls: [...prev, trimmedUrl]
+              }
+            })
+            return [...prev, trimmedUrl]
+          });
+
         }
       });
     } else {
@@ -64,22 +72,30 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
   }
 
-  const handleKeyDown = (e)=>{
+  const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       const { value } = e.target;
-        const url_values = value.split(' ');
-        setFormValues((prev) => {
-          return {
-            ...prev,
-            faq_url: '',
-          };
-        });
-        url_values.forEach((name) => {
-          const trimmedUrl = name.trim();
-          if (trimmedUrl && !urls.includes(trimmedUrl)) {
-            setUrls((prev) => [...prev, trimmedUrl]);
-          }
-        });
+      const url_values = value.split(' ');
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          faq_url: '',
+        };
+      });
+      url_values.forEach((name) => {
+        const trimmedUrl = name.trim();
+        if (trimmedUrl && !urls.includes(trimmedUrl)) {
+          setUrls((prev) => {
+            setBasicFormData((prev_state) => {
+              return {
+                ...prev_state,
+                urls: [...prev, trimmedUrl]
+              }
+            })
+            return [...prev, trimmedUrl]
+          });
+        }
+      });
     }
   }
 
@@ -93,7 +109,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
           "description": "",
           "automation_tolerance": 0,
           "logo": botLogo,
-          "chat_title": 'Tempo Agent',
+          "chat_title": formValues.bot_name ?? 'Tempo Agent',
           "payment_platform": formValues.payments_platform,
           "ticketing_platform": formValues.email_ticketing_system,
           "cancellation_tolerance": formValues.enable_cancellations ? formValues.cancellation_friendliness : 0,
@@ -102,12 +118,13 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
         }
 
         const bot = await createBot(payload);
+        payload.urls = urls
         if (bot?.status === 201) {
-          const bot_faq = await createBotKnowledge(bot.data.id, {urls:urls});
+          const bot_faq = await createBotKnowledge(bot.data.id, { urls: urls });
           if (bot_faq?.status === 201) {
             dispatch(setBotId(bot.data.id));
             setErrorMessage(null);
-            setCustomerFormData(formValues);
+            setCustomerFormData({ ...formValues, urls: urls });
             setIntakeStep(2);
             setIntakeCompleteStep(2)
           } else {
@@ -136,7 +153,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
 
       const bot = await createBot(payload);
       if (bot?.status === 201) {
-        const bot_faq = await createBotKnowledge(bot.data.id, {urls:urls});
+        const bot_faq = await createBotKnowledge(bot.data.id, { urls: urls });
         if (bot_faq?.status === 201) {
           dispatch(setBotId(bot.data.id));
           setErrorMessage(null);
@@ -238,6 +255,12 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
   const RemoveUrls = (element) => {
     const updatedChips = urls.filter((x) => x !== element);
     setUrls(updatedChips);
+    setBasicFormData((prev_state) => {
+      return {
+        ...prev_state,
+        urls: [...updatedChips]
+      }
+    })
   }
   return (
     <div className="w-full">
@@ -300,7 +323,7 @@ export default function CustomerServiceSetupForm({ formCustomerData, setCustomer
                     {urls.length > 0 && urls.map((element, key) =>
                       <div
                         className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border" key={key}>
-                        {makeCapital(element.trim())}
+                        {element.trim()}
                         <XMarkIcon className=" h-4 w-4 cursor-pointer " onClick={(e) => { RemoveUrls(element) }} />
                       </div>
                     )}
