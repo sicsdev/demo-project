@@ -9,6 +9,7 @@ import { state_data } from '@/app/components/Forms/data/FormData';
 import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting';
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
 import Button from '@/app/components/Common/Button/Button';
+import { getBillingDetails } from '@/app/API/pages/Checkout';
 const Page = () => {
     const parseAddress = (address) => {
         let returned = {};
@@ -27,8 +28,13 @@ const Page = () => {
     const state = useSelector(state => state.user)
     const [isEdit, setIsEdit] = useState(true)
     const [basicFormData, setBasicFormData] = useState(null)
+    const getBillingData = async () => {
+        const response = await getBillingDetails()
+        debugger
+    }
     useEffect(() => {
         if (state.data) {
+            getBillingData()
             let address = parseAddress(state?.data?.enterprise?.address)
             setBasicFormData({
                 "business_name": state?.data?.enterprise?.name,
@@ -44,6 +50,7 @@ const Page = () => {
 
             })
         }
+        
     }, [state.data])
     const returnStateName = (state) => {
         const find_state = state_data.find((x) => x.abbreviation === state.trim())
@@ -76,14 +83,12 @@ const Page = () => {
                     <BasicDetailsReadOnly state={basicFormData} />
                 </> :
                 <>
-                    <EmailAgentSetting form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
-                    <EmailConfig form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                    <EmailAgentSetting form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                    <EmailConfig form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                     <div className='my-3'>
-                        <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} setIsEdit={setIsEdit} />
+                        <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                     </div>
-                    {/* <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-
-
+                    <div className={`flex p-2 rounded-b mt-5 justify-between`}>
                         <>
                             <Button type={"button"}
                                 className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
@@ -94,7 +99,7 @@ const Page = () => {
                             </Button>
 
                         </>
-                    </div> */}
+                    </div>
                 </>
             }
         </div>

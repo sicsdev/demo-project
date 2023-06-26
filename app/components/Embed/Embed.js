@@ -19,17 +19,13 @@ import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
+const Embed = ({ form = true }) => {
     const router = useRouter()
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
     const [copied, setCopied] = useState({ key: null, message: null });
     const [markdown, setmarkdown] = useState('');
     const [detailsData, setDetailsData] = useState(null)
-    const discount = `<div className="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"
-    data-businessunit-id="63ce673f7ec124282d18a6b4" data-style-height="140px" data-style-width=
-    "100%" data-theme="1ight" data-stars="1,2,3,4,5" data-review-languages="en"><a href="https:
-    //www.trustpilot.com/review/nextmed.com"target="_blank" rel="noopener">Trustpilot</a></div>`
 
     useLayoutEffect(() => {
         hljs.highlightAll();
@@ -43,7 +39,6 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
         if (!form && state.botData.data === null) {
             dispatch(fetchBot())
         }
-
     }, [])
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
@@ -68,9 +63,6 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
         }
     }
 
-    const handleBack = () => {
-        setIntakeStep(intakeStep - 1)
-    }
 
     return (
         <>
@@ -126,23 +118,6 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                                     </div>
 
                                 </div>
-                            </div>
-                            <div className='flex justify-between my-8'>
-                                <Button
-                                    onClick={handleBack}
-                                    className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                >
-                                    Back
-                                </Button>
-                                <Button type={"button"}
-                                    onClick={() => {
-                                        setIntakeCompleteStep(4)
-                                        setIntakeStep(4)
-                                    }}
-                                    className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                >
-                                    Next
-                                </Button>
                             </div>
                         </div>
                     )}

@@ -29,7 +29,8 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
       token: paymentMethod.id,
       price: "77f3ee07-46ab-4c6d-8d3e-8da3d42bee54",
     };
-    subscribeCustomer(bodyForSubscribe, userToken);
+    const response = await subscribeCustomer(bodyForSubscribe, userToken);
+    debugger
   };
 
   const handleCheckout = async (e) => {
@@ -53,7 +54,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
       // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
 
       const result = await submitCheckout(checkoutForm2);
-
+      debugger
       if (result.token) {
         handleSubscribe(paymentMethod, result.token);
         localStorage.setItem("Token", result.token);
@@ -69,7 +70,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
     setLoading(false);
   };
 
-  function getErrorsArray(data) { 
+  function getErrorsArray(data) {
     const messages = [];
     for (const key in data) {
       if (Array.isArray(data[key])) {
@@ -108,12 +109,12 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
 
         {loading && <p className="message">Processing Payment...</p>}
         <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
-        disabled={boxValid}
+          disabled={boxValid}
         >
           Checkout
         </Button>
       </form>
- 
+
       <div>
         {errors.map((error, i) => (
           <p key={i} className="text-red text-center">

@@ -13,13 +13,13 @@ export const submitCheckout = async (body) => {
 };
 
 export const subscribeCustomer = async (body, token) => {
-    
+
     // Due to synchronization, it is likely that we do not have the token stored in local storage yet, that's why we receive it through params
-    const configForSubscribe = {headers: {"Authorization": "Token " + token}}
+    const configForSubscribe = { headers: { "Authorization": "Token " + token } }
 
     try {
         console.log(config)
-        const response = await axios.post(`${API_URL}/api/v1/payments/subscriptions/`, body, configForSubscribe);
+        const response = await axios.post(`${API_URL}/api/v1/payments/subscriptions/`, body);
         return response.data;
     } catch (error) {
         if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
@@ -27,3 +27,14 @@ export const subscribeCustomer = async (body, token) => {
     }
 };
 
+export const getBillingDetails = async () => {
+    let config = returnConfig()
+    try {
+        console.log(config)
+        const response = await axios.get(`${API_URL}/api/v1/payments/subscriptions/`, config);
+        return response.data;
+    } catch (error) {
+        if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
+        return error
+    }
+}

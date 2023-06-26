@@ -80,7 +80,6 @@ export const createBotKnowledge = async (id, body) => {
 
 export const modifyBot = async (id, body) => {
     let config = returnConfig()
-    debugger
     try {
         const response = await axios.patch(`${API_URL}/api/v1/main/bots/${id}/`, body, config);
         return response;

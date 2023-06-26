@@ -1,19 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
-import LoaderButton from '../Common/Button/Loaderbutton'
-import Button from '../Common/Button/Button'
 import { useDispatch } from 'react-redux'
-import { fetchBot, setModalValue } from '../store/slices/botIdSlice'
-import { fetchProfile } from '../store/slices/userSlice'
 import { email_introduction_data, email_sign_off_data } from './data'
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SelectField from '../Common/Input/SelectField'
 import Card from '../Common/Card/Card'
-const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeCompleteStep, form = true, setBasicFormData }) => {
-    const dispatch = useDispatch()
+const EmailConfig = ({ basicFormData, setBasicFormData }) => {
     console.log("basicFormData",basicFormData)
-    const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState([])
     const [tileAgentName, setTileAgentName] = useState([])
     const [formValues, setFormValues] = useState({
@@ -101,12 +95,10 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
         }
         return null
     }
-    const handleBack = () => {
-        setIntakeStep(intakeStep - 1)
-    }
     const RemoveFromAgentNameArr = (element) => {
         const updatedChips = tileAgentName.filter((x) => x !== element);
         setTileAgentName(updatedChips);
+        
         setBasicFormData((prev_state) => {
             return {
               ...prev_state,
@@ -157,28 +149,6 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                     </div>
                 </div>
             </div>
-            {form === true && (
-                <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-
-                    <button
-                        onClick={handleBack}
-                        className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                    // disabled={loading ? true : false}
-                    >
-                        Back
-                    </button>
-                    {loading ? <LoaderButton /> :
-                        <Button type={"button"} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]" onClick={() => {
-                            dispatch(setModalValue(false))
-                            dispatch(fetchBot())
-                            dispatch(fetchProfile())
-                        }}
-                        >
-
-                            Finish
-                        </Button>}
-                </div>
-            )}
 
         </div>
     )
