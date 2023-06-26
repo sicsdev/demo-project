@@ -173,3 +173,210 @@ select::-ms-expand {
   left: 6px;
   color: #000;
 }
+
+/* timer animation */
+.box {
+	position: relative;
+	z-index: 0;
+	border-radius: 300px;
+	overflow: hidden;
+	padding: 2rem;
+	background-color: #fff;
+	
+	
+	
+}
+.box::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  left: -103%;
+  top: -50%;
+  width: 300%;
+  height: 300%;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-size: 50% 50%, 50% 50%;
+  background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+  background-image: linear-gradient(#fff, #fff), linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000);
+  animation: rotate 10s linear infinite;
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: 6px;
+  top: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  background: #fff;
+   
+  animation: opacityChange 15s infinite linear;
+}
+
+@keyframes rotate {
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+
+@keyframes opacityChange {
+	50% {
+		opacity:1;
+	}
+	100% {
+		opacity: .999;
+	}
+}
+
+  /* .box:hover {
+    animation-play-state: paused;
+  } */
+
+  
+
+
+  
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+
+@keyframes pulse {
+  0% {
+    stroke-dashoffset: 376.373;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 376.373;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+.rainbow {
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid #8e9297;
+  border-radius: 500px;
+  color: var(--glue-grey-700);
+  display: flex;
+  font-weight: 500;
+  height: 52px;
+  justify-content: center;
+  padding: 0 24px;
+  position: relative;
+  white-space: nowrap;
+  max-width: 321px;
+}
+
+
+ .facet-pill-border {
+  fill: none;
+  border-radius: 500px;
+  height: 52px;
+  left: -1px;
+  pointer-events: none;
+  position: absolute;
+  top: -1px;
+  width: calc(100% + 2px);
+}
+
+.facet-pill-border rect {
+  stroke: #000;
+  stroke-width: 4px;
+  height: 52px;
+  visibility: hidden;
+  width: 100%;
+  animation: opacityChange 10s linear infinite;
+}
+
+
+@keyframes opacityChange {
+  0% {
+    stroke-dasharray: 400.373;
+    
+	}
+ 
+	100% {
+    stroke-dasharray: 720.373;
+   
+	}
+}
+.div-anima .bg-black+.rainbow .facet-pill-border rect,.start-rainbow .facet-pill-border rect{visibility: visible !important;}
+
+
+
+/* @keyframes rotate {
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+.rainbow {
+  position: relative;
+  z-index: 0;
+  color: #000;
+  width: 740px;
+  height: 60px;
+  border-radius: 300px;
+  overflow: hidden;
+  background-color: #fff;
+	&::before {
+    content: '';
+    position: absolute;
+    z-index: -2;
+    left: -127%;
+    top: -54%;
+    width: 353%;
+    height: 360%;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: 50% 50%, 50% 50%;
+    background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+    background-image: linear-gradient(#fff, #fff), linear-gradient(#000, #000), linear-gradient(#000, #000), linear-gradient(#000, #000);
+    animation: rotate 10s linear infinite;
+	}
+
+	
+	
+}
+p{position: relative;
+	z-index: 999;}
+@keyframes opacityChange {
+	50% {
+		opacity:1;
+	}
+	100% {
+		opacity: .999;
+	}
+}
+.rainbow p {
+  position: absolute;
+  top: 40%;
+  left: 30%;
+}
+.rainbow:after, .rainbow:before {
+  position: absolute;
+  z-index: 0;
+}
+
+
+.rainbow ::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 6px;
+  top: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  background: #fff;
+  border-radius: 300px;
+  animation: opacityChange 3s infinite alternate;
+} */
