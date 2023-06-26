@@ -3,9 +3,11 @@ import SelectField from "../Common/Input/SelectField";
 import { business_company_size_data, business_industry_data, ecommerce_platform_data, state_data } from "./data/FormData";
 import { createEnterpriseAccount } from "@/app/API/pages/EnterpriseService";
 import { useState } from "react";
+import LoaderButton from "../Common/Button/Loaderbutton";
+import Button from "../Common/Button/Button";
 
 export default function BasicDetails({ basicFormData, setBasicFormData, setIntakeStep, form = true, setIsEdit, setIntakeCompleteStep, intakeCompleteStep }) {
-
+   
     const [loading, setLoading] = useState(false)
     const [errors, setErrors] = useState([])
     const [basicDetailsSteps, setBasicDetailSteps] = useState(1)
@@ -20,10 +22,27 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         business_company_size: basicFormData?.business_company_size ?? '',
         business_unit_no: basicFormData?.business_unit_no ?? '',
     })
-
+    const makeCapital = (str) => {
+        if (str.includes(" ")) {
+            return str
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+        } else {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    }
     const handleInputValues = (e) => {
         setErrors([])
-        setFormValues({ ...formValues, [e.target.name]: e.target.value })
+
+        setFormValues({ ...formValues, [e.target.name]: makeCapital(e.target.value) })
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                [e.target.name]: makeCapital(e.target.value)
+            }
+        })
+
     }
 
     const validateForm = (formNumber) => {
@@ -78,7 +97,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
         let payload = {
             "name": formValues.business_name,
             "country": "US",
-            "address": formValues.business_street + ", " + formValues.business_city + ", " + getAbbrevationOfState(formValues.business_state) + ", USA",
+            "address": formValues.business_street + ", " + formValues.business_city + ", " + getAbbrevationOfState(formValues.business_state) + ", USA" + ', ' + formValues.business_zipcode,
             "industry": formValues.business_industry,
             "company_size": formValues.business_company_size,
             "ecommerce_platform": formValues.ecommerce_platform
@@ -122,7 +141,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
             </span>
 
             {/* Step 1 */}
-            <div className=''>
+            <div className='mt-3'>
                 {basicDetailsSteps === 1 &&
                     <>
 
@@ -130,7 +149,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
                         <br />
                         <h3 className="text-heading mb-4 font-semibold">Business Address</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                            <TextField onChange={handleInputValues} value={formValues.business_street} name='business_street' className='py-3 mt-1' title={'Street'} placeholder={"Please enter street"} type={'text'} id={"business_street"} error={returnErrorMessage("business_street")} />
+                            <TextField onChange={handleInputValues} value={formValues.business_street} name='business_street' className='py-3 mt-1' title={'Street Address'} placeholder={"Please enter Street Address"} type={'text'} id={"business_street"} error={returnErrorMessage("business_street")} />
                             <TextField onChange={handleInputValues} value={formValues.business_city} name='business_city' className='py-3 mt-1' title={'City'} placeholder={"Please enter city"} type={'text'} id={"business_city"} error={returnErrorMessage("business_city")} />
                             <SelectField onChange={handleInputValues} value={formValues.business_state} name='business_state' values={provideStateNames()} title={"State"} id={'business_state'} className="py-3" error={returnErrorMessage("business_state")} />
                             <div className="">
@@ -150,28 +169,40 @@ export default function BasicDetails({ basicFormData, setBasicFormData, setIntak
 
             </div>
 
+                <div className={`flex p-2 rounded-b mt-5 ${basicDetailsSteps > 1 ? 'justify-between' : 'justify-end'}`}>
 
-            <div className={`flex p-2 rounded-b mt-5 ${basicDetailsSteps > 1 ? 'justify-between' : 'justify-end'}`}>
+                    {basicDetailsSteps > 1 && (
+                        <button
+                            onClick={handleBack}
+                            className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                            disabled={loading ? true : false}
+                        >
+                            Back
+                        </button>
+                    )}
+                    {loading ? <LoaderButton /> :
+                        <>
+                            <Button type={"button"}
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                onClick={handleForward}
+                                disabled={
+                                    formValues.business_street === '' ||
+                                    formValues.business_city === '' ||
+                                    formValues.business_zipcode === '' ||
+                                    formValues.business_state === '' ||
+                                    formValues.business_industry === '' ||
+                                    formValues.business_name === '' ||
+                                    formValues.business_company_size === ''
 
-                {basicDetailsSteps > 1 && (
-                    <button
-                        onClick={handleBack}
-                        className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                        disabled={loading ? true : false}
-                    >
-                        Back
-                    </button>
-                )}
+                                }
+                            >
+                                {form === true ? 'Next' : 'Submit'}
 
-                <button
-                    onClick={handleForward}
-                    className="inline-block float-right rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                    disabled={loading ? true : false}
-                >
-                    {loading ? 'Loading...' : form === true ? 'Next' : 'Submit'}
-                </button>
-            </div>
+                            </Button>
 
+                        </>}
+                </div>
+            
 
 
         </div>

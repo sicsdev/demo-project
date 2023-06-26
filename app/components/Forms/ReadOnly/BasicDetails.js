@@ -23,11 +23,6 @@ const BasicDetailsReadOnly = ({state}) => {
                         <p className='font-normal'>{state?.business_company_size}</p>
 
                     </div>
-                    <div className='my-5'>
-                        <h3 className='font-semibold text-xl text-heading'>Ecommerce Platform</h3>
-                        <p className='font-normal'>{state?.ecommerce_platform}</p>
-
-                    </div>
                 </div>
             )}
         </div>

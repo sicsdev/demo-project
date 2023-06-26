@@ -1,6 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 const Footer = () => {
+
+  const pathname = usePathname();
   const company = [
     "About",
     "Leadership",
@@ -29,7 +33,6 @@ const Footer = () => {
     "Tempomarketer",
     "Tempoworks Neo",
   ];
-
   return (
     <>
       <footer className=" bg-[#142543] shadow text-center text-white ">
@@ -52,9 +55,17 @@ const Footer = () => {
               </div>
               <div>
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-              <Link href='/login'>
-                  Login
-                  </Link>
+                  <Link href="/login">Login</Link>
+                </h6>
+              </div>
+              <div>
+                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                  <Link href="/careers">Careers</Link>
+                </h6>
+              </div>
+              <div>
+                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                  <Link href="/terms-of-service">Terms of service</Link>
                 </h6>
               </div>
               <div className="flex">

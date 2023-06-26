@@ -1,0 +1,1 @@
+export const email_prefix_data = ['help', 'customersuccess', 'support', 'care', 'team', 'contact', 'welcome']

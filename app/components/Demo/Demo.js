@@ -3,15 +3,44 @@ import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
 import { useRouter } from "next/navigation";
 import validator from "validator";
+import axios from "axios";
 
 const Demo = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
-    const router = useRouter();
-    const handleNavigate = () => {
-        let emailInput = document.getElementById('email').value;
-        router.push(`/free-trial?email=${emailInput}`);
-    }
+  const router = useRouter();
+  const handleNavigate = () => {
+    let emailInput = document.getElementById("email").value;
+    router.push(`/free-trial?email=${emailInput}`);
+  };
+
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
 
   useEffect(() => {
     // if (email?.includes("@")) {
@@ -19,20 +48,81 @@ const Demo = () => {
     // }
   }, [email]);
 
+  const sendDataToFreshsales = async () => {
+    // const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
+    //   // Create the lead object with the desired data
+    //   const contact = {
+    //     email: email
+    //     // Add more fields as needed
+    //   };
+    //   try {
+    //     // Send the lead data to Freshsales CRM
+    //     const response = await fetch(apiUrl, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Access-Control-Allow-Origin': "*",
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
+    //       },
+    //       body: JSON.stringify(contact),
+    //     });
+
+    //     if (response.ok) {
+    //       // Lead data sent successfully
+    //       console.log('data sent to Freshsales CRM');
+    //     } else {
+    //       // Handle error if the request fails
+    //       console.error('Error sending  data to Freshsales CRM');
+    //     }
+    //   } catch (error) {
+    //     console.error('Error sending  data to Freshsales CRM', error);
+    //   }
+    let headersList = {
+      Accept: "*/*",
+      Authorization: " Token yict-U-l_KKTLDvaQPiXDQ",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = JSON.stringify({ email: "shubham@gmail.com" });
+
+    fetch("https://tempoai.myfreshworks.com/crm/sales/api/contacts", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    }).then((res) => {
+      console.log(res);
+    });
+  };
+
   const handleBlur = (email) => {
-    if (email?.includes("@")) {
-      window._learnq.push([
-        "track",
-        "$email",
-        {
-          $email: email,
-        },
-      ]);
+    if (validator.isEmail(email)) {
+      // sendDataToFreshsales(email);
+      if (blacklist.includes(email.split("@")[1])) {
+        let payload = {
+          event: "lead-generic",
+        };
+        window.dataLayer?.push(payload);
+        console.log("blacklist");
+      } else {
+        let payload = {
+          event: "lead-business",
+        };
+        window.dataLayer?.push(payload);
+        console.log("clean");
+      }
+      if (email?.includes("@")) {
+        window._learnq.push([
+          "track",
+          "$email",
+          {
+            $email: email,
+          },
+        ]);
+      }
     }
   };
 
   const validateEmail = (e) => {
-    console.log("clicked");
     var email = e.target.value;
     if (validator.isEmail(email)) {
       setValidEmail(false);
@@ -62,7 +152,7 @@ const Demo = () => {
               }
               id={"email"}
               value={email}
-              // onBlur={(e) => handleBlur(email)}
+              onBlur={(e) => handleBlur(email)}
               onChange={(e) => {
                 {
                   setEmail(e.target.value);
@@ -83,14 +173,14 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-center sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-5">
-          <small className="text-border" style={{ color: "#36454F" }}>
+        <div className=" flex justify-between sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-2 sm:5">
+          <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>
-          <small className="text-border" style={{ color: "#36454F" }}>
+          <small className="text-border " style={{ color: "#36454F" }}>
             24/7 support
           </small>
-          <small className="text-border" style={{ color: "#36454F" }}>
+          <small className="text-border " style={{ color: "#36454F" }}>
             No-code setup
           </small>
         </div>

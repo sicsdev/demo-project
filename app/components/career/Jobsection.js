@@ -1,194 +1,229 @@
 "use client";
 import React from "react";
 import Container from "../Container/Container";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAllJobs } from "@/app/API/pages/Wpdata";
+import Link from "next/link";
+import Image from "next/image";
 
 const Jobsection = () => {
   const [showOrganization, setShowOrganization] = useState(null);
-  const data = [
-    {
-      organization: "Customer Support",
-      jobName: "Customer Support Specialist 1",
-      location: "Chicago, Illinois",
-    },
-    {
-      organization: "Customer Support",
-      jobName: "Customer Support Engineer",
-      location: "Dublin, Ireland",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Billing Operations Specialist",
-      location: "Chicago, Illinois",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Accounts Payable Specialist        ",
-      location: "Dublin, Ireland",
-    },
-    {
-      organization: "Finance and Biz Ops",
-      jobName: "Senior Manager, Strategic Planning & Operations  ",
-      location: "San Francisco, California      ",
-    },
-    {
-      organization: "Marketing",
-      jobName: "Senior Brand Designer, Web      ",
-      location: "San Francisco, California      ",
-    },
-    {
-      organization: "Marketing",
-      jobName: "Senior Social Content Creator      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "People      ",
-      jobName: "Senior HR Business Partner",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Product",
-      jobName: "Director of Web      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "DevRel Engineer      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "DevRel Engineer      ",
-      location: "London, England        ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "Engineering Manager, Machine Learning Team      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Engineering      ",
-      jobName: "Product Engineer      ",
-      location: "Dublin, Ireland      ",
-    },
-    {
-      organization: "Product Management    ",
-      jobName: "Product Manager",
-      location: "Dublin, Ireland  ",
-    },
-    {
-      organization: "Product Management    ",
-      jobName: "Product Manager - Web",
-      location: "London, England",
-    },
-    {
-      organization: "Sales Business Systems        ",
-      jobName: "Senior Salesforce CPQ Engineer        ",
-      location: "USA, Remote",
-    },
-  ];
-  const organizationCounts = {};
+  // const data = [
+  //   {
+  //     organization: "Customer Support",
+  //     jobName: "Customer Support Specialist 1",
+  //     location: "Chicago, Illinois",
+  //   },
+  //   {
+  //     organization: "Customer Support",
+  //     jobName: "Customer Support Engineer",
+  //     location: "Dublin, Ireland",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Billing Operations Specialist",
+  //     location: "Chicago, Illinois",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Accounts Payable Specialist        ",
+  //     location: "Dublin, Ireland",
+  //   },
+  //   {
+  //     organization: "Finance and Biz Ops",
+  //     jobName: "Senior Manager, Strategic Planning & Operations  ",
+  //     location: "San Francisco, California      ",
+  //   },
+  //   {
+  //     organization: "Marketing",
+  //     jobName: "Senior Brand Designer, Web      ",
+  //     location: "San Francisco, California      ",
+  //   },
+  //   {
+  //     organization: "Marketing",
+  //     jobName: "Senior Social Content Creator      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "People      ",
+  //     jobName: "Senior HR Business Partner",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Product",
+  //     jobName: "Director of Web      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "DevRel Engineer      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "DevRel Engineer      ",
+  //     location: "London, England        ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "Engineering Manager, Machine Learning Team      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Engineering      ",
+  //     jobName: "Product Engineer      ",
+  //     location: "Dublin, Ireland      ",
+  //   },
+  //   {
+  //     organization: "Product Management    ",
+  //     jobName: "Product Manager",
+  //     location: "Dublin, Ireland  ",
+  //   },
+  //   {
+  //     organization: "Product Management    ",
+  //     jobName: "Product Manager - Web",
+  //     location: "London, England",
+  //   },
+  //   {
+  //     organization: "Sales Business Systems        ",
+  //     jobName: "Senior Salesforce CPQ Engineer        ",
+  //     location: "USA, Remote",
+  //   },
+  // ];
+  const [myjob, setMyJob] = useState([]);
+  const [job, setJob] = useState([]);
+  const [selectedValue, setSelectedValues] = useState([]);
+  const [showfiltercheckboxes, setShowfiltercheckboxes] = useState(false);
 
-  
-  // Iterate over the data array
-  data.forEach((item) => {
-    const organization = item.organization.trim();
+  useEffect(() => {
+    getAllJobs().then((res) => {
+      setMyJob(res.data);
+      setJob(res.data);
+      setShowOrganization(res.data);
+    });
+  }, []);
 
-    // Increment the count for the organization
-    organizationCounts[organization] =
-      (organizationCounts[organization] || 0) + 1;
+  const handleSearch = async (e) => {
+    const searchTerm = e.target.value;
+    if (searchTerm.length == 0) {
+      setMyJob(job);
+    }
+    const results = job?.filter((item) =>
+      item?.title?.rendered?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setMyJob(results);
+  };
+
+  const handleCheckboxChange = (value) => {
+    const updatedValues = [...selectedValue];
+    const index = updatedValues.indexOf(value);
+    if (index === -1) {
+      updatedValues.push(value);
+    } else {
+      updatedValues.splice(index, 1);
+    }
+    setSelectedValues(updatedValues);
+  };
+  const filteredData = job?.filter((ele) => {
+    return selectedValue.includes(ele?.title?.rendered);
   });
+  const handlerShowFilterCheckboxes = () => {
+    setShowfiltercheckboxes((showfiltercheckboxes) => !showfiltercheckboxes);
+  };
 
-  const duplicateOrganizations = Object.entries(organizationCounts)
-    .filter(([_, count]) => count > 1)
-    .map(([organization, count]) => ({ organization, count }));
+  useEffect(() => {
+    setSelectedValues(myjob.map((ele) => ele?.title?.rendered));
+  }, [myjob]);
 
   return (
     <Container>
       <div className="grid grid-cols-2 gap-4 text-center">
-        <div>
+        <div className="text-center">
           {" "}
-          <h3 className="text-h4 font-semibold"> Open roles </h3>
+          <h3 className="text-xl sm:text-h4 font-semibold hidden sm:block">
+            {" "}
+            Open roles{" "}
+          </h3>
         </div>
         <div>
           <div className="flex gap-4 justify-end items-center mr-4">
             Filter:
             <div className="flex rounded-3xl justify-end items-center">
-              <div className="relative py-1 px-5   border rounded-l-3xl">
+              <div className="relative py-1 px-5 border ">
                 <button
-                  className=""
+                  className="flex justify-center items-center gap-3"
                   type="btn"
-                  onClick={() => {
-                    showOrganization === 0
-                      ? setShowOrganization(null)
-                      : setShowOrganization(0);
-                  }}
-                >
-                  Location
-                </button>
-                {showOrganization === 0 && (
-                  <div className="z-10 border  bg-white absolute divide-y divide-gray-100 rounded-lg shadow w-44 ">
-                    <ul
-                      className="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
-                      aria-labelledby="dropdownSearchButton"
-                    >
-                      {data.map((ele,key) => (
-                        <li key={key}>
-                          <div className="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                            <input
-                              id="checkbox-item-11"
-                              type="checkbox"
-                              value=""
-                              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                            />
-                            <label
-                              for="checkbox-item-11"
-                              className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
-                            >
-                              {ele.location}
-                            </label>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-              <div className="relative py-1 px-5 border border-l-0 rounded-r-3xl">
-                <button
-                  className=""
-                  type="btn"
-                  onClick={() => {
-                    showOrganization === 1
-                      ? setShowOrganization(null)
-                      : setShowOrganization(1);
-                  }}
+                  onClick={handlerShowFilterCheckboxes}
                 >
                   Organization
+                  <div className="relative w-[30px] h-[30px]">
+                        <Image
+                          fill={true}
+                          src="/down-arrow.png"
+                          className="bg-contain rounded-full mx-auto"
+                          alt="img"
+                        />
+                  </div>
                 </button>
+
                 {showOrganization === 1 && (
                   <div className="z-10 border  bg-white absolute divide-y divide-gray-100 rounded-lg shadow w-44 ">
                     <ul className="py-2 p-3  text-sm text-gray-700 ">
-                      {duplicateOrganizations.map((ele,key) => (
-                        <div className="flex items-center  rounded hover:bg-gray-100 dark:hover:bg-gray-600" key={key}>
+                      {showOrganization?.map((ele, key) => (
+                        <div
+                          className="flex items-center  rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+                          key={key}
+                        >
                           <input
                             id="checkbox-item-11"
                             type="checkbox"
-                            value=""
+                            // value={ele?.title?.rendered}
                             className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                            checked
+                            onChange={async (e) => {
+                              let value = data.filter(
+                                (ele) => ele.organization == e.target.value
+                              );
+                              console.log(value);
+                              setJob(value);
+                            }}
                           />
                           <label
                             for="checkbox-item-11"
                             className="w-full ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
                           >
-                            {ele.organization} ({ele.count})
+                            {ele?.title?.rendered}{" "}
                           </label>
                         </div>
                       ))}
                     </ul>
                   </div>
                 )}
+
+                {/* filter_checkboxes */}
+                {showfiltercheckboxes ? (
+                  <div
+                    className="sm:min-w-[262px] filter_checkboxes absolute shadow-lg z-30 p-4 rounded-lg flex flex-col justify-start text-left
+                 bg-white ml-auto mr-auto top-10 left-auto right-auto
+                "
+                  >
+                    {myjob?.map((ele, key) => (
+                      <div key={key} className="p-2 flex gap-3 w-full">
+                        <input
+                          type="checkbox"
+                          value={ele.id}
+                          checked={selectedValue.includes(ele?.title?.rendered)}
+                          onChange={() =>
+                            handleCheckboxChange(ele?.title?.rendered)
+                          }
+                        />
+                        <span>{ele?.title?.rendered}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  " "
+                )}
+                {/* filter_checkboxes end */}
               </div>
             </div>
             <div
@@ -197,18 +232,21 @@ const Jobsection = () => {
             >
               <input
                 type="text"
-                placeholder="Search "
+                onChange={(e) => handleSearch(e)}
+                placeholder="Search"
                 className="w-full rounded-l px-4 pl-16 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <img className="w-8 absolute left-5" src="/search.png" />
             </div>
           </div>
         </div>
-        {data.map((ele,key) => (
+        {filteredData?.map((ele, key) => (
           <div className="p-4 flex gap-4 flex-col" key={key}>
-            <p className="text-h6">{ele.organization}</p>
-            <p className="underline mt-3">{ele.jobName}</p>
-            <p className="text-para mt-3">{ele.location}</p>
+            <p className="text-h6">{ele?.title?.rendered}</p>
+            <Link href={`careers/carrers-detail?carrerName=${ele?.slug}`}>
+              <p className="underline mt-3">{ele?.title?.rendered}</p>
+            </Link>
+            <p className="text-para mt-3">{ele?.acf?.location}</p>
           </div>
         ))}
       </div>

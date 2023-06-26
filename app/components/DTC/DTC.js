@@ -2,10 +2,12 @@ import React from "react";
 import Image from "next/image";
 const DTC = () => {
   const images = [
-    "nextmed-color2.svg",
-    "simplesentiments-color3.svg",
-    "labpass-color2.svg",
-    "perry-color4.svg",
+    { url: "nextmed-color2.svg", animation: "mobile leftimg_sec animation" },
+    {
+      url: "simplesentiments-color3.svg", animation: "mobile leftimg_sec animation2",
+    },
+    { url: "labpass-color2.svg", animation: "mobile leftimg_sec animation3" },
+    { url: "perry-color4.svg", animation: "mobile leftimg_sec animation2" }
   ];
   const images1 = [
     "nextmed.svg",
@@ -26,10 +28,10 @@ const DTC = () => {
               key={key}
             >
               <img
-                src={element}
+                src={element.url}
                 fill={true}
                 alt="Picture of the author"
-                className="m-auto object-contain img-div-1"
+                className={`m-auto object-contain img-div-1  ${element.animation}`}
               />
             </div>
           ))}

@@ -1,4 +1,5 @@
 import axios from "axios";
+const API_URL = process.env.NEXT_PUBLIC_WP_POST_API;
 
 export const getCareersContent = async (body) => {
   try {

@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 const Social = () => {
   const images = [
-    "/icons/PayPal1.svg",
-    "/icons/shopify-logo-svg-vector.svg",
-    "zapier.svg",
-    "gorgias.svg",
-    "zendesk-icon-svgrepo-com.svg",
-    "freshdesk.svg",
+    {src:"/icons/PayPal1.svg", animation: "mobile leftimg_sec animation"},
+    {src: "/icons/shopify-logo-svg-vector.svg", animation:"mobile leftimg_sec animation3"},
+    { src:"zapier.svg", animation:"mobile leftimg_sec animation2"},
+    {src:"gorgias.svg", animation:"mobile leftimg_sec animation2"},
+    { src:"zendesk-icon-svgrepo-com.svg", animation:"mobile leftimg_sec animation3"},
+    { src:"freshdesk.svg", animation:"mobile leftimg_sec animation"}
   ];
   return (
     <div className=" bg-[white] py-2 sm:py-10">
@@ -22,10 +22,10 @@ const Social = () => {
               key={key}
             >
               <img
-                src={element}
+                src={element.src}
                 fill={true}
                 alt="Picture of the author"
-                className="m-auto object-contain img-platform mx-auto"
+                className={`m-auto object-contain img-platform mx-auto , ${element.animation}`}
               />
             </div>
           ))}

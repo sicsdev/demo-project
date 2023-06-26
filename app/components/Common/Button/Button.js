@@ -6,7 +6,7 @@ const Button = ({ type, className, disabled, children, onClick, ...rest }) => {
             <button
                 type={type || 'button'}
                 disabled={disabled || false}
-                className={`focus:outline-none focus:ring-4  font-bold rounded-md text-base py-2.5 mb-2 ${className} disabled:bg-input_color disabled:text-white`}
+                className={`focus:outline-none focus:ring-4  font-bold rounded-md text-base py-2.5  ${className} disabled:bg-input_color disabled:text-white`}
                 onClick={onClick}
                 {...rest}
             >
