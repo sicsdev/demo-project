@@ -266,7 +266,7 @@ select::-ms-expand {
   height: 52px;
   visibility: hidden;
   width: 100%;
-  animation: opacityChange 10.4s linear;
+  animation: opacityChange 12s linear;
 }
 
 @keyframes opacityChange {
@@ -275,7 +275,7 @@ select::-ms-expand {
   }
 
   100% {
-    stroke-dasharray: 740.373;
+    stroke-dasharray: 780.373;
   }
 }
 .div-anima .bg-black + .rainbow .facet-pill-border rect,
