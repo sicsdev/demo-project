@@ -190,7 +190,7 @@ const BlogSidebar = ({ children }) => {
             </div>
           </div>
         </div>
-        <div className="w-full px-6 sm-w-[80%] md-w-[80%] lg-w-[80%] ">
+        <div className="w-full px-10 sm-w-[80%] md-w-[80%] lg-w-[80%] ">
           <div className="block sm:hidden md:hidden lg:hidden">
             <Accordion allowZeroExpanded>
               <AccordionItem>
@@ -206,11 +206,10 @@ const BlogSidebar = ({ children }) => {
                   <div className="group " key={key}>
                     <AccordionItemPanel>{ele.name}</AccordionItemPanel>
                   </div>
-                ))}
+                ))} 
               </AccordionItem>
             </Accordion>
           </div>
-
           <hr class="h-px my-8 bg-gray-200 border-b-0 dark:bg-gray-700 left-0" />
           {children}
           <Footer />
