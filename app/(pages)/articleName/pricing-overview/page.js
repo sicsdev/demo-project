@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { getArticlePage } from "@/app/API/pages/Wpdata";
-
+import Link from "next/link";
 const page = () => {
   const [single, setSingle] = useState("");
 
@@ -28,7 +28,7 @@ const page = () => {
         dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
       ></p>
       <div className=" overflow-x-auto shadow-md sm:rounded-lg ">
-        <table className="  text-sm text-left text-gray-500 dark:text-gray-400 border w-[60%] m-auto">
+        <table className="  text-sm text-left text-gray-500 dark:text-gray-400 border sm:w-[60%] m-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th scope="col" className="px-6 py-3 border-[1px] bg-badge_blue">
@@ -71,7 +71,7 @@ const page = () => {
               <td className="px-6 py-4">
                 {single?.acf?.row3r}
                 <p
-                 className="text-[blue] font-bold"
+                  className="text-[blue] font-bold"
                   dangerouslySetInnerHTML={{
                     __html: `
                  <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
@@ -121,7 +121,7 @@ const page = () => {
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }}
         ></p>
-        <table className="  text-sm text-left text-gray-500 dark:text-gray-400 border w-[40%] m-auto">
+        <table className="  text-sm text-left text-gray-500 dark:text-gray-400 border sm:w-[40%] m-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>
               <th scope="col" className="px-6 py-3 bg-badge_blue border-[1px]">
@@ -173,7 +173,20 @@ const page = () => {
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }}
         ></p>
-
+        <div className="sm:w-[20%] text-center m-auto">
+        <button
+          className={
+            "py-2 px-8  focus:ring-yellow-300 text-center text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+          }
+        >
+          <Link
+            href="/free-trial
+"
+          >
+            Enterprise Demo &#8594;{" "}
+          </Link>
+        </button>
+        </div>
         <p className="font-bold  px-4 pt-8 text-heading md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
           {single?.acf?.sedond_head}
         </p>
@@ -181,6 +194,21 @@ const page = () => {
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy3 }}
         ></p>
+        <div className="sm:w-[20%] m-auto py-4">
+
+        <button
+          className={
+            "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+          }
+        >
+          <Link
+            href="/checkout
+"
+          >
+            Checkout &#8594;{" "}
+          </Link>
+        </button>
+        </div>
       </div>
     </div>
   );
