@@ -25,7 +25,6 @@ export default function RootLayout({ children }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-
           (function(h,o,t,j,a,r){
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             h._hjSettings={hjid:3513917,hjsv:6};
@@ -38,6 +37,23 @@ export default function RootLayout({ children }) {
           `,
           }}
         ></script>
+
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            var userId = your_user_id || null; // Replace your_user_id with your own if available.
+            window.hj('identify', userId, {
+                // Add your own custom attributes here. Some EXAMPLES:
+                'Email': "".
+                // 'Last purchase category': 'Electronics', // Send strings with quotes around them.
+                // 'Total purchases': 15, // Send numbers without quotes.
+                // 'Last purchase date': '2019-06-20Z', // Send dates in ISO-8601 format.
+                // 'Last refund date': null, // Send null when no value exists for a user.
+            });
+          `,
+          }}
+        ></script>
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -69,14 +85,17 @@ export default function RootLayout({ children }) {
           }}
         />
         {/* <!-- Google tag (gtag.js) --> */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"></script>
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-GEYJNVQCQE')`
+  gtag('config', 'G-GEYJNVQCQE')`,
           }}
         />
 
@@ -102,12 +121,9 @@ _learnq.push(['account', 'UVQx8p']);
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
-          <div className="tempo_container">
-            {children}
-          </div>
+          <div className="tempo_container">{children}</div>
         </ProviderWrapper>
       </body>
-
 
       <script
         src="https://assets.calendly.com/assets/external/widget.js"
