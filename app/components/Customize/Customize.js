@@ -5,7 +5,6 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import '../../(dashboard)/dashboard/customize/widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
 import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
-import { getBotAllData } from '@/app/API/pages/Bot';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useSelector } from 'react-redux';
 

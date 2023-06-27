@@ -6,15 +6,11 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { submitCheckout } from "@/app/API/pages/Checkout";
 import { useRouter } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
 
-const stripe_api =
-  "pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW";
-const stripeLib = loadStripe(stripe_api);
 
 const CheckOutForm = ({ checkoutForm, boxValid }) => {
   const router = useRouter();
@@ -24,14 +20,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
   const [errors, setError] = useState([]);
   const [loading, setLoading] = useState();
 
-  const handleSubscribe = async (paymentMethod, userToken) => {
-    let bodyForSubscribe = {
-      token: paymentMethod.id,
-      price: "77f3ee07-46ab-4c6d-8d3e-8da3d42bee54",
-    };
-    const response = await subscribeCustomer(bodyForSubscribe, userToken);
-    debugger
-  };
+
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -54,11 +43,12 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
       // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
 
       const result = await submitCheckout(checkoutForm2);
-      debugger
       if (result.token) {
-        handleSubscribe(paymentMethod, result.token);
-        localStorage.setItem("Token", result.token);
-        router.push("/dashboard");
+        let bodyForSubscribe = {
+          token: paymentMethod.id, 
+        };
+        const response = await subscribeCustomer(bodyForSubscribe, result.token);
+        console.log(response)
         setError([]);
       } else {
         setError(getErrorsArray(result.response.data));

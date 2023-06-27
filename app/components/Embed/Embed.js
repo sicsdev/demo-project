@@ -9,7 +9,7 @@ import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
 import Loading from '../Loading/Loading';
 import { fetchProfile } from '../store/slices/userSlice';
 import { useRouter } from 'next/navigation';
-import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ClipboardIcon, CheckIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 
 import { xcodeLight, xcodeLightInit, xcodeDark, xcodeDarkInit } from '@uiw/codemirror-theme-xcode';
 
@@ -24,6 +24,7 @@ const Embed = ({ form = true }) => {
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
     const [copied, setCopied] = useState({ key: null, message: null });
+    const [dropdown, setDropdown] = useState(null);
     const [markdown, setmarkdown] = useState('');
     const [detailsData, setDetailsData] = useState(null)
 
@@ -34,7 +35,7 @@ const Embed = ({ form = true }) => {
 
     useEffect(() => {
         if (state.id && form) {
-        getBotWidgetData()
+            getBotWidgetData()
         }
         if (!form && state.botData.data === null) {
             dispatch(fetchBot())
@@ -134,12 +135,10 @@ const Embed = ({ form = true }) => {
 
                                         <div className='mt-5 border rounded-md border-border  bg-white'>
                                             <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
-                                                <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
-                                                >
-                                                    <PencilSquareIcon className='h-5 w-5' />
-                                                </Link>
                                                 {copied.message && copied.key === key ? <>
-                                                    <span className='flex items-center'> <CheckIcon className="h-5 w-5 " /> Copied!</span> </> :
+                                                    <span className='flex items-center'>
+                                                        <CheckIcon className="h-5 w-5 " />
+                                                        Copied!</span> </> :
                                                     <CopyToClipboard text={element.code} onCopy={() => {
                                                         setCopied((prev) => {
                                                             return {
@@ -165,10 +164,30 @@ const Embed = ({ form = true }) => {
                                                         </button>
                                                     </CopyToClipboard>
                                                 }
+                                                <div className='relative'>
+                                                    <button type={"button"}
+                                                        onClick={() => { dropdown === key ? setDropdown(null) : setDropdown(key) }}
+                                                        className="border-none p-0 m-0 flex gap-1 items-center"
+                                                    >
+                                                        <EllipsisVerticalIcon className="h-5 w-5 " /></button>
+                                                    {dropdown === key && (
+                                                        <div className="animate-fadeIn absolute left-[-120px]  z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                                            <ul className=" text-sm ">
+                                                                <li>
+                                                                    <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`} className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-heading ">Edit</Link>
+                                                                </li>
+                                                                <li>
+                                                                <Link href={`/dashboard/view-logs?id=${element.id}&name=${element.title}`}  className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading">View Logs</Link>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    )}
+                                                </div>
+
                                             </div>
                                             <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
                                                 <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
-                                                <div>
+                                                <div className='my-2'>
                                                     <CodeMirror
                                                         value={element.code.trim()}
                                                         height="auto"
@@ -180,7 +199,9 @@ const Embed = ({ form = true }) => {
                                                         className='border-none'
                                                     // onChange={onChange}
 
-                                                    /></div>
+                                                    />
+                                                </div>
+
                                             </div>
 
                                         </div>

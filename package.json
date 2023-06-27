@@ -33,6 +33,7 @@
     "react-accessible-accordion": "^5.0.0",
     "react-calendly": "^4.1.1",
     "react-copy-to-clipboard": "^5.1.0",
+    "react-data-table-component": "^7.5.3",
     "react-dom": "18.2.0",
     "react-fast-marquee": "^1.5.2",
     "react-ga": "^3.3.1",

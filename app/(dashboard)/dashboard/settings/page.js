@@ -10,10 +10,13 @@ import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSett
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
 import Button from '@/app/components/Common/Button/Button';
 import { getBillingDetails } from '@/app/API/pages/Checkout';
+import Billing from '@/app/components/Stripe/Billing/Billing';
+import StripeWrapper from '@/app/components/Stripe/Wrapper/StripeWrapper';
+import Card from '@/app/components/Common/Card/Card';
 const Page = () => {
     const parseAddress = (address) => {
         let returned = {};
-        const splitAddr = address.split(",");
+        const splitAddr = address?.split(",");
         returned.zipcode = splitAddr[splitAddr.length - 1];
         returned.country = splitAddr[splitAddr.length - 2];
         returned.state = splitAddr[splitAddr.length - 3];
@@ -26,7 +29,8 @@ const Page = () => {
         return returned;
     };
     const state = useSelector(state => state.user)
-    const [isEdit, setIsEdit] = useState(true)
+    const [isEdit, setIsEdit] = useState(false)
+    const [showBilling, setShowBilling] = useState(false)
     const [basicFormData, setBasicFormData] = useState(null)
     const getBillingData = async () => {
         const response = await getBillingDetails()
@@ -50,7 +54,7 @@ const Page = () => {
 
             })
         }
-        
+
     }, [state.data])
     const returnStateName = (state) => {
         const find_state = state_data.find((x) => x.abbreviation === state.trim())
@@ -83,23 +87,52 @@ const Page = () => {
                     <BasicDetailsReadOnly state={basicFormData} />
                 </> :
                 <>
-                    <EmailAgentSetting form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                    <EmailConfig form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                    <div className='my-3'>
-                        <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                    </div>
-                    <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-                        <>
-                            <Button type={"button"}
-                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                    <Card className={'my-5'}>
+                        {showBilling ?
 
-                            >
-                                Submit
+                            <div className='flex justify-between items-center'>
+                                <h3 className='text-center text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading'>Billing</h3>
+                                <p className=' cursor-pointer' onClick={() => { setShowBilling(false) }}>Back</p>
+                            </div>
+                            :
 
-                            </Button>
+                            <div className='flex justify-between items-center'>
+                                <h3 className='text-center text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading'>Card Details</h3>
 
-                        </>
-                    </div>
+                                <p className='cursor-pointer' onClick={() => { setShowBilling(true) }}>Edit</p>
+                            </div>
+                        }
+
+                        {showBilling ?
+                            <StripeWrapper>
+                                <Billing />
+                            </StripeWrapper>
+                            :
+                            <div className='flex justify-between items-center'>
+                                <h3 className='text-center text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Card Number: <span className='text-md'>**88</span></h3>
+                                <h3 className='text-center text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Exp: 02/24</h3>
+                            </div>
+                        }
+                    </Card>
+                    <Card className={'my-5'}>
+                        <EmailAgentSetting form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        <EmailConfig form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        <div className='my-3'>
+                            <BasicDetails form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        </div>
+                        <div className={`flex p-2 rounded-b mt-5 justify-between`}>
+                            <>
+                                <Button type={"button"}
+                                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+
+                                >
+                                    Submit
+
+                                </Button>
+
+                            </>
+                        </div>
+                    </Card>
                 </>
             }
         </div>
