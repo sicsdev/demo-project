@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
             var userId = your_user_id || null; // Replace your_user_id with your own if available.
             window.hj('identify', userId, {
                 // Add your own custom attributes here. Some EXAMPLES:
-                'Email': "".
+                // 'Email': "".
                 // 'Last purchase category': 'Electronics', // Send strings with quotes around them.
                 // 'Total purchases': 15, // Send numbers without quotes.
                 // 'Last purchase date': '2019-06-20Z', // Send dates in ISO-8601 format.
