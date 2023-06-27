@@ -101,7 +101,7 @@ const Demo = () => {
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
       var userId = null
-      window.hj('identify', userId, { 
+      hj('identify', userId, { 
         Email: email
     });
     debugger
