@@ -100,7 +100,6 @@ const Demo = () => {
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      var userId = null
       hj('identify', userId, { 
         Email: email
     });
