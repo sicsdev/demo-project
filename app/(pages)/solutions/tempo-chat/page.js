@@ -2,8 +2,7 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import SmartAlert from "@/app/components/ChatBots/SmartAlert";
-
+import Tempoalert from "@/app/components/ChatBots/Tempoalert";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 import AboveSection from "@/app/components/solutions/AboveSection";
@@ -49,7 +48,7 @@ const page = () => {
     <div>
       <AboveSection />
       <SolutionStandard />
-      <SmartAlert/>
+      <Tempoalert/>
 
       <Testimonial />
       {/* <Requestdemo/> */}

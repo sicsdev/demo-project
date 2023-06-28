@@ -43,9 +43,15 @@ const Smartsection = () => {
               </div>
             </form>
             <div className=" block sm:hidden">
-              <div className="mr-2 relative w-[343px] sm:w-[578px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-              </div>
+            <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+              <Image
+                src="/smart-inbox.png"
+                className="w-full bg-contain mx-auto"
+                fill={true}
+              />
             </div>
+          </div>
+         
             <p className="text-white mt-4">
               Responding proactively, not just reactively: With Smart Inbox,
               handle email tickets swiftly and efficiently. Achieve SLAs under 5
@@ -76,12 +82,11 @@ const Smartsection = () => {
               <div className="w-[33%] text-center sm:text-left ">
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[70px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
-                <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
+                <InboxIcon className="h-10 w-10 text-[#2563eb]" />
 
                 </div>
                 <p className="text-white  text-[15px]  js-show-on-scroll">
-                  cut your customer service costs in half, guaranteed{" "}
-                </p>
+                cut your CS costs in half, guaranteed                </p>
               </div>
             </div>
           </div>

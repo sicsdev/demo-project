@@ -3,7 +3,7 @@ import React from "react";
 
 const Alert = () => {
   return (
-    <div className="bg-white py-6 sm:py-5">
+    <div className="bg-background py-6 sm:py-5">
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
         <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center  sm:my-8  leading-[40px] sm:leading-[60px] text-heading">
         Stay Ahead with Round-the-Clock Support and Seamless Integration        </h2>
