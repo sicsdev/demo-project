@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import Smartsection from "@/app/components/solutions/Smartsection";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
-import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,7 +46,9 @@ const page = () => {
   return (
     <div>
       <Smartsection />
-      <SmartAlert />
+      <SolutionStandard />
+      <SmartAlert/>
+
       <Testimonial />
       {/* <Requestdemo/> */}
     </div>
