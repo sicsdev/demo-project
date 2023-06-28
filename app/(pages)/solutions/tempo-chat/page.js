@@ -48,8 +48,8 @@ const page = () => {
   return (
     <div>
       <AboveSection />
-      <SmartAlert/>
       <SolutionStandard />
+      <SmartAlert/>
 
       <Testimonial />
       {/* <Requestdemo/> */}
