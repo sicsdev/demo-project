@@ -23,7 +23,6 @@ export const getCareersJobs = async (params) => {
   }
 };
 
-
 export const getBlogsPage = async (body) =>{
   try{
     const response = await axios.get(
@@ -40,6 +39,16 @@ export const getSingleBlogsPage = async (params) =>{
   try{
     const response = await axios.get(
       `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params.slug}`
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+export const getArticlePage = async (params) =>{
+  try{
+    const response = await axios.get(
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params}`
     );
     return response;
   } catch (error) {

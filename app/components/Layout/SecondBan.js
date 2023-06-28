@@ -10,7 +10,7 @@ const SecondBan = () => {
     <>
       <div className="z-40 text-center p-3 bg-[#142543] hidden sm:block" >
       <h6 className="text-blue-700 text-white text-para  " >
-      Our Guarantee: Reduce CS costs by 50% with Tempo AI or your money back!(see terms)
+      Our Guarantee: Reduce CS costs by 50% with Tempo AI or your money back!
       </h6>
     </div>
       <div className="z-40 text-center p-3 bg-[#142543] block sm:hidden" onClick={() =>
