@@ -3,7 +3,7 @@ import Image from "next/image";
 import Button from "../Common/Button/Button";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { ScissorsIcon } from "@heroicons/react/24/outline";
+import { InboxIcon } from "@heroicons/react/24/outline";
 
 
 const AboveSection = () => {
@@ -77,7 +77,7 @@ const AboveSection = () => {
               <div className="w-[33%] text-center sm:text-left ">
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
-                <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
+                  <InboxIcon className="h-10 w-10 text-[#2563eb]" />
 
                 </div>
                 <p className="text-white  text-[15px]  js-show-on-scroll">
@@ -88,7 +88,7 @@ const AboveSection = () => {
           <div className=" hidden sm:block">
             <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
               <Image
-                src="/above.png"
+                src="/tempo-chat.png"
                 className="w-full bg-contain mx-auto"
                 fill={true}
               />

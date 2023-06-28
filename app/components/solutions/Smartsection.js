@@ -3,6 +3,7 @@ import Image from "next/image";
 import Button from "../Common/Button/Button";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { ScissorsIcon } from "@heroicons/react/24/outline";
 import { InboxIcon } from "@heroicons/react/24/outline";
 
 const Smartsection = () => {
@@ -12,12 +13,11 @@ const Smartsection = () => {
         <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
           <div className="">
             <h1 className=" font-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-              Introducing your{" "}
+              Introducing your  
               <span className="text-first-section-color">
                 {" "}
-                Email Superhero.
-              </span>{" "}
-              Never Miss an Inbox Beat.{" "}
+                email superhero.              </span>{" "}
+              Never miss an inbox beat.
             </h1>
             <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8">
               <div className="inline col-span-2 ">
@@ -44,7 +44,6 @@ const Smartsection = () => {
             </form>
             <div className=" block sm:hidden">
               <div className="mr-2 relative w-[343px] sm:w-[578px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                <ClockIcon className="h-6 w-6 text-gray-500" />
               </div>
             </div>
             <p className="text-white mt-4">
@@ -59,7 +58,7 @@ const Smartsection = () => {
                 {" "}
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
-                  <InboxIcon className="h-10 w-10 text-[#2563eb]" />
+                  <ClockIcon className="h-10 w-10 text-[#2563eb]" />
 
                 </div>
                 <p className="text-white  text-[15px]  js-show-on-scroll">
@@ -77,7 +76,8 @@ const Smartsection = () => {
               <div className="w-[33%] text-center sm:text-left ">
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[70px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
-                  <InboxIcon className="h-10 w-10 text-[#2563eb]" />
+                <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
+
                 </div>
                 <p className="text-white  text-[15px]  js-show-on-scroll">
                   cut your customer service costs in half, guaranteed{" "}
@@ -88,7 +88,7 @@ const Smartsection = () => {
           <div className=" hidden sm:block">
             <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
               <Image
-                src="/above.png"
+                src="/smart-inbox.png"
                 className="w-full bg-contain mx-auto"
                 fill={true}
               />
