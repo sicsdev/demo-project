@@ -94,8 +94,22 @@ const Demo = () => {
     });
   };
 
+
+
+  
+
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
+      hj('identify', userId, { 
+        Email: email
+    });
+    debugger
+console.log("sent")
+
+      let payload = {
+        event: "Blur-Email",
+      };
+      window.dataLayer?.push(payload);
       // sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {

@@ -112,54 +112,6 @@ const Info = () => {
       p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
     },
   ];
-  // const [activeTab, setActiveTab] = useState({
-  //   previous: null,
-  //   next: 1,
-  //   current: 0,
-  // });
-
-  // const handleTabClick = (index) => {
-  //   setActiveTab({
-  //     previous: index === 0 ? 0 : index - 1,
-  //     next: tabs.length - 1 === index ? 1 : index + 1,
-  //     current: index,
-  //   });
-  // };
-  // const passClassesByValue = (index) => {
-  //   if (activeTab.next === 0 && index === 0) {
-  //     return "start-rainbow rainbow ";
-  //   }
-  //   if (activeTab.next === index) {
-  //     return "rainbow";
-  //   }
-  //   if (activeTab.current === index) {
-  //     return "bg-black text-white";
-  //   }
-  //   if (activeTab.previous === null) {
-  //     return "";
-  //   }
-  //   return "";
-  // };
-  // let time_timer = 8000;
-  // function startTimer() {
-  //   setInterval(updateState, time_timer);
-
-  //   clearInterval();
-  // }
-  // function updateState() {
-  //   setActiveTab({
-  //     previous: activeTab.previous ? activeTab.previous + 1 : null,
-  //     next: tabs.length - 1 === activeTab.next ? 0 : activeTab.next + 1,
-  //     current:
-  //       activeTab.current === tabs.length - 1 ? 0 : activeTab.current + 1,
-  //   });
-  //    if (time_timer === 8000) {
-  //     time_timer = 10000;
-  //   }
-  // }
-  // useEffect(() => {
-  //   startTimer();
-  // }, [activeTab.current]);
 
   const [activeTab, setActiveTab] = useState(0);
   const [timer, setTimer] = useState(11);
@@ -190,77 +142,6 @@ const Info = () => {
 
   return (
     <>
-      {/* <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
-        <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          Save Millions with Tempo.
-        </h2>
-        <div className="sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-20 div-anima">
-          <div className="">
-            <div className="flex sm:flex-col h-full bg-white gap-3">
-              {tabs.map((tab, index) => (
-                <>
-                  <div
-                    key={index}
-                    className={`flex items-center relative justify-center gap-3 w-100 text-center my-2 py-3 sm:p-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${passClassesByValue(
-                      index
-                    )}`}
-                    onClick={() => handleTabClick(index)}
-                  >
-                    <div className="relative w-[18px] h-[18px]">
-                    {tab.icon}
-                    </div>
-                    <p>{tab.title}</p>
-                    <svg
-                      className="facet-pill-border"
-                      height="52"
-                      width="100%"
-                      role="presentation"
-                      aria-hidden="true"
-                    >
-                      <rect
-                        height="52"
-                        width="100%"
-                        ry="26"
-                        style={{
-                          strokeDasharray: 376.373,
-                          strokeDashoffset: 376.373,
-                        }}
-                      ></rect>
-                    </svg>
-                  </div>
-                </>
-              ))}
-            </div>
-          </div>
-
-          <div className="bg-white px-4 pb-10 sm:pb-2">
-            <div className="flex flex-wrap sm:flex-nowrap items-center">
-              <div className="w-full sm:px-12">
-                <div className="h-[228px] sm:h-[328px]">
-                  <video
-                    autoPlay
-                    muted
-                    src={tabs[activeTab.current].content_video}
-                    loop
-                    playsInline
-                    className="w-100"
-                    style={{ minHeightL: "200px" }}
-                  />
-                </div>
-              </div>
-              <div className="w-full sm:px-12">
-                <h3
-                  class="font-bold text-2xl  md:text-h3 lg:text-h3 sm:text-h3 text-left mt-6 sm:mt-2 mb-2 sm:mb-4 text-heading"
-                  style={{ lineHeight: "38px" }}
-                >
-                  {tabs[activeTab.current].h3}
-                </h3>
-                <p>{tabs[activeTab.current].p}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
           Save Millions with Tempo.

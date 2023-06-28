@@ -4,7 +4,7 @@ const API_URL = process.env.NEXT_PUBLIC_WP_POST_API;
 export const getCareersContent = async (body) => {
   try {
     const response = await axios.get(
-      `https://public-api.wordpress.com/rest/v1.1/sites/usetempo.ai/posts?category=careers`  
+      "https://public-api.wordpress.com/rest/v1.1/sites/usetempo.ai/posts?category=careers"
     );
     return response;
   } catch (error) {
@@ -23,11 +23,10 @@ export const getCareersJobs = async (params) => {
   }
 };
 
-
 export const getBlogsPage = async (body) =>{
   try{
     const response = await axios.get(
-      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026346`
+      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026346"
     );
     return response;
   } catch (error) {
