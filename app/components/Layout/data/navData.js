@@ -8,14 +8,14 @@ export const nav_links = [
                     list_heading: "Chat Support",
                     data: [
                         {
-                            icon: "/menu/5.png",
+                            icon: "/four.png",
                             "heading": "Chat Bot",
                             label: "",
                             link: "/solutions/chat-bot",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
-                            icon: "/menu/6.png",
+                            icon: "/three.png",
                             "heading": "Email Ticketing",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
@@ -29,7 +29,7 @@ export const nav_links = [
                     list_heading: "Voice Support",
                     data: [
                         {
-                            icon: "/menu/7.png",
+                            icon: "/two.png",
                             "heading": "Inbound Smart IVR",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
@@ -38,7 +38,7 @@ export const nav_links = [
                             "para": "GPT4-powered phone support for CS needs. "
                         },
                         {
-                            icon: "/menu/8.png",
+                            icon: "/one.png",
                             "heading": "Outbound Agent",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
