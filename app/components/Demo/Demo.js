@@ -95,9 +95,6 @@ const Demo = () => {
   };
 
 
-
-  
-
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
       hj('identify', userId, { 
