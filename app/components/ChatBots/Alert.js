@@ -9,49 +9,62 @@ const Alert = () => {
           Alert Relationship Owners to Churn Risks
         </h2>
         <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
-          <div className="p-4 sm:p-28">
+          <div className="p-4 sm:p-[3rem]">
             <div className="flex justify-start gap-6">
               <div className="relative w-[90px] h-[35px]">
-                <Image
-                  fill={true}
-                  src="/ico-bullet.svg"
-                  className="bg-contain rounded-full mx-auto"
-                  alt="img"
-                />
+              <span className="flex sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl align-bottom font-semibold">
+                      {" "}
+                      &#x2713; 
+                    </span>
               </div>
               <div>
                 <h3 className="font-bold  text-[18px] md:text-h5 lg:text-h5 sm:text-h5    text-heading">
-                  Automatically alert relationship owners
+                  Never Miss a Beat with 24/7 Support{" "}
                 </h3>
                 <p className="">
-                  Automatically alert relationship owners Nothing slips through
-                  the cracks or gets lost in translation. Natural language AI
-                  detects negative language so you can get everyone on the same
-                  page while the iron is hot.
+                  Stay ahead of the game with Tempo Chat. No need to hire around
+                  the clock and overpay while missing your SLAs with subpar
+                  quality. Tempo Chat is always being there when your customers
+                  need support.
                 </p>
               </div>
             </div>
             <div className="flex justify-start gap-6 mt-6">
               <div className="relative w-[90px] h-[35px]">
-                <Image
-                  fill={true}
-                  src="/ico-bullet.svg"
-                  className="bg-contain rounded-full mx-auto"
-                  alt="img"
-                />
+              <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
+                      {" "}
+                      &#x2713; 
+                    </span>
               </div>
               <div>
                 <h3 className="font-bold text-[18px]  md:text-h5 lg:text-h5 sm:text-h5 text-heading">
-                  See risks well before "cancel"
+                  Smooth Integration with Your Existing Systems{" "}
                 </h3>
                 <p className="">
-                  Automatically alert relationship owners Nothing slips through
-                  the cracks or gets lost in translation. Natural language AI
-                  detects negative language so you can get everyone on the same
-                  page while the iron is hot.
+                  We believe in making things easy. That's why Tempo Chat
+                  integrates seamlessly with your backend processes, providing a
+                  smooth, hassle-free transition that amplifies your efficiency.
                 </p>
               </div>
             </div>
+            <div className="flex justify-start gap-6 mt-6">
+            <div className="relative w-[90px] h-[35px]">
+            <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
+                      {" "}
+                      &#x2713; 
+                    </span>
+            </div>
+            <div>
+              <h3 className="font-bold text-[18px]  md:text-h5 lg:text-h5 sm:text-h5 text-heading">
+                Clear and Fair Billing: Only Pay for What You Use{" "}
+              </h3>
+              <p className="">
+                At Tempo Chat, transparency is our mantra. Our straightforward
+                billing structure charges only 25 cents per chat response. Enjoy
+                the simplicity of paying only for what you truly use.{" "}
+              </p>
+            </div>
+          </div>
           </div>
           <div className="text-center">
             <div className="relative h-100 sm:h-[546px] w-100 sm:w-[565px]">
@@ -62,6 +75,7 @@ const Alert = () => {
               />
             </div>
           </div>
+      
         </div>
       </div>
 
@@ -82,12 +96,10 @@ const Alert = () => {
           <div className="p-4 sm:p-28 ">
             <div className="flex justify-start gap-6">
               <div className="relative w-[90px] h-[35px]">
-                <Image
-                  fill={true}
-                  src="/ico-bullet.svg"
-                  className="bg-contain rounded-full mx-auto"
-                  alt="img"
-                />
+              <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
+                      {" "}
+                      &#x2713; 
+                    </span>
               </div>
               <div>
                 <h3 className="font-bold  text-[18px]   md:text-h5 lg:text-h5 sm:text-h5   text-white sm:text-heading">
@@ -103,12 +115,10 @@ const Alert = () => {
             </div>
             <div className="flex justify-start gap-6 mt-6  ">
               <div className="relative w-[90px] h-[35px]">
-                <Image
-                  fill={true}
-                  src="/ico-bullet.svg"
-                  className="bg-contain rounded-full mx-auto"
-                  alt="img"
-                />
+              <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
+                      {" "}
+                      &#x2713; 
+                    </span>
               </div>
               <div>
                 <h3 className="font-bold text-[18px] md:text-h5 lg:text-h5 sm:text-h5   text-white sm:text-heading">
