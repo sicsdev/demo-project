@@ -1,27 +1,49 @@
-import Link from 'next/link'
-import React from 'react'
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
 const List = ({ nav_links, className }) => {
-    return (
-        <div className={className}>
-            {nav_links?.map((element, key) =>
-                <div key={key} className={`p-1 ${key !== nav_links.length - 1 && ("md:border lg:border md:border-l-0 md:border-b-0 md:border-t-0 lg:border-l-0 lg:border-b-0 lg:border-t-0 border-border")}`}>
-                    <h3 className='text-heading uppercase text-sm font-semibold'>{element.list_heading}</h3>
-                    <ul className='mt-5'>
-                        {element.data.map((element, key) =>
-                            <li className='cursor-pointer' key={key}>
-                                <Link href={element.link}>
-                                <div className='hover:bg-gray p-2 rounded-lg'>
-                                    <h3 className='text-heading text-semibold flex items-center justify-between'>{element.heading}{" "} {element.label}</h3>
-                                    <p className='text-border text-xs mt-2 min-h-[34px]'>{element.para}</p>
-                                </div>
-                                </Link>
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            )}
+  return (
+    <div className={className}>
+      {nav_links?.map((element, key) => (
+        <div
+          key={key}
+          className={`p-1 ${
+            key !== nav_links.length - 1 &&
+            "md:border lg:border md:border-l-0 md:border-b-0 md:border-t-0 lg:border-l-0 lg:border-b-0 lg:border-t-0 border-border"
+          }`}
+        >
+          <h3 className="text-heading uppercase text-sm font-semibold">
+            {element.list_heading}
+          </h3>
+          <ul className="mt-5">
+            {element.data.map((element, key) => (
+              <li className="cursor-pointer" key={key}>
+                <Link href={element.link}>
+                  <div className="hover:bg-gray p-2 rounded-lg flex gap-4 justify-start items-start">
+                    <div className="">
+                      <img
+                        src={element.icon}
+                        alt="menu_icons"
+                        style={{ maxWidth: "22px"}}
+                      />
+                    </div>
+                    <div className="">
+                      <h3 className="text-heading text-semibold flex items-center justify-between">
+                        {element.heading} {element.label}
+                      </h3>
+                      <p className="text-border text-xs mt-2 min-h-[34px]">
+                        {element.para}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
-    )
-}
+      ))}
+    </div>
+  );
+};
 
-export default List
+export default List;
