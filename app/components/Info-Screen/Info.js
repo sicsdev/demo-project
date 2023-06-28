@@ -200,7 +200,7 @@ const Info = () => {
                     src={tabs[activeTab].content_video}
                     loop
                     playsInline
-                    className="w-100"
+                    className="w-100 rounded-2xl"
                     style={{ minHeightL: "200px" }}
                   />
                 </div>

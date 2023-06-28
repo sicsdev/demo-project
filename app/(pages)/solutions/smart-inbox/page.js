@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
-import AboveSection from "@/app/components/solutions/AboveSection";
+import Smartsection from "@/app/components/solutions/Smartsection";
+import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 const page = () => {
   const router = useRouter();
@@ -45,8 +46,10 @@ const page = () => {
   
   return (
     <div>
-      <AboveSection />
+      <Smartsection />
       <SolutionStandard />
+      <SmartAlert/>
+
       <Testimonial />
       {/* <Requestdemo/> */}
     </div>
