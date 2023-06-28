@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import Smartsection from "@/app/components/solutions/Smartsection";
+import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 const page = () => {
   const router = useRouter();
