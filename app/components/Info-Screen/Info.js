@@ -52,7 +52,7 @@ const Info = () => {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-6 h-6"
+          className="w-6 h-6"
         >
           <path
             stroke-linecap="round"
@@ -198,13 +198,13 @@ const Info = () => {
           Save Millions with Tempo.
         </h2>
         <div className="sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-20 div-anima">
-          <div className="">
+          <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
             <div className="flex sm:flex-col h-full bg-white gap-3">
               {tabs.map((tab, index) => (
                 <>
                   <div
                     key={index}
-                    className={`w-[192px] flex items-center relative justify-center gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
+                    className={`min-w-[170px] w-[192px] flex items-center relative justify-center gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
                       index === activeTab
                         ? "active bg-black text-white start-rainbow"
                         : "start-rainbow"
