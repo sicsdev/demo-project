@@ -21,17 +21,6 @@ const page = () => {
     const utm_content    = searchParams.get('utm_content');
     const msclkid     = searchParams.get('msclkid');
 
-    console.log("gclid",gclid)
-    console.log("utm_source",utm_source )
-    console.log("utm_medium",utm_medium )
-    console.log("utm_content",utm_content )
-    console.log("utm_term",utm_term )
-    console.log("matchtype",matchtype )
-    console.log("msclkid",msclkid )
-    console.log("utm_campaign",utm_campaign )
-
-
-
     Cookies.set('gclid', gclid, { expires: 90 });
     Cookies.set('msclkid', msclkid, { expires: 90 });
     Cookies.set('utm_source', utm_source, { expires: 90 });
