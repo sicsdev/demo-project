@@ -126,50 +126,49 @@ const AboveSection = () => {
                 </Button>
               </div>
             </form>
-            <div className=" block sm:hidden">
-            <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-              <Image
-                src="/tempo-chat.png"
-                className="w-full bg-contain mx-auto"
-                fill={true}
-              />
+            <div className=" block sm:hidden mt-4">
+              <div className="ml-auto mr-auto sm:mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+                <Image
+                  src="/tempo-chat.png"
+                  className="w-full bg-contain mx-auto"
+                  fill={true}
+                />
+              </div>
             </div>
-          </div>
-          
-            <p className="text-white mt-4">
+
+            <p className="text-white mt-4 text-[14px] sm:text-[16px]">
               Actively solving, not just resolving: With Tempo Chat, tackle
               complicated support tickets head-on. Navigate shipping and
               fulfillment hurdles to keep your customer journey smooth and
               satisfying.
             </p>
-            <div className="flex sm:gap-6 gap-2  sm:flex-row  sm:items-center sm:justify-between my-5 ">
+            <div className="flex sm:gap-6 gap-1  sm:flex-row  sm:items-center sm:justify-between my-5 ">
               <div className="w-[33%] text-center sm:text-left">
                 {" "}
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
                   <ClockIcon className="h-10 w-10 text-[#2563eb]    " />
                 </div>
-                <p className="text-white  text-[15px]  js-show-on-scroll">
-                24/7 chat support with instant responses
+                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px]  js-show-on-scroll">
+                  24/7 chat support with instant responses
                 </p>
               </div>
               <div className="w-[33%] text-center sm:text-left ">
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
-          
+                  <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
-                <p className="text-white  text-[15px]   js-show-on-scroll">
-                spend cents, not dollars on resolutions
+                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
+                  spend cents, not dollars on resolutions
                 </p>
               </div>
               <div className="w-[33%] text-center sm:text-left ">
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   {" "}
                   <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
-
                 </div>
-                <p className="text-white  text-[15px]  js-show-on-scroll">
-                cut your CS costs in half, guaranteed                 </p>
+                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
+                  cut your CS costs in half, guaranteed{" "}
+                </p>
               </div>
             </div>
           </div>

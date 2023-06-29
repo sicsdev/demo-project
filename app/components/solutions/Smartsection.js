@@ -130,8 +130,8 @@ const Smartsection = () => {
                 </Button>
               </div>
             </form>
-            <div className=" block sm:hidden">
-            <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+            <div className=" block sm:hidden mt-6">
+            <div className="ml-auto mr-auto sm:mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
               <Image
                 src="/smart-inbox.png"
                 className="w-full bg-contain mx-auto"
@@ -140,7 +140,7 @@ const Smartsection = () => {
             </div>
           </div>
          
-            <p className="text-white mt-4">
+            <p className="text-white mt-4 text-[14px] sm:text-[16px] ">
               Responding proactively, not just reactively: With Smart Inbox,
               handle email tickets swiftly and efficiently. Achieve SLAs under 5
               minutes and ensure every response aligns with your company
@@ -155,7 +155,7 @@ const Smartsection = () => {
                   <ClockIcon className="h-10 w-10 text-[#2563eb]" />
 
                 </div>
-                <p className="text-white  text-[15px]  js-show-on-scroll">
+                <p className="text-white  text-[13px] sm:text-[15px]  js-show-on-scroll ">
                   a future of no pending tickets, round-the-clock{" "}
                 </p>
               </div>
@@ -163,7 +163,7 @@ const Smartsection = () => {
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                   <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
-                <p className="text-white  text-[15px]   js-show-on-scroll">
+                <p className="text-white text-[13px] sm:text-[15px] js-show-on-scroll ">
                   spend cents, not dollars on responses{" "}
                 </p>
               </div>
@@ -173,7 +173,7 @@ const Smartsection = () => {
                 <InboxIcon className="h-10 w-10 text-[#2563eb]" />
 
                 </div>
-                <p className="text-white  text-[15px]  js-show-on-scroll">
+                <p className="text-white text-[13px] sm:text-[15px] js-show-on-scroll ">
                 cut your CS costs in half, guaranteed                </p>
               </div>
             </div>
