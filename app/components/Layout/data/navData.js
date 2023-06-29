@@ -11,7 +11,7 @@ export const nav_links = [
                             icon: "/four.png",
                             "heading": "Chat Bot",
                             label: "",
-                            link: "/solutions/tempo-chat",
+                            link: "",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {

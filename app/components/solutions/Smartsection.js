@@ -1,12 +1,93 @@
-import React from "react";
+import React,{useState, useEffect} from "react";
 import Image from "next/image";
 import Button from "../Common/Button/Button";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
 import { InboxIcon } from "@heroicons/react/24/outline";
+import validator from "validator";
+
 
 const Smartsection = () => {
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(true);
+
+
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
+
+
+  const handleBlur = (email) => {
+    if (validator.isEmail(email)) {
+      hj('identify', userId, { 
+        Email: email
+    });
+      let payload = {
+        event: "Blur-Email",
+      };
+      window.dataLayer?.push(payload);
+      // sendDataToFreshsales(email);
+      if (blacklist.includes(email.split("@")[1])) {
+        let payload = {
+          event: "lead-generic",
+        };
+        window.dataLayer?.push(payload);
+      } else {
+        let payload = {
+          event: "lead-business",
+        };
+        window.dataLayer?.push(payload);
+      }
+      if (email?.includes("@")) {
+        window._learnq.push([
+          "track",
+          "$email",
+          {
+            $email: email,
+          },
+        ]);
+      }
+    }
+  };
+
+  const validateEmail = (e) => {
+    var email = e.target.value;
+    if (validator.isEmail(email)) {
+      setValidEmail(false);
+    } else {
+      setValidEmail(true);
+    }
+  };
+
+
+
+
   return (
     <div className="bg-background">
       <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10">
@@ -29,7 +110,13 @@ const Smartsection = () => {
                   }
                   id={"email"}
                   //   value={email}
-                  // onBlur={(e) => handleBlur(email)}
+                  onBlur={(e) => handleBlur(email)}
+                  onChange={(e) => {
+                    {
+                      setEmail(e.target.value);
+                    }
+                    validateEmail(e);
+                  }}
                 />
               </div>
               <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
@@ -37,6 +124,7 @@ const Smartsection = () => {
                   className={
                     "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
                   }
+              disabled={validEmail}
                 >
                   Request Demo
                 </Button>
