@@ -28,7 +28,18 @@
     overflow-y: auto;
 
 }
+.accordion__item:nth-child(1) .mobile_arrow  .accordion__button:before {
+    display: inline-block !important;
+    content: '' !important;
+    height: 10px !important;
+    width: 10px I !important;
+    margin-right: 12px !important;
+    border-bottom: 2px solid currentColor !important;
+    border-right: 2px solid currentColor !important;
+    transform: rotate(-45deg)  !important;
 
+}
 .nav-accordian .accordion__item {
     border-bottom: 1px solid rgba(0, 0, 0, 0.139);
 }
+.accordion__item .mobile_arrow  .accordion__button:before{display: none;}
