@@ -22,7 +22,7 @@ const Accordian = ({ setShow, nav_links }) => {
                   <h3
                     className="text-heading text-md font-semibold"
                     onClick={() => {
-                      if (element.name == "Pricing") {
+                      if (element.name == "Pricing" || element.name == "Developers") {
                         setShow(false);
                       }
                     }}
