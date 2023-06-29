@@ -13,7 +13,7 @@ import LoaderButton from '../Common/Button/Loaderbutton';
 import { createEnterpriseAccount, enterpriseDomainInitialize, enterpriseDomainVerify } from '@/app/API/pages/EnterpriseService';
 import { state_data } from '../Forms/data/FormData';
 import { createBot, createBotKnowledge, modifyBot } from '@/app/API/pages/Bot';
-import { setBotId } from '../store/slices/botIdSlice';
+import { fetchBot, setBotId, setModalValue } from '../store/slices/botIdSlice';
 
 const Intake = () => {
     const [basicFormData, setBasicFormData] = useState({})
@@ -135,6 +135,12 @@ const Intake = () => {
                 const bot_faq = await createBotKnowledge(bot.data.id, { urls: basicFormData.urls });
                 if (bot_faq?.status === 201) {
                     dispatch(setBotId(bot.data.id));
+                    setBasicFormData((prev) => {
+                        return {
+                            ...prev,
+                            bot: "success"
+                        }
+                    })
                     setIntakeStep(2);
                     setIntakeCompleteStep(2)
                 } else {
@@ -179,6 +185,7 @@ const Intake = () => {
         }
         !payload.logo && delete payload.logo
         modifyBot(payload.id, payload).then((res) => {
+         
             setLoading(false)
             setIntakeStep(3)
             setIntakeCompleteStep(3)
@@ -194,36 +201,76 @@ const Intake = () => {
             const domains = await enterpriseDomainInitialize({ slug_domain: basicFormData.company_name })
             const verify = await modifyBot(basicFormData.id, { email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai' })
             if (domains.status === 200 && verify.status === 200) {
+                setBasicFormData((prev) => {
+                    return {
+                        ...prev,
+                        configure: "success"
+                    }
+                })
                 setIntakeStep(5)
-                setIntakeCompleteStep(4)
+                setIntakeCompleteStep(5)
                 setLoading(false)
             } else {
+                setErrors(domains.response.data.slug_domain)
                 setLoading(false)
             }
         } else {
             setLoading(false)
         }
     }
+
+    const EmailConfigSubmit = async () => {
+        setLoading(true)
+        let payload = {
+            email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
+            email_agent_name: basicFormData.agent_name,
+            email_agent_title: basicFormData.agent_title,
+            email_greeting: [basicFormData.email_introduction],
+            email_farewell: [basicFormData.email_signOff],
+        }
+        const response = await modifyBot(basicFormData.id,payload)
+        if(response.status === 200){
+            setLoading(false)
+            dispatch(setModalValue(false))
+            dispatch(fetchBot())
+        }else{
+            setLoading(false)
+        }
+    }
     const SubmitForm = () => {
+        setErrors([])
         switch (intakeStep) {
             case 0:
                 SubmitBusinessDetails()
                 break;
             case 1:
-                CreateBotForm()
+                if (basicFormData?.bot === 'success') {
+                    setIntakeStep(2)
+                    setIntakeCompleteStep(2)
+                } else {
+                    CreateBotForm()
+                }
                 break;
             case 2:
+
                 savePreferences()
+
                 break;
             case 3:
                 setIntakeCompleteStep(4)
                 setIntakeStep(4)
                 break;
             case 4:
-                SubmitConfigureEmail()
+                if (basicFormData?.configure === 'success') {
+                    setIntakeStep(5)
+                    setIntakeCompleteStep(5)
+                } else {
+                    SubmitConfigureEmail()
+                }
+
                 break;
             case 5:
-
+                EmailConfigSubmit()
                 break;
 
             default:
@@ -325,6 +372,7 @@ const Intake = () => {
 
                                         </>}
                                 </div>
+                                {errors.length >0 && errors.map((ele,key)=> <p className='text-danger text-xs' key={key}>{ele}</p>)}
                             </div>
                         </div>
                     </div>

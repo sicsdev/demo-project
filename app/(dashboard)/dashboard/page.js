@@ -10,12 +10,15 @@ import { createBot, createBotKnowledge } from '@/app/API/pages/Bot';
 import { useDispatch } from 'react-redux';
 import { fetchBot } from '@/app/components/store/slices/botIdSlice';
 import LoaderButton from '@/app/components/Common/Button/Loaderbutton';
+import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 
 const Page = () => {
     const [showModal, setShowModal] = useState(false)
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const [basicFormData, setBasicFormData] = useState({})
+
+    const [skeleton, setSkeleton] = useState(true)
     const SubmitForm = async () => {
         setLoading(true)
         let payload = {
@@ -60,15 +63,17 @@ const Page = () => {
                 </ul>
             </div>
             <div className='block sm:flex md:flex lg:flex justify-end items-center mt-4'>
-                <div>
-                    <Button type={"button"} onClick={(e) => { setShowModal(true) }}
-                        className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                    >
-                        Create New Widget
-                    </Button>
-                </div>
+                {skeleton ? <SkeletonLoader /> :
+                    <div>
+                        <Button type={"button"} onClick={(e) => { setShowModal(true) }}
+                            className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                        >
+                            Create New Widget
+                        </Button>
+                    </div>
+                }
             </div>
-            <Embed form={false} />
+            <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
             <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal}
                 title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
                 showCancel={true}>

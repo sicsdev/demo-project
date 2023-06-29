@@ -45,10 +45,13 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
       const result = await submitCheckout(checkoutForm2);
       if (result.token) {
         let bodyForSubscribe = {
-          token: paymentMethod.id, 
+          token: paymentMethod.id,
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
-        console.log(response)
+        if (response) {
+          localStorage.setItem("Token", result.token);
+          router.push("/dashboard");
+        }
         setError([]);
       } else {
         setError(getErrorsArray(result.response.data));

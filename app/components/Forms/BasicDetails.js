@@ -29,6 +29,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, }) {
     }
     const handleInputValues = (e) => {
         setFormValues({ ...formValues, [e.target.name]: makeCapital(e.target.value) })
+        debugger
         setBasicFormData((prev) => {
             return {
                 ...prev,

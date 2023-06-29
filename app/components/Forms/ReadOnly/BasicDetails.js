@@ -1,29 +1,56 @@
 import React from 'react'
+import Card from '../../Common/Card/Card'
 
-const BasicDetailsReadOnly = ({state}) => {
+const BasicDetailsReadOnly = ({ state }) => {
     return (
         <div>
             {state && (
-                <div className='p-5 block sm:grid md:block lg:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 '>
-                    <div className='my-5'>
-                        <h3 className='font-semibold text-xl text-heading'>Business Address</h3>
-                        <p className='font-normal'>{state?.business_address}</p>
+                <Card className='p-5 mt-3 block sm:grid md:block lg:grid grid-cols-1 '>
+
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business Name</h3>
+                        <p className='text-sm my-2'>{state?.business_name}</p>
                     </div>
-                    <div className='my-5'>
-                        <h3 className='font-semibold text-xl text-heading'>Business Name</h3>
-                        <p className='font-normal'>{state?.business_name}</p>
-                    </div>
-                    <div className='my-5'>
-                        <h3 className='font-semibold text-xl text-heading'>Business Industry</h3>
-                        <p className='font-normal'>{state?.business_industry}</p>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business Industry</h3>
+                        <p className='text-sm my-2'>{state?.business_industry}</p>
 
                     </div>
-                    <div className='my-5'>
-                        <h3 className='font-semibold text-xl text-heading'>Business Company Size</h3>
-                        <p className='font-normal'>{state?.business_company_size}</p>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business Company Size</h3>
+                        <p className='text-sm my-2'>{state?.business_company_size}</p>
 
                     </div>
-                </div>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-xl text-heading'>Business Address :</h3>
+                        
+                        <h3 className='font-semibold text-md text-heading mt-3'>Business City</h3>
+                        <p className='text-sm my-2'>{state?.business_city}</p>
+                    </div>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business Street</h3>
+                        <p className='text-sm my-2'>{state?.business_street}</p>
+
+                    </div>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business State</h3>
+                        <p className='text-sm my-2'>{state?.business_state}</p>
+
+                    </div>
+                    <hr className='border-border' />
+                    <div className='mt-3'>
+                        <h3 className='font-semibold text-md text-heading'>Business Zipcode</h3> 
+                        <p className='text-sm my-2'>{state?.business_zipcode}</p>
+
+                    </div>
+                    <hr className='border-border' />    
+
+                </Card>
             )}
         </div>
     )

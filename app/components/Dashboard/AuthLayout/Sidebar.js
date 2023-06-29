@@ -7,7 +7,7 @@ import { CodeBracketSquareIcon, ShareIcon, WrenchScrewdriverIcon, UserGroupIcon,
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProfile } from '../../store/slices/userSlice';
-import { UserCircleIcon, WrenchIcon, QrCodeIcon} from '@heroicons/react/24/outline';
+import { UserCircleIcon, WrenchIcon, QrCodeIcon } from '@heroicons/react/24/outline';
 import Cookies from 'js-cookie';
 const Sidebar = ({ children }) => {
     const router = useRouter();
@@ -23,7 +23,7 @@ const Sidebar = ({ children }) => {
         }
         //delete widget from DOM
         const chatbot = document.getElementById('chatbot_widget')
-        if (chatbot) { chatbot.remove()}
+        if (chatbot) { chatbot.remove() }
     }, [state])
 
     const [isOpen, setIsOpen] = useState(false);
@@ -36,15 +36,15 @@ const Sidebar = ({ children }) => {
     const handleLogout = () => {
         localStorage.removeItem('Token');
         clearCookies()
-        router.push('/');
+        window.location.href = '/'
     };
 
     const clearCookies = () => {
         const cookies = Cookies.get();
         Object.keys(cookies).forEach(cookieName => {
-          Cookies.remove(cookieName);
+            Cookies.remove(cookieName);
         });
-      }
+    }
 
     const SideBarRoutes = [
         {
@@ -81,18 +81,18 @@ const Sidebar = ({ children }) => {
     const divRef = useRef(null);
     useEffect(() => {
         const handleOutsideClick = (event) => {
-          if (divRef.current && !divRef.current.contains(event.target)) {
-            setIsOpen(false);
-    
-          }
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setIsOpen(false);
+
+            }
         };
-    
+
         document.addEventListener('click', handleOutsideClick);
-    
+
         return () => {
-          document.removeEventListener('click', handleOutsideClick);
+            document.removeEventListener('click', handleOutsideClick);
         };
-      }, []);
+    }, []);
 
 
 
@@ -135,7 +135,7 @@ const Sidebar = ({ children }) => {
                                             <li className='m-2'>
                                                 <p className='text-sm text-heading'><b>{state?.email}</b></p>
                                             </li>
-{/* 
+                                            {/* 
                                             <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
                                                 <p className="text-sm text-heading py-2 px-1 flex items-center">
                                                     <UserCircleIcon className="w-5 h-5 mr-2" />

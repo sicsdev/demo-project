@@ -55,7 +55,7 @@ const ChatBot = () => {
             },
             1000,
         );
-       
+
         setTimeout(
             () => {
                 setThinking(false)
@@ -72,15 +72,15 @@ const ChatBot = () => {
 
     useEffect(() => {
         if (messageEl.current) {
-        messageEl.current?.scrollIntoView({ behavior: 'smooth' });
-        messageEl.current.scrollTop = messageEl.current.scrollHeight;
+            messageEl.current?.scrollIntoView({ behavior: 'smooth' });
+            messageEl.current.scrollTop = messageEl.current.scrollHeight;
         }
     }, [messages.length]);
     return (
         <>
             <div className={`${show ? "block animate-wiggle" : "hidden"} rounded-lg shadow-2xl fixed bottom-28 h-[536px] lg:left-none right-5 sm:right-12 md:right-12 lg:right-12 w-[90%] sm:w-[400px] md:w-[400px] lg:w-[400px] cursor-pointer z-50 bg-white`}>
                 <div className=' rounded-t-lg  flex justify-start gap-2 items-center p-3 bg-bot'>
-                    <div onClick={()=>{ setShow(!show)}}>
+                    <div onClick={() => { setShow(!show) }}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-time-bot">
                             <path fillRule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clipRule="evenodd" />
                         </svg>
@@ -102,38 +102,13 @@ const ChatBot = () => {
                         {messages.map((element, key) =>
                             <>
                                 {element.from === 'bot' &&
-
-                                    (
-                                        <>
-                                            {thinking && messages.length - 1 === key ?
-                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-normal tracking-wider float-left p-4 w-[35%] text-white text-sm '}><p className='animate-thinking   border-r-white  font-normal'>Thinking...</p></div>
-
-                                                :
-                                                <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50 bg-border font-semibold float-left p-4 w-[75%] text-white text-sm'}><p className='break-words'>{element.text}</p></div>}
-
-                                        </>
-
-                                    )}
+                                    <div key={key} className={'rounded-lg shadow-2xl my-2 cursor-pointer z-50  bg-[#f4037b17] font-semibold float-left p-4 w-[75%] text-heading text-sm'}><p className='break-words'>{element.text}</p></div>
+                                }
                                 {element.from === 'user' &&
                                     (<div key={key} className={'rounded-lg  break-words shadow-2xl my-2 cursor-pointer  z-50 bg-bot font-semibold float-right p-4 w-[75%] right-0 text-white text-sm'}><p>{element.text}</p></div>)}
 
                             </>
                         )}
-                    </div>
-                    <div className='flex bg-white absolute w-full bottom-0 rounded-b-lg overflow-x-hidden  items-center justify-start min-h-[56px] max-h-[256px] border-t border-border border-t-0.5'>
-                        <textarea
-                            ref={ref}
-                            rows={1}
-                            onInput={handleInput}
-                            className="w-[90%] h-full px-4 py-2 resize-none flex items-center text-start rounded focus:outline-none  focus:border-0"
-                            placeholder='Write a reply...'
-                            value={text}
-                        ></textarea>
-                        <div className='p-4 cursor-pointer'  onClick={() => { addText() }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-bot absolute right-5 top-3">
-                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
-                        </svg>
-                        </div>
                     </div>
                 </div>
 
@@ -145,7 +120,7 @@ const ChatBot = () => {
             }
             }>
                 {show ?
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-8 h-8 ${show ? 'animate-bottoggle':''}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={`w-8 h-8 ${show ? 'animate-bottoggle' : ''}`}>
                         <path fillRule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clipRule="evenodd" />
                     </svg>
                     :

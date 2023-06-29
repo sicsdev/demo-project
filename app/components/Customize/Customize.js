@@ -6,9 +6,11 @@ import '../../(dashboard)/dashboard/customize/widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
 import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
 import LoaderButton from '../Common/Button/Loaderbutton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBot } from '../store/slices/botIdSlice';
 
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
+    const dispatch = useDispatch()
     const [botDetails, setBotDetails] = useState({});
     const [loading, setLoading] = useState(false)
     const id = useSelector(state => state.botId.id)
@@ -181,12 +183,12 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         setLoading(true)
         let payload = { ...preferences, logo: preferences.logo_file_name ? preferences.logo : '' }
         !payload.logo && delete payload.logo
-        delete payload.primary_text_color
-        delete payload.secondary_text_color
+        !payload.email && delete payload.email
         modifyBot(botDetails.id, payload).then((res) => {
             setLoading(false)
-            getBotInfo(botDetails.id)
-                router.push("/dashboard")
+            // getBotInfo(botDetails.id)
+            dispatch(fetchBot())
+            router.push("/dashboard")
          
         }).catch((err) => {
             console.log(err)
