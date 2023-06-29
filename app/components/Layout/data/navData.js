@@ -9,7 +9,7 @@ export const nav_links = [
                     data: [
                         {
                             icon: "/four.png",
-                            "heading": "Tempo chat",
+                            "heading": "Tempo Chat",
                             label: "",
                             link: "solutions/tempo-chat",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
