@@ -34,7 +34,7 @@ const Blog = () => {
               and more
             </p>
           </div>
-          <Link href={`blog/${ele.slug}`}>
+          <Link href={`blog/blog-details?blogName=${ele.slug}`}>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2">
                 <img
