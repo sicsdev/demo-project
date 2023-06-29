@@ -153,7 +153,7 @@ const Info = () => {
                 <>
                   <div
                     key={index}
-                    className={`min-w-[170px] w-[192px] flex items-center  justify-start sm:pl-[40px]	relative  gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
+                    className={`min-w-[170px] w-[192px] flex items-center relative justify-center sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
                       index === activeTab
                         ? "active bg-black text-white start-rainbow"
                         : "start-rainbow"
