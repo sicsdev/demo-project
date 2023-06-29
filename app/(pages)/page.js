@@ -22,14 +22,14 @@ export default function Home() {
       <Head></Head>
       <Start />
       <DTC />
-      <Info />
-      <Trial />
       <SecondBan />
-      <Benifits />        {/* new */}
-      <Brandpercentage/>  {/* new */}
+      <Info />
+      <Newstandard/>   
+      {/* <Trial /> */}
+      <Benifits />        
+      <Brandpercentage/>  
       <Social />
       <Testimonial />
-      <Newstandard/>      {/* new */}
       {/* <Faq />   */}
       <Iconanimation/>
     </main>
