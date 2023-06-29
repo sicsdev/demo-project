@@ -47,3 +47,14 @@ export const loginWithGoogle = async (body) => {
         throw new Error(error.response)
     }
 }
+
+export const createNewGoogleUser = async (body) => {
+    const config = getConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/accounts/users/google_auth`, body, config);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}

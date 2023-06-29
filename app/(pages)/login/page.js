@@ -104,10 +104,11 @@ const Login = () => {
             // 2 Now we get the user info (we only need email) from cognito using the access token >
             getUserInfoFromCognito(access_token).then(res => {
                 // 3 We call our API, using the email we got from cognito and the access token we got previously >
-                loginWithGoogle({ email: res.email, access_token: access_token })
+                let useremail = res.email
+                loginWithGoogle({ email: useremail, access_token: access_token })
                     .then(res => {
-                        localStorage.setItem('Token', res.token)
-                        router.push('/dashboard')
+                        if (res.user_exist) { localStorage.setItem('Token', res.token); router.push('/dashboard') }
+                        if (!res.user_exist) { router.push(`/checkout?gauth=true&email=${useremail}&gtoken=${access_token}`) }
                         setLoading(false);
                     })
             })
