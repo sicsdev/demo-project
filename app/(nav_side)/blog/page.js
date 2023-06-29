@@ -23,7 +23,7 @@ const Blog = () => {
   console.log("setCareer", blog);
   return (
     <div className="mb-4 ">
-      {blog.map((ele, key) => (
+      {blog?.slice(0, 1).map((ele, key) => (
         <div className="bg-white  p-0" key={key}>
           <div className="ml-4 mt-5 ">
             <h1 className=" font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
@@ -51,7 +51,7 @@ const Blog = () => {
                   <h3 className="font-bold text-xl md:text-xl lg:text-xl sm:text-xl sm:leading-none my-4 text-heading">
                     {ele.title.rendered}
                   </h3>
-                  <p className="text-base flex- sm:text-para md:text-para lg:text-para my-4 sm:my-8 font-base text-heading">
+                  <p className="text-base flex- sm:text-para md:text-para lg:text-para my-4 sm:my-8 font-base text-heading overflow-hidden h-[72px]">
                     {ele.acf.para1}
                   </p>
                   <div className="flex flex-co justify-start items-center gap-0 js-show-on-scroll">
@@ -61,7 +61,7 @@ const Blog = () => {
                         height="24"
                         src="https://static.intercomassets.com/avatars/2/square_128/0000002-1665139916.jpg"
                         alt=""
-                        className="inline-flex items-center justify-center rounded-full bg-primary text-lg font-bold leading-6 text-white shadow-solid-2 shadow-white [&amp;:nth-child(n+2)]:hidden lg:[&amp;:nth-child(n+2)]:inline-flex h-6 w-6 z-4" 
+                        className="inline-flex items-center justify-center rounded-full bg-primary text-lg font-bold leading-6 text-white shadow-solid-2 shadow-white [&amp;:nth-child(n+2)]:hidden lg:[&amp;:nth-child(n+2)]:inline-flex h-6 w-6 z-4"
                       />
                     </div>
 
@@ -78,8 +78,8 @@ const Blog = () => {
         </div>
       ))}
 
-      <News />
-      <Blogs />
+      <News blog={blog} setBlog={setBlog} />
+      <Blogs blog={blog} setBlog={setBlog} />
       <Blogmail />
     </div>
   );
