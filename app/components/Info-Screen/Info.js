@@ -244,7 +244,7 @@ const Info = () => {
           <div className="bg-white px-4 pb-10 sm:pb-2">
             <div className="flex flex-wrap sm:flex-nowrap items-center">
               <div className="w-full sm:px-12">
-                <div className="h-[228px] sm:h-[328px]">
+                <div className="h-[228px] sm:h-[328px] mb-6 sm:mb-0">
                   <video
                     autoPlay
                     muted
