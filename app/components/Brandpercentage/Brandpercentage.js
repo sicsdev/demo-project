@@ -33,7 +33,7 @@ const Brandpercentage = () => {
                   <div style={{ height: 100 }}>
                     {isVisible ? (
                       <>
-                        <CountUp startOnMount end={50} duration={1.5} />%
+                        <CountUp startOnMount end={50} duration={3.5} />%
                       </>
                     ) : null}
                   </div>
@@ -94,13 +94,15 @@ const Brandpercentage = () => {
                   <div style={{ height: 100 }}>
                     {isVisible ? (
                       <>
-                        <CountUp startOnMount end={24} duration={1.5} />
-                        /7
+                        <CountUp startOnMount end={24} duration={3.5} />
+                        /<CountUp startOnMount end={7} duration={3.5} />
+                        
                       </>
                     ) : null}
                   </div>
                 )}
               </VisibilitySensor>
+              
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Round-the-clock support
@@ -155,7 +157,7 @@ const Brandpercentage = () => {
                 {({ isVisible }) => (
                   <div style={{ height: 100 }}>
                     {isVisible ? (
-                      <CountUp startOnMount end={5} duration={1.5} />
+                      <CountUp startOnMount end={5} duration={3.5} />
                     ) : null}
                   </div>
                 )}
@@ -212,7 +214,7 @@ const Brandpercentage = () => {
                 {({ isVisible }) => (
                   <div style={{ height: 100 }}>
                     {isVisible ? (
-                      <CountUp startOnMount end={15} duration={1.5} />
+                      <CountUp startOnMount end={15} duration={3.5} />
                     ) : null}
                   </div>
                 )}

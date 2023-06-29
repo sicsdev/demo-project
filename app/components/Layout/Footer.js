@@ -91,8 +91,7 @@ const Footer = () => {
                   <div>
                     <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                       <Link href="/list-of-subprocessors">
-                        List of Subprocessors
-                      </Link>
+                      Subprocessors                       </Link>
                     </h6>
                   </div>
                   </div>

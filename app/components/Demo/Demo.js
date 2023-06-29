@@ -137,6 +137,7 @@ const Demo = () => {
     }
   };
 
+
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>
@@ -179,7 +180,7 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-between sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-1 sm:gap-5 sm:5">
+        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-1 sm:gap-5 sm:5">
           <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>
