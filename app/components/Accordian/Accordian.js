@@ -27,7 +27,6 @@ const Accordian = ({ setShow, nav_links }) => {
                       }
                     }}
                   >
-                    {" "}
                     {element.name}
                   </h3>
                 </Link>
