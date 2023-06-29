@@ -41,7 +41,7 @@ export default function RootLayout({ children }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `
-            var userId = null; 
+            var userId = 2674167; 
             window.hj('identify', userId, {
                 // Add your own custom attributes here. Some EXAMPLES:
                 // 'Email': "".
