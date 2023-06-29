@@ -13,9 +13,9 @@ const Brandpercentage = () => {
   return (
     <div
       className="bg-background py-4 sm:py-8"
-      onClick={() =>
-        setHide({ first: false, second: false, third: false, fourth: false })
-      }
+      // onClick={() =>
+      //   setHide({ first: false, second: false, third: false, fourth: false })
+      // }
     >
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 mt-10">
@@ -30,7 +30,7 @@ const Brandpercentage = () => {
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
                 {({ isVisible }) => (
-                  <div style={{ height: 100 }}>
+                  <div style={{ height: "50px" }}>
                     {isVisible ? (
                       <>
                         <CountUp startOnMount end={50} duration={3.5} />%
@@ -89,20 +89,18 @@ const Brandpercentage = () => {
             }
           >
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
+              <VisibilitySensor partialVisibility offset={{ bottom: 0 }}>
                 {({ isVisible }) => (
-                  <div style={{ height: 100 }}>
+                  <div style={{ height: "54px" }}>
                     {isVisible ? (
                       <>
                         <CountUp startOnMount end={24} duration={3.5} />
                         /<CountUp startOnMount end={7} duration={3.5} />
-                        
                       </>
                     ) : null}
                   </div>
                 )}
               </VisibilitySensor>
-              
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Round-the-clock support
@@ -155,7 +153,7 @@ const Brandpercentage = () => {
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
                 {({ isVisible }) => (
-                  <div style={{ height: 100 }}>
+                  <div style={{ height: "54px" }}>
                     {isVisible ? (
                       <CountUp startOnMount end={5} duration={3.5} />
                     ) : null}
@@ -212,7 +210,7 @@ const Brandpercentage = () => {
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
               <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
                 {({ isVisible }) => (
-                  <div style={{ height: 100 }}>
+                  <div style={{ height: "54px" }}>
                     {isVisible ? (
                       <CountUp startOnMount end={15} duration={3.5} />
                     ) : null}
