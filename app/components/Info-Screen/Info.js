@@ -52,11 +52,11 @@ const Info = () => {
       title: "AI Chat",
       coming_soon: "",
       icon: (
-        <ChatBubbleLeftEllipsisIcon className="h-6 w-6 text-gray-500" />
+        <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />
 
       ),
 
-      content_video: "firstvideo.mp4",
+      content_video: "/firstvideo.mp4",
       h3: "ChatGPT becomes the brain of your business.",
       p: "Tempo connects to your existing systems. Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. The best part? Your customers will never know they're speaking to an AI.",
     },
@@ -64,8 +64,8 @@ const Info = () => {
       id: "2",
       title: "Smart Inbox",
       coming_soon: "",
-      icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-      content_video: "secondvideo.mp4",
+      icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/secondvideo.mp4",
       h3: "We'll save you money while you sleep.",
       p: "Runs your ops in the background. Automatically issue refunds to angry customers, retain subscribers, and reduce churn. Tempo combines a super smart AI bot with humans when you need it.",
     },
@@ -97,8 +97,8 @@ const Info = () => {
       id: "3",
       title: "Save Big",
       coming_soon: "",
-      icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-      content_video: "thirdvideo.mp4",
+      icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/thirdvideo.mp4",
       h3: "Instant integration process.",
       p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
     },
@@ -106,8 +106,8 @@ const Info = () => {
       id: "4",
       title: "Scale Fast",
       coming_soon: "",
-      icon: <ArrowTrendingUpIcon className="h-6 w-6 text-gray-500" />,
-      content_video: "thirdvideo.mp4",
+      icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/thirdvideo.mp4",
       h3: "Instant integration process.",
       p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
     },
@@ -155,13 +155,13 @@ const Info = () => {
                     key={index}
                     className={`min-w-[170px] w-[192px] flex items-center relative justify-center sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
                       index === activeTab
-                        ? "active bg-black text-white start-rainbow"
+                        ? "active bg-background text-white start-rainbow"
                         : "start-rainbow"
                     }`}
                     onClick={(e) => handleTabChange(index)}
                   >
-                    <div className="relative w-[18px] h-[18px]">{tab.icon}</div>
-                    <p>
+                    <div className="relative ">{tab.icon}</div>
+                    <p className="relative sm:mt-[2px]">
                       {tab.title}{" "}
                       <span style={{ fontSize: "12px" }} className="font-light">
                         {tab.coming_soon}

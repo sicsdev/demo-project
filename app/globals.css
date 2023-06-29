@@ -178,7 +178,7 @@ select::-ms-expand {
 }
 
 .facet-pill-border rect {
-  stroke: #000;
+  stroke: #1e293b;
   stroke-width: 4px;
   height: 52px;
   visibility: hidden;

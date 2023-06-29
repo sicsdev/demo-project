@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Card from "../Common/Card/Card";
-import List from "../Layout/components/List";
-import { FallingLines } from "react-loader-spinner";
+import CountUp from "react-countup";
+import VisibilitySensor from "react-visibility-sensor";
 const Brandpercentage = () => {
   const [hide, setHide] = useState({
     first: false,
@@ -21,10 +21,24 @@ const Brandpercentage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 mt-10">
           <div
             className="data-wrapper text-center  relative sm:z-0 z-[9999]"
-            onMouseLeave={() => setHide({ first: false })}
+            onMouseLeave={() =>
+              setTimeout(() => {
+                setHide({ first: false });
+              }, 5000)
+            }
           >
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              50%
+              <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
+                {({ isVisible }) => (
+                  <div style={{ height: 100 }}>
+                    {isVisible ? (
+                      <>
+                        <CountUp startOnMount end={50} duration={1.5} />%
+                      </>
+                    ) : null}
+                  </div>
+                )}
+              </VisibilitySensor>
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Lower CS Costs Guaranteed
@@ -49,7 +63,11 @@ const Brandpercentage = () => {
                 >
                   <p
                     className="text-heading"
-                    onMouseLeave={() => setHide({ first: false })}
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ first: false });
+                      }, 5000)
+                    }
                   >
                     Enterprise contracts only. Guarantee of 50% in CS costs over
                     first 12 months on contract taken as a whole. Costs are
@@ -62,12 +80,27 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative  sm:z-0 z-[999]"  
-            onMouseLeave={() => setHide({ second: false })}
-          
+          <div
+            className="data-wrapper text-center relative  sm:z-0 z-[999]"
+            onMouseLeave={() =>
+              setTimeout(() => {
+                setHide({ second: false });
+              }, 5000)
+            }
           >
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              24/7
+              <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
+                {({ isVisible }) => (
+                  <div style={{ height: 100 }}>
+                    {isVisible ? (
+                      <>
+                        <CountUp startOnMount end={24} duration={1.5} />
+                        /7
+                      </>
+                    ) : null}
+                  </div>
+                )}
+              </VisibilitySensor>
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Round-the-clock support
@@ -92,7 +125,11 @@ const Brandpercentage = () => {
                 >
                   <p
                     className="text-heading"
-                    onMouseLeave={() => setHide({ second: false })}
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ second: false });
+                      }, 5000)
+                    }
                   >
                     Chat and email support updates at least once per hour, every
                     hour of the week, aside from scheduled maintenance and
@@ -105,12 +142,24 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative sm:z-0 z-[99]"
-            onMouseLeave={() => setHide({ third: false })}
-          
+          <div
+            className="data-wrapper text-center relative sm:z-0 z-[99]"
+            onMouseLeave={() =>
+              setTimeout(() => {
+                setHide({ third: false });
+              }, 5000)
+            }
           >
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              5
+              <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
+                {({ isVisible }) => (
+                  <div style={{ height: 100 }}>
+                    {isVisible ? (
+                      <CountUp startOnMount end={5} duration={1.5} />
+                    ) : null}
+                  </div>
+                )}
+              </VisibilitySensor>{" "}
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Minute average SLAs
@@ -135,7 +184,11 @@ const Brandpercentage = () => {
                 >
                   <p
                     className="text-heading"
-                    onMouseLeave={() => setHide({ third: false })}
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ third: false });
+                      }, 5000)
+                    }
                   >
                     5 minute SLAs reconciled on a monthly basis, of all blended
                     chat and email support tickets for individual clients.
@@ -146,12 +199,24 @@ const Brandpercentage = () => {
               )}
             </p>
           </div>
-          <div className="data-wrapper text-center relative sm:z-0 z-[9]" 
-            onMouseLeave={() => setHide({ fourth: false })}
-          
-          > 
+          <div
+            className="data-wrapper text-center relative sm:z-0 z-[9]"
+            onMouseLeave={() =>
+              setTimeout(() => {
+                setHide({ third: false });
+              }, 5000)
+            }
+          >
             <p className="text-white font-bold text-4xl md:text-6xl js-show-on-scroll">
-              15
+              <VisibilitySensor partialVisibility offset={{ bottom: 100 }}>
+                {({ isVisible }) => (
+                  <div style={{ height: 100 }}>
+                    {isVisible ? (
+                      <CountUp startOnMount end={15} duration={1.5} />
+                    ) : null}
+                  </div>
+                )}
+              </VisibilitySensor>
             </p>
             <p className="font-normal text-lg my-4 text-white opacity-80 js-show-on-scroll">
               Minute onboarding
@@ -176,7 +241,11 @@ const Brandpercentage = () => {
                 >
                   <p
                     className="text-heading"
-                    onMouseLeave={() => setHide({ fourth: false })}
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ fourth: false });
+                      }, 5000)
+                    }
                   >
                     15 minute onboarding for typical users of Tempo. Enterprise
                     clients may have a longer onboarding timeline.

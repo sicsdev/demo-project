@@ -1,9 +1,10 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
+import axios from "axios";
 const Footer = () => {
 
+  
   const pathname = usePathname();
   const company = [
     "About",
@@ -38,6 +39,7 @@ const Footer = () => {
       <footer className=" bg-[#142543] shadow text-center text-white ">
         <div className=" mx-auto lg:max-w-[90%]">
           <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
+            <div>
             <div className="flex justify-between gap-3 flex-col items-start">
               <div>
                 <h6
@@ -54,6 +56,9 @@ const Footer = () => {
                 ></h6>
               </div>
               <div>
+             <div className="flex justify-between gap-3  items-start">
+              <div className="flex justify-between gap-3 flex-col items-start">
+              <div>
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                   <Link href="/login">Login</Link>
                 </h6>
@@ -67,6 +72,33 @@ const Footer = () => {
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                   <Link href="/terms-of-service">Terms of service</Link>
                 </h6>
+              </div>
+              </div>
+              <div>
+                <div className="flex justify-between gap-3 flex-col items-start">
+                  <div>
+                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <Link href="/articleName/pricing-overview">Pricing</Link>
+                    </h6>
+                  </div>
+                  <div>
+                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <Link href="/articleName/security-overview">
+                        Security
+                      </Link>
+                    </h6>
+                  </div>
+                  <div>
+                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <Link href="/list-of-subprocessors">
+                        List of Subprocessors
+                      </Link>
+                    </h6>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
               </div>
               <div className="flex">
                 {/* <a href="#!" className="mr-6 text-white dark:text-neutral-200">
