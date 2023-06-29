@@ -22,14 +22,15 @@ export default function Home() {
       <Head></Head>
       <Start />
       <DTC />
+      <Brandpercentage/>  
+
+      {/* <SecondBan /> */}
       <Info />
-      <Trial />
-      <SecondBan />
-      <Benifits />        {/* new */}
-      <Brandpercentage/>  {/* new */}
+      <Newstandard/>   
+      {/* <Trial /> */}
+      <Benifits />        
       <Social />
       <Testimonial />
-      <Newstandard/>      {/* new */}
       {/* <Faq />   */}
       <Iconanimation/>
     </main>

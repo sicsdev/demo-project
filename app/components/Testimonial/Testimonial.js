@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import Link from 'next/link'
 const Testimonial = () => {
   return (
-    <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5">
-      <div className="pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
+    <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5 pt-8">
+      <div className="pt-2 sm:pt-8 pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
             "js-show-on-scroll bg-type-section block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"

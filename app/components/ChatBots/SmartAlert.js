@@ -65,7 +65,7 @@ const SmartAlert = () => {
             </div>
           </div>
           <div className="text-center">
-            <div className="relative h-100 sm:h-[546px] w-100 sm:w-[565px]">
+            <div className="relative h-100 sm:h-[363px] w-100 sm:w-[543px]">
               <Image
                 src="/middle.png"
                 className="bg-contains w-full"
