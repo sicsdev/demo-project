@@ -2,6 +2,7 @@
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Tempo",
@@ -22,7 +23,7 @@ export default function RootLayout({ children }) {
           content="https://usetempo.ai/tempo_preview.jpg"
         />
 
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
           (function(h,o,t,j,a,r){
@@ -36,9 +37,9 @@ export default function RootLayout({ children }) {
           
           `,
           }}
-        ></script>
+        />
 
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
             var userId = 2674167; 
@@ -52,9 +53,9 @@ export default function RootLayout({ children }) {
             });
           `,
           }}
-        ></script>
+        />
 
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -73,7 +74,7 @@ export default function RootLayout({ children }) {
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -85,11 +86,11 @@ export default function RootLayout({ children }) {
           }}
         />
         {/* <!-- Google tag (gtag.js) --> */}
-        <script
+        <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
-        ></script>
-        <script
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -99,12 +100,12 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        <script
+        <Script
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
           type="text/javascript"
-        ></script>
-        <script
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
 var _learnq = _learnq || [];
@@ -125,11 +126,11 @@ _learnq.push(['account', 'UVQx8p']);
         </ProviderWrapper>
       </body>
 
-      <script
+      <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         type="text/javascript"
         async
-      ></script>
+      />
     </html>
   );
 }
