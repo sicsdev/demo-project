@@ -17,10 +17,8 @@ export const nav_links = [
                         {
                             icon: "/three.png",
                             "heading": "Email Ticketing",
-                            label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
-                                Coming soon
-                            </span>,
-                            link: "/",
+                            label: "",
+                            link: "/solutions/smart-inbox",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
                         }
                     ]
