@@ -48,51 +48,36 @@ const Demo = () => {
     // }
   }, [email]);
 
-  // const sendDataToFreshsales = async () => {
-  //   const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
-  //     // Create the lead object with the desired data
-  //     const contact = {
-  //       email: email
-  //       // Add more fields as needed
-  //     };
-  //     try {
-  //       // Send the lead data to Freshsales CRM
-  //        const response = await fetch(apiUrl, {
-  //          method: 'POST',
-  //          headers: {
-  //            'Access-Control-Allow-Origin': "*",
-  //            'Content-Type': 'application/json',
-  //            'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
-  //          },
-  //          body: JSON.stringify(contact),
-  //        });
+  const sendDataToFreshsales = async () => {
+    const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
+      // Create the lead object with the desired data
+      const contact = {
+        email: email
+        // Add more fields as needed
+      };
+      try {
+        // Send the lead data to Freshsales CRM
+         const response = await fetch(apiUrl, {
+           method: 'POST',
+           headers: {
+             'Access-Control-Allow-Origin': "*",
+             'Content-Type': 'application/json',
+             'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
+           },
+           body: JSON.stringify(contact),
+         });
+         if (response.ok) {
+           // Lead data sent successfully   
+           console.log('data sent to Freshsales CRM');
+         } else {
+           // Handle error if the request fails
+           console.error('Error sending  data to Freshsales CRM');
+         }
+       } catch (error) {
+         console.error('Error sending  data to Freshsales CRM', error);
+       }
 
-  //        if (response.ok) {
-  //          // Lead data sent successfully
-  //          console.log('data sent to Freshsales CRM');
-  //        } else {
-  //          // Handle error if the request fails
-  //          console.error('Error sending  data to Freshsales CRM');
-  //        }
-  //      } catch (error) {
-  //        console.error('Error sending  data to Freshsales CRM', error);
-  //      }
-  //   let headersList = {
-  //     Accept: "*/*",
-  //     Authorization: " Token yict-U-l_KKTLDvaQPiXDQ",
-  //     "Content-Type": "application/json",
-  //   };
-
-  //   let bodyContent = JSON.stringify({ email: "shubham@gmail.com" });
-
-  //   fetch("https://tempoai.myfreshworks.com/crm/sales/api/contacts", {
-  //     method: "POST",
-  //     body: bodyContent,
-  //     headers: headersList,
-  //   }).then((res) => {
-  //     console.log(res);
-  //   });
-  // };
+  };
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
@@ -103,7 +88,7 @@ const Demo = () => {
         event: "Blur-Email",
       };
       window.dataLayer?.push(payload);
-      // sendDataToFreshsales(email);
+      sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {
           event: "lead-generic",
