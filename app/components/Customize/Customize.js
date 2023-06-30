@@ -1,29 +1,25 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { QrCodeIcon, EyeIcon, ArrowDownCircleIcon, CpuChipIcon } from '@heroicons/react/24/outline';
+import { QrCodeIcon, EyeIcon, CpuChipIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, useRouter } from 'next/navigation';
 import '../../(dashboard)/dashboard/customize/widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
 import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
-import { getBotAllData } from '@/app/API/pages/Bot';
-import Swal from 'sweetalert2';
-import { email_ticketing_system_data, payments_platform_data } from '@/app/components/Forms/data/FormData';
 import LoaderButton from '../Common/Button/Loaderbutton';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBot } from '../store/slices/botIdSlice';
 
-const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteStep, basicFormData }) => {
+const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
+    const dispatch = useDispatch()
     const [botDetails, setBotDetails] = useState({});
-    const [allBots, setAllBots] = useState([]);
     const [loading, setLoading] = useState(false)
     const id = useSelector(state => state.botId.id)
     const searchParams = useSearchParams();
     const router = useRouter()
-
     useEffect(() => {
         if (form === false) {
             const bot_id = searchParams.get("id")
             const bot_name = searchParams.get("name")
-            getAllBots()
             if (bot_id) { getBotInfo(bot_id) }
         } else {
             getBotInfo(id)
@@ -61,26 +57,29 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
     // Primary functions
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
-            debugger
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
+            let data = res[0].data
+            if (form == true) {
+
+                setBasicFormData((prev) => {
+                    return {
+                        ...prev,
+                        ...data
+                    }
+                })
+            }
         })
     }
+    console.log("basicFormData", basicFormData)
     useEffect(() => {
         if (preferences.secondary_text_color === '') {
             setPreferences({ ...preferences, secondary_text_color: "#000000" });
             setPreferences({ ...preferences, primary_text_color: "#ffffff" });
         }
     }, [preferences])
-    const getAllBots = () => {
-        getBotAllData().then((res) => {
-            setAllBots(res.results)
-        })
-    }
 
-    const handleSetBot = (e) => {
-        getBotInfo(e.target.value)
-    }
+   
 
 
     // Form handlers
@@ -88,30 +87,63 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
     const handlePrimaryColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, primary_color: color });
+        if (form == true) {
+            setBasicFormData((prev) => {
+                return { ...prev, primary_color: color }
+            })
+        }
     };
 
     const handleSecondaryColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, secondary_color: color });
+        if (form == true) {
+            setBasicFormData((prev) => {
+                return { ...prev, secondary_color: color }
+            })
+        }
     };
     const handlePrimaryTextColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, primary_text_color: color });
+        if (form == true) {
+
+            setBasicFormData((prev) => {
+                return { ...prev, primary_text_color: color }
+            })
+        }
     };
 
     const handleSecondaryTextColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, secondary_text_color: color });
+        if (form == true) {
+
+            setBasicFormData((prev) => {
+                return { ...prev, secondary_text_color: color }
+            })
+        }
     };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        debugger
         setPreferences({ ...preferences, [name]: value });
+        if (form == true) {
+
+            setBasicFormData((prev) => {
+                return { ...prev, [name]: value }
+            })
+        }
     }
     const handleCheckBoxChange = (e) => {
         const { name } = e.target;
         setPreferences({ ...preferences, [name]: preferences.active === false ? true : false });
+        if (form == true) {
+
+            setBasicFormData((prev) => {
+                return { ...prev, [name]: preferences.active === false ? true : false }
+            })
+        }
     }
 
     // Logo & thumbnail upload + base64 conversion 
@@ -137,7 +169,11 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
         getBase64(file)
             .then(result => {
                 setPreferences({ ...preferences, logo: result, logo_file_name: file.name })
+                if (form == true) {
+                    setBasicFormData((prev) => { return { ...prev, logo: result, logo_file_name: file.name } })
+                }
             })
+
             .catch(err => {
                 console.log(err);
             });
@@ -145,29 +181,21 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
 
     const savePreferences = () => {
         setLoading(true)
-
         let payload = { ...preferences, logo: preferences.logo_file_name ? preferences.logo : '' }
         !payload.logo && delete payload.logo
-        delete payload.primary_text_color
-        delete payload.secondary_text_color
+        !payload.email && delete payload.email
         modifyBot(botDetails.id, payload).then((res) => {
             setLoading(false)
-            getBotInfo(botDetails.id)
-            if (form === false) {
-                getAllBots()
-                router.push("/dashboard")
-            } else {
-                setIntakeStep(3)
-                setIntakeCompleteStep(3)
-            }
+            // getBotInfo(botDetails.id)
+            dispatch(fetchBot())
+            router.push("/dashboard")
+         
         }).catch((err) => {
             console.log(err)
             setLoading(false)
         })
     }
-    const handleBack = () => {
-        setIntakeStep(intakeStep - 1)
-    }
+   
 
     return (
         <div className="w-full">
@@ -290,65 +318,6 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     </select>
                                 </div>
                             </div>
-
-
-                            {/* <div className="flex items-center w-full mt-1 gap-2">
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <span className="text-gray-700">Refund tolerance</span>
-                                </div>
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <select value={preferences.refund_tolerance} name='refund_tolerance' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer w-full">
-                                        <option value="0">No</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div className="flex items-center w-full mt-1 gap-2">
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <span className="text-gray-700">Cancellation tolerance</span>
-                                </div>
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <select value={preferences.cancellation_tolerance} name='cancellation_tolerance' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center cursor-pointer w-full">
-                                        <option value="0">No</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div className="flex items-center w-full mt-1 gap-2">
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <span className="text-gray-700">Payment platform</span>
-                                </div>
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <select value={preferences.payment_platform} name='payment_platform' onChange={handleInputChange} className="block border-gray border rounded-md p-2 items-center w-full cursor-pointer">
-                                        {payments_platform_data.map((platform, index) => (
-                                            <option key={index} value={platform}>{platform}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center w-full mt-1 gap-2">
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <span className="text-gray-700">Ticketing platform</span>
-                                </div>
-                                <div className="flex justify-start w-1/2 items-center">
-                                    <select value={preferences.ticketing_platform} name='ticketing_platform' onChange={handleInputChange} className="block border-gray border rounded-md p-2 w-full items-center cursor-pointer">
-                                        {email_ticketing_system_data.map((platform, index) => (
-                                            <option key={index} value={platform}>{platform}</option>
-                                        ))}
-                                    </select>
-                                </div>
-                            </div> */}
-
-
                             <div className="flex items-center w-full mt-2 gap-2">
                                 <div className="flex justify-start w-1/2 items-center">
                                     <span className="text-gray-700">
@@ -463,24 +432,6 @@ const Customize = ({ form = false, intakeStep, setIntakeStep, setIntakeCompleteS
                                     </Button>}
                             </div>
 
-                        </div>
-                    )}
-                    {form === true && (
-                        <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-
-                            <button
-                                onClick={handleBack}
-                                className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                disabled={loading ? true : false}
-                            >
-                                Back
-                            </button>
-                            {botDetails.id && <div className='align-center'>
-                                {loading ? <LoaderButton /> :
-                                    <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
-                                        Next
-                                    </Button>}
-                            </div>}
                         </div>
                     )}
                 </>}

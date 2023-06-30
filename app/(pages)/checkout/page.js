@@ -7,15 +7,11 @@ import Button from "../../components/Common/Button/Button";
 import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
+import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 
-const stripe_api =
-  "pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW";
-const stripeLib = loadStripe(stripe_api);
 
 const Checkout = () => {
   const router = useRouter();
@@ -280,14 +276,14 @@ const Checkout = () => {
             </div>
 
             <div className="my-3 mb-0 p-3 pb-0">
-              <Elements stripe={stripeLib}>
+              <StripeWrapper>
                 <CheckOutForm
                   checkoutForm={checkoutForm}
                   boxValid={boxValid}
                   setBoxValid={setBoxValid}
                   googleAuthInfo={googleAuthInfo}
                 />
-              </Elements>
+              </StripeWrapper>
             </div>
           </div>
         </div>

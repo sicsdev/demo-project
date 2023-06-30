@@ -2,34 +2,28 @@ import React, { useEffect, useLayoutEffect, useState } from 'react'
 import "highlight.js/styles/github.css";
 import hljs from "highlight.js";
 import CopyToClipboard from 'react-copy-to-clipboard';
-import Button from '../Common/Button/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { checkBotInstallation, getBotWidget } from '@/app/API/pages/Bot';
-import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
+import { fetchBot } from '../store/slices/botIdSlice';
 import Loading from '../Loading/Loading';
-import { fetchProfile } from '../store/slices/userSlice';
 import { useRouter } from 'next/navigation';
-import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
+import { ClipboardIcon, CheckIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 
-import { xcodeLight, xcodeLightInit, xcodeDark, xcodeDarkInit } from '@uiw/codemirror-theme-xcode';
-
-
+import { xcodeLight } from '@uiw/codemirror-theme-xcode';
 
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
-import { PencilSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
+import SkeletonLoader from '../Skeleton/Skeleton';
+import { SkeletonTheme } from 'react-loading-skeleton';
+const Embed = ({ form = true ,skeleton, setSkeleton}) => {
     const router = useRouter()
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
     const [copied, setCopied] = useState({ key: null, message: null });
+    const [dropdown, setDropdown] = useState(null);
     const [markdown, setmarkdown] = useState('');
     const [detailsData, setDetailsData] = useState(null)
-    const discount = `<div className="trustpilot-widget" data-locale="en-US" data-template-id="53aa8912dec7e10d38f59f36"
-    data-businessunit-id="63ce673f7ec124282d18a6b4" data-style-height="140px" data-style-width=
-    "100%" data-theme="1ight" data-stars="1,2,3,4,5" data-review-languages="en"><a href="https:
-    //www.trustpilot.com/review/nextmed.com"target="_blank" rel="noopener">Trustpilot</a></div>`
 
     useLayoutEffect(() => {
         hljs.highlightAll();
@@ -38,12 +32,11 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
 
     useEffect(() => {
         if (state.id && form) {
-        getBotWidgetData()
+            getBotWidgetData()
         }
         if (!form && state.botData.data === null) {
             dispatch(fetchBot())
         }
-
     }, [])
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
@@ -58,19 +51,21 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                 };
             });
             setDetailsData(mergedArray)
+            if (form === false) {
+                setTimeout(() => {
+                    setSkeleton(false)
+                }, 2000);
+            }
         }
     }, [state.botData.data])
     const getBotWidgetData = async () => {
         const widget = await getBotWidget(state.id)
         if (widget.data.code) {
             setmarkdown(widget.data.code)
-            const detail = await checkBotInstallation(state)
+            const detail = await checkBotInstallation(state.id)
         }
     }
 
-    const handleBack = () => {
-        setIntakeStep(intakeStep - 1)
-    }
 
     return (
         <>
@@ -127,23 +122,6 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
 
                                 </div>
                             </div>
-                            <div className='flex justify-between my-8'>
-                                <Button
-                                    onClick={handleBack}
-                                    className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                >
-                                    Back
-                                </Button>
-                                <Button type={"button"}
-                                    onClick={() => {
-                                        setIntakeCompleteStep(4)
-                                        setIntakeStep(4)
-                                    }}
-                                    className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                >
-                                    Next
-                                </Button>
-                            </div>
                         </div>
                     )}
                 </>
@@ -156,59 +134,102 @@ const Embed = ({ form = true, intakeStep, setIntakeStep, setIntakeCompleteStep }
                             <div className='grid grid-cols-1 sm:grid-cols-2   md:grid-cols-2 lg:grid-cols-2'>
                                 {detailsData && detailsData.map((element, key) =>
                                     <div className=' sm:p-5 md:p-5 lg:p-5 ' key={key}>
+                                        {skeleton ?
+                                            <div className='mt-5 border rounded-md border-border  bg-white'>
+                                                <div className='rounded-t-md py-2 px-5 border-border items-center'>
+                                                    <SkeletonLoader />
 
-                                        <div className='mt-5 border rounded-md border-border  bg-white'>
-                                            <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
-                                                <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
-                                                >
-                                                    <PencilSquareIcon className='h-5 w-5' />
-                                                </Link>
-                                                {copied.message && copied.key === key ? <>
-                                                    <span className='flex items-center'> <CheckIcon className="h-5 w-5 " /> Copied!</span> </> :
-                                                    <CopyToClipboard text={element.code} onCopy={() => {
-                                                        setCopied((prev) => {
-                                                            return {
-                                                                ...prev,
-                                                                message: "copied !",
-                                                                key: key
-                                                            }
-                                                        })
-                                                        setTimeout(() => {
+                                                </div>
+                                                <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
+                                                    <h3 className='font-xl font-bold text-heading my-2'>  <SkeletonLoader height={30} width={100} /></h3>
+                                                    <div className='my-2'>
+                                                        <SkeletonLoader count={1} />
+                                                        <SkeletonLoader count={1} width={100} />
+                                                        <SkeletonLoader count={1} width={200} />
+                                                        <SkeletonLoader count={1} width={300} />
+                                                        <SkeletonLoader count={1} width={80} />
+                                                        <SkeletonLoader count={1} width={100} />
+                                                    </div>
+
+                                                </div>
+
+                                            </div> :
+                                            <div className='mt-5 border rounded-md border-border  bg-white'>
+                                                <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
+                                                    {copied.message && copied.key === key ? <>
+                                                        <span className='flex items-center'>
+                                                            <CheckIcon className="h-5 w-5 " />
+                                                            Copied!</span> </> :
+                                                        <CopyToClipboard text={element.code} onCopy={() => {
                                                             setCopied((prev) => {
                                                                 return {
                                                                     ...prev,
-                                                                    message: null,
-                                                                    key: null
+                                                                    message: "copied !",
+                                                                    key: key
                                                                 }
                                                             })
-                                                        }, 3000)
-                                                    }}>
-                                                        <button type={"submit"}
+                                                            setTimeout(() => {
+                                                                setCopied((prev) => {
+                                                                    return {
+                                                                        ...prev,
+                                                                        message: null,
+                                                                        key: null
+                                                                    }
+                                                                })
+                                                            }, 3000)
+                                                        }}>
+                                                            <button type={"submit"}
+                                                                className="border-none p-0 m-0 flex gap-1 items-center"
+                                                            >
+                                                                <ClipboardIcon className=" h-5 w-5 text-white" /> Copy code
+                                                            </button>
+                                                        </CopyToClipboard>
+                                                    }
+                                                    <div className='relative'>
+                                                        <button type={"button"}
+                                                            onClick={() => { dropdown === key ? setDropdown(null) : setDropdown(key) }}
                                                             className="border-none p-0 m-0 flex gap-1 items-center"
                                                         >
-                                                            <ClipboardIcon className=" h-5 w-5 text-white" /> Copy code
-                                                        </button>
-                                                    </CopyToClipboard>
-                                                }
-                                            </div>
-                                            <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
-                                                <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
-                                                <div>
-                                                    <CodeMirror
-                                                        value={element.code.trim()}
-                                                        height="auto"
-                                                        theme={xcodeLight}
-                                                        extensions={[html({ selfClosingTags: true })]}
-                                                        editable={false}
-                                                        basicSetup={{ lineNumbers: false, foldGutter: false, dropCursor: false }}
-                                                        readOnly={true}
-                                                        className='border-none'
-                                                    // onChange={onChange}
+                                                            <EllipsisVerticalIcon className="h-5 w-5 " /></button>
+                                                        {dropdown === key && (
+                                                            <div className="animate-fadeIn absolute left-[-120px]  z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                                                <ul className=" text-sm ">
+                                                                    <li>
+                                                                        <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`} className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-heading ">Edit</Link>
+                                                                    </li>
+                                                                    <li>
+                                                                        <Link href={`/dashboard/view-logs?id=${element.id}&name=${element.title}`} className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading">View Logs</Link>
+                                                                    </li>
+                                                                    <li>
+                                                                        <Link href={`/dashboard/bot-setting?id=${element.id}&name=${element.title}`} className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading">Settings   </Link>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        )}
+                                                    </div>
 
-                                                    /></div>
-                                            </div>
+                                                </div>
+                                                <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
+                                                    <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
+                                                    <div className='my-2'>
+                                                        <CodeMirror
+                                                            value={element.code.trim()}
+                                                            height="auto"
+                                                            theme={xcodeLight}
+                                                            extensions={[html({ selfClosingTags: true })]}
+                                                            editable={false}
+                                                            basicSetup={{ lineNumbers: false, foldGutter: false, dropCursor: false }}
+                                                            readOnly={true}
+                                                            className='border-none'
+                                                        // onChange={onChange}
 
-                                        </div>
+                                                        />
+                                                    </div>
+
+                                                </div>
+
+                                            </div>}
+
                                     </div>
 
                                 )}
