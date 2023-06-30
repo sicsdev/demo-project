@@ -70,7 +70,7 @@ const Footer = () => {
               </div>
               <div>
                 <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                  <Link href="/terms-of-service">Terms of service</Link>
+                  <Link href="/terms-of-service">Terms of Service</Link>
                 </h6>
               </div>
               </div>

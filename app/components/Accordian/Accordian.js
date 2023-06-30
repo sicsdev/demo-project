@@ -12,17 +12,21 @@ import List from "../Layout/components/List";
 import Link from "next/link";
 const Accordian = ({ setShow, nav_links }) => {
   return (
-    <div className="nav-accordian  h-[100vh] overflow-y-scroll">
+    <div className="nav-accordian h-[100vh] overflow-y-scroll">
       <Accordion allowZeroExpanded>
         {nav_links.map((element, key) => (
           <AccordionItem key={key}>
-            <AccordionItemHeading className="mobile_arrow">
+            <AccordionItemHeading 
+            className="mobile_arroww">
               <AccordionItemButton>
                 <Link href={element.link}>
                   <h3
                     className="text-heading text-md font-semibold"
                     onClick={() => {
-                      if (element.name == "Pricing" || element.name == "Developers") {
+                      if (
+                        element.name == "Pricing" ||
+                        element.name == "Developers"
+                      ) {
                         setShow(false);
                       }
                     }}
@@ -37,6 +41,7 @@ const Accordian = ({ setShow, nav_links }) => {
                 <List
                   className={"grid grid-cols-1 gap-8"}
                   nav_links={element.card.links}
+                  setShow={setShow}
                 />
               </AccordionItemPanel>
             )}

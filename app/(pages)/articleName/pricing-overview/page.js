@@ -20,7 +20,7 @@ const page = () => {
         {single?.acf?.article_name}
       </h1>
       <p className=" text-heading px-4 pt-8">{single?.acf?.aritcle_para_t}</p>
-      <p className="font-bold  px-4 pt-8 text-heading md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+      <p className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
         {single?.acf?.first_head}
       </p>
       <p
@@ -28,7 +28,7 @@ const page = () => {
         dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
       ></p>
       <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
-        <table className="text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto m-auto shadow-lg">
+        <table className="mt-3 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto m-auto shadow-lg">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th
@@ -157,7 +157,7 @@ const page = () => {
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }}
         ></p>
-        <table className="text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[40%] mx-6 sm:mx-auto m-auto shadow-lg">
+        <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[40%] mx-6 sm:mx-auto m-auto shadow-lg">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
             <tr>
               <th
@@ -217,31 +217,27 @@ const page = () => {
           </tbody>
         </table>
         <p
-          className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
+          className="text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }}
         ></p>
-        <div className="sm:w-[20%] text-center m-auto">
+        <div className="mt-4 sm:mt-4 mx-6 sm:w-[20%] text-center sm:m-auto">
           <button
             className={
-              "py-2 px-8  focus:ring-yellow-300 text-center text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+              "py-2 px-8 focus:ring-yellow-300 text-center text-white w-full mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg "
             }
           >
-            <Link
-              href="/free-trial
-"
-            >
-              Enterprise Demo &#8594;{" "}
-            </Link>
+            <Link href="/free-trial">Enterprise Demo  &#8594; </Link>
+
           </button>
         </div>
-        <p className="font-bold  px-4 pt-8 text-heading md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+        <p className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
           {single?.acf?.sedond_head}
         </p>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
           dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy3 }}
         ></p>
-        <div className="sm:w-[20%] m-auto py-4">
+        <div className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
           <button
             className={
               "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
