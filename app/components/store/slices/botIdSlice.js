@@ -11,7 +11,7 @@ export const botIdSlice = createSlice({
         setBotId: (state, action) => {
             state.id = action.payload
         },
-        setModalValue: (state, action) => {
+        setModalValue: (state, action) => { 
             state.showModal = action.payload
         },
     },
