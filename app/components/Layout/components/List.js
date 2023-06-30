@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-const List = ({ nav_links, className }) => {
+const List = ({ nav_links, className, setShow }) => {
   return (
     <div className={className}>
       {nav_links?.map((element, key) => (
@@ -17,7 +17,9 @@ const List = ({ nav_links, className }) => {
           </h3>
           <ul className="mt-5">
             {element.data.map((element, key) => (
-              <li className="cursor-pointer" key={key}>
+              <li className="cursor-pointer" key={key} 
+            onClick={(e) => setShow(false)}
+            >
                 <Link href={element.link}>
                   <div className="hover:bg-gray p-2 rounded-lg flex gap-4 justify-start items-start">
                     <div className="">
@@ -27,8 +29,8 @@ const List = ({ nav_links, className }) => {
                         style={{ maxWidth: "22px"}}
                       />
                     </div>
-                    <div className="">
-                      <h3 className="text-heading text-semibold flex items-center justify-between">
+                    <div className="w-[100%]">
+                      <h3 className="text-heading text-semibold flex items-center justify-start gap-4 sm:gap-0 sm:justify-between">
                         {element.heading} {element.label}
                       </h3>
                       <p className="text-border text-xs mt-2 min-h-[34px]">

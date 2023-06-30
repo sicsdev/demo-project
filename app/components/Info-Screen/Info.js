@@ -7,7 +7,6 @@ import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 
-
 const Info = () => {
   const slides = [
     {
@@ -51,10 +50,7 @@ const Info = () => {
       id: "1",
       title: "AI Chat",
       coming_soon: "",
-      icon: (
-        <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />
-
-      ),
+      icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
       content_video: "/firstvideo.mp4",
       h3: "ChatGPT becomes the brain of your business.",
@@ -139,7 +135,7 @@ const Info = () => {
     setActiveTab(index);
     setTimer(9);
   };
-
+  
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
@@ -157,6 +153,10 @@ const Info = () => {
                       index === activeTab
                         ? "active bg-background text-white start-rainbow"
                         : "start-rainbow"
+                    } ${
+                      index === activeTab + 1 || index === activeTab - 3
+                        ? "border-animation"
+                        : ""
                     }`}
                     onClick={(e) => handleTabChange(index)}
                   >
@@ -167,7 +167,7 @@ const Info = () => {
                         {tab.coming_soon}
                       </span>
                     </p>
-                    {index === activeTab + 1 || index === activeTab - 4 ? (
+                    {index === activeTab + 1 || index === activeTab - 3 ? (
                       <svg
                         className="facet-pill-border"
                         height="54"

@@ -211,5 +211,14 @@ select::-ms-expand {
   .facet-pill-border rect {
     animation: opacityChange 12s linear;
   }
-  
+  .accordion__item:nth-child(2) .mobile_arroww .accordion__button:before,
+  .accordion__item:nth-child(3) .mobile_arroww .accordion__button:before {
+    display: none;
+  }
+  .active.start-rainbow{
+    order: -2;
+  }
+  .border-animation{
+    order: -1;
+  }
 }
