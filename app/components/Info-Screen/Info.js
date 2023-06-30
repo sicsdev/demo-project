@@ -188,7 +188,7 @@ const Info = () => {
           <div className="bg-white px-4 pb-10 sm:pb-2">
             <div className="flex flex-wrap sm:flex-nowrap items-center">
               <div className="w-full sm:px-12 mt-[40px] sm:mt-0">
-                <div className="h-[228px] sm:h-[328px] mb-6 sm:mb-0">
+                <div className="h-[100%] sm:h-[328px] mb-6 sm:mb-0">
                   <img
                     src={tabs[activeTab].content_video}
                     className="w-100 rounded-2xl"
