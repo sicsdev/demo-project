@@ -15,7 +15,6 @@ const Page = () => {
   }, []);
   console.log("sing", single);
   const blogName = searchParams.get("blogName");
-  console.log("blogName", blogName)
   return (
     <>
       <div className="singleblog">
