@@ -46,7 +46,7 @@ const Nav = () => {
                         setHide(false);
                         setTimeout(() => {
                           setHide(true);
-                        }, 100);
+                        }, 1000);
                       }}
                     >
                       <List
