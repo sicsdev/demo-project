@@ -2,17 +2,19 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { getSingleBlogsPage } from "@/app/API/pages/Wpdata";
-const Page = ({ params }) => {
+import { useSearchParams } from "next/navigation";
+
+const Page = () => {
   const [single, setSingle] = useState("");
-  console.log("params", params);
+   const searchParams = useSearchParams()
   useEffect(() => {
-    getSingleBlogsPage(params).then((res) => {
+    getSingleBlogsPage(blogName).then((res) => {
       console.log("res", res.data);
       setSingle(res.data[0]);
     });
   }, []);
   console.log("sing", single);
-
+  const blogName = searchParams.get("blogName");
   return (
     <>
       <div className="singleblog">

@@ -48,63 +48,47 @@ const Demo = () => {
     // }
   }, [email]);
 
-  // const sendDataToFreshsales = async () => {
-  //   const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
-  //     // Create the lead object with the desired data
-  //     const contact = {
-  //       email: email
-  //       // Add more fields as needed
-  //     };
-  //     try {
-  //       // Send the lead data to Freshsales CRM
-  //        const response = await fetch(apiUrl, {
-  //          method: 'POST',
-  //          headers: {
-  //            'Access-Control-Allow-Origin': "*",
-  //            'Content-Type': 'application/json',
-  //            'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
-  //          },
-  //          body: JSON.stringify(contact),
-  //        });
+  const sendDataToFreshsales = async () => {
+    const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
+      // Create the lead object with the desired data
+      const contact = {
+        email: email
+        // Add more fields as needed
+      };
+      try {
+        // Send the lead data to Freshsales CRM
+         const response = await fetch(apiUrl, {
+           method: 'POST',
+           headers: {
+             'Access-Control-Allow-Origin': "*",
+             'Content-Type': 'application/json',
+             'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
+           },
+           body: JSON.stringify(contact),
+         });
+         if (response.ok) {
+           // Lead data sent successfully   
+           console.log('data sent to Freshsales CRM');
+         } else {
+           // Handle error if the request fails
+           console.error('Error sending  data to Freshsales CRM');
+         }
+       } catch (error) {
+         console.error('Error sending  data to Freshsales CRM', error);
+       }
 
-  //        if (response.ok) {
-  //          // Lead data sent successfully
-  //          console.log('data sent to Freshsales CRM');
-  //        } else {
-  //          // Handle error if the request fails
-  //          console.error('Error sending  data to Freshsales CRM');
-  //        }
-  //      } catch (error) {
-  //        console.error('Error sending  data to Freshsales CRM', error);
-  //      }
-  //   let headersList = {
-  //     Accept: "*/*",
-  //     Authorization: " Token yict-U-l_KKTLDvaQPiXDQ",
-  //     "Content-Type": "application/json",
-  //   };
-
-  //   let bodyContent = JSON.stringify({ email: "shubham@gmail.com" });
-
-  //   fetch("https://tempoai.myfreshworks.com/crm/sales/api/contacts", {
-  //     method: "POST",
-  //     body: bodyContent,
-  //     headers: headersList,
-  //   }).then((res) => {
-  //     console.log(res);
-  //   });
-  // };
-
+  };
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      hj('identify', userId, { 
-        Email: email
-    });
+      hj("identify", userId, {
+        Email: email,
+      });
       let payload = {
         event: "Blur-Email",
       };
       window.dataLayer?.push(payload);
-      // sendDataToFreshsales(email);
+      sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {
           event: "lead-generic",
@@ -137,7 +121,6 @@ const Demo = () => {
     }
   };
 
-
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>
@@ -149,7 +132,7 @@ const Demo = () => {
           </span>{" "}
           customer service
         </h3>
-        <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8">
+        <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 sm:gap-1 mt-8">
           <div className="inline col-span-2 ">
             <input
               type={"email"}
@@ -180,7 +163,7 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-1 sm:gap-5 sm:5">
+        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-5">
           <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>

@@ -8,7 +8,7 @@ import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
 import { useRouter, useSearchParams } from "next/navigation";
-
+import Link from "next/link";
 import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
 import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 
@@ -24,7 +24,7 @@ const Checkout = () => {
   const [googleAuthInfo, setGoogleAuthInfo] = useState({
     googleLogin: false,
     token: "",
-    email: ""
+    email: "",
   });
 
   // Local states for changing testimonials (not using until we have more real testimonials)
@@ -39,7 +39,13 @@ const Checkout = () => {
       ? setCheckoutForm({ ...checkoutForm, email: searchParams.get("email") })
       : setCheckoutForm({ ...checkoutForm, email: "" });
 
-    if (searchParams.get("gauth") == 'true') setGoogleAuthInfo({ ...googleAuthInfo, googleLogin: true, token: searchParams.get("gtoken"), email: searchParams.get("email") })
+    if (searchParams.get("gauth") == "true")
+      setGoogleAuthInfo({
+        ...googleAuthInfo,
+        googleLogin: true,
+        token: searchParams.get("gtoken"),
+        email: searchParams.get("email"),
+      });
     // Changing testimonials every 9 seconds
     // const interval = setInterval(() => {
     //     let random = Math.floor(Math.random() * (testimonialsArray.length - 2))
@@ -153,18 +159,21 @@ const Checkout = () => {
             1. Enter Your Info
           </h3>
           <div className="border bg-white rounded-lg border-border">
-
-            {googleAuthInfo.googleLogin ?
-              (<div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
+            {googleAuthInfo.googleLogin ? (
+              <div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
                 <span className="text-start text-sm font-normal text-border flex items-center">
-                  <img width='25px' className='mx-5' src='/icons/google-g.svg'></img>
-                  <div className='flex items-center text-white'>
+                  <img
+                    width="25px"
+                    className="mx-5"
+                    src="/icons/google-g.svg"
+                  ></img>
+                  <div className="flex items-center text-white">
                     Logged in with {checkoutForm.email}
                   </div>
                 </span>
-              </div>)
-              :
-              (<div className="flex justify-start gap-4 items-center  pl-5 p-1">
+              </div>
+            ) : (
+              <div className="flex justify-start gap-4 items-center  pl-5 p-1">
                 <span className="text-start text-sm font-normal w-[20%] text-border">
                   Work Email
                 </span>
@@ -179,9 +188,8 @@ const Checkout = () => {
                   onChange={handleFormValues}
                   value={checkoutForm.email && checkoutForm.email}
                 />
-              </div>)
-            }
-
+              </div>
+            )}
 
             <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
               <span className="text-start text-sm font-normal w-[20%] text-border">
@@ -213,7 +221,7 @@ const Checkout = () => {
                 onChange={handleFormValues}
               />
             </div>
-            {!googleAuthInfo.googleLogin &&
+            {!googleAuthInfo.googleLogin && (
               <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
                 <span className="text-start text-sm font-normal w-[20%] text-border">
                   Password
@@ -228,7 +236,8 @@ const Checkout = () => {
                   id={"password"}
                   onChange={handleFormValues}
                 />
-              </div>}
+              </div>
+            )}
           </div>
           <div className="flex items-center my-6">
             <input
@@ -285,7 +294,20 @@ const Checkout = () => {
                 />
               </StripeWrapper>
             </div>
+     
           </div>
+          <div className="mt-5">
+              <p className="text-justify">
+                By entering your information, you authorize Tempo AI to
+                automatically charge your card for your usage once your credits
+                according to our{" "}
+                <span className="text-[blue]">
+                  <Link href="https://usetempo.ai/articleName/pricing-overview">Pricing Policy.</Link>{" "}
+                </span>{" "}
+                To establish your account and verify your payment method, we
+                will charge $1 to your credit card today.
+              </p>
+            </div>
         </div>
 
         <div className="hidden lg:block">
@@ -350,6 +372,9 @@ const Checkout = () => {
           </div>
         </div>
       </div>
+      <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
+
+     <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
     </Container>
   );
 };

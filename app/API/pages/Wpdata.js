@@ -38,7 +38,7 @@ export const getBlogsPage = async (body) =>{
 export const getSingleBlogsPage = async (params) =>{
   try{
     const response = await axios.get(
-      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params.slug}`
+      `https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?slug=${params}`
     );
     return response;
   } catch (error) {
