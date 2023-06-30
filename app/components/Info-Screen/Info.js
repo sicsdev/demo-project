@@ -6,6 +6,7 @@ import { InboxIcon } from "@heroicons/react/24/outline";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
 
 const Info = () => {
   const slides = [
@@ -52,60 +53,49 @@ const Info = () => {
       coming_soon: "",
       icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
-      content_video: "/firstvideo.mp4",
-      h3: "ChatGPT becomes the brain of your business.",
-      p: "Tempo connects to your existing systems. Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. The best part? Your customers will never know they're speaking to an AI.",
+      content_video: "/aichat.png",
+      h3: "Discover a revolution in customer communication with Tempo Chat.",
+      p: "Integrate Tempo Chat seamlessly into your existing infrastructure, and watch as it adapts to reflect your business's unique brand. Capable of processing orders, administering returns, and managing inquiries round-the-clock, Tempo Chat is the comprehensive solution your business needs. The crowning glory? Your customers will remain blissfully unaware they're engaging with an AI.",
     },
     {
       id: "2",
       title: "Smart Inbox",
       coming_soon: "",
       icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/secondvideo.mp4",
-      h3: "We'll save you money while you sleep.",
-      p: "Runs your ops in the background. Automatically issue refunds to angry customers, retain subscribers, and reduce churn. Tempo combines a super smart AI bot with humans when you need it.",
+      content_video: "/smartinbox.png",
+      h3: "Experience cost savings even when you're off the clock.",
+      p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
     },
-    // {
-    //   id: "3",
-    //   title: "IVR",
-    //   coming_soon: "(coming soon)",
-    //   icon: (
-    //     <svg
-    //       xmlns="http://www.w3.org/2000/svg"
-    //       fill="none"
-    //       viewBox="0 0 24 24"
-    //       stroke-width="1.5"
-    //       stroke="currentColor"
-    //       class="w-6 h-6"
-    //     >
-    //       <path
-    //         stroke-linecap="round"
-    //         stroke-linejoin="round"
-    //         d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z"
-    //       />
-    //     </svg>
-    //   ),
-    //   content_video: "thirdvideo.mp4",
-    //   h3: "Instant integration process.",
-    //   p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
-    // },
+   
     {
       id: "3",
       title: "Save Big",
       coming_soon: "",
       icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/thirdvideo.mp4",
-      h3: "Instant integration process.",
-      p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
+      content_video: "/savebig.png",
+      h3: "Experience unrivaled clarity with our Transparent Billing.",
+      p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
     },
     {
       id: "4",
       title: "Scale Fast",
       coming_soon: "",
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/thirdvideo.mp4",
-      h3: "Instant integration process.",
-      p: "Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.",
+      content_video: "/scalefast.png",
+      h3: "Gain Insight with our Advanced Analytics Dashboard.",
+      p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
+    },
+    {
+      id: "5",
+      title: "Smart IVR",
+      coming_soon: "",
+      icon: (
+        <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
+
+      ),
+      content_video: "/ivr.png",
+      h3: "Elevate your customer service with Smart IVR.",
+      p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
     },
   ];
 
@@ -154,7 +144,7 @@ const Info = () => {
                         ? "active bg-background text-white start-rainbow"
                         : "start-rainbow"
                     } ${
-                      index === activeTab + 1 || index === activeTab - 3
+                      index === activeTab + 1 || index === activeTab - 4
                         ? "border-animation"
                         : ""
                     }`}
@@ -167,7 +157,7 @@ const Info = () => {
                         {tab.coming_soon}
                       </span>
                     </p>
-                    {index === activeTab + 1 || index === activeTab - 3 ? (
+                    {index === activeTab + 1 || index === activeTab - 4 ? (
                       <svg
                         className="facet-pill-border"
                         height="54"
@@ -197,14 +187,10 @@ const Info = () => {
           {/* content */}
           <div className="bg-white px-4 pb-10 sm:pb-2">
             <div className="flex flex-wrap sm:flex-nowrap items-center">
-              <div className="w-full sm:px-12">
+              <div className="w-full sm:px-12 mt-[40px] sm:mt-0">
                 <div className="h-[228px] sm:h-[328px] mb-6 sm:mb-0">
-                  <video
-                    autoPlay
-                    muted
+                  <img
                     src={tabs[activeTab].content_video}
-                    loop
-                    playsInline
                     className="w-100 rounded-2xl"
                     style={{ minHeightL: "200px" }}
                   />

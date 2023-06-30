@@ -12,7 +12,7 @@ import Banner from "./Banner";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
-
+  const [hide, setHide] = useState(true);
   return (
     <>
       <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-heading border-gray-200 ">
@@ -39,9 +39,15 @@ const Nav = () => {
                   <Link href={element.link}>{element.name}</Link>
                   {element.card.links.length > 0 && (
                     <Card
-                      className={
-                        "animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white"
-                      }
+                      className={`animate-fadeIn w-[800px] hidden ${
+                        hide === true && "group-hover:block"
+                      } absolute top-[61px] bg-white`}
+                      onClick={(e) => {
+                        setHide(false);
+                        setTimeout(() => {
+                          setHide(true);
+                        }, 1000);
+                      }}
                     >
                       <List
                         className={"grid grid-cols-2 gap-8"}

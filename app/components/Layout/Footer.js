@@ -139,7 +139,7 @@ const Footer = () => {
               className="font-thin text-neutral-600 dark:text-neutral-400 "
               href="https://tailwind-elements.com/"
             >
-              © Tempo AI Ventures, LLC{" "}
+              © Tempo AI Ventures, Inc{" "}
             </a>
           </div>
         </div>
