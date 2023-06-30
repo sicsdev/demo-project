@@ -11,10 +11,12 @@ import LoaderButton from '@/app/components/Common/Button/Loaderbutton';
 import BotSettingReadOnly from '@/app/components/Forms/ReadOnly/BotSetting';
 import Card from '@/app/components/Common/Card/Card';
 import Swal from 'sweetalert2';
+import Loading from '@/app/components/Loading/Loading';
 
 const BotSetting = () => {
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
+    const [dataLoading, setDataLoading] = useState(true)
     const [basicFormData, setBasicFormData] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const searchParams = useSearchParams();
@@ -31,7 +33,6 @@ const BotSetting = () => {
         setBotId(id)
         getAllBotData([id]).then((response) => {
             let res = response[0].data
-            debugger
             setBasicFormData(prev => {
                 return {
                     ...prev,
@@ -43,6 +44,7 @@ const BotSetting = () => {
 
                 }
             })
+            setDataLoading(false)
         })
     }
     const SubmitValues = async () => {
@@ -104,29 +106,31 @@ const BotSetting = () => {
                     </li>
                 </ul>
             </div>
-            <div className='mt-3'>
-                {isEdit === false ?
-                    <BotSettingReadOnly basicFormData={basicFormData} /> :
-                    <Card>
-                        <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                        <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-                            <>
-                                {loading ? <LoaderButton /> :
-                                    <Button type={"button"}
-                                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                        onClick={(e) => { SubmitValues() }}
-                                        disabled={DisablingButton()}
-                                    >
-                                        Submit
+            {dataLoading === true ? <Loading /> :
+                <div className='mt-3'>
+                    {isEdit === false ?
+                        <BotSettingReadOnly basicFormData={basicFormData} /> :
+                        <Card>
+                            <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                            <div className={`flex p-2 rounded-b mt-5 justify-between`}>
+                                <>
+                                    {loading ? <LoaderButton /> :
+                                        <Button type={"button"}
+                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                            onClick={(e) => { SubmitValues() }}
+                                            disabled={DisablingButton()}
+                                        >
+                                            Submit
 
-                                    </Button>
-                                }
+                                        </Button>
+                                    }
 
-                            </>
-                        </div>
-                    </Card>}
+                                </>
+                            </div>
+                        </Card>}
 
-            </div>
+                </div>
+            }
         </div>
     )
 }

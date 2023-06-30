@@ -13,7 +13,6 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
         enable_email_forwarding: basicFormData?.enable_email_forwarding ?? '',
         company_name: basicFormData?.company_name ?? '',
     })
-    console.log('basicFormData', basicFormData)
     const handleInputValues = (e) => {
         const { value } = e.target
         setErrors([])

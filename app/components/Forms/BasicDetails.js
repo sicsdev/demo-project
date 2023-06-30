@@ -4,7 +4,6 @@ import { business_company_size_data, business_industry_data, state_data } from "
 import { useState } from "react";
 
 export default function BasicDetails({ basicFormData, setBasicFormData, }) {
-    console.log("basicFormData", basicFormData)
     const [errors, setErrors] = useState([])
     const [formValues, setFormValues] = useState({
         business_street: basicFormData?.business_street ?? '',

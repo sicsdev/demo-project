@@ -8,44 +8,86 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from 'react';
 import Button from '../../Common/Button/Button';
-const Billing = ({ basicFormData }) => {
+import { createBillingUser } from '@/app/API/pages/Checkout';
+import Swal from 'sweetalert2';
+import LoaderButton from '../../Common/Button/Loaderbutton';
+import { useEffect } from 'react';
+const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
     const stripe = useStripe();
     const elements = useElements();
-    console.log(basicFormData)
     const [errors, setError] = useState([]);
     const [loading, setLoading] = useState();
+    const [cardFilled, setCardFilled] = useState(false);
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setLoading(true);
+        if (!stripe || !elements) {
+            return;
+        }
+        const cardElement = elements.getElement(CardElement);
+        let card_token = await stripe.createToken(cardElement);
+        const payload = {
+            token: card_token.token?.id
+        }
+        const response = await createBillingUser(payload)
+        if (response?.message) {
+            Swal.fire(
+                'Success !',
+                response?.message,
+                'success'
+            )
+        }
+        setLoading(false)
+        getBillingData()
+        setShowBilling(false)
+    }
+
+    useEffect(() => {
+        if (elements != null) {
+            const cardElement = elements.getElement(CardElement);
+            if (cardElement && cardElement != null) {
+                cardElement.on("change", function (event) {
+                    if (event.complete) {
+                        setCardFilled(true);
+                    } else {
+                        setCardFilled(false);
+                    }
+                });
+            }
+        }
+    }, [elements]);
     return (
         <div className='p-6'>
-            <form >
-                <div
-                    className="border rounded px-2 border-gray-100"
-                    style={{ borderColor: "#80808080" }}
-                >
-                    <CardElement
-                        className="form-control"
-                        options={{
-                            style: {
-                                base: {
-                                    fontSize: "16px",
-                                    padding: "2vh",
-                                    lineHeight: "2.5",
-                                    color: "#495057",
-                                    borderRadius: "1vh",
-                                    borderStyle: "solid",
-                                },
+
+            <div
+                className="border rounded px-2 border-gray-100"
+                style={{ borderColor: "#80808080" }}
+            >
+                <CardElement
+                    className="form-control"
+                    options={{
+                        style: {
+                            base: {
+                                fontSize: "16px",
+                                padding: "2vh",
+                                lineHeight: "2.5",
+                                color: "#495057",
+                                borderRadius: "1vh",
+                                borderStyle: "solid",
                             },
-                        }}
-                    />
-                </div>
-
-                {loading && <p className="message">Processing Payment...</p>}
-                <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
-
-                >
-                    Submit
-                </Button>
-            </form>
-
+                        },
+                    }}
+                />
+            </div>
+            <div className='my-5'>
+                {loading === true ? <LoaderButton /> :
+                    <Button type={"submit"} className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                        onClick={handleSubmit}
+                        disabled={cardFilled == false}
+                    >
+                        Submit
+                    </Button>}
+            </div>
             <div>
                 {errors.map((error, i) => (
                     <p key={i} className="text-red text-center">
@@ -53,20 +95,6 @@ const Billing = ({ basicFormData }) => {
                     </p>
                 ))}
 
-                {errors.includes("A user with that email already exists.") && (
-                    <div className="text-center mt-2">
-                        <span>
-                            Please{" "}
-                            <a
-                                className="link underline text-sky text-center mt-1"
-                                href="/login"
-                            >
-                                login
-                            </a>{" "}
-                            to continue
-                        </span>
-                    </div>
-                )}
             </div>
         </div>
     )

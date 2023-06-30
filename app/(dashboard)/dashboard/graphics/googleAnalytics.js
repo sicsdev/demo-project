@@ -7,7 +7,6 @@ const GoogleAnalytics = () => {
         ReactGA.initialize("G-HFHNKD99J4");
         ReactGA.send("pageview");
 
-        console.log(ReactGA)
 
     }, []);
 
@@ -17,7 +16,6 @@ const GoogleAnalytics = () => {
             category: "Button",
             label: "Google Analytic event triggered",
         });
-        console.log('triggered')
     };
 
     return (

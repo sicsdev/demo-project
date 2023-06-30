@@ -65,7 +65,7 @@ const Page = () => {
                 "ecommerce_platform": state?.data?.enterprise?.ecommerce_platform,
                 business_street: address.addrline,
                 business_city: address.city,
-                business_state: returnStateName(address.state),
+                business_state: returnStateName(address.state ?? ""),
                 business_zipcode: address.zipcode,
 
             })
@@ -179,7 +179,7 @@ const Page = () => {
 
                         {showBilling ?
                             <StripeWrapper>
-                                <Billing basicFormData={basicFormData} />
+                                <Billing basicFormData={basicFormData} setShowBilling={setShowBilling} getBillingData={getBillingData}/>
                             </StripeWrapper>
                             :
                             <>
