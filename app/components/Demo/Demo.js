@@ -49,23 +49,27 @@ const Demo = () => {
   }, [email]);
 
   const sendDataToFreshsales = async () => {
-    const apiUrl = "https://tempoai.myfreshworks.com/crm/sales/api/contacts";
+    const apiUrl = "https://scfddmnmp4dibft5qrkeatmwwa0qjonx.lambda-url.us-east-2.on.aws/";
       // Create the lead object with the desired data
       const contact = {
         email: email
         // Add more fields as needed
       };
       try {
+        console.log("payload", contact)
         // Send the lead data to Freshsales CRM
-         const response = await fetch(apiUrl, {
-           method: 'POST',
+         const response = await axios(apiUrl, {
+           method: 'post',
            headers: {
              'Access-Control-Allow-Origin': "*",
-             'Content-Type': 'application/json',
-             'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
+             'Access-Control-Allow-Headers': 'Content-Type',
+            //  'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
            },
+           
            body: JSON.stringify(contact),
          });
+        
+
          if (response.ok) {
            // Lead data sent successfully   
            console.log('data sent to Freshsales CRM');
@@ -77,6 +81,7 @@ const Demo = () => {
          console.error('Error sending  data to Freshsales CRM', error);
        }
 
+    
   };
 
 

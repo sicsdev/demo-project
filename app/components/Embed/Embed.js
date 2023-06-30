@@ -15,7 +15,6 @@ import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from 'next/link';
 import SkeletonLoader from '../Skeleton/Skeleton';
-import { SkeletonTheme } from 'react-loading-skeleton';
 const Embed = ({ form = true ,skeleton, setSkeleton}) => {
     const router = useRouter()
     const state = useSelector((state) => state.botId)
