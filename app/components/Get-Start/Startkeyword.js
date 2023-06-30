@@ -13,7 +13,7 @@ const Startkeyword = () => {
     "Eliminates refunds",
     "Automates shipping & returns",
     "Handles customer complaints",
-    "Manages subscriptions & cancellations",
+    "Manages subscriptions",
   ];
   return (
     <>
