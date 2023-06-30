@@ -31,14 +31,15 @@ const BotSetting = () => {
         setBotId(id)
         getAllBotData([id]).then((response) => {
             let res = response[0].data
+            debugger
             setBasicFormData(prev => {
                 return {
                     ...prev,
                     email: res.email,
                     agent_name: res.email_agent_name,
                     agent_title: res.email_agent_title,
-                    email_introduction: res.email_greeting[0] || "",
-                    email_signOff: res.email_farewell[0] || "",
+                    email_introduction: res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
+                    email_signOff: res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
 
                 }
             })
@@ -50,8 +51,8 @@ const BotSetting = () => {
             email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
             email_agent_name: basicFormData.agent_name,
             email_agent_title: basicFormData.agent_title,
-            email_greeting: [basicFormData.email_introduction],
-            email_farewell: [basicFormData.email_signOff],
+            email_greeting: basicFormData.email_introduction,
+            email_farewell: basicFormData.email_signOff,
         }
         const response = await modifyBot(botId, payload)
         if (response.status === 200) {
@@ -105,7 +106,7 @@ const BotSetting = () => {
             </div>
             <div className='mt-3'>
                 {isEdit === false ?
-                    <BotSettingReadOnly state={basicFormData} /> :
+                    <BotSettingReadOnly basicFormData={basicFormData} /> :
                     <Card>
                         <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                         <div className={`flex p-2 rounded-b mt-5 justify-between`}>

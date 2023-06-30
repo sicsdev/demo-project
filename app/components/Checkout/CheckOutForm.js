@@ -10,9 +10,10 @@ import { submitCheckout } from "@/app/API/pages/Checkout";
 import { useRouter } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
+import { createNewGoogleUser } from "@/app/API/pages/Login";
 
 
-const CheckOutForm = ({ checkoutForm, boxValid }) => {
+const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -31,6 +32,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
         card: elements.getElement(CardElement),
       });
       if (error) {
+        console.log(error)
         setError([error.message]);
         setLoading(false);
         return;
@@ -57,7 +59,8 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
         setError(getErrorsArray(result.response.data));
       }
     } catch (error) {
-      setError([error]);
+      console.log(error)
+      setError([error.message]);
     }
 
     setLoading(false);
@@ -73,8 +76,6 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
     }
     return messages;
   }
-
-  console.log("next", boxValid);
 
   return (
     <>
@@ -110,7 +111,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
 
       <div>
         {errors.map((error, i) => (
-          <p key={i} className="text-red text-center">
+          <p key={i} className="text-red text-center mt-3">
             {error}
           </p>
         ))}

@@ -25,7 +25,18 @@ export const subscribeCustomer = async (body, token) => {
     }
 };
 
-export const getBillingDetails = async () => {
+export const getBillingDetails = async (id) => {
+    let config = returnConfig()
+    try {
+        console.log(config)
+        const response = await axios.get(`${API_URL}/api/v1/payments/payment-method/?customer_id=${id}`, config);
+        return response.data;
+    } catch (error) {
+        if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
+        return error
+    }
+}
+export const getPaymentDetails = async () => {
     let config = returnConfig()
     try {
         console.log(config)

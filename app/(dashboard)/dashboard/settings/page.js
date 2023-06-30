@@ -6,7 +6,7 @@ import BasicDetails from '@/app/components/Forms/BasicDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { state_data } from '@/app/components/Forms/data/FormData';
 import Button from '@/app/components/Common/Button/Button';
-import { getBillingDetails } from '@/app/API/pages/Checkout';
+import { getBillingDetails, getPaymentDetails } from '@/app/API/pages/Checkout';
 import Billing from '@/app/components/Stripe/Billing/Billing';
 import StripeWrapper from '@/app/components/Stripe/Wrapper/StripeWrapper';
 import Card from '@/app/components/Common/Card/Card';
@@ -35,13 +35,27 @@ const Page = () => {
     const [showBilling, setShowBilling] = useState(false)
     const [basicFormData, setBasicFormData] = useState(null)
     const getBillingData = async () => {
-        const response = await getBillingDetails()
+        const response = await getPaymentDetails()
+        if (response.results.length > 0) {
+            const customer_id = response.results[0].stripe_id
+            const resp = await getBillingDetails(customer_id)
+            debugger
+            if (resp?.data.length > 0) {
+                debugger
+                setBasicFormData((prev) => {
+                    return {
+                        ...prev,
+                        card: resp.data[0].card
+                    }
+                })
+            }
+        }
+
     }
     useEffect(() => {
         if (state.data) {
-            // getBillingData()
+            getBillingData()
             let address = parseAddress(state?.data?.enterprise?.address)
-            debugger
             setBasicFormData({
                 "business_name": state?.data?.enterprise?.name,
                 "country": "US",
@@ -113,6 +127,16 @@ const Page = () => {
         return false
 
     }
+    const makeCapital = (str) => {
+        if (str.includes(" ")) {
+            return str
+                .split(" ")
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+        } else {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    }
     return (
         <div>
             {isEdit == true ?
@@ -155,13 +179,17 @@ const Page = () => {
 
                         {showBilling ?
                             <StripeWrapper>
-                                <Billing />
+                                <Billing basicFormData={basicFormData} />
                             </StripeWrapper>
                             :
-                            <div className='flex justify-between items-center'>
-                                <h3 className='text-center text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Card Number: <span className='text-md'>**88</span></h3>
-                                <h3 className='text-center text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Exp: 02/24</h3>
-                            </div>
+                            <>
+                                {basicFormData && (
+                                    <div className='grid grid-cols-2'>
+                                        <h3 className='text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Card Number: <span className='text-md'>**{basicFormData.card.last4}</span></h3>
+                                        <h3 className='text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Exp: {basicFormData.card.exp_month}/{basicFormData.card.exp_year}</h3>
+                                        <h3 className='text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading'>Card: {makeCapital(basicFormData.card.brand)}</h3>
+                                    </div>)}
+                            </>
                         }
                     </Card>
                     <Card className={'my-5'}>

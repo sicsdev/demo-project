@@ -25,24 +25,36 @@ export const exchangeGoogleToken = async (body) => {
     }
 }
 
-// • Instructions for exchangeGoogleToken body:
-// client_id: The client ID provided by Amazon Cognito.
-// client_secret: The client secret provided by Amazon Cognito.
-// redirect_uri: Redirect URI.
-// grant_type: Set it to "authorization_code".
-// code: The authorization code received in the query parameters of the redirect URI.
-
-
-// to get user info: https://tempouserpool.auth.eu-north-1.amazoncognito.com/oauth2/userInfo
-
 export const getUserInfoFromCognito = async (token) => {
-    
-        const config = { headers: { 'Authorization': `Bearer ${token}` } }
-    
-        try {
-            const response = await axios.get(`https://tempouserpool.auth.eu-north-1.amazoncognito.com/oauth2/userInfo`, config);
-            return response.data;
-        } catch (error) {
-            console.log(error)
-        }
+
+    const config = { headers: { 'Authorization': `Bearer ${token}` } }
+
+    try {
+        const response = await axios.get(`https://tempouserpool.auth.eu-north-1.amazoncognito.com/oauth2/userInfo`, config);
+        return response.data;
+    } catch (error) {
+        console.log(error)
     }
+}
+
+export const loginWithGoogle = async (body) => {
+    const config = getConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/google/users/ `, body, config);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        throw new Error(error.response)
+    }
+}
+
+export const createNewGoogleUser = async (body) => {
+    const config = getConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/accounts/users/google_auth`, body, config);
+        return response.data;
+    } catch (error) {
+        console.log(error)
+        throw new Error(error)
+    }
+}

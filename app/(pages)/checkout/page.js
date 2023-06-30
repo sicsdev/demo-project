@@ -20,6 +20,13 @@ const Checkout = () => {
   const [emailQuery, setEmailQuery] = useState("");
   const [showSummary, setShowSummary] = useState(false);
   const [boxValid, setBoxValid] = useState(true);
+
+  const [googleAuthInfo, setGoogleAuthInfo] = useState({
+    googleLogin: false,
+    token: "",
+    email: ""
+  });
+
   // Local states for changing testimonials (not using until we have more real testimonials)
   // const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
   // const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
@@ -32,6 +39,7 @@ const Checkout = () => {
       ? setCheckoutForm({ ...checkoutForm, email: searchParams.get("email") })
       : setCheckoutForm({ ...checkoutForm, email: "" });
 
+    if (searchParams.get("gauth") == 'true') setGoogleAuthInfo({ ...googleAuthInfo, googleLogin: true, token: searchParams.get("gtoken"), email: searchParams.get("email") })
     // Changing testimonials every 9 seconds
     // const interval = setInterval(() => {
     //     let random = Math.floor(Math.random() * (testimonialsArray.length - 2))
@@ -145,22 +153,36 @@ const Checkout = () => {
             1. Enter Your Info
           </h3>
           <div className="border bg-white rounded-lg border-border">
-            <div className="flex justify-start gap-4 items-center  pl-5 p-1">
-              <span className="text-start text-sm font-normal w-[20%] text-border">
-                Work Email
-              </span>
-              <input
-                type={"email"}
-                placeholder={"Email"}
-                className={
-                  "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                }
-                name="email"
-                id={"email"}
-                onChange={handleFormValues}
-                value={checkoutForm.email && checkoutForm.email}
-              />
-            </div>
+
+            {googleAuthInfo.googleLogin ?
+              (<div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
+                <span className="text-start text-sm font-normal text-border flex items-center">
+                  <img width='25px' className='mx-5' src='/icons/google-g.svg'></img>
+                  <div className='flex items-center text-white'>
+                    Logged in with {checkoutForm.email}
+                  </div>
+                </span>
+              </div>)
+              :
+              (<div className="flex justify-start gap-4 items-center  pl-5 p-1">
+                <span className="text-start text-sm font-normal w-[20%] text-border">
+                  Work Email
+                </span>
+                <input
+                  type={"email"}
+                  placeholder={"Email"}
+                  className={
+                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
+                  name="email"
+                  id={"email"}
+                  onChange={handleFormValues}
+                  value={checkoutForm.email && checkoutForm.email}
+                />
+              </div>)
+            }
+
+
             <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
               <span className="text-start text-sm font-normal w-[20%] text-border">
                 Full Name
@@ -191,21 +213,22 @@ const Checkout = () => {
                 onChange={handleFormValues}
               />
             </div>
-            <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
-              <span className="text-start text-sm font-normal w-[20%] text-border">
-                Password
-              </span>
-              <input
-                type={"password"}
-                placeholder={"Password"}
-                className={
-                  "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                }
-                name="password"
-                id={"password"}
-                onChange={handleFormValues}
-              />
-            </div>
+            {!googleAuthInfo.googleLogin &&
+              <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
+                <span className="text-start text-sm font-normal w-[20%] text-border">
+                  Password
+                </span>
+                <input
+                  type={"password"}
+                  placeholder={"Password"}
+                  className={
+                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
+                  name="password"
+                  id={"password"}
+                  onChange={handleFormValues}
+                />
+              </div>}
           </div>
           <div className="flex items-center my-6">
             <input
@@ -258,6 +281,7 @@ const Checkout = () => {
                   checkoutForm={checkoutForm}
                   boxValid={boxValid}
                   setBoxValid={setBoxValid}
+                  googleAuthInfo={googleAuthInfo}
                 />
               </StripeWrapper>
             </div>

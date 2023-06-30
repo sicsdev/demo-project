@@ -1,7 +1,16 @@
 import React from 'react'
 import Card from '../../Common/Card/Card'
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-const BotSettingReadOnly = ({ state }) => {
+const BotSettingReadOnly = ({ basicFormData }) => {
+    const [state, setState] = useState(null)
+    useEffect(() => {
+        if (basicFormData) {
+            setState(basicFormData)
+        }
+    }, [basicFormData]);
+    console.log("state",state)
     return (
         <div>
             {state && (

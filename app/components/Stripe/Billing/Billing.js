@@ -8,10 +8,10 @@ import {
 } from "@stripe/react-stripe-js";
 import { useState } from 'react';
 import Button from '../../Common/Button/Button';
-const Billing = () => {
+const Billing = ({ basicFormData }) => {
     const stripe = useStripe();
     const elements = useElements();
-
+    console.log(basicFormData)
     const [errors, setError] = useState([]);
     const [loading, setLoading] = useState();
     return (

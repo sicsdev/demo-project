@@ -2,11 +2,10 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import AboveFold from "@/app/components/ChatBots/AboveFold";
-import Alert from "@/app/components/ChatBots/Alert";
-import Requestdemo from "@/app/components/ChatBots/Requestdemo";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
-
+import Smartsection from "@/app/components/solutions/Smartsection";
+import SmartAlert from "@/app/components/ChatBots/SmartAlert";
+import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,8 +46,10 @@ const page = () => {
   
   return (
     <div>
-      <AboveFold />
-      <Alert />
+      <Smartsection />
+      <SolutionStandard />
+      <SmartAlert/>
+
       <Testimonial />
       {/* <Requestdemo/> */}
     </div>
