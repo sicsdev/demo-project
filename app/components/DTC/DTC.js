@@ -10,10 +10,10 @@ const DTC = () => {
     { url: "perry-color4.svg", animation: "mobile leftimg_sec animation2" }
   ];
   const images1 = [
-    "nextmed.svg",
-    "simplesentiments.svg",
-    "labpass.svg",
-    "labpass-color2.svg",
+    "/nextmed.svg",
+    "/simplesentiments.svg",
+    "/labpass.svg",
+    "/labpass-color2.svg",
   ];
   return (
     <div className=" bg-white py-4 sm:pb-12">
