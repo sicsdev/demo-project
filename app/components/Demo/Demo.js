@@ -178,7 +178,7 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center sm:gap-5">
+        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-5">
           <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>
