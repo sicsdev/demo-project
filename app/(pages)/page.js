@@ -26,11 +26,12 @@ export default function Home() {
 
       {/* <SecondBan /> */}
       <Info />
+      <Testimonial />
+
       <Newstandard/>   
       {/* <Trial /> */}
       <Benifits />        
       <Social />
-      <Testimonial />
       {/* <Faq />   */}
       <Iconanimation/>
     </main>
