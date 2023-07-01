@@ -46,9 +46,11 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
 
       let googleAuthInfoPayload = {
         ...googleAuthInfo,
+        name: checkoutForm.name,
+        phone: checkoutForm.phone,
       }
 
-      const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload, checkoutForm2) : await submitCheckout(checkoutForm2)
+      const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
       
       if (result.token) {
         let bodyForSubscribe = {

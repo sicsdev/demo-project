@@ -23,7 +23,7 @@ const Checkout = () => {
 
   const [googleAuthInfo, setGoogleAuthInfo] = useState({
     googleLogin: false,
-    token: "",
+    access_token: "",
     email: "",
   });
 
@@ -43,7 +43,7 @@ const Checkout = () => {
       setGoogleAuthInfo({
         ...googleAuthInfo,
         googleLogin: true,
-        token: searchParams.get("gtoken"),
+        access_token: searchParams.get("gtoken"),
         email: searchParams.get("email"),
       });
     // Changing testimonials every 9 seconds
