@@ -44,7 +44,12 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
       };
       // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
 
-      const result = await submitCheckout(checkoutForm2);
+      let googleAuthInfoPayload = {
+        ...googleAuthInfo,
+      }
+
+      const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload, checkoutForm2) : await submitCheckout(checkoutForm2)
+      
       if (result.token) {
         let bodyForSubscribe = {
           token: paymentMethod.id,

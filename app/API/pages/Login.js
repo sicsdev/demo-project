@@ -51,7 +51,7 @@ export const loginWithGoogle = async (body) => {
 export const createNewGoogleUser = async (body) => {
     const config = getConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/accounts/users/google_auth`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/accounts/users/google_auth`, body, config);
         return response.data;
     } catch (error) {
         console.log(error)
