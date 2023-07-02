@@ -48,7 +48,7 @@ const Pricing = () => {
                                 <div className="flex items-center mr-4">
                                     <label htmlFor="purple-radio" className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">{ele.title}</label>
                                 </div>
-                                <p className='text-slate font-normal text-sm my-4'>7 days free, then <span className='font-bold text-heading'>$449.99/</span>mo</p>
+                                <p className='text-slate font-normal text-sm my-4'>$200 in free credits then <span className='font-bold text-heading'>$0.25 per chat & $0.50 per email/</span>mo</p>
                                 <h3 className='font-bold text-heading my-6'> Plan includes:</h3>
                                 <ul>
                                     {ele.feature_list.map((element, key) =>
