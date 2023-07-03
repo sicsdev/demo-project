@@ -241,3 +241,8 @@ select::-ms-expand {
     order: -1;
   }
 }
+
+select {
+  height: 45px !important;
+  background-color: #fff;
+}

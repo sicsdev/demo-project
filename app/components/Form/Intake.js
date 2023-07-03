@@ -36,10 +36,8 @@ const Intake = () => {
             case 2:
                 return { title: "Customize Bot", form: <Customize setBasicFormData={setBasicFormData} basicFormData={basicFormData} form={true} />, btn: "Next" }
             case 3:
-                return { title: "Install Bot", form: <Embed form={true} />, btn: "Next" }
+                return { title: <div className=''><span className=''>Configure Email</span><p className='p-0 m-0'><span className='text-border'>{basicFormData?.email_prefix ?? '{email_Prefix}'}@{basicFormData?.company_name ?? '{company_name}'}.gettempo.ai</span></p></div>, form: <EmailAgentSetting form={true} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />, btn: "Next" }
             case 4:
-                return { title: "Configure Email", form: <EmailAgentSetting form={true} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />, btn: "Next" }
-            case 5:
                 return { title: "Email Agent Settings", form: <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />, btn: "Finish" }
             default:
                 return { title: "Form not found !", form: <h1>Something wrong !</h1> }
@@ -69,7 +67,7 @@ const Intake = () => {
             const requiredKeys = ['urls'];
             return requiredKeys.every(key => !basicFormData[key] || basicFormData[key].length === 0);
         }
-        if (intakeStep === 4) {
+        if (intakeStep === 3) {
             const requiredKeys = [
                 "email_prefix",
                 "custom_email",
@@ -77,7 +75,7 @@ const Intake = () => {
             ]
             return requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
         }
-        if (intakeStep === 5) {
+        if (intakeStep === 4) {
             const requiredKeys = [
                 'agent_title',
                 'email_introduction',
@@ -185,7 +183,7 @@ const Intake = () => {
         }
         !payload.logo && delete payload.logo
         modifyBot(payload.id, payload).then((res) => {
-         
+
             setLoading(false)
             setIntakeStep(3)
             setIntakeCompleteStep(3)
@@ -228,12 +226,12 @@ const Intake = () => {
             email_greeting: basicFormData.email_introduction,
             email_farewell: basicFormData.email_signOff,
         }
-        const response = await modifyBot(basicFormData.id,payload)
-        if(response.status === 200){
+        const response = await modifyBot(basicFormData.id, payload)
+        if (response.status === 200) {
             setLoading(false)
             dispatch(setModalValue(false))
             dispatch(fetchBot())
-        }else{
+        } else {
             setLoading(false)
         }
     }
@@ -257,10 +255,6 @@ const Intake = () => {
 
                 break;
             case 3:
-                setIntakeCompleteStep(4)
-                setIntakeStep(4)
-                break;
-            case 4:
                 if (basicFormData?.configure === 'success') {
                     setIntakeStep(5)
                     setIntakeCompleteStep(5)
@@ -269,7 +263,7 @@ const Intake = () => {
                 }
 
                 break;
-            case 5:
+            case 4:
                 EmailConfigSubmit()
                 break;
 
@@ -282,9 +276,8 @@ const Intake = () => {
         { step: 0, text: "Business Information", logo: <UserCircleIcon className="w-10 h-10 mr-2" /> },
         { step: 1, text: "Help Center URL", logo: <CogIcon className="w-10 h-10 mr-2" /> },
         { step: 2, text: "Customize Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
-        { step: 3, text: "Install  Bot", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
-        { step: 4, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
-        { step: 5, text: "Email Agent Settings", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
+        { step: 3, text: "Configure Email", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
+        { step: 4, text: "Email Agent Settings", logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" /> },
     ]
 
     const sendActiveValue = (element) => {
@@ -297,7 +290,8 @@ const Intake = () => {
         return 'text-border'
     }
     const changeStep = (element) => {
-        if (intakeCompleteStep > element.step) {
+        debugger
+        if (intakeCompleteStep > element.step || element.step + 1 > intakeCompleteStep) {
             setIntakeStep(element.step)
         }
     }
@@ -325,13 +319,15 @@ const Intake = () => {
         <>
             {showModal && (
                 <div className={" fixed top-0 py-12 z-[100] bg-white w-full h-[100vh]"} >
-                    <h3 className='justify-center sm:justify-start md:justify-start lg:justify-start flex px-4 font-semibold text-heading items-center gap-4'>{GetStepForm().title}{" "}  <span className="text-[10px] font-semibold inline-block py-1 px-2 rounded-md text-primary bg-badge_blue last:mr-0 mr-1">
-                        Processing
-                    </span> </h3>
+                    <h3 className='justify-center sm:justify-start md:justify-start lg:justify-start flex px-4 font-semibold text-heading items-center gap-4'>{GetStepForm().title}{" "}
+                        {basicFormData?.business_name && basicFormData?.business_name !== '' && <span className="text-[10px] font-semibold inline-block py-1 px-2 rounded-md text-primary bg-badge_blue last:mr-0 mr-1">
+                            Processing
+                        </span>}
+                    </h3>
                     <hr className='my-5 mb-0 border-border' />
-                    <div className='flex items-start  bg-[#f6f8fa] h-full w-full overflow-y-auto justify-start gap-16'>
+                    <div className='flex items-start  bg-[#f6f8fa] h-full w-full overflow-y-auto justify-between  md:justify-start lg:justify-start sm:justify-start gap-16'>
                         <div className='flex px-0  items-start h-[100vh] bg-white w-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px]'>
-                            <div className='w-[250px] h-[105vh] bg-white hidden sm:block md:block lg:block pl-6'>
+                            <div className='w-[50px] sm:w-[250px] md:w-[250px] lg:w-[250px] h-[105vh] bg-white  pl-6'>
                                 <ol className="fixed">
 
 
@@ -340,20 +336,20 @@ const Intake = () => {
                                             <span className={`${key === 0 && ("rounded-t-3xl")} ${headings.length - 1 === key && ("rounded-b-3xl")} bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}>
                                                 <h1 className={`flex w-[20px] h-[20px]  text-[10px]  font-normal items-center justify-center shadow-md rounded-full ${sendActiveValueLabel(element)}`}>{sendTextAndNumber(element, key)} </h1>
                                             </span>
-                                            <h3 className="flex items-center font-bold h-[30px] m-0 text-xs leading-tight">{element.text}</h3>
+                                            <h3 className=" items-center font-bold h-[30px] m-0 text-xs leading-tight hidden sm:flex md:flex lg:flex">{element.text}</h3>
                                         </li>
                                     )}
 
 
                                 </ol>
                             </div>
-                            <div className='w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  pr-6 '>
+                            <div className='w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  px-6 sm:pr-6 md:pr-6 lg:pr-6 '>
                                 {GetStepForm().form}
                                 <div className={`flex  p-2 rounded-b mt-5 ${intakeStep > 0 ? 'justify-between' : 'justify-end'}`}>
                                     {intakeStep > 0 && (
                                         <Button
                                             onClick={handleBack}
-                                            className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                            className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                                             disabled={loading ? true : false}
                                         >
                                             Back
@@ -362,7 +358,7 @@ const Intake = () => {
                                     {loading ? <LoaderButton /> :
                                         <>
                                             <Button type={"button"}
-                                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                                                 disabled={DisablingButton()}
                                                 onClick={(e) => SubmitForm()}
                                             >
@@ -372,7 +368,7 @@ const Intake = () => {
 
                                         </>}
                                 </div>
-                                {errors.length >0 && errors.map((ele,key)=> <p className='text-danger text-xs' key={key}>{ele}</p>)}
+                                {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
                             </div>
                         </div>
                     </div>
