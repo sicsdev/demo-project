@@ -51,7 +51,18 @@ export const loginWithGoogle = async (body) => {
 export const createNewGoogleUser = async (body) => {
     const config = getConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/accounts/users/google_auth`, body, config);
+
+        let headersList = { "Content-Type": "application/json" }
+        let bodyContent = JSON.stringify({...body, phone_prefix: "99"});
+
+        let reqOptions = {
+            url: `${API_URL}/api/v1/accounts/users/google_auth/`,
+            method: "POST",
+            headers: headersList,
+            data: bodyContent,
+        }
+
+        let response = await axios.request(reqOptions);
         return response.data;
     } catch (error) {
         console.log(error)
