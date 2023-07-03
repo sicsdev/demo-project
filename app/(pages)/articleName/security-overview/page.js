@@ -61,7 +61,7 @@ const page = () => {
             href="/checkout
 "
           >
-            Schedule Demo &#8594;{" "}
+            Get Started &#8594;{" "}
           </Link>
         </button>
       </div>

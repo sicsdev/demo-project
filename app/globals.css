@@ -240,4 +240,17 @@ select::-ms-expand {
   .border-animation{
     order: -1;
   }
+  .trytempo a  {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.trytempo a {
+  padding: 2rem;
+}
+.calendly-popup iframe {
+  height: 105% !important;
 }

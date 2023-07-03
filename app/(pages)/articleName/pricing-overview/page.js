@@ -95,7 +95,7 @@ const page = () => {
                 <Button
                   type={"submit"}
                   className={
-                    "mr-2 py-[6px] mt-2 px-2 focus:ring-yellow-300 text-white bg-black hover:bg-primary dark:focus:ring-voilet-900"
+                    "mr-2 py-[6px] mt-2 px-2 focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
                   }
                 >
                   <div
@@ -247,7 +247,7 @@ const page = () => {
               href="/checkout
 "
             >
-              Checkout &#8594;{" "}
+              Get Started &#8594;{" "}
             </Link>
           </button>
         </div>

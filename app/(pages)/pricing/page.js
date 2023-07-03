@@ -99,9 +99,9 @@ const Pricing = () => {
                 </div>
                 {ele.title == "Starter" ? (
                   <p className="text-slate font-normal text-sm my-4">
-                    7 days free, then{" "}
-                    <span className="font-bold text-heading">$299 </span>/mo +
-                    25¢ per chat, 50¢ per email
+                    $200 free, then just{" "}
+                    <span className="font-bold text-heading"> 25¢ </span>per chat and 
+                     <span className="font-bold text-heading"> 50¢ </span>per email
                   </p>
                 ) : (
                   <p className="text-slate font-normal text-sm my-4">
@@ -162,7 +162,7 @@ const Pricing = () => {
       <DTC />
       <Testimonial />
       <Iconanimation />
-      <Trial />
+      {/* <Trial /> */}
       {/* <Resource /> */}
       <Container>
         <FaqAccordian title={"Frequently Asked Questions"} items={questions} />
