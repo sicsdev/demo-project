@@ -15,7 +15,6 @@ const Social = () => {
     {src:"/communication_channels/fb.svg", animation:"mobile leftimg_sec animation2"},
     { src:"/communication_channels/insta.svg", animation:"mobile leftimg_sec animation3"},
     { src:"/communication_channels/twitter.svg", animation:"mobile leftimg_sec animation2"},
-    {src:"/communication_channels/mail.svg", animation: "mobile leftimg_sec animation"}
   ];
   return (
     <div className=" bg-[white] pt-2 sm:pt-10 pb-2 sm:pb-4">
@@ -24,7 +23,7 @@ const Social = () => {
           {/* One platform, infinite possibilities */}
           All communication channels and in every language
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-7 text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-6 text-center">
           {images.map((element, key) => (
             <div
               className="relative h-auto w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll"

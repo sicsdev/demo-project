@@ -14,7 +14,7 @@ const Banner = () => {
         <span className="mt-2 sm:mt-0 inline pl-2 underline "
 
         >
-          <Link href='/free-trial'>
+          <Link href='/checkout'>
             Start Now
           </Link>
         </span>

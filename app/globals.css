@@ -248,6 +248,10 @@ select::-ms-expand {
   }
 }
 
+select {
+  height: 45px !important;
+  background-color: #fff;
+}
 .trytempo a {
   padding: 2rem;
 }

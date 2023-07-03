@@ -15,7 +15,8 @@ import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from 'next/link';
 import SkeletonLoader from '../Skeleton/Skeleton';
-const Embed = ({ form = true ,skeleton, setSkeleton}) => {
+import { SkeletonTheme } from 'react-loading-skeleton';
+const Embed = ({ form = true, skeleton, setSkeleton }) => {
     const router = useRouter()
     const state = useSelector((state) => state.botId)
     const dispatch = useDispatch()
@@ -140,7 +141,6 @@ const Embed = ({ form = true ,skeleton, setSkeleton}) => {
 
                                                 </div>
                                                 <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
-                                                    <h3 className='font-xl font-bold text-heading my-2'>  <SkeletonLoader height={30} width={100} /></h3>
                                                     <div className='my-2'>
                                                         <SkeletonLoader count={1} />
                                                         <SkeletonLoader count={1} width={100} />
@@ -155,46 +155,48 @@ const Embed = ({ form = true ,skeleton, setSkeleton}) => {
                                             </div> :
                                             <div className='mt-5 border rounded-md border-border  bg-white'>
                                                 <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
-                                                    {copied.message && copied.key === key ? <>
-                                                        <span className='flex items-center'>
-                                                            <CheckIcon className="h-5 w-5 " />
-                                                            Copied!</span> </> :
-                                                        <CopyToClipboard text={element.code} onCopy={() => {
-                                                            setCopied((prev) => {
-                                                                return {
-                                                                    ...prev,
-                                                                    message: "copied !",
-                                                                    key: key
-                                                                }
-                                                            })
-                                                            setTimeout(() => {
-                                                                setCopied((prev) => {
-                                                                    return {
-                                                                        ...prev,
-                                                                        message: null,
-                                                                        key: null
-                                                                    }
-                                                                })
-                                                            }, 3000)
-                                                        }}>
-                                                            <button type={"submit"}
-                                                                className="border-none p-0 m-0 flex gap-1 items-center"
-                                                            >
-                                                                <ClipboardIcon className=" h-5 w-5 text-white" /> Copy code
-                                                            </button>
-                                                        </CopyToClipboard>
-                                                    }
-                                                    <div className='relative'>
+
+                                                <h3 className='font-xl font-bold text-white my-2'>{element.title}</h3>
+                                                    <div className='relative flex justify-between gap-2 items-center'>
                                                         <button type={"button"}
                                                             onClick={() => { dropdown === key ? setDropdown(null) : setDropdown(key) }}
                                                             className="border-none p-0 m-0 flex gap-1 items-center"
                                                         >
                                                             <EllipsisVerticalIcon className="h-5 w-5 " /></button>
+                                                        {copied.message && copied.key === key ? <>
+                                                            <span className='flex items-center'>
+                                                                <CheckIcon className="h-5 w-5 " />
+                                                                Copied!</span> </> :
+                                                            <CopyToClipboard text={element.code} onCopy={() => {
+                                                                setCopied((prev) => {
+                                                                    return {
+                                                                        ...prev,
+                                                                        message: "copied !",
+                                                                        key: key
+                                                                    }
+                                                                })
+                                                                setTimeout(() => {
+                                                                    setCopied((prev) => {
+                                                                        return {
+                                                                            ...prev,
+                                                                            message: null,
+                                                                            key: null
+                                                                        }
+                                                                    })
+                                                                }, 3000)
+                                                            }}>
+                                                                <button type={"submit"}
+                                                                    className="border-none p-0 m-0 flex gap-1 items-center"
+                                                                >
+                                                                    <ClipboardIcon className=" h-5 w-5 text-white" /> Copy code
+                                                                </button>
+                                                            </CopyToClipboard>
+                                                        }
                                                         {dropdown === key && (
-                                                            <div className="animate-fadeIn absolute left-[-120px]  z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                                                            <div className="animate-fadeIn absolute left-[-120px] top-[33px] z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                                                                 <ul className=" text-sm ">
                                                                     <li>
-                                                                        <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`} className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-heading ">Edit</Link>
+                                                                        <Link href={`/dashboard/customize?id=${element.id}&name=${element.title}`} className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-heading ">Edit UI</Link>
                                                                     </li>
                                                                     <li>
                                                                         <Link href={`/dashboard/view-logs?id=${element.id}&name=${element.title}`} className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading">View Logs</Link>
@@ -209,7 +211,6 @@ const Embed = ({ form = true ,skeleton, setSkeleton}) => {
 
                                                 </div>
                                                 <div className='px-2 sm:px-5 md:px-5 lg:px-5 '>
-                                                    <h3 className='font-xl font-bold text-heading my-2'>{element.title}</h3>
                                                     <div className='my-2'>
                                                         <CodeMirror
                                                             value={element.code.trim()}

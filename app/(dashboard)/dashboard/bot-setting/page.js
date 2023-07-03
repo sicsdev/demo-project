@@ -19,13 +19,17 @@ const BotSetting = () => {
     const [dataLoading, setDataLoading] = useState(true)
     const [basicFormData, setBasicFormData] = useState({})
     const [isEdit, setIsEdit] = useState(false)
+    const [name, setName] = useState(null)
     const searchParams = useSearchParams();
     const router = useRouter()
     const [botId, setBotId] = useState(null)
     useEffect(() => {
         const bot_id = searchParams.get("id")
         const bot_name = searchParams.get("name")
-        if (bot_id) { getBotInfo(bot_id) }
+        if (bot_id) {
+            getBotInfo(bot_id)
+            setName(bot_name)
+        }
 
     }, []);
 
@@ -101,7 +105,7 @@ const BotSetting = () => {
                             className="flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                             aria-current="page"
                         >
-                            <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" /> Bot Setting
+                            <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" /> {name} Settings
                         </a>
                     </li>
                 </ul>
@@ -116,7 +120,7 @@ const BotSetting = () => {
                                 <>
                                     {loading ? <LoaderButton /> :
                                         <Button type={"button"}
-                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                                             onClick={(e) => { SubmitValues() }}
                                             disabled={DisablingButton()}
                                         >
