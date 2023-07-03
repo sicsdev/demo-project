@@ -2,21 +2,16 @@ import React from "react";
 import Image from "next/image";
 const DTC = () => {
   const images = [
-    { url: "nextmed-color2.svg", animation: "mobile leftimg_sec animation" },
+    { url: "/nextmed-color2.svg", animation: "mobile leftimg_sec animation" },
     {
-      url: "simplesentiments-color3.svg", animation: "mobile leftimg_sec animation2",
+      url: "/simplesentiments-color3.svg", animation: "mobile leftimg_sec animation2",
     },
-    { url: "labpass-color2.svg", animation: "mobile leftimg_sec animation3" },
-    { url: "perry-color4.svg", animation: "mobile leftimg_sec animation2" }
+    { url: "/labpass-color2.svg", animation: "mobile leftimg_sec animation3" },
+    { url: "/perry-color4.svg", animation: "mobile leftimg_sec animation2" }
   ];
-  const images1 = [
-    "nextmed.svg",
-    "simplesentiments.svg",
-    "labpass.svg",
-    "labpass-color2.svg",
-  ];
+
   return (
-    <div className=" bg-white py-4 ">
+    <div className=" bg-white py-4 sm:pb-12">
       <div className="my-8 mx-auto max-w-[90%]">
         <h1 className="text-center text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
           Trusted by top ecommerce and digital services brands

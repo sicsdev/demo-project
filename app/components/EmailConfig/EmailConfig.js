@@ -1,31 +1,43 @@
 import React from 'react'
 import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
-import LoaderButton from '../Common/Button/Loaderbutton'
-import Button from '../Common/Button/Button'
 import { useDispatch } from 'react-redux'
-import { fetchBot, setModalValue } from '../store/slices/botIdSlice'
-import { fetchProfile } from '../store/slices/userSlice'
 import { email_introduction_data, email_sign_off_data } from './data'
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SelectField from '../Common/Input/SelectField'
 import Card from '../Common/Card/Card'
-const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeCompleteStep }) => {
-    const dispatch = useDispatch()
-    const [loading, setLoading] = useState(false)
+import { useEffect } from 'react'
+const EmailConfig = ({ basicFormData, setBasicFormData }) => {
     const [errors, setErrors] = useState([])
     const [tileAgentName, setTileAgentName] = useState([])
     const [formValues, setFormValues] = useState({
         email_introduction: basicFormData?.email_introduction ?? '',
         email_signOff: basicFormData?.email_signOff ?? '',
-        agent_title: basicFormData?.agent_title ?? '',
+        agent_title:'' ,
         agent_name: basicFormData?.agent_name ?? '',
     })
+    useEffect(() => {
+        if (basicFormData) {
+          setFormValues({
+            email_introduction: basicFormData?.email_introduction || '',
+            email_signOff: basicFormData?.email_signOff || '',
+            agent_title:basicFormData?.agent_title || '',
+            agent_name: '',
+          });
+          setTileAgentName(basicFormData?.agent_name ?? [])
+        }
+      }, [basicFormData]);  
     const handleInputValues = (e) => {
         const { value } = e.target
         setErrors([])
 
         setFormValues({ ...formValues, [e.target.name]: makeCapital(value) })
+        setBasicFormData(prev => {
+            return {
+                ...prev,
+                [e.target.name]: makeCapital(value)
+            }
+        })
 
     }
     const handleAgentNameValue = (e) => {
@@ -42,7 +54,15 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
             agentNames.forEach((name) => {
                 const trimmedName = name.trim();
                 if (trimmedName && !tileAgentName.includes(trimmedName)) {
-                    setTileAgentName((prev) => [...prev, makeCapital(value)(trimmedName)]);
+                    setTileAgentName((prev) => { 
+                        setBasicFormData((prev_state) => {
+                            return {
+                              ...prev_state,
+                              agent_name: [...prev, trimmedName]
+                            }
+                          })
+                        return [...prev, makeCapital(trimmedName)] 
+                    });
                 }
             });
         } else {
@@ -53,19 +73,27 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             const { value } = e.target;
-                const agentNames = value.split(',');
-                setFormValues((prev) => {
-                    return {
-                        ...prev,
-                        agent_name: '',
-                    };
-                });
-                agentNames.forEach((name) => {
-                    const trimmedName = name.trim();
-                    if (trimmedName && !tileAgentName.includes(trimmedName)) {
-                        setTileAgentName((prev) => [...prev, trimmedName]);
-                    }
-                });
+            const agentNames = value.split(',');
+            setFormValues((prev) => {
+                return {
+                    ...prev,
+                    agent_name: '',
+                };
+            });
+            agentNames.forEach((name) => {
+                const trimmedName = name.trim();
+                if (trimmedName && !tileAgentName.includes(trimmedName)) {
+                    setTileAgentName((prev) => { 
+                        setBasicFormData((prev_state) => {
+                            return {
+                              ...prev_state,
+                              agent_name: [...prev, trimmedName]
+                            }
+                          })
+                        return [...prev, makeCapital(trimmedName)] 
+                    });
+                }
+            });
         }
     }
 
@@ -78,12 +106,16 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
         }
         return null
     }
-    const handleBack = () => {
-        setIntakeStep(intakeStep - 1)
-    }
     const RemoveFromAgentNameArr = (element) => {
         const updatedChips = tileAgentName.filter((x) => x !== element);
         setTileAgentName(updatedChips);
+        
+        setBasicFormData((prev_state) => {
+            return {
+              ...prev_state,
+              agent_name: [...updatedChips]
+            }
+          })
     }
     const makeCapital = (str) => {
         if (str.includes(" ")) {
@@ -102,7 +134,6 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                     <SelectField onChange={handleInputValues} value={formValues.email_introduction} error={returnErrorMessage("email_introduction")} name='email_introduction' values={email_introduction_data} title={"Email Introduction"} id={'email_introduction'} className="py-3" /> </div>
                 <div className='my-2'>
                     <SelectField onChange={handleInputValues} value={formValues.email_signOff} error={returnErrorMessage("email_signOff")} name='email_introduction' values={email_sign_off_data} title={"Email Sign-Off"} id={'email_signOff'} className="py-3" /> </div>
-
                 <div className='my-2'>
                     <TextField onChange={handleInputValues} value={formValues.agent_title} name='agent_title' className='py-3 mt-1' title={<span className='flex items-center gap-2'>Agent Job Title
                         <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>An example job description is "Customer Service Representative"</span></Card></div>
@@ -123,31 +154,10 @@ const EmailConfig = ({ basicFormData, intakeStep, setIntakeStep, setIntakeComple
                                     </div>
                                 )}
                             </div>
-                            <input value={formValues.agent_name} required onChange={handleAgentNameValue} type={"text"} placeholder={"Enter names separate by ,"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"agent_name"} name={"agent_name"} />
+                            <input value={formValues.agent_name} onKeyDown={handleKeyDown} required onChange={handleAgentNameValue} type={"text"} placeholder={"Enter names separate by ,"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"agent_name"} name={"agent_name"} />
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-
-                <button
-                    onClick={handleBack}
-                    className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                // disabled={loading ? true : false}
-                >
-                    Back
-                </button>
-                {loading ? <LoaderButton /> :
-                    <Button type={"button"} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]" onClick={() => {
-                        dispatch(setModalValue(false))
-                        dispatch(fetchBot())
-                        dispatch(fetchProfile())
-                    }}
-                    >
-
-                        Finish
-                    </Button>}
             </div>
 
         </div>

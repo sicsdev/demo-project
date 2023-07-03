@@ -9,10 +9,14 @@ export const price_data = [
     btn_title: "Get a demo",
     feature_title: "PRO KEY FEATURES, PLUS",
     feature_list: [
+      // { title: "AI Chat", alert_icon: "" },
+      // { title: "Smart Email Inbox", alert_icon: "" },
+      // { title: "Pay-as-you-go Pricing", alert_icon: "" },
+      // { title: "Intelligent IVR", alert_icon: "" },
+      // { title: "Self-Service Portal", alert_icon: "" },
       { title: "Customizable chatbot", alert_icon: "" },
       { title: "Smart email responses", alert_icon: "" },
       { title: "24/7 shared support", alert_icon: "" },
-      // { title: "Conversation routing bot", alert_icon: "" },
     ],
   },
   {
@@ -26,6 +30,11 @@ export const price_data = [
     btn_title: "Get a demo",
     feature_title: "STARTER KEY FEATURES, PLUS",
     feature_list: [
+      // { title: "Customized Pricing", alert_icon: "" },
+      // { title: "Priority Onboarding", alert_icon: "" },
+      // { title: "Dedicated Account Manager", alert_icon: "" },
+      // { title: "API Access", alert_icon: "" },
+
       { title: "Customizable chatbot", alert_icon: "" },
       { title: "Smart email responses", alert_icon: "" },
       { title: "White glove onboarding", alert_icon: "" },

@@ -1,4 +1,5 @@
 'use client'
+
 import Info from "../components/Info-Screen/Info";
 import Trial from "../components/Trial/Trial";
 import Benifits from "../components/Benifits/Benifits";
@@ -13,19 +14,24 @@ import Newstandard from "../components/Newstandardpage/Newstandard";
 import Brandpercentage from "../components/Brandpercentage/Brandpercentage";
 import Iconanimation from "../components/Iconanimation/Iconanimation";
 export default function Home() {
+ 
+
+
   return (
     <main className="">
       <Head></Head>
       <Start />
       <DTC />
+      <Brandpercentage/>  
+
+      {/* <SecondBan /> */}
       <Info />
-      <Trial />
-      <SecondBan />
-      <Benifits />        {/* new */}
-      <Brandpercentage/>  {/* new */}
-      <Social />
       <Testimonial />
-      <Newstandard/>      {/* new */}
+
+      <Newstandard/>   
+      {/* <Trial /> */}
+      <Benifits />        
+      <Social />
       {/* <Faq />   */}
       <Iconanimation/>
     </main>

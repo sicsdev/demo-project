@@ -9,16 +9,13 @@ const Page = ({ params }) => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
-  const carrerName = searchParams.get("carrerName");
+  const carrerName = searchParams.get("careerName");
+  console.log("carrerName", carrerName)
 
   useEffect(() => {
     const payload = {slug: [carrerName]}
     setLoading(true);
-    // getCareersJobs(params).then((res) => {
-    //   console.log(params)
-    //   setJobs(res.data);
-    //   setLoading(false);
-    // });
+
     getCareersJobs(payload).then((res) => {
       setJobs(res.data);
       setLoading(false);

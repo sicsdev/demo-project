@@ -2,6 +2,7 @@
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "Tempo",
@@ -22,10 +23,9 @@ export default function RootLayout({ children }) {
           content="https://usetempo.ai/tempo_preview.jpg"
         />
 
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
-
           (function(h,o,t,j,a,r){
             h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
             h._hjSettings={hjid:3513917,hjsv:6};
@@ -37,8 +37,25 @@ export default function RootLayout({ children }) {
           
           `,
           }}
-        ></script>
-        <script
+        />
+
+        <Script
+          dangerouslySetInnerHTML={{
+            __html: `
+            var userId = 2674167; 
+            window.hj('identify', userId, {
+                // Add your own custom attributes here. Some EXAMPLES:
+                // 'Email': "".
+                // 'Last purchase category': 'Electronics', // Send strings with quotes around them.
+                // 'Total purchases': 15, // Send numbers without quotes.
+                // 'Last purchase date': '2019-06-20Z', // Send dates in ISO-8601 format.
+                // 'Last refund date': null, // Send null when no value exists for a user.
+            });
+          `,
+          }}
+        />
+
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -53,11 +70,12 @@ export default function RootLayout({ children }) {
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
             height="0"
+          
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
-        <script
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -69,23 +87,26 @@ export default function RootLayout({ children }) {
           }}
         />
         {/* <!-- Google tag (gtag.js) --> */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"></script>
-        <script
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-GEYJNVQCQE')`
+  gtag('config', 'G-GEYJNVQCQE')`,
           }}
         />
 
-        <script
+        <Script
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
           type="text/javascript"
-        ></script>
-        <script
+        />
+        <Script
           dangerouslySetInnerHTML={{
             __html: `
 var _learnq = _learnq || [];
@@ -102,18 +123,15 @@ _learnq.push(['account', 'UVQx8p']);
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
-          <div className="tempo_container">
-            {children}
-          </div>
+          <div className="tempo_container">{children}</div>
         </ProviderWrapper>
       </body>
 
-
-      <script
+      <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         type="text/javascript"
         async
-      ></script>
+      />
     </html>
   );
 }

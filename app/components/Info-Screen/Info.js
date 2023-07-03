@@ -1,7 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
+import { InboxIcon } from "@heroicons/react/24/outline";
+import { BanknotesIcon } from "@heroicons/react/24/outline";
+import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
+
 const Info = () => {
   const slides = [
     {
@@ -39,98 +45,171 @@ const Info = () => {
     });
   }, []);
 
+  // for tabs
+  const tabs = [
+    {
+      id: "1",
+      title: "AI Chat",
+      coming_soon: "",
+      icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
+
+      content_video: "/aichat.png",
+      h3: "Discover a revolution in customer communication with Tempo Chat.",
+      p: "Integrate Tempo Chat seamlessly into your existing infrastructure, and watch as it adapts to reflect your business's unique brand. Capable of processing orders, administering returns, and managing inquiries round-the-clock, Tempo Chat is the comprehensive solution your business needs. The crowning glory? Your customers will remain blissfully unaware they're engaging with an AI.",
+    },
+    {
+      id: "2",
+      title: "Smart Inbox",
+      coming_soon: "",
+      icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/smartinbox.png",
+      h3: "Experience cost savings even when you're off the clock.",
+      p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
+    },
+   
+    {
+      id: "3",
+      title: "Save Big",
+      coming_soon: "",
+      icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/savebig.png",
+      h3: "Experience unrivaled clarity with our Transparent Billing.",
+      p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
+    },
+    {
+      id: "4",
+      title: "Scale Fast",
+      coming_soon: "",
+      icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
+      content_video: "/scalefast.png",
+      h3: "Gain Insight with our Advanced Analytics Dashboard.",
+      p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
+    },
+    {
+      id: "5",
+      title: "Smart IVR",
+      coming_soon: "",
+      icon: (
+        <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
+
+      ),
+      content_video: "/ivr.png",
+      h3: "Elevate your customer service with Smart IVR.",
+      p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
+    },
+  ];
+
+  const [activeTab, setActiveTab] = useState(0);
+  const [timer, setTimer] = useState(9);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => prevTimer - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (timer === 0) {
+      if (activeTab === tabs.length - 1) {
+        setActiveTab(0);
+      } else {
+        setActiveTab((prevTab) => prevTab + 1);
+      }
+      setTimer(9);
+    }
+  }, [timer]);
+
+  const handleTabChange = (index) => {
+    setActiveTab(index);
+    setTimer(9);
+  };
+  
   return (
-    <div className="bg-background pt-5 sm:pt-8 py-0 sm:py-8">
-      <div className="justify-between mx-auto max-w-[90%] py-3">
-        <h2 className="text-center text-3xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none  my-2 py-4 font-bold text-white">
+    <>
+      <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
+        <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
           Save Millions with Tempo.
         </h2>
-        {/* <h3 className="text-center my-4 sm:my-8 text-base sm:text-2xl md:text-2xl lg:text-2xl my-2 font-base text-white">
-          Tempo AI with ChatGPT meets your CS needs 24/7, at 1/10th the cost.
-        </h3> */}
-
-        <div className="grid grid-col-1 my-3 sm:grid-col-2 md:grid-cols-2 lg:grid-cols-2 gap-8 my-20 xl:gap-20">
-          <div className="text-start sm:text-start md:text-start lg:text-start order-1">
-            {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
-            <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none    md:my-8 lg:my-8 sm:my-8  text-white js-show-on-scroll">
-              ChatGPT becomes the brain of your business.{" "}
-            </h2>
-            <h3 className="text-base md:text-para lg:text-para sm:text-para sm:leading-8 my-2 font-base text-white js-show-on-scroll">
-            Tempo connects to your existing systems. Tempo is branded to your business, fulfills orders, issues refunds, and handles all inquiries 24/7. The best part? Your customers will never know they're speaking to an AI.
-
-            </h3>
-            <div className="text-voilet font-semibold">
-              {/* <Link href={"/"}>Explore Support Desk</Link> */}
+        <div className="sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-20 div-anima">
+          <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
+            <div className="flex sm:flex-col h-full bg-white gap-3">
+              {tabs.map((tab, index) => (
+                <>
+                  <div
+                    key={index}
+                    className={`min-w-[170px] w-[192px] flex items-center relative justify-center sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
+                      index === activeTab
+                        ? "active bg-background text-white start-rainbow"
+                        : "start-rainbow"
+                    } ${
+                      index === activeTab + 1 || index === activeTab - 4
+                        ? "border-animation"
+                        : ""
+                    }`}
+                    onClick={(e) => handleTabChange(index)}
+                  >
+                    <div className="relative ">{tab.icon}</div>
+                    <p className="relative sm:mt-[2px]">
+                      {tab.title}{" "}
+                      <span style={{ fontSize: "12px" }} className="font-light">
+                        {tab.coming_soon}
+                      </span>
+                    </p>
+                    {index === activeTab + 1 || index === activeTab - 4 ? (
+                      <svg
+                        className="facet-pill-border"
+                        height="54"
+                        width="100%"
+                        role="presentation"
+                        aria-hidden="true"
+                      >
+                        <rect
+                          height="54"
+                          width="100%"
+                          ry="26"
+                          style={{
+                            strokeDasharray: 376.373,
+                            strokeDashoffset: 376.373,
+                          }}
+                        ></rect>
+                      </svg>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </>
+              ))}
             </div>
           </div>
 
-          <div className=" flex items-center mx-auto order-2 js-show-on-scroll">
-            <video autoPlay muted src="firstvideo.mp4"  loop playsInline
-            />
-          </div>
-          <div className="flex items-center mx-auto  order-4 js-show-on-scroll">
-            {/* <iframe className="w-full aspect-video" autoplay="1" mute  allow="autoplay" src="secondvideo.mp4" ></iframe> */}
-            <video autoPlay muted src="secondvideo.mp4" playsInline />
-
-            {/* <img
-              src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
-              fill={true}
-              className="bg-contain mx-auto w-100 h-100"
-            /> */}
-          </div>
-          {/* <div
-          style={{
-            backgroundImage: `url(https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75)`,
-          }}
-          className="h-64 sm:h-full md:h-full lg:h-full md:w-full sm:w-full lg:w-full bg-cover bg-center md:my-8 lg:my-8 sm:my-8  order-4 md:order-3 sm:order-3 lg:order-3"
-        ></div> */}
-          <div className="text-start sm:text-start md:text-start lg:text-start md:my-8 lg:my-8 sm:my-8  order-3 md:order-4 sm:order-4 lg:order-4">
-            {/* <h3 className=" text-lg my-3 font-medium text-heading">
-            CONTACT CENTER
-          </h3> */}
-            <h2 className="font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none     md:my-8 lg:my-8 sm:my-8  text-white js-show-on-scroll">
-              We&apos;ll save you money while you sleep.
-            </h2>
-            <h3 className="text-base md:text-para lg:text-para sm:text-para sm:leading-8  my-2 font-base text-white js-show-on-scroll">
-            Runs your ops in the background. Automatically issue refunds to angry customers, retain subscribers, and reduce churn. Tempo combines a super smart AI bot with humans when you need it.
-
-            </h3>
-            <div className="text-voilet font-semibold">
-              {/* <Link href={"/"}>Explore Support Desk</Link> */}
+          {/* content */}
+          <div className="bg-white px-4 pb-10 sm:pb-2">
+            <div className="flex flex-wrap sm:flex-nowrap items-center">
+              <div className="w-full sm:px-12 mt-[40px] sm:mt-0">
+                <div className="h-[100%] sm:h-[328px] mb-6 sm:mb-0">
+                  <img
+                    src={tabs[activeTab].content_video}
+                    className="w-100 rounded-2xl"
+                    style={{ minHeightL: "200px" }}
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:px-12">
+                <h3
+                  class="font-bold text-2xl  md:text-h3 lg:text-h3 sm:text-h3 text-left mt-6 sm:mt-2 mb-2 sm:mb-4 text-heading"
+                  style={{ lineHeight: "38px" }}
+                >
+                  {tabs[activeTab].h3}
+                </h3>
+                <p>{tabs[activeTab].p}</p>
+              </div>
             </div>
           </div>
-          <div className="text-start sm:text-start md:text-start lg:text-start md:my-8 lg:my-8 sm:my-8  order-5">
-            {/* <h3 className="text-lg my-3 font-medium text-heading">TEMPOCHAT</h3> */}
-            <h2 className="font-bold  text-2xl    md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none     md:my-8 lg:my-8 sm:my-8  text-white js-show-on-scroll">
-              Instant integration process.{" "}
-            </h2>
-            <h3 className="text-base md:text-para lg:text-para sm:text-para sm:leading-8 my-2 font-base text-white js-show-on-scroll">
-            Time is money, so we make things fast and easy. Tempo AI integrates into your existing ecommerce platform, billing platform, and ERP system so you can get up and running in minutes, not months.
-
-            </h3>
-            <div className="text-voilet font-semibold">
-              {/* <Link href={"/"}>Explore Support Desk</Link> */}
-            </div>
-          </div>
-          <div className="relative mx-auto h-[200px] w-[300px] sm:h-full md:h-h-full lg:h-full sm:w-full md:w-full lg:w-full flex items-center   order-6 js-show-on-scroll">
-            {/* <iframe className="w-full aspect-video ..."  autoplay="1" allow="autoplay" src="thirdvideo.mp4"></iframe> */}
-            <video autoPlay muted playsInline src="thirdvideo.mp4"  />
-
-            {/* <img
-              src="https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75"
-              fill={true}
-              className="bg-contain mx-auto w-100 h-100"
-            /> */}
-          </div>
-          {/* <div
-          style={{
-            backgroundImage: `url(https://www.freshworks.com/_next/image/?url=https%3A%2F%2Fdam.freshworks.com%2Fm%2F5357153992dc7715%2Foriginal%2FHandle-any-and-every-customer-issue-with-ease.png&w=3840&q=75)`,
-          }}
-          className="h-64 sm:h-full md:h-full lg:h-full md:w-full sm:w-full lg:w-full bg-cover bg-center md:my-8 lg:my-8 sm:my-8  order-6"
-        ></div> */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

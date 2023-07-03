@@ -94,6 +94,9 @@ module.exports = {
       gridTemplateColumns: {
         sideBar: "270px auto",
       },
+      boxShadow: {
+        '3xl': '0 0.125rem 1.5625rem rgb(0 0 0/10%)',
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

@@ -80,7 +80,6 @@ export const createBotKnowledge = async (id, body) => {
 
 export const modifyBot = async (id, body) => {
     let config = returnConfig()
-    debugger
     try {
         const response = await axios.patch(`${API_URL}/api/v1/main/bots/${id}/`, body, config);
         return response;
@@ -90,11 +89,28 @@ export const modifyBot = async (id, body) => {
 }
 
 export const checkBotInstallation = async (id) => {
-    debugger
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/widget/check/`, config);
 
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+export const getBotConversation = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+export const getBotConversationMessages = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/conversations/${id}/messages/`, config);
         return response;
     } catch (error) {
         return error

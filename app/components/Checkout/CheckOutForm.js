@@ -6,17 +6,14 @@ import {
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { submitCheckout } from "@/app/API/pages/Checkout";
 import { useRouter } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
+import { createNewGoogleUser } from "@/app/API/pages/Login";
 
-const stripe_api =
-  "pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW";
-const stripeLib = loadStripe(stripe_api);
 
-const CheckOutForm = ({ checkoutForm, boxValid }) => {
+const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -24,13 +21,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
   const [errors, setError] = useState([]);
   const [loading, setLoading] = useState();
 
-  const handleSubscribe = async (paymentMethod, userToken) => {
-    let bodyForSubscribe = {
-      token: paymentMethod.id,
-      price: "77f3ee07-46ab-4c6d-8d3e-8da3d42bee54",
-    };
-    subscribeCustomer(bodyForSubscribe, userToken);
-  };
+
 
   const handleCheckout = async (e) => {
     e.preventDefault();
@@ -41,6 +32,7 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
         card: elements.getElement(CardElement),
       });
       if (error) {
+        console.log(error)
         setError([error.message]);
         setLoading(false);
         return;
@@ -52,24 +44,36 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
       };
       // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
 
-      const result = await submitCheckout(checkoutForm2);
+      let googleAuthInfoPayload = {
+        ...googleAuthInfo,
+        name: checkoutForm.name,
+        phone: checkoutForm.phone,
+      }
 
+      const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
+      
       if (result.token) {
-        handleSubscribe(paymentMethod, result.token);
-        localStorage.setItem("Token", result.token);
-        router.push("/dashboard");
+        let bodyForSubscribe = {
+          token: paymentMethod.id,
+        };
+        const response = await subscribeCustomer(bodyForSubscribe, result.token);
+        if (response) {
+          localStorage.setItem("Token", result.token);
+          router.push("/dashboard");
+        }
         setError([]);
       } else {
         setError(getErrorsArray(result.response.data));
       }
     } catch (error) {
-      setError([error]);
+      console.log(error)
+      setError([error.message]);
     }
 
     setLoading(false);
   };
 
-  function getErrorsArray(data) { 
+  function getErrorsArray(data) {
     const messages = [];
     for (const key in data) {
       if (Array.isArray(data[key])) {
@@ -79,8 +83,6 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
     }
     return messages;
   }
-
-  console.log("next", boxValid);
 
   return (
     <>
@@ -108,15 +110,15 @@ const CheckOutForm = ({ checkoutForm, boxValid }) => {
 
         {loading && <p className="message">Processing Payment...</p>}
         <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
-        disabled={boxValid}
+          disabled={boxValid}
         >
           Checkout
         </Button>
       </form>
- 
+
       <div>
         {errors.map((error, i) => (
-          <p key={i} className="text-red text-center">
+          <p key={i} className="text-red text-center mt-3">
             {error}
           </p>
         ))}

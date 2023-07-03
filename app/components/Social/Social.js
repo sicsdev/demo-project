@@ -4,10 +4,10 @@ const Social = () => {
   const images = [
     {src:"/icons/PayPal1.svg", animation: "mobile leftimg_sec animation"},
     {src: "/icons/shopify-logo-svg-vector.svg", animation:"mobile leftimg_sec animation3"},
-    { src:"zapier.svg", animation:"mobile leftimg_sec animation2"},
-    {src:"gorgias.svg", animation:"mobile leftimg_sec animation2"},
-    { src:"zendesk-icon-svgrepo-com.svg", animation:"mobile leftimg_sec animation3"},
-    { src:"freshdesk.svg", animation:"mobile leftimg_sec animation"}
+    { src:"/zapier.svg", animation:"mobile leftimg_sec animation2"},
+    {src:"/gorgias.svg", animation:"mobile leftimg_sec animation2"},
+    { src:"/zendesk-icon-svgrepo-com.svg", animation:"mobile leftimg_sec animation3"},
+    { src:"/freshdesk.svg", animation:"mobile leftimg_sec animation"}
   ];
   return (
     <div className=" bg-[white] py-2 sm:py-10">
