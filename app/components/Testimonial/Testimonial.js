@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Link from 'next/link'
 const Testimonial = () => {
   return (
-    <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5 pt-8">
+    <div className="bg-white py-0 pb-6 sm:pb-0 sm:py-5 pt-0">
       <div className="pt-2 sm:pt-8 pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={

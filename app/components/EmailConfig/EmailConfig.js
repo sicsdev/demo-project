@@ -8,7 +8,6 @@ import SelectField from '../Common/Input/SelectField'
 import Card from '../Common/Card/Card'
 import { useEffect } from 'react'
 const EmailConfig = ({ basicFormData, setBasicFormData }) => {
-    console.log("basicFormData",basicFormData)
     const [errors, setErrors] = useState([])
     const [tileAgentName, setTileAgentName] = useState([])
     const [formValues, setFormValues] = useState({
@@ -17,7 +16,6 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
         agent_title:'' ,
         agent_name: basicFormData?.agent_name ?? '',
     })
-    console.log("formValues",formValues)
     useEffect(() => {
         if (basicFormData) {
           setFormValues({

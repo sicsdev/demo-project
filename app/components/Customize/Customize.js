@@ -71,7 +71,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             }
         })
     }
-    console.log("basicFormData", basicFormData)
     useEffect(() => {
         if (preferences.secondary_text_color === '') {
             setPreferences({ ...preferences, secondary_text_color: "#000000" });

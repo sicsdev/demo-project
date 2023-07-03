@@ -8,11 +8,11 @@ export const price_data = [
     btn_title: "Get a demo",
     feature_title: "PRO KEY FEATURES, PLUS",
     feature_list: [
-      { title: "Intercom Messenger", alert_icon: "" },
-      { title: "Chat and email channels", alert_icon: "" },
-      { title: "Shared Inbox", alert_icon: "" },
-      { title: "Basic help center", alert_icon: "" },
-      { title: "Conversation routing bot", alert_icon: "" },
+      { title: "AI Chat", alert_icon: "" },
+      { title: "Smart Email Inbox", alert_icon: "" },
+      { title: "Pay-as-you-go Pricing", alert_icon: "" },
+      { title: "Intelligent IVR", alert_icon: "" },
+      { title: "Self-Service Portal", alert_icon: "" },
     ],
   },
   {
@@ -24,11 +24,10 @@ export const price_data = [
     btn_title: "Get a demo",
     feature_title: "STARTER KEY FEATURES, PLUS",
     feature_list: [
-      { title: "Intercom Messenger", alert_icon: "" },
-      { title: "Chat and email channels", alert_icon: "" },
-      { title: "Shared Inbox", alert_icon: "" },
-      { title: "Basic help center", alert_icon: "" },
-      { title: "Conversation routing bot", alert_icon: "" },
+      { title: "Customized Pricing", alert_icon: "" },
+      { title: "Priority Onboarding", alert_icon: "" },
+      { title: "Dedicated Account Manager", alert_icon: "" },
+      { title: "API Access", alert_icon: "" },
     ],
   },
 ];

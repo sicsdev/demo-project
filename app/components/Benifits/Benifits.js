@@ -23,7 +23,7 @@ const slides = [
     editor: "Frank P",
     position: "Vice President",
     brand: "LabPass",
-    img: "labpass-color2.svg",
+    img: "/labpass-color2.svg",
     class:""
   },
   {

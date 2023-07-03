@@ -84,9 +84,9 @@ const Demo = () => {
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      hj('identify', userId, { 
-        Email: email
-    });
+      hj("identify", userId, {
+        Email: email,
+      });
       let payload = {
         event: "Blur-Email",
       };
@@ -124,7 +124,6 @@ const Demo = () => {
     }
   };
 
-
   return (
     <div className="mx-auto">
       <Card className={"bg-white"}>
@@ -136,7 +135,7 @@ const Demo = () => {
           </span>{" "}
           customer service
         </h3>
-        <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8">
+        <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 sm:gap-1 mt-8">
           <div className="inline col-span-2 ">
             <input
               type={"email"}
@@ -167,7 +166,7 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex  items-center gap-1 sm:gap-5 sm:5">
+        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-5">
           <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>
