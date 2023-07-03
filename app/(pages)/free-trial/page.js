@@ -8,7 +8,10 @@ import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
-  router.push("/checkout");
+  useEffect(()=>{
+    router.push("/checkout");
+  },[])
+
   const [select, setSelect] = useState(0)
   let guru = ["3 users", "5000 tickets", "24/7 support", "No-code integration", "White-label branding", "Dedicated account manager"]
   let pro = ["1 user", "3000 tickets", "24/7 support", "No-code integration"]
