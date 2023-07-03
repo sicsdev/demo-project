@@ -80,10 +80,7 @@ const Demo = () => {
        } catch (error) {
          console.error('Error sending  data to Freshsales CRM', error);
        }
-
-    
   };
-
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
