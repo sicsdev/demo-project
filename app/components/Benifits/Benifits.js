@@ -41,9 +41,9 @@ class:"",
 const Benifits = () => {
   return (
     <>
-      <div className="bg-white py-6 sm:py-5">
+      <div className="bg-white pt-2 sm:pt-5 pb-6 sm:pb-6">
         <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
-          <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center  my-8  text-heading">
+          <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center mt-0 sm:mt-8 mb-8 text-heading">
             Why customers love Tempo
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 px-4 lg:px-4 mb-6">
