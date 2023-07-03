@@ -191,7 +191,11 @@ const Info = () => {
                 <div className="h-[100%] sm:h-[328px] mb-6 sm:mb-0">
                   <img
                     src={tabs[activeTab].content_video}
-                    className="w-100 rounded-2xl"
+                    className={`w-100 rounded-2xl ${
+                      activeTab
+                        ? "fade-in-image"
+                        : ""
+                    }`}
                     style={{ minHeightL: "200px" }}
                   />
                 </div>
