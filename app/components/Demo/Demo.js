@@ -57,19 +57,16 @@ const Demo = () => {
       };
       try {
         console.log("payload", contact)
-        // Send the lead data to Freshsales CRM
          const response = await axios(apiUrl, {
            method: 'post',
            headers: {
              'Access-Control-Allow-Origin': "*",
              'Access-Control-Allow-Headers': 'Content-Type',
             //  'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
-           },
-           
+           },      
            body: JSON.stringify(contact),
          });
         
-
          if (response.ok) {
            // Lead data sent successfully   
            console.log('data sent to Freshsales CRM');
