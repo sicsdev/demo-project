@@ -30,8 +30,9 @@ export default function Home() {
 
       <Newstandard/>   
       {/* <Trial /> */}
-      <Benifits />        
       <Social />
+
+      <Benifits />        
       {/* <Faq />   */}
       <Iconanimation/>
     </main>

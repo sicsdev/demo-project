@@ -290,8 +290,7 @@ const Intake = () => {
         return 'text-border'
     }
     const changeStep = (element) => {
-        debugger
-        if (intakeCompleteStep > element.step || element.step + 1 > intakeCompleteStep) {
+        if (intakeCompleteStep > element.step || (intakeCompleteStep !== 0 && element.step  === intakeCompleteStep)) {
             setIntakeStep(element.step)
         }
     }
@@ -310,7 +309,7 @@ const Intake = () => {
             return key + 1
         }
         if (intakeCompleteStep > element.step) {
-            return <CheckCircleIcon className="bg-white text-primary rounded-full w-full h-full " />
+            return <CheckCircleIcon className="bg-white text-primary rounded-full w-full h-auto " />
         }
         return key + 1
     }
@@ -318,17 +317,17 @@ const Intake = () => {
     return (
         <>
             {showModal && (
-                <div className={" fixed top-0 py-12 z-[100] bg-white w-full h-[100vh]"} >
+                <div className={"  py-12 z-[100] bg-white w-full "} >
                     <h3 className='justify-center sm:justify-start md:justify-start lg:justify-start flex px-4 font-semibold text-heading items-center gap-4'>{GetStepForm().title}{" "}
                         {basicFormData?.business_name && basicFormData?.business_name !== '' && <span className="text-[10px] font-semibold inline-block py-1 px-2 rounded-md text-primary bg-badge_blue last:mr-0 mr-1">
                             Processing
                         </span>}
                     </h3>
                     <hr className='my-5 mb-0 border-border' />
-                    <div className='flex items-start  bg-[#f6f8fa] h-full w-full overflow-y-auto justify-between  md:justify-start lg:justify-start sm:justify-start gap-16'>
-                        <div className='flex px-0  items-start h-[100vh] bg-white w-full sm:h-full md:h-full lg:h-full sm:w-auto md:w-auto lg:w-auto pt-[25px]'>
-                            <div className='w-[50px] sm:w-[250px] md:w-[250px] lg:w-[250px] h-[105vh] bg-white  pl-6'>
-                                <ol className="fixed">
+                    <div className='flex items-start  bg-[#f6f8fa] h-auto w-full justify-between  md:justify-start lg:justify-start sm:justify-start gap-16'>
+                        <div className='flex px-0  items-start  bg-white w-full sm:h-auto md:h-auto lg:h-auto sm:w-auto md:w-auto lg:w-auto pt-[25px]'>
+                            <div className='w-[50px] sm:w-[250px] md:w-[250px] lg:w-[250px] h-full bg-white  pl-6'>
+                                <ol className="">
 
 
                                     {headings.map((element, key) =>

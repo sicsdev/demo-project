@@ -28,7 +28,7 @@ const Trial = () => {
                 "mr-2  group py-[11px] px-2 focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
               }
             >
-              <Link href="/free-trial">Start Free Trial</Link>
+              <Link href="/checkout">Start Free Trial</Link>
             </Button>
             <Button
               type={"submit"}

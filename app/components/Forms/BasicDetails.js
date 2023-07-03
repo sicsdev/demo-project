@@ -82,16 +82,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData, }) {
                         <SelectField onChange={handleInputValues} value={formValues.business_industry} name='business_industry' values={business_industry_data} title={"Business Industry"} id={'business_industry'} className="py-3" error={returnErrorMessage("business_industry")} />
                     </div>
                 </>
-
-
-
-
-
             </div>
-
-
-
-
         </div>
     );
 }

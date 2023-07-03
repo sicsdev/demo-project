@@ -63,7 +63,7 @@ const Nav = () => {
                 {" "}
                 <p className="text-white">Sign In</p>
               </Link>
-              <Link href={"/free-trial"}>
+              <Link href={"/checkout"}>
                 {" "}
                 <button
                   type="button"

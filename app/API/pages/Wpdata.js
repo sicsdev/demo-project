@@ -45,6 +45,8 @@ export const getSingleBlogsPage = async (params) =>{
     return error.response;
   }
 };
+
+
 export const getArticlePage = async (params) =>{
   try{
     const response = await axios.get(

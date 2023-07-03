@@ -240,9 +240,27 @@ select::-ms-expand {
   .border-animation{
     order: -1;
   }
+  .trytempo a  {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
 }
 
 select {
   height: 45px !important;
   background-color: #fff;
+}
+.trytempo a {
+  padding: 2rem;
+}
+.calendly-popup iframe {
+  height: 105% !important;
+}
+
+.fade-in-image { animation: fadeIn 3s; }
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

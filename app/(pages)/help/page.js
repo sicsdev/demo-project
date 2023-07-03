@@ -284,7 +284,7 @@ const Help = () => {
               ""
             )}
             {slides.map((item, key) => (
-              <Link href={`${item?.slug}`} key={key}>
+              <Link href={`help/help-details?${item?.slug}`} key={key}>
                 <div
                   className="bg-white shadow-lg rounded-lg p-6"
                   style={{ border: "1px solid #e5e7eb" }}

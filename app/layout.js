@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+          id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
           (function(h,o,t,j,a,r){
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+          id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
             var userId = 2674167; 
@@ -56,6 +58,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+          id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -70,12 +73,13 @@ export default function RootLayout({ children }) {
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
             height="0"
-          
+
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
         <Script
+          id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -88,10 +92,12 @@ export default function RootLayout({ children }) {
         />
         {/* <!-- Google tag (gtag.js) --> */}
         <Script
+          id="gtm"
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
         />
         <Script
+          id="gtag"
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -102,11 +108,13 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+          id="klaviyo"
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
           type="text/javascript"
         />
         <Script
+          id="widget"
           dangerouslySetInnerHTML={{
             __html: `
 var _learnq = _learnq || [];
@@ -114,7 +122,15 @@ _learnq.push(['account', 'UVQx8p']);
 `,
           }}
         />
+        <Script src="https://widget-dev.usetempo.ai/v1/main.js" />
 
+        <Script dangerouslySetInnerHTML={{
+          __html: `
+  ChatBot.Widget({
+
+    id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
+
+  });`}} />
         <link
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
@@ -128,6 +144,7 @@ _learnq.push(['account', 'UVQx8p']);
       </body>
 
       <Script
+        id="widget"
         src="https://assets.calendly.com/assets/external/widget.js"
         type="text/javascript"
         async
