@@ -66,7 +66,7 @@ export const questions = [
         note that there are no limitations on response length. If a very long
         and complex email is required to resolve a query, it will still only
         cost you 50¢. All customers are enrolled in pay-as-you-go billing. For
-        more information on payment thresholds, please <a style={{fontWeight:"600"}} href="/articleName/pricing-overview">click here.</a>
+        more information on payment thresholds, please <a style={{fontWeight:"600"}} href="/article/pricing-overview">click here.</a>
       </p>
     ),
   },

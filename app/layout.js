@@ -24,6 +24,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+        id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
           (function(h,o,t,j,a,r){
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+        id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
             var userId = 2674167; 
@@ -56,6 +58,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+        id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -76,6 +79,7 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
         <Script
+        id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -88,10 +92,12 @@ export default function RootLayout({ children }) {
         />
         {/* <!-- Google tag (gtag.js) --> */}
         <Script
+        id="gtm"
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
         />
         <Script
+        id="gtag"
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -102,11 +108,13 @@ export default function RootLayout({ children }) {
         />
 
         <Script
+        id="klaviyo"
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
           type="text/javascript"
         />
         <Script
+        id="widget"
           dangerouslySetInnerHTML={{
             __html: `
 var _learnq = _learnq || [];
@@ -128,6 +136,7 @@ _learnq.push(['account', 'UVQx8p']);
       </body>
 
       <Script
+      id="widget"
         src="https://assets.calendly.com/assets/external/widget.js"
         type="text/javascript"
         async
