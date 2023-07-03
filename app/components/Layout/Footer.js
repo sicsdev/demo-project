@@ -78,12 +78,12 @@ const Footer = () => {
                 <div className="flex justify-between gap-3 flex-col items-start">
                   <div>
                     <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/articleName/pricing-overview">Pricing</Link>
+                      <Link href="/article/pricing-overview">Pricing</Link>
                     </h6>
                   </div>
                   <div>
                     <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/articleName/security-overview">
+                      <Link href="/article/security-overview">
                         Security
                       </Link>
                     </h6>

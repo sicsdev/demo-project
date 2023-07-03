@@ -150,7 +150,34 @@ const Checkout = () => {
             )}
           </div>
         </div> */}
-
+        <div className="block sm:hidden md:hidden">
+            <Card className={"border bg-white border-border "}>
+              <h2 className="text-center text-xl mb-2">Order Summary</h2>
+              <hr style={{ borderColor: "#CCCCCC" }}></hr>
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                <tbody>
+                  <tr className="dark:bg-gray-800 bg-white">
+                    <th
+                      scope="row"
+                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                    >
+                      {planQuery == 1 && "Enterprise Plan"}
+                      {planQuery == 0 && "Starter Plan"}
+                    </th>
+                    <td className="px-6 py-4 text-base">$200 Free Credits</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr className="text-base text-gray-900 bg-white text-black">
+                    <th scope="row" className="px-6 py-3 text-base">
+                      Total Today
+                    </th>
+                    <td className="px-6 py-3">$0</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </Card>
+            </div>
         <div>
           <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
             Checkout
@@ -302,7 +329,7 @@ const Checkout = () => {
                 automatically charge your card for your usage once your credits
                 according to our{" "}
                 <span className="text-[blue]">
-                  <Link href="https://usetempo.ai/articleName/pricing-overview">Pricing Policy.</Link>{" "}
+                  <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
                 </span>{" "}
                 To establish your account and verify your payment method, we
                 will charge $1 to your credit card today.
@@ -325,13 +352,13 @@ const Checkout = () => {
                       {planQuery == 1 && "Enterprise Plan"}
                       {planQuery == 0 && "Starter Plan"}
                     </th>
-                    <td className="px-6 py-4 text-base">Free Trial</td>
+                    <td className="px-6 py-4 text-base">$200 Free Credits</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr className="text-base text-gray-900 bg-white text-black text-black">
                     <th scope="row" className="px-6 py-3 text-base">
-                      Total
+                      Total Today
                     </th>
                     <td className="px-6 py-3">$0</td>
                   </tr>
