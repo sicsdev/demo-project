@@ -26,7 +26,7 @@ const Social = () => {
         <div className="grid grid-cols-2 sm:grid-cols-6 text-center">
           {images.map((element, key) => (
             <div
-              className="relative h-auto w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll"
+              className={`relative h-auto w-[100px] sm:[h-78px] md:[h-78px] lg:[h-78px] sm:[w-78px] md:[w-78px] lg:[w-78px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
               key={key}
             >
               <img
