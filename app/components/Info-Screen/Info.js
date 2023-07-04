@@ -53,7 +53,7 @@ const Info = () => {
       coming_soon: "",
       icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
-      content_video: "/aichat.png",
+      content_video: "/tabs/aichat.gif",
       h3: "Discover a revolution in customer communication with Tempo Chat.",
       p: "Integrate Tempo Chat seamlessly into your existing infrastructure, and watch as it adapts to reflect your business's unique brand. Capable of processing orders, administering returns, and managing inquiries round-the-clock, Tempo Chat is the comprehensive solution your business needs. The crowning glory? Your customers will remain blissfully unaware they're engaging with an AI.",
     },
@@ -62,7 +62,7 @@ const Info = () => {
       title: "Smart Inbox",
       coming_soon: "",
       icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/smartinbox.png",
+      content_video: "/tabs/smartinbox2.gif",
       h3: "Experience cost savings even when you're off the clock.",
       p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
     },
@@ -72,7 +72,7 @@ const Info = () => {
       title: "Save Big",
       coming_soon: "",
       icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/savebig.png",
+      content_video: "/tabs/savebig.png",
       h3: "Experience unrivaled clarity with our Transparent Billing.",
       p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
     },
@@ -81,7 +81,7 @@ const Info = () => {
       title: "Scale Fast",
       coming_soon: "",
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/scalefast.png",
+      content_video: "/tabs/scalefast.png",
       h3: "Gain Insight with our Advanced Analytics Dashboard.",
       p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
     },
@@ -93,7 +93,7 @@ const Info = () => {
         <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
 
       ),
-      content_video: "/ivr.png",
+      content_video: "/tabs/ivr2.png",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
     },
@@ -132,7 +132,7 @@ const Info = () => {
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
           Save Millions with Tempo.
         </h2>
-        <div className="sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-20 div-anima">
+        <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
             <div className="flex sm:flex-col h-full bg-white gap-3">
               {tabs.map((tab, index) => (
@@ -151,7 +151,7 @@ const Info = () => {
                     onClick={(e) => handleTabChange(index)}
                   >
                     <div className="relative ">{tab.icon}</div>
-                    <p className="relative sm:mt-[2px]">
+                    <p className={`relative sm:mt-[2px] ${index === activeTab ? "text-white" : "text-heading"}`}>
                       {tab.title}{" "}
                       <span style={{ fontSize: "12px" }} className="font-light">
                         {tab.coming_soon}
@@ -191,11 +191,7 @@ const Info = () => {
                 <div className="h-[100%] sm:h-[328px] mb-6 sm:mb-0">
                   <img
                     src={tabs[activeTab].content_video}
-                    className={`w-100 rounded-2xl ${
-                      activeTab
-                        ? "fade-in-image"
-                        : ""
-                    }`}
+                    className="w-100 sm:h-[328px] m-auto rounded-2xl"
                     style={{ minHeightL: "200px" }}
                   />
                 </div>
