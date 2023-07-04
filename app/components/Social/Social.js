@@ -9,12 +9,12 @@ const Social = () => {
     // { src:"/zendesk-icon-svgrepo-com.svg", animation:"mobile leftimg_sec animation3"},
     // { src:"/freshdesk.svg", animation:"mobile leftimg_sec animation"},
 
-    {src:"/communication_channels/apple.svg", animation: "mobile leftimg_sec animation"},
-    {src: "/communication_channels/imessage.svg", animation:"mobile leftimg_sec animation3"},
-    { src:"/communication_channels/whatsapp.svg", animation:"mobile leftimg_sec animation2"},
-    {src:"/communication_channels/fb.svg", animation:"mobile leftimg_sec animation2"},
-    { src:"/communication_channels/insta.svg", animation:"mobile leftimg_sec animation3"},
-    { src:"/communication_channels/twitter.svg", animation:"mobile leftimg_sec animation2"},
+    { src: "/communication_channels/apple.svg", animation: "mobile leftimg_sec animation" },
+    { src: "/communication_channels/imessage.svg", animation: "mobile leftimg_sec animation3" },
+    { src: "/communication_channels/whatsapp.svg", animation: "mobile leftimg_sec animation2" },
+    { src: "/communication_channels/fb.svg", animation: "mobile leftimg_sec animation2" },
+    { src: "/communication_channels/insta.svg", animation: "mobile leftimg_sec animation3" },
+    { src: "/communication_channels/twitter.svg", animation: "mobile leftimg_sec animation2" },
   ];
   return (
     <div className=" bg-[white] pt-2 sm:pt-10 pb-2 sm:pb-4">
@@ -26,14 +26,14 @@ const Social = () => {
         <div className="grid grid-cols-2 sm:grid-cols-6 text-center">
           {images.map((element, key) => (
             <div
-              className={`relative h-auto w-[100px] sm:[h-78px] md:[h-78px] lg:[h-78px] sm:[w-78px] md:[w-78px] lg:[w-78px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
+              className={`relative h-auto w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
               key={key}
             >
               <img
                 src={element.src}
                 fill={true}
                 alt="Picture of the author"
-                className={`m-auto object-contain img-platform mx-auto , ${element.animation}`}
+                className={`${key === 2 ? 'img-platform-1' : ("img-platform")}  m-auto object-contain  mx-auto , ${element.animation}`}
               />
             </div>
           ))}

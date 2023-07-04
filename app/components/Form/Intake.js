@@ -205,8 +205,8 @@ const Intake = () => {
                         configure: "success"
                     }
                 })
-                setIntakeStep(5)
-                setIntakeCompleteStep(5)
+                setIntakeStep(4)
+                setIntakeCompleteStep(4)
                 setLoading(false)
             } else {
                 setErrors(domains.response.data.slug_domain)
@@ -256,8 +256,8 @@ const Intake = () => {
                 break;
             case 3:
                 if (basicFormData?.configure === 'success') {
-                    setIntakeStep(5)
-                    setIntakeCompleteStep(5)
+                    setIntakeStep(4)
+                    setIntakeCompleteStep(4)
                 } else {
                     SubmitConfigureEmail()
                 }

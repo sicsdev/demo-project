@@ -18,7 +18,7 @@ const BotSettingReadOnly = ({ basicFormData }) => {
 
                     <div className='mt-3'>
                         <h3 className='font-semibold text-md text-heading'>Email Introduction</h3>
-                        <p className='text-sm my-2'>{state?.email_introduction}</p>
+                        <p className='text-sm my-2'>{state?.email_introduction.split(" ")[0]}</p>
                     </div>
                     <hr className='border-border' />
                     <div className='mt-3'>
@@ -30,7 +30,7 @@ const BotSettingReadOnly = ({ basicFormData }) => {
                     <hr className='border-border' />
                     <div className='mt-3'>
                         <h3 className='font-semibold text-md text-heading'>Email Sign-Off</h3>
-                        <p className='text-sm my-2'>{state?.email_signOff}</p>
+                        <p className='text-sm my-2'>{state?.email_signOff.split(",")[0]}  {state?.agent_name[0]}</p>
 
                     </div>
                     <hr className='border-border' />
