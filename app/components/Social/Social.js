@@ -26,14 +26,14 @@ const Social = () => {
         <div className="grid grid-cols-2 sm:grid-cols-6 text-center">
           {images.map((element, key) => (
             <div
-              className={`relative h-auto w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
+              className={`relative h-auto w-[56px] sm:w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
               key={key}
             >
               <img
                 src={element.src}
                 fill={true}
                 alt="Picture of the author"
-                className={`${key === 2 ? 'img-platform-1' : ("img-platform")}  m-auto object-contain  mx-auto , ${element.animation}`}
+                className={`${key === 2 ? 'img-platform-1' : ("img-platform")}  m-auto object-contain mx-auto , ${element.animation}`}
               />
             </div>
           ))}
