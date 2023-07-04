@@ -17,7 +17,7 @@ const Nav = () => {
   const [profile, setProfile] = useState({});
   useEffect(() => {
     getUserProfile().then((res) => {
-      setProfile(res);
+      if (res.email) setProfile(res);
       console.log(res)
     }).catch((err) => {
       console.log(err);
@@ -28,7 +28,7 @@ const Nav = () => {
     <>
       <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-heading border-gray-200 ">
         {!profile.email && <Banner />}
-        {!profile.verified && <VerifyEmailBanner />}
+        {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">
           <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[60px]">
             <div className="relative w-28 h-8 mr-24">

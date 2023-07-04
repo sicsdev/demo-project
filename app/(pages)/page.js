@@ -22,7 +22,7 @@ export default function Home() {
       <Head></Head>
       <Start />
       <DTC />
-      <Brandpercentage/>  
+      {/* <Brandpercentage/>   */}
 
       {/* <SecondBan /> */}
       <Info />
