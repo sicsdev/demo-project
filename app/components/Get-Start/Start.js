@@ -12,13 +12,14 @@ const Start = () => {
 
   return (
     <>
+
       <pre lang="js">
         <script src="https://widget-dev.usetempo.ai/v1/main.js" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               ChatBot.Widget({
-                id: "42b15a2e-1975-41fc-8157-fd03b602a36d",
+                id: "f6b12cc5-7b2b-4f90-8709-720530a94be8",
               });
             `,
           }}
