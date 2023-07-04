@@ -4,6 +4,7 @@ import Card from "../Common/Card/Card";
 import { useRouter } from "next/navigation";
 import validator from "validator";
 import axios from "axios";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 
 const Demo = () => {
   const [email, setEmail] = useState("");
@@ -48,67 +49,12 @@ const Demo = () => {
     // }
   }, [email]);
 
-  const sendDataToFreshsales = async () => {
-    const apiUrl = "https://scfddmnmp4dibft5qrkeatmwwa0qjonx.lambda-url.us-east-2.on.aws/";
-      // Create the lead object with the desired data
-      const contact = {
-        email: email
-        // Add more fields as needed
-      };
-      try {
-        console.log("payload", contact)
-         const response = await axios(apiUrl, {
-           method: 'post',
-           headers: {
-             'Access-Control-Allow-Origin': "*",
-             'Access-Control-Allow-Headers': 'Content-Type',
-            //  'Authorization': 'Token yict-U-l_KKTLDvaQPiXDQ', // Replace with your Freshsales API key
-           },      
-           body: JSON.stringify(contact),
-         });
-        
-         if (response.ok) {
-           // Lead data sent successfully   
-           console.log('data sent to Freshsales CRM');
-         } else {
-           // Handle error if the request fails
-           console.error('Error sending  data to Freshsales CRM');
-         }
-       } catch (error) {
-         console.error('Error sending  data to Freshsales CRM', error);
-       }
-  };
-
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      hj("identify", userId, {
-        Email: email,
-      });
       let payload = {
-        event: "Blur-Email",
-      };
-      window.dataLayer?.push(payload);
-      sendDataToFreshsales(email);
-      if (blacklist.includes(email.split("@")[1])) {
-        let payload = {
-          event: "lead-generic",
-        };
-        window.dataLayer?.push(payload);
-      } else {
-        let payload = {
-          event: "lead-business",
-        };
-        window.dataLayer?.push(payload);
+        email: email,
       }
-      if (email?.includes("@")) {
-        window._learnq.push([
-          "track",
-          "$email",
-          {
-            $email: email,
-          },
-        ]);
-      }
+      createContactInFreshsales(payload); 
     }
   };
 

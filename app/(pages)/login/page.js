@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux'
 import { setUserInfo, userLogin } from '../../components/store/slices/userInfoSlice'
 import { exchangeGoogleToken, getUserInfoFromCognito, loginWithGoogle } from '@/app/API/pages/Login'
 import { editUserValue } from '@/app/components/store/slices/userSlice'
+import { createContactInFreshsales } from '@/app/API/components/Demo'
 
 const Login = () => {
 
@@ -102,7 +103,7 @@ const Login = () => {
             console.log('respuesta', res)
             let access_token = res.access_token
             // 2 Now we get the user info (we only need email) from cognito using the access token >
-            getUserInfoFromCognito(access_token).then(res => {
+            getUserInfoFromCognito(access_token).then(async (res) => {
                 // 3 We call our API, using the email we got from cognito and the access token we got previously >
                 let useremail = res.email
                 loginWithGoogle({ email: useremail, access_token: access_token })
@@ -111,6 +112,8 @@ const Login = () => {
                         if (!res.user_exist) { router.push(`/checkout?gauth=true&email=${useremail}&gtoken=${access_token}`) }
                         setLoading(false);
                     })
+                // This line below creates a contact in freshsales with the email we got from cognito >
+                await createContactInFreshsales({ email: useremail })
             })
         }).catch(err => {
             console.log(err)

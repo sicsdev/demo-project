@@ -6,9 +6,12 @@ import {
   state_data,
 } from "./data/FormData";
 import { useState } from "react";
+import validator from "validator";
+import { useEffect } from "react";
+import { getUserProfile } from "@/app/API/components/Sidebar";
+import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
 
 export default function BasicDetails({ basicFormData, setBasicFormData }) {
-  const [errors, setErrors] = useState([]);
   const [formValues, setFormValues] = useState({
     business_street: basicFormData?.business_street ?? "",
     business_city: basicFormData?.business_city ?? "",
@@ -20,6 +23,21 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
     business_company_size: basicFormData?.business_company_size ?? "",
     business_unit_no: basicFormData?.business_unit_no ?? "",
   });
+
+  useEffect(() => {
+    getUserProfile().then((res) => { console.log(res); setUserProfile(res) })
+
+    // Next code block is for watch for changes in the formValues object, to update the Freshsales contact
+    if (
+      formValues.business_company_size !== '' ||
+      formValues.business_industry !== '' ||
+      formValues.business_state !== ''
+    ) { handleBlur(); }
+  }, [formValues.business_company_size, formValues.business_industry, formValues.business_state]);
+
+  const [userProfile, setUserProfile] = useState({});
+  const [errors, setErrors] = useState([]);
+
   const makeCapital = (str) => {
     if (str.includes(" ")) {
       return str
@@ -30,12 +48,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     }
   };
+
   const handleInputValues = (e) => {
     setFormValues({
       ...formValues,
       [e.target.name]: makeCapital(e.target.value),
     });
-    debugger;
     setBasicFormData((prev) => {
       return {
         ...prev,
@@ -44,9 +62,11 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
     });
   };
 
+
   const provideStateNames = () => {
     return state_data.map((state) => state.name);
   };
+
 
   const returnErrorMessage = (key) => {
     if (errors.length) {
@@ -57,6 +77,26 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
     }
     return null;
   };
+
+
+  const handleBlur = async (e) => {
+    if (validator.isEmail(userProfile.email)) {
+
+      let payload = { email: userProfile.email }
+
+      if (formValues.business_name) payload.custom_field = { ...payload.custom_field, cf_company_name: formValues.business_name }
+      if (formValues.business_street) payload.address = formValues.business_street
+      if (formValues.business_city) payload.city = formValues.business_city
+      if (formValues.business_state) payload.state = formValues.business_state
+      if (formValues.business_zipcode) payload.zipcode = formValues.business_zipcode
+      if (formValues.business_company_size) payload.custom_field = { ...payload.custom_field, cf_employees_size: formValues.business_company_size }
+      if (formValues.business_industry) payload.custom_field = { ...payload.custom_field, cf_industry: formValues.business_industry }
+
+      await createContactInFreshsales(payload)
+
+    }
+  }
+
   return (
     <div>
       <span className="text-sm my-5 text-[#808080]">
@@ -76,6 +116,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
             type={"text"}
             id={"business_name"}
             error={returnErrorMessage("business_name")}
+            onBlur={handleBlur}
           />
           <br />
           <h3 className="text-heading mb-4 font-semibold">Business Address</h3>
@@ -90,6 +131,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               type={"text"}
               id={"business_street"}
               error={returnErrorMessage("business_street")}
+              onBlur={handleBlur}
             />
             <TextField
               onChange={handleInputValues}
@@ -101,6 +143,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               type={"text"}
               id={"business_city"}
               error={returnErrorMessage("business_city")}
+              onBlur={handleBlur}
             />
             <SelectField
               onChange={handleInputValues}
@@ -123,6 +166,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
                 type={"text"}
                 id={"business_zipcode"}
                 error={returnErrorMessage("business_zipcode")}
+                onBlur={handleBlur}
               />
             </div>
             <div className="md:col-span-2">
@@ -136,6 +180,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
                 type={"text"}
                 id={"business_unit_no"}
                 error={returnErrorMessage("business_unit_no")}
+                onBlur={handleBlur}
               />
             </div>
             <SelectField
