@@ -66,6 +66,12 @@ const Sidebar = ({ children }) => {
             icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
 
         },
+        {
+            href: '/dashboard/integrations',
+            name: 'Integrations',
+            icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+
+        },
     ]
     const SideBarSetting = [
 
