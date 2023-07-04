@@ -157,10 +157,10 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                                                 <div className='bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center'>
 
                                                 <h3 className='font-xl font-bold text-white my-2'>{element.title}</h3>
-                                                    <div className='relative flex justify-between gap-2 items-center'>
+                                                    <div className='relative'>
                                                         <button type={"button"}
                                                             onClick={() => { dropdown === key ? setDropdown(null) : setDropdown(key) }}
-                                                            className="border-none p-0 m-0 flex gap-1 items-center"
+                                                            className="border-none p-0 m-0 flex gap-1 items-center mx-auto"
                                                         >
                                                             <EllipsisVerticalIcon className="h-5 w-5 " /></button>
                                                         {copied.message && copied.key === key ? <>

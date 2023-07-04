@@ -12,6 +12,11 @@
   height: 65px;
   object-fit: contain;
 }
+.img-platform-1 {
+  width: 90px !important;
+  height: 74px !important;
+  object-fit: contain;
+}
 
 .rotate-180 {
   transition-timing-function: ease;
@@ -111,6 +116,11 @@ span.hljs-tag {
     width: 120px;
   }
   .img-platform {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+  }
+  .img-platform-1 {
     width: 45px;
     height: 45px;
     object-fit: contain;
