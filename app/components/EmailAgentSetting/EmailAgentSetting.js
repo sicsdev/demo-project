@@ -3,6 +3,8 @@ import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
 import SelectField from '../Common/Input/SelectField'
 import { email_prefix_data } from './data'
+import { InformationCircleIcon } from '@heroicons/react/24/solid'
+import Card from '../Common/Card/Card'
 const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
     const [errors, setErrors] = useState([])
     const [email_Prefix, setEmail_Prefix] = useState(basicFormData?.email_prefix ?? '{email_Prefix}')
@@ -92,35 +94,20 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
         <div className=''>
             <div className=''>
                 <div className='my-2'>
-                    <SelectField onChange={handleInputValues} value={formValues.email_prefix} error={returnErrorMessage("email_prefix")} name='email_prefix' values={email_prefix_data} title={"Email Prefix"} id={'email_prefix'} className="py-3 w-full" />
+                    <SelectField onChange={handleInputValues} value={formValues.email_prefix} error={returnErrorMessage("email_prefix")} name='email_prefix' values={email_prefix_data} title={<div className='flex items-center gap-2'><span>Email Prefix</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>The first word of your Tempo email. For example Team@name.gettempo.ai</span></Card></div></div>} id={'email_prefix'} className="py-3 w-full" />
                 </div>
 
                 <div className='my-2'>
-                    <TextField onChange={handleInputValues} value={formValues.company_name} name='company_name' className='py-3 w-full mt-1' title={<h1>Company Name <span className='text-xs'>(Note, you can only configure your email once. It cannot be easily changed later.)</span></h1>} placeholder={"Company Name"} type={'text'} id={"company_name"} error={returnErrorMessage("company_name")} />
+                    <TextField onChange={handleInputValues} value={formValues.company_name} name='company_name' className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Company Name</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>(Note, you can only configure your email once. It cannot be easily changed later.)</span></Card></div></div>} placeholder={"Company Name"} type={'text'} id={"company_name"} error={returnErrorMessage("company_name")} />
                 </div>
                 <div className='my-2'>
                     <TextField onChange={handleInputValues} value={formValues.custom_email} name='custom_email' className='py-3 w-full mt-1' title={
-                        <div>Custom Email Address <span className='text-border'>{email_Prefix}@{company_name}.gettempo.ai</span></div>} placeholder={"Custom Email Address"} type={'text'} id={"custom_email"} error={returnErrorMessage("custom_email")} />
+                        <div className='flex items-center gap-2'><span>Custom Email Address</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Your custom email which you want to forward mail from. For example, team@company_name.com.</span></Card></div></div>} placeholder={"Custom Email Address"} type={'text'} id={"custom_email"} error={returnErrorMessage("custom_email")} />
                 </div>
 
                 {formValues.email_prefix && formValues.custom_email && (
-                    <div className='my-2'>
-                        <label htmlFor={'check_email_forwarding'} className="block text-sm font-medium text-heading">Enable Mail Forwarding</label>
-                        <div className='flex gap-2 mt-1'>
-                            <div className="flex items-center w-full pl-4 border border-border rounded-md cursor-pointer" onClick={(e) => handleCheckbox("Yes")}>
-                                <input id="enable_email_forwarding" type="radio" value="Yes" name="enable_email_forwarding" className="w-4 h-4 text-sky bg-white border-border" checked={formValues.enable_email_forwarding === 'Yes'} />
-                                <label htmlFor="enable_email_forwarding" className=" cursor-pointer w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Yes</label>
-                            </div>
-                            <div className="flex items-center pl-4 border w-full border-border rounded-md cursor-pointer" onClick={(e) => handleCheckbox("No")} >
-                                <input id="enable_email_forwarding1" type="radio" value="No" name="enable_email_forwarding" className="w-4 h-4 text-sky bg-white border-border  " checked={formValues.enable_email_forwarding === 'No'} />
-                                <label htmlFor="enable_email_forwarding1" className=" cursor-pointer w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">No</label>
-                            </div>
-                        </div>
-                        {formValues.enable_email_forwarding === 'Yes'
-                            && (
-                                <p className='text-sm my-2'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='cursor-pointer' href='https://www.usetempo.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> htmlFor instructions. </p>
-                            )}
-                    </div>
+                    <p className='text-sm my-2'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='cursor-pointer' href='https://www.usetempo.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> for instructions. </p>
+
                 )}
             </div>
 
