@@ -53,7 +53,7 @@ const Info = () => {
       coming_soon: "",
       icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
-      content_video: "/aichat.png",
+      content_video: "/tabs/aichat.gif",
       h3: "Discover a revolution in customer communication with Tempo Chat.",
       p: "Integrate Tempo Chat seamlessly into your existing infrastructure, and watch as it adapts to reflect your business's unique brand. Capable of processing orders, administering returns, and managing inquiries round-the-clock, Tempo Chat is the comprehensive solution your business needs. The crowning glory? Your customers will remain blissfully unaware they're engaging with an AI.",
     },
@@ -62,7 +62,7 @@ const Info = () => {
       title: "Smart Inbox",
       coming_soon: "",
       icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/tabs/smartinbox.png",
+      content_video: "/tabs/smartinbox2.gif",
       h3: "Experience cost savings even when you're off the clock.",
       p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
     },
@@ -93,7 +93,7 @@ const Info = () => {
         <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
 
       ),
-      content_video: "/tabs/ivr.png",
+      content_video: "/tabs/ivr2.png",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
     },
