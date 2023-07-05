@@ -13,6 +13,7 @@ import Faq from "../components/Faq/Faq";
 import Newstandard from "../components/Newstandardpage/Newstandard";
 import Brandpercentage from "../components/Brandpercentage/Brandpercentage";
 import Iconanimation from "../components/Iconanimation/Iconanimation";
+import Launch from "../components/Get-Start/Launch";
 export default function Home() {
  
 
@@ -31,8 +32,8 @@ export default function Home() {
       <Newstandard/>   
       {/* <Trial /> */}
       <Social />
-
-      <Benifits />        
+<Launch/>
+      {/* <Benifits />         */}
       {/* <Faq />   */}
       <Iconanimation/>
     </main>

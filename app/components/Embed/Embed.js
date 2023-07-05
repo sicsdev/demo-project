@@ -247,7 +247,7 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                                     </li>
                                     <li>
                                       <Link
-                                        href={`/dashboard/bot-setting?id=${element.id}&name=${element.title}`}
+                                        href={`/dashboard/bot-settings?id=${element.id}&name=${element.title}`}
                                         className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading"
                                       >
                                         Settings{" "}

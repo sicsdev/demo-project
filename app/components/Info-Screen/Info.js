@@ -72,7 +72,8 @@ const Info = () => {
       title: "Save Big",
       coming_soon: "",
       icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/tabs/savebig.png",
+      content_video: "/tabs/Billing-GIF.gif",
+
       h3: "Experience unrivaled clarity with our Transparent Billing.",
       p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
     },
@@ -80,8 +81,9 @@ const Info = () => {
       id: "4",
       title: "Scale Fast",
       coming_soon: "",
+      content_video: "/tabs/Analytics-Gif.gif",
+
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/tabs/scalefast.png",
       h3: "Gain Insight with our Advanced Analytics Dashboard.",
       p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
     },
@@ -93,7 +95,7 @@ const Info = () => {
         <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
 
       ),
-      content_video: "/tabs/ivr2.png",
+      content_video: "/tabs/IVR-Gif-4-30percent.gif",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
     },
