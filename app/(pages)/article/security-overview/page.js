@@ -15,9 +15,6 @@ const page = () => {
     });
   }, []);
   console.log("single", single);
-
-
-  
   return (
     <div className="bg-white">
       <h1 className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">

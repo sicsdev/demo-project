@@ -17,8 +17,8 @@ const page = () => {
   }, []);
   console.log("single", single);
   return (
-    <div className="bg-white  pl-[10%] ">
-    <h1 className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+    <div className="bg-white  px-[20px] sm:px-0  sm:pl-[10%] ">
+    <h1 className=" font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
       {single?.acf?.article_name || (
         <SkeletonLoader height={40} width={580} />
       )}

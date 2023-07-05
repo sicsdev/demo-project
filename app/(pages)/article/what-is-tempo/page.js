@@ -18,22 +18,19 @@ const page = () => {
   }, []);
   console.log("single", single);
   return (
-    <div className="bg-white  pl-[10%] ">
-    <h1 className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+    <div className="bg-white px-[20px] sm:px-0  sm:pl-[10%] ">
+    <h1 className=" font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
       {single?.acf?.article_name || (
         <SkeletonLoader height={40} width={580} />
       )}
     </h1>
     <p
-      className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
+      className="  text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
     >{single?.acf?.aritcle_para_t}</p>
-     <Button
-                  type={"submit"}
-                  className={
-                    "mx-auto table py-[6px] mt-2 px-2 focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
-                  }
+     <div
+              className="py-2 sm:px-8 mb-9 sm:mb-0  mt-5 sm:mt-2  focus:ring-yellow-300 text-white sm:w-[23%]  w-full mx-auto text-center  sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
                 >
-                  <div
+                  <p
                     dangerouslySetInnerHTML={{
                       __html: `
        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
@@ -43,7 +40,7 @@ const page = () => {
       `,
                     }}
                   />
-                </Button>
+                </div>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
       dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
