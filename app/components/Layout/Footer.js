@@ -5,7 +5,6 @@ import axios from "axios";
 const Footer = () => {
 
   
-  const pathname = usePathname();
   const company = [
     "About",
     "Leadership",

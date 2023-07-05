@@ -91,7 +91,7 @@ const BlogSidebar = ({ children }) => {
               <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
                 Latest Articles
               </p>
-              <div className=" ml-4  font-medium SideOptions">
+              {/* <div className=" ml-4  font-medium SideOptions">
                 {upperTitle.map((ele, key) => (
                   <div
                     className="group "
@@ -157,7 +157,7 @@ const BlogSidebar = ({ children }) => {
                     </Link>
                   </div>
                 ))}
-              </div>
+              </div> */}
               <div class="relative  flex w-[240px] bg-[#eedede] flex-wrap items-stretch p-7">
                 <input
                   type="search"
