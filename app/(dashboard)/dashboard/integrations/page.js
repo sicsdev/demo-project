@@ -32,7 +32,7 @@ const Page = () => {
               className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
               aria-current="page"
             >
-              <ShareIcon className="h-6 w-6 text-primary" /> Integrations
+              <ShareIcon className="h-6 w-6 text-primary" /> Integrations  
             </a>
           </li>
         </ul>
@@ -52,18 +52,18 @@ const Page = () => {
           <hr className="border-border" />
           <div className="flex justify-between items-center mt-3">
             <div className="">
-              <h3 className="font-semibold text-md text-heading">Email</h3>
+              <h3 className="font-semibold text-md text-heading">Shipping</h3>
               <p className="text-sm my-2">0 active integrations</p>
             </div>
-            <p className="cursor-pointer text-sm" onClick={handlerIntegrationEmail}>
+            {/* <p className="cursor-pointer text-sm" onClick={handlerIntegrationEmail}>
               Edit
-            </p>
+            </p> */}
           </div>
           <hr className="border-border" />
           <div className="flex justify-between items-center mt-3">
             <div className="">
               <h3 className="font-semibold text-md text-heading">
-                Social Media Channels
+                Social Media 
               </h3>
               <p className="text-sm my-2">0 active integrations</p>
             </div>
@@ -71,7 +71,7 @@ const Page = () => {
           <hr className="border-border" />
           <div className="flex justify-between items-center mt-3">
             <div className="">
-              <h3 className="font-semibold text-md text-heading">Phone</h3>
+              <h3 className="font-semibold text-md text-heading">Custom</h3>
               <p className="text-sm my-2">0 active integrations</p>
             </div>
           </div>
@@ -80,7 +80,7 @@ const Page = () => {
         </>
       ) : (
         <>
-        {edit ? <Integrationedit /> : ""}
+        {edit ? <Integrationedit setEdit={setEdit}/> : ""}
         {email ? <Integrationemail /> : ""}
         </>
       )}

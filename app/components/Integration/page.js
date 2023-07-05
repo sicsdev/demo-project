@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 import Card from "../Common/Card/Card";
 
-const Integrationedit = () => {
+const Integrationedit = (props) => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [issuerefund, setIssuerefund] = useState(false);
   const [cancelsub, setCancelsub] = useState(false);
@@ -15,6 +15,14 @@ const Integrationedit = () => {
 
   const handleCountryChange = (event) => {
     setSelectedCountry(event.target.value);
+  };
+  const handlerIssueRefundfalse = () => {
+    setIssuerefund(false);
+    setCancelsub(false);
+    setPausesub(false);
+    setIssuecoupon(false);
+    setPayment(false);
+
   };
   const handlerIssueRefund = () => {
     setIssuerefund(true);
@@ -57,7 +65,7 @@ const Integrationedit = () => {
                 ? "Issue Coupon / Promo / Credit "
                 : payment
                 ? "Add Payment Method"
-                : "Integrations"}
+                : "Billing Integrations"}
             </a>
           </li>
         </ul>
@@ -276,13 +284,20 @@ const Integrationedit = () => {
                 </>
               )}
             </div>
-
-            <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setIssuerefund(false)}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
         </div>
       ) : cancelsub ? (
@@ -499,14 +514,23 @@ const Integrationedit = () => {
                 </>
               )}
             </div>
-
-            <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+            <div className="flex items-center justify-between">
+              <button
+              type="button"
+                onClick={() => handlerIssueRefundfalse()}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
+        
         </div>
       ) : pausesub ? (
         <div className="py-6 pr-6">
@@ -723,12 +747,21 @@ const Integrationedit = () => {
               )}
             </div>
 
+            <div className="flex items-center justify-between">
             <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+              type="button"
+                onClick={() => handlerIssueRefundfalse()}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
         </div>
       ) : reactivesub ? (
@@ -946,13 +979,23 @@ const Integrationedit = () => {
               )}
             </div>
 
+            <div className="flex items-center justify-between">
             <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+              type="button"
+                onClick={() => handlerIssueRefundfalse()}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
+       
         </div>
       ) : issuecoupon ? (
         <div className="py-6 pr-6">
@@ -1169,12 +1212,21 @@ const Integrationedit = () => {
               )}
             </div>
 
+            <div className="flex items-center justify-between">
             <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+              type="button"
+                onClick={() => handlerIssueRefundfalse()}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
         </div>
       ) : payment ? (
@@ -1391,13 +1443,21 @@ const Integrationedit = () => {
                 </>
               )}
             </div>
-
+            <div className="flex items-center justify-between">
             <button
-              type="submit"
-              className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-            >
-              Save
-            </button>
+              type="button"
+                onClick={() => handlerIssueRefundfalse()}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
+              <button
+                // type="submit"
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Save
+              </button>
+            </div>
           </form>
         </div>
       ) : (
@@ -1477,6 +1537,12 @@ const Integrationedit = () => {
             </p>
           </div>
           <hr className="border-border" />
+          <button
+                onClick={() => props.setEdit(false)}
+                className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+              >
+                Back
+              </button>
         </Card>
       )}
     </>

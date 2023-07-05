@@ -130,7 +130,7 @@ const Info = () => {
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          <span className="text-first-section-color">Save Millions</span> with Tempo.
+          <span className="text-[#2563eb]">Save Millions</span> with Tempo.
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">

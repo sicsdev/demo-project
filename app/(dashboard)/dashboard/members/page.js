@@ -83,10 +83,11 @@ const Page = () => {
 
                 </div>}
 
-
+{teamModal ? 
             <Modal title={'Invite Team Member'} show={teamModal} setShow={setTeamModal} className={'text-center w-[80%] rounded-lg'} showCancel={true} >
                <Invite setTeamModal={setTeamModal}/>
             </Modal>
+        :""}
         </div>
     )
 }
