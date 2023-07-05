@@ -53,6 +53,24 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         active: true
     })
 
+    const colorCodes = [
+        { code: "#D0021B", color: "#000000" },
+        { code: "#F5A623", color: "#000000" },
+        { code: "#F8E71C", color: "#000000" },
+        { code: "#8B572A", color: "#000000" },
+        { code: "#7ED321", color: "#000000" },
+        { code: "#417505", color: "#FFFFFF" },
+        { code: "#BD10E0", color: "#000000" },
+        { code: "#9013FE", color: "#000000" },
+        { code: "#4A90E2", color: "#000000" },
+        { code: "#50E3C2", color: "#000000" },
+        { code: "#B8E986", color: "#000000" },
+        { code: "#000000", color: "#FFFFFF" },
+        { code: "#4A4A4A", color: "#FFFFFF" },
+        { code: "#9B9B9B", color: "#000000" },
+        { code: "#FFFFFF", color: "#000000" }
+      ];
+      
 
     // Primary functions
     const getBotInfo = (id) => {
@@ -78,30 +96,30 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         }
     }, [preferences])
 
-   
+
 
 
     // Form handlers
 
-    const handlePrimaryColorChange = (event) => {
-        const color = event.target.value;
-        setPreferences({ ...preferences, primary_color: color });
+    const handlePrimaryColorChange = (color) => {
+
+        setPreferences({ ...preferences, primary_color: color.code,  primary_text_color: color.color });
         if (form == true) {
             setBasicFormData((prev) => {
-                return { ...prev, primary_color: color }
+                return { ...prev, primary_color: color.code, primary_text_color: color.color }
             })
         }
     };
 
-    const handleSecondaryColorChange = (event) => {
-        const color = event.target.value;
-        setPreferences({ ...preferences, secondary_color: color });
+    const handleSecondaryColorChange = (color) => {
+        setPreferences({ ...preferences, secondary_color: color.code, secondary_text_color: color.color });
         if (form == true) {
             setBasicFormData((prev) => {
-                return { ...prev, secondary_color: color }
+                return { ...prev, secondary_color: color, secondary_text_color: color.color }
             })
         }
     };
+
     const handlePrimaryTextColorChange = (event) => {
         const color = event.target.value;
         setPreferences({ ...preferences, primary_text_color: color });
@@ -188,13 +206,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             // getBotInfo(botDetails.id)
             dispatch(fetchBot())
             router.push("/dashboard")
-         
+
         }).catch((err) => {
             console.log(err)
             setLoading(false)
         })
     }
-   
+
 
     return (
         <div className="w-full">
@@ -245,7 +263,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center w-full gap-2">
+                            {/* <div className="flex items-center w-full gap-2">
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Primary Color</span>
                                 </div>
@@ -273,8 +291,55 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                                         onChange={handleSecondaryColorChange}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
+
                             <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-start w-1/2">
+                                    <span className="text-gray-700">Primary Color</span>
+                                </div>
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
+                                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                                        {colorCodes.map((color, index) => (
+                                            <div
+                                                onClick={() => handlePrimaryColorChange(color)}
+                                                key={index}
+                                                className='border border-gray'
+                                                style={{
+                                                    width: '20px',
+                                                    height: '20px',
+                                                    backgroundColor: color.code
+                                                }}
+                                            ></div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center w-full gap-2">
+                                <div className="flex justify-start w-1/2">
+                                    <span className="text-gray-700">Secondary Color</span>
+                                </div>
+                                <div className="flex justify-start rounded-md w-1/2 border mt-2 border-gray p-2">
+                                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                                        {colorCodes.map((color, index) => (
+                                            <div
+                                                onClick={() => handleSecondaryColorChange(color)}
+                                                key={index}
+                                                className='border border-gray'
+                                                style={{
+                                                    width: '20px',
+                                                    height: '20px',
+                                                    backgroundColor: color.code
+                                                }}
+                                            ></div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            {/* <div className="flex items-center w-full gap-2">
                                 <div className="flex justify-start w-1/2">
                                     <span className="text-gray-700">Primary Text Color</span>
                                 </div>
@@ -302,7 +367,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                                         onChange={handleSecondaryTextColorChange}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex items-center w-full mt-1 gap-2">
                                 <div className="flex justify-start w-1/2 items-center">
