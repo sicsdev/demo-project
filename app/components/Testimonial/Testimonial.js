@@ -18,7 +18,6 @@ const Testimonial = () => {
           </div>
           <div className="block sm:grid md:grid lg:grid grid-cols-2 gap-4">
             <button
-              type={"submit"}
               className={
                 "py-2 px-8 sm:px-20 md:px-20 lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }

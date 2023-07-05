@@ -63,7 +63,6 @@ const Iconanimation = () => {
             </p>
             <div className="text-center my-3 flex justify-between items-center flex-col">
               <button
-                type={"submit"}
                 className={
                   "py-2 px-8 sm:w-[40%] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
                 }

@@ -22,7 +22,7 @@ const Integrationedit = (props) => {
     setPausesub(false);
     setIssuecoupon(false);
     setPayment(false);
-    setReactivesub(false)
+    setReactivesub(false);
   };
   const handlerIssueRefund = () => {
     setIssuerefund(true);
@@ -75,7 +75,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8 text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -306,7 +306,7 @@ const Integrationedit = (props) => {
                     <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
                       {" "}
                       <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
+                        To ensure our model accurately calls your API endpoint
                         without error, please pass a single example JSON payload
                         for the API without headers or any auth tokens we can
                         utilize as an example.
@@ -323,7 +323,9 @@ const Integrationedit = (props) => {
                   placeholder="Enter text..."
                 />
                 <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
+                  Paste, in written english, instructions to the bot governing
+                  this action.{" "}
+                </p>
               </div>
               <div class="mb-4">
                 <label
@@ -354,7 +356,8 @@ const Integrationedit = (props) => {
                   placeholder="Enter text..."
                 />
                 <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
+                  Example JSON data to verify the action formatting.{" "}
+                </p>
               </div>
               <div class="mb-4 spec">
                 <label
@@ -367,7 +370,7 @@ const Integrationedit = (props) => {
                     <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
                       {" "}
                       <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
+                        To ensure our model accurately calls your API endpoint
                         without error, please pass a single example JSON payload
                         for the API without headers or any auth tokens we can
                         utilize as an example.
@@ -381,7 +384,8 @@ const Integrationedit = (props) => {
                   <span className="slider round"></span>
                 </label>
                 <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
+                  Require customer to confirm before action is performed.{" "}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 <button className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg">
@@ -420,7 +424,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8 sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -649,7 +653,7 @@ const Integrationedit = (props) => {
                     <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
                       {" "}
                       <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
+                        To ensure our model accurately calls your API endpoint
                         without error, please pass a single example JSON payload
                         for the API without headers or any auth tokens we can
                         utilize as an example.
@@ -666,7 +670,9 @@ const Integrationedit = (props) => {
                   placeholder="Enter text..."
                 />
                 <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
+                  Paste, in written english, instructions to the bot governing
+                  this action.{" "}
+                </p>
               </div>
               <div class="mb-4">
                 <label
@@ -697,7 +703,8 @@ const Integrationedit = (props) => {
                   placeholder="Enter text..."
                 />
                 <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
+                  Example JSON data to verify the action formatting.{" "}
+                </p>
               </div>
               <div class="mb-4 spec">
                 <label
@@ -710,7 +717,7 @@ const Integrationedit = (props) => {
                     <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
                       {" "}
                       <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
+                        To ensure our model accurately calls your API endpoint
                         without error, please pass a single example JSON payload
                         for the API without headers or any auth tokens we can
                         utilize as an example.
@@ -724,7 +731,8 @@ const Integrationedit = (props) => {
                   <span className="slider round"></span>
                 </label>
                 <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
+                  Require customer to confirm before action is performed.{" "}
+                </p>
               </div>
               <div className="flex items-center justify-between">
                 {/* <button
@@ -773,7 +781,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -854,93 +862,98 @@ const Integrationedit = (props) => {
                   The Auth structure we'll use to perform the request.
                 </p>
                 <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Action Policies
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Action Policies
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
-              </div>
-              <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Example Params Payload{" "}
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        Please enter in concise english the policies governing
-                        when this action can be granted. These policies will be
-                        enforced by the bot before the action can be performed.
-                        For example, for a refund action, please add your refund
-                        policies. Ensure you include any exceptions to the
-                        policy at all as this policy will be upheld.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
-              </div>
-              <div class="mb-4 spec">
-                <label
-                  for="method"
-                  class="flex text-gray-700 text-sm font-bold mb-2"
-                >
-                  Requires Customer Confirmation?
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Paste, in written english, instructions to the bot governing
+                    this action.{" "}
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Example Params Payload{" "}
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          Please enter in concise english the policies governing
+                          when this action can be granted. These policies will
+                          be enforced by the bot before the action can be
+                          performed. For example, for a refund action, please
+                          add your refund policies. Ensure you include any
+                          exceptions to the policy at all as this policy will be
+                          upheld.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Example JSON data to verify the action formatting.{" "}
+                  </p>
+                </div>
+                <div class="mb-4 spec">
+                  <label
+                    for="method"
+                    class="flex text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Requires Customer Confirmation?
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-                </label>
-                <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
-              </div>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                  </label>
+                  <p className="text-sm mt-2">
+                    Require customer to confirm before action is performed.{" "}
+                  </p>
+                </div>
                 {selectedCountry === "no_auth" && ""}
 
                 {selectedCountry === "basic_auth" && (
@@ -1126,7 +1139,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1207,93 +1220,98 @@ const Integrationedit = (props) => {
                   The Auth structure we'll use to perform the request.
                 </p>
                 <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Action Policies
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Action Policies
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
-              </div>
-              <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Example Params Payload{" "}
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        Please enter in concise english the policies governing
-                        when this action can be granted. These policies will be
-                        enforced by the bot before the action can be performed.
-                        For example, for a refund action, please add your refund
-                        policies. Ensure you include any exceptions to the
-                        policy at all as this policy will be upheld.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
-              </div>
-              <div class="mb-4 spec">
-                <label
-                  for="method"
-                  class="flex text-gray-700 text-sm font-bold mb-2"
-                >
-                  Requires Customer Confirmation?
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Paste, in written english, instructions to the bot governing
+                    this action.{" "}
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Example Params Payload{" "}
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          Please enter in concise english the policies governing
+                          when this action can be granted. These policies will
+                          be enforced by the bot before the action can be
+                          performed. For example, for a refund action, please
+                          add your refund policies. Ensure you include any
+                          exceptions to the policy at all as this policy will be
+                          upheld.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Example JSON data to verify the action formatting.{" "}
+                  </p>
+                </div>
+                <div class="mb-4 spec">
+                  <label
+                    for="method"
+                    class="flex text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Requires Customer Confirmation?
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-                </label>
-                <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
-              </div>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                  </label>
+                  <p className="text-sm mt-2">
+                    Require customer to confirm before action is performed.{" "}
+                  </p>
+                </div>
                 {selectedCountry === "no_auth" && ""}
 
                 {selectedCountry === "basic_auth" && (
@@ -1479,7 +1497,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1560,93 +1578,98 @@ const Integrationedit = (props) => {
                   The Auth structure we'll use to perform the request.
                 </p>
                 <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Action Policies
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Action Policies
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
-              </div>
-              <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Example Params Payload{" "}
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        Please enter in concise english the policies governing
-                        when this action can be granted. These policies will be
-                        enforced by the bot before the action can be performed.
-                        For example, for a refund action, please add your refund
-                        policies. Ensure you include any exceptions to the
-                        policy at all as this policy will be upheld.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
-              </div>
-              <div class="mb-4 spec">
-                <label
-                  for="method"
-                  class="flex text-gray-700 text-sm font-bold mb-2"
-                >
-                  Requires Customer Confirmation?
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Paste, in written english, instructions to the bot governing
+                    this action.{" "}
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Example Params Payload{" "}
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          Please enter in concise english the policies governing
+                          when this action can be granted. These policies will
+                          be enforced by the bot before the action can be
+                          performed. For example, for a refund action, please
+                          add your refund policies. Ensure you include any
+                          exceptions to the policy at all as this policy will be
+                          upheld.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Example JSON data to verify the action formatting.{" "}
+                  </p>
+                </div>
+                <div class="mb-4 spec">
+                  <label
+                    for="method"
+                    class="flex text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Requires Customer Confirmation?
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-                </label>
-                <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
-              </div>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                  </label>
+                  <p className="text-sm mt-2">
+                    Require customer to confirm before action is performed.{" "}
+                  </p>
+                </div>
                 {selectedCountry === "no_auth" && ""}
 
                 {selectedCountry === "basic_auth" && (
@@ -1832,7 +1855,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8 sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8  text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1913,93 +1936,98 @@ const Integrationedit = (props) => {
                   The Auth structure we'll use to perform the request.
                 </p>
                 <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Action Policies
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Action Policies
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Paste, in written english, instructions to the bot governing this action.                 </p>
-              </div>
-              <div class="mb-4">
-                <label
-                  for="name"
-                  class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
-                >
-                  Example Params Payload{" "}
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        Please enter in concise english the policies governing
-                        when this action can be granted. These policies will be
-                        enforced by the bot before the action can be performed.
-                        For example, for a refund action, please add your refund
-                        policies. Ensure you include any exceptions to the
-                        policy at all as this policy will be upheld.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
-                  placeholder="Enter text..."
-                />
-                <p className="text-sm mt-2">
-                Example JSON data to verify the action formatting.                </p>
-              </div>
-              <div class="mb-4 spec">
-                <label
-                  for="method"
-                  class="flex text-gray-700 text-sm font-bold mb-2"
-                >
-                  Requires Customer Confirmation?
-                  <span className="group w-[2px] relative">
-                    <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                    <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
-                      {" "}
-                      <span className="text-xs font-light">
-                        to ensure our model accurately calls your API endpoint
-                        without error, please pass a single example JSON payload
-                        for the API without headers or any auth tokens we can
-                        utilize as an example.
-                      </span>
-                    </Card>
-                  </span>
-                </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Paste, in written english, instructions to the bot governing
+                    this action.{" "}
+                  </p>
+                </div>
+                <div class="mb-4">
+                  <label
+                    for="name"
+                    class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+                  >
+                    Example Params Payload{" "}
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          Please enter in concise english the policies governing
+                          when this action can be granted. These policies will
+                          be enforced by the bot before the action can be
+                          performed. For example, for a refund action, please
+                          add your refund policies. Ensure you include any
+                          exceptions to the policy at all as this policy will be
+                          upheld.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Example JSON data to verify the action formatting.{" "}
+                  </p>
+                </div>
+                <div class="mb-4 spec">
+                  <label
+                    for="method"
+                    class="flex text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Requires Customer Confirmation?
+                    <span className="group w-[2px] relative">
+                      <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+                      <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                        {" "}
+                        <span className="text-xs font-light">
+                          To ensure our model accurately calls your API endpoint
+                          without error, please pass a single example JSON
+                          payload for the API without headers or any auth tokens
+                          we can utilize as an example.
+                        </span>
+                      </Card>
+                    </span>
+                  </label>
 
-                <label className="switch">
-                  <input type="checkbox" />
-                  <span className="slider round"></span>
-                </label>
-                <p className="text-sm mt-2">
-                Require customer to confirm before action is performed.                </p>
-              </div>
+                  <label className="switch">
+                    <input type="checkbox" />
+                    <span className="slider round"></span>
+                  </label>
+                  <p className="text-sm mt-2">
+                    Require customer to confirm before action is performed.{" "}
+                  </p>
+                </div>
                 {selectedCountry === "no_auth" && ""}
 
                 {selectedCountry === "basic_auth" && (
@@ -2184,7 +2212,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => props.setEdit(false)}
-              className="py-2 px-8  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-heading  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8  text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
