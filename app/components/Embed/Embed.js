@@ -172,11 +172,11 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                         </div>
                       ) : (
                         <div className="mt-5 border rounded-md border-border  bg-white">
-                          <div className="bg-border rounded-t-md py-2 px-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
+                          <div className="bg-border rounded-t-md py-2 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
                             <h3 className="font-xl font-bold text-white my-2">
                               {element.title}
                             </h3>
-                            <div className="relative flex flex-row-reverse">
+                            <div className="relative flex flex-row-reverse pr-2">
                               <button
                                 type={"button"}
                                 onClick={() => {
@@ -190,7 +190,7 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                               </button>
                               {copied.message && copied.key === key ? (
                                 <>
-                                  <span className="flex items-center">
+                                  <span className="flex items-center pr-3">
                                     <CheckIcon className="h-5 w-5 " />
                                     Copied!
                                   </span>{" "}
@@ -219,7 +219,7 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                                 >
                                   <button
                                     type={"submit"}
-                                    className="border-none p-0 m-0 flex gap-1 items-center"
+                                    className="border-none p-0 m-0 flex gap-1 items-center pr-3"
                                   >
                                     <ClipboardIcon className=" h-5 w-5 text-white" />{" "}
                                     Copy code

@@ -12,7 +12,7 @@ const Testimonial = () => {
         >
           <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
             {" "}
-            <h2 className="mb-5 md:mb-0 font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none   text-heading  ">
+            <h2 className="mb-5 md:mb-0 font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none text-heading  ">
               Try Tempo with your own support content now
             </h2>
           </div>
@@ -37,7 +37,7 @@ const Testimonial = () => {
             <button
               type={"submit"}
               className={
-                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-black hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               <div className="trytempo">

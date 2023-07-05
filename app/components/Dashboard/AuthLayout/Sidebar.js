@@ -69,7 +69,7 @@ const Sidebar = ({ children }) => {
         {
             href: '/dashboard/integrations',
             name: 'Integrations',
-            icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+            icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
 
         },
     ]

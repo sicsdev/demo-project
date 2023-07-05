@@ -180,6 +180,7 @@ const Page = () => {
       </div>
       {isEdit == true ? (
         <>
+              
           <BasicDetailsReadOnly state={basicFormData} />
         </>
       ) : (

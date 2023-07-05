@@ -100,7 +100,7 @@ const Info = () => {
   ];
 
   const [activeTab, setActiveTab] = useState(0);
-  const [timer, setTimer] = useState(9);
+  const [timer, setTimer] = useState(11);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,20 +117,20 @@ const Info = () => {
       } else {
         setActiveTab((prevTab) => prevTab + 1);
       }
-      setTimer(9);
+      setTimer(11);
     }
   }, [timer]);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
-    setTimer(9);
+    setTimer(11);
   };
   
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          Save Millions with Tempo.
+          <span className="text-first-section-color">Save Millions</span> with Tempo.
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
@@ -142,7 +142,7 @@ const Info = () => {
                     className={`min-w-[170px] w-[192px] flex items-center relative justify-center sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
                       index === activeTab
                         ? "active bg-background text-white start-rainbow"
-                        : "start-rainbow"
+                        : "start-rainbow hover:bg-gray"
                     } ${
                       index === activeTab + 1 || index === activeTab - 4
                         ? "border-animation"

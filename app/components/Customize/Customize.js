@@ -8,6 +8,7 @@ import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
+import Link from 'next/link';
 
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     const dispatch = useDispatch()
@@ -201,9 +202,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             {form === false && (
                 <>
                     <div className='mb-4'>
+                        <div className='flex items-center justify-between'>
                         <a className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
                             <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
                         </a>
+                        <p className='text-sm'>
+                            <Link href="/dashboard">back</Link>
+                        </p>
+                        </div>
                         <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and preferences of your widget.</small>
                     </div>
                     <hr className='opacity-10'></hr>
@@ -222,7 +228,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
                             <div className='mb-4'>
                                 <a className="flex justify-start gap-2 items-center py-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="preview">
-                                    <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Agent
+                                    <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Widget
                                 </a>
                                 <hr className='opacity-10'></hr>
 
