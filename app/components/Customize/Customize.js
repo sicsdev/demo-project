@@ -385,7 +385,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                             <div className="containerChatBot_entire justify-center flex">
                                 <div className="widget_container active w-[90%]">
                                     <div className="header_ChatBotWidget">
-                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || 'https://usetempo.ai/teams.png'} /></div>
+                                        <div className="profile_photo_container"><img width="45px" src={preferences.logo || 'https://usetempo.ai/bot.png'} /></div>
                                         <div>
                                             <div>
                                                 <b>{preferences.chat_title}</b>
@@ -400,7 +400,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                                     <hr className="custom_hr" />
                                     <div className="chat_content">
                                         <div className="first_answer">
-                                            <img className='profile-photo_ChatBot' src={preferences.logo || 'https://usetempo.ai/teams.png'} alt='Profile Photo' width='35px' />
+                                            <img className='profile-photo_ChatBot' src={preferences.logo || 'https://usetempo.ai/bot.png'} alt='Profile Photo' width='35px' />
                                             <div className="answer_text" style={{ backgroundColor: preferences.secondary_color, color: preferences.secondary_text_color }}>How can I help you today?</div>
                                         </div>
                                         <div className="question" style={{ backgroundColor: preferences.primary_color, color: preferences.primary_text_color }}>What is the price of the product?</div>
@@ -426,7 +426,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         <div className='m-auto justify-center flex mt-4'>
                             <div className='m-auto align-center'>
                                 {loading ? <LoaderButton /> :
-                                    <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]">
+                                    <Button type={"button"} onClick={savePreferences} disabled={loading} className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]">
                                         Save
                                     </Button>}
                             </div>

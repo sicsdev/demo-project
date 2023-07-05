@@ -11,7 +11,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
 import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
-
+import validator from "validator";
+import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
 
 const Checkout = () => {
   const router = useRouter();
@@ -66,10 +67,25 @@ const Checkout = () => {
     });
   };
 
+  const handleBlur = async (e) => {
+    if (validator.isEmail(checkoutForm.email)) {
+
+      let first_name = checkoutForm.name?.split(" ")[0] || null
+      let last_name = checkoutForm.name?.split(" ")[1] || null
+
+      let payload = { email: checkoutForm.email }
+      if (checkoutForm.phone) payload.mobile_number = checkoutForm.phone
+      if (first_name) payload.first_name = first_name
+      if (last_name) payload.last_name = last_name
+
+      await createContactInFreshsales(payload)
+    }
+  }
+
   const Abc = () => {
     setBoxValid(!boxValid);
   };
-  console.log("box", boxValid);
+
   const handleDownload = () => {
     // const pdfPath = "Tempo.docx.pdf";
     // const link = document.createElement("a");
@@ -151,33 +167,33 @@ const Checkout = () => {
           </div>
         </div> */}
         <div className="block sm:hidden md:hidden">
-            <Card className={"border bg-white border-border "}>
-              <h2 className="text-center text-xl mb-2">Order Summary</h2>
-              <hr style={{ borderColor: "#CCCCCC" }}></hr>
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-                <tbody>
-                  <tr className="dark:bg-gray-800 bg-white">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
-                    >
-                      {planQuery == 1 && "Enterprise Plan"}
-                      {planQuery == 0 && "Starter Plan"}
-                    </th>
-                    <td className="px-6 py-4 text-base">$200 Free Credits</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr className="text-base text-gray-900 bg-white text-black">
-                    <th scope="row" className="px-6 py-3 text-base">
-                      Total Today
-                    </th>
-                    <td className="px-6 py-3">$0</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </Card>
-            </div>
+          <Card className={"border bg-white border-border "}>
+            <h2 className="text-center text-xl mb-2">Order Summary</h2>
+            <hr style={{ borderColor: "#CCCCCC" }}></hr>
+            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+              <tbody>
+                <tr className="dark:bg-gray-800 bg-white">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                  >
+                    {planQuery == 1 && "Enterprise Plan"}
+                    {planQuery == 0 && "Starter Plan"}
+                  </th>
+                  <td className="px-6 py-4 text-base">$200 Free Credits</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr className="text-base text-gray-900 bg-white text-black">
+                  <th scope="row" className="px-6 py-3 text-base">
+                    Total Today
+                  </th>
+                  <td className="px-6 py-3">$0</td>
+                </tr>
+              </tfoot>
+            </table>
+          </Card>
+        </div>
         <div>
           <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
             Checkout
@@ -213,6 +229,7 @@ const Checkout = () => {
                   name="email"
                   id={"email"}
                   onChange={handleFormValues}
+                  onBlur={handleBlur}
                   value={checkoutForm.email && checkoutForm.email}
                 />
               </div>
@@ -231,6 +248,7 @@ const Checkout = () => {
                 name="name"
                 id={"name"}
                 onChange={handleFormValues}
+                onBlur={handleBlur}
               />
             </div>
             <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
@@ -246,6 +264,7 @@ const Checkout = () => {
                 name="phone"
                 id={"mobile"}
                 onChange={handleFormValues}
+                onBlur={handleBlur}
               />
             </div>
             {!googleAuthInfo.googleLogin && (
@@ -321,20 +340,20 @@ const Checkout = () => {
                 />
               </StripeWrapper>
             </div>
-     
+
           </div>
           <div className="mt-5">
-              <p className="text-justify">
-                By entering your information, you authorize Tempo AI to
-                automatically charge your card for your usage once your credits
-                according to our{" "}
-                <span className="text-[blue]">
-                  <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
-                </span>{" "}
-                To establish your account and verify your payment method, we
-                will charge $1 to your credit card today.
-              </p>
-            </div>
+            <p className="text-justify">
+              By entering your information, you authorize Tempo AI to
+              automatically charge your card for your usage once your credits
+              according to our{" "}
+              <span className="text-[blue]">
+                <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
+              </span>{" "}
+              To establish your account and verify your payment method, we
+              will charge $1 to your credit card today.
+            </p>
+          </div>
         </div>
 
         <div className="hidden lg:block">
@@ -401,7 +420,7 @@ const Checkout = () => {
       </div>
       <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
 
-     <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
+      <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
     </Container>
   );
 };

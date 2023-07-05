@@ -66,6 +66,12 @@ const Sidebar = ({ children }) => {
             icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
 
         },
+        {
+            href: '/dashboard/integrations',
+            name: 'Integrations',
+            icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+
+        },
     ]
     const SideBarSetting = [
 
@@ -110,7 +116,7 @@ const Sidebar = ({ children }) => {
 
                             </button>
 
-                            <Link href="/" className="flex ml-2 md:mr-24">
+                            <Link href="/dashboard" className="flex ml-2 md:mr-24">
                                 <img src="/logo.png" alt="logo" className="w-24 h-15 object-contain" />
                             </Link>
 

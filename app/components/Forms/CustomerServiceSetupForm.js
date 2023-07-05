@@ -109,7 +109,7 @@ export default function CustomerServiceSetupForm({ setBasicFormData, basicFormDa
                     </div>
                   )}
                 </div>
-                <input onKeyDown={handleKeyDown} value={formValues.faq_url} required onChange={handleUrlValue} type={"text"} placeholder={"Add your Help Center or FAQ URL"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"faq_url"} name={"faq_url"} />
+                <input onKeyDown={handleKeyDown} value={formValues.faq_url} required onChange={handleUrlValue} type={"text"} placeholder={urls.length>0 ?'Add another url':"Add your Help Center or FAQ URL"} className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`} id={"faq_url"} name={"faq_url"} />
               </div>
             </div>
           </div>
