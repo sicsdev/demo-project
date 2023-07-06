@@ -39,7 +39,7 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
         }
         setLoading(false)
         getBillingData()
-        setShowBilling(false)
+        setShowBilling(true)
     }
 
     useEffect(() => {
