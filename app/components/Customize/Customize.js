@@ -238,67 +238,69 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     return (
         <>
             {/* Modal to manage hide urls */}
-            <Modal showCancel={true} className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} show={showManageHideUrls} setShow={setShowManageHideUrls}
-                title="Hide widget on certain URLs" >
-                <div>
-                    <small>Block paths you don't want the widget to appear on.</small>
-                </div>
-                <br></br>
-                <div>
-                    {blockedUrls.map((item, index) => (
-                        <div key={index} className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
+            {showManageHideUrls &&
+                <Modal title="Hide widget on certain URLs" show={showManageHideUrls} setShow={setShowManageHideUrls} className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} showCancel={true}
+                >
+                    <div>
+                        <small>Block paths you don't want the widget to appear on.</small>
+                    </div>
+                    <br></br>
+                    <div>
+                        {blockedUrls.map((item, index) => (
+                            <div key={index} className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
+                                <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
+                                    <span className="text-gray-700">URL Containing:</span>
+                                </div>
+                                <input
+                                    placeholder="/path"
+                                    value={item}
+                                    className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
+                                    disabled
+                                />
+                                <XMarkIcon
+                                    fill="red"
+                                    className="w-6 h-6 mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                                    onClick={(e) => handleRemoveUrl(e)}
+                                    title='Delete URL'
+                                    id={item}
+                                />
+                            </div>
+                        ))}
+                        <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                             <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
                                 <span className="text-gray-700">URL Containing:</span>
                             </div>
                             <input
                                 placeholder="/path"
-                                value={item}
+                                value={newBlockedUrl}
                                 className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
-                                disabled
+                                onChange={(e) => setNewBlockedUrl(e.target.value)}
                             />
-                            <XMarkIcon
-                                fill="red"
-                                className="w-6 h-6 mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                                onClick={(e) => handleRemoveUrl(e)}
-                                title='Delete URL'
-                                id={item}
+                            <PlusSmallIcon
+                                fill="green"
+                                className="w-6 h-6 text-soft-green mr-2 rounded-full cursor-pointer"
+                                title="Add URL"
+                                onClick={saveNewBlockedUrl}
                             />
                         </div>
-                    ))}
-                    <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
-                        <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
-                            <span className="text-gray-700">URL Containing:</span>
-                        </div>
-                        <input
-                            placeholder="/path"
-                            value={newBlockedUrl}
-                            className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
-                            onChange={(e) => setNewBlockedUrl(e.target.value)}
-                        />
-                        <PlusSmallIcon
-                            fill="green"
-                            className="w-6 h-6 text-soft-green mr-2 rounded-full cursor-pointer"
-                            title="Add URL"
-                            onClick={saveNewBlockedUrl}
-                        />
-                    </div>
 
-                    {/* <div className="mt-2 mx-2">
+                        {/* <div className="mt-2 mx-2">
                         <span className="text-sky text-underline cursor-pointer">
                             + Add URL
                         </span>
                     </div> */}
 
-                    <div className="float-right">
-                        <button
-                            className="mt-4 rounded py-1 border border-gray px-3 bg-primary text-white"
-                            onClick={() => setShowManageHideUrls(false)}
-                        >
-                            Done
-                        </button>
+                        <div className="float-right">
+                            <button
+                                className="mt-4 rounded py-1 border border-gray px-3 bg-primary text-white"
+                                onClick={() => setShowManageHideUrls(false)}
+                            >
+                                Done
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </Modal>
+                </Modal>
+            }
             {/* End of modal to manage hide urls */}
 
 
