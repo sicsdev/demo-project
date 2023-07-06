@@ -67,7 +67,6 @@ const Blog = () => {
           </Link>
         </div>
       ))}
-
       <News blog={blog} setBlog={setBlog} />
       <Blogs blog={blog} setBlog={setBlog} />
       <Blogmail />
