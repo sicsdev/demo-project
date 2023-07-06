@@ -58,3 +58,12 @@ export const createBillingUser = async (data) => {
         return error
     }
 }
+export const createPaymentIntent = async (data) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/payments/stripe-payment-intent/`, JSON.stringify(data));
+        return response.data;
+    } catch (error) {
+        if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
+        return error
+    }
+}

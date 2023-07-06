@@ -17,6 +17,10 @@ export const price_data = [
       { title: "Customizable chatbot", alert_icon: "" },
       { title: "Smart email responses", alert_icon: "" },
       { title: "24/7 shared support", alert_icon: "" },
+      { title: "Multilingual Support", alert_icon: "" },
+
+      { title: "Instant SLA's", alert_icon: "" },
+
     ],
   },
   {

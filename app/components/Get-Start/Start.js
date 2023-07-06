@@ -4,7 +4,7 @@ import Demo from "../Demo/Demo";
 const Start = () => {
   const [show, setShow] = useState(true);
   const list = [
-    "Eliminates refunds",
+    "Mitigates refunds",
     "Automates shipping & returns",
     "Handles customer complaints",
     "Manages subscriptions",
@@ -53,7 +53,7 @@ const Start = () => {
               <ul className="list-none my-6 sm:my-6">
                 {list.map((element, key) => (
                   <li key={key} className="my-2 sm:my-2 tracking-normal">
-                    <span className="flex gap-3  text-custom-small  text-xl align-bottom font-semibold">
+                    <span className="flex gap-3  text-white  text-xl align-bottom font-semibold">
                       {" "}
                       &#x2713; {element}
                     </span>

@@ -83,7 +83,6 @@ const Page = () => {
   };
   const SubmitBusinessDetails = async () => {
     setLoading(true);
-    debugger;
     let payload = {
       name: basicFormData.business_name,
       country: "US",
@@ -128,13 +127,13 @@ const Page = () => {
     return false;
   };
   const makeCapital = (str) => {
-    if (str.includes(" ")) {
+    if (str?.includes(" ")) {
       return str
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word?.charAt(0).toUpperCase() + word?.slice(1))
         .join(" ");
     } else {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+      return str?.charAt(0).toUpperCase() + str?.slice(1);
     }
   };
   return (
@@ -178,71 +177,22 @@ const Page = () => {
       </div>
       {isEdit == true ? (
         <>
+
           <BasicDetailsReadOnly state={basicFormData} />
         </>
       ) : (
         <>
           <Card className={"my-5"}>
-            {showBilling ? (
-              <div className="flex justify-between items-center">
-                <h3 className="text-center text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading">
-                  Billing
-                </h3>
-                <p
-                  className=" cursor-pointer"
-                  onClick={() => {
-                    setShowBilling(false);
-                  }}
-                >
-                  Back
-                </p>
-              </div>
-            ) : (
-              <div className="flex justify-between items-center">
-                <h3 className="text-center text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading">
-                  Card Details
-                </h3>
-
-                <p
-                  className="cursor-pointer"
-                  onClick={() => {
-                    setShowBilling(true);
-                  }}
-                >
-                  Edit
-                </p>
-              </div>
-            )}
-
-            {showBilling ? (
-              <StripeWrapper>
-                <Billing
-                  basicFormData={basicFormData}
-                  setShowBilling={setShowBilling}
-                  getBillingData={getBillingData}
-                />
-              </StripeWrapper>
-            ) : (
-              <>
-                {basicFormData?.card && (
-                  <div className="grid grid-cols-2">
-                    <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-                      Card Number:{" "}
-                      <span className="text-md">
-                        {basicFormData.card.last4}
-                      </span>
-                    </h3>
-                    <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-                      Exp: {basicFormData.card.exp_month}/
-                      {basicFormData.card.exp_year}
-                    </h3>
-                    <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-                      Card: {makeCapital(basicFormData.card.brand)}
-                    </h3>
-                  </div>
-                )}
-              </>
-            )}
+            <h3 className="text-start text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading">
+              Billing
+            </h3>
+            <StripeWrapper>
+              <Billing
+                basicFormData={basicFormData}
+                setShowBilling={setIsEdit}
+                getBillingData={getBillingData}
+              />
+            </StripeWrapper>
           </Card>
           <Card className={"my-5"}>
             <div className="my-3">
