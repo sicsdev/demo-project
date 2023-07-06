@@ -9,7 +9,6 @@ import Blogs from "@/app/components/Blog/Blogs";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
-  const scrollSlug = "/blog/ivr-systems-revolutionizing-communication-with-intelligent-automation"
   useEffect(() => {
     getBlogsPage().then(
       (res) => {
@@ -68,7 +67,6 @@ const Blog = () => {
           </Link>
         </div>
       ))}
-
       <News blog={blog} setBlog={setBlog} />
       <Blogs blog={blog} setBlog={setBlog} />
       <Blogmail />
