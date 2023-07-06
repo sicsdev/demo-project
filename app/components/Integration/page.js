@@ -75,7 +75,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8 text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8 text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -88,7 +88,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -114,7 +114,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -381,7 +381,7 @@ const Integrationedit = (props) => {
 
                 <label className="switch">
                   <input type="checkbox" />
-                  <span className="slider round"></span>
+                  <span className="slider round h-[27px] w-[55px]"></span>
                 </label>
                 <p className="text-sm mt-2">
                   Require customer to confirm before action is performed.{" "}
@@ -424,7 +424,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -436,7 +436,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -462,7 +462,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -728,7 +728,7 @@ const Integrationedit = (props) => {
 
                 <label className="switch">
                   <input type="checkbox" />
-                  <span className="slider round"></span>
+                  <span className="slider round h-[27px] w-[55px]"></span>
                 </label>
                 <p className="text-sm mt-2">
                   Require customer to confirm before action is performed.{" "}
@@ -781,7 +781,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -793,7 +793,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -819,7 +819,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -948,7 +948,7 @@ const Integrationedit = (props) => {
 
                   <label className="switch">
                     <input type="checkbox" />
-                    <span className="slider round"></span>
+                    <span className="slider round h-[27px] w-[55px]"></span>
                   </label>
                   <p className="text-sm mt-2">
                     Require customer to confirm before action is performed.{" "}
@@ -1139,7 +1139,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1151,7 +1151,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -1177,7 +1177,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -1306,7 +1306,7 @@ const Integrationedit = (props) => {
 
                   <label className="switch">
                     <input type="checkbox" />
-                    <span className="slider round"></span>
+                    <span className="slider round h-[27px] w-[55px]"></span>
                   </label>
                   <p className="text-sm mt-2">
                     Require customer to confirm before action is performed.{" "}
@@ -1497,7 +1497,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1509,7 +1509,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -1535,7 +1535,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -1664,7 +1664,7 @@ const Integrationedit = (props) => {
 
                   <label className="switch">
                     <input type="checkbox" />
-                    <span className="slider round"></span>
+                    <span className="slider round h-[27px] w-[55px]"></span>
                   </label>
                   <p className="text-sm mt-2">
                     Require customer to confirm before action is performed.{" "}
@@ -1855,7 +1855,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8  text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -1867,7 +1867,7 @@ const Integrationedit = (props) => {
                   for="method"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Method (required)
+                  Method
                 </label>
                 <select
                   id="method"
@@ -1893,7 +1893,7 @@ const Integrationedit = (props) => {
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL (required)
+                  URL
                 </label>
                 <input
                   type="text"
@@ -2022,7 +2022,7 @@ const Integrationedit = (props) => {
 
                   <label className="switch">
                     <input type="checkbox" />
-                    <span className="slider round"></span>
+                    <span className="slider round h-[27px] w-[55px]"></span>
                   </label>
                   <p className="text-sm mt-2">
                     Require customer to confirm before action is performed.{" "}
@@ -2212,7 +2212,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => props.setEdit(false)}
-              className="py-2 px-8  text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 px-8  text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>

@@ -182,17 +182,11 @@ const Login = () => {
           Welcome.
         </h1>
 
-        <Button
+        {/* <Button
           className="gap-4 items-center flex w-full mx-auto mt-4 justify-center px-4 py-2 bg-[#3c6df1] border border-gray-300 rounded-md shadow-sm"
           onClick={handleLoginWithGoogle}
         >
           <div>
-            {/* <svg className="w-5 h-5 mr-2" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="#4285F4" d="M17.64 9.204c0-.64-.057-1.255-.166-1.84H9v3.48h4.84a4.14 4.14 0 0 1-1.78 2.715v2.26h2.876c1.685-1.547 2.66-3.826 2.66-6.556z" />
-                        <path fill="#34A853" d="M9 18c2.396 0 4.405-.786 5.876-2.14l-2.877-2.26c-.796.536-1.823.85-2.998.85-2.298 0-4.245-1.54-4.948-3.61H1.04v2.27A8.996 8.996 0 0 0 9 18z" />
-                        <path fill="#FBBC05" d="M3.052 10.41A5.41 5.41 0 0 1 2.777 9c0-.59.104-1.162.276-1.698V4.032H1.04A8.996 8.996 0 0 0 1.04 14h2.987c.703-2.07 2.65-3.61 4.948-3.61 1.175 0 2.202.314 2.998.85l2.877-2.26C13.405.787 11.395 0 9 0A8.996 8.996 0 0 0 1.04 4.73L3.052 6.94z" />
-                        <path fill="#EB4335" d="M9 3.58c1.304 0 2.47.45 3.39 1.326l2.547-2.548C13.403.786 11.393 0 9 0 6.65 0 4.703.314 3.052.95L.475.45C1.945.204 4.004 0 6.224 0 8.1 0 9.753.482 11.127 1.405l2.165-2.165C13.436.59 11.426 0 9 0A8.996 8.996 0 0 0 1.04 4.73L3.052 6.94C4.412 4.83 6.65 3.58 9 3.58z" />
-                    </svg> */}
             <img width="25px" src="/icons/google-g.svg"></img>
           </div>
           <span className="text-sm font-medium text-white">
@@ -204,7 +198,7 @@ const Login = () => {
           <hr className="flex-grow border-gray-300" />
           <p className="mx-4">Or, sign in with your email</p>
           <hr className="flex-grow border-gray-300" />
-        </div>
+        </div> */}
         <form>
           <label className="block my-5" htmlFor="email">
             <span className="block text-start text-sm font-normal text-border">

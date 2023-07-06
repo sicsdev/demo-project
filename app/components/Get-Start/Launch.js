@@ -6,7 +6,7 @@ const Launch = () => {
       <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10">
         <div className="block sm:flex md:flex lg:flex justify-between  items-start ">
           <div className="max-w-[100%] sm:max-w-[35%] md:max-w-[35%] lg:max-w-[35%]">
-            <p className="text-[#0545b3] text-2xl font-semibold mb-5 sm:mb-7">
+            <p className="text-first-section-color text-2xl font-semibold mb-5 sm:mb-7">
               Designed for developers
             </p>
             <h2 className="mb-5 text-white text-3xl font-bold sm:mb-7">

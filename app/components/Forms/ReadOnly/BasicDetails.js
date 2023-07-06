@@ -1,23 +1,43 @@
 import React from "react";
 import Card from "../../Common/Card/Card";
+import Image from "next/image";
 
 const BasicDetailsReadOnly = ({ state }) => {
   return (
     <div>
-        <div className="bg-white rounded-lg sm:p-5 md:p-5 lg:p-5 shadow-3xl p-5 mt-3">
-        <h2 class="font-semibold text-md text-heading">Card Details</h2>
-
-      <div className="grid grid-cols-2">
-        <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-          Card Number: <span className="text-md">**4242</span>
-        </h3>
-        <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-          Exp: 04/2024
-        </h3>
-        <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
-          Card: Visa
-        </h3>
+      <div className="bg-white rounded-lg sm:p-5 md:p-5 lg:p-5 shadow-3xl p-5 mt-3">
+        <div className="flex gap-6">
+          <div className="relative w-[40px] h-[40px]">
+            <Image
+              fill="contain"
+              src="/mastercard.png"
+              className="bg-contain"
+              alt="img"
+            />
+          </div>
+          <div>
+            <h2 class="font-semibold text-md text-heading mt-2">
+              MasterCard ending in 1740
+            </h2>
+            <p className="mt-4">
+              You need a primary billing method when you have active contracts
+              or a balance due. To remove this one, set a new primary billing
+              method first.
+            </p>
+          </div>
         </div>
+
+        {/* <div className="grid grid-cols-2">
+          <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
+            Card Number: <span className="text-md">**4242</span>
+          </h3>
+          <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
+            Exp: 04/2024
+          </h3>
+          <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
+            Card: Visa
+          </h3>
+        </div> */}
       </div>
       {state && (
         <Card className="p-5 mt-3 block sm:grid md:block lg:grid grid-cols-1 ">

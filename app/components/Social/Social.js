@@ -33,7 +33,7 @@ const Social = () => {
                 src={element.src}
                 fill={true}
                 alt="Picture of the author"
-                className={`img-platform-1 m-auto object-contain mx-auto , ${element.animation}`}
+                className={`m-auto object-contain mx-auto , ${key === 4 ? "img-platform-whatsapp" : "img-platform-1"} ${element.animation}`}
               />
             </div>
           ))}
