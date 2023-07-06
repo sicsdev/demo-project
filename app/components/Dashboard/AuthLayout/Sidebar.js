@@ -22,8 +22,8 @@ const Sidebar = ({ children }) => {
             dispatch(fetchProfile())
         }
         //delete widget from DOM
-        const chatbot = document.getElementById('chatbot_widget')
-        if (chatbot) { chatbot.remove() }
+        // const chatbot = document.getElementById('chatbot_widget')
+        // if (chatbot) { chatbot.remove() }
     }, [state])
 
     const [isOpen, setIsOpen] = useState(false);

@@ -116,3 +116,35 @@ export const getBotConversationMessages = async (id) => {
         return error
     }
 }
+
+export const addBlockedUrl = async (id, body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/add_block/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+export const removeBlockedUrl = async (id, body) => {
+    let config = returnConfig()
+    config.data = body
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/bots/${id}/remove_block/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+
+export const addAllowedUrl = async (id, body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/add_allow/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
