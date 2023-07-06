@@ -6,6 +6,7 @@ import Tempoalert from "@/app/components/ChatBots/Tempoalert";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 import AboveSection from "@/app/components/solutions/AboveSection";
+import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,6 +52,7 @@ const page = () => {
       <Tempoalert/>
 
       <Testimonial />
+      {/* <Tempoeconomy /> */}
       {/* <Requestdemo/> */}
     </div>
   );

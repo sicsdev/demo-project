@@ -122,6 +122,12 @@ _learnq.push(['account', 'UVQx8p']);
 `,
           }}
         />
+              <script
+      id="widget"
+        src="https://assets.calendly.com/assets/external/widget.js"
+        type="text/javascript"
+        async
+      />
 
         <link
           href="https://assets.calendly.com/assets/external/widget.css"
@@ -135,12 +141,7 @@ _learnq.push(['account', 'UVQx8p']);
         </ProviderWrapper>
       </body>
 
-      <Script
-      id="widget"
-        src="https://assets.calendly.com/assets/external/widget.js"
-        type="text/javascript"
-        async
-      />
+
     </html>
   );
 }
