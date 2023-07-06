@@ -1,20 +1,22 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { QrCodeIcon, EyeIcon, CpuChipIcon } from '@heroicons/react/24/outline';
+import { QrCodeIcon, EyeIcon, CpuChipIcon, XMarkIcon, CheckBadgeIcon, CheckCircleIcon, PlusCircleIcon, PlusSmallIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, useRouter } from 'next/navigation';
 import '../../(dashboard)/dashboard/customize/widgetStyle.css'
 import Button from '@/app/components/Common/Button/Button';
-import { getAllBotData, modifyBot } from '@/app/API/pages/Bot';
+import { addAllowedUrl, addBlockedUrl, getAllBotData, modifyBot, removeBlockedUrl } from '@/app/API/pages/Bot';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchBot } from '../store/slices/botIdSlice';
+import { fetchBot, setBotId } from '../store/slices/botIdSlice';
 import ColorSelector from './ColorSelector';
 import Modal from '../Common/Modal/Modal';
+import { CheckIcon } from '@heroicons/react/24/solid';
 
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     const dispatch = useDispatch()
     const [botDetails, setBotDetails] = useState({});
     const [loading, setLoading] = useState(false)
+    const [bot_id, setBot_id] = useState('')
     const id = useSelector(state => state.botId.id)
     const searchParams = useSearchParams();
     const router = useRouter()
@@ -22,10 +24,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     useEffect(() => {
         if (form === false) {
             const bot_id = searchParams.get("id")
+            setBot_id(bot_id)
             const bot_name = searchParams.get("name")
             if (bot_id) { getBotInfo(bot_id) }
+            console.log('as2d')
         } else {
             getBotInfo(id)
+            setBot_id(id)
         }
     }, []);
 
@@ -55,7 +60,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         payment_platform: "Other",
         ticketing_platform: "Other",
         logo_file_name: "",
-        active: true
+        active: true,
+        origins_blocked: []
     })
 
     const colorCodes = [
@@ -80,6 +86,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     // Primary functions
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
+            console.log(res)
             setBotDetails(res[0].data)
             setPreferences(res[0].data)
             let data = res[0].data
@@ -92,6 +99,11 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     }
                 })
             }
+            addAllowedUrl(id, { elements: ['*'] })
+                .then(res => {
+                    setPreferences({ ...preferences, origins_blocked: res.data.origins_blocked });
+                    setBlockedUrls(res.data.origins_blocked)
+                })
         })
     }
     // useEffect(() => {
@@ -197,6 +209,32 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     }
 
 
+
+    // **** Manage hide urls modal handlers ***
+    const [blockedUrls, setBlockedUrls] = useState([]);
+    const [newBlockedUrl, setNewBlockedUrl] = useState('');
+
+    const saveNewBlockedUrl = () => {
+        addBlockedUrl(botDetails.id, { elements: [newBlockedUrl] })
+            .then(res => {
+                if (res.data.origins_blocked) {
+                    setPreferences({ ...preferences, origins_blocked: res.data.origins_blocked });
+                    setBlockedUrls(res.data.origins_blocked)
+                    setNewBlockedUrl('')
+                }
+            })
+    }
+
+    const handleRemoveUrl = (e) => [
+        removeBlockedUrl(botDetails.id, { elements: [e.target.id] })
+            .then(res => {
+                if (res.data.origins_blocked) {
+                    setPreferences({ ...preferences, origins_blocked: res?.data?.origins_blocked });
+                    setBlockedUrls(res.data.origins_blocked)
+                }
+            })
+    ]
+
     return (
         <>
             {/* Modal to manage hide urls */}
@@ -206,31 +244,64 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     <small>Block paths you don't want the widget to appear on.</small>
                 </div>
                 <br></br>
-                <div className='mt-3'>
-                    {
+                <div>
+                    {blockedUrls.map((item, index) => (
+                        <div key={index} className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
+                            <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
+                                <span className="text-gray-700">URL Containing:</span>
+                            </div>
+                            <input
+                                placeholder="/path"
+                                value={item}
+                                className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
+                                disabled
+                            />
+                            <XMarkIcon
+                                fill="red"
+                                className="w-6 h-6 mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                                onClick={(e) => handleRemoveUrl(e)}
+                                title='Delete URL'
+                                id={item}
+                            />
+                        </div>
+                    ))}
+                    <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
+                        <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
+                            <span className="text-gray-700">URL Containing:</span>
+                        </div>
+                        <input
+                            placeholder="/path"
+                            value={newBlockedUrl}
+                            className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
+                            onChange={(e) => setNewBlockedUrl(e.target.value)}
+                        />
+                        <PlusSmallIcon
+                            fill="green"
+                            className="w-6 h-6 text-soft-green mr-2 rounded-full cursor-pointer"
+                            title="Add URL"
+                            onClick={saveNewBlockedUrl}
+                        />
+                    </div>
 
-                        ['dashboard', 'pricing'].map((item, index) => {
-                            return (
-                                <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2 ">
-                                    <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
-                                        <span className="text-gray-700">URL Containing:</span>
-                                    </div>
-                                    <input placeholder={'/path'} value={`/${item}`} className='flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2'></input>
-                                </div>
-                            )
-                        }
-                        )
+                    {/* <div className="mt-2 mx-2">
+                        <span className="text-sky text-underline cursor-pointer">
+                            + Add URL
+                        </span>
+                    </div> */}
 
-                    }
-                </div>
-                <div className='mt-2 mx-2'>
-                    <span className='text-sky text-underline cursor-pointer'>+ Add a URL</span>
-                </div>
-                <div className='float-right'>
-                    <button className='mt-4 rounded py-1 border border-gray px-3 bg-primary text-white' onClick={() => setShowManageHideUrls(false)}>Save</button>
+                    <div className="float-right">
+                        <button
+                            className="mt-4 rounded py-1 border border-gray px-3 bg-primary text-white"
+                            onClick={() => setShowManageHideUrls(false)}
+                        >
+                            Done
+                        </button>
+                    </div>
                 </div>
             </Modal>
             {/* End of modal to manage hide urls */}
+
+
 
 
 
@@ -357,7 +428,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
 
 
-                                <div className="flex items-center w-full mt-3 gap-2">
+                                <div className="flex items-center w-full mt-4 gap-2">
                                     <div className="flex justify-start w-1/2 items-center">
                                         <span className="text-gray-700">Hide on certain URLs</span>
                                     </div>
