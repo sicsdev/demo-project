@@ -80,7 +80,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
 
 
   const handleBlur = async (e) => {
-    if (validator.isEmail(userProfile.email)) {
+    if (validator.isEmail(userProfile.email ?? '')) {
 
       let payload = { email: userProfile.email }
 

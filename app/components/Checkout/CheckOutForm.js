@@ -1,8 +1,10 @@
 "use-client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CardElement,
   Elements,
+  PaymentElement,
+  LinkAuthenticationElement,
   useElements,
   useStripe,
 } from "@stripe/react-stripe-js";
@@ -20,9 +22,42 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
 
   const [errors, setError] = useState([]);
   const [loading, setLoading] = useState();
+  const paymentElementOptions = {
+    layout: "tabs"
+  }
 
+  const getPaymentIntent = async () => {
+    if (!stripe) {
+      return;
+    }
 
+    const clientSecret  = 'pi_1GszkK2eZvKYlo2CckVg2QWr_secret_ehO92VObd72SVqxkY48rAkxBS'
+    // debugger
+    
+    if (!clientSecret) {
+      return;
+    }
 
+    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
+      switch (paymentIntent.status) {
+        case "succeeded":
+          setMessage("Payment succeeded!");
+          break;
+        case "processing":
+          setMessage("Your payment is processing.");
+          break;
+        case "requires_payment_method":
+          setMessage("Your payment was not successful, please try again.");
+          break;
+        default:
+          setMessage("Something went wrong.");
+          break;
+      }
+    });
+  }
+  useEffect(() => {
+    getPaymentIntent()
+  }, [stripe]);
   const handleCheckout = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -51,7 +86,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
       }
 
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
-      
+
       if (result.token) {
         let bodyForSubscribe = {
           token: paymentMethod.id,
@@ -87,6 +122,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo }) => {
   return (
     <>
       <form onSubmit={handleCheckout}>
+
+        <PaymentElement id="payment-element" options={paymentElementOptions} />
         <div
           className="border rounded px-2 border-gray-100"
           style={{ borderColor: "#80808080" }}

@@ -328,8 +328,6 @@ const Intake = () => {
                         <div className='flex px-0  items-start  bg-white w-full sm:h-auto md:h-auto lg:h-auto sm:w-auto md:w-auto lg:w-auto pt-[25px]'>
                             <div className='w-[50px] sm:w-[250px] md:w-[250px] lg:w-[250px] h-full bg-white  pl-6'>
                                 <ol className="">
-
-
                                     {headings.map((element, key) =>
                                         <li key={key} className={`cursor-pointer flex gap-2 items-center ${sendActiveValue(element)}`} onClick={(e) => { changeStep(element) }}>
                                             <span className={`${key === 0 && ("rounded-t-3xl")} ${headings.length - 1 === key && ("rounded-b-3xl")} bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}>
@@ -338,8 +336,6 @@ const Intake = () => {
                                             <h3 className=" items-center font-bold h-[30px] m-0 text-xs leading-tight hidden sm:flex md:flex lg:flex">{element.text}</h3>
                                         </li>
                                     )}
-
-
                                 </ol>
                             </div>
                             <div className='w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  px-6 sm:pr-6 md:pr-6 lg:pr-6 '>
@@ -364,7 +360,6 @@ const Intake = () => {
                                                 {GetStepForm().btn}
 
                                             </Button>
-
                                         </>}
                                 </div>
                                 {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}

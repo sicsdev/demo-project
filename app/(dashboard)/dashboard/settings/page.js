@@ -39,9 +39,7 @@ const Page = () => {
     if (response.results.length > 0) {
       const customer_id = response.results[0].stripe_id;
       const resp = await getBillingDetails(customer_id);
-      debugger;
       if (resp?.data.length > 0) {
-        debugger;
         setBasicFormData((prev) => {
           return {
             ...prev,
@@ -226,12 +224,12 @@ const Page = () => {
               </StripeWrapper>
             ) : (
               <>
-                {basicFormData && (
+                {basicFormData?.card && (
                   <div className="grid grid-cols-2">
                     <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
                       Card Number:{" "}
                       <span className="text-md">
-                        **{basicFormData.card.last4}
+                        {basicFormData.card.last4}
                       </span>
                     </h3>
                     <h3 className="text-start text-md sm:text-md md:text-md lg:text-md sm:leading-9 my-2 font-normal text-heading">
