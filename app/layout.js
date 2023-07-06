@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <meta property="og:title" content="Tempo" />
         <meta
           property="og:image"
-          content="https://usetempo.ai/tempo-preview.png"
+          content="https://usetempo.ai/tempo_preview.jpg"
         />
 
         <Script
