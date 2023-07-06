@@ -9,7 +9,6 @@ import Blogs from "@/app/components/Blog/Blogs";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
-  const scrollSlug = "/blog/ivr-systems-revolutionizing-communication-with-intelligent-automation"
   useEffect(() => {
     getBlogsPage().then(
       (res) => {
