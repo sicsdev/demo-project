@@ -9,7 +9,7 @@ import { get } from "react-hook-form";
 
 const Articleside = ({ children }) => {
   const [index, setIndex] = useState(null);
-  const title = [
+  const upperTitle = [
     {
       id: "1",
       name: "Books & Guides",
