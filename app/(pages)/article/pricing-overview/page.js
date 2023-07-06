@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getArticlePage } from "@/app/API/pages/Wpdata";
 import Link from "next/link";
 import Button from "@/app/components/Common/Button/Button";
+
 const page = () => {
   const [single, setSingle] = useState("");
 
@@ -14,9 +15,11 @@ const page = () => {
     });
   }, []);
   console.log("single", single);
+
+  
   return (
     <div className="bg-white">
-      <h1 className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+      <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
         {single?.acf?.article_name}
       </h1>
       <p className=" text-heading px-4 pt-8">{single?.acf?.aritcle_para_t}</p>
