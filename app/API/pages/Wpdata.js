@@ -34,6 +34,17 @@ export const getBlogsPage = async (body) =>{
   }
 };
 
+export const getAllArticles = async (body) =>{
+  try{
+    const response = await axios.get(
+      "https://public-api.wordpress.com/rest/v1.1/sites/usetempo.ai/posts?category=article"
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
 
 export const getSingleBlogsPage = async (params) =>{
   try{
