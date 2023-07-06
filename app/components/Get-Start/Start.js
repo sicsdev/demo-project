@@ -4,7 +4,7 @@ import Demo from "../Demo/Demo";
 const Start = () => {
   const [show, setShow] = useState(true);
   const list = [
-    "Eliminates refunds",
+    "Mitigates refunds",
     "Automates shipping & returns",
     "Handles customer complaints",
     "Manages subscriptions",

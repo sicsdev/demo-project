@@ -66,7 +66,7 @@ const Info = () => {
       h3: "Experience cost savings even when you're off the clock.",
       p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
     },
-   
+
     {
       id: "3",
       title: "Save Big",
@@ -91,10 +91,7 @@ const Info = () => {
       id: "5",
       title: "Smart IVR",
       coming_soon: "",
-      icon: (
-        <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
-
-      ),
+      icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
       content_video: "/tabs/IVR-Gif-4-30percent.gif",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
@@ -127,12 +124,13 @@ const Info = () => {
     setActiveTab(index);
     setTimer(11);
   };
-  
+
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          <span className="text-[#2563eb]">Save Millions</span> with Tempo.
+          <span className="text-[#2563eb]">Replace Your Customer Service</span> Team
+          Today.
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
@@ -153,7 +151,11 @@ const Info = () => {
                     onClick={(e) => handleTabChange(index)}
                   >
                     <div className="relative ">{tab.icon}</div>
-                    <p className={`relative sm:mt-[2px] ${index === activeTab ? "text-white" : "text-heading"}`}>
+                    <p
+                      className={`relative sm:mt-[2px] ${
+                        index === activeTab ? "text-white" : "text-heading"
+                      }`}
+                    >
                       {tab.title}{" "}
                       <span style={{ fontSize: "12px" }} className="font-light">
                         {tab.coming_soon}

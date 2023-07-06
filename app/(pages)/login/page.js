@@ -202,7 +202,7 @@ const Login = () => {
         <form>
           <label className="block my-5" htmlFor="email">
             <span className="block text-start text-sm font-normal text-border">
-              Work Email
+               Email
             </span>
             <Input
               type={"email"}

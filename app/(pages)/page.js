@@ -34,7 +34,7 @@ export default function Home() {
       <Iconanimation />
 
       {/* dummy section */}
-      <div className="bg-[#142543] p-6">
+      {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">
           <div
             className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
@@ -137,7 +137,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* dummy section */}
     </main>

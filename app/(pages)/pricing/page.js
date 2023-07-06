@@ -136,11 +136,11 @@ const Pricing = () => {
               </div>
               {ele.title == "Starter" ? (
                 <Button
-                  className="flex w-full mx-auto mt-[52px] justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
+                  className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
                   disabled={false}
                   onClick={(e) => handleGetFreeTrial(key)}
                 >
-                  Get Free Trial
+                  Get Started{" "}
                 </Button>
               ) : (
                 <Button
@@ -153,7 +153,7 @@ const Pricing = () => {
              </a>
             `,
                   }}
-                  className="flex w-full font-bold mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
+                  className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
                 ></Button>
               )}
             </Card>
@@ -161,18 +161,15 @@ const Pricing = () => {
         </div>
       </Container>
       <DTC />
-      <Testimonial />
-      <Iconanimation />
+      {/* <Iconanimation /> */}
       {/* <Trial /> */}
       {/* <Resource /> */}
 
       {/* Pricing section */}
       <div className="bg-white pt-4">
         <div className="pb-4 sm:pb-16 mx-auto max-w-[90%] py-10">
-          <h6 class="font-bold text-xl black py-1 text-primary">
-            Pricing
-          </h6>
-          <h1 class="text-left text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading">
+          <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6>
+          <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold ">
             Know what you'll pay
           </h1>
 
@@ -182,7 +179,7 @@ const Pricing = () => {
               style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
             >
               <div className="py-6">
-                <p class="font-bold text-heading border-l-2 border-[#2563EB] px-4">
+                <p class="font-bold text-heading  text:xs sm:text-2xl  border-l-2 border-[#2563EB] px-4">
                   Pay-as-you-go
                 </p>
                 <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
@@ -196,8 +193,11 @@ const Pricing = () => {
             >
               <div className="py-6">
                 <p class="text-sm font-normal text-heading px-4">
-                  With Tempo AI, pay only for the usage you accumulate. No
-                  charges for one week, or until you’ve accumulated $100
+                  Create a Tempo account instantly and automate your customer
+                  service. Pay only for the tickets we answer. We can work with
+                  companies of all sizes, from start-ups to large enterprises.
+                  You can also contact us to design a custom package for your
+                  business.
                 </p>
               </div>
             </div>
@@ -208,10 +208,16 @@ const Pricing = () => {
               <div className="border-l-2 border-[#2563EB] h-[100%]">
                 <div className="py-6">
                   <p class="text-md font-bold text-heading px-4">25 cents</p>
-                  <p class="text-sm font-normal text-heading px-4">per chat response</p>
+                  <p class="text-sm font-normal text-heading px-4">
+                    per chat response
+                  </p>
 
-                  <p class="text-md font-bold text-heading px-4 mt-4">50 cents</p>
-                  <p class="text-sm font-normal text-heading px-4">per email response</p>
+                  <p class="text-md font-bold text-heading px-4 mt-4">
+                    50 cents
+                  </p>
+                  <p class="text-sm font-normal text-heading px-4">
+                    per email response
+                  </p>
                 </div>
               </div>
             </div>
@@ -222,7 +228,7 @@ const Pricing = () => {
               style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
             >
               <div className="py-6">
-                <p class="font-bold text-heading border-l-2 border-[#2563EB] px-4">
+                <p class="font-bold text:xs sm:text-2xl text-heading border-l-2 border-[#2563EB] px-4">
                   Free signup bonus
                 </p>
               </div>
@@ -233,8 +239,9 @@ const Pricing = () => {
             >
               <div className="py-6">
                 <p class="text-sm font-normal text-heading px-4">
-                  For a limited time only, get $200 in free Tempo free credits
-                  when you sign up.
+                  All new Tempo customers receive $200 in free Tempo credits to
+                  get up and running instantly. The best part? No contracts or
+                  commitment necessary.
                 </p>
               </div>
             </div>
@@ -256,11 +263,11 @@ const Pricing = () => {
               style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
             >
               <div className="py-6">
-                <p class="font-bold text-heading border-l-2 border-[#2563EB] px-4">
-                No added fees
+                <p class="font-bold text:xs sm:text-2xl text-heading border-l-2 border-[#2563EB] px-4">
+                  No added fees
                 </p>
                 <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
-                  Learn more {">"}
+                  {/* Learn more {">"} */}
                 </h6>
               </div>
             </div>
@@ -270,7 +277,10 @@ const Pricing = () => {
             >
               <div className="py-6">
                 <p class="text-sm font-normal text-heading px-4">
-                At Tempo, there are no cost to onboard and connect Osay [ $0
+                  24/7 service, &lt;1 minute response times, and multilingual
+                  support are all currently included with the Tempo base
+                  package. Get up and running with enterprise-grade service with
+                  Tempo now.{" "}
                 </p>
               </div>
             </div>
@@ -280,7 +290,16 @@ const Pricing = () => {
             >
               <div className="border-l-2 border-[#2563EB] h-[100%]">
                 <div className="py-6">
-
+                  <p class="text-md font-bold text-heading px-4">$0</p>
+                  <p class="text-sm font-normal text-heading px-4">
+                    24/7 support
+                  </p>
+                  <p class="text-sm font-normal text-heading px-4">
+                    &lt;1 min SLA's
+                  </p>
+                  <p class="text-sm font-normal text-heading px-4">
+                    100+ languages
+                  </p>
                 </div>
               </div>
             </div>
@@ -293,6 +312,7 @@ const Pricing = () => {
       <Container>
         <FaqAccordian title={"Frequently Asked Questions"} items={questions} />
       </Container>
+      <Testimonial />
     </div>
   );
 };
