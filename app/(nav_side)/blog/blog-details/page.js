@@ -17,7 +17,7 @@ const Page = () => {
   const blogName = searchParams.get("blogName");
   return (
     <>
-      <div className="singleblog">
+      {/* <div className="singleblog">
         <h1 className=" font-bold  text-1xl   md:text-h3 lg:text-h3 sm:text-h3 sm:leading-none ">
           {single?.title?.rendered}
         </h1>
@@ -72,7 +72,7 @@ const Page = () => {
         <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
           {single?.acf?.heading6_text}
         </p>
-      </div>
+      </div> */}
     </>
   );
 };

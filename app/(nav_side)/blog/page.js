@@ -9,6 +9,7 @@ import Blogs from "@/app/components/Blog/Blogs";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
+  const scrollSlug = "/blog/ivr-systems-revolutionizing-communication-with-intelligent-automation"
   useEffect(() => {
     getBlogsPage().then(
       (res) => {
@@ -33,7 +34,7 @@ const Blog = () => {
           
             </p>
           </div>
-          <Link href={`blog/blog-details?blogName=${ele.slug}`}>
+          <Link href={`blog/${ele.slug}`}>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2">
                 <img

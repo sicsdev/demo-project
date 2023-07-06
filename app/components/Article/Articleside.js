@@ -43,43 +43,6 @@ const Articleside = ({ children }) => {
       let params =res.data.posts.slug ;
     });
   }, []);
-  const upperTitle = [
-    {
-      id: "1",
-      name: "Customer Service",
-      href: "",
-      subheading: [],
-      color: "sky",
-    },
-    {
-      id: "2",
-      name: "Customer Engagement",
-      href: "",
-      subheading: [],
-      color: "bot",
-    },
-    {
-      id: "3",
-      name: "Product & Design",
-      href: "",
-      subheading: [],
-      color: "neon",
-    },
-    {
-      id: "4",
-      name: "Engineering",
-      href: "",
-      subheading: [{ name: "Handling errors", href: "/docs#Handling-errors" }],
-      color: "voilet",
-    },
-    {
-      id: "5",
-      name: "News & Updates",
-      href: "",
-      subheading: [{ name: "Handling errors", href: "/docs#Handling-errors" }],
-      color: "orange",
-    },
-  ];
 
   const [show, setShow] = useState(false);
   return (
