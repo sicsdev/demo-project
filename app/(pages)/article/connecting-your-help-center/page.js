@@ -14,43 +14,7 @@ const page = () => {
       setSingle(res.data[0]);
     });
   }, []);
-  const upperTitle = [
-    {
-      id: "1",
-      name: "Customer Service",
-      href: "",
-      subheading: [],
-      color: "sky",
-    },
-    {
-      id: "2",
-      name: "Customer Engagement",
-      href: "",
-      subheading: [],
-      color: "bot",
-    },
-    {
-      id: "3",
-      name: "Product & Design",
-      href: "",
-      subheading: [],
-      color: "neon",
-    },
-    {
-      id: "4",
-      name: "Engineering",
-      href: "",
-      subheading: [{ name: "Handling errors", href: "/docs#Handling-errors" }],
-      color: "voilet",
-    },
-    {
-      id: "5",
-      name: "News & Updates",
-      href: "",
-      subheading: [{ name: "Handling errors", href: "/docs#Handling-errors" }],
-      color: "orange",
-    },
-  ];
+
 
   return (
     <div className="bg-white  px-[20px] sm:px-0  sm:pl-[10%] ">
@@ -77,26 +41,7 @@ const page = () => {
           <p className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
                 Table of contents
               </p>
-              <div className=" ml-4  font-medium SideOptions">
-                {upperTitle.map((ele, key) => (
-                  <div
-                    className="group "
-                    key={key}
-                    onClick={(e) => {
-                      setIndex(key);
-                    }}
-                  >
-                    <Link href={ele.href}>
-                      <p
-                        key={key}
-                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]"
-                      >
-                        {ele.name}
-                      </p>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+        
               </div>
         </div>
       </div>
