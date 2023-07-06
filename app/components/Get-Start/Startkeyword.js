@@ -10,7 +10,7 @@ const Startkeyword = () => {
   };
 
   const list = [
-    "Eliminates refunds",
+    "Mitigates refunds",
     "Automates shipping & returns",
     "Handles customer complaints",
     "Manages subscriptions",

@@ -13,6 +13,7 @@ import Testimonial from '@/app/components/Testimonial/Testimonial'
 import Newstandard from '@/app/components/Newstandardpage/Newstandard'
 import Iconanimation from '@/app/components/Iconanimation/Iconanimation'
 import Head from 'next/head'
+import Launch from '@/app/components/Get-Start/Launch';
 function Page() {
   return (
     <main className="scroll-smooth">
@@ -22,7 +23,8 @@ function Page() {
     <Info />
     <Trial />
     <SecondBan />
-    <Benifits />        {/* new */}
+    <Launch />
+    {/* <Benifits />     */}
     <Brandpercentage/>  {/* new */}
     <Social />
     <Testimonial />

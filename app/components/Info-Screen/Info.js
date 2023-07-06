@@ -66,13 +66,14 @@ const Info = () => {
       h3: "Experience cost savings even when you're off the clock.",
       p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
     },
-   
+
     {
       id: "3",
       title: "Save Big",
       coming_soon: "",
       icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/tabs/savebig.png",
+      content_video: "/tabs/Billing-GIF.gif",
+
       h3: "Experience unrivaled clarity with our Transparent Billing.",
       p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
     },
@@ -80,8 +81,9 @@ const Info = () => {
       id: "4",
       title: "Scale Fast",
       coming_soon: "",
+      content_video: "/tabs/Analytics-Gif.gif",
+
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      content_video: "/tabs/scalefast.png",
       h3: "Gain Insight with our Advanced Analytics Dashboard.",
       p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
     },
@@ -89,18 +91,15 @@ const Info = () => {
       id: "5",
       title: "Smart IVR",
       coming_soon: "",
-      icon: (
-        <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />
-
-      ),
-      content_video: "/tabs/ivr2.png",
+      icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
+      content_video: "/tabs/IVR-Gif-4-30percent.gif",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
     },
   ];
 
   const [activeTab, setActiveTab] = useState(0);
-  const [timer, setTimer] = useState(9);
+  const [timer, setTimer] = useState(11);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -117,20 +116,21 @@ const Info = () => {
       } else {
         setActiveTab((prevTab) => prevTab + 1);
       }
-      setTimer(9);
+      setTimer(11);
     }
   }, [timer]);
 
   const handleTabChange = (index) => {
     setActiveTab(index);
-    setTimer(9);
+    setTimer(11);
   };
-  
+
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          Save Millions with Tempo.
+          <span className="text-[#2563eb]">Replace Your Customer Service</span> Team
+          Today.
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
@@ -142,7 +142,7 @@ const Info = () => {
                     className={`min-w-[170px] w-[192px] flex items-center relative justify-center sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 sm:px-4 cursor-pointer rounded-full shadow-lg px-3 sm:px-6 ${
                       index === activeTab
                         ? "active bg-background text-white start-rainbow"
-                        : "start-rainbow"
+                        : "start-rainbow hover:bg-gray"
                     } ${
                       index === activeTab + 1 || index === activeTab - 4
                         ? "border-animation"
@@ -151,7 +151,11 @@ const Info = () => {
                     onClick={(e) => handleTabChange(index)}
                   >
                     <div className="relative ">{tab.icon}</div>
-                    <p className={`relative sm:mt-[2px] ${index === activeTab ? "text-white" : "text-heading"}`}>
+                    <p
+                      className={`relative sm:mt-[2px] ${
+                        index === activeTab ? "text-white" : "text-heading"
+                      }`}
+                    >
                       {tab.title}{" "}
                       <span style={{ fontSize: "12px" }} className="font-light">
                         {tab.coming_soon}

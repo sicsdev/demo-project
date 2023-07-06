@@ -100,7 +100,7 @@ const Demo = () => {
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
             <Button
               className={
-                "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
+                "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900"
               }
               onClick={handleNavigate}
               disabled={validEmail}
@@ -109,7 +109,7 @@ const Demo = () => {
             </Button>
           </div>
         </form>
-        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-5">
+        <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-[44px]">
           <small className="text-border " style={{ color: "#36454F" }}>
             0 minute SLA's{" "}
           </small>

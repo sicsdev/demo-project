@@ -11,7 +11,7 @@ const DTC = () => {
   ];
 
   return (
-    <div className=" bg-white py-4 sm:pb-12">
+    <div className=" bg-[#e6f7fd] py-4 sm:pb-12">
       <div className="my-8 mx-auto max-w-[90%]">
         <h1 className="text-center text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
           Trusted by top ecommerce and digital services brands

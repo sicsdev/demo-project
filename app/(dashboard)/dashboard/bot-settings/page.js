@@ -89,14 +89,14 @@ const BotSetting = () => {
     }
     return (
         <div>
-            {isEdit == false ?
+            {/* {isEdit == false ?
                 <>
                     <p className='float-right my-5 cursor-pointer' onClick={() => { setIsEdit(true) }}>Edit</p>
                 </> :
                 <>
                     <p className='float-right my-5 cursor-pointer' onClick={() => { setIsEdit(false) }}>Back</p>
                 </>
-            }
+            } */}
             <div className="border-b border-primary dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
@@ -113,7 +113,7 @@ const BotSetting = () => {
             {dataLoading === true ? <Loading /> :
                 <div className='mt-3'>
                     {isEdit === false ?
-                        <BotSettingReadOnly basicFormData={basicFormData} /> :
+                        <BotSettingReadOnly basicFormData={basicFormData} setIsEdit={setIsEdit} /> :
                         <Card>
                             <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                             <div className={`flex p-2 rounded-b mt-5 justify-between`}>
