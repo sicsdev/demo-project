@@ -11,7 +11,7 @@ import { fetchBot, setBotId } from '../store/slices/botIdSlice';
 import ColorSelector from './ColorSelector';
 import Modal from '../Common/Modal/Modal';
 import { CheckIcon } from '@heroicons/react/24/solid';
-
+import Link from 'next/link';
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     const dispatch = useDispatch()
     const [botDetails, setBotDetails] = useState({});
@@ -304,14 +304,18 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
 
 
-
             <div className="w-full">
                 {form === false && (
                     <>
                         <div className='mb-4'>
-                            <a className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
-                                <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
-                            </a>
+                            <div className='flex items-center justify-between'>
+                                <a className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group" aria-current="customize">
+                                    <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
+                                </a>
+                                <p className='text-sm'>
+                                    <Link href="/dashboard">back</Link>
+                                </p>
+                            </div>
                             <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and preferences of your widget.</small>
                         </div>
                         <hr className='opacity-10'></hr>
