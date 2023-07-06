@@ -52,7 +52,7 @@ const page = () => {
       <Tempoalert/>
 
       <Testimonial />
-      <Tempoeconomy />
+      {/* <Tempoeconomy /> */}
       {/* <Requestdemo/> */}
     </div>
   );
