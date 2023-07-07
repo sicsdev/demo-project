@@ -12,6 +12,7 @@ import Resource from "@/app/components/Resource/Resource";
 import Iconanimation from "@/app/components/Iconanimation/Iconanimation";
 import Trial from "@/app/components/Trial/Trial";
 import Image from "next/image";
+import Link from "next/link";
 const Pricing = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -183,7 +184,7 @@ const Pricing = () => {
                   Pay-as-you-go
                 </p>
                 <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
-                  Pricing details {">"}
+                 <Link href="/article/pricing-overview"> Pricing details {">"}</Link>
                 </h6>
               </div>
             </div>

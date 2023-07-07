@@ -102,6 +102,7 @@ const Checkout = () => {
   };
 
   return (
+    <div className="bg-white">
     <Container>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
         {/* <div className="text-center lg:hidden">
@@ -168,7 +169,7 @@ const Checkout = () => {
         </div> */}
         <div className="block sm:hidden md:hidden">
           <Card className={"border bg-white border-border "}>
-            <h2 className="text-center text-xl mb-2">Order Summary</h2>
+            <h2 className="text-center sm:text-left text-xl mb-2">Order Summary</h2>
             <hr style={{ borderColor: "#CCCCCC" }}></hr>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
               <tbody>
@@ -218,7 +219,7 @@ const Checkout = () => {
             ) : (
               <div className="flex justify-start gap-4 items-center  pl-5 p-1">
                 <span className="text-start text-sm font-normal w-[20%] text-border">
-                  Work Email
+                   Email
                 </span>
                 <input
                   type={"email"}
@@ -261,6 +262,7 @@ const Checkout = () => {
                 className={
                   "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                 }
+                min={0}
                 name="phone"
                 id={"mobile"}
                 onChange={handleFormValues}
@@ -342,8 +344,8 @@ const Checkout = () => {
             </div>
 
           </div>
-          <div className="mt-5">
-            <p className="text-justify">
+          <div className="mt-5 ">
+            <p className="text-justify text-xs sm:text-sm">
               By entering your information, you authorize Tempo AI to
               automatically charge your card for your usage once your credits
               according to our{" "}
@@ -357,16 +359,16 @@ const Checkout = () => {
         </div>
 
         <div className="hidden lg:block">
-          <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border">
+          <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
             <Card className={"border bg-white border-border "}>
-              <h2 className="text-center text-xl mb-2">Order Summary</h2>
+              <h2 className="text-left text-xl mb-2">Order Summary</h2>
               <hr style={{ borderColor: "#CCCCCC" }}></hr>
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                 <tbody>
                   <tr className="dark:bg-gray-800 bg-white">
                     <th
                       scope="row"
-                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                      className="px-6 pl-0 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
                     >
                       {planQuery == 1 && "Enterprise Plan"}
                       {planQuery == 0 && "Starter Plan"}
@@ -376,7 +378,7 @@ const Checkout = () => {
                 </tbody>
                 <tfoot>
                   <tr className="text-base text-gray-900 bg-white text-black text-black">
-                    <th scope="row" className="px-6 py-3 text-base">
+                    <th scope="row" className="px-6 pl-0 py-3 text-base">
                       Total Today
                     </th>
                     <td className="px-6 py-3">$0</td>
@@ -385,7 +387,7 @@ const Checkout = () => {
               </table>
             </Card>
 
-            <div className="p-4 sm:p-8 md:p-8 lg:p-8">
+            {/* <div className="p-4 sm:p-8 md:p-8 lg:p-8">
               {testimonialsArray.map((item, index) => {
                 return (
                   <Card
@@ -414,7 +416,7 @@ const Checkout = () => {
                   </Card>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -422,6 +424,7 @@ const Checkout = () => {
 
       <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
     </Container>
+    </div>
   );
 };
 
