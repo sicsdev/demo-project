@@ -341,3 +341,7 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+  opacity: 1;
+  display: none;
+}
