@@ -102,6 +102,7 @@ const Checkout = () => {
   };
 
   return (
+    <div className="bg-white">
     <Container>
       <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
         {/* <div className="text-center lg:hidden">
@@ -343,7 +344,7 @@ const Checkout = () => {
 
           </div>
           <div className="mt-5">
-            <p className="text-justify">
+            <p className="text-justify text-xs sm:text-sm">
               By entering your information, you authorize Tempo AI to
               automatically charge your card for your usage once your credits
               according to our{" "}
@@ -357,7 +358,7 @@ const Checkout = () => {
         </div>
 
         <div className="hidden lg:block">
-          <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-sky border border-border">
+          <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
             <Card className={"border bg-white border-border "}>
               <h2 className="text-center text-xl mb-2">Order Summary</h2>
               <hr style={{ borderColor: "#CCCCCC" }}></hr>
@@ -385,7 +386,7 @@ const Checkout = () => {
               </table>
             </Card>
 
-            <div className="p-4 sm:p-8 md:p-8 lg:p-8">
+            {/* <div className="p-4 sm:p-8 md:p-8 lg:p-8">
               {testimonialsArray.map((item, index) => {
                 return (
                   <Card
@@ -414,7 +415,7 @@ const Checkout = () => {
                   </Card>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -422,6 +423,7 @@ const Checkout = () => {
 
       <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
     </Container>
+    </div>
   );
 };
 
