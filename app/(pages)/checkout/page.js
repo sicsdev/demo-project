@@ -262,6 +262,7 @@ const Checkout = () => {
                 className={
                   "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                 }
+                min={0}
                 name="phone"
                 id={"mobile"}
                 onChange={handleFormValues}
@@ -343,7 +344,7 @@ const Checkout = () => {
             </div>
 
           </div>
-          <div className="mt-5">
+          <div className="mt-5 ">
             <p className="text-justify text-xs sm:text-sm">
               By entering your information, you authorize Tempo AI to
               automatically charge your card for your usage once your credits
