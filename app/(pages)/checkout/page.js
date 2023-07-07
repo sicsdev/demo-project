@@ -169,7 +169,7 @@ const Checkout = () => {
         </div> */}
         <div className="block sm:hidden md:hidden">
           <Card className={"border bg-white border-border "}>
-            <h2 className="text-center text-xl mb-2">Order Summary</h2>
+            <h2 className="text-center sm:text-left text-xl mb-2">Order Summary</h2>
             <hr style={{ borderColor: "#CCCCCC" }}></hr>
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
               <tbody>
@@ -219,7 +219,7 @@ const Checkout = () => {
             ) : (
               <div className="flex justify-start gap-4 items-center  pl-5 p-1">
                 <span className="text-start text-sm font-normal w-[20%] text-border">
-                  Work Email
+                   Email
                 </span>
                 <input
                   type={"email"}
@@ -360,14 +360,14 @@ const Checkout = () => {
         <div className="hidden lg:block">
           <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
             <Card className={"border bg-white border-border "}>
-              <h2 className="text-center text-xl mb-2">Order Summary</h2>
+              <h2 className="text-left text-xl mb-2">Order Summary</h2>
               <hr style={{ borderColor: "#CCCCCC" }}></hr>
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                 <tbody>
                   <tr className="dark:bg-gray-800 bg-white">
                     <th
                       scope="row"
-                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                      className="px-6 pl-0 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
                     >
                       {planQuery == 1 && "Enterprise Plan"}
                       {planQuery == 0 && "Starter Plan"}
@@ -377,7 +377,7 @@ const Checkout = () => {
                 </tbody>
                 <tfoot>
                   <tr className="text-base text-gray-900 bg-white text-black text-black">
-                    <th scope="row" className="px-6 py-3 text-base">
+                    <th scope="row" className="px-6 pl-0 py-3 text-base">
                       Total Today
                     </th>
                     <td className="px-6 py-3">$0</td>
