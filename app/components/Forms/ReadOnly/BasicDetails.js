@@ -26,6 +26,7 @@ const BasicDetailsReadOnly = ({ state }) => {
         }
     };
 
+     console.log("state, s", state)
     return (
         <div>
             {state?.card && (
@@ -39,8 +40,7 @@ const BasicDetailsReadOnly = ({ state }) => {
                         />
                         <div>
                             <h2 class="font-semibold text-md text-heading">
-                                {makeCapital(state?.card?.brand)} ending in {state?.card?.exp_month}/
-                                {state?.card?.exp_year}
+                                {makeCapital(state?.card?.brand)} ending in {state?.card?.last4}
                             </h2>
                             <p className="text-sm">
                                 You need a primary billing method when a balance due. To remove this one, set a new primary billing

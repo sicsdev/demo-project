@@ -83,38 +83,14 @@ const Integrationedit = (props) => {
 
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
+          
 
               <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
@@ -431,38 +407,12 @@ const Integrationedit = (props) => {
           </div>
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
-
-              <div class="mb-4">
+            <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
@@ -788,38 +738,12 @@ const Integrationedit = (props) => {
           </div>
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
-
-              <div class="mb-4">
+            <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
@@ -1146,38 +1070,12 @@ const Integrationedit = (props) => {
           </div>
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
-
-              <div class="mb-4">
+            <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
@@ -1504,38 +1402,12 @@ const Integrationedit = (props) => {
           </div>
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
-
-              <div class="mb-4">
+            <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
@@ -1862,38 +1734,12 @@ const Integrationedit = (props) => {
           </div>
           <div className="py-6 pr-6">
             <form class="w-100 mx-auto">
-              <div class="mb-4">
-                <label
-                  for="method"
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                >
-                  Method
-                </label>
-                <select
-                  id="method"
-                  name="method"
-                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                >
-                  <option value="" disabled selected>
-                    Choose value...
-                  </option>
-                  <option value="post">Post</option>
-                  <option value="patch">Patch</option>
-                  <option value="put">Put</option>
-                  <option value="get">Get</option>
-                  <option value="delete">Delete</option>
-                </select>
-                <p className="text-sm mt-2">
-                  The HTTP method we'll use to perform the request.
-                </p>
-              </div>
-
-              <div class="mb-4">
+            <div class="mb-4">
                 <label
                   for="name"
                   class="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  URL
+                  Route URL
                 </label>
                 <input
                   type="text"
