@@ -31,21 +31,31 @@ const Sidebar = ({ children }) => {
   const pathname = usePathname();
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
   const [userProfile, setUserProfile] = useState([]);
-  const [base64Data, setBase64Data] = useState('');
+  const [base64Data, setBase64Data] = useState({ data: "", state: false });
 
   useEffect(() => {
     // getUserProfile().then(res => setUserProfile(res.data))
     if (!state) {
-        console.log("ccc")
+      console.log("ccc");
       dispatch(fetchProfile());
     }
-   
 
     //delete widget from DOM
     // const chatbot = document.getElementById('chatbot_widget')
     // if (chatbot) { chatbot.remove() }
   }, [state]);
 
+  useEffect(() => {
+    if (base64Data.state == true) {
+      dispatch(fetchProfile());
+      setTimeout(() => {
+        dispatch(fetchProfile());
+      }, [2000]);
+      setTimeout(() => {
+        setBase64Data({ state: false });
+      }, [4000]);
+    }
+  }, [base64Data]);
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -117,17 +127,15 @@ const Sidebar = ({ children }) => {
 
     reader.onloadend = () => {
       const base64Content = reader.result;
-       console.log("base64Content", base64Content)
-       uploadLOgo({logo:base64Content})
-      setBase64Data(base64Content);
+      uploadLOgo({ logo: base64Content });
+      setBase64Data({ data: base64Content, state: true });
       setTimeout(() => {
-        setIsOpen(false)
+        setIsOpen(false);
       }, 1000);
     };
 
     reader.readAsDataURL(file);
-  }
-   console.log("state" , state)
+  };
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-sidebar">
@@ -179,7 +187,11 @@ const Sidebar = ({ children }) => {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="w-8 h-8 rounded-full"
-                      src={state?.enterprise?.logo == null  ? defaultPhoto : state?.enterprise?.logo} 
+                      src={
+                        state?.enterprise?.logo == null
+                          ? defaultPhoto
+                          : state?.enterprise?.logo
+                      }
                       alt="user photo"
                     />
                   </button>
@@ -212,7 +224,21 @@ const Sidebar = ({ children }) => {
                                                     Help
                                                 </p>
                                             </li> */}
-
+                      <li className="text-center relative hover:underline myparent">
+                        <input
+                          className="inline-block mt-2 cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          id="multiple_files"
+                          type="file"
+                          multiple
+                          onChange={(e) => handleFileInputChange(e)}
+                        />
+                        <label
+                          className="inline-block mt-2 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase   leading-normal text-[blue]   transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          for="file_input"
+                        >
+                          Upload logo
+                        </label>
+                      </li>
                       <li className="text-center">
                         <button
                           type="button"
@@ -221,23 +247,6 @@ const Sidebar = ({ children }) => {
                         >
                           Logout
                         </button>
-                      </li>
-                      <li className="text-center relative">
-                        <label
-                          className="inline-block mt-2 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue]   transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                          for="file_input"
-                        >
-                          Upload logo
-                        </label>
-
-                        <input
-                          className="inline-block mt-2 absolute top-0 left-0 opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                          id="multiple_files"
-                          type="file"
-                          multiple
-                          onChange={(e)=>handleFileInputChange(e)}
-
-                        />
                       </li>
                     </ul>
                   )}

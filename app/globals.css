@@ -345,3 +345,6 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
   opacity: 1;
   display: none;
 }
+.myparent input:hover+label {
+  text-decoration: underline;
+}
