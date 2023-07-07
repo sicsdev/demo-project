@@ -79,7 +79,6 @@ const Page = () => {
   // update integration
   const handler_Editpopup = (id) => {
     setEditintegrationmodal(true);
-    console.log(id,"sddddd")
   }
   const [id, setId] = useState("");
 
@@ -131,7 +130,7 @@ const Page = () => {
             </ul>
           </div>
 
-          <div className="block sm:flex md:flex lg:flex justify-end items-center mt-4 gap-4">
+          {/* <div className="block sm:flex md:flex lg:flex justify-end items-center mt-4 gap-4">
             <div>
               <Button
                 onClick={(e) => {
@@ -143,7 +142,7 @@ const Page = () => {
                 Add Integration
               </Button>
             </div>
-          </div>
+          </div> */}
 
           {/* Modal */}
           {showIntegrationModal ? (
@@ -304,7 +303,7 @@ const Page = () => {
 
           {/* showing integration data */}
 
-          <div>
+          {/* <div>
             <h3 className="font-bold my-2">Integration Values:</h3>
 
             {integrationdata?.results &&
@@ -330,7 +329,7 @@ const Page = () => {
                   </p>
                 </>
               ))}
-          </div>
+          </div> */}
 
           {/* showing integration data */}
 
