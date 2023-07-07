@@ -1,34 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getArticleCategory, getCareerCategory, getBlogsPage } from "@/app/API/pages/Wpdata";
+import Link from "next/link";
 
 const News = () => {
-  const images = [
-    {
-      name: "CUSTOMER SERVICE 7 MIN READ",
-      title: "Response Time: Vol. 6",
-      class:"border-r",
-    },
-    {
-      name: "NEWS & UPDATES 7 MIN READ",
-      title:
-        "Unleashing productivity: Learn how AI boosts customer service team productivity by 14%,",
-      class:"border-r",
+const [career, setCareer] = useState([])
+  const [article, setArticle] = useState([]);
+const [blog, setBlog] = useState([])
+  const findArticle=()=>{
+    getArticleCategory().then(
+      (res) => {
+        setArticle(res.data[0]);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-    },
-    
-    {
-      name: "CUSTOMER SERVICE 30 MIN WATCH",
-      title: "Response Time: Vol. 6",
-      class:"border-r",
+  const findblog=()=>{
+    getBlogsPage().then(
+      (res) => {
+        setBlog(res.data[0]);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-    },
-    {
-      name: "NEWS & UPDATES 4 MIN READ",
-      title:
-        "Unleashing productivity: Learn how AI boosts customer service team productivity by 14%,",
-      class:"",
+  const findCareer=()=>{
+    getCareerCategory().then(
+      (res) => {
+        setCareer(res.data[0]);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
-    },
-  ];
+  useEffect(() => {
+    findArticle();
+    findCareer();
+    findblog();
+  }, []);
+
+
+console.log("blog", career)
+// careers/careers-detail?careerName=account-manager
+// {`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading1)}`}
   return (
     <div className=" bg-white  ">
       
@@ -39,15 +59,38 @@ const News = () => {
         <hr class="h-px  bg-gray-200 sm:border-b-0 lg:border-b-0 md:border-b-0 border-b-0 dark:bg-gray-700 " />
 
         <div className="grid grid-cols-2 sm:grid-cols-4 text-center ">
-          {images.map((element, key) => (
+       
             <div
-              className={`${element.class} relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
-              key={key}
+              className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
+            
             >
-              <p className="text-[12px] mb-3">{element.name}</p>
-              <p className="text-black font-bold">{element.title}</p>
+              {/* <p className="text-[12px] mb-3">{element.name}</p> */}
+              <p className="text-black font-bold">{article?.title?.rendered}</p>
             </div>
-          ))}
+            <Link href={`careers/careers-detail?careerName=${career.slug}`}>
+            <div
+              className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
+            
+            >
+              {/* <p className="text-[12px] mb-3">{element.name}</p> */}
+              <p className="text-black font-bold">{career?.title?.rendered}</p>
+            </div>
+            </Link>
+            <div
+              className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
+            
+            >
+              {/* <p className="text-[12px] mb-3">{element.name}</p> */}
+              <p className="text-black font-bold">{blog?.title?.rendered}</p>
+            </div>
+            <div
+              className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
+            
+            >
+              {/* <p className="text-[12px] mb-3">{element.name}</p> */}
+              <p className="text-black font-bold">{article?.title?.rendered}</p>
+            </div>
+       
         </div>
       </div>
       <hr class="h-px my-8 bg-gray-200 border-b-0 dark:bg-gray-700 left-0" />
