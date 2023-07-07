@@ -202,7 +202,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -220,7 +220,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -235,7 +235,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -254,7 +254,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -269,7 +269,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -284,7 +284,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -550,7 +550,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -568,7 +568,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -583,7 +583,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -602,7 +602,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -617,7 +617,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -632,7 +632,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -999,7 +999,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1017,7 +1017,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1032,7 +1032,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1051,7 +1051,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1066,7 +1066,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1081,7 +1081,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1357,7 +1357,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1375,7 +1375,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1390,7 +1390,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1409,7 +1409,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1424,7 +1424,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1439,7 +1439,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1715,7 +1715,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1733,7 +1733,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1748,7 +1748,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1767,7 +1767,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1782,7 +1782,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -1797,7 +1797,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2073,7 +2073,7 @@ const Integrationedit = (props) => {
                       API Key
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="apikey"
                       name="apikey"
                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2091,7 +2091,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey"
                         name="clientkey"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2106,7 +2106,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret"
                         name="clientsecret"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2125,7 +2125,7 @@ const Integrationedit = (props) => {
                         Client Key
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientkey2"
                         name="clientkey2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2140,7 +2140,7 @@ const Integrationedit = (props) => {
                         Client Secret
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientsecret2"
                         name="clientsecret2"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
@@ -2155,7 +2155,7 @@ const Integrationedit = (props) => {
                         Client Redirect URL
                       </label>
                       <input
-                        type="text"
+                        type="password"
                         id="clientredirecturl"
                         name="clientredirecturl"
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"

@@ -148,3 +148,35 @@ export const addAllowedUrl = async (id, body) => {
         return error
     }
 }
+
+// Integration
+
+export const addIntegration = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/integrations/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+export const getAllIntegration = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/integrations/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+export const modifyIntegration = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/integrations/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
