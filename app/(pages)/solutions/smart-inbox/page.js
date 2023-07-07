@@ -53,7 +53,7 @@ const page = () => {
 
       <Testimonial />
       {/* <Requestdemo/> */}
-      {/* <Smarteconomy /> */}
+      <Smarteconomy />
     </div>
   );
 };
