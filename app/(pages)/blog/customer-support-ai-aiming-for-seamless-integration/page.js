@@ -96,6 +96,39 @@ const page = () => {
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
             dangerouslySetInnerHTML={{ __html: single?.acf?.heading6_text }}
           ></p>
+ <h1
+              id={removeSpacesAndHyphens(single?.acf?.heading6)}
+            className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
+          >
+            Want to know more?
+          </h1>
+          <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
+            <ul className="
+            list-disc cursor-pointer" >
+              <li>
+                <u>Intercom's AI bot - Fin</u>
+              </li>
+              <li>
+                <u>Intercom's Inbox for customer support</u>
+              </li>
+              <li>
+                <u>Intercom for live chat</u>
+              </li>
+              <li>
+                <u>Intercom for self-service support</u>
+              </li>
+              <li>
+                <u>Intercom for targeted messages and campaigns</u>
+              </li>
+              <li>
+                <u>Intercom for customer engagement</u>
+              </li>
+              <li>
+                <u>Intercom for customer intelligence & analytics</u>
+              </li>
+            </ul>
+          </p>
+
         </div>
         <div className="hidden sm:block w-[30%]">
           <div

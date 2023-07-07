@@ -46,7 +46,7 @@ const [blog, setBlog] = useState([])
   }, []);
 
 
-console.log("blog", career)
+console.log("blog", article)
 // careers/careers-detail?careerName=account-manager
 // {`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading1)}`}
   return (
@@ -59,7 +59,7 @@ console.log("blog", career)
         <hr class="h-px  bg-gray-200 sm:border-b-0 lg:border-b-0 md:border-b-0 border-b-0 dark:bg-gray-700 " />
 
         <div className="grid grid-cols-2 sm:grid-cols-4 text-center ">
-       
+        <Link href={`article/${article.slug}`}>
             <div
               className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
             
@@ -67,6 +67,7 @@ console.log("blog", career)
               {/* <p className="text-[12px] mb-3">{element.name}</p> */}
               <p className="text-black font-bold">{article?.title?.rendered}</p>
             </div>
+            </Link>
             <Link href={`careers/careers-detail?careerName=${career.slug}`}>
             <div
               className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
@@ -76,6 +77,7 @@ console.log("blog", career)
               <p className="text-black font-bold">{career?.title?.rendered}</p>
             </div>
             </Link>
+            <Link href={`blog/${blog.slug}`}>
             <div
               className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
             
@@ -83,6 +85,7 @@ console.log("blog", career)
               {/* <p className="text-[12px] mb-3">{element.name}</p> */}
               <p className="text-black font-bold">{blog?.title?.rendered}</p>
             </div>
+            </Link>
             <div
               className={`border-r relative w-full mx-auto mt-6 hover:text-[black]  p-4 mr-3`}
             
