@@ -5,6 +5,7 @@ import Card from "@/app/components/Common/Card/Card";
 import Integrationedit from "@/app/components/Integration/page";
 import Integrationemail from "@/app/components/Integrationemail/page";
 import Button from "@/app/components/Common/Button/Button";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import {
   addIntegration,
   getAllIntegration,
@@ -15,9 +16,21 @@ import { useEffect } from "react";
 const Page = () => {
   const [edit, setEdit] = useState(false);
   const [email, setEmail] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [conf, setConf] = useState(false);
 
+  const handleCountryChange = (event) => {
+    setSelectedCountry(event.target.value);
+  };
   const handlerEdit = () => {
-    setEdit(true);
+    if (integrationdata.count == 0) {
+      setConf(true);
+
+    } else {
+      setEdit(true);
+
+
+    }
   };
   const handlerBack = () => {
     setEdit(false);
@@ -75,11 +88,12 @@ const Page = () => {
     };
     fetchIntegrations();
   }, []);
+  console.log("integrationdata", integrationdata);
 
   // update integration
   const handler_Editpopup = (id) => {
     setEditintegrationmodal(true);
-  }
+  };
   const [id, setId] = useState("");
 
   const [updatevalue1, setUpdateValue1] = useState("");
@@ -337,21 +351,220 @@ const Page = () => {
             <div className="flex justify-between items-center mt-3">
               <div className="">
                 <h3 className="font-semibold text-md text-heading">Billing</h3>
-                <p className="text-sm my-2">0 active integrations</p>
+                <p className="text-sm my-2">
+                  {integrationdata?.count} active integrations
+                </p>
               </div>
               <p className="cursor-pointer text-sm" onClick={handlerEdit}>
-                Edit
+                {integrationdata?.count == 0 ? "Configure" : "Edit"}
               </p>
             </div>
+            {conf == true ? (
+              <div className="py-6 pr-6">
+                <div class="mb-4">
+                  <label
+                    for="name"
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Base URL
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                    placeholder="Enter text..."
+                  />
+                  <p className="text-sm mt-2">
+                    Any URL with a querystring will be re-encoded properly.
+                  </p>
+                </div>
+
+                <div class="mb-4">
+                  <label
+                    for="auth"
+                    class="block text-gray-700 text-sm font-bold mb-2"
+                  >
+                    Auth Type
+                  </label>
+                  <select
+                    id="country"
+                    name="country"
+                    value={selectedCountry}
+                    onChange={handleCountryChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+                  >
+                    <option value="" disabled>
+                      Choose value..
+                    </option>
+                    <option value="no_auth">No Auth</option>
+                    <option value="basic_auth">Basic Auth</option>
+                    <option value="api_auth">API Key</option>
+                    <option value="Oauth">OAuth</option>
+                    <option value="Oauth2">OAuth2</option>
+                    Other country options...
+                  </select>
+                  <p className="text-sm mt-2">
+                    The Auth structure we'll use to perform the request.
+                  </p>
+
+                  {selectedCountry === "no_auth" && ""}
+
+                  {selectedCountry === "basic_auth" && (
+                    <>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="name"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          User Name
+                        </label>
+                        <input
+                          type="text"
+                          id="username"
+                          name="username"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="User name"
+                        />
+                      </div>
+                      <div class="mb-4 ml-6">
+                        <label
+                          for="name"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Password
+                        </label>
+                        <input
+                          type="password"
+                          id="password"
+                          name="password"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Enter password"
+                        />
+                      </div>
+                    </>
+                  )}
+                  {selectedCountry === "api_auth" && (
+                    <div class="mb-4 mt-4 ml-6">
+                      <label
+                        for="apikey"
+                        class="block text-gray-700 text-sm font-bold mb-2"
+                      >
+                        API Key
+                      </label>
+                      <input
+                        type="password"
+                        id="apikey"
+                        name="apikey"
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                        placeholder="API Key"
+                      />
+                    </div>
+                  )}
+                  {selectedCountry === "Oauth" && (
+                    <>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="clientkey"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Client Key
+                        </label>
+                        <input
+                          type="password"
+                          id="clientkey"
+                          name="clientkey"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Client Key"
+                        />
+                      </div>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="clientsecret"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Client Secret
+                        </label>
+                        <input
+                          type="password"
+                          id="clientsecret"
+                          name="clientsecret"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Client Secret"
+                        />
+                      </div>
+                    </>
+                  )}
+                  {selectedCountry === "Oauth2" && (
+                    <>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="clientkey2"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Client Key
+                        </label>
+                        <input
+                          type="password"
+                          id="clientkey2"
+                          name="clientkey2"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Client Key"
+                        />
+                      </div>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="clientsecret2"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Client Secret
+                        </label>
+                        <input
+                          type="password"
+                          id="clientsecret2"
+                          name="clientsecret2"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Client Secret"
+                        />
+                      </div>
+                      <div class="mb-4 mt-4 ml-6">
+                        <label
+                          for="clientredirecturl"
+                          class="block text-gray-700 text-sm font-bold mb-2"
+                        >
+                          Client Redirect URL
+                        </label>
+                        <input
+                          type="password"
+                          id="clientredirecturl"
+                          name="clientredirecturl"
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight"
+                          placeholder="Client Redirect URL"
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between">
+                  <button className="py-2 px-8 sm:w-[250px] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg">
+                    Save
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
             <hr className="border-border" />
             <div className="flex justify-between items-center mt-3">
               <div className="">
                 <h3 className="font-semibold text-md text-heading">Shipping</h3>
                 <p className="text-sm my-2">0 active integrations</p>
               </div>
-              {/* <p className="cursor-pointer text-sm" onClick={handlerIntegrationEmail}>
-              Edit
-            </p> */}
+              <p
+                className="cursor-pointer text-sm"
+                onClick={handlerIntegrationEmail}
+              ></p>
             </div>
             <hr className="border-border" />
             <div className="flex justify-between items-center mt-3">
