@@ -30,7 +30,7 @@ const Page = () => {
             processed accordingto their privacy policy.
           </p>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            1.Personal Information We Collect
+            1. Personal Information We Collect
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -81,7 +81,7 @@ const Page = () => {
           </ul>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            2.How We Collect Your Personal Information
+            2. How We Collect Your Personal Information
           </h2>
 
           <ul>
@@ -114,7 +114,7 @@ const Page = () => {
           </ul>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            3.How We Use Personal Information
+            3. How We Use Personal Information
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -173,7 +173,7 @@ const Page = () => {
           </ul>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            4.Sharing of Personal Information
+            4. Sharing of Personal Information
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -228,7 +228,7 @@ const Page = () => {
           </ul>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            5.Cookies and Other Tracking Technologies
+            5. Cookies and Other Tracking Technologies
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -269,7 +269,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            6.How Long Do We Keep Your Personal Information
+            6. How Long Do We Keep Your Personal Information
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -282,7 +282,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            7.How We Protect Your Personal Information.
+            7. How We Protect Your Personal Information.
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -295,7 +295,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            8.Your Rights
+            8. Your Rights
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -350,7 +350,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            9.Marketing Emails
+            9. Marketing Emails
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -366,7 +366,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            10.International Use of the Site
+            10. International Use of the Site
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -378,7 +378,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            11.Children’s Privacy
+            11. Children’s Privacy
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -390,7 +390,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            12.Links to Third-Party Websites
+            12. Links to Third-Party Websites
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -403,7 +403,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            13.Notice to California Residents
+            13. Notice to California Residents
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -944,7 +944,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            14.Changes and Accessibility
+            14. Changes and Accessibility
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -962,7 +962,7 @@ const Page = () => {
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            15.Contact Us
+            15. Contact Us
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
