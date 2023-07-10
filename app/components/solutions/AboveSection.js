@@ -167,7 +167,7 @@ const AboveSection = () => {
                   <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
                 <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                  cut your CS costs in half, guaranteed{" "}
+                  Cut your customer service costs, and never look back{" "}
                 </p>
               </div>
             </div>
