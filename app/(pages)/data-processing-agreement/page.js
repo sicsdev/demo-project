@@ -444,7 +444,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium text-left text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Description of Services
                 </th>
@@ -462,7 +462,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Categories of Data Subjects whose Personal Data is transferred{" "}
                 </th>
@@ -487,7 +487,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Categories of Personal Data transferred{" "}
                 </th>
@@ -510,7 +510,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Sensitive data transferred (if applicable) and applied<br/>
                   restrictions or safeguards that fully take into consideration<br/>
