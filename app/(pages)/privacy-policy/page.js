@@ -958,7 +958,7 @@ const Page = () => {
             {" "}
             This Privacy Notice is available to consumers with disabilities. To
             access this Privacy Notice in an alternative downloadable format,
-            please go to <span className="text-[blue] cursor-pointer" ><a href="" >  https://usetempo.ai/privacy-policy-pdf.</a></span>
+            please go to <span className="text-[blue] cursor-pointer" ><a href="https://usetempo.ai/privacy-policy-pdf" >  https://usetempo.ai/privacy-policy-pdf.</a></span>
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
