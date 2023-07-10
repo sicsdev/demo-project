@@ -21,3 +21,24 @@ export const getAllIntegration = async () => {
         return error
     }
 };
+
+export const getAllAutomations = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/automations`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+export const createIntegrationAutomation = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/integrations/${id}/automations/`, body, config);
+        console.log("response", response);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

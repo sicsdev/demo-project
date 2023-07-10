@@ -9,14 +9,15 @@ import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import Swal from "sweetalert2";
 import {
   addIntegrationData,
-  getAllIntegration
+  getAllIntegration,
+  getAllAutomations
 } from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 
 const Page = () => {
   const [edit, setEdit] = useState(false);
   const [email, setEmail] = useState(false);
-  const [conf, setConf] = useState(false);
+  const [conf, setConf] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const [integrationFormData, setIntegrationFormData] = useState({
@@ -61,11 +62,24 @@ const Page = () => {
 
   const handleIntegrationInputChange = (e) => {
     const { name, value } = e.target;
-
-    setIntegrationFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    if (name === 'provider' && value === 'stripe') {
+      setIntegrationFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+        authType: 'api_key'
+      }));
+    } else if (name === 'provider' && value === 'shopify') {
+      setIntegrationFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+        authType: 'oauth1'
+      }));
+    } else {
+      setIntegrationFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value,
+      }));
+    }
   };
 
   const handleIntegrationSubmitForm = async (e) => {
