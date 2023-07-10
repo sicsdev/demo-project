@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const Privacypolicy = () => {
     return (
         <div className='privacypolicy_page'>
