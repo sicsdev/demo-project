@@ -37,7 +37,7 @@ const Page = () => {
             The types of Personal Information we collect may include:
           </p>
           <ul>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Contact Information</span> – If you
                 submit an inquiry, register for an account, request a free demo,
@@ -46,7 +46,7 @@ const Page = () => {
                 demographic information, and phone number.
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Commercial information</span> – This
                 includes information about purchases, information about
@@ -55,7 +55,7 @@ const Page = () => {
                 information.
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Usage Information</span> – When you
                 use our Site, our servers may automatically record information,
@@ -66,7 +66,7 @@ const Page = () => {
                 information regarding your interaction with the Site.
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Communication Information</span> –
                 We may collect the contents of your communications with us,
@@ -85,14 +85,14 @@ const Page = () => {
           </h2>
 
           <ul>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Directly From You</span> – For
                 example, if you choose to contact us or request information from
                 us.
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">From Third Parties</span> – For
                 example, we may work with business partners, subcontractors,
@@ -102,7 +102,7 @@ const Page = () => {
               </p>
             </li>
 
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Online Tracking Technologies</span>{" "}
                 – We may use cookies and similar technologies such as pixels,
@@ -181,14 +181,14 @@ const Page = () => {
             circumstances:
           </p>
           <ul>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Business Partners</span> – We may
                 share Personal Information with trusted business partners or
                 corporate affiliates.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">
                   Legal Obligation or Safety Reasons
@@ -206,7 +206,7 @@ const Page = () => {
               </p>
             </li>
 
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Merger or Change of Control</span> –
                 If we are involved in a merger, acquisition, or any other
@@ -217,7 +217,7 @@ const Page = () => {
                 such a transfer.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-3">
               <p>
                 <span className="font-bold">Service Providers</span> – We share
                 your Personal Information with third party service providers as
@@ -303,34 +303,34 @@ const Page = () => {
             following rights with respect to your Personal Information:
           </p>
           <ul>
-            <li className="text-base">
+            <li className="text-base mb-2">
               <p>
                 <span className="font-bold">Access:</span> – You may have the
                 right to know what Personal Information we have collected about
                 you and to access such data.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-2">
               <p>
                 <span className="font-bold">Data portability:</span> – You may
                 have the right to receive a copy of your information in a
                 portable and readily usable format.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-2">
               <p>
                 <span className="font-bold">Deletion:</span> –You may have the
                 right to delete your Personal Information that we have obtained,
                 subject to certain exceptions.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-2">
               <p>
                 <span className="font-bold">Correction:</span> – You may have
                 the right to correct inaccuracies in your Personal Information.{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base mb-2">
               <p>
                 <span className="font-bold">
                   Opt out of certain processing:
@@ -436,13 +436,13 @@ const Page = () => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
+                    className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-left"
                   >
                     Categories of CA Personal Information We Collect
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                    className="px-6 py-3 bg-[#09162A] text-white  text-left"
                   >
                     Categories of Third Parties to Which We Disclose Personal
                     Information for a Business or Commercial Purpose
@@ -450,14 +450,14 @@ const Page = () => {
 
                   <th
                     scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                    className="px-6 py-3 bg-[#09162A] text-white  text-left"
                   >
                     Categories of Third Parties to Which We May Sell or Share
                     Personal Information
                   </th>
                   <th
                     scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white text-center"
+                    className="px-6 py-3 bg-[#09162A] text-white text-left"
                   >
                     Retention Period
                   </th>
@@ -470,15 +470,15 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-left text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Identifiers
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     Service Providers; Third-Party Business Partners.
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
@@ -490,16 +490,16 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium  text-left text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <p> Personal Information, as defined in </p> the California
                     customer records law
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     Service Providers;Third-Party Business Partners.
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
@@ -512,15 +512,15 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Commercial Information{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     Service Providers;Third-Party Business Partners.
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
@@ -533,15 +533,15 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Internet or other similar network activity{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     Service Providers;Third-Party Vendors.
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     <ul>
                       <li>
                         • We do not sell this type of category of Personal
@@ -554,7 +554,7 @@ const Page = () => {
                       </li>
                     </ul>
                   </td>
-                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4 "></td>
                 </tr>
 
                 <tr
@@ -563,14 +563,14 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4  text-left font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <p> Audio, electronic, visual, thermal,</p> olfactory, or
                     similar information{" "}
                   </th>
 
-                  <td className="px-6 py-4">N/A </td>
-                  <td className="px-6 py-4">N/A</td>
+                  <td className="px-6 py-4 text-left">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A</td>
                   <td className="px-6 py-4"></td>
                 </tr>
                 <tr
@@ -579,15 +579,15 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4  text-left font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Inferences drawn from other Personal Information
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     Service Providers; Third-Party Business Partners
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-left">
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
@@ -599,13 +599,13 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Professional or employment-related information{" "}
                   </th>
 
-                  <td className="px-6 py-4">N/A </td>
-                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
                   <td className="px-6 py-4"></td>
                 </tr>
                 <tr
@@ -614,15 +614,15 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     <p> Non-public education information</p>
                     <p> (per the Family Education Rights and Privacy Act </p>
                     (20 U.S.C. Section 1232g, 34 C.F.R. Part 99))
                   </th>
 
-                  <td className="px-6 py-4">N/A </td>
-                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
                   <td className="px-6 py-4"></td>
                 </tr>
                 <tr
@@ -631,12 +631,12 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                   >
                     Sensitive Personal Information{" "}
                   </th>
-                  <td className="px-6 py-4">N/A </td>
-                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
+                  <td className="px-6 py-4 text-left">N/A </td>
                   <td className="px-6 py-4"></td>
                 </tr>
               </tbody>
@@ -645,7 +645,7 @@ const Page = () => {
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             California residents may have the following rights:{" "}
           </h2>
-          <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
+          <div className="overflow-x-auto  sm:rounded-lg mt-4 sm:mt-0">
             <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left w-[100%] sm:w-[80%] text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                 <tr>
@@ -675,7 +675,7 @@ const Page = () => {
                     Notice
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right have the right to be notified of what
                     categories of Personal Information will be collected at or
                     before the point of collection and the purposes for which
@@ -693,7 +693,7 @@ const Page = () => {
                     Access
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right to request the categories of Personal
                     Information that we collected in the previous twelve (12)
                     months, the categories of sources from which the Personal
@@ -718,7 +718,7 @@ const Page = () => {
                     Data Portability
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right to receive a copy of your information
                     in a portable and readily usable format.{" "}
                   </td>
@@ -734,7 +734,7 @@ const Page = () => {
                     Erasure{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right to have your Personal Information
                     deleted. However, please be aware that we may not fulfill
                     your request for deletion if we (or our service provider(s))
@@ -762,7 +762,7 @@ const Page = () => {
                     Correction{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right to request that we correct any
                     incorrect Personal Information that we collect or retain
                     about you, subject to certain exceptions. Once we receive
@@ -788,7 +788,7 @@ const Page = () => {
                     Automated Decision Making{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     You may have the right to request information about the
                     logic involved in automated decision-making and a
                     description of the likely outcome of processes, and the
@@ -808,7 +808,7 @@ const Page = () => {
                     Information{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     We do not sell your Personal Information.If we share your
                     Personal Information, you have the right to opt out of the
                     sharing of Personal Information.
@@ -825,7 +825,7 @@ const Page = () => {
                     Limit Use of Sensitive Personal Information{" "}
                   </th>
 
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-justify">
                     We do not use or disclose Sensitive Personal Information
                     other than to provide our Service. However, if we used or
                     disclosed Sensitive Personal Information for other purposes,
@@ -837,7 +837,7 @@ const Page = () => {
             </table>
           </div>
 
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-base mb-3 mt-12">
             {" "}
             Only you, or an authorized agent that you authorize to act on your
             behalf, may make a request related to your Personal Information. You
