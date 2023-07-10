@@ -127,7 +127,7 @@ const page = () => {
             >
               Related Articles
             </h1>
-            <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+            <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
               {filterPosts?.map((ele, key) => (
                 <>
                   {" "}

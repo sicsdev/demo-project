@@ -57,7 +57,7 @@ console.log("filterposts",filterPosts )
       className="  text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
     >{single?.acf?.aritcle_para_t}</p>
      <div
-              className="py-2 sm:px-8 mb-9 sm:mb-0  mt-5 sm:mt-2  focus:ring-yellow-300 text-white sm:w-[23%]  w-full mx-auto text-center  sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+              className="py-2 sm:px-0 sm:m-auto mb-9 sm:mb-0  mt-5 sm:mt-2  focus:ring-yellow-300 text-white sm:w-[23%]  w-full mx-auto text-center    text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
                 >
                   <p
                     dangerouslySetInnerHTML={{
@@ -100,7 +100,7 @@ console.log("filterposts",filterPosts )
      
 
             className={
-              "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+              "py-2  focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
             }
           >
             <Link
@@ -148,7 +148,7 @@ console.log("filterposts",filterPosts )
           >
             Related Articles
           </h1>
-          <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+          <div className="border-2 rounded-xl mb-[25px]  sm:w-[42rem]">
           {filterPosts?.map((ele,key)=>
 <>   <Link key={key} href={`/article/${ele.slug}`}>
             <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">

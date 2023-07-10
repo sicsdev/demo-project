@@ -109,7 +109,7 @@ const page = () => {
             <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
               Related Articles
             </h1>
-            <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+            <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
               {filterPosts?.map((ele, key) => (
                 <>
                   {" "}

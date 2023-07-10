@@ -132,7 +132,7 @@ console.log("filterposts",filterPosts )
           >
             Related Articles
           </h1>
-          <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+          <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
           {filterPosts?.map((ele,key)=>
 <>   <Link key={key} href={`/blog/${ele.slug}`}>
             <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
