@@ -1,6 +1,6 @@
 import React from "react";
 
-const Privacypolicy = () => {
+const Page = () => {
   return (
     <div className="privacypolicy_page">
       <div className=" bg-white py-4 ">
@@ -30,7 +30,7 @@ const Privacypolicy = () => {
             processed accordingto their privacy policy.
           </p>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-           1.Personal Information We Collect 
+            1.Personal Information We Collect
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
@@ -431,409 +431,410 @@ const Privacypolicy = () => {
           </p>
 
           <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
-          <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
-                >
-                  Categories of CA Personal Information We Collect
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white  text-center"
-                >
-                  Categories of Third Parties to Which We Disclose Personal
-                  Information for a Business or Commercial Purpose
-                </th>
+            <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
+                  >
+                    Categories of CA Personal Information We Collect
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                  >
+                    Categories of Third Parties to Which We Disclose Personal
+                    Information for a Business or Commercial Purpose
+                  </th>
 
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                  >
+                    Categories of Third Parties to Which We May Sell or Share
+                    Personal Information
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white text-center"
+                  >
+                    Retention Period
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Categories of Third Parties to Which We May Sell or Share
-                  Personal Information
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white text-center"
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Identifiers
+                  </th>
+
+                  <td className="px-6 py-4">
+                    Service Providers; Third-Party Business Partners.
+                  </td>
+                  <td className="px-6 py-4">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Retention Period
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <p> Personal Information, as defined in </p> the California
+                    customer records law
+                  </th>
+
+                  <td className="px-6 py-4">
+                    Service Providers;Third-Party Business Partners.
+                  </td>
+                  <td className="px-6 py-4">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Identifiers
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Commercial Information{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  Service Providers; Third-Party Business Partners.
-                </td>
-                <td className="px-6 py-4">
-                  We do not sell or share this type of category of Personal
-                  Information.{" "}
-                </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    Service Providers;Third-Party Business Partners.
+                  </td>
+                  <td className="px-6 py-4">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  <p> Personal Information, as defined in </p> the California
-                  customer records law
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Internet or other similar network activity{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  Service Providers;Third-Party Business Partners.
-                </td>
-                <td className="px-6 py-4">
-                  We do not sell or share this type of category of Personal
-                  Information.{" "}
-                </td>
-                <td className="px-6 py-4"></td>
-              </tr>
+                  <td className="px-6 py-4">
+                    Service Providers;Third-Party Vendors.
+                  </td>
+                  <td className="px-6 py-4">
+                    <ul>
+                      <li>
+                        • We do not sell this type of category of Personal
+                        Information.
+                      </li>
+                      <li>
+                        • We do share this type of category of Personal
+                        Information with Service Providers and Third-Party
+                        Business Partners.
+                      </li>
+                    </ul>
+                  </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
 
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Commercial Information{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <p> Audio, electronic, visual, thermal,</p> olfactory, or
+                    similar information{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  Service Providers;Third-Party Business Partners.
-                </td>
-                <td className="px-6 py-4">
-                  We do not sell or share this type of category of Personal
-                  Information.{" "}
-                </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4">N/A</td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Internet or other similar network activity{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Inferences drawn from other Personal Information
+                  </th>
 
-                <td className="px-6 py-4">
-                  Service Providers;Third-Party Vendors.
-                </td>
-                <td className="px-6 py-4">
-                  <ul>
-                    <li>
-                      • We do not sell this type of category of Personal
-                      Information.
-                    </li>
-                    <li>
-                      • We do share this type of category of Personal
-                      Information with Service Providers and Third-Party
-                      Business Partners.
-                    </li>
-                  </ul>
-                </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    Service Providers; Third-Party Business Partners
+                  </td>
+                  <td className="px-6 py-4">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  <p> Audio, electronic, visual, thermal,</p> olfactory, or
-                  similar information{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Professional or employment-related information{" "}
+                  </th>
 
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4">N/A</td>
-                <td className="px-6 py-4"></td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Inferences drawn from other Personal Information
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <p> Non-public education information</p>
+                    <p> (per the Family Education Rights and Privacy Act </p>
+                    (20 U.S.C. Section 1232g, 34 C.F.R. Part 99))
+                  </th>
 
-                <td className="px-6 py-4">
-                  Service Providers; Third-Party Business Partners
-                </td>
-                <td className="px-6 py-4">
-                  We do not sell or share this type of category of Personal
-                  Information.{" "}
-                </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Professional or employment-related information{" "}
-                </th>
-
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  <p> Non-public education information</p>
-                  <p> (per the Family Education Rights and Privacy Act </p>
-                  (20 U.S.C. Section 1232g, 34 C.F.R. Part 99))
-                </th>
-
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Sensitive Personal Information{" "}
-                </th>
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4">N/A </td>
-                <td className="px-6 py-4"></td>
-              </tr>
-            </tbody>
-          </table>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Sensitive Personal Information{" "}
+                  </th>
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4">N/A </td>
+                  <td className="px-6 py-4"></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             California residents may have the following rights:{" "}
           </h2>
           <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
+            <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left w-[100%] sm:w-[80%] text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
+              <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
+                  >
+                    Privacy Right{" "}
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
+                  >
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Notice
+                  </th>
 
-          <table className="ml-auto mr-auto mt-5 sm:mt-0 text-sm text-left w-[100%] sm:w-[80%] text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-              <tr>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
+                  <td className="px-6 py-4">
+                    You may have the right have the right to be notified of what
+                    categories of Personal Information will be collected at or
+                    before the point of collection and the purposes for which
+                    they will be used and shared.{" "}
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Privacy Right{" "}
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 bg-[#09162A] text-white  text-center"
-                >
-                  Description
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Notice
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Access
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right have the right to be notified of what
-                  categories of Personal Information will be collected at or
-                  before the point of collection and the purposes for which they
-                  will be used and shared.{" "}
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    You may have the right to request the categories of Personal
+                    Information that we collected in the previous twelve (12)
+                    months, the categories of sources from which the Personal
+                    Information was collected, the specific pieces of Personal
+                    Information we have collected about you, and the business
+                    purposes for which such Personal Information is collected
+                    and shared. You may also have the right to request the
+                    categories of Personal Information which were disclosed for
+                    business purposes, and the categories of third parties in
+                    the twelve (12) months preceding your request for your
+                    Personal Information.
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Access
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Data Portability
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right to request the categories of Personal
-                  Information that we collected in the previous twelve (12)
-                  months, the categories of sources from which the Personal
-                  Information was collected, the specific pieces of Personal
-                  Information we have collected about you, and the business
-                  purposes for which such Personal Information is collected and
-                  shared. You may also have the right to request the categories
-                  of Personal Information which were disclosed for business
-                  purposes, and the categories of third parties in the twelve
-                  (12) months preceding your request for your Personal
-                  Information.
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    You may have the right to receive a copy of your information
+                    in a portable and readily usable format.{" "}
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Data Portability
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Erasure{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right to receive a copy of your information
-                  in a portable and readily usable format.{" "}
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    You may have the right to have your Personal Information
+                    deleted. However, please be aware that we may not fulfill
+                    your request for deletion if we (or our service provider(s))
+                    are required or permitted to retain your Personal
+                    Information for one or more of the following categories of
+                    purposes: (a) to complete a transaction for which the
+                    Personal Information was collected, provide the service
+                    requested by you, or complete a contract between us and you;
+                    (b) to ensure our website integrity, security, and
+                    functionality; (c) to comply with applicable law or a legal
+                    obligation, or exercise rights under the law (including free
+                    speech rights); or (d) to otherwise use your Personal
+                    Information internally, in a lawful manner that is
+                    compatible with the context in which you provided it.{" "}
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Erasure{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Correction{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right to have your Personal Information
-                  deleted. However, please be aware that we may not fulfill your
-                  request for deletion if we (or our service provider(s)) are
-                  required or permitted to retain your Personal Information for
-                  one or more of the following categories of purposes: (a) to
-                  complete a transaction for which the Personal Information was
-                  collected, provide the service requested by you, or complete a
-                  contract between us and you; (b) to ensure our website
-                  integrity, security, and functionality; (c) to comply with
-                  applicable law or a legal obligation, or exercise rights under
-                  the law (including free speech rights); or (d) to otherwise
-                  use your Personal Information internally, in a lawful manner
-                  that is compatible with the context in which you provided it.{" "}
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    You may have the right to request that we correct any
+                    incorrect Personal Information that we collect or retain
+                    about you, subject to certain exceptions. Once we receive
+                    and confirm your verifiable consumer request (see below), we
+                    will correct (and direct any of our service providers that
+                    hold your data on our behalf to correct) your Personal
+                    Information from our records, unless an exception applies.
+                    We may deny your correction request if (a) we believe the
+                    Personal Information we maintain about you is accurate; (b)
+                    correcting the information would be impossible or involve
+                    disproportionate; or (c) if the request conflicts with our
+                    legal obligations.
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Correction{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Automated Decision Making{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right to request that we correct any
-                  incorrect Personal Information that we collect or retain about
-                  you, subject to certain exceptions. Once we receive and
-                  confirm your verifiable consumer request (see below), we will
-                  correct (and direct any of our service providers that hold
-                  your data on our behalf to correct) your Personal Information
-                  from our records, unless an exception applies. We may deny
-                  your correction request if (a) we believe the Personal
-                  Information we maintain about you is accurate; (b) correcting
-                  the information would be impossible or involve
-                  disproportionate; or (c) if the request conflicts with our
-                  legal obligations.
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    You may have the right to request information about the
+                    logic involved in automated decision-making and a
+                    description of the likely outcome of processes, and the
+                    right to opt out. We do not currently engage in any
+                    automated decision making practices.
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  Automated Decision Making{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    <p> To Opt Out of Sales or Sharing </p>of Personal
+                    Information{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  You may have the right to request information about the logic
-                  involved in automated decision-making and a description of the
-                  likely outcome of processes, and the right to opt out. We do
-                  not currently engage in any automated decision making
-                  practices.
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  <td className="px-6 py-4">
+                    We do not sell your Personal Information.If we share your
+                    Personal Information, you have the right to opt out of the
+                    sharing of Personal Information.
+                  </td>
+                </tr>
+                <tr
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                  style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
                 >
-                  <p> To Opt Out of Sales or Sharing </p>of Personal Information{" "}
-                </th>
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    Limit Use of Sensitive Personal Information{" "}
+                  </th>
 
-                <td className="px-6 py-4">
-                  We do not sell your Personal Information.If we share your
-                  Personal Information, you have the right to opt out of the
-                  sharing of Personal Information.
-                </td>
-              </tr>
-              <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
-                style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Limit Use of Sensitive Personal Information{" "}
-                </th>
-
-                <td className="px-6 py-4">
-                  We do not use or disclose Sensitive Personal Information other
-                  than to provide our Service. However, if we used or disclosed
-                  Sensitive Personal Information for other purposes, you would
-                  have the right to limit certain uses of Sensitive Personal
-                  Information.
-                </td>
-              </tr>
-            </tbody>
-          </table>
+                  <td className="px-6 py-4">
+                    We do not use or disclose Sensitive Personal Information
+                    other than to provide our Service. However, if we used or
+                    disclosed Sensitive Personal Information for other purposes,
+                    you would have the right to limit certain uses of Sensitive
+                    Personal Information.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <p className="text-base sm:text-base mb-3 ">
@@ -974,4 +975,4 @@ const Privacypolicy = () => {
   );
 };
 
-export default Privacypolicy;
+export default Page;
