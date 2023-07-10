@@ -6,16 +6,31 @@ const Smartsocialalert = () => {
     <div className="bg-background py-6 sm:py-5">
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
         <h2 className="font-bold  text-[14px]  md:text-[29px]  text-center  sm:my-8  leading-[28px] sm:leading-[38px] text-white">
-          Redefine Engagement with 24/7 Support and Seamless Integration ✓ Stay
+       
+        </h2>
+        <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
+        
+          <div className="p-4 sm:p-[3rem]">
+          <div className="flex justify-start gap-6">
+              <div className="relative w-[90px] h-[35px]">
+                <span className="flex sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl align-bottom font-semibold">
+                  {" "}
+                  &#x2713;
+                </span>
+              </div>
+              <div>
+         
+                <p className="text-white">
+                Redefine Engagement with 24/7 Support and Seamless Integration ✓ Stay
           Connected with 24/7 Support Stay connected with your customers with
           Smart Social. Forget the hassle of managing a round-the-clock support
           team or compromising on quality. With Smart Social, you are always
           present for your customers, across Facebook, Instagram, Twitter, and
           WhatsApp.
-        </h2>
-        <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
-          <div className="p-4 sm:p-[3rem]">
-            <div className="flex justify-start gap-6">
+                </p>
+              </div>
+            </div>
+            <div className="flex justify-start gap-6 mt-6">
               <div className="relative w-[90px] h-[35px]">
                 <span className="flex sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl align-bottom font-semibold">
                   {" "}

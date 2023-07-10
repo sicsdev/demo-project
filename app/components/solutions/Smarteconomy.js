@@ -10,11 +10,11 @@ const Smarteconomy = () => {
             Revolutionize Your Customer Service with Smart Inbox{" "}
           </h1>
           <p className="sm:mt-4 sm:mb-3 mb-3 text-justify">
-            Breathe life into your email management system and never let an
-            inbox message go unanswered again. With Smart Inbox, your responses
-            are proactive, swift, and aligned with your company policies,
-            maintaining SLAs under 5 minutes. Transform customer service into a
-            realm of swift, smart solutions.
+            Revamp Your Customer Support with Smart Social Empower your platform
+            with an AI that never clocks out. Smart Social aids you in
+            efficiently addressing complex customer inquiries, freeing you up to
+            focus on improving customer experience. Reduce your customer service
+            costs and pay only for what you use.
           </p>
         </div>
         <div className=" flex flex-col sm:grid sm:grid-cols-2 justify-evenly items-center gap-10">
@@ -23,9 +23,11 @@ const Smarteconomy = () => {
               24/7 Email Support{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-              Whether it's day or night, no email remains unanswered. Smart
-              Inbox provides 24/7 support to handle all your email tickets
-              promptly, guaranteeing a response time of less than 5 minutes.
+              24/7 Multi-Platform Support Be there for your customers, no matter
+              the platform or hour. Our non-stop support across Facebook,
+              Instagram, Twitter, and WhatsApp ensures you're always within
+              reach. With instant responses, customer satisfaction is only a
+              message away.
             </p>{" "}
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
@@ -44,10 +46,10 @@ const Smarteconomy = () => {
               Intelligent Automation{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-              Utilize the cutting-edge AI models, ChatGPT and GPT-4, to
-              transform your operations. Smart Inbox's intelligent automation
-              reduces time on task, and continually learns from your data for
-              enhanced performance.
+              Intelligent Multilingual Automation Harness the power of advanced
+              AI models, ChatGPT and GPT-4. Smart Social's intelligent
+              automation not only streamlines your operations but also improves
+              as it learns from your data.
             </p>
             <div className=" sm:w-[80%] sm:mt-5 ">
               <div className="w-full  mt-[40px] sm:mt-0">
@@ -65,9 +67,9 @@ const Smarteconomy = () => {
               Seamless Integration{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-              Experience the ease of one-click integration. Connect your
-              payments, CRM, inventory management, and backend systems to Smart
-              Inbox in an instant.
+              Seamless Integrations Experience the ease of plug-and-play with
+              Smart Social. Connect your payments, CRM, inventory management,
+              and backend with a single click.
             </p>{" "}
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
@@ -86,9 +88,7 @@ const Smarteconomy = () => {
               Policy-Specific Training{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-              Make sure your responses reflect your brand. Use our LLM
-              connectors to train Smart Inbox on your FAQs, shipping/return
-              policies, and to tailor your workflows.
+            Customizable Policies Ensure the AI aligns with your brand voice. Train Smart Social on your policies using our LLM connectors, customize your workflows, and maintain a consistent customer experience across platforms."
             </p>
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
@@ -101,7 +101,7 @@ const Smarteconomy = () => {
               </div>
             </div>
           </div>
-          <div className="">
+          {/* <div className="">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
               Transparent, Fair Billing{" "}
@@ -121,7 +121,7 @@ const Smarteconomy = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
