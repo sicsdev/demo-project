@@ -164,7 +164,7 @@ const Socialabovesection = () => {
                   <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
                 <p className="text-white text-[13px] sm:text-[15px] js-show-on-scroll ">
-                Cut your customer service costs, and never look back"                </p>
+                Cut your customer service costs, and never look back               </p>
               </div>
             </div>
           </div>
