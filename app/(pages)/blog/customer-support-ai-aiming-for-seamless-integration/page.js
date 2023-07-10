@@ -1,11 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getSingleBlogsPage } from "@/app/API/pages/Wpdata";
+import { getSingleBlogsPage, getBlogsPage } from "@/app/API/pages/Wpdata";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
 
 const page = () => {
+  const[blog, setBlog] = useState([]);
   const [single, setSingle] = useState("");
   const scrollSlug =
     "/blog/customer-support-ai-aiming-for-seamless-integration";
@@ -14,7 +15,24 @@ const page = () => {
     getSingleBlogsPage(params).then((res) => {
       setSingle(res.data[0]);
     });
+    relatedPosts();
   }, []);
+
+  const relatedPosts=()=>{
+    getBlogsPage().then(
+      (res) => {
+        setBlog(res.data);
+       
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  
+  const filterPosts = blog.filter((x)=>x.id != single.id);
+  console.log("filterposts",filterPosts )
+
   console.log("sing", single);
 
   const removeSpacesAndHyphens = (slug) => {
@@ -128,7 +146,24 @@ const page = () => {
               </li>
             </ul>
           </p>
-
+          <div className="mt-[60px]">
+          <h1
+              id={removeSpacesAndHyphens(single?.acf?.heading6)}
+            className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
+          >
+            Related Articles
+          </h1>
+          <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+          {filterPosts?.map((ele,key)=>
+<>   <Link key={key} href={`/blog/${ele.slug}`}>
+            <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
+           
+            {ele?.title?.rendered}
+            </p>   
+            </Link>     
+          </>   )} 
+        </div>
+          </div>
         </div>
         <div className="hidden sm:block w-[30%]">
           <div

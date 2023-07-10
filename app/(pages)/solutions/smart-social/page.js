@@ -50,7 +50,6 @@ const page = () => {
       <Smartsection />
       <SolutionStandard />
       <SmartAlert/>
-
       <Testimonial />
       {/* <Requestdemo/> */}
       <Smarteconomy />

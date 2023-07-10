@@ -1,22 +1,49 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getArticlePage } from "@/app/API/pages/Wpdata";
+import { getArticlePage, getAllArticles } from "@/app/API/pages/Wpdata";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
 
 
 const page = () => {
-  const [single, setSingle] = useState("");
+  const[article, setArticle]= useState([]);
 
+  const [single, setSingle] = useState("");
+  const scrollSlug =
+  "/article/what-is-tempo";
   useEffect(() => {
-    let params = "tempo-overview-what-is-tempo";
+    let params = "what-is-tempo";
     getArticlePage(params).then((res) => {
       setSingle(res.data[0]);
       console.log("resss", res);
     });
+    relatedPosts();
+
   }, []);
-  console.log("single", single);
+  
+  const relatedPosts=()=>{
+    getAllArticles().then(
+      (res) => {
+        setArticle(res.data.posts);
+       
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  const filterPosts = article.filter((x)=>x.ID != 277);
+console.log("filterposts",filterPosts )
+  console.log("single", single.id);
+  console.log("article", article)
+  const removeSpacesAndHyphens = (slug) => {
+    if (slug) {
+      return slug?.replace(/\s+/g, "_");
+    }
+  };
+
   return (
     <div className="bg-white px-[20px] sm:px-0  sm:pl-[10%] ">
      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
@@ -43,14 +70,23 @@ const page = () => {
                     }}
                   />
                 </div>
+                <p    id={removeSpacesAndHyphens(single?.acf?.first_head)} className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+        {single?.acf?.first_head}
+      </p>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
       dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
     ></p>
+        <p  id={removeSpacesAndHyphens(single?.acf?.sedond_head)} className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+          {single?.acf?.sedond_head}
+        </p>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
       dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }}
     ></p>
+     <p  id={removeSpacesAndHyphens(single?.acf?.third_head)} className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+          {single?.acf?.third_head}
+        </p>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
       dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }}
@@ -106,15 +142,67 @@ const page = () => {
               </li>
             </ul>
           </p>
+          <div className="mt-[60px]">
+          <h1
+            className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
+          >
+            Related Articles
+          </h1>
+          <div className="border-2 rounded-xl mb-[25px] w-[42rem]">
+          {filterPosts?.map((ele,key)=>
+<>   <Link key={key} href={`/article/${ele.slug}`}>
+            <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
+           
+            {ele?.title}
+            </p>   
+            </Link>     
+          </>   )} 
+        </div>
+          </div>
   </div>
-  <div className="w-[30%]">
+  <div className="hidden sm:block w-[30%]">
         
-        <div className="top-0 absolute mt-[130px]">
-        <p className=" hidden sm:block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
+  <div
+            style={{
+              borderLeft: "solid 1px",
+              height: "300px",
+              overflowY: "scroll",
+            }}
+            className="top-0 fixed mt-[130px]"
+          >
+            <p className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
               Table of contents
             </p>
-      
+            <div className=" ml-4  font-medium SideOptions">
+              <div
+                className="group "
+                onClick={(e) => {
+                  
+                }}
+              >
+                   <Link href={
+                  `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.first_head)}`
+                  }>
+                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
+                    {single?.acf?.first_head}
+                  </p>
+                </Link>
+                <Link href={
+                  `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.sedond_head)}`
+                  }>
+                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
+                  {single?.acf?.sedond_head}
+                  </p>
+                </Link>
+                <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.third_head)}`}>
+                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
+                  {single?.acf?.third_head}
+                  </p>
+                </Link>
+                
+              </div>
             </div>
+          </div>
       </div>
         </div>
   </div>
