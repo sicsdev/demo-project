@@ -6,7 +6,7 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            Tempo AIVentures Inc.CompanyPrivacy Notice
+            Tempo AIVentures Inc. CompanyPrivacy Notice
           </h1>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date: 10 July, 2023
@@ -958,7 +958,7 @@ const Page = () => {
             {" "}
             This Privacy Notice is available to consumers with disabilities. To
             access this Privacy Notice in an alternative downloadable format,
-            please go to <span className="text-[blue]" >https://usetempo.ai/privacy-policy-pdf.</span>
+            please go to <span className="text-[blue] cursor-pointer" ><a href="" >  https://usetempo.ai/privacy-policy-pdf.</a></span>
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
