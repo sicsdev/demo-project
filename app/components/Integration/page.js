@@ -76,7 +76,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8 text-[0.875rem]  sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -115,7 +115,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -153,7 +153,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -191,7 +191,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -229,7 +229,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8   text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
@@ -267,7 +267,7 @@ const Integrationedit = (props) => {
             </ul>
             <button
               onClick={() => handlerIssueRefundfalse()}
-              className="py-2 px-8  text-[0.875rem] sm:px-10 mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary ark:focus:ring-yellow-900 rounded-lg"
+              className="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg"
             >
               Back
             </button>
