@@ -24,7 +24,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import { uploadLOgo } from "@/app/API/pages/Bot";
-import { ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, BanknotesIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, BanknotesIcon, ChevronDownIcon, ChevronUpIcon, CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
   const router = useRouter();
   const state = useSelector((state) => state.user.data);
@@ -104,9 +104,9 @@ const Sidebar = ({ children }) => {
       list: []
     },
     {
-      href: "/dashboard/billing",
+      href: "/dashboard/billing/usage",
       name: "Billing",
-      icon: <BanknotesIcon  className="h-6 w-6 text-gray-500" />,
+      icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
       list: [
         {
           href: "/dashboard/billing/usage",
@@ -114,9 +114,14 @@ const Sidebar = ({ children }) => {
           icon: <ArrowDownOnSquareIcon className="h-6 w-6 text-gray-500" />,
         },
         {
-          href: "/dashboard/billing/usage-limit",
-          name: "Usage Limit",
-          icon: <ArrowDownOnSquareStackIcon className="h-6 w-6 text-gray-500" />,
+          href: "/dashboard/billing/daily-limit",
+          name: "Daily Limit",
+          icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+          href: "/dashboard/billing/payment-methods",
+          name: "Payment Methods",
+          icon: <CreditCardIcon  className="h-6 w-6 text-gray-500" />,
         }
       ]
     },
@@ -163,35 +168,31 @@ const Sidebar = ({ children }) => {
   const sendSideBarDetails = (element, key) => {
     if (element.list.length > 0) {
       return <li key={key}>
-        <a
-          onClick={() => { setSubHeading(prev => !prev) }}
-          className={`${pathname === element.href && "bg-linkhover"
-            } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover cursor-pointer`}
-          passHref
+        <Link
+          href={element.href}
+          className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
         >
           {element.icon}
           <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-            {element.name} {subHeading ? <ChevronDownIcon className="h-6 w-6 text-gray-500" /> : <ChevronUpIcon className="h-6 w-6 text-gray-500" />}
+            {element.name} 
           </span>
-        </a>
-        {subHeading && (
-          <ul className="p-3 space-y-2">
-            {element.list.map((ele, key) =>
-              <li key={key}>
-                <Link
-                  href={ele.href}
-                  className={`${pathname === ele.href && "bg-linkhover"
-                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                >
-                  {ele.icon}
-                  <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
-                    {ele.name}
-                  </span>
-                </Link>
-              </li>
-            )}
-          </ul>
-        )}
+        </Link>
+        <ul className="p-3 space-y-2">
+          {element.list.map((ele, key) =>
+            <li key={key}>
+              <Link
+                href={ele.href}
+                className={`${pathname === ele.href && "bg-linkhover"
+                  } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+              >
+                {ele.icon}
+                <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
+                  {ele.name}
+                </span>
+              </Link>
+            </li>
+          )}
+        </ul>
       </li>
     }
     return <li key={key}>
@@ -335,7 +336,7 @@ const Sidebar = ({ children }) => {
           >
             <ul className="space-y-2 font-medium  w-full relative">
               {SideBarRoutes.map((element, key) => (
-               sendSideBarDetails(element, key)
+                sendSideBarDetails(element, key)
               ))}
               <li>
                 <a
