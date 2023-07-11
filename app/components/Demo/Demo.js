@@ -173,7 +173,7 @@ const Demo = () => {
              {hide.second == true ? (
                 <Card
                   className={
-                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute left-[26rem]  bg-white ml-auto mr-auto left-0 right-0"
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute sm:left-[26rem]  bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p
@@ -210,7 +210,7 @@ const Demo = () => {
              {hide.third == true ? (
                 <Card
                   className={
-                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute left-[36rem] bg-white ml-auto mr-auto left-0 right-0"
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute sm:left-[36rem] bg-white ml-auto mr-auto left-0 right-0"
                   }
                 >
                   <p
