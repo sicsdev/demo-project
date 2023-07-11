@@ -125,6 +125,7 @@ const Info = () => {
     setTimer(11);
   };
 
+  
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
