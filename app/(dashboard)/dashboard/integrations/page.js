@@ -86,12 +86,12 @@ const Page = () => {
                   {integrationdata?.count} active integrations
                 </p>
               </div>
-              <div className="flex gap-3">
+              <div className="grid">
                 {integrationdata?.count == 0 ?
                   <p className="cursor-pointer text-sm" onClick={(e) => handleIntegrationButton(null, 'create')}>Configure</p> : (
                     <>
                       <p className="cursor-pointer text-sm" onClick={(e) => handleIntegrationButton(integrationdata?.results?.slice(0, 1)[0], 'update')}>Edit</p>
-                      <p className="cursor-pointer text-sm" onClick={(e) => addAutomationHandler(e)}>Add Automation</p>
+                      <p className="cursor-pointer text-sm mt-2" onClick={(e) => addAutomationHandler(e)}>Add Automation</p>
                     </>
                   )}
               </div>
