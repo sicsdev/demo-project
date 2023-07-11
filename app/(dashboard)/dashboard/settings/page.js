@@ -6,9 +6,6 @@ import BasicDetails from "@/app/components/Forms/BasicDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { state_data } from "@/app/components/Forms/data/FormData";
 import Button from "@/app/components/Common/Button/Button";
-import { getBillingDetails, getPaymentDetails } from "@/app/API/pages/Checkout";
-import Billing from "@/app/components/Stripe/Billing/Billing";
-import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 import Card from "@/app/components/Common/Card/Card";
 import { createEnterpriseAccount } from "@/app/API/pages/EnterpriseService";
 import { fetchProfile } from "@/app/components/store/slices/userSlice";
@@ -32,26 +29,9 @@ const Page = () => {
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(true);
-  const [showBilling, setShowBilling] = useState(false);
   const [basicFormData, setBasicFormData] = useState(null);
-  const getBillingData = async () => {
-    const response = await getPaymentDetails();
-    if (response.results.length > 0) {
-      const customer_id = response.results[0].stripe_id;
-      const resp = await getBillingDetails(customer_id);
-      if (resp?.data.length > 0) {
-        setBasicFormData((prev) => {
-          return {
-            ...prev,
-            card: resp.data[0].card,
-          };
-        });
-      }
-    }
-  };
   useEffect(() => {
     if (state.data) {
-      getBillingData();
       let address = parseAddress(state?.data?.enterprise?.address);
       setBasicFormData({
         business_name: state?.data?.enterprise?.name,
@@ -182,19 +162,6 @@ const Page = () => {
         </>
       ) : (
         <>
-        
-          <Card className={"my-5"}>
-            <h3 className="text-start text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading">
-              Billing
-            </h3>
-            <StripeWrapper>
-              <Billing
-                basicFormData={basicFormData}
-                setShowBilling={setIsEdit}
-                getBillingData={getBillingData}
-              />
-            </StripeWrapper>
-          </Card>
           <Card className={"my-5"}>
             <div className="my-3">
               <BasicDetails
