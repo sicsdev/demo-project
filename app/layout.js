@@ -22,6 +22,9 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://usetempo.ai/tempo-preview.png"
         />
+ <meta name="robots" content="index, follow"></meta>
+
+ <meta name="google-site-verification" content="epzTKCNxl8SueOTxEBd_vbJbXxjcVIgUqH9MvaMoSFA" />
 
         <Script
         id="hotjar"
