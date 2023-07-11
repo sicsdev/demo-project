@@ -44,7 +44,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, backB
         createOrUpdateRecord = await createAutomationRecord(automationFormData, integrationData?.id);
         successMessage = `Automation Created Successfully!`;
       }
-      if (createOrUpdateRecord?.status === 201) {
+      if (createOrUpdateRecord?.status === 201 || createOrUpdateRecord?.status === 200) {
         setLoading(false);
         getAutomations();
         Swal.fire("Success", successMessage, "success");

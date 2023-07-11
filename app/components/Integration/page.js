@@ -73,6 +73,7 @@ const Integrationedit = (props) => {
       setHeaderTitle("Billing Integrations");
     } else {
       props.setEdit(false);
+      props?.setConf(false);
     }
   };
 

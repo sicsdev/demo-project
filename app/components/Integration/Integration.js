@@ -5,24 +5,25 @@ import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import Swal from "sweetalert2";
 import { Input } from '../Common/Input/Input';
 import {
-    addIntegrationData
+    addIntegrationData,
+    updateIntegrationData
 } from "@/app/API/pages/Integration";
 
-export const ConfigureIntegration = ({ fetchIntegrations, setConf }) => {
+export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode }) => {
 
     const [loading, setLoading] = useState(false);
     const [integrationFormData, setIntegrationFormData] = useState({
-        baseUrl: "",
-        provider: "",
-        authType: "",
-        username: "",
-        password: "",
-        apiKey: "",
-        clientkey: "",
-        clientsecret: "",
-        clientkey2: "",
-        clientsecret2: "",
-        clientredirecturl: "",
+        baseUrl: integrationRecord?.http_base || "",
+        provider: integrationRecord?.provider || "",
+        authType: integrationRecord?.http_auth_scheme || "",
+        username: integrationRecord?.data?.username || "",
+        password: integrationRecord?.data?.password || "" || "",
+        apiKey: integrationRecord?.data?.apikey || "",
+        clientkey: integrationRecord?.data?.client_key || "",
+        clientsecret: integrationRecord?.data?.client_secret || "",
+        clientkey2: integrationRecord?.data?.client_secret || "",
+        clientsecret2: integrationRecord?.data?.client_secret || "",
+        clientredirecturl: integrationRecord?.data?.client_redirect_url || "",
     });
 
     const DisablingButton = () => {
@@ -81,56 +82,68 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf }) => {
 
     const handleIntegrationSubmitForm = async (e) => {
         e.preventDefault();
-        let data = {};
-        setLoading(true);
-        switch (integrationFormData?.authType) {
-            case "none":
-                data = {}
-                break;
-            case "auth":
-                data = {
-                    username: integrationFormData?.username,
-                    password: integrationFormData?.password
-                }
-                break;
-            case "api_key":
-                data = {
-                    apikey: integrationFormData?.apiKey,
-                }
-                break;
-            case "oauth1":
-                data = {
-                    client_key: integrationFormData?.clientkey,
-                    client_secret: integrationFormData?.clientsecret,
-                }
-                break;
-            case "oauth2":
-                data = {
-                    client_key: integrationFormData?.clientkey2,
-                    client_secret: integrationFormData?.clientsecret2,
-                    client_redirect_url: integrationFormData?.clientredirecturl,
-                }
-                break;
-            default:
-                break;
-        }
+        try {
+            let data = {};
+            setLoading(true);
+            switch (integrationFormData?.authType) {
+                case "none":
+                    data = {}
+                    break;
+                case "auth":
+                    data = {
+                        username: integrationFormData?.username,
+                        password: integrationFormData?.password
+                    }
+                    break;
+                case "api_key":
+                    data = {
+                        apikey: integrationFormData?.apiKey,
+                    }
+                    break;
+                case "oauth1":
+                    data = {
+                        client_key: integrationFormData?.clientkey,
+                        client_secret: integrationFormData?.clientsecret,
+                    }
+                    break;
+                case "oauth2":
+                    data = {
+                        client_key: integrationFormData?.clientkey2,
+                        client_secret: integrationFormData?.clientsecret2,
+                        client_redirect_url: integrationFormData?.clientredirecturl,
+                    }
+                    break;
+                default:
+                    break;
+            }
 
-        let payload = {
-            type: "BILLING",
-            provider: integrationFormData?.provider,
-            http_auth_scheme: integrationFormData?.authType,
-            http_base: integrationFormData?.baseUrl,
-            data: data
-        }
-        const addIntegration = await addIntegrationData(payload);
-        if (addIntegration?.status === 201) {
+            let payload = {
+                type: "BILLING",
+                provider: integrationFormData?.provider,
+                http_auth_scheme: integrationFormData?.authType,
+                http_base: integrationFormData?.baseUrl,
+                data: data
+            }
+            let configureIntegration;
+            let successMessage;
+            if (mode === 'update') {
+                configureIntegration = await updateIntegrationData(payload, integrationRecord?.id);
+                successMessage = `Integration Update Successfully!`;
+            } else {
+                configureIntegration = await addIntegrationData(payload);
+                successMessage = `Integration Added Successfully!`;
+            }
+            if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
+                setLoading(false);
+                setConf(false);
+                fetchIntegrations();
+                Swal.fire("Success", successMessage, "success");
+            } else {
+                setLoading(false);
+                Swal.fire("Error", "Unable to Proceed!", "error");
+            }
+        } catch (error) {
             setLoading(false);
-            setConf(false);
-            fetchIntegrations();
-            Swal.fire("Success", "Integration Added Successfully!", "success");
-        } else {
-            setLoading(false);
-            Swal.fire("Error", "Unable to add integration!", "error");
         }
     };
 
@@ -371,7 +384,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf }) => {
                         className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                         disabled={DisablingButton()}
                     >
-                        Save
+                        {mode === 'update' ? 'Update' : 'Save'}
                     </Button>
                 )}
             </div>

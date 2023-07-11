@@ -12,6 +12,16 @@ export const addIntegrationData = async (body) => {
     }
 };
 
+export const updateIntegrationData = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/integrations/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
 export const getAllIntegration = async () => {
     let config = returnConfig()
     try {
