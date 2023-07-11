@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getSingleBlogsPage } from "@/app/API/pages/Wpdata";
+import { getSingleBlogsPage,getBlogsPage } from "@/app/API/pages/Wpdata";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
@@ -13,9 +13,21 @@ const page = () => {
     getSingleBlogsPage(params).then((res) => {
       setSingle(res.data[0]);
     });
+    relatedPosts();
   }, []);
   console.log("sing", single);
 
+  const relatedPosts=()=>{
+    getBlogsPage().then(
+      (res) => {
+        setBlog(res.data);
+       
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   const filterPosts = blog.filter((x)=>x.id != single.id);
   console.log("filterposts",filterPosts )
