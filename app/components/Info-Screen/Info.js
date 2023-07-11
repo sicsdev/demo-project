@@ -54,8 +54,8 @@ const Info = () => {
       icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
       content_video: "/tabs/aichat.gif",
-      h3: "Discover a revolution in customer communication with Tempo Chat.",
-      p: "Integrate Tempo Chat seamlessly into your existing infrastructure, and watch as it adapts to reflect your business's unique brand. Capable of processing orders, administering returns, and managing inquiries round-the-clock, Tempo Chat is the comprehensive solution your business needs. The crowning glory? Your customers will remain blissfully unaware they're engaging with an AI.",
+      h3: "Kickstart with Tempo Chat.",
+      p: "Integrate Tempo Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions without revealing its artificial nature.",
     },
     {
       id: "2",
@@ -63,8 +63,8 @@ const Info = () => {
       coming_soon: "",
       icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
       content_video: "/tabs/smartinbox2.gif",
-      h3: "Experience cost savings even when you're off the clock.",
-      p: "Smart Inbox quietly handles your operations in the backdrop, adeptly pacifying disgruntled customers with refunds, preserving subscriptions, and curtailing churn rates. Our blend of highly intelligent AI and human intervention as needed forms the ultimate workforce at your disposal.",
+      h3: "Automate with Smart Inbox.",
+      p: "Harness the power of Smart Inbox, a blend of superior AI and human intervention, working diligently behind the scenes to manage operations and save costs, even after hours.",
     },
 
     {
@@ -74,8 +74,8 @@ const Info = () => {
       icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
       content_video: "/tabs/Billing-GIF.gif",
 
-      h3: "Experience unrivaled clarity with our Transparent Billing.",
-      p: "Say goodbye to unexpected charges. At Tempo, we believe in full transparency. You're billed a straightforward 50 cents per email response and 25 cents per chat response. Payments are only required when predefined usage thresholds are reached. With Tempo, expect fairness, affordability, and no surprises in your billing.",
+      h3: "Simplicity in Billing.",
+      p: "Experience transparent billing with Tempo, where you only pay after hitting predefined usage limits, ensuring affordability and no surprise costs.",
     },
     {
       id: "4",
@@ -84,8 +84,8 @@ const Info = () => {
       content_video: "/tabs/Analytics-Gif.gif",
 
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      h3: "Gain Insight with our Advanced Analytics Dashboard.",
-      p: "Steer your business with confidence, armed with valuable data at your fingertips. Our analytics dashboard provides crucial metrics such as SLAs and response times. These measurable insights allow you to track performance, enhance efficiency, and elevate your customer service experience to new heights. Trust Tempo to illuminate your path to success.",
+      h3: "Upgrade with Smart IVR.",
+      p: "Like leading telecoms, use cutting-edge IVR technology. Auto-identify customers from your CRM data for inbound calls, personalizing interactions and streamlining processes.",
     },
     {
       id: "5",
@@ -94,7 +94,7 @@ const Info = () => {
       icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
       content_video: "/tabs/IVR-Gif-4-30percent.gif",
       h3: "Elevate your customer service with Smart IVR.",
-      p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences. Trust Smart IVR to drive your business towards unparalleled service excellence.",
+      p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences.",
     },
   ];
 
@@ -129,8 +129,7 @@ const Info = () => {
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
         <h2 class="font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
-          <span className="text-[#2563eb]">Replace Your Customer Service</span> Team
-          Today.
+          <span className="text-[#2563eb]">Replace Your CS</span> Team Today.
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">

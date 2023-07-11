@@ -52,14 +52,13 @@ const Iconanimation = () => {
           <div className="col-span-12 sm:col-span-5 bg-gray-300 col_section content">
             <h3
               className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black"
-              style={{ lineHeight: "35px" }}
+              style={{ lineHeight: "39px" }}
+              
             >
-              Integrate with any application in seconds
+            Integrate with your back office in minutes
             </h3>
             <p className="text-heading font-normal text-para text-center pt-3">
-              Tempo Chat and Smart Inbox connect to your ticketing system,
-              payment processor, and CRM. Want to learn more about how Tempo can
-              work for your business? Chat with us today.
+            Tempo Chat, Smart Inbox, and Smart Social connect to your ticketing system, payment processor, and CRM. Want to learn more about how Tempo can work for your business? Chat with us today.
             </p>
             <div className="text-center my-3 flex justify-between items-center flex-col">
               <button
