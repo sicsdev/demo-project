@@ -14,6 +14,11 @@ const Demo = () => {
     let emailInput = document.getElementById("email").value;
     router.push(`/checkout?email=${emailInput}`);
   };
+    const [hide, setHide] = useState({
+    first: false,
+    second: false,
+    third: false,
+  });
 
   const blacklist = [
     "gmail.com",
@@ -68,7 +73,11 @@ const Demo = () => {
   };
 
   return (
-    <div className="mx-auto">
+    <div className="mx-auto"
+      onClick={() =>
+        setHide({ first: false, second: false, third: false, fourth: false })
+      }
+    >
       <Card className={"bg-white"}>
         <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-semibold text-heading">
           Unlock the power of
@@ -111,13 +120,114 @@ const Demo = () => {
         </form>
         <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-[44px]">
           <small className="text-border " style={{ color: "#36454F" }}>
-            0 minute SLA's{" "}
+            0 minute SLA's
+            <span
+            className="cursor-pointer"
+                onMouseOver={(e) => {
+                  e.stopPropagation();
+                  setHide({ first: true });
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHide({ first: true });
+                }}
+            >
+            *
+            </span>
+             {hide.first == true ? (
+                <Card
+                  className={
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-auto mr-auto left-0 right-0"
+                  }
+                >
+                  <p
+                    className="text-heading"
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ first: false });
+                      }, 5000)
+                    }
+                  >
+                    *Average SLA's of under one minute over billing cycles. SLA's over shorter timespans may exceed one minute.
+                  </p>
+                </Card>
+              ) : (
+                ""
+              )}
           </small>
           <small className="text-border " style={{ color: "#36454F" }}>
             24/7 support
+              <span
+            className="cursor-pointer"
+                onMouseOver={(e) => {
+                  e.stopPropagation();
+                  setHide({ second: true });
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHide({ second: true });
+                }}
+            >
+            *
+            </span>
+             {hide.second == true ? (
+                <Card
+                  className={
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute sm:left-[26rem]  bg-white ml-auto mr-auto left-0 right-0"
+                  }
+                >
+                  <p
+                    className="text-heading"
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ second: false });
+                      }, 5000)
+                    }
+                  >
+                    * Tempo may have temporary maintenance and upgrade periods. 24/7 uptime is approximate.
+                  </p>
+                </Card>
+              ) : (
+                ""
+              )}
+            
           </small>
           <small className="text-border " style={{ color: "#36454F" }}>
             No-code setup
+                 <span
+            className="cursor-pointer"
+                onMouseOver={(e) => {
+                  e.stopPropagation();
+                  setHide({ third: true });
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHide({ third: true });
+                }}
+            >
+            *
+            </span>
+             {hide.third == true ? (
+                <Card
+                  className={
+                    "animate-fadeIn w-[320px]	sm:w-[400px]  absolute sm:left-[36rem] bg-white ml-auto mr-auto left-0 right-0"
+                  }
+                >
+                  <p
+                    className="text-heading"
+                    onMouseLeave={() =>
+                      setTimeout(() => {
+                        setHide({ third: false });
+                      }, 5000)
+                    }
+                  >
+                    *Setup for base Tempo product is no-code. API implementations may involve your developer resources.
+                  </p>
+                </Card>
+              ) : (
+                ""
+              )}
+            
           </small>
         </div>
       </Card>

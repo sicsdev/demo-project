@@ -7,6 +7,9 @@ import Smartsection from "@/app/components/solutions/Smartsection";
 import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 import Smarteconomy from "@/app/components/solutions/Smarteconomy";
+import Socialabovesection from "@/app/components/solutions/Socialabovesection";
+import Smartsocialalert from "@/app/components/ChatBots/Smartsocialalert";
+import Smartsocialeconomy from "@/app/components/solutions/smartsocialeconomy";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,12 +50,13 @@ const page = () => {
   
   return (
     <div>
-      <Smartsection />
+      <Socialabovesection />
       <SolutionStandard />
-      <SmartAlert/>
+      <Smartsocialalert/>
+
       <Testimonial />
       {/* <Requestdemo/> */}
-      <Smarteconomy />
+      <Smartsocialeconomy />
     </div>
   );
 };
