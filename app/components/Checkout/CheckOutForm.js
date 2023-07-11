@@ -15,7 +15,7 @@ import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 
 
-const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }) => {
+const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -27,42 +27,14 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
     layout: "tabs"
   }
 
-  const getPaymentIntent = async () => {
-    if (!stripe) {
-      return;
-    }
 
-    // if (!clientSecret?.client_secret) {
-    //   return;
-    // }
-
-    stripe.retrievePaymentIntent(client_secret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }
-  useEffect(() => {
-    getPaymentIntent()
-  }, [stripe]);
   const handleCheckout = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
-        card: elements.getElement(PaymentElement),
+        card: elements.getElement(CardElement),
       });
       if (error) {
         console.log(error)
@@ -124,22 +96,61 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
       // Stripe.js hasn't yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
       return;
-    }
-
+    } 
     setLoading(true);
+    try {
+      const { error } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          return_url: "http://localhost:3000",
+          payment_method_data: {
+            billing_details: {
+              name: 'Jenny Rosen',
+              email: 'jenny.rosen@example.com',
+            }
+          },
+        },
+      });
 
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
-      },
-    });
 
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
+      if (error) {
+        console.log(error)
+        setError([error.message]);
+        setLoading(false);
+        return;
+      }
+
+      let checkoutForm2 = {
+        ...checkoutForm,
+        password_confirm: checkoutForm.password,
+      };
+      // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
+
+      let googleAuthInfoPayload = {
+        ...googleAuthInfo,
+        name: checkoutForm.name,
+        phone: checkoutForm.phone,
+      }
+
+      const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
+
+      if (result.token) {
+        let bodyForSubscribe = {
+          token: paymentId,
+        };
+        const response = await subscribeCustomer(bodyForSubscribe, result.token);
+        if (response) {
+          localStorage.setItem("Token", result.token);
+          router.push("/dashboard");
+        }
+        setError([]);
+      } else {
+        setError(getErrorsArray(result.response.data));
+      }
+    } catch (error) {
+      console.log(error)
+      setError([error.message]);
     }
 
     setLoading(false);
@@ -152,7 +163,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
           className="border rounded px-2 border-gray-100"
           style={{ borderColor: "#80808080" }}
         >
-          {/* <CardElement
+          <CardElement
             className="form-control"
             options={{
               style: {
@@ -166,7 +177,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
                 },
               },
             }}
-          /> */}
+          />
         </div>
 
         {loading && <p className="message">Processing Payment...</p>}

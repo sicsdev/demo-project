@@ -30,12 +30,7 @@ const Checkout = () => {
     access_token: "",
     email: "",
   });
-
-  // Local states for changing testimonials (not using until we have more real testimonials)
-  // const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
-  // const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
   const getPaymentIntent = async () => {
-
     const clientSecret = await createPaymentIntent({ amount: "500" })
     if (clientSecret?.client_secret) {
       setClientSecret(clientSecret?.client_secret)
