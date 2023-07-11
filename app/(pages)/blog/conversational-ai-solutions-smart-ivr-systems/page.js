@@ -6,6 +6,7 @@ import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
 
 const page = () => {
+  const[blog, setBlog] = useState([]);
   const [single, setSingle] = useState("");
   const scrollSlug = "/blog/conversational-ai-solutions-smart-ivr-systems";
   useEffect(() => {
