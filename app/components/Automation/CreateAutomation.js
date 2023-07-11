@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 const CreateAutomation = ({ integrationData, name, createAutomationRecord, backButton, getAutomations, singleAutomationData, mode, updateAutomationRecord, ...rest }) => {
 
   const [automationFormData, setAutomationFormData] = useState({
-    http_type: mode === 'create' ? 'POST' : 'PETCH',
+    http_type: mode === 'create' ? 'POST' : 'PATCH',
     route: singleAutomationData?.route || "",
     policies: singleAutomationData?.policies || "",
     workflow: singleAutomationData?.workflow || "Example Workflow",
@@ -37,6 +37,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, backB
     try {
       let createOrUpdateRecord;
       let successMessage;
+      setLoading(true);
       if (mode === 'update') {
         createOrUpdateRecord = await updateAutomationRecord(automationFormData, singleAutomationData?.id);
         successMessage = `Automation Updated Successfully!`;
