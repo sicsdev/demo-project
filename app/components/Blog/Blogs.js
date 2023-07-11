@@ -3,8 +3,8 @@ import Link from "next/link";
 import React from "react";
 import { useState } from "react";
 
-const Blogs = ({blog,setBlog}) => {
-  console.log("blogggg", blog)
+const Blogs = ({blog}) => {
+  
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 px-4 lg:px-4 mb-6">
       {blog?.slice(1,8).map((item, key) => (

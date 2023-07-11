@@ -13,6 +13,8 @@ import Iconanimation from "@/app/components/Iconanimation/Iconanimation";
 import Trial from "@/app/components/Trial/Trial";
 import Image from "next/image";
 import Link from "next/link";
+import { Helmet } from "react-helmet";
+
 const Pricing = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -66,6 +68,18 @@ const Pricing = () => {
 
   return (
     <div>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <meta
+          name="title"
+          content="Flexible Pricing Plans for Tempo.ai's Customer Support Solutions"
+        />
+    
+        <meta
+          name="description"
+          content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
+        />
+      </Helmet>
       <Container>
         <h1 className="text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold text-heading">
           Choose your plan
@@ -184,7 +198,10 @@ const Pricing = () => {
                   Pay-as-you-go
                 </p>
                 <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
-                 <Link href="/article/pricing-overview"> Pricing details {">"}</Link>
+                  <Link href="/article/pricing-overview">
+                    {" "}
+                    Pricing details {">"}
+                  </Link>
                 </h6>
               </div>
             </div>

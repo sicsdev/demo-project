@@ -1,0 +1,75 @@
+	<?xml version="1.0" encoding="UTF-8"?>
+	
+	-<urlset xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>1.00</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/free-trial</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/solutions/chat-bot</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/pricing</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/login</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/careers</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	-<url>
+	
+	<loc>https://usetempo.ai/terms-of-service</loc>
+	
+	<lastmod>2023-06-27T16:39:03+00:00</lastmod>
+	
+	<priority>0.80</priority>
+	
+	</url>
+	
+	</urlset>
