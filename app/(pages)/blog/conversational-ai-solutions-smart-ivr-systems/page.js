@@ -16,6 +16,10 @@ const page = () => {
   }, []);
   console.log("sing", single);
 
+
+  const filterPosts = blog.filter((x)=>x.id != single.id);
+  console.log("filterposts",filterPosts )
+
   const removeSpacesAndHyphens = (slug) => {
     if (slug) {
       return slug?.replace(/\s+/g, "_");
