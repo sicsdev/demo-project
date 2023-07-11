@@ -31,7 +31,7 @@ const Smartsocialeconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/ticketed_sales.webp"
+                    src="/tabs/aichat.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -52,7 +52,7 @@ const Smartsocialeconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/tips_from_fans.webp"
+                   src="/tabs/Analytics-Gif.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -72,7 +72,7 @@ const Smartsocialeconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/membership_subscriptions.webp"
+                   src="/tabs/three.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -82,18 +82,15 @@ const Smartsocialeconomy = () => {
           <div className="">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
-            Customizable Policies            </h6>
+            Transparent Billing             </h6>
             <p className="sm:mt-4 text-justify">
-           Ensure the AI aligns with your brand voice.
-              Train Smart Social on your policies using our LLM connectors,
-              customize your workflows, and maintain a consistent customer
-              experience across platforms."
+            Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.
             </p>
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/digital_wallet.webp"
+                     src="/tabs/Billing-GIF.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>

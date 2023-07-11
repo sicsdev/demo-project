@@ -31,7 +31,7 @@ const Smarteconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/ticketed_sales.webp"
+                    src="/tabs/smartinbox2.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -53,7 +53,7 @@ const Smarteconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/tips_from_fans.webp"
+                    src="/tabs/Analytics-Gif.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -73,7 +73,7 @@ const Smarteconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/membership_subscriptions.webp"
+                    src="/tabs/three.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -95,7 +95,7 @@ const Smarteconomy = () => {
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/digital_wallet.webp"
+                    src="/tabs/Billing-GIF.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md "
                   />
                 </div>
