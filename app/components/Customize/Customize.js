@@ -101,8 +101,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             }
             addAllowedUrl(id, { elements: ['*'] })
                 .then(res => {
-                    setPreferences({ ...preferences, origins_blocked: res.data.origins_blocked });
-                    setBlockedUrls(res.data.origins_blocked)
+                    setPreferences({ ...preferences, origins_blocked: res.data.origins_blocked ?? '' });
+                    setBlockedUrls(res.data.origins_blocked ?? '')
                 })
         })
     }
