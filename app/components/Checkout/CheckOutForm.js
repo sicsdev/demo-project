@@ -15,7 +15,7 @@ import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 
 
-const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }) => {
+const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
@@ -27,48 +27,39 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
     layout: "tabs"
   }
 
-  const getPaymentIntent = async () => {
-    if (!stripe) {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      // Stripe.js hasn't yet loaded.
+      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
-    // if (!clientSecret?.client_secret) {
-    //   return;
-    // }
+    elements.submit()
 
-    stripe.retrievePaymentIntent(client_secret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
-  }
-  useEffect(() => {
-    getPaymentIntent()
-  }, [stripe]);
-  const handleCheckout = async (e) => {
-    e.preventDefault();
     setLoading(true);
     try {
-      const { error, paymentMethod } = await stripe.createPaymentMethod({
-        type: "card",
-        card: elements.getElement(PaymentElement),
+
+
+      const { client_secret: clientSecret } = await createPaymentIntent({ amount: "500" })
+
+
+      console.log(clientSecret)
+      const confirmStatus = await stripe.confirmPayment({
+        elements,
+        clientSecret,
+        confirmParams: {
+          // Make sure to change this to your payment completion page
+          // return_url: "http://localhost:3000",
+        },
+        redirect: 'if_required',
       });
-      if (error) {
-        console.log(error)
-        setError([error.message]);
+
+      if (confirmStatus.error) {
+        confirmStatus.error.type === "card_error" || confirmStatus.error.type === "validation_error" ? setMessage(confirmStatus.error.message) : setMessage("An unexpected error occurred.");
         setLoading(false);
-        return;
+        return
       }
 
       let checkoutForm2 = {
@@ -85,10 +76,12 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
 
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
 
+      console.log('confirmStatus', confirmStatus)
       if (result.token) {
         let bodyForSubscribe = {
-          token: paymentMethod.id,
+          token: confirmStatus.paymentIntent.payment_method,
         };
+        console.log(bodyForSubscribe)
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
         if (response) {
           localStorage.setItem("Token", result.token);
@@ -98,6 +91,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
       } else {
         setError(getErrorsArray(result.response.data));
       }
+
     } catch (error) {
       console.log(error)
       setError([error.message]);
@@ -106,44 +100,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, }
     setLoading(false);
   };
 
-  function getErrorsArray(data) {
-    const messages = [];
-    for (const key in data) {
-      if (Array.isArray(data[key])) {
-        const title = key.charAt(0).toUpperCase() + key.slice(1);
-        messages.push(...data[key].map((message) => `${title}: ${message}`));
-      }
-    }
-    return messages;
-  }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe.js hasn't yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
-      return;
-    }
-
-    setLoading(true);
-
-    const { error } = await stripe.confirmPayment({
-      elements,
-      confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
-      },
-    });
-
-    if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
-      setMessage("An unexpected error occurred.");
-    }
-
-    setLoading(false);
-  };
   return (
     <>
       <form onSubmit={handleSubmit}>
