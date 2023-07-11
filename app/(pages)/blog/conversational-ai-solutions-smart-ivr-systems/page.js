@@ -95,32 +95,45 @@ const page = () => {
             Want to know more?
           </h1>
           <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-            <ul className="
-            list-disc cursor-pointer" >
+            <ul
+              className="
+            list-disc cursor-pointer"
+            >
+              <Link href="/solutions/tempo-chat">
               <li>
-                <u>Intercom's AI bot - Fin</u>
+                <u>Solutions: Tempo Chat</u>
               </li>
+              </Link>
+              <Link href="/solutions/smart-inbox">
               <li>
-                <u>Intercom's Inbox for customer support</u>
+                <u>Solutions: Smart Inbox</u>
               </li>
+              </Link>
+              <Link href="/solutions/smart-social">
               <li>
-                <u>Intercom for live chat</u>
+                <u>Solutions: Smart Social</u>
               </li>
-              <li>
-                <u>Intercom for self-service support</u>
-              </li>
-              <li>
-                <u>Intercom for targeted messages and campaigns</u>
-              </li>
-              <li>
-                <u>Intercom for customer engagement</u>
-              </li>
-              <li>
-                <u>Intercom for customer intelligence & analytics</u>
-              </li>
+              </Link>
             </ul>
           </p>
-
+          <div className="mt-[60px]">
+          <h1
+              id={removeSpacesAndHyphens(single?.acf?.heading6)}
+            className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
+          >
+            Related Articles
+          </h1>
+          <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
+          {filterPosts?.map((ele,key)=>
+<>   <Link key={key} href={`/blog/${ele.slug}`}>
+            <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
+           
+            {ele?.title?.rendered}
+            </p>   
+            </Link>     
+          </>   )} 
+        </div>
+          </div>
         </div>
         <div className="hidden sm:block w-[30%]">
           <div
