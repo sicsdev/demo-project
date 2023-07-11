@@ -161,15 +161,6 @@ export const addIntegration = async (body) => {
     }
 }
 
-export const getAllIntegration = async () => {
-    let config = returnConfig()
-    try {
-        const response = await axios.get(`${API_URL}/api/v1/main/integrations/`, config);
-        return response.data;
-    } catch (error) {
-        return error
-    }
-};
 export const uploadLOgo = async (body) => {
     let config = returnConfig()
     try {

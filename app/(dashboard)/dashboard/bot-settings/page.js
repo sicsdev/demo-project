@@ -87,6 +87,16 @@ const BotSetting = () => {
         return false
 
     }
+
+    const backButtonhandler = (e) => {
+        if (isEdit === true) {
+            setIsEdit(false);
+        } else {
+            router.push('/dashboard');
+        }
+    };
+
+
     return (
         <div>
             {/* {isEdit == false ?
@@ -97,7 +107,7 @@ const BotSetting = () => {
                     <p className='float-right my-5 cursor-pointer' onClick={() => { setIsEdit(false) }}>Back</p>
                 </>
             } */}
-            <div className="border-b border-primary dark:border-gray-700">
+            <div className="border-b border-primary dark:border-gray-700 flex items-center justify-between">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
                         <a
@@ -109,6 +119,7 @@ const BotSetting = () => {
                         </a>
                     </li>
                 </ul>
+                <button class="p-4 text-[0.875rem]  sm:px-10 lg:mt-4 md:mt-4 sm:mt-0 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary  ark:focus:ring-yellow-900 rounded-lg" onClick={(e) => backButtonhandler(e)}>Back</button>
             </div>
             {dataLoading === true ? <Loading /> :
                 <div className='mt-3'>
