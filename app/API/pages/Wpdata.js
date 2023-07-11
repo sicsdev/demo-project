@@ -34,6 +34,30 @@ export const getBlogsPage = async (body) =>{
   }
 };
 
+export const getArticleCategory= async (body) =>{
+  try{
+    const response = await axios.get(
+      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026350"
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getCareerCategory= async (body) =>{
+  try{
+    const response = await axios.get(
+      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=20466"
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
+
+
+
 export const getAllArticles = async (body) =>{
   try{
     const response = await axios.get(

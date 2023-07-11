@@ -11,8 +11,8 @@ const slides = [
   {
     logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
     background: `bg-sky`,
-    name: "Intercom Overview",
-    slug: "help/intercom-overview",
+    name: "Tempo Overview",
+    slug: "collections/tempo-overview",
     title:
       "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
     authors: "13 authors",
@@ -28,7 +28,7 @@ const slides = [
     authors: "12 authors",
     articles: "58 articles",
     brand: "LabPass",
-    slug: "help/getting-started",
+    slug: "collections/getting-started",
   },
   {
     logo: "https://downloads.intercomcdn.com/i/o/413551/6be00b1bcf7682a45c0283b8/ca6f2b29513a2af85e89c8d1194a4582.png",
@@ -92,8 +92,8 @@ const Help = () => {
     {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
-      name: "Intercom Overview",
-      slug: "help/intercom-overview",
+      name: "Tempo Overview",
+      slug: "help/tempo-overview",
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
       authors: "13 authors",
@@ -125,13 +125,13 @@ const Help = () => {
     {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
-      name: "Intercom Overview",
+      name: "Tempo Overview",
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
       authors: "13 authors",
       articles: "16 articles",
       brand: "Perry",
-      slug: "help/intercom-overview",
+      slug: "help/tempo-overview",
     },
     {
       logo: "https://downloads.intercomcdn.com/i/o/413549/054b6b10aa2d16162599ee15/7f24055579819389d173ef129f9229c1.png",
@@ -158,8 +158,8 @@ const Help = () => {
     {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
-      slug: "help/intercom-overview",
-      name: "Intercom Overview",
+      slug: "help/tempo-overview",
+      name: "Tempo Overview",
 
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
@@ -227,7 +227,7 @@ const Help = () => {
                   <div className="flex flex-col	justify-center w-[100%]">
                     {searchResults.map((ele, key) => (
                       <div key={key}>
-                        <Link href={`help/${ele.first_slug + "" + ele.slug}`}>
+                        <Link href={ele.slug}>
                           <div className="mb-14 shadow p-5 ">
                             <h2 className="font-semibold text-2xl md:text-2xl lg:text-2xl sm:text-2xl text-black mb-3 js-show-on-scroll">
                               {ele.name}
@@ -284,7 +284,7 @@ const Help = () => {
               ""
             )}
             {slides.map((item, key) => (
-              <Link href={`help/help-details?${item?.slug}`} key={key}>
+              <Link href={item?.slug} key={key}>
                 <div
                   className="bg-white shadow-lg rounded-lg p-6"
                   style={{ border: "1px solid #e5e7eb" }}

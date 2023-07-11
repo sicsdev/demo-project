@@ -5,8 +5,8 @@ import { Inter } from "next/font/google";
 import Script from 'next/script'
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
-  title: "Tempo",
-  description: "Customer service ai platform",
+  title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Tempo.ai",
+  description: "Elevate your customer support with Tempo.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
     icon: "favicon.ico",
   },
@@ -22,6 +22,9 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://usetempo.ai/tempo-preview.png"
         />
+ <meta name="robots" content="index, follow"></meta>
+
+ <meta name="google-site-verification" content="epzTKCNxl8SueOTxEBd_vbJbXxjcVIgUqH9MvaMoSFA" />
 
         <Script
         id="hotjar"
@@ -128,6 +131,27 @@ _learnq.push(['account', 'UVQx8p']);
         type="text/javascript"
         async
       />
+
+      
+      <script type="application/ld+json">
+{
+  `"@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Tempo AI Ventures",
+  "image": "https://usetempo.ai/logo.png",
+  "url": "https://usetempo.ai/",
+  "telephone": "8553083676",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "800 Third Avenue",
+    "addressLocality": "New York",
+    "addressRegion": "NY",
+    "postalCode": "10022",
+    "addressCountry": "US"
+  } ` 
+}
+</script>
+  
 
         <link
           href="https://assets.calendly.com/assets/external/widget.css"
