@@ -53,6 +53,7 @@ const Iconanimation = () => {
             <h3
               className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black"
               style={{ lineHeight: "39px" }}
+              
             >
             Integrate with your back office in minutes
             </h3>
