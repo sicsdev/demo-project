@@ -157,13 +157,14 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
                     Base URL
                 </label>
                 <Input
-                    type={"text"}
+                    type={"url"}
                     placeholder={"Enter text..."}
                     className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
                     name="baseUrl"
                     value={integrationFormData.baseUrl}
                     id={"integration_base_url"}
                     onChange={(e) => handleIntegrationInputChange(e)}
+                    required
                 />
                 <p className="text-sm mt-2">
                     Any URL with a querystring will be re-encoded properly.
