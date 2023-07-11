@@ -36,7 +36,17 @@ export const createIntegrationAutomation = async (body, id) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/main/integrations/${id}/automations/`, body, config);
-        console.log("response", response);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+
+export const updateIntegrationAutomation = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/automations/${id}/`, body, config);
         return response;
     } catch (error) {
         return error

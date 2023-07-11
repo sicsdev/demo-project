@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Issue Refund",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Cancel Subscription",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Pause Subscription",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Reactivate Subscription",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Issue Coupon / Promo / Credit",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Add Payment Method",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    }
+]

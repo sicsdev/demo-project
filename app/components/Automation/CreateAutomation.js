@@ -7,23 +7,20 @@ import Button from "@/app/components/Common/Button/Button";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import { Input } from "../Common/Input/Input";
 import Swal from "sweetalert2";
-import {
-  createIntegrationAutomation,
-  addIntegrationData
-} from "@/app/API/pages/Integration";
 
-const CreateAutomation = (props) => {
+
+const CreateAutomation = ({ integrationData, name, createAutomationRecord, backButton, getAutomations, singleAutomationData, mode, updateAutomationRecord, ...rest }) => {
 
   const [automationFormData, setAutomationFormData] = useState({
-    http_type: "",
-    route: "",
-    policies: "",
-    workflow: "",
-    needs_otp: false,
-    payload_data: "",
-    http_url: "",
-    name: "",
-    description: "",
+    http_type: mode === 'create' ? 'POST' : 'PETCH',
+    route: singleAutomationData?.route || "",
+    policies: singleAutomationData?.policies || "",
+    workflow: singleAutomationData?.workflow || "Example Workflow",
+    needs_otp: singleAutomationData?.needs_otp || false,
+    payload_data: singleAutomationData?.payload_data || "",
+    http_url: integrationData?.http_base,
+    name: name,
+    description: singleAutomationData?.description || "This is an example automation",
   });
 
   const [loading, setLoading] = useState(false);
@@ -37,35 +34,36 @@ const CreateAutomation = (props) => {
   };
 
   const createAutomationFormHandler = async (e) => {
-    // e.preventDefault();
-
-    let payload = {
-      ...automationFormData,
-      http_url: "http://example.com/api/endpoint",
-      name: "Example Automation",
-      description: "This is an example automation",
-      http_type: "POST",
-      workflow: "Example Workflow"
-    };
-
-    const addIntegration = await createIntegrationAutomation(payload, '51d5cc99-3134-4464-9de7-0670dec36517');
-    if (addIntegration?.status === 201) {
+    try {
+      let createOrUpdateRecord;
+      let successMessage;
+      if (mode === 'update') {
+        createOrUpdateRecord = await updateAutomationRecord(automationFormData, singleAutomationData?.id);
+        successMessage = `Automation Updated Successfully!`;
+      } else {
+        createOrUpdateRecord = await createAutomationRecord(automationFormData, integrationData?.id);
+        successMessage = `Automation Created Successfully!`;
+      }
+      if (createOrUpdateRecord?.status === 201) {
+        setLoading(false);
+        getAutomations();
+        Swal.fire("Success", successMessage, "success");
+        backButton();
+      } else {
+        setLoading(false);
+        Swal.fire("Error", "Unable to Proceed!", "error");
+      }
+    } catch (error) {
       setLoading(false);
-      Swal.fire("Success", "Automation Added Successfully!", "success");
-      props?.handlerIssueRefundfalse();
-    } else {
-      setLoading(false);
-      Swal.fire("Error", "Unable to add automation!", "error");
     }
-
   };
 
   return (
-    <div class="w-100 mx-auto" >
-      <div class="mb-4">
+    <div className="w-100 mx-auto" >
+      <div className="mb-4">
         <label
-          for="name"
-          class="block text-gray-700 text-sm font-bold mb-2"
+          htmlFor="route_url"
+          className="block text-gray-700 text-sm font-bold mb-2"
         >
           Route URL
         </label>
@@ -83,10 +81,10 @@ const CreateAutomation = (props) => {
         </p>
       </div>
 
-      <div class="mb-4">
+      <div className="mb-4">
         <label
-          for="name"
-          class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+          htmlFor="name"
+          className="flex text-gray-700 text-sm font-bold mb-2 gap-1"
         >
           Action Policies
           <span className="group w-[2px] relative">
@@ -116,10 +114,10 @@ const CreateAutomation = (props) => {
           this action.{" "}
         </p>
       </div>
-      <div class="mb-4">
+      <div className="mb-4">
         <label
-          for="name"
-          class="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+          htmlFor="name"
+          className="flex text-gray-700 text-sm font-bold mb-2 gap-1"
         >
           Example Params Payload{" "}
           <span className="group w-[2px] relative">
@@ -150,10 +148,10 @@ const CreateAutomation = (props) => {
           Example JSON data to verify the action formatting.{" "}
         </p>
       </div>
-      <div class="mb-4 spec">
+      <div className="mb-4 spec">
         <label
-          for="method"
-          class="flex text-gray-700 text-sm font-bold mb-2"
+          htmlFor="method"
+          className="flex text-gray-700 text-sm font-bold mb-2"
         >
           Requires Customer Confirmation?
           <span className="group w-[2px] relative">
@@ -174,6 +172,7 @@ const CreateAutomation = (props) => {
           <input
             type="checkbox"
             value={automationFormData?.needs_otp}
+            checked={automationFormData?.needs_otp === true ? true : false}
             onChange={(e) => { setAutomationFormData((prev) => ({ ...prev, needs_otp: e.target.checked })) }}
           />
           <span className="slider round h-[27px] w-[55px]"></span>
@@ -192,7 +191,7 @@ const CreateAutomation = (props) => {
             disabled={DisablingButton()}
             onClick={(e) => createAutomationFormHandler(e)}
           >
-            Save
+            {mode === 'create' ? "Save" : "Update"}
           </Button>
         )}
       </div>
