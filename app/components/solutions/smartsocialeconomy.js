@@ -5,7 +5,7 @@ const Smartsocialeconomy = () => {
     <div className="bg-white">
       <div className=" mx-auto max-w-[90%] sm:max-w-[90%]   py-10">
         <div className="sm:max-w-[50%] w-full">
-          <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6>
+          {/* <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6> */}
           <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold ">
             Revamp Your Customer Support with Smart Social{" "}
           </h1>
