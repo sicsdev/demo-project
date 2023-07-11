@@ -106,11 +106,11 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
     <>
       <form onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" options={paymentElementOptions} />
-        <div
+        {/* <div
           className="border rounded px-2 border-gray-100"
           style={{ borderColor: "#80808080" }}
         >
-          {/* <CardElement
+          <CardElement
             className="form-control"
             options={{
               style: {
@@ -124,8 +124,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
                 },
               },
             }}
-          /> */}
-        </div>
+          />
+        </div> */}
 
         {loading && <p className="message">Processing Payment...</p>}
         <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
