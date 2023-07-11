@@ -24,9 +24,11 @@ import {
 } from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import { uploadLOgo } from "@/app/API/pages/Bot";
+import { ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, BanknotesIcon, ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
   const router = useRouter();
   const state = useSelector((state) => state.user.data);
+  const [subHeading, setSubHeading] = useState(false)
   const dispatch = useDispatch();
   const pathname = usePathname();
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
@@ -81,21 +83,42 @@ const Sidebar = ({ children }) => {
       href: "/dashboard",
       name: "Home",
       icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+      list: []
     },
     {
       href: "/dashboard/members",
       name: "Members",
       icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+      list: []
     },
     {
       href: "/dashboard/integrations",
       name: "Integrations",
       icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+      list: []
     },
     {
       href: "/dashboard/settings",
       name: "Settings",
       icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
+      list: []
+    },
+    {
+      href: "/dashboard/billing",
+      name: "Billing",
+      icon: <BanknotesIcon  className="h-6 w-6 text-gray-500" />,
+      list: [
+        {
+          href: "/dashboard/billing/usage",
+          name: "Usage",
+          icon: <ArrowDownOnSquareIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+          href: "/dashboard/billing/usage-limit",
+          name: "Usage Limit",
+          icon: <ArrowDownOnSquareStackIcon className="h-6 w-6 text-gray-500" />,
+        }
+      ]
     },
   ];
   const SideBarSetting = [
@@ -136,6 +159,55 @@ const Sidebar = ({ children }) => {
 
     reader.readAsDataURL(file);
   };
+
+  const sendSideBarDetails = (element, key) => {
+    if (element.list.length > 0) {
+      return <li key={key}>
+        <a
+          onClick={() => { setSubHeading(prev => !prev) }}
+          className={`${pathname === element.href && "bg-linkhover"
+            } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover cursor-pointer`}
+          passHref
+        >
+          {element.icon}
+          <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+            {element.name} {subHeading ? <ChevronDownIcon className="h-6 w-6 text-gray-500" /> : <ChevronUpIcon className="h-6 w-6 text-gray-500" />}
+          </span>
+        </a>
+        {subHeading && (
+          <ul className="p-3 space-y-2">
+            {element.list.map((ele, key) =>
+              <li key={key}>
+                <Link
+                  href={ele.href}
+                  className={`${pathname === ele.href && "bg-linkhover"
+                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                >
+                  {ele.icon}
+                  <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
+                    {ele.name}
+                  </span>
+                </Link>
+              </li>
+            )}
+          </ul>
+        )}
+      </li>
+    }
+    return <li key={key}>
+      <Link
+        href={element.href}
+        className={`${pathname === element.href && "bg-linkhover"
+          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+      >
+        {element.icon}
+        <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
+          {element.name}
+
+        </span>
+      </Link>
+    </li>
+  }
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-sidebar">
@@ -258,28 +330,12 @@ const Sidebar = ({ children }) => {
         </div>
         {show && (
           <div
-            className="block sm:hidden lg:hidden md:hidden items-center justify-between text-white  z-50 bg-sidebar text-center  w-full md:w-auto md:order-1"
+            className="block sm:hidden lg:hidden md:hidden items-center justify-between text-white  z-50 bg-sidebar   w-full md:w-auto md:order-1"
             id="navbar-cta"
           >
             <ul className="space-y-2 font-medium  w-full relative">
               {SideBarRoutes.map((element, key) => (
-                <li
-                  key={key}
-                  className="list-none"
-                  onClick={() => setShow((prev) => !prev)}
-                >
-                  <Link
-                    href={element.href}
-                    className={`${
-                      pathname === element.href && "bg-linkhover"
-                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                  >
-                    {/* {element.icon} */}
-                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">
-                      {element.name}
-                    </span>
-                  </Link>
-                </li>
+               sendSideBarDetails(element, key)
               ))}
               <li>
                 <a
@@ -303,21 +359,9 @@ const Sidebar = ({ children }) => {
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
           <ul className="space-y-2 font-medium  w-full relative">
-            {SideBarRoutes.map((element, key) => (
-              <li key={key}>
-                <Link
-                  href={element.href}
-                  className={`${
-                    pathname === element.href && "bg-linkhover"
-                  } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                >
-                  {element.icon}
-                  <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">
-                    {element.name}
-                  </span>
-                </Link>
-              </li>
-            ))}
+            {SideBarRoutes.map((element, key) => sendSideBarDetails(element, key)
+            )}
+
           </ul>
           <div className="absolute bottom-0 w-[90%] text-sm mb-5">
             <ul className="space-y-2 font-medium flex flex-col ">
@@ -332,21 +376,6 @@ const Sidebar = ({ children }) => {
                   </span>
                 </a>
               </li>
-              {/* {SideBarSetting.map((element, key) =>
-                                <li key={key}>
-
-                                    <Link href={element.href} className={`${pathname === element.href && ("bg-linkhover")} flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}>
-
-                                        {element.icon}
-                                        <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">{element.name}</span>
-                                    </Link>
-                                </li>
-                            )} */}
-
-              {/* <li className='text-center'>
-
-                                <Button type={'button'} className={'bg-sidebar text-white text-sm border w-full px-8 mx-auto py-1 border-white'}>Upgrade</Button>
-                            </li> */}
             </ul>
           </div>
         </div>
