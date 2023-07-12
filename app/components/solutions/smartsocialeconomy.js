@@ -25,7 +25,7 @@ const Smartsocialeconomy = () => {
               Be there for your customers, no matter the platform or hour. Our
               non-stop support across Facebook, Instagram, Twitter, and WhatsApp
               ensures you're always within reach. With instant responses,
-              customer satisfaction is only a message away.
+              customer satisfaction is as little as a message away.
             </p>{" "}
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
@@ -41,18 +41,18 @@ const Smartsocialeconomy = () => {
           <div className="">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
-            Intelligent Multilingual Automation             </h6>
+              Intelligent Multilingual Automation{" "}
+            </h6>
             <p className="sm:mt-4 text-justify">
-             Harness the power of advanced
-              AI models, ChatGPT and GPT-4. Smart Social's intelligent
-              automation not only streamlines your operations but also improves
-              as it learns from your data.
+              Harness the power of advanced AI models, ChatGPT and GPT-4. Smart
+              Social's intelligent automation not only streamlines your
+              operations but also improves as it learns from your data.
             </p>
             <div className=" sm:w-[80%] sm:mt-5 ">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                   src="/tabs/Analytics-Gif.gif"
+                    src="/tabs/Analytics-Gif.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -64,15 +64,15 @@ const Smartsocialeconomy = () => {
               Seamless Integration{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-      Experience the ease of plug-and-play with
-              Smart Social. Connect your payments, CRM, inventory management,
-              and backend with a single click.
+              Experience the ease of plug-and-play with Smart Social. Connect
+              your payments, CRM, inventory management, and backend in as little
+              as one click.
             </p>{" "}
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                   src="/tabs/three.gif"
+                    src="/tabs/three.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
@@ -82,15 +82,18 @@ const Smartsocialeconomy = () => {
           <div className="">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
-            Transparent Billing             </h6>
+              Transparent Billing{" "}
+            </h6>
             <p className="sm:mt-4 text-justify">
-            Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.
+              Experience clear and fair billing. At Tempo Chat, you're charged
+              only 25 cents per chat response. It's the simplicity of paying for
+              exactly what you use.
             </p>
             <div className=" sm:w-[80%] sm:mt-5">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                     src="/tabs/Billing-GIF.gif"
+                    src="/tabs/Billing-GIF.gif"
                     className="w-full sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
