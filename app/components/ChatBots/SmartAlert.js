@@ -20,20 +20,21 @@ const SmartAlert = () => {
           Integration{" "}
         </h2>
         <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
-          <div className="p-4 sm:p-[3rem] sm:pl-[0px]">
-            <div className="flex justify-start gap-6">
-              <div className="relative w-[90px] h-[35px]">
-                <span className="flex sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl align-bottom font-semibold">
-                  {" "}
-                  &#x2713;
-                </span>
+          <div className="p-4 pr-[0px] sm:p-[0] sm:pl-[0px]">
+            <div className="flex justify-center items-center mx-auto w-[800px] ">
+              <div className="relative  sm:h-[200px] w-100 sm:w-[543px] flex items-center">
+                <img
+                  src="/first.webp"
+                  className="bg-contains w-full"
+                  fill={true}
+                />
               </div>
-              
-              <div>
-                <h3 className="font-bold  text-[18px] md:text-h5 lg:text-h5 sm:text-h5    text-white">
+
+              <div className="w-[100%]">
+                <h3 className="font-bold  text-[18px] md:text-h5 lg:text-h5 sm:text-h5    text-[#ffff]">
                   Rapid Responses Round-the-Clock{" "}
                 </h3>
-                <p className="text-white">
+                <p className="text-[#e6f7fd]">
                   With Smart Inbox, time is no constraint. Even for extremely
                   complicated requests, count on us for responses within 5
                   minutes, 24/7. Stay ahead with unmatched speed and efficiency
@@ -53,7 +54,7 @@ const SmartAlert = () => {
                   {hide.first == true ? (
                     <Card
                       className={
-                        "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-[41px] sm:ml-[74px] mr-auto left-0 right-0 z-[111]"
+                        "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-[41px] sm:ml-[74px] mr-auto left-[25rem] right-0 z-[111]"
                       }
                     >
                       <p
@@ -75,19 +76,27 @@ const SmartAlert = () => {
                   )}
                 </p>
               </div>
+              <div className="text-center sm:flex sm:items-center"></div>
             </div>
-            <div className="flex justify-start gap-6 mt-6">
-              <div className="relative w-[90px] h-[35px]">
+            <div className="flex  justify-center items-center mx-auto w-[800px] mt-6">
+              <div className="relative h-100 sm:h-[200px] w-100 sm:w-[543px]  flex items-center">
+                <img
+                  src="/second.webp"
+                  className="bg-contains w-full"
+                  fill={true}
+                />
+              </div>
+              {/* <div className="relative w-[90px] h-[35px]">
                 <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
                   {" "}
                   &#x2713;
                 </span>
-              </div>
-              <div>
+              </div> */}
+              <div className="w-[100%]">
                 <h3 className="font-bold text-[18px]  md:text-h5 lg:text-h5 sm:text-h5 text-white">
                   Easy Integration Across Platforms{" "}
                 </h3>
-                <p className="text-white">
+                <p className="text-[#e6f7fd]">
                   We're committed to seamless solutions. Smart Inbox integrates
                   smoothly with your existing inboxes and major ticketing
                   systems including Zoho, Zendesk, Freshdesk, and Gorgias.
@@ -95,33 +104,26 @@ const SmartAlert = () => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-start gap-6 mt-6">
-              <div className="relative w-[90px] h-[35px]">
-                <span className="flex  sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl  align-bottom font-semibold">
-                  {" "}
-                  &#x2713;
-                </span>
+            <div className="flex justify-center items-center w-[800px] mx-auto  mt-6">
+              <div className="relative h-100 sm:h-[200px] w-100 sm:w-[543px]  flex items-center">
+                <img
+                  src="/threeee.webp"
+                  className="bg-contains w-full"
+                  fill={true}
+                />
               </div>
-              <div>
+
+              <div className="w-[100%]">
                 <h3 className="font-bold text-[18px]  md:text-h5 lg:text-h5 sm:text-h5 text-white">
                   Transparent Billing Tailored to You{" "}
                 </h3>
-                <p className="text-white">
+                <p className="text-[#e6f7fd]">
                   With Smart Inbox, we champion fair play. We charge a
                   straightforward rate of 50 cents per email response, providing
                   clarity and simplicity in our billing. Pay only for what you
                   use and nothing more.
                 </p>
               </div>
-            </div>
-          </div>
-          <div className="text-center sm:flex sm:items-center">
-            <div className="relative h-100 sm:h-[363px] w-100 sm:w-[543px]">
-              <Image
-                src="/middle.png"
-                className="bg-contains w-full"
-                fill={true}
-              />
             </div>
           </div>
         </div>
