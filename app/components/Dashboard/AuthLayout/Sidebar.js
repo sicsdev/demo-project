@@ -125,13 +125,7 @@ const Sidebar = ({ children }) => {
           icon: <CreditCardIcon  className="h-6 w-6 text-gray-500" />,
         }
       ]
-    },
-    {
-      href: "/dashboard/recommendations",
-      name: "Recommendations",
-      icon: <HandThumbUpIcon className="h-6 w-6 text-gray-500" />,
-      list: []
-    },
+    }
   ];
   const SideBarSetting = [
     {
