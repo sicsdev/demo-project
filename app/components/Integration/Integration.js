@@ -9,10 +9,11 @@ import {
     updateIntegrationData
 } from "@/app/API/pages/Integration";
 
-export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode }) => {
+export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode, type, ...rest }) => {
 
     const [loading, setLoading] = useState(false);
     const [integrationFormData, setIntegrationFormData] = useState({
+        type: type,
         baseUrl: integrationRecord?.http_base || "",
         provider: integrationRecord?.provider || "",
         authType: integrationRecord?.http_auth_scheme || "",
@@ -118,7 +119,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
             }
 
             let payload = {
-                type: "BILLING",
+                type: integrationFormData?.type,
                 provider: integrationFormData?.provider,
                 http_auth_scheme: integrationFormData?.authType,
                 http_base: integrationFormData?.baseUrl,
@@ -126,6 +127,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
             }
             let configureIntegration;
             let successMessage;
+            
             if (mode === 'update') {
                 configureIntegration = await updateIntegrationData(payload, integrationRecord?.id);
                 successMessage = `Integration Update Successfully!`;
@@ -135,7 +137,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
             }
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 setLoading(false);
-                setConf(false);
+                setConf(null);
                 fetchIntegrations();
                 Swal.fire("Success", successMessage, "success");
             } else {
@@ -149,6 +151,25 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
 
     return (
         <form onSubmit={(e) => handleIntegrationSubmitForm(e)}>
+
+            <div className="mb-4">
+                <label
+                    htmlFor="name"
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                >
+                    Name
+                </label>
+                <Input
+                    type={"text"}
+                    placeholder={"Enter Name"}
+                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
+                    name="name"
+                    value={integrationFormData.name}
+                    id={"integration_name"}
+                    onChange={(e) => handleIntegrationInputChange(e)}
+                />
+            </div>
+
             <div className="mb-4">
                 <label
                     htmlFor="name"
