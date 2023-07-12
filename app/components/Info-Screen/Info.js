@@ -155,7 +155,7 @@ const Info = () => {
                 className="text-sm font-normal"
                 onMouseLeave={() => setHide({ first: false })}
               >
-                "Tempo learns as you and your customers use it. Over time, it
+                Tempo learns as you and your customers use it. Over time, it
                 will expand it's knowledge and be able to answer a higher
                 percentage of customer queries. We think 90% is a good target
                 after ~3 months of heavy usage, but a full CS team replacement
