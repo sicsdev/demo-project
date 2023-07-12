@@ -1,6 +1,5 @@
 'use client'
-import Button from '@/app/components/Common/Button/Button'
-import { AdjustmentsHorizontalIcon, ChevronLeftIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon } from '@heroicons/react/24/outline'
 import { ChevronRightIcon, TicketIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 import {
@@ -13,7 +12,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import SelectField from '@/app/components/Common/Input/SelectField'
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,10 +21,24 @@ ChartJS.register(
   Legend
 );
 const UsageLimit = () => {
+
   const [selectTab, setSelectedTab] = useState(0)
   const options = {
     responsive: true,
     plugins: {
+      tooltip: {
+        enabled: false,
+        mode: 'index',
+        intersect: false,
+        custom: (tooltipModel) => {
+          // Disable tooltip on hover
+          if (tooltipModel.opacity > 0) {
+            // Hide tooltip
+            tooltipModel.opacity = 0;
+          }
+        }
+      },    
+
       title: {
         display: false, // Remove chart title
       },
@@ -58,11 +70,12 @@ const UsageLimit = () => {
         barPercentage: 0.5, // Adjust the width of bars
         categoryPercentage: 0.8, // Adjust the spacing between bars
         label: '',
-        data: [500,400,300,200,100,50,25],
+        data: [500, 400, 300, 200, 100, 50, 25],
         backgroundColor: '#2563eb',
       }
     ],
   };
+
   return (
     <div>
       <div className="border-b border-primary dark:border-gray-700">
@@ -104,36 +117,6 @@ const UsageLimit = () => {
           </div>
           <p className='text-sm text-border '>$1.47/$120.00</p>
         </div>
-        {/* <div className='w-full sm:w-[50%] md:w-[50%] lg:w-[50%] flex justify-start gap-4 my-2'>
-          <SelectField
-            // onChange={handleInputValues}
-            // value={formValues.business_state}
-            name="days"
-            values={["All org members"]}
-            title={""}
-            id={"days"}
-            className="py-3"
-          // error={returnErrorMessage("business_state")}
-          />
-          <SelectField
-            // onChange={handleInputValues}
-            // value={formValues.business_state}
-            name="days"
-            values={["Select a day"]}
-            title={""}
-            id={"days"}
-            className="py-3"
-          // error={returnErrorMessage("business_state")}
-          />
-        </div>
-        <Button
-          type={"button"}
-          className="inline-block mt-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-        // disabled={DisablingButton()}
-        // onClick={(e) => SubmitForm()}
-        >
-          Save
-        </Button> */}
         <p className='text-xs text-heading'>Summary of monetary usage of Tempo across your organization. Results may be delayed.</p>
       </div>
     </div>

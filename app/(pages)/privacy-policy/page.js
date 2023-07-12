@@ -6,14 +6,14 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            Tempo AI Ventures Inc. CompanyPrivacy Notice
+            Tempo AI Ventures Inc. Company Privacy Notice
           </h1>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date: 10 July, 2023
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
-            TempoAIVentures,Inc.(“Tempo”“we,” “us,” or “our”) respect your
+            Tempo AI Ventures, Inc.(“Tempo”“we,” “us,” or “our”) respect your
             privacy. This Privacy Notice describes the processing of Personal
             Information (defined below) that is provided, collected, or shared
             on our websiteand any other sites that link to this Privacy
@@ -22,7 +22,7 @@ const Page = () => {
           </p>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
-            This Noticedoes not apply to Personal Information (defined
+            This Notice does not apply to Personal Information (defined
             below)that we process on behalf of enterprise customersthat
             integrate our chat-bot services or other business offerings
             (“Services”). When you interact with us through our enterprise

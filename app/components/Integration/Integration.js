@@ -10,7 +10,7 @@ import {
 } from "@/app/API/pages/Integration";
 
 export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode, type, ...rest }) => {
-
+    console.log('integrationRecord', integrationRecord)
     const [loading, setLoading] = useState(false);
     const [integrationFormData, setIntegrationFormData] = useState({
         type: type,
@@ -25,6 +25,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
         clientkey2: integrationRecord?.data?.client_secret || "",
         clientsecret2: integrationRecord?.data?.client_secret || "",
         clientredirecturl: integrationRecord?.data?.client_redirect_url || "",
+        name: integrationRecord?.name || ''
     });
 
     const DisablingButton = () => {
@@ -120,6 +121,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
 
             let payload = {
                 type: integrationFormData?.type,
+                name: integrationFormData.name,
                 provider: integrationFormData?.provider,
                 http_auth_scheme: integrationFormData?.authType,
                 http_base: integrationFormData?.baseUrl,
@@ -127,7 +129,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
             }
             let configureIntegration;
             let successMessage;
-            
+
             if (mode === 'update') {
                 configureIntegration = await updateIntegrationData(payload, integrationRecord?.id);
                 successMessage = `Integration Update Successfully!`;

@@ -29,11 +29,7 @@ const BasicDetailsReadOnly = ({ state }) => {
                     </div>
                     <hr className="border-border" />
                     <div className="mt-3">
-                        <h3 className="font-semibold text-xl text-heading">
-                            Business Address :
-                        </h3>
-
-                        <h3 className="font-semibold text-md text-heading mt-3">
+                        <h3 className="font-semibold text-md text-heading ">
                             Business City
                         </h3>
                         <p className="text-sm my-2">{state?.business_city}</p>

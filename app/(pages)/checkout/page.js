@@ -216,7 +216,7 @@ const Checkout = () => {
             </h3>
             <div className="border bg-white rounded-lg border-border">
               {googleAuthInfo.googleLogin ? (
-                <div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
+                <div className="flex justify-start items-center py-4  bg-[#3c6df1]">
                   <span className="text-start text-sm font-normal text-border flex items-center">
                     <img
                       width="25px"
@@ -230,7 +230,7 @@ const Checkout = () => {
                 </div>
               ) : (
                 <div className="flex justify-start gap-4 items-center  pl-5 p-1">
-                  <span className="text-start text-sm font-normal w-[20%] text-black">
+                  <span className="text-start text-sm font-normal w-[100px] text-black">
                     Email
                   </span>
                   <input
@@ -249,7 +249,7 @@ const Checkout = () => {
               )}
 
               <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
-                <span className="text-start text-sm font-normal w-[20%] text-black">
+                <span className="text-start text-sm font-normal w-[100px] text-black">
                   Full Name
                 </span>
                 <input
@@ -265,7 +265,7 @@ const Checkout = () => {
                 />
               </div>
               <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
-                <span className="text-start text-sm font-normal w-[20%] text-black">
+                <span className="text-start text-sm font-normal w-[100px] text-black">
                   Cell Phone
                 </span>
                 <input
@@ -282,8 +282,8 @@ const Checkout = () => {
                 />
               </div>
               {!googleAuthInfo.googleLogin && (
-                <div className="flex justify-start gap-0 sm:gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
-                  <span className="text-start text-sm font-normal w-[20%] text-black">
+                <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
+                  <span className="text-start text-sm font-normal w-[100px] text-black">
                     Password
                   </span>
                   <input
