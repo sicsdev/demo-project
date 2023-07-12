@@ -1,0 +1,22 @@
+[
+    {
+        "name": "Billing",
+        "type": "BILLING",
+        "is_configure": true
+    },
+    {
+        "name": "Shipping",
+        "type": "SHIPPING",
+        "is_configure": false
+    },
+    {
+        "name": "Social Media",
+        "type": "SOCIAL MEDIA",
+        "is_configure": false
+    },
+    {
+        "name": "Custom",
+        "type": "CUSTOM",
+        "is_configure": true
+    }
+]

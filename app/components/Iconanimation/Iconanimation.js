@@ -1,7 +1,11 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import Card from "../Common/Card/Card";
 
 const Iconanimation = () => {
+  const [hide, setHide] = useState({
+    first: false,
+  });
   return (
     <div className="">
       <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll ">
@@ -53,13 +57,45 @@ const Iconanimation = () => {
             <h3
               className="text-center text-2xl md:text-h3 lg:text-h3 sm:text-h3 my-2 font-bold text-black"
               style={{ lineHeight: "39px" }}
-              
             >
-            Integrate with your back office in minutes
+              Integrate with your back office in minutes
             </h3>
-            <p className="text-heading font-normal text-para text-center pt-3">
-            Tempo Chat, Smart Inbox, and Smart Social connect to your ticketing system, payment processor, and CRM. Want to learn more about how Tempo can work for your business? Chat with us today.
+            <p className="text-heading font-normal text-para text-center pt-3 relative" 
+            onMouseLeave={() =>
+              setHide({ first: false })}
+            >
+              Tempo Chat, Smart Inbox, and Smart Social connect to your
+              ticketing system, payment processor, and CRM. Want to learn more
+              about how Tempo can work for your business? Chat with us today.
+              <span
+                className="cursor-pointer"
+                onMouseEnter={(e) => {
+                  e.stopPropagation();
+                  setHide({ first: true });
+                }}
+              >
+                *
+              </span>
+              {hide.first == true ? (
+                <Card
+                  className={
+                    "animate-fadeIn w-[320px]	sm:w-[400px] absolute z-50 top-[30px] bg-white ml-auto mr-auto left-0 right-0"
+                  }
+                >
+                  <p
+                    className="text-heading"
+                    onMouseLeave={() => setHide({ first: false })}
+                  >
+                    Additional configuration needed. Tempo does not yet natively
+                    support all integrations shown on the site; users can add
+                    any custom API configuration they choose.
+                  </p>
+                </Card>
+              ) : (
+                ""
+              )}
             </p>
+
             <div className="text-center my-3 flex justify-between items-center flex-col">
               <button
                 className={

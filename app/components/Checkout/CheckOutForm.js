@@ -128,10 +128,10 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         </div> */}
 
         {loading && <p className="message">Processing Payment...</p>}
-        <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm checkout"
+        <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-primary border border-gray-300 rounded-md shadow-sm checkout"
           disabled={loading || !stripe || !elements}
         >
-          Checkout
+          Start Now
         </Button>
       </form>
 

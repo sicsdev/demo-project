@@ -4,27 +4,32 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Card from "../Common/Card/Card";
 import CreateAutomation from "../Automation/CreateAutomation";
-import autoMationdata from "../../data/automation._data.json";
+
 import {
   getAllAutomations,
   createIntegrationAutomation,
   updateIntegrationAutomation
 } from "@/app/API/pages/Integration";
 import Loading from "@/app/components/Loading/Loading";
+import CustomAutomation from "./Automations/CustomAutomation";
+import { BillingAutomation } from "./Automations/BillingAutomation";
 
-const Integrationedit = (props) => {
+const ManageAutomations = (props) => {
 
   const [isConfigureAutomation, setIsConfigureAutomation] = useState(false);
-  const [headerTitle, setHeaderTitle] = useState("Billing Integrations");
+  const [headerTitle, setHeaderTitle] = useState(`${props?.type} Integrations`);
   const [automationName, setAutomationName] = useState('');
-  const [billingAutomationData, setBillingAutomationData] = useState({});
+  const [billingAutomationData, setBillingAutomationData] = useState([]);
   const [singleAutomationData, setSingleAutomationData] = useState(null);
   const [dataLoader, setDataLoader] = useState(false);
   const [mode, setMode] = useState('create');
 
-  const handleEditButtonhandler = (name, singleData = null, modeType) => {
+  const createUpdateButtonAutomation = (name, singleData = null, modeType, secondTitle = '') => {
     setIsConfigureAutomation(true);
     setHeaderTitle(name);
+    if (secondTitle && secondTitle !== '') {
+      setHeaderTitle(secondTitle);
+    }
     setAutomationName(name);
     setMode(modeType);
     if (singleData) {
@@ -37,43 +42,45 @@ const Integrationedit = (props) => {
   const fetchBillingAutomations = async () => {
     try {
       setDataLoader(true);
-      const data = await getAllAutomations();
+      const data = await getAllAutomations(props?.type);
       setDataLoader(false);
-      setBillingAutomationData(data);
+      let filterData = await filterAutomationRecords(data);
+      setBillingAutomationData(filterData);
     } catch (error) {
       setDataLoader(false);
     }
   };
 
-  const getObjectFromArray = (array, key, value) => {
-    return array.find((item) => item[key] === value);
-  };
-
-  const getObjectIfExists = (array, key, value) => {
-    const foundObject = getObjectFromArray(array, key, value);
-    return foundObject || null; // Return null if the object doesn't exist
-  };
-
-  const checkAutomationExists = (name) => {
-    if (billingAutomationData && billingAutomationData?.results) {
-      const valueExists = getObjectIfExists(billingAutomationData?.results, 'name', name);
-      return valueExists;
-    } else {
-      return null;
-    }
-  };
-
   useEffect(() => {
-    fetchBillingAutomations();
+    if (props?.type !== undefined && props?.type !== "") {
+      fetchBillingAutomations();
+    }
   }, []);
+
+  const filterAutomationRecords = (records) => {
+    const filterData = records?.results.filter((x) => x?.integration?.type === props.type);
+    return filterData;
+  };
 
   const backButtonHandler = (e) => {
     if (isConfigureAutomation === true) {
       setIsConfigureAutomation(false);
-      setHeaderTitle("Billing Integrations");
+      setHeaderTitle(`${props?.type} Integration`);
     } else {
       props.setEdit(false);
-      props?.setConf(false);
+      props?.setConf(null);
+    }
+  };
+
+  const automationView = () => {
+    switch (props?.type) {
+      case "BILLING":
+        return <BillingAutomation automationData={billingAutomationData} automationUpdateButton={createUpdateButtonAutomation} />;
+
+      case "CUSTOM":
+        return <CustomAutomation automationData={billingAutomationData} automationUpdateButton={createUpdateButtonAutomation} />
+      default:
+        return null;
     }
   };
 
@@ -105,6 +112,7 @@ const Integrationedit = (props) => {
           <div className="py-6 pr-6">
             <CreateAutomation
               mode={mode}
+              type={props?.type}
               integrationData={props.integrationData}
               name={automationName}
               updateAutomationRecord={updateIntegrationAutomation}
@@ -114,19 +122,9 @@ const Integrationedit = (props) => {
               singleAutomationData={singleAutomationData}
             />
           </div> : (
-            autoMationdata?.map((item, key) => (
-              <div key={key}>
-                <div className="flex justify-between items-center mt-3">
-                  <div className="">
-                    <h3 className="font-semibold text-md text-heading">{item?.name}</h3>
-                    <p className="text-sm my-2">{checkAutomationExists(item?.name) !== null ? item?.configure_text : item?.not_configured_text}</p>
-                  </div>
-                  {checkAutomationExists(item?.name) !== null ?
-                    <p className="cursor-pointer text-sm" onClick={(e) => handleEditButtonhandler(item?.name, checkAutomationExists(item?.name), 'update')}>Edit</p> : <p className="cursor-pointer text-sm" onClick={(e) => handleEditButtonhandler(item?.name, null, 'create')}>Configure</p>}
-                </div>
-                <hr className="border-border" />
-              </div>
-            ))
+            <>
+              {automationView()}
+            </>
           )}
       </Card>}
 
@@ -134,4 +132,4 @@ const Integrationedit = (props) => {
   );
 };
 
-export default Integrationedit;
+export default ManageAutomations;
