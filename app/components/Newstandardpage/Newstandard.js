@@ -11,7 +11,7 @@ const slides = [
   },
   {
     title: "Plug-and-play integration",
-    text: "Connect your payments, CRM, inventory management, and backend with one click.    ",
+    text: "Connect your payments, CRM, inventory management, and backend with one click.",
     tag: "New",
     astrick: "*",
     astrickdata:
@@ -36,7 +36,11 @@ const Newstandard = () => {
 
   return (
     <div className="bg-background py-8 ">
-      <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
+      <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group"
+      onClick={()=>{
+        setHideHoverData(null)
+      }}
+      >
         <h2 className="text-center  text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-white">
           Extremely powerful automated synergy
         </h2>
@@ -63,8 +67,13 @@ const Newstandard = () => {
               <div className="flex flex-co justify-start items-center gap-4">
                 <p className="text-white text-base sm:text-para opacity-70 js-show-on-scroll relative">
                   {item.text}
+                  
                   <span
                     className="cursor-pointer"
+                    onMouseOver={(e)=>{
+                      e.stopPropagation();
+                      setHideHoverData(key);
+                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       setHideHoverData(key);
@@ -75,12 +84,17 @@ const Newstandard = () => {
                   {hideHoverData === key ? (
                     <Card
                       className={
-                        "animate-fadeIn w-[320px] sm:w-[400px] absolute z-50 top-[70px] bg-white ml-auto mr-auto left-0 right-0"
+                        "animate-fadeIn w-[320px] sm:w-[400px] absolute z-[1111] top-[-90px] sm:top-[75px] bg-white ml-auto sm:mr-[40px] left-0 right-0"
                       }
                     >
                       <p
                         className="text-heading"
-                        onMouseLeave={() => setHideHoverData(null)}
+                        onMouseLeave={() => 
+                          setTimeout(()=>{
+                            setHideHoverData(null)
+
+                          },3000)
+                        }
                       >
                         {item.astrickdata}
                       </p>

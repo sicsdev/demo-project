@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 const Banner = () => {
   return (
-<div class="hidden md:block">
+<div class=" md:block">
     <div className="z-40 text-center p-3 bg-[#142543]">
 
       <h6 className="text-blue-400 text-white xs:flex-row xs:flex-col sm:flex justify-center md:text-para lg:text-para sm:text-para sm:leading-8 gap-2">
