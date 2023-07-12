@@ -1,5 +1,20 @@
 [
     {
+        "name": "Get Customer",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Get Customer Payment History",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
+        "name": "Get Customer Subscription",
+        "configure_text": "Configured",
+        "not_configured_text": "Not configured"
+    },
+    {
         "name": "Issue Refund",
         "configure_text": "Configured",
         "not_configured_text": "Not configured"

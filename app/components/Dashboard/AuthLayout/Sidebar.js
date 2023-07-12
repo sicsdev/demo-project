@@ -13,6 +13,7 @@ import {
   ArrowLeftIcon,
   RocketLaunchIcon,
   ChartBarIcon,
+  HandThumbUpIcon
 } from "@heroicons/react/24/outline";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
@@ -124,6 +125,12 @@ const Sidebar = ({ children }) => {
           icon: <CreditCardIcon  className="h-6 w-6 text-gray-500" />,
         }
       ]
+    },
+    {
+      href: "/dashboard/recommendations",
+      name: "Recommendations",
+      icon: <HandThumbUpIcon className="h-6 w-6 text-gray-500" />,
+      list: []
     },
   ];
   const SideBarSetting = [
