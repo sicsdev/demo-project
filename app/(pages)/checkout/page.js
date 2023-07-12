@@ -181,7 +181,7 @@ const Checkout = () => {
         </div> */}
           <div className="block sm:hidden md:hidden">
             <Card className={"border bg-white border-border "}>
-              <h2 className="text-center sm:text-left text-xl mb-2">Order Summary</h2>
+              <h2 className="sm:text-center sm:text-left text-xl mb-2">Order Summary</h2>
               <hr style={{ borderColor: "#CCCCCC" }}></hr>
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                 <tbody>
@@ -312,11 +312,19 @@ const Checkout = () => {
               >
                 I agree with the{" "}
                 <a
-                  href="/terms"
+                  href="/terms-of-service"
                   className="text-blue-600 dark:text-blue-500 hover:underline"
                   onClick={(e) => handleDownload()}
                 >
-                  terms and conditions
+                  Terms of Service{" "}
+                </a>
+                and{" "}
+                <a
+                  href="/privacy-policy"
+                  className="text-blue-600 dark:text-blue-500 hover:underline"
+                  onClick={(e) => handleDownload()}
+                >
+                  Privacy Policy
                 </a>
                 .
               </label>
@@ -436,7 +444,7 @@ const Checkout = () => {
         </div>
         <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
 
-        <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
+        <p className="mt-2 text-xs sm:text-sm"> All rights reserved 2023 © <span className="text-[blue]">Tempo AI Ventures, Inc.</span></p>
       </Container>
     </div>
   );

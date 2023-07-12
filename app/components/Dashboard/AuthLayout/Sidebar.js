@@ -2,18 +2,18 @@
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import {
-  ShareIcon,
-  WrenchScrewdriverIcon,
-  UserGroupIcon,
-  HomeIcon,
-  QuestionMarkCircleIcon,
-} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../../store/slices/userSlice";
 import Cookies from "js-cookie";
 import { uploadLOgo } from "@/app/API/pages/Bot";
-import { ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, BanknotesIcon, ChevronDownIcon, ChevronUpIcon, CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowDownOnSquareIcon, BanknotesIcon, BriefcaseIcon,
+  ShareIcon,
+  WrenchScrewdriverIcon,
+  UserGroupIcon,
+  HomeIcon,
+  QuestionMarkCircleIcon, BuildingOffice2Icon, ChevronDownIcon, ChevronUpIcon, ClipboardIcon, CreditCardIcon, CurrencyDollarIcon
+} from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
@@ -74,12 +74,6 @@ const Sidebar = ({ children }) => {
       list: []
     },
     {
-      href: "/dashboard/integrations",
-      name: "Integrations",
-      icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
-      list: []
-    },
-    {
       href: "/dashboard/billing/usage",
       name: "Billing",
       icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
@@ -104,6 +98,28 @@ const Sidebar = ({ children }) => {
           name: "Billing Settings",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
           list: []
+        },
+      ]
+    },
+    {
+      href: "/dashboard/workflow/integrations",
+      name: "Workflow",
+      icon: <BuildingOffice2Icon className="h-6 w-6 text-gray-500" />,
+      list: [
+        {
+          href: "/dashboard/workflow/integrations",
+          name: "Integrations",
+          icon: <ShareIcon className="h-6 w-6 text-gray-500" />
+        },
+        {
+          href: "/dashboard/workflow/policies",
+          name: "Policies",
+          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />
+        },
+        {
+          href: "/dashboard/workflow/workflow-builder",
+          name: "WorkFlow Builder",
+          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />
         },
       ]
     },
@@ -270,7 +286,7 @@ const Sidebar = ({ children }) => {
                           </Link>
                         </li>
                       ))}
-                      
+
                       <hr className="text-border border-gray" />
                       <li className="p-2 relative hover:underline flex">
                         <input

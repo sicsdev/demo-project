@@ -6,7 +6,11 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+<<<<<<< HEAD
             Tempo AIVentures Inc. Company Privacy Notice
+=======
+            Tempo AI Ventures Inc. CompanyPrivacy Notice
+>>>>>>> 50c5540f960a77cd37b49aaced474b19984722b3
           </h1>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date: 10 July, 2023

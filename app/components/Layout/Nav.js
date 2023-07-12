@@ -14,14 +14,18 @@ import VerifyEmailBanner from "./VerifyEmailBanner";
 
 const Nav = () => {
   const [show, setShow] = useState(false);
+  const [showmenu, setShowmenu] = useState(false);
+
   const [profile, setProfile] = useState({});
   useEffect(() => {
-    getUserProfile().then((res) => {
-      if (res.email) setProfile(res);
-      console.log(res)
-    }).catch((err) => {
-      console.log(err);
-    })
+    getUserProfile()
+      .then((res) => {
+        if (res.email) setProfile(res);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -45,18 +49,24 @@ const Nav = () => {
               {nav_links.map((element, key) => (
                 <li
                   key={key}
-                  className="py-[15px] h-[60px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                  className="menus_desk py-[15px] h-[60px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                  onMouseEnter={(e) => {
+                    setShowmenu(false);
+                  }}
                 >
-                  <Link href={element.link}>{element.name}</Link>
+                  <Link href={element.link}>
+                    {element.name}
+                  </Link>
                   {element.card.links.length > 0 && (
                     <Card
-                      className={
-                        "animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white"
-                      }
+                      className={`animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white ${
+                        showmenu ? "desk_headermenupopup" : ""
+                      }`}
                     >
                       <List
                         className={"grid grid-cols-2 gap-8"}
                         nav_links={element.card.links}
+                        setShowmenu={setShowmenu}
                       />
                     </Card>
                   )}
@@ -64,20 +74,19 @@ const Nav = () => {
               ))}
             </ul>
             <div className="hidden md:flex flex-row gap-10 items-center ml-auto">
-
-              {profile.email ?
+              {profile.email ? (
                 <>
                   {" "}
                   <p className="text-white">{profile.email}</p>
                 </>
-                :
+              ) : (
                 <Link href={"/login"}>
                   {" "}
                   <p className="text-white">Sign In</p>
                 </Link>
-              }
+              )}
 
-              {profile.email ?
+              {profile.email ? (
                 <Link href={"/dashboard"}>
                   {" "}
                   <button
@@ -87,7 +96,7 @@ const Nav = () => {
                     Dashboard
                   </button>{" "}
                 </Link>
-                :
+              ) : (
                 <Link href={"/free-trial"}>
                   {" "}
                   <button
@@ -97,8 +106,7 @@ const Nav = () => {
                     Get Started
                   </button>{" "}
                 </Link>
-              }
-
+              )}
             </div>
             <div className="flex md:hidden flex-row relative ml-auto cursor-pointer">
               {show === false ? (

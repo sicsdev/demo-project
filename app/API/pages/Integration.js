@@ -32,10 +32,10 @@ export const getAllIntegration = async () => {
     }
 };
 
-export const getAllAutomations = async () => {
+export const getAllAutomations = async (type) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/automations`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/automations?integration__type=${type}`, config);
         return response.data;
     } catch (error) {
         return error

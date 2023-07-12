@@ -9,7 +9,7 @@ import { Input } from "../Common/Input/Input";
 import Swal from "sweetalert2";
 
 
-const CreateAutomation = ({ integrationData, name, createAutomationRecord, backButton, getAutomations, singleAutomationData, mode, updateAutomationRecord, ...rest }) => {
+const CreateAutomation = ({ integrationData, name, createAutomationRecord, backButton, getAutomations, singleAutomationData, mode, updateAutomationRecord, type, ...rest }) => {
 
   const [automationFormData, setAutomationFormData] = useState({
     http_type: mode === 'create' ? 'POST' : 'PATCH',
@@ -19,14 +19,14 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, backB
     needs_otp: singleAutomationData?.needs_otp || false,
     payload_data: singleAutomationData?.payload_data || "",
     http_url: integrationData?.http_base,
-    name: name,
+    name: name || '',
     description: singleAutomationData?.description || "This is an example automation",
   });
 
   const [loading, setLoading] = useState(false);
 
   const DisablingButton = () => {
-    var requiredKeys = ["route", "policies", "payload_data"];
+    var requiredKeys = ["route", "policies", "payload_data", "name"];
 
     return requiredKeys.some(
       (key) => !automationFormData[key] || automationFormData[key].trim() === ""
@@ -58,9 +58,31 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, backB
       setLoading(false);
     }
   };
-
+  console.log("type", type);
   return (
     <div className="w-100 mx-auto" >
+      <div className="mb-4">
+        <label
+          htmlFor="route_url"
+          className="block text-gray-700 text-sm font-bold mb-2"
+        >
+          Title
+        </label>
+        <Input
+          type={"text"}
+          placeholder={"Enter text..."}
+          className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
+          name="name"
+          value={automationFormData?.name}
+          id={"automation_name"}
+          onChange={(e) => { setAutomationFormData((prev) => ({ ...prev, name: e.target.value })) }}
+          disabled={type === "BILLING" ? true : false}
+          required
+        />
+        <p className="text-sm mt-2">
+          You can add automation title here.
+        </p>
+      </div>
       <div className="mb-4">
         <label
           htmlFor="route_url"
