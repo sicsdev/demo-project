@@ -29,7 +29,7 @@ const Smartsocialalert = () => {
               <div>
                 <p className="text-white ml-[-40px] sm:ml-[-62px]">
                   Redefine Engagement with 24/7 Support and Seamless
-                  Integration <span
+                  Integration<span
                 className="cursor-pointer"
                 onMouseOver={(e) => {
                   e.stopPropagation();
