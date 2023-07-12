@@ -92,6 +92,8 @@ export const getArticlePage = async (params) =>{
     return error.response;
   }
 };
+
+
 export const getAllJobs = async (params) => {
   // let config = returnConfig()
   try {
