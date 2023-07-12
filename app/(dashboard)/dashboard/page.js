@@ -23,7 +23,6 @@ const Page = () => {
     const [loading, setLoading] = useState(false)
     const dispatch = useDispatch()
     const [basicFormData, setBasicFormData] = useState({})
-
     const [skeleton, setSkeleton] = useState(true)
     const SubmitForm = async () => {
         setLoading(true)

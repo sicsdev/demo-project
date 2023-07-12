@@ -3,8 +3,7 @@
 @tailwind utilities;
 
 .img-div-1:hover {
-  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%)
-    hue-rotate(510deg) brightness(51%) contrast(196%);
+  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
 }
 
 .img-platform {
@@ -12,15 +11,18 @@
   height: 65px;
   object-fit: contain;
 }
+
 .img-platform-1 {
   width: 90px !important;
-  height: 74px ;
+  height: 74px;
   object-fit: contain;
 }
-.img-platform-whatsapp{
+
+.img-platform-whatsapp {
   width: 90px;
-  height: 80px ;
+  height: 80px;
 }
+
 .rotate-180 {
   transition-timing-function: ease;
   transition-duration: 0.125s;
@@ -34,11 +36,13 @@ pre code.hljs {
 span.hljs-tag {
   font-size: 13px;
 }
+
 .img-div-2 {
   display: flex;
   align-items: center;
   width: 140px;
 }
+
 .img-div-2 img {
   object-fit: contain;
 }
@@ -47,20 +51,26 @@ span.hljs-tag {
 .animation_icon_section .col_section {
   padding: 184px 0px;
 }
+
 .leftimg_sec.animation2 {
   animation: shake 15s infinite;
 }
+
 .leftimg_sec.animation {
   animation: shake2 15s infinite;
 }
+
 .leftimg_sec.animation3 {
   animation: shake3 15s infinite;
 }
+
 @keyframes shake {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   10%,
   30%,
   50%,
@@ -68,6 +78,7 @@ span.hljs-tag {
   90% {
     transform: translateY(-5px);
   }
+
   20%,
   40%,
   60%,
@@ -75,17 +86,21 @@ span.hljs-tag {
     transform: translateY(5px);
   }
 }
+
 @keyframes shake2 {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   20%,
   40%,
   60%,
   80% {
     transform: translateY(-5px);
   }
+
   10%,
   30%,
   50%,
@@ -94,17 +109,21 @@ span.hljs-tag {
     transform: translateY(5px);
   }
 }
+
 @keyframes shake3 {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   20%,
   40%,
   60%,
   80% {
     transform: translateY(-3px);
   }
+
   10%,
   30%,
   50%,
@@ -118,23 +137,28 @@ span.hljs-tag {
   .img-div-2 {
     width: 120px;
   }
+
   .img-platform {
     width: 45px;
     height: 45px;
     object-fit: contain;
   }
+
   .img-platform-1 {
     width: 45px;
     height: 45px;
     object-fit: contain;
   }
+
   .animation_icon_section .col_section.content {
     padding: 0px 0px !important;
   }
+
   .animation_icon_section .col_section {
     padding: 75px 0px;
   }
 }
+
 pre {
   overflow-x: auto;
   white-space: pre-wrap;
@@ -167,21 +191,22 @@ select::-ms-expand {
 
 /* Track */
 .chat-scroll div::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #f1f1f1;
   border-radius: 10px;
 }
- 
+
 /* Handle */
 .chat-scroll div::-webkit-scrollbar-thumb {
-  background: rgb(18, 17, 66); 
+  background: rgb(18, 17, 66);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 .chat-scroll div::-webkit-scrollbar-thumb:hover {
-  background: #555; 
-/* timer animation */
+  background: #555;
+  /* timer animation */
 }
+
 .rainbow {
   align-items: center;
   background-color: #fff;
@@ -227,7 +252,8 @@ select::-ms-expand {
     stroke-dasharray: 920.373;
   }
 }
-.div-anima .bg-black + .rainbow .facet-pill-border rect,
+
+.div-anima .bg-black+.rainbow .facet-pill-border rect,
 .start-rainbow .facet-pill-border rect {
   visibility: visible !important;
 }
@@ -237,26 +263,32 @@ select::-ms-expand {
 }
 
 @media (max-width: 768px) {
-  .img-platform-whatsapp{
-    height: 55px ;
+  .img-platform-whatsapp {
+    height: 55px;
   }
+
   .chatbot_widget {
     display: none;
   }
+
   .facet-pill-border rect {
     animation: opacityChange 12s linear;
   }
+
   .accordion__item:nth-child(2) .mobile_arroww .accordion__button:before,
   .accordion__item:nth-child(3) .mobile_arroww .accordion__button:before {
     display: none;
   }
-  .active.start-rainbow{
+
+  .active.start-rainbow {
     order: -2;
   }
-  .border-animation{
+
+  .border-animation {
     order: -1;
   }
-  .trytempo a  {
+
+  .trytempo a {
     padding-left: 2rem;
     padding-right: 2rem;
     padding-top: 0.5rem;
@@ -268,18 +300,29 @@ select {
   height: 45px !important;
   background-color: #fff;
 }
+
 .trytempo a {
   padding: 2rem;
 }
+
 .calendly-popup iframe {
   height: 105% !important;
 }
 
-.fade-in-image { animation: fadeIn 3s; }
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+.fade-in-image {
+  animation: fadeIn 3s;
 }
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
@@ -319,15 +362,15 @@ select {
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #2196F3;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #2196F3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -341,10 +384,20 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
   display: none;
 }
+
 .myparent input:hover+label {
   text-decoration: underline;
+}
+
+.error_message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
 }

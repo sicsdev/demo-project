@@ -1,50 +1,32 @@
 "use client";
 import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
-import Button from "../../Common/Button/Button";
 import { usePathname, useRouter } from "next/navigation";
 import {
-  CodeBracketSquareIcon,
   ShareIcon,
   WrenchScrewdriverIcon,
   UserGroupIcon,
   HomeIcon,
   QuestionMarkCircleIcon,
-  ArrowLeftIcon,
-  RocketLaunchIcon,
-  ChartBarIcon,
 } from "@heroicons/react/24/outline";
-import { getUserProfile } from "@/app/API/components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../../store/slices/userSlice";
-import {
-  UserCircleIcon,
-  WrenchIcon,
-  QrCodeIcon,
-} from "@heroicons/react/24/outline";
 import Cookies from "js-cookie";
 import { uploadLOgo } from "@/app/API/pages/Bot";
 import { ArrowDownOnSquareIcon, ArrowDownOnSquareStackIcon, BanknotesIcon, ChevronDownIcon, ChevronUpIcon, CreditCardIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
-  const router = useRouter();
   const state = useSelector((state) => state.user.data);
-  const [subHeading, setSubHeading] = useState(false)
   const dispatch = useDispatch();
   const pathname = usePathname();
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
-  const [userProfile, setUserProfile] = useState([]);
   const [base64Data, setBase64Data] = useState({ data: "", state: false });
+  const [showSubTabs, setShowSubTabs] = useState(null);
 
   useEffect(() => {
-    // getUserProfile().then(res => setUserProfile(res.data))
     if (!state) {
       console.log("ccc");
       dispatch(fetchProfile());
     }
-
-    //delete widget from DOM
-    // const chatbot = document.getElementById('chatbot_widget')
-    // if (chatbot) { chatbot.remove() }
   }, [state]);
 
   useEffect(() => {
@@ -98,12 +80,6 @@ const Sidebar = ({ children }) => {
       list: []
     },
     {
-      href: "/dashboard/settings",
-      name: "Settings",
-      icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
-      list: []
-    },
-    {
       href: "/dashboard/billing/usage",
       name: "Billing",
       icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
@@ -121,16 +97,15 @@ const Sidebar = ({ children }) => {
         {
           href: "/dashboard/billing/payment-methods",
           name: "Payment Methods",
-          icon: <CreditCardIcon  className="h-6 w-6 text-gray-500" />,
-        }
+          icon: <CreditCardIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+          href: "/dashboard/billing/settings",
+          name: "Billing Settings",
+          icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
+          list: []
+        },
       ]
-    },
-  ];
-  const SideBarSetting = [
-    {
-      href: "/dashboard/setting",
-      name: "Setting",
-      icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
     },
   ];
 
@@ -170,29 +145,32 @@ const Sidebar = ({ children }) => {
       return <li key={key}>
         <Link
           href={element.href}
+          onClick={() => { setShowSubTabs(prev => { if (prev === key) { return null } return key }) }}
           className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
         >
           {element.icon}
           <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-            {element.name} 
+            {element.name}
           </span>
         </Link>
-        <ul className="p-3 space-y-2">
-          {element.list.map((ele, key) =>
-            <li key={key}>
-              <Link
-                href={ele.href}
-                className={`${pathname === ele.href && "bg-linkhover"
-                  } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-              >
-                {ele.icon}
-                <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
-                  {ele.name}
-                </span>
-              </Link>
-            </li>
-          )}
-        </ul>
+        {showSubTabs === key && (
+          <ul className="p-3 space-y-2">
+            {element.list.map((ele, key) =>
+              <li key={key}>
+                <Link
+                  href={ele.href}
+                  className={`${pathname === ele.href && "bg-linkhover"
+                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                >
+                  {ele.icon}
+                  <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
+                    {ele.name}
+                  </span>
+                </Link>
+              </li>
+            )}
+          </ul>
+        )}
       </li>
     }
     return <li key={key}>
@@ -271,35 +249,32 @@ const Sidebar = ({ children }) => {
 
                   {isOpen && (
                     <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
-                      <li className="m-2">
-                        <p className="text-sm text-heading">
-                          <b>{state?.email}</b>
+                      <li className="text-start p-2">
+                        <p className="text-sm text-heading ml-4">
+                          {state?.email}
                         </p>
                       </li>
-                      {/* 
-                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
-                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
-                                                    <UserCircleIcon className="w-5 h-5 mr-2" />
-                                                    My account
-                                                </p>
-                                            </li>
 
-                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
-                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
-                                                    <WrenchIcon className="w-5 h-5 mr-2" />
-                                                    Settings
-                                                </p>
-                                            </li>
+                      <hr className="text-border border-gray" />
+                      {SideBarRoutes.map((element, key) => (
+                        <li key={key}>
+                          <Link
+                            href={element.href}
 
-                                            <li className='flex hover:bg-gray rounded cursor-pointer px-2'>
-                                                <p className="text-sm text-heading py-2 px-1 flex items-center">
-                                                    <QuestionMarkCircleIcon className="w-5 h-5 mr-2" />
-                                                    Help
-                                                </p>
-                                            </li> */}
-                      <li className="text-center relative hover:underline myparent">
+                            className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                          >
+                            {/* {element.icon} */}
+                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                              {element.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                      
+                      <hr className="text-border border-gray" />
+                      <li className="p-2 relative hover:underline flex">
                         <input
-                          className="inline-block mt-2 cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                           id="multiple_files"
                           type="file"
                           accept="image/*"
@@ -307,21 +282,23 @@ const Sidebar = ({ children }) => {
                           onChange={(e) => handleFileInputChange(e)}
                         />
                         <label
-                          className="inline-block mt-2 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase   leading-normal text-[blue]   transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          className="inline-block ml-4 rounded-full text-xs font-medium uppercase   leading-normal text-heading "
                           for="file_input"
                         >
                           Upload logo
                         </label>
                       </li>
-                      <li className="text-center">
+
+                      <li className="text-start p-2 ">
                         <button
                           type="button"
-                          className="inline-block mt-2 rounded-full bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          className="inline-block  rounded-full ml-4 text-heading"
                           onClick={handleLogout}
                         >
                           Logout
                         </button>
                       </li>
+
                     </ul>
                   )}
                 </div>
