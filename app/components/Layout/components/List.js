@@ -1,7 +1,16 @@
-import Image from "next/image";
+import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
 import React from "react";
-const List = ({ nav_links, className, setShow }) => {
+import { useRouter } from "next/navigation";
+
+const List = ({ nav_links, className, setShow, setShowmenu }) => {
+  const router = useRouter();
+
+  const handlerRedirect = (url) => {
+    setShowmenu(true);
+    router.push(url);
+    setShow(false);
+  };
   return (
     <div className={className}>
       {nav_links?.map((element, key) => (
@@ -17,16 +26,19 @@ const List = ({ nav_links, className, setShow }) => {
           </h3>
           <ul className="mt-5">
             {element.data.map((element, key) => (
-              <li className="cursor-pointer" key={key} 
-            onClick={(e) => setShow(false)}
-            >
-                <Link href={element.link}>
+              <li
+                className="cursor-pointer"
+                key={key}
+                // onClick={(e) => setShow(false)}
+              >
+                {/* <Link href={element.link}> */}
+                <div className="w-100 h-100" onClick={() => handlerRedirect(element.link)}>
                   <div className="hover:bg-gray p-2 rounded-lg flex gap-4 justify-between  items-start">
                     <div className="">
                       <img
                         src={element.icon}
                         alt="menu_icons"
-                        style={{ maxWidth: "22px"}}
+                        style={{ maxWidth: "22px" }}
                       />
                     </div>
                     <div className="w-[100%]">
@@ -38,7 +50,8 @@ const List = ({ nav_links, className, setShow }) => {
                       </p>
                     </div>
                   </div>
-                </Link>
+                </div>
+                {/* </Link> */}
               </li>
             ))}
           </ul>

@@ -74,7 +74,7 @@ const Pricing = () => {
           name="title"
           content="Flexible Pricing Plans for Tempo.ai's Customer Support Solutions"
         />
-    
+
         <meta
           name="description"
           content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
@@ -326,11 +326,15 @@ const Pricing = () => {
       </div>
 
       {/* Pricing section */}
-
-      <Container>
-        <FaqAccordian title={"Frequently Asked Questions"} items={questions} />
-      </Container>
-      <Testimonial />
+      <div className="bg-white">
+        <Container>
+          <FaqAccordian
+            title={"Frequently Asked Questions"}
+            items={questions}
+          />
+        </Container>
+        <Testimonial />
+      </div>
     </div>
   );
 };
