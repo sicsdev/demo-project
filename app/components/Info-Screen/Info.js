@@ -7,6 +7,7 @@ import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { ArrowTrendingUpIcon } from "@heroicons/react/24/outline";
 import { ChatBubbleLeftEllipsisIcon } from "@heroicons/react/24/outline";
 import { DevicePhoneMobileIcon } from "@heroicons/react/24/outline";
+import Card from "../Common/Card/Card";
 
 const Info = () => {
   const slides = [
@@ -55,7 +56,7 @@ const Info = () => {
 
       content_video: "/tabs/aichat.gif",
       h3: "Kickstart with Tempo Chat.",
-      p: "Integrate Tempo Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions without revealing its artificial nature.",
+      p: "Integrate Tempo Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions in perfect english and excellent accuracy.",
     },
     {
       id: "2",
@@ -124,18 +125,86 @@ const Info = () => {
     setActiveTab(index);
     setTimer(11);
   };
-
+  const [hide, setHide] = useState({
+    first: false,
+  });
   return (
     <>
       <div className="bg-white pt-5 sm:pt-8 sm:pb-14 py-0 sm:py-8">
-        <h2 class="hidden sm:block font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
+        <h2
+          class="hidden sm:block font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8 relative text-heading"
+          onMouseLeave={() => setHide({ first: false })}
+        >
           <span className="text-[#2563eb]">Replace Your CS</span> Team Today.
+          <span
+            className="cursor-pointer"
+            onMouseEnter={(e) => {
+              e.stopPropagation();
+              setHide({ first: true });
+            }}
+          >
+            *
+          </span>
+          {hide.first == true ? (
+            <Card
+              className={
+                "animate-fadeIn w-[320px]	sm:w-[400px] absolute z-50 top-[20px] bg-white ml-auto mr-auto right-[220px]"
+              }
+            >
+              <p
+                className="text-sm font-normal"
+                onMouseLeave={() => setHide({ first: false })}
+              >
+                "Tempo learns as you and your customers use it. Over time, it
+                will expand it's knowledge and be able to answer a higher
+                percentage of customer queries. We think 90% is a good target
+                after ~3 months of heavy usage, but a full CS team replacement
+                is not a guarantee or a likely outcome of using Tempo at this
+                time.
+              </p>
+            </Card>
+          ) : (
+            ""
+          )}
         </h2>
-        <h2 class="block sm:hidden font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8  text-heading">
+        <h2
+          class="block sm:hidden font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8 relative text-heading"
+          onMouseLeave={() => setHide({ first: false })}
+        >
           <span className="text-[#2563eb]">
             Replace Your CS <br />
           </span>{" "}
           Team Today.
+          <span
+            className="cursor-pointer"
+            onMouseEnter={(e) => {
+              e.stopPropagation();
+              setHide({ first: true });
+            }}
+          >
+            *
+          </span>
+          {hide.first == true ? (
+            <Card
+              className={
+                "animate-fadeIn w-[320px]	sm:w-[400px] absolute z-50 top-[40px] bg-white ml-auto mr-auto left-0 right-0"
+              }
+            >
+              <p
+                className="text-sm font-normal"
+                onMouseLeave={() => setHide({ first: false })}
+              >
+                "Tempo learns as you and your customers use it. Over time, it
+                will expand it's knowledge and be able to answer a higher
+                percentage of customer queries. We think 90% is a good target
+                after ~3 months of heavy usage, but a full CS team replacement
+                is not a guarantee or a likely outcome of using Tempo at this
+                time.
+              </p>
+            </Card>
+          ) : (
+            ""
+          )}
         </h2>
         <div className="sm:ml-12 sm:mr-6 sm:mt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
           <div className="tabs overflow-x-scroll sm:overflow-visible mx-4 sm:mx-0">
@@ -200,7 +269,7 @@ const Info = () => {
                 <div className="h-[100%] sm:h-[328px] mb-6 sm:mb-0">
                   <img
                     src={tabs[activeTab].content_video}
-                    className="w-100 sm:h-[328px] m-auto rounded-2xl"
+                    className="w-100 h-[200px] sm:h-[328px] m-auto rounded-2xl"
                     style={{ minHeightL: "200px" }}
                   />
                 </div>

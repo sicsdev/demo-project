@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+import Card from "../Common/Card/Card";
 
 const slides = [
   {
-    title: "ChatGPT and GPT-4 Power    ",
+    title: "ChatGPT and GPT-4 Power",
     text: "Harness the latest models to intelligently streamline your operations.    ",
     tag: "New",
+    astrick: "",
+    astrickdata: "",
   },
   {
-    title: "Plug-and-play integration    ",
+    title: "Plug-and-play integration",
     text: "Connect your payments, CRM, inventory management, and backend with one click.    ",
     tag: "New",
+    astrick: "*",
+    astrickdata:
+      "Depending on your CRM and other backend software, a more robust integration involving your developer might be required.",
   },
   {
-    title: "Train on your policies    ",
+    title: "Train on your policies",
     text: "Utilize our LLM connectors to analyze your FAQ and shipping/return policy to customize your workflows.    ",
+    astrick: "",
+    astrickdata: "",
   },
   {
-    title: "Self-learning AI model    ",
+    title: "Self-learning AI model",
     text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
+    astrick: "*",
+    astrickdata:
+      "Day one performance from Tempo is contingent on the files provided. If limited FAQ or Help Center text is provided, it may take longer for the model to learn your workflow.",
   },
 ];
 const Newstandard = () => {
+  const [hideHoverData, setHideHoverData] = useState(null);
+
   return (
     <div className="bg-background py-8 ">
       <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group">
@@ -48,8 +61,33 @@ const Newstandard = () => {
                 )}
               </div>
               <div className="flex flex-co justify-start items-center gap-4">
-                <p className="text-white text-base sm:text-para opacity-70 js-show-on-scroll">
+                <p className="text-white text-base sm:text-para opacity-70 js-show-on-scroll relative">
                   {item.text}
+                  <span
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setHideHoverData(key);
+                    }}
+                  >
+                    {item.astrick}
+                  </span>
+                  {hideHoverData === key ? (
+                    <Card
+                      className={
+                        "animate-fadeIn w-[320px] sm:w-[400px] absolute z-50 top-[70px] bg-white ml-auto mr-auto left-0 right-0"
+                      }
+                    >
+                      <p
+                        className="text-heading"
+                        onMouseLeave={() => setHideHoverData(null)}
+                      >
+                        {item.astrickdata}
+                      </p>
+                    </Card>
+                  ) : (
+                    ""
+                  )}
                 </p>
               </div>
             </div>
