@@ -1,7 +1,12 @@
 import Image from "next/image";
 import React from "react";
+import { useState } from "react";
+import Card from "../Common/Card/Card";
 
 const Tempoalert = () => {
+  const [hide, setHide] = useState({
+    first: false,
+  });
   return (
     <div className="bg-background py-6 sm:py-5">
      <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
@@ -23,7 +28,7 @@ const Tempoalert = () => {
                 <p className="text-white">
                   Stay ahead of the game with Tempo Chat. No need to hire around
                   the clock and overpay while missing your SLAs with subpar
-                  quality. Tempo Chat is always being there when your customers
+                  quality. Tempo Chat is always there when your customers
                   need support.
                 </p>
               </div>
@@ -57,11 +62,41 @@ const Tempoalert = () => {
               <h3 className="font-bold text-[18px]  md:text-h5 lg:text-h5 sm:text-h5 text-white">
                 Clear and Fair Billing: Only Pay for What You Use{" "}
               </h3>
-              <p className="text-white">
+              <p className="text-white relative"
+                          onMouseLeave={() =>
+                            setHide({ first: false })}>
                 At Tempo Chat, transparency is our mantra. Our straightforward
                 billing structure charges only 25 cents per chat response. Enjoy
                 the simplicity of paying only for what you truly use.{" "}
-              </p>
+
+              <span
+                className="cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHide({ first: true });
+                }}
+              >
+                *
+              </span>
+              {hide.first == true ? (
+                <Card
+                  className={
+                    "animate-fadeIn w-[320px] sm:w-[400px] absolute z-50 top-[30px] bg-white ml-auto mr-auto left-0 right-0"
+                  }
+                >
+                  <p
+                    className="text-heading"
+                    onMouseLeave={() => setHide({ first: false })}
+                  >
+                    Usage-based pricing includes customer-initiated interactions. If you would like to limit the number of interactions, you can set a hard spend limit within your profile.
+                  </p>
+                </Card>
+              ) : (
+                ""
+              )}
+            </p>
+
+           
             </div>
           </div>
           </div>

@@ -5,8 +5,8 @@ const Smarteconomy = () => {
     <div className="bg-white">
       <div className=" mx-auto max-w-[90%] sm:max-w-[90%]   py-10">
         <div className="sm:max-w-[50%] w-full">
-          <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6>
-          <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold ">
+          {/* <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6> */}
+          <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl mb-2 font-bold ">
             Revolutionize Your Customer Service with Smart Inbox{" "}
           </h1>
           <p className="sm:mt-4 sm:mb-3 mb-3 text-justify">
@@ -27,18 +27,18 @@ const Smarteconomy = () => {
               Inbox provides 24/7 support to handle all your email tickets
               promptly, guaranteeing a response time of less than 5 minutes.
             </p>{" "}
-            <div className=" sm:w-[80%] sm:mt-5">
+            <div className=" sm:w-[80%] sm:mt-10">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/ticketed_sales.webp"
-                    className="w-full sm:h-[354px] m-auto shadow-md"
+                    src="/tabs/smartinbox2.gif"
+                    className="w-auto sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="">
+          <div className="sm:mt-8">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
               Intelligent Automation{" "}
@@ -49,18 +49,18 @@ const Smarteconomy = () => {
               reduces time on task, and continually learns from your data for
               enhanced performance.
             </p>
-            <div className=" sm:w-[80%] sm:mt-5 ">
+            <div className=" sm:w-[80%] sm:mt-10">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/tips_from_fans.webp"
-                    className="w-full sm:h-[354px] m-auto shadow-md"
+                    src="/tabs/Analytics-Gif.gif"
+                    className="w-auto sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="">
+          <div className="sm:mt-8">
             <h6 class="font-bold text-xl black py-1 text-primary">
               Seamless Integration{" "}
             </h6>
@@ -69,39 +69,19 @@ const Smarteconomy = () => {
               payments, CRM, inventory management, and backend systems to Smart
               Inbox in an instant.
             </p>{" "}
-            <div className=" sm:w-[80%] sm:mt-5">
+            <div className=" sm:w-[80%] sm:mt-10">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/membership_subscriptions.webp"
-                    className="w-full sm:h-[354px] m-auto shadow-md"
+                    src="/tabs/three.gif"
+                    className="w-auto sm:h-[354px] m-auto shadow-md"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <div className="">
-            {" "}
-            <h6 class="font-bold text-xl black py-1 text-primary">
-              Policy-Specific Training{" "}
-            </h6>
-            <p className="sm:mt-4 text-justify">
-              Make sure your responses reflect your brand. Use our LLM
-              connectors to train Smart Inbox on your FAQs, shipping/return
-              policies, and to tailor your workflows.
-            </p>
-            <div className=" sm:w-[80%] sm:mt-5">
-              <div className="w-full  mt-[40px] sm:mt-0">
-                <div className="h-[100%]  mb-6 sm:mb-0">
-                  <img
-                    src="/digital_wallet.webp"
-                    className="w-full sm:h-[354px] m-auto shadow-md"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="">
+       
+          <div className="sm:mt-8">
             {" "}
             <h6 class="font-bold text-xl black py-1 text-primary">
               Transparent, Fair Billing{" "}
@@ -111,12 +91,12 @@ const Smarteconomy = () => {
               you're charged only 50 cents per email response. You only pay for
               what you use - no hidden fees, no fine print.{" "}
             </p>
-            <div className=" sm:w-[80%] sm:mt-5">
+            <div className=" sm:w-[80%] sm:mt-10">
               <div className="w-full  mt-[40px] sm:mt-0">
                 <div className="h-[100%]  mb-6 sm:mb-0">
                   <img
-                    src="/digital_wallet.webp"
-                    className="w-full sm:h-[354px] m-auto shadow-md "
+                    src="/tabs/Billing-GIF.gif"
+                    className="w-auto sm:h-[354px] m-auto shadow-md "
                   />
                 </div>
               </div>

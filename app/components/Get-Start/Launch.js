@@ -9,7 +9,7 @@ const Launch = () => {
             <p className="text-first-section-color text-2xl font-semibold mb-5 sm:mb-7">
               Designed for developers
             </p>
-            <h2 className="mb-5 text-white text-3xl font-bold sm:mb-7">
+            <h2 className="mb-5 text-white text-xl sm:text-3xl font-bold sm:mb-7">
               Launch quickly with powerful and easy-to-use APIs
             </h2>
             <p className="text-gray sm:mb-7">

@@ -3,8 +3,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import axios from "axios";
 const Footer = () => {
-
-  
   const company = [
     "About",
     "Leadership",
@@ -39,84 +37,137 @@ const Footer = () => {
         <div className=" mx-auto lg:max-w-[90%]">
           <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
             <div>
-            <div className="flex justify-between gap-3 flex-col items-start">
-              <div>
-                <h6
-                  dangerouslySetInnerHTML={{
-                    __html: `
+              <div className="flex justify-between gap-3 flex-col items-start">
+                <div>
+                  <h6
+                    dangerouslySetInnerHTML={{
+                      __html: `
              <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
              <span className="underline cursor-pointer text-white">                            Schedule Demo
 
              </span>
              </a>
             `,
-                  }}
-                  className="mb-4  text-white   font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 "
-                ></h6>
-              </div>
-              <div>
-             <div className="flex justify-between gap-3  items-start">
-              <div className="flex justify-between gap-3 flex-col items-start">
-              <div>
-                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                  <Link href="/login">Login</Link>
-                </h6>
-              </div>
-              <div>
-                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                  <Link href="/careers">Careers</Link>
-                </h6>
-              </div>
-              <div>
-                <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                  <Link href="/terms-of-service">Terms of Service</Link>
-                </h6>
-              </div>
-         
-              </div>
-              <div>
-                <div className="flex justify-between gap-3 flex-col items-start">
-                  <div>
-                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/article/pricing-overview">Pricing</Link>
-                    </h6>
+                    }}
+                    className="mb-4  text-white   font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 "
+                  ></h6>
+                </div>
+                <div>
+                  <div className="hidden  sm:flex justify-between gap-3  items-start">
+                    <div className="flex justify-between gap-3 flex-col items-start">
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/login">Login</Link>
+                        </h6>
+                      </div>
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/careers">Careers</Link>
+                        </h6>
+                      </div>
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/terms-of-service">Terms of Service</Link>
+                        </h6>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between gap-3 flex-col items-start">
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/article/pricing-overview">
+                              Pricing
+                            </Link>
+                          </h6>
+                        </div>
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/article/security-overview">
+                              Security
+                            </Link>
+                          </h6>
+                        </div>
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/list-of-subprocessors">
+                              Subprocessors{" "}
+                            </Link>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between gap-3 flex-col items-start">
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/data-processing-agreement">DPA</Link>
+                          </h6>
+                        </div>{" "}
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/privacy-policy">Privacy Policy</Link>
+                          </h6>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/article/security-overview">
-                        Security
-                      </Link>
-                    </h6>
-                  </div>
-                  <div>
-                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/list-of-subprocessors">
-                      Subprocessors                       </Link>
-                    </h6>
-                  </div>
+                  <div className="grid grid-cols-2  sm:hidden justify-between gap-3  items-start">
+                    <div className="flex justify-between gap-3 flex-col items-start">
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/login">Login</Link>
+                        </h6>
+                      </div>
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/careers">Careers</Link>
+                        </h6>
+                      </div>
+                      <div>
+                        <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/terms-of-service">Terms of Service</Link>
+                        </h6>
+                      </div>
+                      <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <Link href="/data-processing-agreement">DPA</Link>
+                          </h6>
+                        </div>
+                    </div>
+                    <div>
+                      <div className="flex justify-between gap-3 flex-col items-start">
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/article/pricing-overview">
+                              Pricing
+                            </Link>
+                          </h6>
+                        </div>
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/article/security-overview">
+                              Security
+                            </Link>
+                          </h6>
+                        </div>
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/list-of-subprocessors">
+                              Subprocessors{" "}
+                            </Link>
+                          </h6>
+                        </div>
+                        <div>
+                          <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                            <Link href="/privacy-policy">Privacy Policy</Link>
+
+                          </h6>
+                        </div>{" "}
+                      </div>
+                    </div>
                   
-                  </div>
-                  </div>
-                  <div>
-                <div className="flex justify-between gap-3 flex-col items-start">
-              
-                  <div>
-                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/data-processing-agreement">
-                        DPA
-                      </Link>
-                    </h6>
-                  </div>    <div>
-                    <h6 className="  text-white   font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-                      <Link href="/privacy-policy">Privacy Policy</Link>
-                    </h6>
-                  </div>
-              
-                  
-                  </div>
                   </div>
                 </div>
-              </div>
               </div>
               <div className="flex">
                 {/* <a href="#!" className="mr-6 text-white dark:text-neutral-200">

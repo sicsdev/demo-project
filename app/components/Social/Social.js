@@ -21,12 +21,13 @@ const Social = () => {
       <div className="my-8  mx-auto max-w-[90%]">
         <h2 className="text-center font-bold mb-4 sm:mb-0 text-2xl text-heading md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 js-show-on-scroll ">
           {/* One platform, infinite possibilities */}
-          All communication channels and in every language
+          {/* All communication channels and in every language  */}
+          Integrates with many support channels and languages
         </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-6 text-center">
+        <div className="grid grid-cols-3 sm:grid-cols-6 text-center">
           {images.map((element, key) => (
             <div
-              className={`${key === 4 ? "w-[63px]" : ""} relative h-auto w-[56px] sm:w-[100px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
+              className={`${key === 4 ? "w-[63px]" : ""} relative h-auto w-[56px] sm:w-[65px] py-4 sm:pt-24 m-auto hover:text-white js-show-on-scroll`}
               key={key}
             >
               <img

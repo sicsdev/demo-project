@@ -1,15 +1,16 @@
-import React,{useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "../Common/Button/Button";
 import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import {ScissorsIcon} from "@heroicons/react/24/outline";
+import { ScissorsIcon } from "@heroicons/react/24/outline";
 import validator from "validator";
+import { useRouter } from "next/navigation";
+
 
 const AboveSection = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
-
 
   const blacklist = [
     "gmail.com",
@@ -39,12 +40,11 @@ const AboveSection = () => {
     "earthlink.net",
   ];
 
-
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      hj('identify', userId, { 
-        Email: email
-    });
+      hj("identify", userId, {
+        Email: email,
+      });
       let payload = {
         event: "Blur-Email",
       };
@@ -72,6 +72,7 @@ const AboveSection = () => {
       }
     }
   };
+  const router = useRouter();
 
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -80,6 +81,11 @@ const AboveSection = () => {
     } else {
       setValidEmail(true);
     }
+  };
+
+  const handleNavigate = () => {
+    let emailInput = document.getElementById("email").value;
+    router.push(`/checkout?email=${emailInput}`);
   };
 
   return (
@@ -119,14 +125,51 @@ const AboveSection = () => {
                   className={
                     "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
                   }
-              disabled={validEmail}
-                
+                  disabled={validEmail}
+                  onClick={handleNavigate}
                 >
-                  Request Demo
+                  Start Now
                 </Button>
               </div>
             </form>
-            <div className=" block sm:hidden mt-4">
+            <div className="mb-10 block sm:hidden my-6">
+              <p className="text-white mt-4 text-[14px] sm:text-[16px]">
+                Actively solving, not just resolving: With Tempo Chat, tackle
+                complicated support tickets head-on. Navigate shipping and
+                fulfillment hurdles to keep your customer journey smooth and
+                satisfying.
+              </p>
+              <div className="flex sm:gap-6 gap-1 sm:flex-row  sm:items-start mt-4 sm:mt-8 sm:justify-between sm:my-5 ">
+                <div className="w-[33%] text-center sm:text-left">
+                  {" "}
+                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+                    {" "}
+                    <ClockIcon className="h-10 w-10 text-[#2563eb]    " />
+                  </div>
+                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px]  js-show-on-scroll">
+                    24/7 chat support with instant responses
+                  </p>
+                </div>
+                <div className="w-[33%] text-center sm:text-left ">
+                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+                    <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
+                  </div>
+                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
+                    Spend cents, not dollars on resolutions
+                  </p>
+                </div>
+                <div className="w-[33%] text-center sm:text-left ">
+                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+                    {" "}
+                    <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
+                  </div>
+                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
+                  Cut your CS costs, and never look back{" "}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="block sm:hidden mt-4">
               <div className="ml-auto mr-auto sm:mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                 <Image
                   src="/tempo-chat.png"
@@ -135,14 +178,15 @@ const AboveSection = () => {
                 />
               </div>
             </div>
-
-            <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-              Actively solving, not just resolving: With Tempo Chat, tackle
-              complicated support tickets head-on. Navigate shipping and
-              fulfillment hurdles to keep your customer journey smooth and
-              satisfying.
-            </p>
-            <div className="flex sm:gap-6 gap-1  sm:flex-row  sm:items-center sm:justify-between my-5 ">
+            <div className="hidden sm:block ">
+              <p className="text-white mt-4 text-[14px] sm:text-[16px]">
+                Actively solving, not just resolving: With Tempo Chat, tackle
+                complicated support tickets head-on. Navigate shipping and
+                fulfillment hurdles to keep your customer journey smooth and
+                satisfying.
+              </p>
+            </div>
+            <div className="hidden sm:flex sm:gap-6 gap-1  sm:flex-row  sm:items-start mt-4 sm:mt-8 sm:justify-between sm:my-5 ">
               <div className="w-[33%] text-center sm:text-left">
                 {" "}
                 <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
@@ -158,7 +202,7 @@ const AboveSection = () => {
                   <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
                 <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                  spend cents, not dollars on resolutions
+                  Spend cents, not dollars on resolutions
                 </p>
               </div>
               <div className="w-[33%] text-center sm:text-left ">
@@ -167,7 +211,7 @@ const AboveSection = () => {
                   <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
                 </div>
                 <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                  cut your CS costs in half, guaranteed{" "}
+                Cut your CS costs, and never look back{" "}
                 </p>
               </div>
             </div>

@@ -348,3 +348,8 @@ input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer
 .myparent input:hover+label {
   text-decoration: underline;
 }
+
+
+.desk_headermenupopup{
+  display: none !important;
+}

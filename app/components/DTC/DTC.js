@@ -31,7 +31,10 @@ const DTC = () => {
             </div>
           ))}
         </div>
+
       </div>
+      <p className="max-w-[90%] m-auto mb-4 sm:mb-0 mt-10 sm:mt-14 text-sm text-center text-[#9CA3AF]">Brands had material preexisting relationship to Tempo</p>
+
     </div>
   );
 };

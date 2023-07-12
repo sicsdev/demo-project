@@ -13,6 +13,7 @@ import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
 import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 import validator from "validator";
 import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
+import { createPaymentIntent } from "@/app/API/pages/Checkout";
 
 const Checkout = () => {
   const router = useRouter();
@@ -22,17 +23,22 @@ const Checkout = () => {
   const [showSummary, setShowSummary] = useState(false);
   const [boxValid, setBoxValid] = useState(true);
 
+  const [clientSecret, setClientSecret] = useState("");
+  const [paymentId, setPaymentId] = useState("");
   const [googleAuthInfo, setGoogleAuthInfo] = useState({
     googleLogin: false,
     access_token: "",
     email: "",
   });
-
-  // Local states for changing testimonials (not using until we have more real testimonials)
-  // const [randomIndex, setRandomIndex] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
-  // const [randomIndex2, setRandomIndex2] = useState(Math.floor(Math.random() * (testimonialsArray.length - 2)))
-
+  const getPaymentIntent = async () => {
+    const clientSecret = await createPaymentIntent({ amount: "500" })
+    if (clientSecret?.client_secret) {
+      setClientSecret(clientSecret?.client_secret)
+      setPaymentId(clientSecret.id)
+    }
+  }
   useEffect(() => {
+    getPaymentIntent()
     searchParams.get("plan")
       ? setPlanQuery(searchParams.get("plan"))
       : setPlanQuery("");
@@ -66,7 +72,13 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     });
   };
-
+  const appearance = {
+    theme: 'stripe',
+  };
+  const options = {
+    clientSecret,
+    appearance,
+  };
   const handleBlur = async (e) => {
     if (validator.isEmail(checkoutForm.email)) {
 
@@ -103,9 +115,9 @@ const Checkout = () => {
 
   return (
     <div className="bg-white">
-    <Container>
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
-        {/* <div className="text-center lg:hidden">
+      <Container>
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
+          {/* <div className="text-center lg:hidden">
           <div
             className="rounded text-center"
             onClick={toggleClass}
@@ -167,208 +179,16 @@ const Checkout = () => {
             )}
           </div>
         </div> */}
-        <div className="block sm:hidden md:hidden">
-          <Card className={"border bg-white border-border "}>
-            <h2 className="text-center sm:text-left text-xl mb-2">Order Summary</h2>
-            <hr style={{ borderColor: "#CCCCCC" }}></hr>
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-              <tbody>
-                <tr className="dark:bg-gray-800 bg-white">
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
-                  >
-                    {planQuery == 1 && "Enterprise Plan"}
-                    {planQuery == 0 && "Starter Plan"}
-                  </th>
-                  <td className="px-6 py-4 text-base">$200 Free Credits</td>
-                </tr>
-              </tbody>
-              <tfoot>
-                <tr className="text-base text-gray-900 bg-white text-black">
-                  <th scope="row" className="px-6 py-3 text-base">
-                    Total Today
-                  </th>
-                  <td className="px-6 py-3">$0</td>
-                </tr>
-              </tfoot>
-            </table>
-          </Card>
-        </div>
-        <div>
-          <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
-            Checkout
-          </h1>
-          <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
-            1. Enter Your Info
-          </h3>
-          <div className="border bg-white rounded-lg border-border">
-            {googleAuthInfo.googleLogin ? (
-              <div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
-                <span className="text-start text-sm font-normal text-border flex items-center">
-                  <img
-                    width="25px"
-                    className="mx-5"
-                    src="/icons/google-g.svg"
-                  ></img>
-                  <div className="flex items-center text-white">
-                    Logged in with {checkoutForm.email}
-                  </div>
-                </span>
-              </div>
-            ) : (
-              <div className="flex justify-start gap-4 items-center  pl-5 p-1">
-                <span className="text-start text-sm font-normal w-[20%] text-border">
-                   Email
-                </span>
-                <input
-                  type={"email"}
-                  placeholder={"Email"}
-                  className={
-                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                  }
-                  name="email"
-                  id={"email"}
-                  onChange={handleFormValues}
-                  onBlur={handleBlur}
-                  value={checkoutForm.email && checkoutForm.email}
-                />
-              </div>
-            )}
-
-            <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
-              <span className="text-start text-sm font-normal w-[20%] text-border">
-                Full Name
-              </span>
-              <input
-                type={"text"}
-                placeholder={"Enter your full name"}
-                className={
-                  "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                }
-                name="name"
-                id={"name"}
-                onChange={handleFormValues}
-                onBlur={handleBlur}
-              />
-            </div>
-            <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
-              <span className="text-start text-sm font-normal w-[20%] text-border">
-                Cell Phone
-              </span>
-              <input
-                type={"number"}
-                placeholder={"Cell Phone"}
-                className={
-                  "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                }
-                min={0}
-                name="phone"
-                id={"mobile"}
-                onChange={handleFormValues}
-                onBlur={handleBlur}
-              />
-            </div>
-            {!googleAuthInfo.googleLogin && (
-              <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
-                <span className="text-start text-sm font-normal w-[20%] text-border">
-                  Password
-                </span>
-                <input
-                  type={"password"}
-                  placeholder={"Password"}
-                  className={
-                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                  }
-                  name="password"
-                  id={"password"}
-                  onChange={handleFormValues}
-                />
-              </div>
-            )}
-          </div>
-          <div className="flex items-center my-6">
-            <input
-              id="link-checkbox"
-              type="checkbox"
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-              onChange={(e) => Abc(e)}
-            />
-            <label
-              htmlFor="link-checkbox"
-              className="ml-2 text-sm font-medium text-border "
-            >
-              I agree with the{" "}
-              <a
-                href="/terms"
-                className="text-blue-600 dark:text-blue-500 hover:underline"
-                onClick={(e) => handleDownload()}
-              >
-                terms and conditions
-              </a>
-              .
-            </label>
-          </div>
-          <div className="flex justify-center flex-col">
-            {userformErrors &&
-              userformErrors.map((error, index) => {
-                return (
-                  <div key={index}>
-                    <p className="text-red-500 text-sm">&#9888; {error}</p>
-                  </div>
-                );
-              })}
-          </div>
-
-          <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
-            2. Select Payment Method
-          </h3>
-          <div className="border border-border rounded-lg p-4 bg-white">
-            <div className="flex items-center justify-between">
-              <div className="payment-element-child">
-                <h3 className="text-sm text-black">Credit or Debit Card</h3>
-                {/* <p className="text-sm text-black mt-1">HSA / FSA accepted</p> */}
-              </div>
-              <Logos />
-            </div>
-
-            <div className="my-3 mb-0 p-3 pb-0">
-              <StripeWrapper>
-                <CheckOutForm
-                  checkoutForm={checkoutForm}
-                  boxValid={boxValid}
-                  setBoxValid={setBoxValid}
-                  googleAuthInfo={googleAuthInfo}
-                />
-              </StripeWrapper>
-            </div>
-
-          </div>
-          <div className="mt-5 ">
-            <p className="text-justify text-xs sm:text-sm">
-              By entering your information, you authorize Tempo AI to
-              automatically charge your card for your usage once your credits
-              according to our{" "}
-              <span className="text-[blue]">
-                <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
-              </span>{" "}
-              To establish your account and verify your payment method, we
-              will charge $1 to your credit card today.
-            </p>
-          </div>
-        </div>
-
-        <div className="hidden lg:block">
-          <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
+          <div className="block sm:hidden md:hidden">
             <Card className={"border bg-white border-border "}>
-              <h2 className="text-left text-xl mb-2">Order Summary</h2>
+              <h2 className="sm:text-center sm:text-left text-xl mb-2">Order Summary</h2>
               <hr style={{ borderColor: "#CCCCCC" }}></hr>
               <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                 <tbody>
                   <tr className="dark:bg-gray-800 bg-white">
                     <th
                       scope="row"
-                      className="px-6 pl-0 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
                     >
                       {planQuery == 1 && "Enterprise Plan"}
                       {planQuery == 0 && "Starter Plan"}
@@ -377,8 +197,8 @@ const Checkout = () => {
                   </tr>
                 </tbody>
                 <tfoot>
-                  <tr className="text-base text-gray-900 bg-white text-black text-black">
-                    <th scope="row" className="px-6 pl-0 py-3 text-base">
+                  <tr className="text-base text-gray-900 bg-white text-black">
+                    <th scope="row" className="px-6 py-3 text-base">
                       Total Today
                     </th>
                     <td className="px-6 py-3">$0</td>
@@ -386,8 +206,210 @@ const Checkout = () => {
                 </tfoot>
               </table>
             </Card>
+          </div>
+          <div>
+            <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
+              Checkout
+            </h1>
+            <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
+              1. Enter Your Info
+            </h3>
+            <div className="border bg-white rounded-lg border-border">
+              {googleAuthInfo.googleLogin ? (
+                <div className="flex justify-start items-center py-4 flex items-center bg-[#3c6df1]">
+                  <span className="text-start text-sm font-normal text-border flex items-center">
+                    <img
+                      width="25px"
+                      className="mx-5"
+                      src="/icons/google-g.svg"
+                    ></img>
+                    <div className="flex items-center text-white">
+                      Logged in with {checkoutForm.email}
+                    </div>
+                  </span>
+                </div>
+              ) : (
+                <div className="flex justify-start gap-4 items-center  pl-5 p-1">
+                  <span className="text-start text-sm font-normal w-[20%] text-black">
+                    Email
+                  </span>
+                  <input
+                    type={"email"}
+                    placeholder={"Email"}
+                    className={
+                      "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    }
+                    name="email"
+                    id={"email"}
+                    onChange={handleFormValues}
+                    onBlur={handleBlur}
+                    value={checkoutForm.email && checkoutForm.email}
+                  />
+                </div>
+              )}
 
-            {/* <div className="p-4 sm:p-8 md:p-8 lg:p-8">
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-sm font-normal w-[20%] text-black">
+                  Full Name
+                </span>
+                <input
+                  type={"text"}
+                  placeholder={"Enter your full name"}
+                  className={
+                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
+                  name="name"
+                  id={"name"}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
+                <span className="text-start text-sm font-normal w-[20%] text-black">
+                  Cell Phone
+                </span>
+                <input
+                  type={"number"}
+                  placeholder={"Cell Phone"}
+                  className={
+                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
+                  min={0}
+                  name="phone"
+                  id={"mobile"}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
+              </div>
+              {!googleAuthInfo.googleLogin && (
+                <div className="flex justify-start gap-0 sm:gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
+                  <span className="text-start text-sm font-normal w-[20%] text-black">
+                    Password
+                  </span>
+                  <input
+                    type={"password"}
+                    placeholder={"Password"}
+                    className={
+                      "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    }
+                    name="password"
+                    id={"password"}
+                    onChange={handleFormValues}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="flex items-center my-6">
+              <input
+                id="link-checkbox"
+                type="checkbox"
+                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                onChange={(e) => Abc(e)}
+              />
+              <label
+                htmlFor="link-checkbox"
+                className="ml-2 text-sm font-medium text-border "
+              >
+                I agree with the{" "}
+                <a
+                  href="/terms-of-service"
+                  className="text-blue-600 dark:text-blue-500 hover:underline"
+                  onClick={(e) => handleDownload()}
+                >
+                  Terms of Service{" "}
+                </a>
+                and{" "}
+                <a
+                  href="/privacy-policy"
+                  className="text-blue-600 dark:text-blue-500 hover:underline"
+                  onClick={(e) => handleDownload()}
+                >
+                  Privacy Policy
+                </a>
+                .
+              </label>
+            </div>
+            <div className="flex justify-center flex-col">
+              {userformErrors &&
+                userformErrors.map((error, index) => {
+                  return (
+                    <div key={index}>
+                      <p className="text-red-500 text-sm">&#9888; {error}</p>
+                    </div>
+                  );
+                })}
+            </div>
+
+            <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
+              2. Select Payment Method
+            </h3>
+            <div className="border border-border rounded-lg p-4 bg-white">
+              <div className="flex items-center justify-between">
+                <div className="payment-element-child">
+                  <h3 className="text-sm text-black">Credit or Debit Card</h3>
+                  {/* <p className="text-sm text-black mt-1">HSA / FSA accepted</p> */}
+                </div>
+                <Logos />
+              </div>
+              {clientSecret && (
+                <div className="my-3 mb-0 p-3 pb-0">
+                  <StripeWrapper options={options}>
+                    <CheckOutForm
+                      checkoutForm={checkoutForm}
+                      paymentId={paymentId}
+                      boxValid={boxValid}
+                      setBoxValid={setBoxValid}
+                      client_secret={clientSecret}
+                      googleAuthInfo={googleAuthInfo}
+                    />
+                  </StripeWrapper>
+                </div>
+              )}
+            </div>
+            <div className="mt-5 ">
+              <p className="text-justify text-xs sm:text-sm">
+                By entering your information, you authorize Tempo AI to
+                automatically charge your card for your usage once your credits
+                according to our{" "}
+                <span className="text-[blue]">
+                  <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
+                </span>{" "}
+                To establish your account and verify your payment method, we
+                will charge $1 to your credit card today.
+              </p>
+            </div>
+          </div>
+
+          <div className="hidden lg:block">
+            <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
+              <Card className={"border bg-white border-border "}>
+                <h2 className="text-left text-xl mb-2">Order Summary</h2>
+                <hr style={{ borderColor: "#CCCCCC" }}></hr>
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                  <tbody>
+                    <tr className="dark:bg-gray-800 bg-white">
+                      <th
+                        scope="row"
+                        className="px-6 pl-0 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                      >
+                        {planQuery == 1 && "Enterprise Plan"}
+                        {planQuery == 0 && "Starter Plan"}
+                      </th>
+                      <td className="px-6 py-4 text-base">$200 Free Credits</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr className="text-base text-gray-900 bg-white text-black text-black">
+                      <th scope="row" className="px-6 pl-0 py-3 text-base">
+                        Total Today
+                      </th>
+                      <td className="px-6 py-3">$0</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </Card>
+
+              {/* <div className="p-4 sm:p-8 md:p-8 lg:p-8">
               {testimonialsArray.map((item, index) => {
                 return (
                   <Card
@@ -417,13 +439,13 @@ const Checkout = () => {
                 );
               })}
             </div> */}
+            </div>
           </div>
         </div>
-      </div>
-      <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
+        <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
 
-      <p> All rights reserved 2023 © <span className="text-[blue]">Tempo AI</span></p>
-    </Container>
+        <p className="mt-2 text-xs sm:text-sm"> All rights reserved 2023 © <span className="text-[blue]">Tempo AI Ventures, Inc.</span></p>
+      </Container>
     </div>
   );
 };
