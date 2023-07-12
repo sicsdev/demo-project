@@ -5,7 +5,7 @@ const Banner = () => {
 <div class=" md:block">
     <div className="z-40 text-center p-3 bg-[#142543]">
 
-      <h6 className="text-blue-400 text-white xs:flex-row xs:flex-col sm:flex justify-center md:text-para lg:text-para sm:text-para sm:leading-8 gap-2">
+      <h6 className="text-blue-400 text-white xs:flex-row xs:flex-col sm:flex justify-center text-[12px] md:text-para lg:text-para sm:text-para sm:leading-8 gap-2">
       Get $200 in free credits when you sign up today!
         {/* Onboard real agents powered by ChatGPT to plug into Shopify, Salesforce,
         Zendesk, or your custom store. */}
