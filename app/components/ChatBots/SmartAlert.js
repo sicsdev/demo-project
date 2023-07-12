@@ -28,6 +28,7 @@ const SmartAlert = () => {
                   &#x2713;
                 </span>
               </div>
+              
               <div>
                 <h3 className="font-bold  text-[18px] md:text-h5 lg:text-h5 sm:text-h5    text-white">
                   Rapid Responses Round-the-Clock{" "}
