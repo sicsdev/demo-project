@@ -12,7 +12,7 @@ import {
   WrenchScrewdriverIcon,
   UserGroupIcon,
   HomeIcon,
-  QuestionMarkCircleIcon, BuildingOffice2Icon, ChevronDownIcon, ChevronUpIcon, ClipboardIcon, CreditCardIcon, CurrencyDollarIcon, PresentationChartLineIcon
+  QuestionMarkCircleIcon, ClipboardIcon, CreditCardIcon, CurrencyDollarIcon, CodeBracketSquareIcon
 } from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
@@ -97,14 +97,13 @@ const Sidebar = ({ children }) => {
           href: "/dashboard/billing/settings",
           name: "Billing Settings",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
-          list: []
         },
       ]
     },
     {
       href: "/dashboard/workflow/integrations",
       name: "Workflows",
-      icon: <PresentationChartLineIcon  className="h-6 w-6 text-gray-500" />,
+      icon: <CodeBracketSquareIcon  className="h-6 w-6 text-gray-500" />,
       list: [
         {
           href: "/dashboard/workflow/integrations",
