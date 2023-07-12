@@ -27,8 +27,8 @@ const ManageAutomations = (props) => {
   const createUpdateButtonAutomation = (name, singleData = null, modeType, secondTitle = '') => {
     setIsConfigureAutomation(true);
     setHeaderTitle(name);
-    if(secondTitle && secondTitle !== '') {
-      setHeaderTitle(secondTitle);  
+    if (secondTitle && secondTitle !== '') {
+      setHeaderTitle(secondTitle);
     }
     setAutomationName(name);
     setMode(modeType);
@@ -42,7 +42,7 @@ const ManageAutomations = (props) => {
   const fetchBillingAutomations = async () => {
     try {
       setDataLoader(true);
-      const data = await getAllAutomations();
+      const data = await getAllAutomations(props?.type);
       setDataLoader(false);
       let filterData = await filterAutomationRecords(data);
       setBillingAutomationData(filterData);
@@ -52,7 +52,9 @@ const ManageAutomations = (props) => {
   };
 
   useEffect(() => {
-    fetchBillingAutomations();
+    if (props?.type !== undefined && props?.type !== "") {
+      fetchBillingAutomations();
+    }
   }, []);
 
   const filterAutomationRecords = (records) => {
