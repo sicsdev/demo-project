@@ -10,7 +10,7 @@ const SmartAlert = () => {
   return (
     <div className="bg-background py-6 sm:py-5">
       <div
-        className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group"
+        className="max-w-[1400px] w-full m-auto sm:py-14  px-0 sm:px-14  relative group"
         onClick={() =>
           setHide({ first: false, second: false, third: false, fourth: false })
         }
@@ -20,7 +20,7 @@ const SmartAlert = () => {
           Integration{" "}
         </h2>
         <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
-          <div className="p-4 sm:p-[3rem]">
+          <div className="p-4 sm:p-[3rem] sm:pl-[0px]">
             <div className="flex justify-start gap-6">
               <div className="relative w-[90px] h-[35px]">
                 <span className="flex sm:gap-3  text-custom-small  sm:mt-1 sm:text-3xl align-bottom font-semibold">
@@ -114,7 +114,7 @@ const SmartAlert = () => {
               </div>
             </div>
           </div>
-          <div className="text-center">
+          <div className="text-center sm:flex sm:items-center">
             <div className="relative h-100 sm:h-[363px] w-100 sm:w-[543px]">
               <Image
                 src="/middle.png"
