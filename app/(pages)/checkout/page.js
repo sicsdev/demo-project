@@ -230,7 +230,7 @@ const Checkout = () => {
                 </div>
               ) : (
                 <div className="flex justify-start gap-4 items-center  pl-5 p-1">
-                  <span className="text-start text-sm font-normal w-[20%] text-border">
+                  <span className="text-start text-sm font-normal w-[20%] text-black">
                     Email
                   </span>
                   <input
@@ -249,7 +249,7 @@ const Checkout = () => {
               )}
 
               <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
-                <span className="text-start text-sm font-normal w-[20%] text-border">
+                <span className="text-start text-sm font-normal w-[20%] text-black">
                   Full Name
                 </span>
                 <input
@@ -265,7 +265,7 @@ const Checkout = () => {
                 />
               </div>
               <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
-                <span className="text-start text-sm font-normal w-[20%] text-border">
+                <span className="text-start text-sm font-normal w-[20%] text-black">
                   Cell Phone
                 </span>
                 <input
@@ -282,8 +282,8 @@ const Checkout = () => {
                 />
               </div>
               {!googleAuthInfo.googleLogin && (
-                <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
-                  <span className="text-start text-sm font-normal w-[20%] text-border">
+                <div className="flex justify-start gap-0 sm:gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
+                  <span className="text-start text-sm font-normal w-[20%] text-black">
                     Password
                   </span>
                   <input
