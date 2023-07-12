@@ -150,7 +150,7 @@ const Page = () => {
               aria-current="page"
             >
               <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />{" "}
-              Settings
+             Billing Settings
             </a>
           </li>
         </ul>
