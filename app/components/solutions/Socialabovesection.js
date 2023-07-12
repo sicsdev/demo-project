@@ -5,7 +5,10 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
 import { InboxIcon } from "@heroicons/react/24/outline";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 import validator from "validator";
+import { useRouter } from "next/navigation";
+
 
 const Socialabovesection = () => {
   const [email, setEmail] = useState("");
@@ -40,7 +43,12 @@ const Socialabovesection = () => {
   ];
 
   const handleBlur = (email) => {
+ 
     if (validator.isEmail(email)) {
+      let Freshsalespayload = {
+        email: email,
+      }
+       createContactInFreshsales(Freshsalespayload);
       hj("identify", userId, {
         Email: email,
       });
@@ -48,7 +56,6 @@ const Socialabovesection = () => {
         event: "Blur-Email",
       };
       window.dataLayer?.push(payload);
-      // sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {
           event: "lead-generic",
@@ -71,7 +78,7 @@ const Socialabovesection = () => {
       }
     }
   };
-
+  const router = useRouter();
   const validateEmail = (e) => {
     var email = e.target.value;
     if (validator.isEmail(email)) {
@@ -79,6 +86,13 @@ const Socialabovesection = () => {
     } else {
       setValidEmail(true);
     }
+  };
+
+
+  const handleNavigate = () => {
+    console.log("clicked")
+    let emailInput = document.getElementById("email").value;
+    router.push(`/checkout?email=${emailInput}`);
   };
 
   return (
@@ -119,8 +133,9 @@ const Socialabovesection = () => {
                     "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
                   }
                   disabled={validEmail}
+                  onClick={handleNavigate}
                 >
-                  Request Demo
+                  Start Now
                 </Button>
               </div>
             </form>
