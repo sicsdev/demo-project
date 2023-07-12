@@ -5,7 +5,8 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
 import validator from "validator";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 
 const AboveSection = () => {
   const [email, setEmail] = useState("");
@@ -71,6 +72,7 @@ const AboveSection = () => {
       }
     }
   };
+  const router = useRouter();
 
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -79,6 +81,11 @@ const AboveSection = () => {
     } else {
       setValidEmail(true);
     }
+  };
+
+  const handleNavigate = () => {
+    let emailInput = document.getElementById("email").value;
+    router.push(`/checkout?email=${emailInput}`);
   };
 
   return (
@@ -114,16 +121,15 @@ const AboveSection = () => {
                 />
               </div>
               <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
-                <Link href="/checkout">
                 <Button
                   className={
                     "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
                   }
                   disabled={validEmail}
+                  onClick={handleNavigate}
                 >
                   Start Now
                 </Button>
-                </Link>
               </div>
             </form>
             <div className="mb-10 block sm:hidden my-6">
