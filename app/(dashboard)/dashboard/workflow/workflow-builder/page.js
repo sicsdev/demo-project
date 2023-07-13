@@ -12,7 +12,7 @@ const page = () => {
     const [edit, setIsEdit] = useState(false)
     const [singleWorkflowData, setSingleWorkflowData] = useState(null)
     return (
-        <>  <div className='flex justify-between my-4'>
+        <>  <div className='flex justify-end my-4'>
         <div className='flex justify-between gap-4 items-center'>
             <Button
                 type={"submit"}
