@@ -10,15 +10,20 @@ import {
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
+import Modal from "@/app/components/Common/Modal/Modal";
+import { useSearchParams } from 'next/navigation';
 
 const Page = () => {
+  const searchParams = useSearchParams();
   const [edit, setEdit] = useState(false);
+
   const [integrationdata, setIntegrationdata] = useState([]);
   const [dataLoader, setDataLoader] = useState(false);
   const [mode, setMode] = useState('create');
   const [singleIntegrationData, setSingleIntegrationData] = useState(null);
-  const [configureIntegrationItem, setConfigureIntegrationItem] = useState(null);
   const [integrationType, setIntegrationType] = useState("");
+  const [integrationModal, setIntegrationModal] = useState(false);
+  const [automationID, setAutomationID] = useState(null);
 
   const addAutomationHandler = (type) => {
     setEdit(true);
@@ -28,7 +33,7 @@ const Page = () => {
   const handleIntegrationButton = (integrationRecord, modeType, type, key) => {
     setMode(modeType);
     setIntegrationType(type);
-    setConfigureIntegrationItem(key);
+    setIntegrationModal(true);
     if (integrationRecord && integrationRecord !== null) {
       setSingleIntegrationData(integrationRecord);
     } else {
@@ -40,6 +45,11 @@ const Page = () => {
     const matchingRecords = array?.filter(x => x.type === type);
     return matchingRecords;
   };
+
+  const filterDataByID = (array, id) => {
+    const recordData = array?.find(x => x.id == id);
+    return recordData;
+  }
 
   const fetchIntegrations = async () => {
     try {
@@ -56,6 +66,30 @@ const Page = () => {
   useEffect(() => {
     fetchIntegrations();
   }, []);
+
+  useEffect(() => {
+    const integrationID = searchParams?.get('integration_id');
+    const automationID = searchParams?.get('automation_id');
+    if (integrationID && automationID) {
+      let isExistIntegration = filterDataByID(integrationdata?.results, integrationID);
+      if (isExistIntegration && isExistIntegration !== undefined) {
+        setEdit(true);
+        setIntegrationType(isExistIntegration?.type);
+        setAutomationID(automationID);
+      }
+    } else if (integrationID) {
+      let isExistIntegration = filterDataByID(integrationdata?.results, integrationID);
+      if (isExistIntegration && isExistIntegration !== undefined) {
+        setIntegrationType(isExistIntegration?.type);
+        setMode('update');
+        setSingleIntegrationData(isExistIntegration);
+        setIntegrationModal(true);
+      }
+    } else {
+
+    }
+
+  }, [searchParams, integrationdata]);
 
   return (
     <>
@@ -97,13 +131,6 @@ const Page = () => {
                         ))}
                   </div>
                 </div>
-                {configureIntegrationItem === key ? (
-                  <div className="py-6 pr-6">
-                    <ConfigureIntegration setConf={setConfigureIntegrationItem} fetchIntegrations={fetchIntegrations} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
-                  </div>
-                ) : (
-                  ""
-                )}
                 <hr className="border-border" />
               </div>
             ))}
@@ -111,11 +138,15 @@ const Page = () => {
         </>
       ) : (
         <>
-          {edit ? <ManageAutomations setEdit={setEdit} setConf={setConfigureIntegrationItem} integrationData={integrationdata?.results?.slice(0, 1)[0]} type={integrationType} /> : ""}
+          {edit ? <ManageAutomations filterDataByID={filterDataByID} automationID={automationID} setEdit={setEdit} setShow={setIntegrationModal} integrationData={integrationdata?.results?.slice(0, 1)[0]} type={integrationType} /> : ""}
         </>
       )
       }
-
+      {integrationModal ?
+        <Modal title={'Manage Integration'} show={integrationModal} setShow={setIntegrationModal} className={'w-[80%] rounded-lg'} showCancel={true} >
+          <ConfigureIntegration fetchIntegrations={fetchIntegrations} setShow={setIntegrationModal} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
+        </Modal>
+        : ""}
     </>
   );
 };
