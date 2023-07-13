@@ -34,7 +34,6 @@ export default function Home() {
       {/* <Benifits />         */}
       {/* <Faq />   */}
       <Iconanimation />
-      <Aipowered />
 
       {/* dummy section */}
       {/* <div className="bg-[#142543] p-6">

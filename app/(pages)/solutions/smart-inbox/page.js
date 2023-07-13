@@ -7,6 +7,7 @@ import Smartsection from "@/app/components/solutions/Smartsection";
 import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 import Smarteconomy from "@/app/components/solutions/Smarteconomy";
+import Aipowered from "@/app/components/solutions/Aipowered";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,6 +50,8 @@ const page = () => {
       <Testimonial />
       {/* <Requestdemo/> */}
       <Smarteconomy />
+      <Aipowered />
+
     </div>
   );
 };
