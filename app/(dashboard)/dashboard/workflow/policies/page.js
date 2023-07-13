@@ -2,15 +2,28 @@
 import Card from '@/app/components/Common/Card/Card';
 import ManagePolicy from '@/app/components/Workflows/Policies/ManagePolicy';
 import { ClipboardIcon } from '@heroicons/react/24/solid'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import Modal from '@/app/components/Common/Modal/Modal';
+import { useSearchParams } from 'next/navigation';
 
 const page = () => {
+  const searchParams = useSearchParams();
   const [mode, setMode] = useState('create');
   const [edit, setIsEdit] = useState(false)
-  const [singlePolicyData, setSinglePolicyData] = useState(null)
+  const [singlePolicyData, setSinglePolicyData] = useState(null);
+  const [policyModal, setPolicyModal] = useState(false);
+
+  useEffect(() => {
+    const policyID = searchParams?.get('policy_id');
+    if (policyID) {
+      setPolicyModal(true);
+    }
+
+  }, [searchParams]);
+
   return (
     <>
-     {edit == true &&(
+      {/* {edit == true && (
         <>
           <p
             className="float-right my-5 cursor-pointer"
@@ -21,7 +34,7 @@ const page = () => {
             Back
           </p>
         </>
-      )}
+      )} */}
       <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li className="mr-2">
@@ -45,19 +58,22 @@ const page = () => {
                   2 active policies</p>
               </div>
               <div className="grid">
-                {/* <p className="cursor-pointer text-sm" >Configure</p> */}
                 <>
-                  <p className="cursor-pointer text-sm" onClick={() => { setIsEdit(true) }}>Edit</p>
-                  <p className="cursor-pointer text-sm mt-2" onClick={() => { setIsEdit(true) }} >Add New Policy</p>
+                  <p className="cursor-pointer text-sm" onClick={() => { setPolicyModal(true) }}>Edit</p>
+                  <p className="cursor-pointer text-sm mt-2" onClick={() => { setPolicyModal(true) }} >Add New Policy</p>
                 </>
-
               </div>
             </div>
             <hr className="border-border" />
           </div>
         )}
-        {edit && <ManagePolicy mode={mode} singlePolicyData={singlePolicyData} onClose={(e) => setIsEdit(!edit)} />}
       </Card>
+      {policyModal ?
+        <Modal title={'Manage Policy'} show={policyModal} setShow={setPolicyModal} className={'w-[80%] rounded-lg'} showCancel={true} >
+          <ManagePolicy mode={mode} singlePolicyData={singlePolicyData} onClose={(e) => setIsEdit(!edit)} />
+        </Modal>
+        : ""
+      }
     </>
   )
 }

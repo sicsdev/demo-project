@@ -9,7 +9,7 @@ import {
     updateIntegrationData
 } from "@/app/API/pages/Integration";
 
-export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode, type, ...rest }) => {
+export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRecord, mode, type, ...rest }) => {
     const [loading, setLoading] = useState(false);
     const [integrationFormData, setIntegrationFormData] = useState({
         type: type,
@@ -138,7 +138,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
             }
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 setLoading(false);
-                setConf(null);
+                setShow(false);
                 fetchIntegrations();
                 Swal.fire("Success", successMessage, "success");
             } else {
