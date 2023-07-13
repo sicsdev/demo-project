@@ -26,7 +26,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false }
             {show ? (
                 <>
                     <Card  className="justify-start flex p-2 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                        <div  className={`relative my-6 mx-auto flex items-center justify-center ${className}`}>
+                        <div  className={`relative my-6 mx-auto ${className}`}>
                             <div  ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex justify-between items-center p-2 border-b border-border border-slate-200 rounded-t">
