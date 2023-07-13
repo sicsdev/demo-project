@@ -10,7 +10,6 @@ import {
 } from "@/app/API/pages/Integration";
 
 export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRecord, mode, type, ...rest }) => {
-    console.log('integrationRecord', integrationRecord)
     const [loading, setLoading] = useState(false);
     const [integrationFormData, setIntegrationFormData] = useState({
         type: type,
@@ -159,7 +158,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setConf, integrationRe
                     htmlFor="name"
                     className="block text-gray-700 text-sm font-bold mb-2"
                 >
-                    Name
+                    Integration Name
                 </label>
                 <Input
                     type={"text"}

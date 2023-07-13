@@ -92,7 +92,7 @@ const Page = () => {
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
                         <a href="#" className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
-                            <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" /> View Widgets
+                            <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" /> View Agents
                         </a>
                     </li>
 
@@ -104,7 +104,7 @@ const Page = () => {
                         <Button type={"button"} onClick={(e) => { setShowModal(true) }}
                             className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                         >
-                            Create New Widget
+                            Create New Agent
                         </Button>
                     </div>
                 }

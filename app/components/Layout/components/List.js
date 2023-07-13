@@ -1,16 +1,7 @@
-import { redirect } from "next/dist/server/api-utils";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { useRouter } from "next/navigation";
-
-const List = ({ nav_links, className, setShow, setShowmenu }) => {
-  const router = useRouter();
-
-  const handlerRedirect = (url) => {
-    setShowmenu(true);
-    router.push(url);
-    setShow(false);
-  };
+const List = ({ nav_links, className, setShow }) => {
   return (
     <div className={className}>
       {nav_links?.map((element, key) => (
@@ -26,23 +17,20 @@ const List = ({ nav_links, className, setShow, setShowmenu }) => {
           </h3>
           <ul className="mt-5">
             {element.data.map((element, key) => (
-              <li
-                className="cursor-pointer"
-                key={key}
-                // onClick={(e) => setShow(false)}
-              >
-                {/* <Link href={element.link}> */}
-                <div className="w-100 h-100" onClick={() => handlerRedirect(element.link)}>
+              <li className="cursor-pointer" key={key} 
+            onClick={(e) => setShow(false)}
+            >
+                <Link href={element.link}>
                   <div className="hover:bg-gray p-2 rounded-lg flex gap-4 justify-between  items-start">
                     <div className="">
                       <img
                         src={element.icon}
                         alt="menu_icons"
-                        style={{ maxWidth: "22px" }}
+                        style={{ maxWidth: "22px"}}
                       />
                     </div>
                     <div className="w-[100%]">
-                      <h3 className="text-heading text-semibold flex items-centergap-4 sm:gap-0 justify-between">
+                      <h3 className="text-heading text-semibold flex items-center gap-4 sm:gap-0 justify-between">
                         {element.heading} {element.label}
                       </h3>
                       <p className="text-border text-xs mt-2 min-h-[34px]">
@@ -50,8 +38,7 @@ const List = ({ nav_links, className, setShow, setShowmenu }) => {
                       </p>
                     </div>
                   </div>
-                </div>
-                {/* </Link> */}
+                </Link>
               </li>
             ))}
           </ul>
