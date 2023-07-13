@@ -26,7 +26,6 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
   const [copied, setCopied] = useState({ key: null, message: null });
-  const [dropdown, setDropdown] = useState(null);
   const [markdown, setmarkdown] = useState("");
   const [detailsData, setDetailsData] = useState(null);
 
@@ -173,7 +172,7 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
                           </div>
                         </div>
                       ) : (
-                        <EmbedCard key={key} dropdown={dropdown} element={element} setDropdown={setDropdown} copied={copied} setCopied={setCopied}></EmbedCard>
+                        <EmbedCard key={key} element={element} copied={copied} setCopied={setCopied}></EmbedCard>
                         // <div className="mt-5 border rounded-md border-border  bg-white">
                         //   <div className="bg-border rounded-t-md py-2 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
                         //     <h3 className="font-xl font-bold text-white my-2">
