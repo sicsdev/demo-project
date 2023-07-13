@@ -7,15 +7,19 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screen: {
+      'xl': { max: '1536px' },
+      '2xl': { min: '1800px', max: "2500px" }
+    },
     colors: {
       transparent: "transparent",
       current: "currentColor",
       white: "#ffffff",
-      backhover:"#E5EDFF",
+      backhover: "#E5EDFF",
       primary: "#2563eb",
       primary_hover: "#3b82f6",
       success: "#4cbb17",
-      badge_blue:"#93c5fd",
+      badge_blue: "#93c5fd",
       voilet: "#5B00CC",
       black: "#000000",
       "soft-green": "#53CB89",
@@ -53,7 +57,7 @@ module.exports = {
       current: 'currentColor',
       'white': '#ffffff',
       'primary': '#2563eb',
-      'backhover':"#E5EDFF",
+      'backhover': "#E5EDFF",
       'voilet': "#5B00CC",
       'black': '#000000',
       'soft-green': "#53CB89",
