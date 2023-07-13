@@ -318,7 +318,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                                     <Link href="/dashboard">back</Link>
                                 </p>
                             </div>
-                            <small className='text-[#7e7e7e]'>You have full control over the look and feel of your Tempo widget. You can customize the colors, position, and preferences of your widget.</small>
+                            <small className='text-[#7e7e7e]'>Customize the colors, position, and user interface of your Tempo chat widget.</small>
                         </div>
                         <hr className='opacity-10'></hr>
                         <div>

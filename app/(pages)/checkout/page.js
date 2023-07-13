@@ -14,6 +14,7 @@ import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 import validator from "validator";
 import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
 import { createPaymentIntent } from "@/app/API/pages/Checkout";
+import { ChevronDownIcon, ChevronUpIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
 
 const Checkout = () => {
   const router = useRouter();
@@ -112,101 +113,57 @@ const Checkout = () => {
   const toggleClass = () => {
     setShowSummary(!showSummary);
   };
-
+  const [showOrderSummary, setShowOrderSummary] = useState(false)
   return (
     <div className="bg-white">
+
       <Container>
+        <div className="relative w-28 h-8 mb-4">
+          <Image
+            fill={"true"}
+            className="bg-contain mx-auto w-full"
+            alt="logo.png"
+            src={"/dark-logo.png"}
+          />
+        </div>
+
+        <hr className=" sm:block md:block lg:block border-border" />
+
+        <div className="flex justify-between items-center sm:hidden md:hidden lg:hidden cursor-pointer my-4 " onClick={() => { setShowOrderSummary(prev => !prev) }} >
+          <div className="flex justify-between items-center gap-4"><ShoppingCartIcon className="h-6 w-6 text-gray-500" />{showOrderSummary === true ? <>Hide Order Summary <ChevronUpIcon className="h-6 w-6 text-heading" /></> : <>Show Order Summary <ChevronDownIcon class="h-6 w-6 text-heading" /></>}</div>
+          <div>$0</div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
-          {/* <div className="text-center lg:hidden">
-          <div
-            className="rounded text-center"
-            onClick={toggleClass}
-            style={{ position: "relative", cursor: "pointer" }}
-          >
-            {showSummary ? (
-              <>
-                <hr className="opacity-10 my-1"></hr>
-                <div className="text-center flex">
-                  <div>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="text-right mx-3"> Hide Order Summary</span>
-                  </div>
-                </div>
-                <hr className="opacity-10 my-1"></hr>
-                <div className="border rounded-lg border-border bg-white rounded">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <tbody>
-                      <tr className="dark:bg-gray-800">
-                        <th
-                          scope="row"
-                          className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
-                        >
-                          {planQuery == 1 && "Pro Plan"}
-                          {planQuery == 0 && "Standard Plan"}
-                        </th>
-                        <td className="px-6 py-4 text-base">Free Trial</td>
-                      </tr>
-                    </tbody>
-                    <tfoot>
-                      <tr className=" text-gray-900 text-black text-black">
-                        <th className="px-6 py-3 text-base">Total</th>
-                        <td className="px-6 py-3">$0</td>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </>
-            ) : (
-              <>
-                <hr className="opacity-10 my-1"></hr>
-                <hr className="opacity-10 my-1"></hr>
-              </>
-            )}
-          </div>
-        </div> */}
-          <div className="block sm:hidden md:hidden">
-            <Card className={"border bg-white border-border "}>
-              <h2 className="sm:text-center sm:text-left text-xl mb-2">Order Summary</h2>
-              <hr style={{ borderColor: "#CCCCCC" }}></hr>
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
-                <tbody>
-                  <tr className="dark:bg-gray-800 bg-white">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
-                    >
-                      {planQuery == 1 && "Enterprise Plan"}
-                      {planQuery == 0 && "Starter Plan"}
-                    </th>
-                    <td className="px-6 py-4 text-base">$200 Free Credits</td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr className="text-base text-gray-900 bg-white text-black">
-                    <th scope="row" className="px-6 py-3 text-base">
-                      Total Today
-                    </th>
-                    <td className="px-6 py-3">$0</td>
-                  </tr>
-                </tfoot>
-              </table>
-            </Card>
-          </div>
+          {showOrderSummary === true && (
+            <div className="block sm:hidden md:hidden">
+              <Card className={"border bg-white border-border "}>
+                <h2 className="sm:text-center sm:text-left text-xl mb-2">Order Summary</h2>
+                <hr style={{ borderColor: "#CCCCCC" }}></hr>
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
+                  <tbody>
+                    <tr className="dark:bg-gray-800 bg-white">
+                      <th
+                        scope="row"
+                        className="px-6 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                      >
+                        {planQuery == 1 && "Enterprise Plan"}
+                        {planQuery == 0 && "Starter Plan"}
+                      </th>
+                      <td className="px-6 py-4 text-base">$200 Free Credits</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr className="text-base text-gray-900 bg-white text-black">
+                      <th scope="row" className="px-6 py-3 text-base">
+                        Total Today
+                      </th>
+                      <td className="px-6 py-3">$0</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </Card>
+            </div>
+          )}
           <div>
             <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
               Checkout
@@ -254,7 +211,7 @@ const Checkout = () => {
                 </span>
                 <input
                   type={"text"}
-                  placeholder={"Enter your full name"}
+                  placeholder={"Full Name"}
                   className={
                     "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                   }
