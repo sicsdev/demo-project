@@ -5,6 +5,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
 import { InboxIcon } from "@heroicons/react/24/outline";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 import validator from "validator";
 import Card from "../Common/Card/Card";
 const Smartsection = () => {
@@ -45,6 +46,7 @@ const Smartsection = () => {
   ];
 
   const handleBlur = (email) => {
+ 
     if (validator.isEmail(email)) {
       hj("identify", userId, {
         Email: email,
@@ -53,7 +55,6 @@ const Smartsection = () => {
         event: "Blur-Email",
       };
       window.dataLayer?.push(payload);
-      // sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {
           event: "lead-generic",
@@ -129,7 +130,7 @@ const Smartsection = () => {
                   }
                   disabled={validEmail}
                 >
-                  Request Demo
+                  Start Now
                 </Button>
               </div>
             </form>

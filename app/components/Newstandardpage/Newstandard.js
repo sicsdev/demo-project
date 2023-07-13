@@ -70,10 +70,6 @@ const Newstandard = () => {
                   
                   <span
                     className="cursor-pointer"
-                    onMouseOver={(e)=>{
-                      e.stopPropagation();
-                      setHideHoverData(key);
-                    }}
                     onClick={(e) => {
                       e.stopPropagation();
                       setHideHoverData(key);

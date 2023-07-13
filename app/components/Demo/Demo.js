@@ -56,10 +56,37 @@ const Demo = () => {
 
   const handleBlur = (email) => {
     if (validator.isEmail(email)) {
-      let payload = {
+      let Freshsalespayload = {
         email: email,
       }
-      createContactInFreshsales(payload); 
+       createContactInFreshsales(Freshsalespayload);
+      hj("identify", userId, {
+        Email: email,
+      });
+      let payload = {
+        event: "Blur-Email",
+      };
+      window.dataLayer?.push(payload);
+      if (blacklist.includes(email.split("@")[1])) {
+        let payload = {
+          event: "lead-generic",
+        };
+        window.dataLayer?.push(payload);
+      } else {
+        let payload = {
+          event: "lead-business",
+        };
+        window.dataLayer?.push(payload);
+      }
+      if (email?.includes("@")) {
+        window._learnq.push([
+          "track",
+          "$email",
+          {
+            $email: email,
+          },
+        ]);
+      }
     }
   };
 
@@ -72,6 +99,7 @@ const Demo = () => {
     }
   };
 
+
   return (
     <div className="mx-auto"
       onClick={() =>
@@ -83,7 +111,7 @@ const Demo = () => {
           Unlock the power of
           <span className="text-first-section-color">
             {" "}
-            GPT4 Powered
+            GPT Powered
           </span>{" "}
           customer service
         </h3>

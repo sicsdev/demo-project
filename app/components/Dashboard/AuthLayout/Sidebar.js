@@ -7,12 +7,19 @@ import { fetchProfile } from "../../store/slices/userSlice";
 import Cookies from "js-cookie";
 import { uploadLOgo } from "@/app/API/pages/Bot";
 import {
-  ArrowDownOnSquareIcon, BanknotesIcon, BriefcaseIcon,
+  ArrowDownOnSquareIcon,
+  BanknotesIcon,
+  BriefcaseIcon,
   ShareIcon,
   WrenchScrewdriverIcon,
   UserGroupIcon,
   HomeIcon,
-  QuestionMarkCircleIcon, ClipboardIcon, CreditCardIcon, CurrencyDollarIcon, CodeBracketSquareIcon
+  QuestionMarkCircleIcon,
+  ClipboardIcon,
+  CreditCardIcon,
+  CurrencyDollarIcon,
+  CodeBracketSquareIcon,
+  BookOpenIcon,
 } from "@heroicons/react/24/solid";
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
@@ -65,13 +72,37 @@ const Sidebar = ({ children }) => {
       href: "/dashboard",
       name: "Home",
       icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-      list: []
+      list: [],
     },
     {
-      href: "/dashboard/members",
-      name: "Members",
-      icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
-      list: []
+      href: "/dashboard/workflow/integrations",
+      name: "Workflows",
+      icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
+      list: [
+        {
+          href: "/dashboard/workflow/integrations",
+          name: "Integrations",
+          icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+          href: "/dashboard/workflow/policies",
+          name: "Policies",
+          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
+        },
+        {
+          href: "/dashboard/workflow/workflow-builder",
+          name: "Workflow Builder",
+          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+        },
+      ],
+    },
+
+    {
+      href: "/dashboard/knowledge-center",
+      name: "Knowledge Center",
+      icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+      list: [],
+      notification:"1"
     },
     {
       href: "/dashboard/billing/usage",
@@ -98,29 +129,18 @@ const Sidebar = ({ children }) => {
           name: "Billing Settings",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
         },
-      ]
+        {
+          href: "/dashboard/billing/billing-history",
+          name: "Billing history",
+          icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+        },
+      ],
     },
     {
-      href: "/dashboard/workflow/integrations",
-      name: "Workflows",
-      icon: <CodeBracketSquareIcon  className="h-6 w-6 text-gray-500" />,
-      list: [
-        {
-          href: "/dashboard/workflow/integrations",
-          name: "Integrations",
-          icon: <ShareIcon className="h-6 w-6 text-gray-500" />
-        },
-        {
-          href: "/dashboard/workflow/policies",
-          name: "Policies",
-          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />
-        },
-        {
-          href: "/dashboard/workflow/workflow-builder",
-          name: "WorkFlow Builder",
-          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />
-        },
-      ]
+      href: "/dashboard/members",
+      name: "Team",
+      icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+      list: [],
     },
   ];
 
@@ -157,51 +177,75 @@ const Sidebar = ({ children }) => {
 
   const sendSideBarDetails = (element, key) => {
     if (element.list.length > 0) {
-      return <li key={key}>
+      return (
+        <li key={key}>
+          <Link
+            href={element.href}
+            onClick={() => {
+              setShowSubTabs((prev) => {
+                if (prev === key) {
+                  return null;
+                }
+                return key;
+              });
+            }}
+            className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+          >
+            {element.icon}
+            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+              {element.name}
+            </span>
+          </Link>
+          {showSubTabs === key && (
+            <ul className="p-3 space-y-2">
+              {element.list.map((ele, key) => (
+                <li key={key}>
+                  <Link
+                    href={ele.href}
+                    className={`${
+                      pathname === ele.href && "bg-linkhover"
+                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                  >
+                    {ele.icon}
+                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
+                      {ele.name}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      );
+    }
+    return (
+      <li key={key}>
         <Link
+          onClick={() => {
+            setShowSubTabs(null);
+          }}
           href={element.href}
-          onClick={() => { setShowSubTabs(prev => { if (prev === key) { return null } return key }) }}
-          className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+          className={`${
+            pathname === element.href && "bg-linkhover"
+          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
         >
+          <div class="relative">
           {element.icon}
-          <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+          <span style={{fontSize:"10px"}} className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3">{element.notification}
+          </span>
+          </div>
+          <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
             {element.name}
           </span>
         </Link>
-        {showSubTabs === key && (
-          <ul className="p-3 space-y-2">
-            {element.list.map((ele, key) =>
-              <li key={key}>
-                <Link
-                  href={ele.href}
-                  className={`${pathname === ele.href && "bg-linkhover"
-                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                >
-                  {ele.icon}
-                  <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
-                    {ele.name}
-                  </span>
-                </Link>
-              </li>
-            )}
-          </ul>
-        )}
       </li>
-    }
-    return <li key={key}>
-      <Link
-        href={element.href}
-        className={`${pathname === element.href && "bg-linkhover"
-          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-      >
-        {element.icon}
-        <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
-          {element.name}
-
-        </span>
-      </Link>
-    </li>
-  }
+    );
+  };
+  const sendNames = (name) => {
+    if (name === "Home") return "Widgets";
+    if (name === "Workflows") return "Workflows";
+    return name;
+  };
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-sidebar">
@@ -275,12 +319,11 @@ const Sidebar = ({ children }) => {
                         <li key={key}>
                           <Link
                             href={element.href}
-
                             className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
                           >
                             {/* {element.icon} */}
                             <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                              {element.name}
+                              {sendNames(element.name)}
                             </span>
                           </Link>
                         </li>
@@ -289,7 +332,7 @@ const Sidebar = ({ children }) => {
                       <hr className="text-border border-gray" />
                       <li className="p-2 relative hover:underline flex">
                         <input
-                          className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                           id="multiple_files"
                           type="file"
                           accept="image/*"
@@ -304,7 +347,7 @@ const Sidebar = ({ children }) => {
                         </label>
                       </li>
 
-                      <li className="text-start p-2 ">
+                      <li className="text-start text-sm font-normal pl-2 ">
                         <button
                           type="button"
                           className="inline-block  rounded-full ml-4 text-heading"
@@ -313,7 +356,6 @@ const Sidebar = ({ children }) => {
                           Logout
                         </button>
                       </li>
-
                     </ul>
                   )}
                 </div>
@@ -327,9 +369,9 @@ const Sidebar = ({ children }) => {
             id="navbar-cta"
           >
             <ul className="space-y-2 font-medium  w-full relative">
-              {SideBarRoutes.map((element, key) => (
+              {SideBarRoutes.map((element, key) =>
                 sendSideBarDetails(element, key)
-              ))}
+              )}
               <li>
                 <a
                   href={"mailto:team@usetempo.ai"}
@@ -352,9 +394,9 @@ const Sidebar = ({ children }) => {
       >
         <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
           <ul className="space-y-2 font-medium  w-full relative">
-            {SideBarRoutes.map((element, key) => sendSideBarDetails(element, key)
+            {SideBarRoutes.map((element, key) =>
+              sendSideBarDetails(element, key)
             )}
-
           </ul>
           <div className="absolute bottom-0 w-[90%] text-sm mb-5">
             <ul className="space-y-2 font-medium flex flex-col ">

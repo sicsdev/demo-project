@@ -21,7 +21,7 @@ const SmartAlert = () => {
         </h2>
         <div className="block sm:flex md:flex lg:flex justify-evenly gap-10">
           <div className="p-4 pr-[0px] sm:p-[0] sm:pl-[0px]">
-            <div className="flex justify-center items-center mx-auto w-[800px] ">
+            <div className="sm:flex justify-center items-center mx-auto sm:w-[800px] ">
               <div className="relative  sm:h-[200px] w-100 sm:w-[543px] flex items-center">
                 <img
                   src="/first.webp"
@@ -78,7 +78,7 @@ const SmartAlert = () => {
               </div>
               <div className="text-center sm:flex sm:items-center"></div>
             </div>
-            <div className="flex  justify-center items-center mx-auto w-[800px] mt-6">
+            <div className="sm:flex justify-center items-center mx-auto sm:w-[800px] mt-6">
               <div className="relative h-100 sm:h-[200px] w-100 sm:w-[543px]  flex items-center">
                 <img
                   src="/second.webp"
@@ -104,7 +104,7 @@ const SmartAlert = () => {
                 </p>
               </div>
             </div>
-            <div className="flex justify-center items-center w-[800px] mx-auto  mt-6">
+            <div className="sm:flex justify-center items-center sm:w-[800px] mx-auto  mt-6">
               <div className="relative h-100 sm:h-[200px] w-100 sm:w-[543px]  flex items-center">
                 <img
                   src="/threeee.webp"

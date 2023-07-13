@@ -5,6 +5,7 @@ import { ClockIcon } from "@heroicons/react/24/outline";
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { ScissorsIcon } from "@heroicons/react/24/outline";
 import validator from "validator";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 import { useRouter } from "next/navigation";
 
 
@@ -41,7 +42,12 @@ const AboveSection = () => {
   ];
 
   const handleBlur = (email) => {
+ 
     if (validator.isEmail(email)) {
+      let Freshsalespayload = {
+        email: email,
+      }
+       createContactInFreshsales(Freshsalespayload);
       hj("identify", userId, {
         Email: email,
       });
@@ -49,7 +55,6 @@ const AboveSection = () => {
         event: "Blur-Email",
       };
       window.dataLayer?.push(payload);
-      // sendDataToFreshsales(email);
       if (blacklist.includes(email.split("@")[1])) {
         let payload = {
           event: "lead-generic",
@@ -72,6 +77,9 @@ const AboveSection = () => {
       }
     }
   };
+
+
+
   const router = useRouter();
 
   const validateEmail = (e) => {
