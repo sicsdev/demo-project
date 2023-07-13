@@ -29,11 +29,16 @@ export const EmbedCard = ({
 
   function addEmbedFlagToCode() {
     const updatedCode = code.includes("embed: true")
-      ? code.replace("  embed: true\n", "")
-      : code.replace("});", "  embed: true\n});").trim();
+        ? code.replace("  embed: true\n", "")
+        : code.replace("});", "  embed: true\n});").trim();
 
-    setCode(updatedCode);
-  }
+
+    let updateDiv = updatedCode.includes("embed: true")
+        ? updatedCode + "\n\n<div id='chatbot_widget'></div>\n"
+        : updatedCode.replace("\n\n<div id='chatbot_widget'></div>\n", "")
+
+        setCode(updateDiv);
+}
 
   const [isEmbedEnabled, setIsEmbedEnabled] = useState(false);
 
@@ -159,23 +164,19 @@ export const EmbedCard = ({
           className="flex items-center justify-end mx-5 my-2"
           title={tooltipText}
         >
-          <div className="flex items-center justify-end mx-5 my-2">
+          <div className="flex items-center justify-end mx-5 my-2 pointer" onClick={toggleEmbed} style={{ cursor: "pointer" }}>
             <span
-              onClick={toggleEmbed}
               className={`text-sm text-gray mr-1 ${
                 isEmbedEnabled ? "text-sky" : ""
               }`}
-              style={{ cursor: "pointer" }}
             >
               Embed
             </span>
             <span className="text-sky">|</span>
             <span
-              onClick={toggleEmbed}
               className={`text-sm text-gray ml-1 ${
                 !isEmbedEnabled ? "text-sky" : ""
               }`}
-              style={{ cursor: "pointer" }}
             >
               Chat
             </span>
