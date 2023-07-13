@@ -15,6 +15,7 @@ import Brandpercentage from "../components/Brandpercentage/Brandpercentage";
 import Iconanimation from "../components/Iconanimation/Iconanimation";
 import Launch from "../components/Get-Start/Launch";
 import Image from "next/image";
+import Aipowered from "../components/solutions/Aipowered";
 export default function Home() {
   return (
     <main className="">
@@ -28,10 +29,12 @@ export default function Home() {
       <Newstandard />
       {/* <Trial /> */}
       <Social />
+
       <Launch />
       {/* <Benifits />         */}
       {/* <Faq />   */}
       <Iconanimation />
+      <Aipowered />
 
       {/* dummy section */}
       {/* <div className="bg-[#142543] p-6">
