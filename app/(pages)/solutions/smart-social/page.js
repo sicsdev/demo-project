@@ -11,6 +11,7 @@ import Socialabovesection from "@/app/components/solutions/Socialabovesection";
 import Smartsocialalert from "@/app/components/ChatBots/Smartsocialalert";
 import Smartsocialeconomy from "@/app/components/solutions/smartsocialeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
+import Intcomp from "@/app/components/solutions/Intcomp";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -59,6 +60,7 @@ const page = () => {
       {/* <Requestdemo/> */}
       <Smartsocialeconomy />
       <Aipowered/>
+      <Intcomp/>
     </div>
   );
 };

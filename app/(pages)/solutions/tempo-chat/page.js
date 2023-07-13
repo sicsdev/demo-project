@@ -8,6 +8,7 @@ import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard"
 import AboveSection from "@/app/components/solutions/AboveSection";
 import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
+import Intcomp from "@/app/components/solutions/Intcomp";
 
 const page = () => {
   const router = useRouter();
@@ -51,6 +52,7 @@ const page = () => {
       <Tempoeconomy />
       {/* <Requestdemo/> */}
       <Aipowered/>
+      <Intcomp/>
     </div>
   );
 };
