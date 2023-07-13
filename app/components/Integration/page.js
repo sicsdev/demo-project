@@ -13,9 +13,9 @@ import {
 import Loading from "@/app/components/Loading/Loading";
 import CustomAutomation from "./Automations/CustomAutomation";
 import { BillingAutomation } from "./Automations/BillingAutomation";
+import { makeCapital } from "../helper/capitalName";
 
 const ManageAutomations = (props) => {
-
   const [isConfigureAutomation, setIsConfigureAutomation] = useState(false);
   const [headerTitle, setHeaderTitle] = useState(`${props?.type} Integrations`);
   const [automationName, setAutomationName] = useState('');
@@ -38,6 +38,7 @@ const ManageAutomations = (props) => {
       setSingleAutomationData(null);
     }
   }
+
 
   const fetchBillingAutomations = async () => {
     try {
@@ -97,7 +98,7 @@ const ManageAutomations = (props) => {
                 aria-current="page"
               >
                 <ShareIcon className="h-6 w-6 text-primary" />{" "}
-                {headerTitle}
+                {makeCapital(headerTitle)}
               </a>
             </li>
           </ul>

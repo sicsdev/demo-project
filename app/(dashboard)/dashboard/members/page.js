@@ -24,7 +24,7 @@ const Page = () => {
             <div className='block sm:flex md:flex lg:flex justify-between items-center mb-2'>
                 <div>
                     <h3 className='font-bold text-heading text-xl'>Manage Team</h3>
-                    <p className='text-heading font-normal text-normal'>Invite and manage team members on this integration.</p>
+                    <p className='text-heading font-normal text-normal'>Invite and manage team members to your account.</p>
                 </div>
                 <div>
                     <Button type={"button"} onClick={(e) => { setTeamModal(true) }}

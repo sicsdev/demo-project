@@ -68,10 +68,26 @@ const Sidebar = ({ children }) => {
       list: []
     },
     {
-      href: "/dashboard/members",
-      name: "Members",
-      icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
-      list: []
+      href: "/dashboard/workflow/integrations",
+      name: "Workflows",
+      icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
+      list: [
+        {
+          href: "/dashboard/workflow/integrations",
+          name: "Integrations",
+          icon: <ShareIcon className="h-6 w-6 text-gray-500" />
+        },
+        {
+          href: "/dashboard/workflow/policies",
+          name: "Policies",
+          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />
+        },
+        {
+          href: "/dashboard/workflow/workflow-builder",
+          name: "WorkFlow Builder",
+          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />
+        },
+      ]
     },
     {
       href: "/dashboard/billing/usage",
@@ -101,26 +117,10 @@ const Sidebar = ({ children }) => {
       ]
     },
     {
-      href: "/dashboard/workflow/integrations",
-      name: "Workflows",
-      icon: <CodeBracketSquareIcon  className="h-6 w-6 text-gray-500" />,
-      list: [
-        {
-          href: "/dashboard/workflow/integrations",
-          name: "Integrations",
-          icon: <ShareIcon className="h-6 w-6 text-gray-500" />
-        },
-        {
-          href: "/dashboard/workflow/policies",
-          name: "Policies",
-          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />
-        },
-        {
-          href: "/dashboard/workflow/workflow-builder",
-          name: "WorkFlow Builder",
-          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />
-        },
-      ]
+      href: "/dashboard/members",
+      name: "Team",
+      icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+      list: []
     },
   ];
 
@@ -190,6 +190,7 @@ const Sidebar = ({ children }) => {
     }
     return <li key={key}>
       <Link
+        onClick={() => { setShowSubTabs(null) }}
         href={element.href}
         className={`${pathname === element.href && "bg-linkhover"
           } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
@@ -201,6 +202,11 @@ const Sidebar = ({ children }) => {
         </span>
       </Link>
     </li>
+  }
+  const sendNames = (name) => {
+    if (name === 'Home') return 'Widgets'
+    if (name === 'Workflows') return 'Workflow Builder'
+    return name
   }
   return (
     <>
@@ -280,7 +286,7 @@ const Sidebar = ({ children }) => {
                           >
                             {/* {element.icon} */}
                             <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                              {element.name}
+                            {sendNames(element.name)}
                             </span>
                           </Link>
                         </li>
@@ -289,7 +295,7 @@ const Sidebar = ({ children }) => {
                       <hr className="text-border border-gray" />
                       <li className="p-2 relative hover:underline flex">
                         <input
-                          className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                          className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                           id="multiple_files"
                           type="file"
                           accept="image/*"
@@ -304,7 +310,7 @@ const Sidebar = ({ children }) => {
                         </label>
                       </li>
 
-                      <li className="text-start p-2 ">
+                      <li className="text-start text-sm font-normal pl-2 ">
                         <button
                           type="button"
                           className="inline-block  rounded-full ml-4 text-heading"

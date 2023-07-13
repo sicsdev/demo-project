@@ -83,7 +83,7 @@ const Demo = () => {
           Unlock the power of
           <span className="text-first-section-color">
             {" "}
-            GPT4 Powered
+            GPT Powered
           </span>{" "}
           customer service
         </h3>

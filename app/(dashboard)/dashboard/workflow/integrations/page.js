@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { ShareIcon } from "@heroicons/react/24/outline";
 import Card from "@/app/components/Common/Card/Card";
 import ManageAutomations from "@/app/components/Integration/page";
-// import Integrationemail from "@/app/components/Integrationemail/page";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import {
   getAllIntegration
@@ -84,7 +83,7 @@ const Page = () => {
                   <div className="">
                     <h3 className="font-semibold text-md text-heading">{item.name}</h3>
                     <p className="text-sm my-2">
-                      {totalActiveIntegrations(integrationdata?.results, item.type)?.length} active integrations
+                      {totalActiveIntegrations(integrationdata?.results, item.type)?.length} active {totalActiveIntegrations(integrationdata?.results, item.type)?.length > 1 ? 'integrations' : 'integration'}
                     </p>
                   </div>
                   <div className="grid">
