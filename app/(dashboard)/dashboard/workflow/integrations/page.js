@@ -146,7 +146,7 @@ const Page = () => {
       )
       }
       {integrationModal ?
-        <Modal title={'Manage Integration'} show={integrationModal} setShow={setIntegrationModal} className={'w-[80%] h-[50%] sm:h-full md:h-full lg:h-full rounded-lg'} showCancel={true} >
+        <Modal title={'Manage Integration'} show={integrationModal} setShow={setIntegrationModal} className={'w-[100%] sm:w-[80%] md:w-[80%] lg:w-[80%] h-[50%] sm:h-full md:h-full lg:h-full rounded-lg'} showCancel={true} >
           <ConfigureIntegration fetchIntegrations={fetchIntegrations} setShow={setIntegrationModal} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
         </Modal>
         : ""}
