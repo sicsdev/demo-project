@@ -23,7 +23,7 @@ const Tempoeconomy = () => {
             </h6>
             <p className="sm:mt-4 text-justify">
               Meet your customers' needs at any hour. Our round-the-clock chat
-              support ensures you never miss a beat, and with instant responses,
+              support ensures you never miss a beat, and with nearly instant responses,
               customer satisfaction is just a few clicks away.
             </p>{" "}
             <div className=" sm:w-[85%] sm:mt-10">
@@ -64,8 +64,7 @@ const Tempoeconomy = () => {
             </h6>
             <p className="sm:mt-4 text-justify">
               Enjoy the ease of plug-and-play with Tempo Chat. Integrate your
-              payments, CRM, inventory management, and backend with a single
-              click.
+              payments, CRM, inventory management, and backend in as little as one click.
             </p>{" "}
             <div className=" sm:w-[85%] sm:mt-10">
               <div className="w-full  mt-[40px] sm:mt-0">

@@ -57,7 +57,7 @@ const Invite = ({ setTeamModal }) => {
     setCollab(true);
     setAdmin(false);
   };
-  
+
   return (
     <div className="p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -93,21 +93,22 @@ const Invite = ({ setTeamModal }) => {
               checked
             />
             <label
-              className="mt-px text-heading font-bold inline-block pl-[0.15rem] hover:cursor-pointer"
+              className="mt-px text-heading font-bold pl-[0.15rem] hover:cursor-pointer sm:flex gap-5"
               for="Admin"
             >
               Admin
+              <div>
+                <p
+                  className={`text-normal ${
+                    admin ? "text-first-section-color" : "text-border"
+                  }`}
+                >
+                  {" "}
+                  Admins will be able to log in and help manage this
+                  integration.
+                </p>
+              </div>
             </label>
-          </div>
-          <div>
-            <p
-              className={`text-normal ${
-                admin ? "text-first-section-color" : "text-border"
-              }`}
-            >
-              {" "}
-              Admins will be able to log in and help manage this integration.
-            </p>
           </div>
         </div>
         <div className="flex flex-row gap-4 mt-2">
@@ -124,13 +125,11 @@ const Invite = ({ setTeamModal }) => {
               checked
             />
             <label
-              className="mt-px text-heading font-bold inline-block pl-[0.15rem] hover:cursor-pointer"
+              className="mt-px text-heading font-bold sm:flex gap-5 pl-[0.15rem] hover:cursor-pointer"
               for="Collaborator"
             >
               Collaborator
-            </label>
-          </div>
-          <div>
+              <div>
             <p
               className={`text-normal ${
                 collab ? "text-first-section-color" : "text-border"
@@ -140,6 +139,8 @@ const Invite = ({ setTeamModal }) => {
               Collaborators can log in to view performance data, user feedback,
               and access embed tools, but can't make changes.
             </p>
+          </div>
+            </label>
           </div>
         </div>
         {error && (
