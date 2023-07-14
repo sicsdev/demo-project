@@ -59,7 +59,7 @@ const Workflows = ({ setView }) => {
             </div>
             <div className='flex items-start justify-between gap-2 my-2'>
               <div className="relative inline-flex items-center justify-center w-5 h-5 overflow-hidden bg-[#523A28] rounded-full">
-                <span className="font-normal text-white">1</span>
+                <span className="font-normal text-white">2</span>
               </div>
               <p className='text-sm '>Think of what you’d like to do, like request feedback.</p>
             </div>
@@ -75,7 +75,7 @@ const Workflows = ({ setView }) => {
             </div>
             <div className='flex items-start justify-between gap-2 my-2'>
               <div className="relative inline-flex items-center justify-center w-5 h-5 overflow-hidden bg-[#523A28] rounded-full">
-                <span className="font-normal text-white">1</span>
+                <span className="font-normal text-white">3</span>
               </div>
               <p className='text-sm '>Think of what you’d like to do, like request feedback.</p>
             </div>
