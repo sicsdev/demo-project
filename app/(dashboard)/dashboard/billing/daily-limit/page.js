@@ -15,15 +15,23 @@ const UsageLimit = () => {
   const state = useSelector((state) => state.user.data);
   const [totalUsage, setTotalUsage] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState(null);
   const [btnLoading, setBtnLoading] = useState(false);
   const [formData, setFormData] = useState(null);
   const [error, setError] = useState(false);
 
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
   const getPaymentOldData = async () => {
     setFormData(state.enterprise.billing_thresholds.amount_gte);
     const response = await getPaymentHistory(state.stripe_data.stripe_id);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentMonthName = monthNames[currentMonth];
+    setCurrentMonth(currentMonthName)
     if (
       response.hasOwnProperty("response") &&
       response.response.hasOwnProperty("status")
@@ -139,7 +147,7 @@ const UsageLimit = () => {
               Current usage
             </h3>
             <p className="text-sm mt-1">
-              Your total usage so far in July (UTC). Note that this may include
+              Your total usage so far in {currentMonth} (UTC). Note that this may include
               usage covered by a free trial or other credits, so your monthly
               bill might be less than the value shown here.{" "}
               <Link

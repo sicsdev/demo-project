@@ -267,10 +267,6 @@ select::-ms-expand {
     height: 55px;
   }
 
-  .chatbot_widget {
-    display: none;
-  }
-
   .facet-pill-border rect {
     animation: opacityChange 12s linear;
   }
