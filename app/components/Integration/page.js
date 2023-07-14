@@ -37,7 +37,7 @@ const ManageAutomations = (props) => {
       setSingleAutomationData(singleData);
       router.push(`${pathname}?integration_id=${singleData?.integration?.id}&automation_id=${singleData?.id}`);
     } else {
-      setSingleAutomationData(null);
+      setSingleAutomationData(null); 
     }
   }
 
