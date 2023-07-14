@@ -137,7 +137,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="email_introduction"
             values={email_introduction_data}
             title={
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 justify-between mr-6">
                 <span>Email Introduction</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
@@ -163,7 +163,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="email_introduction"
             values={email_sign_off_data}
             title={
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 justify-between mr-6">
                 <span>Email Sign-Off</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
@@ -189,7 +189,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="agent_title"
             className="py-3 mt-1"
             title={
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 justify-between mr-6">
                 Agent Job Title
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
@@ -215,7 +215,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
               htmlFor={"agent_name"}
               className="block text-sm font-medium text-heading"
             >
-              <span className="flex items-center gap-2">
+              <span className="flex items-center gap-2 justify-between mr-6">
                 Agent Name(s)
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />

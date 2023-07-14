@@ -21,6 +21,7 @@ import {
   CodeBracketSquareIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/solid";
+
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Sidebar = ({ children }) => {
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
   const [base64Data, setBase64Data] = useState({ data: "", state: false });
   const [showSubTabs, setShowSubTabs] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (!state) {
@@ -67,6 +69,11 @@ const Sidebar = ({ children }) => {
     });
   };
 
+  const handlerclosemenu = (e) => {
+    setShow(false);
+    router.push(e);
+  };
+
   const SideBarRoutes = [
     {
       href: "/dashboard",
@@ -102,7 +109,7 @@ const Sidebar = ({ children }) => {
       name: "Learning Center",
       icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
       list: [],
-      notification:"1"
+      notification: "1",
     },
     {
       href: "/dashboard/billing/usage",
@@ -128,7 +135,7 @@ const Sidebar = ({ children }) => {
           href: "/dashboard/billing/settings",
           name: "Billing Settings",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
-        } 
+        },
       ],
     },
     {
@@ -195,17 +202,24 @@ const Sidebar = ({ children }) => {
             <ul className="p-3 space-y-2">
               {element.list.map((ele, key) => (
                 <li key={key}>
-                  <Link
-                    href={ele.href}
+                  <div
+                    onClick={() => handlerclosemenu(ele.href)}
                     className={`${
                       pathname === ele.href && "bg-linkhover"
                     } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
                   >
+                    {/* <Link
+                    href={ele.href}
+                    className={`${
+                      pathname === ele.href && "bg-linkhover"
+                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                  > */}
                     {ele.icon}
                     <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
                       {ele.name}
                     </span>
-                  </Link>
+                    {/* </Link> */}
+                  </div>
                 </li>
               ))}
             </ul>
@@ -215,7 +229,13 @@ const Sidebar = ({ children }) => {
     }
     return (
       <li key={key}>
-        <Link
+        <div
+          onClick={() => handlerclosemenu(element.href)}
+          className={`${
+            pathname === element.href && "bg-linkhover"
+          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+        >
+          {/* <Link
           onClick={() => {
             setShowSubTabs(null);
           }}
@@ -223,16 +243,21 @@ const Sidebar = ({ children }) => {
           className={`${
             pathname === element.href && "bg-linkhover"
           } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-        >
+        > */}
           <div class="relative">
-          {element.icon}
-          <span style={{fontSize:"10px"}} className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3">{element.notification}
-          </span>
+            {element.icon}
+            <span
+              style={{ fontSize: "10px" }}
+              className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+            >
+              {element.notification}
+            </span>
           </div>
           <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
             {element.name}
           </span>
-        </Link>
+          {/* </Link> */}
+        </div>
       </li>
     );
   };
@@ -363,7 +388,7 @@ const Sidebar = ({ children }) => {
             className="block sm:hidden lg:hidden md:hidden items-center justify-between text-white  z-50 bg-sidebar   w-full md:w-auto md:order-1"
             id="navbar-cta"
           >
-            <ul className="space-y-2 font-medium  w-full relative">
+            <ul className="space-y-2 font-medium  w-full relative mb-4">
               {SideBarRoutes.map((element, key) =>
                 sendSideBarDetails(element, key)
               )}
