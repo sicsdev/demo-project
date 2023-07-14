@@ -76,7 +76,7 @@ const Sidebar = ({ children }) => {
     },
     {
       href: "/dashboard/workflow/integrations",
-      name: "Workflows",
+      name: "Workflow Builder",
       icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
       list: [
         {
@@ -91,7 +91,7 @@ const Sidebar = ({ children }) => {
         },
         {
           href: "/dashboard/workflow/workflow-builder",
-          name: "Workflow Builder",
+          name: "Workflows",
           icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
         },
       ],
@@ -99,7 +99,7 @@ const Sidebar = ({ children }) => {
 
     {
       href: "/dashboard/knowledge-center",
-      name: "Knowledge Center",
+      name: "Learning Center",
       icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
       list: [],
       notification:"1"
@@ -116,7 +116,7 @@ const Sidebar = ({ children }) => {
         },
         {
           href: "/dashboard/billing/daily-limit",
-          name: "Daily Limit",
+          name: "Billing Threshold",
           icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
         },
         {
@@ -128,12 +128,7 @@ const Sidebar = ({ children }) => {
           href: "/dashboard/billing/settings",
           name: "Billing Settings",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
-        },
-        {
-          href: "/dashboard/billing/billing-history",
-          name: "Billing history",
-          icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
-        },
+        } 
       ],
     },
     {

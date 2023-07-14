@@ -110,30 +110,31 @@ const Page = () => {
                 }
             </div>
             <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
-            <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal}
-                title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
-                showCancel={true}>
-                <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
+            {showModal === true ?
+                <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal}
+                    title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
+                    showCancel={true}>
+                    <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
+                    <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
+                    <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
 
-                {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
-                <div className={`flex  p-2 rounded-b mt-5  justify-end`}>
-                    {loading ? <LoaderButton /> :
-                        <>
-                            <Button type={"button"}
-                                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                disabled={DisablingButton()}
-                                onClick={(e) => SubmitForm()}
-                            >
-                                Submit
+                    {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
+                    <div className={`flex  p-2 rounded-b mt-5  justify-end`}>
+                        {loading ? <LoaderButton /> :
+                            <>
+                                <Button type={"button"}
+                                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                    disabled={DisablingButton()}
+                                    onClick={(e) => SubmitForm()}
+                                >
+                                    Submit
 
-                            </Button>
+                                </Button>
 
-                        </>}
-                </div>
-            </Modal>
-
+                            </>}
+                    </div>
+                </Modal> : ""
+            }
 
         </div>
     );
