@@ -114,10 +114,7 @@ const Pricing = () => {
                 {ele.title == "Starter" ? (
                   <p className="text-slate font-normal text-sm my-4">
                     $200 free, then just{" "}
-                    <span className="font-bold text-heading"> 25¢ </span>per
-                    chat and
-                    <span className="font-bold text-heading"> 50¢ </span>per
-                    email
+                    <span className="font-bold text-heading"> $1 </span>per ticket resolution
                   </p>
                 ) : (
                   <p className="text-slate font-normal text-sm my-4">
@@ -225,13 +222,13 @@ const Pricing = () => {
             >
               <div className="border-l-2 border-[#2563EB] h-[100%]">
                 <div className="py-6">
-                  <p class="text-md font-bold text-heading px-4">25 cents</p>
+                  <p class="text-md font-bold text-heading px-4">$1</p>
                   <p class="text-sm font-normal text-heading px-4">
                     per chat response
                   </p>
 
                   <p class="text-md font-bold text-heading px-4 mt-4">
-                    50 cents
+                    $1
                   </p>
                   <p class="text-sm font-normal text-heading px-4">
                     per email response
