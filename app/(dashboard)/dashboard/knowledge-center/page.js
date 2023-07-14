@@ -115,7 +115,7 @@ const Page = () => {
                                 className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                                 aria-current="page"
                             >
-                                <BookOpenIcon className="h-6 w-6 text-primary" /> Knowledge Center
+                                <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
                             </a>
                         </li>
                     </ul>
@@ -134,7 +134,7 @@ const Page = () => {
                 ) : (
                     <div className="w-full">
                         <DataTable
-                            title="Knowledge Center"
+                            title="Learning center"
                             fixedHeader
                             highlightOnHover
                             pointerOnHover

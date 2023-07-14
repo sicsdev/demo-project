@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { WrenchScrewdriverIcon } from '@heroicons/react/24/solid'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
 import LoaderButton from '@/app/components/Common/Button/Loaderbutton';
-import BotSettingReadOnly from '@/app/components/Forms/ReadOnly/BotSetting';
+import { InboxStackIcon } from "@heroicons/react/24/solid";
 import Card from '@/app/components/Common/Card/Card';
 import Swal from 'sweetalert2';
 import Loading from '@/app/components/Loading/Loading';
@@ -18,7 +18,7 @@ const BotSetting = () => {
     const [loading, setLoading] = useState(false)
     const [dataLoading, setDataLoading] = useState(true)
     const [basicFormData, setBasicFormData] = useState({})
-    const [isEdit, setIsEdit] = useState(false)
+    const [isEdit, setIsEdit] = useState(true)
     const [name, setName] = useState(null)
     const searchParams = useSearchParams();
     const router = useRouter()
@@ -88,13 +88,13 @@ const BotSetting = () => {
 
     }
 
-    const backButtonhandler = (e) => {
-        if (isEdit === true) {
-            setIsEdit(false);
-        } else {
-            router.push('/dashboard');
-        }
-    };
+    // const backButtonhandler = (e) => {
+    //     if (isEdit === true) {
+    //         setIsEdit(false);
+    //     } else {
+    //         router.push('/dashboard');
+    //     }
+    // };
 
 
     return (
@@ -109,15 +109,15 @@ const BotSetting = () => {
             } */}
 
 
-            {/* <div className="border-b border-primary dark:border-gray-700 flex items-center justify-between">
-                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            {/* <div className=" dark:border-gray-700 flex items-center justify-between">
+                <ul className="flex flex-wrap -mb-px text-md font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2">
                         <a
                             href="#"
-                            className="flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                            className="flex justify-start gap-2 items-center p-4 text-primary font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                             aria-current="page"
                         >
-                            <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" /> {name} Settings
+                            <InboxStackIcon className="h-6 w-6 text-gray-500" /> Email Settings
                         </a>
                     </li>
                 </ul>
@@ -125,9 +125,11 @@ const BotSetting = () => {
             </div> */}
             {dataLoading === true ? <Loading /> :
                 <div className='mt-3'>
-                    {isEdit === false ?
-                        <BotSettingReadOnly basicFormData={basicFormData} setIsEdit={setIsEdit} /> :
-                        <Card>
+
+                    {/* {isEdit === false ?
+                        {basicFormData}
+                        : */}
+                        <Card noshadow={"shadow-none"}>
                             <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                             <div className={`flex p-2 rounded-b mt-5 justify-between`}>
                                 <>
@@ -144,7 +146,8 @@ const BotSetting = () => {
 
                                 </>
                             </div>
-                        </Card>}
+                        </Card>
+                        {/* } */}
 
                 </div>
             }

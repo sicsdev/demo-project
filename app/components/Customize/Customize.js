@@ -355,14 +355,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       <div className="w-full">
         {form === false && (
           <>
-            <div className="mb-4">
+            <div className="mt-4 mb-4">
               <div className="flex items-center justify-between">
                 <a
                   className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                   aria-current="customize"
                 >
-                  <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize
-                  widget
+                  <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
                 </a>
                 <p className="text-sm">
                   <Link href="/dashboard">back</Link>
@@ -556,11 +555,12 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
               </div>
 
+
               <div
                 id="chatbot_preview"
-                className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]"
+                className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%] mt-6 sm:mt-0"
               >
-                <div className="mb-4">
+                <div className="mb-8">
                   <a
                     className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
@@ -650,7 +650,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
               </div>
             </div>
-            <BotSetting/>
+            <BotSetting />
             {form === false && (
               <div className="m-auto justify-center flex mt-4">
                 <div className="m-auto align-center">
@@ -669,7 +669,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
               </div>
             )}
-
           </>
         )}
       </div>

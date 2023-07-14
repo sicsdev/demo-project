@@ -7,6 +7,8 @@ import Testimonial from "@/app/components/Testimonial/Testimonial";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
 import AboveSection from "@/app/components/solutions/AboveSection";
 import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
+import Aipowered from "@/app/components/solutions/Aipowered";
+import Intcomp from "@/app/components/solutions/Intcomp";
 
 const page = () => {
   const router = useRouter();
@@ -49,6 +51,8 @@ const page = () => {
       <div className="pt-12 sm:pt-0 bg-white"><Testimonial /></div>
       <Tempoeconomy />
       {/* <Requestdemo/> */}
+      <Aipowered/>
+      <Intcomp/>
     </div>
   );
 };
