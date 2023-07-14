@@ -71,7 +71,6 @@ const Sidebar = ({ children }) => {
 
   const handlerclosemenu = (e) => {
     setShow(false);
-    router.push(e);
   };
 
   const SideBarRoutes = [
@@ -96,11 +95,11 @@ const Sidebar = ({ children }) => {
           name: "Policies",
           icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
         },
-        // {
-        //   href: "/dashboard/workflow/workflow-builder",
-        //   name: "Workflows",
-        //   icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-        // },
+        {
+          href: "/dashboard/workflow/workflow-builder",
+          name: "Workflows",
+          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+        },
       ],
     },
 
@@ -202,24 +201,24 @@ const Sidebar = ({ children }) => {
             <ul className="p-3 space-y-2">
               {element.list.map((ele, key) => (
                 <li key={key}>
-                  <div
+                  {/* <div
                     onClick={() => handlerclosemenu(ele.href)}
                     className={`${
                       pathname === ele.href && "bg-linkhover"
                     } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                  >
-                    {/* <Link
-                    href={ele.href}
-                    className={`${
-                      pathname === ele.href && "bg-linkhover"
-                    } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
                   > */}
+                  <Link
+                    href={ele.href}
+                    onClick={() => handlerclosemenu(ele.href)}
+                    className={`${pathname === ele.href && "bg-linkhover"
+                      } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                  >
                     {ele.icon}
                     <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
                       {ele.name}
                     </span>
-                    {/* </Link> */}
-                  </div>
+                  </Link>
+                  {/* </div> */}
                 </li>
               ))}
             </ul>
@@ -229,21 +228,21 @@ const Sidebar = ({ children }) => {
     }
     return (
       <li key={key}>
-        <div
+        {/* <div
           onClick={() => handlerclosemenu(element.href)}
-          className={`${
-            pathname === element.href && "bg-linkhover"
-          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-        >
-          {/* <Link
+          className={`${pathname === element.href && "bg-linkhover"
+            } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+        > */}
+          <Link
           onClick={() => {
             setShowSubTabs(null);
+            handlerclosemenu(element.href)
           }}
           href={element.href}
           className={`${
             pathname === element.href && "bg-linkhover"
           } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-        > */}
+        >
           <div class="relative">
             {element.icon}
             <span
@@ -256,8 +255,8 @@ const Sidebar = ({ children }) => {
           <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
             {element.name}
           </span>
-          {/* </Link> */}
-        </div>
+          </Link>
+        {/* </div> */}
       </li>
     );
   };
