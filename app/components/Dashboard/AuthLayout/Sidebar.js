@@ -96,11 +96,11 @@ const Sidebar = ({ children }) => {
           name: "Policies",
           icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
         },
-        {
-          href: "/dashboard/workflow/workflow-builder",
-          name: "Workflows",
-          icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-        },
+        // {
+        //   href: "/dashboard/workflow/workflow-builder",
+        //   name: "Workflows",
+        //   icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+        // },
       ],
     },
 

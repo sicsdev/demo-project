@@ -22,12 +22,15 @@ export default function RootLayout({ children }) {
           property="og:image"
           content="https://usetempo.ai/tempo-preview.png"
         />
- <meta name="robots" content="index, follow"></meta>
-
- <meta name="google-site-verification" content="epzTKCNxl8SueOTxEBd_vbJbXxjcVIgUqH9MvaMoSFA" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
+        />
+        <meta name="robots" content="index, follow"></meta>
+        <meta name="google-site-verification" content="epzTKCNxl8SueOTxEBd_vbJbXxjcVIgUqH9MvaMoSFA" />
 
         <Script
-        id="hotjar"
+          id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
           (function(h,o,t,j,a,r){
@@ -44,7 +47,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
-        id="hotjar"
+          id="hotjar"
           dangerouslySetInnerHTML={{
             __html: `
             var userId = 2674167; 
@@ -61,7 +64,7 @@ export default function RootLayout({ children }) {
         />
 
         <Script
-        id="gtm"
+          id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -76,13 +79,13 @@ export default function RootLayout({ children }) {
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-P3BH433"
             height="0"
-          
+
             width="0"
             style={{ display: "none", visibility: "hidden" }}
           ></iframe>
         </noscript>
         <Script
-        id="gtm"
+          id="gtm"
           dangerouslySetInnerHTML={{
             __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -95,12 +98,12 @@ export default function RootLayout({ children }) {
         />
         {/* <!-- Google tag (gtag.js) --> */}
         <Script
-        id="gtm"
+          id="gtm"
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-GEYJNVQCQE"
         />
         <Script
-        id="gtag"
+          id="gtag"
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -111,13 +114,13 @@ export default function RootLayout({ children }) {
         />
 
         <Script
-        id="klaviyo"
+          id="klaviyo"
           async
           src="https://static.klaviyo.com/onsite/js/klaviyo.js"
           type="text/javascript"
         />
         <Script
-        id="widget"
+          id="widget"
           dangerouslySetInnerHTML={{
             __html: `
 var _learnq = _learnq || [];
@@ -125,17 +128,17 @@ _learnq.push(['account', 'UVQx8p']);
 `,
           }}
         />
-              <script
-      id="widget"
-        src="https://assets.calendly.com/assets/external/widget.js"
-        type="text/javascript"
-        async
-      />
+        <script
+          id="widget"
+          src="https://assets.calendly.com/assets/external/widget.js"
+          type="text/javascript"
+          async
+        />
 
-      
-      <script type="application/ld+json">
-{
-  `"@context": "https://schema.org",
+
+        <script type="application/ld+json">
+          {
+            `"@context": "https://schema.org",
   "@type": "Organization",
   "name": "Tempo AI Ventures",
   "image": "https://usetempo.ai/logo.png",
@@ -148,10 +151,10 @@ _learnq.push(['account', 'UVQx8p']);
     "addressRegion": "NY",
     "postalCode": "10022",
     "addressCountry": "US"
-  } ` 
-}
-</script>
-  
+  } `
+          }
+        </script>
+
 
         <link
           href="https://assets.calendly.com/assets/external/widget.css"
