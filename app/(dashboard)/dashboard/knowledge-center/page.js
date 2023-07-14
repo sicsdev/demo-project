@@ -5,54 +5,55 @@ import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import TextField from "@/app/components/Common/Input/TextField";
+import { GetAllRecommendations, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { ToastContainer } from 'react-toastify';
+import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
+import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
+import { useDispatch, useSelector } from "react-redux";
+import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 
 const Page = () => {
+    const [updateLoader, setUpdateLoader] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [data, setData] = useState([
-        {
-            id: 1,
-            question: 'What is your favorite color?',
-            answer: 'My favorite color is blue.',
-        },
-        {
-            id: 2,
-            question: 'What is the capital of France?',
-            answer: 'The capital of France is Paris.',
-        },
-        {
-            id: 3,
-            question: 'What is the largest planet in our solar system?',
-            answer: 'The largest planet in our solar system is Jupiter.',
-        },
-        {
-            id: 4,
-            question: 'Who painted the Mona Lisa?',
-            answer: 'The Mona Lisa was painted by Leonardo da Vinci.',
-        },
-        {
-            id: 5,
-            question: 'What is the symbol for the chemical element oxygen?',
-            answer: 'The symbol for the chemical element oxygen is O.',
-        },
-        // Add more objects as needed
-    ])
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state.recommendation);
+
+
+    const updateButtonHandler = async (id) => {
+        try {
+            const row = state?.data?.results.find(item => item.id === id);
+            const inputValue = row.answer;
+            if (inputValue === '' || inputValue === undefined) {
+                return false;
+            }
+            let payload = {
+                answer: inputValue
+            }
+            setUpdateLoader(id);
+            const updateRecord = await updateRecommendationRecord(payload, id);
+            setUpdateLoader(null);
+            if (updateRecord?.status === 201 || updateRecord?.status === 200) {
+                dispatch(fetchRecommendation());
+                successMessage("Recommendation Updated Successfully");
+            } else {
+                errorMessage("Unable to Update!");
+            }
+        } catch (error) {
+            setUpdateLoader(null);
+        }
+    };
 
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 1200);
     }, [])
 
-    const handleButtonClick = (id) => {
-
-    };
-
-    const handleSave = (row) => {
-        // Save the edited data
-        const updatedData = data.map((item) =>
+    const handleInput = (row) => {
+        const updatedData = state?.data?.results?.map((item) =>
             item.id === row.id ? { ...item, ...row } : item
         );
-        setData(updatedData);
+        dispatch(editRecommendation(updatedData));
     };
 
     const columns = [
@@ -73,7 +74,7 @@ const Page = () => {
             cell: (row) => (
                 <div className='my-2 w-[100%]'>
                     <TextField
-                        onChange={(e) => handleSave({ ...row, answer: e.target.value })}
+                        onChange={(e) => handleInput({ ...row, answer: e.target.value })}
                         value={row.answer}
                         name="interrogatory_type"
                         className="py-2 mt-2"
@@ -89,14 +90,17 @@ const Page = () => {
         {
             name: "",
             cell: (row) => (
-                // <button onClick={() => handleButtonClick(row.id)}>Action</button>
-                <Button
-                    type={"button"}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                    onClick={(e) => handleButtonClick(e)}
-                >
-                    Save Answer
-                </Button>
+                updateLoader === row.id ? (
+                    <LoaderButton />
+                ) : (
+                    <Button
+                        type={"button"}
+                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                        onClick={(e) => updateButtonHandler(row.id)}
+                    >
+                        Save Answer
+                    </Button>
+                )
             ),
             style: {
                 width: '20%',
@@ -104,6 +108,7 @@ const Page = () => {
             },
         },
     ];
+
     return (
         <>
             <div>
@@ -122,7 +127,6 @@ const Page = () => {
                 </div>
 
                 {loading === true ? (
-                    // <Loading />
                     <div className="">
                         <h1 className="mt-2 text-sm">
                             <SkeletonLoader height={40} width={100} />
@@ -142,12 +146,12 @@ const Page = () => {
                             pagination
                             paginationPerPage={7}
                             columns={columns}
-                            data={data}
+                            data={state?.data?.results}
                         />
                     </div>
                 )}
-
             </div>
+            <ToastContainer />
         </>
     );
 };
