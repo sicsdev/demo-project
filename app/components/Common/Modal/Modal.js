@@ -3,44 +3,52 @@ import Button from '../Button/Button'
 import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
-const Modal = ({ title, show, setShow, children, className, showCancel = false }) => {
+const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction }) => {
     const divRef = useRef(null);
-    console.log("Show", show);
+
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (divRef.current && !divRef.current.contains(event.target)) {
-                setShow(false)
-            } 
-        };
+        // const handleClickOutside = (event) => {
+        //     if (divRef.current && !divRef.current.contains(event.target)) {
+        //         setShow(false)
+        //     }
+        // };
 
         // Attach event listener to the document
-        document.addEventListener('click', handleClickOutside);
+        // document.addEventListener('click', handleClickOutside);
 
         // Clean up the event listener when the component unmounts
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
+        // return () => {
+        //     document.removeEventListener('click', handleClickOutside);
+        // };
     }, []);
     return (
         <div>
             {show ? (
                 <>
-                    <Card  className="justify-start flex p-2 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                        <div  className={`relative my-6 mx-auto ${className} flex items-center`}>
-                            <div  ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none overflow-y-scroll h-[90vh]   sm:overflow-y-auto md:overflow-y-auto lg:overflow-y-auto sm:h-auto md:h-auto lg:h-auto xl:top-[80px] 2xl:top-[0px] ">
+                    <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                    >
+                        <div className={`relative w-auto sm:w-[80%] md:w-[80%] lg:w-[80%] my-6 mx-auto max-w-[100%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%] ${className}`}>
+                            <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
-                                <div className="flex justify-between items-center p-2 border-b border-border border-slate-200 rounded-t">
+                                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+
                                     <span className="flex items-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-heading p-3">
                                         {title}
                                     </span>
-                                    {showCancel && (
-                                        <Button className="text-border font-normal font-sm" onClick={() => setShow(false)}>
+                                    {customHideButton === true ?
+                                        <Button className="text-border font-normal font-sm" onClick={() => { setShow(false); closeFunction() }}>
                                             <XMarkIcon className="w-6 h-6 mr-2" />
-                                        </Button>
-                                    )}
+                                        </Button> :
+                                        showCancel && (
+                                            <Button className="text-border font-normal font-sm" onClick={() => setShow(false)}>
+                                                <XMarkIcon className="w-6 h-6 mr-2" />
+                                            </Button>
+                                        )
+                                    }
+
                                 </div>
                                 {/*body*/}
-                                <div className="relative flex-auto p-5">
+                                <div className="relative p-6 flex-auto">
                                     {children}
                                 </div>
                             </div>

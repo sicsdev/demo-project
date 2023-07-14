@@ -15,8 +15,12 @@ import Loading from "@/app/components/Loading/Loading";
 import CustomAutomation from "./Automations/CustomAutomation";
 import { BillingAutomation } from "./Automations/BillingAutomation";
 import { makeCapital } from "../helper/capitalName";
+import { useRouter, usePathname } from 'next/navigation';
 
 const ManageAutomations = (props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const [headerTitle, setHeaderTitle] = useState(`${props?.type} Integrations`);
   const [automationName, setAutomationName] = useState('');
   const [billingAutomationData, setBillingAutomationData] = useState([]);
@@ -31,8 +35,9 @@ const ManageAutomations = (props) => {
     setMode(modeType);
     if (singleData) {
       setSingleAutomationData(singleData);
+      router.push(`${pathname}?integration_id=${singleData?.integration?.id}&automation_id=${singleData?.id}`);
     } else {
-      setSingleAutomationData(null);
+      setSingleAutomationData(null); 
     }
   }
 
@@ -86,6 +91,10 @@ const ManageAutomations = (props) => {
     }
   };
 
+  const customCloseModelHandler = () => {
+    router.push(`${pathname}`);
+  };
+
   return (
     <>
       {dataLoader === true ? <Loading /> :
@@ -118,7 +127,7 @@ const ManageAutomations = (props) => {
             }
           </Card>
           {automationModal ?
-            <Modal title={'Manage Automation'} show={automationModal} setShow={setAutomationModal} className={'w-[80%] h-[90%] rounded-lg'} showCancel={true} >
+            <Modal title={'Manage Automation'} show={automationModal} setShow={setAutomationModal} showCancel={true} customHideButton={true} closeFunction={customCloseModelHandler} >
               <CreateAutomation
                 mode={mode}
                 type={props?.type}

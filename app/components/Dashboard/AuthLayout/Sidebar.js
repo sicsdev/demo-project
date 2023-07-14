@@ -21,9 +21,11 @@ import {
   CodeBracketSquareIcon,
   BookOpenIcon,
 } from "@heroicons/react/24/solid";
+import { fetchRecommendation } from "../../store/slices/recommendation";
 
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
+  const recommedState = useSelector((state) => state.recommendation);
   const dispatch = useDispatch();
   const pathname = usePathname();
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
@@ -33,8 +35,8 @@ const Sidebar = ({ children }) => {
 
   useEffect(() => {
     if (!state) {
-      console.log("ccc");
       dispatch(fetchProfile());
+      dispatch(fetchRecommendation());
     }
   }, [state]);
 
@@ -49,6 +51,7 @@ const Sidebar = ({ children }) => {
       }, [4000]);
     }
   }, [base64Data]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -108,7 +111,7 @@ const Sidebar = ({ children }) => {
       name: "Learning Center",
       icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
       list: [],
-      notification: "1",
+      notification: recommedState?.data?.count,
     },
     {
       href: "/dashboard/billing/usage",
@@ -233,15 +236,14 @@ const Sidebar = ({ children }) => {
           className={`${pathname === element.href && "bg-linkhover"
             } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
         > */}
-          <Link
+        <Link
           onClick={() => {
             setShowSubTabs(null);
             handlerclosemenu(element.href)
           }}
           href={element.href}
-          className={`${
-            pathname === element.href && "bg-linkhover"
-          } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+          className={`${pathname === element.href && "bg-linkhover"
+            } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
         >
           <div class="relative">
             {element.icon}
@@ -255,7 +257,7 @@ const Sidebar = ({ children }) => {
           <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
             {element.name}
           </span>
-          </Link>
+        </Link>
         {/* </div> */}
       </li>
     );
