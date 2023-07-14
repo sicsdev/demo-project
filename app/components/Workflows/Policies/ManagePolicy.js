@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import TextField from '../../Common/Input/TextField'
 import Button from '../../Common/Button/Button'
-import { InformationCircleIcon } from '@heroicons/react/24/solid'
+import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Card from '../../Common/Card/Card'
 
 const ManagePolicy = ({ mode }) => {
@@ -38,7 +38,7 @@ const ManagePolicy = ({ mode }) => {
                         value={policyFormData.policy_name}
                         name="policy_name"
                         className="py-3 mt-2"
-                        title={"Policy Name"}
+                        title={<span className='block text-gray-700 text-sm font-bold'>Policy Name</span>}
                         placeholder={"Policy Name"}
                         type={"text"}
                         id={"policy_name"}
@@ -50,7 +50,7 @@ const ManagePolicy = ({ mode }) => {
                         value={policyFormData.policy_text}
                         name="policy_text"
                         className="py-3 mt-2"
-                        title={<div className='flex items-center gap-2'><span>Policy Text</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>The actual text of your policy. For example, if this is a refund policy, you’d just paste the official policy text here.</span></Card></div></div>}
+                        title={<div className='flex items-center gap-2'><span className='block text-gray-700 text-sm font-bold'>Policy Text</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>The actual text of your policy. For example, if this is a refund policy, you’d just paste the official policy text here.</span></Card></div></div>}
                         placeholder={"Policy Text"}
                         type={"text"}
                         id={"policy_text"}
@@ -62,7 +62,7 @@ const ManagePolicy = ({ mode }) => {
                         value={policyFormData.policy_exceptions}
                         name="policy_exceptions"
                         className="py-3 mt-2"
-                        title={<div className='flex items-center gap-2'><span>Policy Exceptions</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Any exception to your official policy. Without these the bot will follow your policy very strictly. For example, an exception to a refund policy would be to refund customers who threaten disputes or lawsuits.</span></Card></div></div>}
+                        title={<div className='flex items-center gap-2'><span className='block text-gray-700 text-sm font-bold'>Policy Exceptions</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Any exception to your official policy. Without these the bot will follow your policy very strictly. For example, an exception to a refund policy would be to refund customers who threaten disputes or lawsuits.</span></Card></div></div>}
                         placeholder={"Policy Exceptions"}
                         type={"text"}
                         id={"policy_exceptions"}
