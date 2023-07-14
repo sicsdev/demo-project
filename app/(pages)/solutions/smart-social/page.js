@@ -54,7 +54,7 @@ const page = () => {
     <div>
       <Socialabovesection />
       <SolutionStandard />
-      <Smartsocialalert/>
+      {/* <Smartsocialalert/> */}
 
       <Testimonial />
       {/* <Requestdemo/> */}

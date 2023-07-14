@@ -47,7 +47,7 @@ const page = () => {
     <div>
       <AboveSection />
       <SolutionStandard />
-      <Tempoalert />
+      {/* <Tempoalert /> */}
       <div className="pt-12 sm:pt-0 bg-white"><Testimonial /></div>
       <Tempoeconomy />
       {/* <Requestdemo/> */}

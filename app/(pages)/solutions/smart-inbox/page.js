@@ -46,7 +46,7 @@ const page = () => {
     <div>
       <Smartsection />
       <SolutionStandard />
-      <SmartAlert />
+      {/* <SmartAlert /> */}
 
       <Testimonial />
       {/* <Requestdemo/> */}
