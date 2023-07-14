@@ -11,7 +11,7 @@ const WorkFlowTemplates = () => {
             <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-2 my-4'>
                 {logos.map((ele, key) =>
                   <div className='border border-border rounded-lg p-3 cursor-pointer hover:bg-gray hover:shadow-sm' key={key}>
-                        <Link href={'/dashboard/workflow/get-started/'}>
+                        <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.name}`}>
                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg ">
                                 <span className="font-medium text-white">DN</span>
                             </div>
@@ -30,7 +30,7 @@ const WorkFlowTemplates = () => {
                 )}
                 {logos.map((ele, key) =>
                     <div className='border border-border rounded-lg p-3 cursor-pointer hover:bg-gray hover:shadow-sm' key={key}>
-                        <Link href={'/dashboard/workflow/get-started/'}>
+                        <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.name}`}>
                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg ">
                                 <span className="font-medium text-white">DN</span>
                             </div>
