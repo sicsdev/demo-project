@@ -1,25 +1,25 @@
-import React, { useRef, useEffect} from 'react'
+import React, { useRef, useEffect } from 'react'
 import Button from '../Button/Button'
 import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 const Modal = ({ title, show, setShow, children, className, showCancel = false }) => {
     const divRef = useRef(null);
-
+    console.log("Show", show);
     useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (divRef.current && !divRef.current.contains(event.target)) {
-  setShow(false)          
-        }
-      };
-  
-      // Attach event listener to the document
-      document.addEventListener('click', handleClickOutside);
-  
-      // Clean up the event listener when the component unmounts
-      return () => {
-        document.removeEventListener('click', handleClickOutside);
-      };
+        const handleClickOutside = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setShow(false)
+            } 
+        };
+
+        // Attach event listener to the document
+        document.addEventListener('click', handleClickOutside);
+
+        // Clean up the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
     return (
         <div>

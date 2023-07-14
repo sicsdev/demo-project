@@ -31,16 +31,24 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
             token: card_token.token?.id
         }
         const response = await createBillingUser(payload)
-        if (response?.message) {
+        if (response?.response?.status === 200 || response?.response?.status === 201) {
             Swal.fire(
                 'Success !',
                 response?.message,
                 'success'
             )
+
+            setLoading(false)
+            getBillingData()
+            setShowBilling(false)
+        } else {
+            Swal.fire(
+                'Something wrong !',
+                response?.message,
+                'error'
+            )
+            setLoading(false)
         }
-        setLoading(false)
-        getBillingData()
-        setShowBilling(false)
     }
 
     useEffect(() => {
