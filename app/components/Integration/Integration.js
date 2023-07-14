@@ -248,7 +248,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
 
                 {integrationFormData?.authType === "auth" && (
                     <>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="name"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -265,7 +265,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                                 onChange={(e) => handleIntegrationInputChange(e)}
                             />
                         </div>
-                        <div className="mb-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="name"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -285,7 +285,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     </>
                 )}
                 {integrationFormData?.authType === "api_key" && (
-                    <div className="mb-4 mt-4 ml-6">
+                    <div className="mb-4 mt-4">
                         <label
                             htmlFor="apikey"
                             className="block text-gray-700 text-sm font-bold mb-2"
@@ -305,7 +305,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 )}
                 {integrationFormData?.authType === "oauth1" && (
                     <>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="clientkey"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -322,7 +322,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                                 onChange={(e) => handleIntegrationInputChange(e)}
                             />
                         </div>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="clientsecret"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -343,7 +343,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 )}
                 {integrationFormData?.authType === "oauth2" && (
                     <>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="clientkey2"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -360,7 +360,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                                 onChange={(e) => handleIntegrationInputChange(e)}
                             />
                         </div>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="clientsecret2"
                                 className="block text-gray-700 text-sm font-bold mb-2"
@@ -377,7 +377,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                                 onChange={(e) => handleIntegrationInputChange(e)}
                             />
                         </div>
-                        <div className="mb-4 mt-4 ml-6">
+                        <div className="mb-4 mt-4">
                             <label
                                 htmlFor="clientredirecturl"
                                 className="block text-gray-700 text-sm font-bold mb-2"
