@@ -9,6 +9,7 @@ import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard"
 import Smarteconomy from "@/app/components/solutions/Smarteconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
+import Smartlevel from "@/app/components/solutions/Smartlevel";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,6 +50,7 @@ const page = () => {
       {/* <SmartAlert /> */}
 
       <Testimonial />
+{/* <Smartlevel/> */}
       {/* <Requestdemo/> */}
       <Smarteconomy />
       <Aipowered />
