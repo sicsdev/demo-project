@@ -188,37 +188,7 @@ const Smartsection = () => {
                 </div>
               </form>
             </div>
-            <form className="hidden sm:grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8">
-              <div className="inline col-span-2  sm:max-w-[70%]">
-                <input
-                  type={"email"}
-                  placeholder={"Enter your email"}
-                  className={
-                    "border border-input_color w-full block  px-3 py-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500  "
-                  }
-                  id={"email"}
-                  //   value={email}
-                  onBlur={(e) => handleBlur(email)}
-                  onChange={(e) => {
-                    {
-                      setEmail(e.target.value);
-                    }
-                    validateEmail(e);
-                  }}
-                />
-              </div>
-              <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]">
-                <Button
-                  className={
-                    "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
-                  }
-                  disabled={validEmail}
-                  onClick={handleNavigate}
-                >
-                  Start Now
-                </Button>
-              </div>
-            </form>
+          
             <div className="block sm:hidden mt-4">
               <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
                 <Image
