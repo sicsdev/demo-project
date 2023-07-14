@@ -10,6 +10,7 @@ import { errorMessages } from '@/app/components/error/message';
 import { CreditCardIcon } from '@heroicons/react/24/solid';
 import React from 'react'
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const PaymentMethod = () => {
     const [basicFormData, setBasicFormData] = useState(null);
@@ -17,30 +18,25 @@ const PaymentMethod = () => {
     const [logo, setLogo] = useState(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
+    const state = useSelector((state) => state.user.data);
     const getBillingData = async () => {
-        const response = await getPaymentDetails();
-        if (response?.results?.length > 0) {
-            const customer_id = response.results[0].stripe_id;
-            const resp = await getBillingDetails(customer_id);
-            if (resp?.data?.length > 0) {
-                setBasicFormData((prev) => {
-                    return {
-                        ...prev,
-                        card: resp.data,
-                    };
-                });
-                setError(null)
-                setLoading(false)
-            } else {
-                setLoading(false)
-                setError(errorMessages.notFound)
-            }
-        } else {
-            setError(errorMessages.notFound)
+        const customer_id = state.stripe_data.stripe_id
+        const resp = await getBillingDetails(customer_id);
+        if (resp?.data?.length > 0) {
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    card: resp.data,
+                };
+            });
+            setError(null)
             setLoading(false)
+        } else {
+            setLoading(false)
+            setError(errorMessages.notFound)
         }
     };
-    useEffect(() => { getBillingData() }, [])
+    useEffect(() => {if(basicFormData === null) getBillingData() }, [state])
     const makeCapital = (str) => {
         if (str?.includes(" ")) {
             return str
@@ -118,26 +114,26 @@ const PaymentMethod = () => {
                 </>
             )}
             {isEdit && (
-                 <div className={`w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5`}>
+                <div className={`w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5`}>
                     <StripeWrapper>
-                      
-                            <Card>
-                                <h3 className='font-semibold mb-2'>Add payment method</h3>
-                                <p className='text-sm text-border mb-4'>This card will be charged based on your metered usage. </p>
-                                <Billing
-                                    basicFormData={basicFormData}
-                                    setShowBilling={setIsEdit}
-                                    getBillingData={getBillingData}
-                                />
-                            </Card>
+
+                        <Card>
+                            <h3 className='font-semibold mb-2'>Add payment method</h3>
+                            <p className='text-sm text-border mb-4'>This card will be charged based on your metered usage. </p>
+                            <Billing
+                                basicFormData={basicFormData}
+                                setShowBilling={setIsEdit}
+                                getBillingData={getBillingData}
+                            />
+                        </Card>
                     </StripeWrapper>
                     <Button type={"button"} className="inline-block my-4 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                         onClick={() => { setIsEdit(false) }}
                     >
                         Back
                     </Button>
-               
-                    </div>
+
+                </div>
             )}
         </div>
     )

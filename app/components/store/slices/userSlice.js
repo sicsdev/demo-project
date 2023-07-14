@@ -1,8 +1,20 @@
 import { getUserProfile } from "@/app/API/components/Sidebar";
+import { getPaymentDetails } from "@/app/API/pages/Checkout";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
 const initialState = { isLoading: false, data: null, error: null }
+
+
+export const fetchProfile = createAsyncThunk('user_profile/fetchUserData', async () => {
+    const response = await getUserProfile()
+    const customerStripeData = await getPaymentDetails()
+    let user_data = response
+    if (customerStripeData.results.length > 0) {
+        user_data.stripe_data = customerStripeData.results[0]
+    }
+    return user_data
+});
 
 export const userSlice = createSlice({
     name: "user_profile",
@@ -10,7 +22,7 @@ export const userSlice = createSlice({
     reducers: {
         editUserValue: (state, action) => {
             console.log(action.payload),
-            state.error = null
+                state.error = null
             state.isLoading = null
             state.data = action.payload
         },
@@ -37,7 +49,4 @@ export const { editUserValue } = userSlice.actions;
 export default userSlice.reducer;
 
 
-export const fetchProfile = createAsyncThunk('user_profile/fetchUserData', async () => {
-    const response = await getUserProfile()
-    return response
-});
+

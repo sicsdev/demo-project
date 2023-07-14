@@ -36,7 +36,7 @@ const ManageCustomerInter = ({ mode }) => {
                         value={customerInterFormData.customer_text}
                         name="customer_text"
                         className="py-3 mt-2"
-                        title={"Customer Name"}
+                        title={<span className='block text-gray-700 text-sm font-bold'>Customer Name</span>}
                         placeholder={"Customer Text"}
                         type={"text"}
                         id={"customer_text"}
@@ -48,7 +48,7 @@ const ManageCustomerInter = ({ mode }) => {
                         value={customerInterFormData.interrogatory_type}
                         name="interrogatory_type"
                         className="py-3 mt-2"
-                        title={"Interrogatory Type"}
+                        title={<span className='block text-gray-700 text-sm font-bold'>Interrogatory Type</span>}
                         placeholder={"Interrogatory Type"}
                         type={"text"}
                         id={"interrogatory_type"}
