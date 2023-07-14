@@ -25,7 +25,9 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
   });
 
   useEffect(() => {
-    getUserProfile().then((res) => { console.log(res); setUserProfile(res) })
+
+    let token = localStorage.getItem('token')
+    if (token) getUserProfile().then((res) => { console.log(res); setUserProfile(res) })
 
     // Next code block is for watch for changes in the formValues object, to update the Freshsales contact
     if (
