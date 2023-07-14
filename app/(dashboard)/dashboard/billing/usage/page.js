@@ -139,6 +139,7 @@ const UsageLimit = () => {
 
             </ul>
           </div>
+          {data.length ?
           <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
             <h3 className="font-bold text-xl md:text-xl lg:text-xl sm:text-xl sm:leading-none my-2 text-heading">Usage</h3>
             <p className='text-sm my-2'>Below you'll find a summary of API usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
@@ -155,6 +156,11 @@ const UsageLimit = () => {
             </h3>
             <p className='text-xs text-heading'>${totalUsage}</p>
           </div>
+          :
+          <div>
+            <p className='mt-6 text-sm text-[#9CA3AF]'>No usage data</p>
+          </div>
+          }
         </div>
       }
     </>

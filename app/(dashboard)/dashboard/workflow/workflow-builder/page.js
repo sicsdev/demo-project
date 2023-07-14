@@ -28,11 +28,12 @@ const page = () => {
                     {template_data.map((ele, key) =>
                         <li className="mr-2 cursor-pointer" key={key} onClick={(e) => { setView(ele.key) }}>
                             <span
-                                className={`h-[50px]  flex justify-start gap-2 items-center p-4 text-primary font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group ${ele.key === view && ("border-b-2 border-primary")}`}
+                                className={`h-[50px]  flex justify-start gap-2 items-center p-4 font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group ${ele.key === view && ("border-b-2 border-primary text-primary ")}`}
 
                             >
-                                {key === 0 && (<BriefcaseIcon className="h-6 w-6 text-primary" />)} {ele.value}
+                                {key === 0 && (<BriefcaseIcon className={`h-6 w-6 ${ele.key === view && ("text-primary ")}`}/>)} {ele.value}
                             </span>
+                            
                         </li>
                     )}
                 </ul>
