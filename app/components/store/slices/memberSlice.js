@@ -1,4 +1,4 @@
-import { getAllMembers } from "@/app/API/pages/Members";
+import { changeMemberRole, deleteMember, getAllMembers } from "@/app/API/pages/Members";
 
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
@@ -41,3 +41,14 @@ export const fetchMembers = createAsyncThunk('members_data/fetchMembers', async 
     const response = await getAllMembers()
     return response
 });
+
+
+export const changeRole = createAsyncThunk('members_data/changeRole', async ({ email, role }) => {
+    const response = await changeMemberRole(email, { role })
+    return response
+})
+
+export const removeMember = createAsyncThunk("members_data/removeMember", async ({ email }) => {
+    const response = await deleteMember(email)
+    return response
+})

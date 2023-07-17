@@ -10,15 +10,16 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchMembers } from "@/app/components/store/slices/memberSlice";
+import { changeRole, fetchMembers, removeMember } from "@/app/components/store/slices/memberSlice";
 import Loading from "@/app/components/Loading/Loading";
 import Invite from "@/app/components/Invite/Invite";
 import TeamManagement from "@/app/components/Team/TeamManagement";
 
 const Page = () => {
   const [teamModal, setTeamModal] = useState(false);
+  const roles = { Admin: "ADMINISTRATOR", Collaborator: "MEMBER" }
   const state = useSelector((state) => state.members);
-  console.log(state, "state");
+  console.log(state)
   const dispatch = useDispatch();
   const getMembersData = () => {
     dispatch(fetchMembers());
@@ -26,6 +27,18 @@ const Page = () => {
   useEffect(() => {
     getMembersData();
   }, []);
+
+  const handleRemoveMember = async (email) => {
+    await dispatch(removeMember({ email }))
+    await getMembersData()
+  }
+
+  const handleChangeRole = async (email, role) => {
+    role = roles[role]
+    await dispatch(changeRole({ email, role }))
+  }
+
+
   return (
     <div>
       <div className="block sm:flex md:flex lg:flex justify-between items-center mb-2">
@@ -65,7 +78,7 @@ const Page = () => {
       {state?.isLoading === true ? (
         <Loading />
       ) : (
-        <TeamManagement state={state}/>
+        <TeamManagement state={state} removeMember={handleRemoveMember} changeRole={handleChangeRole} />
       )}
 
       {teamModal ? (
