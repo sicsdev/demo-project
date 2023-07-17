@@ -65,7 +65,8 @@ console.log("filterposts",filterPosts )
           <SkeletonLoader height={40} width={580} />
         )}
       ></p>
-      <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
+    
+    {single?.acf?.article_para_copy == null ?  <SkeletonLoader height={40} width={580} />: <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
         <table className="mt-3 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto m-auto shadow-lg">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -338,7 +339,7 @@ console.log("filterposts",filterPosts )
             </Link>
           </button>
         </div>}
-      </div>
+      </div> }  
       <h1
             className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none "
           >
