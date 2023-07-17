@@ -77,6 +77,7 @@ const ManageAutomations = (props) => {
   const backButtonHandler = (e) => {
     props.setEdit(false);
     props?.setShow(false);
+    router.push(`${pathname}`);
   };
 
   const automationView = () => {
