@@ -125,7 +125,7 @@ const Accordiontabs = () => {
                         </p>
                       </div>
                     </AccordionItemButton>
-                    <AccordionItemPanel className="p-0 accordionitm_panel">
+                    <AccordionItemPanel className="p-0 accordionitem_panel">
                       {index === activeTab ? (
                         <div
                           className={

@@ -449,18 +449,18 @@ transition: all .4s ease;
 } */
 .accordionitem_panel{
   display: block !important;
-  transition: all .35s;
+  transition: transform 5s ease-in-out;
 }
 .accordionitem_panel .p-6{
   min-height: 0;
   height: 0;
-  transition: all .6s;
   overflow: hidden;
-  transition: min-height 0.55s ease-out;
+  transition: transform 5s ease-in-out;
+
 }
 
 .bg-background.rounded-lg .accordionitem_panel .p-6{
   height: auto;
-  transition: all .6s;
-  transition: min-height 0.55s ease-out;
+  transition: transform 5s ease-in-out;
+
 }
