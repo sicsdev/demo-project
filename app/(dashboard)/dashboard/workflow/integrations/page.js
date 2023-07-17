@@ -33,6 +33,7 @@ const Page = () => {
     setIntegrationType(type);
     let intData = fetchIntegrationByType(type);
     setSingleIntegrationData(intData);
+    setAutomationID(null);
   };
 
   const fetchIntegrationByType = (type) => {
