@@ -55,7 +55,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                         // error={returnErrorMessage("business_state")}
                                         />
                                     </td>
-                                    {stateM?.data?.email == element.email && stateM?.data?.role === "ADMINISTRATOR" ?
+                                    {stateM?.data?.role === "ADMINISTRATOR" ?
                                         <td className="px-6 py-4 pb-6">
                                             <Button
                                                 type="button"
