@@ -20,7 +20,7 @@ import { useRouter, usePathname } from 'next/navigation';
 const ManageAutomations = (props) => {
   const router = useRouter();
   const pathname = usePathname();
-
+console.log("props", props);
   const [headerTitle, setHeaderTitle] = useState(`${props?.type} Integrations`);
   const [automationName, setAutomationName] = useState('');
   const [billingAutomationData, setBillingAutomationData] = useState([]);

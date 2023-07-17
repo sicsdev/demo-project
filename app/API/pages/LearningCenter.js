@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const GetAllRecommendations = async () => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/recommendations/`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/recommendations?accepted=0`, config);
         return response.data;
     } catch (error) {
         return error

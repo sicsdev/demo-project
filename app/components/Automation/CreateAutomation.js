@@ -7,12 +7,13 @@ import Button from "@/app/components/Common/Button/Button";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import { Input } from "../Common/Input/Input";
 import Swal from "sweetalert2";
+import SelectField from "../Common/Input/SelectField";
 
 
 const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAutomationModal, getAutomations, singleAutomationData, mode, updateAutomationRecord, type, ...rest }) => {
 
   const [automationFormData, setAutomationFormData] = useState({
-    http_type: mode === 'create' ? 'POST' : 'PATCH',
+    http_type: singleAutomationData?.http_type || '',
     route: singleAutomationData?.route || "",
     policies: singleAutomationData?.policies || "",
     workflow: singleAutomationData?.workflow || "Example Workflow",
@@ -20,13 +21,13 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
     payload_data: singleAutomationData?.payload_data || "",
     http_url: integrationData?.http_base,
     name: name || '',
-    description: singleAutomationData?.description || "This is an example automation",
+    description: singleAutomationData?.description || "",
   });
 
   const [loading, setLoading] = useState(false);
 
   const DisablingButton = () => {
-    var requiredKeys = ["route", "policies", "payload_data", "name"];
+    var requiredKeys = ["route", "payload_data", "http_type", "description", "name"];
 
     return requiredKeys.some(
       (key) => !automationFormData[key] || automationFormData[key].trim() === ""
@@ -86,6 +87,21 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
           You can add automation title here.
         </p>
       </div>
+
+      <div className="mb-4">
+        <SelectField
+          onChange={(e) => { setAutomationFormData((prev) => ({ ...prev, http_type: e.target.value })) }}
+          value={automationFormData?.http_type}
+          name="http_type"
+          values={['GET', 'POST', 'PATCH', 'POST', 'DELETE']}
+          title={'Http Type'}
+          id={"http_type"}
+          // className="py-3"
+          className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
+          labelClass={"block text-gray-700 text-sm font-bold mb-2"}
+        />
+      </div>
+
       <div className="mb-4">
         <label
           htmlFor="route_url"
@@ -107,7 +123,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
         </p>
       </div>
 
-      <div className="mb-4">
+      {/* <div className="mb-4">
         <label
           htmlFor="name"
           className="flex text-gray-700 text-sm font-bold mb-2 gap-1"
@@ -139,13 +155,14 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
           Paste, in written english, instructions to the bot governing
           this action.{" "}
         </p>
-      </div>
+      </div> */}
+
       <div className="mb-4">
         <label
           htmlFor="name"
           className="flex text-gray-700 text-sm font-bold mb-2 gap-1"
         >
-          Example Params Payload{" "}
+          Payload Format{" "}
           <span className="group w-[2px] relative">
             <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
             <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
@@ -174,7 +191,40 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
           Example JSON data to verify the action formatting.{" "}
         </p>
       </div>
-      <div className="mb-4 spec">
+
+      <div className="mb-4">
+        <label
+          htmlFor="name"
+          className="flex text-gray-700 text-sm font-bold mb-2 gap-1"
+        >
+          Expected Return Value Description
+          <span className="group w-[2px] relative">
+            <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
+            <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+              {" "}
+              <span className="text-xs font-light">
+                Please enter in concise english the policies governing
+                when this action can be granted. These policies will be
+                enforced by the bot before the action can be performed.
+                For example, for a refund action, please add your refund
+                policies. Ensure you include any exceptions to the
+                policy at all as this policy will be upheld.
+              </span>
+            </Card>
+          </span>
+        </label>
+        <Input
+          type={"text"}
+          placeholder={"Enter text..."}
+          className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
+          name="description"
+          value={automationFormData?.description}
+          id={"automation_value_description"}
+          onChange={(e) => { setAutomationFormData((prev) => ({ ...prev, description: e.target.value })) }}
+        />
+      </div>
+
+      {/* <div className="mb-4 spec">
         <label
           htmlFor="method"
           className="flex text-gray-700 text-sm font-bold mb-2"
@@ -206,7 +256,8 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
         <p className="text-sm mt-2">
           Require customer to confirm before action is performed.{" "}
         </p>
-      </div>
+      </div> */}
+
       <div className="flex items-center justify-between">
         {loading ? (
           <LoaderButton />
