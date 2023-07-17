@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { getArticlePage, getAllArticles } from "@/app/API/pages/Wpdata";
 import Link from "next/link";
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+
 const page = () => {
   const[article, setArticle]= useState([]);
 
@@ -47,17 +49,23 @@ console.log("filterposts",filterPosts )
       <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
         <div className="sm:w-[70%]">
       <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
-        {single?.acf?.article_name}
+        {single?.acf?.article_name|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </h1>
       <p className=" text-heading px-4 pt-8">{single?.acf?.aritcle_para_t}</p>
       <h1 id={removeSpacesAndHyphens(single?.acf?.first_head)} className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h4  ">
-        {single?.acf?.first_head}
+        {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </h1>
       <p
         className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
+        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }|| (
+          <SkeletonLoader height={40} width={580} />
+        )}
       ></p>
-      <div className="sm:w-[20%] m-auto py-4">
+      {single?.acf?.article_name == null?   <SkeletonLoader height={40} width={580} /> : <div className="sm:w-[20%] m-auto py-4">
         <button
           className={
             "py-2  focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
@@ -70,19 +78,25 @@ console.log("filterposts",filterPosts )
             Checkout &#8594;{" "}
           </Link>
         </button>
-      </div>
+      </div>}
       <h1 id={removeSpacesAndHyphens(single?.acf?.sedond_head)} className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h4  ">
-        {single?.acf?.sedond_head}
+        {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </h1>
       <p
         className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }}
+        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }|| (
+          <SkeletonLoader height={40} width={580} />
+        )}
       ></p>
       <h1 id={removeSpacesAndHyphens(single?.acf?.third_head)} className=" font-bold  px-4 pt-8 text-3xl text-heading  md:text-h4  ">
-        {single?.acf?.third_head}
+        {single?.acf?.third_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </h1>
       <p className=" text-heading px-4 pt-8">{single?.acf?.smaal_para}</p>
-      <div className="sm:w-[20%] m-auto py-4">
+      {single?.acf?.article_name == null?   <SkeletonLoader height={40} width={580} /> :<div className="sm:w-[20%] m-auto py-4">
         <button
           className={
             "py-2  focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
@@ -95,7 +109,7 @@ console.log("filterposts",filterPosts )
             Get Started &#8594;{" "}
           </Link>
         </button>
-        </div>
+        </div>}
         <h1
             className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none "
           >
@@ -164,19 +178,25 @@ console.log("filterposts",filterPosts )
                   `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.first_head)}`
                   }>
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.first_head}
+                    {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 <Link href={
                   `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.sedond_head)}`
                   }>
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.sedond_head}
+                  {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.third_head)}`}>
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.third_head}
+                  {single?.acf?.third_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 

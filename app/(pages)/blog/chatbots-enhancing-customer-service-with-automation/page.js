@@ -45,22 +45,32 @@ const page = () => {
         <div className="sm:w-[70%]">
           {" "}
           <h1 className=" font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
-            {single?.title?.rendered}
+            {single?.title?.rendered|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </h1>
           <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-            {single?.acf?.para1}
+            {single?.acf?.para1|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </p>
           <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-            {single?.acf?.para2}
+            {single?.acf?.para2|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </p>
           <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-            {single?.acf?.para3}
+            {single?.acf?.para3|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </p>
           <h1
             id={removeSpacesAndHyphens(single?.acf?.heading1)}
             className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
           >
-            {single?.acf?.heading1}
+            {single?.acf?.heading1|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </h1>
           <p
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
@@ -70,17 +80,23 @@ const page = () => {
             id={removeSpacesAndHyphens(single?.acf?.heading2)}
             className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
           >
-            {single?.acf?.heading2}
+            {single?.acf?.heading2|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </h1>
           <p
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-            dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points_2 }}
+            dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points_2 }|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           ></p>
           <h1
             id={removeSpacesAndHyphens(single?.acf?.heading3)}
             className=" font-bold  text-1xl  md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none "
           >
-            {single?.acf?.heading3}
+            {single?.acf?.heading3|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </h1>
           <p
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"

@@ -410,3 +410,5 @@ input[type=number]::-webkit-outer-spin-button {
 .desk_headermenupopup{
   display: none !important;
 }
+
+.top-0::-webkit-scrollbar{width: 0px;}

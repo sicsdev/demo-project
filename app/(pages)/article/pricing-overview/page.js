@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getArticlePage, getAllArticles } from "@/app/API/pages/Wpdata";
 import Link from "next/link";
 import Button from "@/app/components/Common/Button/Button";
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 
 const page = () => {
   const[article, setArticle]= useState([]);
@@ -48,15 +49,21 @@ console.log("filterposts",filterPosts )
       <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
         <div className="sm:w-[70%]">
       <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
-        {single?.acf?.article_name}
+        {single?.acf?.article_name|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </h1>
       <p className=" text-heading px-4 pt-8">{single?.acf?.aritcle_para_t}</p>
       <p     id={removeSpacesAndHyphens(single?.acf?.first_head)} className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
-        {single?.acf?.first_head}
+        {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
       </p>
       <p
         className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
+        dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }|| (
+          <SkeletonLoader height={40} width={580} />
+        )}
       ></p>
       <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
         <table className="mt-3 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto m-auto shadow-lg">
@@ -66,13 +73,17 @@ console.log("filterposts",filterPosts )
                 scope="col"
                 className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center sm:pr-16"
               >
-                {single?.acf?.table_head1}
+                {single?.acf?.table_head1|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 bg-[#09162A] text-white rounded-tr-lg text-center"
               >
-                {single?.acf?.table_head2}
+                {single?.acf?.table_head2|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
             </tr>
           </thead>
@@ -85,10 +96,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
               >
-                {single?.acf?.row1l}
+                {single?.acf?.row1l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.row1r}</td>
+              <td className="px-6 py-4">{single?.acf?.row1r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -98,10 +113,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
               >
-                {single?.acf?.row2l}
+                {single?.acf?.row2l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.row2r}</td>
+              <td className="px-6 py-4">{single?.acf?.row2r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -111,11 +130,15 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
               >
-                {single?.acf?.row3l}
+                {single?.acf?.row3l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
               <td className="px-6 py-4">
-                {single?.acf?.row3r}
+                {single?.acf?.row3r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 <p
                   className="text-[blue] font-bold"
                   dangerouslySetInnerHTML={{
@@ -123,8 +146,9 @@ console.log("filterposts",filterPosts )
                 `,
                   }}
                 ></p>
+                {single?.acf?.article_name == null?  <SkeletonLoader height={40} width={580} /> :
                 <Button
-                  type={"submit"}
+                 type={"submit"}
                   className={
                     "mr-2 py-[6px] mt-2 px-2 focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
                   }
@@ -139,7 +163,7 @@ console.log("filterposts",filterPosts )
       `,
                     }}
                   />
-                </Button>
+                </Button>}
               </td>
             </tr>
             <tr
@@ -150,10 +174,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
               >
-                {single?.acf?.row4l}
+                {single?.acf?.row4l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.row4r}</td>
+              <td className="px-6 py-4">{single?.acf?.row4r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800  hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -163,10 +191,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
               >
-                {single?.acf?.row5l}
+                {single?.acf?.row5l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.row5r}</td>
+              <td className="px-6 py-4">{single?.acf?.row5r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -176,10 +208,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {single?.acf?.row6l}
+                {single?.acf?.row6l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.row6lr}</td>
+              <td className="px-6 py-4">{single?.acf?.row6lr|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
           </tbody>
         </table>
@@ -195,13 +231,17 @@ console.log("filterposts",filterPosts )
                 scope="col"
                 className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
               >
-                {single?.acf?.table2_head_1}{" "}
+                {single?.acf?.table2_head_1|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 bg-[#09162A] text-white rounded-tr-lg text-center"
               >
-                {single?.acf?.table2_head_2}{" "}
+                {single?.acf?.table2_head_2|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
             </tr>
           </thead>
@@ -217,7 +257,9 @@ console.log("filterposts",filterPosts )
                 {single?.acf?.table2_row1l}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.table2_row1r}</td>
+              <td className="px-6 py-4">{single?.acf?.table2_row1r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -227,10 +269,14 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {single?.acf?.table2_row2l}
+                {single?.acf?.table2_row2l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.table2_row2r}</td>
+              <td className="px-6 py-4">{single?.acf?.table2_row2r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
             <tr
               className="bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -240,16 +286,22 @@ console.log("filterposts",filterPosts )
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {single?.acf?.table2_row3l}
+                {single?.acf?.table2_row3l|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
               </th>
 
-              <td className="px-6 py-4">{single?.acf?.table2_row3r}</td>
+              <td className="px-6 py-4">{single?.acf?.table2_row3r|| (
+              <SkeletonLoader height={40} width={580} />
+            )}</td>
             </tr>
           </tbody>
         </table>
         <p
           className="text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy2 }|| (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
         <div className="mt-4 sm:mt-4 mx-6 sm:w-[20%] text-center sm:m-auto">
           <button
@@ -262,13 +314,17 @@ console.log("filterposts",filterPosts )
           </button>
         </div>
         <p   id={removeSpacesAndHyphens(single?.acf?.sedond_head)} className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
-          {single?.acf?.sedond_head}
+          {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </p>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy3 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy3 }|| (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
-        <div className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
+      {single?.acf?.article_name == null?     <SkeletonLoader height={40} width={580} /> :  <div className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
           <button
             className={
               "py-2  focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
@@ -281,7 +337,7 @@ console.log("filterposts",filterPosts )
               Get Started &#8594;{" "}
             </Link>
           </button>
-        </div>
+        </div>}
       </div>
       <h1
             className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none "
@@ -349,14 +405,18 @@ console.log("filterposts",filterPosts )
                   `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.first_head)}`
                   }>
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.first_head}
+                    {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 <Link href={
                   `${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.sedond_head)}`
                   }>
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.sedond_head}
+                  {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
               </div>

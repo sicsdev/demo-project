@@ -56,13 +56,17 @@ console.log("filterposts",filterPosts )
     </h1>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
-    >{single?.acf?.aritcle_para_t}</p>
+    >{single?.acf?.aritcle_para_t || (
+      <SkeletonLoader height={40} width={580} />
+    )}</p>
     <p
     style={{ marginBottom: "0px" }}
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
-      dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
+      dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }|| (
+        <SkeletonLoader height={40} width={580} />
+      )}
     ></p>
-      <div  style={{ marginBottom: "0px" }} className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
+           {single?.acf?.article_name == null?   <SkeletonLoader height={40} width={580} /> : <div  style={{ marginBottom: "0px" }} className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
           <button
             className={
               "py-2  focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
@@ -75,7 +79,7 @@ console.log("filterposts",filterPosts )
               Get Started &#8594;{" "}
             </Link>
           </button>
-        </div>
+        </div>}
         <h1
               id={single?.acf?.heading6}
             className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none "

@@ -42,7 +42,6 @@ const AboveSection = () => {
   ];
 
   const handleBlur = (email) => {
- 
     if (validator.isEmail(email)) {
       let Freshsalespayload = {
         email: email,
@@ -79,9 +78,7 @@ const AboveSection = () => {
   };
 
 
-
   const router = useRouter();
-
   const validateEmail = (e) => {
     var email = e.target.value;
     if (validator.isEmail(email)) {

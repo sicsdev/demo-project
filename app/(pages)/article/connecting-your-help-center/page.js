@@ -72,7 +72,9 @@ const page = () => {
           <p
             style={{ marginBottom: "0px" }}
             className="pb-6 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
-            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }}
+            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           ></p>
           <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
             Want to know more?
@@ -109,7 +111,9 @@ const page = () => {
                   {" "}
                   <Link key={key} href={`/article/${ele.slug}`}>
                     <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
-                      {ele?.title}
+                      {ele?.title|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                     </p>
                   </Link>
                 </>
@@ -137,7 +141,9 @@ const page = () => {
                   )}`}
                 >
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.first_head}
+                    {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 <Link
@@ -146,7 +152,9 @@ const page = () => {
                   )}`}
                 >
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.sedond_head}
+                    {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
               </div>

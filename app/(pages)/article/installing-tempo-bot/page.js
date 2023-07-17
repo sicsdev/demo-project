@@ -46,7 +46,9 @@ const page = () => {
             )}
           </h1>
           <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading">
-            {single?.acf?.aritcle_para_t}
+            {single?.acf?.aritcle_para_t|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </p>
           <h1
             id={removeSpacesAndHyphens(single?.acf?.first_head)}
@@ -59,7 +61,9 @@ const page = () => {
           <p
             style={{ marginBottom: "0px" }}
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
-            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }}
+            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           ></p>
           <h1
            id={removeSpacesAndHyphens(single?.acf?.sedond_head)}
@@ -72,7 +76,9 @@ const page = () => {
           <p
             style={{ marginBottom: "0px" }}
             className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
-            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }}
+            dangerouslySetInnerHTML={{ __html: single?.acf?.article_para_copy }|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
           ></p>
           <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
             Want to know more?
@@ -135,7 +141,9 @@ const page = () => {
                   )}`}
                 >
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.first_head}
+                    {single?.acf?.first_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
                 <Link
@@ -144,7 +152,9 @@ const page = () => {
                   )}`}
                 >
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    {single?.acf?.sedond_head}
+                    {single?.acf?.sedond_head|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
                   </p>
                 </Link>
               </div>
