@@ -464,3 +464,9 @@ transition: all .4s ease;
   transition: transform 5s ease-in-out;
 
 }
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}

@@ -26,6 +26,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
+        <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css" />
+
       </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>

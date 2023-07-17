@@ -15,6 +15,9 @@ import {
   AccordionItemPanel,
 } from "react-accessible-accordion";
 import { boolean } from "yup";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+// init Swiper:
 
 const tabs = [
   {
@@ -82,7 +85,10 @@ const Accordiontabs = () => {
   const handleTabChange = (index) => {
     setActiveTab(index);
   };
-
+  const [swiper, setWiper] = useState(0);
+const handleSwiperChange =(ele)=>{
+  setWiper(ele.activeIndex)
+}
   return (
     <div className="bg-white pt-6 pb-8">
       <h2 class="text-center pb-4 text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-black">
@@ -93,7 +99,7 @@ const Accordiontabs = () => {
         cross-tagging feature across tasks, subtasks, folders, milestones,
         phases, and projects.
       </p>
-      <div className="sm:ml-12 sm:mr-6 sm:pt-16 flex flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
+      <div className="hidden sm:flex sm:ml-12 sm:mr-6 sm:pt-16  flex-wrap sm:flex-nowrap items-start justify-center sm:justify-between gap-4 sm:gap-2 div-anima">
         <div className="w-[100%] sm:w-[30%] tabs mx-4 sm:mx-0">
           <div className="block sm:flex-col h-full bg-white gap-3">
             {tabs.map((tab, index) => (
@@ -175,6 +181,52 @@ const Accordiontabs = () => {
             </div>
           </div>
         </div>
+      </div>
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={1}
+        onSlideChange={(ele) => handleSwiperChange(ele)}
+        pagination={true}
+      >
+        {tabs.map((ele) => (
+          <SwiperSlide>
+            <div className="w-[100%] block sm:hidden">
+              <div className="flex flex-wrap sm:flex-nowrap items-center">
+                <div className="w-full sm:px-12 mt-[20px] sm:mt-0">
+                  <div className="h-[100%] sm:h-[100%] mb-2 sm:mb-0">
+                    <img
+                      src={ele.content_video}
+                      className="w-100 m-auto rounded-2xl"
+                      style={{ minHeightL: "200px" }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <p
+                className={`text-left px-6 text-xl  sm:leading-8  font-semibold text-black
+                             `}
+              >
+                {ele.title}
+              </p>
+              <p className="text-left px-6 text-xl     text-black">{ele.p}</p>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+      <div className=" sm:hidden flex flex-rows justify-center">
+        {tabs.map((item, index) => {
+          return (
+            <div className="px-4" key={item}>
+              <ul className="list-disc">
+                <li
+                  className={`${
+                    index == swiper ? "text-[heading] " : "text-[grey]"
+                  }`}
+                ></li>
+              </ul>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
