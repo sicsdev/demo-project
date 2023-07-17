@@ -15,7 +15,7 @@ export const getAllMembers = async () => {
 export const InviteMembers = async (body) => {
     let config = returnConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/accounts/users/invite/`,body, config);
+        const response = await axios.post(`${API_URL}/api/v1/accounts/users/invite/`, body, config);
         return response;
     } catch (error) {
         return error.response.data
@@ -23,3 +23,23 @@ export const InviteMembers = async (body) => {
 };
 
 
+export const deleteMember = async (email) => {
+
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/accounts/users/${email}/`, config);
+        return response;
+    } catch (error) {
+        return error.response.data
+    }
+}
+
+export const changeMemberRole = async (email, body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/accounts/users/${email}/`, body, config);
+        return response;
+    } catch (error) {
+        return error.response.data
+    }
+}
