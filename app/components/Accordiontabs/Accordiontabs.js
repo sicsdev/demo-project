@@ -14,6 +14,7 @@ import {
   AccordionItemHeading,
   AccordionItemPanel,
 } from "react-accessible-accordion";
+import { boolean } from "yup";
 
 const tabs = [
   {
@@ -111,7 +112,7 @@ const Accordiontabs = () => {
                         key={index}
                         className={`font-semi-bold tab_accordion_heading min-w-[90%] h-[65px] flex items-center relative justify-start sm:justify-start sm:pl-[40px] gap-3 w-100 text-center my-2 py-3 cursor-pointer rounded-t-lg shadow-lg px-3 sm:px-6 ${
                           index === activeTab
-                            ? "active bg-background text-white start-rainbow"
+                            ? "active bg-background text-white start-rainbow "
                             : "start-rainbow hover:bg-gray"
                         }`}
                       >
@@ -124,11 +125,13 @@ const Accordiontabs = () => {
                         </p>
                       </div>
                     </AccordionItemButton>
-                    {index === activeTab ? (
-                      <AccordionItemPanel>
+                    <AccordionItemPanel className="p-0 accordionitm_panel">
+                      {index === activeTab ? (
                         <div
                           className={
-                            index === activeTab ? "text-white" : "text-heading"
+                            index === activeTab
+                              ? "p-6 text-white animate__animated animate__backInUp"
+                              : "p-6 text-heading  animate__animated animate__backInUp"
                           }
                         >
                           {tabs[activeTab].p}
@@ -147,8 +150,10 @@ const Accordiontabs = () => {
                             </div>
                           </div>
                         </div>
-                      </AccordionItemPanel>
-                    ) : null}
+                      ) : (
+                        ""
+                      )}
+                    </AccordionItemPanel>
                   </AccordionItem>
                 </Accordion>
               </>

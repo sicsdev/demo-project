@@ -2,11 +2,13 @@
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Script from 'next/script'
+import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
-  title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Tempo.ai",
-  description: "Elevate your customer support with Tempo.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+  title:
+    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Tempo.ai",
+  description:
+    "Elevate your customer support with Tempo.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
     icon: "favicon.ico",
   },
@@ -20,14 +22,16 @@ export default function RootLayout({ children }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
         />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+        />
       </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
           <div className="tempo_container">{children}</div>
         </ProviderWrapper>
       </body>
-
-
     </html>
   );
 }
