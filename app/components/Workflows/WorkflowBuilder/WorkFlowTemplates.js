@@ -4,39 +4,57 @@ import { logos } from '../../Forms/ReadOnly/logos_data'
 import Link from 'next/link'
 
 const WorkFlowTemplates = () => {
+    const workflowOptions = [
+        {
+            id: 1,
+            name: "Issue Refund",
+            key: "issue-refund",
+            title: 'The standard Lorem Ipsum passage, used since the 1500s',
+            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+        {
+            id: 1,
+            name: "Reactivate Subscription",
+            key: "reactivate-subscription",
+            title: 'The standard Lorem Ipsum passage, used since the 1500s',
+            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+        {
+            id: 1,
+            name: "Issue Promotion",
+            key: "issue-promotion",
+            title: 'The standard Lorem Ipsum passage, used since the 1500s',
+            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+        {
+            id: 1,
+            name: "Cancel Subscription",
+            key: "cancel-subscription",
+            title: 'The standard Lorem Ipsum passage, used since the 1500s',
+            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        },
+        {
+            id: 1,
+            name: "Add Payment Method",
+            key: "add-payment-method",
+            title: 'The standard Lorem Ipsum passage, used since the 1500s',
+            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        }
+    ];
     return (
         <>
             <h3 className='text-heading text-center font-semibold text-xl my-2'>What do you want to build today?</h3>
             <p className='text-heading text-sm text-center'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
             <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-2 my-4'>
-                {logos.map((ele, key) =>
-                  <div className='border border-border rounded-lg p-3 cursor-pointer hover:bg-gray hover:shadow-sm' key={key}>
-                        <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.name}`}>
-                            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg ">
-                                <span className="font-medium text-white">DN</span>
-                            </div>
-                            <h3 className='text-heading  font-semibold text-sm my-1'>The standard Lorem Ipsum passage, used since the 1500s
-                            </h3>
-                            <p className='text-heading text-[13px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                            <Button
-                                type={"submit"}
-                                className="inline-block rounded my-2 bg-white border border-border px-5 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 focus:bg-success-600 focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-
-                            >
-                                Set Up
-                            </Button>
-                        </Link>
-                    </div>
-                )}
-                {logos.map((ele, key) =>
+                {workflowOptions?.map((ele, key) =>
                     <div className='border border-border rounded-lg p-3 cursor-pointer hover:bg-gray hover:shadow-sm' key={key}>
-                        <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.name}`}>
+                        <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.key}`}>
                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg ">
                                 <span className="font-medium text-white">DN</span>
                             </div>
-                            <h3 className='text-heading  font-semibold text-sm my-1'>The standard Lorem Ipsum passage, used since the 1500s
+                            <h3 className='text-heading  font-semibold text-sm my-1'>{ele.name}
                             </h3>
-                            <p className='text-heading text-[13px]'>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p className='text-heading text-[13px]'>{ele.sub_title}</p>
                             <Button
                                 type={"submit"}
                                 className="inline-block rounded my-2 bg-white border border-border px-5 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-primary disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 focus:bg-success-600 focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"

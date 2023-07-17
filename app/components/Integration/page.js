@@ -59,7 +59,7 @@ const ManageAutomations = (props) => {
       fetchBillingAutomations();
     }
   }, []);
-
+ 
   useEffect(() => {
     if (props?.automationID && props.automationID !== null) {
       let getAutomationRecord = props?.filterDataByID(billingAutomationData, props.automationID);
@@ -77,6 +77,7 @@ const ManageAutomations = (props) => {
   const backButtonHandler = (e) => {
     props.setEdit(false);
     props?.setShow(false);
+    router.push(`${pathname}`);
   };
 
   const automationView = () => {
