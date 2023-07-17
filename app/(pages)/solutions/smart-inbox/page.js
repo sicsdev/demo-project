@@ -10,6 +10,7 @@ import Smarteconomy from "@/app/components/solutions/Smarteconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
 import Smartlevel from "@/app/components/solutions/Smartlevel";
+import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -48,13 +49,15 @@ const page = () => {
       <Smartsection />
       <SolutionStandard />
       {/* <SmartAlert /> */}
-
       <Testimonial />
-{/* <Smartlevel/> */}
+
+      <Accordiontabs />
+      {/* <Smartlevel/> */}
+
       {/* <Requestdemo/> */}
       <Smarteconomy />
       <Aipowered />
-<Intcomp/>
+      <Intcomp />
     </div>
   );
 };

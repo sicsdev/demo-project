@@ -409,3 +409,37 @@ input[type=number]::-webkit-outer-spin-button {
 .border-class{
   border: 2px solid #7ec1ec !important;
 }
+
+
+/* accordion tabs */
+
+.tab_accordion_heading.active:before {
+  position: absolute !important;
+  right: 0 !important;
+  top: 28px !important;
+  display: inline-block;
+  content: '';
+  height: 10px;
+  width: 10px;
+  margin-right: 23px;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg) !important;
+  color: #fff !important;
+  transition: transform 0.5s ease-in-out;
+}
+.tab_accordion_heading.start-rainbow:before {
+  position: absolute !important;
+  right: 0 !important;
+  top: 28px !important;
+  display: inline-block;
+  content: '';
+  height: 10px;
+  width: 10px;
+  margin-right: 23px;
+  border-bottom: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(-45deg);
+  color: #000;
+  transition: transform 0.5s ease-in-out;
+}
