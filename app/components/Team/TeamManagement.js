@@ -11,6 +11,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     useEffect(() => {
         dispatch(fetchProfile)
     }, [])
+    console.log("Chekc")
     return (
         <div className="mt-5">
             <div className="relative overflow-x-auto sm:rounded-lg">
