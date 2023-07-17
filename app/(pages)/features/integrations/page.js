@@ -2,14 +2,15 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import Tempoalert from "@/app/components/ChatBots/Tempoalert";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
+import Smartsection from "@/app/components/solutions/Smartsection";
+import SmartAlert from "@/app/components/ChatBots/SmartAlert";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
-import AboveSection from "@/app/components/solutions/AboveSection";
-import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
+import Smarteconomy from "@/app/components/solutions/Smarteconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
-
+import Smartlevel from "@/app/components/solutions/Smartlevel";
+import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -45,14 +46,20 @@ const page = () => {
 
   return (
     <div>
-      <AboveSection />
+      <Smartsection />
+      <Accordiontabs />
       <SolutionStandard />
-      {/* <Tempoalert /> */}
-      <div className="pt-12 sm:pt-0 bg-white"><Testimonial /></div>
-      <Tempoeconomy />
+      {/* <SmartAlert /> */}
+      
+      <Testimonial />
+
+     
+      {/* <Smartlevel/> */}
+
       {/* <Requestdemo/> */}
-      <Aipowered/>
-      <Intcomp/>
+      <Smarteconomy />
+      <Aipowered />
+      <Intcomp />
     </div>
   );
 };

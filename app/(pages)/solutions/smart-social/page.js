@@ -12,6 +12,7 @@ import Smartsocialalert from "@/app/components/ChatBots/Smartsocialalert";
 import Smartsocialeconomy from "@/app/components/solutions/smartsocialeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
+import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -53,11 +54,14 @@ const page = () => {
   return (
     <div>
       <Socialabovesection />
-      <SolutionStandard />
-      <Smartsocialalert/>
+      <Accordiontabs/>
+
+      {/* <Smartsocialalert/> */}
 
       <Testimonial />
       {/* <Requestdemo/> */}
+      <SolutionStandard />
+
       <Smartsocialeconomy />
       <Aipowered/>
       <Intcomp/>

@@ -22,7 +22,8 @@ const Testimonial = () => {
                 "py-2 px-8 sm:px-20 md:px-20 lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
-              <div className="trytempo"
+              <div
+                className="trytempo"
                 dangerouslySetInnerHTML={{
                   __html: `
        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
@@ -40,7 +41,7 @@ const Testimonial = () => {
               }
             >
               <div className="trytempo">
-              <Link href="/checkout">Try Tempo &#8594; </Link>
+                <Link href="/checkout">Try Tempo &#8594; </Link>
               </div>
             </button>
           </div>

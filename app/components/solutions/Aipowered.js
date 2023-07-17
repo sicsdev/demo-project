@@ -26,7 +26,7 @@ const Aipowered = () => {
     },
   ];
   return (
-    <div className=" bg-[white] pt-2 sm:pt-10 pb-2 sm:pb-4">
+    <div className=" bg-[#e6f7fd] pt-2 sm:pt-10 pb-2 sm:pb-4">
       <div className="my-8  mx-auto max-w-[90%]">
         <h2 className="text-center sm:max-w-[62%]  font-bold mb-8 sm:mb-16 text-2xl text-heading md:text-h2 lg:text-h2 sm:text-h2 sm:leading-[51px] sm:m-auto js-show-on-scroll ">
           Additional resources
