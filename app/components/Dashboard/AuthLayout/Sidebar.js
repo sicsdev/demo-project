@@ -247,12 +247,12 @@ const Sidebar = ({ children }) => {
         >
           <div class="relative">
             {element.icon}
-            <span
+            {element.notification !== 0 && <span
               style={{ fontSize: "10px" }}
               className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
             >
               {element.notification}
-            </span>
+            </span>}
           </div>
           <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
             {element.name}
