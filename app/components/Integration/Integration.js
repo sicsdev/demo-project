@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import Button from "@/app/components/Common/Button/Button";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
-import Swal from "sweetalert2";
 import SelectField from '../Common/Input/SelectField';
 import {
     addIntegrationData,

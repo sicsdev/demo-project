@@ -6,11 +6,14 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Button from "@/app/components/Common/Button/Button";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import { Input } from "../Common/Input/Input";
-import Swal from "sweetalert2";
 import SelectField from "../Common/Input/SelectField";
-
+import { useRouter, usePathname } from 'next/navigation';
+import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 
 const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAutomationModal, getAutomations, singleAutomationData, mode, updateAutomationRecord, type, ...rest }) => {
+
+  const router = useRouter();
+  const pathname = usePathname();
 
   const [automationFormData, setAutomationFormData] = useState({
     http_type: singleAutomationData?.http_type || '',
@@ -24,7 +27,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
     description: singleAutomationData?.description || "",
   });
 
-  const [loading, setLoading] = useState(false);
+  const [loadingButton, setLoadingButton] = useState(false);
 
   const DisablingButton = () => {
     var requiredKeys = ["route", "payload_data", "http_type", "description", "name"];
@@ -37,28 +40,26 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
   const createAutomationFormHandler = async (e) => {
     try {
       let createOrUpdateRecord;
-      let successMessage;
-      setLoading(true);
+      let message;
+      // setLoadingButton(true);
       if (mode === 'update') {
         createOrUpdateRecord = await updateAutomationRecord(automationFormData, singleAutomationData?.id);
-        successMessage = `Automation Updated Successfully!`;
+        message = `Automation Updated Successfully!`;
       } else {
         createOrUpdateRecord = await createAutomationRecord(automationFormData, integrationData?.id);
-        successMessage = `Automation Created Successfully!`;
+        message = `Automation Created Successfully!`;
       }
       if (createOrUpdateRecord?.status === 201 || createOrUpdateRecord?.status === 200) {
-        setLoading(false);
+        router.push(`${pathname}`);
+        successMessage(message);
+        setAutomationModal(false);
         getAutomations();
-        Swal.fire("Success", successMessage, "success");
-        setTimeout(() => {
-          setAutomationModal(false);
-        }, 1500);
       } else {
-        setLoading(false);
-        Swal.fire("Error", "Unable to Proceed!", "error");
+        errorMessage("Unable to Proceed!");
       }
+      // setLoadingButton(false);
     } catch (error) {
-      setLoading(false);
+      // setLoadingButton(false);
     }
   };
 
@@ -259,7 +260,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
       </div> */}
 
       <div className="flex items-center justify-between">
-        {loading ? (
+        {loadingButton === true ? (
           <LoaderButton />
         ) : (
           <Button
