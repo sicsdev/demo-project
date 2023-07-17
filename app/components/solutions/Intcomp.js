@@ -29,7 +29,7 @@ const Intcomp = () => {
     },
   ];
   return (
-    <div className=" bg-[white] pt-2 sm:pt-10 pb-2 sm:pb-4">
+    <div className=" bg-white pt-2 sm:pt-10 pb-2 sm:pb-4">
       <div className="sm:my-8  mx-auto max-w-[90%]">
         <div className="flex flex-col sm:grid  sm:grid-cols-2">
           <div>

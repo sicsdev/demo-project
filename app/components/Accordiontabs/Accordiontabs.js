@@ -87,10 +87,10 @@ const Accordiontabs = () => {
   };
   const [swiper, setWiper] = useState(0);
 const handleSwiperChange =(ele)=>{
-  setWiper(ele.activeIndex)
+  setWiper(ele.realIndex)
 }
   return (
-    <div className="bg-white pt-6 pb-8">
+    <div className="bg-[white] pt-6 pb-8">
       <h2 class="text-center pb-4 text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-black">
         Cross-tag at every level
       </h2>
@@ -187,6 +187,7 @@ const handleSwiperChange =(ele)=>{
         slidesPerView={1}
         onSlideChange={(ele) => handleSwiperChange(ele)}
         pagination={true}
+        loop={true}
       >
         {tabs.map((ele) => (
           <SwiperSlide>
@@ -220,7 +221,7 @@ const handleSwiperChange =(ele)=>{
               <ul className="list-disc">
                 <li
                   className={`${
-                    index == swiper ? "text-[heading] " : "text-[grey]"
+                    index == swiper ? "text-[heading] " : "text-[#ededed]"
                   }`}
                 ></li>
               </ul>

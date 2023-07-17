@@ -47,11 +47,12 @@ const page = () => {
   return (
     <div>
       <Smartsection />
-      <SolutionStandard />
+      <Accordiontabs />
+
       {/* <SmartAlert /> */}
       <Testimonial />
+      <SolutionStandard />
 
-      <Accordiontabs />
       {/* <Smartlevel/> */}
 
       {/* <Requestdemo/> */}
