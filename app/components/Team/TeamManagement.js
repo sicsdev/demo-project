@@ -1,15 +1,24 @@
 import React from 'react'
 import SelectField from '../Common/Input/SelectField'
 import Button from '../Common/Button/Button'
-
-const TeamManagement = ({ state }) => {
+import { fetchProfile } from '../store/slices/userSlice'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+const TeamManagement = ({ state, removeMember, changeRole }) => {
+    const stateM = useSelector((state) => state.user);
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(fetchProfile)
+    }, [])
+    console.log("Chekc")
     return (
         <div className="mt-5">
             <div className="relative overflow-x-auto sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <tbody>
                         {state?.data &&
-                            state?.data.map((element, key) => (
+                            state?.data?.map((element, key) => (
                                 <tr
                                     className=" border-b border-border dark:bg-gray-800 dark:border-gray-700"
                                     key={key}
@@ -36,7 +45,7 @@ const TeamManagement = ({ state }) => {
                                     </td>
                                     <td className="px-6 py-4 pb-6">
                                         <SelectField
-                                            // onChange={handleInputValues}
+                                            onChange={(e) => changeRole(element.email, e.target.value)}
                                             // value={formValues.business_state}
                                             name="role"
                                             values={['Admin', 'Collaborator']}
@@ -46,15 +55,18 @@ const TeamManagement = ({ state }) => {
                                         // error={returnErrorMessage("business_state")}
                                         />
                                     </td>
-                                    <td className="px-6 py-4 pb-6">
-                                        <Button
-                                            type="button"
-                                            disabled=""
-                                            className="focus:outline-none font-normal rounded-md text-sm py-2.5 px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
-                                        >
-                                            Remove
-                                        </Button>
-                                    </td>
+                                    {stateM?.data?.role === "ADMINISTRATOR" ?
+                                        <td className="px-6 py-4 pb-6">
+                                            <Button
+                                                type="button"
+                                                disabled=""
+                                                className="focus:outline-none font-normal rounded-md text-sm py-2.5 px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
+                                                onClick={() => removeMember(element.email)}
+                                            >
+                                                Remove
+                                            </Button>
+                                        </td> : null
+                                    }
                                 </tr>
                             ))}
                     </tbody>
