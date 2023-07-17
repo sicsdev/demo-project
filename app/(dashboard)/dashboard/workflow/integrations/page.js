@@ -12,6 +12,7 @@ import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import Modal from "@/app/components/Common/Modal/Modal";
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { ToastContainer } from "react-toastify";
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -30,6 +31,13 @@ const Page = () => {
   const addAutomationHandler = (type) => {
     setEdit(true);
     setIntegrationType(type);
+    let intData = fetchIntegrationByType(type);
+    setSingleIntegrationData(intData);
+  };
+
+  const fetchIntegrationByType = (type) => {
+    let result = integrationdata?.results?.find((x) => x.type === type);
+    return result;
   };
 
   const handleIntegrationButton = (integrationRecord, modeType, type, key) => {
@@ -148,7 +156,7 @@ const Page = () => {
         </>
       ) : (
         <>
-          {edit ? <ManageAutomations filterDataByID={filterDataByID} automationID={automationID} setEdit={setEdit} setShow={setIntegrationModal} integrationData={integrationdata?.results?.slice(0, 1)[0]} type={integrationType} /> : ""}
+          {edit ? <ManageAutomations filterDataByID={filterDataByID} automationID={automationID} setEdit={setEdit} setShow={setIntegrationModal} integrationData={singleIntegrationData} type={integrationType} /> : ""}
         </>
       )
       }
@@ -157,6 +165,7 @@ const Page = () => {
           <ConfigureIntegration fetchIntegrations={fetchIntegrations} setShow={setIntegrationModal} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
         </Modal>
         : ""}
+      <ToastContainer />
     </>
   );
 };

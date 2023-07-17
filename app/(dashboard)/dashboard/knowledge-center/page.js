@@ -5,7 +5,7 @@ import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import TextField from "@/app/components/Common/Input/TextField";
-import { GetAllRecommendations, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
