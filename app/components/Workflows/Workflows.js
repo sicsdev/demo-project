@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Common/Button/Button'
 import Image from 'next/image'
 
-const Workflows = ({ setView }) => {
+const Workflows = (props) => {
   return (
     <>
       <div className='my-4'>
@@ -21,15 +21,13 @@ const Workflows = ({ setView }) => {
             <Button
               type={"button"}
               className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-              onClick={() => { setView('template') }}
-
             >
               Create
             </Button>
           </div>
         </div>
       </div>
-      <div>
+      {/* <div>
         <h3 className='text-heading text-center font-semibold text-xl my-2'>Let workflows take care of everyday tasks </h3>
         <div className='grid grid-cols-3 gap-2 w-[90%] mx-auto my-8'>
           <div>
@@ -81,8 +79,8 @@ const Workflows = ({ setView }) => {
             </div>
           </div>
         </div>
-      </div>
-      <p className='text-center text-md text-primary cursor-pointer font-normal'>Learn about building workflows</p>
+      </div> */}
+      {/* <p className='text-center text-md text-primary cursor-pointer font-normal'>Learn about building workflows</p> */}
     </>
   )
 }

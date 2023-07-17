@@ -1,25 +1,29 @@
 import React, { useRef, useEffect } from 'react'
 import Button from '../Button/Button'
 import Card from '../Card/Card'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction }) => {
     const divRef = useRef(null);
+    const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
-        // const handleClickOutside = (event) => {
-        //     if (divRef.current && !divRef.current.contains(event.target)) {
-        //         setShow(false)
-        //     }
-        // };
+        const handleClickOutside = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setShow(false);
+                router.push(`${pathname}`);
+            }
+        };
 
         // Attach event listener to the document
-        // document.addEventListener('click', handleClickOutside);
+        document.addEventListener('click', handleClickOutside);
 
         // Clean up the event listener when the component unmounts
-        // return () => {
-        //     document.removeEventListener('click', handleClickOutside);
-        // };
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
     }, []);
     return (
         <div>

@@ -2,15 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import Button from "@/app/components/Common/Button/Button";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
-import Swal from "sweetalert2";
-import { Input } from '../Common/Input/Input';
+import SelectField from '../Common/Input/SelectField';
 import {
     addIntegrationData,
     updateIntegrationData
 } from "@/app/API/pages/Integration";
+import TextAreaField from '../Common/Input/TextAreaField';
+import TextField from '../Common/Input/TextField';
+import { useRouter, usePathname } from 'next/navigation';
+import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 
 export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRecord, mode, type, ...rest }) => {
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
     const [integrationFormData, setIntegrationFormData] = useState({
         type: type,
         baseUrl: integrationRecord?.http_base || "",
@@ -24,11 +30,12 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
         clientkey2: integrationRecord?.data?.client_secret || "",
         clientsecret2: integrationRecord?.data?.client_secret || "",
         clientredirecturl: integrationRecord?.data?.client_redirect_url || "",
-        name: integrationRecord?.name || ''
+        name: integrationRecord?.name || '',
+        description: integrationRecord?.data?.description || ""
     });
 
     const DisablingButton = () => {
-        var requiredKeys = ["baseUrl", "provider", "authType"];
+        var requiredKeys = ["baseUrl", "provider", "description", "authType"];
         switch (integrationFormData?.authType) {
             case "none":
                 break;
@@ -127,23 +134,24 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 data: data
             }
             let configureIntegration;
-            let successMessage;
+            let message;
 
             if (mode === 'update') {
                 configureIntegration = await updateIntegrationData(payload, integrationRecord?.id);
-                successMessage = `Integration Update Successfully!`;
+                message = `Integration Update Successfully!`;
             } else {
                 configureIntegration = await addIntegrationData(payload);
-                successMessage = `Integration Added Successfully!`;
+                message = `Integration Added Successfully!`;
             }
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 setLoading(false);
                 setShow(false);
                 fetchIntegrations();
-                Swal.fire("Success", successMessage, "success");
+                successMessage(message);
+                router.push(`${pathname}`);
             } else {
                 setLoading(false);
-                Swal.fire("Error", "Unable to Proceed!", "error");
+                errorMessage("Unable to Proceed!");
             }
         } catch (error) {
             setLoading(false);
@@ -154,39 +162,43 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
         <form onSubmit={(e) => handleIntegrationSubmitForm(e)}>
 
             <div className="mb-4">
-                <label
-                    htmlFor="name"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                    Integration Name
-                </label>
-                <Input
-                    type={"text"}
-                    placeholder={"Enter Name"}
-                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                    name="name"
-                    value={integrationFormData.name}
-                    id={"integration_name"}
+                <TextField
                     onChange={(e) => handleIntegrationInputChange(e)}
+                    value={integrationFormData.name}
+                    name="name"
+                    labelClass={"text-gray-700 font-bold mb-2"}
+                    className="py-3 mt-2"
+                    title={"Integration Name"}
+                    placeholder={"Enter Name"}
+                    type={"text"}
+                    id={"integration_name"}
                 />
             </div>
 
             <div className="mb-4">
-                <label
-                    htmlFor="name"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                    Base URL
-                </label>
-                <Input
-                    type={"url"}
-                    placeholder={"Enter text..."}
-                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                    name="baseUrl"
-                    value={integrationFormData.baseUrl}
-                    id={"integration_base_url"}
+                <TextAreaField
+                    title="Description"
+                    placeholder="Enter your description"
+                    id="integration_description"
+                    name="description"
+                    value={integrationFormData.description}
+                    onChange={handleIntegrationInputChange}
+                    labelClass={"block text-gray-700 text-sm font-bold mb-2"}
+                />
+            </div>
+
+            <div className="mb-4">
+                <TextField
                     onChange={(e) => handleIntegrationInputChange(e)}
+                    value={integrationFormData.baseUrl}
+                    name="baseUrl"
                     required
+                    labelClass={"text-gray-700 font-bold mb-2"}
+                    className="py-3 mt-2"
+                    title={"Base URL"}
+                    placeholder={"Enter text..."}
+                    type={"url"}
+                    id={"integration_base_url"}
                 />
                 <p className="text-sm mt-2">
                     Any URL with a querystring will be re-encoded properly.
@@ -194,26 +206,16 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
             </div>
 
             <div className="mb-4">
-                <label
-                    htmlFor="auth"
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                >
-                    Provider
-                </label>
-                <select
-                    name="provider"
+                <SelectField
+                    onChange={(e) => handleIntegrationInputChange(e)}
                     value={integrationFormData.provider}
-                    onChange={handleIntegrationInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
-                    required
-                >
-                    <option value="" disabled>
-                        Choose value..
-                    </option>
-                    <option value="stripe">Stripe</option>
-                    <option value="shopify">Shopify</option>
-                    <option value="custom">Custom</option>
-                </select>
+                    name="provider"
+                    values={['stripe', 'shopify', 'custom']}
+                    title={'Provider'}
+                    id={"provider"}
+                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
+                    labelClass={"block text-gray-700 text-sm font-bold mb-2"}
+                />
             </div>
 
             <div className="mb-4">
@@ -249,94 +251,74 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 {integrationFormData?.authType === "auth" && (
                     <>
                         <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="name"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                User Name
-                            </label>
-                            <Input
-                                type={"text"}
-                                placeholder={"Enter text..."}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="username"
-                                value={integrationFormData.username}
-                                id={"integration_auth_username"}
+                            <TextField
                                 onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.username}
+                                name="username"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"User Name"}
+                                placeholder={"Enter text..."}
+                                type={"text"}
+                                id={"integration_auth_username"}
                             />
                         </div>
                         <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="name"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Password
-                            </label>
-                            <Input
-                                type={"password"}
-                                placeholder={"Enter text..."}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="password"
-                                value={integrationFormData.password}
-                                id={"integration_auth_password"}
+                            <TextField
                                 onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.password}
+                                name="password"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Password"}
+                                placeholder={"Enter text..."}
+                                type={"password"}
+                                id={"integration_auth_password"}
                             />
                         </div>
                     </>
                 )}
                 {integrationFormData?.authType === "api_key" && (
                     <div className="mb-4 mt-4">
-                        <label
-                            htmlFor="apikey"
-                            className="block text-gray-700 text-sm font-bold mb-2"
-                        >
-                            API Key
-                        </label>
-                        <Input
-                            type={"text"}
-                            placeholder={"API Key"}
-                            className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                            name="apiKey"
-                            value={integrationFormData.apiKey}
-                            id={"integration_autt_api_key"}
+                        <TextField
                             onChange={(e) => handleIntegrationInputChange(e)}
+                            value={integrationFormData.apiKey}
+                            name="apiKey"
+                            labelClass={"text-gray-700 font-bold mb-2"}
+                            className="py-3 mt-2"
+                            title={"API Key"}
+                            placeholder={"API Key"}
+                            type={"text"}
+                            id={"integration_auth_api_key"}
                         />
                     </div>
                 )}
                 {integrationFormData?.authType === "oauth1" && (
                     <>
                         <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="clientkey"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Client Key
-                            </label>
-                            <Input
-                                type={"text"}
-                                placeholder={"Client Key"}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="clientkey"
-                                value={integrationFormData.clientkey}
-                                id={"integration_oauth_client_key"}
+                            <TextField
                                 onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.clientkey}
+                                name="clientkey"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Client Key"}
+                                placeholder={"Client Key"}
+                                type={"text"}
+                                id={"integration_oauth_client_key"}
                             />
                         </div>
                         <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="clientsecret"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Client Secret
-                            </label>
-                            <Input
-                                type={"password"}
-                                placeholder={"Client Secret"}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="clientsecret"
-                                value={integrationFormData.clientsecret}
-                                id={"integration_oauth_client_secret"}
+                            <TextField
                                 onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.clientsecret}
+                                name="clientsecret"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Client Secret"}
+                                placeholder={"Client Secret"}
+                                type={"password"}
+                                id={"integration_oauth_client_secret"}
                             />
                         </div>
                     </>
@@ -344,54 +326,42 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 {integrationFormData?.authType === "oauth2" && (
                     <>
                         <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="clientkey2"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Client Key
-                            </label>
-                            <Input
-                                type={"text"}
-                                placeholder={"Client Key"}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="clientkey2"
+                            <TextField
+                                onChange={(e) => handleIntegrationInputChange(e)}
                                 value={integrationFormData.clientkey2}
-                                id={"integration_oauth_client_key_2"}
-                                onChange={(e) => handleIntegrationInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="clientsecret2"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Client Secret
-                            </label>
-                            <Input
-                                type={"password"}
-                                placeholder={"Client Secret"}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="clientsecret2"
-                                value={integrationFormData.clientsecret2}
-                                id={"integration_oauth_client_secret_2"}
-                                onChange={(e) => handleIntegrationInputChange(e)}
-                            />
-                        </div>
-                        <div className="mb-4 mt-4">
-                            <label
-                                htmlFor="clientredirecturl"
-                                className="block text-gray-700 text-sm font-bold mb-2"
-                            >
-                                Client Redirect URL
-                            </label>
-                            <Input
+                                name="clientkey2"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Client Key"}
+                                placeholder={"Client Key"}
                                 type={"text"}
-                                placeholder={"Client Redirect URL"}
-                                className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                name="clientredirecturl"
-                                value={integrationFormData.clientredirecturl}
-                                id={"integration_oauth_client_redirecturl"}
+                                id={"integration_oauth_client_key_2"}
+                            />
+                        </div>
+                        <div className="mb-4 mt-4">
+                            <TextField
                                 onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.clientsecret2}
+                                name="clientsecret2"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Client Secret"}
+                                placeholder={"Client Secret"}
+                                type={"password"}
+                                id={"integration_oauth_client_secret_2"}
+                            />
+                        </div>
+                        <div className="mb-4 mt-4">
+                            <TextField
+                                onChange={(e) => handleIntegrationInputChange(e)}
+                                value={integrationFormData.clientredirecturl}
+                                name="clientredirecturl"
+                                labelClass={"text-gray-700 font-bold mb-2"}
+                                className="py-3 mt-2"
+                                title={"Client Redirect URL"}
+                                placeholder={"Client Redirect URL"}
+                                type={"url"}
+                                id={"integration_oauth_client_redirecturl"}
                             />
                         </div>
                     </>
