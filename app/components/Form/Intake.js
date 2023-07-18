@@ -181,7 +181,8 @@ const Intake = () => {
       ecommerce_platform: basicFormData.ecommerce_platform,
     };
     const createEnterprise = await createEnterpriseAccount(payload);
-    if (createEnterprise?.status === 201) {
+    debugger
+    if (createEnterprise?.status === 200) {
       setIntakeStep(1);
       setIntakeCompleteStep(1);
       setErrors([]);
@@ -277,7 +278,7 @@ const Intake = () => {
     const response = await createEnterpriseAccount({
       slug_domain: basicFormData.company_name,
     });
-    if (response.status === 201) {
+    if (response.status === 200) {
       const domains = await enterpriseDomainInitialize({
         slug_domain: basicFormData.company_name,
       });
