@@ -8,6 +8,8 @@ import React from 'react'
 import { useState } from 'react'
 import Modal from '@/app/components/Common/Modal/Modal'
 import SelectOption from '@/app/components/Common/Input/SelectOption'
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Editor } from "react-draft-wysiwyg";
 
 const GetStarted = () => {
   const [showHelp, setShowHelp] = useState(false)
@@ -93,7 +95,7 @@ const GetStarted = () => {
           </div>
           <div className='section-workflow-wrapper'>
             <div className='section-workflow'></div>
-            <div className='iconplus'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
+            <div className='iconplus  cursor-pointer'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
 
             <div className='section-workflow3'></div>
             <div className='section-workflow2'></div>
@@ -131,8 +133,7 @@ const GetStarted = () => {
           </div>
           <div className='section-workflow-wrapper'>
             <div className='section-workflow'></div>
-            <div className='iconplus'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
-
+            <div className='iconplus cursor-pointer'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
             <div className='section-workflow3'></div>
             <div className='section-workflow2'></div>
           </div>
@@ -154,7 +155,7 @@ const GetStarted = () => {
       </>
       {
         showPublishModal &&
-        <Modal title={'Your workflow is ready to use'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"sm:w-[80%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[80%] md:max-w-[50%] lg:max-w-[50%]"} >
+        <Modal title={'Your workflow is ready to use'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
           <div className=''>
             <p><b>Welcome Bot</b> is published and available to use in tempo. Test is out by leaving and then re-joining <b># ads.</b></p>
             <div className='flex justify-between gap-2 items-center mt-5'>
@@ -171,7 +172,7 @@ const GetStarted = () => {
       }
       {
         stepModal &&
-        <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"sm:w-[80%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[80%] md:max-w-[50%] lg:max-w-[50%]"} >
+        <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
           <div>
             <div className='flex justify-between gap-2 items-center mb-5'>
               <div className='flex justify-between gap-4 items-center'>
@@ -210,7 +211,7 @@ const GetStarted = () => {
       }
       {
         editModal &&
-        <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"sm:w-[80%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[80%] md:max-w-[50%] lg:max-w-[50%]"} >
+        <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
           <form>
             <div className="mb-4">
               <SelectOption
@@ -221,7 +222,22 @@ const GetStarted = () => {
                 className="py-3"
               />
             </div>
-
+            <Editor
+              // editorState={editorState}
+              toolbarClassName="toolbarClassName"
+              wrapperClassName="wrapperClassName"
+              editorStyle={{ border: "1px solid #C0C0C0", borderBottomRightRadius: "7px", borderBottomLeftRadius: "7px" }}
+              toolbar={{
+                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
+                inline: { inDropdown: true },
+                list: { inDropdown: true },
+                textAlign: { inDropdown: true },
+                link: { inDropdown: true },
+                history: { inDropdown: true },
+              }}
+              editorClassName="editorClassName"
+            // onEditorStateChange={this.onEditorStateChange}
+            />  
             <div className="flex items-center justify-between">
               <Button
                 type={"submit"}
