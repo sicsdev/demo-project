@@ -5,13 +5,16 @@ import { fetchProfile } from '../store/slices/userSlice'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
+import { makeCapital } from '../helper/capitalName'
+import SelectOption from '../Common/Input/SelectOption'
+import LoaderButton from '../Common/Button/Loaderbutton'
 const TeamManagement = ({ state, removeMember, changeRole }) => {
     const stateM = useSelector((state) => state.user);
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(fetchProfile)
-    }, [])
-    console.log("Chekc")
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(fetchProfile)
+    // }, [])
+
     return (
         <div className="mt-5">
             <div className="relative overflow-x-auto sm:rounded-lg">
@@ -41,23 +44,27 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                         {element.phone_prefix} {element.phone}
                                     </td>
                                     <td className="px-6 py-4 pb-6">
-                                        <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading"> Admin </span>
+                                        {
+                                            element?.role && <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading">{makeCapital(element?.role)}</span>
+                                        }
                                     </td>
                                     <td className="px-6 py-4 pb-6">
-                                        <SelectField
+                                        <SelectOption
                                             onChange={(e) => changeRole(element.email, e.target.value)}
-                                            // value={formValues.business_state}
+                                            value={element?.role}
                                             name="role"
-                                            values={['Admin', 'Collaborator']}
+                                            values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
                                             title={""}
                                             id={"role"}
+                                            disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
                                             className="py-3"
                                         // error={returnErrorMessage("business_state")}
                                         />
                                     </td>
-                                    {stateM?.data?.role === "ADMINISTRATOR" ?
-                                        <td className="px-6 py-4 pb-6">
-                                            <Button
+
+                                    <td className="px-6 py-4 pb-6">
+                                        {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email ?
+                                            < Button
                                                 type="button"
                                                 disabled=""
                                                 className="focus:outline-none font-normal rounded-md text-sm py-2.5 px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
@@ -65,14 +72,15 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                             >
                                                 Remove
                                             </Button>
-                                        </td> : null
-                                    }
+                                            : null
+                                        }
+                                    </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     )
 }
 
