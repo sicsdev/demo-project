@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -14,12 +15,6 @@ const Featurescards = () => {
   const [activeTab, setActiveTab] = useState(false);
 
   const handlerFeaturecard = () => {
-    setActiveTab(!activeTab);
-  };
-  const handlerFeaturecard2 = () => {
-    setActiveTab(!activeTab);
-  };
-  const handlerFeaturecard3 = () => {
     setActiveTab(!activeTab);
   };
 
