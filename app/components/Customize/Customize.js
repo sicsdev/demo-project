@@ -107,6 +107,19 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     getAllBotData([id]).then((res) => {
       console.log(res);
       let bot_res = res[0].data
+      if (form === true) {
+        setBasicFormData(prev => {
+          return {
+            ...prev,
+            email: bot_res.email,
+            agent_name: bot_res.email_agent_name,
+            agent_title: bot_res.email_agent_title,
+            email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
+            email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+
+          }
+        })
+      }
       setBasicEmailFormData(prev => {
         return {
           ...prev,
@@ -138,14 +151,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       });
     });
   };
-  // useEffect(() => {
-  //     if (preferences.secondary_text_color === '') {
-  //         setPreferences({ ...preferences, secondary_text_color: "#000000" });
-  //         setPreferences({ ...preferences, primary_text_color: "#ffffff" });
-  //     }
-  // }, [preferences])
-
-  // Form handlers
 
   const handlePrimaryColorChange = (color) => {
     setPreferences({
@@ -262,19 +267,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     };
     !payload.logo && delete payload.logo;
     !payload.email && delete payload.email;
-
-    if (form === false) {
-      let bot_payload = {
-        email: basicEmailFormData.email_prefix + "@" + basicEmailFormData.company_name + '.gettempo.ai',
-        email_agent_name: basicEmailFormData.agent_name,
-        email_agent_title: basicEmailFormData.agent_title,
-        email_greeting: basicEmailFormData.email_introduction,
-        email_farewell: basicEmailFormData.email_signOff,
-      }
-      main_payload = { ...payload, ...bot_payload }
-    } else {
-      main_payload = payload
+    let bot_payload = {
+      email: basicEmailFormData.email_prefix + "@" + basicEmailFormData.company_name + '.gettempo.ai',
+      email_agent_name: basicEmailFormData.agent_name,
+      email_agent_title: basicEmailFormData.agent_title,
+      email_greeting: basicEmailFormData.email_introduction,
+      email_farewell: basicEmailFormData.email_signOff,
     }
+    main_payload = { ...payload, ...bot_payload }
     modifyBot(botDetails.id, main_payload)
       .then((res) => {
         setLoading(false);
@@ -689,14 +689,20 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
               </div>
             </div>
-            {form === false && (
-              <>
-                <div>
-                  <span className="text-heading font-bold mb-4 "> Edit Email Settings</span>
-                  <hr className="opacity-10 mt-4"></hr>
-                  <EmailConfig basicFormData={basicEmailFormData} setBasicFormData={setBasicEmailFormData} />
-                </div>
 
+            <>
+              <div>
+                {form === false ? (
+                  <>
+                    <span className="text-heading font-bold mb-4 "> Edit Email Settings</span>
+                    <hr className="opacity-10 mt-4"></hr>
+                    <EmailConfig basicFormData={basicEmailFormData} setBasicFormData={setBasicEmailFormData} />
+                  </>)
+                  :
+                  <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                }
+              </div>
+              {form === false && (
                 <div className="m-auto justify-center flex mt-4">
                   <div className="m-auto align-center">
                     {loading ? (
@@ -713,8 +719,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     )}
                   </div>
                 </div>
-              </>
-            )}
+
+              )}
+            </>
           </>
         )}
       </div >

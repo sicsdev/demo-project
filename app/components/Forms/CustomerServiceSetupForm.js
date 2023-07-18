@@ -26,7 +26,7 @@ export default function CustomerServiceSetupForm({ setBasicFormData, basicFormDa
   })
   const handleUrlValue = (e) => {
     const { value } = e.target;
-    if (value.includes(' ')) {
+    if (value.includes(' ') ||value.includes('.com') ) {
       const url_values = value.split(' ');
       setFormValues((prev) => {
         return {
