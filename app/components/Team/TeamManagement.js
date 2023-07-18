@@ -56,7 +56,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                             values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
                                             title={""}
                                             id={"role"}
-                                            disabled={stateM?.data?.email === element.email}
+                                            disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
                                             className="py-3"
                                         // error={returnErrorMessage("business_state")}
                                         />

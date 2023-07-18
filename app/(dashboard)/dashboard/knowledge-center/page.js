@@ -115,13 +115,12 @@ const Page = () => {
                 <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                         <li className="mr-2">
-                            <a
-                                href="javascript:void(0)"
-                                className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                            <span
+                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                                 aria-current="page"
                             >
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
-                            </a>
+                            </span>
                         </li>
                     </ul>
                 </div>
