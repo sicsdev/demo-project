@@ -15,7 +15,7 @@ const SelectOption = ({
     disabled = false
 }) => {
     return (
-        <div className={`inline ${labelClassName || ""}`}>
+        <div className={`inline ${labelClassName || ""}`}> 
             <label htmlFor={id} className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
                 {title}
             </label>
