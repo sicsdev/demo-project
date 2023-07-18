@@ -210,7 +210,7 @@ const Featurescards = () => {
           </div>
           <div class="w-full md:w-1/3 px-2 mb-4">
             <div class="bg-white rounded-md shadow-lg p-4">
-              <div onClick={handlerFeaturecard2}>
+              <div onClick={handlerFeaturecard}>
                 <Accordion allowZeroExpanded className="border-0">
                   <AccordionItem>
                     <AccordionItemHeading>
@@ -261,7 +261,7 @@ const Featurescards = () => {
           </div>
           <div class="w-full md:w-1/3 px-2 mb-4">
             <div class="bg-white rounded-md shadow-lg p-4">
-              <div onClick={handlerFeaturecard3}>
+              <div onClick={handlerFeaturecard}>
                 <Accordion allowZeroExpanded className="border-0">
                   <AccordionItem>
                     <AccordionItemHeading>
