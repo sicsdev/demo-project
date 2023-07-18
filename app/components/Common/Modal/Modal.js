@@ -31,7 +31,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                 <>
                     <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                     >
-                        <div className={`relative w-auto sm:w-[80%] md:w-[80%] lg:w-[80%] my-6 mx-auto max-w-[100%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%] ${className}`}>
+                        <div className={`relative  my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">

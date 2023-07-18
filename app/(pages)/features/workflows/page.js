@@ -48,10 +48,10 @@ const page = () => {
 
   return (
     <div>
-      <Smartsection />
-      <Featurescards/>
-      <Accordiontabs />
       <Workflowslider/>
+
+      <Smartsection />
+      <Accordiontabs />
       {/* <SolutionStandard /> */}
       {/* <SmartAlert /> */}
       
@@ -64,6 +64,8 @@ const page = () => {
       {/* <Smarteconomy /> */}
       <Aipowered />
       <Intcomp />
+      <Featurescards/>
+
     </div>
   );
 };
