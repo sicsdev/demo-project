@@ -17,9 +17,8 @@ import TeamManagement from "@/app/components/Team/TeamManagement";
 
 const Page = () => {
   const [teamModal, setTeamModal] = useState(false);
-  const roles = { Admin: "ADMINISTRATOR", Collaborator: "MEMBER" }
   const state = useSelector((state) => state.members);
-  console.log(state)
+
   const dispatch = useDispatch();
   const getMembersData = () => {
     dispatch(fetchMembers());
@@ -28,14 +27,12 @@ const Page = () => {
     getMembersData();
   }, []);
 
-  const handleRemoveMember = async (email) => {
-    await dispatch(removeMember({ email }))
-    await getMembersData()
+  const handleRemoveMember = (email) => {
+    dispatch(removeMember({ email }));
   }
 
-  const handleChangeRole = async (email, role) => {
-    role = roles[role]
-    await dispatch(changeRole({ email, role }))
+  const handleChangeRole = (email, role) => {
+    dispatch(changeRole({ email, role }))
   }
 
 
@@ -64,14 +61,13 @@ const Page = () => {
       <div className="border-b border-primary dark:border-gray-700">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li className="mr-2">
-            <a
-              href="#"
-              className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+            <span
+              className=" flex justify-start gap-2 items-center cursor-pointer p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
               aria-current="page"
             >
               <UserGroupIcon className="h-6 w-6 text-gray-500" /> Invite and
               manage team members
-            </a>
+            </span>
           </li>
         </ul>
       </div>
