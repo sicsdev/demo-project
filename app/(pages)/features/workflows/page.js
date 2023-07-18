@@ -12,6 +12,7 @@ import Intcomp from "@/app/components/solutions/Intcomp";
 import Smartlevel from "@/app/components/solutions/Smartlevel";
 import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
 import Featurescards from "@/app/components/featurescards/page";
+import Workflowslider from "@/app/components/workflow slider/page";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,6 +51,7 @@ const page = () => {
       <Smartsection />
       <Featurescards/>
       <Accordiontabs />
+      <Workflowslider/>
       {/* <SolutionStandard /> */}
       {/* <SmartAlert /> */}
       
