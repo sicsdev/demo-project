@@ -162,7 +162,7 @@ const Page = () => {
       )
       }
       {integrationModal ?
-        <Modal title={'Manage Integration'} show={integrationModal} setShow={setIntegrationModal} showCancel={true} customHideButton={true} closeFunction={customCloseModelHandler} >
+        <Modal title={'Manage Integration'} className={'w-[80%]'} show={integrationModal} setShow={setIntegrationModal} showCancel={true} customHideButton={true} closeFunction={customCloseModelHandler} >
           <ConfigureIntegration fetchIntegrations={fetchIntegrations} setShow={setIntegrationModal} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
         </Modal>
         : ""}
