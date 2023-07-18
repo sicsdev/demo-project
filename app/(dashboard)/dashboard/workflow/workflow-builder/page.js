@@ -6,7 +6,7 @@ import WorkFlowTemplates from '@/app/components/Workflows/WorkflowBuilder/WorkFl
 import Workflows from '@/app/components/Workflows/Workflows';
 import Button from '@/app/components/Common/Button/Button';
 
-const page = () => {
+const Page = () => {
 
     return (
         <>
@@ -27,4 +27,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page

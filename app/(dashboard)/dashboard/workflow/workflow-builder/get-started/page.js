@@ -8,8 +8,8 @@ import React from 'react'
 import { useState } from 'react'
 import Modal from '@/app/components/Common/Modal/Modal'
 import SelectOption from '@/app/components/Common/Input/SelectOption'
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { Editor } from "react-draft-wysiwyg";
+// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+// import { Editor } from "react-draft-wysiwyg";
 
 const GetStarted = () => {
   const [showHelp, setShowHelp] = useState(false)
@@ -222,7 +222,7 @@ const GetStarted = () => {
                 className="py-3"
               />
             </div>
-            <Editor
+            {/* <Editor
               // editorState={editorState}
               toolbarClassName="toolbarClassName"
               wrapperClassName="wrapperClassName"
@@ -237,7 +237,7 @@ const GetStarted = () => {
               }}
               editorClassName="editorClassName"
             // onEditorStateChange={this.onEditorStateChange}
-            />  
+            />   */}
             <div className="flex items-center justify-between">
               <Button
                 type={"submit"}
