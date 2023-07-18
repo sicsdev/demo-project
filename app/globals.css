@@ -534,3 +534,28 @@ transition: all .4s ease;
   height: 65px;
   right: -20px;
 }
+
+/* my csss */
+/* .workflowslider li.slick-active {
+  opacity: 1 !important;
+  width: 20%;
+  background: #97a0af;
+  border-radius: 40px;
+}
+.workflowslider .slick-dots li { 
+  opacity: 0;
+  width: 13.8%;
+  border-radius: 40px;
+}
+.workflowslider .slick-dots li.slick-active button:before {
+  opacity: 0 ;
+}
+.workflowslider  .slick-dots li button { 
+  width: 33px;
+  height: 33px; 
+}
+.workflowslider ul.slick-dots {
+  background: #ececed6e;
+  border-radius: 40px;    width: 92%;
+  left: 17px;
+} */

@@ -7,7 +7,7 @@ import Slider from "react-slick";
 const Workflowslider = () => {
   var workflowslider = {
     arrows: true,
- 
+
     speed: 900,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -31,18 +31,20 @@ const Workflowslider = () => {
   return (
     <>
       <div className="bg-[white] pt-6 pb-8 workflowslider">
-        <h4 class="text-center pb-4 text-2xl md:text-md my-2 font-bold text-black">
-          TRELLO IN ACTION
+        <div className="sm:mb-[-30px] sm:ml-[18px]  mb-[-42px]">
+        <h4 class="sm:text-left sm:px-0 px-6 text-xl sm:pb-1 sm:text-2xl md:text-md  font-semibold text-black">
+          TEMPO IN ACTION
         </h4>
-        <h2 class="text-center pb-4 text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-black">
+        <h2 class=" px-6 sm:px-0 pb-4 sm:w-[50%]  text-left">
           Workflows for any project, big or small
         </h2>
+        </div>
 
         {/* slider */}
         <Slider {...workflowslider}>
           <div className="p-4">
             <div
-              className="rounded-lg mt-8"
+              className="rounded-lg mt-8 "
               style={{ boxShadow: "rgba(9, 30, 66, 0.15) 0px 0.5rem 1rem 0px" }}
             >
               <div
@@ -60,7 +62,7 @@ const Workflowslider = () => {
                   Keep tasks in order, deadlines on track, and team members
                   aligned with Trello.
                 </p>
-              </div>
+            </div>
             </div>
           </div>
           <div className="p-4">
