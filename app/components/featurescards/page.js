@@ -14,7 +14,12 @@ const Featurescards = () => {
   const [activeTab, setActiveTab] = useState(false);
 
   const handlerFeaturecard = () => {
-    console.log("ssssssss");
+    setActiveTab(!activeTab);
+  };
+  const handlerFeaturecard2 = () => {
+    setActiveTab(!activeTab);
+  };
+  const handlerFeaturecard3 = () => {
     setActiveTab(!activeTab);
   };
 
@@ -212,7 +217,7 @@ const Featurescards = () => {
           </div>
           <div class="w-full md:w-1/3 px-2 mb-4">
             <div class="bg-white rounded-md shadow-lg p-4">
-              <div onClick={handlerFeaturecard}>
+              <div onClick={handlerFeaturecard2}>
                 <Accordion allowZeroExpanded className="border-0">
                   <AccordionItem>
                     <AccordionItemHeading>
@@ -263,7 +268,7 @@ const Featurescards = () => {
           </div>
           <div class="w-full md:w-1/3 px-2 mb-4">
             <div class="bg-white rounded-md shadow-lg p-4">
-              <div onClick={handlerFeaturecard}>
+              <div onClick={handlerFeaturecard3}>
                 <Accordion allowZeroExpanded className="border-0">
                   <AccordionItem>
                     <AccordionItemHeading>
