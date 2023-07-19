@@ -28,9 +28,11 @@ import Modal from "../Common/Modal/Modal";
 import { CheckIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import BotSetting from "@/app/(dashboard)/dashboard/bot-settings/page";
+import EmailConfig from "../EmailConfig/EmailConfig";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const dispatch = useDispatch();
   const [botDetails, setBotDetails] = useState({});
+  const [basicEmailFormData, setBasicEmailFormData] = useState({})
   const [loading, setLoading] = useState(false);
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
@@ -104,6 +106,31 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       console.log(res);
+      let bot_res = res[0].data
+      if (form === true) {
+        setBasicFormData(prev => {
+          return {
+            ...prev,
+            email: bot_res.email,
+            agent_name: bot_res.email_agent_name,
+            agent_title: bot_res.email_agent_title,
+            email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
+            email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+
+          }
+        })
+      }
+      setBasicEmailFormData(prev => {
+        return {
+          ...prev,
+          email: bot_res.email,
+          agent_name: bot_res.email_agent_name,
+          agent_title: bot_res.email_agent_title,
+          email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
+          email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+
+        }
+      })
       setBotDetails(res[0].data);
       setPreferences(res[0].data);
       let data = res[0].data;
@@ -124,14 +151,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       });
     });
   };
-  // useEffect(() => {
-  //     if (preferences.secondary_text_color === '') {
-  //         setPreferences({ ...preferences, secondary_text_color: "#000000" });
-  //         setPreferences({ ...preferences, primary_text_color: "#ffffff" });
-  //     }
-  // }, [preferences])
-
-  // Form handlers
 
   const handlePrimaryColorChange = (color) => {
     setPreferences({
@@ -225,16 +244,38 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         console.log(err);
       });
   };
+  const DisablingButton = () => {
+    const requiredKeys = [
+      'agent_title',
+      'email_introduction',
+      'email_signOff']
+    const str_values = requiredKeys.some(key => !basicEmailFormData[key] || basicEmailFormData[key].trim() === '');
+    const arr_values = ['agent_name'].every(key => !basicEmailFormData[key] || basicEmailFormData[key].length === 0);
+    if (str_values || arr_values) {
+      return true
+    }
 
+    return false
+
+  }
   const savePreferences = () => {
     setLoading(true);
+    let main_payload = null
     let payload = {
       ...preferences,
       logo: preferences.logo_file_name ? preferences.logo : "",
     };
     !payload.logo && delete payload.logo;
     !payload.email && delete payload.email;
-    modifyBot(botDetails.id, payload)
+    let bot_payload = {
+      email: basicEmailFormData.email_prefix + "@" + basicEmailFormData.company_name + '.gettempo.ai',
+      email_agent_name: basicEmailFormData.agent_name,
+      email_agent_title: basicEmailFormData.agent_title,
+      email_greeting: basicEmailFormData.email_introduction,
+      email_farewell: basicEmailFormData.email_signOff,
+    }
+    main_payload = { ...payload, ...bot_payload }
+    modifyBot(botDetails.id, main_payload)
       .then((res) => {
         setLoading(false);
         // getBotInfo(botDetails.id)
@@ -246,7 +287,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         setLoading(false);
       });
   };
-
   // **** Manage hide urls modal handlers ***
   const [blockedUrls, setBlockedUrls] = useState([]);
   const [newBlockedUrl, setNewBlockedUrl] = useState("");
@@ -530,11 +570,10 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         checked={preferences.active === true}
                       />
                       <div
-                        className={`w-11 h-6 ${
-                          preferences.active === false
-                            ? "bg-border"
-                            : "bg-primary"
-                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                        className={`w-11 h-6 ${preferences.active === false
+                          ? "bg-border"
+                          : "bg-primary"
+                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                       ></div>
                     </label>
                   </div>
@@ -650,28 +689,42 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
               </div>
             </div>
-            <BotSetting />
-            {form === false && (
-              <div className="m-auto justify-center flex mt-4">
-                <div className="m-auto align-center">
-                  {loading ? (
-                    <LoaderButton />
-                  ) : (
-                    <Button
-                      type={"button"}
-                      onClick={savePreferences}
-                      disabled={loading}
-                      className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                    >
-                      Save
-                    </Button>
-                  )}
-                </div>
+
+            <>
+              <div>
+                {form === false ? (
+                  <>
+                    <span className="text-heading font-bold mb-4 "> Edit Email Settings</span>
+                    <hr className="opacity-10 mt-4"></hr>
+                    <EmailConfig basicFormData={basicEmailFormData} setBasicFormData={setBasicEmailFormData} />
+                  </>)
+                  :
+                  <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                }
               </div>
-            )}
+              {form === false && (
+                <div className="m-auto justify-center flex mt-4">
+                  <div className="m-auto align-center">
+                    {loading ? (
+                      <LoaderButton />
+                    ) : (
+                      <Button
+                        type={"button"}
+                        onClick={savePreferences}
+                        disabled={DisablingButton()}
+                        className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                      >
+                        Save
+                      </Button>
+                    )}
+                  </div>
+                </div>
+
+              )}
+            </>
           </>
         )}
-      </div>
+      </div >
     </>
   );
 };

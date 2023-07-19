@@ -3,6 +3,7 @@ import React from "react";
 const TextField = ({
   labelClassName,
   title,
+  labelClass,
   error = null,
   type,
   placeholder,
@@ -18,7 +19,7 @@ const TextField = ({
 }) => {
   return (
     <div className={`inline  ${labelClassName || ""}`}>
-      <label htmlFor={id} className="block text-sm font-medium text-heading">
+      <label htmlFor={id} className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
         {title}
       </label>
       {subtitle && <small className="text-border text-xs">{subtitle}</small>}

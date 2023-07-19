@@ -9,6 +9,7 @@ const nextConfig = {
         "static.intercomassets.com",
         "res.cloudinary.com",
         "randomuser.me",
+        "avatars.slack-edge.com",
       ],
       unoptimized: true,
     },

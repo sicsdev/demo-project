@@ -1,15 +1,27 @@
 import React from 'react'
 import SelectField from '../Common/Input/SelectField'
 import Button from '../Common/Button/Button'
+import { fetchProfile } from '../store/slices/userSlice'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { makeCapital } from '../helper/capitalName'
+import SelectOption from '../Common/Input/SelectOption'
+import LoaderButton from '../Common/Button/Loaderbutton'
+const TeamManagement = ({ state, removeMember, changeRole }) => {
+    const stateM = useSelector((state) => state.user);
+    // const dispatch = useDispatch()
+    // useEffect(() => {
+    //     dispatch(fetchProfile)
+    // }, [])
 
-const TeamManagement = ({ state }) => {
     return (
         <div className="mt-5">
             <div className="relative overflow-x-auto sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <tbody>
                         {state?.data &&
-                            state?.data.map((element, key) => (
+                            state?.data?.map((element, key) => (
                                 <tr
                                     className=" border-b border-border dark:bg-gray-800 dark:border-gray-700"
                                     key={key}
@@ -32,35 +44,43 @@ const TeamManagement = ({ state }) => {
                                         {element.phone_prefix} {element.phone}
                                     </td>
                                     <td className="px-6 py-4 pb-6">
-                                        <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading"> Admin </span>
+                                        {
+                                            element?.role && <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading">{makeCapital(element?.role)}</span>
+                                        }
                                     </td>
                                     <td className="px-6 py-4 pb-6">
-                                        <SelectField
-                                            // onChange={handleInputValues}
-                                            // value={formValues.business_state}
+                                        <SelectOption
+                                            onChange={(e) => changeRole(element.email, e.target.value)}
+                                            value={element?.role}
                                             name="role"
-                                            values={['Admin', 'Collaborator']}
+                                            values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
                                             title={""}
                                             id={"role"}
+                                            disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
                                             className="py-3"
                                         // error={returnErrorMessage("business_state")}
                                         />
                                     </td>
+
                                     <td className="px-6 py-4 pb-6">
-                                        <Button
-                                            type="button"
-                                            disabled=""
-                                            className="focus:outline-none font-normal rounded-md text-sm py-2.5 px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
-                                        >
-                                            Remove
-                                        </Button>
+                                        {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email ?
+                                            < Button
+                                                type="button"
+                                                disabled=""
+                                                className="focus:outline-none font-normal rounded-md text-sm py-2.5 px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
+                                                onClick={() => removeMember(element.email)}
+                                            >
+                                                Remove
+                                            </Button>
+                                            : null
+                                        }
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     )
 }
 

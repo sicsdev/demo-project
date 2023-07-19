@@ -11,10 +11,13 @@ import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import Modal from "@/app/components/Common/Modal/Modal";
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
+import { ToastContainer } from "react-toastify";
 
 const Page = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [edit, setEdit] = useState(false);
 
   const [integrationdata, setIntegrationdata] = useState([]);
@@ -28,6 +31,14 @@ const Page = () => {
   const addAutomationHandler = (type) => {
     setEdit(true);
     setIntegrationType(type);
+    let intData = fetchIntegrationByType(type);
+    setSingleIntegrationData(intData);
+    setAutomationID(null);
+  };
+
+  const fetchIntegrationByType = (type) => {
+    let result = integrationdata?.results?.find((x) => x.type === type);
+    return result;
   };
 
   const handleIntegrationButton = (integrationRecord, modeType, type, key) => {
@@ -36,6 +47,7 @@ const Page = () => {
     setIntegrationModal(true);
     if (integrationRecord && integrationRecord !== null) {
       setSingleIntegrationData(integrationRecord);
+      router.push(`${pathname}?integration_id=${integrationRecord?.id}`);
     } else {
       setSingleIntegrationData(null);
     }
@@ -94,6 +106,10 @@ const Page = () => {
     fetchUrlModelHandler();
   }, [searchParams, integrationdata]);
 
+  const customCloseModelHandler = () => {
+    router.push(`${pathname}`);
+  };
+
   return (
     <>
 
@@ -141,15 +157,16 @@ const Page = () => {
         </>
       ) : (
         <>
-          {edit ? <ManageAutomations filterDataByID={filterDataByID} automationID={automationID} setEdit={setEdit} setShow={setIntegrationModal} integrationData={integrationdata?.results?.slice(0, 1)[0]} type={integrationType} /> : ""}
+          {edit ? <ManageAutomations filterDataByID={filterDataByID} automationID={automationID} setEdit={setEdit} setShow={setIntegrationModal} integrationData={singleIntegrationData} type={integrationType} /> : ""}
         </>
       )
       }
       {integrationModal ?
-        <Modal title={'Manage Integration'} show={integrationModal} setShow={setIntegrationModal} className={'w-[100%] sm:w-[80%] md:w-[80%] lg:w-[80%] h-[50%] sm:h-full md:h-full lg:h-full rounded-lg'} showCancel={true} >
+        <Modal title={'Manage Integration'} className={'w-[80%]'} show={integrationModal} setShow={setIntegrationModal} showCancel={true} customHideButton={true} closeFunction={customCloseModelHandler} >
           <ConfigureIntegration fetchIntegrations={fetchIntegrations} setShow={setIntegrationModal} mode={mode} integrationRecord={singleIntegrationData} type={integrationType} />
         </Modal>
         : ""}
+      <ToastContainer />
     </>
   );
 };

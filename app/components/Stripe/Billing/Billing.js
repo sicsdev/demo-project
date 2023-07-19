@@ -19,7 +19,6 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
     const [loading, setLoading] = useState();
     const [cardFilled, setCardFilled] = useState(false);
     const handleSubmit = async (e) => {
-        debugger
         e.preventDefault()
         setLoading(true);
         if (!stripe || !elements) {

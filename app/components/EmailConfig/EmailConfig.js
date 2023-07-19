@@ -137,11 +137,11 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="email_introduction"
             values={email_introduction_data}
             title={
-              <div className="flex items-center gap-2 justify-between mr-6">
+              <div className="flex items-center gap-2 justify-between mr-6 w-[150px]">
                 <span>Email Introduction</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       How you want Tempo to address customers in your emails.
@@ -163,11 +163,11 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="email_introduction"
             values={email_sign_off_data}
             title={
-              <div className="flex items-center gap-2 justify-between mr-6">
+              <div className="flex items-center gap-2 justify-between mr-6 w-[150px]">
                 <span>Email Sign-Off</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       How you want Tempo to end conversations to customers in
@@ -189,11 +189,11 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="agent_title"
             className="py-3 mt-1"
             title={
-              <span className="flex items-center gap-2 justify-between mr-6">
+              <span className="flex items-center gap-2 justify-between mr-6 w-[150px]">
                 Agent Job Title
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       An example job description is "Customer Service
@@ -215,11 +215,11 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
               htmlFor={"agent_name"}
               className="block text-sm font-medium text-heading"
             >
-              <span className="flex items-center gap-2 justify-between mr-6">
+              <span className="flex items-center gap-2 justify-between mr-6 w-[150px]">
                 Agent Name(s)
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
+                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       Please add the names you'd like your AI agents to sign off

@@ -8,7 +8,6 @@ import validator from "validator";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
 import { useRouter } from "next/navigation";
 
-
 const AboveSection = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -45,8 +44,8 @@ const AboveSection = () => {
     if (validator.isEmail(email)) {
       let Freshsalespayload = {
         email: email,
-      }
-       createContactInFreshsales(Freshsalespayload);
+      };
+      createContactInFreshsales(Freshsalespayload);
       hj("identify", userId, {
         Email: email,
       });
@@ -77,7 +76,6 @@ const AboveSection = () => {
     }
   };
 
-
   const router = useRouter();
   const validateEmail = (e) => {
     var email = e.target.value;
@@ -94,23 +92,41 @@ const AboveSection = () => {
   };
 
   return (
-    <div className="bg-background">
-      <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10">
-        <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
-          <div className="">
-            <h1 className=" font-bold  text-2xl text-white  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-              Conversational AI that
-              <span className="text-first-section-color">
-                {" "}
-                never sleeps.
-              </span>{" "}
-              Meet Tempo Chat.
-            </h1>
-            <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-1 mt-8">
-              <div className="inline col-span-2 ">
+    <div className="sm:bg-type-above bg-type-mobile">
+    <div
+      className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10"
+      onClick={() =>
+        setHide({ first: false, second: false, third: false, fourth: false })
+      }
+    >
+      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-14">
+        <div className="">
+          <p className=" font-bold  text-xl text-white  md:text-h6 sm:mb-3 sm:ml-1 sm:leading-none ">
+          TEMPO CHAT
+          </p>
+          <h1 className=" font-bold  text-[18px] text-white sm:mt-0 mt-4 md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+          Conversational AI that
+           <span className="text-first-section-color">
+              {" "}
+              never sleeps.
+             </span>{" "}
+          </h1>
+
+          <div className="block sm:hidden">
+            <p className="text-white mt-4 text-[14px] sm:text-[16px]">
+            Actively solving, not just resolving: With Tempo Chat, tackle
+                complicated support tickets head-on. Navigate shipping and
+                fulfillment hurdles to keep your customer journey smooth and
+                satisfying.{" "}
+         
+            </p>
+          </div>
+          <div className="sm:block sm:hidden">
+            <form className="grid   grid-cols-1 sm:grid-cols-1  gap-1 mt-8">
+              <div className="inline col-span-2  sm:max-w-[70%]">
                 <input
                   type={"email"}
-                  placeholder={"Work Email*"}
+                  placeholder={"Enter your email"}
                   className={
                     "border border-input_color w-full block  px-3 py-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500  "
                   }
@@ -125,7 +141,7 @@ const AboveSection = () => {
                   }}
                 />
               </div>
-              <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
+              <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]">
                 <Button
                   className={
                     "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
@@ -137,102 +153,71 @@ const AboveSection = () => {
                 </Button>
               </div>
             </form>
-            <div className="mb-10 block sm:hidden my-6">
-              <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-                Actively solving, not just resolving: With Tempo Chat, tackle
-                complicated support tickets head-on. Navigate shipping and
-                fulfillment hurdles to keep your customer journey smooth and
-                satisfying.
-              </p>
-              <div className="flex sm:gap-6 gap-1 sm:flex-row  sm:items-start mt-4 sm:mt-8 sm:justify-between sm:my-5 ">
-                <div className="w-[33%] text-center sm:text-left">
-                  {" "}
-                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                    {" "}
-                    <ClockIcon className="h-10 w-10 text-[#2563eb]    " />
-                  </div>
-                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px]  js-show-on-scroll">
-                    24/7 chat support with instant responses
-                  </p>
-                </div>
-                <div className="w-[33%] text-center sm:text-left ">
-                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                    <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
-                  </div>
-                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                    Spend cents, not dollars on resolutions
-                  </p>
-                </div>
-                <div className="w-[33%] text-center sm:text-left ">
-                  <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                    {" "}
-                    <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
-                  </div>
-                  <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                  Cut your CS costs, and never look back{" "}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="block sm:hidden mt-4">
-              <div className="ml-auto mr-auto sm:mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                <Image
-                  src="/tempo-chat.png"
-                  className="w-full bg-contain mx-auto"
-                  fill={true}
-                />
-              </div>
-            </div>
-            <div className="hidden sm:block ">
-              <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-                Actively solving, not just resolving: With Tempo Chat, tackle
-                complicated support tickets head-on. Navigate shipping and
-                fulfillment hurdles to keep your customer journey smooth and
-                satisfying.
-              </p>
-            </div>
-            <div className="hidden sm:flex sm:gap-6 gap-1  sm:flex-row  sm:items-start mt-4 sm:mt-8 sm:justify-between sm:my-5 ">
-              <div className="w-[33%] text-center sm:text-left">
-                {" "}
-                <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                  {" "}
-                  <ClockIcon className="h-10 w-10 text-[#2563eb]    " />
-                </div>
-                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px]  js-show-on-scroll">
-                  24/7 chat support with instant responses
-                </p>
-              </div>
-              <div className="w-[33%] text-center sm:text-left ">
-                <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                  <CurrencyDollarIcon className="h-10 w-10 text-[#2563eb]" />
-                </div>
-                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                  Spend cents, not dollars on resolutions
-                </p>
-              </div>
-              <div className="w-[33%] text-center sm:text-left ">
-                <div className="sm:mr-2 mx-auto sm:mx-0 relative w-[30px] sm:w-[57px] sm:h-[50px] mt-5 sm:mt-0 h-[26px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                  {" "}
-                  <ScissorsIcon className="h-10 w-10 text-[#2563eb]" />
-                </div>
-                <p className="text-white mt-2 sm:mt-0 text-[13px] sm:text-[15px] js-show-on-scroll">
-                Cut your CS costs, and never look back{" "}
-                </p>
-              </div>
-            </div>
           </div>
-          <div className=" hidden sm:block">
-            <div className="mr-2 relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+      
+          <div className="block sm:hidden mt-4">
+            <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
               <Image
-                src="/tempo-chat.png"
+                src="/temp-trans.gif"
                 className="w-full bg-contain mx-auto"
                 fill={true}
               />
             </div>
           </div>
+
+          <div className="hidden sm:block">
+            <p className="text-white mt-4 text-[14px] sm:text-[16px]">
+            Actively solving, not just resolving: With Tempo Chat, tackle
+                complicated support tickets head-on. Navigate shipping and
+                fulfillment hurdles to keep your customer journey smooth and
+                satisfying.{" "}
+            </p>
+          </div>
+          <div className="hidden sm:block">
+          <form className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8">
+                <div className="flex col-span-2  w-[100%]">
+                  <input
+                    type={"email"}
+                    placeholder={"Enter your email"}
+                    className={
+                      "border border-input_color w-[372px] block mr-5   px-3 py-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500  "
+                    }
+                    id={"email"}
+                    //   value={email}
+                    onBlur={(e) => handleBlur(email)}
+                    onChange={(e) => {
+                      {
+                        setEmail(e.target.value);
+                      }
+                      validateEmail(e);
+                    }}
+                  />
+                  <Button
+                    className={
+                      "py-[11px] px-2 w-[136px] focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-yellow-900"
+                    }
+                    disabled={validEmail}
+                    onClick={handleNavigate}
+                  >
+                    Start Now
+                  </Button>
+                </div>
+                <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]"></div>
+              </form>
+          </div>
+        </div>
+        <div className=" hidden sm:block">
+          <div className="mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+            <Image
+                src="/temp-trans.gif"
+                className="w-full bg-contain mx-auto "
+              fill={true}
+            />
+          </div>
         </div>
       </div>
     </div>
+  </div>
   );
 };
 

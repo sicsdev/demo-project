@@ -5,8 +5,10 @@ import SelectField from '../Common/Input/SelectField'
 import { email_prefix_data } from './data'
 import { InformationCircleIcon } from '@heroicons/react/24/solid'
 import Card from '../Common/Card/Card'
+import FileField from '../Common/Input/FileField'
 const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState(null)
+    const [selectedFile, setSelectedFile] = useState(null)
     const [email_Prefix, setEmail_Prefix] = useState(basicFormData?.email_prefix ?? '{email_Prefix}')
     const [company_name, setCompany_name] = useState(basicFormData?.company_name ?? '{company_name}')
     const [formValues, setFormValues] = useState({
@@ -50,45 +52,17 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
         }
 
     }
-    const validateForm = (formNumber) => {
-        const formFields = {
-            1: {
-                email_prefix: 'Email Prefix',
-                custom_email: 'Domain Name',
-            },
-        };
-
-        const requiredFields = formFields[formNumber];
-
-        const errors = Object.entries(requiredFields)
-            .filter(([field, label]) => formValues[field] === '')
-            .map(([field, label]) => { return { field, message: `${label} is required` } });
-
-        setErrors(errors);
-        return errors.length === 0;
-    };
 
     const returnErrorMessage = (key) => {
-        if (errors.length) {
-            const findErr = errors.find((x) => x.field === key)
-            if (findErr) {
-                return findErr.message
-            }
-        }
+        // if (errors.length) {
+        //     const findErr = errors.find((x) => x.field === key)
+        //     if (findErr) {
+        //         return findErr.message
+        //     }
+        // }
         return null
     }
 
-    const handleCheckbox = (value) => {
-        setErrors([])
-        setFormValues({ ...formValues, enable_email_forwarding: value });
-        setBasicFormData((prev) => {
-            return {
-                ...prev,
-                enable_email_forwarding: value
-            }
-        })
-
-    }
 
     return (
         <div className=''>
@@ -106,9 +80,26 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
                 </div>
 
                 {formValues.email_prefix && formValues.custom_email && (
-                    <p className='text-sm my-2'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='cursor-pointer' href='https://www.usetempo.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> for instructions. </p>
+                    <p className='text-sm my-2 text-primary'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='font-semibold cursor-pointer' href='https://www.usetempo.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> for instructions. </p>
 
                 )}
+                <div className='my-2'>
+                    <FileField title={<div className='flex items-center gap-2'><span>Upload Ticket History (Optional)</span>  <div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Upload your historic email or chat tickets for the bot to learn more quickly from your historic examples.
+                    </span></Card></div></div>} type={'file'} placeholder="Upload" id="docs" onChange={(event) => {
+                        const file = event.target.files[0];
+                        const allowedExtensions = ['json', 'xls', 'xlsx', 'csv', 'mbox', 'pst'];
+                        if (file) {
+                            const fileExtension = file.name.split('.').pop().toLowerCase();
+                            if (allowedExtensions.indexOf(fileExtension) === -1) {
+                                setErrors('Error: please upload a valid file type (json, xls, xlsx, csv, mbox, pst)');
+                                return;
+                            }
+                            setErrors(null);
+                            setSelectedFile(file);
+                        }
+
+                    }} error={errors} />
+                </div>
             </div>
 
         </div>

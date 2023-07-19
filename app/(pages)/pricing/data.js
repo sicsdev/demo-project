@@ -64,13 +64,7 @@ export const questions = [
     question: "How does usage-based billing work?",
     answer: (
       <p className="tracking-wide text-sm text-text-dark-color">
-        Users are billed 25¢ per system message for Tempo Chat, including the
-        initial welcome, and any consecutive messages to idle customers. For
-        Smart Inbox features, there is a 50¢ charge per email response. Please
-        note that there are no limitations on response length. If a very long
-        and complex email is required to resolve a query, it will still only
-        cost you 50¢. All customers are enrolled in pay-as-you-go billing. For
-        more information on payment thresholds, please <a style={{fontWeight:"600"}} href="/article/pricing-overview">click here.</a>
+      Users are billed $1 per resolved ticket. A resolved ticket is any conversation that does not result in a human hand off or a customer marks as a bad answer and has at least 3 total interactions. Please note that there are no limitations on response length. If a very long and complex email is required to resolve a query, it will still only cost you $1. All customers are enrolled in pay-as-you-go billing. For more information on payment thresholds, please <a style={{fontWeight:"600"}} href="/article/pricing-overview">click here.</a>
       </p>
     ),
   },
