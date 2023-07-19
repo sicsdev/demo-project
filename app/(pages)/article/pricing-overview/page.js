@@ -49,23 +49,23 @@ const page = () => {
         <div className="sm:w-[70%]">
           {loading ? (
             <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
-              <SkeletonLoader height={40} width={200} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
             <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
               {single?.acf?.article_name || (
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               )}
             </h1>
           )}
           {loading ? (
             <p className=" text-heading px-4 pt-8">
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </p>
           ) : (
             <p className=" text-heading px-4 pt-8">
               {single?.acf?.aritcle_para_t || (
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
               )}
             </p>
           )}
@@ -76,7 +76,7 @@ const page = () => {
               className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               {" "}
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </p>
           ) : (
             <p
@@ -84,21 +84,21 @@ const page = () => {
               className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               {single?.acf?.first_head || (
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               )}
             </p>
           )}
           {loading ? (
             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
               {" "}
-              <SkeletonLoader height={200} width={580} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </p>
           ) : (
             <p
               className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
               dangerouslySetInnerHTML={
                 { __html: single?.acf?.article_para } || (
-                  <SkeletonLoader height={40} width={580} />
+                  <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                 )
               }
             ></p>
@@ -107,7 +107,7 @@ const page = () => {
           {loading ? (
             <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
               {" "}
-              <SkeletonLoader height={400} width={580} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </div>
           ) : (
             <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
@@ -119,7 +119,7 @@ const page = () => {
                       className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center sm:pr-16"
                     >
                       {single?.acf?.table_head1 || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
                       )}
                     </th>
                     <th
@@ -127,7 +127,7 @@ const page = () => {
                       className="px-6 py-3 bg-[#09162A] text-white rounded-tr-lg text-center"
                     >
                       {single?.acf?.table_head2 || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
                   </tr>
@@ -142,13 +142,13 @@ const page = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row1l || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
 
                     <td className="px-6 py-4">
                       {single?.acf?.row1r || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </td>
                   </tr>
@@ -161,13 +161,13 @@ const page = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row2l || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
 
                     <td className="px-6 py-4">
                       {single?.acf?.row2r || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </td>
                   </tr>
@@ -180,13 +180,13 @@ const page = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row3l || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
 
                     <td className="px-6 py-4">
                       {single?.acf?.row3r || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
                       )}
                       <p
                         className="text-[blue] font-bold"
@@ -196,7 +196,7 @@ const page = () => {
                         }}
                       ></p>
                       {single?.acf?.article_name == null ? (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       ) : (
                         <Button
                           type={"submit"}
@@ -227,13 +227,13 @@ const page = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row4l || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
 
                     <td className="px-6 py-4">
                       {single?.acf?.row4r || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </td>
                   </tr>
@@ -246,13 +246,13 @@ const page = () => {
                       className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row5l || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
 
                     <td className="px-6 py-4">
                       {single?.acf?.row5r || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </td>
                   </tr>
@@ -367,7 +367,7 @@ const page = () => {
                 className="text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
                 dangerouslySetInnerHTML={
                   { __html: single?.acf?.article_para_copy2 } || (
-                    <SkeletonLoader height={40} width={580} />
+                    <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                   )
                 }
               ></p>
@@ -385,19 +385,19 @@ const page = () => {
                 className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
               >
                 {single?.acf?.sedond_head || (
-                  <SkeletonLoader height={40} width={580} />
+                  <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                 )}
               </p>
               <p
                 className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
                 dangerouslySetInnerHTML={
                   { __html: single?.acf?.article_para_copy3 } || (
-                    <SkeletonLoader height={40} width={580} />
+                    <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                   )
                 }
               ></p>
               {single?.acf?.article_name == null ? (
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
               ) : (
                 <div className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
                   <button
@@ -419,10 +419,10 @@ const page = () => {
           {loading ? (
             <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
               {" "}
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
             </p>
           ) : single?.acf?.article_para_copy == null ? (
-            <SkeletonLoader height={40} width={580} />
+            <SkeletonLoader className="sm:h-[70px] sm:w-[580px]"/>
           ) : (
             <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
               Want to know more?
@@ -430,7 +430,7 @@ const page = () => {
           )}
           {loading ? (
             <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-              <SkeletonLoader height={40} width={200} />
+              <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
             </p>
           ) : (
             <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
@@ -441,7 +441,7 @@ const page = () => {
                 <Link href="/solutions/tempo-chat">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
                     ) : (
                       <u>Solutions: Tempo Chat</u>
                     )}
@@ -450,7 +450,7 @@ const page = () => {
                 <Link href="/solutions/smart-inbox">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
                     ) : (
                       <u>Solutions: Smart Inbox</u>
                     )}
@@ -459,7 +459,7 @@ const page = () => {
                 <Link href="/solutions/smart-social">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
                     ) : (
                       <u>Solutions: Smart Social</u>
                     )}
@@ -472,12 +472,12 @@ const page = () => {
           {loading ? (
             <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
             {" "}
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
             </h1>
           ) :
             <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
               {single?.acf?.article_para_copy == null ? (
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
               ) : (
                 "Related Articles"
               )}
@@ -486,7 +486,7 @@ const page = () => {
             {loading ? (
               <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
               {" "}
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
             </div>
           ) :
 
@@ -497,7 +497,7 @@ const page = () => {
                   <Link key={key} href={`/article/${ele.slug}`}>
                     <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
                       {single?.acf?.article_para_copy == null ? (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
                       ) : (
                         ele?.title
                       )}
@@ -520,7 +520,7 @@ const page = () => {
           >
             {loading ? (
               <p className="hidden sm:block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
-                <SkeletonLoader height={40} width={200} />
+                <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
               </p>
             ) : (
               <p className="hidden sm:block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
@@ -539,12 +539,12 @@ const page = () => {
                   {loading ? (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {" "}
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
                     </p>
                   ) : (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {single?.acf?.first_head || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
                       )}
                     </p>
                   )}
@@ -558,12 +558,12 @@ const page = () => {
                   {loading ? (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {" "}
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
                     </p>
                   ) : (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {single?.acf?.sedond_head || (
-                        <SkeletonLoader height={40} width={580} />
+                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]"/>
                       )}
                     </p>
                   )}

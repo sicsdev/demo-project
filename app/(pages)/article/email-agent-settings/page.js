@@ -55,22 +55,22 @@ console.log("filterposts",filterPosts )
         <div className="sm:w-[70%]">
    <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
       {single?.acf?.article_name || (
-        <SkeletonLoader height={40} width={580} />
+        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
       )}
     </h1>
     <p
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
     >{single?.acf?.aritcle_para_t|| (
-      <SkeletonLoader height={40} width={580} />
+      <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
     )}</p>
     <p
     style={{ marginBottom: "0px" }}
       className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
       dangerouslySetInnerHTML={{ __html: single?.acf?.article_para }|| (
-        <SkeletonLoader height={40} width={580} />
+        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
       )}
     ></p>
-         {single?.acf?.article_name == null?   <SkeletonLoader height={40} width={580} /> :   <div  style={{ marginBottom: "0px" }} className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
+         {single?.acf?.article_name == null?   <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" /> :   <div  style={{ marginBottom: "0px" }} className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
           <button
      
 
@@ -89,10 +89,10 @@ console.log("filterposts",filterPosts )
         {loading ? (
             <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
               {" "}
-              <SkeletonLoader height={40} width={580} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </p>
           ) : single?.acf?.article_para_copy == null ? (
-            <SkeletonLoader height={40} width={580} />
+            <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
           ) : (
             <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
               Want to know more?
@@ -100,7 +100,7 @@ console.log("filterposts",filterPosts )
           )}
           {loading ? (
             <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-              <SkeletonLoader height={40} width={200} />
+              <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </p>
           ) : (
             <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
@@ -111,7 +111,7 @@ console.log("filterposts",filterPosts )
                 <Link href="/solutions/tempo-chat">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                     ) : (
                       <u>Solutions: Tempo Chat</u>
                     )}
@@ -120,7 +120,7 @@ console.log("filterposts",filterPosts )
                 <Link href="/solutions/smart-inbox">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                     ) : (
                       <u>Solutions: Smart Inbox</u>
                     )}
@@ -129,7 +129,7 @@ console.log("filterposts",filterPosts )
                 <Link href="/solutions/smart-social">
                   <li>
                     {single?.acf?.article_para_copy == null ? (
-                      <SkeletonLoader height={40} width={580} />
+                      <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                     ) : (
                       <u>Solutions: Smart Social</u>
                     )}
@@ -142,12 +142,12 @@ console.log("filterposts",filterPosts )
             {loading ? (
               <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
                 {" "}
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               </h1>
             ) : (
               <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
                 {single?.acf?.article_para_copy == null ? (
-                  <SkeletonLoader height={40} width={580} />
+                  <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                 ) : (
                   "Related Articles"
                 )}
@@ -156,7 +156,7 @@ console.log("filterposts",filterPosts )
             {loading ? (
               <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
                 {" "}
-                <SkeletonLoader height={40} width={580} />
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               </div>
             ) : (
               <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
@@ -166,7 +166,7 @@ console.log("filterposts",filterPosts )
                     <Link key={key} href={`/article/${ele.slug}`}>
                       <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
                         {single?.acf?.article_para_copy == null ? (
-                          <SkeletonLoader height={40} width={580} />
+                          <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                         ) : (
                           ele?.title
                         )}
@@ -189,7 +189,7 @@ console.log("filterposts",filterPosts )
           >
             {loading ? (
               <p className="hidden sm:block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
-                <SkeletonLoader height={40} width={200} />
+                <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]"/>
               </p>
             ) : (
               <p className="hidden sm:block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
