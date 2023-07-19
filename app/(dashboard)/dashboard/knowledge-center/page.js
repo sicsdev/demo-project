@@ -137,7 +137,7 @@ const Page = () => {
                 ) : (
                     <div className="w-full">
                         <DataTable
-                            title="Learning center"
+                            title={<h3 className="text-sm font-semibold">Learning center</h3>}
                             fixedHeader
                             highlightOnHover
                             pointerOnHover

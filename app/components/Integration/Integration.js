@@ -12,7 +12,7 @@ import TextField from '../Common/Input/TextField';
 import { useRouter, usePathname } from 'next/navigation';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 
-export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRecord, mode, type, ...rest }) => {
+export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRecord, mode, type, setBasicFormData, form = false, ...rest }) => {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const pathname = usePathname();
@@ -68,23 +68,58 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 [name]: value,
                 authType: 'api_key'
             }));
+            if (form === true) {
+                setBasicFormData((prev_state) => {
+                    return {
+                        ...prev_state,
+                        [name]: value,
+                        authType: 'api_key'
+                    };
+                });
+            }
         } else if (name === 'provider' && value === 'shopify') {
             setIntegrationFormData((prevFormData) => ({
                 ...prevFormData,
                 [name]: value,
                 authType: 'oauth1'
             }));
+            if (form === true) {
+                setBasicFormData((prev_state) => {
+                    return {
+                        ...prev_state,
+                        [name]: value,
+                        authType: 'oauth1'
+                    };
+                });
+            }
         } else if (name === 'provider' && value === 'custom') {
             setIntegrationFormData((prevFormData) => ({
                 ...prevFormData,
                 [name]: value,
                 authType: ''
             }));
+            if (form === true) {
+                setBasicFormData((prev_state) => {
+                    return {
+                        ...prev_state,
+                        [name]: value,
+                        authType: ''
+                    };
+                });
+            }
         } else {
             setIntegrationFormData((prevFormData) => ({
                 ...prevFormData,
                 [name]: value
             }));
+            if (form === true) {
+                setBasicFormData((prev_state) => {
+                    return {
+                        ...prev_state,
+                        [name]: value,
+                    };
+                });
+            }
         }
     };
 
@@ -367,20 +402,21 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     </>
                 )}
             </div>
-
-            <div className="flex items-center justify-between">
-                {loading ? (
-                    <LoaderButton />
-                ) : (
-                    <Button
-                        type={"submit"}
-                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                        disabled={DisablingButton()}
-                    >
-                        {mode === 'update' ? 'Update' : 'Save'}
-                    </Button>
-                )}
-            </div>
+            {form === false && (
+                <div className="flex items-center justify-between">
+                    {loading ? (
+                        <LoaderButton />
+                    ) : (
+                        <Button
+                            type={"submit"}
+                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                            disabled={DisablingButton()}
+                        >
+                            {mode === 'update' ? 'Update' : 'Save'}
+                        </Button>
+                    )}
+                </div>
+            )}
         </form>
     )
 }

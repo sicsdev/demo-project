@@ -23,9 +23,12 @@ import {
 import { state_data } from "../Forms/data/FormData";
 import { createBot, createBotKnowledge, modifyBot } from "@/app/API/pages/Bot";
 import { fetchBot, setBotId, setModalValue } from "../store/slices/botIdSlice";
+import { ConfigureIntegration } from "../Integration/Integration";
+import { addIntegrationData } from "@/app/API/pages/Integration";
 
 const Intake = () => {
   const [basicFormData, setBasicFormData] = useState({});
+  console.log("basicFormData", basicFormData)
   let state = useSelector((state) => state.botId.showModal);
   const [errors, setErrors] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -62,18 +65,6 @@ const Intake = () => {
         };
       case 2:
         return {
-          title: "Customize Bot",
-          form: (
-            <Customize
-              setBasicFormData={setBasicFormData}
-              basicFormData={basicFormData}
-              form={true}
-            />
-          ),
-          btn: "Next",
-        };
-      case 3:
-        return {
           title: (
             <div className="">
               <span className="">Configure Email</span>
@@ -94,14 +85,24 @@ const Intake = () => {
           ),
           btn: "Next",
         };
+      case 3:
+        return {
+          title: "Customize Bot",
+          form: (
+            <Customize
+              setBasicFormData={setBasicFormData}
+              basicFormData={basicFormData}
+              form={true}
+            />
+          ),
+          btn: "Next",
+        };
       case 4:
         return {
-          title: "Email Agent Settings",
+          title: "Customize Bot",
           form: (
-            <EmailConfig
-              basicFormData={basicFormData}
-              setBasicFormData={setBasicFormData}
-            />
+            <ConfigureIntegration integrationRecord={basicFormData} setBasicFormData={setBasicFormData} type={''} form={true} />
+
           ),
           btn: "Finish",
         };
@@ -138,12 +139,6 @@ const Intake = () => {
       );
     }
     if (intakeStep === 3) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
-      return requiredKeys.some(
-        (key) => !basicFormData[key] || basicFormData[key].trim() === ""
-      );
-    }
-    if (intakeStep === 4) {
       const requiredKeys = [
         "agent_title",
         "email_introduction",
@@ -158,6 +153,37 @@ const Intake = () => {
       if (str_values || arr_values) {
         return true;
       }
+    }
+
+    if (intakeStep === 2) {
+      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
+      return requiredKeys.some(
+        (key) => !basicFormData[key] || basicFormData[key].trim() === ""
+      );
+    }
+    if (intakeStep === 4) {
+      let requiredKeys = ["baseUrl", "provider", "description", "authType"];
+      switch (basicFormData?.authType) {
+        case "none":
+          break;
+        case "auth":
+          requiredKeys = ["baseUrl", "provider", "authType", "username", "password"];
+          break;
+        case "api_key":
+          requiredKeys = ["baseUrl", "provider", "authType", "apiKey"];
+          break;
+        case "oauth1":
+          requiredKeys = ["baseUrl", "provider", "authType", "clientkey", "clientsecret"];
+          break;
+        case "oauth2":
+          requiredKeys = ["baseUrl", "provider", "authType", "clientkey2", "clientsecret2", "clientredirecturl"];
+          break;
+        default:
+          break;
+      }
+      return requiredKeys.some(
+        (key) => !basicFormData[key] || basicFormData[key].trim() === ""
+      );
     }
     return false;
   };
@@ -181,7 +207,6 @@ const Intake = () => {
       ecommerce_platform: basicFormData.ecommerce_platform,
     };
     const createEnterprise = await createEnterpriseAccount(payload);
-    debugger
     if (createEnterprise?.status === 200) {
       setIntakeStep(1);
       setIntakeCompleteStep(1);
@@ -219,6 +244,7 @@ const Intake = () => {
             return {
               ...prev,
               bot: "success",
+              id:bot.data.id
             };
           });
           setIntakeStep(2);
@@ -260,6 +286,12 @@ const Intake = () => {
       ticketing_platform: basicFormData?.ticketing_platform,
       logo_file_name: basicFormData?.logo_file_name,
       active: basicFormData?.active,
+      email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
+      email_agent_name: basicFormData.agent_name,
+      email_agent_title: basicFormData.agent_title,
+      email_greeting: basicFormData.email_introduction,
+      email_farewell: basicFormData.email_signOff,
+
     };
     !payload.logo && delete payload.logo;
     modifyBot(payload.id, payload)
@@ -307,28 +339,76 @@ const Intake = () => {
       setLoading(false);
     }
   };
+  function validateURL(url) {
+    var urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(:\d+)?(\/\S*)?$/;
+    return urlPattern.test(url);
+  }
+  const handleIntegrationSubmitForm = async () => {
+  
+    if(validateURL(basicFormData?.baseUrl) === true){
+    setErrors([])
+debugger
+      try {
+      let data = {};
+      setLoading(true);
+      switch (basicFormData?.authType) {
+        case "none":
+          data = {}
+          break;
+        case "auth":
+          data = {
+            username: basicFormData?.username,
+            password: basicFormData?.password
+          }
+          break;
+        case "api_key":
+          data = {
+            apikey: basicFormData?.apiKey,
+          }
+          break;
+        case "oauth1":
+          data = {
+            client_key: basicFormData?.clientkey,
+            client_secret: basicFormData?.clientsecret,
+          }
+          break;
+        case "oauth2":
+          data = {
+            client_key: basicFormData?.clientkey2,
+            client_secret: basicFormData?.clientsecret2,
+            client_redirect_url: basicFormData?.clientredirecturl,
+          }
+          break;
+        default:
+          break;
+      }
 
-  const EmailConfigSubmit = async () => {
-    setLoading(true);
-    let payload = {
-      email:
-        basicFormData.email_prefix +
-        "@" +
-        basicFormData.company_name +
-        ".gettempo.ai",
-      email_agent_name: basicFormData.agent_name,
-      email_agent_title: basicFormData.agent_title,
-      email_greeting: basicFormData.email_introduction,
-      email_farewell: basicFormData.email_signOff,
-    };
-    const response = await modifyBot(basicFormData.id, payload);
-    if (response.status === 200) {
-      setLoading(false);
-      dispatch(setModalValue(false));
-      dispatch(fetchBot());
-    } else {
+      let payload = {
+        type: "BILLING",
+        name: basicFormData.name,
+        provider: basicFormData?.provider,
+        http_auth_scheme: basicFormData?.authType,
+        http_base: basicFormData?.baseUrl,
+        data: data
+      }
+
+      const configureIntegration = await addIntegrationData(payload);
+      const message = `Integration Added Successfully!`;
+
+      if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
+        setLoading(false);
+        dispatch(setModalValue(false));
+        dispatch(fetchBot());
+      } else {
+        console.log('configureIntegration',configureIntegration)
+        setLoading(false);
+      }
+    } catch (error) {
       setLoading(false);
     }
+  }else{
+    setErrors(['Please enter the valid url'])
+  }
   };
   const SubmitForm = () => {
     setErrors([]);
@@ -345,20 +425,21 @@ const Intake = () => {
         }
         break;
       case 2:
-        savePreferences();
-
-        break;
-      case 3:
         if (basicFormData?.configure === "success") {
-          setIntakeStep(4);
-          setIntakeCompleteStep(4);
+          setIntakeStep(3);
+          setIntakeCompleteStep(3);
         } else {
           SubmitConfigureEmail();
         }
 
         break;
+
+      case 3:
+        savePreferences();
+
+        break;
       case 4:
-        EmailConfigSubmit();
+        handleIntegrationSubmitForm()
         break;
 
       default:
@@ -379,17 +460,17 @@ const Intake = () => {
     },
     {
       step: 2,
-      text: "Customize Bot",
-      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
-    },
-    {
-      step: 3,
       text: "Configure Email",
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
     {
+      step: 3,
+      text: "Customize Bot",
+      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+    },
+    {
       step: 4,
-      text: "Email Agent Settings",
+      text: "Add Integrations",
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
   ];
@@ -449,7 +530,7 @@ const Intake = () => {
               )}
           </h3>
           <hr className="my-5 mb-0 border-border" />
-          <div className="flex items-start  bg-[#f6f8fa] h-auto w-full justify-between  md:justify-start lg:justify-start sm:justify-start gap-16">
+          <div className="flex items-start  h-auto w-full justify-between  md:justify-start lg:justify-start sm:justify-start gap-16">
             <div className="flex px-0  items-start  bg-white w-full sm:h-auto md:h-auto lg:h-auto sm:w-auto md:w-auto lg:w-auto pt-[25px]">
               <div className="w-[50px] sm:w-[250px] md:w-[250px] lg:w-[250px] h-full bg-white  pl-6">
                 <ol className="">
@@ -464,9 +545,8 @@ const Intake = () => {
                       }}
                     >
                       <span
-                        className={`${key === 0 && "rounded-t-3xl"} ${
-                          headings.length - 1 === key && "rounded-b-3xl"
-                        } bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}
+                        className={`${key === 0 && "rounded-t-3xl"} ${headings.length - 1 === key && "rounded-b-3xl"
+                          } bg-[#ebeef1] h-[40px] flex items-center justify-center w-6 -left-4`}
                       >
                         <h1
                           className={`flex w-[20px] h-[20px]  text-[10px]  font-normal items-center justify-center shadow-md rounded-full ${sendActiveValueLabel(
@@ -486,9 +566,8 @@ const Intake = () => {
               <div className="w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  px-6 sm:pr-6 md:pr-6 lg:pr-6 ">
                 {GetStepForm().form}
                 <div
-                  className={`flex  p-2 rounded-b mt-5 ${
-                    intakeStep > 0 ? "justify-between" : "justify-end"
-                  }`}
+                  className={`flex  p-2 rounded-b mt-5 ${intakeStep > 0 ? "justify-between" : "justify-end"
+                    }`}
                 >
                   {intakeStep > 0 && (
                     <Button
