@@ -2,45 +2,10 @@ import React from 'react'
 import Button from '../../Common/Button/Button'
 import { logos } from '../../Forms/ReadOnly/logos_data'
 import Link from 'next/link'
-
+import Image from 'next/image'
+import workflowOptions from "@/app/data/workflowtiles.json"
 const WorkFlowTemplates = () => {
-    const workflowOptions = [
-        {
-            id: 1,
-            name: "Issue Refund",
-            key: "issue-refund",
-            title: 'The standard Lorem Ipsum passage, used since the 1500s',
-            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            id: 1,
-            name: "Reactivate Subscription",
-            key: "reactivate-subscription",
-            title: 'The standard Lorem Ipsum passage, used since the 1500s',
-            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            id: 1,
-            name: "Issue Promotion",
-            key: "issue-promotion",
-            title: 'The standard Lorem Ipsum passage, used since the 1500s',
-            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            id: 1,
-            name: "Cancel Subscription",
-            key: "cancel-subscription",
-            title: 'The standard Lorem Ipsum passage, used since the 1500s',
-            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        },
-        {
-            id: 1,
-            name: "Add Payment Method",
-            key: "add-payment-method",
-            title: 'The standard Lorem Ipsum passage, used since the 1500s',
-            sub_title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        }
-    ];
+   
     return (
         <>
             <h3 className='text-heading text-center font-semibold text-xl my-2'>What do you want to build today?</h3>
@@ -50,8 +15,14 @@ const WorkFlowTemplates = () => {
                     <div className='border border-border rounded-lg p-3 cursor-pointer hover:bg-gray hover:shadow-sm' key={key}>
                         <Link href={`/dashboard/workflow/workflow-builder/get-started/?flow=${ele.key}`}>
                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg ">
-                                <span className="font-medium text-white">DN</span>
-                            </div>
+                                <Image
+                                    fill={"true"}
+                                    className="bg-contain mx-auto w-full rounded-lg"
+                                    alt="logo.png"
+                                    src={ele.img}
+                                />
+                                </div>
+
                             <h3 className='text-heading  font-semibold text-sm my-1'>{ele.name}
                             </h3>
                             <p className='text-heading text-[13px]'>{ele.sub_title}</p>
