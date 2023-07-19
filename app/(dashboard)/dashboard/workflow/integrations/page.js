@@ -128,7 +128,6 @@ const Page = () => {
               </li>
             </ul>
           </div>
-
           <Card className="p-5 mt-3 block sm:grid md:block lg:grid grid-cols-1 ">
             {integrationData?.map((item, key) => (
               <div key={key}>
