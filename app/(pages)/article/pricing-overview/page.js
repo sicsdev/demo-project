@@ -65,7 +65,7 @@ const page = () => {
           ) : (
             <p className=" text-heading px-4 pt-8">
               {single?.acf?.aritcle_para_t || (
-                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               )}
             </p>
           )}
@@ -119,7 +119,7 @@ const page = () => {
                       className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center sm:pr-16"
                     >
                       {single?.acf?.table_head1 || (
-                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                     </th>
                     <th
@@ -186,7 +186,7 @@ const page = () => {
 
                     <td className="px-6 py-4">
                       {single?.acf?.row3r || (
-                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
+                        <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       )}
                       <p
                         className="text-[blue] font-bold"
@@ -198,10 +198,10 @@ const page = () => {
                       {single?.acf?.article_name == null ? (
                         <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
                       ) : (
-                        <Button
+                        <button
                           type={"submit"}
                           className={
-                            "mr-2 py-[6px] mt-2 px-2 focus:ring-yellow-300 text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
+                            "focus:outline-none focus:ring-4  font-bold rounded-md    disabled:bg-input_color disabled:text-white mr-2 py-[6px] mt-2 px-2 focus:ring-yellow-300 sm:w-[50%]   text-[12px] sm:text-[16px] text-white bg-primary hover:bg-black dark:focus:ring-voilet-900"
                           }
                         >
                           <div
@@ -214,7 +214,7 @@ const page = () => {
       `,
                             }}
                           />
-                        </Button>
+                        </button>
                       )}
                     </td>
                   </tr>
@@ -397,7 +397,7 @@ const page = () => {
                 }
               ></p>
               {single?.acf?.article_name == null ? (
-                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]"/>
+                <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
               ) : (
                 <div className="mb-4 sm:mb-4 sm:w-[20%] sm:m-auto py-4 mx-6">
                   <button
@@ -422,7 +422,7 @@ const page = () => {
               <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
             </p>
           ) : single?.acf?.article_para_copy == null ? (
-            <SkeletonLoader className="sm:h-[70px] sm:w-[580px]"/>
+            <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
           ) : (
             <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
               Want to know more?
@@ -469,44 +469,43 @@ const page = () => {
             </p>
           )}
           <div className="mt-[60px]">
-          {loading ? (
-            <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
-            {" "}
-              <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
-            </h1>
-          ) :
-            <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
-              {single?.acf?.article_para_copy == null ? (
+            {loading ? (
+              <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
+                {" "}
                 <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
-              ) : (
-                "Related Articles"
-              )}
-            </h1>
-}
+              </h1>
+            ) : (
+              <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
+                {single?.acf?.article_para_copy == null ? (
+                  <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
+                ) : (
+                  "Related Articles"
+                )}
+              </h1>
+            )}
             {loading ? (
               <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
-              {" "}
-              <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
-            </div>
-          ) :
-
-            <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
-              {filterPosts?.map((ele, key) => (
-                <>
-                  {" "}
-                  <Link key={key} href={`/article/${ele.slug}`}>
-                    <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
-                      {single?.acf?.article_para_copy == null ? (
-                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
-                      ) : (
-                        ele?.title
-                      )}
-                    </p>
-                  </Link>
-                </>
-              ))}
-            </div>
-}
+                {" "}
+                <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
+              </div>
+            ) : (
+              <div className="border-2 rounded-xl mb-[25px] sm:w-[42rem]">
+                {filterPosts?.map((ele, key) => (
+                  <>
+                    {" "}
+                    <Link key={key} href={`/article/${ele.slug}`}>
+                      <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
+                        {single?.acf?.article_para_copy == null ? (
+                          <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
+                        ) : (
+                          ele?.title
+                        )}
+                      </p>
+                    </Link>
+                  </>
+                ))}
+              </div>
+            )}
           </div>
         </div>
         <div className="hidden sm:block w-[30%]">
@@ -563,7 +562,7 @@ const page = () => {
                   ) : (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {single?.acf?.sedond_head || (
-                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]"/>
+                        <SkeletonLoader className="h-[70px] sm:h-[30px] sm:w-[580px]" />
                       )}
                     </p>
                   )}
