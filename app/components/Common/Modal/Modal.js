@@ -4,7 +4,7 @@ import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { useRouter, usePathname } from 'next/navigation';
 
-const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction }) => {
+const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true }) => {
     const divRef = useRef(null);
     const router = useRouter();
     const pathname = usePathname();
@@ -29,12 +29,12 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
         <div>
             {show ? (
                 <>
-                    <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                    <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none items-center" 
                     >
                         <div className={`relative  my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
-                                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                                <div className={`flex items-start justify-between  ${hr === true && ("p-5 border-b border-solid border-slate-200")} rounded-t`}>
 
                                     <span className="flex items-center text-xl font-semibold sm:text-2xl whitespace-nowrap text-heading p-3">
                                         {title}
@@ -52,7 +52,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
 
                                 </div>
                                 {/*body*/}
-                                <div className="relative p-6 flex-auto">
+                                <div className={`relative ${hr===true ?("p-6"):"px-3"} flex-auto`}>
                                     {children}
                                 </div>
                             </div>

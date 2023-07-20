@@ -156,7 +156,7 @@ const Intake = () => {
       }
     }
     if (intakeStep === 2) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone_number", "area_code"];
+      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
       );
