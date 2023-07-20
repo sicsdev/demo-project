@@ -156,7 +156,7 @@ const Intake = () => {
       }
     }
     if (intakeStep === 2) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
+      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone_number", "area_code"];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
       );
@@ -282,8 +282,8 @@ const Intake = () => {
     modifyBot(payload.id, payload)
       .then((res) => {
         setLoading(false);
-        setIntakeStep(3);
-        setIntakeCompleteStep(3);
+        setIntakeStep(4);
+        setIntakeCompleteStep(4);
       })
       .catch((err) => {
         console.log(err);
@@ -313,8 +313,8 @@ const Intake = () => {
             configure: "success",
           };
         });
-        setIntakeStep(4);
-        setIntakeCompleteStep(4);
+        setIntakeStep(3);
+        setIntakeCompleteStep(3);
         setLoading(false);
       } else {
         setErrors(domains.response.data.slug_domain);
@@ -330,70 +330,69 @@ const Intake = () => {
   }
   const handleIntegrationSubmitForm = async () => {
 
-    if (validateURL(basicFormData?.baseUrl) === true) {
-      setErrors([])
+
+    try {
+      let data = {};
+      setLoading(true);
+      switch (basicFormData?.authType) {
+        case "none":
+          data = {}
+          break;
+        case "auth":
+          data = {
+            username: basicFormData?.username,
+            password: basicFormData?.password
+          }
+          break;
+        case "api_key":
+          data = {
+            apikey: basicFormData?.apiKey,
+          }
+          break;
+        case "oauth1":
+          data = {
+            client_key: basicFormData?.clientkey,
+            client_secret: basicFormData?.clientsecret,
+          }
+          break;
+        case "oauth2":
+          data = {
+            client_key: basicFormData?.clientkey2,
+            client_secret: basicFormData?.clientsecret2,
+            client_redirect_url: basicFormData?.clientredirecturl,
+          }
+          break;
+        default:
+          break;
+      }
+
+      let payload = {
+        type: "BILLING",
+        name: basicFormData.name,
+        provider: basicFormData?.provider,
+        http_auth_scheme: basicFormData?.authType,
+        http_base: basicFormData?.baseUrl,
+        data: data
+      }
+
+      const configureIntegration = await addIntegrationData(payload);
+      const message = `Integration Added Successfully!`;
+      setLoading(false);
+      dispatch(setModalValue(false));
+      dispatch(fetchBot());
       debugger
-      try {
-        let data = {};
-        setLoading(true);
-        switch (basicFormData?.authType) {
-          case "none":
-            data = {}
-            break;
-          case "auth":
-            data = {
-              username: basicFormData?.username,
-              password: basicFormData?.password
-            }
-            break;
-          case "api_key":
-            data = {
-              apikey: basicFormData?.apiKey,
-            }
-            break;
-          case "oauth1":
-            data = {
-              client_key: basicFormData?.clientkey,
-              client_secret: basicFormData?.clientsecret,
-            }
-            break;
-          case "oauth2":
-            data = {
-              client_key: basicFormData?.clientkey2,
-              client_secret: basicFormData?.clientsecret2,
-              client_redirect_url: basicFormData?.clientredirecturl,
-            }
-            break;
-          default:
-            break;
-        }
-
-        let payload = {
-          type: "BILLING",
-          name: basicFormData.name,
-          provider: basicFormData?.provider,
-          http_auth_scheme: basicFormData?.authType,
-          http_base: basicFormData?.baseUrl,
-          data: data
-        }
-
-        const configureIntegration = await addIntegrationData(payload);
-        const message = `Integration Added Successfully!`;
-
-        if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
-          setLoading(false);
-          dispatch(setModalValue(false));
-          dispatch(fetchBot());
-        } else {
-          console.log('configureIntegration', configureIntegration)
-          setLoading(false);
-        }
-      } catch (error) {
+      if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
+        setLoading(false);
+        dispatch(setModalValue(false));
+        dispatch(fetchBot());
+      } else {
+        console.log('configureIntegration', configureIntegration)
         setLoading(false);
       }
-    } else {
-      setErrors(['Please enter the valid url'])
+    } catch (error) {
+      setLoading(false);
     }
+
   };
   const SubmitForm = () => {
     setErrors([]);

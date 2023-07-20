@@ -183,9 +183,9 @@ select {
   border-radius: 4px; /* Add border radius for a rounded appearance */
   outline: none; /* Remove the default focus outline */
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    outline: none;
-    background-repeat: no-repeat;
-    background-position: right;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 
 select::-ms-expand {
@@ -416,6 +416,10 @@ input[type="number"]::-webkit-outer-spin-button {
 .desk_headermenupopup {
   display: none !important;
 }
+
+.top-0::-webkit-scrollbar {
+  width: 0px;
+}
 .border-class {
   border: 2px solid #7ec1ec !important;
 }
@@ -575,11 +579,12 @@ transition: all .4s ease;
 .section-workflow2 {
   background-color: #d9d9d9;
   height: 24px;
-  transition: height .16s cubic-bezier(.36,.19,.29,1);
+  transition: height 0.16s cubic-bezier(0.36, 0.19, 0.29, 1);
   width: 4px;
 }
 
-.section-workflow-wrapper {position: relative;
+.section-workflow-wrapper {
+  position: relative;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -587,8 +592,7 @@ transition: all .4s ease;
   width: 100%;
 }
 .section-workflow {
-  --saf-0: rgba(var(
-  --sk_inverted_foreground,255,255,255),1);
+  --saf-0: rgba(var(--sk_inverted_foreground, 255, 255, 255), 1);
   background-color: #d2d2d2;
   border: 2px solid var(--saf-0);
   height: 10px;
@@ -597,7 +601,8 @@ transition: all .4s ease;
   position: absolute;
   z-index: 2;
 }
-.iconplus {border: 2px solid #00000014;
+.iconplus {
+  border: 2px solid #00000014;
   background-color: #f8f8f8;
   pointer-events: all;
   border-radius: 100%;
@@ -620,12 +625,15 @@ transition: all .4s ease;
 .section-workflow-wrapper:hover .section-workflow3 {
   background-color: #1d9bd1;
   height: 2px;
-  transition: background-color .16s cubic-bezier(.36,.19,.29,1),height .16s cubic-bezier(.36,.19,.29,1);
+  transition: background-color 0.16s cubic-bezier(0.36, 0.19, 0.29, 1),
+    height 0.16s cubic-bezier(0.36, 0.19, 0.29, 1);
   width: 100%;
   display: block;
   position: absolute;
 }
-.section-workflow-wrapper:hover .iconplus{display: flex;}
+.section-workflow-wrapper:hover .iconplus {
+  display: flex;
+}
 
 .rdw-editor-toolbar{
 margin-bottom: 0px !important;
@@ -635,3 +643,20 @@ border-radius: 7px !important;
 border-bottom-left-radius: 0px !important;
 border-bottom-right-radius: 0px !important;
 }
+.rdw-editor-toolbar {
+  margin-bottom: 0px !important;
+  border: 1px solid rgb(192, 192, 192) !important;
+  border-bottom: 0px !important;
+  border-radius: 7px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+/* .learnmore_integration_btn {
+  height: 0;
+  transition: transform 400ms ease 0s;
+}
+.integration_cards:hover .learnmore_integration_btn {
+  height: auto;
+  transition: transform 400ms ease 0s;
+} */
