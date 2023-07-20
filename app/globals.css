@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 .img-div-1:hover {
-  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
+  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%)
+    hue-rotate(510deg) brightness(51%) contrast(196%);
 }
 
 .img-platform {
@@ -65,7 +66,6 @@ span.hljs-tag {
 }
 
 @keyframes shake {
-
   0%,
   100% {
     transform: translateY(0);
@@ -88,7 +88,6 @@ span.hljs-tag {
 }
 
 @keyframes shake2 {
-
   0%,
   100% {
     transform: translateY(0);
@@ -111,7 +110,6 @@ span.hljs-tag {
 }
 
 @keyframes shake3 {
-
   0%,
   100% {
     transform: translateY(0);
@@ -185,9 +183,9 @@ select {
   border-radius: 4px; /* Add border radius for a rounded appearance */
   outline: none; /* Remove the default focus outline */
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    outline: none;
-    background-repeat: no-repeat;
-    background-position: right;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 
 select::-ms-expand {
@@ -266,7 +264,7 @@ select::-ms-expand {
   }
 }
 
-.div-anima .bg-black+.rainbow .facet-pill-border rect,
+.div-anima .bg-black + .rainbow .facet-pill-border rect,
 .start-rainbow .facet-pill-border rect {
   visibility: visible !important;
 }
@@ -356,8 +354,8 @@ select {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -368,9 +366,9 @@ select {
   left: 4px;
   bottom: 3px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
 }
-.active-class::before{
+.active-class::before {
   border-top: 3px solid #1a73e8;
   bottom: 0;
   content: "";
@@ -382,15 +380,15 @@ select {
   z-index: 0;
 }
 
-input:checked+.slider {
-  background-color: #2196F3;
+input:checked + .slider {
+  background-color: #2196f3;
 }
 
-input:focus+.slider {
-  box-shadow: 0 0 1px #2196F3;
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked+.slider:before {
+input:checked + .slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -405,26 +403,26 @@ input:checked+.slider:before {
   border-radius: 50%;
 }
 
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
   opacity: 1;
   display: none;
 }
 
-.myparent input:hover+label {
+.myparent input:hover + label {
   text-decoration: underline;
 }
 
-
-.desk_headermenupopup{
+.desk_headermenupopup {
   display: none !important;
 }
 
-.top-0::-webkit-scrollbar{width: 0px;}
-.border-class{
+.top-0::-webkit-scrollbar {
+  width: 0px;
+}
+.border-class {
   border: 2px solid #7ec1ec !important;
 }
-
 
 /* accordion tabs */
 
@@ -433,7 +431,7 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0 !important;
   top: 28px !important;
   display: inline-block;
-  content: '';
+  content: "";
   height: 10px;
   width: 10px;
   margin-right: 23px;
@@ -448,7 +446,7 @@ input[type=number]::-webkit-outer-spin-button {
   right: 0 !important;
   top: 28px !important;
   display: inline-block;
-  content: '';
+  content: "";
   height: 10px;
   width: 10px;
   margin-right: 23px;
@@ -462,22 +460,20 @@ input[type=number]::-webkit-outer-spin-button {
 /* .dfdasdasd{
 transition: all .4s ease;
 } */
-.accordionitem_panel{
+.accordionitem_panel {
   display: block !important;
   transition: transform 5s ease-in-out;
 }
-.accordionitem_panel .p-6{
+.accordionitem_panel .p-6 {
   min-height: 0;
   height: 0;
   overflow: hidden;
   transition: transform 5s ease-in-out;
-
 }
 
-.bg-background.rounded-lg .accordionitem_panel .p-6{
+.bg-background.rounded-lg .accordionitem_panel .p-6 {
   height: auto;
   transition: transform 5s ease-in-out;
-
 }
 .swiper-pagination {
   position: absolute;
@@ -489,11 +485,12 @@ transition: all .4s ease;
 .section-workflow2 {
   background-color: #d9d9d9;
   height: 24px;
-  transition: height .16s cubic-bezier(.36,.19,.29,1);
+  transition: height 0.16s cubic-bezier(0.36, 0.19, 0.29, 1);
   width: 4px;
 }
 
-.section-workflow-wrapper {position: relative;
+.section-workflow-wrapper {
+  position: relative;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -501,8 +498,7 @@ transition: all .4s ease;
   width: 100%;
 }
 .section-workflow {
-  --saf-0: rgba(var(
-  --sk_inverted_foreground,255,255,255),1);
+  --saf-0: rgba(var(--sk_inverted_foreground, 255, 255, 255), 1);
   background-color: #d2d2d2;
   border: 2px solid var(--saf-0);
   height: 10px;
@@ -511,7 +507,8 @@ transition: all .4s ease;
   position: absolute;
   z-index: 2;
 }
-.iconplus {border: 2px solid #00000014;
+.iconplus {
+  border: 2px solid #00000014;
   background-color: #f8f8f8;
   pointer-events: all;
   border-radius: 100%;
@@ -534,18 +531,30 @@ transition: all .4s ease;
 .section-workflow-wrapper:hover .section-workflow3 {
   background-color: #1d9bd1;
   height: 2px;
-  transition: background-color .16s cubic-bezier(.36,.19,.29,1),height .16s cubic-bezier(.36,.19,.29,1);
+  transition: background-color 0.16s cubic-bezier(0.36, 0.19, 0.29, 1),
+    height 0.16s cubic-bezier(0.36, 0.19, 0.29, 1);
   width: 100%;
   display: block;
   position: absolute;
 }
-.section-workflow-wrapper:hover .iconplus{display: flex;}
-
-.rdw-editor-toolbar{
-margin-bottom: 0px !important;
-border: 1px solid rgb(192, 192, 192) !important;
-border-bottom: 0px !important;
-border-radius: 7px !important;
-border-bottom-left-radius: 0px !important;
-border-bottom-right-radius: 0px !important;
+.section-workflow-wrapper:hover .iconplus {
+  display: flex;
 }
+
+.rdw-editor-toolbar {
+  margin-bottom: 0px !important;
+  border: 1px solid rgb(192, 192, 192) !important;
+  border-bottom: 0px !important;
+  border-radius: 7px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+/* .learnmore_integration_btn {
+  height: 0;
+  transition: transform 400ms ease 0s;
+}
+.integration_cards:hover .learnmore_integration_btn {
+  height: auto;
+  transition: transform 400ms ease 0s;
+} */
