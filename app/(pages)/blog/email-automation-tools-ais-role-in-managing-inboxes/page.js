@@ -46,75 +46,107 @@ const page = () => {
       <div className="sm:w-[70%]">
         {" "}
         <h1 className=" font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
-          {single?.title?.rendered}
+          {single?.title?.rendered|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          {single?.acf?.para1}
+          {single?.acf?.para1|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </p>
         <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          {single?.acf?.para2}
+          {single?.acf?.para2|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </p>
         <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          {single?.acf?.para3}
+          {single?.acf?.para3|| (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </p>
         <h1
             id={removeSpacesAndHyphens(single?.acf?.heading1)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading1}
+          {single?.acf?.heading1 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          {single?.acf?.para}
+          {single?.acf?.para || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </p>
         <h1
             id={removeSpacesAndHyphens(single?.acf?.heading2)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading2}
+          {single?.acf?.heading2 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points1 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points1 } || (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
         <h1
           id={removeSpacesAndHyphens(single?.acf?.heading3)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading3}
+          {single?.acf?.heading3 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points_2 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points_2 } || (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
         <h1
            id={removeSpacesAndHyphens(single?.acf?.heading4)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading4}
+          {single?.acf?.heading4 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points3 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points3 } || (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
         <h1
             id={removeSpacesAndHyphens(single?.acf?.heading5)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading5}
+          {single?.acf?.heading5 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points4 }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.heading_points4 } || (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
         <h1
            id={removeSpacesAndHyphens(single?.acf?.heading6)}
           className=" font-bold  text-1xl  md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none "
         >
-          {single?.acf?.heading6}
+          {single?.acf?.heading6 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
         </h1>
         <p
           className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading"
-          dangerouslySetInnerHTML={{ __html: single?.acf?.heading6_text }}
+          dangerouslySetInnerHTML={{ __html: single?.acf?.heading6_text } || (
+            <SkeletonLoader height={40} width={580} />
+          )}
         ></p>
 <h1
             id={removeSpacesAndHyphens(single?.acf?.heading6)}
@@ -156,7 +188,9 @@ const page = () => {
 <>   <Link key={key} href={`/blog/${ele.slug}`}>
           <p className="cursor-pointer ml-3 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading hover:bg-backhover">
          
-          {ele?.title?.rendered}
+          {ele?.title?.rendered || (
+              <SkeletonLoader height={40} width={580} />
+            )}
           </p>   
           </Link>     
         </>   )} 
@@ -183,32 +217,44 @@ const page = () => {
             >
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading1)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading1}
+                  {single?.acf?.heading1 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading2)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading2}
+                  {single?.acf?.heading2 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading3)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading3}
+                  {single?.acf?.heading3 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading4)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading4}
+                  {single?.acf?.heading4 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading5)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading5}
+                  {single?.acf?.heading5 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
               <Link href={`${scrollSlug}#${removeSpacesAndHyphens(single?.acf?.heading6)}`}>
                 <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                  {single?.acf?.heading6}
+                  {single?.acf?.heading6 || (
+              <SkeletonLoader height={40} width={580} />
+            )}
                 </p>
               </Link>
             </div>
