@@ -6,8 +6,7 @@ import { email_prefix_data } from './data'
 import { InformationCircleIcon } from '@heroicons/react/24/solid'
 import Card from '../Common/Card/Card'
 import FileField from '../Common/Input/FileField'
-import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+import { getAvailableMobileNumbers } from '@/app/API/components/PhoneNumber'
 
 const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
     const [errors, setErrors] = useState(null)
@@ -78,7 +77,10 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
             }
         })
     };
-
+    const getPhoneNumbers = async () => {
+        const response = await getAvailableMobileNumbers(formValues.area_code)
+        console.log(response)
+    }
     return (
         <div className=''>
             <div className=''>
@@ -118,7 +120,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-                    <div>
+                    {/* <div>
                         <TextField
                             onChange={handleInputValues}
                             value={formValues.area_code}
@@ -129,19 +131,21 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, }) => {
                             type={"number"}
                             id={"area_code"}
                             error={returnErrorMessage("area_code")}
+                            onBlur={() => { getPhoneNumbers() }}
                         />
-                    </div>
-                    <div>
-
-                        <label for="area_code" class="block text-sm text-heading font-medium">Phone Number</label>
-                        <PhoneInput
-                            placeholder="Enter phone number"
-                            defaultCountry="US"
-                            onChange={handlePhoneChange}
-                            value={formValues.phone_number}
-                            className='phone_input_intake block border-[0.2px] py-3 mt-1 px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full'
+                    </div> */}
+                    {/* <div>
+                        <SelectOption
+                            onChange={handleInputValues}
+                            value={formValues?.phone_number}
+                            name="billing_platform"
+                            values={}
+                            title={"Billing Platform"}
+                            id={"billing_platform"}
+                            className="py-3"
+                            error={returnErrorMessage("billing_platform")}
                         />
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
