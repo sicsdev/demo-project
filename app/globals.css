@@ -178,16 +178,22 @@ pre {
 }
 
 select {
-  background-color: #ffffff; /* Set your desired background color */
-  color: #000000; /* Set the text color */
-  -webkit-appearance: none; /* Override Safari's default styling */
-  padding: 8px; /* Adjust the padding as needed */
-  border-radius: 4px; /* Add border radius for a rounded appearance */
-  outline: none; /* Remove the default focus outline */
+  background-color: #ffffff;
+  /* Set your desired background color */
+  color: #000000;
+  /* Set the text color */
+  -webkit-appearance: none;
+  /* Override Safari's default styling */
+  padding: 8px;
+  /* Adjust the padding as needed */
+  border-radius: 4px;
+  /* Add border radius for a rounded appearance */
+  outline: none;
+  /* Remove the default focus outline */
   background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-    outline: none;
-    background-repeat: no-repeat;
-    background-position: right;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right;
 }
 
 select::-ms-expand {
@@ -370,7 +376,8 @@ select {
   background-color: white;
   transition: .4s;
 }
-.active-class::before{
+
+.active-class::before {
   border-top: 3px solid #1a73e8;
   bottom: 0;
   content: "";
@@ -416,10 +423,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 
-.desk_headermenupopup{
+.desk_headermenupopup {
   display: none !important;
 }
-.border-class{
+
+.border-class {
   border: 2px solid #7ec1ec !important;
 }
 
@@ -441,6 +449,7 @@ input[type=number]::-webkit-outer-spin-button {
   color: #fff !important;
   transition: transform 0.5s ease-in-out;
 }
+
 .tab_accordion_heading.start-rainbow:before {
   position: absolute !important;
   right: 0 !important;
@@ -460,11 +469,12 @@ input[type=number]::-webkit-outer-spin-button {
 /* .dfdasdasd{
 transition: all .4s ease;
 } */
-.accordionitem_panel{
+.accordionitem_panel {
   display: block !important;
   transition: transform 5s ease-in-out;
 }
-.accordionitem_panel .p-6{
+
+.accordionitem_panel .p-6 {
   min-height: 0;
   height: 0;
   overflow: hidden;
@@ -472,11 +482,12 @@ transition: all .4s ease;
 
 }
 
-.bg-background.rounded-lg .accordionitem_panel .p-6{
+.bg-background.rounded-lg .accordionitem_panel .p-6 {
   height: auto;
   transition: transform 5s ease-in-out;
 
 }
+
 .swiper-pagination {
   position: absolute;
   bottom: 10px;
@@ -487,20 +498,21 @@ transition: all .4s ease;
 .section-workflow2 {
   background-color: #d9d9d9;
   height: 24px;
-  transition: height .16s cubic-bezier(.36,.19,.29,1);
+  transition: height .16s cubic-bezier(.36, .19, .29, 1);
   width: 4px;
 }
 
-.section-workflow-wrapper {position: relative;
+.section-workflow-wrapper {
+  position: relative;
   align-items: center;
   display: flex;
   justify-content: center;
   min-height: 24px;
   width: 100%;
 }
+
 .section-workflow {
-  --saf-0: rgba(var(
-  --sk_inverted_foreground,255,255,255),1);
+  --saf-0: rgba(var(--sk_inverted_foreground, 255, 255, 255), 1);
   background-color: #d2d2d2;
   border: 2px solid var(--saf-0);
   height: 10px;
@@ -509,7 +521,9 @@ transition: all .4s ease;
   position: absolute;
   z-index: 2;
 }
-.iconplus {border: 2px solid #00000014;
+
+.iconplus {
+  border: 2px solid #00000014;
   background-color: #f8f8f8;
   pointer-events: all;
   border-radius: 100%;
@@ -529,21 +543,30 @@ transition: all .4s ease;
   align-items: center;
   display: none;
 }
+
 .section-workflow-wrapper:hover .section-workflow3 {
   background-color: #1d9bd1;
   height: 2px;
-  transition: background-color .16s cubic-bezier(.36,.19,.29,1),height .16s cubic-bezier(.36,.19,.29,1);
+  transition: background-color .16s cubic-bezier(.36, .19, .29, 1), height .16s cubic-bezier(.36, .19, .29, 1);
   width: 100%;
   display: block;
   position: absolute;
 }
-.section-workflow-wrapper:hover .iconplus{display: flex;}
 
-.rdw-editor-toolbar{
-margin-bottom: 0px !important;
-border: 1px solid rgb(192, 192, 192) !important;
-border-bottom: 0px !important;
-border-radius: 7px !important;
-border-bottom-left-radius: 0px !important;
-border-bottom-right-radius: 0px !important;
+.section-workflow-wrapper:hover .iconplus {
+  display: flex;
+}
+
+.rdw-editor-toolbar {
+  margin-bottom: 0px !important;
+  border: 1px solid rgb(192, 192, 192) !important;
+  border-bottom: 0px !important;
+  border-radius: 7px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.phone_input_intake input:focus-visible {
+  outline: none !important;
+  border: none;
 }
