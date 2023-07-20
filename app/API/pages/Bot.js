@@ -120,7 +120,7 @@ export const getBotConversationMessages = async (id) => {
 export const addBlockedUrl = async (id, body) => {
     let config = returnConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/add_block/`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/origins/blocked/`, body, config);
         return response;
     } catch (error) {
         return error
@@ -131,7 +131,7 @@ export const removeBlockedUrl = async (id, body) => {
     let config = returnConfig()
     config.data = body
     try {
-        const response = await axios.delete(`${API_URL}/api/v1/main/bots/${id}/remove_block/`, config);
+        const response = await axios.delete(`${API_URL}/api/v1/main/bots/${id}/origins/blocked/`, config);
         return response;
     } catch (error) {
         return error
@@ -142,7 +142,7 @@ export const removeBlockedUrl = async (id, body) => {
 export const addAllowedUrl = async (id, body) => {
     let config = returnConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/add_allow/`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/origins/allowed/`, body, config);
         return response;
     } catch (error) {
         return error

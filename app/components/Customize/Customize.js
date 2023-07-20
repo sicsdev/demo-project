@@ -105,7 +105,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   // Primary functions
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
-      console.log(res);
+      console.log('getallbotdata', res);
       let bot_res = res[0].data
       if (form === true) {
         setBasicFormData(prev => {
@@ -133,6 +133,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       })
       setBotDetails(res[0].data);
       setPreferences(res[0].data);
+      setBlockedUrls(res[0].data.origins_blocked ?? "");
+
       let data = res[0].data;
       if (form == true) {
         setBasicFormData((prev) => {
@@ -142,13 +144,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
           };
         });
       }
-      addAllowedUrl(id, { elements: ["*"] }).then((res) => {
-        setPreferences({
-          ...preferences,
-          origins_blocked: res.data.origins_blocked ?? "",
-        });
-        setBlockedUrls(res.data.origins_blocked ?? "");
-      });
+      // addAllowedUrl(id, { elements: ["*"] }).then((res) => {
+      //   setPreferences({
+      //     ...preferences,
+      //     origins_blocked: res.data.origins_blocked ?? "",
+      //   });
+      //   setBlockedUrls(res.data.origins_blocked ?? "");
+      // });
     });
   };
 
