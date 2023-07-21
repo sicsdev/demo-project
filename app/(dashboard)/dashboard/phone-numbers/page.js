@@ -10,6 +10,14 @@ import {
   AccordionItemPanel,
 } from "react-accessible-accordion";
 import "react-accessible-accordion/dist/fancy-example.css";
+import {
+  CloudArrowUpIcon,
+  MicrophoneIcon,
+  ChevronDownIcon,
+  ChatBubbleBottomCenterTextIcon,
+  PhoneArrowUpRightIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/24/outline";
 
 const page = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,7 +25,7 @@ const page = () => {
   const handleAccordionButtonClickSecond = () => {
     setIsOpen1(!isOpen1); // Toggles the state between true and false
   };
-
+  const [ui, setUi] = useState(false);
   const handleAccordionButtonClick = () => {
     setIsOpen(!isOpen); // Toggles the state between true and false
   };
@@ -59,7 +67,7 @@ const page = () => {
             />
           </div>
         </div>
-        <hr className="border-border"></hr>
+        {/* <hr className="border-border"></hr>
         <div className="flex justify-between items-center my-8">
           <div className="">
             <h3 className="font-semibold text-md text-heading">
@@ -98,7 +106,7 @@ const page = () => {
               <span className="slider round h-[27px] w-[55px]"></span>
             </label>
           </div>
-        </div>
+        </div> */}
         <hr className="border-border"></hr>
         <div className="flex justify-between items-center my-8">
           <div className="">
@@ -119,7 +127,7 @@ const page = () => {
           </div>
         </div>
         <hr className="border-border"></hr>
-{/* 
+        {/* 
         <div className="flex justify-between items-center mt-5">
           <div className="">
             <h3 className="font-bold text-heading text-xl mt-6">Users</h3>
@@ -160,6 +168,43 @@ const page = () => {
             <p className="text-[#9CA3AF] font-normal text-normal pt-1">Owner</p>
           </div>
         </div>
+        {/* section start */}
+
+        <div>
+          <div className="flex justify-between items-center mt-5">
+            <div className="">
+              <h3 className="font-bold text-heading text-xl mt-6">
+                CREATE AN AWAY VOICEMAIL GREETING
+              </h3>
+              <p className="text-heading font-normal text-normal pt-1">
+                This will be played to callers outside of your business hours
+              </p>
+            </div>
+          </div>
+
+          <div className="flex  flex-col items-start sm:mt-3">
+            <div className="flex gap-3 sm:my-3 hover:bg-[#dff3f3] p-[8px] w-[100%]">
+              <CloudArrowUpIcon className="h-7 w-7 text-gray-500" />
+
+              <h3 className="font-semibold text-md text-heading">
+                Upload a file{" "}
+              </h3>
+            </div>
+            <div className="flex gap-3  sm:my-3 hover:bg-[#dff3f3] p-[8px] w-[100%]">
+              <MicrophoneIcon className="h-7 w-7 text-gray-500" />
+
+              <h3 className="font-semibold text-md text-heading">Record</h3>
+            </div>
+            <div className="flex gap-3  sm:my-3 hover:bg-[#dff3f3] p-[8px] w-[100%]">
+              <ChatBubbleBottomCenterTextIcon className="h-7 w-7 text-gray-500" />
+
+              <h3 className="font-semibold text-md text-heading">
+                Text to speech
+              </h3>
+            </div>
+          </div>
+        </div>
+        {/* section end */}
 
         <div className="flex justify-between items-center mt-5">
           <div className="">
@@ -177,15 +222,17 @@ const page = () => {
             </button>
           </div>
         </div>
-
         {/* accordion */}
         <div className="nav-accordian mt-4" style={{ height: "auto" }}>
-          <Accordion allowZeroExpanded >
+          <Accordion allowZeroExpanded>
             <AccordionItem>
-              <AccordionItemHeading className="mobile_arroww" onClick={()=>handleAccordionButtonClick()}>
-                <AccordionItemButton   >
+              <AccordionItemHeading
+                className="mobile_arroww"
+                onClick={() => handleAccordionButtonClick()}
+              >
+                <AccordionItemButton>
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-4" >
+                    <div className="flex items-center gap-4">
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -209,8 +256,7 @@ const page = () => {
                       </div>
                     </div>
                     <div className="disable_btn bg-[#f3f3f5] rounded-lg px-3 py-2 text-sm mr-6">
-                      <span className="">          {isOpen ? 'Enable' : 'Disable'}
-</span>
+                      <span className=""> {isOpen ? "Enable" : "Disable"}</span>
                     </div>
                   </div>
                 </AccordionItemButton>
@@ -220,9 +266,12 @@ const page = () => {
             </AccordionItem>
           </Accordion>
 
-          <Accordion allowZeroExpanded >
+          <Accordion allowZeroExpanded>
             <AccordionItem>
-              <AccordionItemHeading className="mobile_arroww"  onClick={()=>handleAccordionButtonClickSecond()}>
+              <AccordionItemHeading
+                className="mobile_arroww"
+                onClick={() => handleAccordionButtonClickSecond()}
+              >
                 <AccordionItemButton>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
@@ -248,8 +297,13 @@ const page = () => {
                       </div>
                     </div>
                     <div className="disable_btn bg-[#f3f3f5] rounded-lg px-3 py-2 text-sm mr-6">
-                      <span className="">   <span className="">          {isOpen1 ? 'Enable' : 'Disable'}
-</span></span>
+                      <span className="">
+                        {" "}
+                        <span className="">
+                          {" "}
+                          {isOpen1 ? "Enable" : "Disable"}
+                        </span>
+                      </span>
                     </div>
                   </div>
                 </AccordionItemButton>
@@ -310,6 +364,83 @@ const page = () => {
         </div>
 
         {/* accordion */}
+        {/* section start */}
+
+        <div>
+          <div className=" sm:mt-[64px]">
+            <div
+              className="flex gap-3 justify-between cursor-pointer"
+              onClick={() => setUi(!ui)}
+            >
+              <div className="flex gap-3">
+                <PhoneArrowUpRightIcon className="h-6 w-6 text-gray-500" />
+
+                <h3 className="font-semibold text-heading text-xl ">
+                  Connect{" "}
+                </h3>
+              </div>
+              <div>
+                {ui == false ? (
+                  <ChevronRightIcon className="h-6 w-6 text-gray-500" />
+                ) : (
+                  <ChevronDownIcon className="h-6 w-6 text-gray-500" />
+                )}
+              </div>
+            </div>
+            <p className="text-[#9CA3AF] font-normal text-normal pt-1">
+              Determine how users receive an incoming call notifications
+            </p>
+            {ui == true ? (
+              <>
+                <div className="flex justify-between items-center my-8">
+                  <div className="">
+                    <h3 className="font-semibold text-md text-heading">
+                      Round-robin batch size{" "}
+                    </h3>
+                    <p className="text-sm my-1 text-[#9CA3AF]">
+                      Customize what your recipients see when you call
+                    </p>
+                  </div>
+                  <div className="gap-5">
+                    <div className="selectdiv">
+                      <select className="mt-1 block w-full px-5  bg-white border  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500">
+                        <option value={""} disabled>
+                          Select
+                        </option>
+                        <option value="dummy">10</option>
+                        <option value="dummy">dummy</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center my-8">
+                  <div className="">
+                    <h3 className="font-semibold text-md text-heading">
+                     Total ring duration
+                    </h3>
+                    <p className="text-sm my-1 text-[#9CA3AF]">
+                      Total numbers of seconds before calls are directed to voicemail
+                    </p>
+                  </div>
+                  <div className="gap-5">
+                    <div className="selectdiv">
+                      <select className="mt-1 block w-full px-5  bg-white border  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500">
+                        <option value={""} disabled>
+                          Select
+                        </option>
+                        <option value="dummy">15  SEC</option>
+                        <option value="dummy">dummy</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                </>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
+        {/* section end */}
       </div>
     </div>
   );
