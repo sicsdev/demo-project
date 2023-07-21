@@ -8,20 +8,24 @@ import { getAllIntegration } from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
+import { tiles_data } from "@/app/data/integration_tiles.json";
 import Modal from "@/app/components/Common/Modal/Modal";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import Image from "next/image";
 import Integrationform from "@/app/components/Integrationform/page";
+import { PlusSmallIcon } from "@heroicons/react/24/solid";
+import Button from "@/app/components/Common/Button/Button";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [edit, setEdit] = useState(false);
-
+  const [integrationTiles, setIntegrationsTiles] = useState(tiles_data)
   const [integrationdata, setIntegrationdata] = useState([]);
   const [dataLoader, setDataLoader] = useState(false);
+  const [suggestModal, setSuggestModal] = useState(false);
   const [mode, setMode] = useState("create");
   const [singleIntegrationData, setSingleIntegrationData] = useState(null);
   const [integrationType, setIntegrationType] = useState("");
@@ -116,7 +120,41 @@ const Page = () => {
   const customCloseModelHandler = () => {
     router.push(`${pathname}`);
   };
+  const performIntegrationTask = (element) => {
+    switch (element.key) {
+      case "POPULAR":
+        setIntegrationform(true)
+        break;
+      case "BILLING":
+        setIntegrationform(true)
+        break;
+      case "COMMUNICATION":
+        setIntegrationform(true)
+        break;
+      case "PRODUCTIVITY":
+        setIntegrationform(true)
+        break;
+      case "SUGGEST":
+        setSuggestModal(prev => !prev)
+        break;
 
+      default:
+        break;
+    }
+  }
+  const handleInput = (e) => {
+    const { value } = e.target
+    const filteredData = tiles_data
+      .map((category) => {
+        const filteredTiles = category.tiles.filter(
+          (tile) => tile.name.toLowerCase().includes(value)
+        );
+        return filteredTiles.length > 0 ? { ...category, tiles: filteredTiles } : null;
+      })
+      .filter(Boolean);
+    setIntegrationsTiles(filteredData)
+
+  }
   return (
     <>
       {dataLoader === true ? (
@@ -136,112 +174,67 @@ const Page = () => {
               </li>
             </ul>
           </div>
-          {!integrationform ? (
-<>
-          <div className="flex items-center justify-between">
-            <p class="text-black-color text-2xl font-bold mt-8 mb-4">
-              Search for integration
-            </p>
-          </div>
-          <div className="relative sm:max-w-[100%] mt-6 m-auto">
-            <input
-              type={"search_integration"}
-              placeholder={"Search for integration"}
-              className={
-                "border border-input_color w-full block  px-3 py-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-              }
-              id={"search_integration"}
-            />
-            <img
-              className="w-5 top-[13px] left-[14px] absolute"
-              src="/search.png"
-            />
-          </div>
-          </>
-          ):""}
-
-          {!integrationform ? (
-            <Card className="p-5 mt-3 block sm:grid md:block lg:grid grid-cols-1 shadow-none">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
-                {integrationData?.map((item, key) => (
-                  <div key={key}>
-                    <div
-                      className="bg-white flex flex-col justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 integration_cards"
-                      style={{
-                        border: "1px solid rgb(237, 237, 237)",
-                        borderRadius: "8px",
-                      }}
-                      key={key}
-                      onClick={() => setIntegrationform(true)}
-                    >
-                      <div className="flex justify-start gap-2 items-center p-4 sm:p-6 ">
-                        <div className="w-[20%]">
-                          <div className="relative pt-2 w-[22px] h-[22px] rounded-lg m-auto">
-                            <Image
-                              fill={"true"}
-                              className="bg-contain mx-auto w-full rounded-lg"
-                              alt="logo.png"
-                              src={item.logo}
-                            />
-                          </div>
-                        </div>
-                        <h3 className="w-[80%] font-semibold text-md text-heading">
-                          {item.name}
-                          <p className="text-sm text-[#9CA3AF] font-normal mt-1">
-                            {
-                              totalActiveIntegrations(
-                                integrationdata?.results,
-                                item.type
-                              )?.length
-                            }{" "}
-                            active{" "}
-                            {totalActiveIntegrations(
-                              integrationdata?.results,
-                              item.type
-                            )?.length > 1
-                              ? "integrations"
-                              : "integration"}
-                          </p>
-                        </h3>
-                      </div>
-                    </div>
-                    {/* <div className="flex justify-between items-center mt-3">
-                  <div className="">
-                    <h3 className="font-semibold text-md text-heading">
-                      {item.name}
-                    </h3>
-                    <p className="text-sm my-2">
-                      {
-                        totalActiveIntegrations(
-                          integrationdata?.results,
-                          item.type
-                        )?.length
-                      }{" "}
-                      active{" "}
-                      {totalActiveIntegrations(
-                        integrationdata?.results,
-                        item.type
-                      )?.length > 1
-                        ? "integrations"
-                        : "integration"}
-                    </p>
-                  </div>
-                  <div className="grid">
-                    {item?.is_configure === true && (
-                      totalActiveIntegrations(integrationdata?.results, item.type) == 0 ?
-                        <p className="cursor-pointer text-sm" onClick={(e) => handleIntegrationButton(null, 'create', item?.type, key)}>Configure</p> : (
-                          <>
-                            <p className="cursor-pointer text-sm" onClick={(e) => handleIntegrationButton(totalActiveIntegrations(integrationdata?.results, item.type)?.slice(0, 1)[0], 'update', item?.type, key)}>Edit</p>
-                            <p className="cursor-pointer text-sm mt-2" onClick={(e) => addAutomationHandler(item?.type)}>Add Automation</p>
-                          </>
-                        ))}
-                  </div>
-                </div>
-                <hr className="border-border" /> */}
-                  </div>
-                ))}
+          {!integrationform && (
+            <>
+              <div className="flex items-center justify-between">
+                <p class="text-black-color text-xl font-semibold my-4">
+                  Search for integration
+                </p>
               </div>
-            </Card>
+              <div className="relative sm:max-w-[100%]  m-auto">
+                <input
+                  type={"search_integration"}
+                  placeholder={"Search for integration"}
+                  className={
+                    "border border-input_color w-full block  px-2 py-2 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                  }
+                  id={"search_integration"}
+                  onChange={handleInput}
+                />
+                <img
+                  className="w-5 top-[10px] left-[14px] absolute"
+                  src="/search.png"
+                />
+              </div>
+            </>
+          )}
+          {!integrationform ? (
+            <>
+              {integrationData.length > 0 ? (
+                <>
+                  {integrationTiles.map((element, key) =>
+                    <div className={` mt-6`} key={key}>
+                      <h3 className="text-sm font-semibold mt-3">{element.title}</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                        {element.tiles?.map((item, key) => (
+                          <div
+                            className={`${item.grayscale &&("pointer-events-none")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            key={key}
+                            onClick={() => { performIntegrationTask(element) }}
+                          >
+                            <div className="flex justify-start gap-1 items-center">
+                              <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
+                                <Image
+                                  fill={"true"}
+                                  className={`${item.grayscale && ("grayscale pointer-events-none")} bg-contain mx-auto w-full rounded-lg`}
+                                  alt="logo.png"
+                                  src={item.logo}
+                                />
+                              </div>
+                              <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
+                                {item.name}
+                              </h3>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div >
+                  )}
+
+                </>
+              ) :
+                <p>No data Found !</p>}
+            </>
           ) : (
             <Integrationform setIntegrationform={setIntegrationform} />
           )}
@@ -262,27 +255,64 @@ const Page = () => {
           )}
         </>
       )}
-      {integrationModal ? (
-        <Modal
-          title={"Manage Integration"}
-          className={"w-[80%]"}
-          show={integrationModal}
-          setShow={setIntegrationModal}
-          showCancel={true}
-          customHideButton={true}
-          closeFunction={customCloseModelHandler}
-        >
-          <ConfigureIntegration
-            fetchIntegrations={fetchIntegrations}
+      {
+        integrationModal ? (
+          <Modal
+            title={"Manage Integration"}
+            className={"w-[80%]"}
+            show={integrationModal}
             setShow={setIntegrationModal}
-            mode={mode}
-            integrationRecord={singleIntegrationData}
-            type={integrationType}
-          />
-        </Modal>
-      ) : (
-        ""
-      )}
+            showCancel={true}
+            customHideButton={true}
+            closeFunction={customCloseModelHandler}
+          >
+            <ConfigureIntegration
+              fetchIntegrations={fetchIntegrations}
+              setShow={setIntegrationModal}
+              mode={mode}
+              integrationRecord={singleIntegrationData}
+              type={integrationType}
+            />
+          </Modal>
+        ) : (
+          ""
+        )
+      }
+      {
+        suggestModal ? (
+          <Modal
+            title={<h3 className="text-base font-semibold">Suggest a resource</h3>}
+            className={"w-[30%]"}
+            show={suggestModal}
+            setShow={setSuggestModal}
+            showCancel={true}
+            customHideButton={false}
+            hr={false}
+          >
+            <h3 className="text-xs my-2 text-heading font-normal">What resource would you like to connect to?</h3>
+            <textarea id="message" rows="4" className=" block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full " placeholder="Write your thoughts here..."></textarea>
+            <div
+              className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
+            >                    <Button
+              className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+              onClick={() => { setSuggestModal(prev => !prev) }}
+
+            >
+                Back
+              </Button>
+              <Button
+                type={"button"}
+                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                onClick={() => { setSuggestModal(prev => !prev) }}
+              >
+                Submit
+              </Button>
+            </div>
+          </Modal>
+        ) : (
+          ""
+        )
+      }
       <ToastContainer />
     </>
   );

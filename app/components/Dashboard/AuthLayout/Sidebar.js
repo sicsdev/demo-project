@@ -93,11 +93,11 @@ const Sidebar = ({ children }) => {
           name: "Integrations",
           icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
         },
-        {
-          href: "/dashboard/workflow/policies",
-          name: "Policies",
-          icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
-        },
+        // {
+        //   href: "/dashboard/workflow/policies",
+        //   name: "Policies",
+        //   icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
+        // },
         {
           href: "/dashboard/workflow/workflow-builder",
           name: "Workflows",
@@ -386,7 +386,7 @@ const Sidebar = ({ children }) => {
         </div>
         {show && (
           <div
-            className="block sm:hidden lg:hidden md:hidden items-center justify-between text-white  z-50 bg-sidebar   w-full md:w-auto md:order-1"
+            className="block sm:hidden lg:hidden md:hidden items-center bg-white justify-between text-white z-[999999]  w-full md:w-auto md:order-1"
             id="navbar-cta"
           >
             <ul className="space-y-2 font-medium  w-full relative mb-4">
