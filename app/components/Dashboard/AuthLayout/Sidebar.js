@@ -10,6 +10,7 @@ import {
   ArrowDownOnSquareIcon,
   BanknotesIcon,
   BriefcaseIcon,
+  DevicePhoneMobileIcon,
   ShareIcon,
   WrenchScrewdriverIcon,
   UserGroupIcon,
@@ -144,6 +145,12 @@ const Sidebar = ({ children }) => {
       href: "/dashboard/members",
       name: "Team",
       icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+      list: [],
+    },
+    {
+      href: "/dashboard/phone-numbers",
+      name: "Phone Numbers",
+      icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
       list: [],
     },
   ];
