@@ -185,7 +185,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                             <th scope="col" className="px-3 py-2">
                                                 Number
                                             </th>
-                                            <th scope="col" className="px-3 py-2">
+                                            {/* <th scope="col" className="px-3 py-2">
                                                 MMS
                                             </th>
                                             <th scope="col" className="px-3 py-2">
@@ -193,7 +193,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                             </th>
                                             <th scope="col" className="px-3 py-2">
                                                 Voice
-                                            </th>
+                                            </th> */}
                                             <th scope="col" className="px-3 py-2">
                                                 Region
                                             </th>
@@ -207,7 +207,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                                 <th scope="row" className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
                                                     {element.friendly_name}
                                                 </th>
-                                                <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
+                                                {/* <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
                                                     {element.mms ? "Yes" : "No"}
                                                 </td>
                                                 <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
@@ -215,7 +215,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                                 </td>
                                                 <td className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
                                                     {element.voice ? "Yes" : "No"}
-                                                </td>
+                                                </td> */}
                                                 <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
                                                     {element.region}
                                                 </td>
@@ -230,12 +230,11 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                         )}
                         {formValues.phone_number && formValues.friendly_name && (
                             <div className='my-2 cursor-pointer'  >
-                                <p className='text-primary' onClick={() => {
+                                {/* <p className='text-primary' onClick={() => {
                                     addPhone({ friendly_name: '', phone_number: '' })
-                                }}>back</p>
+                                }}>back</p> */}
                                 <div className='rounded-lg p-4 shadow-md flex justify-start gap-4 items-center border border-border '>
                                     <PhoneIcon className="h-6 w-6 text-heading" />
-
                                     <span className='text-heading'>{formValues.friendly_name}</span>
                                 </div>
                             </div>

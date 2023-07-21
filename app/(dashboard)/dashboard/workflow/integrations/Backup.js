@@ -1,31 +1,80 @@
 "use client";
 import React, { useState } from "react";
 import { ShareIcon } from "@heroicons/react/24/outline";
+import Card from "@/app/components/Common/Card/Card";
+import ManageAutomations from "@/app/components/Integration/page";
+import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import { getAllIntegration } from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import { tiles_data } from "@/app/data/integration_tiles.json";
 import Modal from "@/app/components/Common/Modal/Modal";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import Image from "next/image";
 import Integrationform from "@/app/components/Integrationform/page";
+import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import Button from "@/app/components/Common/Button/Button";
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [edit, setEdit] = useState(false);
   const [integrationTiles, setIntegrationsTiles] = useState(tiles_data)
+  const [integrationdata, setIntegrationdata] = useState([]);
   const [dataLoader, setDataLoader] = useState(false);
   const [suggestModal, setSuggestModal] = useState(false);
+  const [mode, setMode] = useState("create");
+  const [singleIntegrationData, setSingleIntegrationData] = useState(null);
+  const [integrationType, setIntegrationType] = useState("");
+  const [integrationModal, setIntegrationModal] = useState(false);
+  const [automationID, setAutomationID] = useState(null);
 
   const [integrationform, setIntegrationform] = useState(false);
-  const [integrationName, setIntegrationName] = useState('');
+
+  const addAutomationHandler = (type) => {
+    setEdit(true);
+    setIntegrationType(type);
+    let intData = fetchIntegrationByType(type);
+    setSingleIntegrationData(intData);
+    setAutomationID(null);
+  };
+
+  const fetchIntegrationByType = (type) => {
+    let result = integrationdata?.results?.find((x) => x.type === type);
+    return result;
+  };
+
+  const handleIntegrationButton = (integrationRecord, modeType, type, key) => {
+    setMode(modeType);
+    setIntegrationType(type);
+    setIntegrationModal(true);
+    if (integrationRecord && integrationRecord !== null) {
+      setSingleIntegrationData(integrationRecord);
+      router.push(`${pathname}?integration_id=${integrationRecord?.id}`);
+    } else {
+      setSingleIntegrationData(null);
+    }
+  };
+
+  const totalActiveIntegrations = (array, type) => {
+    const matchingRecords = array?.filter((x) => x.type === type);
+    return matchingRecords;
+  };
+
+  const filterDataByID = (array, id) => {
+    const recordData = array?.find((x) => x.id == id);
+    return recordData;
+  };
 
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
       const data = await getAllIntegration();
       setDataLoader(false);
+      setIntegrationdata(data);
       setId(data);
     } catch (error) {
       setDataLoader(false);
@@ -36,8 +85,42 @@ const Page = () => {
     fetchIntegrations();
   }, []);
 
-  const performIntegrationTask = (element, name) => {
-    setIntegrationName(name);
+  const fetchUrlModelHandler = () => {
+    const integrationID = searchParams?.get("integration_id");
+    const automationID = searchParams?.get("automation_id");
+    if (integrationID && automationID) {
+      let isExistIntegration = filterDataByID(
+        integrationdata?.results,
+        integrationID
+      );
+      if (isExistIntegration && isExistIntegration !== undefined) {
+        setEdit(true);
+        setIntegrationType(isExistIntegration?.type);
+        setAutomationID(automationID);
+      }
+    } else if (integrationID) {
+      let isExistIntegration = filterDataByID(
+        integrationdata?.results,
+        integrationID
+      );
+      if (isExistIntegration && isExistIntegration !== undefined) {
+        setIntegrationType(isExistIntegration?.type);
+        setMode("update");
+        setSingleIntegrationData(isExistIntegration);
+        setIntegrationModal(true);
+      }
+    } else {
+    }
+  };
+
+  useEffect(() => {
+    fetchUrlModelHandler();
+  }, [searchParams, integrationdata]);
+
+  const customCloseModelHandler = () => {
+    router.push(`${pathname}`);
+  };
+  const performIntegrationTask = (element) => {
     switch (element.key) {
       case "POPULAR":
         setIntegrationform(true)
@@ -83,7 +166,7 @@ const Page = () => {
     <>
       {dataLoader === true ? (
         <Loading />
-      ) :
+      ) : !edit ? (
         <>
           <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -134,7 +217,7 @@ const Page = () => {
                           <div
                             className={`${item.grayscale && ("pointer-events-none")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                             key={key}
-                            onClick={() => { performIntegrationTask(element, item?.name) }}
+                            onClick={() => { performIntegrationTask(element) }}
                           >
                             <div className="flex justify-start gap-1 items-center">
                               <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
@@ -160,12 +243,50 @@ const Page = () => {
                 <p>No data Found !</p>}
             </>
           ) : (
-            <Integrationform name={integrationName} setIntegrationform={setIntegrationform} />
+            <Integrationform setIntegrationform={setIntegrationform} />
           )}
         </>
+      ) : (
+        <>
+          {edit ? (
+            <ManageAutomations
+              filterDataByID={filterDataByID}
+              automationID={automationID}
+              setEdit={setEdit}
+              setShow={setIntegrationModal}
+              integrationData={singleIntegrationData}
+              type={integrationType}
+            />
+          ) : (
+            ""
+          )}
+        </>
+      )}
+      {
+        integrationModal ? (
+          <Modal
+            title={"Manage Integration"}
+            className={"w-[80%]"}
+            show={integrationModal}
+            setShow={setIntegrationModal}
+            showCancel={true}
+            customHideButton={true}
+            closeFunction={customCloseModelHandler}
+          >
+            <ConfigureIntegration
+              fetchIntegrations={fetchIntegrations}
+              setShow={setIntegrationModal}
+              mode={mode}
+              integrationRecord={singleIntegrationData}
+              type={integrationType}
+            />
+          </Modal>
+        ) : (
+          ""
+        )
       }
       {
-        suggestModal && (
+        suggestModal ? (
           <Modal
             title={<h3 className="text-base font-semibold">Suggest a resource</h3>}
             className={"w-[30%]"}
@@ -195,6 +316,8 @@ const Page = () => {
               </Button>
             </div>
           </Modal>
+        ) : (
+          ""
         )
       }
       <ToastContainer />
