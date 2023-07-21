@@ -48,7 +48,7 @@ const RightSidebar = ({ children }) => {
                     </li>
                     {innerSide.value === null ?
                         <>
-                            <p className='text-sm text-border my-4'>Steps are actions you can add to a workflow. Choose steps that work in Slack, third-party apps, or custom apps.</p>
+                            <p className='text-sm text-border my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
 
                             {list.map((ele, key) =>
                                 <li className='my-4 cursor-pointer ' onClick={(e) => {

@@ -235,7 +235,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     type={"url"}
                     id={"integration_base_url"}
                 />
-                <p className="text-sm mt-2">
+                <p className="text-[12px] mt-2">
                     Any URL with a querystring will be re-encoded properly.
                 </p>
             </div>
@@ -256,7 +256,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
             <div className="mb-4">
                 <label
                     htmlFor="auth"
-                    className="block text-gray-700 text-sm font-bold mb-2"
+                    className="new_input_label block text-gray-700 text-sm font-bold mb-2"
                 >
                     Auth Type
                 </label>
@@ -264,7 +264,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     name="authType"
                     value={integrationFormData.authType}
                     onChange={handleIntegrationInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+                    className="new_input w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
                     required
                 >
                     <option value="" disabled>
@@ -277,7 +277,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     <option value="oauth2">OAuth2</option>
                     Other country options...
                 </select>
-                <p className="text-sm mt-2">
+                <p className="mt-2 text-[12px]">
                     The Auth structure we'll use to perform the request.
                 </p>
 
