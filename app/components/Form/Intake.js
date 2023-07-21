@@ -25,6 +25,7 @@ import { createBot, createBotKnowledge, modifyBot } from "@/app/API/pages/Bot";
 import { fetchBot, setBotId, setModalValue } from "../store/slices/botIdSlice";
 import IntegrationIntake from "../Integration/IntegrationIntake";
 import { addIntegrationData } from "@/app/API/pages/Integration";
+import { buyAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
 
 const Intake = () => {
   const [basicFormData, setBasicFormData] = useState({});
@@ -96,17 +97,17 @@ const Intake = () => {
               form={true}
             />
           ),
-          btn: "Next",
-        };
-      case 4:
-        return {
-          title: "Customize Bot",
-          form: (
-            <IntegrationIntake integrationRecord={basicFormData} setBasicFormData={setBasicFormData} type={''} form={true} />
-
-          ),
           btn: "Finish",
         };
+      // case 4:
+      //   return {
+      //     title: "Customize Bot",
+      //     form: (
+      //       <IntegrationIntake integrationRecord={basicFormData} setBasicFormData={setBasicFormData} type={''} form={true} />
+
+      //     ),
+      //     btn: "Finish",
+      //   };
       default:
         return { title: "Form not found !", form: <h1>Something wrong !</h1> };
     }
@@ -156,7 +157,7 @@ const Intake = () => {
       }
     }
     if (intakeStep === 2) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
+      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone_number", "area_code"];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
       );
@@ -235,10 +236,10 @@ const Intake = () => {
           setIntakeStep(2);
           setIntakeCompleteStep(2);
         } else {
-          setErrors(bot_faq.message);
+          setErrors([bot_faq.message]);
         }
       } else {
-        setErrors(bot.message);
+        setErrors([bot.message]);
       }
       setLoading(false);
     } else {
@@ -280,10 +281,15 @@ const Intake = () => {
     };
     !payload.logo && delete payload.logo;
     modifyBot(payload.id, payload)
-      .then((res) => {
-        setLoading(false);
-        setIntakeStep(4);
-        setIntakeCompleteStep(4);
+      .then(async (res) => {
+        const response = await buyAvailableMobileNumbers({ phone_number: basicFormData.phone_number })
+        if (response) {
+          setLoading(false);
+          dispatch(setModalValue(false));
+          dispatch(fetchBot());
+        }
+        // setIntakeStep(4);
+        // setIntakeCompleteStep(4);
       })
       .catch((err) => {
         console.log(err);
@@ -317,7 +323,7 @@ const Intake = () => {
         setIntakeCompleteStep(3);
         setLoading(false);
       } else {
-        setErrors(domains.response.data.slug_domain);
+        setErrors([domains.response.data.slug_domain]);
         setLoading(false);
       }
     } else {
@@ -380,7 +386,6 @@ const Intake = () => {
       setLoading(false);
       dispatch(setModalValue(false));
       dispatch(fetchBot());
-      debugger
       if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
         setLoading(false);
         dispatch(setModalValue(false));
@@ -444,7 +449,7 @@ const Intake = () => {
     },
     {
       step: 2,
-      text: "Configure Email",
+      text: "Phone & Email Setup",
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
     {
@@ -452,11 +457,11 @@ const Intake = () => {
       text: "Customize Bot",
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
-    {
-      step: 4,
-      text: "Add Integrations",
-      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
-    },
+    // {
+    //   step: 4,
+    //   text: "Add Integrations",
+    //   logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+    // },
   ];
 
   const sendActiveValue = (element) => {

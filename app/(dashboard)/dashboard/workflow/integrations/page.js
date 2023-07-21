@@ -22,7 +22,7 @@ const Page = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [edit, setEdit] = useState(false);
-
+  const [integrationTiles, setIntegrationsTiles] = useState(tiles_data)
   const [integrationdata, setIntegrationdata] = useState([]);
   const [dataLoader, setDataLoader] = useState(false);
   const [suggestModal, setSuggestModal] = useState(false);
@@ -123,16 +123,16 @@ const Page = () => {
   const performIntegrationTask = (element) => {
     switch (element.key) {
       case "POPULAR":
-
+        setIntegrationform(true)
         break;
       case "BILLING":
-
+        setIntegrationform(true)
         break;
       case "COMMUNICATION":
-
+        setIntegrationform(true)
         break;
       case "PRODUCTIVITY":
-
+        setIntegrationform(true)
         break;
       case "SUGGEST":
         setSuggestModal(prev => !prev)
@@ -141,6 +141,19 @@ const Page = () => {
       default:
         break;
     }
+  }
+  const handleInput = (e) => {
+    const { value } = e.target
+    const filteredData = tiles_data
+      .map((category) => {
+        const filteredTiles = category.tiles.filter(
+          (tile) => tile.name.toLowerCase().includes(value)
+        );
+        return filteredTiles.length > 0 ? { ...category, tiles: filteredTiles } : null;
+      })
+      .filter(Boolean);
+    setIntegrationsTiles(filteredData)
+
   }
   return (
     <>
@@ -161,54 +174,69 @@ const Page = () => {
               </li>
             </ul>
           </div>
-          <>
-            <div className="flex items-center justify-between">
-              <p class="text-black-color text-xl font-semibold my-4">
-                Search for integration
-              </p>
-            </div>
-            <div className="relative sm:max-w-[100%]  m-auto">
-              <input
-                type={"search_integration"}
-                placeholder={"Search for integration"}
-                className={
-                  "border border-input_color w-full block  px-2 py-2 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                }
-                id={"search_integration"}
-              />
-              <img
-                className="w-5 top-[10px] left-[14px] absolute"
-                src="/search.png"
-              />
-            </div>
-          </>
-          {tiles_data.map((element, key) =>
-            <div className="mt-6" key={key} onClick={() => { performIntegrationTask(element) }}>
-              <h3 className="text-sm font-semibold mt-3">{element.title}</h3>
-              <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
-                {element.tiles?.map((item, key) => (
-                  <div
-                    className="border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover"
-                    key={key}
-                    onClick={() => setIntegrationform(true)}
-                  >
-                    <div className="flex justify-start gap-1 items-center">
-                      <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
-                        <Image
-                          fill={"true"}
-                          className="bg-contain mx-auto w-full rounded-lg"
-                          alt="logo.png"
-                          src={item.logo}
-                        />
-                      </div>
-                      <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
-                        {item.name}
-                      </h3>
-                    </div>
-                  </div>
-                ))}
+          {!integrationform && (
+            <>
+              <div className="flex items-center justify-between">
+                <p class="text-black-color text-xl font-semibold my-4">
+                  Search for integration
+                </p>
               </div>
-            </div >
+              <div className="relative sm:max-w-[100%]  m-auto">
+                <input
+                  type={"search_integration"}
+                  placeholder={"Search for integration"}
+                  className={
+                    "border border-input_color w-full block  px-2 py-2 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                  }
+                  id={"search_integration"}
+                  onChange={handleInput}
+                />
+                <img
+                  className="w-5 top-[10px] left-[14px] absolute"
+                  src="/search.png"
+                />
+              </div>
+            </>
+          )}
+          {!integrationform ? (
+            <>
+              {integrationData.length > 0 ? (
+                <>
+                  {integrationTiles.map((element, key) =>
+                    <div className={` mt-6`} key={key}>
+                      <h3 className="text-sm font-semibold mt-3">{element.title}</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                        {element.tiles?.map((item, key) => (
+                          <div
+                            className={`${item.grayscale &&("pointer-events-none")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            key={key}
+                            onClick={() => { performIntegrationTask(element) }}
+                          >
+                            <div className="flex justify-start gap-1 items-center">
+                              <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
+                                <Image
+                                  fill={"true"}
+                                  className={`${item.grayscale && ("grayscale pointer-events-none")} bg-contain mx-auto w-full rounded-lg`}
+                                  alt="logo.png"
+                                  src={item.logo}
+                                />
+                              </div>
+                              <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
+                                {item.name}
+                              </h3>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div >
+                  )}
+
+                </>
+              ) :
+                <p>No data Found !</p>}
+            </>
+          ) : (
+            <Integrationform setIntegrationform={setIntegrationform} />
           )}
         </>
       ) : (
@@ -266,7 +294,7 @@ const Page = () => {
             <div
               className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
             >                    <Button
-              className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+              className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
               onClick={() => { setSuggestModal(prev => !prev) }}
 
             >
