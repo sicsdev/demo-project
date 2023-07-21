@@ -2,160 +2,197 @@
     "tiles_data": [
         {
             "key": "POPULAR",
+            "grayscale":false,
             "title": "Popular",
             "tiles": [
                 {
                     "name": "Rest API",
-                    "logo": "/integrations/rest-api.svg"
+                    "logo": "/integrations/rest-api.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "Stripe",
-                    "logo": "/integrations/stripe.svg"
+                    "logo": "/integrations/stripe.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "Shopify",
-                    "logo": "/integrations/shopify.svg"
+                    "logo": "/integrations/shopify.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "Twilio",
-                    "logo": "/integrations/twilio.svg"
+                    "logo": "/integrations/twilio.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Slack",
-                    "logo": "/integrations/slack.svg"
+                    "logo": "/integrations/slack.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "ZenDesk",
-                    "logo": "/integrations/zendesk.svg"
+                    "logo": "/integrations/zendesk.svg",
+                    "grayscale":true
                 }
             ]
         },
         {
             "key": "BILLING",
             "title": "Billing",
+            "grayscale":false,
             "tiles": [
                 {
                     "name": "Stripe",
-                    "logo": "/integrations/stripe.svg"
+                    "logo": "/integrations/stripe.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "Shopify",
-                    "logo": "/integrations/shopify.svg"
+                    "logo": "/integrations/shopify.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "PayPal",
-                    "logo": "/integrations/paypal.svg"
+                    "logo": "/integrations/paypal.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "BrainTree",
-                    "logo": "/integrations/brain-tree.svg"
+                    "logo": "/integrations/brain-tree.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "Square",
-                    "logo": "/integrations/square.svg"
+                    "logo": "/integrations/square.svg",
+                    "grayscale":false
                 },
                 {
                     "name": "NMI",
-                    "logo": "/integrations/nmi.svg"
+                    "logo": "/integrations/nmi.svg",
+                    "grayscale":false
                 }
             ]
         },
         {
             "key": "COMMUNICATION",
             "title": "Communication",
+            "grayscale":true,
             "tiles": [
                 {
                     "name": "Twilio",
-                    "logo": "/integrations/twilio.svg"
+                    "logo": "/integrations/twilio.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "SendGrid",
-                    "logo": "/integrations/sendgrid.svg"
+                    "logo": "/integrations/sendgrid.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Slack",
-                    "logo": "/integrations/slack.svg"
+                    "logo": "/integrations/slack.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Microsoft Teams",
-                    "logo": "/integrations/teams.svg"
+                    "logo": "/integrations/teams.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "SMTP",
-                    "logo": "/integrations/smtp.svg"
+                    "logo": "/integrations/smtp.svg",
+                    "grayscale":true
                 }
             ]
         },
         {
             "key": "SALES",
             "title": "Sales",
+            "grayscale":true,
             "tiles": [
                 {
                     "name": "FreshDesk",
-                    "logo": "/integrations/freshdesk.svg"
+                    "logo": "/integrations/freshdesk.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "ZenDesk",
-                    "logo": "/integrations/zendesk.svg"
+                    "logo": "/integrations/zendesk.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Front",
-                    "logo": "/integrations/front.svg"
+                    "logo": "/integrations/front.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Gorgias",
-                    "logo": "/integrations/gorgias.svg"
+                    "logo": "/integrations/gorgias.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Intercom",
-                    "logo": "/integrations/intercom.svg"
+                    "logo": "/integrations/intercom.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "SalesForce",
-                    "logo": "/integrations/sales-force.svg"
+                    "logo": "/integrations/sales-force.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "HubSpot",
-                    "logo": "/integrations/hubspot.svg"
+                    "logo": "/integrations/hubspot.svg",
+                    "grayscale":true
                 }
             ]
         },
         {
             "key": "PRODUCTIVITY",
             "title": "Productivity",
+            "grayscale":true,
             "tiles": [
                 {
                     "name": "Asana",
-                    "logo": "/integrations/asana.svg"
+                    "logo": "/integrations/asana.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Monday",
-                    "logo": "/integrations/monday.svg"
+                    "logo": "/integrations/monday.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "GitHub",
-                    "logo": "/integrations/github.svg"
+                    "logo": "/integrations/github.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Jira",
-                    "logo": "/integrations/jira.svg"
+                    "logo": "/integrations/jira.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Linear",
-                    "logo": "/integrations/linear.svg"
+                    "logo": "/integrations/linear.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "CircleCI",
-                    "logo": "/integrations/circle-eye.svg"
+                    "logo": "/integrations/circle-eye.svg",
+                    "grayscale":true
                 },
                 {
                     "name": "Datadog",
-                    "logo": "/integrations/data-dog.svg"
+                    "logo": "/integrations/data-dog.svg",
+                    "grayscale":true
                 }
             ]
         },
         {
             "key": "SUGGEST",
+            "grayscale":false,
             "title": "Suggest",
             "tiles": [
                 {
