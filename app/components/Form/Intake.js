@@ -45,12 +45,10 @@ const Intake = () => {
         return {
           title: <>Business Information</>,
           form: (
-            <>
-              <BasicDetails
-                basicFormData={basicFormData}
-                setBasicFormData={setBasicFormData}
-              />
-            </>
+            <BasicDetails
+              basicFormData={basicFormData}
+              setBasicFormData={setBasicFormData}
+            />
           ),
           btn: "Next",
         };
