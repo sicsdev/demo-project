@@ -50,6 +50,7 @@ const slides = [
     text: "Amazon Redshift is a fully managed, petabyte-scale data warehouse service.",
   },
   {
+    
     id: 4,
     logo: "/integrations/4.svg",
     title: "BigQuery",

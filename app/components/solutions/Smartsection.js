@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Button from "../Common/Button/Button";
-import { ClockIcon } from "@heroicons/react/24/outline";
-import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { ScissorsIcon } from "@heroicons/react/24/outline";
-import { InboxIcon } from "@heroicons/react/24/outline";
-import { createContactInFreshsales } from "@/app/API/components/Demo";
 import validator from "validator";
 import Card from "../Common/Card/Card";
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+
 const Smartsection = () => {
   const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(true);
@@ -89,6 +86,14 @@ const Smartsection = () => {
     router.push(`/checkout?email=${emailInput}`);
   };
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className="sm:bg-type-above bg-type-mobile">
       <div
@@ -100,23 +105,31 @@ const Smartsection = () => {
         <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-14">
           <div className="">
             <p className=" font-bold  text-xl text-white  md:text-h6 sm:mb-3 sm:ml-1 sm:leading-none ">
-              SMART INBOX{" "}
+              {loading ? (
+                <SkeletonLoader height={30} width={120} />
+              ) : (
+                "SMART INBOX"
+              )}
             </p>
-            <h1 className=" font-bold  text-[18px] text-white sm:mt-0 mt-4 md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-              Introducing your{" "}
-              <span className="text-first-section-color">
-                {" "}
-                email superhero.{" "}
-              </span>{" "}
-            </h1>
+            {loading ? (
+              <SkeletonLoader height={60} width={"100%"} />
+            ) : (
+              <h1 className=" font-bold  text-[18px] text-white sm:mt-0 mt-4 md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+                Introducing your{" "}
+                <span className="text-first-section-color">
+                  {" "}
+                  email superhero.{" "}
+                </span>{" "}
+              </h1>
+            )}
 
             <div className="block sm:hidden">
               <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-                Responding proactively, not just reactively: With Smart Inbox,
-                handle email tickets swiftly and efficiently. Achieve SLAs under
-                5 minutes and ensure every response aligns with provided company
-                policies and guardrails. Transform your customer experience into
-                a journey of intelligent solutions{" "}
+                {loading ? (
+                  <SkeletonLoader height={60} width={"100%"} />
+                ) : (
+                  "Responding proactively, not just reactively: With Smart Inbox, handle email tickets swiftly and efficiently. Achieve SLAs under 5 minutes and ensure every response aligns with provided company policies and guardrails. Transform your customer experience into a journey of intelligent solutions"
+                )}
                 <span
                   className="cursor-pointer"
                   onMouseOver={(e) => {
@@ -190,35 +203,46 @@ const Smartsection = () => {
             </div>
 
             <div className="block sm:hidden mt-4">
-              <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
-                <Image
-                  src="/smart-trans.gif"
-                  className="w-full bg-contain mx-auto"
-                  fill={true}
-                />
-              </div>
+              {loading ? (
+                <SkeletonLoader height={60} width={"100%"} />
+              ) : (
+                <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] sm:w-[478px] sm:h-[500px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
+                  <Image
+                    src="/smart-trans.gif"
+                    className="w-full bg-contain mx-auto"
+                    fill={true}
+                  />
+                </div>
+              )}
             </div>
 
             <div className="hidden sm:block">
               <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-                Responding proactively, not just reactively: With Smart Inbox,
-                handle email tickets swiftly and efficiently. Achieve SLAs under
-                5 minutes and ensure every response aligns with provided company
-                policies and guardrails. Transform your customer experience into
-                a journey of intelligent solutions{" "}
-                <span
-                  className="cursor-pointer"
-                  onMouseOver={(e) => {
-                    e.stopPropagation();
-                    setHide({ first: true });
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setHide({ first: true });
-                  }}
-                >
-                  *
-                </span>
+                {loading ? (
+                  <SkeletonLoader count={4} height={30} width={"100%"} />
+                ) : (
+                  <>
+                    Responding proactively, not just reactively: With Smart
+                    Inbox, handle email tickets swiftly and efficiently. Achieve
+                    SLAs under 5 minutes and ensure every response aligns with
+                    provided company policies and guardrails. Transform your
+                    customer experience into a journey of intelligent
+                    SolutionStandard{" "}
+                    <span
+                      className="cursor-pointer"
+                      onMouseOver={(e) => {
+                        e.stopPropagation();
+                        setHide({ first: true });
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setHide({ first: true });
+                      }}
+                    >
+                      *
+                    </span>
+                  </>
+                )}
                 {hide.first == true ? (
                   <Card
                     className={
@@ -270,20 +294,29 @@ const Smartsection = () => {
                     disabled={validEmail}
                     onClick={handleNavigate}
                   >
-                    Start Now
+                    {loading ? (
+                      <SkeletonLoader height={40} width={"100%"} />
+                    ) : (
+                      "  Start Now"
+                    )}
                   </Button>
                 </div>
+
                 <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]"></div>
               </form>
             </div>
           </div>
           <div className=" hidden sm:block">
-            <div className="mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-              <Image
-                src="/smart-trans.gif"
-                className="w-full bg-contain mx-auto "
-                fill={true}
-              />
+            <div className="mr-2 ml-[10px] border-solid relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+              {loading ? (
+                <SkeletonLoader height={320} width={400} />
+              ) : (
+                <Image
+                  src="/smart-trans.gif"
+                  className="w-full bg-contain mx-auto "
+                  fill={true}
+                />
+              )}
             </div>
           </div>
         </div>
