@@ -105,12 +105,12 @@ const page = () => {
           )}
 
           {loading ? (
-            <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
+            <div className="overflow-x-auto shadow-none mt-4 sm:mt-0">
               {" "}
               <SkeletonLoader className="h-[40px] sm:h-[70px] sm:w-[800px]" />
             </div>
           ) : (
-            <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
+            <div className="overflow-x-auto shadow-none mt-4 sm:mt-0" style={{boxShadow:"none"}}>
               <table className="mt-3 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto m-auto shadow-lg">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
@@ -372,7 +372,7 @@ const page = () => {
                   )
                 }
               ></p>
-              <div className="mt-4 sm:mt-4 mx-6 sm:w-[20%] text-center sm:m-auto">
+              <div className="mt-4 sm:mt-4 mx-6 sm:w-[25%] text-center sm:m-auto">
                 <button
                   className={
                     "py-2  focus:ring-yellow-300 text-center text-white w-full mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-primary hover:bg-primary dark:focus:ring-yellow-900 rounded-lg "

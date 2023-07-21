@@ -341,6 +341,7 @@ const Sidebar = ({ children }) => {
                           <Link
                             href={element.href}
                             className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                            onClick={()=> setIsOpen(false)}
                           >
                             {/* {element.icon} */}
                             <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">

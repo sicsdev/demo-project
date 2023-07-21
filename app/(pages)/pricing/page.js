@@ -64,11 +64,11 @@ const Pricing = () => {
         <div className="w-full sm:w-[60%]  md:w-[60%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
           {price_data.map((ele, key) => (
             <Card
-              className={
+              className={`flex flex-col justify-between ${
                 ele.title == "Starter"
                   ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
                   : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
-              }
+              }`}
               key={key}
             >
               <div>
