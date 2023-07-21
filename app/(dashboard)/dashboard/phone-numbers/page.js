@@ -1,6 +1,7 @@
 "use client";
 import SelectOption from "@/app/components/Common/Input/SelectOption";
 import React from "react";
+import { useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -11,9 +12,18 @@ import {
 import "react-accessible-accordion/dist/fancy-example.css";
 
 const page = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen1, setIsOpen1] = useState(false);
+  const handleAccordionButtonClickSecond = () => {
+    setIsOpen1(!isOpen1); // Toggles the state between true and false
+  };
+
+  const handleAccordionButtonClick = () => {
+    setIsOpen(!isOpen); // Toggles the state between true and false
+  };
   return (
     <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
-      <div className="p-4  max-w-[90%]   ">
+      <div className="p-4  max-w-[90%] sm:max-w-[100%] sm:w-[100%]  ">
         <div>
           {/* <p className="font-normal text-sm text-[#9CA3AF]">
             ← Back to phone numbers
@@ -109,7 +119,7 @@ const page = () => {
           </div>
         </div>
         <hr className="border-border"></hr>
-
+{/* 
         <div className="flex justify-between items-center mt-5">
           <div className="">
             <h3 className="font-bold text-heading text-xl mt-6">Users</h3>
@@ -126,7 +136,7 @@ const page = () => {
               Add users
             </button>
           </div>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 w-full m-auto sm:pt-8 sm:pb-4">
           <div className="flex gap-2 items-center">
@@ -169,13 +179,13 @@ const page = () => {
         </div>
 
         {/* accordion */}
-        <div className="nav-accordian mt-4" style={{height:"auto"}}>
-          <Accordion allowZeroExpanded>
+        <div className="nav-accordian mt-4" style={{ height: "auto" }}>
+          <Accordion allowZeroExpanded >
             <AccordionItem>
-              <AccordionItemHeading className="mobile_arroww">
-                <AccordionItemButton>
+              <AccordionItemHeading className="mobile_arroww" onClick={()=>handleAccordionButtonClick()}>
+                <AccordionItemButton   >
                   <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4" >
                       <div>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -199,7 +209,8 @@ const page = () => {
                       </div>
                     </div>
                     <div className="disable_btn bg-[#f3f3f5] rounded-lg px-3 py-2 text-sm mr-6">
-                      <span className="">Disabled</span>
+                      <span className="">          {isOpen ? 'Enable' : 'Disable'}
+</span>
                     </div>
                   </div>
                 </AccordionItemButton>
@@ -209,9 +220,9 @@ const page = () => {
             </AccordionItem>
           </Accordion>
 
-          <Accordion allowZeroExpanded>
+          <Accordion allowZeroExpanded >
             <AccordionItem>
-              <AccordionItemHeading className="mobile_arroww">
+              <AccordionItemHeading className="mobile_arroww"  onClick={()=>handleAccordionButtonClickSecond()}>
                 <AccordionItemButton>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
@@ -237,7 +248,8 @@ const page = () => {
                       </div>
                     </div>
                     <div className="disable_btn bg-[#f3f3f5] rounded-lg px-3 py-2 text-sm mr-6">
-                      <span className="">Disabled</span>
+                      <span className="">   <span className="">          {isOpen1 ? 'Enable' : 'Disable'}
+</span></span>
                     </div>
                   </div>
                 </AccordionItemButton>
@@ -286,7 +298,9 @@ const page = () => {
                       Menu Options
                     </h3>
                     <p className="text-sm my-1 text-[#9CA3AF]">
-                      Options are triggered by keypad manage and configure the incoming call flow. Extra charges will apply per message sent and call minute. 
+                      Options are triggered by keypad manage and configure the
+                      incoming call flow. Extra charges will apply per message
+                      sent and call minute.
                     </p>
                   </div>
                 </div>
