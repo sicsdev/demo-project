@@ -14,12 +14,12 @@ import Button from "@/app/components/Common/Button/Button";
 
 const Page = () => {
   const [edit, setEdit] = useState(false);
-  const [integrationTiles, setIntegrationsTiles] = useState(tiles_data)
+  const [integrationTiles, setIntegrationsTiles] = useState(tiles_data);
   const [dataLoader, setDataLoader] = useState(false);
   const [suggestModal, setSuggestModal] = useState(false);
 
   const [integrationform, setIntegrationform] = useState(false);
-  const [integrationName, setIntegrationName] = useState('');
+  const [integrationName, setIntegrationName] = useState("");
 
   const fetchIntegrations = async () => {
     try {
@@ -40,50 +40,59 @@ const Page = () => {
     setIntegrationName(name);
     switch (element.key) {
       case "POPULAR":
-        setIntegrationform(true)
+        setIntegrationform(true);
         break;
       case "BILLING":
-        setIntegrationform(true)
+        setIntegrationform(true);
         break;
       case "COMMUNICATION":
-        setIntegrationform(true)
+        setIntegrationform(true);
         break;
       case "PRODUCTIVITY":
-        setIntegrationform(true)
+        setIntegrationform(true);
         break;
       case "SUGGEST":
-        setSuggestModal(prev => !prev)
+        if(name=="Suggest a resource"){
+        setSuggestModal((prev) => !prev)}
+        else{
+        setIntegrationform(true);
+
+        }
         break;
 
       default:
         break;
     }
-  }
+  };
   const handleInput = (e) => {
     const { value } = e.target;
     const filteredData = tiles_data
       .map((category) => {
         let filteredTiles;
-        if (value !== '') {
+        if (value !== "") {
           filteredTiles = category.tiles.filter(
-            (tile) => tile.name.toLowerCase().includes(value) && category.key !== "POPULAR"
+            (tile) =>
+              tile.name.toLowerCase().includes(value) &&
+              category.key !== "POPULAR"
           );
         } else {
-          filteredTiles = category.tiles.filter(
-            (tile) => tile.name.toLowerCase().includes(value)
+          filteredTiles = category.tiles.filter((tile) =>
+            tile.name.toLowerCase().includes(value)
           );
         }
 
-        return filteredTiles.length > 0 ? { ...category, tiles: filteredTiles } : null;
+        return filteredTiles.length > 0
+          ? { ...category, tiles: filteredTiles }
+          : null;
       })
       .filter(Boolean);
-    setIntegrationsTiles(filteredData)
-  }
+    setIntegrationsTiles(filteredData);
+  };
   return (
     <>
       {dataLoader === true ? (
         <Loading />
-      ) :
+      ) : (
         <>
           <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -126,21 +135,30 @@ const Page = () => {
             <>
               {integrationData.length > 0 ? (
                 <>
-                  {integrationTiles.map((element, key) =>
+                  {integrationTiles.map((element, key) => (
                     <div className={` mt-6`} key={key}>
-                      <h3 className="text-sm font-semibold mt-3">{element.title}</h3>
+                      <h3 className="text-sm font-semibold mt-3">
+                        {element.title}
+                      </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
                         {element.tiles?.map((item, key) => (
                           <div
-                            className={`${item.grayscale && ("pointer-events-none")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            className={`${
+                              item.grayscale && "pointer-events-none"
+                            } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                             key={key}
-                            onClick={() => { performIntegrationTask(element, item?.name) }}
+                            onClick={() => {
+                              performIntegrationTask(element, item?.name);
+                            }}
                           >
                             <div className="flex justify-start gap-1 items-center">
                               <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                 <Image
                                   fill={"true"}
-                                  className={`${item.grayscale && ("grayscale pointer-events-none")} bg-contain mx-auto w-full rounded-lg`}
+                                  className={`${
+                                    item.grayscale &&
+                                    "grayscale pointer-events-none"
+                                  } bg-contain mx-auto w-full rounded-lg`}
                                   alt="logo.png"
                                   src={item.logo}
                                 />
@@ -152,51 +170,64 @@ const Page = () => {
                           </div>
                         ))}
                       </div>
-                    </div >
-                  )}
-
+                    </div>
+                  ))}
                 </>
-              ) :
-                <p>No data Found !</p>}
+              ) : (
+                <p>No data Found !</p>
+              )}
             </>
           ) : (
-            <Integrationform name={integrationName} setIntegrationform={setIntegrationform} />
+            <Integrationform
+              name={integrationName}
+              setIntegrationform={setIntegrationform}
+            />
           )}
         </>
-      }
-      {
-        suggestModal && (
-          <Modal
-            title={<h3 className="text-base font-semibold">Suggest a resource</h3>}
-            className={"w-[30%]"}
-            show={suggestModal}
-            setShow={setSuggestModal}
-            showCancel={true}
-            customHideButton={false}
-            hr={false}
-          >
-            <h3 className="text-xs my-2 text-heading font-normal">What resource would you like to connect to?</h3>
-            <textarea id="message" rows="4" className=" block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full " placeholder="Write your thoughts here..."></textarea>
-            <div
-              className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
-            >                    <Button
+      )}
+      {suggestModal && (
+        <Modal
+          title={
+            <h3 className="text-base font-semibold">Suggest a resource</h3>
+          }
+          className={"w-[30%]"}
+          show={suggestModal}
+          setShow={setSuggestModal}
+          showCancel={true}
+          customHideButton={false}
+          hr={false}
+        >
+          <h3 className="text-xs my-2 text-heading font-normal">
+            What resource would you like to connect to?
+          </h3>
+          <textarea
+            id="message"
+            rows="4"
+            className=" block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
+            placeholder="Write your thoughts here..."
+          ></textarea>
+          <div className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}>
+            {" "}
+            <Button
               className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
-              onClick={() => { setSuggestModal(prev => !prev) }}
-
+              onClick={() => {
+                setSuggestModal((prev) => !prev);
+              }}
             >
-                Back
-              </Button>
-              <Button
-                type={"button"}
-                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                onClick={() => { setSuggestModal(prev => !prev) }}
-              >
-                Submit
-              </Button>
-            </div>
-          </Modal>
-        )
-      }
+              Back
+            </Button>
+            <Button
+              type={"button"}
+              className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+              onClick={() => {
+                setSuggestModal((prev) => !prev);
+              }}
+            >
+              Submit
+            </Button>
+          </div>
+        </Modal>
+      )}
       <ToastContainer />
     </>
   );
