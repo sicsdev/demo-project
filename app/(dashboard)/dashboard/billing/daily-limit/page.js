@@ -26,7 +26,6 @@ const UsageLimit = () => {
   ];
   const getPaymentOldData = async () => {
     setFormData(state.enterprise.billing_thresholds.amount_gte);
-    debugger
     const response = await getPaymentHistory(state.stripe_data.stripe_id);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
@@ -66,11 +65,9 @@ const UsageLimit = () => {
 
   const handleInputValues = (event) => {
     let inputValue = event.target.value.replace(/[.,]/g, '');
-    // if (inputValue < 50) {
-    //   inputValue = 50;
-    // } else if (inputValue > 10000) {
-    //   inputValue = 10000;
-    // }
+     if (inputValue > 10000) {
+      inputValue = 10000;
+    }
     if (inputValue < 50 || inputValue > 10000) {
       setError(true);
     } else {
@@ -89,7 +86,6 @@ const UsageLimit = () => {
       if (response.status === 200) {
         Swal.fire("Success", "Updated Form", "success");
         setBtnLoading(false);
-        getPaymentOldData()
       } else {
         setBtnLoading(false);
       }
@@ -159,7 +155,7 @@ const UsageLimit = () => {
                 View usage records
               </Link>
             </p>
-            <p className="text-sm py-2">${totalUsage}</p>
+            <p className="text-sm py-2">${totalUsage}.00</p>
 
             {btnLoading ? (
               <LoaderButton />
