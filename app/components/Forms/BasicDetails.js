@@ -154,7 +154,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               values={provideStateNames()}
               title={"State"}
               id={"business_state"}
-              className="py-3"
+              className="py-2"
               error={returnErrorMessage("business_state")}
             />
             <div className="">

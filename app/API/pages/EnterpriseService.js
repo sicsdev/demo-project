@@ -49,3 +49,16 @@ export const updateThresholds = async (body) => {
 };
 
 
+
+export const uploadImage = async (body,id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/customer-files/`, body, config);
+        console.log(response)
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+
