@@ -179,6 +179,10 @@ module.exports = {
           "5%": { height: "300px", visibility: "hidden", overflow: "hidden" },
           "100%": { height: "536px" },
         },
+        shake: {
+          '0%, 100%': { transform: 'rotate(-3deg)' },
+          '50%': { transform: 'rotate(3deg)' },
+        },
         blink: {
           "50%": {
             borderColor: "transparent",
