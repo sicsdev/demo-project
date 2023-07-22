@@ -7,7 +7,7 @@ const Iconanimation = () => {
     first: false,
   });
   return (
-    <div className="">
+    <div className="bg-white">
       <div className="animation_icon_section mx-auto max-w-[90%] py-3 js-show-on-scroll ">
         <div className="grid grid-cols-11 gap-4 justify-center">
           <div className="col-span-12 sm:col-span-3 relative col_section">
