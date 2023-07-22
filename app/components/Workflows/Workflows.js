@@ -2,18 +2,19 @@ import React from 'react'
 import Button from '../Common/Button/Button'
 import Image from 'next/image'
 
-const Workflows = (props) => {
+const Workflows = ({state}) => {
+  
   return (
     <>
       <div className='my-4'>
         <div className='flex justify-between gap-4 items-center'>
           <div className='flex justify-between gap-4 items-center'>
-            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#523A28] rounded-lg">
-              <span className="font-bold text-white">JL</span>
+            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg">
+              <span className="font-bold text-white">{state.data.enterprise.name.substring(0, 2).toUpperCase()}</span>
             </div>
             <div>
               <h3 className='text-lg font-bold text-heading'>Workflow Builder</h3>
-              <p className='text-sm text-border'>Tempo Sandbox</p>
+              <p className='text-sm text-border'>{state.data.enterprise.name}</p>
             </div>
           </div>
           <div>

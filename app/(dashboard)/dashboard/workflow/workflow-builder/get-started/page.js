@@ -1,26 +1,61 @@
 'use client'
 import Button from '@/app/components/Common/Button/Button'
 import RightSidebar from '@/app/components/Dashboard/AuthLayout/RightSidebar'
-import { ChevronLeftIcon, EllipsisVerticalIcon, InboxArrowDownIcon, LinkIcon, PencilIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, EllipsisVerticalIcon, InboxArrowDownIcon, LinkIcon, PencilIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon, ClockIcon, ChevronDownIcon, TagIcon, CheckIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import Modal from '@/app/components/Common/Modal/Modal'
 import SelectOption from '@/app/components/Common/Input/SelectOption'
 import { useParams, useSearchParams } from 'next/navigation'
 import workflowOptions from "@/app/data/workflowtiles.json"
+import WorkFlowSelector from '@/app/components/Workflows/WorkFlowSelector/WorkFlowSelector'
+import TextField from '@/app/components/Common/Input/TextField'
+import FileField from '@/app/components/Common/Input/FileField'
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { Editor } from "react-draft-wysiwyg";
 
-const GetStarted = () => {
+const GetStarted = ({dataFromParent}) => {
+  const inputRef = useRef(null);
+  const handleButtonClick = () => {
+  if (inputRef.current) {
+    inputRef.current.focus();
+    inputRef.current.setSelectionRange(
+      inputRef.current.value.length,
+      inputRef.current.value.length
+    );
+  }
+};
   const params = useSearchParams()
-  console.log("params", workflowOptions)
   const [singleData, setSingleData] = useState(null)
   const [showHelp, setShowHelp] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
+  const [descrptionValue, setDescriptionValue] = useState({
+    name: "From an outbound API call",
+    icon: <TagIcon className="h-6 w-6" />,
+    key: 2
+
+  })
+  const description_data = [{
+    name: "From a written description of the workflow",
+    icon: <TagIcon className="h-6 w-6" />,
+    key: 0
+
+  },
+  {
+    name: "From an outbound API call",
+    icon: <TagIcon className="h-6 w-6" />,
+    key: 1
+
+  }
+  ]
+  // modals 
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [stepModal, setStepModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [descriptionModal, setDescriptionModal] = useState(false);
+  const [workflowModal, setWorkflowModal] = useState(false);
   useEffect(() => {
     if (params.get("flow")) {
       const flow = params.get("flow")
@@ -30,8 +65,26 @@ const GetStarted = () => {
       }
     }
   }, [])
+
+
+  const openModal = (value) => {
+    switch (value.key) {
+      case "DESCRIPTION":
+        setDescriptionModal(true)
+        break;
+      case "COLLECTINFOFORM":
+
+        break;
+      case "STEPS":
+        handleButtonClick()
+        break;
+
+      default:
+        break;
+    }
+  }
   return (
-    <RightSidebar>
+    <RightSidebar inputRef={inputRef}>
       {singleData ? (
         <>
           <div className='flex justify-between gap-2 items-center'>
@@ -49,7 +102,7 @@ const GetStarted = () => {
                   src={singleData.img}
                 />
               </div>
-              <div>
+              <div className='cursor-pointer' onClick={() => setWorkflowModal(true)}>
                 <h3 className='text-heading font-bold text-lg'>{singleData.name}</h3>
                 <p className='text-border font-normal text-sm'>{singleData.title}</p>
               </div>
@@ -68,24 +121,9 @@ const GetStarted = () => {
                 {showHelp && (
                   <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                     <ul className="py-2 text-sm text-gray-700 ">
-                      <li className='hover:bg-primary_hover hover:text-white text-heading'>
-                        <a href="#" className="block px-4 py-2 ">Settings</a>
-                      </li>
-                      <li className='hover:bg-primary_hover hover:text-white text-heading'>
-                        <a href="#" className="block px-4 py-2 ">View activity log</a>
-                      </li>
-                      <hr className='h-[0.5px]   border-border' />
-                      <li className='hover:bg-primary_hover hover:text-white text-heading my-2'>
-                        <a href="#" className="block px-4 py-2 ">Make a copy</a>
-                      </li>
-                      <hr className='h-[0.5px]   border-border' />
 
                       <li className='hover:bg-danger hover:text-white text-danger my-2'>
                         <a href="#" className="block px-4 py-2 ">Delete</a>
-                      </li>
-                      <hr className='h-[0.5px]   border-border' />
-                      <li className='hover:bg-primary_hover hover:text-white text-heading'>
-                        <a href="#" className="block px-4 py-2 ">Help Center</a>
                       </li>
                     </ul>
                   </div>
@@ -93,81 +131,128 @@ const GetStarted = () => {
               </div>
             </div>
           </div>
-          <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
-            <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
-              <div className='flex justify-between gap-2 items-center'>
-                <div className='flex justify-between gap-4 items-center'>
-                  <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                  <p className='text-sm font-semibold '>Start from a link in tempo</p></div>
-                <Button
-                  type={"button"}
-                  onClick={(e) => setEditModal(true)}
-                  className="inline-block  cursor-pointer group-hover:border p-2 border-border rounded-lg h-[38px] group-hover:shadow]">
-                  <PencilIcon className="h-5 w-5 font-semibold" />
-                </Button>
-              </div>
-            </div>
-            <div className='section-workflow-wrapper'>
-              <div className='section-workflow'></div>
-              <div className='iconplus  cursor-pointer'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
-
-              <div className='section-workflow3'></div>
-              <div className='section-workflow2'></div>
-            </div>
-            <div className='border  border-border rounded-lg shadow'>
-              <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
-                <div className='flex justify-between gap-2 items-center'>
-                  <div className='flex justify-between gap-4 items-center'>
-                    <InboxArrowDownIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                    <p className='text-sm font-semibold '>Collect info in a form</p></div>
-                  <Button
-                    type={"button"}
-                    onClick={(e) => setEditModal(true)}
-                    className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
-                    <PencilIcon className="h-5 w-5 font-semibold" />
-                  </Button>
-                </div>
-              </div>
-              <div className='p-5'>
-
-                <h2 className="mb-2 text-sm font-semibold">Top students:</h2>
-                <ol className="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400">
-                  <li>
-                    <span className="font-normal text-sm ">Bonnie Green 70</span>
-                  </li>
-                  <li>
-                    <span className="font-normal text-sm ">Jese Leos 63</span>
-                  </li>
-                  <li>
-                    <span className="font-normal text-sm ">Leslie Livingston7</span>
-                  </li>
-                </ol>
-
-              </div>
-            </div>
-            <div className='section-workflow-wrapper'>
-              <div className='section-workflow'></div>
-              <div className='iconplus cursor-pointer'> <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
-              <div className='section-workflow3'></div>
-              <div className='section-workflow2'></div>
-            </div>
-            <div className='border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group' >
-              <div className='flex justify-between gap-2 items-center'>
-                <div className='flex justify-between gap-4 items-center'>
-                  <LinkIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                  <p className='text-sm font-semibold'>Your next step goes here</p></div>
-                <Button
-                  type={"button"}
-                  onClick={(e) => setStepModal(true)}
-                  className="inline-block  cursor-pointer group-hover:border p-2 border-border rounded-lg h-[38px] group-hover:shadow]">
-                  <PencilIcon className="h-5 w-5 font-semibold" />
-                </Button>
-              </div>
-            </div>
-
-          </div>
+          <WorkFlowSelector openModal={openModal} />
         </>) : <p>No Data Found !</p>}
+
+      {/* Modals  */}
+      {/* description modal start  */}
+      {
+        descriptionModal &&
+        <Modal title={<h3 className='text-lg font-semibold'>Change how this workflow starts</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+          <div>
+            <div className='relative'>
+              <div className='border border-border rounded-md flex justify-between items-center gap-4 text-heading my-2 p-2 cursor-pointer' onClick={() => { setShowOptions(prev => !prev) }}>
+                <div className='flex justify-between items-center gap-4'>
+                  <div><ClockIcon className="h-6 w-6" /></div>
+                  <div><span className='font-semibold text-base'>{descrptionValue.name}</span></div>
+                </div>
+                <div><ChevronDownIcon className="h-6 w-6" /></div>
+
+              </div>
+              {showOptions && (
+                <div className=' absolute w-full z-[99999] top-[38px] border border-border rounded-[4px] bg-[#F8F8F8] '>
+                  <div className='px-2'>
+                    <h3 className='text-border text-base'>Options</h3>
+                  </div>
+                  {description_data.map((element, key) =>
+                    <div className=' my-2 cursor-pointer hover:bg-primary_hover hover:text-white text-heading' key={key} onClick={() => {
+                      setDescriptionValue({
+                        icon: element.icon,
+                        name: element.name,
+                        key: element.key
+                      })
+                    }}>
+                      <div className={`px-4 py-2 flex gap-4 hover:text-white ${element.key === descrptionValue.key && ("text-primary font-semibold")}`}>
+                        {element.icon}<p >{element.name}</p>
+                      </div>
+                    </div>
+                  )}
+
+
+                </div >
+              )}
+            </div>
+
+            <div className='my-2 p-2'>
+              <TextField name='company_name' className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Workflow Description</span>  </div>} placeholder={"Write a concise verbal description of the workflow for the AI to know when to trigger it. "} type={'text'} id={"work_flowdescription"} />
+            </div>
+            <div
+              className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
+            >
+              <Button
+                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+              // onClick={() => { setSuggestModal(prev => !prev) }}
+
+              >
+                Back
+              </Button>
+              <Button
+                type={"button"}
+                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+              // onClick={() => { setSuggestModal(prev => !prev) }}
+              >
+                Submit
+              </Button>
+            </div >
+          </div >
+
+        </Modal >
+      }
+
+      {/* description modal end  */}
+      {/* workflowname modal start  */}
+
+      {
+        workflowModal &&
+        <Modal title={<h3 className='text-lg font-semibold'>Workflow Details</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+          <div className=''>
+            <div className='mt-2 p-2'>
+              <TextField name='company_name' value={"Untitled Workflow"} className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Name</span>  </div>} placeholder={"Something short and descriptive"} type={'text'} id={"work_flowdescription"} />
+            </div>
+            <div className='mt-2 p-2'>
+              <TextField name='company_name' className='py-3 w-full mt-1' value={"A brand new workflow"} title={<div className='flex items-center gap-2'><span>Description</span>  </div>} placeholder={"What is this workflow for ?"} type={'text'} id={"work_flowdescription"} />
+            </div>
+            <div className='mt-2 p-2'>
+              <FileField title={<div className='flex items-center gap-2'><span>Image</span> </div>} type={'file'} placeholder="Upload" id="docs"
+                // onChange={(event) => {
+                //   const file = event.target.files[0];
+                //   const allowedExtensions = ['json', 'xls', 'xlsx', 'csv', 'mbox', 'pst'];
+                //   if (file) {
+                //     const fileExtension = file.name.split('.').pop().toLowerCase();
+                //     if (allowedExtensions.indexOf(fileExtension) === -1) {
+                //       setErrors('Error: please upload a valid file type (json, xls, xlsx, csv, mbox, pst)');
+                //       return;
+                //     }
+                //     setErrors(null);
+                //     setSelectedFile(file);
+                //   }
+
+                // }} 
+                error={""} />
+            </div>
+            <div
+              className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
+            >
+              <Button
+                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+              // onClick={() => { setSuggestModal(prev => !prev) }}
+
+              >
+                Back
+              </Button>
+              <Button
+                type={"button"}
+                className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+              // onClick={() => { setSuggestModal(prev => !prev) }}
+              >
+                Save
+              </Button>
+            </div >
+          </div>
+        </Modal>
+      }
+      {/* workflowname modal end  */}
       {
         showPublishModal &&
         <Modal title={'Your workflow is ready to use'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
@@ -185,6 +270,7 @@ const GetStarted = () => {
           </div>
         </Modal>
       }
+
       {
         stepModal &&
         <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
@@ -224,6 +310,8 @@ const GetStarted = () => {
           </div>
         </Modal>
       }
+
+
       {
         editModal &&
         <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
@@ -237,22 +325,6 @@ const GetStarted = () => {
                 className="py-3"
               />
             </div>
-            {/* <Editor
-              // editorState={editorState}
-              toolbarClassName="toolbarClassName"
-              wrapperClassName="wrapperClassName"
-              editorStyle={{ border: "1px solid #C0C0C0", borderBottomRightRadius: "7px", borderBottomLeftRadius: "7px" }}
-              toolbar={{
-                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'history'],
-                inline: { inDropdown: true },
-                list: { inDropdown: true },
-                textAlign: { inDropdown: true },
-                link: { inDropdown: true },
-                history: { inDropdown: true },
-              }}
-              editorClassName="editorClassName"
-            // onEditorStateChange={this.onEditorStateChange}
-            />   */}
             <div className="flex items-center justify-between">
               <Button
                 type={"submit"}
@@ -264,7 +336,7 @@ const GetStarted = () => {
           </form>
         </Modal>
       }
-    </RightSidebar>
+    </RightSidebar >
   )
 }
 

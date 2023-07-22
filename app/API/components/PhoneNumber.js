@@ -16,7 +16,7 @@ export const getAvailableMobileNumbers = async (area_code) => {
 export const buyAvailableMobileNumbers = async (data) => {
     const config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/phone-numbers/`, data, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/phone-numbers/`, data, config);
         return response.data;
     } catch (error) {
         return error;

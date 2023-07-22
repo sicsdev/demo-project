@@ -19,6 +19,7 @@ import {
   createEnterpriseAccount,
   enterpriseDomainInitialize,
   enterpriseDomainVerify,
+  uploadImage,
 } from "@/app/API/pages/EnterpriseService";
 import { state_data } from "../Forms/data/FormData";
 import { createBot, createBotKnowledge, modifyBot } from "@/app/API/pages/Bot";
@@ -155,7 +156,7 @@ const Intake = () => {
       }
     }
     if (intakeStep === 2) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone_number", "area_code"];
+      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone", "area_code"];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
       );
@@ -245,7 +246,7 @@ const Intake = () => {
     }
   };
 
-  const savePreferences = () => {
+  const savePreferences =async () => {
     setLoading(true);
     let payload = {
       id: basicFormData.id,
@@ -275,12 +276,15 @@ const Intake = () => {
       email_agent_title: basicFormData.agent_title,
       email_greeting: basicFormData.email_introduction,
       email_farewell: basicFormData.email_signOff,
+      phone_number: basicFormData?.phone 
 
     };
     !payload.logo && delete payload.logo;
+    debugger
+    const response = await buyAvailableMobileNumbers({ phone_number: basicFormData?.phone })
     modifyBot(payload.id, payload)
       .then(async (res) => {
-        const response = await buyAvailableMobileNumbers({ phone_number: basicFormData.phone_number })
+       
         if (response) {
           setLoading(false);
           dispatch(setModalValue(false));
@@ -310,6 +314,7 @@ const Intake = () => {
           basicFormData.company_name +
           ".gettempo.ai",
       });
+      const updload_imge = await uploadImage({file:basicFormData.selectedFile},basicFormData.id)
       if (domains.status === 200 && verify.status === 200) {
         setBasicFormData((prev) => {
           return {
@@ -420,10 +425,8 @@ const Intake = () => {
         }
 
         break;
-
       case 3:
         savePreferences();
-
         break;
       case 4:
         handleIntegrationSubmitForm()

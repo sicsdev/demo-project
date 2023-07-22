@@ -12,7 +12,6 @@ import { ChevronLeftIcon, PhoneIcon } from '@heroicons/react/24/outline'
 
 const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => {
     const [errors, setErrors] = useState(null)
-    const [selectedFile, setSelectedFile] = useState(null)
     const [email_Prefix, setEmail_Prefix] = useState(basicFormData?.email_prefix ?? '{email_Prefix}')
     const [company_name, setCompany_name] = useState(basicFormData?.company_name ?? '{company_name}')
     const [formValues, setFormValues] = useState({
@@ -20,51 +19,53 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         custom_email: basicFormData?.custom_email ?? '',
         enable_email_forwarding: basicFormData?.enable_email_forwarding ?? '',
         company_name: basicFormData?.company_name ?? '',
-        phone_number: basicFormData?.phone_number ?? '',
+        phone_number: basicFormData?.phone ?? '',
         friendly_name: basicFormData?.friendly_name ?? '',
         area_code: basicFormData?.area_code ?? '',
-        phone_numbers: basicFormData?.phone_numbers ?? []
+        phone_numbers: basicFormData?.phone_numbers ?? [],
+        selectedFile: basicFormData?.selectedFile ?? '',
     })
 
-
+    console.log("basicFormData", basicFormData)
 
     const handleInputValues = (e) => {
         const { value } = e.target
-        setErrors([])
-        setFormValues({ ...formValues, [e.target.name]: value })
-        setBasicFormData((prev) => {
-            return {
-                ...prev,
-                [e.target.name]: value
+        if (value !== " ") {
+            setErrors([])
+            setFormValues({ ...formValues, [e.target.name]: value })
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    [e.target.name]: value
+                }
+            })
+            switch (e.target.name) {
+                case 'company_name':
+                    value !== '' ? setCompany_name(value) : setCompany_name('{company_name}')
+                    setBasicFormData((prev) => {
+                        return {
+                            ...prev,
+                            [e.target.name]: value !== '' ? value : '{company_name}'
+                        }
+                    })
+                    break;
+                case 'email_prefix':
+                    setEmail_Prefix(value)
+                    setBasicFormData((prev) => {
+                        return {
+                            ...prev,
+                            [e.target.name]: value
+                        }
+                    })
+                    break;
+                case 'area_code':
+                    getPhoneNumbers(value)
+                    break;
+
+                default:
+                    break;
             }
-        })
-        switch (e.target.name) {
-            case 'company_name':
-                value !== '' ? setCompany_name(value) : setCompany_name('{company_name}')
-                setBasicFormData((prev) => {
-                    return {
-                        ...prev,
-                        [e.target.name]: value !== '' ? value : '{company_name}'
-                    }
-                })
-                break;
-            case 'email_prefix':
-                setEmail_Prefix(value)
-                setBasicFormData((prev) => {
-                    return {
-                        ...prev,
-                        [e.target.name]: value
-                    }
-                })
-                break;
-            case 'area_code':
-                getPhoneNumbers(value)
-                break;
-
-            default:
-                break;
         }
-
     }
 
     const returnErrorMessage = (key) => {
@@ -113,8 +114,8 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         setBasicFormData((prev) => {
             return {
                 ...prev,
-                ['phone_number']: element.phone_number,
-                ['friendly_name']: element.friendly_name,
+                'phone': element.phone_number,
+                'friendly_name': element.friendly_name,
             }
         })
         setFormValues({
@@ -155,7 +156,13 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                 return;
                             }
                             setErrors(null);
-                            setSelectedFile(file);
+                            const reader = new FileReader();
+                            reader.onload = () => {
+                                const base64String = reader.result
+                                setFormValues({ ...formValues, selectedFile: base64String })
+                                setBasicFormData({ ...basicFormData, selectedFile: base64String })
+                            };
+                            reader.readAsDataURL(file);
                         }
 
                     }} error={errors} />
@@ -185,15 +192,6 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                             <th scope="col" className="px-3 py-2">
                                                 Number
                                             </th>
-                                            {/* <th scope="col" className="px-3 py-2">
-                                                MMS
-                                            </th>
-                                            <th scope="col" className="px-3 py-2">
-                                                SMS
-                                            </th>
-                                            <th scope="col" className="px-3 py-2">
-                                                Voice
-                                            </th> */}
                                             <th scope="col" className="px-3 py-2">
                                                 Region
                                             </th>
@@ -201,7 +199,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                     </thead>
                                     <tbody>
                                         {formValues?.phone_numbers.slice(0, 10).map((element, key) =>
-                                            <tr className={`${formValues.phone_number === element.phone_number ? 'bg-heading text-white' : "bg-white text-heading"}  border-b border-border  hover:bg-heading hover:text-white cursor-pointer`} key={key} onClick={(e) => {
+                                            <tr className={`${basicFormData?.phone === element.phone_number ? 'bg-heading text-white' : "bg-white text-heading"}  border-b border-border  hover:bg-heading hover:text-white cursor-pointer`} key={key} onClick={(e) => {
                                                 addPhone(element)
                                             }} >
                                                 <th scope="row" className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
