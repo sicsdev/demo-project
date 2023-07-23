@@ -31,7 +31,6 @@ const WorkFlowTemplates = () => {
         {
             name: "Actions",
             sortable: true,
-            reorder: true,
             cell: (row) => (
                 <ButtonComponent data={row} />
             ),
@@ -114,12 +113,11 @@ const WorkFlowTemplates = () => {
                 fixedHeader
                 highlightOnHover
                 pointerOnHover
-                defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                     router.push(rowData.url);
                 }}
-                pagination
-                paginationPerPage={7}
+                pagination={false}
+                // paginationPerPage={5}
                 columns={columns}
                 data={data}
                 customStyles={customStyles}
