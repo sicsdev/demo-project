@@ -72,7 +72,7 @@ const CustomIntegration = ({ name, setIntegrationform, formData, data, setFormDa
                                             placeholder={convertToTitleCase(key)}
                                             type={"text"}
                                             id={key}
-                                            disabled
+                                            // disabled
                                         />
                                     </div>
                                 ))}
