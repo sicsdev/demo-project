@@ -1,5 +1,5 @@
 {
-   "tiles_icons": [
+    "tiles_icons": [
         {
             "name": "Rest API",
             "logo": "/integrations/rest-api.svg",
