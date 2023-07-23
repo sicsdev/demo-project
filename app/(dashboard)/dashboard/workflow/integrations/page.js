@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import { tiles_data } from "@/app/data/integration_tiles.json";
-import { tiles_icons } from "@/app/data/icons.json";
+import { tiles_icons } from "../../../../data/icons.json";
 import Modal from "@/app/components/Common/Modal/Modal";
 import { ToastContainer } from "react-toastify";
 import Image from "next/image";
