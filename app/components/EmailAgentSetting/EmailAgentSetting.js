@@ -31,7 +31,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
     const handleInputValues = (e) => {
         const { value } = e.target
         if (value !== " ") {
-            setErrors([])
+            // setErrors([])
             setFormValues({ ...formValues, [e.target.name]: value })
             setBasicFormData((prev) => {
                 return {
