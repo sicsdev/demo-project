@@ -135,7 +135,7 @@ const Info = () => {
           class="hidden sm:block font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8 relative text-heading"
           onMouseLeave={() => setHide({ first: false })}
         >
-          <span className="text-[#2563eb]">Replace Your CS</span> Team Today.
+          <span className="text-[#2563eb]">Reduce Your</span> Headcount Today.
           <span
             className="cursor-pointer"
             onMouseEnter={(e) => {
@@ -172,9 +172,9 @@ const Info = () => {
           onMouseLeave={() => setHide({ first: false })}
         >
           <span className="text-[#2563eb]">
-            Replace Your CS <br />
+          Reduce Your <br />
           </span>{" "}
-          Team Today.
+          Headcount Today.
           <span
             className="cursor-pointer"
             onMouseEnter={(e) => {

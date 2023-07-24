@@ -16,6 +16,8 @@ import Iconanimation from "../components/Iconanimation/Iconanimation";
 import Launch from "../components/Get-Start/Launch";
 import Image from "next/image";
 import Aipowered from "../components/solutions/Aipowered";
+import Motioncards from "../components/Motioncards/page";
+import Marketing from "../components/Marketing/Marketing";
 export default function Home() {
   return (
     <main className="">
@@ -29,11 +31,13 @@ export default function Home() {
       <Newstandard />
       {/* <Trial /> */}
       <Social />
+      {/* <Marketing/> */}
 
       <Launch />
       {/* <Benifits />         */}
       {/* <Faq />   */}
-      <Iconanimation />
+      {/* <Iconanimation /> */}
+      <Motioncards />
 
       {/* dummy section */}
       {/* <div className="bg-[#142543] p-6">
