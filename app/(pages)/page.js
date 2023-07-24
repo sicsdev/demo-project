@@ -31,7 +31,7 @@ export default function Home() {
       <Newstandard />
       {/* <Trial /> */}
       <Social />
-      {/* <Marketing/> */}
+      <Marketing/>
 
       <Launch />
       {/* <Benifits />         */}
