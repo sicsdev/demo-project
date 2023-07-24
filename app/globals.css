@@ -705,3 +705,12 @@ border-bottom-right-radius: 0px !important;
   color: #555;
   font-weight: 500;
 }
+
+.marque_section {
+  -webkit-mask-image: linear-gradient(90deg,#0000,#fff 5%,#fff 95%,#0000);
+}
+
+.marque_card:hover{
+  box-shadow: 0 0 1px #181d263d,0 6px 8px #181d2614,0 18px 32px #0000001a;
+  border-radius: 8px;
+}

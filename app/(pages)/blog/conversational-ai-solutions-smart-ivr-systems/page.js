@@ -41,7 +41,7 @@ const page = () => {
 
   return (
     <div className="bg-white  px-[20px] sm:px-0  sm:pl-[10%] ">
-      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
+      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10 py-6">
         <div className="sm:w-[70%]">
           {" "}
           <h1 className=" font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
