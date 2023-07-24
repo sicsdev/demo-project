@@ -38,14 +38,21 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     }
 
     const updateDataParam = (value, prev, name) => {
-        console.log("value",value.length)
+        console.log("value", value.length)
         if (value?.length < prev[name]?.length) {
             return prev[name].substring(0, value.length)
         } else {
             return value.length > 0 ? prev[name] + value?.charAt(value.length - 1) : value;
         }
     }
-
+    const handleInputFocus = (e) => {
+        const { name, value } = e.target;
+        
+        setCustomFields((prev) => ({
+            ...prev,
+            [name]: '',
+        }));
+      };
     const handleIntegrationInputChange = (e) => {
         const { name, value } = e.target;
         setCustomFields((prev) => ({
@@ -65,7 +72,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
 
     const handleDeleteKeyPress = (event) => {
         const { name, value } = event?.target;
-        if (event.key === 'Delete') {
+        if (event.key === 'Delete' || event?.key === 'Backspace') {
             setCustomFields((prev) => ({
                 ...prev,
                 [name]: '',
@@ -74,12 +81,10 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     };
     // console.log("payloadData", payloadData)
     const configureIntegrationHandler = async (e) => {
-        // setLoading(true);
+        setLoading(true);
         try {
             let configureIntegration;
             let message;
-            console.log("payloadData", payloadData)
-            return false;
             if (integrationFormData?.checked === true) {
                 configureIntegration = await updateIntegrationData(payloadData, integrationFormData?.integration_data?.id);
                 message = `Integration Update Successfully!`;
@@ -159,6 +164,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                                             placeholder={convertToTitleCase(key)}
                                             type={"text"}
                                             id={key}
+                                            handleInputFocus={handleInputFocus}
                                             onKeyDown={handleDeleteKeyPress}
                                         // disabled
                                         />
