@@ -714,3 +714,16 @@ border-bottom-right-radius: 0px !important;
   box-shadow: 0 0 1px #181d263d,0 6px 8px #181d2614,0 18px 32px #0000001a;
   border-radius: 8px;
 }
+
+/* sticky sidebar */
+.sidebar {
+  flex: 0 0 33.3333%;
+  background: gray;
+}
+
+.sidebar__widget {
+  position: sticky;
+  top: 0;
+  background: yellow;
+  height: 250px;
+}

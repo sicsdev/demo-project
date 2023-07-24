@@ -32,11 +32,12 @@ const Page = () => {
               </div>
               <Workflows state={state} />
               <WorkFlowTemplates />
-              <Motioncards />
             </>
           )}
         </>
       )}
+     <Motioncards />
+
     </>
   );
 };
