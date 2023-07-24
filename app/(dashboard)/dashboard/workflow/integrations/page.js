@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { CheckCircleIcon, ShareIcon } from "@heroicons/react/24/outline";
-import { getAllIntegration, getAllIntegrationTemplates } from "@/app/API/pages/Integration";
+import { getAllIntegration, getAllIntegrationTemplates, getIntegrationTemplateByType } from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
@@ -15,14 +15,14 @@ import { makeCapital } from "@/app/components/helper/capitalName";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 
 const Page = () => {
-  const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([])
   const [integrationTiles, setIntegrationsTiles] = useState([])
   const [dataLoader, setDataLoader] = useState(true);
   const [suggestModal, setSuggestModal] = useState(false);
   const [integrationform, setIntegrationform] = useState(false);
-  const [integrationName, setIntegrationName] = useState('');
+  const [integrationFormData, setIntegrationFormData] = useState({});
+
   const findIconValue = (name) => {
     const tiles_icons = [
       {
@@ -200,6 +200,13 @@ const Page = () => {
     return false
   }
 
+  const getDataAttributes = (integration_data, item) => {
+    const findIntegration = integration_data.find((x) => x.name === item);
+    if (findIntegration) {
+      return findIntegration;
+    }
+    return null;
+  }
 
   const fetchIntegrations = async () => {
     try {
@@ -223,9 +230,11 @@ const Page = () => {
               logo: item.icon ?? findIconValue(item.name),
               grayscale: false,
               checked: sendCheckedOrNo(data.results, item.name),
+              integration_data: getDataAttributes(data.results, item.name),
               "id": item.id,
               "type": item.type,
-              "data": item.data,
+              data: getDataAttributes(data.results, item.name)?.data || item?.data,
+              // "data": item.data,
               "http_auth_scheme": item.http_auth_scheme,
               "http_base": item.http_base,
             });
@@ -245,9 +254,11 @@ const Page = () => {
             logo: item.icon ?? findIconValue(item.name),
             grayscale: false,
             checked: sendCheckedOrNo(data.results, item.name),
+            integration_data: getDataAttributes(data.results, item.name),
             "id": item.id,
             "type": item.type,
-            "data": item.data,
+            data: getDataAttributes(data.results, item.name)?.data || item?.data,
+            // "data": item.data,
             "http_auth_scheme": item.http_auth_scheme,
             "http_base": item.http_base,
 
@@ -269,7 +280,6 @@ const Page = () => {
           })
         }
         setIntegrationsTiles(sortedData)
-        console.log(sortedData)
         setFixeData(sortedData)
       }
       setDataLoader(false);
@@ -283,7 +293,7 @@ const Page = () => {
   }, []);
 
   const performIntegrationTask = (item) => {
-    setIntegrationName(item?.name);
+    setIntegrationFormData(item);
     setFormData(item.data)
     switch (item?.name) {
       case "Rest API":
@@ -433,7 +443,7 @@ const Page = () => {
           ) : (
             <>
               {formData && (
-                <CustomIntegration data={[formData]} formData={formData} setFormData={setFormData} name={integrationName} setIntegrationform={setIntegrationform} />
+                <CustomIntegration fetchData={fetchIntegrations} formData={formData} setFormData={setFormData} setIntegrationform={setIntegrationform} integrationFormData={integrationFormData} />
               )}
             </>
           )}

@@ -41,6 +41,16 @@ export const getAllIntegrationTemplates = async () => {
     }
 };
 
+export const addIntegrationTemplate = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/integration-templates/${id}/add/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
 export const getAllAutomations = async (type) => {
     let config = returnConfig()
     try {
