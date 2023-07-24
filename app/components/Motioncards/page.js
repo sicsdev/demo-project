@@ -37,7 +37,7 @@ const cards = [
 
 const Motioncards = () => {
   return (
-    <div className="motion_marque_section">
+    <div className="motion_marque_section max-w-[90%] py-3 m-auto">
       <div class="block sm:flex m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4 mt-10">
         <div className="w-[100%] sm:w-[30%]">
           <h2 className="mb-5 text-black text-2xl sm:text-3xl font-bold sm:mb-7">
