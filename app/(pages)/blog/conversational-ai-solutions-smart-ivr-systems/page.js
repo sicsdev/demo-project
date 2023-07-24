@@ -213,7 +213,7 @@ const page = () => {
               height: "300px",
               overflowY: "scroll",
             }}
-            className={isScrolledToBottom ? 'fixed mt-[130px] bottom-[395px]' : 'top-0 fixed mt-[130px] bottom-[395px]' }
+            className={isScrolledToBottom ? 'fixed mt-[130px] bottom-[395px]' : 'top-[40px] fixed mt-[130px] bottom-[395px]' }
           >
             <p className=" block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white ">
               Table of contents
