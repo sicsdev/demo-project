@@ -55,9 +55,10 @@ const Start = () => {
               <ul className="list-none my-6 sm:my-6">
                 {list.map((element, key) => (
                   <li key={key} className="my-2 sm:my-2 tracking-normal">
-                    <span className="flex gap-3  text-white  text-xl align-bottom font-semibold">
+                    <span className="items-center flex gap-1  text-white  text-xl align-bottom font-semibold">
                       {" "}
-                      &#x2713; {element}
+                      {/* &#x2713;  */}
+                      <img className="w-5 h-5" src="/checks/3.png" style={{filter:" brightness(0) invert(1)"}}/>{element}
                     </span>
                   </li>
                 ))}

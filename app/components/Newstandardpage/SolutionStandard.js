@@ -2,7 +2,7 @@ import React from "react";
 
 const slides = [
   {
-    title: "ChatGPT and GPT-4 Power    ",
+    title: "ChatGPT and GPT-4 Power",
     text: "Harness the latest models to intelligently streamline your operations.    ",
     tag: "New",
   },

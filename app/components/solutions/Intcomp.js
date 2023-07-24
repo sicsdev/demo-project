@@ -24,7 +24,7 @@ const Intcomp = () => {
       animation: "mobile leftimg_sec animation3",
     },
     {
-      src: "/communication_channels/twitter.svg",
+      src: "/communication_channels/twitter-x.webp",
       animation: "mobile leftimg_sec animation2",
     },
   ];

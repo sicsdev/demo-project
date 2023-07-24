@@ -3,7 +3,7 @@ import Card from "../Common/Card/Card";
 
 const slides = [
   {
-    title: "GPT-4 Power",
+    title: "ChatGPT and GPT-4 Power",
     text: "Harness the latest models to intelligently streamline your operations.    ",
     tag: "New",
     astrick: "",
