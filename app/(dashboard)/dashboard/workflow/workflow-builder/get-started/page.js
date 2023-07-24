@@ -16,15 +16,20 @@ import FileField from '@/app/components/Common/Input/FileField'
 // import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 // import { Editor } from "react-draft-wysiwyg";
 
-const GetStarted = ({dataFromParent}) => {
+const GetStarted = () => {
+  const [shake, setShake] = useState(null)
   const inputRef = useRef(null);
   const handleButtonClick = () => {
+    setShake('animate-shake')
   if (inputRef.current) {
     inputRef.current.focus();
     inputRef.current.setSelectionRange(
       inputRef.current.value.length,
       inputRef.current.value.length
     );
+    setTimeout(() => {
+      setShake(null)
+    }, 500);
   }
 };
   const params = useSearchParams()
@@ -84,7 +89,7 @@ const GetStarted = ({dataFromParent}) => {
     }
   }
   return (
-    <RightSidebar inputRef={inputRef}>
+    <RightSidebar inputRef={inputRef} shake={shake}>
       {singleData ? (
         <>
           <div className='flex justify-between gap-2 items-center'>

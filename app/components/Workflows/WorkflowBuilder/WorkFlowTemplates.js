@@ -138,7 +138,7 @@ export const ButtonComponent = ({ data }) => {
                     <ul className="py-2 text-sm text-gray-700 ">
 
                         <li className='hover:bg-primary hover:text-white text-heading my-2'>
-                            <button onClick={() => router.push(data.url)}> <a href="#" className="block px-4 py-2 ">Edit</a></button>
+                            <button onClick={() => router.push(data.url)} className="block px-4 py-2 ">Edit</button>
                         </li>
                         <li className='hover:bg-danger hover:text-white text-danger my-2'>
                             <button> <a href="#" className="block px-4 py-2 ">Delete</a></button>

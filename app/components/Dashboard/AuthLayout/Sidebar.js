@@ -23,6 +23,7 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/solid";
 import { fetchRecommendation } from "../../store/slices/recommendation";
+import { fetchIntegrations } from "../../store/slices/integrationSlice";
 
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
@@ -38,6 +39,7 @@ const Sidebar = ({ children }) => {
     if (!state) {
       dispatch(fetchProfile());
       dispatch(fetchRecommendation());
+      dispatch(fetchIntegrations())
     }
   }, [state]);
 
@@ -337,7 +339,7 @@ const Sidebar = ({ children }) => {
                   {isOpen && (
                     <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
                       <li className="text-start p-2">
-                        <p className="text-sm text-heading ml-4">
+                        <p className="text-xs font-semibold text-heading ml-4">
                           {state?.email}
                         </p>
                       </li>
