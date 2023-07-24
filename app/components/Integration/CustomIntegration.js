@@ -1,5 +1,5 @@
 import { BookOpenIcon } from '@heroicons/react/24/outline'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
 import Button from '../Common/Button/Button';
@@ -7,7 +7,7 @@ import { errorMessage, successMessage } from '../Messages/Messages';
 import { addIntegrationTemplate, updateIntegrationData, addIntegrationData } from '@/app/API/pages/Integration';
 import LoaderButton from '../Common/Button/Loaderbutton';
 
-const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
+const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
     const [customFields, setCustomFields] = useState(formData);
     const [loading, setLoading] = useState(false);
 
@@ -22,11 +22,28 @@ const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, in
         checked: integrationFormData?.checked || false
     });
 
+    useEffect(() => {
+        const maskedFormData = Object.keys(formData).reduce((acc, key) => {
+            acc[key] = maskLastFour(formData[key]);
+            return acc;
+        }, {});
+        setCustomFields(maskedFormData);
+    }, [formData]);
+
     const convertToTitleCase = (str) => {
         const words = str.split('_');
         const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
         const result = capitalizedWords.join(' ');
         return result;
+    }
+
+    const updateDataParam = (value, prev, name) => {
+        console.log("value",value.length)
+        if (value?.length < prev[name]?.length) {
+            return prev[name].substring(0, value.length)
+        } else {
+            return value.length > 0 ? prev[name] + value?.charAt(value.length - 1) : value;
+        }
     }
 
     const handleIntegrationInputChange = (e) => {
@@ -36,16 +53,11 @@ const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, in
             [name]: maskLastFour(value),
         }));
 
-        setFormData((prev) => ({
-            ...prev,
-            [name]: value.length > 0 ? prev[name] + value?.charAt(value.length - 1) : value,
-        }));
-
         setPayloadData((prev) => ({
             ...prev,
             data: {
                 ...prev.data,
-                [name]: prev?.data[name] + value?.charAt(value.length - 1),
+                [name]: updateDataParam(value, prev?.data, name),
             }
         }));
 
@@ -54,24 +66,20 @@ const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, in
     const handleDeleteKeyPress = (event) => {
         const { name, value } = event?.target;
         if (event.key === 'Delete') {
-            // Update the formData state to empty the 'data' field
-            setFormData((prev) => ({
-                ...prev,
-                [name]: '',
-            }));
             setCustomFields((prev) => ({
                 ...prev,
                 [name]: '',
             }));
         }
     };
-
+    // console.log("payloadData", payloadData)
     const configureIntegrationHandler = async (e) => {
-        setLoading(true);
+        // setLoading(true);
         try {
             let configureIntegration;
             let message;
-
+            console.log("payloadData", payloadData)
+            return false;
             if (integrationFormData?.checked === true) {
                 configureIntegration = await updateIntegrationData(payloadData, integrationFormData?.integration_data?.id);
                 message = `Integration Update Successfully!`;
@@ -79,6 +87,7 @@ const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, in
                 configureIntegration = await addIntegrationData(payloadData);
                 message = `Integration Added Successfully!`;
             }
+
             setLoading(false);
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 fetchData();
@@ -94,18 +103,12 @@ const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, in
     };
 
     const maskLastFour = (input) => {
-
         if (!input || input.length === 0) {
             return '';
         } else {
-            if (input.length < 7) {
-                const hiddenPart = '*'.repeat(Math.max(0, input.length));
-                return (hiddenPart.length === 0 ? '' : hiddenPart);
-            } else {
-                const visiblePart = input.slice(-4);
-                const hiddenPart = '*'.repeat(Math.max(0, input.length - 4));
-                return (hiddenPart.length === 0 ? '' : hiddenPart) + visiblePart;
-            }
+            const visiblePart = input.slice(0, 4);
+            const hiddenPart = '*'.repeat(Math.max(0, input.length - 4));
+            return visiblePart + hiddenPart;
         }
     };
 
