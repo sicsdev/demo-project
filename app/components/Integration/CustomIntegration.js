@@ -2,37 +2,122 @@ import { BookOpenIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
-import Button from '../Common/Button/Button'
+import Button from '../Common/Button/Button';
+import { errorMessage, successMessage } from '../Messages/Messages';
+import { addIntegrationTemplate, updateIntegrationData, addIntegrationData } from '@/app/API/pages/Integration';
+import LoaderButton from '../Common/Button/Loaderbutton';
 
-const CustomIntegration = ({ name, setIntegrationform, formData, data, setFormData, mode = 'add' }) => {
-    const [customFields, setCustomFields] = useState(formData)
+const CustomIntegration = ({ name, setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
+    const [customFields, setCustomFields] = useState(formData);
+    const [loading, setLoading] = useState(false);
+
+    const [payloadData, setPayloadData] = useState({
+        name: integrationFormData?.name,
+        type: integrationFormData?.type,
+        id: integrationFormData?.integration_data?.id || null,
+        http_base: integrationFormData?.http_base,
+        http_auth_scheme: integrationFormData?.http_auth_scheme,
+        data: integrationFormData?.data,
+        provider: integrationFormData?.name,
+        checked: integrationFormData?.checked || false
+    });
+
     const convertToTitleCase = (str) => {
         const words = str.split('_');
         const capitalizedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
         const result = capitalizedWords.join(' ');
         return result;
     }
-    console.log(formData)
+
     const handleIntegrationInputChange = (e) => {
         const { name, value } = e.target;
         setCustomFields((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: maskLastFour(value),
         }));
+
         setFormData((prev) => ({
             ...prev,
-            [name]: value,
+            [name]: value.length > 0 ? prev[name] + value?.charAt(value.length - 1) : value,
         }));
-    }
-    const maskLastFour = (input) => {
-        const visiblePart = input.slice(-4);
-        const hiddenPart = input.slice(0, -4).replace(/./g, '*');
-        return hiddenPart + visiblePart;
+
+        setPayloadData((prev) => ({
+            ...prev,
+            data: {
+                ...prev.data,
+                [name]: prev?.data[name] + value?.charAt(value.length - 1),
+            }
+        }));
+
     };
 
+    const handleDeleteKeyPress = (event) => {
+        const { name, value } = event?.target;
+        if (event.key === 'Delete') {
+            // Update the formData state to empty the 'data' field
+            setFormData((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+            setCustomFields((prev) => ({
+                ...prev,
+                [name]: '',
+            }));
+        }
+    };
+
+    const configureIntegrationHandler = async (e) => {
+        setLoading(true);
+        try {
+            let configureIntegration;
+            let message;
+
+            if (integrationFormData?.checked === true) {
+                configureIntegration = await updateIntegrationData(payloadData, integrationFormData?.integration_data?.id);
+                message = `Integration Update Successfully!`;
+            } else {
+                configureIntegration = await addIntegrationData(payloadData);
+                message = `Integration Added Successfully!`;
+            }
+            setLoading(false);
+            if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
+                fetchData();
+                setIntegrationform(false);
+                successMessage('Integration Template Updated Successfully!');
+            } else {
+                errorMessage("Unable to Proceed!");
+            }
+        } catch (error) {
+            setLoading(false);
+            errorMessage("Unable to Proceed!");
+        }
+    };
+
+    const maskLastFour = (input) => {
+
+        if (!input || input.length === 0) {
+            return '';
+        } else {
+            if (input.length < 7) {
+                const hiddenPart = '*'.repeat(Math.max(0, input.length));
+                return (hiddenPart.length === 0 ? '' : hiddenPart);
+            } else {
+                const visiblePart = input.slice(-4);
+                const hiddenPart = '*'.repeat(Math.max(0, input.length - 4));
+                return (hiddenPart.length === 0 ? '' : hiddenPart) + visiblePart;
+            }
+        }
+    };
+
+
     const DisablingButton = () => {
+        if (Object.keys(customFields).length === 0) {
+            return true;
+        }
         return Object.values(customFields).some(field => field.trim() === '');
     };
+
+
     return (
         <>
             <div className="block sm:flex items-center justify-between">
@@ -41,9 +126,9 @@ const CustomIntegration = ({ name, setIntegrationform, formData, data, setFormDa
                         className="text-[#b3b3b3] cursor-pointer"
                         onClick={() => setIntegrationform(false)}
                     >
-                        <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+                        <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
                     <p class="text-black-color text-xl font-semibold">
-                        Configure {name}
+                        Configure {integrationFormData?.name}
                     </p>
                 </div>
                 <div class="text-center my-3 flex justify-between items-center gap-3 sm:w-[27%]">
@@ -63,8 +148,7 @@ const CustomIntegration = ({ name, setIntegrationform, formData, data, setFormDa
                                     <div className='my-2' key={key}>
                                         <TextField
                                             onChange={(e) => handleIntegrationInputChange(e)}
-                                            // value={maskLastFour(customFields[key])}
-                                            value={maskLastFour("cfe3e1d6-29b1-11ee-be56-0242ac120002")}
+                                            value={customFields[key] || ''}
                                             name={key}
                                             labelClass={"text-gray-700 font-bold mb-2"}
                                             className="py-3 mt-2"
@@ -72,18 +156,24 @@ const CustomIntegration = ({ name, setIntegrationform, formData, data, setFormDa
                                             placeholder={convertToTitleCase(key)}
                                             type={"text"}
                                             id={key}
-                                            // disabled
+                                            onKeyDown={handleDeleteKeyPress}
+                                        // disabled
                                         />
                                     </div>
                                 ))}
-                                <Button
-                                    type={"button"}
-                                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                    disabled={DisablingButton()}
-                                >
+                                {loading ? (
+                                    <LoaderButton />
+                                ) : (
+                                    <Button
+                                        type={"button"}
+                                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                        disabled={DisablingButton()}
+                                        onClick={(e) => configureIntegrationHandler(e)}
+                                    >
 
-                                    Submit
-                                </Button>
+                                        {integrationFormData?.checked === true ? 'Update' : 'Save'}
+                                    </Button>
+                                )}
                             </form>
                         </div>
                     </div>
