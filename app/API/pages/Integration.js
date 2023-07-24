@@ -81,3 +81,13 @@ export const updateIntegrationAutomation = async (body, id) => {
         return error
     }
 };
+
+export const getIntegrationAutomation = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/integrations/${id}/automations/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

@@ -13,8 +13,10 @@ import Integrationform from "@/app/components/Integrationform/page";
 import Button from "@/app/components/Common/Button/Button";
 import { makeCapital } from "@/app/components/helper/capitalName";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
+import { useSelector } from "react-redux";
 
 const Page = () => {
+  const state = useSelector(state=> state.integration)
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([])
   const [integrationTiles, setIntegrationsTiles] = useState([])
@@ -211,7 +213,6 @@ const Page = () => {
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
-      const data = await getAllIntegration();
       const dataTemplates = await getAllIntegrationTemplates();
       if (dataTemplates && dataTemplates?.length > 0) {
         const transformedData = dataTemplates.reduce((result, item) => {
@@ -229,11 +230,11 @@ const Page = () => {
               name: item.name,
               logo: item.icon ?? findIconValue(item.name),
               grayscale: false,
-              checked: sendCheckedOrNo(data.results, item.name),
-              integration_data: getDataAttributes(data.results, item.name),
+              checked: sendCheckedOrNo(state.data.results, item.name),
+              integration_data: getDataAttributes(state.data.results, item.name),
               "id": item.id,
               "type": item.type,
-              data: getDataAttributes(data.results, item.name)?.data || item?.data,
+              data: getDataAttributes(state.data.results, item.name)?.data || item?.data,
               // "data": item.data,
               "http_auth_scheme": item.http_auth_scheme,
               "http_base": item.http_base,
@@ -253,11 +254,11 @@ const Page = () => {
             name: item.name,
             logo: item.icon ?? findIconValue(item.name),
             grayscale: false,
-            checked: sendCheckedOrNo(data.results, item.name),
-            integration_data: getDataAttributes(data.results, item.name),
+            checked: sendCheckedOrNo(state.data.results, item.name),
+            integration_data: getDataAttributes(state.data.results, item.name),
             "id": item.id,
             "type": item.type,
-            data: getDataAttributes(data.results, item.name)?.data || item?.data,
+            data: getDataAttributes(state.data.results, item.name)?.data || item?.data,
             // "data": item.data,
             "http_auth_scheme": item.http_auth_scheme,
             "http_base": item.http_base,
@@ -289,8 +290,10 @@ const Page = () => {
   };
 
   useEffect(() => {
-    fetchIntegrations();
-  }, []);
+    if(state?.data){
+      fetchIntegrations();
+    }
+  }, [state]);
 
   const performIntegrationTask = (item) => {
     setIntegrationFormData(item);
