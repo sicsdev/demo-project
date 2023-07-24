@@ -7,7 +7,8 @@ const TextField = ({
   error = null,
   type,
   placeholder,
-  id,
+  handleInputFocus,
+    id,
   register,
   subtitle = null,
   className = "py-3",
@@ -26,6 +27,7 @@ const TextField = ({
       <input
         value={value}
         required
+        onFocus={handleInputFocus}
         onChange={onChange}
         type={type || "text"}
         {...register}
