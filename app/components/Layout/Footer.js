@@ -33,7 +33,7 @@ const Footer = () => {
   ];
   return (
     <>
-      <footer className=" bg-[#142543] shadow text-center text-white ">
+      <footer className=" bg-[#142543] shadow text-center text-white relative">
         <div className=" mx-auto lg:max-w-[90%]">
           <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
             <div>

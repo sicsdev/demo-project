@@ -9,12 +9,13 @@ import { useSelector } from 'react-redux';
 import Loading from '@/app/components/Loading/Loading';
 import { getAllWorkflow } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
+import Motioncards from '@/app/components/Motioncards/page';
 
 const Page = () => {
     const state = useSelector(state => state.user)
     const getAllWorkflowData = async () => {
-        const response = await getAllWorkflow()
-        debugger
+        // const response = await getAllWorkflow()
+        // debugger
     }
     useEffect(() => {
         getAllWorkflowData()
@@ -41,6 +42,7 @@ const Page = () => {
                             <WorkFlowTemplates />
                         </>
                     )}
+                    <Motioncards />
                 </>
             }
         </>

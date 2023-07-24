@@ -14,7 +14,7 @@ const Social = () => {
     { src: "/communication_channels/imessage.svg", animation: "mobile leftimg_sec animation2" },
     { src: "/communication_channels/insta.svg", animation: "mobile leftimg_sec animation2" },
     { src: "/communication_channels/whatsapp.svg", animation: "mobile leftimg_sec animation3" },
-    { src: "/communication_channels/twitter.svg", animation: "mobile leftimg_sec animation2" },
+    { src: "/communication_channels/twitter-x.webp", animation: "mobile leftimg_sec animation2" },
   ];
   return (
     <div className=" bg-[white] pt-2 sm:pt-10 pb-2 sm:pb-4">
@@ -34,7 +34,7 @@ const Social = () => {
                 src={element.src}
                 fill={true}
                 alt="Picture of the author"
-                className={`m-auto object-contain mx-auto , ${key === 4 ? "img-platform-whatsapp" : "img-platform-1"} ${element.animation}`}
+                className={`m-auto object-contain mx-auto , ${key === 4 || 5 ? "img-platform-whatsapp" : "img-platform-1"} ${element.animation}`}
               />
             </div>
           ))}
