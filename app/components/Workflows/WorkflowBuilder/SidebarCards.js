@@ -4,7 +4,7 @@ import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
-import { tiles_icons } from "@/app/data/icons.json";
+import { tiles_icons } from "@/app/data/icon_data.json";
 
 const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick }) => {
     const [beatLoader, setBeatLoader] = useState(false)
