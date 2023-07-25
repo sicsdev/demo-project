@@ -9,6 +9,7 @@ import {
   CheckCircleIcon,
   PlusCircleIcon,
   PlusSmallIcon,
+  CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 import { useSearchParams, useRouter } from "next/navigation";
 import "../../(dashboard)/dashboard/customize/widgetStyle.css";
@@ -29,6 +30,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import BotSetting from "@/app/(dashboard)/dashboard/bot-settings/page";
 import EmailConfig from "../EmailConfig/EmailConfig";
+import Schedule from "./Schedule";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const dispatch = useDispatch();
   const [botDetails, setBotDetails] = useState({});
@@ -704,6 +706,26 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                 }
               </div>
+
+
+
+
+              {/* DATES/HOURS RANGES THAT WIDGET WILL ACTIVE */}
+              <div style={{ marginTop: '100px' }}>
+                <span className="text-heading font-bold mb-4 flex">
+                  <CalendarDaysIcon
+                    fill="white"
+                    className="w-6 h-6 text-sky mr-2 rounded-full"
+                    title="Add URL"
+                  />
+                  Schedule</span>
+                <hr className="opacity-10 mt-4"></hr>
+                <Schedule preferences={preferences}></Schedule>
+
+              </div>
+
+
+
               {form === false && (
                 <div className="m-auto justify-center flex mt-4">
                   <div className="m-auto align-center">
