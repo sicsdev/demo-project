@@ -4,22 +4,27 @@ import { BriefcaseIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 import WorkFlowTemplates from '@/app/components/Workflows/WorkflowBuilder/WorkFlowTemplates';
 import Workflows from '@/app/components/Workflows/Workflows';
-import Button from '@/app/components/Common/Button/Button';
 import { useSelector } from 'react-redux';
 import Loading from '@/app/components/Loading/Loading';
 import { getAllWorkflow } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
 import Motioncards from '@/app/components/Motioncards/page';
+import { ToastContainer } from 'react-toastify';
 
 const Page = () => {
     const state = useSelector(state => state.user)
+    const [workflowData, setWorkflowData] = useState({});
     const getAllWorkflowData = async () => {
-        // const response = await getAllWorkflow()
-        // debugger
+        try {
+            const response = await getAllWorkflow();
+            setWorkflowData(response);
+        } catch (error) {
+        }
     }
     useEffect(() => {
         getAllWorkflowData()
     }, [])
+
     return (
         <>
             {state.isLoading === true ? <Loading /> :
@@ -39,12 +44,13 @@ const Page = () => {
                                 </ul>
                             </div>
                             <Workflows state={state} />
-                            <WorkFlowTemplates />
+                            <WorkFlowTemplates workflowData={workflowData} />
                         </>
                     )}
                     <Motioncards />
                 </>
             }
+            <ToastContainer />
         </>
     )
 }
