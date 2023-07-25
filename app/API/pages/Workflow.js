@@ -15,3 +15,23 @@ export const getAllWorkflow = async () => {
         return error
     }
 };
+
+export const createWorkflow = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflows/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const updateWorkFlowStatus = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/workflows/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

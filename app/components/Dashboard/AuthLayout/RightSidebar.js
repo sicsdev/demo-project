@@ -1,14 +1,15 @@
 import { ChevronLeftIcon } from '@heroicons/react/24/outline'
-import { BriefcaseIcon, ChartBarIcon, ChatBubbleLeftRightIcon, ChevronRightIcon, ClipboardDocumentIcon, ShieldCheckIcon, UsersIcon } from '@heroicons/react/24/solid'
+import { ChartBarIcon, ChatBubbleLeftRightIcon, ChevronRightIcon, ClipboardDocumentIcon } from '@heroicons/react/24/solid'
 import React, { useState, useRef } from 'react'
-import { ColorRing, TailSpin } from 'react-loader-spinner'
+import { ColorRing } from 'react-loader-spinner'
 import { useSelector } from 'react-redux'
 import Loading from '../../Loading/Loading'
 import Image from 'next/image'
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 
-const RightSidebar = ({ children, inputRef, shake }) => {
+const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, automationStepsData }) => {
     const state = useSelector(state => state.integration)
+    const [integrationAutomationData, setIntegrationAutomationData] = useState([]);
     const [innerSide, setInnerSide] = useState({
         id: null,
         value: null
@@ -182,12 +183,13 @@ const RightSidebar = ({ children, inputRef, shake }) => {
             }
         ]
 
-        const findIcon = tiles_icons.find((x) => x.name.toLowerCase() === name.toLowerCase())
+        const findIcon = tiles_icons?.find((x) => x?.name.toLowerCase() === name?.toLowerCase())
         if (findIcon) {
             return findIcon.logo
         }
         return ""
     }
+
     const findAutomations = async (element) => {
         setBeatLoader(true)
         setInnerSide(prev => {
@@ -197,13 +199,17 @@ const RightSidebar = ({ children, inputRef, shake }) => {
                 value: element
             }
         })
-        setTimeout(() => {
-            setBeatLoader(false)
-        }, 400);
-        const automation = await getIntegrationAutomation(element.id)
-        debugger
-        console.log("automation",automation)
+        const automationData = await getIntegrationAutomation(element.id);
+        setIntegrationAutomationData(automationData);
+        setBeatLoader(false);
     }
+
+    const addStepHandler = (ele) => {
+        const updatedArray = [...automationStepsData, ele];
+        setAutomationStepsData(updatedArray);
+    };
+
+
     return (
         <>
             {state.isLoading === true ?
@@ -218,11 +224,11 @@ const RightSidebar = ({ children, inputRef, shake }) => {
                         <ul className="relative m-0 list-none px-[0.2rem]  ">
                             <li className='cursor-pointer'>
                                 <form>
-                                    <label for="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                             </svg>
                                         </div>
                                         <input type="search" ref={inputRef} id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" required />
@@ -289,20 +295,20 @@ const RightSidebar = ({ children, inputRef, shake }) => {
                                                 </div>
                                                 <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
                                             </div>
-                                            {list.slice(0, 2).map((ele, key) =>
-                                                <li className='my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]' key={key} >
+                                            {integrationAutomationData?.map((ele, key) =>
+                                                <li className='my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]' key={key} onClick={(e) => addStepHandler(ele)}>
                                                     <div className='flex justify-between items-center gap-4'>
                                                         <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                                             <Image
                                                                 fill={"true"}
                                                                 className={`bg-contain mx-auto w-full rounded-lg`}
                                                                 alt="logo.png"
-                                                                src={getLogo(ele.name)}
+                                                                src={getLogo(ele?.name)}
                                                             />
                                                         </div>
                                                         <div>
-                                                            <h3 className='text-[13px] font-[4500]'>Lorem ipsum dolor sit amet</h3>
-                                                            <p className='text-border text-[11px] font-light'>consectetur adipiscing elit, sed do eiusmod.</p>
+                                                            <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
+                                                            <p className='text-border text-[11px] font-light'>{ele?.description}</p>
                                                         </div>
                                                     </div>
                                                 </li>
