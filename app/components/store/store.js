@@ -4,6 +4,7 @@ import botIdReducer from './slices/botIdSlice';
 import userReducer from './slices/userSlice';
 import memberReducer from './slices/memberSlice';
 import recommendationReducer from './slices/recommendation';
+import integrationReducer from './slices/integrationSlice';
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         botId: botIdReducer,
         user: userReducer,
         members: memberReducer,
-        recommendation: recommendationReducer
+        recommendation: recommendationReducer,
+        integration:integrationReducer
     },
 });
 

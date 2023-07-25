@@ -6,11 +6,13 @@ import Button from '../Common/Button/Button';
 import { errorMessage, successMessage } from '../Messages/Messages';
 import { addIntegrationTemplate, updateIntegrationData, addIntegrationData } from '@/app/API/pages/Integration';
 import LoaderButton from '../Common/Button/Loaderbutton';
+import { useDispatch } from 'react-redux';
+import { fetchIntegrations } from '../store/slices/integrationSlice';
 
 const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
     const [customFields, setCustomFields] = useState(formData);
     const [loading, setLoading] = useState(false);
-
+    const dispatch = useDispatch()
     const [payloadData, setPayloadData] = useState({
         name: integrationFormData?.name,
         type: integrationFormData?.type,
@@ -47,12 +49,12 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     }
     const handleInputFocus = (e) => {
         const { name, value } = e.target;
-        
+
         setCustomFields((prev) => ({
             ...prev,
             [name]: '',
         }));
-      };
+    };
     const handleIntegrationInputChange = (e) => {
         const { name, value } = e.target;
         setCustomFields((prev) => ({
@@ -95,8 +97,10 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
 
             setLoading(false);
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
-                fetchData();
+                // fetchData();
+                dispatch(fetchIntegrations())
                 setIntegrationform(false);
+
                 successMessage('Integration Template Updated Successfully!');
             } else {
                 errorMessage("Unable to Proceed!");
