@@ -3,6 +3,8 @@ import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { removeWorkFlow } from '@/app/API/pages/Workflow';
+import { successMessage } from '../../Messages/Messages';
 const WorkFlowTemplates = ({ workflowData }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
@@ -37,7 +39,7 @@ const WorkFlowTemplates = ({ workflowData }) => {
             name: "Actions",
             sortable: false,
             cell: (row) => (
-                <ButtonComponent data={row} />
+                <ButtonComponent data={row} alldata={data} setData={setData} workflowData={workflowData} />
             ),
 
         },
@@ -64,7 +66,6 @@ const WorkFlowTemplates = ({ workflowData }) => {
     };
 
     const handleChange = (e) => {
-
         setSearch(e.target.value)
         const workflowOptionsfilter = workflowData?.results?.filter(
             (item) =>
@@ -78,7 +79,6 @@ const WorkFlowTemplates = ({ workflowData }) => {
             <h3 className='text-heading text-center font-semibold text-xl my-2'>Add, edit, and manage your Tempo workflows</h3>
             <p className='text-heading text-sm text-center'>Workflows use your integrations to allow Tempo to interact with 3rd party API's and databases. Use our templates or create your own. </p>
             <div className='flex justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
-
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -102,19 +102,27 @@ const WorkFlowTemplates = ({ workflowData }) => {
                     customStyles={customStyles}
                 />
             </div>
+            <hr className='text-[#cfdada]' />
         </div>
     )
 }
 
 export default WorkFlowTemplates
 
-export const ButtonComponent = ({ data }) => {
+export const ButtonComponent = ({ data, alldata, setData }) => {
     const [showHelp, setShowHelp] = useState(null)
     const router = useRouter()
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
-
+    const deleteWorkFlow = async (element) => {
+        const filterData = alldata.filter((x) => x.id !== element.id)
+        const deleteWorkFlow = await removeWorkFlow(element.id)
+        if (deleteWorkFlow.status === 204) {
+            setData(filterData)
+            successMessage("Workflow deleted successfully !")
+        }
+    }
     return (
         <>
             <div className='cursor-pointer relative' onClick={() => { setShowHelp(prev => { if (prev === data.key) { return null } else { return data.key } }) }}>
@@ -125,7 +133,7 @@ export const ButtonComponent = ({ data }) => {
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>
                             </li>
-                            <li className='hover:bg-danger hover:text-white text-danger my-2'>
+                            <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
                             </li>
                         </ul>
