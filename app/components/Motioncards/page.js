@@ -66,7 +66,7 @@ const card1 = [
   },
   {
     id: "3",
-    img: "/zen.png",
+    img: "/zenenew.png",
     name: "ZenDesk",
     subheading: "Helpdesk",
   },
