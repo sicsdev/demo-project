@@ -132,15 +132,15 @@ const Demo = () => {
             />
           </div>
           <div className="inline mt-5 sm:m-0 md:m-0 lg:m-0">
-            <Button
+            <button
               className={
-                "py-[11px] px-2 w-full focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900  disabled:bg-[#e7b37e]"
+                " focus:outline-none focus:ring-4  font-bold rounded-md text-base py-2.5  px-2 w-full focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900   disabled:bg-[#e7b37e]"
               }
               onClick={handleNavigate}
               disabled={validEmail}
             >
               Start Now
-            </Button>
+            </button>
           </div>
         </form>
         <div className=" flex justify-between pt-3  sm:pt-0 sm:justify-start md:justify-start sm:flex md:flex lg:flex sm:mt-[10px]  items-center sm:gap-[44px]">
