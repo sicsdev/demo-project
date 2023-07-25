@@ -10,15 +10,23 @@ import { getAllWorkflow } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
 import Motioncards from '@/app/components/Motioncards/page';
 import { ToastContainer } from 'react-toastify';
+import CreateWorkflow from '@/app/components/Workflows/WorkflowBuilder/CreateWorkflow';
+import Modal from '@/app/components/Common/Modal/Modal';
 
 const Page = () => {
     const state = useSelector(state => state.user)
     const [workflowData, setWorkflowData] = useState({});
+    const [form, setForm] = useState({});
+    const [createWorkflowModal, setCreateWorkflowModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const getAllWorkflowData = async () => {
+        setLoading(true)
         try {
             const response = await getAllWorkflow();
             setWorkflowData(response);
+            setLoading(false)
         } catch (error) {
+            setLoading(false)
         }
     }
     useEffect(() => {
@@ -27,7 +35,7 @@ const Page = () => {
 
     return (
         <>
-            {state.isLoading === true ? <Loading /> :
+            {state.isLoading === true || loading === true ? <Loading /> :
 
                 <>
                     {state?.data?.enterprise && (
@@ -43,12 +51,17 @@ const Page = () => {
                                     </li>
                                 </ul>
                             </div>
-                            <Workflows state={state} />
+                            <Workflows state={state} setCreateWorkflowModal={setCreateWorkflowModal} />
                             <WorkFlowTemplates workflowData={workflowData} />
                         </>
                     )}
-                    <Motioncards />
                 </>
+            }
+            {createWorkflowModal ?
+                <Modal title={'Manage Policy'} show={createWorkflowModal} setShow={setCreateWorkflowModal} className={'w-[80%] rounded-lg'} showCancel={true} >
+                    <CreateWorkflow form={form} setForm={setForm} getAllWorkflowData={getAllWorkflowData} setCreateWorkflowModal={setCreateWorkflowModal} />
+                </Modal>
+                : ""
             }
             <ToastContainer />
         </>

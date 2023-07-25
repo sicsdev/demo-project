@@ -2,8 +2,10 @@ import { ClipboardIcon, InboxArrowDownIcon, PencilIcon, TrashIcon } from '@heroi
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { tiles_icons } from '@/app/data/icon_data';
 
-const WorkFlowSelector = ({ openModal, stepData }) => {
+const WorkFlowSelector = ({ openModal, stepData,setAutomationStepsData }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
 
     const updateShowButtonState = (id, type) => {
@@ -13,7 +15,19 @@ const WorkFlowSelector = ({ openModal, stepData }) => {
             setShowButtonStates(null);
         }
     };
+    const getLogo = (name) => {
 
+        const findIcon = tiles_icons?.find((x) => x?.name.toLowerCase() === name?.toLowerCase())
+        if (findIcon) {
+            return findIcon.logo
+        }
+        return ""
+    }
+
+    const deleteTheEntry = (key) => {
+        const filterData = stepData.filter((_, index) => index !== key)
+        setAutomationStepsData(filterData)
+    }
     return (
         <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
@@ -30,57 +44,10 @@ const WorkFlowSelector = ({ openModal, stepData }) => {
                     </Button>
                 </div>
             </div>
-            {/* <div className='section-workflow-wrapper'>
-                <div className='section-workflow'></div>
-                <div className='iconplus  cursor-pointer'>
-                    <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                </div>
-                <div className='section-workflow3'></div>
-                <div className='section-workflow2'></div>
-            </div>
-            <div className='border  border-border rounded-lg shadow'>
-                <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
-                    <div className='flex justify-between gap-2 items-center'>
-                        <div className='flex justify-between gap-4 items-center'>
-                            <InboxArrowDownIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                            <p className='text-sm font-semibold '>Collect info in a form</p>
-                        </div>
-                        <div>
-                            <Button
-                                type={"button"}
-                                onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
-                                className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
-                                <TrashIcon className="h-5 w-5 font-semibold" />
-                            </Button>
-                            <Button
-                                type={"button"}
-                                onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
-                                className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
-                                <PencilIcon className="h-5 w-5 font-semibold" />
-                            </Button>
-                        </div>
-                    </div>
-                </div>
-                <div className='p-5'>
-                    <h2 className="mb-2 text-sm font-semibold">Top students:</h2>
-                    <ol className="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400">
-                        <li>
-                            <span className="font-normal text-sm ">Bonnie Green 70</span>
-                        </li>
-                        <li>
-                            <span className="font-normal text-sm ">Jese Leos 63</span>
-                        </li>
-                        <li>
-                            <span className="font-normal text-sm ">Leslie Livingston7</span>
-                        </li>
-                    </ol>
-
-                </div>
-            </div> */}
             {stepData?.map((ele, key) =>
                 <div key={key}
-                    onMouseEnter={() => updateShowButtonState(ele?.id, 'show')}
-                    onMouseLeave={() => updateShowButtonState(ele?.id, 'hide')}
+                    onMouseEnter={() => updateShowButtonState(key, 'show')}
+                    onMouseLeave={() => updateShowButtonState(key, 'hide')}
                 >
                     <div className='section-workflow-wrapper'>
                         <div className='section-workflow'></div>
@@ -94,17 +61,24 @@ const WorkFlowSelector = ({ openModal, stepData }) => {
                         <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
                             <div className='flex justify-between gap-2 items-center'>
                                 <div className='flex justify-between gap-4 items-center'>
-                                    <InboxArrowDownIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                    <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
+                                        <Image
+                                            fill={"true"}
+                                            className="bg-contain mx-auto w-full rounded-lg"
+                                            alt="logo.png"
+                                            src={getLogo(ele?.name.split(" ")[0]) ?? '/workflow/reactive-subscription.png'}
+                                        />
+                                    </div>
                                     <p className='text-sm font-semibold '>{ele?.name}</p>
                                 </div>
                                 <div>
                                     <div className='rounded-lg group-hover:border border-border  h-[38px] group-hover:shadow]'>
-                                        {showButtonStates === ele?.id &&
+                                        {showButtonStates === key &&
                                             <Button
                                                 type={"button"}
-                                                onClick={(e) => console.log('click')}
+                                                onClick={(e) => deleteTheEntry(key)}
                                                 className="inline-block  cursor-pointer p-2  h-[38px]">
-                                                <TrashIcon className="h-5 w-5 font-semibold" />
+                                                <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
                                             </Button>
                                         }
                                         <Button
@@ -119,7 +93,8 @@ const WorkFlowSelector = ({ openModal, stepData }) => {
                         </div>
                     </div>
                 </div>
-            )}
+            )
+            }
 
             <div className='section-workflow-wrapper'>
                 <div className='section-workflow'></div>
@@ -139,7 +114,7 @@ const WorkFlowSelector = ({ openModal, stepData }) => {
                 </div>
             </div>
 
-        </div>
+        </div >
     )
 }
 

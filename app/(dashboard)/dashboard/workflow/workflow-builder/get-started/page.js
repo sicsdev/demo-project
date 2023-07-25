@@ -12,7 +12,7 @@ import { useParams, useSearchParams } from 'next/navigation'
 import WorkFlowSelector from '@/app/components/Workflows/WorkFlowSelector/WorkFlowSelector'
 import TextField from '@/app/components/Common/Input/TextField'
 import FileField from '@/app/components/Common/Input/FileField'
-import { getAllWorkflow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import { getAllWorkflow, getSingleWorkflow, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import Loading from "@/app/components/Loading/Loading";
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import { useRouter } from 'next/navigation';
@@ -23,8 +23,10 @@ const GetStarted = () => {
   const inputRef = useRef(null);
   const router = useRouter();
 
-  const handleButtonClick = () => {
-    setShake('animate-shake')
+  const handleButtonClick = (shake = true) => {
+    if (shake) {
+      setShake('animate-shake')
+    }
     if (inputRef.current) {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(
@@ -36,10 +38,9 @@ const GetStarted = () => {
       }, 500);
     }
   };
-
   const params = useSearchParams()
   const [singleData, setSingleData] = useState(null)
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [publishLoader, setPublishLoader] = useState(false);
   const [workflowData, setWorkflowData] = useState(null)
   const [showHelp, setShowHelp] = useState(false)
@@ -72,30 +73,28 @@ const GetStarted = () => {
 
   const [automationStepsData, setAutomationStepsData] = useState([]);
 
-  const getAllWorkflowData = async () => {
-    try {
-      setIsLoading(true);
-      const response = await getAllWorkflow();
-      setWorkflowData(response);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
+  const getWorkflowData = async (id) => {
+    const response = await getSingleWorkflow(id)
+    if (response) {
+      setSingleData(response)
+      setIsLoading(false)
+    } else {
+      setIsLoading(false)
     }
+
+
   }
-console.log("automationStepsData", automationStepsData)
-  useEffect(() => {
-    getAllWorkflowData()
-  }, [])
 
   useEffect(() => {
-    if (params.get("flow")) {
-      const flow = params.get("flow");
-      const findData = workflowData?.results?.find((x) => x.id === flow)
-      if (findData) {
-        setSingleData(findData)
-      }
+    const flow = params.get("flow");
+    if (flow) {
+      setIsLoading(true)
+      getWorkflowData(flow)
+    } else {
+      router.push("/dashboard/workflow/workflow-builder")
+
     }
-  }, [workflowData])
+  }, [])
 
   const openModal = (value) => {
     switch (value.key) {
@@ -132,13 +131,20 @@ console.log("automationStepsData", automationStepsData)
       errorMessage("Unable to Proceed!");
     }
   };
-
+  const deleteWorkFlow = async (element) => {
+    const flow = params.get("flow");
+    const deleteWorkFlow = await removeWorkFlow(flow)
+    if (deleteWorkFlow.status === 204) {
+      successMessage("Workflow deleted successfully !")
+      router.push(`/dashboard/workflow/workflow-builder`);
+    }
+  }
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} >
+        <RightSidebar inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
           {singleData ? (
             <>
               <div className='flex justify-between gap-2 items-center'>
@@ -176,8 +182,8 @@ console.log("automationStepsData", automationStepsData)
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
 
-                          <li className='hover:bg-danger hover:text-white text-danger my-2'>
-                            <a href="#" className="block px-4 py-2 ">Delete</a>
+                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={()=>{deleteWorkFlow()}}>
+                            <a  className="block px-4 py-2 ">Delete</a>
                           </li>
                         </ul>
                       </div>
@@ -186,7 +192,7 @@ console.log("automationStepsData", automationStepsData)
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} stepData={automationStepsData} />
+              <WorkFlowSelector openModal={openModal} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} />
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
@@ -222,8 +228,6 @@ console.log("automationStepsData", automationStepsData)
                           </div>
                         </div>
                       )}
-
-
                     </div >
                   )}
                 </div>
@@ -236,7 +240,10 @@ console.log("automationStepsData", automationStepsData)
                 >
                   <Button
                     className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
-                  // onClick={() => { setSuggestModal(prev => !prev) }}
+                  onClick={() => {
+                     setDescriptionModal(prev => !prev) 
+                     setShowOptions(false) 
+                    }}
 
                   >
                     Back
@@ -269,20 +276,6 @@ console.log("automationStepsData", automationStepsData)
                 </div>
                 <div className='mt-2 p-2'>
                   <FileField title={<div className='flex items-center gap-2'><span>Image</span> </div>} type={'file'} placeholder="Upload" id="docs"
-                    // onChange={(event) => {
-                    //   const file = event.target.files[0];
-                    //   const allowedExtensions = ['json', 'xls', 'xlsx', 'csv', 'mbox', 'pst'];
-                    //   if (file) {
-                    //     const fileExtension = file.name.split('.').pop().toLowerCase();
-                    //     if (allowedExtensions.indexOf(fileExtension) === -1) {
-                    //       setErrors('Error: please upload a valid file type (json, xls, xlsx, csv, mbox, pst)');
-                    //       return;
-                    //     }
-                    //     setErrors(null);
-                    //     setSelectedFile(file);
-                    //   }
-
-                    // }} 
                     error={""} />
                 </div>
                 <div
@@ -309,9 +302,9 @@ console.log("automationStepsData", automationStepsData)
           {/* workflowname modal end  */}
           {
             showPublishModal &&
-            <Modal title={'Your workflow is ready to use'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+            <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
               <div className=''>
-                <p><b>Welcome Bot</b> is published and available to use in tempo. Test is out by leaving and then re-joining <b># ads.</b></p>
+                <p><b>{singleData.name}</b> will be pushed into production, allowing your Tempo agents to use it immediately. Please click confirm to continue.  </p>
                 <div className='flex justify-between gap-2 items-center mt-5'>
                   <div></div>
 

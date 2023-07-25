@@ -15,6 +15,15 @@ export const getAllWorkflow = async () => {
         return error
     }
 };
+export const getSingleWorkflow = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows/${id}/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
 
 export const createWorkflow = async (body) => {
     let config = returnConfig()
@@ -30,6 +39,16 @@ export const updateWorkFlowStatus = async (body, id) => {
     let config = returnConfig()
     try {
         const response = await axios.patch(`${API_URL}/api/v1/main/workflows/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const removeWorkFlow = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/workflows/${id}/`, config);
         return response;
     } catch (error) {
         return error

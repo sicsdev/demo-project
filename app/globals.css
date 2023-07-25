@@ -520,6 +520,7 @@ transition: all .4s ease;
   color: #000;
   transition: transform 0.5s ease-in-out;
 }
+
 .featurecards_mobile2:after {
   position: absolute !important;
   right: -20px !important;
@@ -652,14 +653,15 @@ transition: all .4s ease;
   display: flex;
 }
 
-.rdw-editor-toolbar{
-margin-bottom: 0px !important;
-border: 1px solid rgb(192, 192, 192) !important;
-border-bottom: 0px !important;
-border-radius: 7px !important;
-border-bottom-left-radius: 0px !important;
-border-bottom-right-radius: 0px !important;
+.rdw-editor-toolbar {
+  margin-bottom: 0px !important;
+  border: 1px solid rgb(192, 192, 192) !important;
+  border-bottom: 0px !important;
+  border-radius: 7px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
 }
+
 .rdw-editor-toolbar {
   margin-bottom: 0px !important;
   border: 1px solid rgb(192, 192, 192) !important;
@@ -696,6 +698,7 @@ border-bottom-right-radius: 0px !important;
   color: #C7C6C7;
 
 }
+
 .new_input:focus {
   box-shadow: none !important;
 }
@@ -707,11 +710,11 @@ border-bottom-right-radius: 0px !important;
 }
 
 .marque_section {
-  -webkit-mask-image: linear-gradient(90deg,#0000,#fff 5%,#fff 95%,#0000);
+  -webkit-mask-image: linear-gradient(90deg, #0000, #fff 5%, #fff 95%, #0000);
 }
 
-.marque_card:hover{
-  box-shadow: 0 0 1px #181d263d,0 6px 8px #181d2614,0 18px 32px #0000001a;
+.marque_card:hover {
+  box-shadow: 0 0 1px #181d263d, 0 6px 8px #181d2614, 0 18px 32px #0000001a;
   border-radius: 8px;
 }
 
@@ -727,7 +730,8 @@ border-bottom-right-radius: 0px !important;
   background: yellow;
   height: 250px;
 }
-.market-border::before{
+
+.market-border::before {
   background: #fd181a;
   content: "";
   position: absolute;
@@ -741,7 +745,7 @@ border-bottom-right-radius: 0px !important;
 }
 
 
-.active2::before{
+.active2::before {
   background: #fd181a;
   content: "";
   position: absolute;
@@ -754,7 +758,8 @@ border-bottom-right-radius: 0px !important;
   right: 2px;
   border-radius: 20px;
 }
-.active2::after{
+
+.active2::after {
   width: 20px;
   height: 20px;
   background: #fff;
@@ -778,13 +783,15 @@ border-bottom-right-radius: 0px !important;
   border: 1px solid #fd181a;
   border-radius: 10px;
 }
-.img1{
-    position: absolute;
-    left: -70px;
-    top: -156px;
-    width: 100px;
-    height: 100px;
+
+.img1 {
+  position: absolute;
+  left: -70px;
+  top: -156px;
+  width: 100px;
+  height: 100px;
 }
+
 .img2 {
   position: absolute;
   right: -110px;
@@ -792,6 +799,7 @@ border-bottom-right-radius: 0px !important;
   width: 100px;
   height: 100px;
 }
+
 .img3 {
   position: absolute;
   left: -25px;
@@ -799,6 +807,7 @@ border-bottom-right-radius: 0px !important;
   height: 100px;
   top: 100px;
 }
+
 .img4 {
   position: absolute;
   right: -65px;
@@ -810,4 +819,8 @@ border-bottom-right-radius: 0px !important;
 .data_table_wrapper .custom-data-table {
   overflow-x: unset;
   overflow-y: unset;
+}
+
+body .cursor-pointer {
+  cursor: pointer !important;
 }
