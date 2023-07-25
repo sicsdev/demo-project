@@ -136,36 +136,7 @@ const Info = () => {
           onMouseLeave={() => setHide({ first: false })}
         >
           <span className="text-[#2563eb]">Reduce Your</span> Headcount Today.
-          <span
-            className="cursor-pointer"
-            onMouseEnter={(e) => {
-              e.stopPropagation();
-              setHide({ first: true });
-            }}
-          >
-            *
-          </span>
-          {hide.first == true ? (
-            <Card
-              className={
-                "animate-fadeIn w-[320px]	sm:w-[400px] absolute z-50 top-[20px] bg-white ml-auto mr-auto right-[220px]"
-              }
-            >
-              <p
-                className="text-sm font-normal"
-                onMouseLeave={() => setHide({ first: false })}
-              >
-                Tempo learns as you and your customers use it. Over time, it
-                will expand it's knowledge and be able to answer a higher
-                percentage of customer queries. We think 90% is a good target
-                after ~3 months of heavy usage, but a full CS team replacement
-                is not a guarantee or a likely outcome of using Tempo at this
-                time.
-              </p>
-            </Card>
-          ) : (
-            ""
-          )}
+       
         </h2>
         <h2
           class="block sm:hidden font-bold text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-8 relative text-heading"
@@ -174,16 +145,16 @@ const Info = () => {
           <span className="text-[#2563eb]">
           Reduce Your <br />
           </span>{" "}
-          Headcount Today.
-          <span
+          Headcount Today.  
+          {/* <span
             className="cursor-pointer"
             onMouseEnter={(e) => {
               e.stopPropagation();
               setHide({ first: true });
             }}
           >
-            *
-          </span>
+            
+          </span> */}
           {hide.first == true ? (
             <Card
               className={
