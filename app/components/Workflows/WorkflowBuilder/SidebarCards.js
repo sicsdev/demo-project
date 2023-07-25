@@ -1,10 +1,10 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
+import { tiles_icons } from '@/app/data/icon_data'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
-import { tiles_icons } from "@/app/data/icon_data.json";
 
 const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick }) => {
     const [beatLoader, setBeatLoader] = useState(false)
@@ -16,7 +16,6 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         value: null
     })
 
-    console.log(tiles_icons)
     const getLogo = (name) => {
         const findIcon = tiles_icons?.find((x) => x?.name.toLowerCase() === name?.toLowerCase())
         if (findIcon) {

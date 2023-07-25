@@ -3,7 +3,7 @@ import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { tiles_icons } from "@/app/data/icon_data.json";
+import { tiles_icons } from '@/app/data/icon_data';
 
 const WorkFlowSelector = ({ openModal, stepData,setAutomationStepsData }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);

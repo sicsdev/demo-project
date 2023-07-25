@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import { tiles_data } from "@/app/data/integration_tiles.json";
-import { tiles_icons } from "@/app/data/icon_data.json";
 import Modal from "@/app/components/Common/Modal/Modal";
 import { ToastContainer } from "react-toastify";
 import Image from "next/image";
 import Button from "@/app/components/Common/Button/Button";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 import { useSelector } from "react-redux";
+import { tiles_icons } from "@/app/data/icon_data";
 
 const Page = () => {
   const state = useSelector(state=> state.integration)
