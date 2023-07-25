@@ -10,7 +10,7 @@ const Schedule = ({ preferences }) => {
 
     const [schedule, setSchedules] = useState({
         Monday: [],
-        Tuesday: [{ start: "00:00", end: "23:59" }],
+        Tuesday: [{ start: "00:00", end: "23:59" }, { start: "00:00", end: "23:59" }],
         Wednesday: [{ start: "00:00", end: "23:59" }],
         Thursday: [{ start: "00:00", end: "23:59" }],
         Friday: [{ start: "00:00", end: "23:59" }],
@@ -32,6 +32,11 @@ const Schedule = ({ preferences }) => {
         setSchedules(updatedSchedule);
     };
 
+    useEffect(() => {
+      console.log(preferences)
+    
+    }, [])
+    
 
     return (
         <div className='mt-5'>
