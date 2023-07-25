@@ -86,7 +86,7 @@ export const getIntegrationAutomation = async (id) => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/integrations/${id}/automations/`, config);
-        return response;
+        return response?.data;
     } catch (error) {
         return error
     }

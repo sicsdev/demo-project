@@ -2,18 +2,14 @@ import React, { useRef, useEffect } from 'react'
 import Button from '../Button/Button'
 import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useRouter, usePathname } from 'next/navigation';
 
 const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true }) => {
     const divRef = useRef(null);
-    const router = useRouter();
-    const pathname = usePathname();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (divRef.current && !divRef.current.contains(event.target)) {
                 setShow(false);
-                router.push(`${pathname}`);
             }
         };
 
@@ -29,7 +25,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
         <div>
             {show ? (
                 <>
-                    <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none items-center" 
+                    <Card className="justify-center items-start  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none items-center"
                     >
                         <div className={`relative  my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -52,7 +48,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
 
                                 </div>
                                 {/*body*/}
-                                <div className={`relative ${hr===true ?("p-6"):"px-3"} flex-auto`}>
+                                <div className={`relative ${hr === true ? ("p-6") : "px-3"} flex-auto`}>
                                     {children}
                                 </div>
                             </div>

@@ -1,19 +1,10 @@
 import React from 'react'
-import SelectField from '../Common/Input/SelectField'
 import Button from '../Common/Button/Button'
-import { fetchProfile } from '../store/slices/userSlice'
 import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { useEffect } from 'react'
 import { makeCapital } from '../helper/capitalName'
 import SelectOption from '../Common/Input/SelectOption'
-import LoaderButton from '../Common/Button/Loaderbutton'
 const TeamManagement = ({ state, removeMember, changeRole }) => {
     const stateM = useSelector((state) => state.user);
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(fetchProfile)
-    // }, [])
 
     return (
         <div className="mt-5">

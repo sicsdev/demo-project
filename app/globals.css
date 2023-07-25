@@ -806,3 +806,8 @@ border-bottom-right-radius: 0px !important;
   width: 100px;
   height: 100px;
 }
+
+.data_table_wrapper .custom-data-table {
+  overflow-x: unset;
+  overflow-y: unset;
+}

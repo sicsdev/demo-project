@@ -1,8 +1,19 @@
-import { ClipboardIcon, InboxArrowDownIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, InboxArrowDownIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
+import { useEffect, useState } from 'react';
 
-const WorkFlowSelector = ({ openModal }) => {
+const WorkFlowSelector = ({ openModal, stepData }) => {
+    const [showButtonStates, setShowButtonStates] = useState(null);
+
+    const updateShowButtonState = (id, type) => {
+        if (type === 'show') {
+            setShowButtonStates(id);
+        } else {
+            setShowButtonStates(null);
+        }
+    };
+
     return (
         <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
@@ -19,10 +30,11 @@ const WorkFlowSelector = ({ openModal }) => {
                     </Button>
                 </div>
             </div>
-            <div className='section-workflow-wrapper'>
+            {/* <div className='section-workflow-wrapper'>
                 <div className='section-workflow'></div>
-                <div className='iconplus  cursor-pointer'> <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
-
+                <div className='iconplus  cursor-pointer'>
+                    <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                </div>
                 <div className='section-workflow3'></div>
                 <div className='section-workflow2'></div>
             </div>
@@ -31,17 +43,25 @@ const WorkFlowSelector = ({ openModal }) => {
                     <div className='flex justify-between gap-2 items-center'>
                         <div className='flex justify-between gap-4 items-center'>
                             <InboxArrowDownIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                            <p className='text-sm font-semibold '>Collect info in a form</p></div>
-                        <Button
-                            type={"button"}
-                            onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
-                            className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
-                            <PencilIcon className="h-5 w-5 font-semibold" />
-                        </Button>
+                            <p className='text-sm font-semibold '>Collect info in a form</p>
+                        </div>
+                        <div>
+                            <Button
+                                type={"button"}
+                                onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
+                                className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
+                                <TrashIcon className="h-5 w-5 font-semibold" />
+                            </Button>
+                            <Button
+                                type={"button"}
+                                onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
+                                className="inline-block  cursor-pointer group-hover:border p-2 border-border  h-[38px] group-hover:shadow]">
+                                <PencilIcon className="h-5 w-5 font-semibold" />
+                            </Button>
+                        </div>
                     </div>
                 </div>
                 <div className='p-5'>
-
                     <h2 className="mb-2 text-sm font-semibold">Top students:</h2>
                     <ol className="max-w-md space-y-1 text-gray-500 list-decimal list-inside dark:text-gray-400">
                         <li>
@@ -56,20 +76,66 @@ const WorkFlowSelector = ({ openModal }) => {
                     </ol>
 
                 </div>
-            </div>
+            </div> */}
+            {stepData?.map((ele, key) =>
+                <div key={key}
+                    onMouseEnter={() => updateShowButtonState(ele?.id, 'show')}
+                    onMouseLeave={() => updateShowButtonState(ele?.id, 'hide')}
+                >
+                    <div className='section-workflow-wrapper'>
+                        <div className='section-workflow'></div>
+                        <div className='iconplus  cursor-pointer'>
+                            <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                        </div>
+                        <div className='section-workflow3'></div>
+                        <div className='section-workflow2'></div>
+                    </div>
+                    <div className='border  border-border rounded-lg shadow'>
+                        <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
+                            <div className='flex justify-between gap-2 items-center'>
+                                <div className='flex justify-between gap-4 items-center'>
+                                    <InboxArrowDownIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                    <p className='text-sm font-semibold '>{ele?.name}</p>
+                                </div>
+                                <div>
+                                    <div className='rounded-lg group-hover:border border-border  h-[38px] group-hover:shadow]'>
+                                        {showButtonStates === ele?.id &&
+                                            <Button
+                                                type={"button"}
+                                                onClick={(e) => console.log('click')}
+                                                className="inline-block  cursor-pointer p-2  h-[38px]">
+                                                <TrashIcon className="h-5 w-5 font-semibold" />
+                                            </Button>
+                                        }
+                                        <Button
+                                            type={"button"}
+                                            onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
+                                            className="inline-block cursor-pointer p-2 h-[38px]">
+                                            <PencilIcon className="h-5 w-5 font-semibold" />
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div className='section-workflow-wrapper'>
                 <div className='section-workflow'></div>
-                <div className='iconplus cursor-pointer'> <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" /></div>
+                <div className='iconplus cursor-pointer'>
+                    <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                </div>
                 <div className='section-workflow3'></div>
                 <div className='section-workflow2'></div>
             </div>
-            <div className='border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group' 
-                        onClick={(e) => openModal({ key: "STEPS", open: true })} >
+            <div className='border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
+                onClick={(e) => openModal({ key: "STEPS", open: true })} >
                 <div className='flex justify-between gap-2 items-center'>
                     <div className='flex justify-between gap-4 items-center'>
                         <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
                         <p className='text-sm font-semibold'>Your next step goes here</p></div>
-                    
+
                 </div>
             </div>
 
