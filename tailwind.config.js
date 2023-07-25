@@ -113,7 +113,8 @@ module.exports = {
           "linear-gradient(to right, rgb(199, 210, 254), rgb(254, 202, 202), rgb(254, 249, 195))",
         "type-above": "linear-gradient(90deg,#09162A,#293445,white  )      ",
         "type-mobile": "linear-gradient(180deg,#09162A,#293445,white  )      ",
-
+        "home-above":
+          "linear-gradient(       340.76deg          ,#2250f4 40.7%,#230a5c 80.03%)",
       },
       fontSize: {
         h1: "55px",
@@ -180,10 +181,10 @@ module.exports = {
           "100%": { height: "536px" },
         },
         shake: {
-          '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
-          '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
-          '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
-          '40%, 60%': { transform: 'translate3d(4px, 0, 0)' },
+          "10%, 90%": { transform: "translate3d(-1px, 0, 0)" },
+          "20%, 80%": { transform: "translate3d(2px, 0, 0)" },
+          "30%, 50%, 70%": { transform: "translate3d(-4px, 0, 0)" },
+          "40%, 60%": { transform: "translate3d(4px, 0, 0)" },
         },
         blink: {
           "50%": {
@@ -203,14 +204,14 @@ module.exports = {
             transform: "rotate(-360deg)",
           },
         },
-        chattile: { 
+        chattile: {
           "0%": { width: "15%" },
           "100%": { width: "75%" },
         },
       },
       animation: {
         thinking: "typing .5s steps(20) infinite alternate, blink .5s infinite",
-        shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
+        shake: "shake 0.82s cubic-bezier(.36,.07,.19,.97) both",
         typing: "typing 3s steps(50)  alternate, blink .5s",
         wiggle: "wiggle .5s ease-in-out",
         bottoggle: "bottoggle 0.7s ease-in-out",

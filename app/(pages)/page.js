@@ -18,11 +18,13 @@ import Image from "next/image";
 import Aipowered from "../components/solutions/Aipowered";
 import Motioncards from "../components/Motioncards/page";
 import Marketing from "../components/Marketing/Marketing";
+import Homefold from "../components/Get-Start/Homefold";
 export default function Home() {
   return (
     <main className="">
       <Head></Head>
-      <Start />
+      <Homefold/>
+      {/* <Start /> */}
       <DTC />
       {/* <Brandpercentage/>   */}
       {/* <SecondBan /> */}

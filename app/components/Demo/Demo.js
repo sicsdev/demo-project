@@ -109,8 +109,8 @@ const Demo = () => {
       <Card className={"bg-white"}>
         <h3 className="text-center text-2xl sm:text-h3 md:text-h3 lg:text-h3 sm:leading-9 my-2 font-semibold text-heading">
           Unlock the power of
-          <span className="text-first-section-color"> AI </span> customer
-          service
+          <span className="text-first-section-color"> AI customer
+          service</span> 
         </h3>
         <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 sm:gap-1 mt-8">
           <div className="inline col-span-2 ">

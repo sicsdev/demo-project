@@ -30,7 +30,7 @@ const Nav = () => {
 
   return (
     <>
-      <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-heading border-gray-200 ">
+      <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200 ">
         {!profile.email && <Banner />}
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">
@@ -41,11 +41,11 @@ const Nav = () => {
                   fill={"true"}
                   className="bg-contain mx-auto w-full"
                   alt="logo.png"
-                  src={"/logo.png"}
+                  src={"/logo-b.png"}
                 />
               </Link>
             </div>
-            <ul className="hidden relative md:flex text-white gap-8 flex-row">
+            <ul className="hidden relative md:flex text-black gap-8 flex-row">
               {nav_links.map((element, key) => (
                 <li
                   key={key}
@@ -77,12 +77,12 @@ const Nav = () => {
               {profile.email ? (
                 <>
                   {" "}
-                  <p className="text-white">{profile.email}</p>
+                  <p className="text-black">{profile.email}</p>
                 </>
               ) : (
                 <Link href={"/login"}>
                   {" "}
-                  <p className="text-white">Sign In</p>
+                  <p className="text-black">Sign In</p>
                 </Link>
               )}
 
@@ -111,14 +111,14 @@ const Nav = () => {
             <div className="flex md:hidden flex-row relative ml-auto cursor-pointer">
               {show === false ? (
                 <Bars4Icon
-                  className="animate-fadeIn h-8 w-8 text-white"
+                  className="animate-fadeIn h-8 w-8 text-black"
                   onClick={(e) => {
                     setShow(true);
                   }}
                 />
               ) : (
                 <XMarkIcon
-                  className="animate-fadeIn h-8 w-8 text-white"
+                  className="animate-fadeIn h-8 w-8 text-black"
                   onClick={(e) => {
                     setShow(false);
                   }}
