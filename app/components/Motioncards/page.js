@@ -163,16 +163,15 @@ const Motioncards = () => {
             Integrate your most important API's and databases to empower Tempo
             to control your CS experience.
           </p>
-       
-          
-<button className="text-primary my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
-<Link href="/pricing"> Start Now →</Link>
+
+          <button className="text-primary my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
+            <Link href="/pricing"> Start Now →</Link>
           </button>
         </div>
         {/* marque */}
         <div className="w-[100%] sm:w-[70%] marque_section">
           <div class="flex overflow-hidden wrapper_marque">
-            <Marquee pauseOnHover={true} loop={0} direction="right">
+            <Marquee pauseOnHover={true} loop={0} direction="right" >
               {cards.map((item) => (
                 <Link
                   key={item.id}
