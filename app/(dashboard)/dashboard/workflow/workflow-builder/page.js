@@ -58,7 +58,7 @@ const Page = () => {
                 </>
             }
             {createWorkflowModal ?
-                <Modal title={'Manage Policy'} show={createWorkflowModal} setShow={setCreateWorkflowModal} className={'w-[80%] rounded-lg'} showCancel={true} >
+                <Modal title={'Create Workflow'} show={createWorkflowModal} setShow={setCreateWorkflowModal} className={'w-[80%] rounded-lg'} showCancel={true} >
                     <CreateWorkflow form={form} setForm={setForm} getAllWorkflowData={getAllWorkflowData} setCreateWorkflowModal={setCreateWorkflowModal} />
                 </Modal>
                 : ""

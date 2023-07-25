@@ -1,4 +1,5 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
+import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
@@ -36,7 +37,9 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setIntegrationAutomationData(automationData);
         setBeatLoader(false);
     }
-    const addStepHandler = (ele) => {
+    const addStepHandler = async (ele) => {
+        // const get_ids = automationStepsData.map((ele) => ele.id)
+        const update = await updateWorkFlowStatus({ automations: [ ele.id] }, '3bd5a608-d249-4206-8bce-2b110b3e4dfb')
         const updatedArray = [...automationStepsData, ele];
         setAutomationStepsData(updatedArray);
         handleButtonClick(false)
@@ -58,7 +61,6 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
     }
     return (
         <div>
-
             <ul className="relative m-0 list-none px-[0.2rem]  ">
                 <li className='cursor-pointer'>
                     <form>
