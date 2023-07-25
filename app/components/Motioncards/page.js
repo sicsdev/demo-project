@@ -34,13 +34,13 @@ const cards = [
   },
   {
     id: "6",
-    img: "/paypal-icon-logo-png-transparent.png",
+    img: "/pay.png",
     name: "Paypal",
     subheading: "Billing",
   },
   {
     id: "7",
-    img: "/stripe_logo_icon_167962.png",
+    img: "/stripee.png",
     name: "Stripe",
     subheading: "Billing",
   },
@@ -104,7 +104,7 @@ const card1 = [
 const card2 = [
   {
     id: "1",
-    img: "/asana-logo-logo.png",
+    img: "/asaa.png",
     name: "Asana",
     subheading: "Productivity",
   },
