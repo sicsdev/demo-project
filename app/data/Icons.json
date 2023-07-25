@@ -76,6 +76,11 @@
             "grayscale": true
         },
         {
+            "name": "Microsoft",
+            "logo": "/integrations/teams.svg",
+            "grayscale": true
+        },
+        {
             "name": "Microsoft Teams",
             "logo": "/integrations/teams.svg",
             "grayscale": true
@@ -156,10 +161,8 @@
             "grayscale": true
         },
         {
-            "name": "Suggest a resource",
+            "name": "Suggest",
             "logo": "/integrations/plus.svg"
         }
     ]
-
-
 }
