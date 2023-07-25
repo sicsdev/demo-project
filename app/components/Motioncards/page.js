@@ -1,17 +1,16 @@
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
-
 const cards = [
   {
     id: "1",
-    img: "/marque/1.svg",
+    img: "/integrations/github.svg",
     name: "Github",
     subheading: "File Management",
   },
   {
     id: "2",
-    img: "/marque/2.svg",
+    img: "/twilio-logo-png-transparent.png",
     name: "Twilio",
     subheading: "Communication",
   },
@@ -29,7 +28,7 @@ const cards = [
   },
   {
     id: "5",
-    img: "/marque/5.svg",
+    img: "/slack-logo-icon.png",
     name: "Slack",
     subheading: "Communication",
   },
@@ -37,18 +36,19 @@ const cards = [
 
 const Motioncards = () => {
   return (
-    <div className="motion_marque_section max-w-[90%] py-3 m-auto">
-      <div class="block sm:flex m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4 mt-10">
+    <div className="bg-white motion_marque_section  py-3 m-auto">
+      <div class="block sm:flex m-auto sm:py-8 md:py-8 max-w-[90%] lg:py-8 sm:px-4 lg:px-4 mt-10">
         <div className="w-[100%] sm:w-[30%]">
           <h2 className="mb-5 text-black text-2xl sm:text-3xl font-bold sm:mb-7">
-            Bring all the data you need into one place
+            All of your tools in one place{" "}
           </h2>
           <p className="text-black sm:mb-5">
-            Integrate your most important tools to bring more context into the
-            product development process.
+            Integrate your most important API's and databases to empower Tempo
+            to control your CS experience.
           </p>
-          <button className="text-primary my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
-            <a href="">Explore all integrations →</a>
+          <button className="py-2 px-8 sm:w-[60%] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 text-white text-lg font-semibold bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg">
+              {" "}
+              <Link href="/pricing"> Start Now </Link>
           </button>
         </div>
         {/* marque */}
@@ -63,7 +63,7 @@ const Motioncards = () => {
                 >
                   <div className="shadow-md rounded-lg w-[280px] p-3">
                     <div className="flex items-center gap-3">
-                      <img src={item.img} />
+                      <img src={item.img} className="h-10  w-10" />
                       <div>
                         <p>{item.name}</p>
                         <p className="text-xs">{item.subheading}</p>
@@ -85,7 +85,7 @@ const Motioncards = () => {
                 >
                   <div className="shadow-md rounded-lg w-[280px] p-3">
                     <div className="flex items-center gap-3">
-                      <img src={item.img} />
+                      <img src={item.img} className="h-10  w-10" />
                       <div>
                         <p>{item.name}</p>
                         <p className="text-xs">{item.subheading}</p>
@@ -107,7 +107,7 @@ const Motioncards = () => {
                 >
                   <div className="shadow-md rounded-lg w-[280px] p-3">
                     <div className="flex items-center gap-3">
-                      <img src={item.img} />
+                      <img src={item.img} className="h-10  w-10" />
                       <div>
                         <p>{item.name}</p>
                         <p className="text-xs">{item.subheading}</p>
