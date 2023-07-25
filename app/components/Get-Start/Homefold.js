@@ -15,7 +15,7 @@ const Homefold = () => {
           <div>
             <p
               className={
-                "text-center   font-bold  w-[40%] sm:w-[136px] m-auto text-base py-1 sm:mt-8  px-1  focus:ring-yellow-300 text-white rounded-[20px] bg-[#7ec1ec] hover:bg-black dark:focus:ring-yellow-900"
+                "text-center   font-bold  w-[40%] sm:w-[136px] m-auto text-base py-1 sm:mt-8  px-1  focus:ring-yellow-300 text-white rounded-[20px] bg-primary hover:bg-black dark:focus:ring-yellow-900"
               }
             >
               INTRODUCING{" "}

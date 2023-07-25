@@ -174,16 +174,16 @@ const Info = () => {
           <span className="text-[#2563eb]">
           Reduce Your <br />
           </span>{" "}
-          Headcount Today.
-          <span
+          Headcount Today.  
+          {/* <span
             className="cursor-pointer"
             onMouseEnter={(e) => {
               e.stopPropagation();
               setHide({ first: true });
             }}
           >
-            *
-          </span>
+            
+          </span> */}
           {hide.first == true ? (
             <Card
               className={
