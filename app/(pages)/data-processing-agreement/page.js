@@ -65,7 +65,7 @@ const page = () => {
             means all applicable data privacy and security laws and regulations,
             including (a) the CCPA, and (b) anyother applicable national rule
             and legislation on the protection of Personal Data in the United
-            States thatisalready in force or thatwill come into force during the
+            States thatisalready in force or that will come into force during the
             term of this DPA.
           </p>
           <p className="text-base sm:text-base mb-3">
