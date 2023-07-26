@@ -851,64 +851,74 @@ transition: all .4s ease;
 }
 
 
-
- /* .connect-heading-line::after {
-  position: absolute;
-  top: 50%;
-  left: -8px;
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: #05bdba;
-  
-  animation: connectHeadingDotLeft 3s infinite linear;
+ .connect-heading-line::before {
+  position:absolute;
+  top:50%;
+  left:-8px;
+  content:"";
+  width:4px;
+  height:4px;
+  transform:translateY(-50%);
+  border-radius:50%;
+  background:#fff
 }
-
-
-.connect-heading-line2::before {
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  content: "";
-  width: 4px;
-  height: 4px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: #fff;
-  left: unset;
+ .connect-heading-line::after {
+  position:absolute;
+  top:50%;
+  left:-8px;
+  content:"";
+  width:10px;
+  height:10px;
+  transform:translateY(-50%);
+  border-radius:50%;
+  background:#05bdba;
+  opacity:0;
+  animation:connectHeadingDotLeft 5s infinite linear
 }
-.connect-heading-line2::after {
-  position: absolute;
-  top: 50%;
-  left: -8px;
-  content: "";
-  width: 10px;
-  height: 10px;
-  transform: translateY(-50%);
-  border-radius: 50%;
-  background: #05bdba;
-  
-  animation: connectHeadingDotLeft 3s infinite linear;
+ .connect-heading-line[data-line-position=right]::after {
+  animation:connectHeadingDotRight 5s infinite linear
 }
-
-@keyframes connectHeadingDotRight {
-  0%   {left: 0px;}
-  25%  {right: 200px;}
-  50%  {right: 100px;}
-  75%  {right: 200px;}
-  100% {right: 0px;}
-}
-
 
 @keyframes connectHeadingDotLeft {
-  0%   {right: 0px;}
-  25%  {left: 200px;}
-  50%  {left: 100px;}
-  75%  {left: 200px;}
-  100% {left: 0px;}
-} */
+  0% {
+      opacity:1
+  }
+  50% {
+      opacity:1;
+      left:95%
+  }
+  51% {
+      opacity:1;
+      left:95%
+  }
+  55% {
+      opacity:0;
+      left:95%
+  }
+}
+@keyframes connectHeadingDotRight {
+  49% {
+      opacity:0
+  }
+  50% {
+      opacity:1;
+      left:-8px
+  }
+  95% {
+      opacity:1;
+      left:100%
+  }
+  96% {
+      opacity:1;
+      left:100%
+  }
+  100% {
+      opacity:0;
+      left:100%
+  }
+}
+
+
 body .cursor-pointer {
   cursor: pointer !important;
 }

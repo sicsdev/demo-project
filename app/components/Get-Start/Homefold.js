@@ -55,12 +55,14 @@ const Homefold = () => {
               INTRODUCING{" "}
             </p>
             <div className="relative flex items-center gap-4 w-[60%] mx-auto">
-            <div className="connect-heading-line sm:mt-8 mt-4"></div>
+            
+            <div data-line-position="left" class="connect-heading-line  sm:mt-8 mt-4"></div>
             <h1 className=" font-bold  m-auto text-center sm:mt-8 mt-4 sm:text-[50px] text-h2 text-white  sm:leading-none  ">
               {/* Tempo */}
-              <img src="/logo.png" className=" sm:w-[65rem]" />
+              <img src="/logo.png" className="w-[30rem] sm:w-[65rem]" />
             </h1>
-            <div className="connect-heading-line2 sm:mt-8 mt-4"></div>
+            
+            <div data-line-position="right" class="connect-heading-line  sm:mt-8 mt-4"></div>
             </div>
 
             <p className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
