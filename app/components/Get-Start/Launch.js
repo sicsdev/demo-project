@@ -19,7 +19,7 @@ const Launch = () => {
               powerful solution you can deploy to automate customer service and
               operations with just a few lines of code.
             </p>
-            <button className="py-2 px-8 sm:w-[60%] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 text-white text-lg font-semibold bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg">
+            <button className="py-2 px-8 sm:w-[60%] w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 text-white text-lg font-semibold bg-primary hover:bg-white hover:text-heading dark:focus:ring-yellow-900 rounded-lg">
               <a href="https://docs.usetempo.ai"> Read the docs </a>
             </button>
           </div>

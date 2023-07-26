@@ -127,7 +127,7 @@ const Panelcard = (props) => {
               </div>
               {ele.title == "Starter" ? (
                 <Button
-                  className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-heading hover:bg-white rounded-md shadow-sm"
+                  className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm"
                   disabled={false}
                   onClick={(e) => handleGetFreeTrial(key)}
                 >
