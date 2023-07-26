@@ -6,6 +6,7 @@ import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
+import { errorMessage } from '../../Messages/Messages'
 
 const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex }) => {
     const [beatLoader, setBeatLoader] = useState(false)
@@ -42,12 +43,17 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
     const addStepHandler = async (ele) => {
 
         const get_ids = automationStepsData.map((ele) => ele.id)
+        const isElementExists = get_ids.includes(ele.id);
+        if (isElementExists) {
+            errorMessage('Automation already added!');
+            return false;
+        }
         const newArray = stepIndex !== undefined && stepIndex !== null
             ? [...get_ids.slice(0, stepIndex), ele.id, ...get_ids.slice(stepIndex)]
             : [...get_ids, ele.id];
 
         const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
-        console.log("Update", update)
+
         const newAutomationArray = stepIndex !== undefined && stepIndex !== null
             ? [...automationStepsData.slice(0, stepIndex), ele, ...automationStepsData.slice(stepIndex)]
             : [...automationStepsData, ele];
@@ -149,7 +155,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
                                 </div>
                                 {integrationAutomationData?.map((ele, key) =>
-                                    <li className='my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]' key={key} onClick={(e) => addStepHandler(ele)}>
+                                    <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
                                         <div className='flex justify-start items-center gap-4'>
                                             <div className="relative w-[20px] h-[20px] rounded-lg">
                                                 <Image
