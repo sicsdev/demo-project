@@ -3,6 +3,40 @@ import Link from "next/link";
 
 const Homefold = () => {
   return (
+    <>
+
+<pre lang="js">
+        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              ChatBot.Widget({
+                id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
+              });
+            `,
+          }}
+        />
+      </pre>
+
+
+
+
+
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"
+      ></script>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-HFHNKD99J4');
+          `,
+        }}
+      />
     <div className="bg-home-above relative h-[700px]">
       <div className="absolute w-[35%] h-full flex right-0">
         <img src="/home-fold.png" className="object-fill w-full" />
@@ -68,6 +102,7 @@ const Homefold = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
