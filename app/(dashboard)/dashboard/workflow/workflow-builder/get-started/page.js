@@ -20,6 +20,7 @@ import PublishWorkflow from '@/app/components/Workflows/WorkflowBuilder/PublishW
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
+  const [indexSelector, setIndexSelector] = useState(null)
   const [singleData, setSingleData] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
   const [publishLoader, setPublishLoader] = useState(false);
@@ -110,8 +111,13 @@ const GetStarted = () => {
       case "COLLECTINFOFORM":
         break;
       case "STEPS":
-        setAddStepIndex(value?.addKey)
+        // setAddStepIndex(value?.addKey)
         handleButtonClick()
+        break;
+      case "PLUS":
+        setIndexSelector(value?.addKey)
+        handleButtonClick()
+        setAddStepIndex(value?.addKey)
         break;
 
       default:
@@ -214,7 +220,7 @@ const GetStarted = () => {
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} setStepIndex={setAddStepIndex} workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
+        <RightSidebar stepIndex={addStepIndex} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
           {singleData ? (
             <>
               <div className='flex justify-between gap-2 items-center'>
@@ -264,14 +270,14 @@ const GetStarted = () => {
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} />
+              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector}/>
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
           {/* description modal start  */}
           {
             descriptionModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
               <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setDescriptionModal} />
             </Modal >
           }
@@ -280,21 +286,21 @@ const GetStarted = () => {
 
           {
             workflowModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
               <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
             </Modal>
           }
           {/* workflowname modal end  */}
           {
             showPublishModal &&
-            <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+            <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
               <PublishWorkflow publishLoader={publishLoader} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
             </Modal>
           }
 
           {
             stepModal &&
-            <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+            <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
               <div>
                 <div className='flex justify-between gap-2 items-center mb-5'>
                   <div className='flex justify-between gap-4 items-center'>
@@ -335,7 +341,7 @@ const GetStarted = () => {
 
           {
             editModal &&
-            <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[80%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+            <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
               <form>
                 <div className="mb-4">
                   <SelectOption

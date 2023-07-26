@@ -337,7 +337,7 @@ const Sidebar = ({ children }) => {
                   </button>
 
                   {isOpen && (
-                    <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
+                    <ul className="absolute w-[200px] text-center right-0 mt-2 py-2  rounded shadow-lg">
                       <li className="text-start p-2">
                         <p className="text-xs font-semibold text-heading ml-4">
                           {state?.email}
@@ -396,7 +396,7 @@ const Sidebar = ({ children }) => {
         </div>
         {show && (
           <div
-            className="block sm:hidden lg:hidden md:hidden items-center bg-white justify-between text-white z-[999999]  w-full md:w-auto md:order-1"
+            className="block sm:hidden lg:hidden md:hidden items-center  justify-between text-white z-[999999]  w-full md:w-auto md:order-1"
             id="navbar-cta"
           >
             <ul className="space-y-2 font-medium  w-full relative mb-4">

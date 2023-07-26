@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex ,setIndexSelector}) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -61,6 +61,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setAutomationStepsData(newAutomationArray);
         handleButtonClick(false)
         setStepIndex(null);
+        setIndexSelector(null)
         setInnerSide(prev => {
             return {
                 ...prev,
