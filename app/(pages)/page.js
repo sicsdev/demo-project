@@ -44,7 +44,7 @@ export default function Home() {
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         <Info />
-        <Panelcard />
+        {/*  <Panelcard /> */}
 
         <Newstandard />
         {/* <Trial /> */}
