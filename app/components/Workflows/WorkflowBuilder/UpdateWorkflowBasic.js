@@ -7,7 +7,7 @@ import Button from '../../Common/Button/Button'
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow }) => {
 
     const DisablingButton = () => {
-        const requiredKeys = ["description", "name", "policy_name", "policy_description", "policy_exceptions"];
+        const requiredKeys = ["description", "name", "policy_name", "policy_description"];
 
         return requiredKeys.some(
             (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
