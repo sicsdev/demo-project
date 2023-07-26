@@ -165,7 +165,7 @@ const Motioncards = () => {
           </p>
 
           <button className="text-primary my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
-            <Link href="/pricing"> Start Now →</Link>
+            <Link href="/checkout"> Start Now →</Link>
           </button>
         </div>
         {/* marque */}

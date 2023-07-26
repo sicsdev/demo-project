@@ -19,6 +19,7 @@ import Aipowered from "../components/solutions/Aipowered";
 import Motioncards from "../components/Motioncards/page";
 import Marketing from "../components/Marketing/Marketing";
 import Homefold from "../components/Get-Start/Homefold";
+import Panelcard from "../components/Common/Card/Panelcard";
 export default function Home() {
   return (
     <main className="">
@@ -28,6 +29,7 @@ export default function Home() {
       <DTC />
       {/* <Brandpercentage/>   */}
       {/* <SecondBan /> */}
+      <Panelcard />
       <Info />
       <Testimonial />
       <Newstandard />
