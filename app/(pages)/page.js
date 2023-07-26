@@ -32,7 +32,6 @@ export default function Home() {
       <Info />
       <Panelcard />
 
-      <Testimonial />
       <Newstandard />
       {/* <Trial /> */}
       <Social />
@@ -43,6 +42,7 @@ export default function Home() {
       {/* <Faq />   */}
       {/* <Iconanimation /> */}
       <Motioncards />
+      <Testimonial />
 
       {/* dummy section */}
       {/* <div className="bg-[#142543] p-6">

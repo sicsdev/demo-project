@@ -29,7 +29,7 @@ const Testimonial = () => {
             </button>
             <button
               className={
-                "py-2 px-8 sm:px-20  lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full first-letter:w-full focus:ring-yellow-300  hover:text-heading bg-primary hover:bg-white text-lg font-semibold text-white  dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 sm:px-20  lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full hover:font-semibold first-letter:w-full focus:ring-yellow-300  hover:text-primary bg-primary hover:bg-white text-lg font-semibold text-white  dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               <div
