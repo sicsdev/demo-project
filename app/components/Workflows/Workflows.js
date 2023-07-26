@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Common/Button/Button'
 import Image from 'next/image'
 
-const Workflows = ({ state, setCreateWorkflowModal, createNewWorkFlow, loading }) => {
+const Workflows = ({ state, createNewWorkFlow, loading }) => {
   const getInitials = (name) => {
     const words = name.split(' ');
     if (words.length === 1) {
