@@ -23,6 +23,7 @@ import Panelcard from "../components/Common/Card/Panelcard";
 export default function Home() {
   return (
     <main className="">
+ 
       <Head></Head>
       <Homefold/>
       {/* <Start /> */}
