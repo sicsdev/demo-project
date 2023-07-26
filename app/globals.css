@@ -873,10 +873,10 @@ transition: all .4s ease;
   border-radius:50%;
   background:#05bdba;
   opacity:0;
-  animation:connectHeadingDotLeft 3s infinite linear
+  animation:connectHeadingDotLeft 5s infinite linear
 }
  .connect-heading-line[data-line-position=right]::after {
-  animation:connectHeadingDotRight 3s infinite linear
+  animation:connectHeadingDotRight 5s infinite linear
 }
 
 @keyframes connectHeadingDotLeft {

@@ -642,7 +642,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   />
                   Schedule</span>
                 <hr className="opacity-10 mt-4"></hr>
-                <Schedule preferences={preferences}></Schedule>
+                <Schedule preferences={preferences} setPreferences={setPreferences}></Schedule>
 
               </div> */}
 
