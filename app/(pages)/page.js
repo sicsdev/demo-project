@@ -19,9 +19,7 @@ import Aipowered from "../components/solutions/Aipowered";
 import Motioncards from "../components/Motioncards/page";
 import Marketing from "../components/Marketing/Marketing";
 import Homefold from "../components/Get-Start/Homefold";
-
-import Panelcard from "../components/Common/Card/Panelcard";
-import Middlebar from "../components/Info-Screen/Middlebar";
+import Panelcard from "../components/PanelCard/PanelCard";
 
 export default function Home() {
   return (
@@ -40,6 +38,7 @@ export default function Home() {
       </pre>
 
       <main className="">
+        
         <Head></Head>
         <Homefold />
         {/* <Start /> */}
@@ -48,10 +47,7 @@ export default function Home() {
         {/* <SecondBan /> */}
         <Info />
 
-
-<Middlebar/>
-
-        {/* <Panelcard /> */}
+        <Panelcard />
 
 
 

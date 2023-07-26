@@ -14,7 +14,7 @@ import Trial from "@/app/components/Trial/Trial";
 import Image from "next/image";
 import Link from "next/link";
 import { Helmet } from "react-helmet";
-import Panelcard from "@/app/components/Common/Card/Panelcard";
+import Panelcard from "@/app/components/PanelCard/PanelCard";
 const Pricing = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

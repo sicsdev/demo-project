@@ -5,7 +5,7 @@ const DeleteWorkflow = ({ publishLoader, saveWorkFlowHandler, active, deleteWork
 
     return (
         <div className=''>
-            <p>Deleting this will be permanent and you will not be able to recover it. You can also disable the workflow instead.  </p>
+            <p>Deleting this will be permanent and you will not be able to recover it. {active &&("You can also disable the workflow instead.")}   </p>
             <div className='flex justify-between gap-2 items-center mt-5'>
                 {active === true && (
                     <Button
