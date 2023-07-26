@@ -4,20 +4,16 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import './schedule.css'
 import { getAllBotData, getBotAllData, modifyBot } from '@/app/API/pages/Bot'
+import { useSearchParams } from 'next/navigation'
 
-const Schedule = ({ preferences, setPreferences }) => {
 
+const Schedule = () => {
+
+    const searchParams = useSearchParams()
     const [custom, setCustom] = useState(true)
     const [errors, setErrors] = useState([])
-    // const [schedule, setSchedules] = useState({
-        // Monday: [],
-        // Tuesday: [{ start: "00:00", end: "23:59" }, { start: "00:00", end: "23:59" }],
-        // Wednesday: [{ start: "00:00", end: "23:59" }],
-        // Thursday: [{ start: "00:00", end: "23:59" }],
-        // Friday: [{ start: "00:00", end: "23:59" }],
-        // Saturday: [{ start: "00:00", end: "23:59" }],
-        // Sunday: [{ start: "00:00", end: "23:59" }]
-    // })
+    const [bot_id, setBot_id] = useState('')
+    const [loading, setLoading] = useState(false)
 
     let emptySchedule = {
         Monday: [{ start: "00:00", end: "23:59" }],
@@ -30,8 +26,13 @@ const Schedule = ({ preferences, setPreferences }) => {
     }
 
     const [schedule, setSchedules] = useState(emptySchedule)
+
     useEffect(() => {
-        Object.keys(preferences.schedule).length === 7 && setSchedules(preferences.schedule)
+        const bot_id = searchParams.get("id");
+        setBot_id(bot_id);
+        getAllBotData([bot_id]).then(res => {
+            res?.data?.schedule && Object.keys(res?.data?.schedule).length === 7 && setSchedules(res?.data?.schedule)
+        })
     }, [])
 
 
@@ -67,17 +68,12 @@ const Schedule = ({ preferences, setPreferences }) => {
         }));
     }
 
-    const showObject = () => {
-        console.log(schedule)
-    }
-
     const saveSchedulePreferences = async () => {
-        setPreferences({ ...preferences, schedule: schedule })
-
-        let payload = { ...preferences, schedule: schedule }
-        delete payload.logo;
-        delete payload.email;
-        let postPreferences = await modifyBot(preferences.id, payload)
+        setLoading(true)
+        let payload = { schedule: schedule }
+        // delete payload.logo;
+        // delete payload.email;
+        let postPreferences = await modifyBot(bot_id, payload)
 
         if (postPreferences?.response?.data?.schedule?.length > 0) {
             let errorsArray = []
@@ -86,6 +82,8 @@ const Schedule = ({ preferences, setPreferences }) => {
         } else {
             setErrors([])
         }
+        setLoading(false)
+
     }
 
     const handleCheckbox = (day) => {
@@ -106,22 +104,22 @@ const Schedule = ({ preferences, setPreferences }) => {
 
 
 
-    
+
     return (
         <div className='my-5' >
 
-            <div className='gap-3 flex'>
-                {/* <div onClick={() => setCustom(false)} className={`border rounded p-2 inline-block border-gray hover:border-sky cursor-pointer ${!custom && 'border-sky'}`} style={{ borderWidth: '3px' }}>
+            {/* <div className='gap-3 flex'>
+                <div onClick={() => setCustom(false)} className={`border rounded p-2 inline-block border-gray hover:border-sky cursor-pointer ${!custom && 'border-sky'}`} style={{ borderWidth: '3px' }}>
                     Use an existing schedule
-                </div> */}
+                </div>
 
                 <div onClick={() => setCustom(true)} className={`border rounded p-2 inline-block border-gray hover:border-sky cursor-pointer ${custom && 'border-sky'}`} style={{ borderWidth: '3px' }}>
                     Set custom hours
                 </div>
-            </div>
+            </div> */}
 
             {/* EXISTING SCHEDULE OPTION */}
-            {!custom && 
+            {!custom &&
                 <div className='mt-5 pt-5'>
                     <div>
                         <div className='my-4'>Which schedule do you want to use?</div>
@@ -173,7 +171,7 @@ const Schedule = ({ preferences, setPreferences }) => {
             {/* CUSTOM SCHEDULE OPTION */}
             {
                 custom &&
-                <div className='mt-5 pt-5 mx-5'>
+                <div className='mt-5 mx-5'>
                     {/* <small>TIME ZONE</small>
                     <div>
                         <select className={`p-1 border-gray text-sky block lg:w-1/4  bg-white rounded-md text-sm p-3 `}>
@@ -274,7 +272,7 @@ const Schedule = ({ preferences, setPreferences }) => {
                         <div className='flex justify-end gap-3 mt-5 w-100'>
                             {/* <label><small>Schedule name:</small></label>
                             <input type='text' className='border rounded border-gray'></input> */}
-                            <button className="border border-sky rounded-full px-3 hover:bg-sky hover:text-white" onClick={saveSchedulePreferences}>Save schedule</button>
+                            <button className="border border-sky rounded-full px-3 hover:bg-sky hover:text-white" onClick={saveSchedulePreferences}>{loading ? "Saving..." : "Save"}</button>
                             {/* <button className="border border-sky rounded-full px-3 hover:bg-sky hover:text-white">Save and set</button> */}
                         </div>
 
