@@ -12,7 +12,7 @@ const Start = () => {
 
   return (
     <>
-
+{/* 
       <pre lang="js">
         <script src="https://widget-dev.usetempo.ai/v1/main.js" />
         <script
@@ -24,7 +24,7 @@ const Start = () => {
             `,
           }}
         />
-      </pre>
+      </pre> */}
 
 
 
