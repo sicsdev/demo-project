@@ -38,8 +38,8 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        <Homefold />
-        {/* <Start /> */}
+        {/* <Homefold /> */}
+        <Start />
         <DTC />
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
