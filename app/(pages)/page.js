@@ -49,6 +49,7 @@ export default function Home() {
         <Panelcard />
 
 
+
         <Newstandard />
         {/* <Trial /> */}
         <Social />
