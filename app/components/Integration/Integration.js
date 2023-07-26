@@ -18,7 +18,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
     const pathname = usePathname();
 
     const [integrationFormData, setIntegrationFormData] = useState({
-        type: "CUSTOM",
+        type: "CUSTOM ",
         baseUrl: integrationRecord?.http_base || "",
         provider: integrationRecord?.provider || "",
         authType: integrationRecord?.http_auth_scheme || "",

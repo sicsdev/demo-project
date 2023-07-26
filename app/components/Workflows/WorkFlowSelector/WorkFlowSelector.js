@@ -7,7 +7,7 @@ import { tiles_icons } from '@/app/data/icon_data';
 import { updateIntegrationAutomation } from '@/app/API/pages/Integration';
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 
-const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId }) => {
+const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
 
     const updateShowButtonState = (id, type) => {
@@ -53,14 +53,33 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     onMouseEnter={() => updateShowButtonState(key, 'show')}
                     onMouseLeave={() => updateShowButtonState(key, 'hide')}
                 >
-                    <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: key })}>
+                    {indexSelector === key && (
+                        <div className='mt-4 border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
+                            onClick={(e) => openModal({ key: "STEPS", open: true, addKey: key })} >
+                            <div className='flex justify-between gap-2 items-center'>
+                                <div className='flex justify-between gap-4 items-center'>
+                                    <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                    <p className='text-sm font-semibold'>Your next step goes here</p></div>
+
+                            </div>
+                        </div>)}
+
+                    <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
                         <div className='section-workflow'></div>
-                        <div className='iconplus'>
-                            <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                        </div>
-                        <div className='section-workflow3 hover:bg-primary'></div>
+                        {indexSelector !== key && (
+                            <>
+                                <div className='iconplus'>
+                                    <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                </div>
+                                <div className='section-workflow3 hover:bg-primary'></div>
+                            </>
+                        )}
+
                         <div className='section-workflow2'></div>
                     </div>
+
+
+
                     <div className='border  border-border rounded-lg shadow'>
                         <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
                             <div className='flex justify-between gap-2 items-center'>
@@ -85,12 +104,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
                                             </Button>
                                         }
-                                        {/* <Button
-                                            type={"button"}
-                                            onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
-                                            className="inline-block cursor-pointer p-2 h-[38px]">
-                                            <PencilIcon className="h-5 w-5 font-semibold" />
-                                        </Button> */}
                                     </div>
                                 </div>
                             </div>
