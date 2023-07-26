@@ -12,6 +12,7 @@ import { xcodeLight } from "@uiw/codemirror-theme-xcode";
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from "next/link";
+import { useRef } from "react";
 
 export const EmbedCard = ({
   element,
@@ -48,6 +49,21 @@ export const EmbedCard = ({
     setIsEmbedEnabled((prev) => !prev);
   };
 
+  const divRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setDropdown(null);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const tooltipText = `By default, the widget will be rendered in chat mode, but you can also use it integrated directly in your HTML.\n\nTo do this, simply enable this option and add a container with the ID 'chatbot_widget' on your page.\n\nExample:\n<div id='chatbot_widget'></div>\n\nThe chat will be rendered inside that container.`;
 
   return (
@@ -58,6 +74,7 @@ export const EmbedCard = ({
           <div className="relative flex flex-row-reverse pr-2">
             <button
               type={"button"}
+              ref={divRef}
               onClick={() => {
                 dropdown === key ? setDropdown(null) : setDropdown(key);
               }}
@@ -66,6 +83,7 @@ export const EmbedCard = ({
             </button>
             <button
               type={"button"}
+              ref={divRef}
               onClick={() => {
                 dropdown === key ? setDropdown(null) : setDropdown(key);
               }}
