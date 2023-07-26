@@ -140,13 +140,13 @@ const Sidebar = ({ children }) => {
       list: [],
       notification: recommedState?.data?.count,
     },
-    {
-      href: "/dashboard/analytics?id=" + bot_state?.botData?.data?.bots[0].id,
-      name: "Analytics",
-      icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
-      list: bot_state?.botData?.data?.bots ? bots() : [],
-      notification: recommedState?.data?.count,
-    },
+    // {
+    //   href: "/dashboard/analytics?id=" + bot_state?.botData?.data?.bots[0].id,
+    //   name: "Analytics",
+    //   icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+    //   list: bot_state?.botData?.data?.bots ? bots() : [],
+    //   notification: recommedState?.data?.count,
+    // },
     {
       href: "/dashboard/billing/usage",
       name: "Billing",
