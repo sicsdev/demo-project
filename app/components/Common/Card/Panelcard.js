@@ -85,7 +85,7 @@ const Panelcard = (props) => {
                               }, 5000)
                             }
                           >
-                            * Resolution is any conversation that does not
+                            Resolution is any conversation that does not
                             result in a human hand off or a customer marks as a
                             bad answer and has at least 3 total interactions.
                           </p>
@@ -127,7 +127,7 @@ const Panelcard = (props) => {
               </div>
               {ele.title == "Starter" ? (
                 <Button
-                  className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
+                  className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-heading hover:bg-white rounded-md shadow-sm"
                   disabled={false}
                   onClick={(e) => handleGetFreeTrial(key)}
                 >

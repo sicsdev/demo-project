@@ -29,8 +29,9 @@ export default function Home() {
       <DTC />
       {/* <Brandpercentage/>   */}
       {/* <SecondBan /> */}
-      <Panelcard />
       <Info />
+      <Panelcard />
+
       <Testimonial />
       <Newstandard />
       {/* <Trial /> */}

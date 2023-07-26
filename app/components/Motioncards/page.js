@@ -164,7 +164,7 @@ const Motioncards = () => {
             to control your CS experience.
           </p>
 
-          <button className="text-primary my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
+          <button className="text-[#fe9327] hover:text-heading my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
             <Link href="/checkout"> Start Now →</Link>
           </button>
         </div>
