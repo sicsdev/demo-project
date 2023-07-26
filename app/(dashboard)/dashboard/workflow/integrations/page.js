@@ -13,14 +13,16 @@ import Button from "@/app/components/Common/Button/Button";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 import { useSelector } from "react-redux";
 import { tiles_icons } from "@/app/data/icon_data";
+import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 
 const Page = () => {
-  const state = useSelector(state=> state.integration)
+  const state = useSelector(state => state.integration)
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([])
   const [integrationTiles, setIntegrationsTiles] = useState([])
   const [dataLoader, setDataLoader] = useState(true);
   const [suggestModal, setSuggestModal] = useState(false);
+  const [integrationModal, setIntegrationModal] = useState(false);
   const [integrationform, setIntegrationform] = useState(false);
   const [integrationFormData, setIntegrationFormData] = useState({});
 
@@ -109,14 +111,7 @@ const Page = () => {
           return 0;
         });
 
-        if (sortedData[0].key === "POPULAR") {
-          sortedData[0].tiles.push({
-            "name": "Rest API",
-            "logo": "/integrations/rest-api.svg",
-            "grayscale": false,
-            checked: false
-          })
-        }
+       
         setIntegrationsTiles(sortedData)
         setFixeData(sortedData)
       }
@@ -127,7 +122,7 @@ const Page = () => {
   };
 
   useEffect(() => {
-    if(state?.data){
+    if (state?.data) {
       fetchIntegrations();
     }
   }, [state]);
@@ -137,7 +132,9 @@ const Page = () => {
     setFormData(item.data)
     switch (item?.name) {
       case "Rest API":
-        debugger
+        setSuggestModal(true)
+        break;
+      case "Suggest a resource":
         setSuggestModal(true)
         break;
       default:
@@ -264,10 +261,9 @@ const Page = () => {
                               <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                 <Image
                                   fill={"true"}
-                                  className={`${
-                                    item.grayscale &&
+                                  className={`${item.grayscale &&
                                     "grayscale pointer-events-none"
-                                  } bg-contain mx-auto w-full rounded-lg`}
+                                    } bg-contain mx-auto w-full rounded-lg`}
                                   alt="logo.png"
                                   src={item.logo}
                                 />
@@ -294,6 +290,29 @@ const Page = () => {
             </>
           )}
         </>
+      }
+
+      {
+        integrationModal ? (
+          <Modal
+            title={"Manage Integration"}
+            className={"w-[80%]"}
+            show={integrationModal}
+            setShow={setIntegrationModal}
+            showCancel={true}
+            customHideButton={true}
+          >
+            <ConfigureIntegration
+              fetchIntegrations={fetchIntegrations}
+              setShow={setIntegrationModal}
+              mode={"add"}
+              integrationRecord={{}}
+              type={"custom"}
+            />
+          </Modal>
+        ) : (
+          ""
+        )
       }
       {suggestModal && (
         <Modal
@@ -337,6 +356,8 @@ const Page = () => {
             </Button>
           </div>
         </Modal>
+
+
       )}
       <ToastContainer />
     </>

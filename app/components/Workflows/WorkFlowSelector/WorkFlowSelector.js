@@ -4,8 +4,10 @@ import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { tiles_icons } from '@/app/data/icon_data';
+import { updateIntegrationAutomation } from '@/app/API/pages/Integration';
+import { updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 
-const WorkFlowSelector = ({ openModal, stepData,setAutomationStepsData }) => {
+const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData,workflowId }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
 
     const updateShowButtonState = (id, type) => {
@@ -24,8 +26,10 @@ const WorkFlowSelector = ({ openModal, stepData,setAutomationStepsData }) => {
         return ""
     }
 
-    const deleteTheEntry = (key) => {
+    const deleteTheEntry = async (key) => {
         const filterData = stepData.filter((_, index) => index !== key)
+        const ids = filterData.map((x) => x.id)
+        const update = await updateWorkFlowStatus({ automations: [...ids] },workflowId)
         setAutomationStepsData(filterData)
     }
     return (

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import Loading from '../../Loading/Loading'
 import SidebarCards from '../../Workflows/WorkflowBuilder/SidebarCards'
 
-const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick }) => {
+const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick,workflowId }) => {
     const state = useSelector(state => state.integration)
     return (
         <>
@@ -18,7 +18,7 @@ const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, autom
                         data-te-sidenav-hidden="false"
                         data-te-sidenav-right="true">
 
-                        <SidebarCards inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} />
+                        <SidebarCards inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} />
 
                     </nav>
                     <div className='w-[auto] sm:w-[75%] md:w-[75%] lg:w-[75%]'>

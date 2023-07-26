@@ -17,11 +17,38 @@ import Loading from "@/app/components/Loading/Loading";
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import { useRouter } from 'next/navigation';
 import { ToastContainer } from 'react-toastify'
+import { getAutomationById } from '@/app/API/pages/Integration'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
-  const inputRef = useRef(null);
+  const [singleData, setSingleData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
+  const [publishLoader, setPublishLoader] = useState(false);
+  const [workflowData, setWorkflowData] = useState(null)
+  const [showHelp, setShowHelp] = useState(false)
+  const [showOptions, setShowOptions] = useState(false)
+  const [descrptionValue, setDescriptionValue] = useState({
+    name: "From an outbound API call",
+    icon: <TagIcon className="h-6 w-6" />,
+    key: 2
+
+  })
+  const [workflowFormData, setWorkFlowFormData] = useState({
+    name: null,
+    description: null,
+    logo: null
+  })
+  
+  // modals 
+  const [showPublishModal, setShowPublishModal] = useState(false);
+  const [stepModal, setStepModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [descriptionModal, setDescriptionModal] = useState(false);
+  const [workflowModal, setWorkflowModal] = useState(false);
+
+  const [automationStepsData, setAutomationStepsData] = useState([]); 
   const router = useRouter();
+  const inputRef = useRef(null);
 
   const handleButtonClick = (shake = true) => {
     if (shake) {
@@ -39,18 +66,8 @@ const GetStarted = () => {
     }
   };
   const params = useSearchParams()
-  const [singleData, setSingleData] = useState(null)
-  const [isLoading, setIsLoading] = useState(true);
-  const [publishLoader, setPublishLoader] = useState(false);
-  const [workflowData, setWorkflowData] = useState(null)
-  const [showHelp, setShowHelp] = useState(false)
-  const [showOptions, setShowOptions] = useState(false)
-  const [descrptionValue, setDescriptionValue] = useState({
-    name: "From an outbound API call",
-    icon: <TagIcon className="h-6 w-6" />,
-    key: 2
+ 
 
-  })
   const description_data = [{
     name: "From a written description of the workflow",
     icon: <TagIcon className="h-6 w-6" />,
@@ -64,19 +81,23 @@ const GetStarted = () => {
 
   }
   ]
-  // modals 
-  const [showPublishModal, setShowPublishModal] = useState(false);
-  const [stepModal, setStepModal] = useState(false);
-  const [editModal, setEditModal] = useState(false);
-  const [descriptionModal, setDescriptionModal] = useState(false);
-  const [workflowModal, setWorkflowModal] = useState(false);
-
-  const [automationStepsData, setAutomationStepsData] = useState([]);
 
   const getWorkflowData = async (id) => {
     const response = await getSingleWorkflow(id)
     if (response) {
       setSingleData(response)
+      setWorkFlowFormData((prev) => {
+        return {
+          ...prev,
+          name: response.name,
+          description: response.description,
+          logo: '',
+          preview: response.logo
+        }
+      })
+      if (response.automations.length > 0) {
+          setAutomationStepsData(response.automations)
+      }
       setIsLoading(false)
     } else {
       setIsLoading(false)
@@ -114,10 +135,20 @@ const GetStarted = () => {
   }
 
 
-  const saveWorkFlowHandler = async (e) => {
+  const saveWorkFlowHandler = async (type) => {
     try {
+      let payload = {}
       setPublishLoader(true);
-      let payload = { active: true };
+      if (type === "PUBLISH") {
+        payload = { active: true };
+      } else if (type === "EDIT") {
+        payload = {
+          logo: workflowFormData.logo,
+          description: workflowFormData.description,
+          name: workflowFormData.name
+        }
+      }
+      !payload.logo && delete payload.logo;
       const updateWorkflow = await updateWorkFlowStatus(payload, singleData?.id);
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
@@ -139,12 +170,45 @@ const GetStarted = () => {
       router.push(`/dashboard/workflow/workflow-builder`);
     }
   }
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const fileType = file.type;
+      if (fileType.startsWith('image/')) {
+        convertToBase64(file);
+      } else {
+        console.log('Invalid file type. Please select an image.');
+      }
+    }
+  };
+
+  const convertToBase64 = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setWorkFlowFormData(prev => {
+        return {
+          ...prev,
+          logo: reader.result
+        }
+      });
+    };
+  };
+  const handleInputValue = (e)=>{
+    const {name,value}=e.target
+    setWorkFlowFormData((prev)=>{
+      return{
+        ...prev,[name]: value
+      }
+    })
+  }
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
+        <RightSidebar workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
           {singleData ? (
             <>
               <div className='flex justify-between gap-2 items-center'>
@@ -173,7 +237,9 @@ const GetStarted = () => {
                     <Button
                       type={"button"}
                       onClick={() => setShowPublishModal(true)}
-                      className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]">
+                      className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                      disabled={automationStepsData.length === 0}
+                      >
                       Publish
                     </Button>
                   </div>
@@ -182,8 +248,8 @@ const GetStarted = () => {
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
 
-                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={()=>{deleteWorkFlow()}}>
-                            <a  className="block px-4 py-2 ">Delete</a>
+                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { deleteWorkFlow() }}>
+                            <a className="block px-4 py-2 ">Delete</a>
                           </li>
                         </ul>
                       </div>
@@ -192,7 +258,7 @@ const GetStarted = () => {
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} />
+              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} />
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
@@ -240,9 +306,9 @@ const GetStarted = () => {
                 >
                   <Button
                     className="inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
-                  onClick={() => {
-                     setDescriptionModal(prev => !prev) 
-                     setShowOptions(false) 
+                    onClick={() => {
+                      setDescriptionModal(prev => !prev)
+                      setShowOptions(false)
                     }}
 
                   >
@@ -269,14 +335,26 @@ const GetStarted = () => {
             <Modal title={<h3 className='text-lg font-semibold'>Workflow Details</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
               <div className=''>
                 <div className='mt-2 p-2'>
-                  <TextField name='company_name' value={"Untitled Workflow"} className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Name</span>  </div>} placeholder={"Something short and descriptive"} type={'text'} id={"work_flowdescription"} />
+                  <TextField name='name' onChange={handleInputValue} value={workflowFormData.name} className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Name</span>  </div>} placeholder={"Something short and descriptive"} type={'text'} id={"name"} />
                 </div>
                 <div className='mt-2 p-2'>
-                  <TextField name='company_name' className='py-3 w-full mt-1' value={"A brand new workflow"} title={<div className='flex items-center gap-2'><span>Description</span>  </div>} placeholder={"What is this workflow for ?"} type={'text'} id={"work_flowdescription"} />
+                  <TextField name='description' className='py-3 w-full mt-1' value={workflowFormData.description} title={<div className='flex items-center gap-2'><span>Description</span>  </div>} placeholder={"What is this workflow for ?"} type={'text'} id={"description"} />
                 </div>
                 <div className='mt-2 p-2'>
                   <FileField title={<div className='flex items-center gap-2'><span>Image</span> </div>} type={'file'} placeholder="Upload" id="docs"
-                    error={""} />
+                    error={""} onChange={handleFileChange} />
+                </div>
+                <div className='p-2'>
+                  {workflowFormData.logo && (
+                    <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
+                      <Image
+                        fill={"true"}
+                        className="bg-contain mx-auto w-full rounded-lg"
+                        alt="logo.png"
+                        src={workflowFormData.logo}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div
                   className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
@@ -291,9 +369,9 @@ const GetStarted = () => {
                   <Button
                     type={"button"}
                     className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                  // onClick={() => { setSuggestModal(prev => !prev) }}
+                    onClick={() => { saveWorkFlowHandler("EDIT") }}
                   >
-                    Save
+                    {publishLoader === true ? 'Loading...' : 'Save'}
                   </Button>
                 </div >
               </div>
@@ -310,7 +388,7 @@ const GetStarted = () => {
 
                   <Button
                     type={"button"}
-                    onClick={(e) => saveWorkFlowHandler(e)}
+                    onClick={(e) => saveWorkFlowHandler("PUBLISH")}
                     className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                   >
                     {publishLoader === true ? 'Loading...' : 'Open Workflow'}
