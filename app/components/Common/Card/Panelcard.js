@@ -8,6 +8,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 // import { price_data } from "@/app/(pages)/pricing/data";
 import { price_data } from "./price_data";
+
 const Panelcard = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -27,11 +28,10 @@ const Panelcard = (props) => {
         {price_data &&
           price_data.map((ele, key) => (
             <Card
-              className={`flex flex-col justify-between ${
-                ele.title == "Starter"
+              className={`flex flex-col justify-between ${ele.title == "Starter"
                   ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
                   : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
-              }`}
+                }`}
               key={key}
             >
               <div>
@@ -55,20 +55,20 @@ const Panelcard = (props) => {
                   <>
                     <p
                       className="text-slate font-normal text-sm my-4"
-                      // onMouseLeave={(e) => {
-                      //   e.stopPropagation();
-                      //   setHide({ first: false });
-                      // }}
+                    // onMouseLeave={(e) => {
+                    //   e.stopPropagation();
+                    //   setHide({ first: false });
+                    // }}
                     >
                       $200 free, then just{" "}
                       <span className="font-bold text-heading"> $1 </span>per
                       ticket resolution{" "}
                       <span
                         className="cursor-pointer"
-                        // onMouseOver={(e) => {
-                        //   e.stopPropagation();
-                        //   setHide({ first: true });
-                        // }}
+                      // onMouseOver={(e) => {
+                      //   e.stopPropagation();
+                      //   setHide({ first: true });
+                      // }}
                       >
                         *
                       </span>
@@ -80,11 +80,11 @@ const Panelcard = (props) => {
                         >
                           <p
                             className="text-heading"
-                            // onMouseLeave={() =>
-                            //   setTimeout(() => {
-                            //     setHide({ first: false });
-                            //   }, 5000)
-                            // }
+                          // onMouseLeave={() =>
+                          //   setTimeout(() => {
+                          //     setHide({ first: false });
+                          //   }, 5000)
+                          // }
                           >
                             Resolution is any conversation that does not
                             result in a human hand off or a customer marks as a
@@ -136,17 +136,16 @@ const Panelcard = (props) => {
                 </Button>
               ) : (
                 <Button
-                  dangerouslySetInnerHTML={{
-                    __html: `
-         <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
-         <span className="underline cursor-pointer text-white font-bold">                            Schedule Demo
-
-         </span>
-         </a>
-        `,
+                  className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    Calendly.initPopupWidget({ url: 'https://calendly.com/tempo-sales/30min' });
                   }}
-                  className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline  hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
-                ></Button>
+                >
+                  <a href="#" className="underline cursor-pointer text-white font-bold">
+                    Schedule Demo
+                  </a>
+                </Button>
               )}
             </Card>
           ))}
