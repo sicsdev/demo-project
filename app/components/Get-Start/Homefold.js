@@ -69,8 +69,7 @@ const Homefold = () => {
                Integrate anything. Automate everything.
             </p>
             <p className=" text-xl text-center  md:text-xl sm:max-w-[670px] sm:ml-[12rem] sm:mt-8   mt-4 mb-2 sm:mb-4 text-white">
-            Watch your costs plummet with AI-powered customer service and workflows. 50%+ automatic resolution, fast SLAs, and 24/7 service.
-            </p>
+            Watch your costs plummet with AI-powered customer service. 50%+ deflection, instant SLAs, and 24/7 service.            </p>
             <div className="block sm:grid md:grid lg:grid grid-cols-2 mx-auto sm:w-[60%] gap-4 sm:mt-8 mt-3 sm:mb-8">
             <button
                   className={
