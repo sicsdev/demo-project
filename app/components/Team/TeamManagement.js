@@ -48,7 +48,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                             title={""}
                                             id={"role"}
                                             disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
-                                            className="py-3"
+                                            className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none' : 'py-3'}
                                         // error={returnErrorMessage("business_state")}
                                         />
                                     </td>

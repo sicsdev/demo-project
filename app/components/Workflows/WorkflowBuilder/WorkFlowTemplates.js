@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { removeWorkFlow } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
-const WorkFlowTemplates = ({ workflowData }) => {
+const WorkFlowTemplates = ({ workflowData, fetchData }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
@@ -39,7 +39,7 @@ const WorkFlowTemplates = ({ workflowData }) => {
             name: "Actions",
             sortable: false,
             cell: (row) => (
-                <ButtonComponent data={row} alldata={data} setData={setData} workflowData={workflowData} />
+                <ButtonComponent data={row} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
         },
@@ -99,11 +99,12 @@ const WorkFlowTemplates = ({ workflowData }) => {
                     // paginationPerPage={5}
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
-                      }}
+                    }}
                     columns={columns}
                     data={data}
                     className="custom-data-table"
                     customStyles={customStyles}
+                    noDataComponent={<><p className="text-center p-3">No Workflow Found!</p></>}
                 />
             </div>
             <hr className='text-[#cfdada]' />
@@ -113,7 +114,7 @@ const WorkFlowTemplates = ({ workflowData }) => {
 
 export default WorkFlowTemplates
 
-export const ButtonComponent = ({ data, alldata, setData }) => {
+export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
     const [showHelp, setShowHelp] = useState(null)
     const router = useRouter()
     const editWorkFlowHandler = (ele) => {
@@ -123,6 +124,7 @@ export const ButtonComponent = ({ data, alldata, setData }) => {
         const filterData = alldata.filter((x) => x.id !== element.id)
         const deleteWorkFlow = await removeWorkFlow(element.id)
         if (deleteWorkFlow.status === 204) {
+            fetchData();
             setData(filterData)
             successMessage("Workflow deleted successfully !")
         }

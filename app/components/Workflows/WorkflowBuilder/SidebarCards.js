@@ -3,13 +3,11 @@ import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import { useParams } from 'next/navigation'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick ,workflowId}) => {
-    const params = useParams()
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex }) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -26,6 +24,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         }
         return ""
     }
+
     const findAutomations = async (element) => {
         setBeatLoader(true)
         setInnerSide(prev => {
@@ -39,13 +38,23 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setIntegrationAutomationData(automationData);
         setBeatLoader(false);
     }
+
     const addStepHandler = async (ele) => {
+
         const get_ids = automationStepsData.map((ele) => ele.id)
-        const update = await updateWorkFlowStatus({ automations: [...get_ids,ele.id] }, workflowId)
-        debugger
-        const updatedArray = [...automationStepsData, ele];
-        setAutomationStepsData(updatedArray);
+        const newArray = stepIndex !== undefined && stepIndex !== null
+            ? [...get_ids.slice(0, stepIndex), ele.id, ...get_ids.slice(stepIndex)]
+            : [...get_ids, ele.id];
+
+        const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+        console.log("Update", update)
+        const newAutomationArray = stepIndex !== undefined && stepIndex !== null
+            ? [...automationStepsData.slice(0, stepIndex), ele, ...automationStepsData.slice(stepIndex)]
+            : [...automationStepsData, ele];
+
+        setAutomationStepsData(newAutomationArray);
         handleButtonClick(false)
+        setStepIndex(null);
         setInnerSide(prev => {
             return {
                 ...prev,
@@ -54,6 +63,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
             }
         })
     };
+    
     const handleSearch = (e) => {
         const { value } = e.target
         setSearch(value)
