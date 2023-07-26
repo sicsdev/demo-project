@@ -141,9 +141,9 @@ const Panelcard = (props) => {
                   Calendly.initPopupWidget({ url: 'https://calendly.com/tempo-sales/30min' });
                 }}
               >
-                <a href="#" className="underline cursor-pointer text-white font-bold">
+                {/* <a href="#" className="underline cursor-pointer text-white font-bold"> */}
                   Schedule Demo
-                </a>
+                {/* </a> */}
               </Button>
             )}
           </Card>

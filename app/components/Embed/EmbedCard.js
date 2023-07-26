@@ -40,8 +40,6 @@ export const EmbedCard = ({
 
     const updatedCode = element.code.replace("});", "  embed: true\n});").trim();
     setEmbedCode(updatedCode);
-    console.log('embed code', updatedCode)
-
   }
 
   const [isEmbedEnabled, setIsEmbedEnabled] = useState(false);
@@ -130,6 +128,7 @@ export const EmbedCard = ({
                 lineNumbers: false,
                 foldGutter: false,
                 dropCursor: false,
+                highlightActiveLine: false
               }}
               readOnly={true}
               className="border-none"
