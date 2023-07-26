@@ -112,11 +112,11 @@ const Page = () => {
     return (
         <>
             <div>
-                <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
-                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                <div className="border-b border-border flex items-center justify-between">
+                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                         <li className="mr-2">
                             <span
-                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
                                 aria-current="page"
                             >
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
@@ -145,6 +145,7 @@ const Page = () => {
                             pagination
                             paginationPerPage={7}
                             columns={columns}
+                            noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                             data={state?.data?.results}
                         />
                     </div>

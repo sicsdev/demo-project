@@ -67,17 +67,16 @@ const Logs = () => {
 
   return (
     <div>
-      <div className="border-b border-primary dark:border-gray-700">
+      <div className="border-b border-primary ">
         <div className="flex items-center justify-between">
-          <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
             <li className="mr-2">
-              <a
-                href="#"
-                className="flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                aria-current="page"
-              >
+            <span
+                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                                aria-current="page"
+                            >
                 <CloudIcon className="h-6 w-6 text-gray-500"/> View Logs
-              </a>
+              </span>
             </li>
           </ul>
           <p className="text-sm">
@@ -97,7 +96,7 @@ const Logs = () => {
         </div>
       ) : (
         <DataTable
-          title="View Logs"
+          title={<h3 className="text-sm font-semibold">View Logs</h3>}
           fixedHeader
           highlightOnHover
           pointerOnHover
@@ -106,6 +105,7 @@ const Logs = () => {
             router.push(rowData.url);
           }}
           pagination
+          noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
           paginationPerPage={7}
           columns={columns}
           data={conversationData}

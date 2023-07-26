@@ -276,7 +276,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       email_agent_name: basicEmailFormData.agent_name,
       email_agent_title: basicEmailFormData.agent_title,
       email_greeting: basicEmailFormData.email_introduction,
-      email_farewell: basicEmailFormData.email_signOff,
+      email_farewell: basicEmailFormData.email_signOff, 
     }
     main_payload = { ...payload, ...bot_payload }
     modifyBot(botDetails.id, main_payload)
@@ -407,9 +407,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 >
                   <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
                 </a>
-                <p className="text-sm">
-                  <Link href="/dashboard">back</Link>
-                </p>
+
               </div>
               <small className="text-[#7e7e7e]">
                 Customize the colors, position, and user interface of your Tempo
@@ -696,22 +694,16 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
             <>
               <div>
-                {form === false ? (
-                  <>
-                    <span className="text-heading font-bold mb-4 "> Edit Email Settings</span>
-                    <hr className="opacity-10 mt-4"></hr>
-                    <EmailConfig basicFormData={basicEmailFormData} setBasicFormData={setBasicEmailFormData} />
-                  </>)
-                  :
+                {form === true && (
                   <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                }
+                )}
               </div>
 
 
 
 
               {/* DATES/HOURS RANGES THAT WIDGET WILL ACTIVE */}
-              <div style={{ marginTop: '100px' }}>
+              {/* <div style={{ marginTop: '100px' }}>
                 <span className="text-heading font-bold mb-4 flex">
                   <CalendarDaysIcon
                     fill="white"
@@ -722,7 +714,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 <hr className="opacity-10 mt-4"></hr>
                 <Schedule preferences={preferences}></Schedule>
 
-              </div>
+              </div> */}
 
 
 
