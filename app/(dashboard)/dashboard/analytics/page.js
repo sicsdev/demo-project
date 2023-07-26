@@ -2,13 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { CloudIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon, CloudIcon } from "@heroicons/react/24/outline";
 import { getBotConversation } from "@/app/API/pages/Bot";
 import Loading from "@/app/components/Loading/Loading";
 import moment from "moment";
 import Skeleton from "@/app/components/Skeleton/Skeleton";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Link from "next/link";
+import SelectOption from "@/app/components/Common/Input/SelectOption";
+import { useSelector } from "react-redux";
 
 const Logs = () => {
   const columns = [
@@ -32,23 +34,31 @@ const Logs = () => {
     },
   ];
 
-  const [conversationData, setConversationData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
   const router = useRouter();
-
+  const [botValue, setBotValue] = useState([]);
+  const state = useSelector((state) => state.botId);
+  const [conversationData, setConversationData] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
-    const bot_id = searchParams.get("id");
-    const bot_name = searchParams.get("name");
-    if (bot_id) {
-      getCoversation(bot_id);
-    }else{
-      router.push("/dashboard")
+    if (state.botData.data?.bots && state.botData.data?.widgets) {
+      const getTitle = state.botData.data.bots.map(
+        (element) => element.chat_title
+      );
+      const widgetCode = state.botData.data.widgets;
+      const mergedArray = widgetCode.map((item, index) => {
+        const title = getTitle[index];
+        return {
+          value: item.id,
+          name: title,
+        };
+      });
+      setBotValue(mergedArray);
+      getCoversation(mergedArray[0].value)
     }
-  }, [ searchParams.get("id")]);
+  }, [state.botData.data]);
 
   const getCoversation = async (bot_id) => {
+    setLoading(true)
     const response = await getBotConversation(bot_id);
     if (response.status === 200) {
       let newdata = response.data.results;
@@ -66,18 +76,23 @@ const Logs = () => {
       setLoading(false);
     }
   };
-
+  const handleInputValues = (e) => {
+    setLoading(true)
+    const { value } = e.target;
+    getCoversation(value);
+  };
   return (
     <div>
       <div className="border-b border-primary ">
         <div className="flex items-center justify-between">
           <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
             <li className="mr-2">
-            <span
-                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
-                                aria-current="page"
-                            >
-                <CloudIcon className="h-6 w-6 text-gray-500"/> View Logs
+              <span
+                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                aria-current="page"
+              >
+                <ChatBubbleOvalLeftIcon className="h-6 w-6 text-gray-500" />{" "}
+                Chat Logs
               </span>
             </li>
           </ul>
@@ -85,6 +100,19 @@ const Logs = () => {
             <Link href="/dashboard">back</Link>
           </p>
         </div>
+      </div>
+
+      <div className="mb-4">
+        <SelectOption
+          onChange={handleInputValues}
+          // value={botValue}
+          name="bot"
+          values={botValue}
+          title={<h3 className="text-sm my-8 font-semibold">Chat Logs</h3>}
+          id={"bots"}
+          className="py-3"
+          error={""}
+        />
       </div>
       {loading === true ? (
         // <Loading />
@@ -97,21 +125,32 @@ const Logs = () => {
           </div>
         </div>
       ) : (
-        <DataTable
-          title={<h3 className="text-sm font-semibold">View Logs</h3>}
-          fixedHeader
-          highlightOnHover
-          pointerOnHover
-          defaultSortFieldId="year"
-          onRowClicked={(rowData) => {
-            router.push(rowData.url);
-          }}
-          pagination
-          noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-          paginationPerPage={7}
-          columns={columns}
-          data={conversationData}
-        />
+        <>
+          {conversationData.length > 0 && (
+            <DataTable
+              title={<h3 className="text-sm font-semibold">View Logs</h3>}
+              fixedHeader
+              highlightOnHover
+              pointerOnHover
+              defaultSortFieldId="year"
+              onRowClicked={(rowData) => {
+                router.push(rowData.url);
+              }}
+              pagination
+              noDataComponent={
+                <>
+                  <p className="text-center text-sm p-3">
+                    Questions Tempo needs your help answering will show here
+                    when they're ready!
+                  </p>
+                </>
+              }
+              paginationPerPage={7}
+              columns={columns}
+              data={conversationData}
+            />
+          )}
+        </>
       )}
     </div>
   );
