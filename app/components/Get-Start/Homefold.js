@@ -69,36 +69,34 @@ const Homefold = () => {
                Integrate anything. Automate everything.
             </p>
             <p className=" text-xl text-center  md:text-xl sm:max-w-[670px] sm:ml-[12rem] sm:mt-8   mt-4 mb-2 sm:mb-4 text-white">
-              Watch your headcount plummet with AI-powered workflows and
-              ML-driven learning center. Fast SLAs, 24/7 service, and low-code setup.
-            </p>
+            Watch your costs plummet with AI-powered customer service. 50%+ deflection, instant SLAs, and 24/7 service.            </p>
             <div className="block sm:grid md:grid lg:grid grid-cols-2 mx-auto sm:w-[60%] gap-4 sm:mt-8 mt-3 sm:mb-8">
-              <button
-                className={
-                  "py-2 px-8 w-full first-letter:w-full focus:ring-yellow-300    text-lg font-semibold text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-                }
-              >
-                <div className="trytempo">
-                  <Link href="/pricing">Start Now</Link>
-                </div>
-              </button>
-              <button
-                type={"submit"}
-                className={
-                  "py-2 px-8 focus:ring-yellow-300 text-white w-full     mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold border dark:focus:ring-yellow-900 rounded-lg"
-                }
-              >
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: `
+            <button
+                  className={
+                    "py-2 px-8 w-full first-letter:w-full focus:ring-yellow-300    text-lg font-semibold text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                  }
+                >
+                  <div className="trytempo">
+                    <Link href="/checkout">Start Now</Link>
+                  </div>
+                </button>
+                <button
+                  type={"submit"}
+                  className={
+                    "py-2 px-8 focus:ring-yellow-300 text-white w-full hover:bg-white hover:text-primary  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold border dark:focus:ring-yellow-900 rounded-lg"
+                  }
+                >
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: `
        <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;">
        <span className="underline cursor-pointer text-white"> Schedule Demo
        </span>
        </a>
       `,
-                  }}
-                />{" "}
-              </button>
+                    }}
+                  />{" "}
+                </button>
             </div>
           </div>
         </div>

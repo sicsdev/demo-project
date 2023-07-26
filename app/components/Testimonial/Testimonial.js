@@ -18,31 +18,31 @@ const Testimonial = () => {
           </div>
           <div className="block sm:grid md:grid lg:grid grid-cols-2 gap-4">
             <button
-              className={
-                "py-2 px-8 sm:px-20 md:px-20 lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
-              }
-            >
-              <div
-                className="trytempo"
-                dangerouslySetInnerHTML={{
-                  __html: `
-       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-       <span className="underline cursor-pointer text-white">Demo Now! &#8594;
-       </span>
-       </a>
-      `,
-                }}
-              />
-            </button>
-            <button
               type={"submit"}
               className={
-                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-primary dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               <div className="trytempo">
                 <Link href="/checkout">Try Tempo &#8594; </Link>
               </div>
+            </button>
+            <button
+              className={
+                "py-2 px-8 sm:px-20  lg:px-8 sm:py-8 md:py-8 lg:py-8 w-full hover:font-semibold first-letter:w-full focus:ring-yellow-300  hover:text-primary bg-primary hover:bg-white text-lg font-semibold text-white  dark:focus:ring-yellow-900 rounded-lg"
+              }
+            >
+              <div
+                className="    "
+                dangerouslySetInnerHTML={{
+                  __html: `
+       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+       <span className="underline cursor-pointer text-white ">Demo Now! &#8594;
+       </span>
+       </a>
+      `,
+                }}
+              />
             </button>
           </div>
         </div>
