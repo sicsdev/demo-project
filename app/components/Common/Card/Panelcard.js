@@ -6,7 +6,8 @@ import Container from "../../Container/Container";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { price_data } from "@/app/(pages)/pricing/data";
+// import { price_data } from "@/app/(pages)/pricing/data";
+import { price_data } from "./price_data";
 const Panelcard = (props) => {
   const router = useRouter();
   const searchParams = useSearchParams();
