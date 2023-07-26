@@ -138,16 +138,27 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                         className="text-[#b3b3b3] cursor-pointer"
                         onClick={() => setIntegrationform(false)}
                     >
-                        <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
+                        <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+                    </span>
                     <p class="text-black-color text-xl font-semibold">
                         Configure {integrationFormData?.name}
                     </p>
                 </div>
-                <div class="text-center my-3 flex justify-between items-center gap-3 sm:w-[27%]">
-                    <button class="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-primary bg-white hover:bg-primary dark:focus:ring-yellow-900 rounded-lg hover:text-[white]" style={{ border: "1px solid #ebebeb" }}>
-                        Test connection</button>
-                    <button class="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
-                        Create resource</button>
+                <div class="text-center my-3 flex justify-between items-center gap-3 ">
+                    {loading ? (
+                        <LoaderButton parentClass={'py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3'} />
+                    ) : (
+                        <Button
+                            type={"button"}
+                            className="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full inline-block rounded bg-primary pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                            disabled={DisablingButton()}
+                            onClick={(e) => configureIntegrationHandler(e)}
+                        >
+                            {integrationFormData?.checked === true ? 'Update' : 'Create'} resource
+                        </Button>
+                    )}
+                    {/* <button class="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
+                        {integrationFormData?.checked === true ? 'Update' : 'Create'} resource</button> */}
                 </div>
             </div>
 
@@ -174,7 +185,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                                         />
                                     </div>
                                 ))}
-                                {loading ? (
+                                {/* {loading ? (
                                     <LoaderButton />
                                 ) : (
                                     <Button
@@ -186,7 +197,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
 
                                         {integrationFormData?.checked === true ? 'Update' : 'Save'}
                                     </Button>
-                                )}
+                                )} */}
                             </form>
                         </div>
                     </div>
@@ -197,10 +208,6 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                                 <BookOpenIcon className="h-4 w-4 text-gray-500" />
                                 <span className="">Rest API guide</span>
                             </a>
-                            <a href="#" className="font-normal text-sm flex items-center gap-2 hover:text-primary">
-                                <BookOpenIcon className="h-4 w-4 text-gray-500" />
-                                <span>Troubleshoot connections</span>
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -210,4 +217,4 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     )
 }
 
-export default CustomIntegration
+export default CustomIntegration    

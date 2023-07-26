@@ -61,6 +61,7 @@ const WorkFlowTemplates = ({ workflowData }) => {
         rows: {
             style: {
                 padding: "10px 0",
+                cursor: 'pointer',
             },
         }
     };
@@ -77,7 +78,7 @@ const WorkFlowTemplates = ({ workflowData }) => {
     return (
         <div>
             <h3 className='text-heading text-center font-semibold text-xl my-2'>Add, edit, and manage your Tempo workflows</h3>
-            <p className='text-heading text-sm text-center'>Workflows use your integrations to allow Tempo to interact with 3rd party API's and databases. Use our templates or create your own. </p>
+            {/* <p className='text-heading text-sm text-center'>Workflows use your integrations to allow Tempo to interact with 3rd party API's and databases. Use our templates or create your own. </p> */}
             <div className='flex justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
@@ -96,6 +97,9 @@ const WorkFlowTemplates = ({ workflowData }) => {
                     highlightOnHover
                     pagination={false}
                     // paginationPerPage={5}
+                    onRowClicked={(rowData) => {
+                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
+                      }}
                     columns={columns}
                     data={data}
                     className="custom-data-table"
@@ -125,9 +129,9 @@ export const ButtonComponent = ({ data, alldata, setData }) => {
     }
     return (
         <>
-            <div className='cursor-pointer relative' onClick={() => { setShowHelp(prev => { if (prev === data.key) { return null } else { return data.key } }) }}>
-                <EllipsisHorizontalIcon className="h-6 w-6 text-gray-500" />
-                {showHelp === data.key && (
+            <div className='cursor-pointer relative' onClick={(e) => { setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
+                <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
+                {showHelp === data.id && (
                     <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>

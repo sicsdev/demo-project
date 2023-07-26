@@ -6,11 +6,7 @@
       "title": "Other",
 
       "tiles": [
-        {
-          "name": "Rest API",
-          "logo": "/integrations/rest-api.svg",
-          "grayscale": false
-        },
+    
         {
           "name": "Suggest a resource",
           "logo": "/integrations/plus.svg"
