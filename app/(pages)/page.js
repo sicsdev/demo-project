@@ -22,34 +22,8 @@ import Homefold from "../components/Get-Start/Homefold";
 import Panelcard from "../components/Common/Card/Panelcard";
 export default function Home() {
   return (
-    <main className=""><pre lang="js">
-    <script src="https://widget-dev.usetempo.ai/v1/main.js" />
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
-          ChatBot.Widget({
-            id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
-          });
-        `,
-      }}
-    />
-  </pre>
-
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"
-  ></script>
-  <script
-    dangerouslySetInnerHTML={{
-      __html: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-HFHNKD99J4');
-      `,
-    }}
-  />
+    <main className="">
+ 
       <Head></Head>
       <Homefold/>
       {/* <Start /> */}
