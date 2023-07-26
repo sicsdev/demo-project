@@ -85,12 +85,12 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
                                             </Button>
                                         }
-                                        <Button
+                                        {/* <Button
                                             type={"button"}
                                             onClick={(e) => openModal({ key: "COLLECTINFOFORM", open: true })}
                                             className="inline-block cursor-pointer p-2 h-[38px]">
                                             <PencilIcon className="h-5 w-5 font-semibold" />
-                                        </Button>
+                                        </Button> */}
                                     </div>
                                 </div>
                             </div>
@@ -99,15 +99,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 </div>
             )
             }
-
-            {/* <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })}>
-                <div className='section-workflow'></div>
-                <div className='iconplus'>
-                    <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                </div>
-                <div className='section-workflow3 hover:bg-primary'></div>
-                <div className='section-workflow2'></div>
-            </div> */}
 
             <div className='mt-4 border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
                 onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
