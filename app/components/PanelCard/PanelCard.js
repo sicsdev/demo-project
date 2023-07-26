@@ -41,13 +41,13 @@ const Panelcard = (props) => {
                 <div className="relative w-[22px] h-[22px]">
                   <Image
                     fill={true}
-                    src={ele.icons_svg}
+                    // src={ele.icons_svg}
                     className="bg-contain mx-auto"
                     alt="img"
                   />
                 </div>{" "}
                 <label
-                  htmlFor="purple-radio"
+                //   htmlFor="purple-radio"
                   className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
                 >
                   {ele.title}
