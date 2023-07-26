@@ -12,6 +12,7 @@ import { xcodeLight } from "@uiw/codemirror-theme-xcode";
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from "next/link";
+import { useRef } from "react";
 
 export const EmbedCard = ({
   element,
@@ -40,17 +41,28 @@ export const EmbedCard = ({
 
     const updatedCode = element.code.replace("});", "  embed: true\n});").trim();
     setEmbedCode(updatedCode);
-    console.log('embed code', updatedCode)
-
   }
 
   const [isEmbedEnabled, setIsEmbedEnabled] = useState(false);
 
   const toggleEmbed = () => {
-    // if (mode === 'chat') { setIsEmbedEnabled(true) } else {setIsEmbedEnabled(false)}
     setIsEmbedEnabled((prev) => !prev);
-    // addEmbedFlagToCode();
   };
+
+  const divRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setDropdown(null);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   const tooltipText = `By default, the widget will be rendered in chat mode, but you can also use it integrated directly in your HTML.\n\nTo do this, simply enable this option and add a container with the ID 'chatbot_widget' on your page.\n\nExample:\n<div id='chatbot_widget'></div>\n\nThe chat will be rendered inside that container.`;
 
@@ -62,6 +74,7 @@ export const EmbedCard = ({
           <div className="relative flex flex-row-reverse pr-2">
             <button
               type={"button"}
+              ref={divRef}
               onClick={() => {
                 dropdown === key ? setDropdown(null) : setDropdown(key);
               }}
@@ -70,6 +83,7 @@ export const EmbedCard = ({
             </button>
             <button
               type={"button"}
+              ref={divRef}
               onClick={() => {
                 dropdown === key ? setDropdown(null) : setDropdown(key);
               }}
@@ -92,43 +106,6 @@ export const EmbedCard = ({
                 Chat
               </span>
             </div>
-            {/* {copied.message && copied.key === element.id ? (
-              <>
-                <span className="flex items-center pr-3">
-                  <CheckIcon className="h-5 w-5 " />
-                  Copied!
-                </span>{" "}
-              </>
-            ) : (
-              <CopyToClipboard
-                text={code}
-                onCopy={() => {
-                  setCopied((prev) => {
-                    return {
-                      ...prev,
-                      message: "copied !",
-                      key: element.id,
-                    };
-                  });
-                  setTimeout(() => {
-                    setCopied((prev) => {
-                      return {
-                        ...prev,
-                        message: null,
-                        key: null,
-                      };
-                    });
-                  }, 3000);
-                }}
-              >
-                <button
-                  type={"submit"}
-                  className="border-none p-0 m-0 flex gap-1 items-center pr-3"
-                >
-                  <ClipboardIcon className=" h-5 w-5 text-white" /> Copy code
-                </button>
-              </CopyToClipboard>
-            )} */}
             {dropdown === key && (
               <div className="animate-fadeIn absolute left-[-120px] top-[33px] z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                 <ul className=" text-sm ">
@@ -148,14 +125,6 @@ export const EmbedCard = ({
                       View Logs
                     </Link>
                   </li>
-                  {/* <li>
-                    <Link
-                      href={`/dashboard/bot-settings?id=${element.id}&name=${element.title}`}
-                      className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading"
-                    >
-                      Settings{" "}
-                    </Link>
-                  </li> */}
                 </ul>
               </div>
             )}
@@ -177,6 +146,7 @@ export const EmbedCard = ({
                 lineNumbers: false,
                 foldGutter: false,
                 dropCursor: false,
+                highlightActiveLine: false
               }}
               readOnly={true}
               className="border-none"
@@ -236,15 +206,16 @@ export const EmbedCard = ({
                   value={`<div id="chatbot_widget"></div>`}
                   height="auto"
                   theme={xcodeLight}
-                  extensions={[html({ selfClosingTags: true })]}
+                  extensions={[html({ selfClosingTags: false })]}
                   editable={false}
                   basicSetup={{
                     lineNumbers: false,
                     foldGutter: false,
                     dropCursor: false,
+                    highlightActiveLine: false
                   }}
                   readOnly={true}
-                  className="border-none"
+                  className="border-none bg-sky"
                 // onChange={onChange}
                 />
                 <div className='flex justify-end'>
@@ -297,21 +268,6 @@ export const EmbedCard = ({
           className="flex items-center justify-end mx-5 my-2"
           title={tooltipText}
         >
-          {/* <div className="flex items-center justify-end mx-5 my-2 pointer" onClick={toggleEmbed} style={{ cursor: "pointer" }}>
-            <span
-              className={`text-sm text-gray mr-1 ${isEmbedEnabled ? "text-sky" : ""
-                }`}
-            >
-              Embed
-            </span>
-            <span className="text-sky">|</span>
-            <span
-              className={`text-sm text-gray ml-1 ${!isEmbedEnabled ? "text-sky" : ""
-                }`}
-            >
-              Chat
-            </span>
-          </div> */}
         </div>
       </div >
     </>
