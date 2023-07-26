@@ -100,16 +100,16 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
             )
             }
 
-            <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })}>
+            {/* <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })}>
                 <div className='section-workflow'></div>
                 <div className='iconplus'>
                     <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
                 </div>
                 <div className='section-workflow3 hover:bg-primary'></div>
                 <div className='section-workflow2'></div>
-            </div>
+            </div> */}
 
-            <div className='border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
+            <div className='mt-4 border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
                 onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
                 <div className='flex justify-between gap-2 items-center'>
                     <div className='flex justify-between gap-4 items-center'>
