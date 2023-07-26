@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation';
 import { ToastContainer } from 'react-toastify'
 import UpdateWorkflowBasic from '@/app/components/Workflows/WorkflowBuilder/UpdateWorkflowBasic'
 import PublishWorkflow from '@/app/components/Workflows/WorkflowBuilder/PublishWorkflow'
+import DeleteWorkflow from '@/app/components/Workflows/WorkflowBuilder/DeleteWorkflow'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -41,6 +42,7 @@ const GetStarted = () => {
   const [editModal, setEditModal] = useState(false);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [workflowModal, setWorkflowModal] = useState(false);
+  const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
 
   const [automationStepsData, setAutomationStepsData] = useState([]);
   const router = useRouter();
@@ -72,13 +74,13 @@ const GetStarted = () => {
       setWorkFlowFormData((prev) => {
         return {
           ...prev,
-          name: response.name,
-          description: response.description,
+          name: response.name === "Default_name" ? "" : response.name,
+          description: response.description == "Default_description" ? "" : response.description,
           logo: '',
           preview: response.logo ?? '/workflow/reactive-subscription.png',
-          policy_name: response?.policy_name,
-          policy_description: response?.policy_description,
-          policy_exceptions: response?.policy_exceptions
+          policy_name: response?.policy_name === "default" ? "" : response?.policy_name,
+          policy_description: response?.policy_description === "default" ? "" : response?.policy_description,
+          policy_exceptions: response?.policy_exceptions === "default" ? "" : response?.policy_exceptions
         }
       })
       if (response?.automations?.length > 0) {
@@ -103,6 +105,22 @@ const GetStarted = () => {
     }
   }, [])
 
+
+  const divRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setShowHelp(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const openModal = (value) => {
     switch (value.key) {
       case "DESCRIPTION":
@@ -111,7 +129,8 @@ const GetStarted = () => {
       case "COLLECTINFOFORM":
         break;
       case "STEPS":
-        // setAddStepIndex(value?.addKey)
+        setAddStepIndex(null)
+        setIndexSelector(null)
         handleButtonClick()
         break;
       case "PLUS":
@@ -134,7 +153,7 @@ const GetStarted = () => {
         if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
           setPublishLoader(false);
           setShowPublishModal(false);
-          errorMessage("Could not create workflow, please first update the workflow policy by clicking edit on the first box.");
+          errorMessage("Please update your workflow name, description, and policy information before publishing.");
           return false;
         }
         payload = { active: true };
@@ -147,14 +166,26 @@ const GetStarted = () => {
           policy_description: workflowFormData.policy_description,
           policy_exceptions: workflowFormData.policy_exceptions
         }
+      } else if (type === "DISABLE") {
+        payload = { active: false }
       }
 
       !payload.logo && delete payload.logo;
       const updateWorkflow = await updateWorkFlowStatus(payload, singleData?.id);
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
-        successMessage("Workflow Publish Successfully!");
-        router.push(`/dashboard/workflow/workflow-builder`);
+        if (type === "EDIT" || type === "PUBLISH") {
+          successMessage("Workflow Publish Successfully!");
+        } else if (type === "DISABLE"){
+          successMessage("Workflow Disabled Successfully!");
+
+        }
+
+        setPublishLoader(false);
+        setDeleteWorkflowModal(false)
+        setWorkflowModal(false)
+        setShowPublishModal(false);
+        getWorkflowData(singleData?.id)
       } else {
         errorMessage("Unable to Proceed!");
       }
@@ -165,6 +196,7 @@ const GetStarted = () => {
   };
 
   const deleteWorkFlow = async (element) => {
+
     const flow = params.get("flow");
     const deleteWorkFlow = await removeWorkFlow(flow)
     if (deleteWorkFlow.status === 204) {
@@ -250,17 +282,17 @@ const GetStarted = () => {
                       type={"button"}
                       onClick={(e) => publishModelHandler(e)}
                       className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      disabled={automationStepsData.length === 0}
+                      disabled={automationStepsData.length === 0 || singleData?.active=== true}
                     >
                       Publish
                     </Button>
                   </div>
-                  <div className='cursor-pointer relative' onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
+                  <div className='cursor-pointer relative' ref={divRef} onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
                     {showHelp && (
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
 
-                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { deleteWorkFlow() }}>
+                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
                             <a className="block px-4 py-2 ">Delete</a>
                           </li>
                         </ul>
@@ -270,7 +302,7 @@ const GetStarted = () => {
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector}/>
+              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} />
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
@@ -295,6 +327,12 @@ const GetStarted = () => {
             showPublishModal &&
             <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
               <PublishWorkflow publishLoader={publishLoader} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
+            </Modal>
+          }
+          {
+            deleteWorkflowModal &&
+            <Modal title={`Are you sure you want to delete ${workflowFormData.name}?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+              <DeleteWorkflow publishLoader={publishLoader} active={singleData?.active} deleteWorkFlow={deleteWorkFlow} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
             </Modal>
           }
 
