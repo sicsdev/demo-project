@@ -15,7 +15,7 @@ const Panelcard = (props) => {
     router.push(`/checkout?plan=${select}`);
   };
   const [hide, setHide] = useState({
-    first: false,
+    first: true,
   });
   return (
     <div className="bg-white p-[64px] ">
