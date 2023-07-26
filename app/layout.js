@@ -34,6 +34,7 @@ export default function RootLayout({ children }) {
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
+        <link rel="preload" as="script" href="https://widget-dev.usetempo.ai/v1/main.js" />
       </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
