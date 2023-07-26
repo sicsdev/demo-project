@@ -32,14 +32,12 @@ const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
   const recommedState = useSelector((state) => state.recommendation);
 
-  const bot_state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
   const pathname = usePathname();
   const defaultPhoto = "https://cdn-icons-png.flaticon.com/256/149/149071.png";
   const [base64Data, setBase64Data] = useState({ data: "", state: false });
   const [showSubTabs, setShowSubTabs] = useState(null);
   const router = useRouter();
-  console.log("bot_state", bot_state);
   useEffect(() => {
     if (!state) {
       dispatch(fetchProfile());
@@ -59,26 +57,6 @@ const Sidebar = ({ children }) => {
       }, [4000]);
     }
   }, [base64Data]);
-  const bots = () => {
-    if (bot_state?.botData?.data?.bots && bot_state.botData.data?.widgets) {
-      const getTitle = bot_state.botData.data.bots.map(
-        (element) => element.chat_title
-      );
-      const widgetCode = bot_state.botData.data.widgets;
-      const mergedArray = widgetCode.map((item, index) => {
-        const title = getTitle[index];
-        return {
-          href: "/dashboard/analytics?id=" + item.id,
-          name: title,
-          icon: <ArrowDownOnSquareIcon className="h-6 w-6 text-gray-500" />,
-        };
-      });
-
-      return mergedArray;
-    } else {
-      return [];
-    }
-  };
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
 
@@ -140,13 +118,13 @@ const Sidebar = ({ children }) => {
       list: [],
       notification: recommedState?.data?.count,
     },
-    // {
-    //   href: "/dashboard/analytics?id=" + bot_state?.botData?.data?.bots[0].id,
-    //   name: "Analytics",
-    //   icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
-    //   list: bot_state?.botData?.data?.bots ? bots() : [],
-    //   notification: recommedState?.data?.count,
-    // },
+    {
+      href: "/dashboard/analytics",
+      name: "Analytics",
+      icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+      list: [],
+      notification: recommedState?.data?.count,
+    },
     {
       href: "/dashboard/billing/usage",
       name: "Billing",
@@ -313,9 +291,7 @@ const Sidebar = ({ children }) => {
   };
   return (
     <>
-      {bot_state?.botData?.isLoading === true ? (
-        <Loading />
-      ) : (
+     
         <>
           <nav className="fixed top-0 z-50 w-full bg-sidebar">
             <div className="px-3 py-3 lg:px-5 lg:pl-3">
@@ -492,7 +468,6 @@ const Sidebar = ({ children }) => {
             </div>
           </div>
         </>
-      )}
     </>
   );
 };
