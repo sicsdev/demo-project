@@ -48,9 +48,11 @@ export default function Home() {
         {/* <SecondBan /> */}
         <Info />
 
+
 <Middlebar/>
 
         {/* <Panelcard /> */}
+
 
 
         <Newstandard />
