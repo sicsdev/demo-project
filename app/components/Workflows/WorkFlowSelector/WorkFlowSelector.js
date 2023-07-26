@@ -52,13 +52,13 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 <div key={key}>
                     {indexSelector === key && (
 
-                        <div className='mt-4 border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
+                        <div className='relative mt-4 border-2 border-dashed  bg-[#F8F8F8] border-primary rounded-lg shadow p-5 cursor-pointer group'
                             onClick={(e) => openModal({ key: "STEPS", open: true, addKey: key })} >
                             <div className='flex justify-between gap-2 items-center'>
                                 <div className='flex justify-between gap-4 items-center'>
                                     <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
                                     <p className='text-sm font-semibold'>Your next step goes here</p></div>
-                                <div className='hidden group-hover:block rounded-lg group-hover:border border-border  h-[38px] group-hover:shadow]'>
+                                <div className='hidden group-hover:block rounded-lg group-hover:border border-border absolute right-[20px] h-[38px] group-hover:shadow]'>
                                     <Button
                                         type={"button"}
                                         onClick={(e) => {
