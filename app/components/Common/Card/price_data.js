@@ -1,4 +1,4 @@
-export const price_data = [
+const price_data = [
     {
       title: "Starter",
       sub_title:
@@ -47,3 +47,6 @@ export const price_data = [
       ],
     },
   ];
+
+
+  export default price_data
