@@ -338,7 +338,7 @@ const GetStarted = () => {
                   <TextField name='name' onChange={handleInputValue} value={workflowFormData.name} className='py-3 w-full mt-1' title={<div className='flex items-center gap-2'><span>Name</span>  </div>} placeholder={"Something short and descriptive"} type={'text'} id={"name"} />
                 </div>
                 <div className='mt-2 p-2'>
-                  <TextField name='description' className='py-3 w-full mt-1' value={workflowFormData.description} title={<div className='flex items-center gap-2'><span>Description</span>  </div>} placeholder={"What is this workflow for ?"} type={'text'} id={"description"} />
+                  <TextField name='description' className='py-3 w-full mt-1' onChange={handleInputValue} value={workflowFormData.description} title={<div className='flex items-center gap-2'><span>Description</span>  </div>} placeholder={"What is this workflow for ?"} type={'text'} id={"description"} />
                 </div>
                 <div className='mt-2 p-2'>
                   <FileField title={<div className='flex items-center gap-2'><span>Image</span> </div>} type={'file'} placeholder="Upload" id="docs"
