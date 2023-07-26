@@ -111,14 +111,7 @@ const Page = () => {
           return 0;
         });
 
-        if (sortedData[0].key === "POPULAR") {
-          sortedData[0].tiles.push({
-            "name": "Rest API",
-            "logo": "/integrations/rest-api.svg",
-            "grayscale": false,
-            checked: false
-          })
-        }
+       
         setIntegrationsTiles(sortedData)
         setFixeData(sortedData)
       }

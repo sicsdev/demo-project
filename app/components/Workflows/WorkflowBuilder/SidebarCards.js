@@ -3,11 +3,13 @@ import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick ,workflowId}) => {
+    const params = useParams()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -38,8 +40,9 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setBeatLoader(false);
     }
     const addStepHandler = async (ele) => {
-        // const get_ids = automationStepsData.map((ele) => ele.id)
-        const update = await updateWorkFlowStatus({ automations: [ ele.id] }, '3bd5a608-d249-4206-8bce-2b110b3e4dfb')
+        const get_ids = automationStepsData.map((ele) => ele.id)
+        const update = await updateWorkFlowStatus({ automations: [...get_ids,ele.id] }, workflowId)
+        debugger
         const updatedArray = [...automationStepsData, ele];
         setAutomationStepsData(updatedArray);
         handleButtonClick(false)
