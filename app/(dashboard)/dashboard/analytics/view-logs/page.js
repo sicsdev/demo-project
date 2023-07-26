@@ -43,6 +43,8 @@ const Logs = () => {
     const bot_name = searchParams.get("name");
     if (bot_id) {
       getCoversation(bot_id);
+    }else{
+      router.push('/dashboard/analytics')
     }
   }, []);
 
@@ -80,7 +82,7 @@ const Logs = () => {
             </li>
           </ul>
           <p className="text-sm">
-            <Link href="/dashboard">back</Link>
+            <Link href="/dashboard/analytics">back</Link>
           </p>
         </div>
       </div>
