@@ -179,6 +179,16 @@ const GetStarted = () => {
     }
   };
 
+  const publishModelHandler = (e) => {
+    if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
+      // setPublishLoader(false);
+      // setShowPublishModal(false);
+      errorMessage("Could not create workflow, please first update the workflow policy by clicking edit on the first box.");
+      return false;
+    }
+    setShowPublishModal(true)
+  };
+
   const convertToBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -232,7 +242,7 @@ const GetStarted = () => {
                   <div>
                     <Button
                       type={"button"}
-                      onClick={() => setShowPublishModal(true)}
+                      onClick={(e) => publishModelHandler(e)}
                       className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                       disabled={automationStepsData.length === 0}
                     >
@@ -261,7 +271,7 @@ const GetStarted = () => {
           {/* description modal start  */}
           {
             descriptionModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Change how this workflow starts</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
               <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setDescriptionModal} />
             </Modal >
           }
@@ -270,7 +280,7 @@ const GetStarted = () => {
 
           {
             workflowModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Workflow Details</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
+            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[80%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
               <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
             </Modal>
           }
