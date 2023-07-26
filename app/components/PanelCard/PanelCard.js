@@ -1,8 +1,8 @@
 // "use client";
 import React from "react";
-import Button from "../Button/Button";
-import Card from "./Card";
-import Container from "../../Container/Container";
+import Button from "../Common/Button/Button";
+import Card from "../Common/Card/Card";
+import Container from "../Container/Container";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
