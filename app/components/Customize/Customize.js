@@ -26,9 +26,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 import ColorSelector from "./ColorSelector";
 import Modal from "../Common/Modal/Modal";
-import { CheckIcon } from "@heroicons/react/24/solid";
-import Link from "next/link";
-import BotSetting from "@/app/(dashboard)/dashboard/bot-settings/page";
 import EmailConfig from "../EmailConfig/EmailConfig";
 import Schedule from "./Schedule";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
@@ -40,21 +37,23 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const id = useSelector((state) => state.botId.id);
   const searchParams = useSearchParams();
   const router = useRouter();
-
+  console.log("basicFormData", basicFormData)
   useEffect(() => {
-    if (form === false) {
-      const bot_id = searchParams.get("id");
-      setBot_id(bot_id);
-      const bot_name = searchParams.get("name");
-      if (bot_id) {
-        getBotInfo(bot_id);
-      }
-      console.log("as2d");
-    } else {
+    if (form === true && id) {
       getBotInfo(id);
       setBot_id(id);
     }
+
   }, []);
+  useEffect(() => {
+    if (form === false && basicFormData) {
+      setBotDetails(basicFormData);
+      setPreferences(basicFormData);
+      setBlockedUrls(basicFormData);
+    }
+
+
+  }, [basicFormData]);
 
   const [showManageHideUrls, setShowManageHideUrls] = useState(false);
 
@@ -109,20 +108,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     getAllBotData([id]).then((res) => {
       console.log('getallbotdata', res);
       let bot_res = res[0].data
-      if (form === true) {
-        setBasicFormData(prev => {
-          return {
-            ...prev,
-            email: bot_res.email,
-            agent_name: bot_res.email_agent_name,
-            agent_title: bot_res.email_agent_title,
-            email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
-            email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
-
-          }
-        })
-      }
-      setBasicEmailFormData(prev => {
+      setBasicFormData(prev => {
         return {
           ...prev,
           email: bot_res.email,
@@ -136,23 +122,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       setBotDetails(res[0].data);
       setPreferences(res[0].data);
       setBlockedUrls(res[0].data.origins_blocked ?? "");
-
       let data = res[0].data;
-      if (form == true) {
-        setBasicFormData((prev) => {
-          return {
-            ...prev,
-            ...data,
-          };
-        });
-      }
-      // addAllowedUrl(id, { elements: ["*"] }).then((res) => {
-      //   setPreferences({
-      //     ...preferences,
-      //     origins_blocked: res.data.origins_blocked ?? "",
-      //   });
-      //   setBlockedUrls(res.data.origins_blocked ?? "");
-      // });
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          ...data,
+        };
+      });
     });
   };
 
@@ -162,15 +138,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       primary_color: color.code,
       primary_text_color: color.text_color,
     });
-    if (form == true) {
-      setBasicFormData((prev) => {
-        return {
-          ...prev,
-          primary_color: color.code,
-          primary_text_color: color.text_color,
-        };
-      });
-    }
+    setBasicFormData((prev) => {
+      return {
+        ...prev,
+        primary_color: color.code,
+        primary_text_color: color.text_color,
+      };
+    });
+
   };
 
   const handleSecondaryColorChange = (color) => {
@@ -179,25 +154,23 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       secondary_color: color.code,
       secondary_text_color: color.text_color,
     });
-    if (form == true) {
-      setBasicFormData((prev) => {
-        return {
-          ...prev,
-          secondary_color: color,
-          secondary_text_color: color.text_color,
-        };
-      });
-    }
+    setBasicFormData((prev) => {
+      return {
+        ...prev,
+        secondary_color: color,
+        secondary_text_color: color.text_color,
+      };
+    });
+
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPreferences({ ...preferences, [name]: value });
-    if (form == true) {
-      setBasicFormData((prev) => {
-        return { ...prev, [name]: value };
-      });
-    }
+    setBasicFormData((prev) => {
+      return { ...prev, [name]: value };
+    });
+
   };
   const handleCheckBoxChange = (e) => {
     const { name } = e.target;
@@ -205,11 +178,10 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       ...preferences,
       [name]: preferences.active === false ? true : false,
     });
-    if (form == true) {
-      setBasicFormData((prev) => {
-        return { ...prev, [name]: preferences.active === false ? true : false };
-      });
-    }
+    setBasicFormData((prev) => {
+      return { ...prev, [name]: preferences.active === false ? true : false };
+    });
+
   };
 
   // Logo & thumbnail upload + base64 conversion
@@ -237,60 +209,18 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
           logo: result,
           logo_file_name: file.name,
         });
-        if (form == true) {
-          setBasicFormData((prev) => {
-            return { ...prev, logo: result, logo_file_name: file.name };
-          });
-        }
+        setBasicFormData((prev) => {
+          return { ...prev, logo: result, logo_file_name: file.name };
+        });
+
       })
 
       .catch((err) => {
         console.log(err);
       });
   };
-  const DisablingButton = () => {
-    const requiredKeys = [
-      'agent_title',
-      'email_introduction',
-      'email_signOff']
-    const str_values = requiredKeys.some(key => !basicEmailFormData[key] || basicEmailFormData[key].trim() === '');
-    const arr_values = ['agent_name'].every(key => !basicEmailFormData[key] || basicEmailFormData[key].length === 0);
-    if (str_values || arr_values) {
-      return true
-    }
 
-    return false
 
-  }
-  const savePreferences = () => {
-    setLoading(true);
-    let main_payload = null
-    let payload = {
-      ...preferences,
-      logo: preferences.logo_file_name ? preferences.logo : "",
-    };
-    !payload.logo && delete payload.logo;
-    !payload.email && delete payload.email;
-    let bot_payload = {
-      email: basicEmailFormData.email_prefix + "@" + basicEmailFormData.company_name + '.gettempo.ai',
-      email_agent_name: basicEmailFormData.agent_name,
-      email_agent_title: basicEmailFormData.agent_title,
-      email_greeting: basicEmailFormData.email_introduction,
-      email_farewell: basicEmailFormData.email_signOff, 
-    }
-    main_payload = { ...payload, ...bot_payload }
-    modifyBot(botDetails.id, main_payload)
-      .then((res) => {
-        setLoading(false);
-        // getBotInfo(botDetails.id)
-        dispatch(fetchBot());
-        router.push("/dashboard");
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
-  };
   // **** Manage hide urls modal handlers ***
   const [blockedUrls, setBlockedUrls] = useState([]);
   const [newBlockedUrl, setNewBlockedUrl] = useState("");
@@ -402,7 +332,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             <div className="mt-4 mb-4">
               <div className="flex items-center justify-between">
                 <a
-                  className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                  className="flex justify-start gap-2 items-center text-sm text-primary font-bold border-primary rounded-t-lg active group"
                   aria-current="customize"
                 >
                   <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
@@ -718,25 +648,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
 
 
-              {form === false && (
-                <div className="m-auto justify-center flex mt-4">
-                  <div className="m-auto align-center">
-                    {loading ? (
-                      <LoaderButton />
-                    ) : (
-                      <Button
-                        type={"button"}
-                        onClick={savePreferences}
-                        disabled={DisablingButton()}
-                        className="align-center inline-block font-bold rounded bg-primary   px-8 pb-2 pt-3 text-xs uppercase text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      >
-                        Save
-                      </Button>
-                    )}
-                  </div>
-                </div>
-
-              )}
             </>
           </>
         )}
