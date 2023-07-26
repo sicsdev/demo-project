@@ -38,6 +38,7 @@ export default function Home() {
       </pre>
 
       <main className="">
+        
         <Head></Head>
         <Homefold />
         {/* <Start /> */}
