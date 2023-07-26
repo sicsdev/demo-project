@@ -133,19 +133,31 @@ const Panelcard = (props) => {
               >
                 Get Started{" "}
               </Button>
-            ) : (
-              <Button
-                className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
-                onClick={(e) => {
-                  e.preventDefault();
-                  Calendly.initPopupWidget({ url: 'https://calendly.com/tempo-sales/30min' });
-                }}
-              >
-                {/* <a href="#" className="underline cursor-pointer text-white font-bold"> */}
+            ) :
+              // (
+              //   <Button
+              //     className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
+              //     onClick={(e) => {
+              //       e.preventDefault();
+              //       Calendly.initPopupWidget({ url: 'https://calendly.com/tempo-sales/30min' });
+              //     }}
+              //   >
+              //     {/* <a href="#" className="underline cursor-pointer text-white font-bold"> */}
+              //       Schedule Demo
+              //     {/* </a> */}
+              //   </Button>
+              // )
+              (
+                <Button
+                  className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
+                >
+                  {/* <a href="#" className="underline cursor-pointer text-white font-bold"> */}
                   Schedule Demo
-                {/* </a> */}
-              </Button>
-            )}
+                  {/* </a> */}
+                </Button>
+              )
+
+            }
           </Card>
         ))}
       </div>
