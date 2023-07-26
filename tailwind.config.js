@@ -93,6 +93,8 @@ module.exports = {
       danger: "#dc2626",
       modal: "#fef2f2",
       gray: "#e4e4e7",
+      graywhite: "#F3F3F3",
+      skyblue: "#d8e4fa",
       red: "#dc2626",
       label: "#59f2f6",
     },

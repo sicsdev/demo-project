@@ -22,30 +22,44 @@ import Homefold from "../components/Get-Start/Homefold";
 import Panelcard from "../components/Common/Card/Panelcard";
 export default function Home() {
   return (
-    <main className="">
-      <Head></Head>
-      <Homefold/>
-      {/* <Start /> */}
-      <DTC />
-      {/* <Brandpercentage/>   */}
-      {/* <SecondBan /> */}
-      <Info />
-      <Panelcard />
+    <>
+      <pre lang="js">
+        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              ChatBot.Widget({
+                id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
+              });
+            `,
+          }}
+        />
+      </pre>
 
-      <Newstandard />
-      {/* <Trial /> */}
-      <Social />
-      {/* <Marketing/> */}
+      <main className="">
+        <Head></Head>
+        <Homefold />
+        {/* <Start /> */}
+        <DTC />
+        {/* <Brandpercentage/>   */}
+        {/* <SecondBan /> */}
+        <Info />
+        {/* <Panelcard /> */}
 
-      <Launch />
-      {/* <Benifits />         */}
-      {/* <Faq />   */}
-      {/* <Iconanimation /> */}
-      <Motioncards />
-      <Testimonial />
+        <Newstandard />
+        {/* <Trial /> */}
+        <Social />
+        {/* <Marketing/> */}
 
-      {/* dummy section */}
-      {/* <div className="bg-[#142543] p-6">
+        <Launch />
+        {/* <Benifits />         */}
+        {/* <Faq />   */}
+        {/* <Iconanimation /> */}
+        <Motioncards />
+        <Testimonial />
+
+        {/* dummy section */}
+        {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">
           <div
             className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
@@ -150,7 +164,8 @@ export default function Home() {
         </div>
       </div> */}
 
-      {/* dummy section */}
-    </main>
+        {/* dummy section */}
+      </main>
+    </>
   );
 }
