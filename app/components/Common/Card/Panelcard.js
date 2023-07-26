@@ -54,20 +54,20 @@ const Panelcard = (props) => {
                   <>
                     <p
                       className="text-slate font-normal text-sm my-4"
-                      onMouseLeave={(e) => {
-                        e.stopPropagation();
-                        setHide({ first: false });
-                      }}
+                      // onMouseLeave={(e) => {
+                      //   e.stopPropagation();
+                      //   setHide({ first: false });
+                      // }}
                     >
                       $200 free, then just{" "}
                       <span className="font-bold text-heading"> $1 </span>per
                       ticket resolution{" "}
                       <span
                         className="cursor-pointer"
-                        onMouseOver={(e) => {
-                          e.stopPropagation();
-                          setHide({ first: true });
-                        }}
+                        // onMouseOver={(e) => {
+                        //   e.stopPropagation();
+                        //   setHide({ first: true });
+                        // }}
                       >
                         *
                       </span>
@@ -79,11 +79,11 @@ const Panelcard = (props) => {
                         >
                           <p
                             className="text-heading"
-                            onMouseLeave={() =>
-                              setTimeout(() => {
-                                setHide({ first: false });
-                              }, 5000)
-                            }
+                            // onMouseLeave={() =>
+                            //   setTimeout(() => {
+                            //     setHide({ first: false });
+                            //   }, 5000)
+                            // }
                           >
                             Resolution is any conversation that does not
                             result in a human hand off or a customer marks as a
