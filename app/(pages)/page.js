@@ -38,7 +38,7 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        {/* <Homefold /> */}
+        <Homefold />
         <Start />
         <DTC />
         {/* <Brandpercentage/>   */}
@@ -55,7 +55,7 @@ export default function Home() {
         {/* <Benifits />         */}
         {/* <Faq />   */}
         {/* <Iconanimation /> */}
-        <Motioncards />
+        {/* <Motioncards /> */}
         <Testimonial />
 
         {/* dummy section */}
