@@ -199,7 +199,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                         <div className='flex items-center gap-1'><span className='text-sm font-semibold'>Mandatory Input(s)</span><div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Enter fields you need the bot to ask the customer for before calling this automation. For example "Name," "Email" or any other data point that the customer must enter. </span></Card></div></div>
                                         <div className="flex flex-wrap justify-start items-center border h-auto w-auto border-border p-1 rounded-md mt-2">
                                             <div className="flex flex-wrap items-center justify-start gap-1">
-                                                {automationStepsField?.names_arr && automationStepsField[key].names_arr.length > 0 &&
+                                                {automationStepsField[key]?.names_arr && automationStepsField[key]?.names_arr.length > 0 &&
                                                     automationStepsField[key].names_arr.map((element, index) => (
                                                         <div
                                                             className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border"
@@ -216,7 +216,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                     ))}
                                             </div>
                                             <input
-                                                value={automationStepsField[key].name}
+                                                value={automationStepsField[key]?.name}
                                                 onKeyDown={(e) => handleKeyDown(e, key)}
                                                 required
                                                 onChange={(e) => handleAgentNameValue(e, key)}
