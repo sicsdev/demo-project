@@ -7,7 +7,7 @@ const Homefold = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(true);
+      setLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
