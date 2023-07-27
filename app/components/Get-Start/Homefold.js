@@ -17,9 +17,9 @@ const Homefold = () => {
         <div className="absolute w-[35%] h-full flex right-0">
           <img src="/home-fold.png" className="object-fill w-full" />
         </div>
-        {/* <div className="absolute w-[35%] h-full flex left-0">
-        <img src="/home-fold.png" className="object-fill w-full" />
-      </div> */}
+        <div className="absolute w-[35%] h-full flex left-0">
+        <img src="/left-side.png" className="object-fill w-full" />
+      </div>
         <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-20 relative">
           <div className="block sm:flex   justify-center  gap-10">
             <div>
@@ -59,7 +59,7 @@ const Homefold = () => {
                 ></div>
               </div>
 
-              <p className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
+              <div className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
                 {loading ? (
                   <>
                     <div className="hidden sm:block">
@@ -72,13 +72,13 @@ const Homefold = () => {
                 ) : (
                   "Integrate anything. Automate everything."
                 )}
-              </p>
+              </div>
               {loading ? (
                 <p className="text-center">
                   <SkeletonLoader count={2} height={30} width={"100%"}  baseColor="#230A5C"/>
                 </p>
               ) : (
-                <p className=" text-xl text-center  md:text-xl sm:max-w-[670px] sm:ml-[12rem] sm:mt-8   mt-4 mb-2 sm:mb-4 text-white">
+                <p className=" text-xl text-center  md:text-xl sm:max-w-[632px] sm:ml-[12rem] sm:mt-8   mt-4 mb-2 sm:mb-4 text-white">
                   Watch your costs plummet with AI-powered customer service.
                   50%+ deflection, instant SLAs, and 24/7 service.
                 </p>

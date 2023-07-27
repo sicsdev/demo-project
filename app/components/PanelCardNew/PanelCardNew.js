@@ -1,20 +1,20 @@
-// "use client";
+"use client";
 import React from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import price_data from "./price_data";
-
+import { useState } from "react";
 const Panelcardnew = () => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const emailQuery = searchParams.get("email");
 
   const handleGetFreeTrial = (e) => {
     router.push(`/checkout?plan=${e.target.id}`);
   };
-
+  const [hide, setHide] = useState({
+    first: false,
+  });
   return (
     <div className="bg-white p-[64px] ">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
@@ -26,11 +26,10 @@ const Panelcardnew = () => {
             className={`flex flex-col justify-between ${
               ele.title == "Starter"
                 ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
-                : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
+                : "cursor-pointer  bg-white   border border-border"
             }`}
-            key={key}
           >
-            <div>
+            <div key={key}>
               <div className="flex items-center mr-4">
                 <div className="relative w-[22px] h-[22px]">
                   <Image
@@ -40,16 +39,53 @@ const Panelcardnew = () => {
                     alt="img"
                   />
                 </div>{" "}
-                <label className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
+                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
                   {ele.title}
-                </label>
+                </p>
               </div>
               {ele.title == "Starter" ? (
                 <>
-                  <p className="text-slate font-normal text-sm my-4">
+                  <p
+                    className="text-slate font-normal text-sm my-4"
+                    onMouseLeave={(e) => {
+                      e.stopPropagation();
+                      setHide({ first: false });
+                    }}
+                  >
                     $200 free, then just{" "}
                     <span className="font-bold text-heading"> $1 </span>per
                     ticket resolution{" "}
+                    <span
+                      className="cursor-pointer"
+                      onMouseOver={(e) => {
+                        e.stopPropagation();
+                        setHide({ first: true });
+                      }}
+                    >
+                      *
+                    </span>
+                    {hide.first == true ? (
+                      <Card
+                        className={
+                          "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-auto mr-auto left-0 right-0"
+                        }
+                      >
+                        <p
+                          className="text-heading"
+                          onMouseLeave={() =>
+                            setTimeout(() => {
+                              setHide({ first: false });
+                            }, 5000)
+                          }
+                        >
+                          Resolution is any conversation that does not result in
+                          a human hand off or a customer marks as a bad answer
+                          and has at least 3 total interactions.
+                        </p>
+                      </Card>
+                    ) : (
+                      ""
+                    )}{" "}
                   </p>
                 </>
               ) : (
@@ -83,26 +119,28 @@ const Panelcardnew = () => {
               </ul>
             </div>
             {ele.title == "Starter" ? (
-              <Button
+              <button
                 className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm"
                 disabled={false}
                 id={key}
                 onClick={handleGetFreeTrial}
               >
                 Get Started{" "}
-              </Button>
+              </button>
             ) : (
-              <Button
-                className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
-                onClick={(e) => {
-                  e.preventDefault();
-                  Calendly.initPopupWidget({
-                    url: "https://calendly.com/tempo-sales/30min",
-                  });
-                }}
-              >
-                Schedule Demo
-              </Button>
+              <button className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
+                <div
+                  className="    "
+                  dangerouslySetInnerHTML={{
+                    __html: `
+       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+       <span className="underline cursor-pointer text-white ">Schedule Demo
+       </span>
+       </a>
+      `,
+                  }}
+                />{" "}
+              </button>
             )}
           </Card>
         ))}
