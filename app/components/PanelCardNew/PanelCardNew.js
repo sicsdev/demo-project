@@ -29,9 +29,11 @@ const Panelcardnew = () => {
                 ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
                 : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
             }`}
-            key={key}
           >
-            <div>
+            <div 
+            key={key}
+            
+            >
               <div className="flex items-center mr-4">
                 <div className="relative w-[22px] h-[22px]">
                   <Image
