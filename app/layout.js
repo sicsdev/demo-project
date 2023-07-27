@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
-{/*      
+     
      <script src="https://widget-dev.usetempo.ai/v1/main.js" />
     <script
       dangerouslySetInnerHTML={{
@@ -44,7 +44,7 @@ export default function RootLayout({ children }) {
           });
         `,
       }}
-    /> */}
+    />
 
   <script
     async
