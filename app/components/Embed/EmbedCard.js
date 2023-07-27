@@ -117,14 +117,14 @@ export const EmbedCard = ({
                       Edit Agent Settings
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       href={`/dashboard/view-logs?id=${element.id}&name=${element.title}`}
                       className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading"
                     >
                       View Logs
                     </Link>
-                  </li>
+                  </li> */}
                 </ul>
               </div>
             )}

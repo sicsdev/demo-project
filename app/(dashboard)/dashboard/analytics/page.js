@@ -1,16 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { ChatBubbleOvalLeftIcon, CloudIcon } from "@heroicons/react/24/outline";
+import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
 import { getBotConversation } from "@/app/API/pages/Bot";
-import Loading from "@/app/components/Loading/Loading";
 import moment from "moment";
-import Skeleton from "@/app/components/Skeleton/Skeleton";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Link from "next/link";
 import SelectOption from "@/app/components/Common/Input/SelectOption";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 
 const Logs = () => {
   const columns = [
@@ -33,29 +32,39 @@ const Logs = () => {
       reorder: true,
     },
   ];
-
+  const dispatch = useDispatch();
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
   const state = useSelector((state) => state.botId);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const getAllBots = () => {
+    const getTitle = state.botData.data.bots.map(
+      (element) => element.chat_title
+    );
+    const widgetCode = state.botData.data.widgets;
+    const mergedArray = widgetCode.map((item, index) => {
+      const title = getTitle[index];
+      return {
+        value: item.id,
+        name: title,
+      };
+    });
+    setBotValue(mergedArray);
+    getCoversation(mergedArray[0].value)
+
+  };
+
   useEffect(() => {
+    if (state.botData.data === null) {
+      dispatch(fetchBot());
+    }
     if (state.botData.data?.bots && state.botData.data?.widgets) {
-      const getTitle = state.botData.data.bots.map(
-        (element) => element.chat_title
-      );
-      const widgetCode = state.botData.data.widgets;
-      const mergedArray = widgetCode.map((item, index) => {
-        const title = getTitle[index];
-        return {
-          value: item.id,
-          name: title,
-        };
-      });
-      setBotValue(mergedArray);
-      getCoversation(mergedArray[0].value)
+      getAllBots();
     }
   }, [state.botData.data]);
+
 
   const getCoversation = async (bot_id) => {
     setLoading(true)
@@ -76,11 +85,13 @@ const Logs = () => {
       setLoading(false);
     }
   };
+
   const handleInputValues = (e) => {
     setLoading(true)
     const { value } = e.target;
     getCoversation(value);
   };
+
   return (
     <div>
       <div className="border-b border-primary ">
@@ -114,7 +125,7 @@ const Logs = () => {
           error={""}
         />
       </div>
-      {loading === true ? (
+      {loading === true || state.isLoading === true ? (
         // <Loading />
         <div className="">
           <h1 className="mt-2 text-sm">
@@ -126,30 +137,27 @@ const Logs = () => {
         </div>
       ) : (
         <>
-          {conversationData.length > 0 && (
-            <DataTable
-              title={<h3 className="text-sm font-semibold">View Logs</h3>}
-              fixedHeader
-              highlightOnHover
-              pointerOnHover
-              defaultSortFieldId="year"
-              onRowClicked={(rowData) => {
-                router.push(rowData.url);
-              }}
-              pagination
-              noDataComponent={
-                <>
-                  <p className="text-center text-sm p-3">
-                    Questions Tempo needs your help answering will show here
-                    when they're ready!
-                  </p>
-                </>
-              }
-              paginationPerPage={7}
-              columns={columns}
-              data={conversationData}
-            />
-          )}
+          <DataTable
+            title={<h3 className="text-sm font-semibold">View Logs</h3>}
+            fixedHeader
+            highlightOnHover
+            pointerOnHover
+            defaultSortFieldId="year"
+            onRowClicked={(rowData) => {
+              router.push(rowData.url);
+            }}
+            pagination
+            noDataComponent={
+              <>
+                <p className="text-center text-sm p-3">
+                  No Chat logs found!
+                </p>
+              </>
+            }
+            paginationPerPage={7}
+            columns={columns}
+            data={conversationData}
+          />
         </>
       )}
     </div>
