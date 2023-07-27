@@ -36,7 +36,7 @@ const SelectField = ({
           {values.map((element, key) => (
             <option key={key} value={element}>
               {/* {element === id ? "dada" : <span> &#10003; </span>} {" "} */}
-              {makeCapital(element)}
+            {element}
             </option>
           ))}
         </select>

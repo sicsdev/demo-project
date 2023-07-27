@@ -252,7 +252,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
           origins_blocked: res?.data?.origins_blocked,
         });
         setBlockedUrls(res.data.origins_blocked);
-        debugger
         setBasicFormData((prev) => {
           return {
             ...prev,

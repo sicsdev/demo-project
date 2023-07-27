@@ -45,6 +45,7 @@ const GetStarted = () => {
   const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
 
   const [automationStepsData, setAutomationStepsData] = useState([]);
+  const [automationStepsField, setAutomationStepsField] = useState([]);
   const router = useRouter();
   const inputRef = useRef(null);
   const [addStepIndex, setAddStepIndex] = useState(null);
@@ -132,12 +133,30 @@ const GetStarted = () => {
         handleButtonClick()
         setAddStepIndex(value?.addKey)
         break;
+      case "EDIT":
+        addAutomationFields(value)
+        break;
 
       default:
         break;
     }
   }
-
+  const addAutomationFields = (value) => {
+    let data_value = [...automationStepsField];
+    const emptyObject = { key: '', value: '', name: '', names_arr: [] };
+    const targetIndex = value.index;
+    while (data_value.length <= targetIndex) {
+      data_value.push(emptyObject);
+    }
+    const existingIndex = data_value.findIndex(item => item.key === value.addKey);
+    if (existingIndex !== -1) {
+      const filter_data = data_value.filter((x) => x.key !== value.addKey)
+      data_value = filter_data
+    } else {
+      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: [] }
+    }
+    setAutomationStepsField(data_value);
+  }
 
   const saveWorkFlowHandler = async (type) => {
     try {
@@ -170,7 +189,7 @@ const GetStarted = () => {
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
         if (type === "EDIT" || type === "PUBLISH") {
           successMessage("Workflow Publish Successfully!");
-        } else if (type === "DISABLE"){
+        } else if (type === "DISABLE") {
           successMessage("Workflow Disabled Successfully!");
 
         }
@@ -276,7 +295,7 @@ const GetStarted = () => {
                       type={"button"}
                       onClick={(e) => publishModelHandler(e)}
                       className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      disabled={automationStepsData.length === 0 || singleData?.active=== true}
+                      disabled={automationStepsData.length === 0 || singleData?.active === true}
                     >
                       Publish
                     </Button>
@@ -285,11 +304,11 @@ const GetStarted = () => {
                     {showHelp && (
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
-                        {singleData?.active && (
-                                <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler ('DISABLE')}>
-                                    <button type='button' className="block px-4 py-2 ">Disable</button>
-                                </li>
-                            )}
+                          {singleData?.active && (
+                            <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler('DISABLE')}>
+                              <button type='button' className="block px-4 py-2 ">Disable</button>
+                            </li>
+                          )}
                           <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
                             <a className="block px-4 py-2 ">Delete</a>
                           </li>
@@ -300,7 +319,7 @@ const GetStarted = () => {
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} />
+              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} />
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
