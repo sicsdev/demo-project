@@ -5,7 +5,6 @@ import Card from "../Common/Card/Card";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import price_data from "./price_data";
-
 const Panelcardnew = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,7 +20,7 @@ const Panelcardnew = () => {
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
         Choose your plan
       </h1>
-      <div className="w-full sm:w-[60%]  md:w-[60%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
+      {/* <div className="w-full sm:w-[60%]  md:w-[60%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
             className={`flex flex-col justify-between ${
@@ -109,7 +108,7 @@ const Panelcardnew = () => {
             )}
           </Card>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
