@@ -47,7 +47,7 @@ export default function Home() {
         {/* <SecondBan /> */}
         <Info />
 
-        <Panelcard />
+        {/* <Panelcard /> */}
 
 
 
