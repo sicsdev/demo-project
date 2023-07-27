@@ -59,7 +59,7 @@ const Homefold = () => {
                 ></div>
               </div>
 
-              <p className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
+              <div className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
                 {loading ? (
                   <>
                     <div className="hidden sm:block">
@@ -72,7 +72,7 @@ const Homefold = () => {
                 ) : (
                   "Integrate anything. Automate everything."
                 )}
-              </p>
+              </div>
               {loading ? (
                 <p className="text-center">
                   <SkeletonLoader count={2} height={30} width={"100%"}  baseColor="#230A5C"/>
