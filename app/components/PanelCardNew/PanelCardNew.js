@@ -3,17 +3,16 @@ import React from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
 import Image from "next/image";
-// import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import price_data from "./price_data";
 
 const Panelcardnew = () => {
-  // const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const emailQuery = searchParams.get("email");
+  const router = useRouter();
 
-  // const handleGetFreeTrial = (e) => {
-  //   router.push(`/checkout?plan=${e.target.id}`);
-  // };
+
+  const handleGetFreeTrial = (e) => {
+    router.push(`/checkout?plan=${e.target.id}`);
+  };
 
   return (
     <div className="bg-white p-[64px] ">
@@ -86,7 +85,7 @@ const Panelcardnew = () => {
                 className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm"
                 disabled={false}
                 id={key}
-                // onClick={handleGetFreeTrial}
+                onClick={handleGetFreeTrial}
               >
                 Get Started{" "}
               </button>
