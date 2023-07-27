@@ -15,6 +15,24 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
+let schema ={
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Tempo AI Ventures",
+  "image": "https://usetempo.ai/logo.png",
+  "url": "https://usetempo.ai/",
+  "telephone": "8553083676",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "800 Third Avenue",
+    "addressLocality": "New York",
+    "addressRegion": "NY",
+    "postalCode": "10022",
+    "addressCountry": "US"
+  }  
+}
+
   return (
     <html lang="en" className="scroll-smooth ">
       <head>
@@ -35,6 +53,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
      
+     <script 
+            type='application/ld+json'
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
      <script src="https://widget-dev.usetempo.ai/v1/main.js" />
     <script
       dangerouslySetInnerHTML={{
@@ -62,9 +84,9 @@ export default function RootLayout({ children }) {
     }}
   />      </head>
       <body suppressHydrationWarning={true} className={inter.className}>
-        <ProviderWrapper>
+        <ProviderWrapper >
           <div className="tempo_container">{children}</div>
-        </ProviderWrapper>
+        </ProviderWrapper >
         <Script
           src="https://assets.calendly.com/assets/external/widget.js"
           type="text/javascript"
