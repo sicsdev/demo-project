@@ -1,6 +1,8 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
+import SkeletonLoader from "../Skeleton/Skeleton";
 const cards = [
   {
     id: "1",
@@ -152,26 +154,47 @@ const card2 = [
   },
 ];
 const Motioncards = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   return (
     <div className="bg-white motion_marque_section  py-3 m-auto">
       <div class="block sm:flex m-auto sm:py-8 md:py-8 max-w-[90%] lg:py-8 sm:px-4 lg:px-4 mt-10">
         <div className="w-[100%] sm:w-[30%]">
           <h2 className="mb-5 text-black text-2xl sm:text-3xl font-bold sm:mb-7">
-            All of your tools in one place{" "}
+            {loading ? (
+              <SkeletonLoader height={50} width={350} />
+            ) : (
+              " All of your tools in one place"
+            )}
           </h2>
           <p className="text-black sm:mb-5">
-            Integrate your most important API's and databases to empower Tempo
-            to control your CS experience.
+            {loading ? (
+              <SkeletonLoader count={4} height={30} width={"90%"} />
+            ) : (
+              "Integrate your most important API's and databases to empower Tempo to control your CS experience."
+            )}
           </p>
-
-          <button className="text-primary hover:text-heading my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
-            <Link href="/checkout"> Start Now →</Link>
-          </button>
+          {loading ? (
+            <SkeletonLoader height={40} width={200} />
+          ) : (
+            <button className="text-primary hover:text-heading my-3 sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
+              <Link href="/checkout"> Start Now →</Link>
+            </button>
+          )}
         </div>
         {/* marque */}
         <div className="w-[100%] sm:w-[70%] marque_section">
           <div class="flex overflow-hidden wrapper_marque">
-            <Marquee pauseOnHover={true} loop={0} direction="right" >
+          {loading ? (
+            <SkeletonLoader height={50} width={1700} />
+          ) : (
+            <Marquee pauseOnHover={true} loop={0} direction="right">
               {cards.map((item) => (
                 <Link
                   key={item.id}
@@ -190,9 +213,13 @@ const Motioncards = () => {
                 </Link>
               ))}
             </Marquee>
+          )}
             <div></div>
           </div>
           <div class="flex overflow-hidden wrapper_marque">
+          {loading ? (
+          <SkeletonLoader height={50} width={1700} />
+          ) : (
             <Marquee pauseOnHover={true} loop={0} direction="left">
               {card1.map((item) => (
                 <Link
@@ -212,9 +239,13 @@ const Motioncards = () => {
                 </Link>
               ))}
             </Marquee>
+          )}
             <div></div>
           </div>
           <div class="flex overflow-hidden wrapper_marque">
+          {loading ? (
+          <SkeletonLoader height={50} width={1700} />
+          ) : (
             <Marquee pauseOnHover={true} loop={0} direction="right">
               {card2.map((item) => (
                 <Link
@@ -234,6 +265,7 @@ const Motioncards = () => {
                 </Link>
               ))}
             </Marquee>
+            )}
             <div></div>
           </div>
         </div>

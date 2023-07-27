@@ -13,6 +13,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 
 const Page = () => {
   const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const Page = () => {
   const [loading, setLoading] = useState(null)
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log(basicFormData)
+  
   const savePreferences = () => {
     setLoading(true);
     let payload = {}
@@ -218,6 +219,7 @@ const Page = () => {
           </Button>
         </>
       )}
+      <ToastContainer />
     </>
   )
 }

@@ -2,26 +2,19 @@
 import React from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
-import Container from "../Container/Container";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
-// import { price_data } from "@/app/(pages)/pricing/data";
 import price_data from "./price_data";
 
-const Panelcard = (props) => {
+const Panelcardnew = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const emailQuery = searchParams.get("email");
+
   const handleGetFreeTrial = (e) => {
-    // console.log(e.target.id)
     router.push(`/checkout?plan=${e.target.id}`);
   };
 
-  const [hide, setHide] = useState({
-    first: false,
-  });
-  
   return (
     <div className="bg-white p-[64px] ">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
@@ -30,10 +23,11 @@ const Panelcard = (props) => {
       <div className="w-full sm:w-[60%]  md:w-[60%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
-            className={`flex flex-col justify-between ${ele.title == "Starter"
-              ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
-              : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
-              }`}
+            className={`flex flex-col justify-between ${
+              ele.title == "Starter"
+                ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
+                : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
+            }`}
             key={key}
           >
             <div>
@@ -46,56 +40,16 @@ const Panelcard = (props) => {
                     alt="img"
                   />
                 </div>{" "}
-                <label
-                //   htmlFor="purple-radio"
-                  className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300"
-                >
+                <label className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
                   {ele.title}
                 </label>
               </div>
               {ele.title == "Starter" ? (
                 <>
-                  <p
-                    className="text-slate font-normal text-sm my-4"
-                  // onMouseLeave={(e) => {
-                  //   e.stopPropagation();
-                  //   setHide({ first: false });
-                  // }}
-                  >
+                  <p className="text-slate font-normal text-sm my-4">
                     $200 free, then just{" "}
                     <span className="font-bold text-heading"> $1 </span>per
                     ticket resolution{" "}
-                    <span
-                      className="cursor-pointer"
-                    // onMouseOver={(e) => {
-                    //   e.stopPropagation();
-                    //   setHide({ first: true });
-                    // }}
-                    >
-                      *
-                    </span>
-                    {hide.first == true ? (
-                      <Card
-                        className={
-                          "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-auto mr-auto left-0 right-0"
-                        }
-                      >
-                        <p
-                          className="text-heading"
-                        // onMouseLeave={() =>
-                        //   setTimeout(() => {
-                        //     setHide({ first: false });
-                        //   }, 5000)
-                        // }
-                        >
-                          Resolution is any conversation that does not
-                          result in a human hand off or a customer marks as a
-                          bad answer and has at least 3 total interactions.
-                        </p>
-                      </Card>
-                    ) : (
-                      ""
-                    )}{" "}
                   </p>
                 </>
               ) : (
@@ -137,23 +91,19 @@ const Panelcard = (props) => {
               >
                 Get Started{" "}
               </Button>
-            ) : 
-            (
+            ) : (
               <Button
                 className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
                 onClick={(e) => {
                   e.preventDefault();
-                  Calendly.initPopupWidget({ url: 'https://calendly.com/tempo-sales/30min' });
+                  Calendly.initPopupWidget({
+                    url: "https://calendly.com/tempo-sales/30min",
+                  });
                 }}
               >
-                {/* <a href="#" className="underline cursor-pointer text-white font-bold"> */}
-                  Schedule Demo
-                {/* </a> */}
+                Schedule Demo
               </Button>
-            )
-            
-            
-            }
+            )}
           </Card>
         ))}
       </div>
@@ -161,4 +111,4 @@ const Panelcard = (props) => {
   );
 };
 
-export default Panelcard;
+export default Panelcardnew;

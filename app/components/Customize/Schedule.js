@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import './schedule.css'
 import { getAllBotData, getBotAllData, modifyBot } from '@/app/API/pages/Bot'
 import { useSearchParams } from 'next/navigation'
+import Button from '../Common/Button/Button'
 
 
 const Schedule = () => {
@@ -171,7 +172,7 @@ const Schedule = () => {
             {/* CUSTOM SCHEDULE OPTION */}
             {
                 custom &&
-                <div className='mt-5 mx-5'>
+                <div className='mt-0 sm:mt-5 mx-0 sm:mx-0'>
                     {/* <small>TIME ZONE</small>
                     <div>
                         <select className={`p-1 border-gray text-sky block lg:w-1/4  bg-white rounded-md text-sm p-3 `}>
@@ -189,17 +190,16 @@ const Schedule = () => {
 
 
                     <div className='mt-5 border border-3 border-gray rounded p-3 lg:w-1/2 '>
-                        <small><b>Set your weekly hours</b></small>
-
+                        <h3 class="text-sm font-semibold my-3">Set your weekly hours</h3>
                         <div>
                             {Object.keys(schedule).map((day) => (
                                 <>
                                     <div key={day} className="flex m-2 my-2 items-center justify-around gap-3">
 
-                                        <div className='flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
+                                        <div className='block sm:flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
                                             <input type="checkbox" className="w-4 h-4" checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
                                             <div>
-                                                <small>{day.substr(0, 3).toUpperCase()}</small>
+                                                <small className='text-xs'>{day.substr(0, 3).toUpperCase()}</small>
                                             </div>
                                         </div>
 
@@ -207,7 +207,7 @@ const Schedule = () => {
 
                                             <div className='col-span-1'>
                                                 {schedule[day].length > 0 ? schedule[day].map((time, index) => (
-                                                    <div key={index} className="grid grid-cols-3 mb-2 gap-3">
+                                                    <div key={index} className={`grid grid-cols-3 gap-3 ${index !== 0 ? 'pt-2' : ''}`}>
                                                         <div className='relative'>
                                                             <input
                                                                 id={index}
@@ -215,8 +215,7 @@ const Schedule = () => {
                                                                 value={schedule[day][index].start}
                                                                 type="time"
                                                                 name={day}
-                                                                className="relative border border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
-
+                                                                className="new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                                             />
                                                         </div>
                                                         <div className='relative'>
@@ -226,7 +225,7 @@ const Schedule = () => {
                                                                 value={schedule[day][index].end}
                                                                 type="time"
                                                                 name={day}
-                                                                className="relative border border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
+                                                                className="new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                                             />
                                                         </div>
                                                         <div className='flex items-center'>
@@ -235,18 +234,18 @@ const Schedule = () => {
                                                     </div>
                                                 ))
                                                     :
-                                                    <div key={'index'} className="grid grid-cols-3 mb-2 gap-3 cursor-pointer">
+                                                    <div key={'index'} className="grid grid-cols-3 gap-3 cursor-pointer">
                                                         <input
                                                             id={'index'}
                                                             type="time"
-                                                            className="border border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
+                                                            className=" border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
                                                             disabled
                                                         />
                                                         <input
                                                             id={'idnex'}
                                                             disabled
                                                             type="time"
-                                                            className="border border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
+                                                            className=" border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
                                                         />
                                                     </div>
                                                 }
@@ -272,8 +271,13 @@ const Schedule = () => {
                         <div className='flex justify-end gap-3 mt-5 w-100'>
                             {/* <label><small>Schedule name:</small></label>
                             <input type='text' className='border rounded border-gray'></input> */}
-                            <button className="border border-sky rounded-full px-3 hover:bg-sky hover:text-white" onClick={saveSchedulePreferences}>{loading ? "Saving..." : "Save"}</button>
-                            {/* <button className="border border-sky rounded-full px-3 hover:bg-sky hover:text-white">Save and set</button> */}
+                            <Button
+                                type={"button"}
+                                className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                onClick={saveSchedulePreferences}
+                            >
+                                {loading ? "Saving..." : "Save"}
+                            </Button>
                         </div>
 
 
