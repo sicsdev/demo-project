@@ -10,9 +10,7 @@ import AboveSection from "@/app/components/solutions/AboveSection";
 import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
-export const metadata = {
-  title: "Boost Customer Experience with Intelligent Chatbot Solutions | UseTempo AI.",
-};
+
 
 const page = () => {
 
