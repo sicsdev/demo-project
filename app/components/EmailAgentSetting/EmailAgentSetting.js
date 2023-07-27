@@ -26,8 +26,6 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         selectedFile: basicFormData?.selectedFile ?? '',
     })
 
-    console.log("basicFormData", basicFormData)
-
     const handleInputValues = (e) => {
         const { value } = e.target
         if (value !== " ") {

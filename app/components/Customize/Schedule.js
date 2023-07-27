@@ -1,40 +1,19 @@
 import { ClipboardDocumentIcon, PlusCircleIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
-import { useEffect } from 'react'
 import './schedule.css'
-import { getAllBotData, getBotAllData, modifyBot } from '@/app/API/pages/Bot'
 import { useSearchParams } from 'next/navigation'
 import Button from '../Common/Button/Button'
 
 
-const Schedule = () => {
+const Schedule = ({ basicFormData, setBasicFormData }) => {
 
     const searchParams = useSearchParams()
     const [custom, setCustom] = useState(true)
     const [errors, setErrors] = useState([])
-    const [bot_id, setBot_id] = useState('')
-    const [loading, setLoading] = useState(false)
 
-    let emptySchedule = {
-        Monday: [{ start: "00:00", end: "23:59" }],
-        Tuesday: [{ start: "00:00", end: "23:59" }],
-        Wednesday: [{ start: "00:00", end: "23:59" }],
-        Thursday: [{ start: "00:00", end: "23:59" }],
-        Friday: [{ start: "00:00", end: "23:59" }],
-        Saturday: [{ start: "00:00", end: "23:59" }],
-        Sunday: [{ start: "00:00", end: "23:59" }]
-    }
+    const [schedule, setSchedules] = useState(basicFormData)
 
-    const [schedule, setSchedules] = useState(emptySchedule)
-
-    useEffect(() => {
-        const bot_id = searchParams.get("id");
-        setBot_id(bot_id);
-        getAllBotData([bot_id]).then(res => {
-            res?.data?.schedule && Object.keys(res?.data?.schedule).length === 7 && setSchedules(res?.data?.schedule)
-        })
-    }, [])
 
 
     const handleHourInputStart = (event) => {
@@ -42,6 +21,12 @@ const Schedule = () => {
         const updatedSchedule = { ...schedule };
         updatedSchedule[name][id].start = value;
         setSchedules(updatedSchedule);
+        setBasicFormData((prev => {
+            return {
+                ...prev,
+                updatedSchedule
+            }
+        }))
     };
 
     const handleHourInputEnd = (event) => {
@@ -49,6 +34,12 @@ const Schedule = () => {
         const updatedSchedule = { ...schedule };
         updatedSchedule[name][id].end = value;
         setSchedules(updatedSchedule);
+        setBasicFormData((prev => {
+            return {
+                ...prev,
+                updatedSchedule
+            }
+        }))
     };
 
     const handleDeleteHour = (day, index) => {
@@ -58,6 +49,12 @@ const Schedule = () => {
             ...prevState,
             [day]: dayArray,
         }));
+        setBasicFormData((prev => {
+            return {
+                ...prev,
+                [day]: dayArray,
+            }
+        }))
     }
 
     const handleAddHour = (day) => {
@@ -67,26 +64,15 @@ const Schedule = () => {
             ...prevState,
             [day]: dayArray,
         }));
+        setBasicFormData((prev => {
+            return {
+                ...prev,
+                [day]: dayArray,
+            }
+        }))
     }
 
-    const saveSchedulePreferences = async () => {
-        setLoading(true)
-        let payload = { schedule: schedule }
-        // delete payload.logo;
-        // delete payload.email;
-        let postPreferences = await modifyBot(bot_id, payload)
-
-        if (postPreferences?.response?.data?.schedule?.length > 0) {
-            let errorsArray = []
-            postPreferences.response.data.schedule.forEach(e => errorsArray.push(e))
-            setErrors(errorsArray)
-        } else {
-            setErrors([])
-        }
-        setLoading(false)
-
-    }
-
+  
     const handleCheckbox = (day) => {
         if (schedule[day].length === 0) {
             const dayArray = [...schedule[day]];
@@ -95,11 +81,23 @@ const Schedule = () => {
                 ...prevState,
                 [day]: dayArray,
             }));
+            setBasicFormData((prev => {
+                return {
+                    ...prev,
+                    [day]: dayArray,
+                }
+            }))
         } else {
             setSchedules(prevState => ({
                 ...prevState,
                 [day]: [],
             }));
+            setBasicFormData((prev => {
+                return {
+                    ...prev,
+                    [day]: dayArray,
+                }
+            }))
         }
     }
 
@@ -268,17 +266,6 @@ const Schedule = () => {
                             </div>
                         )}
 
-                        <div className='flex justify-end gap-3 mt-5 w-100'>
-                            {/* <label><small>Schedule name:</small></label>
-                            <input type='text' className='border rounded border-gray'></input> */}
-                            <Button
-                                type={"button"}
-                                className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                onClick={saveSchedulePreferences}
-                            >
-                                {loading ? "Saving..." : "Save"}
-                            </Button>
-                        </div>
 
 
                     </div>
