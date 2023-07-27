@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import Head from "next/head";
 import Tempoalert from "@/app/components/ChatBots/Tempoalert";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
@@ -10,7 +11,9 @@ import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
 
+
 const page = () => {
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -45,14 +48,18 @@ const page = () => {
 
   return (
     <div>
+   
+
       <AboveSection />
       <SolutionStandard />
       {/* <Tempoalert /> */}
-      <div className="pt-12 sm:pt-0 bg-white"><Testimonial /></div>
+      <div className="pt-12 sm:pt-0 bg-white">
+        <Testimonial />
+      </div>
       <Tempoeconomy />
       {/* <Requestdemo/> */}
-      <Aipowered/>
-      <Intcomp/>
+      <Aipowered />
+      <Intcomp />
     </div>
   );
 };
