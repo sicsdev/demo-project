@@ -50,18 +50,12 @@ const GetStarted = () => {
   const [addStepIndex, setAddStepIndex] = useState(null);
 
   const handleButtonClick = (shake = true) => {
-    if (shake) {
-      setShake('animate-shake')
-    }
     if (inputRef.current) {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(
         inputRef.current.value.length,
         inputRef.current.value.length
       );
-      setTimeout(() => {
-        setShake(null)
-      }, 500);
     }
   };
 
@@ -291,7 +285,11 @@ const GetStarted = () => {
                     {showHelp && (
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
-
+                        {singleData?.active && (
+                                <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler ('DISABLE')}>
+                                    <button type='button' className="block px-4 py-2 ">Disable</button>
+                                </li>
+                            )}
                           <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
                             <a className="block px-4 py-2 ">Delete</a>
                           </li>

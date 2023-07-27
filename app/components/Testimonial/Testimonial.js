@@ -20,7 +20,7 @@ const Testimonial = () => {
             <button
               type={"submit"}
               className={
-                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 mb-4 sm:mb-0 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
               }
             >
               <div className="trytempo">

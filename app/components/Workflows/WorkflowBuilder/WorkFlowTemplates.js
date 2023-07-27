@@ -3,8 +3,9 @@ import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { removeWorkFlow } from '@/app/API/pages/Workflow';
+import { removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
+import { useRef } from 'react';
 const WorkFlowTemplates = ({ workflowData, fetchData }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
@@ -129,9 +130,41 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
             successMessage("Workflow deleted successfully !")
         }
     }
+
+    const divRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setShowHelp(null);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+    const saveWorkFlowHandler = async (element) => {
+        try {
+            let payload = { active: false }
+            !payload.logo && delete payload.logo;
+            const updateWorkflow = await updateWorkFlowStatus(payload, element?.id);
+            if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
+                successMessage("Workflow Disabled Successfully!");
+                fetchData();
+            } else {
+                errorMessage("Unable to Proceed!");
+            }
+        } catch (error) {
+            setPublishLoader(false);
+            errorMessage("Unable to Proceed!");
+        }
+    };
+
     return (
         <>
-            <div className='cursor-pointer relative' onClick={(e) => { setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
+            <div className='cursor-pointer relative' ref={divRef} onClick={(e) => { setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
                 <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
                 {showHelp === data.id && (
                     <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
@@ -139,6 +172,11 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>
                             </li>
+                            {data.active && (
+                                <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler (data)}>
+                                    <button type='button' className="block px-4 py-2 ">Disable</button>
+                                </li>
+                            )}
                             <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
                             </li>
