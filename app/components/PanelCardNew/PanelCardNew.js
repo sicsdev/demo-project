@@ -16,7 +16,6 @@ const Panelcardnew = () => {
   // };
 
   return (
-    
     <div className="bg-white p-[64px] ">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
         Choose your plan
@@ -30,10 +29,7 @@ const Panelcardnew = () => {
                 : "cursor-pointer  bg-white  hover:bg-card_bg border border-border"
             }`}
           >
-            <div 
-            key={key}
-            
-            >
+            <div key={key}>
               <div className="flex items-center mr-4">
                 <div className="relative w-[22px] h-[22px]">
                   <Image
@@ -95,16 +91,18 @@ const Panelcardnew = () => {
                 Get Started{" "}
               </button>
             ) : (
-              <button
-                className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm"
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   Calendly.initPopupWidget({
-                //     url: "https://calendly.com/tempo-sales/30min",
-                //   });
-                // }}
-              >
-                Schedule Demo
+              <button className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
+                <div
+                  className="    "
+                  dangerouslySetInnerHTML={{
+                    __html: `
+       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+       <span className="underline cursor-pointer text-white ">Schedule Demo
+       </span>
+       </a>
+      `,
+                  }}
+                />{" "}
               </button>
             )}
           </Card>
