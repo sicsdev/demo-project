@@ -85,8 +85,8 @@ const Info = () => {
       content_video: "/tabs/Analytics-Gif.gif",
 
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-      h3: "Upgrade with Smart IVR.",
-      p: "Like leading telecoms, use cutting-edge IVR technology. Auto-identify customers from your CRM data for inbound calls, personalizing interactions and streamlining processes.",
+      h3: "Scalable, Fast Response Times.",
+      p: "Don't worry about staffing or SLA's. Tempo will automatically respond to your tickets within minutes, day or night, and on almost every channel.",
     },
     {
       id: "5",
