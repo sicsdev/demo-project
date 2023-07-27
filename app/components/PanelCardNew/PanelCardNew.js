@@ -16,6 +16,7 @@ const Panelcardnew = () => {
   };
 
   return (
+    
     <div className="bg-white p-[64px] ">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
         Choose your plan
@@ -40,9 +41,9 @@ const Panelcardnew = () => {
                     alt="img"
                   />
                 </div>{" "}
-                <label className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
+                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
                   {ele.title}
-                </label>
+                </p>
               </div>
               {ele.title == "Starter" ? (
                 <>
