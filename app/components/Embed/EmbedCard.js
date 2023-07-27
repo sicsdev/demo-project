@@ -6,6 +6,7 @@ import {
   CheckIcon,
   EllipsisVerticalIcon,
   QuestionMarkCircleIcon,
+  WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
 
 import { xcodeLight } from "@uiw/codemirror-theme-xcode";
@@ -71,26 +72,17 @@ export const EmbedCard = ({
       <div className="mt-5 border rounded-md border-border  bg-white">
         <div className="bg-border rounded-t-md py-1 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
           <h3 className="font-xl font-bold text-white my-2">{element.title}</h3>
-          <div className="relative flex flex-row-reverse pr-2">
-            <button
-              type={"button"}
-              ref={divRef}
-              onClick={() => {
-                dropdown === key ? setDropdown(null) : setDropdown(key);
-              }}
-              className="border-none p-0 m-0 flex gap-1 items-center mx-auto"
+          <div className=" relative items-start flex flex-row-reverse pr-2">
+            <Link
+              href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
+              className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-white "
             >
-            </button>
-            <button
-              type={"button"}
-              ref={divRef}
-              onClick={() => {
-                dropdown === key ? setDropdown(null) : setDropdown(key);
-              }}
-              className="border-none p-0 m-0 flex gap-1 items-center mx-auto"
-            >
-              <EllipsisVerticalIcon className="h-5 w-5 " />
-            </button>
+              <button
+                type={"button"} ssName="border-none p-0 m-0 flex gap-1 items-center mx-auto"
+              >
+                <WrenchScrewdriverIcon className="h-5 w-5 text-white" />
+              </button>
+            </Link>
             <div className="flex items-center justify-end mx-5 my-2 pointer" onClick={toggleEmbed} style={{ cursor: "pointer" }}>
               <span
                 className={`text-sm px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
@@ -106,28 +98,6 @@ export const EmbedCard = ({
                 Chat
               </span>
             </div>
-            {dropdown === key && (
-              <div className="animate-fadeIn absolute left-[-120px] top-[33px] z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
-                <ul className=" text-sm ">
-                  <li>
-                    <Link
-                      href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
-                      className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-heading "
-                    >
-                      Edit Agent Settings
-                    </Link>
-                  </li>
-                  {/* <li>
-                    <Link
-                      href={`/dashboard/view-logs?id=${element.id}&name=${element.title}`}
-                      className="font-semibold hover:text-white hover:bg-border block px-4 py-2 text-heading"
-                    >
-                      View Logs
-                    </Link>
-                  </li> */}
-                </ul>
-              </div>
-            )}
           </div>
         </div>
         <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
