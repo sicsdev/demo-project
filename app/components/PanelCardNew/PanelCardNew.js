@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 import React from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
