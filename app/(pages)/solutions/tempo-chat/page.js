@@ -10,8 +10,12 @@ import AboveSection from "@/app/components/solutions/AboveSection";
 import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
+export const metadata = {
+  title: "Boost Customer Experience with Intelligent Chatbot Solutions | UseTempo AI.",
+};
 
 const page = () => {
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -46,25 +50,18 @@ const page = () => {
 
   return (
     <div>
- <Head>
-        <title>
-        Boost Customer Experience with Intelligent Chatbot Solutions | UseTempo AI
-        </title>
-        <meta
-          name="description"
-          content="Improve customer experience and streamline interactions with UseTempo AI's intelligent chatbot solutions. Enhance efficiency, automate tasks, and deliver personalized support."
-          key="desc"
-        />
-      </Head>
+   
 
       <AboveSection />
       <SolutionStandard />
       {/* <Tempoalert /> */}
-      <div className="pt-12 sm:pt-0 bg-white"><Testimonial /></div>
+      <div className="pt-12 sm:pt-0 bg-white">
+        <Testimonial />
+      </div>
       <Tempoeconomy />
       {/* <Requestdemo/> */}
-      <Aipowered/>
-      <Intcomp/>
+      <Aipowered />
+      <Intcomp />
     </div>
   );
 };
