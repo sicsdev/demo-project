@@ -76,7 +76,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.smaal_para)}
-              className="font-semibold  pt-8 text-heading text-2xl md:text-h5  sm:leading-none"
+              className="text-base sm:text-para    md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
             >
               {single?.acf?.smaal_para || (
                 <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
@@ -102,7 +102,7 @@ const page = () => {
                       scope="col"
                       className="sm:px-6 py-3 bg-[#09162A] text-white rounded-tr-lg text-center"
                     >
-                      {single?.acf?.table_head2}
+                      VALUE
                     </th>
                   </tr>
                 </thead>
@@ -187,7 +187,7 @@ const page = () => {
               id={removeSpacesAndHyphens(single?.acf?.fourth_head)}
               className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
-              1. {single?.acf?.third_head}
+              2. {single?.acf?.fourth_head}
             </p>
           )}
           {loading ? (
