@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import Head from "next/head";
 import Tempoalert from "@/app/components/ChatBots/Tempoalert";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
@@ -45,6 +46,17 @@ const page = () => {
 
   return (
     <div>
+ <Head>
+        <title>
+        Boost Customer Experience with Intelligent Chatbot Solutions | UseTempo AI
+        </title>
+        <meta
+          name="description"
+          content="Improve customer experience and streamline interactions with UseTempo AI's intelligent chatbot solutions. Enhance efficiency, automate tasks, and deliver personalized support."
+          key="desc"
+        />
+      </Head>
+
       <AboveSection />
       <SolutionStandard />
       {/* <Tempoalert /> */}
