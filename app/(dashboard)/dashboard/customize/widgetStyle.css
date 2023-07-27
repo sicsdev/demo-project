@@ -39,7 +39,7 @@
   bottom: var(--bottom-distance);
   right: var(--right-distance);
   left: var(--left-distance);
-  margin-bottom: 12vh;
+  margin-bottom: 8vh;
   padding-bottom: 0.5vh;
   opacity: 1;
   transform: translateY(0);

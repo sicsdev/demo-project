@@ -80,7 +80,7 @@ const PaymentMethod = () => {
                                             {basicFormData.card.map((element, key) =>
                                                 <div className='border border-border rounded-lg p-4 ' key={key}>
                                                     <div className=" text-start flex gap-6 items-center">
-                                                        <div className="h-[30px]"
+                                                        <div className="h-[30px] w-[50px]"
                                                             dangerouslySetInnerHTML={{ __html: sendLogos(element?.card?.brand) }}
                                                         />
                                                         <div>
