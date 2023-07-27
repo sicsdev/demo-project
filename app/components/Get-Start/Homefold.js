@@ -7,7 +7,7 @@ const Homefold = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setLoading(false);
+      setLoading(true);
     }, 1000);
     return () => clearTimeout(timer);
   }, []);
@@ -25,7 +25,7 @@ const Homefold = () => {
             <div>
               {loading ? (
                 <div className="m-auto text-center text-base py-1 sm:mt-8  px-1 rounded-full">
-                  <SkeletonLoader height={30} width={120} />
+                  <SkeletonLoader height={30} width={120} baseColor="#230A5C"/>
                 </div>
               ) : (
                 <p
@@ -44,7 +44,10 @@ const Homefold = () => {
                 <h1 className=" font-bold  m-auto text-center sm:mt-8 mt-4 sm:text-[50px] text-h2 text-white  sm:leading-none  ">
                   {/* Tempo */}
                   {loading ? (
-                    <SkeletonLoader height={80} width={240} />
+                    <>
+                   <div className="hidden sm:block"> <SkeletonLoader height={80} width={240} baseColor="#230A5C"/></div>
+                   <div className="block sm:hidden"><SkeletonLoader height={80} width={100}  baseColor="#230A5C"/></div>
+                    </>
                   ) : (
                     <img src="/logo.png" className="w-[30rem] sm:w-[65rem]" />
                   )}
@@ -58,14 +61,21 @@ const Homefold = () => {
 
               <p className="font-bold text-2xl m-auto text-center mt-4  md:text-h3 lg:text-h3 sm:text-h3 t  sm:mt-8 mb-2 sm:mb-4 text-white">
                 {loading ? (
-                  <SkeletonLoader height={50} width={600} />
+                  <>
+                    <div className="hidden sm:block">
+                      <SkeletonLoader height={50} width={600}  baseColor="#230A5C"/>
+                    </div>
+                    <div className="block sm:hidden">
+                      <SkeletonLoader height={50} width={"100%"}  baseColor="#230A5C"/>
+                    </div>
+                  </>
                 ) : (
                   "Integrate anything. Automate everything."
                 )}
               </p>
               {loading ? (
                 <p className="text-center">
-                  <SkeletonLoader count={2} height={30} width={"100%"} />
+                  <SkeletonLoader count={2} height={30} width={"100%"}  baseColor="#230A5C"/>
                 </p>
               ) : (
                 <p className=" text-xl text-center  md:text-xl sm:max-w-[670px] sm:ml-[12rem] sm:mt-8   mt-4 mb-2 sm:mb-4 text-white">
@@ -75,7 +85,7 @@ const Homefold = () => {
               )}
               <div className="block sm:grid md:grid lg:grid grid-cols-2 mx-auto sm:w-[60%] gap-4 sm:mt-8 mt-3 sm:mb-8">
                 {loading ? (
-                  <SkeletonLoader height={40} width={"100%"} />
+                  <SkeletonLoader height={40} width={"100%"}  baseColor="#230A5C"/>
                 ) : (
                   <button
                     className={
@@ -88,7 +98,7 @@ const Homefold = () => {
                   </button>
                 )}
                 {loading ? (
-                  <SkeletonLoader height={40} width={"100%"} />
+                  <SkeletonLoader height={40} width={"100%"}  baseColor="#230A5C"/>
                 ) : (
                   <button
                     type={"submit"}
