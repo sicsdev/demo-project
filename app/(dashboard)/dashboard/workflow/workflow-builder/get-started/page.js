@@ -150,8 +150,7 @@ const GetStarted = () => {
     }
     const existingIndex = data_value.findIndex(item => item.key === value.addKey);
     if (existingIndex !== -1) {
-      const filter_data = data_value.filter((x) => x.key !== value.addKey)
-      data_value = filter_data
+      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: [] }
     } else {
       data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: [] }
     }
