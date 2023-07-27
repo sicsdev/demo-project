@@ -38,6 +38,7 @@ const Logs = () => {
   const state = useSelector((state) => state.botId);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedBot, setSelectedBot] = useState('');
 
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
@@ -52,7 +53,6 @@ const Logs = () => {
       };
     });
     setBotValue(mergedArray);
-    getCoversation(mergedArray[0].value)
 
   };
 
@@ -68,6 +68,8 @@ const Logs = () => {
 
   const getCoversation = async (bot_id) => {
     setLoading(true)
+
+    setSelectedBot(bot_id)
     const response = await getBotConversation(bot_id);
     if (response.status === 200) {
       let newdata = response.data.results;
@@ -116,7 +118,7 @@ const Logs = () => {
       <div className="mb-4">
         <SelectOption
           onChange={handleInputValues}
-          // value={botValue}
+          value={selectedBot}
           name="bot"
           values={botValue}
           title={<h3 className="text-sm my-8 font-semibold">Chat Logs</h3>}
@@ -137,27 +139,29 @@ const Logs = () => {
         </div>
       ) : (
         <>
-          <DataTable
-            title={<h3 className="text-sm font-semibold">View Logs</h3>}
-            fixedHeader
-            highlightOnHover
-            pointerOnHover
-            defaultSortFieldId="year"
-            onRowClicked={(rowData) => {
-              router.push(rowData.url);
-            }}
-            pagination
-            noDataComponent={
-              <>
-                <p className="text-center text-sm p-3">
-                  No Chat logs found!
-                </p>
-              </>
-            }
-            paginationPerPage={7}
-            columns={columns}
-            data={conversationData}
-          />
+          {selectedBot && (
+            <DataTable
+              title={<h3 className="text-sm font-semibold">View Logs</h3>}
+              fixedHeader
+              highlightOnHover
+              pointerOnHover
+              defaultSortFieldId="year"
+              onRowClicked={(rowData) => {
+                router.push(rowData.url);
+              }}
+              pagination
+              noDataComponent={
+                <>
+                  <p className="text-center text-sm p-3">
+                    No Chat logs found!
+                  </p>
+                </>
+              }
+              paginationPerPage={7}
+              columns={columns}
+              data={conversationData}
+            />
+          )}
         </>
       )}
     </div>

@@ -1,13 +1,13 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { tiles_icons } from '@/app/data/icon_data';
-import { updateIntegrationAutomation } from '@/app/API/pages/Integration';
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import Card from '../../Common/Card/Card';
 
-const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex }) => {
+const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
 
     const updateShowButtonState = (id, type) => {
@@ -32,6 +32,66 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         const update = await updateWorkFlowStatus({ automations: [...ids] }, workflowId)
         setAutomationStepsData(filterData)
     }
+    const handleAgentNameValue = (e, index) => {
+        let singleData = [...automationStepsField]
+        let old_names = [...singleData[index].names_arr]
+        const { value } = e.target;
+        if (value.includes(",")) {
+            singleData[index].name = ''
+            const agentNames = value.split(",");
+            let newNames = []
+            agentNames.forEach((name) => {
+                const trimmedName = name.trim();
+                if (old_names && !old_names.includes(makeCapital(trimmedName)) && trimmedName) {
+                    newNames.push(makeCapital(trimmedName))
+                }
+            });
+            singleData[index].names_arr = [...old_names, ...newNames]
+            setAutomationStepsField(singleData)
+        } else {
+            singleData[index].name = value
+            setAutomationStepsField(singleData)
+        }
+    };
+    const RemoveFromAgentNameArr = (element, index) => {
+        let singleData = [...automationStepsField]
+        let old_names = [...singleData[index].names_arr]
+        debugger
+        const updatedChips = old_names.filter((x) => x !== element);
+        singleData[index].names_arr = updatedChips
+        setAutomationStepsField(singleData)
+
+
+    };
+    const makeCapital = (str) => {
+        if (str.includes(" ")) {
+            return str
+                .split(" ")
+                .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(" ");
+        } else {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+    };
+
+    const handleKeyDown = (e, index) => {
+        let singleData = [...automationStepsField]
+        let old_names = [...singleData[index].names_arr]
+        if (e.key === "Enter") {
+            const { value } = e.target;
+            singleData[index].name = ''
+            const agentNames = value.split(",");
+            let newNames = []
+            agentNames.forEach((name) => {
+                const trimmedName = name.trim();
+                if (old_names && !old_names.includes(makeCapital(trimmedName)) && trimmedName) {
+                    newNames.push(makeCapital(trimmedName))
+                }
+            });
+            singleData[index].names_arr = [...old_names, ...newNames]
+            setAutomationStepsField(singleData)
+        }
+    };
     return (
         <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
@@ -96,8 +156,9 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
 
 
-                        <div className='border  border-border rounded-lg shadow'>
-                            <div className=' bg-[#F8F8F8] p-5 cursor-pointer group  rounded-lg' >
+                        <div className='border  border-border rounded-lg shadow bg-[#F8F8F8] '>
+                            <div className='  p-5 cursor-pointer group  rounded-lg' >
+
                                 <div className='flex justify-between gap-2 items-center'>
                                     <div className='flex justify-between gap-4 items-center'>
                                         <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
@@ -113,25 +174,72 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                     <div>
                                         <div className='rounded-lg group-hover:border border-border  h-[38px] group-hover:shadow]'>
                                             {showButtonStates === key &&
-                                                <Button
-                                                    type={"button"}
-                                                    onClick={(e) => deleteTheEntry(key)}
-                                                    className="inline-block  cursor-pointer p-2  h-[38px]">
-                                                    <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
-                                                </Button>
+                                                <>
+                                                    <Button
+                                                        type={"button"}
+                                                        onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele.id, index: key })}
+                                                        className="inline-block  cursor-pointer p-2  h-[38px]">
+                                                        <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
+                                                    </Button>
+                                                    <Button
+                                                        type={"button"}
+                                                        onClick={(e) => deleteTheEntry(key)}
+                                                        className="inline-block  cursor-pointer p-2  h-[38px]">
+                                                        <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
+                                                    </Button>
+                                                </>
                                             }
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            {automationStepsField.some((x) => x.key === ele.id) && (
+                                <div className="mb-2 px-5 ">
+                                    <div className={`inline`}>
+                                        <div className='flex items-center gap-1'><span className='text-sm font-semibold'>Mandatory Input(s)</span><div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Enter fields you need the bot to ask the customer for before calling this automation. For example "Name," "Email" or any other data point that the customer must enter. </span></Card></div></div>
+                                        <div className="flex flex-wrap justify-start items-center border h-auto w-auto border-border p-1 rounded-md mt-2">
+                                            <div className="flex flex-wrap items-center justify-start gap-1">
+                                                {automationStepsField[key].names_arr.length > 0 &&
+                                                    automationStepsField[key].names_arr.map((element, index) => (
+                                                        <div
+                                                            className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border"
+                                                            key={index}
+                                                        >
+                                                            {makeCapital(element.trim())}
+                                                            <XMarkIcon
+                                                                className=" h-4 w-4 cursor-pointer "
+                                                                onClick={(e) => {
+                                                                    RemoveFromAgentNameArr(element, key);
+                                                                }}
+                                                            />
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                            <input
+                                                value={automationStepsField[key].name}
+                                                onKeyDown={(e) => handleKeyDown(e, key)}
+                                                required
+                                                onChange={(e) => handleAgentNameValue(e, key)}
+                                                type={"text"}
+                                                placeholder={"Enter names separate by ,"}
+                                                className={` block  px-3 py-2 bg-[#F8F8F8]   rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                                                id={ele.id}
+                                                name={ele.id}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
+
+
                     </div>
                 </div>
 
             )
             }
 
-            <div className={`mt-4 border-2 border-dashed  bg-[#F8F8F8] ${indexSelector === null ? ("border-primary"):"border-border"} rounded-lg shadow p-5 cursor-pointer group`}
+            <div className={`mt-4 border-2 border-dashed  bg-[#F8F8F8] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                 onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
                 <div className='flex justify-between gap-2 items-center'>
                     <div className='flex justify-between gap-4 items-center'>
