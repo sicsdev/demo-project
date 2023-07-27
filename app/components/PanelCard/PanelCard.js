@@ -41,7 +41,7 @@ const Panelcard = (props) => {
                 <div className="relative w-[22px] h-[22px]">
                   <Image
                     fill={true}
-                    // src={ele.icons_svg}
+                    src={ele.icons_svg}
                     className="bg-contain mx-auto"
                     alt="img"
                   />
