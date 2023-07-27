@@ -15,6 +15,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Helmet } from "react-helmet";
 import Panelcard from "@/app/components/PanelCard/PanelCard";
+import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
+
 const Pricing = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -57,7 +59,10 @@ const Pricing = () => {
           content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
-      <Panelcard  />
+
+      {/* <Panelcard  /> */}
+
+      <Panelcardnew/>
 
       <DTC />
       {/* <Iconanimation /> */}
