@@ -5,7 +5,7 @@ import Card from "../Common/Card/Card";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import price_data from "./price_data";
-
+import { useState } from "react";
 const Panelcardnew = () => {
   const router = useRouter();
 
@@ -13,7 +13,9 @@ const Panelcardnew = () => {
   const handleGetFreeTrial = (e) => {
     router.push(`/checkout?plan=${e.target.id}`);
   };
-
+  const [hide, setHide] = useState({
+    first: false,
+  });
   return (
     <div className="bg-white p-[64px] ">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
@@ -44,10 +46,46 @@ const Panelcardnew = () => {
               </div>
               {ele.title == "Starter" ? (
                 <>
-                  <p className="text-slate font-normal text-sm my-4">
+                  <p className="text-slate font-normal text-sm my-4"
+                    onMouseLeave={(e) => {
+                    e.stopPropagation();
+                    setHide({ first: false });
+                  }}
+                  >
                     $200 free, then just{" "}
                     <span className="font-bold text-heading"> $1 </span>per
                     ticket resolution{" "}
+                    <span
+                      className="cursor-pointer"
+                    onMouseOver={(e) => {
+                      e.stopPropagation();
+                      setHide({ first: true });
+                    }}
+                    >
+                      *
+                    </span>
+                    {hide.first == true ? (
+                      <Card
+                        className={
+                          "animate-fadeIn w-[320px]	sm:w-[400px]  absolute bg-white ml-auto mr-auto left-0 right-0"
+                        }
+                      >
+                        <p
+                          className="text-heading"
+                        onMouseLeave={() =>
+                          setTimeout(() => {
+                            setHide({ first: false });
+                          }, 5000)
+                        }
+                        >
+                          Resolution is any conversation that does not
+                          result in a human hand off or a customer marks as a
+                          bad answer and has at least 3 total interactions.
+                        </p>
+                      </Card>
+                    ) : (
+                      ""
+                    )}{" "}
                   </p>
                 </>
               ) : (
