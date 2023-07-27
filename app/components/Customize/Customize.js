@@ -49,7 +49,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     if (form === false && basicFormData) {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
-      setBlockedUrls(basicFormData);
+      setBlockedUrls(basicFormData.origins_blocked ?? []);
     }
 
 
@@ -121,7 +121,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       })
       setBotDetails(res[0].data);
       setPreferences(res[0].data);
-      setBlockedUrls(res[0].data.origins_blocked ?? "");
+      setBlockedUrls(res[0].data.origins_blocked ?? []);
       let data = res[0].data;
       setBasicFormData((prev) => {
         return {
@@ -224,7 +224,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   // **** Manage hide urls modal handlers ***
   const [blockedUrls, setBlockedUrls] = useState([]);
   const [newBlockedUrl, setNewBlockedUrl] = useState("");
-
   const saveNewBlockedUrl = () => {
     addBlockedUrl(botDetails.id, { elements: [newBlockedUrl] }).then((res) => {
       if (res.data.origins_blocked) {
@@ -234,6 +233,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         });
         setBlockedUrls(res.data.origins_blocked);
         setNewBlockedUrl("");
+        debugger
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            origins_blocked: res?.data?.origins_blocked
+          }
+        })
       }
     });
   };
@@ -246,6 +252,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
           origins_blocked: res?.data?.origins_blocked,
         });
         setBlockedUrls(res.data.origins_blocked);
+        debugger
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            origins_blocked: res?.data?.origins_blocked
+          }
+        })
       }
     }),
   ];

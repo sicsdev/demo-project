@@ -91,7 +91,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
                     <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
             </div>
-            <div className='data_table_wrapper'>
+            <div className='data_table_wrapper w-full'>
                 <DataTable
                     title=""
                     fixedHeader

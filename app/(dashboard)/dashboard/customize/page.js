@@ -18,12 +18,21 @@ import { ToastContainer } from 'react-toastify'
 const Page = () => {
   const dispatch = useDispatch()
   const [tab, setTab] = useState(0)
-  const [basicFormData, setBasicFormData] = useState({})
+  const [basicFormData, setBasicFormData] = useState({ })
+  const [scheduleData, setScheduleData] = useState({
+    Monday: [{ start: "00:00", end: "23:59" }],
+    Tuesday: [{ start: "00:00", end: "23:59" }],
+    Wednesday: [{ start: "00:00", end: "23:59" }],
+    Thursday: [{ start: "00:00", end: "23:59" }],
+    Friday: [{ start: "00:00", end: "23:59" }],
+    Saturday: [{ start: "00:00", end: "23:59" }],
+    Sunday: [{ start: "00:00", end: "23:59" }]
+  })
   const [botId, setBot_id] = useState(null)
   const [loading, setLoading] = useState(null)
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   const savePreferences = () => {
     setLoading(true);
     let payload = {}
@@ -32,13 +41,15 @@ const Page = () => {
         ...basicFormData,
         logo: basicFormData.logo_file_name ? basicFormData.logo : "",
       };
-    } else {
-      payload = { 
+    } else if (tab===1) {
+      payload = {
         email_agent_name: basicFormData.agent_name,
         email_agent_title: basicFormData.agent_title,
         email_greeting: basicFormData.email_introduction,
         email_farewell: basicFormData.email_signOff,
       }
+    }else if(tab === 2){
+      payload = { schedule: scheduleData }
     }
     !payload.logo && delete payload.logo;
     !payload.email && delete payload.email;
@@ -53,6 +64,8 @@ const Page = () => {
         setLoading(false);
       });
   };
+
+
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       let bot_res = res[0].data
@@ -71,6 +84,7 @@ const Page = () => {
           ...payload
         };
       });
+      res?.data?.schedule && Object.keys(res?.data?.schedule).length === 7 && setScheduleData(res?.data?.schedule)
     });
   };
   const DisablingButton = () => {
@@ -116,9 +130,8 @@ const Page = () => {
         savePreferences()
         break;
       case 2:
-      console.log('Work in progress !')
+        savePreferences()
         break;
-
       default:
         break;
     }
@@ -159,7 +172,7 @@ const Page = () => {
         </div>
       </div>
       {tab === 0 && (
-        <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData}/>
+        <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
       )}
       {tab === 1 && (
 
@@ -201,7 +214,7 @@ const Page = () => {
             <hr className="opacity-10"></hr>
             <div></div>
           </>
-          <Schedule preferences={basicFormData} />
+          <Schedule  basicFormData={scheduleData} setBasicFormData={setScheduleData} />
         </>
 
       )}

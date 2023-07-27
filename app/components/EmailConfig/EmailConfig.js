@@ -30,7 +30,6 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
   const handleInputValues = (e) => {
     const { value } = e.target;
     setErrors([]);
-
     setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
     setBasicFormData((prev) => {
       return {
@@ -41,7 +40,6 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
   };
   const handleAgentNameValue = (e) => {
     const { value } = e.target;
-
     if (value.includes(",")) {
       const agentNames = value.split(",");
       setFormValues((prev) => {
