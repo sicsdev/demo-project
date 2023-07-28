@@ -10,6 +10,8 @@ import AboveSection from "@/app/components/solutions/AboveSection";
 import Tempoeconomy from "@/app/components/solutions/Tempoeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
+import Motioncards from "@/app/components/Motioncards/page";
+import Brands from "@/app/components/Brands/page";
 
 
 const page = () => {
@@ -51,6 +53,8 @@ const page = () => {
    
 
       <AboveSection />
+      {/* <Motioncards/> */}
+      <Brands/>
       <SolutionStandard />
       {/* <Tempoalert /> */}
       <div className="pt-12 sm:pt-0 bg-white">

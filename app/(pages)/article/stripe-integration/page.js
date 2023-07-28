@@ -44,7 +44,7 @@ const page = () => {
   };
 
   return (
-    <div className="bg-white px-[20px] sm:px-0  sm:pl-[10%] ">
+    <div className="bg-white px-[20px] sm:px-0  sm:pl-[10%]">
       <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
         <div className="sm:w-[70%]">
           {loading ? (
@@ -89,7 +89,7 @@ const page = () => {
             </h1>
           ) : (
             <div className=" sm:rounded-lg mt-4 mb-8 sm:mt-8">
-              <table className="mt-3 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-6 sm:mx-auto  m-auto shadow-lg">
+              <table className="mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-0 sm:mx-auto  m-auto shadow-lg">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th
@@ -113,12 +113,12 @@ const page = () => {
                   >
                     <th
                       scope="row"
-                      className="sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
+                      className="px-4 sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row1l}
                     </th>
 
-                    <td className="px-6 py-4 break-all">{single?.acf?.row1r}</td>
+                    <td className="px-4 sm:px-6 py-4 break-all">{single?.acf?.row1r}</td>
                   </tr>
                   <tr
                     className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
@@ -126,12 +126,12 @@ const page = () => {
                   >
                     <th
                       scope="row"
-                      className="sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
+                      className="px-4 sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
                     >
                       {single?.acf?.row2l}
                     </th>
 
-                    <td className="sm:px-6 py-4 break-all">{single?.acf?.row2r}</td>
+                    <td className="px-4 sm:px-6 py-4 break-all">{single?.acf?.row2r}</td>
                   </tr>
                 </tbody>
               </table>
@@ -159,9 +159,9 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.third_head)}
-              className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
-              1. {single?.acf?.third_head}
+              1. {single?.acf?.third_head} 
             </p>
           )}
           {loading ? (
@@ -185,7 +185,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.fourth_head)}
-              className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               2. {single?.acf?.fourth_head}
             </p>
@@ -226,7 +226,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.fifth_head)}
-              className="font-bold px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold px-0 sm:px-4 pt-4 sm:pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               {single?.acf?.fifth_head || (
                 <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
@@ -252,7 +252,7 @@ const page = () => {
           ) : single?.acf?.article_para_copy == null ? (
             <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
           ) : (
-            <h1 className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
+            <h1 className="mt-6 sm:mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h5 sm:text-h4 sm:leading-none ">
               Want to know more?
             </h1>
           )}
@@ -264,7 +264,7 @@ const page = () => {
             <p className="underline-offset-1 text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
               <ul
                 className="
-            list-disc cursor-pointer"
+            list-disc cursor-pointer m-4 sm:m-0"
               >
                 <Link href="/solutions/tempo-chat">
                   <li>
@@ -296,7 +296,7 @@ const page = () => {
               </ul>
             </p>
           )}
-          <div className="mt-[60px]">
+          <div className="mt-[20px] sm:mt-[60px]">
             {loading ? (
               <h1 className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none ">
                 {" "}
