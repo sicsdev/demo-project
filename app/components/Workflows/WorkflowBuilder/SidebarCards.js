@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex ,setIndexSelector}) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector }) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -42,7 +42,13 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
 
     const addStepHandler = async (ele) => {
 
-        const get_ids = automationStepsData.map((ele) => ele.id)
+        const get_ids = automationStepsData.map((ele) => {
+            return {
+                id: ele.id,
+                data: ele?.data,
+                output: ele?.output
+            };
+        })
         const isElementExists = get_ids.includes(ele.id);
         if (isElementExists) {
             errorMessage('Automation already added!');
@@ -50,9 +56,9 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         }
         const newArray = stepIndex !== undefined && stepIndex !== null
             ? [...get_ids.slice(0, stepIndex), ele.id, ...get_ids.slice(stepIndex)]
-            : [...get_ids, ele.id];
-
-        const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+            : [...get_ids, { id: ele.id, data: {"name1": "", "name2": ""}, output: {"name1": "test", "name2":"gaurav"}}];
+        
+        const update = await updateWorkFlowStatus({ automation: newArray }, workflowId);
 
         const newAutomationArray = stepIndex !== undefined && stepIndex !== null
             ? [...automationStepsData.slice(0, stepIndex), ele, ...automationStepsData.slice(stepIndex)]
