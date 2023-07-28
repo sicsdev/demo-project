@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData }) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -39,32 +39,32 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setIntegrationAutomationData(automationData);
         setBeatLoader(false);
     }
-
+    function addDataAtIndex1(stepIndex, get_ids, newData) {
+        get_ids.splice(stepIndex, 0, newData);
+        return get_ids;
+    }
     const addStepHandler = async (ele) => {
-
-        const get_ids = automationStepsData.map((ele) => {
+        console.log("ele", ele)
+        const get_ids = automationStepsData.map((element) => {
             return {
-                id: ele.id,
-                data: ele?.data,
-                output: ele?.output
+                automation: element?.automation?.id,
+                data: element?.data,
+                output: element?.output
             };
         })
-        const isElementExists = get_ids.includes(ele.id);
+        const isElementExists = get_ids.find((x) => x.automation === ele.id);
         if (isElementExists) {
             errorMessage('Automation already added!');
             return false;
         }
-        const newArray = stepIndex !== undefined && stepIndex !== null
-            ? [...get_ids.slice(0, stepIndex), ele.id, ...get_ids.slice(stepIndex)]
-            : [...get_ids, { id: ele.id, data: {"name1": "", "name2": ""}, output: {"name1": "test", "name2":"gaurav"}}];
-        
-        const update = await updateWorkFlowStatus({ automation: newArray }, workflowId);
-
-        const newAutomationArray = stepIndex !== undefined && stepIndex !== null
-            ? [...automationStepsData.slice(0, stepIndex), ele, ...automationStepsData.slice(stepIndex)]
-            : [...automationStepsData, ele];
-
-        setAutomationStepsData(newAutomationArray);
+        let newArray = null
+        if (stepIndex === null) {
+            newArray = [...get_ids, { automation: ele.id, data: {}, output: {} }];
+        } else {
+            newArray = addDataAtIndex1(stepIndex, get_ids, { automation: ele.id, data: {}, output: {} })
+        }
+        const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+        getWorkflowData(workflowId)
         handleButtonClick(false)
         setStepIndex(null);
         setIndexSelector(null)

@@ -62,6 +62,14 @@ const GetStarted = () => {
 
   const params = useSearchParams()
 
+  function objectValuesToArray(obj) {
+    if (typeof obj === 'object' && !Array.isArray(obj)) {
+      const values = Object.values(obj);
+      return values.filter(value => value !== '');
+    } else {
+      return [];
+    }
+  }
   const getWorkflowData = async (id) => {
     const response = await getSingleWorkflow(id)
     if (response) {
@@ -80,6 +88,19 @@ const GetStarted = () => {
       })
       if (response?.automations?.length > 0) {
         setAutomationStepsData(response.automations)
+        const filterData = response.automations.map((ele) => {
+          const isEmptyObject = Object.keys(ele.output).length === 0;
+          const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
+          return {
+            key: Object.keys(ele.data).length === 0 ? '':ele.automation.id,
+            value: '',
+            name: '',
+            names_arr: objectValuesToArray(ele.data),
+            output: jsonString,
+            loading:false
+          }
+        })
+        setAutomationStepsField(filterData)
       }
       setIsLoading(false)
     } else {
@@ -141,22 +162,24 @@ const GetStarted = () => {
         break;
     }
   }
+
+
   const addAutomationFields = (value) => {
     let data_value = [...automationStepsField];
-    const emptyObject = { key: '', value: '', name: '', names_arr: [] };
+    const emptyObject = { key: '', value: '', name: '', names_arr: [], output: "" , loading:false};
     const targetIndex = value.index;
     while (data_value.length <= targetIndex) {
       data_value.push(emptyObject);
     }
     const existingIndex = data_value.findIndex(item => item.key === value.addKey);
     if (existingIndex !== -1) {
-      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: [] }
+      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: [], output: "", loading:false }
     } else {
-      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: [] }
+      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: [], output: "", loading:false }
     }
     setAutomationStepsField(data_value);
   }
-
+  console.log("automationStepsField", automationStepsField)
   const saveWorkFlowHandler = async (type) => {
     try {
       let payload = {}
@@ -208,7 +231,6 @@ const GetStarted = () => {
   };
 
   const deleteWorkFlow = async (element) => {
-
     const flow = params.get("flow");
     const deleteWorkFlow = await removeWorkFlow(flow)
     if (deleteWorkFlow.status === 204) {
@@ -264,7 +286,7 @@ const GetStarted = () => {
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick}>
+        <RightSidebar stepIndex={addStepIndex} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData}>
           {singleData ? (
             <>
               <div className='flex justify-between gap-2 items-center'>
