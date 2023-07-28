@@ -23,11 +23,11 @@ const Launch = () => {
               <a href="https://docs.usetempo.ai"> Read the docs </a>
             </button>
           </div>
-          <div className=" sm:w-[45%] md:w-[45%] lg:w-[45%]">
+          <div className="sm:w-[45%] md:w-[45%] lg:w-[45%]">
             <div className="w-full  mt-[40px] sm:mt-0">
               <div className="h-[100%]  mb-6 sm:mb-0">
                 <img
-                  src="/tabs/Typing.gif"
+                  src="/tabs/typing2.gif"
                   className="w-full sm:h-[454px] m-auto rounded-[32px]"
                 />
               </div>

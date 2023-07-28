@@ -89,7 +89,7 @@ const Homefold = () => {
                 ) : (
                   <button
                     className={
-                      "py-2 px-8 mb-[12px] sm:mb-0 w-full first-letter:w-full focus:ring-yellow-300    text-lg font-semibold text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                      "py-2 px-8 mb-[12px] sm:mb-0 w-full first-letter:w-full focus:ring-yellow-300 text-lg font-semibold text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
                     }
                   >
                     <div className="trytempo">
