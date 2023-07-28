@@ -18,7 +18,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
             setShowButtonStates(null);
         }
     };
-    const [loading, setLoading] = useState(automationStepsField.map((x) => x.loading))
+    const [loading, setLoading] = useState(null)
     console.log(loading)
     const DisableButton = (index) => {
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
@@ -97,6 +97,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     }
 
     const SubmitFormValue = async (index) => {
+        setLoading(index)
         const findUpdateValue = automationStepsField.find((_, key) => key === index)
         console.log("findUpdateValue", findUpdateValue)
         const filterData = stepData.filter((_, key) => key !== index)
@@ -111,9 +112,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         const payload = { "automations": [...get_ids, { "automation": findUpdateValue.key, "data": convertArrayToObject(findUpdateValue.names_arr), "output": outputObject }] }
         const updateValue = await updateWorkFlowStatus(payload, workflowId)
         if (updateValue.status === 200) {
+            setLoading(null)
             successMessage("Automation updated successfully !")
         } else {
             errorMessage("something is wrong !")
+            setLoading(null)
         }
     }
     const makeCapital = (str) => {
@@ -303,7 +306,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                             </div>
                                         </div>
                                         <div className='my-2'>
-                                            {/* {loading[key] ? <LoaderButton /> : */}
+                                            {loading === key ? <LoaderButton /> :
                                                 <Button
                                                     type={"button"}
                                                     className="inline-block my-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
@@ -311,7 +314,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                     onClick={(e) => SubmitFormValue(key)}
                                                 >Save
                                                 </Button>
-                                            {/* } */}
+                                            }
                                         </div>
                                     </div>
                                 </div>

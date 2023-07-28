@@ -173,9 +173,9 @@ const GetStarted = () => {
     }
     const existingIndex = data_value.findIndex(item => item.key === value.addKey);
     if (existingIndex !== -1) {
-      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: [], output: "", loading:false }
+      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: data_value[targetIndex].names_arr, output: data_value[targetIndex].output, loading:false }
     } else {
-      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: [], output: "", loading:false }
+      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: data_value[targetIndex].names_arr, output:  data_value[targetIndex].output, loading:false }
     }
     setAutomationStepsField(data_value);
   }
