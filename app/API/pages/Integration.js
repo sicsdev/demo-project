@@ -21,6 +21,15 @@ export const updateIntegrationData = async (body, id) => {
         return error;
     }
 };
+export const removeIntegrationData = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/integrations/${id}/`, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
 
 export const getAllIntegration = async () => {
     let config = returnConfig()

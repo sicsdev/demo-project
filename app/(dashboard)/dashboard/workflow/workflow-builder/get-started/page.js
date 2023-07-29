@@ -97,7 +97,8 @@ const GetStarted = () => {
             name: '',
             names_arr: objectValuesToArray(ele.data),
             output: jsonString,
-            loading:false
+            loading:false,
+            icon:response.icon
           }
         })
         setAutomationStepsField(filterData)

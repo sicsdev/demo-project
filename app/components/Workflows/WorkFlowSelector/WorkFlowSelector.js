@@ -220,12 +220,12 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
                                 <div className='flex justify-between gap-2 items-center'>
                                     <div className='flex justify-between gap-4 items-center'>
-                                        <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
+                                        <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
                                             <Image
                                                 fill={"true"}
                                                 className="bg-contain mx-auto w-full rounded-lg"
                                                 alt="logo.png"
-                                                src={getLogo(ele?.automation?.name.split(" ")[0]) ?? '/workflow/reactive-subscription.png'}
+                                                src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0]) }
                                             />
                                         </div>
                                         <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
