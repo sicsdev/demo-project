@@ -23,11 +23,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     const DisableButton = (index) => {
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 
-        if (!jsonPattern.test(automationStepsField[index].output)) {
+        if (automationStepsField[index].names_arr.length === 0 && automationStepsField[index].output === "") {
+            // debugger
             return true
         }
-        if (automationStepsField[index].names_arr.length === 0) {
-            // debugger
+        if (!jsonPattern.test(automationStepsField[index].output) && automationStepsField[index].output !== "") {
             return true
         }
         return false
@@ -108,7 +108,10 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 output: element?.output
             }
         })
-        const outputObject = JSON.parse(findUpdateValue.output);
+        const outputObject = {}
+        if (findUpdateValue.output !== "") {
+            JSON.parse(findUpdateValue.output);
+        }
         const payload = { "automations": [...get_ids, { "automation": findUpdateValue.key, "data": convertArrayToObject(findUpdateValue.names_arr), "output": outputObject }] }
         const updateValue = await updateWorkFlowStatus(payload, workflowId)
         if (updateValue.status === 200) {
