@@ -131,7 +131,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                                         fill={"true"}
                                                         className={`bg-contain mx-auto w-full rounded-lg`}
                                                         alt="logo.png"
-                                                        src={getLogo(ele.name.split(" ")[0])}
+                                                        src={ele.icon || getLogo(ele.name.split(" ")[0])}
                                                     />
                                                 </div>
                                                 <p className='text-heading text-sm'>{ele.name}</p>
@@ -171,7 +171,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             fill={"true"}
                                             className={`bg-contain mx-auto w-full rounded-lg`}
                                             alt="logo.png"
-                                            src={getLogo(innerSide?.value.name)}
+                                            src={innerSide?.value.icon || getLogo(innerSide?.value.name)}
                                         />
                                     </div>
                                     <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
@@ -179,15 +179,15 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                 {integrationAutomationData?.map((ele, key) =>
                                     <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
                                         <div className='flex justify-start items-center gap-4'>
-                                            <div className="relative w-[20px] h-[20px] rounded-lg">
+                                            <div className="relative w-[25px] h-[20px] rounded-lg">
                                                 <Image
                                                     fill={"true"}
                                                     className={`bg-contain mx-auto w-full rounded-lg`}
                                                     alt="logo.png"
-                                                    src={getLogo(innerSide?.value.name)}
+                                                    src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
                                                 />
                                             </div>
-                                            <div>
+                                            <div className='w-[200px]'>
                                                 <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
                                                 <p className='text-border text-[11px] font-light'>{ele?.description}</p>
                                             </div>
