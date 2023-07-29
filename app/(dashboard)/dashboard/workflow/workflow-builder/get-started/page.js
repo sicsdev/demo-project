@@ -92,7 +92,7 @@ const GetStarted = () => {
           const isEmptyObject = Object.keys(ele.output).length === 0;
           const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
           return {
-            key: Object.keys(ele.data).length === 0 ? '':ele.automation.id,
+            key: Object.keys(ele.data).length === 0  && isEmptyObject? '':ele.automation.id,
             value: '',
             name: '',
             names_arr: objectValuesToArray(ele.data),
