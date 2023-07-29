@@ -1,12 +1,13 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
+import Link from 'next/link'
 
 const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData }) => {
     const [beatLoader, setBeatLoader] = useState(false)
@@ -139,6 +140,20 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         </div>
                                     </li>
                                 )}
+
+                                <li className={`my-4 cursor-pointer`}>
+                                    <Link href={"/dashboard/workflow/integrations"}>
+                                        <div className='flex justify-between items-center '>
+                                            <div className="flex justify-start items-center gap-2">
+                                                <ShareIcon className="h-6 w-6 text-gray-500" />
+
+                                                <p className='text-heading text-sm'>Add Integration</p>
+                                                <p className='text-border text-[11px] font-light'></p>
+                                            </div>
+                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
+                                        </div>
+                                    </Link>
+                                </li>
                             </> :
                             <>
                                 <div className='flex justify-start items-center my-8 gap-2'>
@@ -179,6 +194,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         </div>
                                     </li>
                                 )}
+
                             </>}
                     </>
                 }
