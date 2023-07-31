@@ -134,7 +134,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                                 <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                                     <Image
                                                         fill={"true"}
-                                                        className={`bg-contain mx-auto w-full rounded-lg`}
+                                                        className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
                                                         alt="logo.png"
                                                         src={ele.icon || getLogo(ele.name.split(" ")[0])}
                                                     />
@@ -174,7 +174,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <div className="relative w-[20px] h-[20px] rounded-lg">
                                         <Image
                                             fill={"true"}
-                                            className={`bg-contain mx-auto w-full rounded-lg`}
+                                            className={`bg-contain mx-auto object-scale-down w-full rounded-lg`}
                                             alt="logo.png"
                                             src={innerSide?.value.icon || getLogo(innerSide?.value.name)}
                                         />
@@ -187,7 +187,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             <div className="relative w-[25px] h-[20px] rounded-lg">
                                                 <Image
                                                     fill={"true"}
-                                                    className={`bg-contain mx-auto w-full rounded-lg`}
+                                                    className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
                                                     alt="logo.png"
                                                     src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
                                                 />
