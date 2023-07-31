@@ -12,6 +12,7 @@ import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
 import { useRouter } from 'next/navigation';
 import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
+import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 
 const Page = () => {
     const router = useRouter()
@@ -23,7 +24,8 @@ const Page = () => {
     const getAllWorkflowData = async () => {
         setLoading(true)
         try {
-            const response = await getAllWorkflow();
+            const response = await getAllWorkflow()
+            if (!response?.results?.some(e => e.active)) { setTab(1) } // If there is no active workflows, setTab to draft section.
             setWorkflowData(response);
             setLoading(false)
         } catch (error) {
@@ -87,7 +89,7 @@ const Page = () => {
                                             className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Active
+                                            <BoltIcon className="h-6 w-6 text-gray-500" /> Active
                                         </span>
                                     </li>
                                     <li className="mr-2" onClick={() => { setTab(1) }}>
@@ -95,7 +97,7 @@ const Page = () => {
                                             className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Draft
+                                            <BoltSlashIcon className="h-6 w-6 text-gray-500" /> Draft
                                         </span>
                                     </li>
                                     <li className="mr-2" onClick={() => { setTab(2) }}>
@@ -103,7 +105,7 @@ const Page = () => {
                                             className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Templates
+                                            <ClipboardDocumentIcon className="h-6 w-6 text-gray-500" /> Templates
                                         </span>
                                     </li>
                                 </ul>
