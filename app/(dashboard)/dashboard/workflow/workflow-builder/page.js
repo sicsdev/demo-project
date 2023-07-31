@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
 import { useRouter } from 'next/navigation';
+import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 
 const Page = () => {
     const router = useRouter()
@@ -114,7 +115,7 @@ const Page = () => {
                                 <WorkFlowTemplates status={false} workflowData={workflowData} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
-                                ''
+                                <></>
                             )}
                         </>
                     )}
