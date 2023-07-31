@@ -262,10 +262,10 @@ const GetStarted = () => {
     if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
       // setPublishLoader(false);
       // setShowPublishModal(false);
-      errorMessage("Could not create workflow, please first update the workflow policy by clicking edit on the first box.");
+      errorMessage("Could not publish workflow, please first update the workflow policy by clicking edit on the first box.");
       return false;
     } else if (workflowFormData?.name === '' || workflowFormData?.name === 'Default_name' || workflowFormData?.description === "" || workflowFormData?.policy_name === '' || workflowFormData?.policy_description === '') {
-      errorMessage("Could not create workflow, please first update the workflow details by clicking edit on the first box.");
+      errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
     setShowPublishModal(true)
