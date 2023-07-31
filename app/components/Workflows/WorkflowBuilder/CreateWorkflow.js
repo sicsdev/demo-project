@@ -50,7 +50,7 @@ const CreateWorkflow = ({ form, setForm, getAllWorkflowData, setCreateWorkflowMo
             setLoading(false)
             getAllWorkflowData()
             setCreateWorkflowModal(false)
-            successMessage("Workflow create successfully !")
+            successMessage("Workflow create successfully")
         }
     }
     return (

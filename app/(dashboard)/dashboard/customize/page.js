@@ -178,19 +178,6 @@ const Page = () => {
 
         <>
           <>
-            <div className="mt-4 mb-4">
-              <div className="flex items-center justify-between">
-                <a
-                  className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active text-sm group"
-                  aria-current="customize"
-                >
-                  <EnvelopeIcon className="h-7 w-7 text-gray-500" /> Email Settings
-                </a>
-
-              </div>
-            </div>
-            <hr className="opacity-10"></hr>
-            <div></div>
           </>
           <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
         </>
@@ -199,21 +186,6 @@ const Page = () => {
       {tab === 2 && (
 
         <>
-          <>
-            <div className="mt-4 mb-4">
-              <div className="flex items-center justify-between">
-                <a
-                  className="flex justify-start gap-2 items-center text-primary font-bold border-primary rounded-t-lg active text-sm group"
-                  aria-current="customize"
-                >
-                  <CalendarDaysIcon className="h-7 w-7 text-gray-500" /> Schedule
-                </a>
-
-              </div>
-            </div>
-            <hr className="opacity-10"></hr>
-            <div></div>
-          </>
           <Schedule  basicFormData={scheduleData} setBasicFormData={setScheduleData} />
         </>
 
