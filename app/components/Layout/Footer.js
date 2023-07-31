@@ -63,7 +63,7 @@ const Footer = () => {
              </a>
             `,
                     }}
-                    className="mb-4  text-white   font-[400] sm:font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 "
+                    className="mb-4  text-white   font-[200] sm:font-bold cursor-pointer border-2 p-2 rounded-lg   border-gray-50 text-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 "
                   ></h6>
                 </div> */}
                 <span className="text-4xl mb-4 ">
@@ -78,30 +78,30 @@ const Footer = () => {
                 <div>
                   <div className=" sm:flex justify-between gap-3  items-start">
                     <div className="flex flex-wrap sm:justify-between gap-3 items-start">
-                      <h6 className="text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      {/* <h6 className="text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/login">Login</Link>
-                      </h6>
-                      <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      </h6> */}
+                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/careers">Careers</Link>
                       </h6>
-                      {/* <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/terms-of-service">Terms of Service</Link>
                       </h6> */}
-                      <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/article/pricing-overview">Pricing</Link>
                       </h6>
-                      <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/article/security-overview">Security</Link>
                       </h6>
-                      <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/list-of-subprocessors">
                           Subprocessors{" "}
                         </Link>
                       </h6>
-                      <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/data-processing-agreement">DPA</Link>
                       </h6>
-                      {/* <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/privacy-policy">Privacy Policy</Link>
                       </h6> */}
                     </div>
@@ -109,22 +109,22 @@ const Footer = () => {
                   {/* <div className="grid grid-cols-2  sm:hidden justify-between gap-3  items-start">
                     <div className="flex justify-between gap-3 flex-col items-start">
                       <div>
-                        <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                           <Link href="/login">Login</Link>
                         </h6>
                       </div>
                       <div>
-                        <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                           <Link href="/careers">Careers</Link>
                         </h6>
                       </div>
                       <div>
-                        <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                           <Link href="/terms-of-service">Terms of Service</Link>
                         </h6>
                       </div>
                       <div>
-                        <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                           <Link href="/data-processing-agreement">DPA</Link>
                         </h6>
                       </div>
@@ -132,28 +132,28 @@ const Footer = () => {
                     <div>
                       <div className="flex justify-between gap-3 flex-col items-start">
                         <div>
-                          <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                             <Link href="/article/pricing-overview">
                               Pricing
                             </Link>
                           </h6>
                         </div>
                         <div>
-                          <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                             <Link href="/article/security-overview">
                               Security
                             </Link>
                           </h6>
                         </div>
                         <div>
-                          <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                             <Link href="/list-of-subprocessors">
                               Subprocessors{" "}
                             </Link>
                           </h6>
                         </div>
                         <div>
-                          <h6 className="  text-white   font-[400] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                             <Link href="/privacy-policy">Privacy Policy</Link>
                           </h6>
                         </div>{" "}
@@ -172,7 +172,7 @@ const Footer = () => {
                   ) : (
                     <Link href={"/login"}>
                       {" "}
-                      <p className="text-white sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
+                      <p className="text-white sm:py-[6px] sm:px-[12px] font-[200] sm:font-bold hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
                         Sign In
                       </p>
                     </Link>
@@ -193,7 +193,7 @@ const Footer = () => {
                       {" "}
                       <button
                         type="button"
-                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white border-0  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
                       >
                         Get Started
                       </button>{" "}
@@ -205,12 +205,12 @@ const Footer = () => {
           </div>
           <div className=" justify-between  items-start sm:hidden mx-4 mb-[-4px] flex ">
             <div>
-              <h6 className="  text-white text-sm sm:text-[16px] font-[400]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
+              <h6 className="  text-white text-sm sm:text-[16px] font-[200]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
                 <Link href="/terms-of-service">Terms of Service</Link>
               </h6>
             </div>{" "}
             <div>
-              <h6 className="  text-white text-sm sm:text-[16px]   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
+              <h6 className="  text-white text-sm sm:text-[16px]   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
                 <Link href="/privacy-policy">Privacy Policy</Link>
               </h6>
             </div>
@@ -224,12 +224,12 @@ const Footer = () => {
             </a>
             <div className=" justify-between gap-3 items-start sm:flex hidden">
               <div>
-                <h6 className="  text-white text-sm sm:text-[16px] font-[400]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                <h6 className="  text-white text-sm sm:text-[16px] font-[200]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                   <Link href="/terms-of-service">Terms of Service</Link>
                 </h6>
               </div>{" "}
               <div>
-                <h6 className="  text-white text-sm sm:text-[16px]   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                <h6 className="  text-white text-sm sm:text-[16px]   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                   <Link href="/privacy-policy">Privacy Policy</Link>
                 </h6>
               </div>
