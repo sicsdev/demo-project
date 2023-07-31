@@ -264,6 +264,9 @@ const GetStarted = () => {
       // setShowPublishModal(false);
       errorMessage("Could not create workflow, please first update the workflow policy by clicking edit on the first box.");
       return false;
+    } else if (workflowFormData?.name === '' || workflowFormData?.name === 'Default_name' || workflowFormData?.description === "" || workflowFormData?.policy_name === '' || workflowFormData?.policy_description === '') {
+      errorMessage("Could not create workflow, please first update the workflow details by clicking edit on the first box.");
+      return false;
     }
     setShowPublishModal(true)
   };

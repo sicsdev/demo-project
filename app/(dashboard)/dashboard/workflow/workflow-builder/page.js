@@ -38,10 +38,10 @@ const Page = () => {
         setWorkLoading(true)
         let formData = {
             name: "Default_name",
-            description: "Default_description",
-            policy_name: "default",
-            policy_description: "default",
-            policy_exceptions: "default"
+            description: "",
+            policy_name: "",
+            policy_description: "",
+            policy_exceptions: ""
         }
         const findDuplicate = workflowData.results.find((x) => x.name === "Default_name")
         if (findDuplicate) {
