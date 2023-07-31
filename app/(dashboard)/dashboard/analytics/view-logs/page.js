@@ -43,7 +43,7 @@ const Logs = () => {
     const bot_name = searchParams.get("name");
     if (bot_id) {
       getCoversation(bot_id);
-    }else{
+    } else {
       router.push('/dashboard/analytics')
     }
   }, []);
@@ -73,11 +73,11 @@ const Logs = () => {
         <div className="flex items-center justify-between">
           <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
             <li className="mr-2">
-            <span
-                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
-                                aria-current="page"
-                            >
-                <CloudIcon className="h-6 w-6 text-gray-500"/> View Logs
+              <span
+                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                aria-current="page"
+              >
+                <CloudIcon className="h-6 w-6 text-gray-500" /> View Logs
               </span>
             </li>
           </ul>

@@ -39,6 +39,10 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
+  const [selectedFilters, setSelectedFilters] = useState({
+    type: '',
+    is_workflow: false,
+  });
 
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
@@ -66,11 +70,9 @@ const Logs = () => {
   }, [state.botData.data]);
 
 
-  const getCoversation = async (bot_id) => {
+  const getCoversation = async (bot_id, queryParam) => {
     setLoading(true)
-
-    setSelectedBot(bot_id)
-    const response = await getBotConversation(bot_id);
+    const response = await getBotConversation(bot_id, queryParam);
     if (response.status === 200) {
       let newdata = response.data.results;
       if (newdata.length > 0) {
@@ -91,7 +93,32 @@ const Logs = () => {
   const handleInputValues = (e) => {
     setLoading(true)
     const { value } = e.target;
-    getCoversation(value);
+    setSelectedFilters({
+      type:'',
+      is_workflow: false,
+    })
+    setSelectedBot(value)
+    getCoversation(value, '');
+  };
+
+  const filterDataHandler = (e) => {
+    const { value, name } = e?.target;
+    setSelectedFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+    const queryParam = buildQueryParam({
+      ...selectedFilters,
+      [name]: value, // Update the selected value for the current dropdown
+    });
+    if (selectedBot) {
+      getCoversation(selectedBot, queryParam);
+    }
+  };
+
+  const buildQueryParam = (filters) => {
+    const queryParams = new URLSearchParams(filters).toString();
+    return queryParams ? `?${queryParams}` : '';
   };
 
   return (
@@ -114,18 +141,43 @@ const Logs = () => {
           </p>
         </div>
       </div>
-
-      <div className="mb-4">
-        <SelectOption
-          onChange={handleInputValues}
-          value={selectedBot}
-          name="bot"
-          values={botValue}
-          title={<h3 className="text-sm my-8 font-semibold">Chat Logs</h3>}
-          id={"bots"}
-          className="py-3"
-          error={""}
-        />
+      <div className="block sm:flex justify-center gap-5">
+        <div className="mb-4 w-full">
+          <SelectOption
+            onChange={handleInputValues}
+            value={selectedBot}
+            name="bot"
+            values={botValue}
+            title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
+            id={"bots"}
+            className="py-3"
+            error={""}
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <SelectOption
+            onChange={(e) => filterDataHandler(e)}
+            value={selectedFilters.type || ''}
+            name="type"
+            values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }]}
+            title={<h3 className="text-sm my-4 font-semibold">Filter</h3>}
+            id={"type"}
+            className="py-3"
+            error={""}
+          />
+        </div>
+        <div className="mb-4 w-full">
+          <SelectOption
+            onChange={(e) => filterDataHandler(e)}
+            value={selectedFilters.is_workflow || ''}
+            name="is_workflow"
+            values={[{ name: 'All Conversations', value: false }, { name: 'Workflow Conversations', value: true }]}
+            title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
+            id={"is_workflow"}
+            className="py-3"
+            error={""}
+          />
+        </div>
       </div>
       {loading === true || state.isLoading === true ? (
         // <Loading />

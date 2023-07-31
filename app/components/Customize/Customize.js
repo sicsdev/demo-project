@@ -28,6 +28,7 @@ import ColorSelector from "./ColorSelector";
 import Modal from "../Common/Modal/Modal";
 import EmailConfig from "../EmailConfig/EmailConfig";
 import Schedule from "./Schedule";
+import TextField from "../Common/Input/TextField";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const dispatch = useDispatch();
   const [botDetails, setBotDetails] = useState({});
@@ -368,7 +369,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
                 <div className="mb-4">
                   <a
-                    className="flex justify-start gap-2 items-center py-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                    className="flex justify-start gap-2 items-center py-4 text-sm font-semibold text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
                   >
                     <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize
@@ -387,11 +388,23 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       name="chat_title"
                       value={preferences.chat_title}
                       type="text"
-                      className="block border-gray border w-full rounded-md p-2 items-center"
+                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat title"
                     />
                   </div>
                 </div>
+                {/* <div className="mb-4">
+                  <TextField
+                    onChange={handleInputChange}
+                    value={preferences.chat_title}
+                    name="chat_title"
+                    className="py-3 mt-1 w-full"
+                    title={"Bot Title"}
+                    placeholder={"Enter chat title"}
+                    type={"text"}
+                    id={"chat_title"}
+                  />
+                </div> */}
 
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
@@ -404,7 +417,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       name="description"
                       value={preferences.description}
                       type="text"
-                      className="block border-gray border rounded-md p-2 items-center w-full"
+                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter description"
                     />
                   </div>
@@ -432,7 +445,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
-                      className="block border-gray border rounded-md p-2 items-center cursor-pointer w-full"
+                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
                       <option value="bottom_left">Bottom Left</option>
@@ -489,7 +502,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       <input
                         type="file"
                         accept="image/jpeg, image/jpg, image/png"
-                        className="hidden w-full"
+                        className="hidden w-full mt-1 px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                         placeholder="Select logo"
                         name="logo"
                         onChange={handleFileChange}
@@ -545,7 +558,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               >
                 <div className="mb-8">
                   <a
-                    className="flex justify-start gap-2 items-center p-4 text-heading font-bold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                    className="flex justify-start gap-2 items-center p-4 text-heading text-sm font-semibold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
                   >
                     <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
