@@ -19,7 +19,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         }
     };
     const [loading, setLoading] = useState(null)
-    console.log(loading)
+    
     const DisableButton = (index) => {
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 

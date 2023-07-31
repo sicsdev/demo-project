@@ -43,6 +43,7 @@ const GetStarted = () => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [workflowModal, setWorkflowModal] = useState(false);
   const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
+  const [mobileCss, setMobileCss] = useState('');
 
   const [automationStepsData, setAutomationStepsData] = useState([]);
   const [automationStepsField, setAutomationStepsField] = useState([]);
@@ -51,6 +52,8 @@ const GetStarted = () => {
   const [addStepIndex, setAddStepIndex] = useState(null);
 
   const handleButtonClick = (shake = true) => {
+    setMobileCss(`!block`);
+    setShake('w-full sm:w-80 transform translate-x-[-1] translate-y-0 scale-100 scale-x-[1.00018] scale-y-100')
     if (inputRef.current) {
       inputRef.current.focus();
       inputRef.current.setSelectionRange(
@@ -58,6 +61,9 @@ const GetStarted = () => {
         inputRef.current.value.length
       );
     }
+    setTimeout(() => {
+      setShake(null)
+    }, 500);
   };
 
   const params = useSearchParams()
@@ -92,13 +98,13 @@ const GetStarted = () => {
           const isEmptyObject = Object.keys(ele.output).length === 0;
           const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
           return {
-            key: Object.keys(ele.data).length === 0  && isEmptyObject? '':ele.automation.id,
+            key: Object.keys(ele.data).length === 0 && isEmptyObject ? '' : ele.automation.id,
             value: '',
             name: '',
             names_arr: objectValuesToArray(ele.data),
             output: jsonString,
-            loading:false,
-            icon:response.icon
+            loading: false,
+            icon: response.icon
           }
         })
         setAutomationStepsField(filterData)
@@ -167,20 +173,20 @@ const GetStarted = () => {
 
   const addAutomationFields = (value) => {
     let data_value = [...automationStepsField];
-    const emptyObject = { key: '', value: '', name: '', names_arr: [], output: "" , loading:false};
+    const emptyObject = { key: '', value: '', name: '', names_arr: [], output: "", loading: false };
     const targetIndex = value.index;
     while (data_value.length <= targetIndex) {
       data_value.push(emptyObject);
     }
     const existingIndex = data_value.findIndex(item => item.key === value.addKey);
     if (existingIndex !== -1) {
-      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: data_value[targetIndex].names_arr, output: data_value[targetIndex].output, loading:false }
+      data_value[targetIndex] = { key: '', value: '', name: '', names_arr: data_value[targetIndex].names_arr, output: data_value[targetIndex].output, loading: false }
     } else {
-      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: data_value[targetIndex].names_arr, output:  data_value[targetIndex].output, loading:false }
+      data_value[targetIndex] = { key: value.addKey, value: '', name: '', names_arr: data_value[targetIndex].names_arr, output: data_value[targetIndex].output, loading: false }
     }
     setAutomationStepsField(data_value);
   }
-  console.log("automationStepsField", automationStepsField)
+
   const saveWorkFlowHandler = async (type) => {
     try {
       let payload = {}
@@ -274,6 +280,7 @@ const GetStarted = () => {
       });
     };
   };
+
   const handleInputValue = (e) => {
     const { name, value } = e.target
     setWorkFlowFormData((prev) => {
@@ -282,12 +289,13 @@ const GetStarted = () => {
       }
     })
   }
+
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} shake={shake} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData}>
+        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData}>
           {singleData ? (
             <>
               <div className='flex justify-between gap-2 items-center'>

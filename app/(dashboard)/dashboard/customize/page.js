@@ -139,11 +139,11 @@ const Page = () => {
   return (
     <>
       <div className="border-b border-primary ">
-        <div className="flex items-center justify-between">
-          <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
+        <div className="flex items-center justify-between gap-4 sm:gap-0">
+          <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
             <li className="mr-2" onClick={() => { setTab(0) }}>
               <span
-                className={`flex justify-start gap-2 cursor-pointer items-center p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Bot
@@ -151,7 +151,7 @@ const Page = () => {
             </li>
             <li className="mr-2" onClick={() => { setTab(1) }}>
               <span
-                className={`flex justify-start gap-2 cursor-pointer items-center p-4  ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <EnvelopeIcon className="h-6 w-6 text-gray-500" /> Email Settings
@@ -159,7 +159,7 @@ const Page = () => {
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
               <span
-                className={`flex justify-start gap-2 cursor-pointer items-center p-4  ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <CalendarDaysIcon className="h-6 w-6 text-gray-500" /> Scheduling
