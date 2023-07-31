@@ -922,3 +922,7 @@ transition: all .4s ease;
 body .cursor-pointer {
   cursor: pointer !important;
 }
+
+body .svYMe svg{
+  display: none !important;
+}

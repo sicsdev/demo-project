@@ -123,7 +123,6 @@ const Sidebar = ({ children }) => {
       name: "Analytics",
       icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
       list: [],
-      notification: recommedState?.data?.count,
     },
     {
       href: "/dashboard/billing/usage",

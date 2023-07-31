@@ -2,7 +2,7 @@ import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 
-const ManageTemplates = ({integrationTiles}) => {
+const ManageTemplates = ({integrationTiles,performIntegrationTask}) => {
     return (
         <div>
             {integrationTiles.map((element, key) => (
@@ -15,7 +15,7 @@ const ManageTemplates = ({integrationTiles}) => {
                             <div
                                 className={`${item.grayscale && ("pointer-events-none")} ${item.checked && ("bg-[#ECF6FE] border-primary_hover")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                                 key={key}
-                                // onClick={() => { performIntegrationTask(item) }}
+                                onClick={() => { performIntegrationTask(item) }}
                             >
                                 <div className="flex justify-start gap-1 items-center">
                                     <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
