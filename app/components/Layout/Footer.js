@@ -163,7 +163,7 @@ const Footer = () => {
                 </div>
               </div>
               <div className="flex mt-4 sm:mt-0">
-                <div className="justify-between w-full sm:w-auto flex flex-row gap-10 items-center ml-auto">
+                <div className="justify-between w-full sm:w-auto flex flex-row sm:gap-10 items-center ml-[9px] sm:ml-auto">
                   {profile.email ? (
                     <>
                       {" "}
@@ -203,17 +203,28 @@ const Footer = () => {
               </div>
             </div>
           </div>
-
-          <div className="flex justify-between items-center text-sm sm:text-[16px] sm:gap-4 bg-slate-950 shadow p-3 sm:p-6 text-center dark:bg-neutral-700">
+          <div className=" justify-between  items-start sm:hidden mx-4 mb-[-4px] flex ">
+            <div>
+              <h6 className="  text-white text-sm sm:text-[16px] font-[400]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
+                <Link href="/terms-of-service">Terms of Service</Link>
+              </h6>
+            </div>{" "}
+            <div>
+              <h6 className="  text-white text-sm sm:text-[16px]   font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-3 px-2 ">
+                <Link href="/privacy-policy">Privacy Policy</Link>
+              </h6>
+            </div>
+          </div>
+          <div className="flex justify-center sm:justify-between items-center text-sm sm:text-[16px] sm:gap-4 bg-slate-950 shadow p-3 sm:p-6 text-center dark:bg-neutral-700">
             <a
               className="font-thin text-neutral-600 dark:text-neutral-400 "
               href="https://tailwind-elements.com/"
             >
               © Tempo AI Ventures, Inc{" "}
             </a>
-            <div className="flex justify-between gap-3 items-start">
+            <div className=" justify-between gap-3 items-start sm:flex hidden">
               <div>
-                <h6 className="  text-white text-sm sm:text-[16px] font-[400] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                <h6 className="  text-white text-sm sm:text-[16px] font-[400]   sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                   <Link href="/terms-of-service">Terms of Service</Link>
                 </h6>
               </div>{" "}
