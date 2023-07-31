@@ -26,7 +26,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         },
         {
             name: "Description",
-            selector: (row) => row.description,
+            selector: (row) => <p className=' whitespace-normal'>{row.description}</p>,
             sortable: true,
             reorder: true,
         },
