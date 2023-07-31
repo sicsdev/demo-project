@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
 import { useRouter } from 'next/navigation';
+import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 
 const Page = () => {
     const router = useRouter()
@@ -37,10 +38,10 @@ const Page = () => {
         setWorkLoading(true)
         let formData = {
             name: "Default_name",
-            description: "Default_description",
-            policy_name: "default",
-            policy_description: "default",
-            policy_exceptions: "default"
+            description: "",
+            policy_name: "",
+            policy_description: "",
+            policy_exceptions: ""
         }
         const findDuplicate = workflowData.results.find((x) => x.name === "Default_name")
         if (findDuplicate) {
@@ -114,7 +115,7 @@ const Page = () => {
                                 <WorkFlowTemplates status={false} workflowData={workflowData} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
-                                ''
+                                <></>
                             )}
                         </>
                     )}
