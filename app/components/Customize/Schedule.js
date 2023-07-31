@@ -194,7 +194,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                 <>
                                     <div key={day} className="flex m-2 my-2 items-center justify-around gap-3">
 
-                                        <div className='block sm:flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
+                                        <div className='flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
                                             <input type="checkbox" className="w-4 h-4" checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
                                             <div>
                                                 <small className='text-xs'>{day.substr(0, 3).toUpperCase()}</small>
@@ -252,8 +252,9 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
                                         <div className="flex gap-3">
                                             <PlusIcon className="w-4 cursor-pointer hover:text-sky" onClick={() => handleAddHour(day)} />
-                                            <ClipboardDocumentIcon className="w-4" />
+                                            {/* <ClipboardDocumentIcon className="w-4" /> */}
                                         </div>
+
                                     </div>
                                     <hr className="opacity-10" />
                                 </>

@@ -25,7 +25,7 @@ const Logs = () => {
       sortable: true,
       reorder: true,
     },
-    {
+    { 
       name: "Created At",
       selector: (row) => row.created,
       sortable: true,

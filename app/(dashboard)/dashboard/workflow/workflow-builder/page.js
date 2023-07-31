@@ -54,7 +54,7 @@ const Page = () => {
             if (response.status === 201) {
                 setWorkLoading(false)
                 router.push('/dashboard/workflow/workflow-builder/get-started?flow=' + response.data.id)
-                successMessage("Workflow create successfully !")
+                successMessage("Workflow create successfully")
             } else {
                 setWorkLoading(false)
                 errorMessage(response.message)
