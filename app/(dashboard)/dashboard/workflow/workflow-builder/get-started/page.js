@@ -147,7 +147,20 @@ const GetStarted = () => {
   const openModal = (value) => {
     switch (value.key) {
       case "DESCRIPTION":
+        setWorkFlowFormData((prev) => {
+          return {
+            ...prev,
+            name: singleData.name === "Default_name" ? "" : singleData.name,
+            description: singleData.description == "Default_description" ? "" : singleData.description,
+            logo: '',
+            preview: singleData.logo ?? '/workflow/reactive-subscription.png',
+            policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
+            policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
+            policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions
+          }
+        })
         setDescriptionModal(true)
+
         break;
       case "COLLECTINFOFORM":
         break;
@@ -217,14 +230,15 @@ const GetStarted = () => {
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
         if (type === "PUBLISH") {
-          successMessage("Workflow Publish Successfully!");
+          successMessage("WorkFlow published successfully!");
         } else if (type === "DISABLE") {
-          successMessage("Workflow Disabled Successfully!");
+          successMessage("Workflow Disabled Successfully");
 
         }
 
         setPublishLoader(false);
         setDeleteWorkflowModal(false)
+        setDescriptionModal(false)
         setWorkflowModal(false)
         setShowPublishModal(false);
         getWorkflowData(singleData?.id)
@@ -241,7 +255,7 @@ const GetStarted = () => {
     const flow = params.get("flow");
     const deleteWorkFlow = await removeWorkFlow(flow)
     if (deleteWorkFlow.status === 204) {
-      successMessage("Workflow deleted successfully !")
+      successMessage("Workflow deleted successfully")
       router.push(`/dashboard/workflow/workflow-builder`);
     }
   }
@@ -313,9 +327,23 @@ const GetStarted = () => {
                       src={singleData?.logo ?? '/workflow/reactive-subscription.png'}
                     />
                   </div>
-                  <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => setWorkflowModal(true)}>
+                  <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => {
+                    setWorkFlowFormData((prev) => {
+                      return {
+                        ...prev,
+                        name: singleData.name === "Default_name" ? "" : singleData.name,
+                        description: singleData.description == "Default_description" ? "" : singleData.description,
+                        logo: '',
+                        preview: singleData.logo ?? '/workflow/reactive-subscription.png',
+                        policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
+                        policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
+                        policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions
+                      }
+                    })
+                    setWorkflowModal(true)
+                  }}>
                     <h3 className='text-heading font-bold text-lg'>{singleData.name}</h3>
-                    <p className='text-border font-normal text-sm'>{singleData.description}</p>
+                    {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
                   </div>
                 </div>
                 <div className='flex justify-between gap-2 items-center'>

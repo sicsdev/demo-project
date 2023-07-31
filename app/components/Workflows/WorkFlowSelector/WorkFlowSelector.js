@@ -116,7 +116,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         const updateValue = await updateWorkFlowStatus(payload, workflowId)
         if (updateValue.status === 200) {
             setLoading(null)
-            successMessage("Automation updated successfully !")
+            successMessage("Automation updated successfully")
         } else {
             errorMessage("something is wrong !")
             setLoading(null)
