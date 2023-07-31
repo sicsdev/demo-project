@@ -14,6 +14,7 @@ import { useRouter } from 'next/navigation';
 
 const Page = () => {
     const router = useRouter()
+    const [tab, setTab] = useState(0)
     const state = useSelector(state => state.user)
     const [workflowData, setWorkflowData] = useState({});
     const [loading, setLoading] = useState(false)
@@ -51,7 +52,7 @@ const Page = () => {
                 setWorkLoading(false)
                 router.push('/dashboard/workflow/workflow-builder/get-started?flow=' + response.data.id)
                 successMessage("Workflow create successfully !")
-            }else{
+            } else {
                 setWorkLoading(false)
                 errorMessage(response.message)
             }
@@ -78,7 +79,43 @@ const Page = () => {
                                 </ul>
                             </div>
                             <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
-                            <WorkFlowTemplates workflowData={workflowData} fetchData={getAllWorkflowData} />
+                            <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
+                                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+                                    <li className="mr-2" onClick={() => { setTab(0) }}>
+                                        <span
+                                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                            aria-current="page"
+                                        >
+                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Active
+                                        </span>
+                                    </li>
+                                    <li className="mr-2" onClick={() => { setTab(1) }}>
+                                        <span
+                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                                            aria-current="page"
+                                        >
+                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Draft
+                                        </span>
+                                    </li>
+                                    <li className="mr-2" onClick={() => { setTab(2) }}>
+                                        <span
+                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                            aria-current="page"
+                                        >
+                                            <BriefcaseIcon className="h-6 w-6 text-gray-500" /> Templates
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            {tab === 0 && (
+                                <WorkFlowTemplates status={true} workflowData={workflowData} fetchData={getAllWorkflowData} />
+                            )}
+                            {tab === 1 && (
+                                <WorkFlowTemplates status={false} workflowData={workflowData} fetchData={getAllWorkflowData} />
+                            )}
+                            {tab === 2 && (
+                                ''
+                            )}
                         </>
                     )}
                 </>

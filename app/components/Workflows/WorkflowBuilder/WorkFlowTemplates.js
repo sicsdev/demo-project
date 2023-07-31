@@ -6,7 +6,7 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import { useRef } from 'react';
-const WorkFlowTemplates = ({ workflowData, fetchData }) => {
+const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
@@ -15,7 +15,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
             name: "Name",
             selector: (row) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-lg">
+                    <div className="relative inline-flex items-center justify-center w-40 sm:w-10 h-10 overflow-hidden bg-border rounded-lg">
                         <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
                     </div>
                     <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
@@ -55,7 +55,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
     };
 
     const manageData = () => {
-        setData(workflowData?.results)
+        const result = workflowData?.results?.filter((x) => x.active === status);
+        setData(result);
     }
 
     const customStyles = {
@@ -69,7 +70,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
 
     const handleChange = (e) => {
         setSearch(e.target.value)
-        const workflowOptionsfilter = workflowData?.results?.filter(
+        const workflowOptionsfilter = data?.filter(
             (item) =>
                 item?.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
                 item?.description.toLowerCase().includes(e.target.value.toLowerCase())
@@ -79,7 +80,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
     return (
         <div>
             <h3 className='text-heading text-center font-semibold text-xl my-2'>Add, edit, and manage your Tempo workflows</h3>
-            {/* <p className='text-heading text-sm text-center'>Workflows use your integrations to allow Tempo to interact with 3rd party API's and databases. Use our templates or create your own. </p> */}
             <div className='flex justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
@@ -103,7 +103,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData }) => {
                     }}
                     columns={columns}
                     data={data}
-                    className="custom-data-table"
                     customStyles={customStyles}
                     noDataComponent={<><p className="text-center p-3">No Workflow Found!</p></>}
                 />
@@ -173,7 +172,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
                                 <button type='button' className="block px-4 py-2 ">Edit</button>
                             </li>
                             {data.active && (
-                                <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler (data)}>
+                                <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler(data)}>
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
                             )}

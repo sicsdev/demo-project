@@ -9,7 +9,7 @@ import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
 import Link from 'next/link'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss }) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -88,6 +88,11 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
     }
     return (
         <div>
+            <div className='block sm:hidden text-right pb-4'>
+                <p className="cursor text-sm font-semibold" onClick={(e) => setMobileCss('')}>
+                    Back
+                </p>
+            </div>
             <ul className="relative m-0 list-none px-[0.2rem]  ">
                 <li className='cursor-pointer'>
                     <form>
@@ -99,7 +104,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                 </svg>
                             </div>
                             <input autoComplete="off" type="search" ref={inputRef} value={search} onChange={handleSearch} id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" required />
-                            <button type="submit" className="text-white absolute right-2.5 bottom-2.5 bg-blue-700   font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                            <button type="submit" className="text-white hidden absolute right-2.5 bottom-2.5 bg-blue-700   font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
                         </div>
                     </form>
                 </li>
