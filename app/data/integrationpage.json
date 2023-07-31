@@ -167,22 +167,16 @@
         "text": "Help desk software offering streamlined customer support and ticketing solutions.",
         "tag": "New"
       },
+
       {
         "id": 6,
-        "logo": "/integrations/intercom.svg",
-        "title": "Intercom",
-        "text": "Amazon Athena is a fully managed service for querying your S3 data.",
-        "tag": "New"
-      },
-      {
-        "id": 7,
         "logo": "/integrations/intercom.svg",
         "title": "Intercom",
         "text": "Customer communication platform with support and interaction management.",
         "tag": "New"
       },
       {
-        "id": 8,
+        "id": 7,
         "logo": "/slack-logo-icon.png",
         "title": "Slack",
         "text": "Channel-based messaging platform for efficient team collaboration and integrations.",
