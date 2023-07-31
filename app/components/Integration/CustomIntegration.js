@@ -81,7 +81,6 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
             }));
         }
     };
-    // console.log("payloadData", payloadData)
     const configureIntegrationHandler = async (e) => {
         setLoading(true);
         try {
@@ -89,19 +88,17 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
             let message;
             if (integrationFormData?.checked === true) {
                 configureIntegration = await updateIntegrationData(payloadData, integrationFormData?.integration_data?.id);
-                message = `Integration Update Successfully!`;
+                message = `Integration Updated Successfully!`;
             } else {
                 configureIntegration = await addIntegrationTemplate(payloadData, integrationFormData.id);
                 message = `Integration Added Successfully!`;
             }
-
             setLoading(false);
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
-                // fetchData();
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
 
-                successMessage('Integration Template Updated Successfully!');
+                successMessage(message);
             } else {
                 errorMessage("Unable to Proceed!");
             }
@@ -119,7 +116,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
 
-                successMessage('Integration Template Deleted Successfully!');
+                successMessage('Integration Deleted Successfully!');
             }
         } catch (error) {
             setLoading(false);

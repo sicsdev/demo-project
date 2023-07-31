@@ -59,15 +59,15 @@ const Page = () => {
     const columns = [
         {
             name: "Question",
-            selector: (row) => row.question,
+            selector: (row) =>    <p className=' whitespace-normal'>{row.question}</p>,
             sortable: true,
             reorder: true,
             style: {
-                width: '30%',
+                whiteSpace:"inherit"
             },
         },
         {
-            name: "Suggested Answer",
+            name: "Human Answer",
             selector: (row) => row.answer,
             sortable: true,
             reorder: true,
@@ -83,9 +83,6 @@ const Page = () => {
                     />
                 </div>
             ),
-            style: {
-                width: '0%',
-            },
         },
         {
             name: "",
@@ -111,7 +108,7 @@ const Page = () => {
 
     return (
         <>
-            <div>
+            <div style={{whiteSpace:"normal"}}>
                 <div className="border-b border-border flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                         <li className="mr-2">
@@ -143,7 +140,6 @@ const Page = () => {
                             pointerOnHover
                             defaultSortFieldId="question"
                             pagination
-                            paginationPerPage={7}
                             columns={columns}
                             noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                             data={state?.data?.results}

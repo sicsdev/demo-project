@@ -216,7 +216,7 @@ const GetStarted = () => {
       const updateWorkflow = await updateWorkFlowStatus(payload, singleData?.id);
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
-        if (type === "EDIT" || type === "PUBLISH") {
+        if (type === "PUBLISH") {
           successMessage("Workflow Publish Successfully!");
         } else if (type === "DISABLE") {
           successMessage("Workflow Disabled Successfully!");
@@ -259,12 +259,7 @@ const GetStarted = () => {
   };
 
   const publishModelHandler = (e) => {
-    if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
-      // setPublishLoader(false);
-      // setShowPublishModal(false);
-      errorMessage("Could not publish workflow, please first update the workflow policy by clicking edit on the first box.");
-      return false;
-    } else if (workflowFormData?.name === '' || workflowFormData?.name === 'Default_name' || workflowFormData?.description === "" || workflowFormData?.policy_name === '' || workflowFormData?.policy_description === '') {
+    if (workflowFormData?.name === '' || workflowFormData?.name === 'Default_name' || workflowFormData?.description === "") {
       errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
@@ -301,13 +296,15 @@ const GetStarted = () => {
         <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData}>
           {singleData ? (
             <>
-              <div className='flex justify-between gap-2 items-center'>
+              <div className='block sm:flex md:flex lg:flex justify-between gap-2 items-center'>
                 <div className='flex justify-between gap-2 items-center'>
-                  <Link href={"/dashboard/workflow/workflow-builder"}>
-                    <div>
-                      <ChevronLeftIcon className="h-6 w-6 text-gray-500" />
-                    </div>
-                  </Link>
+                  <div>
+                    <Link href={"/dashboard/workflow/workflow-builder"}>
+                      <div>
+                        <ChevronLeftIcon className="h-6 w-6 text-gray-500" />
+                      </div>
+                    </Link>
+                  </div>
                   <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
                     <Image
                       fill={"true"}
@@ -316,7 +313,7 @@ const GetStarted = () => {
                       src={singleData?.logo ?? '/workflow/reactive-subscription.png'}
                     />
                   </div>
-                  <div className='cursor-pointer' onClick={() => setWorkflowModal(true)}>
+                  <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => setWorkflowModal(true)}>
                     <h3 className='text-heading font-bold text-lg'>{singleData.name}</h3>
                     <p className='text-border font-normal text-sm'>{singleData.description}</p>
                   </div>
