@@ -216,7 +216,7 @@ const Page = () => {
             <>
               {integrationData.length > 0 ? (
                 <>
-                  <ManageTemplates integrationTiles={integrationTiles}/>
+                  <ManageTemplates performIntegrationTask={performIntegrationTask} integrationTiles={integrationTiles}/>
                   {tiles_data.map((element, key) =>
                     <div className={` mt-6`} key={key}>
                       <h3 className="text-sm font-semibold mt-3">{element.title}</h3>

@@ -223,7 +223,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                         <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
                                             <Image
                                                 fill={"true"}
-                                                className="bg-contain mx-auto w-full rounded-lg"
+                                                className="bg-contain mx-auto object-scale-down w-full rounded-lg"
                                                 alt="logo.png"
                                                 src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0]) }
                                             />
@@ -287,7 +287,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 name={ele?.automation?.id}
                                             />
                                         </div>
-                                        <div className='mt-2'>
+                                        {/* <div className='mt-2'>
                                             <div className={`inline`}>
                                                 <div className='flex items-center gap-1'>
                                                     <span className='text-sm font-semibold'>Output Format</span>
@@ -307,7 +307,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                     name="description"
                                                 />
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className='my-2'>
                                             {loading === key ? <LoaderButton /> :
                                                 <Button
