@@ -24,7 +24,7 @@ const TicketsSpikes = () => {
                     &#9888; We notice a increment in Cancellation Requests on week 7
                 </div>
                 <div className='flex justify-center my-2'>
-                    <select className="block bg-transparent p-2 border border-gray rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <select className="custom-select block bg-transparent p-2 border border-gray rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="">Select ticket</option>
                         <option value="Refunds">Refunds</option>
                         <option value="Cancellation Requests">Cancellation Requests</option>

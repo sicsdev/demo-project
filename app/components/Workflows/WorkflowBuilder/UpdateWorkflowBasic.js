@@ -7,7 +7,7 @@ import Button from '../../Common/Button/Button'
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow }) => {
 
     const DisablingButton = () => {
-        const requiredKeys = ["description", "name", "policy_name", "policy_description"];
+        const requiredKeys = ["description", "name"];
 
         return requiredKeys.some(
             (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
@@ -35,7 +35,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     onChange={handleInputValue}
                     value={workflowFormData.description}
                     title={<div className='flex items-center gap-2'><span>Description</span>  </div>}
-                    placeholder={"What is this workflow for ?"}
+                    placeholder={"What is this workflow for?"}
                     type={'text'}
                     id={"description"}
                 />
