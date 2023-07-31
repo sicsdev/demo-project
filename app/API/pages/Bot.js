@@ -98,10 +98,10 @@ export const checkBotInstallation = async (id) => {
         return error
     }
 }
-export const getBotConversation = async (id) => {
+export const getBotConversation = async (id, queryParam = ``) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/${queryParam}`, config);
         return response;
     } catch (error) {
         return error

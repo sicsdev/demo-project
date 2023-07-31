@@ -211,7 +211,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
           <div className={`inline`}>
             <label
               htmlFor={"agent_name"}
-              className="block text-sm font-medium text-heading"
+              className="new_input_label block text-sm text-heading font-medium"
             >
               <span className="flex items-center gap-2 justify-between mr-6 w-[150px]">
                 Agent Name(s)
