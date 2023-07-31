@@ -104,7 +104,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     columns={columns}
                     data={data}
                     customStyles={customStyles}
-                    noDataComponent={<><p className="text-center p-3">No Workflow Found!</p></>}
+                    noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div>
             <hr className='text-[#cfdada]' />

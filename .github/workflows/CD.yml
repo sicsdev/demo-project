@@ -2,6 +2,7 @@ on:
   push:
     branches:
     - dev
+    - main
 
 name: CD
 
@@ -43,16 +44,22 @@ jobs:
         bevOverwrite: true
         S3: |
           dev:dev.usetempo.ai
+          main:www.usetempo.ai
         NEXT_PUBLIC_API_URL: |
           dev:https://server-dev.usetempo.ai
+          main:https://server.usetempo.ai
         NEXT_PUBLIC_CLIENT_GOOGLE_SECRET: |
           dev:1fr9cnt34uvj90r4m7c5iqadq8m2ond3n1kobu1dv9t2j2a2hfa5
+          main:1fr9cnt34uvj90r4m7c5iqadq8m2ond3n1kobu1dv9t2j2a2hfa5
         NEXT_PUBLIC_CLIENT_GOOGLE: |
           dev:24um0utvb6qtum1u3beb6bafr
+          main:24um0utvb6qtum1u3beb6bafr
         NEXT_PUBLIC_WP_POST_API: |
           dev:https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts
+          main:https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts
         NEXT_PUBLIC_STRIPE_KEY : |
           dev:pk_test_51NC19PGMZM61eRRVpg4gaTiEaXZcPjougGklYq3nBN3tT7Ulmkbu2MNV6e86l6Yf8re51wVMdSEZ8dyAQ3ZR7Q4i00vjeqlGWW
+          main:pk_live_51NC19PGMZM61eRRVvISsMDPYlNNQ1ECea5AaVo45iVcKZktpAOV5ZLNFWWl65qVfso2fPV3q9OLsAED2iCOMCqrd00zXHzuE1z
     - name: configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1-node16
       with:

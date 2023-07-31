@@ -15,8 +15,8 @@ const page = () => {
       .map((category) => {
         if (value !== "") {
           if (!filteredTiles.length) {
-            filteredTiles = category.data.filter((tile) =>
-              tile.title.toLowerCase().includes(value)
+            filteredTiles = category.data.filter((ele) =>
+            ele.title.toLowerCase().includes(value)
             );
             return filteredTiles.length > 0
               ? { ...category, data: filteredTiles }
