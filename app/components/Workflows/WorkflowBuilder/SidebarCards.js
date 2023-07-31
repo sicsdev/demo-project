@@ -1,14 +1,15 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
+import Link from 'next/link'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex ,setIndexSelector}) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData }) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -39,26 +40,32 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         setIntegrationAutomationData(automationData);
         setBeatLoader(false);
     }
-
+    function addDataAtIndex1(stepIndex, get_ids, newData) {
+        get_ids.splice(stepIndex, 0, newData);
+        return get_ids;
+    }
     const addStepHandler = async (ele) => {
-
-        const get_ids = automationStepsData.map((ele) => ele.id)
-        const isElementExists = get_ids.includes(ele.id);
+        console.log("ele", ele)
+        const get_ids = automationStepsData.map((element) => {
+            return {
+                automation: element?.automation?.id,
+                data: element?.data,
+                output: element?.output
+            };
+        })
+        const isElementExists = get_ids.find((x) => x.automation === ele.id);
         if (isElementExists) {
             errorMessage('Automation already added!');
             return false;
         }
-        const newArray = stepIndex !== undefined && stepIndex !== null
-            ? [...get_ids.slice(0, stepIndex), ele.id, ...get_ids.slice(stepIndex)]
-            : [...get_ids, ele.id];
-
+        let newArray = null
+        if (stepIndex === null) {
+            newArray = [...get_ids, { automation: ele.id, data: {}, output: {} }];
+        } else {
+            newArray = addDataAtIndex1(stepIndex, get_ids, { automation: ele.id, data: {}, output: {} })
+        }
         const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
-
-        const newAutomationArray = stepIndex !== undefined && stepIndex !== null
-            ? [...automationStepsData.slice(0, stepIndex), ele, ...automationStepsData.slice(stepIndex)]
-            : [...automationStepsData, ele];
-
-        setAutomationStepsData(newAutomationArray);
+        getWorkflowData(workflowId)
         handleButtonClick(false)
         setStepIndex(null);
         setIndexSelector(null)
@@ -124,7 +131,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                                         fill={"true"}
                                                         className={`bg-contain mx-auto w-full rounded-lg`}
                                                         alt="logo.png"
-                                                        src={getLogo(ele.name.split(" ")[0])}
+                                                        src={ele.icon || getLogo(ele.name.split(" ")[0])}
                                                     />
                                                 </div>
                                                 <p className='text-heading text-sm'>{ele.name}</p>
@@ -133,6 +140,20 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         </div>
                                     </li>
                                 )}
+
+                                <li className={`my-4 cursor-pointer`}>
+                                    <Link href={"/dashboard/workflow/integrations"}>
+                                        <div className='flex justify-between items-center '>
+                                            <div className="flex justify-start items-center gap-2">
+                                                <ShareIcon className="h-6 w-6 text-gray-500" />
+
+                                                <p className='text-heading text-sm'>Add Integration</p>
+                                                <p className='text-border text-[11px] font-light'></p>
+                                            </div>
+                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
+                                        </div>
+                                    </Link>
+                                </li>
                             </> :
                             <>
                                 <div className='flex justify-start items-center my-8 gap-2'>
@@ -150,7 +171,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             fill={"true"}
                                             className={`bg-contain mx-auto w-full rounded-lg`}
                                             alt="logo.png"
-                                            src={getLogo(innerSide?.value.name)}
+                                            src={innerSide?.value.icon || getLogo(innerSide?.value.name)}
                                         />
                                     </div>
                                     <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
@@ -158,21 +179,22 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                 {integrationAutomationData?.map((ele, key) =>
                                     <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
                                         <div className='flex justify-start items-center gap-4'>
-                                            <div className="relative w-[20px] h-[20px] rounded-lg">
+                                            <div className="relative w-[25px] h-[20px] rounded-lg">
                                                 <Image
                                                     fill={"true"}
                                                     className={`bg-contain mx-auto w-full rounded-lg`}
                                                     alt="logo.png"
-                                                    src={getLogo(innerSide?.value.name)}
+                                                    src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
                                                 />
                                             </div>
-                                            <div>
+                                            <div className='w-[200px]'>
                                                 <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
                                                 <p className='text-border text-[11px] font-light'>{ele?.description}</p>
                                             </div>
                                         </div>
                                     </li>
                                 )}
+
                             </>}
                     </>
                 }

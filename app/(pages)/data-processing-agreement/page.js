@@ -12,7 +12,7 @@ const page = () => {
           <p className="text-base sm:text-base mb-3 ">
             {" "}
             This Data Processing Addendum (“DPA”) is incorporated by reference
-            into and made a part of the Terms of Serviceentered into between
+            into and made a part of the Terms of Service entered into between
             Tempo AI Ventures, Inc. (“Tempo”) and an individual or entity that
             accepted the Terms of Service(“Customer”) (the “TOS” or
             “Agreement”). This DPA sets forth certain duties and obligations of
@@ -223,7 +223,7 @@ const page = () => {
             Party Materials.
           </p>
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            DATA PROCESSING ADDENDUM{" "}
+          3. RIGHTS OF DATA SUBJECTS{" "}
           </h1>
           <p className="text-base sm:text-base mb-3">
             Tempo shall, to the extent legally permitted, promptly notify
@@ -320,7 +320,7 @@ const page = () => {
             other Party.
           </p>
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            SECURITY
+            5. SECURITY
           </h1>
           <p className="text-base sm:text-base mb-3">
             Tempo shall maintain, during the term of the Agreement,appropriate
