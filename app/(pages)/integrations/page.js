@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import integration from "../../data/integrationpage.json";
 
 const page = () => {
-  console.log("integration", integration);
   const [data, setData] = useState(integration);
   const handleSearch = (e) => {
     const { value } = e.target;
@@ -14,9 +13,12 @@ const page = () => {
 
       .map((category) => {
         if (value !== "") {
+          console.log("value nahi hai");
           if (!filteredTiles.length) {
+            console.log("length");
+
             filteredTiles = category.data.filter((ele) =>
-            ele.title.toLowerCase().includes(value)
+              ele.title.toLowerCase().includes(value)
             );
             return filteredTiles.length > 0
               ? { ...category, data: filteredTiles }
@@ -66,6 +68,7 @@ const page = () => {
       </div>
       <div className="bg-[whitesmoke] pt-8 pb-8 sm:pb-4">
         <div className="mx-auto max-w-[90%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[90%]">
+          {data.length ===0 ? <p className=" text-xl align-bottom font-semibold italic text-center">No data found!</p> :""}
           {data.map((ele, key) => (
             <div
               className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-4 lg:px-4 relative group"
