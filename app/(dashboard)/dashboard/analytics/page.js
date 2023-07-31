@@ -21,7 +21,7 @@ const Logs = () => {
     },
     {
       name: "User Agent",
-      selector: (row) => row.customer_user_agent,
+      selector: (row) => <p className=" whitespace-normal">{row.customer_user_agent}</p>,
       sortable: true,
       reorder: true,
     },
