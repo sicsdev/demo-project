@@ -3,6 +3,7 @@ import React from "react";
 const TextAreaField = ({
     labelClassName,
     title,
+    sublabel,
     error = null,
     placeholder,
     id,
@@ -19,6 +20,7 @@ const TextAreaField = ({
         <div className={`inline  ${labelClassName || ""}`}>
             <label htmlFor={id} className={`new_input_label block text-sm text-heading ${labelClass || ""}`}>
                 {title}
+                <p style={{fontSize:"10px"}}>{sublabel}</p>
             </label>
             {subtitle && <small className="text-border text-xs">{subtitle}</small>}
             <textarea
