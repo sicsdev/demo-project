@@ -40,7 +40,7 @@ const Logs = () => {
   const [loading, setLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
   const [selectedFilters, setSelectedFilters] = useState({
-    type: null,
+    type: '',
     is_workflow: false,
   });
 
@@ -94,7 +94,7 @@ const Logs = () => {
     setLoading(true)
     const { value } = e.target;
     setSelectedFilters({
-      type: null,
+      type:'',
       is_workflow: false,
     })
     setSelectedBot(value)
