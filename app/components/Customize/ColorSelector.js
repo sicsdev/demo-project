@@ -35,7 +35,7 @@ const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
         ref={myRef}
         onClick={toggleDropdown}
       >
-        <div className="border border-gray p-2 rounded cursor-pointer">
+        <div className="new_input  border border-gray p-2 rounded cursor-pointer">
           <div
             className="border border-gray mx-1 rounded"
             style={{
