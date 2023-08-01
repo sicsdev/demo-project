@@ -128,7 +128,7 @@ const Page = () => {
   }, [state]);
 
   const performIntegrationTask = (item) => {
-    debugger
+    // debugger
     setIntegrationFormData(item);
     setFormData(item.data)
     switch (item?.name) {
