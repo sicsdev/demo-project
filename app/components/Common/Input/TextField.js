@@ -20,7 +20,7 @@ const TextField = ({
 }) => {
   return (
     <div className={`inline  ${labelClassName || ""}`}>
-      <label htmlFor={id} className={`new_input_label block text-sm text-heading ${labelClass || "font-medium"}`}>
+      <label className={`new_input_label block text-sm text-heading ${labelClass || "font-medium"}`}>
         {title}
       </label>
       {subtitle && <small className="text-border text-xs">{subtitle}</small>}
@@ -32,7 +32,7 @@ const TextField = ({
         type={type || "text"}
         {...register}
         placeholder={placeholder || ""}
-        className={`${className} ${paddingleft} new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full ${
+        className={`${className} ${paddingleft} new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white focus:text-[12px] ${
           error &&
           "border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger focus:ring-danger"
         }`}

@@ -7,14 +7,17 @@
         "logo": "/pay.png",
         "title": "Paypal",
         "text": "A popular payment platform facilitating billing, refunds, payments, and subscription management.",
-        "tag": "New"
+        "tag": "New",
+        "link":"/integrations/stripe"
+
       },
       {
         "id": 2,
         "logo": "/stripee.png",
         "title": "Stripe",
         "text": "Amazon Athena is a fully managed service for querying your S3 data.",
-        "tag": "New"
+        "tag": "New",
+        "link":"/integrations/stripe"
       }
     ]
   },

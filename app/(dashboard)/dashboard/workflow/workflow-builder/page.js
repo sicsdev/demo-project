@@ -11,29 +11,28 @@ import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
 import { useRouter } from 'next/navigation';
-import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import { fetchWorkflows } from '@/app/components/store/slices/workflowSlice';
+import { useDispatch } from 'react-redux';
 
 const Page = () => {
+    const workflowState = useSelector(state => state.workflow);
     const router = useRouter()
     const [tab, setTab] = useState(0)
     const state = useSelector(state => state.user)
-    const [workflowData, setWorkflowData] = useState({});
     const [loading, setLoading] = useState(false)
     const [workflowLoading, setWorkLoading] = useState(false)
+    const dispatch = useDispatch();
+
     const getAllWorkflowData = async () => {
-        setLoading(true)
-        try {
-            const response = await getAllWorkflow()
-            if (!response?.results?.some(e => e.active)) { setTab(1) } // If there is no active workflows, setTab to draft section.
-            setWorkflowData(response);
-            setLoading(false)
-        } catch (error) {
-            setLoading(false)
-        }
+        dispatch(fetchWorkflows());
     }
     useEffect(() => {
-        getAllWorkflowData()
+        if (!workflowState?.data?.results?.some(e => e.active)) { setTab(1) } // If there is no active workflows, setTab to draft section.
+    }, [workflowState])
+
+    useEffect(() => {
+        getAllWorkflowData();
     }, [])
 
     const createNewWorkFlow = async () => {
@@ -45,13 +44,14 @@ const Page = () => {
             policy_description: "",
             policy_exceptions: ""
         }
-        const findDuplicate = workflowData.results.find((x) => x.name === "Default_name")
+        const findDuplicate = workflowState?.data?.results.find((x) => x.name === "Default_name")
         if (findDuplicate) {
             errorMessage("Workflow already exists with name “Default_name”")
             setWorkLoading(false)
         } else {
             const response = await createWorkflow(formData)
             if (response.status === 201) {
+                getAllWorkflowData();
                 setWorkLoading(false)
                 router.push('/dashboard/workflow/workflow-builder/get-started?flow=' + response.data.id)
                 successMessage("Workflow create successfully")
@@ -65,7 +65,7 @@ const Page = () => {
 
     return (
         <>
-            {state.isLoading === true || loading === true ? <Loading /> :
+            {state.isLoading === true || loading === true || workflowState?.isLoading === true ? <Loading /> :
 
                 <>
                     {state?.data?.enterprise && (
@@ -111,10 +111,10 @@ const Page = () => {
                                 </ul>
                             </div>
                             {tab === 0 && (
-                                <WorkFlowTemplates status={true} workflowData={workflowData} fetchData={getAllWorkflowData} />
+                                <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 1 && (
-                                <WorkFlowTemplates status={false} workflowData={workflowData} fetchData={getAllWorkflowData} />
+                                <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
                                 <></>

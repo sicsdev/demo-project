@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import integration from "../../data/integrationpage.json";
-
+import Link from "next/link";
 const page = () => {
   const [data, setData] = useState(integration);
   const handleSearch = (e) => {
@@ -110,7 +110,8 @@ const page = () => {
                     </div>
                     <div className="learnmore_integration_btn">
                       <button class="learnmore_integration py-2 px-8 sm:w-[100%] w-[100%] sm:px-8 mt-2 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-b-md">
-                        Learn more →
+                        <Link href={`${item.link}`} >
+                        Learn more →</Link>
                       </button>
                     </div>
                   </div>

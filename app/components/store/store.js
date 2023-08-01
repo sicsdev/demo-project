@@ -5,6 +5,7 @@ import userReducer from './slices/userSlice';
 import memberReducer from './slices/memberSlice';
 import recommendationReducer from './slices/recommendation';
 import integrationReducer from './slices/integrationSlice';
+import workflowSlice from './slices/workflowSlice';
 
 const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
         user: userReducer,
         members: memberReducer,
         recommendation: recommendationReducer,
-        integration:integrationReducer
+        integration:integrationReducer,
+        workflow:workflowSlice
     },
 });
 

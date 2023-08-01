@@ -1,7 +1,8 @@
-import Motioncards from "@/app/components/Motioncards/page";
+import Integrationsmotion from "@/app/components/Motioncards/Integrationsmotion";
 import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
+
 const cards = [
   {
     id: "1",
@@ -53,55 +54,55 @@ const cards = [
   },
 ];
 const card1 = [
-    {
-      id: "1",
-      img: "/teams.png",
-      name: "Microsoft",
-      subheading: "Communication",
-    },
-    {
-      id: "2",
-      img: "/integrations/front.svg",
-      name: "Front",
-      subheading: "Helpdesk",
-    },
-    {
-      id: "3",
-      img: "/zenenew.png",
-      name: "ZenDesk",
-      subheading: "Helpdesk",
-    },
-    {
-      id: "4",
-      img: "/geo.png",
-      name: "Gorgias",
-      subheading: "Helpdesk",
-    },
-    {
-      id: "5",
-      img: "/integrations/intercom.svg",
-      name: "Intercom",
-      subheading: "Helpdesk",
-    },
-    {
-      id: "6",
-      img: "/58482ec0cef1014c0b5e4a70.png",
-      name: "Shopify",
-      subheading: "Billing",
-    },
-    {
-      id: "7",
-      img: "/salesforce-logo.png",
-      name: "SalesForce",
-      subheading: "Sales",
-    },
-    {
-      id: "8",
-      img: "/HUBS-3bd277ce.png",
-      name: "HubSpot",
-      subheading: "Sales",
-    },
-  ];
+  {
+    id: "1",
+    img: "/teams.png",
+    name: "Microsoft",
+    subheading: "Communication",
+  },
+  {
+    id: "2",
+    img: "/integrations/front.svg",
+    name: "Front",
+    subheading: "Helpdesk",
+  },
+  {
+    id: "3",
+    img: "/zenenew.png",
+    name: "ZenDesk",
+    subheading: "Helpdesk",
+  },
+  {
+    id: "4",
+    img: "/geo.png",
+    name: "Gorgias",
+    subheading: "Helpdesk",
+  },
+  {
+    id: "5",
+    img: "/integrations/intercom.svg",
+    name: "Intercom",
+    subheading: "Helpdesk",
+  },
+  {
+    id: "6",
+    img: "/58482ec0cef1014c0b5e4a70.png",
+    name: "Shopify",
+    subheading: "Billing",
+  },
+  {
+    id: "7",
+    img: "/salesforce-logo.png",
+    name: "SalesForce",
+    subheading: "Sales",
+  },
+  {
+    id: "8",
+    img: "/HUBS-3bd277ce.png",
+    name: "HubSpot",
+    subheading: "Sales",
+  },
+];
 const page = () => {
   return (
     <div className="bg-white pb-6">
@@ -124,67 +125,54 @@ const page = () => {
             ></path>
           </svg>
         </span>
-        <p className="text-[#757575]">Back to all integrations</p>
+        <p className="text-[#757575]">
+          <Link href="integrations">Back to all integrations</Link>
+        </p>
       </div>
-
-      <div className="flex justify-center items-center">
-        <div className="h-[58px] w-[58px] ">
-          <img className="w-[30px]" src="/integrations/stripe.svg" />
-        </div>
-        <div className="h-[58px] w-[58px]">
-          <svg width="25" height="28" viewBox="0 0 25 28" fill="none">
-            <path
-              d="M0.291504 3.07409C0.291504 1.76761 1.35062 0.708496 2.6571 0.708496H12.1358C13.4422 0.708496 14.5014 1.76761 14.5014 3.07409V5.61564C14.5014 6.26888 13.9718 6.79843 13.3186 6.79843H1.4743C0.82106 6.79843 0.291504 6.26888 0.291504 5.61564V3.07409Z"
-              fill="#3D3D3D"
-            ></path>
-            <path
-              d="M0.291504 11.028C0.291504 10.3748 0.82106 9.84521 1.4743 9.84521H22.2857C23.5921 9.84521 24.6513 10.9043 24.6513 12.2108V17.7973C24.6513 18.4506 24.1217 18.9801 23.4685 18.9801H2.6571C1.35062 18.9801 0.291504 17.921 0.291504 16.6145V11.028Z"
-              fill="#3D3D3D"
-            ></path>
-            <path
-              d="M10.4417 23.2062C10.4417 22.553 10.9712 22.0234 11.6244 22.0234H23.4687C24.1219 22.0234 24.6515 22.553 24.6515 23.2062V24.9261C24.6515 26.2326 23.5924 27.2917 22.2859 27.2917H12.8072C11.5008 27.2917 10.4417 26.2326 10.4417 24.9261V23.2062Z"
-              fill="#3D3D3D"
-            ></path>
-          </svg>
+      <div className="mb-6">
+        <div className="flex justify-center items-center">
+          <div className="mr-5  stripe-int-icon">
+            <img className="w-[50px]" src="/integrations/stripe.svg" />
+          </div>
+          <div className=" stripe-int-icon-1">
+            <img className="w-[80px] h-[35px] " src="/logo-b.png" />
+          </div>
         </div>
       </div>
 
-      <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-8 text-heading">
-        Build internal tools with Stripe
+      <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-3 sm:pb-8 text-heading">
+        Stripe Connects with Tempo{" "}
       </h1>
-      <p className=" text-xl text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
-        Retool makes it easy to build admin panels, dashboards, and utilities on
-        top of your Stripe data.
+      <p className=" text-xl text-left px-4 sm:text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
+        Our solution leverages your Stripe data to build AI-driven smart
+        workflows, revolutionizing your customer payment experience.
       </p>
 
       <div className="flex flex-wrap items-center">
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black sm:mb-5">Stripe is an API for payments.</p>
           <p className="text-black sm:mb-5">
-            <span className="font-semibold">
+            {/* <span className="font-semibold">
               Connecting Retool to Stripe takes just a few minutes, and lets you
               quickly build user interfaces on top of your payments data.
-            </span>{" "}
-            For example, you could build a tool to dispute chargebacks: you can
-            pull the chargebacks in from Stripe, write a template for disputing
-            them, and then pull in data from your app (via Postgres, perhaps) to
-            attach as evidence.
+            </span>{" "} */}
+            Connecting Tempo to Stripe is straightforward, allowing the creation
+            of user interfaces to manage your payment data. This could enable
+            systems to handle subscriptions, process refunds, or resolve
+            chargebacks.
           </p>
           <p className="text-black sm:mb-5">
-            Read the{" "}
+            Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              Retool + Stripe integration docs{" "}
+              Tempo + Stripe integration&nbsp;
             </span>
-            for more information.
+            guide for further insights.
           </p>
           <div className="flex flex-col sm:flex-row sm:gap-6 items-center mt-4">
-            <button className="sm:w-[270px] w-[70%] sm:px-2 py-3 sm:py-3 text-white text-md font-semibold bg-primary hover:bg-white hover:text-primary dark:focus:ring-yellow-900 rounded-lg">
-              <a href="https://docs.usetempo.ai">
-                {" "}
-                Start building with Stripe →{" "}
-              </a>
+            <button className="inline-block   px-6 pb-2 pt-2.5 text-md rounded-lg font-semibold    leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] ">
+              <a href="/checkout"> Stripe → </a>
             </button>
-            <button className="text-primary hover:text-heading my-3 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
+            <button className="text-primary hover:text-heading my-3 sm:my-0  font-semibold dark:focus:ring-yellow-900 rounded-lg">
               <a href="/checkout"> Start Now →</a>
             </button>
           </div>
@@ -196,55 +184,55 @@ const page = () => {
         </div>
       </div>
       {/* card section */}
-      <div className="mx-auto p-4 grid sm:grid-cols-4 gap-2 sm:gap-10">
+      <div className="mx-auto p-4 grid sm:grid-cols-4 gap-2 sm:gap-10 sm:mb-7 ">
         <div className="max-w-sm rounded overflow-hidden ">
           <div className="">
             <div className="text-heading text-2xl font-semibold mb-2 sm:mb-7">
-              <h5>What you can build with Retool</h5>
+              <h5>Stripe Workflow Use Cases</h5>
             </div>
-            <button class="text-primary hover:text-heading my-3 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
-              <a href="/checkout"> View all templates →</a>
-            </button>
           </div>
         </div>
-        <div className="max-w-sm stripe_cards cursor-pointer">
+        <div className="max-w-sm stripe_cards cursor-pointer relative">
           <img
             className="w-full h-48 object-cover"
             src="/integrations/stripe1.png"
             alt="Card"
           />
           <div className="py-4">
-            <div className="font-bold text-xl mb-2">Stripe Refund Tool</div>
+            <div className="font-bold text-xl mb-2">
+              Subscription Cancellation and Refund Workflow
+            </div>
             <p className="text-gray-700 font-semibold text-base text-[#757575]">
-              A tool to pull in problematic orders from your database, issue
-              refunds via Stripe, and send confirmation emails via SendGrid -
-              all in one UI.
+              Retrieves active subscriptions from Stripe, cancel subscriptions,
+              and process refunds, all without going into your CRM.
             </p>
             <p className="stripe_card_title text-gray-700 font-bold mt-2 text-base text-[#757575]">
               Support Tool
             </p>
-            <button class="stripe_card_btn py-2 px-8 sm:w-[100%] w-[100%] sm:px-8 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-md">
+            <button class="stripe_card_btn absolute bottom-0 py-2 px-8 sm:w-[100%] w-[100%] sm:px-8 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-md">
               Learn more →
             </button>
           </div>
         </div>
-        <div className="max-w-sm stripe_cards cursor-pointer">
+        <div className="max-w-sm stripe_cards cursor-pointer relative">
           <img
             className="w-full h-48 object-cover"
             src="/integrations/stripe2.png"
             alt="Card"
           />
           <div className="py-4">
-            <div className="font-bold text-xl mb-2">Customer Success Panel</div>
+            <div className="font-bold text-xl mb-2">
+              Salesforce and Stripe Work Together
+            </div>
             <p className="text-[#757575] font-semibold text-base text-gray-400">
-              LeadGenius uses Retool to make their customer data accessible
-              across the organization. This template is the tool they use to
-              view, search, analyze, and update customer records and projects.
+              Based on a user prompt, add a customer to Salesforce and
+              simultaneously initiate a charge in Stripe. No need to switch
+              between tabs.
             </p>
             <p className="stripe_card_title text-gray-700 font-bold mt-2 text-base text-[#757575]">
               Support Tool - Admin Panel
             </p>
-            <button class="stripe_card_btn py-2 px-8 sm:w-[100%] w-[100%] sm:px-8 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-md">
+            <button class="stripe_card_btn absolute bottom-0 py-2 px-8 sm:w-[100%] w-[100%] sm:px-8 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-black dark:focus:ring-yellow-900 rounded-md">
               Learn more →
             </button>
           </div>
@@ -252,127 +240,35 @@ const page = () => {
         <div className="max-w-sm rounded overflow-hidden"></div>
       </div>
       {/* get started section */}
-      <div className="mx-auto px-4 sm:px-0 sm:p-4 sm:flex gap-2 sm:gap-10 sm:py-8">
+      <div className="mx-auto px-4 sm:px-0 sm:p-4 sm:flex gap-2 sm:gap-10 sm:py-8 ">
         <div className="sm:w-[25%] rounded overflow-hidden ">
           <div className="">
             <div className="text-heading text-2xl font-semibold mb-2 sm:mb-4">
-              <h5>
-                In Retool, you can join{" "}
-                <span className="text-primary">Stripe</span> with anything
-              </h5>
+              <h5>Connect Your Favorite Platform Effortlessly</h5>
             </div>
-            <button className="sm:w-[270px] w-[70%] sm:px-2 py-3 sm:py-3 text-white text-md font-semibold bg-primary hover:bg-white hover:text-primary dark:focus:ring-yellow-900 rounded-lg mb-2 sm:mb-4">
-              <a href="https://docs.usetempo.ai">Get started now →</a>
+            <button className="inline-block   px-6 pb-2 pt-2.5 text-md mr-3 sm:mr-0 sm:mb-4 rounded-lg font-semibold    leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] ">
+              <Link href="/checkout">Get started now →</Link>
             </button>
             <button class="text-primary hover:text-heading my-3 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
-              <a href="/checkout"> Schedule a demo →</a>
+              <Link href="/checkout"> Schedule a demo →</Link>
             </button>
           </div>
         </div>
         <div className="sm:w-[25%] stripe_cards cursor-pointer">
           <p className="text-base text-[#757575]">
-            Retool connects to most databases and nearly anything with a REST or
-            GraphQL API. Read in data from mongoDB, join it via SQL, record user
-            approvals, and POST the result to Stripe to create invoices.
+            Tempo is integrating with more APIs every day. Say goodbye to
+            implementing your own endpoints, and embrace low-code automation
+            with our prompt-initiated workflow builder.
           </p>
           <p className="text-base text-[#757575] mt-3">
-            Retool empowers you to work with all of your data sources inside of
-            a single app.
+            Want to see how Tempo’s Workflow Builder can work for you? Let’s
+            chat.
           </p>
         </div>
         <div className="sm:w-[50%] stripe_cards cursor-pointer marque_section mt-3">
-          <div className="flex justify-center overflow-hidden">
-            {cards.map((item) => (
-              <Link
-                key={item.id}
-                className="inline-block mx-3 mb-2"
-                href=""
-              >
-                <div className="shadow-md rounded-full w-[100%] ">
-                  <div className="flex items-center gap-2 py-3 px-7 pr-10">
-                    <img src={item.img} className="h-4 w-4" />
-                    <div>
-                      <p className="text-sm">{item.name}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="flex overflow-hidden">
-            {card1.map((item) => (
-              <Link
-                key={item.id}
-                className="inline-block mx-3 mb-2"
-                href=""
-              >
-                <div className="shadow-md rounded-full w-[100%] ">
-                  <div className="flex items-center gap-2 py-3 px-7 pr-10">
-                    <img src={item.img} className="h-4 w-4" />
-                    <div>
-                      <p className="text-sm">{item.name}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="flex overflow-hidden">
-            {cards.map((item) => (
-              <Link
-                key={item.id}
-                className="inline-block mx-3 mb-2"
-                href=""
-              >
-                <div className="shadow-md rounded-full w-[100%] ">
-                  <div className="flex items-center gap-2 py-3 px-7 pr-10">
-                    <img src={item.img} className="h-4 w-4" />
-                    <div>
-                      <p className="text-sm">{item.name}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="flex overflow-hidden">
-            {card1.map((item) => (
-              <Link
-                key={item.id}
-                className="inline-block mx-3 mb-2"
-                href=""
-              >
-                <div className="shadow-md rounded-full w-[100%] ">
-                  <div className="flex items-center gap-2 py-3 px-7 pr-10">
-                    <img src={item.img} className="h-4 w-4" />
-                    <div>
-                      <p className="text-sm">{item.name}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-          <div className="flex overflow-hidden">
-            {cards.map((item) => (
-              <Link
-                key={item.id}
-                className="inline-block mx-3 mb-2"
-                href=""
-              >
-                <div className="shadow-md rounded-full w-[100%] ">
-                  <div className="flex items-center gap-2 py-3 px-7 pr-10">
-                    <img src={item.img} className="h-4 w-4" />
-                    <div>
-                      <p className="text-sm">{item.name}</p>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+<Integrationsmotion />
         </div>
-      </div> 
+      </div>
     </div>
   );
 };
