@@ -27,7 +27,7 @@ const TextAreaField = ({
                 onChange={onChange}
                 {...register}
                 placeholder={placeholder || ""}
-                className={`${className} new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-50 w-full ${error &&
+                className={`${className} new_input focus:text-[12px] block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-50 w-full ${error &&
                     "border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger"
                     }`}
                 id={id}
