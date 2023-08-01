@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import { fetchIntegrations } from '../store/slices/integrationSlice';
 
 const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
-    const [customFields, setCustomFields] = useState(formData);
+
+    const [customFields, setCustomFields] = useState({});
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
     const [payloadData, setPayloadData] = useState({
@@ -24,13 +25,13 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
         checked: integrationFormData?.checked || false
     });
 
-    useEffect(() => {
-        const maskedFormData = Object.keys(formData).reduce((acc, key) => {
-            acc[key] = maskLastFour(formData[key]);
-            return acc;
-        }, {});
-        setCustomFields(maskedFormData);
-    }, [formData]);
+    // useEffect(() => {
+    //     const maskedFormData = Object.keys(formData).reduce((acc, key) => {
+    //         acc[key] = maskLastFour(formData[key]);
+    //         return acc;
+    //     }, {});
+    //     setCustomFields(maskedFormData);
+    // }, [formData]);
 
     const convertToTitleCase = (str) => {
         const words = str.split('_');
@@ -40,13 +41,13 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     }
 
     const updateDataParam = (value, prev, name) => {
-        console.log("value", value.length)
         if (value?.length < prev[name]?.length) {
             return prev[name].substring(0, value.length)
         } else {
             return value.length > 0 ? prev[name] + value?.charAt(value.length - 1) : value;
         }
     }
+
     const handleInputFocus = (e) => {
         const { name, value } = e.target;
 
@@ -54,19 +55,27 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
             ...prev,
             [name]: '',
         }));
+        setPayloadData((prev) => ({
+            ...prev,
+            data: {
+                ...prev.data,
+                [name]: '',
+            }
+        }));
     };
+
     const handleIntegrationInputChange = (e) => {
         const { name, value } = e.target;
         setCustomFields((prev) => ({
             ...prev,
-            [name]: maskLastFour(value),
+            [name]: value,
         }));
 
         setPayloadData((prev) => ({
             ...prev,
             data: {
                 ...prev.data,
-                [name]: updateDataParam(value, prev?.data, name),
+                [name]: value,
             }
         }));
 
@@ -79,10 +88,20 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                 ...prev,
                 [name]: '',
             }));
+            setPayloadData((prev) => ({
+                ...prev,
+                data: {
+                    ...prev.data,
+                    [name]: '',
+                }
+            }));
         }
     };
+
     const configureIntegrationHandler = async (e) => {
         setLoading(true);
+        // console.log("payloadData", payloadData);
+        // return false;
         try {
             let configureIntegration;
             let message;
@@ -112,7 +131,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
     const deleteEntry = async () => {
         try {
             const response = await removeIntegrationData(integrationFormData?.integration_data?.id)
-            if(response.status === 204){
+            if (response.status === 204) {
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
 
@@ -194,8 +213,9 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                                     <div className='my-2' key={key}>
                                         <TextField
                                             onChange={(e) => handleIntegrationInputChange(e)}
-                                            value={customFields[key] || ''}
+                                            value={payloadData?.data[key] || ''}
                                             name={key}
+                                            autoComplete={'off'}
                                             labelClass={"text-gray-700 font-bold mb-2"}
                                             className="py-3 mt-2"
                                             title={convertToTitleCase(key)}
