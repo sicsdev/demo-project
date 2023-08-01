@@ -9,7 +9,7 @@ import Card from '../../Common/Card/Card';
 import { errorMessage, successMessage } from '../../Messages/Messages';
 import LoaderButton from '../../Common/Button/Loaderbutton';
 
-const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField }) => {
+const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField ,getWorkflowData}) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
     const updateShowButtonState = (id, type) => {
         if (type === 'show') {
@@ -51,8 +51,9 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 output: element?.output
             }
         })
-        const update = await updateWorkFlowStatus({ "automations": get_ids }, workflowId)
+        const update = await updateWorkFlowStatus({ active: false, "automations": get_ids }, workflowId)
         setAutomationStepsData(filterData)
+        getWorkflowData(workflowId)
     }
     const handleAgentNameValue = (e, index) => {
         let singleData = [...automationStepsField]
