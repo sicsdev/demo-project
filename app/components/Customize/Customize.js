@@ -347,7 +347,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             <br></br>
             <div className="block sm:flex md:flex lg:flex justify-center items-start gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
-                <div className="">
+                {/* <div className="">
                   <a
                     className="flex justify-start gap-2 items-center py-1 text-sm font-semibold text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
@@ -364,7 +364,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     </>
                   )}
                   <hr className="opacity-10"></hr>
-                </div>
+                </div> */}
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700">Bot Title</span>
@@ -460,7 +460,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                   <div className="relative inline-flex justify-start w-1/2 items-center">
                     <label className="cursor-pointer bg-white rounded w-full">
-                      <span className="border-gray h-[37.5px]  border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full">
+                      <span className="border-gray h-[37.5px]  border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full new_input ">
                         {preferences.logo_file_name ? (
                           preferences.logo_file_name
                         ) : (
@@ -544,7 +544,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 id="chatbot_preview"
                 className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%] mt-6 sm:mt-0"
               >
-                <div className="mb-8">
+                {/* <div className="mb-8">
                   <a
                     className="flex justify-start gap-2 items-center p-4 text-heading text-sm font-semibold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
@@ -552,7 +552,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
                   </a>
                   <hr className="opacity-10"></hr>
-                </div>
+                </div> */}
 
                 <div className="containerChatBot_entire justify-center flex">
                   <div className="widget_container active w-[90%]">
