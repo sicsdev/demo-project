@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import Loading from '../../Loading/Loading'
 import SidebarCards from '../../Workflows/WorkflowBuilder/SidebarCards'
 
-const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss }) => {
+const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss,singleData }) => {
     const state = useSelector(state => state.integration)
     return (
         <>
@@ -18,7 +18,7 @@ const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, autom
                         data-te-sidenav-hidden="false"
                         data-te-sidenav-right="true">
                         <div className={`w-full sm:w-72 pr-4`}>
-                            <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} />
+                            <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData}/>
                         </div>
                     </nav>
                     <div className='w-[auto] sm:w-[75%] md:w-[75%] lg:w-[75%]'>

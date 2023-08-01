@@ -27,12 +27,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             minWidth: '250px'
         },
         {
-            name: "Description",
-            selector: (row) => <p className=' whitespace-normal'>{row.description}</p>,
-            sortable: true,
-            reorder: true,
-        },
-        {
             name: "Status",
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
