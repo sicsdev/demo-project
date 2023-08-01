@@ -26,12 +26,12 @@ const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
   return (
-    <div className="flex items-center w-full gap-2">
+    <div className="flex items-center w-full gap-2 mt-2">
       <div className="flex justify-start w-1/2">
         <span className="text-gray-700">{label}</span>
       </div>
       <div
-        className="relative w-1/2 mt-2 my-2"
+        className="relative w-1/2"
         ref={myRef}
         onClick={toggleDropdown}
       >

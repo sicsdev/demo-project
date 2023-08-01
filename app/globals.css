@@ -312,7 +312,7 @@ select.custom-select::-ms-expand {
 }
 
 select.custom-select {
-  height: 45px !important;
+  /* height: 45px !important; */
   background-color: #fff;
 }
 
