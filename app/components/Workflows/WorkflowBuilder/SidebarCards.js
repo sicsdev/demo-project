@@ -9,7 +9,7 @@ import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
 import Link from 'next/link'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss ,singleData}) => {
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
     const [allData, setAllData] = useState(state?.data?.results ?? [])
@@ -64,8 +64,12 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         } else {
             newArray = addDataAtIndex1(stepIndex, get_ids, { automation: ele.id, data: {}, output: {} })
         }
-        const update = await updateWorkFlowStatus({ active: false, automations: newArray }, workflowId);
+
+
+        const update = await updateWorkFlowStatus({ active: false,automations : newArray }, workflowId);
         getWorkflowData(workflowId)
+
+
         handleButtonClick(false)
         setStepIndex(null);
         setIndexSelector(null)
