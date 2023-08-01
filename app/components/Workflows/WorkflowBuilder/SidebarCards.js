@@ -64,7 +64,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         } else {
             newArray = addDataAtIndex1(stepIndex, get_ids, { automation: ele.id, data: {}, output: {} })
         }
-        const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+        const update = await updateWorkFlowStatus({ active: false, automations: newArray }, workflowId);
         getWorkflowData(workflowId)
         handleButtonClick(false)
         setStepIndex(null);

@@ -18,7 +18,7 @@ import { ToastContainer } from 'react-toastify'
 const Page = () => {
   const dispatch = useDispatch()
   const [tab, setTab] = useState(0)
-  const [basicFormData, setBasicFormData] = useState({ })
+  const [basicFormData, setBasicFormData] = useState({})
   const [scheduleData, setScheduleData] = useState({
     Monday: [{ start: "00:00", end: "23:59" }],
     Tuesday: [{ start: "00:00", end: "23:59" }],
@@ -41,14 +41,14 @@ const Page = () => {
         ...basicFormData,
         logo: basicFormData.logo_file_name ? basicFormData.logo : "",
       };
-    } else if (tab===1) {
+    } else if (tab === 1) {
       payload = {
         email_agent_name: basicFormData.agent_name,
         email_agent_title: basicFormData.agent_title,
         email_greeting: basicFormData.email_introduction,
         email_farewell: basicFormData.email_signOff,
       }
-    }else if(tab === 2){
+    } else if (tab === 2) {
       payload = { schedule: scheduleData }
     }
     !payload.logo && delete payload.logo;
@@ -84,7 +84,9 @@ const Page = () => {
           ...payload
         };
       });
-      res?.data?.schedule && Object.keys(res?.data?.schedule).length === 7 && setScheduleData(res?.data?.schedule)
+      let schedule = res[0].data?.schedule
+      schedule ? delete schedule.updatedSchedule : scheduleData
+      setScheduleData(schedule)
     });
   };
   const DisablingButton = () => {
@@ -186,7 +188,7 @@ const Page = () => {
       {tab === 2 && (
 
         <>
-          <Schedule  basicFormData={scheduleData} setBasicFormData={setScheduleData} />
+          <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
         </>
 
       )}
