@@ -10,10 +10,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
+
     const columns = [
         {
             name: "Name",
-            selector: (row) => (
+            selector: (row,index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center w-40 sm:w-10 h-10 overflow-hidden bg-border rounded-lg">
                         <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
@@ -26,7 +27,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         },
         {
             name: "Description",
-            selector: (row) => row.description,
+            selector: (row) => <p className=' whitespace-normal'>{row.description}</p>,
             sortable: true,
             reorder: true,
         },
@@ -39,13 +40,13 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         {
             name: "Actions",
             sortable: false,
-            cell: (row) => (
-                <ButtonComponent data={row} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
+            cell: (row,index) => (
+                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
         },
     ];
-
+    
     useEffect(() => {
         manageData()
     }, [workflowData])
@@ -53,12 +54,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
-
     const manageData = () => {
         const result = workflowData?.results?.filter((x) => x.active === status);
         setData(result);
     }
-
     const customStyles = {
         rows: {
             style: {
@@ -67,7 +66,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             },
         }
     };
-
     const handleChange = (e) => {
         setSearch(e.target.value)
         const workflowOptionsfilter = data?.filter(
@@ -96,8 +94,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     title=""
                     fixedHeader
                     highlightOnHover
-                    pagination={false}
-                    // paginationPerPage={5}
+                    pagination
+                    paginationPerPage={5}
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
                     }}
@@ -107,14 +105,13 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div>
-            <hr className='text-[#cfdada]' />
         </div>
     )
 }
 
 export default WorkFlowTemplates
 
-export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
+export const ButtonComponent = ({ data, alldata, setData, fetchData,index }) => {
     const [showHelp, setShowHelp] = useState(null)
     const router = useRouter()
     const editWorkFlowHandler = (ele) => {
@@ -126,7 +123,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
         if (deleteWorkFlow.status === 204) {
             fetchData();
             setData(filterData)
-            successMessage("Workflow deleted successfully !")
+            successMessage("Workflow deleted successfully")
         }
     }
 
@@ -163,10 +160,11 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData }) => {
 
     return (
         <>
-            <div className='cursor-pointer relative' ref={divRef} onClick={(e) => { setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
+            <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
+                setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
                 <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
                 {showHelp === data.id && (
-                    <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
+                    <div className={`absolute left-[-280px] ${index === alldata.length -1 ||index === alldata.length -2 ?"top-[-106px]":"top-[40px]" }  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                         <ul className="py-2 text-sm text-gray-700 ">
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>

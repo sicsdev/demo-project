@@ -120,7 +120,7 @@ const Sidebar = ({ children }) => {
     },
     {
       href: "/dashboard/analytics",
-      name: "Analytics",
+      name: "Reports",
       icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
       list: [],
     },

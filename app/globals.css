@@ -177,7 +177,7 @@ pre {
   position: relative;
 }
 
-select {
+select.custom-select {
   background-color: #ffffff;
   /* Set your desired background color */
   color: #000000;
@@ -196,7 +196,7 @@ select {
   background-position: right;
 }
 
-select::-ms-expand {
+select.custom-select::-ms-expand {
   display: none;
 }
 
@@ -311,7 +311,7 @@ select::-ms-expand {
   }
 }
 
-select {
+select.custom-select {
   height: 45px !important;
   background-color: #fff;
 }
@@ -825,20 +825,21 @@ transition: all .4s ease;
   position: relative;
   width: 100%;
   height: 1px;
-  background-image: linear-gradient(to right,#fff 50%,transparent 50%);
-  background-repeat: repeat-x;
-  background-size: 8px 4px;
-}
-.connect-heading-line2 {
-  position: relative;
-  width: 100%;
-  height: 1px;
-  background-image: linear-gradient(to right,#fff 50%,transparent 50%);
+  background-image: linear-gradient(to right, #fff 50%, transparent 50%);
   background-repeat: repeat-x;
   background-size: 8px 4px;
 }
 
- .connect-heading-line::before {
+.connect-heading-line2 {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background-image: linear-gradient(to right, #fff 50%, transparent 50%);
+  background-repeat: repeat-x;
+  background-size: 8px 4px;
+}
+
+.connect-heading-line::before {
   position: absolute;
   top: 50%;
   left: -8px;
@@ -851,86 +852,93 @@ transition: all .4s ease;
 }
 
 
- .connect-heading-line::before {
-  position:absolute;
-  top:50%;
-  left:-8px;
-  content:"";
-  width:4px;
-  height:4px;
-  transform:translateY(-50%);
-  border-radius:50%;
-  background:#fff
+.connect-heading-line::before {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  content: "";
+  width: 4px;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #fff
 }
- .connect-heading-line::after {
-  position:absolute;
-  top:50%;
-  left:-8px;
-  content:"";
-  width:10px;
-  height:10px;
-  transform:translateY(-50%);
-  border-radius:50%;
-  background:#05bdba;
-  opacity:0;
-  animation:connectHeadingDotLeft 5s infinite linear
+
+.connect-heading-line::after {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #05bdba;
+  opacity: 0;
+  animation: connectHeadingDotLeft 5s infinite linear
 }
- .connect-heading-line[data-line-position=right]::after {
-  animation:connectHeadingDotRight 5s infinite linear
+
+.connect-heading-line[data-line-position=right]::after {
+  animation: connectHeadingDotRight 5s infinite linear
 }
 
 @keyframes connectHeadingDotLeft {
   0% {
-      opacity:1
+    opacity: 1
   }
+
   50% {
-      opacity:1;
-      left:95%
+    opacity: 1;
+    left: 95%
   }
+
   51% {
-      opacity:1;
-      left:95%
+    opacity: 1;
+    left: 95%
   }
+
   55% {
-      opacity:0;
-      left:95%
+    opacity: 0;
+    left: 95%
   }
 }
+
 @keyframes connectHeadingDotRight {
   49% {
-      opacity:0
+    opacity: 0
   }
+
   50% {
-      opacity:1;
-      left:-8px
+    opacity: 1;
+    left: -8px
   }
+
   95% {
-      opacity:1;
-      left:100%
+    opacity: 1;
+    left: 100%
   }
+
   96% {
-      opacity:1;
-      left:100%
+    opacity: 1;
+    left: 100%
   }
+
   100% {
-      opacity:0;
-      left:100%
+    opacity: 0;
+    left: 100%
   }
 }
-
-
 body .cursor-pointer {
   cursor: pointer !important;
 }
 
-
-.saleform {
-  box-shadow: 0 30px 60px -12px rgba(50,50,93,0.25),0 18px 36px -18px rgba(0,0,0,0.3);
+.stripe_cards:hover .stripe_card_title{
+  display: none;
 }
-
-
-
-body .svYMe svg{
-  display: none !important;
+.stripe_cards .stripe_card_btn{
+  display: none;
 }
-
+.stripe_cards:hover .stripe_card_btn{
+  display: block;
+  transition: opacity 400ms ease 0s;
+}

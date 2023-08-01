@@ -126,7 +126,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
                     <div className='border lg:w-1/2 border-gray p-3'>
                         <small>Current</small>
-                        <select className={`mt-1 block px-3 lg:w-1/2 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color" `}>
+                        <select className={`custom-select mt-1 block px-3 lg:w-1/2 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color" `}>
                             <option>
                                 Summer schedule
                             </option>
@@ -194,7 +194,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                 <>
                                     <div key={day} className="flex m-2 my-2 items-center justify-around gap-3">
 
-                                        <div className='block sm:flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
+                                        <div className='flex items-center gap-3 col-span-1' style={{ width: '30px' }}>
                                             <input type="checkbox" className="w-4 h-4" checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
                                             <div>
                                                 <small className='text-xs'>{day.substr(0, 3).toUpperCase()}</small>
@@ -252,8 +252,9 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
                                         <div className="flex gap-3">
                                             <PlusIcon className="w-4 cursor-pointer hover:text-sky" onClick={() => handleAddHour(day)} />
-                                            <ClipboardDocumentIcon className="w-4" />
+                                            {/* <ClipboardDocumentIcon className="w-4" /> */}
                                         </div>
+
                                     </div>
                                     <hr className="opacity-10" />
                                 </>

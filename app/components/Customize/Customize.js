@@ -340,41 +340,29 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       {/* End of modal to manage hide urls */}
 
       <div className="w-full">
-        {form === false && (
-          <>
-            <div className="mt-4 mb-4">
-              <div className="flex items-center justify-between">
-                <a
-                  className="flex justify-start gap-2 items-center text-sm text-primary font-bold border-primary rounded-t-lg active group"
-                  aria-current="customize"
-                >
-                  <CpuChipIcon className="h-7 w-7 text-gray-500" /> Customize widget
-                </a>
 
-              </div>
-              <small className="text-[#7e7e7e]">
-                Customize the colors, position, and user interface of your Tempo
-                chat widget.
-              </small>
-            </div>
-            <hr className="opacity-10"></hr>
-            <div></div>
-          </>
-        )}
 
         {botDetails.id && (
           <>
             <br></br>
             <div className="block sm:flex md:flex lg:flex justify-center items-start gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
-                <div className="mb-4">
+                <div className="">
                   <a
-                    className="flex justify-start gap-2 items-center py-4 text-sm font-semibold text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                    className="flex justify-start gap-2 items-center py-1 text-sm font-semibold text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                     aria-current="preview"
                   >
                     <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize
                     Chat Interface
                   </a>
+                  {form === false && (
+                    <>
+                      <small className="text-[#7e7e7e] mb-3">
+                        Customize the colors, position, and user interface of your Tempo
+                        chat widget.
+                      </small>  
+                    </>
+                  )}
                   <hr className="opacity-10"></hr>
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
@@ -445,7 +433,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
-                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="custom-select w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
                       <option value="bottom_left">Bottom Left</option>

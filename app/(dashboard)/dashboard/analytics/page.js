@@ -21,11 +21,11 @@ const Logs = () => {
     },
     {
       name: "User Agent",
-      selector: (row) => row.customer_user_agent,
+      selector: (row) => <p className=" whitespace-normal">{row.customer_user_agent}</p>,
       sortable: true,
       reorder: true,
     },
-    {
+    { 
       name: "Created At",
       selector: (row) => row.created,
       sortable: true,
@@ -160,7 +160,7 @@ const Logs = () => {
             value={selectedFilters.type || ''}
             name="type"
             values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }]}
-            title={<h3 className="text-sm my-4 font-semibold">Filter</h3>}
+            title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
             id={"type"}
             className="py-3"
             error={""}
