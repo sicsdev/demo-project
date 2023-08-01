@@ -199,19 +199,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                         onMouseEnter={() => updateShowButtonState(key, 'show')}
                         onMouseLeave={() => updateShowButtonState(key, 'hide')}
                     >
-                        {/* <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
-                            <div className='section-workflow'></div>
-                            {indexSelector !== key && (
-                                <>
-                                    <div className='iconplus'>
-                                        <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                                    </div>
-                                    <div className='section-workflow3 hover:bg-primary'></div>
-                                </>
-                            )}
-                            <div className='section-workflow2'></div>
-                        </div> */}
-
                         <div class="stepper-main-wrapper w-full">
                             <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
                                 {indexSelector !== key && (
