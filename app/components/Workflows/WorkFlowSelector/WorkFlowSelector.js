@@ -19,7 +19,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         }
     };
     const [loading, setLoading] = useState(null)
-    
+
     const DisableButton = (index) => {
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 
@@ -199,7 +199,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                         onMouseEnter={() => updateShowButtonState(key, 'show')}
                         onMouseLeave={() => updateShowButtonState(key, 'hide')}
                     >
-                        <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
+                        {/* <div className='section-workflow-wrapper cursor-pointer' onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
                             <div className='section-workflow'></div>
                             {indexSelector !== key && (
                                 <>
@@ -209,8 +209,24 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                     <div className='section-workflow3 hover:bg-primary'></div>
                                 </>
                             )}
-
                             <div className='section-workflow2'></div>
+                        </div> */}
+
+                        <div class="stepper-main-wrapper w-full">
+                            <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
+                                {indexSelector !== key && (
+                                    <>
+                                        <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
+                                        <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
+                                            <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                        </button>
+                                        <div class="stpper-lines">
+                                        </div>
+                                    </>
+                                )}
+                                <div class="stepper-spacer">
+                                </div>
+                            </div>
                         </div>
 
 
@@ -225,7 +241,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 fill={"true"}
                                                 className="bg-contain mx-auto object-scale-down w-full rounded-lg"
                                                 alt="logo.png"
-                                                src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0]) }
+                                                src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0])}
                                             />
                                         </div>
                                         <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
