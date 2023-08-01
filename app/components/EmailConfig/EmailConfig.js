@@ -187,8 +187,8 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
             name="agent_title"
             className="py-3 mt-1"
             title={
-              <span className="flex items-center gap-2 justify-between mr-6 w-[150px]">
-                Agent Job Title
+              <div className="flex items-center gap-2 justify-between mr-6 w-[150px]">
+                <span>Agent Job Title</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
@@ -199,7 +199,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                     </span>
                   </Card>
                 </div>
-              </span>
+              </div>
             }
             placeholder={"Agent Job Title"}
             type={"text"}
