@@ -256,7 +256,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 onChange={handleAgentNameValue}
                 type={"text"}
                 placeholder={"Enter names separate by ,"}
-                className={` block  px-3 py-2 bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
                 id={"agent_name"}
                 name={"agent_name"}
               />
