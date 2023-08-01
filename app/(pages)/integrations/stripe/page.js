@@ -306,7 +306,7 @@ const page = () => {
           <div className="text-heading text-2xl font-semibold mb-2 sm:mb-4">
             <h5>Connect Your Favorite Platform Effortlessly</h5>
           </div>
-          <button className="sm:inline-block mb-2 mr-[20px]  text-center  px-6 pb-2 pt-2.5 text-md  sm:mr-0 sm:mb-4 rounded-lg font-semibold    leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] ">
+          <button className="sm:inline-block flex m-auto mb-3   text-center  px-6 pb-2 pt-2.5 text-md  sm:mr-0 sm:mb-4 rounded-lg font-semibold    leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] ">
             <Link href="/checkout">Get started now →</Link>
           </button>
           <button class="text-primary sm:block hidden hover:text-heading my-3 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
@@ -324,7 +324,7 @@ const page = () => {
           Want to see how Tempo’s Workflow Builder can work for you? Let’s
           chat.
         </p>
-        <button class="text-primary sm:hidden block hover:text-heading my-3 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
+        <button class="text-primary sm:hidden block hover:text-heading my-6 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">
             <Link href="/checkout"> Schedule a demo →</Link>
           </button>
       </div>
