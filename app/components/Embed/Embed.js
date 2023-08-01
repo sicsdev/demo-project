@@ -56,7 +56,6 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
         };
       });
       setDetailsData(mergedArray);
-      console.log(mergedArray)
       if (form === false) {
         setTimeout(() => {
           setSkeleton(false);

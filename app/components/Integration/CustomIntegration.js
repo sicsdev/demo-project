@@ -4,7 +4,7 @@ import { useState } from 'react'
 import TextField from '../Common/Input/TextField'
 import Button from '../Common/Button/Button';
 import { errorMessage, successMessage } from '../Messages/Messages';
-import { addIntegrationTemplate, updateIntegrationData, addIntegrationData, removeIntegrationData } from '@/app/API/pages/Integration';
+import { addIntegrationTemplate, updateIntegrationData, removeIntegrationData } from '@/app/API/pages/Integration';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useDispatch } from 'react-redux';
 import { fetchIntegrations } from '../store/slices/integrationSlice';
@@ -25,13 +25,14 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
         checked: integrationFormData?.checked || false
     });
 
-    // useEffect(() => {
-    //     const maskedFormData = Object.keys(formData).reduce((acc, key) => {
-    //         acc[key] = maskLastFour(formData[key]);
-    //         return acc;
-    //     }, {});
-    //     setCustomFields(maskedFormData);
-    // }, [formData]);
+    useEffect(() => {
+        // const maskedFormData = Object.keys(formData).reduce((acc, key) => {
+        //     acc[key] = maskLastFour(formData[key]);
+        //     return acc;
+        // }, {});
+        const maskedFormData = Object.fromEntries(Object.keys(formData).map((key) => [key, '']))
+        setCustomFields(maskedFormData);
+    }, [formData]);
 
     const convertToTitleCase = (str) => {
         const words = str.split('_');
@@ -116,7 +117,6 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
-
                 successMessage(message);
             } else {
                 errorMessage("Unable to Proceed!");

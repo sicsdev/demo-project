@@ -268,7 +268,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       {/* Modal to manage hide urls */}
       {showManageHideUrls && (
         <Modal
-          title="Hide widget on certain URLs"
+          title="Hide widget on Certain URLs"
           show={showManageHideUrls}
           setShow={setShowManageHideUrls}
           className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"}
@@ -290,7 +290,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 <input
                   placeholder="/path"
                   value={item}
-                  className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
+                  className="flex justify-start w-1/2 items-center border rounded focus:bg-white border-gray px-2 mx-2"
                   disabled
                 />
                 <XMarkIcon
@@ -309,7 +309,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               <input
                 placeholder="/path"
                 value={newBlockedUrl}
-                className="flex justify-start w-1/2 items-center border rounded border-gray px-2 mx-2"
+                className="flex justify-start w-1/2 items-center border rounded focus:bg-white border-gray px-2 mx-2"
                 onChange={(e) => setNewBlockedUrl(e.target.value)}
               />
               <PlusSmallIcon
@@ -376,7 +376,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       name="chat_title"
                       value={preferences.chat_title}
                       type="text"
-                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="w-full block px-3 new_input bg-white focus:bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat title"
                     />
                   </div>
@@ -405,7 +405,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       name="description"
                       value={preferences.description}
                       type="text"
-                      className="w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="w-full block px-3 new_input bg-white focus:bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter description"
                     />
                   </div>
@@ -424,7 +424,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   label="Secondary Color"
                 ></ColorSelector>
 
-                <div className="flex items-center w-full mt-1 gap-2">
+                <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700">Widget Location</span>
                   </div>
@@ -433,7 +433,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
-                      className="custom-select w-full mt-1 block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="custom-select !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
                       <option value="bottom_left">Bottom Left</option>
@@ -460,7 +460,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                   <div className="relative inline-flex justify-start w-1/2 items-center">
                     <label className="cursor-pointer bg-white rounded w-full">
-                      <span className="border-gray  border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full">
+                      <span className="border-gray h-[37.5px]  border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full">
                         {preferences.logo_file_name ? (
                           preferences.logo_file_name
                         ) : (
@@ -490,7 +490,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       <input
                         type="file"
                         accept="image/jpeg, image/jpg, image/png"
-                        className="hidden w-full mt-1 px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                        className="hidden w-full mt-1 px-3 new_input bg-white focus:bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                         placeholder="Select logo"
                         name="logo"
                         onChange={handleFileChange}
@@ -499,11 +499,11 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center w-full mt-3 gap-2">
+                <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700">Hide Chat Bot</span>
                   </div>
-                  <div className="flex justify-start w-1/2 items-center">
+                  <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -524,12 +524,12 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center w-full mt-4 gap-2">
+                <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Hide on certain URLs</span>
+                    <span className="text-gray-700">Hide on Certain URLs</span>
                   </div>
                   <div
-                    className="flex justify-start w-1/2 items-center"
+                    className="flex h-[37.5px] justify-start w-1/2 items-center"
                     onClick={() => setShowManageHideUrls(true)}
                   >
                     <span className="text-sky text-underline cursor-pointer">

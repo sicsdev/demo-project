@@ -45,7 +45,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         return get_ids;
     }
     const addStepHandler = async (ele) => {
-        console.log("ele", ele)
+
         const get_ids = automationStepsData.map((element) => {
             return {
                 automation: element?.automation?.id,
@@ -69,6 +69,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         handleButtonClick(false)
         setStepIndex(null);
         setIndexSelector(null)
+        setMobileCss('')
         setInnerSide(prev => {
             return {
                 ...prev,

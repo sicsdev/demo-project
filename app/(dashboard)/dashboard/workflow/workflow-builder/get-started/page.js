@@ -310,8 +310,8 @@ const GetStarted = () => {
         <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData}>
           {singleData ? (
             <>
-              <div className='block sm:flex md:flex lg:flex justify-between gap-2 items-center'>
-                <div className='flex justify-between gap-2 items-center'>
+              <div className='flex md:flex lg:flex justify-between gap-2 items-center'>
+                <div className='flex justify-start sm:justify-between gap-2 items-center'>
                   <div>
                     <Link href={"/dashboard/workflow/workflow-builder"}>
                       <div>
@@ -319,7 +319,7 @@ const GetStarted = () => {
                       </div>
                     </Link>
                   </div>
-                  <div className="relative w-[35px] h-[35px] gap-2 rounded-lg">
+                  <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
                     <Image
                       fill={"true"}
                       className="bg-contain mx-auto w-full rounded-lg"
@@ -342,7 +342,7 @@ const GetStarted = () => {
                     })
                     setWorkflowModal(true)
                   }}>
-                    <h3 className='text-heading font-bold text-lg'>{singleData.name}</h3>
+                    <h3 className='text-heading font-bold text-sm sm:text-lg'>{singleData.name}</h3>
                     {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
                   </div>
                 </div>
