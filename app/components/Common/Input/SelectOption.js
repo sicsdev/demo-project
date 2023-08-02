@@ -16,12 +16,12 @@ const SelectOption = ({
 }) => {
     return (
         <div className={`inline ${labelClassName || ""}`}> 
-            <label htmlFor={id} className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
+            <label className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
                 {title}
             </label>
             <div className="selectdiv">
                 <select
-                    className={`custom-select mt-1 block w-full px-3  bg-white focus:bg-white border  focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${error
+                    className={`custom-select new_input mt-1 block w-full px-3  bg-white focus:bg-white border  focus:text-[12px] rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${error
                         ? "border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger focus:ring-danger"
                         : "border-input_color"
                         } ${className}`}
@@ -35,7 +35,7 @@ const SelectOption = ({
                     <option value={""} disabled>
                         Select
                     </option>
-                    {values.map((element, key) => (
+                    {values?.map((element, key) => (
                         <option key={key} value={element.value}>
                             {makeCapital(element.name)}
                         </option>

@@ -20,12 +20,13 @@ import PublishWorkflow from '@/app/components/Workflows/WorkflowBuilder/PublishW
 import DeleteWorkflow from '@/app/components/Workflows/WorkflowBuilder/DeleteWorkflow'
 import { useDispatch, useSelector } from 'react-redux'
 import { editAutomationValue } from '@/app/components/store/slices/workflowSlice'
+import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
   const automationState = useSelector(state => state.workflow.automation)
+  const state = useSelector((state) => state.botId);
   const dispatch = useDispatch()
-  console.log("automation", automationState)
   const [indexSelector, setIndexSelector] = useState(null)
   const [singleData, setSingleData] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
@@ -38,18 +39,19 @@ const GetStarted = () => {
     logo: null,
     policy_name: null,
     policy_description: null,
-    policy_exceptions: null
+    policy_exceptions: null,
+    bots: ''
   })
 
   // modals 
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [stepModal, setStepModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
-  const [descriptionModal, setDescriptionModal] = useState(false);
+
   const [workflowModal, setWorkflowModal] = useState(false);
   const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
   const [mobileCss, setMobileCss] = useState('');
-
+  const [botValue, setBotValue] = useState([{ name: 'None', value: 'none' }]);
   const [automationStepsData, setAutomationStepsData] = useState([]);
   const [automationStepsField, setAutomationStepsField] = useState([]);
   const router = useRouter();
@@ -94,7 +96,8 @@ const GetStarted = () => {
           preview: response.logo ?? '/workflow/reactive-subscription.png',
           policy_name: response?.policy_name === "default" ? "" : response?.policy_name,
           policy_description: response?.policy_description === "default" ? "" : response?.policy_description,
-          policy_exceptions: response?.policy_exceptions === "default" ? "" : response?.policy_exceptions
+          policy_exceptions: response?.policy_exceptions === "default" ? "" : response?.policy_exceptions,
+          bots: response?.bots?.length > 0 ? response?.bots[0].id : ''
         }
       })
       if (response?.automations?.length > 0) {
@@ -121,7 +124,6 @@ const GetStarted = () => {
 
 
   }
-  console.log("automationStepsData", automationStepsField)
   useEffect(() => {
     const flow = params.get("flow");
     if (flow) {
@@ -132,6 +134,35 @@ const GetStarted = () => {
 
     }
   }, [])
+
+
+  useEffect(() => {
+    if (state.botData.data === null) {
+      dispatch(fetchBot());
+    }
+    if (state.botData.data?.bots && state.botData.data?.widgets) {
+      getAllBots();
+    }
+  }, [state.botData.data]);
+
+  const getAllBots = () => {
+    const getTitle = state.botData.data.bots.map(
+      (element) => element.chat_title
+    );
+    const widgetCode = state.botData.data.widgets;
+    if (widgetCode && Array.isArray(widgetCode) && widgetCode.length > 0) {
+      const mergedArray = widgetCode.map((item, index) => {
+        const title = getTitle[index];
+        return {
+          value: item.id,
+          name: title,
+        };
+      });
+      const allOption = { name: 'None', value: 'none' };
+      mergedArray?.unshift(allOption);
+      setBotValue(mergedArray);
+    }
+  };
 
 
   const divRef = useRef(null);
@@ -161,10 +192,12 @@ const GetStarted = () => {
             preview: singleData.logo ?? '/workflow/reactive-subscription.png',
             policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
             policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
-            policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions
+            policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
+            bots: singleData?.bots?.length > 0 ? singleData?.bots[0].id : ''
           }
         })
-        setDescriptionModal(true)
+        // setDescriptionModal(true)
+        setWorkflowModal(true)
 
         break;
       case "COLLECTINFOFORM":
@@ -249,7 +282,8 @@ const GetStarted = () => {
           name: workflowFormData.name,
           policy_name: workflowFormData.policy_name,
           policy_description: workflowFormData.policy_description,
-          policy_exceptions: workflowFormData.policy_exceptions
+          policy_exceptions: workflowFormData.policy_exceptions,
+          bots: workflowFormData?.bots !== '' && workflowFormData?.bots !== 'none' ? [workflowFormData?.bots] : []
         }
       } else if (type === "DISABLE") {
         payload = { active: false }
@@ -259,17 +293,18 @@ const GetStarted = () => {
       const updateWorkflow = await updateWorkFlowStatus(payload, singleData?.id);
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
+  
         if (type === "PUBLISH") {
           dispatch(editAutomationValue(null))
-          successMessage("WorkFlow published successfully!");
+          successMessage("WorkFlow Published Successfully!");
         } else if (type === "DISABLE") {
           successMessage("Workflow Disabled Successfully");
-
+        } else if (type === "EDIT") {
+          successMessage("WorkFlow Updated Successfully!");
         }
 
         setPublishLoader(false);
         setDeleteWorkflowModal(false)
-        setDescriptionModal(false)
         setWorkflowModal(false)
         setShowPublishModal(false);
         getWorkflowData(singleData?.id)
@@ -380,7 +415,8 @@ const GetStarted = () => {
                         preview: singleData.logo ?? '/workflow/reactive-subscription.png',
                         policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
                         policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
-                        policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions
+                        policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
+                        bots: singleData?.bots?.length > 0 ? singleData?.bots[0].id : ''
                       }
                     })
                     setWorkflowModal(true)
@@ -424,20 +460,12 @@ const GetStarted = () => {
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
-          {/* description modal start  */}
-          {
-            descriptionModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={descriptionModal} setShow={setDescriptionModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
-              <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setDescriptionModal} />
-            </Modal >
-          }
 
           {/* workflowname modal start  */}
-
           {
             workflowModal &&
             <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
-              <UpdateWorkflowBasic handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
+              <UpdateWorkflowBasic botValue={botValue} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
             </Modal>
           }
           {/* workflowname modal end  */}
