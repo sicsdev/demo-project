@@ -258,9 +258,9 @@ const page = () => {
               Retrieves active subscriptions from Stripe, cancel subscriptions,
               and process refunds, all without going into your CRM.
             </p>
-            <p className=" text-gray-700 font-bold mt-2 text-base text-[#757575]">
+            {/* <p className=" text-gray-700 font-bold mt-2 text-base text-[#757575]">
               Support Tool
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="max-w-sm  cursor-pointer relative">
@@ -278,9 +278,9 @@ const page = () => {
               simultaneously initiate a charge in Stripe. No need to switch
               between tabs.
             </p>
-            <p className=" text-gray-700 font-bold mt-2 text-base text-[#757575]">
+            {/* <p className=" text-gray-700 font-bold mt-2 text-base text-[#757575]">
               Support Tool - Admin Panel
-            </p>
+            </p> */}
           </div>
         </div>
         <div className="max-w-sm rounded overflow-hidden"></div>
