@@ -8,9 +8,12 @@ import { updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import Card from '../../Common/Card/Card';
 import { errorMessage, successMessage } from '../../Messages/Messages';
 import LoaderButton from '../../Common/Button/Loaderbutton';
+import { useDispatch } from 'react-redux';
+import { editAutomationValue } from '../../store/slices/workflowSlice';
 
-const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField ,getWorkflowData}) => {
+const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField, getWorkflowData, singleData1 }) => {
     const [showButtonStates, setShowButtonStates] = useState(null);
+    const dispatch = useDispatch()
     const updateShowButtonState = (id, type) => {
         if (type === 'show') {
             setShowButtonStates(id);
@@ -19,7 +22,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         }
     };
     const [loading, setLoading] = useState(null)
-
     const DisableButton = (index) => {
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 
@@ -51,9 +53,16 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 output: element?.output
             }
         })
-        const update = await updateWorkFlowStatus({ active: false, "automations": get_ids }, workflowId)
+
+
+        if (singleData1?.active) {
+            dispatch(editAutomationValue(get_ids))
+        } else {
+            const update = await updateWorkFlowStatus({ active: false, "automations": get_ids }, workflowId)
+            getWorkflowData(workflowId)
+        }
         setAutomationStepsData(filterData)
-        getWorkflowData(workflowId)
+
     }
     const handleAgentNameValue = (e, index) => {
         let singleData = [...automationStepsField]
@@ -312,17 +321,19 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 />
                                             </div>
                                         </div> */}
-                                        <div className='my-2'>
-                                            {loading === key ? <LoaderButton /> :
-                                                <Button
-                                                    type={"button"}
-                                                    className="inline-block my-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                                    // disabled={DisableButton(key)}
-                                                    onClick={(e) => SubmitFormValue(key)}
-                                                >Save
-                                                </Button>
-                                            }
-                                        </div>
+                                        {ele.id !== "automation_temp" && (
+                                            <div className='my-2'>
+                                                {loading === key ? <LoaderButton /> :
+                                                    <Button
+                                                        type={"button"}
+                                                        className="inline-block my-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                                        // disabled={DisableButton(key)}
+                                                        onClick={(e) => SubmitFormValue(key)}
+                                                    >Save
+                                                    </Button>
+                                                }
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             )}
