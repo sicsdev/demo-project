@@ -44,7 +44,7 @@ const Page = () => {
             policy_description: "",
             policy_exceptions: ""
         }
-        const findDuplicate = workflowState?.data?.results.find((x) => x.name === "Default_name")
+        const findDuplicate = workflowState?.data?.results?.find((x) => x.name === "Default_name")
         if (findDuplicate) {
             errorMessage("Workflow already exists with name “Default_name”")
             setWorkLoading(false)

@@ -1,7 +1,7 @@
 import { getAllWorkflow } from "@/app/API/pages/Workflow";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-const initialState = { isLoading: false, data: null, error: null }
+const initialState = { isLoading: false, data: null, automation: null, error: null }
 
 
 export const fetchWorkflows = createAsyncThunk('workflow/fetchWorkflow', async () => {
@@ -17,6 +17,11 @@ export const workflowSlice = createSlice({
             state.error = null
             state.isLoading = null
             state.data = action.payload
+        },
+        editAutomationValue: (state, action) => {
+            state.error = null
+            state.isLoading = null
+            state.automation = action.payload
         },
     },
     extraReducers: (builder) => {
@@ -37,5 +42,5 @@ export const workflowSlice = createSlice({
     },
 })
 
-export const { editUserValue } = workflowSlice.actions;
+export const { editAutomationValue, editWorkflowValue } = workflowSlice.actions;
 export default workflowSlice.reducer;
