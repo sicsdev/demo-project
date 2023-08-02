@@ -28,8 +28,8 @@ const Page = () => {
         dispatch(fetchWorkflows());
     }
     useEffect(() => {
-        if (!workflowState?.data?.results?.some(e => e.active)) { setTab(1) } // If there is no active workflows, setTab to draft section.
-    }, [workflowState])
+        if (!workflowState?.data?.results?.some(e => e.active === true)) { setTab(1) } else { setTab(0) } // If there is no active workflows, setTab to draft section.
+    }, [workflowState?.data])
 
     useEffect(() => {
         getAllWorkflowData();

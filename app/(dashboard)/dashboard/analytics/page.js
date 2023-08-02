@@ -25,7 +25,7 @@ const Logs = () => {
       sortable: true,
       reorder: true,
     },
-    { 
+    {
       name: "Created At",
       selector: (row) => row.created,
       sortable: true,
@@ -35,13 +35,15 @@ const Logs = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }]);
   const state = useSelector((state) => state.botId);
+  const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
-    is_workflow: false,
+    workflows: '',
   });
 
   const getAllBots = () => {
@@ -59,6 +61,25 @@ const Logs = () => {
     setBotValue(mergedArray);
 
   };
+
+  const getAllWorkflows = () => {
+    const results = workflowState?.data?.results;
+    if (results && Array.isArray(results) && results.length > 0) {
+      const values = results.map((item, index) => {
+        return {
+          name: item.name,
+          value: item.id,
+        }
+      })
+      const allOption = { name: 'All Conversations', value: 'all' };
+      values?.unshift(allOption);
+      setWorkflowValue(values);
+    }
+  };
+
+  useEffect(() => {
+    getAllWorkflows()
+  }, [workflowState.data])
 
   useEffect(() => {
     if (state.botData.data === null) {
@@ -94,8 +115,8 @@ const Logs = () => {
     setLoading(true)
     const { value } = e.target;
     setSelectedFilters({
-      type:'',
-      is_workflow: false,
+      type: '',
+      workflows: '',
     })
     setSelectedBot(value)
     getCoversation(value, '');
@@ -117,7 +138,14 @@ const Logs = () => {
   };
 
   const buildQueryParam = (filters) => {
-    const queryParams = new URLSearchParams(filters).toString();
+    // Filter out the empty and 'all' values from the filters object
+    const filteredFilters = Object.fromEntries(
+      Object.entries(filters).filter(
+        ([key, value]) => value !== '' && value !== 'all'
+      )
+    );
+
+    const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `?${queryParams}` : '';
   };
 
@@ -169,11 +197,12 @@ const Logs = () => {
         <div className="mb-4 w-full">
           <SelectOption
             onChange={(e) => filterDataHandler(e)}
-            value={selectedFilters.is_workflow || ''}
-            name="is_workflow"
-            values={[{ name: 'All Conversations', value: false }, { name: 'Workflow Conversations', value: true }]}
+            value={selectedFilters.workflows || ''}
+            name="workflows"
+            // values={[{ name: 'All Conversations', value: false }, { name: 'Workflow Conversations', value: true }]}
+            values={workflowValue}
             title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
-            id={"is_workflow"}
+            id={"workflows"}
             className="py-3"
             error={""}
           />
