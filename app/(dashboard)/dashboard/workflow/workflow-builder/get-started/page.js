@@ -257,29 +257,26 @@ const GetStarted = () => {
         }
         payload = { active: true };
         if (automationState && automationState.length > 0) {
-          let finalData = []
-          for (let i = 0; i < automationState.length; i++) {
-            const element = automationState[i];
-            const findFilter = automationStepsField.find((x) => x.key === element.automation)
-            let payload_automation = {
+          const finalData = automationState.map((element) => {
+            const findFilter = automationStepsField.find((x) => x.key === element.automation);
+            const payload_automation = {
               automation: element.automation,
               output: {},
               data: {}
-            }
+            };
             if (findFilter && findFilter.names_arr.length > 0) {
-              payload_automation.data = convertArrayToObject(findFilter.names_arr),
-                finalData.push(payload_automation)
-            } else {
-              finalData.push(payload_automation)
+              payload_automation.data = convertArrayToObject(findFilter.names_arr);
             }
-          }
-          payload = { active: true, automations: finalData }
+            return payload_automation;
+          });
+        
+          payload = { active: true, automations: finalData };
         }
       } else if (type === "EDIT") {
         payload = {
           logo: workflowFormData.logo,
           description: workflowFormData.description,
-          name: workflowFormData.name,
+          name: workflowFormData.name,  
           policy_name: workflowFormData.policy_name,
           policy_description: workflowFormData.policy_description,
           policy_exceptions: workflowFormData.policy_exceptions,
