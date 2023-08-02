@@ -1,19 +1,21 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BookOpenIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import TextField from "@/app/components/Common/Input/TextField";
-import { updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { deleteRecommendationRecord, excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
+import { ColorRing } from "react-loader-spinner";
 
 const Page = () => {
-    const [updateLoader, setUpdateLoader] = useState(null);
+    const [updateLoader, setUpdateLoader] = useState(null );
+    const [deleteLoader, setDeleteLoader] = useState(null);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
@@ -42,6 +44,22 @@ const Page = () => {
             setUpdateLoader(null);
         }
     };
+    const deleteButtonHandler = async (id) => {
+        setDeleteLoader(id)
+        try {
+            const excludeRecord = await excludeRecommendationRecord(id);
+            if (excludeRecord?.status === 204 ) {
+                dispatch(fetchRecommendation());
+                successMessage("Recommendation Delete Successfully");
+                setDeleteLoader(null)
+            } else {
+                errorMessage("Unable to Delete!");
+                setDeleteLoader(null)
+            }
+        } catch (error) {
+            setDeleteLoader(null);
+        }
+    };
 
     useEffect(() => {
         setTimeout(() => {
@@ -59,11 +77,11 @@ const Page = () => {
     const columns = [
         {
             name: "Question",
-            selector: (row) =>    <p className=' whitespace-normal'>{row.question}</p>,
+            selector: (row) => <p className=' whitespace-normal'>{row.question}</p>,
             sortable: true,
             reorder: true,
             style: {
-                whiteSpace:"inherit"
+                whiteSpace: "inherit"
             },
         },
         {
@@ -87,17 +105,35 @@ const Page = () => {
         {
             name: "",
             cell: (row) => (
-                updateLoader === row.id ? (
-                    <LoaderButton />
-                ) : (
-                    <Button
-                        type={"button"}
-                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                        onClick={(e) => updateButtonHandler(row.id)}
-                    >
-                        Save Answer
-                    </Button>
-                )
+                <div className="flex justify-center gap-4">
+                    {updateLoader === row.id ?
+                        <ColorRing
+                            height="30"
+                            width="30"
+                            color="#4fa94d"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperClass="text-center"
+                            visible={true}
+                        /> :
+                        <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
+                            <CheckCircleIcon className="h-6 w-6 text-success " />
+                        </button>
+                    }
+                    {deleteLoader === row.id ?
+                        <ColorRing
+                            height="30"
+                            width="30"
+                            color="#4fa94d"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperClass="text-center"
+                            visible={true}
+                        /> :
+                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                    }
+                </div>
             ),
             style: {
                 width: '20%',
@@ -108,7 +144,7 @@ const Page = () => {
 
     return (
         <>
-            <div style={{whiteSpace:"normal"}}>
+            <div style={{ whiteSpace: "normal" }}>
                 <div className="border-b border-border flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                         <li className="mr-2">
@@ -143,7 +179,7 @@ const Page = () => {
                             columns={columns}
                             noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                             data={state?.data?.results}
-                            
+
                         />
                     </div>
                 )}

@@ -203,12 +203,11 @@ const Footer = () => {
                 />
               </Link>
             </span>
-            <a
-              className="font-thin text-neutral-600 dark:text-neutral-400 "
-              href="https://tailwind-elements.com/"
+            <p
+              className="font-thin text-neutral-600  "
             >
               © Tempo AI Ventures, Inc{" "}
-            </a>
+            </p>
           </div>
         </div>
       </footer>
