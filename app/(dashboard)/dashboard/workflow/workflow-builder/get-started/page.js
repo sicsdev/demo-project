@@ -236,6 +236,8 @@ const GetStarted = () => {
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr),
                 finalData.push(payload_automation)
+            } else {
+              finalData.push(payload_automation)
             }
           }
           payload = { active: true, automations: finalData }
