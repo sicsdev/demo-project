@@ -25,7 +25,17 @@ export const updateRecommendationRecord = async (body, id) => {
 export const deleteRecommendationRecord = async (id) => {
     let config = returnConfig()
     try {
-        const response = await axios.delete(`${API_URL}/api/v1/main/recommendations/${id}`, body, config);
+        const response = await axios.delete(`${API_URL}/api/v1/main/recommendations/${id}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const excludeRecommendationRecord = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/recommendations/${id}/exclude/`, {}, config);
         return response;
     } catch (error) {
         return error

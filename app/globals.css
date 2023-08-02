@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body input[type='text'], input[type='number'], textarea{
+  font-size: 12px !important;
+}
+
+body input[type='text']:focus, input[type='number']:focus, textarea:focus{
+  font-size: 12px !important;
+}
+
+body input[type='text']::placeholder, input[type='number']::placeholder, textarea::placeholder{
+  font-size: 12px !important;
+}
 .img-div-1:hover {
   filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
 }
