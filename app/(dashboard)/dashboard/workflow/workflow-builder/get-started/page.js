@@ -18,9 +18,14 @@ import { ToastContainer } from 'react-toastify'
 import UpdateWorkflowBasic from '@/app/components/Workflows/WorkflowBuilder/UpdateWorkflowBasic'
 import PublishWorkflow from '@/app/components/Workflows/WorkflowBuilder/PublishWorkflow'
 import DeleteWorkflow from '@/app/components/Workflows/WorkflowBuilder/DeleteWorkflow'
+import { useDispatch, useSelector } from 'react-redux'
+import { editAutomationValue } from '@/app/components/store/slices/workflowSlice'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
+  const automationState = useSelector(state => state.workflow.automation)
+  const dispatch = useDispatch()
+  console.log("automation", automationState)
   const [indexSelector, setIndexSelector] = useState(null)
   const [singleData, setSingleData] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
@@ -116,7 +121,7 @@ const GetStarted = () => {
 
 
   }
-
+  console.log("automationStepsData", automationStepsField)
   useEffect(() => {
     const flow = params.get("flow");
     if (flow) {
@@ -183,7 +188,13 @@ const GetStarted = () => {
     }
   }
 
-
+  const convertArrayToObject = (arr) => {
+    let result = {};
+    for (let i = 0; i < arr.length; i++) {
+      result[`name${i + 1}`] = arr[i];
+    }
+    return result;
+  }
   const addAutomationFields = (value) => {
     let data_value = [...automationStepsField];
     const emptyObject = { key: '', value: '', name: '', names_arr: [], output: "", loading: false };
@@ -212,6 +223,23 @@ const GetStarted = () => {
           return false;
         }
         payload = { active: true };
+        if (automationState && automationState.length > 0) {
+          let finalData = []
+          for (let i = 0; i < automationState.length; i++) {
+            const element = automationState[i];
+            const findFilter = automationStepsField.find((x) => x.key === element.automation)
+            let payload_automation = {
+              automation: element.automation,
+              output: {},
+              data: {}
+            }
+            if (findFilter && findFilter.names_arr.length > 0) {
+              payload_automation.data = convertArrayToObject(findFilter.names_arr),
+                finalData.push(payload_automation)
+            }
+          }
+          payload = { active: true, automations: finalData }
+        }
       } else if (type === "EDIT") {
         payload = {
           logo: workflowFormData.logo,
@@ -230,6 +258,7 @@ const GetStarted = () => {
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
         if (type === "PUBLISH") {
+          dispatch(editAutomationValue(null))
           successMessage("WorkFlow published successfully!");
         } else if (type === "DISABLE") {
           successMessage("Workflow Disabled Successfully");
@@ -277,7 +306,19 @@ const GetStarted = () => {
       errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
-    setShowPublishModal(true)
+
+
+
+    if (!automationState) {
+      if (singleData.active) {
+        saveWorkFlowHandler("DISABLE")
+      } else {
+        setShowPublishModal(true)
+      }
+    } else {
+      setShowPublishModal(true)
+    }
+
   };
 
   const convertToBase64 = (file) => {
@@ -353,9 +394,9 @@ const GetStarted = () => {
                       type={"button"}
                       onClick={(e) => publishModelHandler(e)}
                       className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      disabled={automationStepsData.length === 0 || singleData?.active === true}
+                      disabled={automationStepsData.length === 0}
                     >
-                      Publish
+                      {automationState ? "Save" : singleData.active ? "Move To Draft" : "Publish"}
                     </Button>
                   </div>
                   <div className='cursor-pointer relative' ref={divRef} onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
@@ -377,7 +418,7 @@ const GetStarted = () => {
                 </div>
               </div>
 
-              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData}/>
+              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData} singleData1={singleData} />
             </>) : <p>No Data Found !</p>}
 
           {/* Modals  */}
