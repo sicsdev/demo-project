@@ -3,8 +3,9 @@ import TextField from '../../Common/Input/TextField'
 import FileField from '../../Common/Input/FileField'
 import Image from 'next/image'
 import Button from '../../Common/Button/Button'
+import SelectOption from '../../Common/Input/SelectOption'
 
-const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow }) => {
+const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue }) => {
 
     const DisablingButton = () => {
         const requiredKeys = ["description", "name"];
@@ -105,6 +106,19 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={"Policy Exceptions"}
                     type={"text"}
                     id={"policy_exceptions"}
+                />
+            </div>
+            <div className="my-2">
+                <SelectOption
+                    onChange={handleInputValue}
+                    value={workflowFormData.bots ?? ''}
+                    labelClass={`new_input_label`}
+                    name="bots"
+                    values={botValue}
+                    title={<span className='flex items-center gap-2'>Bot Selector</span>}
+                    id={"bots"}
+                    className="py-3 w-full mt-1"
+                    error={""}
                 />
             </div>
             <div
