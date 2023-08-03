@@ -106,7 +106,7 @@ export const ArticleSidebar = ({ children }) => {
         </div>
 
         {show && (
-          <div className="block sm:hidden z-[9] w-full fixed top-[93px] bg-white shadow-lg">
+          <div className="block sm:hidden z-[9] w-full fixed top-[auto] bg-white shadow-lg">
             <div className="pb-3 article_left_accordion pt-6 space-y-2 font-medium  w-full relative mb-4">
               {filterPosts?.map((ele, key) => (
                 <>
