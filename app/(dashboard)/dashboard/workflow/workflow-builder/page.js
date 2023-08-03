@@ -6,7 +6,7 @@ import WorkFlowTemplates from '@/app/components/Workflows/WorkflowBuilder/WorkFl
 import Workflows from '@/app/components/Workflows/Workflows';
 import { useSelector } from 'react-redux';
 import Loading from '@/app/components/Loading/Loading';
-import { createWorkflow, getAllWorkflow } from '@/app/API/pages/Workflow';
+import { createWorkflow, getAllWorkflow, getAllWorkflowTemplates } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
@@ -14,15 +14,20 @@ import { useRouter } from 'next/navigation';
 import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { fetchWorkflows } from '@/app/components/store/slices/workflowSlice';
 import { useDispatch } from 'react-redux';
+import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
+    // const workflowState = useSelector(state => state.workflow);
+
     const router = useRouter()
+  const dispatch = useDispatch()
     const [tab, setTab] = useState(0)
     const state = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
     const [workflowLoading, setWorkLoading] = useState(false)
-    const dispatch = useDispatch();
+    const [template, setTemplate] = useState([])
+
 
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
@@ -33,6 +38,16 @@ const Page = () => {
 
     useEffect(() => {
         getAllWorkflowData();
+    }, [])
+
+    const allWorkflowTemplates = async () => {
+        const allData = await getAllWorkflowTemplates()
+        console.log("allData", allData)
+        setTemplate(allData)
+    };
+
+    useEffect(() => {
+        allWorkflowTemplates();
     }, [])
 
     const createNewWorkFlow = async () => {
@@ -117,7 +132,7 @@ const Page = () => {
                                 <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
-                                <></>
+                                <ManageTemplates  template={template} />
                             )}
                         </>
                     )}
