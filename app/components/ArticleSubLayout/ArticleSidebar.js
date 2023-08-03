@@ -188,7 +188,62 @@ export const ArticleSidebar = ({ children }) => {
                           </Link>
                         </AccordionItemButton>
                       </AccordionItemHeading>
-                      <AccordionItemPanel></AccordionItemPanel>
+                      <AccordionItemPanel>
+                      <div className=" ml-4  font-medium SideOptions">
+                        <div className="group " onClick={(e) => {}}>
+                          <Link
+                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
+                              ele?.acf?.first_head
+                            )}`}
+                            
+                          >
+                            <p 
+                            onClick={handler_closemenu}
+                            
+                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                              {ele?.acf?.first_head}
+                            </p>
+                          </Link>
+                          <Link
+                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
+                              ele?.acf?.sedond_head
+                            )}`}
+                          >
+                            <p
+                            onClick={handler_closemenu}
+                            
+                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                              {ele?.acf?.sedond_head}
+                            </p>
+                          </Link>
+                          <Link
+                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
+                              ele?.acf?.third_head
+                            )}`}
+                          >
+                            <p
+                            onClick={handler_closemenu}
+                            
+                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                              {ele?.acf?.third_head}
+                            </p>
+                          </Link>
+                          <Link
+                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
+                              ele?.acf?.fourth_head
+                            )}`}
+                          >
+                            <p
+                            onClick={handler_closemenu}
+                            
+                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                              {ele?.acf?.fourth_head}
+                            </p>
+                          </Link>
+                        </div>
+                      </div>
+
+                      </AccordionItemPanel>
                     </AccordionItem>
                   </Accordion>
                 </>
