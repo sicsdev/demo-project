@@ -49,18 +49,18 @@ const page = () => {
       <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-5">
         <div className="sm:w-[74%]">
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               {single?.acf?.article_name || (
                 <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
               )}
             </h1>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
@@ -74,7 +74,7 @@ const page = () => {
             </p>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="h-[70px] sm:h-[70px]  sm:w-[800px]" />
             </h1>
           ) : (
@@ -88,7 +88,7 @@ const page = () => {
             ></p>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
@@ -102,7 +102,7 @@ const page = () => {
             ></p>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
@@ -116,7 +116,7 @@ const page = () => {
             ></p>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
@@ -130,7 +130,7 @@ const page = () => {
             </p>
           )}
           {loading ? (
-            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             </h1>
           ) : (
@@ -237,7 +237,7 @@ const page = () => {
           </div> */}
         </div>
         <div className="hidden sm:block w-[26%]">
-          <div
+          {/* <div
             style={{
               borderLeft: "solid 1px",
               height: "300px",
@@ -297,7 +297,7 @@ const page = () => {
                 </Link>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
