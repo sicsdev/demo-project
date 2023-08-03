@@ -24,6 +24,7 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
         provider: integrationFormData?.name,
         checked: integrationFormData?.checked || false
     });
+    const [inputFocus, setInputFocus] = useState({});
 
     useEffect(() => {
         // const maskedFormData = Object.keys(formData).reduce((acc, key) => {
@@ -49,20 +50,29 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
         }
     }
 
-    const handleInputFocus = (e) => {
+    const handleInputFocus = (e, key) => {
         const { name, value } = e.target;
+        if (!inputFocus[key]) {
+            // Set the initial value to empty if it's the first focus
+            setInputFocus((prevInputFocus) => ({
+                ...prevInputFocus,
+                [key]: true,
+            }));
 
-        setCustomFields((prev) => ({
-            ...prev,
-            [name]: '',
-        }));
-        setPayloadData((prev) => ({
-            ...prev,
-            data: {
-                ...prev.data,
+            setCustomFields((prev) => ({
+                ...prev,
                 [name]: '',
-            }
-        }));
+            }));
+            setPayloadData((prev) => ({
+                ...prev,
+                data: {
+                    ...prev.data,
+                    [name]: '',
+                }
+            }));
+
+        }
+
     };
 
     const handleIntegrationInputChange = (e) => {
@@ -216,13 +226,13 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                                             value={payloadData?.data[key] || ''}
                                             name={key}
                                             autoComplete={'off'}
-                                            labelClass={"text-gray-700 font-bold mb-2"}
+                                            labelClass={"font-bold mb-2"}
                                             className="py-3 mt-2"
                                             title={convertToTitleCase(key)}
                                             placeholder={convertToTitleCase(key)}
                                             type={"text"}
                                             id={key}
-                                            handleInputFocus={handleInputFocus}
+                                            handleInputFocus={(e) => handleInputFocus(e, key)}
                                             onKeyDown={handleDeleteKeyPress}
                                         // disabled
                                         />
