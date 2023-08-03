@@ -46,9 +46,9 @@ const page = () => {
   };
 
   return (
-    <div className="bg-white  px-[20px] sm:px-0  sm:pl-[10%]">
-      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-10">
-        <div className="sm:w-[70%]">
+    <div className="bg-white  px-[20px] sm:px-0  sm:pl-[3%]">
+      <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-5">
+        <div className="sm:w-[74%]">
           {loading ? (
             <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
@@ -187,7 +187,7 @@ const page = () => {
               </button>
             </div>
           )}
-          {loading ? (
+          {/* {loading ? (
             <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
               {" "}
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
@@ -277,9 +277,9 @@ const page = () => {
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
-        <div className="hidden sm:block w-[30%]">
+        <div className="hidden sm:block w-[26%]">
           <div
             style={{
               borderLeft: "solid 1px",
