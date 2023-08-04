@@ -21,7 +21,7 @@ const Page = () => {
     // const workflowState = useSelector(state => state.workflow);
 
     const router = useRouter()
-  const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const [tab, setTab] = useState(0)
     const state = useSelector(state => state.user)
     const [loading, setLoading] = useState(false)
@@ -132,7 +132,7 @@ const Page = () => {
                                 <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
-                                <ManageTemplates  template={template} />
+                                <ManageTemplates template={template} />
                             )}
                         </>
                     )}
