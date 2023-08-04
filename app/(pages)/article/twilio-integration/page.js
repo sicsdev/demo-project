@@ -9,12 +9,11 @@ const page = () => {
   const [loading, setLoading] = useState(true);
 
   const [single, setSingle] = useState("");
-  const scrollSlug = "/article/healthie-integration";
+  const scrollSlug = "/article/twilio-integration";
   useEffect(() => {
-    let params = "healthie-integration";
+    let params = "twilio-integration";
     getArticlePage(params).then((res) => {
       setSingle(res.data[0]);
-      console.log("resss", res);
     });
     relatedPosts();
   }, []);
@@ -152,7 +151,7 @@ const page = () => {
         ) : (
           <p
             id={removeSpacesAndHyphens(single?.acf?.fourth_head)}
-            className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+            className="font-bold pb-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
           >
             {single?.acf?.fourth_head} 
           </p>
