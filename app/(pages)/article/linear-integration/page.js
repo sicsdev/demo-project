@@ -67,7 +67,8 @@ const page = () => {
             )}
           </p>
         )}
-        {/* {loading ? (
+        
+        {loading ? (
           <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
             <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
           </h1>
@@ -77,7 +78,7 @@ const page = () => {
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             )}
           </h1>
-        )} */}
+        )}
         {loading ? (
           <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
             <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
@@ -99,7 +100,7 @@ const page = () => {
         ) : (
           <p
             id={removeSpacesAndHyphens(single?.acf?.sedond_head)}
-            className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+            className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
           >
             1.{single?.acf?.sedond_head} 
           </p>
@@ -125,7 +126,7 @@ const page = () => {
         ) : (
           <p
             id={removeSpacesAndHyphens(single?.acf?.third_head)}
-            className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+            className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
           >
             2. {single?.acf?.third_head} 
           </p>

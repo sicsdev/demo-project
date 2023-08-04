@@ -159,7 +159,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.third_head)}
-              className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               1. {single?.acf?.third_head} 
             </p>
@@ -185,7 +185,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.fourth_head)}
-              className="font-bold sm:px-4 pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               2. {single?.acf?.fourth_head}
             </p>
@@ -226,7 +226,7 @@ const page = () => {
           ) : (
             <p
               id={removeSpacesAndHyphens(single?.acf?.fifth_head)}
-              className="font-bold px-0 sm:px-4 pt-4 sm:pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
+              className="font-bold px-0  pt-4 sm:pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none"
             >
               {single?.acf?.fifth_head || (
                 <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
