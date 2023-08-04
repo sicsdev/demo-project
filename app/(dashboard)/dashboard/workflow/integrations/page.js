@@ -14,7 +14,7 @@ import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 import { useSelector } from "react-redux";
 import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
-import ManageTemplates from "@/app/components/Workflows/WorkflowBuilder/ManageTemplates";
+import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
 
 const Page = () => {
   const state = useSelector(state => state.integration)
@@ -216,7 +216,7 @@ const Page = () => {
             <>
               {integrationData.length > 0 ? (
                 <>
-                  <ManageTemplates performIntegrationTask={performIntegrationTask} integrationTiles={integrationTiles}/>
+                  <IntegrationTemplates performIntegrationTask={performIntegrationTask} integrationTiles={integrationTiles}/>
                   {tiles_data.map((element, key) =>
                     <div className={` mt-6`} key={key}>
                       <h3 className="text-sm font-semibold mt-3">{element.title}</h3>

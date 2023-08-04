@@ -68,7 +68,7 @@ export const createWorkflowTemplate = async (id,body) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`,body, config);
-        return response.data;
+        return response;
     } catch (error) {
         return error
     }
