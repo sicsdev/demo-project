@@ -14,7 +14,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const columns = [
         {
             name: "Name",
-            selector: (row,index) => (
+            selector: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
                         <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
@@ -35,13 +35,13 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         {
             name: "Actions",
             sortable: false,
-            cell: (row,index) => (
+            cell: (row, index) => (
                 <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
         },
     ];
-    
+
     useEffect(() => {
         manageData()
     }, [workflowData])
@@ -106,7 +106,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
 
 export default WorkFlowTemplates
 
-export const ButtonComponent = ({ data, alldata, setData, fetchData,index }) => {
+export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) => {
     const [showHelp, setShowHelp] = useState(null)
     const router = useRouter()
     const editWorkFlowHandler = (ele) => {
@@ -156,10 +156,11 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData,index }) => 
     return (
         <>
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
-                setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } }) }}>
+                setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } })
+            }}>
                 <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
                 {showHelp === data.id && (
-                    <div className={`absolute left-[-280px] ${index === alldata.length -1 ||index === alldata.length -2 ?"top-[-106px]":"top-[40px]" }  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                    <div className={`absolute left-[-280px] ${index === alldata.length - 1 || index === alldata.length - 2 ? "top-[-106px]" : "top-[40px]"}  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                         <ul className="py-2 text-sm text-gray-700 ">
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>

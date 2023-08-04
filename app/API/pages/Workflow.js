@@ -54,3 +54,22 @@ export const removeWorkFlow = async (id) => {
         return error
     }
 };
+
+export const getAllWorkflowTemplates = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-templates/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+export const createWorkflowTemplate = async (id,body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`,body, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
