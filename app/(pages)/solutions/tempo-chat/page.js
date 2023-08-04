@@ -12,6 +12,7 @@ import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
 import Motioncards from "@/app/components/Motioncards/page";
 import Brands from "@/app/components/Brands/page";
+import Tempochataccordian from "@/app/components/Accordiontabs/Tempochataccordian";
 
 
 const page = () => {
@@ -53,16 +54,17 @@ const page = () => {
    
 
       <AboveSection />
+      <Tempochataccordian/>
       {/* <Motioncards/> */}
-      <Brands/>
+      {/* <Brands/> */}
       <SolutionStandard />
       {/* <Tempoalert /> */}
       <div className="pt-12 sm:pt-0 bg-white">
         <Testimonial />
       </div>
-      <Tempoeconomy />
+      {/* <Tempoeconomy /> */}
       {/* <Requestdemo/> */}
-      <Aipowered />
+      {/* <Aipowered /> */}
       <Intcomp />
     </div>
   );

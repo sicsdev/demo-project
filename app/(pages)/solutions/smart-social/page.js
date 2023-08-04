@@ -62,8 +62,8 @@ const page = () => {
       {/* <Requestdemo/> */}
       <SolutionStandard />
 
-      <Smartsocialeconomy />
-      <Aipowered/>
+      {/* <Smartsocialeconomy /> */}
+      {/* <Aipowered/> */}
       <Intcomp/>
     </div>
   );

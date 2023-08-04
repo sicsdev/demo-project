@@ -42,7 +42,15 @@ export const ArticleSidebar = ({ children }) => {
       return slug?.replace(/\s+/g, "_");
     }
   };
-  console.log("article 45", article);
+  const [activeIndex, setActiveIndex] = useState({});
+
+  const toggleAccordion = (accordionKey) => {
+    setActiveIndex(prevActiveIndex => ({
+      ...prevActiveIndex,
+      [accordionKey]: prevActiveIndex[accordionKey] === undefined ? true : !prevActiveIndex[accordionKey]
+    }));
+  };
+  
   return (
     <>
       <div className="bg-white sm:flex md:flex lg:flex justify-evenly items-start gap-0">
@@ -55,7 +63,7 @@ export const ArticleSidebar = ({ children }) => {
               <>
                 <Accordion allowZeroExpanded style={{ border: "none" }}>
                   <AccordionItem style={{ border: "none" }}>
-                    <AccordionItemHeading>
+                    <AccordionItemHeading onClick={()=>toggleAccordion(key)}>
                       <AccordionItemButton
                         style={{
                           background: "transparent",
@@ -65,13 +73,14 @@ export const ArticleSidebar = ({ children }) => {
                           justifyContent: "space-between",
                           flexDirection: "row-reverse",
                         }}
+                      
                       >
                         <Link
                           key={key}
                           href={`/article/${ele.slug}`}
                           className="w-full"
                         >
-                          <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                          <p className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${activeIndex[key] ? "text-heading":"text-[#606770]"} `}>
                             {ele?.title?.rendered== null ? (
                               <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
                             ) : (

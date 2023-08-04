@@ -22,6 +22,7 @@ import { useEffect } from "react";
 // init Swiper:
 
 const tabs = [
+
   {
     id: "1",
     title: "Intelligent Automation",
@@ -29,7 +30,7 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Intelligent-Automation-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Harness the power of advanced AI models, ChatGPT and GPT-4. Smart Social's intelligent automation not only streamlines your operations but also improves as it learns from your data.    ",
+    p: "Utilize the cutting-edge AI models, ChatGPT and GPT-4, to transform your operations. Smart Inbox's intelligent automation reduces time on task, and continually learns from your data for enhanced performance.",
   },
   {
     id: "2",
@@ -38,7 +39,7 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Seamless-Integration-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Experience the ease of plug-and-play with Smart Social. Connect your payments, CRM, inventory management, and backend in as little as one click.",
+    p: "Experience the ease of one-click integration. Connect your payments, CRM, inventory management, and backend systems to Smart Inbox in an instant.",
   },
   {
     id: "3",
@@ -47,11 +48,11 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Transparent-Billing-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.",
+    p: "Experience clarity and simplicity in billing. With Smart Inbox, you're charged only 50 cents per email response. You only pay for what you use - no hidden fees, no fine print.",
   },
 ];
 
-const Accordiontabs = () => {
+const Smartinbocacc = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
@@ -141,7 +142,7 @@ const Accordiontabs = () => {
                                     <div className="h-[100%] sm:h-[100%] mb-2 sm:mb-0">
                                       <img
                                         src={tabs[activeTab].content_video}
-                                        className="w-100 m-auto rounded-2xl"
+                                        className="w-[50%] m-auto rounded-2xl"
                                         style={{ minHeightL: "200px" }}
                                       />
                                     </div>
@@ -171,7 +172,7 @@ const Accordiontabs = () => {
                   ) : (
                     <img
                       src={tabs[activeTab].content_video}
-                      className="w-[50%] m-auto rounded-2xl"
+                      className="w-100 m-auto rounded-2xl"
                       style={{ minHeightL: "200px" }}
                     />
                   )}
@@ -232,4 +233,4 @@ const Accordiontabs = () => {
   );
 };
 
-export default Accordiontabs;
+export default Smartinbocacc;
