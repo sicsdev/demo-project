@@ -11,6 +11,7 @@ import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
 import Smartlevel from "@/app/components/solutions/Smartlevel";
 import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
+import Smartinbocacc from "@/app/components/Accordiontabs/Smartinbocacc";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -47,8 +48,9 @@ const page = () => {
   return (
     <div>
       <Smartsection />
-      <Accordiontabs />
-
+      {/* <Accordiontabs />
+       */}
+<Smartinbocacc />
       {/* <SmartAlert /> */}
       <Testimonial />
       <SolutionStandard />
@@ -56,7 +58,7 @@ const page = () => {
       {/* <Smartlevel/> */}
 
       {/* <Requestdemo/> */}
-      <Smarteconomy />
+      {/* <Smarteconomy /> */}
       <Aipowered />
       <Intcomp />
     </div>

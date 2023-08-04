@@ -22,6 +22,7 @@ import { useEffect } from "react";
 // init Swiper:
 
 const tabs = [
+
   {
     id: "1",
     title: "Intelligent Automation",
@@ -29,7 +30,7 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Intelligent-Automation-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Harness the power of advanced AI models, ChatGPT and GPT-4. Smart Social's intelligent automation not only streamlines your operations but also improves as it learns from your data.    ",
+    p: "Leverage the power of advanced AI models, ChatGPT and GPT-4. Intelligent automation not only streamlines your operations but also keeps improving as it learns from your data.",
   },
   {
     id: "2",
@@ -38,7 +39,7 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Seamless-Integration-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Experience the ease of plug-and-play with Smart Social. Connect your payments, CRM, inventory management, and backend in as little as one click.",
+    p: "Enjoy the ease of plug-and-play with Tempo Chat. Integrate your payments, CRM, inventory management, and backend in as little as one click.",
   },
   {
     id: "3",
@@ -51,7 +52,7 @@ const tabs = [
   },
 ];
 
-const Accordiontabs = () => {
+const Tempochataccordian = () => {
   const [activeTab, setActiveTab] = useState(0);
 
   const handleTabChange = (index) => {
@@ -232,4 +233,4 @@ const Accordiontabs = () => {
   );
 };
 
-export default Accordiontabs;
+export default Tempochataccordian;
