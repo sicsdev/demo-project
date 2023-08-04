@@ -93,7 +93,7 @@ const Info = () => {
       title: "Smart IVR",
       coming_soon: "",
       icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
-      content_video: "/fourth_tab.png",
+      content_video: "/Seamless-Integration-GIF.gif",
       h3: "Elevate your customer service with Smart IVR.",
       p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences.",
     },

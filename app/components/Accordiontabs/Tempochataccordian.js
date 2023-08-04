@@ -172,7 +172,7 @@ const Tempochataccordian = () => {
                   ) : (
                     <img
                       src={tabs[activeTab].content_video}
-                      className="w-[50%] m-auto rounded-2xl"
+                      className="w-[45%] m-auto rounded-2xl"
                       style={{ minHeightL: "200px" }}
                     />
                   )}

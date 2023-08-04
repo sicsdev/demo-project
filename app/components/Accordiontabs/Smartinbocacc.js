@@ -142,7 +142,7 @@ const Smartinbocacc = () => {
                                     <div className="h-[100%] sm:h-[100%] mb-2 sm:mb-0">
                                       <img
                                         src={tabs[activeTab].content_video}
-                                        className="w-[50%] m-auto rounded-2xl"
+                                        className="w-100 m-auto rounded-2xl"
                                         style={{ minHeightL: "200px" }}
                                       />
                                     </div>
@@ -172,7 +172,7 @@ const Smartinbocacc = () => {
                   ) : (
                     <img
                       src={tabs[activeTab].content_video}
-                      className="w-100 m-auto rounded-2xl"
+                      className="w-[45%] m-auto rounded-2xl"
                       style={{ minHeightL: "200px" }}
                     />
                   )}
