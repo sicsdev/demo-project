@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
 import DataTable from 'react-data-table-component'
-import { ButtonComponent } from './WorkFlowTemplates'
 import Image from 'next/image'
 import Button from '../../Common/Button/Button'
 import { createWorkflowTemplate } from '@/app/API/pages/Workflow'
 import { successMessage, errorMessage } from '../../Messages/Messages'
-const ManageTemplates = ({ template }) => {
+const ManageTemplates = ({ template, fetchData, fetchTemplates }) => {
     const [addTemplateLoader, setAddTemplateLoader] = useState(null);
+
     const createTemplateFunc = async (id, body) => {
         try {
             setAddTemplateLoader(id)
             const response = await createWorkflowTemplate(id, body);
             setAddTemplateLoader(null)
             if (response.status === 201 || response.status === 200) {
+                fetchData();
+                fetchTemplates();
                 successMessage("Workflow Template Created Successfully!")
             } else {
                 errorMessage("Unable To Create Template!")

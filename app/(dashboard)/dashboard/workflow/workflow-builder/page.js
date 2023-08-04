@@ -6,7 +6,7 @@ import WorkFlowTemplates from '@/app/components/Workflows/WorkflowBuilder/WorkFl
 import Workflows from '@/app/components/Workflows/Workflows';
 import { useSelector } from 'react-redux';
 import Loading from '@/app/components/Loading/Loading';
-import { createWorkflow, getAllWorkflow, getAllWorkflowTemplates } from '@/app/API/pages/Workflow';
+import { createWorkflow, getAllWorkflowTemplates, createWorkflowTemplate } from '@/app/API/pages/Workflow';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages';
@@ -42,8 +42,8 @@ const Page = () => {
 
     const allWorkflowTemplates = async () => {
         const allData = await getAllWorkflowTemplates()
-        console.log("allData", allData)
-        setTemplate(allData)
+        let filterData = allData?.filter((x) => x.added === false);
+        setTemplate(filterData)
     };
 
     useEffect(() => {
@@ -132,7 +132,7 @@ const Page = () => {
                                 <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
                             {tab === 2 && (
-                                <ManageTemplates template={template} />
+                                <ManageTemplates template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
                             )}
                         </>
                     )}
