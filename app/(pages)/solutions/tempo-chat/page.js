@@ -56,7 +56,7 @@ const page = () => {
       <AboveSection />
       <Tempochataccordian/>
       {/* <Motioncards/> */}
-      <Brands/>
+      {/* <Brands/> */}
       <SolutionStandard />
       {/* <Tempoalert /> */}
       <div className="pt-12 sm:pt-0 bg-white">
@@ -64,7 +64,7 @@ const page = () => {
       </div>
       {/* <Tempoeconomy /> */}
       {/* <Requestdemo/> */}
-      <Aipowered />
+      {/* <Aipowered /> */}
       <Intcomp />
     </div>
   );

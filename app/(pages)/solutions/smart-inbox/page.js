@@ -59,7 +59,7 @@ const page = () => {
 
       {/* <Requestdemo/> */}
       {/* <Smarteconomy /> */}
-      <Aipowered />
+      {/* <Aipowered /> */}
       <Intcomp />
     </div>
   );

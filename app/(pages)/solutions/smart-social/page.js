@@ -63,7 +63,7 @@ const page = () => {
       <SolutionStandard />
 
       {/* <Smartsocialeconomy /> */}
-      <Aipowered/>
+      {/* <Aipowered/> */}
       <Intcomp/>
     </div>
   );
