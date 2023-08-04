@@ -49,7 +49,7 @@ const Footer = () => {
     <>
       <footer className=" bg-[#142543] shadow text-center text-white relative">
         <div className="mx-auto lg:max-w-[90%]">
-          <div className="mx-6 py-10 text-center md:text-left  border-b-2 border-neutral-200 ">
+          <div className="mx-6 sm:py-10 py-8 text-center md:text-left  border-b-2 border-neutral-200 ">
             <div className="block sm:flex items-start justify-between">
               <div className="flex justify-between gap-3 flex-col items-start">
                 {/* <div>
@@ -81,24 +81,24 @@ const Footer = () => {
                       {/* <h6 className="text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/login">Login</Link>
                       </h6> */}
-                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/careers">Careers</Link>
                       </h6>
                       {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/terms-of-service">Terms of Service</Link>
                       </h6> */}
-                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/article/pricing-overview">Pricing</Link>
                       </h6>
-                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200] cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/article/security-overview">Security</Link>
                       </h6>
-                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/list-of-subprocessors">
                           Subprocessors{" "}
                         </Link>
                       </h6>
-                      <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/data-processing-agreement">DPA</Link>
                       </h6>
                       {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
@@ -172,7 +172,7 @@ const Footer = () => {
                   ) : (
                     <Link href={"/login"}>
                       {" "}
-                      <p className="text-white sm:py-[6px] sm:px-[12px] font-[200] sm:font-bold hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
+                      <p className="text-white sm:py-[6px] sm:px-[12px] font-[200]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
                         Sign In
                       </p>
                     </Link>
@@ -183,7 +183,7 @@ const Footer = () => {
                       {" "}
                       <button
                         type="button"
-                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white border-0  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
                       >
                         Dashboard
                       </button>{" "}
@@ -205,7 +205,7 @@ const Footer = () => {
           </div>
 
           <div className="flex justify-between items-center gap-4 bg-slate-950 shadow  p-6 text-center dark:bg-neutral-700">
-            <span className="text-4xl">
+            {/* <span className="text-4xl">
               <Link href="/">
                 <img
                   src="/logo.png"
@@ -213,7 +213,7 @@ const Footer = () => {
                   className="w-24 h-15 object-contain"
                 />
               </Link>
-            </span>
+            </span> */}
             <p className="font-thin text-neutral-600  ">
               © Tempo AI Ventures, Inc{" "}
             </p>
