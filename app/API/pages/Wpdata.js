@@ -37,7 +37,7 @@ export const getBlogsPage = async (body) =>{
 export const getArticleCategory= async (body) =>{
   try{
     const response = await axios.get(
-      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026350"
+      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026350&per_page=100"
     );
     return response;
   } catch (error) {

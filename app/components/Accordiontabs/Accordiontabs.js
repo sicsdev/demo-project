@@ -24,63 +24,33 @@ import { useEffect } from "react";
 const tabs = [
   {
     id: "1",
-    title: "Tasks",
+    title: "Intelligent Automation",
     coming_soon: "",
-    icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
-
-    content_video: "/accordion_tabs/1.png",
-    h3: "Kickstart with Tempo Chat.",
-    p: "Integrate Tempo Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions in perfect english and excellent accuracy.",
+    icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
+    content_video: "/Intelligent-Automation-GIF.gif",
+    h3: "Elevate your customer service with Smart IVR.",
+    p: "Harness the power of advanced AI models, ChatGPT and GPT-4. Smart Social's intelligent automation not only streamlines your operations but also improves as it learns from your data.    ",
   },
   {
     id: "2",
-    title: "Subtasks",
+    title: "Seamless Integration",
     coming_soon: "",
-    icon: <InboxIcon className="h-5 w-5 text-gray-500" />,
-    content_video: "/accordion_tabs/2.png",
-    h3: "Automate with Smart Inbox.",
-    p: "Harness the power of Smart Inbox, a blend of superior AI and human intervention, working diligently behind the scenes to manage operations and save costs, even after hours.",
+    icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
+    content_video: "/Seamless-Integration-GIF.gif",
+    h3: "Elevate your customer service with Smart IVR.",
+    p: "Experience the ease of plug-and-play with Smart Social. Connect your payments, CRM, inventory management, and backend in as little as one click.",
   },
-
   {
     id: "3",
-    title: "Folders",
-    coming_soon: "",
-    icon: <BanknotesIcon className="h-5 w-5 text-gray-500" />,
-    content_video: "/accordion_tabs/1.png",
-
-    h3: "Simplicity in Billing.",
-    p: "Experience transparent billing with Tempo, where you only pay after hitting predefined usage limits, ensuring affordability and no surprise costs.",
-  },
-  {
-    id: "4",
-    title: "Milestones",
-    coming_soon: "",
-    content_video: "/accordion_tabs/2.png",
-
-    icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
-    h3: "Scalable, Fast Response Times.",
-    p: "Don't worry about staffing or SLA's. Tempo will automatically respond to your tickets within minutes, day or night, and on almost every channel.",
-  },
-  {
-    id: "5",
-    title: "Phases",
+    title: "Transparent Billing",
     coming_soon: "",
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
-    content_video: "/accordion_tabs/1.png",
+    content_video: "/Transparent-Billing-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences.",
-  },
-  {
-    id: "6",
-    title: "Projects",
-    coming_soon: "",
-    icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
-    content_video: "/accordion_tabs/2.png",
-    h3: "Elevate your customer service with Smart IVR.",
-    p: "Like top-tier telecom companies, leverage cutting-edge IVR technology. Automatically identify and link customers to their inbound calls using data from your CRM, streamlining interactions and personalizing experiences.",
+    p: "Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.",
   },
 ];
+
 const Accordiontabs = () => {
   const [activeTab, setActiveTab] = useState(0);
 
@@ -201,7 +171,7 @@ const Accordiontabs = () => {
                   ) : (
                     <img
                       src={tabs[activeTab].content_video}
-                      className="w-100 m-auto rounded-2xl"
+                      className="w-[50%] m-auto rounded-2xl"
                       style={{ minHeightL: "200px" }}
                     />
                   )}
