@@ -73,6 +73,7 @@ export const ArticleSidebar = ({ children }) => {
                           justifyContent: "space-between",
                           flexDirection: "row-reverse",
                         }}
+                        className=""
                       
                       >
                         <Link
