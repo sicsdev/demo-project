@@ -22,7 +22,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         phone_number: basicFormData?.phone ?? '',
         friendly_name: basicFormData?.friendly_name ?? '',
         area_code: basicFormData?.area_code ?? '',
-        phone_numbers: basicFormData?.phone_numbers ?? [],
+        phone_numbers: basicFormData?.phone_numbers ?? null,
         selectedFile: basicFormData?.selectedFile ?? '',
     })
 
@@ -196,26 +196,20 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {formValues?.phone_numbers.slice(0, 10).map((element, key) =>
+                                        {formValues.phone_numbers && formValues?.phone_numbers.slice(0, 10).map((element, key) =>
                                             <tr className={`${basicFormData?.phone === element.phone_number ? 'bg-heading text-white' : "bg-white text-heading"}  border-b border-border  hover:bg-heading hover:text-white cursor-pointer`} key={key} onClick={(e) => {
                                                 addPhone(element)
                                             }} >
                                                 <th scope="row" className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
                                                     {element.friendly_name}
                                                 </th>
-                                                {/* <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
-                                                    {element.mms ? "Yes" : "No"}
-                                                </td>
-                                                <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
-                                                    {element.sms ? "Yes" : "No"}
-                                                </td>
-                                                <td className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
-                                                    {element.voice ? "Yes" : "No"}
-                                                </td> */}
                                                 <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
                                                     {element.region}
                                                 </td>
                                             </tr>
+                                        )}
+                                        {formValues.phone_numbers && formValues?.phone_numbers.length === 0 && (
+                                            <p className='text-danger'> No data found please try a new area code.</p>
                                         )}
                                     </tbody>
                                 </table>
