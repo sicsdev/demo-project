@@ -2,9 +2,10 @@
 import PhoneHandle from '@/app/components/Customize/PhoneHandle'
 import { PhoneIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Page = () => {
+
     return (
         <div>
             <div className="border-b border-primary ">
