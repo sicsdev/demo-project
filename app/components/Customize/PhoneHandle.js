@@ -6,13 +6,15 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
 import TextField from '../Common/Input/TextField';
-import { getEnterprisePhones } from '@/app/API/components/PhoneNumber';
+import { getMyPhoneNumbers, updatePhoneNumberData } from '@/app/API/components/PhoneNumber';
 
 const PhoneHandle = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state.botId);
     const [botValue, setBotValue] = useState([]);
     const [basicFormData, setBasicFormData] = useState({})
+    const [phoneNumbers, setPhoneNumbers] = useState({});
+
     const getAllBots = () => {
         const getTitle = state.botData.data.bots.map(
             (element) => element.chat_title
@@ -38,8 +40,8 @@ const PhoneHandle = () => {
     }, [state.botData.data]);
 
     const EnterprisePhoneNumber = async () => {
-        const response = await getEnterprisePhones()
-        console.log('response', response)
+        const response = await getMyPhoneNumbers()
+        setPhoneNumbers(response);
     }
     const handleChange = () => {
         if (basicFormData?.checked === true) {
@@ -127,61 +129,67 @@ const PhoneHandle = () => {
                                             key
                                         </th>
                                         <th scope="col" className="px-6 py-3">
+                                            Phone
+                                        </th>
+                                        <th scope="col" className="px-6 py-3">
                                             Voice
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        {/* <th scope="col" className="px-6 py-3">
                                             Destination
-                                        </th>
+                                        </th> */}
                                         <th scope="col" className="px-6 py-3">
-
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className="bg-white dark:bg-gray-800">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <div className="w-full">
+                                    {phoneNumbers?.results?.map((item, index) =>
+                                        <tr className="bg-white dark:bg-gray-800" key={index}>
+                                            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                <div className="w-full">
+                                                    <SelectOption
+                                                        // onChange={handleInputValues}
+                                                        // value={selectedBot}
+                                                        name="bot"
+                                                        values={botValue}
+                                                        title={''}
+                                                        id={"bots"}
+                                                        className="py-3"
+                                                        error={""}
+                                                    />
+                                                </div>
+                                            </th>
+                                            <td className="px-6 py-4">
+                                                <TextField
+                                                    // onChange={handleInputValues}
+                                                    value={item.data}
+                                                    name="billing_api_documentation"
+                                                    className="py-3 mt-1"
+                                                    title={""}
+                                                    placeholder={"Command"}
+                                                    type={"url"}
+                                                    id={"billing_api_documentation"}
+                                                    disabled
+                                                // error={returnErrorMessage("billing_api_documentation")}
+                                                />
+                                            </td>
+                                            <td className="px-6 py-4">
                                                 <SelectOption
                                                     // onChange={handleInputValues}
                                                     // value={selectedBot}
                                                     name="bot"
-                                                    values={botValue}
+                                                    values={[{ name: 'Rachel', value: "rachel" }, { name: "Jack", value: "jack" }]}
                                                     title={''}
-                                                    id={"bots"}
+                                                    id={""}
                                                     className="py-3"
                                                     error={""}
                                                 />
-                                            </div>
-                                        </th>
-                                        <td className="px-6 py-4">
-                                            <TextField
-                                                // onChange={handleInputValues}
-                                                // value={formValues.billing_api_documentation}
-                                                name="billing_api_documentation"
-                                                className="py-3 mt-1"
-                                                title={""}
-                                                placeholder={"Command"}
-                                                type={"url"}
-                                                id={"billing_api_documentation"}
-                                            // error={returnErrorMessage("billing_api_documentation")}
-                                            />
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <SelectOption
-                                                // onChange={handleInputValues}
-                                                // value={selectedBot}
-                                                name="bot"
-                                                values={botValue}
-                                                title={''}
-                                                id={"bots"}
-                                                className="py-3"
-                                                error={""}
-                                            />
-                                        </td>
-                                        <td className="px-6 py-4">
-                                            <TrashIcon className="h-6 w-6 " />
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td className="px-6 py-4">
+                                                <TrashIcon className="h-6 w-6 " />
+                                            </td>
+                                        </tr>
+                                    )}
+
                                 </tbody>
                             </table>
                         </div>

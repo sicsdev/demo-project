@@ -23,16 +23,6 @@ export const buyAvailableMobileNumbers = async (data) => {
     }
 };
 
-export const getEnterprisePhones = async () => {
-    const config = returnConfig()
-    try {
-        const response = await axios.get(`${API_URL}/api/v1/main/phone-numbers/ID/`, config);
-        return response.data;
-    } catch (error) {
-        return error;
-    }
-};
-
 export const getMyPhoneNumbers = async () => {
     const config = returnConfig()
     try {
