@@ -989,3 +989,9 @@ body .cursor-pointer {
 /* .article_pageslidebar .accordion:nth-child(8) .accordion__button::before{
   display: none;
 } */
+@media screen and (max-width: 768px) {
+  /* Your CSS rules for phones go here */
+  .my-page{
+    overflow-y:  scroll;
+  }
+}

@@ -12,11 +12,23 @@ import {
   getArticlePage,
   getAllArticles,
   getArticleCategory,
+  getArticleSubCategory,
 } from "@/app/API/pages/Wpdata";
 import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 export const ArticleSidebar = ({ children }) => {
   const [article, setArticle] = useState([]);
+  const [subarticle, setSubArticle] = useState([]);
+
+  console.log(article, "aaaaaaaaa");
+  function sortArrayByName(array) {
+    return [...array].sort((a, b) =>
+      a?.title?.rendered.localeCompare(b.title?.rendered, "en", {
+        sensitivity: "base",
+      })
+    );
+  }
+
   const [single, setSingle] = useState("");
   useEffect(() => {
     let params = "what-is-tempo";
@@ -29,8 +41,8 @@ export const ArticleSidebar = ({ children }) => {
   const relatedPosts = () => {
     getArticleCategory().then(
       (res) => {
-        console.log(res);
-        setArticle(res.data);
+        const result = sortArrayByName(res?.data);
+        setArticle(result);
       },
       (err) => {}
     );
@@ -47,25 +59,20 @@ export const ArticleSidebar = ({ children }) => {
   };
   const [activeIndex, setActiveIndex] = useState({});
 
-  const toggleAccordion = (accordionKey) => {
-    setActiveIndex((prevActiveIndex) => ({
-      ...prevActiveIndex,
-      [accordionKey]:
-        prevActiveIndex[accordionKey] === undefined
-          ? true
-          : !prevActiveIndex[accordionKey],
-    }));
-  };
+  useEffect(() => {
 
+    getArticleSubCategory().then((res) => {
+      setSubArticle(res.data);
+    });
+
+  }, []);
   return (
     <>
       <div className="bg-white sm:flex md:flex lg:flex justify-evenly items-start gap-0 article_pageslidebar">
-        <div
-          className="sm:w-[20%] hidden sm:block pt-5"
-        >
+        <div className="sm:w-[20%] hidden sm:block pt-5">
           <Accordion allowZeroExpanded style={{ border: "none" }}>
             <AccordionItem style={{ border: "none" }}>
-              <AccordionItemHeading onClick={() => toggleAccordion(key)}>
+              <AccordionItemHeading>
                 <AccordionItemButton
                   style={{
                     background: "transparent",
@@ -105,91 +112,29 @@ export const ArticleSidebar = ({ children }) => {
               </AccordionItemPanel>
             </AccordionItem>
           </Accordion>
-
-          {/* <div className="article_left_accordion pt-6">
-            {article?.map((ele, key) => (
-              <>
-                <Accordion allowZeroExpanded style={{ border: "none" }}>
-                  <AccordionItem style={{ border: "none" }}>
-                    <AccordionItemHeading onClick={()=>toggleAccordion(key)}>
-                <AccordionItemButton
-                        style={{
-                          background: "transparent",
-                          padding: "5px 12px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          flexDirection: "row-reverse",
-                        }}
-                        className=""
+          <div className="font-medium SideOptions">
+                  {subarticle?.map((ele, key) => (
+                    <Link
+                      key={key}
+                      href={`/article/${ele.slug}`}
+                      className="w-full"
+                    >
+                      <p
+                        className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${
+                          activeIndex[key] ? "text-heading" : "text-[#606770]"
+                        } `}
+                        style={{ padding: "5px 12px" }}
                       >
-                <Link
-                  key={key}
-                  href={`/article/${ele.slug}`}
-                  className="w-full"
-                >
-                  <p
-                    className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${
-                      activeIndex[key] ? "text-heading" : "text-[#606770]"
-                    } `}
-                    style={{ padding: "5px 12px" }}
-                  >
-                    {ele?.title?.rendered == null ? (
-                      <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
-                    ) : (
-                      ele?.title?.rendered
-                    )}
-                  </p>
-                </Link>
-                </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                      <div className=" ml-4  font-medium SideOptions">
-                        <div className="group " onClick={(e) => {}}>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.first_head
-                            )}`}
-                          >
-                            <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.first_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.sedond_head
-                            )}`}
-                          >
-                            <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.sedond_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.third_head
-                            )}`}
-                          >
-                            <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.third_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.fourth_head
-                            )}`}
-                          >
-                            <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.fourth_head}
-                            </p>
-                          </Link>
-                        </div>
-                      </div>
-                    </AccordionItemPanel>
-                </AccordionItem>
-                </Accordion>
-              </>
-            ))}
-          </div> */}
+                        {ele?.title?.rendered == null ? (
+                          <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
+                        ) : (
+                          ele?.title?.rendered
+                        )}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+
         </div>
         <div className="sm:hidden flex items-center justify-start z-[10] fixed w-full bg-white pl-2 py-3">
           <button
@@ -317,11 +262,114 @@ export const ArticleSidebar = ({ children }) => {
                 </>
               ))}
             </div>
+            {/* <div className="pb-3 article_left_accordion mt-[-21px] space-y-2 font-medium  w-full relative ">
+              {subarticle?.map((ele, key) => (
+                <>
+                  <Accordion allowZeroExpanded style={{ border: "none" }}>
+                    <AccordionItem style={{ border: "none" }}>
+                      <AccordionItemHeading>
+                        <AccordionItemButton
+                          style={{
+                            background: "transparent",
+                            padding: "5px 12px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            flexDirection: "row-reverse",
+                          }}
+                        >
+                          <Link
+                            key={key}
+                            href={`/article/${ele.slug}`}
+                            className="w-full"
+                            onClick={handler_closemenu}
+                          >
+                            <p className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
+                              {single?.acf?.article_para_copy == null ? (
+                                <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
+                              ) : (
+                                ele?.title?.rendered
+                              )}
+                            </p>
+                          </Link>
+                        </AccordionItemButton>
+                      </AccordionItemHeading>
+                      <AccordionItemPanel>
+                        <div className=" ml-4  font-medium SideOptions">
+                          <div className="group " onClick={(e) => {}}>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.first_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.first_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.sedond_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.sedond_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.third_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.third_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.fourth_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.fourth_head}
+                              </p>
+                            </Link>
+                          </div>
+                        </div>
+                      </AccordionItemPanel>
+                    </AccordionItem>
+                  </Accordion>
+                </>
+              ))}
+            </div> */}
           </div>
         )}
 
-        <div className="sm:w-[80%] pb-6 pt-10 sm:pt-0" 
-                  style={{ borderLeft: "1px solid #C0C0C0" }}>{children}</div>
+        <div
+          className="sm:w-[80%] pb-6 pt-10 sm:pt-0"
+          style={{ borderLeft: "1px solid #C0C0C0" }}
+        >
+          {children}
+        </div>
       </div>
     </>
   );

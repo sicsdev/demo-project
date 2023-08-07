@@ -44,6 +44,16 @@ export const getArticleCategory= async (body) =>{
     return error.response;
   }
 };
+export const getArticleSubCategory= async (body) =>{
+  try{
+    const response = await axios.get(
+      "https://usetempo.wpcomstaging.com/wp-json/wp/v2/posts?categories=763026351&per_page=100"
+    );
+    return response;
+  } catch (error) {
+    return error.response;
+  }
+};
 
 export const getCareerCategory= async (body) =>{
   try{
