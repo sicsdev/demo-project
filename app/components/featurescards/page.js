@@ -11,7 +11,7 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from "react-accessible-accordion";
-
+import { nav_links } from "../Layout/data/navData";
 const Featurescards = () => {
   const [activeTab, setActiveTab] = useState(false);
 
@@ -39,40 +39,43 @@ const Featurescards = () => {
       </h2>
       <div class="hidden sm:block sm:mt-6 mx-auto max-w-[80%] sm:max-w-[70%] md:max-w-[70%] lg:max-w-[70%] py-4 sm:py-10">
         <div class="flex flex-wrap -mx-2">
+          {nav_links[0].card.links[0].data.map((ele)=>
           <div class="w-full md:w-1/3 px-2 mb-4">
             {loading ? (
               <SkeletonLoader height={350} width={"100%"} />
             ) : (
               <div class="bg-white rounded-lg shadow-lg p-4 featurecards">
-                <div className="relative w-[170px] h-[54px] gap-2 rounded-lg">
+                <div className="m-auto relative w-[170px] h-[54px] gap-2 rounded-lg">
                   <Image
                     fill={"true"}
                     className="object-contain mx-auto rounded-lg"
                     alt="logo.png"
-                    src="/featurescards/1.png"
+                    src={ele.icon}
                   />
+               
                 </div>
-                <p className="text-[#9CA3AF] sm:max-w-[70%] text-sm pt-1 pb-6">
-                  For professionals and teams managing tasks & workflows
-                </p>
-                <p className="text-md">
-                  Manage tasks and workflows to fuel team collaboration and
-                  productivity at scale.
+                <h1 className="font-bold text-base text-center my-3">{ele["heading"]}</h1>
+                {/* <p className="text-[#9CA3AF] text-center  mx-auto sm:max-w-[70%] text-sm pt-1 pb-6">
+                {ele["para"]}
+                </p> */}
+                <p className="text-md text-left">
+                {ele["para"]}
                 </p>
                 <div className="text-center">
-                  <Link href={""}>
+                  <Link href="/checkout" >
                     {" "}
                     <button
                       type="button"
-                      className="w-[90%] mt-6 m-auto bg-white px-6 pb-2 pt-2.5 text-xs rounded-2xl font-medium leading-normal text-heading shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+                      className="w-[90%] mt-6 m-auto  px-6 pb-2 pt-2.5 text-xs rounded-2xl bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]  "
+                    
                     >
-                      Get Started →
+                     Start Now →
                       <span className="underline cursor-pointer text-white"></span>
                     </button>{" "}
                   </Link>
                 </div>
                 <div className="text-center">
-                  <Link href={""}>
+                  <Link href={ele.link}>
                     {" "}
                     <button
                       type="button"
@@ -86,100 +89,7 @@ const Featurescards = () => {
               </div>
             )}
           </div>
-          <div class="w-full md:w-1/3 px-2 mb-4">
-            {loading ? (
-              <SkeletonLoader height={350} width={"100%"} />
-            ) : (
-              <div class="bg-white rounded-lg shadow-lg p-4 featurecards">
-                <div className="relative w-[170px] h-[54px] gap-2 rounded-lg">
-                  <Image
-                    fill={"true"}
-                    className="object-contain mx-auto rounded-lg"
-                    alt="logo.png"
-                    src="/featurescards/2.png"
-                  />
-                </div>
-                <p className="text-[#9CA3AF] sm:max-w-[70%] text-sm pt-1 pb-6">
-                  For professionals and teams managing tasks & workflows
-                </p>
-                <p className="text-md">
-                  Manage tasks and workflows to fuel team collaboration and
-                  productivity at scale.
-                </p>
-                <div className="text-center">
-                  <Link href={""}>
-                    {" "}
-                    <button
-                      type="button"
-                      className="w-[90%] mt-6 m-auto bg-white px-6 pb-2 pt-2.5 text-xs rounded-2xl font-medium leading-normal text-heading shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-                    >
-                      Get Started →
-                      <span className="underline cursor-pointer text-white"></span>
-                    </button>{" "}
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link href={""}>
-                    {" "}
-                    <button
-                      type="button"
-                      className="w-[90%] mt-6 mb-4 m-auto bg-white px-6 pb-2 pt-2.5 text-xs rounded-2xl font-medium leading-normal text-heading "
-                    >
-                      Learn more →
-                      <span className="underline cursor-pointer text-white"></span>
-                    </button>{" "}
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
-          <div class="w-full md:w-1/3 px-2 mb-4">
-            {loading ? (
-              <SkeletonLoader height={350} width={"100%"} />
-            ) : (
-              <div class="bg-white rounded-lg shadow-lg p-4 featurecards">
-                <div className="relative w-[170px] h-[54px] gap-2 rounded-lg">
-                  <Image
-                    fill={"true"}
-                    className="object-contain mx-auto rounded-lg"
-                    alt="logo.png"
-                    src="/featurescards/3.png"
-                  />
-                </div>
-                <p className="text-[#9CA3AF] sm:max-w-[70%] text-sm pt-1 pb-6">
-                  For professionals and teams managing tasks & workflows
-                </p>
-                <p className="text-md">
-                  Manage tasks and workflows to fuel team collaboration and
-                  productivity at scale.
-                </p>
-                <div className="text-center">
-                  <Link href={""}>
-                    {" "}
-                    <button
-                      type="button"
-                      className="w-[90%] mt-6 m-auto bg-white px-6 pb-2 pt-2.5 text-xs rounded-2xl font-medium leading-normal text-heading shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-                    >
-                      Get Started →
-                      <span className="underline cursor-pointer text-white"></span>
-                    </button>{" "}
-                  </Link>
-                </div>
-                <div className="text-center">
-                  <Link href={""}>
-                    {" "}
-                    <button
-                      type="button"
-                      className="w-[90%] mt-6 mb-4 m-auto bg-white px-6 pb-2 pt-2.5 text-xs rounded-2xl font-medium leading-normal text-heading "
-                    >
-                      Learn more →
-                      <span className="underline cursor-pointer text-white"></span>
-                    </button>{" "}
-                  </Link>
-                </div>
-              </div>
-            )}
-          </div>
+     )}
         </div>
       </div>
 
