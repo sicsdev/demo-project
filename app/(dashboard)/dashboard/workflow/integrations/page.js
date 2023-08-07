@@ -1,7 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { CheckCircleIcon, ShareIcon } from "@heroicons/react/24/outline";
-import { getAllIntegration, getAllIntegrationTemplates, getIntegrationTemplateByType } from "@/app/API/pages/Integration";
+import {
+  getAllIntegration,
+  getAllIntegrationTemplates,
+  getIntegrationTemplateByType,
+} from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
@@ -12,15 +16,17 @@ import Image from "next/image";
 import Button from "@/app/components/Common/Button/Button";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 import { useSelector } from "react-redux";
+
 import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
+import { icons } from "react-icons";
 
 const Page = () => {
-  const state = useSelector(state => state.integration)
+  const state = useSelector((state) => state.integration);
   const [formData, setFormData] = useState({});
-  const [fixData, setFixeData] = useState([])
-  const [integrationTiles, setIntegrationsTiles] = useState([])
+  const [fixData, setFixeData] = useState([]);
+  const [integrationTiles, setIntegrationsTiles] = useState([]);
   const [dataLoader, setDataLoader] = useState(true);
   const [suggestModal, setSuggestModal] = useState(false);
   const [integrationModal, setIntegrationModal] = useState(false);
@@ -28,19 +34,21 @@ const Page = () => {
   const [integrationFormData, setIntegrationFormData] = useState({});
 
   const findIconValue = (name) => {
-    const findIcon = tiles_icons.find((x) => x.name.toLowerCase() === name.toLowerCase())
+    const findIcon = tiles_icons.find(
+      (x) => x.name.toLowerCase() === name.toLowerCase()
+    );
     if (findIcon) {
-      return findIcon.logo
+      return findIcon.logo;
     }
-    return ""
-  }
+    return "";
+  };
   const sendCheckedOrNo = (integration_data, item) => {
-    const findIntegration = integration_data.find((x) => x.name === item)
+    const findIntegration = integration_data.find((x) => x.name === item);
     if (findIntegration) {
-      return true
+      return true;
     }
-    return false
-  }
+    return false;
+  };
 
   const getDataAttributes = (integration_data, item) => {
     const findIntegration = integration_data.find((x) => x.name === item);
@@ -48,61 +56,79 @@ const Page = () => {
       return findIntegration;
     }
     return null;
-  }
+  };
 
   const fetchIntegrations = async () => {
-    try { 
+    try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
       if (dataTemplates && dataTemplates?.length > 0) {
         const transformedData = dataTemplates.reduce((result, item) => {
           if (item.popular) {
-            const popularCategoryIndex = result.findIndex(category => category.key === "POPULAR");
+            const popularCategoryIndex = result.findIndex(
+              (category) => category.key === "POPULAR"
+            );
             if (popularCategoryIndex === -1) {
               result.push({
                 key: "POPULAR",
                 title: "Popular",
                 grayscale: false,
-                tiles: []
+                tiles: [],
               });
             }
-            result[popularCategoryIndex === -1 ? result.length - 1 : popularCategoryIndex].tiles.push({
+            result[
+              popularCategoryIndex === -1
+                ? result.length - 1
+                : popularCategoryIndex
+            ].tiles.push({
               name: item.name,
               logo: item.icon ?? findIconValue(item.name),
               grayscale: false,
               checked: sendCheckedOrNo(state.data.results, item.name),
-              integration_data: getDataAttributes(state.data.results, item.name),
-              "id": item.id,
-              "type": item.type,
-              data: getDataAttributes(state.data.results, item.name)?.data || item?.data,
+              integration_data: getDataAttributes(
+                state.data.results,
+                item.name
+              ),
+              id: item.id,
+              type: item.type,
+              data:
+                getDataAttributes(state.data.results, item.name)?.data ||
+                item?.data,
               // "data": item.data,
-              "http_auth_scheme": item.http_auth_scheme,
-              "http_base": item.http_base,
+              http_auth_scheme: item.http_auth_scheme,
+              http_base: item.http_base,
             });
           }
 
-          const categoryIndex = result.findIndex(category => category.key === item.type);
+          const categoryIndex = result.findIndex(
+            (category) => category.key === item.type
+          );
           if (categoryIndex === -1) {
             result.push({
               key: item.type,
-              title: item.type.charAt(0).toUpperCase() + item.type.slice(1).toLowerCase(),
+              title:
+                item.type.charAt(0).toUpperCase() +
+                item.type.slice(1).toLowerCase(),
               grayscale: false,
-              tiles: []
+              tiles: [],
             });
           }
-          result[categoryIndex === -1 ? result.length - 1 : categoryIndex].tiles.push({
+          result[
+            categoryIndex === -1 ? result.length - 1 : categoryIndex
+          ].tiles.push({
             name: item.name,
             logo: item.icon ?? findIconValue(item.name),
             grayscale: false,
             checked: sendCheckedOrNo(state.data.results, item.name),
             integration_data: getDataAttributes(state.data.results, item.name),
-            "id": item.id,
-            "type": item.type,
-            data: getDataAttributes(state.data.results, item.name)?.data || item?.data,
+            id: item.id,
+            type: item.type,
+            data:
+              getDataAttributes(state.data.results, item.name)?.data ||
+              item?.data,
             // "data": item.data,
-            "http_auth_scheme": item.http_auth_scheme,
-            "http_base": item.http_base,
-
+            http_auth_scheme: item.http_auth_scheme,
+            http_base: item.http_base,
           });
           return result;
         }, []);
@@ -111,9 +137,9 @@ const Page = () => {
           if (b.key === "POPULAR") return 1;
           return 0;
         });
-        setIntegrationsTiles(sortedData)
-        setFixeData(sortedData)
-        console.log(sortedData)
+        setIntegrationsTiles(sortedData);
+        setFixeData(sortedData);
+        console.log(sortedData);
       }
       setDataLoader(false);
     } catch (error) {
@@ -127,19 +153,21 @@ const Page = () => {
     }
   }, [state]);
 
-  const performIntegrationTask = (item) => {
+   const [help, setHelp] = useState([])
+  const performIntegrationTask = (item, name) => {
     // debugger
     setIntegrationFormData(item);
-    setFormData(item.data)
+    setFormData(item.data);
+setHelp(tiles_icons.find((ele)=>ele.name==item.name))    
     switch (item?.name) {
       case "Rest API":
-        setSuggestModal(true)
+        setSuggestModal(true);
         break;
       case "Suggest a resource":
-        setSuggestModal(true)
+        setSuggestModal(true);
         break;
       default:
-        setIntegrationform(true)
+        setIntegrationform(true);
 
         break;
     }
@@ -149,21 +177,23 @@ const Page = () => {
     let filteredTiles = [];
     const filteredData = fixData
       .map((category) => {
-        if (value !== '') {
+        if (value !== "") {
           if (!filteredTiles.length) {
-            filteredTiles = category.tiles.filter(
-              (tile) => tile.name.toLowerCase().includes(value)
+            filteredTiles = category.tiles.filter((tile) =>
+              tile.name.toLowerCase().includes(value)
             );
-            return filteredTiles.length > 0 ? { ...category, tiles: filteredTiles } : null;
+            return filteredTiles.length > 0
+              ? { ...category, tiles: filteredTiles }
+              : null;
           }
-        }
-        else {
-          filteredTiles = category.tiles.filter(
-            (tile) => tile.name.toLowerCase().includes(value)
+        } else {
+          filteredTiles = category.tiles.filter((tile) =>
+            tile.name.toLowerCase().includes(value)
           );
-          return filteredTiles.length > 0 ? { ...category, tiles: filteredTiles } : null;
+          return filteredTiles.length > 0
+            ? { ...category, tiles: filteredTiles }
+            : null;
         }
-
       })
       .filter(Boolean);
     setIntegrationsTiles(filteredData);
@@ -172,8 +202,7 @@ const Page = () => {
     <>
       {dataLoader === true ? (
         <Loading />
-      ) :
-
+      ) : (
         <>
           <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
@@ -216,24 +245,34 @@ const Page = () => {
             <>
               {integrationData.length > 0 ? (
                 <>
-                  <IntegrationTemplates performIntegrationTask={performIntegrationTask} integrationTiles={integrationTiles}/>
-                  {tiles_data.map((element, key) =>
+                  <IntegrationTemplates
+                    performIntegrationTask={performIntegrationTask}
+                    integrationTiles={integrationTiles}
+                  />
+                  {tiles_data.map((element, key) => (
                     <div className={` mt-6`} key={key}>
-                      <h3 className="text-sm font-semibold mt-3">{element.title}</h3>
+                      <h3 className="text-sm font-semibold mt-3">
+                        {element.title}
+                      </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
                         {element.tiles?.map((item, key) => (
                           <div
-                            className={`${item.grayscale && ("pointer-events-none")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            className={`${
+                              item.grayscale && "pointer-events-none"
+                            } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                             key={key}
-                            onClick={() => { performIntegrationTask(item) }}
+                            onClick={() => {
+                              performIntegrationTask(item);
+                            }}
                           >
                             <div className="flex justify-start gap-1 items-center">
                               <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                 <Image
                                   fill={"true"}
-                                  className={`${item.grayscale &&
+                                  className={`${
+                                    item.grayscale &&
                                     "grayscale pointer-events-none"
-                                    } bg-contain mx-auto w-full rounded-lg`}
+                                  } bg-contain mx-auto w-full rounded-lg`}
                                   alt="logo.png"
                                   src={item.logo}
                                 />
@@ -245,8 +284,8 @@ const Page = () => {
                           </div>
                         ))}
                       </div>
-                    </div >
-                  )}
+                    </div>
+                  ))}
                 </>
               ) : (
                 <p>No data Found !</p>
@@ -255,35 +294,40 @@ const Page = () => {
           ) : (
             <>
               {formData && (
-                <CustomIntegration fetchData={fetchIntegrations} formData={formData} setFormData={setFormData} setIntegrationform={setIntegrationform} integrationFormData={integrationFormData} />
+                <CustomIntegration
+                help={help}
+                  fetchData={fetchIntegrations}
+                  formData={formData}
+                  setFormData={setFormData}
+                  setIntegrationform={setIntegrationform}
+                  integrationFormData={integrationFormData}
+                />
               )}
             </>
           )}
         </>
-      }
+      )}
 
-      {
-        integrationModal ? (
-          <Modal
-            title={"Manage Integration"}
-            className={"w-[80%]"}
-            show={integrationModal}
+      {integrationModal ? (
+        <Modal
+          title={"Manage Integration"}
+          className={"w-[80%]"}
+          show={integrationModal}
+          setShow={setIntegrationModal}
+          showCancel={true}
+          customHideButton={true}
+        >
+          <ConfigureIntegration
+            fetchIntegrations={fetchIntegrations}
             setShow={setIntegrationModal}
-            showCancel={true}
-            customHideButton={true}
-          >
-            <ConfigureIntegration
-              fetchIntegrations={fetchIntegrations}
-              setShow={setIntegrationModal}
-              mode={"add"}
-              integrationRecord={{}}
-              type={"custom"}
-            />
-          </Modal>
-        ) : (
-          ""
-        )
-      }
+            mode={"add"}
+            integrationRecord={{}}
+            type={"custom"}
+          />
+        </Modal>
+      ) : (
+        ""
+      )}
       {suggestModal && (
         <Modal
           title={
@@ -326,8 +370,6 @@ const Page = () => {
             </Button>
           </div>
         </Modal>
-
-
       )}
       <ToastContainer />
     </>
