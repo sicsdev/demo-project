@@ -53,7 +53,7 @@ export const ArticleSidebar = ({ children }) => {
   
   return (
     <>
-      <div className="bg-white sm:flex md:flex lg:flex justify-evenly items-start gap-0">
+      <div className="bg-white sm:flex md:flex lg:flex justify-evenly items-start gap-0 article_pageslidebar">
         <div
           className="sm:w-[20%] hidden sm:block"
           style={{ borderRight: "1px solid #C0C0C0" }}
@@ -73,8 +73,6 @@ export const ArticleSidebar = ({ children }) => {
                           justifyContent: "space-between",
                           flexDirection: "row-reverse",
                         }}
-                        className=""
-                      
                       >
                         <Link
                           key={key}

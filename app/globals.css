@@ -985,3 +985,7 @@ body .cursor-pointer {
 .article_left_accordion .accordion__panel {
   padding: 0 17px 13px 20px  !important;
 }
+
+.article_pageslidebar .accordion:nth-child(8) .accordion__button::before{
+  display: none;
+}
