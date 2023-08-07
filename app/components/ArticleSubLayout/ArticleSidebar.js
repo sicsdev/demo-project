@@ -8,7 +8,11 @@ import {
   AccordionItemButton,
   AccordionItemPanel,
 } from "react-accessible-accordion";
-import { getArticlePage, getAllArticles ,getArticleCategory} from "@/app/API/pages/Wpdata";
+import {
+  getArticlePage,
+  getAllArticles,
+  getArticleCategory,
+} from "@/app/API/pages/Wpdata";
 import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 export const ArticleSidebar = ({ children }) => {
@@ -25,13 +29,12 @@ export const ArticleSidebar = ({ children }) => {
   const relatedPosts = () => {
     getArticleCategory().then(
       (res) => {
-        console.log(res)
+        console.log(res);
         setArticle(res.data);
       },
       (err) => {}
     );
   };
-
 
   const [show, setShow] = useState(false);
   const handler_closemenu = () => {
@@ -45,26 +48,71 @@ export const ArticleSidebar = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState({});
 
   const toggleAccordion = (accordionKey) => {
-    setActiveIndex(prevActiveIndex => ({
+    setActiveIndex((prevActiveIndex) => ({
       ...prevActiveIndex,
-      [accordionKey]: prevActiveIndex[accordionKey] === undefined ? true : !prevActiveIndex[accordionKey]
+      [accordionKey]:
+        prevActiveIndex[accordionKey] === undefined
+          ? true
+          : !prevActiveIndex[accordionKey],
     }));
   };
-  
+
   return (
     <>
       <div className="bg-white sm:flex md:flex lg:flex justify-evenly items-start gap-0 article_pageslidebar">
         <div
-          className="sm:w-[20%] hidden sm:block"
-          style={{ borderRight: "1px solid #C0C0C0" }}
+          className="sm:w-[20%] hidden sm:block pt-5"
         >
-          <div className="article_left_accordion pt-6">
+          <Accordion allowZeroExpanded style={{ border: "none" }}>
+            <AccordionItem style={{ border: "none" }}>
+              <AccordionItemHeading onClick={() => toggleAccordion(key)}>
+                <AccordionItemButton
+                  style={{
+                    background: "transparent",
+                    padding: "5px 12px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexDirection: "row-reverse",
+                  }}
+                >
+                  Integration Guides
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                <div className="font-medium SideOptions">
+                  {article?.map((ele, key) => (
+                    <Link
+                      key={key}
+                      href={`/article/${ele.slug}`}
+                      className="w-full"
+                    >
+                      <p
+                        className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${
+                          activeIndex[key] ? "text-heading" : "text-[#606770]"
+                        } `}
+                        style={{ padding: "5px 12px" }}
+                      >
+                        {ele?.title?.rendered == null ? (
+                          <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
+                        ) : (
+                          ele?.title?.rendered
+                        )}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+              </AccordionItemPanel>
+            </AccordionItem>
+          </Accordion>
+
+          {/* <div className="article_left_accordion pt-6">
             {article?.map((ele, key) => (
               <>
                 <Accordion allowZeroExpanded style={{ border: "none" }}>
                   <AccordionItem style={{ border: "none" }}>
                     <AccordionItemHeading onClick={()=>toggleAccordion(key)}>
-                      <AccordionItemButton
+                <AccordionItemButton
                         style={{
                           background: "transparent",
                           padding: "5px 12px",
@@ -73,23 +121,29 @@ export const ArticleSidebar = ({ children }) => {
                           justifyContent: "space-between",
                           flexDirection: "row-reverse",
                         }}
+                        className=""
                       >
-                        <Link
-                          key={key}
-                          href={`/article/${ele.slug}`}
-                          className="w-full"
-                        >
-                          <p className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${activeIndex[key] ? "text-heading":"text-[#606770]"} `}>
-                            {ele?.title?.rendered== null ? (
-                              <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
-                            ) : (
-                              ele?.title?.rendered
-                            )}
-                          </p>
-                        </Link>
-                      </AccordionItemButton>
-                    </AccordionItemHeading>
-                    <AccordionItemPanel>
+                <Link
+                  key={key}
+                  href={`/article/${ele.slug}`}
+                  className="w-full"
+                >
+                  <p
+                    className={`cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold ${
+                      activeIndex[key] ? "text-heading" : "text-[#606770]"
+                    } `}
+                    style={{ padding: "5px 12px" }}
+                  >
+                    {ele?.title?.rendered == null ? (
+                      <SkeletonLoader className="sm:h-[70px] sm:w-[580px]" />
+                    ) : (
+                      ele?.title?.rendered
+                    )}
+                  </p>
+                </Link>
+                </AccordionItemButton>
+                </AccordionItemHeading>
+                <AccordionItemPanel>
                       <div className=" ml-4  font-medium SideOptions">
                         <div className="group " onClick={(e) => {}}>
                           <Link
@@ -131,11 +185,11 @@ export const ArticleSidebar = ({ children }) => {
                         </div>
                       </div>
                     </AccordionItemPanel>
-                  </AccordionItem>
+                </AccordionItem>
                 </Accordion>
               </>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className="sm:hidden flex items-center justify-start z-[10] fixed w-full bg-white pl-2 py-3">
           <button
@@ -197,60 +251,66 @@ export const ArticleSidebar = ({ children }) => {
                         </AccordionItemButton>
                       </AccordionItemHeading>
                       <AccordionItemPanel>
-                      <div className=" ml-4  font-medium SideOptions">
-                        <div className="group " onClick={(e) => {}}>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.first_head
-                            )}`}
-                            
-                          >
-                            <p 
-                            onClick={handler_closemenu}
-                            
-                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.first_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.sedond_head
-                            )}`}
-                          >
-                            <p
-                            onClick={handler_closemenu}
-                            
-                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.sedond_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.third_head
-                            )}`}
-                          >
-                            <p
-                            onClick={handler_closemenu}
-                            
-                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.third_head}
-                            </p>
-                          </Link>
-                          <Link
-                            href={`/article/${ele?.slug}#${removeSpacesAndHyphens(
-                              ele?.acf?.fourth_head
-                            )}`}
-                          >
-                            <p
-                            onClick={handler_closemenu}
-                            
-                            className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]">
-                              {ele?.acf?.fourth_head}
-                            </p>
-                          </Link>
+                        <div className=" ml-4  font-medium SideOptions">
+                          <div className="group " onClick={(e) => {}}>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.first_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.first_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.sedond_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.sedond_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.third_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.third_head}
+                              </p>
+                            </Link>
+                            <Link
+                              href={`/article/${
+                                ele?.slug
+                              }#${removeSpacesAndHyphens(
+                                ele?.acf?.fourth_head
+                              )}`}
+                            >
+                              <p
+                                onClick={handler_closemenu}
+                                className="cursor-pointer text-base sm:text-para md:text-para lg:text-para sm:leading-8 font-semibold text-[#606770]"
+                              >
+                                {ele?.acf?.fourth_head}
+                              </p>
+                            </Link>
+                          </div>
                         </div>
-                      </div>
-
                       </AccordionItemPanel>
                     </AccordionItem>
                   </Accordion>
@@ -260,7 +320,8 @@ export const ArticleSidebar = ({ children }) => {
           </div>
         )}
 
-        <div className="sm:w-[80%] pb-6 pt-10 sm:pt-0">{children}</div>
+        <div className="sm:w-[80%] pb-6 pt-10 sm:pt-0" 
+                  style={{ borderLeft: "1px solid #C0C0C0" }}>{children}</div>
       </div>
     </>
   );
