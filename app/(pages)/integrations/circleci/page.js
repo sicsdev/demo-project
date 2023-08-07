@@ -212,6 +212,7 @@ const page = () => {
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black mb-3 sm:mb-5">
           Connecting Tempo to Datadog is seamless, fostering user interfaces to handle your monitoring data. This could offer deeper insights, alert prioritization, or incident resolution.
+          </p>
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
