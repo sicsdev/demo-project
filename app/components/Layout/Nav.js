@@ -28,9 +28,35 @@ const Nav = () => {
       });
   }, []);
 
+  const [shouldHideHeader, setShouldHideHeader] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const footer = document.getElementById("footer");
+      const footerPosition = footer.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight;
+      const header = document.getElementById("header");
+      const headerPosition = header.getBoundingClientRect().top;
+      if (footerPosition <= viewportHeight && footerPosition > 0) {
+        setShouldHideHeader(true);
+      } else {
+        setShouldHideHeader(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
     <>
-      <nav className="sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200 ">
+      <nav
+        id="header"
+        className={` ${
+          shouldHideHeader
+            ? "hidden"
+            : "sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200"
+        }`}
+      >
         {!profile.email && <Banner />}
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">

@@ -8,7 +8,7 @@ export const nav_links = [
                     list_heading: "Chat Support",
                     data: [
                         {
-                            icon: "/menu/5.png",
+                            icon: "/menu/7.png",
                             "heading": "Tempo Chat",
                             label: "",
                             link: "solutions/tempo-chat",
@@ -20,6 +20,13 @@ export const nav_links = [
                             label: "",
                             link: "/solutions/smart-inbox",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
+                        },
+                        {
+                            icon: "/menu/8.png",
+                            "heading": "Smart Social",
+                            label: "",
+                            link: "/solutions/smart-social",
+                            "para":  "Connect Tempo to your social media for swift, AI-powered responses to comments and DMs."
                         }
                     ]
                 },
@@ -27,7 +34,7 @@ export const nav_links = [
                     list_heading: "Voice Support",
                     data: [
                         {
-                            icon: "/menu/8.png",
+                            icon: "/menu/5.png",
                             "heading": "Inbound Smart IVR",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
@@ -36,7 +43,7 @@ export const nav_links = [
                             "para": "GPT4-powered phone support for CS needs. "
                         },
                         {
-                            icon: "/menu/7.png",
+                            icon: "/menu/5.png",
                             "heading": "Outbound Agent",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon
