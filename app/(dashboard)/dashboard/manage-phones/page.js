@@ -2,9 +2,20 @@
 import PhoneHandle from '@/app/components/Customize/PhoneHandle'
 import { PhoneIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getMyPhoneNumbers, updatePhoneNumberData } from '@/app/API/components/PhoneNumber'
 
 const Page = () => {
+
+    const myPhoneNumbers = async () => {
+        const responce = await getMyPhoneNumbers();
+        
+    };
+
+    useEffect(() => {
+        myPhoneNumbers();
+    }, []);
+
     return (
         <div>
             <div className="border-b border-primary ">

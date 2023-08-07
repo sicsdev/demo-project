@@ -90,7 +90,6 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
     const getPhoneNumbers = async (value) => {
         const timeoutId = setTimeout(async () => {
             const response = await getAvailableMobileNumbers(value)
-            console.log(response)
             if (response?.length > 0) {
                 setBasicFormData((prev) => {
                     return {
@@ -112,14 +111,14 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         setBasicFormData((prev) => {
             return {
                 ...prev,
-                'phone': element.phone_number,
-                'friendly_name': element.friendly_name,
+                'phone': element.data,
+                'friendly_name': element.name,
             }
         })
         setFormValues({
             ...formValues,
-            ['phone_number']: element.phone_number,
-            ['friendly_name']: element.friendly_name
+            ['phone_number']: element.data,
+            ['friendly_name']: element.name
         })
     }
     return (
@@ -181,7 +180,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                             // onBlur={() => { getPhoneNumbers() }}
                             />
                         </div>
-                        {formValues?.phone_numbers?.length > 0 && formValues.phone_number === '' && (
+                        {formValues?.phone_numbers?.length > 0 && (formValues.phone_number === '' || formValues.phone_number === undefined) && (
 
                             <div className="relative overflow-x-auto my-2">
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -201,7 +200,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                                                 addPhone(element)
                                             }} >
                                                 <th scope="row" className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
-                                                    {element.friendly_name}
+                                                    {element.name}
                                                 </th>
                                                 <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
                                                     {element.region}
