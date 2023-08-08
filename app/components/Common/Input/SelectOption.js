@@ -24,7 +24,7 @@ const SelectOption = ({
             </label>
             <div className={`selectdiv ${selectdiv}`}>
                 <select
-                    className={`custom-select new_input mt-1 block w-full px-3  bg-white focus:bg-white border  focus:text-[12px] rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${error
+                    className={`custom-select new_input block w-full px-3  bg-white focus:bg-white border  focus:text-[12px] rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${error
                         ? "border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger focus:ring-danger"
                         : "border-input_color"
                         } ${className}`}
