@@ -129,19 +129,7 @@ const page = () => {
 
                     <td className="px-4 sm:px-6 py-4 break-all">{single?.acf?.row1r}</td>
                   </tr>
-                  <tr
-                    className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
-                    style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
-                  >
-                    <th
-                      scope="row"
-                      className="px-4 sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
-                    >
-                      {single?.acf?.row2l}
-                    </th>
-
-                    <td className="px-4 sm:px-6 py-4 break-all">{single?.acf?.row2r}</td>
-                  </tr>
+           
                 </tbody>
               </table>
             </div>
