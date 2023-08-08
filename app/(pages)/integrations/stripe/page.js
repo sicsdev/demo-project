@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import Marquee from "react-fast-marquee";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
+import Testimonial from "@/app/components/Testimonial/Testimonial";
 
 const cards = [
   {
@@ -220,7 +221,7 @@ const page = () => {
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              <Link href="/stripe-integration">
+              <Link href="article/stripe-integration">
               Tempo + Stripe integration&nbsp;
               </Link>
             </span>
@@ -400,6 +401,7 @@ const page = () => {
           </Marquee>
         </div>
       </div>
+      <Testimonial/>
     </div>
   );
 };

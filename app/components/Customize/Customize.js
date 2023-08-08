@@ -38,7 +38,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const id = useSelector((state) => state.botId.id);
   const searchParams = useSearchParams();
   const router = useRouter();
-  console.log("basicFormData", basicFormData)
+  
   useEffect(() => {
     if (form === true && id) {
       getBotInfo(id);

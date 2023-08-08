@@ -1,7 +1,5 @@
 "use client";
-import SelectOption from "@/app/components/Common/Input/SelectOption";
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -29,6 +27,8 @@ const page = () => {
   const handleAccordionButtonClick = () => {
     setIsOpen(!isOpen); // Toggles the state between true and false
   };
+
+
   return (
     <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
       <div className="p-4  max-w-[90%] sm:max-w-[100%] sm:w-[100%]  ">
@@ -416,7 +416,7 @@ const page = () => {
                 <div className="flex justify-between items-center my-8">
                   <div className="">
                     <h3 className="font-semibold text-md text-heading">
-                     Total ring duration
+                      Total ring duration
                     </h3>
                     <p className="text-sm my-1 text-[#9CA3AF]">
                       Total numbers of seconds before calls are directed to voicemail
@@ -434,7 +434,7 @@ const page = () => {
                     </div>
                   </div>
                 </div>
-                </>
+              </>
             ) : (
               ""
             )}

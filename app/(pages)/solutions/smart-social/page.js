@@ -13,6 +13,7 @@ import Smartsocialeconomy from "@/app/components/solutions/smartsocialeconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
 import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
+import Integrationstrans from "@/app/components/solutions/Integrationstrans";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -64,7 +65,8 @@ const page = () => {
 
       {/* <Smartsocialeconomy /> */}
       {/* <Aipowered/> */}
-      <Intcomp/>
+      {/* <Intcomp/> */}
+      <Integrationstrans/>
     </div>
   );
 };
