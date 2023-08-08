@@ -1,4 +1,4 @@
-import { PhoneIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { MinusSmallIcon, PhoneIcon, PlusSmallIcon, TrashIcon } from '@heroicons/react/24/solid'
 import React from 'react'
 import SelectOption from '../Common/Input/SelectOption'
 import { useEffect } from 'react';
@@ -22,7 +22,12 @@ const PhoneHandle = () => {
     const [pageLoading, setPageLoading] = useState(true)
     const [greetingLoading, setGreetingLoading] = useState(false)
     const [formLoading, setFormLoading] = useState(false)
-    const [greeting, setGreeting] = useState('')
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [basicField, setBasicField] = useState({
+        phone: '',
+        greeting: "",
+        checked: false
+    })
     const getAllBots = () => {
         const getTitle = state.botData.data.bots.map(
             (element) => element.chat_title
@@ -52,19 +57,26 @@ const PhoneHandle = () => {
     const EnterprisePhoneNumber = async () => {
         setPageLoading(true)
         const response = await getMyPhoneNumbers()
-        if (response.results.length > 0) {
+        if (response?.results?.length > 0) {
             setPhoneNumbers(response);
-            setBasicFormData({
-                id: response.results[0].id,
-                voice: "",
-                options: null,
-                bots: response.results[0].bots.map((ele) => {
-                    return { name: ele.bot.chat_title, value: ele.bot.id }
-                }),
-                checked: response.results[0].active,
-                greeting: response.results[0].greeting,
-                phone: response.results[0].data
+            let data = response.results[0]?.bots.map((ele, key) => {
+                return {
+                    voice: ele.voice,
+                    options: ele.option,
+                    bots: ele?.bot?.id ?? '',
+                    sales: ele?.name
+                }
             })
+            setBasicField(prev => {
+                return {
+                    ...prev,
+                    phone: response.results[0].data,
+                    id: response.results[0].id,
+                    greeting: response.results[0].greeting,
+                    checked: response.results[0].active
+                }
+            })
+            setBasicFormData(data)
             setPageLoading(false)
         } else {
             setPageLoading(false)
@@ -72,17 +84,16 @@ const PhoneHandle = () => {
     }
 
 
-
     const handleChange = () => {
-        if (basicFormData?.checked === true) {
-            setBasicFormData(prev => {
+        if (basicField?.checked === true) {
+            setBasicField(prev => {
                 return {
                     ...prev,
                     checked: false
                 }
             })
         } else {
-            setBasicFormData(prev => {
+            setBasicField(prev => {
                 return {
                     ...prev,
                     checked: true
@@ -90,24 +101,20 @@ const PhoneHandle = () => {
             })
         }
     }
-    const onSelectData = (selectedList, selectedItem) => {
-        setBasicFormData(prev => {
-            return {
-                ...prev,
-                bots: selectedList
-            }
-        })
-    }
-    const handleInputValues = (event) => {
-        const { name, value } = event.target
-        debugger
-        setBasicFormData(prev => {
+    const handleInput = (e) => {
+        const { value, name } = e.target
+        setBasicField((prev) => {
             return {
                 ...prev,
                 [name]: value
             }
         })
     }
+    const handleInputValues = (key, field, newValue) => {
+        const updatedData = [...basicFormData];
+        updatedData[key] = { ...updatedData[key], [field]: newValue };
+        setBasicFormData(updatedData);
+    };
     function getErrorMessage(data) {
         for (const bot of data.bots) {
             for (const option in bot) {
@@ -122,28 +129,31 @@ const PhoneHandle = () => {
     const SubmitForm = async (type) => {
         let payload = {}
         let id = null
-
         switch (type) {
             case "phone":
                 setFormLoading(true)
-                payload = {
-                    active: basicFormData.checked,
-                    bots: basicFormData.bots.map((ele) => {
-                        return {
-                            'bot': ele.value, "option": basicFormData.checked === true ? basicFormData.options : 0, "voice": basicFormData?.voice
-                        }
-                    })
+                payload =
+
+                {
+                    active: basicField.checked ?? false,
+                    bots: basicFormData.map((formDataItem) => ({
+                        bot: formDataItem.bots,
+                        option: basicField.checked ? formDataItem.options : 0,
+                        voice: formDataItem.voice,
+                        name: formDataItem.sales
+                    }))
                 }
-                id = basicFormData?.id
+
+
+                id = basicField?.id
                 break;
             case "greeting":
                 setGreetingLoading(true)
                 payload = {
-                    greeting: basicFormData.greeting
+                    greeting: basicField.greeting
                 }
-                id = basicFormData?.id
+                id = basicField?.id
                 break;
-
             default:
                 break;
         }
@@ -164,14 +174,19 @@ const PhoneHandle = () => {
             setFormLoading(false)
         }
     }
-    function formatPhoneNumber(phoneNumber) {
-        const cleanedNumber = phoneNumber.replace(/\D/g, '');
-        if (cleanedNumber.length === 10) {
-            const formattedNumber = `+1 (${cleanedNumber.slice(0, 3)}) ${cleanedNumber.slice(3, 6)}-${cleanedNumber.slice(6)}`;
-            return formattedNumber;
-        }
+    const addNewValue = () => {
+        setBasicFormData([...basicFormData, {
+            id: "",
+            voice: "",
+            options: null,
+            bots: "",
+            sales: ''
+        }])
+    }
+    const removeNewValue = (key) => {
+        const updatedData = basicFormData.filter((element, index) => index !== key);
+        setBasicFormData(updatedData);
 
-        return phoneNumber;
     }
 
     return (
@@ -189,7 +204,7 @@ const PhoneHandle = () => {
 
                             </div>
                             <div>
-                                <p className='text-sm text-heading font-normal'>{basicFormData?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
+                                <p className='text-sm text-heading font-normal'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
                             </div>
                         </div>
                         <div className='p-5'>
@@ -198,11 +213,11 @@ const PhoneHandle = () => {
                                 <div className='w-full sm:w-[80%] md:w-[80%] lg:w-[80%]'>
 
                                     <TextField
-                                        value={basicFormData?.greeting}
+                                        value={basicField?.greeting}
                                         name="greeting"
                                         className="py-3 mt-2"
                                         title={""}
-                                        onChange={handleInputValues}
+                                        onChange={handleInput}
                                         placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"}
                                         type={"text"}
                                         id={"greeting_text"}
@@ -211,7 +226,7 @@ const PhoneHandle = () => {
                                 <Button
                                     type={"button"}
                                     className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                    disabled={basicFormData?.greeting === '' || greetingLoading === true}
+                                    disabled={basicField?.greeting === '' || greetingLoading === true}
                                     onClick={() => SubmitForm("greeting")}
                                 >
                                     {greetingLoading ? "Loading..." : "Set a greeting message"}
@@ -223,11 +238,11 @@ const PhoneHandle = () => {
                             <div className='flex justify-between items-center'>
                                 <div>
                                     <h3 className='text-normal font-semibold text-heading'>Enable Phone Menu</h3>
-                                    <p className='text-sm font-normal text-border'>Enable to set up a phone menu for this number</p>
+                                    <p className='text-sm font-normal text-border'>Enable if you want different bots to respond depending on customer query.</p>
                                 </div>
                                 <div>
                                     <label className="switch">
-                                        <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicFormData?.checked === true} />
+                                        <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicField?.checked === true} />
                                         <span className="slider round h-[27px] w-[55px]"></span>
                                     </label>
                                 </div>
@@ -238,75 +253,128 @@ const PhoneHandle = () => {
                             <div className='flex justify-between items-center'>
                                 <div className=''>
                                     <h3 className='text-normal font-semibold text-heading'>Menu Options</h3>
-                                    <p className='text-sm font-normal text-border'>Options are triggered by keypad and voice commands, and can route to other team members in your workspace, or even to external phone numbers.</p>
+                                    <p className='text-sm font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
                                 </div>
                                 <div>
 
                                 </div>
                             </div>
+                            <div>
+                                {basicFormData.map((element, key) =>
+                                    <div key={key} className='block sm:flex md:flex lg:flex justify-between items-center gap-1'>
+                                        <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                            <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
+                                            <SelectOption
+                                                onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                value={element?.options ?? ''}
+                                                name="options"
+                                                values={[
+                                                    { "name": "0", "value": 0 },
+                                                    { "name": "1", "value": 1 },
+                                                    { "name": "2", "value": 2 },
+                                                    { "name": "3", "value": 3 },
+                                                    { "name": "4", "value": 4 },
+                                                    { "name": "5", "value": 5 },
+                                                    { "name": "6", "value": 6 },
+                                                    { "name": "7", "value": 7 },
+                                                    { "name": "8", "value": 8 },
+                                                    { "name": "9", "value": 9 }
+                                                ]}
+                                                id={"options"}
+                                                className="py-3"
+                                                error={""}
+                                                optionDisabled={basicFormData.map((ele) => ele.options)}
+                                            />
 
+                                        </div>
+                                        <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                            <SelectOption
+                                                onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                value={element?.bots ?? ''}
+                                                name="bots"
+                                                values={botValue}
+                                                id={"bots"}
+                                                className="py-3 "
+                                                title={
+                                                    <h3 className='font-bold my-2 text-sm text-heading'>Select Bot</h3>}
+                                                error={""}
+                                                optionDisabled={basicFormData.map((ele) => ele.bots)}
+                                            />
+                                        </div>
+                                        <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                            <SelectOption
+                                                onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                value={element?.voice ?? ''}
+                                                name="voice"
+                                                values={[{ name: 'Rachel', value: "rachel" }, { name: "Adam", value: "adam" }]}
+                                                id={"voice"}
+                                                className="py-3 "
+                                                title={
+                                                    <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
+                                                error={""}
+                                                optionDisabled={basicFormData.map((ele) => ele.voice)}
+                                            /></div>
+                                        <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                            <TextField
+                                                value={element?.sales ?? ''}
+                                                name="sales"
+                                                className="py-3 mt-2"
+                                                title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
+                                                onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                placeholder={"Press key for {field name}"}
+                                                type={"text"}
+                                                id={"sales"}
+                                            />
+                                        </div>
+                                        <div className='mt-10 w-[24px]'>
+                                            {key > 0 && (
+                                                <button
+                                                    className='font-bold'
+                                                    type='button'
+                                                    onClick={() => { removeNewValue(key) }}
+                                                >
+                                                    <MinusSmallIcon className="h-6 w-6 text-primary font-bold" />
+                                                </button>
+                                            )}
+                                            {botValue.length > basicFormData.length && (
+                                                <button
+                                                    className='font-bold'
+                                                    type='button'
+                                                    onClick={() => { addNewValue() }}
+                                                >
+                                                    <PlusSmallIcon className="h-6 w-6  text-primary  font-bold" />
+                                                </button>
+                                            )}
+                                            <button
+                                                className='font-bold'
+                                                type='button'
+                                            // onClick={() => { addNewValue() }}
+                                            >
+                                                {/* <PlusSmallIcon className="h-6 w-6 text-heading font-bold" /> */}
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
 
-                            <div className='block sm:flex md:flex lg:flex justify-between items-end gap-2'>
-                                <div className='w-full'>
-                                    <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
-                                    <SelectOption
-                                        onChange={handleInputValues}
-                                        value={basicFormData?.options ?? ''}
-                                        name="options"
-                                        values={[
-                                            { "name": "0", "value": 0 },
-                                            { "name": "1", "value": 1 },
-                                            { "name": "2", "value": 2 },
-                                            { "name": "3", "value": 3 },
-                                            { "name": "4", "value": 4 },
-                                            { "name": "5", "value": 5 },
-                                            { "name": "6", "value": 6 },
-                                            { "name": "7", "value": 7 },
-                                            { "name": "8", "value": 8 },
-                                            { "name": "9", "value": 9 }
-                                        ]}
-                                        id={"options"}
-                                        className="py-3"
-                                        error={""}
-                                    />
-
-                                </div>
-                                <div className='w-full'>
-
-                                    <h3 className='font-bold my-2 text-sm text-heading'>Bots</h3>
-                                    <Multiselect
-                                        options={botValue}
-                                        selectedValues={basicFormData?.bots ?? []}
-                                        onSelect={onSelectData}
-                                        placeholder={"Select Bots"}
-                                        onRemove={onSelectData}
-                                        id={"bots"}
-                                        displayValue="name"
-                                        closeOnSelect={true}
-                                    /></div>
-                                <div className='w-full '>
-                                    <SelectOption
-                                        onChange={handleInputValues}
-                                        value={basicFormData?.voice ?? ''}
-                                        name="voice"
-                                        values={[{ name: 'Rachel', value: "rachel" }, { name: "Jack", value: "jack" }]}
-                                        id={"voice"}
-                                        className="py-3 "
-                                        title={
-                                            <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
-                                        error={""}
-                                    /></div>
-                                <div className='mt-2 sm:m-0 md:m-0 lg:m-0'>
+                                <div className='flex my-2 justify-end'>
                                     <Button
                                         type={"button"}
-                                        className="inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                        disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
+                                        className=" inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                        // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
                                         onClick={(e) => SubmitForm("phone")}
+                                        disabled={basicFormData.some(
+                                            (element) =>
+                                                element?.options === null ||
+                                                element?.bots?.trim() === '' ||
+                                                element?.bots?.trim() === '' ||
+                                                element?.sales?.trim() === '' ||
+                                                element?.voice?.trim() === ''
+                                        )}
                                     >
                                         {formLoading === true ? "Loading" : "Submit"}
-                                    </Button></div>
+                                    </Button>
+                                </div>
                             </div>
-
                         </div>
 
                     </div>

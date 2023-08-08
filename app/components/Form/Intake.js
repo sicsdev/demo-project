@@ -128,6 +128,8 @@ const Intake = () => {
         "business_industry",
         "business_name",
         "business_company_size",
+        "customer_service_email",
+        "customer_service_phone",
       ];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
@@ -190,6 +192,8 @@ const Intake = () => {
       industry: basicFormData.business_industry,
       company_size: basicFormData.business_company_size,
       ecommerce_platform: basicFormData.ecommerce_platform,
+      email: basicFormData.customer_service_email,
+      phone: basicFormData.customer_service_phone,
     };
     const createEnterprise = await createEnterpriseAccount(payload);
     if (createEnterprise?.status === 200) {
