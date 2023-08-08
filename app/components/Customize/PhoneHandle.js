@@ -181,7 +181,7 @@ const PhoneHandle = () => {
                     <div>
                         <div className='flex rounded-t-lg border border-t-0 border-r-0 border-l-0 p-5 border-border justify-between items-center'>
                             <div className='flex justify-between items-center gap-4'>
-                                <div><PhoneIcon className="h-8 w-8" /></div>
+                                {/* <div><PhoneIcon className="h-8 w-8" /></div> */}
                                 <div>
                                     <h3 className='text-normal font-semibold text-heading'>Phone Menu</h3>
                                     <p className='text-sm text-border font-normal'>Configure a custom phone menu callers can navigate</p>
@@ -193,21 +193,6 @@ const PhoneHandle = () => {
                             </div>
                         </div>
                         <div className='p-5'>
-                            <div className='flex justify-between items-center'>
-                                <div>
-                                    <h3 className='text-normal font-semibold text-heading'>Enable Phone Menu</h3>
-                                    <p className='text-sm font-normal text-border'>Enable to set up a phone menu for this number</p>
-                                </div>
-                                <div>
-                                    <label className="switch">
-                                        <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicFormData?.checked === true} />
-                                        <span className="slider round h-[27px] w-[55px]"></span>
-                                    </label>
-                                </div>
-                            </div>
-                            <hr className='mt-6 text-border' />
-                        </div>
-                        <div className='px-5'>
                             <h3 className='text-normal font-semibold text-heading'>Greeting message</h3>
                             <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
                                 <div className='w-full sm:w-[80%] md:w-[80%] lg:w-[80%]'>
@@ -234,6 +219,21 @@ const PhoneHandle = () => {
                             </div>
                             <hr className='mt-6 text-border' />
                         </div>
+                        <div className='px-5'>
+                            <div className='flex justify-between items-center'>
+                                <div>
+                                    <h3 className='text-normal font-semibold text-heading'>Enable Phone Menu</h3>
+                                    <p className='text-sm font-normal text-border'>Enable to set up a phone menu for this number</p>
+                                </div>
+                                <div>
+                                    <label className="switch">
+                                        <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicFormData?.checked === true} />
+                                        <span className="slider round h-[27px] w-[55px]"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <hr className='mt-6 text-border' />
+                        </div>
                         <div className='p-5'>
                             <div className='flex justify-between items-center'>
                                 <div className=''>
@@ -247,7 +247,7 @@ const PhoneHandle = () => {
 
 
                             <div className='block sm:flex md:flex lg:flex justify-between items-end gap-2'>
-                            <div className='w-full'>
+                                <div className='w-full'>
                                     <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
                                     <SelectOption
                                         onChange={handleInputValues}
@@ -284,7 +284,7 @@ const PhoneHandle = () => {
                                         displayValue="name"
                                         closeOnSelect={true}
                                     /></div>
-                                  <div className='w-full '>
+                                <div className='w-full '>
                                     <SelectOption
                                         onChange={handleInputValues}
                                         value={basicFormData?.voice ?? ''}
@@ -296,15 +296,15 @@ const PhoneHandle = () => {
                                             <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
                                         error={""}
                                     /></div>
-                                <div className='mt-2 sm:m-0 md:m-0 lg:m-0'>  
+                                <div className='mt-2 sm:m-0 md:m-0 lg:m-0'>
                                     <Button
-                                    type={"button"}
-                                    className="inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                    disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
-                                    onClick={(e) => SubmitForm("phone")}
-                                >
-                                    {formLoading === true ? "Loading" : "Submit"}
-                                </Button></div>
+                                        type={"button"}
+                                        className="inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                        disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
+                                        onClick={(e) => SubmitForm("phone")}
+                                    >
+                                        {formLoading === true ? "Loading" : "Submit"}
+                                    </Button></div>
                             </div>
 
                         </div>
