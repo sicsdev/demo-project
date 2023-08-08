@@ -20,7 +20,6 @@ import { useSelector } from "react-redux";
 import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
-import { icons } from "react-icons";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
