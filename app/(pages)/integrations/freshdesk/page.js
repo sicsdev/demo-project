@@ -203,26 +203,21 @@ const page = () => {
       </div>
 
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-3 sm:pb-8 text-heading">
-        Stripe Connects with Tempo{" "}
-      </h1>
+      Freshdesk Connects with Tempo      </h1>
       <p className=" text-xl text-left px-4 sm:text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
-        Our solution leverages your Stripe data to build AI-driven smart
-        workflows, revolutionizing your customer payment experience.
+      Our solution uses your Freshdesk data to generate AI-driven smart workflows, transforming your customer support experience.
       </p>
 
       <div className="flex  items-center flex-col-reverse sm:flex-row">
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black mb-3 sm:mb-5">
-            Connecting Tempo to Stripe is straightforward, allowing the creation
-            of user interfaces to manage your payment data. This could enable
-            systems to handle subscriptions, process refunds, or resolve
-            chargebacks.
+          Connecting Tempo to Freshdesk is effortless, allowing interfaces that manage your ticketing data. This could enable more efficient responses, categorize issues, or route customer queries.
           </p>
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              <Link href="article/stripe-integration">
-              Tempo + Stripe integration&nbsp;
+              <Link href="article/freshdesk-integration">
+              Tempo + Freshdesk integration&nbsp;
               </Link>
             </span>
             guide for further insights.
@@ -401,6 +396,7 @@ const page = () => {
           </Marquee>
         </div>
       </div>
+      
       <Testimonial/>
     </div>
   );

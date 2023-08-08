@@ -203,26 +203,21 @@ const page = () => {
       </div>
 
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-3 sm:pb-8 text-heading">
-        Stripe Connects with Tempo{" "}
-      </h1>
+      SendGrid Connects with Tempo      </h1>
       <p className=" text-xl text-left px-4 sm:text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
-        Our solution leverages your Stripe data to build AI-driven smart
-        workflows, revolutionizing your customer payment experience.
+      Our solution harnesses your SendGrid data to craft AI-driven smart workflows, revolutionizing your email delivery and tracking experience.
       </p>
 
       <div className="flex  items-center flex-col-reverse sm:flex-row">
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black mb-3 sm:mb-5">
-            Connecting Tempo to Stripe is straightforward, allowing the creation
-            of user interfaces to manage your payment data. This could enable
-            systems to handle subscriptions, process refunds, or resolve
-            chargebacks.
+          Connecting Tempo to SendGrid is seamless, facilitating interfaces to oversee your email campaigns and analytics. This could promote higher deliverability, automated responses, or A/B testing insights.
           </p>
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              <Link href="article/stripe-integration">
-              Tempo + Stripe integration&nbsp;
+              <Link href="article/sendgrid-integration">
+              Tempo + SendGrid integration&nbsp;
               </Link>
             </span>
             guide for further insights.
@@ -401,6 +396,7 @@ const page = () => {
           </Marquee>
         </div>
       </div>
+      
       <Testimonial/>
     </div>
   );
