@@ -123,7 +123,7 @@ const Featurescards = () => {
                       </AccordionItemHeading>
                       <AccordionItemPanel className="p-0">
                         <p className="text-md text-left my-2 pt-8">{ele.para}</p>
-                        <div className="text-center w-[100%]">AX
+                        <div className="text-center w-[100%]">
                           <Link href={`${ele.link}`} className="text-center">
                             {" "}
                             <button
