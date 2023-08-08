@@ -237,7 +237,7 @@ const page = () => {
           </div> */}
         </div>
         <div className="hidden sm:block w-[26%]">
-          {/* <div
+           <div
             style={{
               borderLeft: "solid 1px",
               height: "300px",
@@ -297,7 +297,7 @@ const page = () => {
                 </Link>
               </div>
             </div>
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>

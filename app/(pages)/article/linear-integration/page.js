@@ -175,7 +175,7 @@ const page = () => {
       
       </div>
       <div className="hidden sm:block w-[26%]">
-        {/* <div
+        * <div
           style={{
             borderLeft: "solid 1px",
             height: "300px",
@@ -196,6 +196,23 @@ const page = () => {
 
           <div className=" ml-4  font-medium SideOptions">
             <div className="group " onClick={(e) => {}}>
+            <Link
+                href={`${scrollSlug}#${removeSpacesAndHyphens(
+                  single?.acf?.sedond_head
+                )}`}
+              >
+                {" "}
+                {loading ? (
+                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
+                    {" "}
+                    <SkeletonLoader className="sm:h-[30px] sm:w-[580px]" />
+                  </p>
+                ) : (
+                  <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
+                    1. {single?.acf?.sedond_head}
+                  </p>
+                )}
+              </Link>
               <Link
                 href={`${scrollSlug}#${removeSpacesAndHyphens(
                   single?.acf?.third_head
@@ -209,7 +226,7 @@ const page = () => {
                   </p>
                 ) : (
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    1. {single?.acf?.third_head}
+                    2. {single?.acf?.third_head}
                   </p>
                 )}
               </Link>
@@ -226,13 +243,13 @@ const page = () => {
                   </p>
                 ) : (
                   <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
-                    2. {single?.acf?.fourth_head}
+                    3. {single?.acf?.fourth_head}
                   </p>
                 )}
               </Link>
             </div>
           </div>
-        </div> */}
+        </div> 
       </div>
     </div>
   </div>

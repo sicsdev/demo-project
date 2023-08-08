@@ -1,167 +1,249 @@
-
-export const tiles_icons= [
-    {
-        "name": "Rest API",
-        "logo": "/integrations/rest-api.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Stripe",
-        "logo": "/integrations/stripe.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Shopify",
-        "logo": "/integrations/shopify.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Twilio",
-        "logo": "/integrations/twilio.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Slack",
-        "logo": "/integrations/slack.svg",
-        "grayscale": true
-    },
-    {
-        "name": "ZenDesk",
-        "logo": "/integrations/zendesk.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Stripe",
-        "logo": "/integrations/stripe.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Shopify",
-        "logo": "/integrations/shopify.svg",
-        "grayscale": false
-    },
-    {
-        "name": "PayPal",
-        "logo": "/integrations/paypal.svg",
-        "grayscale": false
-    },
-    {
-        "name": "BrainTree",
-        "logo": "/integrations/brain-tree.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Square",
-        "logo": "/integrations/square.svg",
-        "grayscale": false
-    },
-    {
-        "name": "NMI",
-        "logo": "/integrations/nmi.svg",
-        "grayscale": false
-    },
-    {
-        "name": "Twilio",
-        "logo": "/integrations/twilio.svg",
-        "grayscale": true
-    },
-    {
-        "name": "SendGrid",
-        "logo": "/integrations/sendgrid.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Slack",
-        "logo": "/integrations/slack.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Microsoft",
-        "logo": "/integrations/teams.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Microsoft Teams",
-        "logo": "/integrations/teams.svg",
-        "grayscale": true
-    },
-    {
-        "name": "SMTP",
-        "logo": "/integrations/smtp.svg",
-        "grayscale": true
-    },
-    {
-        "name": "FreshDesk",
-        "logo": "/integrations/freshdesk.svg",
-        "grayscale": true
-    },
-    {
-        "name": "ZenDesk",
-        "logo": "/integrations/zendesk.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Front",
-        "logo": "/integrations/front.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Gorgias",
-        "logo": "/integrations/gorgias.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Intercom",
-        "logo": "/integrations/intercom.svg",
-        "grayscale": true
-    },
-    {
-        "name": "SalesForce",
-        "logo": "/integrations/sales-force.svg",
-        "grayscale": true
-    },
-    {
-        "name": "HubSpot",
-        "logo": "/integrations/hubspot.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Asana",
-        "logo": "/integrations/asana.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Monday",
-        "logo": "/integrations/monday.svg",
-        "grayscale": true
-    },
-    {
-        "name": "GitHub",
-        "logo": "/integrations/github.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Jira",
-        "logo": "/integrations/jira.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Linear",
-        "logo": "/integrations/linear.svg",
-        "grayscale": true
-    },
-    {
-        "name": "CircleCI",
-        "logo": "/integrations/circle-eye.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Datadog",
-        "logo": "/integrations/data-dog.svg",
-        "grayscale": true
-    },
-    {
-        "name": "Suggest",
-        "logo": "/integrations/plus.svg"
-    }
-]
+export const tiles_icons = [
+  {
+    name: "Rest API",
+    logo: "/integrations/rest-api.svg",
+    grayscale: false,
+  },
+  {
+    name: "Stripe",
+    logo: "/integrations/stripe.svg",
+    grayscale: false,
+    link: "/article/stripe-integration",
+    ele: "Stripe Integration",
+  },
+  {
+    name: "Shopify",
+    logo: "/integrations/shopify.svg",
+    grayscale: false,
+    link: "/article/shopify-integration",
+    ele: "Shopify Integration",
+  },
+  {
+    name: "Twilio",
+    logo: "/integrations/twilio.svg",
+    grayscale: true,
+    link: "/article/twilio-integration",
+    ele: "Twilio Integration",
+  },
+  {
+    name: "Slack",
+    logo: "/integrations/slack.svg",
+    grayscale: true,
+    link: "/article/slack-integration",
+    ele: "Slack Integration",
+  },
+  {
+    name: "ZenDesk",
+    logo: "/integrations/zendesk.svg",
+    grayscale: true,
+    link: "/article/zendesk-integration",
+    ele: "ZenDesk Integration",
+  },
+  {
+    name: "Stripe",
+    logo: "/integrations/stripe.svg",
+    grayscale: false,
+    link: "/article/stripe-integration",
+    ele: "Stripe Integration",
+  },
+  {
+    name: "Shopify",
+    logo: "/integrations/shopify.svg",
+    grayscale: false,
+    link: "/article/shopify-integration",
+    ele: "Stripe Integration",
+  },
+  {
+    name: "PayPal",
+    logo: "/integrations/paypal.svg",
+    grayscale: false,
+    link: "/article/paypal-integration",
+    ele: "PayPal Integration",
+  },
+  {
+    name: "Braintree",
+    logo: "/integrations/brain-tree.svg",
+    grayscale: false,
+    link: "/article/braintree-integration",
+    ele: "BrainTree Integration",
+  },
+  {
+    name: "Square",
+    logo: "/integrations/square.svg",
+    grayscale: false,
+    link: "/article/square-integration",
+    ele: "Square Integration",
+  },
+  {
+    name: "NMI",
+    logo: "/integrations/nmi.svg",
+    grayscale: false,
+    link: "/article/nmi-integration",
+    ele: "NMI Integration",
+  },
+  {
+    name: "Twilio",
+    logo: "/integrations/twilio.svg",
+    grayscale: true,
+    link: "/article/twillio-integration",
+    ele: "Twilio Integration",
+  },
+  {
+    name: "SendGrid",
+    logo: "/integrations/sendgrid.svg",
+    grayscale: true,
+    link: "/article/sendgrid-integration",
+    ele: "SendGrid Integration",
+  },
+  {
+    name: "Slack",
+    logo: "/integrations/slack.svg",
+    grayscale: true,
+    link: "/article/slack-integration",
+    ele: "Slack Integration",
+  },
+  {
+    name: "Microsoft",
+    logo: "/integrations/teams.svg",
+    grayscale: true,
+    link: "/article/microsoft-integration",
+    ele: "Microsoft",
+  },
+  {
+    name: "Microsoft Teams",
+    logo: "/integrations/teams.svg",
+    grayscale: true,
+    link: "/article/microsoft-teams-integration",
+    ele: "Microsoft Teams Integration",
+  },
+  {
+    name: "SMTP",
+    logo: "/integrations/smtp.svg",
+    grayscale: true,
+    link: "/article/smtp-integration",
+    ele: "SMTP ",
+  },
+  {
+    name: "FreshDesk",
+    logo: "/integrations/freshdesk.svg",
+    grayscale: true,
+    link: "/article/freshdesk-integration",
+    ele: "FreshDesk Integration",
+  },
+  {
+    name: "FreshSales",
+    logo: "/integrations/freshdesk.svg",
+    grayscale: true,
+    link: "/article/freshsales-integration",
+    ele: "FreshSales Integration",
+  },
+  {
+    name: "ZenDesk",
+    logo: "/integrations/zendesk.svg",
+    grayscale: true,
+    link: "/article/zendesk-integration",
+    ele: "ZenDesk Integration",
+  },
+  {
+    name: "Front",
+    logo: "/integrations/front.svg",
+    grayscale: true,
+    link: "/article/front-integration",
+    ele: "Front Integration",
+  },
+  {
+    name: "Gorgias",
+    logo: "/integrations/gorgias.svg",
+    grayscale: true,
+    link: "/article/gorgias-integration",
+    ele: "Gorgias Integration",
+  },
+  {
+    name: "Intercom",
+    logo: "/integrations/intercom.svg",
+    grayscale: true,
+    link: "/article/intercom-integration",
+    ele: "Intercom Integration ",
+  },
+  {
+    name: "SalesForce",
+    logo: "/integrations/sales-force.svg",
+    grayscale: true,
+    link: "/article/salesforce-integration",
+    ele: "Salesforce Integration",
+  },
+  {
+    name: "HubSpot",
+    logo: "/integrations/hubspot.svg",
+    grayscale: true,
+    link: "/article/hubspot-integration",
+    ele: "HubSpot Integration",
+  },
+  {
+    name: "Asana",
+    logo: "/integrations/asana.svg",
+    grayscale: true,
+    link: "/article/asana-integration",
+    ele: "Asana Integration",
+  },
+  {
+    name: "Monday",
+    logo: "/integrations/monday.svg",
+    grayscale: true,
+    link: "/article/monday-integration",
+    ele: "Monday Integration",
+  },
+  {
+    name: "GitHub",
+    logo: "/integrations/github.svg",
+    grayscale: true,
+    link: "/article/github-integration",
+    ele: "GitHub Integration",
+  },
+  {
+    name: "Jira",
+    logo: "/integrations/jira.svg",
+    grayscale: true,
+    link: "/article/jira-integration",
+    ele: "Jira Integration",
+  },
+  {
+    name: "Linear",
+    logo: "/integrations/linear.svg",
+    grayscale: true,
+    link: "/article/linear-integration",
+    ele: "Linear Integration",
+  },
+  {
+    name: "CircleCI",
+    logo: "/integrations/circle-eye.svg",
+    grayscale: true,
+    link: "/article/circleci-integration",
+    ele: "CircleCI Integration",
+  },
+  {
+    name: "DataDog",
+    logo: "/integrations/data-dog.svg",
+    grayscale: true,
+    link: "/article/datadog-integration",
+    ele: "Datadog Integration",
+  },
+  {
+    name: "Suggest",
+    logo: "/integrations/plus.svg",
+    link: "/article/datadog-integration",
+    ele: "Datadog Integration",
+  },
+  {
+    name: "Calendly",
+    logo: "/integrations/plus.svg",
+    link: "/article/calendly-integration",
+    ele: "Calendly Integration",
+  },
+  {
+    name: "Healthie",
+    logo: "/integrations/plus.svg",
+    link: "/article/healthie-integration",
+    ele: "Healthie Integration",
+  },
+];
