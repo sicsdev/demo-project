@@ -39,6 +39,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                             element?.role && <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading">{makeCapital(element?.role)}</span>
                                         }
                                     </td>
+                                    {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email &&(
                                     <td className="px-6 py-4 pb-6">
                                         <SelectOption
                                             onChange={(e) => changeRole(element.email, e.target.value)}
@@ -51,7 +52,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                             className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none' : 'py-3'}
                                         // error={returnErrorMessage("business_state")}
                                         />
-                                    </td>
+                                    </td>)}
 
                                     <td className="px-6 py-4 pb-6">
                                         {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email ?

@@ -14,13 +14,15 @@ const SelectOption = ({
     className = "py-1",
     onChange,
     value,
-    disabled = false
+    disabled = false,
+    optionDisabled = []
 }) => {
+  console.log("optionDisabled",optionDisabled)
     return (
-        <div className={`inline ${labelClassName || ""}`}> 
+        <div className={`inline ${labelClassName || ""}`}>
             <label className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
                 {title}
-                <p style={{fontSize:"10px"}}>{sublabel}</p>
+                <p style={{ fontSize: "10px" }}>{sublabel}</p>
             </label>
             <div className={`selectdiv ${selectdiv}`}>
                 <select
@@ -39,9 +41,13 @@ const SelectOption = ({
                         Select
                     </option>
                     {values?.map((element, key) => (
-                        <option key={key} value={element.value}>
-                            {makeCapital(element.name)}
-                        </option>
+                        <>
+                            {optionDisabled.includes(element.value)? <option disabled key={key} value={element.value}>
+                                {makeCapital(element.name)}
+                            </option> : <option key={key} value={element.value}>
+                                {makeCapital(element.name)}
+                            </option>}</>
+
                     ))}
                 </select>
             </div>
