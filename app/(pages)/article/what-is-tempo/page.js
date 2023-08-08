@@ -302,7 +302,7 @@ const page = () => {
           </div> */}
         </div>
         <div className="hidden sm:block w-[26%]">
-          {/* <div
+          <div
             style={{
               borderLeft: "solid 1px",
               height: "300px",
@@ -365,7 +365,7 @@ const page = () => {
                     single?.acf?.third_head
                   )}`}
                 >
-                  {" "}
+                  {" "}  
                   {loading ? (
                     <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white w-[279px]">
                       {" "}
@@ -381,7 +381,7 @@ const page = () => {
                 </Link>
               </div>
             </div>
-          </div> */}
+          </div> 
         </div>
       </div>
     </div>
