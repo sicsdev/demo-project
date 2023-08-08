@@ -203,21 +203,19 @@ const page = () => {
       </div>
 
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-3 sm:pb-8 text-heading">
-      Braintree Connects with Tempo      </h1>
+      DataDog Connects with Tempo      </h1>
       <p className=" text-xl text-left px-4 sm:text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
-      Our solution harnesses your Braintree data to generate AI-driven smart workflows, transforming your transactional experience.
-      </p>
+      Our solution draws on your Datadog data to drive AI-based smart workflows, enhancing your monitoring and analytics capabilities.      </p>
 
       <div className="flex  items-center flex-col-reverse sm:flex-row">
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black mb-3 sm:mb-5">
-          Connecting Tempo to Braintree is a breeze, facilitating user interfaces to handle your payment details. This could provide systems to process transactions, verify payments, or monitor fraud.
-          </p>
+          Connecting Tempo to Datadog is seamless, fostering user interfaces to handle your monitoring data. This could offer deeper insights, alert prioritization, or incident resolution.          </p>
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              <Link href="article/datadog-integration">
-              Tempo + Braintree integration&nbsp;
+              <Link href="/article/datadog-integration">
+              Tempo + DataDog integration&nbsp;
               </Link>
             </span>
             guide for further insights.
@@ -230,7 +228,7 @@ const page = () => {
         </div>
         <div className="w-full sm:w-[60%] p-4">
           <div className=" w-full relative overflow-hidden">
-            <img className="" src="/stripe-page-top.png" />
+            <img className="" src="/integration_page/datadog-page-top.png" />
           </div>
         </div>
       </div>
@@ -239,14 +237,14 @@ const page = () => {
         <div className="max-w-sm rounded overflow-hidden ">
           <div className="">
             <div className="text-heading text-2xl font-semibold mb-2 sm:mb-7">
-              <h5>Stripe Workflow Use Cases</h5>
+              <h5>DataDog Workflow Use Cases</h5>
             </div>
           </div>
         </div>
         <div className="max-w-sm cursor-pointer relative">
           <img
             className="w-full object-cover"
-            src="/stripe-left.png"
+            src="/integration_page/stripe-left.png"
             alt="Card"
           />
           <div className="py-4">
@@ -265,7 +263,7 @@ const page = () => {
         <div className="max-w-sm  cursor-pointer relative">
           <img
             className="w-full  object-cover"
-            src="/stripe-right.png"
+            src="/integration_page/stripe-right.png"
             alt="Card"
           />
           <div className="py-4">

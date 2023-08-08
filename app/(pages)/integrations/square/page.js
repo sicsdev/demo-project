@@ -230,7 +230,7 @@ const page = () => {
         </div>
         <div className="w-full sm:w-[60%] p-4">
           <div className=" w-full relative overflow-hidden">
-            <img className="" src="/stripe-page-top.png" />
+            <img className="" src="/integration_page/sqaure-page-top.png" />
           </div>
         </div>
       </div>
@@ -246,7 +246,7 @@ const page = () => {
         <div className="max-w-sm cursor-pointer relative">
           <img
             className="w-full object-cover"
-            src="/stripe-left.png"
+            src="/integration_page/stripe-left.png"
             alt="Card"
           />
           <div className="py-4">
@@ -265,7 +265,7 @@ const page = () => {
         <div className="max-w-sm  cursor-pointer relative">
           <img
             className="w-full  object-cover"
-            src="/stripe-right.png"
+            src="/integration_page/stripe-right.png"
             alt="Card"
           />
           <div className="py-4">
