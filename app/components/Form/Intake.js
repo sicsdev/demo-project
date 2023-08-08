@@ -280,8 +280,7 @@ const Intake = () => {
 
     };
     !payload.logo && delete payload.logo;
-    debugger
-    const response = await buyAvailableMobileNumbers({ phone_number: basicFormData?.phone })
+    const response = await buyAvailableMobileNumbers({name:basicFormData.company_name, data: basicFormData?.phone,greeting:`Hello, thank you for calling ${basicFormData.company_name}` })
     modifyBot(payload.id, payload)
       .then(async (res) => {
        

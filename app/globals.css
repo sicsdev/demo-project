@@ -207,7 +207,42 @@ select.custom-select {
   background-repeat: no-repeat;
   background-position: right;
 }
+body .searchWrapper{
+  background-color: #ffffff;
+  /* Set your desired background color */
+  color: #000000;
+  /* Set the text color */
+  -webkit-appearance: none;
+  /* Override Safari's default styling */
+  padding: 6px;
+  /* Adjust the padding as needed */
+  border-radius: 4px;
+  outline: none;
+  /* Remove the default focus outline */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right;
+}
 
+body .chip {
+  font-size: 10px;
+  line-height: 16px;
+  margin-bottom: 0;
+  font-weight: 700;
+  margin-right: 0;
+  background-color: #0057ff;
+  margin-right: 2px;
+  padding: 3px 2px;
+}
+body .highlightOption{
+  
+  background-color: #0057ff;
+  font-size: 10px;
+}
+body .multiSelectContainer ul{
+  font-size: 10px;
+}
 select.custom-select::-ms-expand {
   display: none;
 }

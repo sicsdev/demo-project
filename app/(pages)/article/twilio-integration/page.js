@@ -67,7 +67,7 @@ const page = () => {
             )}
           </p>
         )}
-        {/* {loading ? (
+        {loading ? (
           <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
             <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
           </h1>
@@ -77,7 +77,7 @@ const page = () => {
               <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
             )}
           </h1>
-        )} */}
+        )}
         {loading ? (
           <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
             <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
