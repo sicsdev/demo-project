@@ -67,6 +67,73 @@ const page = () => {
             )}
           </p>
         )}
+        {loading ? (
+  <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
+    <SkeletonLoader className="h-[70px] sm:h-[70px] sm:w-[800px]" />
+  </h1>
+) : (
+  <p className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
+    {single?.acf?.first_head || (
+      <SkeletonLoader className="h-[70px] sm:h-[200px] sm:w-[800px]" />
+    )}
+  </p>
+)}
+{loading ? (
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
+              <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
+            </h1>
+          ) : (
+            <p
+              id={removeSpacesAndHyphens(single?.acf?.smaal_para)}
+              className="text-base sm:text-para    md:text-para lg:text-para sm:leading-8 my-2  sm:my-6 font-base text-heading"
+            >
+              {single?.acf?.smaal_para || (
+                <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
+              )}
+            </p>
+          )}
+          {loading ? (
+            <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2  sm:text-h2 sm:leading-none">
+              <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
+            </h1>
+          ) : (
+            <div className=" sm:rounded-lg mt-4 mb-8 sm:mt-8">
+              <table className="mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400 sm:w-[60%] mx-0 sm:mx-auto  m-auto shadow-lg">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="sm:px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center sm:pr-16"
+                    >
+                      {single?.acf?.table_head1}
+                    </th>
+                    <th
+                      scope="col"
+                      className="sm:px-6 py-3 bg-[#09162A] text-white rounded-tr-lg text-center"
+                    >
+                      VALUE
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600"
+                    style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
+                  >
+                    <th
+                      scope="row"
+                      className="px-4 sm:px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16"
+                    >
+                      {single?.acf?.row1l}
+                    </th>
+
+                    <td className="px-4 sm:px-6 py-4 break-all">{single?.acf?.row1r}</td>
+                  </tr>
+   
+                </tbody>
+              </table>
+            </div>
+          )}
         {/* {loading ? (
           <h1 className="font-bold text-center px-4 pt-8 text-3xl text-heading  md:text-h2 lg:text-h3 sm:text-h2 sm:leading-none">
             <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
