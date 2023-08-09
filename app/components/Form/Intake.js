@@ -141,22 +141,22 @@ const Intake = () => {
         (key) => !basicFormData[key] || basicFormData[key].length === 0
       );
     }
-    if (intakeStep === 3) {
-      const requiredKeys = [
-        "agent_title",
-        "email_introduction",
-        "email_signOff",
-      ];
-      const str_values = requiredKeys.some(
-        (key) => !basicFormData[key] || basicFormData[key].trim() === ""
-      );
-      const arr_values = ["agent_name"].every(
-        (key) => !basicFormData[key] || basicFormData[key].length === 0
-      );
-      if (str_values || arr_values) {
-        return true;
-      }
-    }
+    // if (intakeStep === 3) {
+    //   const requiredKeys = [
+    //     "agent_title",
+    //     "email_introduction",
+    //     "email_signOff",
+    //   ];
+    //   const str_values = requiredKeys.some(
+    //     (key) => !basicFormData[key] || basicFormData[key].trim() === ""
+    //   );
+    //   const arr_values = ["agent_name"].every(
+    //     (key) => !basicFormData[key] || basicFormData[key].length === 0
+    //   );
+    //   if (str_values || arr_values) {
+    //     return true;
+    //   }
+    // }
     if (intakeStep === 2) {
       const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone", "area_code"];
       return requiredKeys.some(

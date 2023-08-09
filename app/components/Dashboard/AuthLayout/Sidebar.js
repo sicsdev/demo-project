@@ -170,12 +170,12 @@ const Sidebar = ({ children }) => {
       icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
       list: [],
     },
-    {
-      href: "/dashboard/manage-phones",
-      name: "Phone",
-      icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-      list: [],
-    },
+    // {
+    //   href: "/dashboard/manage-phones",
+    //   name: "Phone",
+    //   icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+    //   list: [],
+    // },
   ];
 
   const divRef = useRef(null);
