@@ -35,7 +35,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const [basicEmailFormData, setBasicEmailFormData] = useState({})
   const [loading, setLoading] = useState(false);
   const [bot_id, setBot_id] = useState("");
-  const id = useSelector((state) => state.botId.id);
+  // const id = useSelector((state) => state.botId.id);
+  const id = "cfadd354-5f02-4e9d-b2e7-78c08900c845"
   const searchParams = useSearchParams();
   const router = useRouter();
   
@@ -637,9 +638,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
             <>
               <div>
-                {form === true && (
+                {/* {form === true && (
                   <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                )}
+                )} */}
               </div>
 
 

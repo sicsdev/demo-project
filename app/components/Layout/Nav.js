@@ -32,7 +32,7 @@ const Nav = () => {
   useEffect(() => {
     const handleScroll = () => {
       const footer = document.getElementById("footer");
-      const footerPosition = footer.getBoundingClientRect().top;
+      const footerPosition = footer?.getBoundingClientRect().top;
       const viewportHeight = window.innerHeight;
       const header = document.getElementById("header");
       const headerPosition = header.getBoundingClientRect().top;
