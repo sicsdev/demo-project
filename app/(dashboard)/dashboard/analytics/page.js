@@ -35,7 +35,7 @@ const Logs = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
   const state = useSelector((state) => state.botId);
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
@@ -65,14 +65,11 @@ const Logs = () => {
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
     if (results && Array.isArray(results) && results.length > 0) {
-      const values = results.map((item, index) => {
-        return {
-          name: item.name,
-          value: item.id,
-        }
-      })
-      const allOption = { name: 'All Conversations', value: 'all' };
-      values?.unshift(allOption);
+      const values = [
+        { name: 'All Conversations', value: 'all' },
+        { name: 'Human Handoff', value: 'handoff' },
+        ...results.map(item => ({ name: item.name, value: item.id })),
+      ];
       setWorkflowValue(values);
     }
   };
@@ -132,6 +129,7 @@ const Logs = () => {
       ...selectedFilters,
       [name]: value, // Update the selected value for the current dropdown
     });
+
     if (selectedBot) {
       getCoversation(selectedBot, queryParam);
     }
@@ -144,6 +142,10 @@ const Logs = () => {
         ([key, value]) => value !== '' && value !== 'all'
       )
     );
+    if (filteredFilters.workflows === 'handoff') {
+      filteredFilters.human_handoff = true;
+      delete filteredFilters.workflows;
+    }
 
     const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `?${queryParams}` : '';
@@ -187,7 +189,7 @@ const Logs = () => {
             onChange={(e) => filterDataHandler(e)}
             value={selectedFilters.type || ''}
             name="type"
-            values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }]}
+            values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
             title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
             id={"type"}
             className="py-3"
@@ -199,7 +201,6 @@ const Logs = () => {
             onChange={(e) => filterDataHandler(e)}
             value={selectedFilters.workflows || ''}
             name="workflows"
-            // values={[{ name: 'All Conversations', value: false }, { name: 'Workflow Conversations', value: true }]}
             values={workflowValue}
             title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
             id={"workflows"}
