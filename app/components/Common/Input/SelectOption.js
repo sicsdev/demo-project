@@ -17,7 +17,7 @@ const SelectOption = ({
     disabled = false,
     optionDisabled = []
 }) => {
-  console.log("optionDisabled",optionDisabled)
+  
     return (
         <div className={`inline ${labelClassName || ""}`}>
             <label className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
