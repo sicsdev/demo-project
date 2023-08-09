@@ -22,6 +22,8 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
     ecommerce_platform: basicFormData?.ecommerce_platform ?? "",
     business_company_size: basicFormData?.business_company_size ?? "",
     business_unit_no: basicFormData?.business_unit_no ?? "",
+    customer_service_phone: basicFormData?.customer_service_phone ?? "",
+    customer_service_email: basicFormData?.customer_service_email ?? "",
   });
 
   useEffect(() => {
@@ -83,9 +85,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
 
   const handleBlur = async (e) => {
     if (validator.isEmail(userProfile.email ?? '')) {
-
       let payload = { email: userProfile.email }
-
       if (formValues.business_name) payload.custom_field = { ...payload.custom_field, cf_company_name: formValues.business_name }
       if (formValues.business_street) payload.address = formValues.business_street
       if (formValues.business_city) payload.city = formValues.business_city
@@ -93,7 +93,6 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
       if (formValues.business_zipcode) payload.zipcode = formValues.business_zipcode
       if (formValues.business_company_size) payload.custom_field = { ...payload.custom_field, cf_employees_size: formValues.business_company_size }
       if (formValues.business_industry) payload.custom_field = { ...payload.custom_field, cf_industry: formValues.business_industry }
-
       await createContactInFreshsales(payload)
 
     }
@@ -121,8 +120,36 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
             onBlur={handleBlur}
           />
           <br />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 mb-4">
+         
+            <TextField
+              onChange={handleInputValues}
+              value={formValues.customer_service_email}
+              name="customer_service_email"
+              className="py-3 mt-1"
+              title={"Existing Customer Service Email"}
+              placeholder={"Existing Customer Service Email"}
+              type={"email"}
+              id={"customer_service_email"}
+              error={returnErrorMessage("customer_service_email")}
+              onBlur={handleBlur}
+            />
+             <TextField
+              onChange={handleInputValues}
+              value={formValues.customer_service_phone}
+              name="customer_service_phone"
+              className="py-3 mt-1"
+              title={"Existing Customer Service Phone"}
+              placeholder={"Please enter Existing Customer Service Phone"}
+              type={"number"}
+              id={"customer_service_phone"}
+              error={returnErrorMessage("customer_service_phone")}
+              onBlur={handleBlur}
+            />  
+            </div>
           <h3 className="text-heading mb-4 font-semibold">Business Address</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+           
             <TextField
               onChange={handleInputValues}
               value={formValues.business_street}
