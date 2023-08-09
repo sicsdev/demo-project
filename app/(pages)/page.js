@@ -40,18 +40,18 @@ export default function Home() {
       </pre>
 
       <main className="">
-        
         <Head></Head>
         <Homefold />
         {/* <Start /> */}
+
+      {/* -------new-------- */}
+
         <DTC />
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         <Info />
-<Middlebar />
+        <Middlebar />
         <Panelcardnew />
-
-
 
         <Newstandard />
         {/* <Trial /> */}
