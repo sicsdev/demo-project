@@ -32,6 +32,28 @@ import { errorMessage } from "../Messages/Messages";
 import { ToastContainer } from "react-toastify";
 
 const Intake = () => {
+  const headingData = [
+    {
+      step: 0,
+      text: "Business Information",
+      logo: <UserCircleIcon className="w-10 h-10 mr-2" />,
+    },
+    {
+      step: 1,
+      text: "Help Center URL",
+      logo: <CogIcon className="w-10 h-10 mr-2" />,
+    },
+    {
+      step: 2,
+      text: "Phone & Email Setup",
+      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+    },
+    {
+      step: 3,
+      text: "Customize Bot",
+      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+    },
+  ]
   const [basicFormData, setBasicFormData] = useState({});
   let state = useSelector((state) => state.botId.showModal);
   let user = useSelector((state) => state.user.data);
@@ -40,31 +62,41 @@ const Intake = () => {
   const [intakeStep, setIntakeStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [intakeCompleteStep, setIntakeCompleteStep] = useState(0);
+  const [headings, setHeadings] = useState(headingData
+  )
   const dispatch = useDispatch();
   useEffect(() => {
     setShowModal(state);
   }, [state]);
 
-  function displayErrorMessages(errors){
+  function displayErrorMessages(errors) {
     let firstError = '';
 
     for (const key in errors) {
-        if (errors.hasOwnProperty(key) && errors[key].length > 0) {
-            firstError = errors[key][0];
-            break; // Exit loop after finding the first error
-        }
+      if (errors.hasOwnProperty(key) && errors[key].length > 0) {
+        firstError = errors[key][0];
+        break; // Exit loop after finding the first error
+      }
     }
 
     return firstError;
-}
+  }
   useEffect(() => {
     if (!basicFormData?.recommended_integrations) {
       setBasicFormData((prev) => {
         return {
           ...prev,
-          recommended_integrations: user?.enterprise?.recommended_integrations,
+          // recommended_integrations: user?.enterprise?.recommended_integrations,
+          recommended_integrations: ["slack", "stripe", "sentry"],
         }
       })
+      if (user?.enterprise?.recommended_integrations.length > 0) {
+        setHeadings([...headingData, {
+          step: 4,
+          text: "Add Integrations",
+          logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+        }])
+      }
     }
   }, [user])
   const GetStepForm = () => {
@@ -123,17 +155,17 @@ const Intake = () => {
               form={true}
             />
           ),
+          btn: basicFormData?.recommended_integrations.length > 0 ? "Next" : "Finish",
+        };
+      case 4:
+        return {
+          title: "Add Integration",
+          form: (
+            <IntegrationIntake setIntakeStep={setIntakeStep} basicFormData={basicFormData} setBasicFormData={setBasicFormData} type={''} form={true} />
+
+          ),
           btn: "Finish",
         };
-      // case 4:
-      //   return {
-      //     title: "Customize Bot",
-      //     form: (
-      //       <IntegrationIntake integrationRecord={basicFormData} setBasicFormData={setBasicFormData} type={''} form={true} />
-
-      //     ),
-      //     btn: "Finish",
-      //   };
       default:
         return { title: "Form not found !", form: <h1>Something wrong !</h1> };
     }
@@ -234,6 +266,14 @@ const Intake = () => {
               prev_customer_service_email: basicFormData.customer_service_email.split("@")[1]
             }
           })
+          if (domain.data.length > 0) {
+            setHeadings([...headingData, {
+              step: 4,
+              text: "Add Integrations",
+              logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
+            }])
+
+          }
         }
       }
       setIntakeStep(1);
@@ -241,7 +281,6 @@ const Intake = () => {
       setErrors([]);
       setLoading(false);
     } else {
-      debugger
       // setErrors([createEnterprise.message]);
       errorMessage(displayErrorMessages(createEnterprise.response.data))
       setLoading(false);
@@ -331,8 +370,14 @@ const Intake = () => {
 
         if (response) {
           setLoading(false);
-          dispatch(setModalValue(false));
-          dispatch(fetchBot());
+
+          if (basicFormData?.recommended_integrations.length > 0) {
+            setIntakeStep(4);
+            setIntakeCompleteStep(4);
+          } else {
+            dispatch(setModalValue(false));
+            dispatch(fetchBot());
+          }
         }
         // setIntakeStep(4);
         // setIntakeCompleteStep(4);
@@ -473,7 +518,7 @@ const Intake = () => {
         savePreferences();
         break;
       case 4:
-        handleIntegrationSubmitForm()
+        // handleIntegrationSubmitForm()
         break;
 
       default:
@@ -481,33 +526,6 @@ const Intake = () => {
     }
   };
 
-  const headings = [
-    {
-      step: 0,
-      text: "Business Information",
-      logo: <UserCircleIcon className="w-10 h-10 mr-2" />,
-    },
-    {
-      step: 1,
-      text: "Help Center URL",
-      logo: <CogIcon className="w-10 h-10 mr-2" />,
-    },
-    {
-      step: 2,
-      text: "Phone & Email Setup",
-      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
-    },
-    {
-      step: 3,
-      text: "Customize Bot",
-      logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
-    },
-    // {
-    //   step: 4,
-    //   text: "Add Integrations",
-    //   logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
-    // },
-  ];
 
   const sendActiveValue = (element) => {
     if (intakeStep === element.step) {
@@ -599,34 +617,41 @@ const Intake = () => {
               </div>
               <div className="w-full bg-white sm:w-[800px] md:w-[800px] lg:w-[800px]  justify-center pb-[40px]  px-6 sm:pr-6 md:pr-6 lg:pr-6 ">
                 {GetStepForm().form}
-                <div
-                  className={`flex  p-2 rounded-b mt-5 ${intakeStep > 0 ? "justify-between" : "justify-end"
-                    }`}
-                >
-                  {intakeStep > 0 && (
-                    <Button
-                      onClick={handleBack}
-                      className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      disabled={loading ? true : false}
-                    >
-                      Back
-                    </Button>
-                  )}
-                  {loading ? (
-                    <LoaderButton />
-                  ) : (
-                    <>
+
+                {basicFormData && basicFormData?.recommended_integrations?.length > 0 && intakeStep === 4 ? "" :
+                  <div
+                    className={`flex  p-2 rounded-b mt-5 ${intakeStep > 0 ? "justify-between" : "justify-end"
+                      }`}
+                  >
+
+                    {intakeStep > 0 && (
                       <Button
-                        type={"button"}
-                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                        disabled={DisablingButton()}
-                        onClick={(e) => SubmitForm()}
+                        onClick={handleBack}
+                        className="inline-block float-left rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                        disabled={loading ? true : false}
                       >
-                        {GetStepForm().btn}
+                        Back
                       </Button>
-                    </>
-                  )}
-                </div>
+                    )}
+                    {loading ? (
+                      <LoaderButton />
+                    ) : (
+                      <>
+                        <Button
+                          type={"button"}
+                          className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                          disabled={DisablingButton()}
+                          onClick={(e) => SubmitForm()}
+                        >
+                          {GetStepForm().btn}
+                        </Button>
+                      </>
+                    )}
+
+
+                  </div>
+
+                }
                 {errors.length > 0 &&
                   errors.map((ele, key) => (
                     <p className="text-danger text-xs" key={key}>
