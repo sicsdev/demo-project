@@ -152,12 +152,11 @@ const Page = () => {
     }
   }, [state]);
 
-   const [help, setHelp] = useState([])
+  const [help, setHelp] = useState([])
   const performIntegrationTask = (item, name) => {
-    // debugger
     setIntegrationFormData(item);
     setFormData(item.data);
-setHelp(tiles_icons.find((ele)=>ele.name==item.name))    
+    setHelp(tiles_icons.find((ele) => ele.name == item.name))
     switch (item?.name) {
       case "Rest API":
         setSuggestModal(true);
@@ -256,9 +255,8 @@ setHelp(tiles_icons.find((ele)=>ele.name==item.name))
                       <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
                         {element.tiles?.map((item, key) => (
                           <div
-                            className={`${
-                              item.grayscale && "pointer-events-none"
-                            } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            className={`${item.grayscale && "pointer-events-none"
+                              } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                             key={key}
                             onClick={() => {
                               performIntegrationTask(item);
@@ -268,10 +266,9 @@ setHelp(tiles_icons.find((ele)=>ele.name==item.name))
                               <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
                                 <Image
                                   fill={"true"}
-                                  className={`${
-                                    item.grayscale &&
+                                  className={`${item.grayscale &&
                                     "grayscale pointer-events-none"
-                                  } bg-contain mx-auto w-full rounded-lg`}
+                                    } bg-contain mx-auto w-full rounded-lg`}
                                   alt="logo.png"
                                   src={item.logo}
                                 />
@@ -294,7 +291,7 @@ setHelp(tiles_icons.find((ele)=>ele.name==item.name))
             <>
               {formData && (
                 <CustomIntegration
-                help={help}
+                  help={help}
                   fetchData={fetchIntegrations}
                   formData={formData}
                   setFormData={setFormData}
