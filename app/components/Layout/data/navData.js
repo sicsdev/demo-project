@@ -43,7 +43,7 @@ export const nav_links = [
                             "para": "GPT4-powered phone support for CS needs. "
                         },
                         {
-                            icon: "/menu/5.png",
+                            icon: "/menu/10.png",
                             "heading": "Outbound Agent",
                             label: <span className="text-[10px] font-semibold inline-block py-1 px-2  rounded-full text-heading bg-label last:mr-0 mr-1">
                                 Coming soon

@@ -16,6 +16,7 @@ import EmailAgentSetting from "../EmailAgentSetting/EmailAgentSetting";
 import Button from "../Common/Button/Button";
 import LoaderButton from "../Common/Button/Loaderbutton";
 import {
+  addNewDomain,
   createEnterpriseAccount,
   enterpriseDomainInitialize,
   enterpriseDomainVerify,
@@ -27,10 +28,13 @@ import { fetchBot, setBotId, setModalValue } from "../store/slices/botIdSlice";
 import IntegrationIntake from "../Integration/IntegrationIntake";
 import { addIntegrationData } from "@/app/API/pages/Integration";
 import { buyAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
+import { errorMessage } from "../Messages/Messages";
+import { ToastContainer } from "react-toastify";
 
 const Intake = () => {
   const [basicFormData, setBasicFormData] = useState({});
   let state = useSelector((state) => state.botId.showModal);
+  let user = useSelector((state) => state.user.data);
   const [errors, setErrors] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [intakeStep, setIntakeStep] = useState(0);
@@ -40,6 +44,29 @@ const Intake = () => {
   useEffect(() => {
     setShowModal(state);
   }, [state]);
+
+  function displayErrorMessages(errors){
+    let firstError = '';
+
+    for (const key in errors) {
+        if (errors.hasOwnProperty(key) && errors[key].length > 0) {
+            firstError = errors[key][0];
+            break; // Exit loop after finding the first error
+        }
+    }
+
+    return firstError;
+}
+  useEffect(() => {
+    if (!basicFormData?.recommended_integrations) {
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          recommended_integrations: user?.enterprise?.recommended_integrations,
+        }
+      })
+    }
+  }, [user])
   const GetStepForm = () => {
     switch (intakeStep) {
       case 0:
@@ -128,6 +155,8 @@ const Intake = () => {
         "business_industry",
         "business_name",
         "business_company_size",
+        "customer_service_email",
+        "customer_service_phone",
       ];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
@@ -139,22 +168,22 @@ const Intake = () => {
         (key) => !basicFormData[key] || basicFormData[key].length === 0
       );
     }
-    if (intakeStep === 3) {
-      const requiredKeys = [
-        "agent_title",
-        "email_introduction",
-        "email_signOff",
-      ];
-      const str_values = requiredKeys.some(
-        (key) => !basicFormData[key] || basicFormData[key].trim() === ""
-      );
-      const arr_values = ["agent_name"].every(
-        (key) => !basicFormData[key] || basicFormData[key].length === 0
-      );
-      if (str_values || arr_values) {
-        return true;
-      }
-    }
+    // if (intakeStep === 3) {
+    //   const requiredKeys = [
+    //     "agent_title",
+    //     "email_introduction",
+    //     "email_signOff",
+    //   ];
+    //   const str_values = requiredKeys.some(
+    //     (key) => !basicFormData[key] || basicFormData[key].trim() === ""
+    //   );
+    //   const arr_values = ["agent_name"].every(
+    //     (key) => !basicFormData[key] || basicFormData[key].length === 0
+    //   );
+    //   if (str_values || arr_values) {
+    //     return true;
+    //   }
+    // }
     if (intakeStep === 2) {
       const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone", "area_code"];
       return requiredKeys.some(
@@ -190,15 +219,31 @@ const Intake = () => {
       industry: basicFormData.business_industry,
       company_size: basicFormData.business_company_size,
       ecommerce_platform: basicFormData.ecommerce_platform,
+      email: basicFormData.customer_service_email,
+      phone: basicFormData.customer_service_phone,
     };
     const createEnterprise = await createEnterpriseAccount(payload);
     if (createEnterprise?.status === 200) {
+      if (basicFormData.recommended_integrations.length === 0 || basicFormData?.prev_customer_service_email !== basicFormData.customer_service_email.split("@")[1]) {
+        const domain = await addNewDomain({ domain: basicFormData.customer_service_email.split("@")[1] })
+        if (domain.status === 200) {
+          setBasicFormData((prev) => {
+            return {
+              ...prev,
+              recommended_integrations: domain.data,
+              prev_customer_service_email: basicFormData.customer_service_email.split("@")[1]
+            }
+          })
+        }
+      }
       setIntakeStep(1);
       setIntakeCompleteStep(1);
       setErrors([]);
       setLoading(false);
     } else {
-      setErrors([createEnterprise.message]);
+      debugger
+      // setErrors([createEnterprise.message]);
+      errorMessage(displayErrorMessages(createEnterprise.response.data))
       setLoading(false);
     }
   };
@@ -246,7 +291,7 @@ const Intake = () => {
     }
   };
 
-  const savePreferences =async () => {
+  const savePreferences = async () => {
     setLoading(true);
     let payload = {
       id: basicFormData.id,
@@ -276,14 +321,14 @@ const Intake = () => {
       email_agent_title: basicFormData.agent_title,
       email_greeting: basicFormData.email_introduction,
       email_farewell: basicFormData.email_signOff,
-      phone_number: basicFormData?.phone 
+      phone_number: basicFormData?.phone
 
     };
     !payload.logo && delete payload.logo;
-    const response = await buyAvailableMobileNumbers({name:basicFormData.company_name, data: basicFormData?.phone,greeting:`Hello, thank you for calling ${basicFormData.company_name}` })
+    const response = await buyAvailableMobileNumbers({ name: basicFormData.company_name, data: basicFormData?.phone, greeting: `Hello, thank you for calling ${basicFormData.company_name}` })
     modifyBot(payload.id, payload)
       .then(async (res) => {
-       
+
         if (response) {
           setLoading(false);
           dispatch(setModalValue(false));
@@ -313,7 +358,7 @@ const Intake = () => {
           basicFormData.company_name +
           ".gettempo.ai",
       });
-      const updload_imge = await uploadImage({file:basicFormData.selectedFile},basicFormData.id)
+      const updload_imge = await uploadImage({ file: basicFormData.selectedFile }, basicFormData.id)
       if (domains.status === 200 && verify.status === 200) {
         setBasicFormData((prev) => {
           return {
@@ -593,6 +638,7 @@ const Intake = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };

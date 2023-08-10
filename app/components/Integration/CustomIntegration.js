@@ -8,8 +8,10 @@ import { addIntegrationTemplate, updateIntegrationData, removeIntegrationData } 
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { useDispatch } from 'react-redux';
 import { fetchIntegrations } from '../store/slices/integrationSlice';
+import Link from 'next/link';
 
-const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrationFormData, fetchData }) => {
+const CustomIntegration = ({ setIntegrationform,help, formData, setFormData, integrationFormData, fetchData }) => {
+
 
     const [customFields, setCustomFields] = useState({});
     const [loading, setLoading] = useState(false);
@@ -257,10 +259,10 @@ const CustomIntegration = ({ setIntegrationform, formData, setFormData, integrat
                     <div class="col-span-4 md:col-span-1 bg-blue-300">
                         <div className="bg-[#F9F9F9] p-5 rounded-md mt-5 sm:mt-0">
                             <p className="font-semibold text-sm mb-2">Need help?</p>
-                            <a href="#" className="font-normal text-sm flex items-center gap-2 hover:text-primary">
+                            <Link href={`${help?.link}`} className="font-normal text-sm flex items-center gap-2 hover:text-primary">
                                 <BookOpenIcon className="h-4 w-4 text-gray-500" />
-                                <span className="">Rest API guide</span>
-                            </a>
+                                <span className="">{help?.ele} Guide</span>
+                            </Link>
                         </div>
                     </div>
                 </div>

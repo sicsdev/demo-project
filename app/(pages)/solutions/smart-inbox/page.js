@@ -12,6 +12,8 @@ import Intcomp from "@/app/components/solutions/Intcomp";
 import Smartlevel from "@/app/components/solutions/Smartlevel";
 import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
 import Smartinbocacc from "@/app/components/Accordiontabs/Smartinbocacc";
+import Integrationstrans from "@/app/components/solutions/Integrationstrans";
+import Exploretempoai from "@/app/components/Exploretempoai/Exploretempoai";
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -60,7 +62,9 @@ const page = () => {
       {/* <Requestdemo/> */}
       {/* <Smarteconomy /> */}
       {/* <Aipowered /> */}
-      <Intcomp />
+      {/* <Intcomp /> */}
+    {/* <Exploretempoai />   */}
+      <Integrationstrans/>
     </div>
   );
 };

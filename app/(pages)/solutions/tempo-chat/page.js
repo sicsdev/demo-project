@@ -13,7 +13,8 @@ import Intcomp from "@/app/components/solutions/Intcomp";
 import Motioncards from "@/app/components/Motioncards/page";
 import Brands from "@/app/components/Brands/page";
 import Tempochataccordian from "@/app/components/Accordiontabs/Tempochataccordian";
-
+import Integrationstrans from "@/app/components/solutions/Integrationstrans";
+import Exploretempoai from "@/app/components/Exploretempoai/Exploretempoai";
 
 const page = () => {
 
@@ -65,7 +66,11 @@ const page = () => {
       {/* <Tempoeconomy /> */}
       {/* <Requestdemo/> */}
       {/* <Aipowered /> */}
-      <Intcomp />
+      {/* <Intcomp />
+       */}
+    <Integrationstrans/>
+    {/* <Exploretempoai/> */}
+    
     </div>
   );
 };
