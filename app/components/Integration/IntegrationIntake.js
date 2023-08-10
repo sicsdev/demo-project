@@ -9,6 +9,9 @@ import { BookOpenIcon } from '@heroicons/react/24/outline';
 import { addIntegrationTemplate, updateIntegrationData } from '@/app/API/pages/Integration';
 import { errorMessage, successMessage } from '../Messages/Messages';
 import { fetchBot, setModalValue } from '../store/slices/botIdSlice';
+import { fetchIntegrations } from '../store/slices/integrationSlice';
+import { fetchIntegrationsTemplates } from '../store/slices/integrationTemplatesSlice';
+import Loading from '../Loading/Loading';
 
 const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) => {
     const dispatch = useDispatch()
@@ -38,7 +41,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
             })
         }
     }, [state?.data])
-console.log(state)
+    console.log(state)
     const performIntegrationTask = (singleData) => {
         setHelp(tiles_icons.find((ele) => ele.name == singleData.name))
         setStepIds((prev) => {
@@ -123,10 +126,13 @@ console.log(state)
                 } else {
                     dispatch(setModalValue(false));
                     dispatch(fetchBot());
+                    dispatch(fetchIntegrations)
+                    dispatch(fetchIntegrationsTemplates)
                     setLoading(false);
                 }
             } else {
                 errorMessage("Unable to Proceed!");
+                setLoading(false)
             }
         } catch (error) {
             setLoading(false);
@@ -141,6 +147,7 @@ console.log(state)
             } else {
                 setCurrentStep(currentStep + 1);
                 performIntegrationTask(tiles[currentStep + 1])
+                setLoading(false)
             }
         } else {
             if (DisablingButton(currentStep) === false) {
@@ -148,6 +155,7 @@ console.log(state)
             } else {
                 dispatch(setModalValue(false));
                 dispatch(fetchBot());
+                setLoading(false)
             }
         }
     };
@@ -230,10 +238,10 @@ console.log(state)
                         <Button
                             type={"button"}
                             className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                            // disabled={DisablingButton()}
+                            disabled={Loading === true}
                             onClick={(e) => handleNextStep()}
                         >
-                            {currentStep === tiles.length - 1 ? "Finish" : DisablingButton(currentStep) ? "Skip" : "Next"}
+                            {loading === true ? "Loading..." : currentStep === tiles.length - 1 ? "Finish" : DisablingButton(currentStep) ? "Skip" : "Next"}
                         </Button>
                     </div>
                 </>
