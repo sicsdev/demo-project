@@ -235,7 +235,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                     noDataComponent={<><p className="text-center text-sm p-3">No Records Found!</p></>}
                     data={knowledgeCenterRecords}
                 />
-            </div>
+            </div>  
             {createModal === true && (
                 <Modal title={'Add New Content'} show={createModal} setShow={setCreateModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
                     <div className='block sm:flex justify-center items-center gap-4 py-4'>
@@ -256,7 +256,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         </div>
                     </div>
                 </Modal>
-                
+
             )}
 
 
