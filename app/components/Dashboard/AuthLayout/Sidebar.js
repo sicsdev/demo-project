@@ -53,9 +53,6 @@ const Sidebar = ({ children }) => {
     if (base64Data.state == true) {
       dispatch(fetchProfile());
       setTimeout(() => {
-        dispatch(fetchProfile());
-      }, [2000]);
-      setTimeout(() => {
         setBase64Data({ state: false });
       }, [4000]);
     }

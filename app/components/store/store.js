@@ -6,6 +6,7 @@ import memberReducer from './slices/memberSlice';
 import recommendationReducer from './slices/recommendation';
 import integrationReducer from './slices/integrationSlice';
 import workflowSlice from './slices/workflowSlice';
+import integrationTemplateReducer from './slices/integrationTemplatesSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         members: memberReducer,
         recommendation: recommendationReducer,
         integration:integrationReducer,
-        workflow:workflowSlice
+        workflow:workflowSlice,
+        integrationTemplate:integrationTemplateReducer,
     },
 });
 
