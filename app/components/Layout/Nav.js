@@ -35,7 +35,7 @@ const Nav = () => {
       const footerPosition = footer?.getBoundingClientRect().top;
       const viewportHeight = window.innerHeight;
       const header = document.getElementById("header");
-      const headerPosition = header.getBoundingClientRect().top;
+      const headerPosition = header?.getBoundingClientRect().top;
       if (footerPosition <= viewportHeight && footerPosition > 0) {
         setShouldHideHeader(true);
       } else {
