@@ -256,6 +256,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         </div>
                     </div>
                 </Modal>
+                
             )}
 
 
