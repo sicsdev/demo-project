@@ -174,8 +174,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
             {tiles.length > 0 && (
                 <>
                     <div
-                        className={`border border-border p-2 rounded-md cursor-pointer hover:cursor-pointer  hover:bg-[#ECF6FE] hover:border-primary_hover w-full`}
-                    // onClick={() => { performIntegrationTask(tiles[currentStep]) }}
+                        className={`p-2 rounded-md cursor-pointer    w-full`}
                     >
                         <div className="flex justify-start gap-4 items-center">
                             <div className="relative w-[25px] h-[25px]  rounded-lg">
