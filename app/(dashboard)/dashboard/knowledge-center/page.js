@@ -160,14 +160,14 @@ const Page = () => {
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
                             </span>
                         </li>
-                        <li className="mr-2" onClick={() => { setTab(1); setViewCenter(false); }}>
+                        {/* <li className="mr-2" onClick={() => { setTab(1); setViewCenter(false); }}>
                             <span
                                 className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                                 aria-current="page"
                             >
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Manage Knowledge Base
                             </span>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 
