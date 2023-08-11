@@ -1,25 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BookOpenIcon, CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { BookOpenIcon, CheckCircleIcon, LinkIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
-import Button from "@/app/components/Common/Button/Button";
 import TextField from "@/app/components/Common/Input/TextField";
-import { deleteRecommendationRecord, excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
-import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 import { ColorRing } from "react-loader-spinner";
+import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
+import ViewKnowledgeCenter from "@/app/components/LearningCenter/ViewKnowledgeCenter";
 
 const Page = () => {
-    const [updateLoader, setUpdateLoader] = useState(null );
+    const [updateLoader, setUpdateLoader] = useState(null);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
-
+    const [tab, setTab] = useState(0);
+    const [viewCenter, setViewCenter] = useState(false);
 
     const updateButtonHandler = async (id) => {
         try {
@@ -48,7 +49,7 @@ const Page = () => {
         setDeleteLoader(id)
         try {
             const excludeRecord = await excludeRecommendationRecord(id);
-            if (excludeRecord?.status === 204 ) {
+            if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
                 successMessage("Recommendation Delete Successfully");
                 setDeleteLoader(null)
@@ -142,17 +143,29 @@ const Page = () => {
         },
     ];
 
+    const viewKnowledgeCenterHandler = (row) => {
+        setViewCenter(true);
+    };
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <div className="border-b border-border flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                        <li className="mr-2">
+                        <li className="mr-2" onClick={() => { setTab(0); setViewCenter(false); }}>
                             <span
-                                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                 aria-current="page"
                             >
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
+                            </span>
+                        </li>
+                        <li className="mr-2" onClick={() => { setTab(1); setViewCenter(false); }}>
+                            <span
+                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                                aria-current="page"
+                            >
+                                <BookOpenIcon className="h-6 w-6 text-primary" /> Manage Knowledge Base
                             </span>
                         </li>
                     </ul>
@@ -168,20 +181,34 @@ const Page = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className="w-full">
-                        <DataTable
-                            title={<h3 className="text-sm font-semibold">Learning center</h3>}
-                            fixedHeader
-                            highlightOnHover
-                            pointerOnHover
-                            defaultSortFieldId="question"
-                            pagination
-                            columns={columns}
-                            noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                            data={state?.data?.results}
+                    <>
+                        {
+                            viewCenter === true ?
+                                <ViewKnowledgeCenter setViewCenter={setViewCenter} />
+                                :
+                                <>
+                                    {tab === 0 && (
+                                        <div className="w-full">
+                                            <DataTable
+                                                title={<h3 className="text-sm font-semibold">Learning center</h3>}
+                                                fixedHeader
+                                                highlightOnHover
+                                                pointerOnHover
+                                                defaultSortFieldId="question"
+                                                pagination
+                                                columns={columns}
+                                                noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                                data={state?.data?.results}
 
-                        />
-                    </div>
+                                            />
+                                        </div>
+                                    )}
+                                    {tab === 1 && (
+                                        <ManageKnowledgeBase viewKnowledgeCenterHandler={viewKnowledgeCenterHandler} />
+                                    )}
+                                </>
+                        }
+                    </>
                 )}
             </div>
             <ToastContainer />
