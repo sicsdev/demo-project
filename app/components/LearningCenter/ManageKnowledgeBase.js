@@ -3,15 +3,31 @@ import DataTable from "react-data-table-component";
 import { AdjustmentsHorizontalIcon, ArrowLeftIcon, ClipboardDocumentIcon, ClipboardIcon, DocumentTextIcon, EllipsisHorizontalIcon, LinkIcon, PaperClipIcon, PlusIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { BookOpenIcon, Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
 import Modal from '../Common/Modal/Modal';
-import { FileUploader } from "react-drag-drop-files";
+import { createNewKnowledge, getKnowledgeData } from '@/app/API/pages/Knowledge';
+
+import Multiselect from 'multiselect-react-dropdown';
+import SnippetManagement from './SnippetManagement';
+import UrlManagement from './UrlManagement';
+import FileManagement from './FileManagement';
+import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBot } from '../store/slices/botIdSlice';
+import { successMessage } from '../Messages/Messages';
 
 const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);
     const [createPdfModal, setCreatePdfModal] = useState(false);
     const [createOptions, setCreateOptions] = useState(null)
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
+    const [knowledge, setKnowledge] = useState([])
+    const [basicFormData, setBasicFormData] = useState({})
+    const [loading, setLoading] = useState(false)
+    const [showSourceFilter, setShowSourceFilter] = useState(false)
+
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -21,38 +37,77 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
         return () => clearInterval(interval);
     }, []);
 
-    const knowledgeCenterRecords = [
-        {
-            title: "Provider credentials - hims, inc.",
-            state: "Active",
-            content_source: "External",
-            audience: "Everyone",
-            time_anwsers: 0,
-            last_edited: "7 hours ago"
-        },
-        {
-            title: "Provider credentials - hims, inc.",
-            state: "Active",
-            content_source: "External",
-            audience: "Everyone",
-            time_anwsers: 0,
-            last_edited: "7 hours ago"
-        },
-        {
-            title: "Provider credentials - hims, inc.",
-            state: "Disable",
-            content_source: "External",
-            audience: "Everyone",
-            time_anwsers: 0,
-            last_edited: "7 hours ago"
+    useEffect(() => {
+        getData()
+    }, [])
+    const getData = async () => {
+        const response = await getKnowledgeData()
+        console.log("response", state)
+        if (response?.data?.results.length > 0) {
+            setKnowledge(response?.data?.results)
+            const botDataArray = response?.data?.results.flatMap(entry => {
+                if (entry.bots.length === 0) {
+                    return []; // Return an empty array for entries with no bots
+                } else {
+                    entry.bots.map(bot => ({
+                        value: bot.bot.id,
+                        name: bot.bot.chat_title,
+                    }))
+                }
+            }
+            );
+            setBasicFormData(prev => {
+                return {
+                    ...prev,
+                    selectedBot: botDataArray
+                }
+            })
         }
-    ];
+    }
+
+    console.log(basicFormData)
 
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
         setFile(file);
     };
+    const onSelectData = (selectedList, selectedItem, index) => {
+        console.log("selectedList, selectedItem, index", selectedList, selectedItem, index);
+        let updatedSelectedList = [...basicFormData.selectedBot];
+        updatedSelectedList[index] = selectedList;
+        setBasicFormData(prev => ({
+            ...prev,
+            selectedBot: updatedSelectedList
+        }));
+    }
 
+
+    const getAllBots = () => {
+        const getTitle = state.botData.data.bots.map(
+            (element) => element.chat_title
+        );
+        const widgetCode = state.botData.data.widgets;
+        const mergedArray = widgetCode.map((item, index) => {
+            const title = getTitle[index];
+            return {
+                value: item.id,
+                name: title,
+            };
+        });
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                bots: mergedArray
+            }
+        })
+    }
+    useEffect(() => {
+        if (state.botData.data?.bots && state.botData.data?.widgets) {
+            getAllBots();
+        } else {
+            dispatch(fetchBot())
+        }
+    }, [state.botData.data]);
     const knowledgeCenterColumns = [
         {
             name: <div><input type="checkbox" className="" /></div>,
@@ -68,7 +123,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
         },
         {
             name: "Title",
-            selector: (row) => <h3 data-tag="allowRowEvents" className={`font-bold text-xs whitespace-normal`}>{row.title}</h3>,
+            selector: (row) => <h3 data-tag="allowRowEvents" className={`font-normal text-xs whitespace-normal`}>{row.content}</h3>,
             sortable: true,
             reorder: true,
             style: {
@@ -81,48 +136,45 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             sortable: true,
             reorder: true,
             cell: (row) => (
-                <span data-tag="allowRowEvents" className={`inline-block whitespace-nowrap rounded ${row.state === "Active" ?"bg-[#d8efdc] text-[#107235]":"bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
-                    {row.state}
+                <span data-tag="allowRowEvents" className={`inline-block whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                    {row.active ? "Active" : "Disable"}
                 </span>
             ),
         },
         {
             name: "Content Source",
-            selector: (row) => row.content_source,
+            selector: (row) => row.source,
             sortable: true,
             reorder: true,
             cell: (row) => (
                 <div data-tag="allowRowEvents" className="flex justify-center items-center gap-2">
                     <LinkIcon className="h-4 w-4 font-semibold" />
-                    <span className="text-xs font-semibold">{row.content_source}</span>
+                    <span className="text-xs font-semibold">{row.source}</span>
                 </div>
             ),
         },
         {
-            name: "Audience",
-            selector: (row) => row.audience,
+            name: "Bots",
+            selector: (row) => row.bots,
             sortable: true,
             reorder: true,
-            cell: (row) => (
-                <span data-tag="allowRowEvents" className="inline-block whitespace-nowrap rounded-full bg-[#f1f1f1] text-black px-4 py-2 align-baseline text-xs font-semibold leading-none">
-                    {row.audience}
-                </span>
-            ),
-        },
-        {
-            name: "Times used in anwsers",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{row.time_anwsers}</span>,
-            sortable: false,
-            reorder: false,
+            cell: (row, index) => <Multiselect
+                options={basicFormData?.bots ?? []}
+                selectedValues={basicFormData[index]?.selectedBot ?? []}
+                onSelect={(selectedList, selectedItem) => { onSelectData(selectedList, selectedItem, index) }}
+                placeholder={"Select Bots"}
+                onRemove={(selectedList, selectedItem) => { onSelectData(selectedList, selectedItem, index) }}
+                displayValue="name"
+                closeOnSelect={true}
+            />,
         },
         {
             name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{row.last_edited}</span>,
+            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).format('MMMM D, YYYY h:mm A')}</span>,
             sortable: false,
             reorder: false
         },
     ];
-
     const handleCreateOptions = (option) => {
         if (option === 'pdf') {
             setCreatePdfModal(true);
@@ -132,7 +184,43 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
         setCurrentIndex(0)
         setCreateModal(false)
     }
+    const handleSubmit = async (type) => {
+        setLoading(true)
+        let payload = {}
+        switch (type) {
+            case "SNIPPET":
+                payload = {
+                    content: basicFormData?.content,
+                    source: "snippet"
+                }
+                break;
+            case "FILE":
+                payload = {
+                    file: basicFormData?.file,
+                    source: "file"
+                }
+                break;
+            case "URL":
+                payload = {
+                    url: basicFormData?.url,
+                    source: "external"
+                }
+                break;
+            default:
+                break;
+        }
 
+        const response = await createNewKnowledge(payload)
+        if (response.status === 201) {
+            setCreateModal(false)
+            setLoading(false)
+            setCreateOptions(null)
+            setCreatePdfModal(false)
+            getData()
+            successMessage(type + " Added successfully")
+          
+        }
+    }
     return (
         <>
             <div className="w-full">
@@ -144,7 +232,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         </div>
                     </div>
                     <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
-                        
+
                         <div>
                             <button type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
                                 <Cog6ToothIcon className='h-4 w-4' />
@@ -199,25 +287,32 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                             />
                             <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
                         </div>
-                        <div className='mt-4 sm:mt-0'>
+                        <div className='mt-4 sm:mt-0 relative'>
                             <div className="text-sm bg-[#F1F1F1] rounded-lg inline-block p-1 px-2">
                                 <button
                                     type="button"
                                     className="border-none p-0 m-0 flex gap-1 items-center text-lg font-bold "
+                                    onClick={() => { setShowSourceFilter(prev => !prev) }}
                                 >
                                     <AdjustmentsHorizontalIcon className='h-4 w-4' />
                                     <small className="">All content sources</small>
                                 </button>
                             </div>
-                        </div>
-                        <div className='mt-4 sm:mt-0'>
-                            <span
-                                className="flex justify-start gap-1 text-xs sm:text-sm cursor-pointer items-center font-bold rounded-t-lg"
-                                aria-current="page"
-                            >
-                                <PlusIcon className={`h-4 w-4`} />
-                                Add filter
-                            </span>
+                            {showSourceFilter && (
+                                <div id="dropdown" className="z-10 absolute my-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                    <ul className="p-2  text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                                        <li className='hover:bg-gray rounded-md cursor-pointer '>
+                                            <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">URL</p>
+                                        </li>
+                                        <li className='hover:bg-gray rounded-md cursor-pointer '>
+                                            <p href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
+                                        </li>
+                                        <li className='hover:bg-gray rounded-md cursor-pointer '>
+                                            <p href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -233,9 +328,9 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         viewKnowledgeCenterHandler(rowData);
                     }}
                     noDataComponent={<><p className="text-center text-sm p-3">No Records Found!</p></>}
-                    data={knowledgeCenterRecords}
+                    data={knowledge}
                 />
-            </div>  
+            </div>
             {createModal === true && (
                 <Modal title={'Add New Content'} show={createModal} setShow={setCreateModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
                     <div className='block sm:flex justify-center items-center gap-4 py-4'>
@@ -261,170 +356,18 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
 
 
             {createOptions === 'snippet' && (
-                <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>
-                    <div className='w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
-                        <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
-                            <div className='flex flex-col sm:flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
-                                <div className='flex flex-row flex-1'>
-                                    <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' />
-                                </div>
-                                <div className='flex flex-row justify-end gap-2'>
-                                    <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
-                                        <XCircleIcon className='h-4 w-4' />
-                                        Delete
-                                    </button>
-                                    <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white">
-                                        Save and close
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div className='my-8'>
-                                <div className='flex flex-col gap-6'>
-                                    <div className='flex flex-row items-center'>
-                                        <span className='pr-5 text-xs'>State</span>
-                                        <div className='flex flex-row items-center gap-2 col-span-4'>
-                                            <div>
-                                                <label className="switch" style={{ height: "unset" }}>
-                                                    <input type="checkbox" name="billingEnabled" />
-                                                    <span className="slider round h-[27px] w-[55px]"></span>
-                                                </label>
-                                            </div>
-                                            <p className="inline-block whitespace-nowrap rounded bg-[#d8efdc] text-[#107235] px-4 py-2 align-baseline text-xs font-bold leading-none">
-                                                {`Active`}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className='relative pb-6'>
-                                        <textarea rows="10" cols="30" className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Start writing your content...'></textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='bg-[#E8E8E8] flex items-start gap-3 py-[10px] px-[15px] rounded-lg absolute bottom-4 left-3 right-3'>
-                                <div className="flex gap-3 items-start justify-start">
-                                    <svg className="mt-1" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9.10039 4.90449C9.10039 4.29698 8.6079 3.80449 8.00039 3.80449C7.39288 3.80449 6.90039 4.29698 6.90039 4.90449C6.90039 5.51201 7.39288 6.00449 8.00039 6.00449C8.6079 6.00449 9.10039 5.51201 9.10039 4.90449Z"></path><path d="M7.25 7.00449V12.0045H8.75V7.00449H7.25Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.00039 15.3226C3.9411 15.3226 0.650391 12.0319 0.650391 7.97256C0.650391 3.91327 3.9411 0.622559 8.00039 0.622559C12.0597 0.622559 15.3504 3.91327 15.3504 7.97256C15.3504 12.0319 12.0597 15.3226 8.00039 15.3226ZM2.35039 7.97256C2.35039 11.093 4.87998 13.6226 8.00039 13.6226C11.1208 13.6226 13.6504 11.093 13.6504 7.97256C13.6504 4.85215 11.1208 2.32256 8.00039 2.32256C4.87998 2.32256 2.35039 4.85215 2.35039 7.97256Z"></path></svg>
-                                    <p className='font-sm'><span className='font-bold'>Tip:</span> Snippets are exclusive to Tempo and not publicly available to your customers. <a href=''>Learn more.</a></p>
-                                </div>
-                                <div className="cursor-pointer banner__hide-link">
-                                    <a data-test-banner-hide-link="" data-ember-action="" data-ember-action-2188="2188"><svg className="interface-icon o__standard o__standard__close" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.5097 3.5097C3.84165 3.17776 4.37984 3.17776 4.71178 3.5097L7.99983 6.79775L11.2879 3.5097C11.6198 3.17776 12.158 3.17776 12.49 3.5097C12.8219 3.84165 12.8219 4.37984 12.49 4.71178L9.20191 7.99983L12.49 11.2879C12.8219 11.6198 12.8219 12.158 12.49 12.49C12.158 12.8219 11.6198 12.8219 11.2879 12.49L7.99983 9.20191L4.71178 12.49C4.37984 12.8219 3.84165 12.8219 3.5097 12.49C3.17776 12.158 3.17776 11.6198 3.5097 11.2879L6.79775 7.99983L3.5097 4.71178C3.17776 4.37984 3.17776 3.84165 3.5097 3.5097Z"></path></svg></a>
-                                </div>
-                            </div>
-
-
-
-                        </div>
-                    </div>
-                </div >
+                <SnippetManagement setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>
-                    <div className='w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
-                        <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
-                            <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
-                                <div className='flex flex-row flex-1'>
-                                    <h2 className='font-bold text-lg'>Manage sources</h2>
-                                </div>
-                                <div className='flex flex-row justify-end gap-2'>
-                                    <div className='cursor-pointer' onClick={(e) => setCreateOptions(null)}>
-                                        <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] p-2' />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className='flex flex-col flex-1 p-0'>
-                                <div className='flex flex-col gap-16 border-gray-lightest p-8 -mx-8'>
-                                    <div className='flex flex-col gap-2'>
-                                        <h3 className='font-bold text-black'>Enter the URL of your external support content</h3>
-                                        <p class="text font-normal text-xs">
-                                            We will fetch all of the pages from the website URL you provide. Please provide a <strong>top-level domain</strong>. We will read from all the sub domain pages.
-                                        </p>
-                                        <input type='text' name='' placeholder='https://support.mywebsite.com/' className='new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[12px] text-[12px] disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white focus:text-[12px]' />
-                                        <div className='flex flex-col gap-2 pt-2'>
-                                            <ul class="text mt-0 px-6 list-disc text-sm">
-                                                <li class="mb-2">
-                                                    Provide your <strong>external help center homepage link</strong> for best results
-                                                </li>
-                                                <li class="mb-2">
-                                                    <strong>Top-level domains will give the best results</strong> (e.g. https://myhelpcenter.com rather than https://myhelpcenter.com/home)
-                                                </li>
-                                            </ul>
-                                            <div class="flex flex-row">
-                                                <button type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white">
-                                                    Sync external support content
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='flex flex-col gap-2'>
-                                        <h3 className='font-bold text-black'>Synced external sources</h3>
-                                        <p class="text font-normal text-xs">
-                                            Tempo will automatically generate responses using the following external sources:
-                                        </p>
-                                        <div class="flex flex-col gap-4 mt-4">
-                                            <div className='border-gray-300 cursor-pointer	 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg'>
-                                                <div class="flex flex-wrap sm:flex-auto justify-between rounded bg-white p-4">
-                                                    <div className='flex items-center justify-center'>
-                                                        <div>
-                                                            <label className="switch" style={{ height: "unset" }}>
-                                                                <input type="checkbox" checked name="billingEnabled" />
-                                                                <span className="slider round h-[27px] w-[55px]"></span>
-                                                            </label>
-                                                        </div>
-                                                        <h3 className='font-semibold'>https://support.gmail.com</h3>
-                                                    </div>
-                                                    <div className='pt-4 sm:pt-0 flex justify-center gap-1 items-center'>
-                                                        <p className="inline-block whitespace-nowrap rounded bg-[#d8efdc] text-[#107235] px-4 py-2 align-baseline text-xs font-bold leading-none">
-                                                            {`Active`}
-                                                        </p>
-                                                        <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
-                                                    </div>
-                                                </div>
-                                                <div class="flex flex-col justify-between rounded bg-white p-4">
-                                                    <p className='text-xs pb-4'>We are indexing your website and collecting your support content</p>
-                                                    <div class="grid grid-rows-`4` grid-flow-col gap-1 h-[5px]">
-                                                        {currentStatusSteps.map((item, index) => (
-                                                            <div key={index} className={`rounded-[10px] ${index === currentIndex ? 'blink-in-progress-animation' : ''} ${index < currentIndex ? 'flex-none bg-[#222]' : ''} ${index > currentIndex ? 'flex-auto bg-[#e8e8e8]' : ''} `}></div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div >
+                <UrlManagement currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createPdfModal === true && (
-                <Modal
-                    title={<span className='flex items-center justify-center gap-1'><ArrowLeftIcon onClick={(e) => { setCreatePdfModal(false); setCreateModal(true); }} className='w-6 h-6 pr-2 hover:text-primary cursor-pointer' />Add new Support Content</span>}
-                    show={createPdfModal}
-                    setShow={setCreatePdfModal}
-                    showCancel={true}
-                    className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"}
-                >
-                    <div className=''>
-                        <div className='border-b border-gray pb-5'>
-                            <h3 className='font-bold my-2'>File Upload</h3>
-                            <div className='block sm:flex items-center justify-between gap-8'>
-                                <div>
-                                    <FileUploader handleChange={handleChange} name="file" types={fileTypes} />
-                                </div>
-                                <div className='pt-4 sm:pt-0'>
-                                    <ul className='list-disc text-sm'>
-                                        <li>Support format is text PDF or txt in English. Images won't be scraped.</li>
-                                        <li>Files with multiple text columns, encrypted or password protected are not supported.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Modal>
+                <FileManagement createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
         </>
     )
 }
 
 export default ManageKnowledgeBase
+
+

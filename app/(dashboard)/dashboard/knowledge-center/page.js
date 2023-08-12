@@ -12,6 +12,7 @@ import { editRecommendation, fetchRecommendation } from "@/app/components/store/
 import { ColorRing } from "react-loader-spinner";
 import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
 import ViewKnowledgeCenter from "@/app/components/LearningCenter/ViewKnowledgeCenter";
+import { getKnowledgeData } from "@/app/API/pages/Knowledge";
 
 const Page = () => {
     const [updateLoader, setUpdateLoader] = useState(null);
@@ -147,6 +148,8 @@ const Page = () => {
         setViewCenter(true);
     };
 
+
+   
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
