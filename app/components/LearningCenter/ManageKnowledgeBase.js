@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { AdjustmentsHorizontalIcon, ClipboardIcon, DocumentTextIcon, LinkIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
 import Modal from '../Common/Modal/Modal';
-import { createNewKnowledge, getKnowledgeData, deleteKnowledgeRecord } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, getKnowledgeData, deleteKnowledgeRecord, updateKnowledgeRecord } from '@/app/API/pages/Knowledge';
 
 import Multiselect from 'multiselect-react-dropdown';
 import SnippetManagement from './SnippetManagement';
@@ -32,7 +32,7 @@ const ManageKnowledgeBase = () => {
     const [tabLoader, setTabLoader] = useState(false);
     const [editKnowledgeCenter, setEditKnowledgeCenter] = useState(false);
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
-
+    console.log("knowledge", knowledge)
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -40,10 +40,11 @@ const ManageKnowledgeBase = () => {
 
         return () => clearInterval(interval);
     }, []);
-    console.log("knowledge", knowledge)
+
     useEffect(() => {
         getData()
     }, [])
+
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
@@ -74,6 +75,7 @@ const ManageKnowledgeBase = () => {
     const handleChange = (file) => {
         setFile(file);
     };
+
     const onSelectData = (selectedList, selectedItem, index) => {
         let updatedSelectedList = [...basicFormData.selectedBot];
         updatedSelectedList[index] = selectedList;
@@ -81,6 +83,9 @@ const ManageKnowledgeBase = () => {
             ...prev,
             selectedBot: updatedSelectedList
         }));
+        console.log("selectedList", selectedList);
+        console.log("selectedItem", selectedItem);
+        console.log("index", index);
     }
 
 
@@ -103,6 +108,19 @@ const ManageKnowledgeBase = () => {
             }
         })
     }
+
+    const updateBotSelection = async (rowIndex, selectedBots) => {
+        const recordId = knowledge[rowIndex]?.id; // Assuming your data contains the record ID
+        const payload = { bots: selectedBots.map(botId => ({ bot: botId.value, active: true })) };
+
+        try {
+            const response = await updateKnowledgeRecord(payload, recordId);
+            console.log("response", response);
+            // Handle response as needed
+        } catch (error) {
+            // Handle error
+        }
+    };
 
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
@@ -140,7 +158,7 @@ const ManageKnowledgeBase = () => {
             sortable: true,
             reorder: true,
             cell: (row) => (
-                <span data-tag="allowRowEvents" className={`inline-block whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
                     {row.active ? "Active" : "Disable"}
                 </span>
             ),
@@ -165,9 +183,15 @@ const ManageKnowledgeBase = () => {
             cell: (row, index) => <Multiselect
                 options={basicFormData?.bots ?? []}
                 selectedValues={basicFormData[index]?.selectedBot ?? []}
-                onSelect={(selectedList, selectedItem) => { onSelectData(selectedList, selectedItem, index) }}
+                onSelect={(selectedList, selectedItem) => {
+                    onSelectData(selectedList, selectedItem, index);
+                    updateBotSelection(index, selectedList); // Call API when selection changes
+                }}
+                onRemove={(selectedList, selectedItem) => {
+                    onSelectData(selectedList, selectedItem, index);
+                    updateBotSelection(index, selectedList); // Call API when selection changes
+                }}
                 placeholder={"Select Bots"}
-                onRemove={(selectedList, selectedItem) => { onSelectData(selectedList, selectedItem, index) }}
                 displayValue="name"
                 closeOnSelect={true}
             />,

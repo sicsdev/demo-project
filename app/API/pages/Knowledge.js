@@ -32,3 +32,13 @@ export const deleteKnowledgeRecord = async (id) => {
         return error
     }
 };
+
+export const updateKnowledgeRecord = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/knowledge/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error.response.data
+    }
+}
