@@ -101,9 +101,9 @@ const Footer = () => {
                       <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/data-processing-agreement">DPA</Link>
                       </h6>
-                      {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/privacy-policy">Privacy Policy</Link>
-                      </h6> */}
+                      </h6>
                     </div>
                   </div>
                   {/* <div className="grid grid-cols-2  sm:hidden justify-between gap-3  items-start">
