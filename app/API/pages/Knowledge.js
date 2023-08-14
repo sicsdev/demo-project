@@ -23,3 +23,12 @@ export const createNewKnowledge = async (body) => {
 };
 
 
+export const deleteKnowledgeRecord = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/knowledge/${id}/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

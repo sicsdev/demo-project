@@ -1,8 +1,9 @@
-import { XCircleIcon } from '@heroicons/react/24/outline'
+import { InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useState } from 'react'
 
 const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading }) => {
     const [content, setContent] = useState(basicFormData?.content ?? '')
+    const [tipContent, setTipContent] = useState(true);
     const handleInputChange = (e) => {
         const { value, name } = e.target
         setContent(value)
@@ -13,6 +14,15 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
             }
         })
     }
+    const handleToggleChange = (e) => {
+        const { checked, name } = e.target; // Use checked instead of value for checkbox
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                [name]: checked,
+            };
+        });
+    };
 
     const DisablingButton = () => {
         return ["content"].some(
@@ -45,12 +55,12 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 <div className='flex flex-row items-center gap-2 col-span-4'>
                                     <div>
                                         <label className="switch" style={{ height: "unset" }}>
-                                            <input type="checkbox" name="billingEnabled" />
+                                            <input type="checkbox" name="snippet_active" onChange={handleToggleChange} />
                                             <span className="slider round h-[27px] w-[55px]"></span>
                                         </label>
                                     </div>
-                                    <p className="inline-block whitespace-nowrap rounded bg-[#d8efdc] text-[#107235] px-4 py-2 align-baseline text-xs font-bold leading-none">
-                                        {`Active`}
+                                    <p className={`inline-block whitespace-nowrap rounded ${basicFormData?.snippet_active === true ? `bg-[#d8efdc] text-[#107235]` : 'text-black bg-[#ececf1]'} px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                                        {basicFormData?.snippet_active === true ? `Active` : `Disabled`}
                                     </p>
                                 </div>
                             </div>
@@ -59,18 +69,17 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             </div>
                         </div>
                     </div>
-
-                    <div className='bg-[#E8E8E8] flex items-start gap-3 py-[10px] px-[15px] rounded-lg absolute bottom-4 left-3 right-3'>
-                        <div className="flex gap-3 items-start justify-start">
-                            <svg className="mt-1" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M9.10039 4.90449C9.10039 4.29698 8.6079 3.80449 8.00039 3.80449C7.39288 3.80449 6.90039 4.29698 6.90039 4.90449C6.90039 5.51201 7.39288 6.00449 8.00039 6.00449C8.6079 6.00449 9.10039 5.51201 9.10039 4.90449Z"></path><path d="M7.25 7.00449V12.0045H8.75V7.00449H7.25Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M8.00039 15.3226C3.9411 15.3226 0.650391 12.0319 0.650391 7.97256C0.650391 3.91327 3.9411 0.622559 8.00039 0.622559C12.0597 0.622559 15.3504 3.91327 15.3504 7.97256C15.3504 12.0319 12.0597 15.3226 8.00039 15.3226ZM2.35039 7.97256C2.35039 11.093 4.87998 13.6226 8.00039 13.6226C11.1208 13.6226 13.6504 11.093 13.6504 7.97256C13.6504 4.85215 11.1208 2.32256 8.00039 2.32256C4.87998 2.32256 2.35039 4.85215 2.35039 7.97256Z"></path></svg>
-                            <p className='font-sm'><span className='font-bold'>Tip:</span> Snippets are exclusive to Tempo and not publicly available to your customers. <a href=''>Learn more.</a></p>
+                    {tipContent === true && (
+                        <div className='bg-[#E8E8E8] flex items-start gap-3 py-[10px] px-[15px] rounded-lg absolute bottom-4 left-3 right-3'>
+                            <div className="flex gap-3 items-start justify-start">
+                                <InformationCircleIcon className='h-5 w-5' />
+                                <p className='font-sm'><span className='font-bold'>Tip:</span> Snippets are exclusive to Tempo and not publicly available to your customers. <a href=''>Learn more.</a></p>
+                            </div>
+                            <div className="cursor-pointer banner__hide-link">
+                                <XMarkIcon onClick={() => setTipContent(false)} className='h-4 w-4' />
+                            </div>
                         </div>
-                        <div className="cursor-pointer banner__hide-link">
-                            <a data-test-banner-hide-link="" data-ember-action="" data-ember-action-2188="2188"><svg className="interface-icon o__standard o__standard__close" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.5097 3.5097C3.84165 3.17776 4.37984 3.17776 4.71178 3.5097L7.99983 6.79775L11.2879 3.5097C11.6198 3.17776 12.158 3.17776 12.49 3.5097C12.8219 3.84165 12.8219 4.37984 12.49 4.71178L9.20191 7.99983L12.49 11.2879C12.8219 11.6198 12.8219 12.158 12.49 12.49C12.158 12.8219 11.6198 12.8219 11.2879 12.49L7.99983 9.20191L4.71178 12.49C4.37984 12.8219 3.84165 12.8219 3.5097 12.49C3.17776 12.158 3.17776 11.6198 3.5097 11.2879L6.79775 7.99983L3.5097 4.71178C3.17776 4.37984 3.17776 3.84165 3.5097 3.5097Z"></path></svg></a>
-                        </div>
-                    </div>
-
-
+                    )}
 
                 </div>
             </div>

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import DataTable from "react-data-table-component";
-import { AdjustmentsHorizontalIcon, ArrowLeftIcon, ClipboardDocumentIcon, ClipboardIcon, DocumentTextIcon, EllipsisHorizontalIcon, LinkIcon, PaperClipIcon, PlusIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { BookOpenIcon, Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
+import { AdjustmentsHorizontalIcon, ClipboardIcon, DocumentTextIcon, LinkIcon, PaperClipIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
 import Modal from '../Common/Modal/Modal';
-import { createNewKnowledge, getKnowledgeData } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, getKnowledgeData, deleteKnowledgeRecord } from '@/app/API/pages/Knowledge';
 
 import Multiselect from 'multiselect-react-dropdown';
 import SnippetManagement from './SnippetManagement';
@@ -12,9 +12,11 @@ import FileManagement from './FileManagement';
 import moment from 'moment';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
-import { successMessage } from '../Messages/Messages';
+import { errorMessage, successMessage } from '../Messages/Messages';
+import SkeletonLoader from '../Skeleton/Skeleton';
+import EditKnowledgeCenter from './EditKnowledgeCenter';
 
-const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
+const ManageKnowledgeBase = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);
@@ -27,7 +29,9 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
     const [basicFormData, setBasicFormData] = useState({})
     const [loading, setLoading] = useState(false)
     const [showSourceFilter, setShowSourceFilter] = useState(false)
-
+    const [tabLoader, setTabLoader] = useState(false);
+    const [editKnowledgeCenter, setEditKnowledgeCenter] = useState(false);
+    const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -36,13 +40,14 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
 
         return () => clearInterval(interval);
     }, []);
-
+    console.log("knowledge", knowledge)
     useEffect(() => {
         getData()
     }, [])
     const getData = async () => {
+        setTabLoader(true);
         const response = await getKnowledgeData()
-        console.log("response", state)
+        setTabLoader(false);
         if (response?.data?.results.length > 0) {
             setKnowledge(response?.data?.results)
             const botDataArray = response?.data?.results.flatMap(entry => {
@@ -65,14 +70,11 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
         }
     }
 
-    console.log(basicFormData)
-
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
         setFile(file);
     };
     const onSelectData = (selectedList, selectedItem, index) => {
-        console.log("selectedList, selectedItem, index", selectedList, selectedItem, index);
         let updatedSelectedList = [...basicFormData.selectedBot];
         updatedSelectedList[index] = selectedList;
         setBasicFormData(prev => ({
@@ -101,6 +103,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             }
         })
     }
+
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
             getAllBots();
@@ -108,6 +111,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             dispatch(fetchBot())
         }
     }, [state.botData.data]);
+
     const knowledgeCenterColumns = [
         {
             name: <div><input type="checkbox" className="" /></div>,
@@ -170,7 +174,7 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
         },
         {
             name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).format('MMMM D, YYYY h:mm A')}</span>,
+            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).fromNow()}</span>,
             sortable: false,
             reorder: false
         },
@@ -191,7 +195,8 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             case "SNIPPET":
                 payload = {
                     content: basicFormData?.content,
-                    source: "snippet"
+                    source: "snippet",
+                    active: basicFormData?.snippet_active === true ? true : false
                 }
                 break;
             case "FILE":
@@ -218,9 +223,32 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             setCreatePdfModal(false)
             getData()
             successMessage(type + " Added successfully")
-          
+
         }
     }
+
+    const viewKnowledgeCenterHandler = (data) => {
+        setEditKnowledgeCenter(true);
+        setSingleKnowledgeData(data)
+    };
+
+    const closeKnowledgeCenter = () => {
+        setEditKnowledgeCenter(false);
+        setSingleKnowledgeData(null)
+    }
+
+    const deleteKnowledgeCenterHandler = async (id) => {
+        const deleteRecord = await deleteKnowledgeRecord(id)
+        if (deleteRecord.status === 204) {
+            successMessage("Knowledge deleted successfully")
+            setEditKnowledgeCenter(false);
+            setSingleKnowledgeData(null)
+            getData()
+        } else {
+            errorMessage('Unable To Delete Record!');
+        }
+    };
+
     return (
         <>
             <div className="w-full">
@@ -316,20 +344,37 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         </div>
                     </div>
                 </div>
-                <DataTable
-                    title={``}
-                    fixedHeader
-                    highlightOnHover
-                    pointerOnHover
-                    defaultSortFieldId="question"
-                    pagination
-                    columns={knowledgeCenterColumns}
-                    onRowClicked={(rowData) => {
-                        viewKnowledgeCenterHandler(rowData);
-                    }}
-                    noDataComponent={<><p className="text-center text-sm p-3">No Records Found!</p></>}
-                    data={knowledge}
-                />
+                {
+                    tabLoader === true ? (
+                        <div className="">
+                            <h1 className="mt-2 text-sm">
+                                <SkeletonLoader height={40} width={100} />
+                            </h1>
+                            <div className="mt-3">
+                                <SkeletonLoader count={9} height={30} className={"mt-2"} />
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='data_table_wrapper'>
+                            <DataTable
+                                title={``}
+                                fixedHeader
+                                highlightOnHover
+                                pointerOnHover
+                                defaultSortFieldId="question"
+                                pagination
+                                className='custom-data-table'
+                                columns={knowledgeCenterColumns}
+                                onRowClicked={(rowData) => {
+                                    viewKnowledgeCenterHandler(rowData);
+                                }}
+                                noDataComponent={<><p className="text-center text-sm p-3">No Records Found!</p></>}
+                                data={knowledge}
+                            />
+                        </div>
+                    )
+                }
+
             </div>
             {createModal === true && (
                 <Modal title={'Add New Content'} show={createModal} setShow={setCreateModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
@@ -351,7 +396,6 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
                         </div>
                     </div>
                 </Modal>
-
             )}
 
 
@@ -364,6 +408,10 @@ const ManageKnowledgeBase = ({ viewKnowledgeCenterHandler }) => {
             {createPdfModal === true && (
                 <FileManagement createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
+            {editKnowledgeCenter === true && (
+                <EditKnowledgeCenter singleKnowledgeData={singleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} />
+            )}
+
         </>
     )
 }
