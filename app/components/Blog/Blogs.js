@@ -10,12 +10,13 @@ const Blogs = ({blog}) => {
       {blog?.slice(1,blog.length).map((item, key) => (
         <div className=" shadow-lg rounded-lg  p-3" key={key}>
           <Link href={`blog/${item.slug}`}>
-            <div className="flex flex-co relative h-[200px] w-[300px] justify-start items-center js-show-on-scroll">
+            <div className="flex flex-co relative h-[200px] w-[100%] justify-start items-center js-show-on-scroll">
               <Image
                 fill={true}
-                src="/imagone.png"
+                src={item.jetpack_featured_media_url}
                 alt="img"
                 className="w-full h-full bg-contain"
+                style={{objectFit:"cover"}}
               />
             </div>
             <div className="py-45 px-35">
