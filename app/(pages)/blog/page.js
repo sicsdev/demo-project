@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Blogmail from "@/app/components/Blog/Blogmail";
 import { getBlogsPage } from "@/app/API/pages/Wpdata";
 import Blogs from "@/app/components/Blog/Blogs";
+import Testimonial from "@/app/components/Testimonial/Testimonial";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
@@ -66,9 +67,10 @@ const Blog = () => {
           </Link>
         </div>
       ))}
-      <News blog={blog} setBlog={setBlog} />
+      {/* <News blog={blog} setBlog={setBlog} /> */}
       <Blogs blog={blog} setBlog={setBlog} />
-      <Blogmail />
+      <Testimonial/>
+      {/* <Blogmail /> */}
     </div>
   );
 };
