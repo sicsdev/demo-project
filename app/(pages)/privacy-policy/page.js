@@ -6,32 +6,41 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
           <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-          Tempo.AI Privacy Notice (Clean 7.27823)
+            Tempo AI Ventures Inc.Company Privacy Notice{" "}
           </h1>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            Last Updated/Effective Date: 10 July, 2023
+            Last Updated/Effective Date:{" "}
           </h2>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
-            Tempo AI Ventures, Inc.(“Tempo”“we,” “us,” or “our”) respect your
-            privacy. This Privacy Notice describes the processing of Personal
-            Information (defined below) that is provided, collected, or shared
-            on our websiteand any other sites that link to this Privacy
-            Notice(collectively, the “Site”). It also describes rights you may
-            have under applicable laws.
+            Tempo AI Ventures, Inc.(“
+            <span className="font-semibold">Tempo</span>”,“
+            <span className="font-semibold">we</span>”,“
+            <span className="font-semibold">us</span>” or “
+            <span className="font-semibold">our</span>”) respects your privacy.
+            This Privacy Notice describes the processing of Personal Information
+            (defined below) that is provided, collected, or shared on our
+            website and any other sites that link to this Privacy Notice
+            (collectively, the “Site”). It also describes rights you may have
+            under applicable laws.
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
-            This Notice does not apply to Personal Information (defined
-            below)that we process on behalf of enterprise customersthat
-            integrate our chat-bot services or other business offerings
-            (“Services”). When you interact with us through our enterprise
-            customers, your Personal Information is collected, used, and
-            processed accordingto their privacy policy.
+            This Notice does not apply to Personal Information (defined below)
+            that we process on behalf of enterprise customersthat integrate our
+            chat-bot services or other business offerings (“Services”). When you
+            interact with us through our enterprise customers, your Personal
+            Information is collected, used, and processed according to their
+            privacy policy.
           </p>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-            1. Personal Information We Collect
+            1. Personal Information We Collect{" "}
           </h2>
+          <p className="text-base sm:text-base mb-3 ">
+            We may collect a range of Personal Information. “Personal
+            Information” means information that uniquely identifies, relates to,
+            describes, or is reasonably capable of being associated with or
+            linked to you.
+          </p>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
             The types of Personal Information we collect may include:
@@ -48,7 +57,7 @@ const Page = () => {
             </li>
             <li className="text-base mb-3">
               <p>
-                <span className="font-bold">Commercial information</span> – This
+                <span className="font-bold">Commercial information</span> –This
                 includes information about purchases, information about
                 subscriptions, products and services you have shown interest in,
                 payment processing information, and other commercial
@@ -57,7 +66,7 @@ const Page = () => {
             </li>
             <li className="text-base mb-3">
               <p>
-                <span className="font-bold">Usage Information</span> – When you
+                <span className="font-bold">Usage Information</span> –When you
                 use our Site, our servers may automatically record information,
                 including your Internet Protocol address (IP Address),
                 geolocation of your device, browser type, referring URLs (e.g.,
@@ -123,51 +132,58 @@ const Page = () => {
           </p>
           <ul>
             <li className="text-base">
-              <p>fulfill customer requests or provide customer support; </p>
+              <p>
+                • operate the Site and provide support to our business
+                functions;{" "}
+              </p>
             </li>
             <li className="text-base">
-              <p>protect against criminal activity; </p>
+              <p>• fulfill customer requests or provide customer support; </p>
             </li>
             <li className="text-base">
-              <p>protect or enforce our legal rights; </p>
+              <p>• protect against criminal activity; </p>
             </li>
             <li className="text-base">
-              <p>send you information about our company </p>
+              <p>• protect or enforce our legal rights;</p>
+            </li>
+            <li className="text-base">
+              <p>• send you information about our company;</p>
             </li>
             <li className="text-base">
               <p>
-                respond to reviews, comments, or other feedback provided to us;{" "}
+                • respond to reviews, comments, or other feedback provided to
+                us;
               </p>
             </li>
             <li className="text-base">
               <p>
-                enhance, support, and personalize the Site and our advertising
-                or marketing efforts;{" "}
+                • enhance, support, and personalize the Site and our advertising
+                or marketing efforts;
               </p>
             </li>
 
             <li className="text-base">
-              <p>protect the security and integrity of the Site; </p>
+              <p>• protect the security and integrity of the Site;</p>
             </li>
             <li className="text-base">
-              <p>develop new products or services </p>
+              <p>• develop new products or services;</p>
             </li>
             <li className="text-base">
-              <p>engage in benchmarking, data analysis, or audits; </p>
+              <p>• engage in benchmarking, data analysis, or audits; </p>
             </li>
             <li className="text-base">
-              <p>meet our contractual requirements; </p>
+              <p>• meet our contractual requirements; </p>
             </li>
             <li className="text-base">
               <p>
-                comply with applicable legal or regulatory requirements and our
-                policies; and{" "}
+                • comply with applicable legal or regulatory requirements and
+                our policies; and
               </p>
             </li>
             <li className="text-base">
               <p>
-                the extent necessary for any other lawful purpose for which the
-                Personal Information is collected.{" "}
+                • the extent necessary for any other lawful purpose for which
+                the Personal Information is collected;
               </p>
             </li>
           </ul>
@@ -201,8 +217,8 @@ const Page = () => {
                 agreement you have with us, (c) detect, prevent, or otherwise
                 respond to fraud, security or technical concerns, (d) support
                 auditing and compliance functions, or (e) protect the rights,
-                property, or safety of Tempo, its users, or the public against
-                harm.{" "}
+                property, or safety ofTempo, its users, or the public against
+                harm.
               </p>
             </li>
 
@@ -214,7 +230,7 @@ const Page = () => {
                 including but not limited to a bankruptcy or similar proceeding,
                 Personal Information may be transferred along with the business.
                 Where legally required, we will give you prior notice prior to
-                such a transfer.{" "}
+                such a transfer.
               </p>
             </li>
             <li className="text-base mb-3">
@@ -222,7 +238,7 @@ const Page = () => {
                 <span className="font-bold">Service Providers</span> – We share
                 your Personal Information with third party service providers as
                 necessary to enable them to support the Site, or other aspects
-                of our business.{" "}
+                of our business.
               </p>
             </li>
           </ul>
@@ -244,17 +260,48 @@ const Page = () => {
             and other technologies that collect your Personal Information.
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
-            To learn more about how Google uses data, visit Google’s Privacy
-            Policy and Google’s page on “How Google uses data when you use our
-            partners’ sites or apps.” You may download the Google Analytics
-            Opt-out Browser Add-on for each web browser you use, but this does
-            not prevent the use of other analytics tools. To learn more about
-            Google Analytics cookies, visit Google Analytics Cookie Usage on
-            Websites.
+            To learn more about how Google uses data, visit{" "}
+            <span className="text-[blue] cursor-pointer">
+              {" "}
+              <a href="https://policies.google.com/privacy" target="_blank">
+                Google’s Privacy Policy
+              </a>{" "}
+            </span>{" "}
+            and Google’s page on “
+            <span className="text-[blue] cursor-pointer">
+              <a
+                href="https://policies.google.com/technologies/partner-sites"
+                target="_blank"
+              >
+                How Google uses data when you use our partners’ sites or apps.
+              </a>
+            </span>
+            ” You may download the{" "}
+            <span className="text-[blue] cursor-pointer">
+              {" "}
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+              >
+                {" "}
+                Google Analytics Opt-out Browser Add-on
+              </a>
+            </span>{" "}
+            for each web browser you use, but this does not prevent the use of
+            other analytics tools. To learn more about Google Analytics cookies,
+            visit{" "}
+            <span className="text-[blue] cursor-pointer">
+              {" "}
+              <a
+                href="https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage"
+                target="_blank"
+              >
+                {" "}
+                Google Analytics Cookie Usage on Websites.
+              </a>{" "}
+            </span>
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             In order to manage your preferences with respect to these
             technologies, please visit our preferences page. In addition, most
             browsers provide you with the ability to block, delete, or disable
@@ -272,13 +319,12 @@ const Page = () => {
             6. How Long Do We Keep Your Personal Information
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             We will retain your Personal Information for as long as necessary to
             fulfill the purposes for which it has been collected, as outlined in
-            this Privacy Notice, or any longer retention period required by law.
-            If you are a California resident, please see the section below
+            this Privacy Notice, or any longer retention period required by
+            law.If you are a California resident, please see the section below
             titled Notice to California Residents for additional information
-            about how long we retain your Personal Information.
+            about how long we retain your Personal Information.{" "}
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
@@ -326,8 +372,12 @@ const Page = () => {
             </li>
             <li className="text-base mb-2">
               <p>
-                <span className="font-bold">Correction:</span> – You may have
-                the right to correct inaccuracies in your Personal Information.{" "}
+                <span className="font-bold">Correction:</span> –: You may have
+                the right to opt out of the processing of your information for
+                purposes of (a) targeted advertising, (b), the sale of your
+                Personal Information; or (c) profiling in furtherance of
+                decisions that produce legal or similarly significant effect
+                concerning you.
               </p>
             </li>
             <li className="text-base mb-2">
@@ -346,19 +396,18 @@ const Page = () => {
           <p className="text-base sm:text-base mb-3 ">
             {" "}
             To exercise any of the privacy rights afforded to you, please submit
-            a request to us by emailing us at privacy@usetempo.ai.
+            a request to us by emailing us at [privacy@usetempo.ai].
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             9. Marketing Emails
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
-            To opt out of marketing emails, please email us at
-            privacy@usetempo.ai.. Please note that, even if you unsubscribe from
-            certain correspondence, we may still need to contact you with
+            To opt out of marketing emails, please email us
+            at[privacy@usetempo.ai].. Please note that, even if you unsubscribe
+            from certain correspondence, we may still need to contact you with
             important transactional or administrative information, as permitted
-            by law. Additionally, if you withdraw your consent or object to
+            by law.Additionally, if you withdraw your consent or object to
             processing of your Personal Information, or if you choose not to
             provide certain Personal Information, we may be unable to provide
             some (or all) of our services to you and some aspects and features
@@ -369,7 +418,6 @@ const Page = () => {
             10. International Use of the Site
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             This Site is hosted in the United States. As a result, the Personal
             Information that we collect and generate about you as you use the
             Site may be transferred, stored, or accessed in a destination
@@ -381,7 +429,6 @@ const Page = () => {
             11. Children’s Privacy
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             We do not knowingly collect or solicit any Personal Information from
             children under the age of sixteen. If we learn that we have
             collected Personal Information from a child, we will promptly take
@@ -393,7 +440,6 @@ const Page = () => {
             12. Links to Third-Party Websites
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             We are not responsible for the practices employed by any websites or
             services linked to or from the Site, including the information or
             content contained within them. We encourage you to investigate and
@@ -406,7 +452,6 @@ const Page = () => {
             13. Notice to California Residents
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             If you are a California resident, California law provides you with
             specific rights regarding your Personal Information. Any capitalized
             terms not defined in this Privacy Policy have the meanings set forth
@@ -414,13 +459,11 @@ const Page = () => {
             amended by the California Privacy Rights Act (the “CPRA”).
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             This Privacy Policy does not apply to workforce-related Personal
             Information collected from California-based employees, job
             applicants, contractors, or similar individuals.
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             Within the last twelve (12) months, we have collected the categories
             of Personal Information listed in the table below. The table also
             lists, for each category: (1) the categories of third parties (if
@@ -455,12 +498,6 @@ const Page = () => {
                     Categories of Third Parties to Which We May Sell or Share
                     Personal Information
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white text-left"
-                  >
-                    Retention Period
-                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -482,7 +519,6 @@ const Page = () => {
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
-                  <td className="px-6 py-4"></td>
                 </tr>
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -503,7 +539,6 @@ const Page = () => {
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
-                  <td className="px-6 py-4"></td>
                 </tr>
 
                 <tr
@@ -524,7 +559,6 @@ const Page = () => {
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
-                  <td className="px-6 py-4"></td>
                 </tr>
 
                 <tr
@@ -554,7 +588,6 @@ const Page = () => {
                       </li>
                     </ul>
                   </td>
-                  <td className="px-6 py-4 "></td>
                 </tr>
 
                 <tr
@@ -571,7 +604,6 @@ const Page = () => {
 
                   <td className="px-6 py-4 text-left">N/A </td>
                   <td className="px-6 py-4 text-left">N/A</td>
-                  <td className="px-6 py-4"></td>
                 </tr>
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -585,13 +617,12 @@ const Page = () => {
                   </th>
 
                   <td className="px-6 py-4 text-left">
-                    Service Providers; Third-Party Business Partners
+                    Service Providers; Third-Party Business Partners.
                   </td>
                   <td className="px-6 py-4 text-left">
                     We do not sell or share this type of category of Personal
                     Information.{" "}
                   </td>
-                  <td className="px-6 py-4"></td>
                 </tr>
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -604,9 +635,13 @@ const Page = () => {
                     Professional or employment-related information{" "}
                   </th>
 
-                  <td className="px-6 py-4 text-left">N/A </td>
-                  <td className="px-6 py-4 text-left">N/A </td>
-                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4 text-left">
+                    Service Providers; Third-Party Business Partners.{" "}
+                  </td>
+                  <td className="px-6 py-4 text-left">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
                 </tr>
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -623,7 +658,6 @@ const Page = () => {
 
                   <td className="px-6 py-4 text-left">N/A </td>
                   <td className="px-6 py-4 text-left">N/A </td>
-                  <td className="px-6 py-4"></td>
                 </tr>
                 <tr
                   className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -635,9 +669,13 @@ const Page = () => {
                   >
                     Sensitive Personal Information{" "}
                   </th>
-                  <td className="px-6 py-4 text-left">N/A </td>
-                  <td className="px-6 py-4 text-left">N/A </td>
-                  <td className="px-6 py-4"></td>
+                  <td className="px-6 py-4 text-left">
+                    Service Providers; Third-Party Business Partners.
+                  </td>
+                  <td className="px-6 py-4 text-left">
+                    We do not sell or share this type of category of Personal
+                    Information.{" "}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -838,15 +876,14 @@ const Page = () => {
           </div>
 
           <p className="text-base sm:text-base mb-3 mt-12">
-            {" "}
             Only you, or an authorized agent that you authorize to act on your
             behalf, may make a request related to your Personal Information. You
-            may also make a request on behalf of your minor child. We must
-            verify your identity before fulfilling your requests. If we cannot
-            initially verify your identity, we may request additional
-            information to complete the verification process. We will only use
-            Personal Information provided in a request to verify the requestor’s
-            identity. If you are an authorized agent making a request on behalf
+            may also make a request on behalf of your minor child.We must verify
+            your identity before fulfilling your requests.If we cannot initially
+            verify your identity, we may request additional information to
+            complete the verification process. We will only use Personal
+            Information provided in a request to verify the requestor’s
+            identity.If you are an authorized agent making a request on behalf
             of a consumer, we will also need to verify your identity, which may
             require proof of your written authorization or evidence of a power
             of attorney.
@@ -861,20 +898,20 @@ const Page = () => {
           <ul>
             <li className="text-base">
               <p>
-                Provide sufficient information that allows us to reasonably
+                • Provide sufficient information that allows us to reasonably
                 verify you are the person about whom we collected Personal
-                Information or an authorized representative.{" "}
+                Information or an authorized representative.
               </p>
             </li>
             <li className="text-base">
               <p>
-                Describe your request with sufficient detail that allows us to
-                properly understand, evaluate, and respond to it.{" "}
+                • Describe your request with sufficient detail that allows us to
+                properly understand, evaluate, and respond to it.
               </p>
             </li>
           </ul>
 
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-base mb-3 mt-3 ">
             {" "}
             When we receive your request to exercise your rights described in
             this Privacy Policy, we will (a) acknowledge receipt of your
@@ -930,17 +967,17 @@ const Page = () => {
           </p>
           <p className="text-base sm:text-base mb-3 ">
             {" "}
-            California Shine the Light Act: Under California Civil Code Section
-            1798.83, individual customers who reside in California and who have
-            an existing business relationship with us may request information
-            about our disclosure of certain categories of Personal Information
-            to third parties for the third parties’ direct marketing purposes,
-            if any. To make such a request, please contact us using the
-            information in the Contact Us section below. Please be aware that
-            not all information sharing is covered by these California privacy
-            rights requirements and only information on covered sharing will be
-            included in our response. This request may be made no more than once
-            per calendar year.
+            <span className="italic	">California Shine the Light Act:</span>{" "}
+            Under California Civil Code Section 1798.83, individual customers
+            who reside in California and who have an existing business
+            relationship with us may request information about our disclosure of
+            certain categories of Personal Information to third parties for the
+            third parties’ direct marketing purposes, if any. To make such a
+            request, please contact us using the information in the Contact Us
+            section below. Please be aware that not all information sharing is
+            covered by these California privacy rights requirements and only
+            information on covered sharing will be included in our response.
+            This request may be made no more than once per calendar year.
           </p>
 
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
@@ -955,14 +992,12 @@ const Page = () => {
             will apply immediately upon posting to the Site.
           </p>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             This Privacy Notice is available to consumers with disabilities. To
             access this Privacy Notice in an alternative downloadable format,
-            please go to{" "}
+            please
             <span className="text-[blue] cursor-pointer">
               <a href="https://usetempo.ai/privacy-policy-pdf">
-                {" "}
-                https://usetempo.ai/privacy-policy-pdf.
+                &nbsp;click here.{" "}
               </a>
             </span>
           </p>
@@ -971,9 +1006,8 @@ const Page = () => {
             15. Contact Us
           </h2>
           <p className="text-base sm:text-base mb-3 ">
-            {" "}
             If you have any questions about our practices or this Privacy
-            Notice, please contact us at privacy@usetempo.ai.
+            Notice, please contact us at [privacy@usetempo.ai].
           </p>
         </div>
       </div>
