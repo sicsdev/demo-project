@@ -30,14 +30,13 @@ const Blog = () => {
               The Tempo Blog
             </h1>
             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          
             </p>
           </div>
           <Link href={`blog/${ele.slug}`}>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2">
                 <img
-                  src="blog-image.png"
+                  src={ele.jetpack_featured_media_url}
                   alt="Full-width Image"
                   className="w-full h-auto"
                 />

@@ -22,8 +22,12 @@ import Homefold from "../components/Get-Start/Homefold";
 import Panelcard from "../components/PanelCard/PanelCard";
 import Panelcardnew from "../components/PanelCardNew/PanelCardNew";
 import Middlebar from "../components/Info-Screen/Middlebar";
+import { useEffect } from "react";
+import { Router, useRouter } from "next/router";
 
 export default function Home() {
+ 
+  
   return (
     <>
       <pre lang="js">
