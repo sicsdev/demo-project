@@ -6,7 +6,10 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const [tipContent, setTipContent] = useState(true);
     const handleInputChange = (e) => {
         const { value, name } = e.target
-        setContent(value)
+        if (name === "content") {
+            setContent(value)
+        }
+
         setBasicFormData((prev) => {
             return {
                 ...prev,
@@ -25,7 +28,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     };
 
     const DisablingButton = () => {
-        return ["content"].some(
+        return ["content",'title'].some(
             (key) => !basicFormData[key] || basicFormData[key].trim() === ""
         );
     }
@@ -35,14 +38,14 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
                     <div className='flex flex-col sm:flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
                         <div className='flex flex-row flex-1'>
-                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' />
+                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title'onChange={handleInputChange} />
                         </div>
                         <div className='flex flex-row justify-end gap-2'>
                             <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
                                 <XCircleIcon className='h-4 w-4' />
-                                Delete
+                                Close
                             </button>
-                            <button onClick={(e) => handleSubmit('SNIPPET')} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true}>
+                            <button onClick={(e) => handleSubmit({ type: 'SNIPPET' })} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none" disabled={DisablingButton() || loading === true}>
                                 {loading ? "Loading..." : "Save and close"}
                             </button>
                         </div>
@@ -69,17 +72,6 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             </div>
                         </div>
                     </div>
-                    {tipContent === true && (
-                        <div className='bg-[#E8E8E8] flex items-start gap-3 py-[10px] px-[15px] rounded-lg absolute bottom-4 left-3 right-3'>
-                            <div className="flex gap-3 items-start justify-start">
-                                <InformationCircleIcon className='h-5 w-5' />
-                                <p className='font-sm'><span className='font-bold'>Tip:</span> Snippets are exclusive to Tempo and not publicly available to your customers. <a href=''>Learn more.</a></p>
-                            </div>
-                            <div className="cursor-pointer banner__hide-link">
-                                <XMarkIcon onClick={() => setTipContent(false)} className='h-4 w-4' />
-                            </div>
-                        </div>
-                    )}
 
                 </div>
             </div>
