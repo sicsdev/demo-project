@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
-const CustomIntegration = ({ setIntegrationform,help, formData, setFormData, integrationFormData, fetchData }) => {
+const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData }) => {
 
 
     const [customFields, setCustomFields] = useState({});
@@ -115,6 +115,7 @@ const CustomIntegration = ({ setIntegrationform,help, formData, setFormData, int
         setLoading(true);
         // console.log("payloadData", payloadData);
         // return false;
+        debugger
         try {
             let configureIntegration;
             let message;
@@ -131,7 +132,7 @@ const CustomIntegration = ({ setIntegrationform,help, formData, setFormData, int
                 setIntegrationform(false);
                 successMessage(message);
             } else {
-                errorMessage("Unable to Proceed!");
+                errorMessage(configureIntegration.response.data.error);
             }
         } catch (error) {
             setLoading(false);

@@ -3,7 +3,7 @@ import { EllipsisHorizontalIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { XCircleIcon } from '@heroicons/react/24/solid'
 import React, { useRef, useState, useEffect } from 'react'
 
-const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord }) => {
+const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord, knowledge, setKnowledge }) => {
     const [url, setUrl] = useState(basicFormData?.url ?? '')
     const [knowledgeData, setKnowledgeData] = useState(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
     const handleInputChange = (e) => {
@@ -23,22 +23,38 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
         );
     }
 
-    const handleToggle = async (index) => {
+    const handleToggle = async (index, id) => {
+        const knowledgeIndex = knowledge.findIndex(obj => obj.id === id);
+        const basicFormDataIndex = basicFormData?.knowledgeData.findIndex(obj => obj.id === id);
+        let knowledgeData = [...knowledge]
+        let basic = [...basicFormData.knowledgeData]
         let singleData = [...knowledgeData]
         const payload = { active: true };
         if (singleData[index].active === true) {
             singleData[index].active = false
             payload.active = false
+            basic[basicFormDataIndex].active = false
+            knowledgeData[knowledgeIndex].active = false
         } else {
             singleData[index].active = true
+            basic[basicFormDataIndex].active = true
+            knowledgeData[knowledgeIndex].active = true
         }
-        setKnowledgeData(singleData)
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                knowledgeData: basic
+            }
+        })
         try {
             await updateKnowledgeRecord(payload, singleData[index].id);
+            setKnowledge(knowledgeData)
+            setKnowledgeData(getCount(basic || [], 'EXTERNAL'))
         } catch (error) {
         }
 
     }
+
     const deleteRecordNew = (id) => {
         const filerData = knowledgeData.filter((x) => x.id !== id)
         setKnowledgeData(filerData)
@@ -76,7 +92,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                         </li>
                                     </ul>
                                     <div className="flex flex-row">
-                                        <button type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:cursor-pointer disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true} onClick={() => handleSubmit({type:"URL"})} value={url}>
+                                        <button type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:cursor-pointer disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true} onClick={() => handleSubmit({ type: "URL" })} value={url}>
                                             {loading ? "Loading..." : "Sync external support content"}
                                         </button>
                                     </div>
@@ -95,7 +111,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                                     <div className='flex items-center justify-center'>
                                                         <div>
                                                             <label className="switch" style={{ height: "unset" }}>
-                                                                <input type="checkbox" name="url_active" onChange={() => { handleToggle(key) }} checked={knowledgeData[key].active === true} />
+                                                                <input type="checkbox" name="url_active" onChange={() => { handleToggle(key, knowledgeData[key].id) }} checked={knowledgeData[key].active === true} />
                                                                 <span className="slider round h-[27px] w-[55px]"></span>
                                                             </label>
                                                         </div>

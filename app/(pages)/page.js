@@ -30,7 +30,7 @@ export default function Home() {
   
   return (
     <>
-      <pre lang="js">
+      {/* <pre lang="js">
         <script src="https://widget-dev.usetempo.ai/v1/main.js" />
         <script
           dangerouslySetInnerHTML={{
@@ -41,7 +41,7 @@ export default function Home() {
             `,
           }}
         />
-      </pre>
+      </pre> */}
 
       <main className="">
         <Head></Head>
