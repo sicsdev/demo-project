@@ -22,6 +22,47 @@ const Page = () => {
     const state = useSelector((state) => state.recommendation);
     const [tab, setTab] = useState(0);
 
+    const [tabLoader, setTabLoader] = useState(true);
+    const [knowledge, setKnowledge] = useState([])
+    const [basicFormData, setBasicFormData] = useState({})
+
+    const getData = async () => {
+        setTabLoader(true);
+        const response = await getKnowledgeData()
+        if (response?.data?.results.length > 0) {
+            setKnowledge(response?.data?.results)
+            const botDataArray = response?.data?.results.flatMap(entry => {
+                if (entry.bots.length === 0) {
+                    return []; // Return an empty array for entries with no bots
+                } else {
+                    entry.bots.map(bot => ({
+                        value: bot.bot.id,
+                        name: bot.bot.chat_title,
+                    }))
+                }
+            }
+            );
+            setBasicFormData(prev => {
+                return {
+                    ...prev,
+                    selectedBot: botDataArray,
+                    knowledgeData: response?.data?.results
+                }
+            })
+            setTabLoader(false);
+        } else {
+            setBasicFormData(prev => {
+                return {
+                    ...prev,
+                    knowledgeData: []
+                }
+            })
+            setTabLoader(false);
+        }
+    }
+    useEffect(() => {
+        getData()
+    }, [])
     const updateButtonHandler = async (id) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
@@ -195,7 +236,7 @@ const Page = () => {
                             </div>
                         )}
                         {tab === 1 && (
-                            <ManageKnowledgeBase />
+                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData}/>
                         )}
                     </>
                 )}

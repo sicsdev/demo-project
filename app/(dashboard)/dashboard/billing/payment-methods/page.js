@@ -36,7 +36,9 @@ const PaymentMethod = () => {
             setError(errorMessages.notFound)
         }
     };
-    useEffect(() => {if(basicFormData === null) getBillingData() }, [state])
+    useEffect(() => {if(basicFormData === null && state) getBillingData() }, [state])
+
+
     const makeCapital = (str) => {
         if (str?.includes(" ")) {
             return str
