@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Blogmail from "@/app/components/Blog/Blogmail";
 import { getBlogsPage } from "@/app/API/pages/Wpdata";
 import Blogs from "@/app/components/Blog/Blogs";
+import Testimonial from "@/app/components/Testimonial/Testimonial";
 
 const Blog = () => {
   const [blog, setBlog] = useState([]);
@@ -30,14 +31,13 @@ const Blog = () => {
               The Tempo Blog
             </h1>
             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          
             </p>
           </div>
           <Link href={`blog/${ele.slug}`}>
             <div className="flex flex-wrap">
               <div className="w-full sm:w-1/2">
                 <img
-                  src="blog-image.png"
+                  src={ele.jetpack_featured_media_url}
                   alt="Full-width Image"
                   className="w-full h-auto"
                 />
@@ -67,9 +67,10 @@ const Blog = () => {
           </Link>
         </div>
       ))}
-      <News blog={blog} setBlog={setBlog} />
+      {/* <News blog={blog} setBlog={setBlog} /> */}
       <Blogs blog={blog} setBlog={setBlog} />
-      <Blogmail />
+      <Testimonial/>
+      {/* <Blogmail /> */}
     </div>
   );
 };

@@ -3,9 +3,48 @@ import { usePathname } from "next/navigation";
 import Footer from "../components/Layout/Footer";
 // import Header from "../components/Layout/Header";
 import Nav from "../components/Layout/Nav";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+
 
 export default function PageLayout({ children }) {
   const pathname = usePathname();
+  const [routesHistory, setRoutesHistory] = useState({
+    currentRoute: pathname,
+    previousRoute: null,
+  });
+
+  useEffect(() => {
+    const cookieValue =  getCookie("tracking");
+    if (pathname  in cookieValue && routesHistory.currentRoute !== pathname) {
+      cookieValue[pathname] += 1;
+      setRoutes(cookieValue);
+    
+    } else if (routesHistory.currentRoute !== pathname) {
+      cookieValue[pathname] = 1;
+      setRoutes(cookieValue);
+    }
+  }, [pathname]);
+
+  function setRoutes(cookieValue) {
+    setRoutesHistory((prev) => ({
+      currentRoute: pathname,
+      previousRoute: prev.currentRoute,
+    }));
+    setCookie("tracking", cookieValue);
+  }
+
+  console.log("cookieValue", getCookie("tracking"));
+
+  function setCookie(key, value) {
+   return Cookies.set(key, JSON.stringify(value));
+  }
+
+  function getCookie(key) {
+    const cookieValue = Cookies.get(key);
+    return cookieValue ? JSON.parse(cookieValue) : {};
+  }
+
   const hideComponent = pathname === "/checkout";
   return (
     <div className="sm:w-[1400px] scroll-smooth lg:w-[1400px] md:w-[1400px] bg-[#e5e7eb] m-auto App">
