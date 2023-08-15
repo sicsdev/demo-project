@@ -12,6 +12,8 @@ import { createBillingUser } from '@/app/API/pages/Checkout';
 import Swal from 'sweetalert2';
 import LoaderButton from '../../Common/Button/Loaderbutton';
 import { useEffect } from 'react';
+import { errorMessage, successMessage } from '../../Messages/Messages';
+import { ToastContainer } from 'react-toastify';
 const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
     const stripe = useStripe();
     const elements = useElements();
@@ -30,23 +32,15 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
             token: card_token.token?.id
         }
         const response = await createBillingUser(payload)
-        if (response?.response?.status === 200 || response?.response?.status === 201) {
-            Swal.fire(
-                'Success !',
-                response?.message,
-                'success'
-            )
-
+        debugger
+        if (response?.data?.status === 'failed') {
+           errorMessage(response?.data?.message)
+            setLoading(false)
+        } else {
+            successMessage(response?.data?.message)
             setLoading(false)
             getBillingData()
             setShowBilling(false)
-        } else {
-            Swal.fire(
-                'Something wrong !',
-                response?.message,
-                'error'
-            )
-            setLoading(false)
         }
     }
 
@@ -104,7 +98,9 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
                 ))}
 
             </div>
+            <ToastContainer />
         </div>
+
     )
 }
 

@@ -52,7 +52,7 @@ export const createBillingUser = async (data) => {
     try {
         console.log(config)
         const response = await axios.post(`${API_URL}/api/v1/payments/payment-method/update/`, JSON.stringify(data),config);
-        return response.data;
+        return response;
     } catch (error) {
         if (error?.response?.data?.non_field_errors) return error.response.data.non_field_errors[0]
         return error

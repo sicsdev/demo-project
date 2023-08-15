@@ -5,7 +5,7 @@ import { makeCapital } from '../helper/capitalName';
 import { updateKnowledgeRecord } from '@/app/API/pages/Knowledge';
 import { errorMessage, successMessage } from '../Messages/Messages';
 
-const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSingleKnowledgeData, getData }) => {
+const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSingleKnowledgeData, setKnowledge, setBasicFormData, basicFormData, knowledge }) => {
     const [content, setContent] = useState(singleKnowledgeData?.content ?? '')
     const [loading, setLoading] = useState(false)
     const handleInputChange = (e) => {
@@ -42,14 +42,33 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
             successMessage(singleKnowledgeData.source + " Updated Successfully !")
             setLoading(false)
             isClose()
-            getData()
+            const knowledgeIndex = knowledge.findIndex(obj => obj.id === singleKnowledgeData.id);
+            const basicFormDataIndex = basicFormData?.knowledgeData.findIndex(obj => obj.id === singleKnowledgeData.id);
+            let knowledgeData = [...knowledge]
+            let basic = [...basicFormData.knowledgeData]
+            basic[basicFormDataIndex].content = content
+            basic[basicFormDataIndex].title = singleKnowledgeData.title
+            knowledgeData[knowledgeIndex].content = content
+            knowledgeData[knowledgeIndex].title = singleKnowledgeData.title
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    knowledgeData: basic
+                }
+            })
+            setSingleKnowledgeData((prev) => {
+                return {
+                    ...prev,
+                    knowledgeData
+                }
+            })
         } else {
             errorMessage(extractErrorMessage(response))
             setLoading(false)
         }
     }
     const DisablingButton = () => {
-        return ["content",'title'].some(
+        return ["content", 'title'].some(
             (key) => !singleKnowledgeData[key] || singleKnowledgeData[key].trim() === ""
         );
     }

@@ -42,6 +42,7 @@ const Page = () => {
         if (bot?.status === 201) {
             const bot_faq = await createBotKnowledge(bot.data.id, { urls: basicFormData.urls });
             const enterprise = await createEnterpriseAccount({ slug_domain: basicFormData.company_name })
+            debugger
             if (bot_faq?.status === 201 && enterprise?.status === 201) {
                 let email_payload = {
                     email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
@@ -111,7 +112,7 @@ const Page = () => {
             </div>
             <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
             {showModal === true ?
-                <Modal className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"} show={showModal} setShow={setShowModal}
+                <Modal  alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
                     title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
                     showCancel={true}>
                     <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />

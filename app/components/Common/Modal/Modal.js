@@ -3,29 +3,31 @@ import Button from '../Button/Button'
 import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true }) => {
+const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true, alignment = 'items-center' }) => {
     const divRef = useRef(null);
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (divRef.current && !divRef.current.contains(event.target)) {
-                setShow(false);
-            }
-        };
+        if (alignment === 'items-center') {
+            const handleClickOutside = (event) => {
+                if (divRef.current && !divRef.current.contains(event.target)) {
+                    setShow(false);
+                }
+            };
 
-        // Attach event listener to the document
-        document.addEventListener('click', handleClickOutside);
+            // Attach event listener to the document
+            document.addEventListener('click', handleClickOutside);
 
-        // Clean up the event listener when the component unmounts
-        return () => {
-            document.removeEventListener('click', handleClickOutside);
-        };
+            // Clean up the event listener when the component unmounts
+            return () => {
+                document.removeEventListener('click', handleClickOutside);
+            };
+        }
     }, []);
     return (
         <div>
             {show ? (
                 <>
-                    <Card className="justify-center items-center  flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+                    <Card className={` justify-center ${alignment}   flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none`}
                     >
                         <div className={`relative max-h-[80vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">

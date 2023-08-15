@@ -17,9 +17,8 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
 
-const ManageKnowledgeBase = () => {
+const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
     const dispatch = useDispatch()
-    const [dataCount, setDataCount] = useState({})
     const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);
     const [createPdfModal, setCreatePdfModal] = useState(false);
@@ -27,27 +26,19 @@ const ManageKnowledgeBase = () => {
     const fileTypes = ["JPG", "PNG", "GIF"];
     const [currentIndex, setCurrentIndex] = useState(0);
     const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
-    const [knowledge, setKnowledge] = useState([])
-    const [basicFormData, setBasicFormData] = useState({})
     const [loading, setLoading] = useState(false)
     const [showSourceFilter, setShowSourceFilter] = useState(false)
-    const [tabLoader, setTabLoader] = useState(true);
     const [editKnowledgeCenter, setEditKnowledgeCenter] = useState(false);
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
     const [filterText, setFilterText] = useState('');
-
     const handleFilterChange = (event) => {
-      const searchText = event.target.value;
-      setFilterText(searchText);
-  
-      const filteredData = basicFormData?.knowledgeData.filter(item =>
-        item.title.toLowerCase().includes(searchText.toLowerCase())
-      );
-  
-      setKnowledge(filteredData);
+        const searchText = event.target.value;
+        setFilterText(searchText);
+        const filteredData = basicFormData?.knowledgeData.filter(item =>
+            item.title.toLowerCase().includes(searchText.toLowerCase())
+        );
+        setKnowledge(filteredData);
     };
-  
-    console.log("knowledge", knowledge)
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -56,9 +47,7 @@ const ManageKnowledgeBase = () => {
         return () => clearInterval(interval);
     }, []);
 
-    useEffect(() => {
-        getData()
-    }, [])
+
 
     const getCount = (data, type) => {
         switch (type) {
@@ -72,42 +61,7 @@ const ManageKnowledgeBase = () => {
                 return data
         }
     }
-    const getData = async () => {
-        setTabLoader(true);
-        const response = await getKnowledgeData()
 
-        if (response?.data?.results.length > 0) {
-
-            setKnowledge(response?.data?.results)
-            const botDataArray = response?.data?.results.flatMap(entry => {
-                if (entry.bots.length === 0) {
-                    return []; // Return an empty array for entries with no bots
-                } else {
-                    entry.bots.map(bot => ({
-                        value: bot.bot.id,
-                        name: bot.bot.chat_title,
-                    }))
-                }
-            }
-            );
-            setBasicFormData(prev => {
-                return {
-                    ...prev,
-                    selectedBot: botDataArray,
-                    knowledgeData: response?.data?.results
-                }
-            })
-            setTabLoader(false);
-        } else {
-            setBasicFormData(prev => {
-                return {
-                    ...prev,
-                    knowledgeData: []
-                }
-            })
-            setTabLoader(false);
-        }
-    }
 
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
@@ -148,9 +102,7 @@ const ManageKnowledgeBase = () => {
         const recordId = knowledge[rowIndex]?.id; // Assuming your data contains the record ID
         const payload = { bots: selectedBots.map(botId => ({ bot: botId.value, active: true })) };
         try {
-            const response = await updateKnowledgeRecord(payload, recordId);
-            console.log("response", response);
-            // Handle response as needed
+            await updateKnowledgeRecord(payload, recordId);
         } catch (error) {
             // Handle error
         }
@@ -263,7 +215,7 @@ const ManageKnowledgeBase = () => {
                     file: basicFormData?.file,
                     source: "file",
                     active: true,
-                    title: basicFormData?.title 
+                    title: basicFormData?.title
                 }
                 break;
             case "URL":
@@ -284,7 +236,17 @@ const ManageKnowledgeBase = () => {
             setLoading(false)
             setCreateOptions(null)
             setCreatePdfModal(false)
-            getData()
+            let filterKnowledge = [...basicFormData.knowledgeData]
+            let knowledgeDataValue = [...knowledge]
+            filterKnowledge.unshift(response.data)
+            knowledgeDataValue.unshift(response.data)
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    knowledgeData: filterKnowledge
+                }
+            })
+            setKnowledge(knowledgeDataValue)
             successMessage(value.type + " Added successfully")
 
         }
@@ -304,9 +266,17 @@ const ManageKnowledgeBase = () => {
         const deleteRecord = await deleteKnowledgeRecord(id)
         if (deleteRecord.status === 204) {
             successMessage("Knowledge deleted successfully")
+            const filterKnowledge = basicFormData.knowledgeData.filter((x) => x.id !== id)
+            const knowledgeDataValue = knowledge.filter((x) => x.id !== id)
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    knowledgeData: filterKnowledge
+                }
+            })
+            setKnowledge(knowledgeDataValue)
             setEditKnowledgeCenter(false);
             setSingleKnowledgeData(null)
-            getData()
         } else {
             errorMessage('Unable To Delete Record!');
         }
@@ -345,11 +315,6 @@ const ManageKnowledgeBase = () => {
                                 To answer customer questions, Tempo is using:
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
-                                {/* <div className='w-[25%]'>
-                                <h2 className="text-3xl font-semibold">{getCount(knowledge,'ALL')}</h2>
-                                <p className="text-sm font-semibold">All</p>
-                                <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(knowledge,'ALL')}</p>
-                            </div> */}
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
                                     <p className="text-sm font-semibold">External pages</p>
@@ -375,7 +340,7 @@ const ManageKnowledgeBase = () => {
                                     className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
                                     type="text"
                                     value={filterText}
-                                    onChange={handleFilterChange }
+                                    onChange={handleFilterChange}
                                 />
                                 <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
                             </div>
@@ -454,7 +419,24 @@ const ManageKnowledgeBase = () => {
                                     onRowClicked={(rowData) => {
                                         viewKnowledgeCenterHandler(rowData);
                                     }}
-                                    noDataComponent={<><p className="text-center text-sm p-3">No Records Found!</p></>}
+                                    noDataComponent={<div className='bg-[#F1F1F1] w-full py-8 px-16'>
+                                        <div className='block sm:flex justify-center items-center gap-4 py-4 '>
+                                            <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
+                                                <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
+                                                <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
+                                                <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
+                                            </div>
+                                            <div onClick={() => handleCreateOptions('pdf')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
+                                                <PaperClipIcon className='h-10 w-10 text-white bg-primary rounded-lg p-2' />
+                                                <h3 className='text-sm text-black hover:text-primary font-bold py-4'>File Upload</h3>
+                                                <p className='text-xs font-normal'>Txt or PDF FAQ or support file.</p>
+                                            </div>
+                                            <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
+                                                <LinkIcon className='h-10 w-10 text-white bg-btn_y_hover rounded-lg p-2' />
+                                                <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
+                                                <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
+                                            </div>
+                                        </div></div>}
                                     data={knowledge}
                                 />
                             </div>
@@ -491,13 +473,13 @@ const ManageKnowledgeBase = () => {
                 <SnippetManagement setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManagement currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
+                <UrlManagement currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
                 <FileManagement createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {editKnowledgeCenter === true && (
-                <EditKnowledgeCenter singleKnowledgeData={singleKnowledgeData} setSingleKnowledgeData={setSingleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} handleSubmit={handleSubmit} getData={getData}/>
+                <EditKnowledgeCenter singleKnowledgeData={singleKnowledgeData} setSingleKnowledgeData={setSingleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} handleSubmit={handleSubmit} setKnowledge={setKnowledge} setBasicFormData={setBasicFormData} basicFormData={basicFormData} knowledge={knowledge} />
             )}
 
         </>
