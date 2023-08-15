@@ -60,6 +60,16 @@ export const addIntegrationTemplate = async (body, id) => {
     }
 };
 
+export const confirmOuthIntegration = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/integration-templates/${id}/confirm_creds_oauth2/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
 export const getAllAutomations = async (type) => {
     let config = returnConfig()
     try {

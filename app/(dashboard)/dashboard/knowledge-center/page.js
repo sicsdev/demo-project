@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 import { ColorRing } from "react-loader-spinner";
 import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
-import ViewKnowledgeCenter from "@/app/components/LearningCenter/ViewKnowledgeCenter";
+import ViewKnowledgeCenter from "@/app/components/LearningCenter/EditKnowledgeCenter";
+import { getKnowledgeData } from "@/app/API/pages/Knowledge";
 
 const Page = () => {
     const [updateLoader, setUpdateLoader] = useState(null);
@@ -20,7 +21,6 @@ const Page = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
     const [tab, setTab] = useState(0);
-    const [viewCenter, setViewCenter] = useState(false);
 
     const updateButtonHandler = async (id) => {
         try {
@@ -143,16 +143,12 @@ const Page = () => {
         },
     ];
 
-    const viewKnowledgeCenterHandler = (row) => {
-        setViewCenter(true);
-    };
-
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <div className="border-b border-border flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                        <li className="mr-2" onClick={() => { setTab(0); setViewCenter(false); }}>
+                        <li className="mr-2" onClick={() => { setTab(0) }}>
                             <span
                                 className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                 aria-current="page"
@@ -160,7 +156,7 @@ const Page = () => {
                                 <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
                             </span>
                         </li>
-                        <li className="mr-2" onClick={() => { setTab(1); setViewCenter(false); }}>
+                        <li className="mr-2" onClick={() => { setTab(1) }}>
                             <span
                                 className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                                 aria-current="page"
@@ -182,32 +178,25 @@ const Page = () => {
                     </div>
                 ) : (
                     <>
-                        {
-                            viewCenter === true ?
-                                <ViewKnowledgeCenter setViewCenter={setViewCenter} />
-                                :
-                                <>
-                                    {tab === 0 && (
-                                        <div className="w-full">
-                                            <DataTable
-                                                title={<h3 className="text-sm font-semibold">Learning center</h3>}
-                                                fixedHeader
-                                                highlightOnHover
-                                                pointerOnHover
-                                                defaultSortFieldId="question"
-                                                pagination
-                                                columns={columns}
-                                                noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                                                data={state?.data?.results}
+                        {tab === 0 && (
+                            <div className="w-full">
+                                <DataTable
+                                    title={<h3 className="text-sm font-semibold">Learning center</h3>}
+                                    fixedHeader
+                                    highlightOnHover
+                                    pointerOnHover
+                                    defaultSortFieldId="question"
+                                    pagination
+                                    columns={columns}
+                                    noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                    data={state?.data?.results}
 
-                                            />
-                                        </div>
-                                    )}
-                                    {tab === 1 && (
-                                        <ManageKnowledgeBase viewKnowledgeCenterHandler={viewKnowledgeCenterHandler} />
-                                    )}
-                                </>
-                        }
+                                />
+                            </div>
+                        )}
+                        {tab === 1 && (
+                            <ManageKnowledgeBase />
+                        )}
                     </>
                 )}
             </div>
