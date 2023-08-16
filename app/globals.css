@@ -236,7 +236,7 @@ body .searchWrapper {
 body .chip {
   font-size: 10px;
   line-height: 16px;
-  margin-bottom: 0;
+  margin-bottom: 2px;
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
