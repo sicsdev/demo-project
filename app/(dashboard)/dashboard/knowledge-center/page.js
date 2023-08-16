@@ -31,17 +31,20 @@ const Page = () => {
         const response = await getKnowledgeData()
         if (response?.data?.results.length > 0) {
             setKnowledge(response?.data?.results)
-            const botDataArray = response?.data?.results.flatMap(entry => {
+
+
+            const botDataArray = response?.data?.results.map(entry => {
                 if (entry.bots.length === 0) {
                     return []; // Return an empty array for entries with no bots
                 } else {
-                    entry.bots.map(bot => ({
+                    return entry.bots.map(bot => ({
                         value: bot.bot.id,
                         name: bot.bot.chat_title,
-                    }))
+                    }));
                 }
-            }
-            );
+            });
+
+            console.log("response?.data?.results",botDataArray)
             setBasicFormData(prev => {
                 return {
                     ...prev,
@@ -236,7 +239,7 @@ const Page = () => {
                             </div>
                         )}
                         {tab === 1 && (
-                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData}/>
+                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                         )}
                     </>
                 )}

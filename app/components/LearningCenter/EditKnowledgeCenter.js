@@ -36,7 +36,7 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
     }
     const handleSubmit = async () => {
         setLoading(true)
-        let payload = { content: content, title: singleKnowledgeData.title }
+        let payload = { content: content, title: singleKnowledgeData.title, active: singleKnowledgeData.active }
         const response = await updateKnowledgeRecord(payload, singleKnowledgeData.id);
         if (response.status === 201 || response.status === 200) {
             successMessage(singleKnowledgeData.source + " Updated Successfully !")
@@ -48,8 +48,10 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
             let basic = [...basicFormData.knowledgeData]
             basic[basicFormDataIndex].content = content
             basic[basicFormDataIndex].title = singleKnowledgeData.title
+            basic[basicFormDataIndex].active = singleKnowledgeData.active
             knowledgeData[knowledgeIndex].content = content
             knowledgeData[knowledgeIndex].title = singleKnowledgeData.title
+            knowledgeData[knowledgeIndex].active = singleKnowledgeData.active
             setBasicFormData((prev) => {
                 return {
                     ...prev,
@@ -71,6 +73,15 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
         return ["content", 'title'].some(
             (key) => !singleKnowledgeData[key] || singleKnowledgeData[key].trim() === ""
         );
+    }
+    const handleToggleChange = () => {
+        setSingleKnowledgeData((prev) => {
+            return {
+                ...prev,
+                active: singleKnowledgeData.active === true ? false : true
+            }
+        })
+
     }
     return (
         <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>
@@ -138,6 +149,22 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
                             <p className="text-xs mb-4 font-semibold">
                                 CONTENT IMPORTED
                             </p>
+                            <div className='mt-2'>
+                                <div className='flex flex-row items-center'>
+                                    <span className='pr-5 text-xs'>State</span>
+                                    <div className='flex flex-row items-center gap-2 col-span-4'>
+                                        <div>
+                                            <label className="switch" style={{ height: "unset" }}>
+                                                <input type="checkbox" name="snippet_active" onChange={handleToggleChange} checked={singleKnowledgeData?.active === true} />
+                                                <span className="slider round h-[27px] w-[55px]"></span>
+                                            </label>
+                                        </div>
+                                        <p className={`inline-block whitespace-nowrap rounded ${singleKnowledgeData?.active === true ? `bg-[#d8efdc] text-[#107235]` : 'text-black bg-[#ececf1]'} px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                                            {singleKnowledgeData?.active === true ? `Active` : `Disabled`}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                             <div className='mt-2'>
                                 {singleKnowledgeData.source === "snippet" && (
                                     <div className='flex flex-row flex-1'>
