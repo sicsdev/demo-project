@@ -168,7 +168,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             reorder: true,
             cell: (row, index) => <Multiselect
                 options={basicFormData?.bots ?? []}
-                selectedValues={basicFormData[index]?.selectedBot ?? []}
+                selectedValues={basicFormData.selectedBot[index] ?? []}
                 onSelect={(selectedList, selectedItem) => {
                     onSelectData(selectedList, selectedItem, index);
                     updateBotSelection(index, selectedList); // Call API when selection changes
