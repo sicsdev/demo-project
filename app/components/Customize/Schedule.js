@@ -11,7 +11,6 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
     const searchParams = useSearchParams()
     const [custom, setCustom] = useState(true)
     const [errors, setErrors] = useState([])
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const [schedule, setSchedules] = useState(basicFormData)
 
     const handleHourInputStart = (event) => {
@@ -193,7 +192,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                     <div key={day} className="flex m-2 my-2 items-center justify-around gap-3">
 
                                         <div className='    flex items-center gap-3 col-span-1'>
-                                            <input type="checkbox" className={`w-3 h-3 ${isSafari ? 'relative top-[3px] right-[4px]' : ''}`} checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
+                                            <input type="checkbox" className={`w-3 h-3`} checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
                                             <small className='text-xs'>{day.substr(0, 3).toUpperCase()}</small>
                                         </div>
 
