@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import DataTable from "react-data-table-component";
 import { AdjustmentsHorizontalIcon, ClipboardIcon, DocumentTextIcon, LinkIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
@@ -107,7 +107,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             // Handle error
         }
     };
-
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
             getAllBots();
@@ -294,7 +293,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 return {
                     ...prev,
                     knowledgeData: filterKnowledge,
-                    selectedBot:botDataArray,
+                    selectedBot: botDataArray,
                 }
             })
             setKnowledge(knowledgeDataValue)
@@ -304,7 +303,26 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             errorMessage('Unable To Delete Record!');
         }
     };
+    const hideComponent = () => {
+        setCreateOptions(null)
+        setCreatePdfModal(false)
+        setEditKnowledgeCenter(false)
+    }
 
+
+    const dropdown = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (dropdown.current && !dropdown.current.contains(event.target)) {
+                setShowSourceFilter(false);
+            }
+        };
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
     return (
         <>
             {tabLoader ? <Loading /> :
@@ -340,17 +358,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
-                                    <p className="text-sm font-semibold">External pages</p>
+                                    <p className="text-sm font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length > 1 ? "External pages" : "External page"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
-                                    <p className="text-sm font-semibold">Snippets</p>
+                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length > 1 ? 'Snippets' : "Snippet"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
-                                    <p className="text-sm font-semibold">Files</p>
+                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length > 1 ? 'Files' : "File"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                             </div>
@@ -367,7 +385,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                 />
                                 <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
                             </div>
-                            <div className='mt-4 sm:mt-0 relative'>
+                            <div className='mt-4 sm:mt-0 relative' ref={dropdown}>
                                 <div className="text-sm bg-[#F1F1F1] rounded-lg inline-block p-1 px-2">
                                     <button
                                         type="button"
@@ -493,16 +511,16 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 
 
             {createOptions === 'snippet' && (
-                <SnippetManagement setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
+                <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManagement currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
+                <UrlManagement hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
-                <FileManagement createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
+                <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {editKnowledgeCenter === true && (
-                <EditKnowledgeCenter singleKnowledgeData={singleKnowledgeData} setSingleKnowledgeData={setSingleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} handleSubmit={handleSubmit} setKnowledge={setKnowledge} setBasicFormData={setBasicFormData} basicFormData={basicFormData} knowledge={knowledge} />
+                <EditKnowledgeCenter hideComponent={hideComponent} singleKnowledgeData={singleKnowledgeData} setSingleKnowledgeData={setSingleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} handleSubmit={handleSubmit} setKnowledge={setKnowledge} setBasicFormData={setBasicFormData} basicFormData={basicFormData} knowledge={knowledge} />
             )}
 
         </>

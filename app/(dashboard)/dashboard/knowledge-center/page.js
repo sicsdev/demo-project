@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { BookOpenIcon, CheckCircleIcon, LinkIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, CheckCircleIcon, LinkIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -203,7 +203,7 @@ const Page = () => {
                                 className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                                 aria-current="page"
                             >
-                                <BookOpenIcon className="h-6 w-6 text-primary" /> Manage Knowledge Base
+                                <AcademicCapIcon className="h-6 w-6 text-primary" /> Manage Knowledge Base
                             </span>
                         </li>
                     </ul>

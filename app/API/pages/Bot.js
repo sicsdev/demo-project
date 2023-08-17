@@ -107,6 +107,15 @@ export const getBotConversation = async (id, queryParam = ``) => {
         return error
     }
 }
+export const getPaginateBotConversation = async (id,page,queryParam='') => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/?page=${page}&page_size=10${queryParam}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
 export const getBotConversationMessages = async (id) => {
     let config = returnConfig()
     try {
@@ -164,7 +173,7 @@ export const addIntegration = async (body) => {
 export const uploadLOgo = async (body) => {
     let config = returnConfig()
     try {
-        const response = await axios.patch(`${API_URL}/api/v1/accounts/enterprises/`, body,config);
+        const response = await axios.patch(`${API_URL}/api/v1/accounts/enterprises/`, body, config);
         return response;
     } catch (error) {
         return error

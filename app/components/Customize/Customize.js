@@ -266,6 +266,105 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     }),
   ];
 
+  const [tileAgentName, setTileAgentName] = useState([]);
+  const [formValues, setFormValues] = useState({
+    agent_name: "",
+  });
+  useEffect(() => {
+    if (basicFormData) {
+      setTileAgentName(basicFormData?.chat_suggestions ?? []);
+    }
+  }, [basicFormData]);
+
+
+  const handleAgentNameValue = (e) => {
+    const { value } = e.target;
+    if (value.includes(",")) {
+      const agentNames = value.split(",");
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          agent_name: "",
+        };
+      });
+      agentNames.forEach((name) => {
+        const trimmedName = name.trim();
+        if (trimmedName && !tileAgentName.includes(trimmedName)) {
+          setTileAgentName((prev) => {
+            setBasicFormData((prev_state) => {
+              return {
+                ...prev_state,
+                chat_suggestions: [...prev, trimmedName],
+              };
+            });
+            return [...prev, makeCapital(trimmedName)];
+          });
+        }
+      });
+    } else {
+      setFormValues({ ...formValues, agent_name: value });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      const { value } = e.target;
+      const agentNames = value.split(",");
+      setFormValues((prev) => {
+        return {
+          ...prev,
+          agent_name: "",
+        };
+      });
+      agentNames.forEach((name) => {
+        const trimmedName = name.trim();
+        if (trimmedName && !tileAgentName.includes(trimmedName)) {
+          setTileAgentName((prev) => {
+            setBasicFormData((prev_state) => {
+              return {
+                ...prev_state,
+                chat_suggestions: [...prev, trimmedName],
+              };
+            });
+            return [...prev, makeCapital(trimmedName)];
+          });
+        }
+      });
+    }
+  };
+
+  const returnErrorMessage = (key) => {
+    if (errors.length) {
+      const findErr = errors.find((x) => x.field === key);
+      if (findErr) {
+        return findErr.message;
+      }
+    }
+    return null;
+  };
+  const RemoveFromAgentNameArr = (element) => {
+    const updatedChips = tileAgentName.filter((x) => x !== element);
+    setTileAgentName(updatedChips);
+
+    setBasicFormData((prev_state) => {
+      return {
+        ...prev_state,
+        chat_suggestions: [...updatedChips],
+      };
+    });
+  };
+  const makeCapital = (str) => {
+    if (str.includes(" ")) {
+      return str
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    } else {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  };
+
+
   return (
     <>
       {/* Modal to manage hide urls */}
@@ -514,6 +613,73 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter customer service email"
                     />
+                  </div>
+                </div>
+                <div className="flex items-center w-full mt-2 gap-2">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="text-gray-700">Chat default Message</span>
+                  </div>
+                  <div className="flex justify-start w-1/2">
+                    <input
+                      onChange={handleInputChange}
+                      name="chat_default_message"
+                      value={preferences.chat_default_message}
+                      type="text"
+                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder="Enter Chat Default Message"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center w-full mt-2 gap-2">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="text-gray-700">Customer Service Phone</span>
+                  </div>
+                  <div className="flex justify-start w-1/2">
+                    <input
+                      onChange={handleInputChange}
+                      name="customer_service_phone"
+                      value={preferences.customer_service_phone}
+                      type="text"
+                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder="Enter Customer Service Phone"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center w-full mt-2 gap-2">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="text-gray-700">Customer Service Phone</span>
+                  </div>
+                  <div className="flex justify-start w-1/2">
+                    <div className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length>0 &&("p-2")}`}>
+                      <div className="flex flex-wrap items-center justify-start gap-1">
+                        {tileAgentName.length > 0 &&
+                          tileAgentName.map((element, key) => (
+                            <div
+                              className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[12px] font-semibold normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                              key={key}
+                            >
+                              {makeCapital(element.trim())}
+                              <XMarkIcon
+                                className=" h-4 w-4 cursor-pointer "
+                                onClick={(e) => {
+                                  RemoveFromAgentNameArr(element);
+                                }}
+                              />
+                            </div>
+                          ))}
+                      </div>
+                      <input
+                        value={formValues.agent_name}
+                        onKeyDown={handleKeyDown}
+                        required
+                        onChange={handleAgentNameValue}
+                        type={"text"}
+                        placeholder={"Enter names separate by ,"}
+                        className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                        id={"chat_suggestions"}
+                        name={"chat_suggestions"}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
