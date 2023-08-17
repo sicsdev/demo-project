@@ -43,8 +43,6 @@ const Page = () => {
                     }));
                 }
             });
-
-            console.log("response?.data?.results",botDataArray)
             setBasicFormData(prev => {
                 return {
                     ...prev,
