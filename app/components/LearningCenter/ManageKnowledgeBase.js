@@ -166,21 +166,22 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             selector: (row) => row.bots,
             sortable: true,
             reorder: true,
-            cell: (row, index) => <Multiselect
-                options={basicFormData?.bots ?? []}
-                selectedValues={basicFormData.selectedBot[index] ?? []}
-                onSelect={(selectedList, selectedItem) => {
-                    onSelectData(selectedList, selectedItem, index);
-                    updateBotSelection(index, selectedList); // Call API when selection changes
-                }}
-                onRemove={(selectedList, selectedItem) => {
-                    onSelectData(selectedList, selectedItem, index);
-                    updateBotSelection(index, selectedList); // Call API when selection changes
-                }}
-                placeholder={"Select Bots"}
-                displayValue="name"
-                closeOnSelect={true}
-            />,
+            cell: (row, index) =>
+                <Multiselect
+                    options={basicFormData?.bots ?? []}
+                    selectedValues={basicFormData.selectedBot ? basicFormData?.selectedBot[index] : []}
+                    onSelect={(selectedList, selectedItem) => {
+                        onSelectData(selectedList, selectedItem, index);
+                        updateBotSelection(index, selectedList); // Call API when selection changes
+                    }}
+                    onRemove={(selectedList, selectedItem) => {
+                        onSelectData(selectedList, selectedItem, index);
+                        updateBotSelection(index, selectedList); // Call API when selection changes
+                    }}
+                    placeholder={"Select Bots"}
+                    displayValue="name"
+                    closeOnSelect={true}
+                />,
         },
         {
             name: "Last Edited",
@@ -241,9 +242,20 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             filterKnowledge.unshift(response.data)
             knowledgeDataValue.unshift(response.data)
             setBasicFormData((prev) => {
+                const botDataArray = knowledgeDataValue.map(entry => {
+                    if (entry.bots.length === 0) {
+                        return []; // Return an empty array for entries with no bots
+                    } else {
+                        return entry.bots.map(bot => ({
+                            value: bot.bot.id,
+                            name: bot.bot.chat_title,
+                        }));
+                    }
+                });
                 return {
                     ...prev,
-                    knowledgeData: filterKnowledge
+                    knowledgeData: filterKnowledge,
+                    selectedBot: botDataArray,
                 }
             })
             setKnowledge(knowledgeDataValue)
@@ -269,9 +281,20 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             const filterKnowledge = basicFormData.knowledgeData.filter((x) => x.id !== id)
             const knowledgeDataValue = knowledge.filter((x) => x.id !== id)
             setBasicFormData((prev) => {
+                const botDataArray = filterKnowledge.map(entry => {
+                    if (entry.bots.length === 0) {
+                        return []; // Return an empty array for entries with no bots
+                    } else {
+                        return entry.bots.map(bot => ({
+                            value: bot.bot.id,
+                            name: bot.bot.chat_title,
+                        }));
+                    }
+                });
                 return {
                     ...prev,
-                    knowledgeData: filterKnowledge
+                    knowledgeData: filterKnowledge,
+                    selectedBot:botDataArray,
                 }
             })
             setKnowledge(knowledgeDataValue)
