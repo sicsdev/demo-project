@@ -159,7 +159,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     setBasicFormData((prev) => {
       return {
         ...prev,
-        secondary_color: color,
+        secondary_color: color.code,
         secondary_text_color: color.text_color,
       };
     });
