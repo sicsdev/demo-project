@@ -39,14 +39,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   // const id = "cfadd354-5f02-4e9d-b2e7-78c08900c845"
   const searchParams = useSearchParams();
   const router = useRouter();
-  
+
   useEffect(() => {
     if (form === true && id) {
       getBotInfo(id);
       setBot_id(id);
     }
 
-  }, []);
+  }, [id]);
   useEffect(() => {
     if (form === false && basicFormData) {
       setBotDetails(basicFormData);
@@ -85,6 +85,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     logo_file_name: "",
     active: true,
     origins_blocked: [],
+    customer_service_email: ""
   });
 
   const colorCodes = [
@@ -122,6 +123,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         }
       })
       setBotDetails(res[0].data);
+      debugger
       setPreferences(res[0].data);
       setBlockedUrls(res[0].data.origins_blocked ?? []);
       let data = res[0].data;
@@ -438,8 +440,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     >
                       <option value="bottom_right">Bottom Right</option>
                       <option value="bottom_left">Bottom Left</option>
-                      <option value="top_left">Top Left</option>
-                      <option value="top_right">Top Right</option>
+                      {/* <option value="top_left">Top Left</option>
+                      <option value="top_right">Top Right</option> */}
                     </select>
                   </div>
                 </div>
@@ -499,7 +501,21 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     </label>
                   </div>
                 </div>
-
+                <div className="flex items-center w-full mt-2 gap-2">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="text-gray-700">Customer Service Email</span>
+                  </div>
+                  <div className="flex justify-start w-1/2">
+                    <input
+                      onChange={handleInputChange}
+                      name="customer_service_email"
+                      value={preferences.customer_service_email}
+                      type="text"
+                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder="Enter customer service email"
+                    />
+                  </div>
+                </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700">Hide Chat Bot</span>
