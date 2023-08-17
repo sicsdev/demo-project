@@ -191,7 +191,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                 <>
                                     <div key={day} className="flex m-2 my-2 items-center justify-around gap-3">
 
-                                        <div className='    flex items-center gap-3 col-span-1'>
+                                        <div className='    w-[50px] flex items-center gap-3 col-span-1'>
                                             <input type="checkbox" className={`w-3 h-3`} checked={schedule[day].length > 0} onClick={() => handleCheckbox(day)} />
                                             <small className='text-xs'>{day.substr(0, 3).toUpperCase()}</small>
                                         </div>

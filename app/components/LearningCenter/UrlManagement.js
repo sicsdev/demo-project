@@ -3,7 +3,7 @@ import { EllipsisHorizontalIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { XCircleIcon } from '@heroicons/react/24/solid'
 import React, { useRef, useState, useEffect } from 'react'
 
-const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord, knowledge, setKnowledge }) => {
+const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord, knowledge, setKnowledge,hideComponent }) => {
     const [url, setUrl] = useState(basicFormData?.url ?? '')
     const [knowledgeData, setKnowledgeData] = useState(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
     const handleInputChange = (e) => {
@@ -59,9 +59,11 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
         const filerData = knowledgeData.filter((x) => x.id !== id)
         setKnowledgeData(filerData)
     }
+
     return (
-        <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>
-            <div className={` overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+        <>
+            <div onClick={()=>hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
+            <div className={` z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                 <div className={`shadow-lg w-full sm:w-[700px] relative flex flex-col pl-8 pr-8 ${knowledgeData.length < 2 && "h-[100%]"}`}>
                     <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                         <div className='flex flex-1'>
@@ -69,7 +71,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                         </div>
                         <div className='flex justify-end gap-2'>
                             <div className='cursor-pointer' onClick={(e) => setCreateOptions(null)}>
-                                <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] p-2' />
+                                <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2' />
                             </div>
                         </div>
                     </div>
@@ -150,7 +152,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                     </div>
                 </div>
             </div>
-        </div >
+        </>
     )
 }
 

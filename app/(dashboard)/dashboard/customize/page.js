@@ -77,7 +77,6 @@ const Page = () => {
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       let bot_res = res[0].data
-
       let payload = {
         email: bot_res.email,
         agent_name: bot_res.email_agent_name,

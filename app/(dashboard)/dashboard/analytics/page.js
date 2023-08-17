@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
-import { getBotConversation } from "@/app/API/pages/Bot";
+import { ArrowLeftIcon, ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import { getBotConversation, getPaginateBotConversation } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Link from "next/link";
@@ -41,6 +41,10 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
+
+
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
     workflows: '',
@@ -92,7 +96,8 @@ const Logs = () => {
     setLoading(true)
     const response = await getBotConversation(bot_id, queryParam);
     if (response.status === 200) {
-      let newdata = response.data.results;
+      let data = response.data
+      let newdata = data.results;
       if (newdata.length > 0) {
         for (let i = 0; i < newdata.length; i++) {
           newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
@@ -101,6 +106,7 @@ const Logs = () => {
           );
         }
       }
+      setTotalRows(data.count)
       setConversationData(newdata);
       setLoading(false);
     } else {
@@ -116,7 +122,7 @@ const Logs = () => {
       workflows: '',
     })
     setSelectedBot(value)
-    getCoversation(value, '');
+    handlePageChange(value, 1, '');
   };
 
   const filterDataHandler = (e) => {
@@ -131,7 +137,7 @@ const Logs = () => {
     });
 
     if (selectedBot) {
-      getCoversation(selectedBot, queryParam);
+      handlePageChange(selectedBot, 1, queryParam);
     }
   };
 
@@ -148,8 +154,30 @@ const Logs = () => {
     }
 
     const queryParams = new URLSearchParams(filteredFilters).toString();
-    return queryParams ? `?${queryParams}` : '';
+    return queryParams ? `&${queryParams}` : '';
   };
+
+  const handlePageChange = async (id, page, queryParam = '') => {
+    const response = await getPaginateBotConversation(id, page, queryParam)
+    if (response.status === 200) {
+      let data = response.data
+      let newdata = data.results;
+      if (newdata.length > 0) {
+        for (let i = 0; i < newdata.length; i++) {
+          newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
+          newdata[i].created = moment(newdata[i].created).format(
+            "MM-DD-YYYY hh:mm:ss A"
+          );
+        }
+      }
+      setTotalRows(data.count)
+      setConversationData(newdata);
+      setLoading(false);
+    } else {
+      setLoading(false);
+
+    }
+  }
 
   return (
     <div>
@@ -167,7 +195,7 @@ const Logs = () => {
             </li>
           </ul>
           <p className="text-sm">
-            <Link href="/dashboard">back</Link>
+            <Link href="/dashboard"><ArrowLeftIcon className="h-6 w-6 text-heading" /></Link>
           </p>
         </div>
       </div>
@@ -232,6 +260,10 @@ const Logs = () => {
                 router.push(rowData.url);
               }}
               pagination
+              paginationServer
+              paginationPerPage={10}
+              paginationTotalRows={totalRows}
+              onChangePage={(page) => { handlePageChange(selectedBot,page,'') }}
               noDataComponent={
                 <>
                   <p className="text-center text-sm p-3">
@@ -239,7 +271,6 @@ const Logs = () => {
                   </p>
                 </>
               }
-              paginationPerPage={7}
               columns={columns}
               data={conversationData}
             />

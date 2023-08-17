@@ -42,9 +42,11 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                                             <XMarkIcon className="w-6 h-6 mr-2" />
                                         </Button> :
                                         showCancel && (
-                                            <Button className="text-border font-normal font-sm" onClick={() => setShow(false)}>
-                                                <XMarkIcon className="w-6 h-6 mr-2" />
-                                            </Button>
+                                            <div className='flex justify-end gap-2'>
+                                                <div className='cursor-pointer' onClick={() => setShow(false)}>
+                                                    <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2' />
+                                                </div>
+                                            </div>
                                         )
                                     }
 

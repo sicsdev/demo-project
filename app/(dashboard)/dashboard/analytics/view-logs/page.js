@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { CloudIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, CloudIcon } from "@heroicons/react/24/outline";
 import { getBotConversation } from "@/app/API/pages/Bot";
 import Loading from "@/app/components/Loading/Loading";
 import moment from "moment";
@@ -82,7 +82,7 @@ const Logs = () => {
             </li>
           </ul>
           <p className="text-sm">
-            <Link href="/dashboard/analytics">back</Link>
+            <Link href="/dashboard/analytics"><ArrowLeftIcon className="h-6 w-6 text-heading" /></Link>
           </p>
         </div>
       </div>
