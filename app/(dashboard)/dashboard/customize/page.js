@@ -77,12 +77,14 @@ const Page = () => {
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       let bot_res = res[0].data
+
       let payload = {
         email: bot_res.email,
         agent_name: bot_res.email_agent_name,
         agent_title: bot_res.email_agent_title,
         email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
         email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+        customer_service_email: bot_res?.customer_service_email
       }
       let data = res[0].data;
       setBasicFormData((prev) => {
