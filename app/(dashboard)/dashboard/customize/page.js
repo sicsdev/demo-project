@@ -5,7 +5,7 @@ import LoaderButton from '@/app/components/Common/Button/Loaderbutton'
 import Customize from '@/app/components/Customize/Customize'
 import Schedule from '@/app/components/Customize/Schedule'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
-import { successMessage } from '@/app/components/Messages/Messages'
+import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
 import { CalendarDaysIcon, EnvelopeIcon, QrCodeIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
@@ -57,13 +57,19 @@ const Page = () => {
     !payload.email && delete payload.email;
     modifyBot(botId, payload)
       .then((res) => {
-        setLoading(false);
-        dispatch(fetchBot());
-        successMessage("Changes successfully saved!")
+        if (res?.status === 200 || res?.status === 201) {
+          setLoading(false);
+          dispatch(fetchBot());
+          successMessage("Changes successfully saved!")
+        } else {
+          setLoading(false);
+          errorMessage("Unable to update!");
+        }
       })
       .catch((err) => {
         console.log(err);
         setLoading(false);
+        errorMessage("Unable to update!");
       });
   };
 
@@ -153,14 +159,14 @@ const Page = () => {
                 <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Bot
               </span>
             </li>
-            {/* <li className="mr-2" onClick={() => { setTab(1) }}>
+            <li className="mr-2" onClick={() => { setTab(1) }}>
               <span
                 className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <EnvelopeIcon className="h-6 w-6 text-gray-500" /> Email Settings
               </span>
-            </li> */}
+            </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
               <span
                 className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
