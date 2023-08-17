@@ -5,7 +5,7 @@ import { makeCapital } from '../helper/capitalName';
 import { updateKnowledgeRecord } from '@/app/API/pages/Knowledge';
 import { errorMessage, successMessage } from '../Messages/Messages';
 
-const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSingleKnowledgeData, setKnowledge, setBasicFormData, basicFormData, knowledge }) => {
+const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSingleKnowledgeData, setKnowledge, setBasicFormData, basicFormData, knowledge, hideComponent }) => {
     const [content, setContent] = useState(singleKnowledgeData?.content ?? '')
     const [loading, setLoading] = useState(false)
     const handleInputChange = (e) => {
@@ -83,9 +83,11 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
         })
 
     }
+
     return (
-        <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>
-            <div className='w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
+        <>
+            <div onClick={() => { hideComponent() }} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'></div>
+            <div className='w-full sm:w-auto fixed z-50 top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
                 <div className=' overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
 
                     <div className="bg-white p-4">
@@ -95,7 +97,11 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
                             </p>
                             <div className='flex hover:cursor-pointer items-center justify-center gap-2'>
                                 <ButtonComponent data={singleKnowledgeData} deleteRecord={deleteRecord} />
-                                <XMarkIcon className='h-5 w-5' onClick={(e) => isClose()} />
+                                <div className='flex justify-end gap-2'>
+                                    <div className='cursor-pointer' onClick={(e) => isClose()} >
+                                        <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2' />
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -183,7 +189,8 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
 
                 </div>
             </div>
-        </div>
+
+        </>
     )
 }
 
@@ -212,7 +219,7 @@ export const ButtonComponent = ({ data, deleteRecord }) => {
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
                 setShowDelete(prev => { if (prev === data.id) { return null } else { return data.id } })
             }}>
-                <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
+                <EllipsisHorizontalIcon className='h-8 w-8 rounded-lg text-black  hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2' />
                 {showDelete === data.id && (
                     <div className={`absolute right-[0px] top-[20px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}>
                         <button type='button' className="text-heading font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 " onClick={() => deleteRecord(data.id)}>

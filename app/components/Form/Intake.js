@@ -301,6 +301,7 @@ const Intake = () => {
         cancellation_tolerance: 0,
         refund_tolerance: 0,
         ecommerce_platform: "Other",
+        chat_default_message:['']
       };
       const bot = await createBot(payload);
       if (bot?.status === 201) {
