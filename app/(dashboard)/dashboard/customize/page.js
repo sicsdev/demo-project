@@ -77,8 +77,9 @@ const Page = () => {
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       let bot_res = res[0].data
+      // console.log("bot_res", bot_res)
       let payload = {
-        email: bot_res.email,
+        // email: bot_res.email,
         agent_name: bot_res.email_agent_name,
         agent_title: bot_res.email_agent_title,
         email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
