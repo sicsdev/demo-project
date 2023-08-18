@@ -183,6 +183,7 @@ const Logs = () => {
       }
       const getAllIds = newdata.map((ele) => { return { id: ele.id } })
       setManageMessages(getAllIds)
+      setIndexVal(0)
       setTotalRows(data.count)
       setConversationData(newdata);
       setLoading(false);
