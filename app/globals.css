@@ -242,6 +242,7 @@ body .chip {
   background-color: #0057ff;
   margin-right: 2px;
   padding: 3px 12px;
+  word-wrap: break-word;
 }
 
 body .highlightOption {
@@ -812,10 +813,6 @@ transition: all .4s ease;
   height: 100px;
 }
 
-.data_table_wrapper .custom-data-table {
-  overflow-x: unset;
-  overflow-y: unset;
-}
 
 .connect-heading-line {
   position: relative;
@@ -1098,3 +1095,17 @@ body .cursor-pointer {
   border-radius: 10px
 }
 
+
+
+
+
+@media(min-width:991px)
+{
+  body .data-table-class{
+    overflow: unset !important;
+  }
+}
+
+select:focus{
+  font-size: 12px !important;
+}

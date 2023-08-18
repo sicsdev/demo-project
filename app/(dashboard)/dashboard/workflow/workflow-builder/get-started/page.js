@@ -106,7 +106,7 @@ const GetStarted = () => {
           const isEmptyObject = Object.keys(ele.output).length === 0;
           const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
           return {
-            key: Object.keys(ele.data).length === 0 && isEmptyObject ? '' : ele.automation.id,
+            key: '',
             value: '',
             name: '',
             names_arr: objectValuesToArray(ele.data),
@@ -418,7 +418,7 @@ const GetStarted = () => {
                     })
                     setWorkflowModal(true)
                   }}>
-                    <h3 className='text-heading font-bold text-sm sm:text-lg'>{singleData.name}</h3>
+                    <h3 className='text-heading font-bold text-sm sm:text-sm uppercase'>{singleData.name}</h3>
                     {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
                   </div>
                 </div>
@@ -461,8 +461,8 @@ const GetStarted = () => {
           {/* workflowname modal start  */}
           {
             workflowModal &&
-            <Modal title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"} >
-              <UpdateWorkflowBasic botValue={botValue} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
+            <Modal alignment={'items-start'} title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"}>
+              <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
             </Modal>
           }
           {/* workflowname modal end  */}

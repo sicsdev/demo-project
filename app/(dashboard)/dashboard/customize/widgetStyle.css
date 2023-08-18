@@ -39,7 +39,7 @@
   bottom: var(--bottom-distance);
   right: var(--right-distance);
   left: var(--left-distance);
-  margin-bottom: 8vh;
+  margin-bottom: 0vh;
   padding-bottom: 0.5vh;
   opacity: 1;
   transform: translateY(0);
@@ -89,9 +89,10 @@
   align-items: flex-start;
   color: white;
   margin: 2.2vh;
-  max-height: 50vh;
+  max-height: 77%;
   overflow-y: auto;
-  min-height: 300px;
+  min-height: 386px;
+  height: 100%;
 }
 
 #chatbot_preview .custom_hr {
@@ -155,8 +156,16 @@
   justify-content: space-between;
   margin-left: 1vh;
   margin-right: 1vh;
+  position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 9;
 }
 
+.reply_container hr{position: absolute;
+  width: 100%;
+  top: -4px;
+  left: -8px;}
 
 #chatbot_preview .input_question {
   font-family: 'Montserrat', sans-serif;

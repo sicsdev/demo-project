@@ -64,6 +64,16 @@ export const getAllWorkflowTemplates = async () => {
         return error
     }
 };
+
+export const getWorkflowEmbed = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows/${id}/embed/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
 export const createWorkflowTemplate = async (id,body) => {
     let config = returnConfig()
     try {

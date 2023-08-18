@@ -139,7 +139,7 @@ const UsageLimit = () => {
               ) : (
                 ""
               )}
-              <span className="absolute top-[9px] left-[12px] text-sm">$</span>
+              <span className="absolute top-[10.2px] left-[14px] text-[12px]">$</span>
             </div>
             <h3 className="font-bold text-base md:text-base lg:text-base sm:text-base sm:leading-none mt-2 text-heading">
               Current usage

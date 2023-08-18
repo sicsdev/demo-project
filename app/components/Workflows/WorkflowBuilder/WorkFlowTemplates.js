@@ -2,15 +2,51 @@ import React, { useEffect, useState } from 'react'
 import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import { useRef } from 'react';
 const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
-
+    const [isCopied, setIsCopied] = useState({
+        id: null,
+        copied: false,
+        loading: false
+    })
+    const getUrl = async (id) => {
+        setIsCopied(prev => {
+            return {
+                ...prev,
+                id: id,
+                loading: true
+            }
+        })
+        const response = await getWorkflowEmbed(id)
+        if (response && response.url) {
+            navigator.clipboard.writeText(response.url)
+                .then(() => {
+                    setIsCopied({
+                        id: id,
+                        copied: true,
+                        loading: false
+                    });
+                    setTimeout(() => setIsCopied({
+                        id: null,
+                        copied: false,
+                        loading: false
+                    }), 2000); // Reset copied state after 2 seconds
+                })
+                .catch(err => console.error('Failed to copy: ', err));
+        }else{
+            setIsCopied({
+                id: null,
+                copied: false,
+                loading: false
+            })
+        }
+    }
     const columns = [
         {
             name: "Name",
@@ -19,7 +55,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
                         <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
                     </div>
-                    <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
+                    <h3 className="text-heading font-semibold text-sm my-1 uppercase">{row.name}</h3>
                 </div>
             ),
             sortable: true,
@@ -39,8 +75,72 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                 <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
+        }, {
+            name: "Embed URL",
+            sortable: false,
+            cell: (row, index) => (
+                <>
+                    {row.id === isCopied.id && isCopied.copied === true && (
+                        <button
+                            type={"button"}
+                            className="border-none p-0 m-0 flex gap-1 items-center"
+                        >
+                            <CheckIcon className="h-5 w-5 " /> Copied!
+                        </button>)}
+                    {row.id !== isCopied.id &&
+                        <button
+                            type={"button"}
+                            onClick={() => { getUrl(row.id) }}
+                            className="border-none p-0 m-0 flex gap-1 items-center"
+                        >
+                            <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
+                        </button>}
+                    {row.id === isCopied.id && isCopied.loading === true &&
+                        <button
+                            type={"button"}
+                            className="border-none p-0 m-0 flex gap-1 items-center"
+                        >loading...
+                        </button>}
+
+                </>
+            ),
+
         },
-    ];
+
+
+    ]
+    const columns1 = [
+        {
+            name: "Name",
+            selector: (row, index) => (
+                <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
+                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
+                        <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
+                    </div>
+                    <h3 className="text-heading font-semibold text-sm my-1 uppercase">{row.name}</h3>
+                </div>
+            ),
+            sortable: true,
+            reorder: true,
+            minWidth: '250px'
+        },
+        {
+            name: "Status",
+            selector: (row) => row.active ? 'Active' : 'Draft',
+            sortable: true,
+            reorder: true,
+        },
+        {
+            name: "Actions",
+            sortable: false,
+            cell: (row, index) => (
+                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
+            ),
+
+        }
+
+
+    ]
 
     useEffect(() => {
         manageData()
@@ -94,7 +194,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
                     }}
-                    columns={columns}
+                    columns={status === true ? columns : columns1}
+                    className='data-table-class'
                     data={data}
                     customStyles={customStyles}
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}

@@ -81,6 +81,7 @@ const ManageTemplates = ({ template, fetchData, fetchTemplates }) => {
                     title=""
                     fixedHeader
                     highlightOnHover
+                    className='data-table-class'
                     pagination
                     paginationPerPage={5}
                     // onRowClicked={(rowData) => {

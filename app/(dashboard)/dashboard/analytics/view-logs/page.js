@@ -107,6 +107,7 @@ const Logs = () => {
             router.push(rowData.url);
           }}
           pagination
+           className='data-table-class'
           noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
           paginationPerPage={7}
           columns={columns}

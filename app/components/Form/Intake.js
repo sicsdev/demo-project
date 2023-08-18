@@ -30,6 +30,7 @@ import { addIntegrationData } from "@/app/API/pages/Integration";
 import { buyAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
 import { errorMessage } from "../Messages/Messages";
 import { ToastContainer } from "react-toastify";
+import { createNewKnowledge } from "@/app/API/pages/Knowledge";
 
 const Intake = () => {
   const headingData = [
@@ -301,13 +302,14 @@ const Intake = () => {
         cancellation_tolerance: 0,
         refund_tolerance: 0,
         ecommerce_platform: "Other",
-        chat_default_message:['']
       };
       const bot = await createBot(payload);
       if (bot?.status === 201) {
-        const bot_faq = await createBotKnowledge(bot.data.id, {
-          urls: basicFormData.urls,
-        });
+        const bot_faq = await createNewKnowledge(
+          {
+            source: "external",
+            urls: basicFormData.urls,
+          });
         if (bot_faq?.status === 201) {
           dispatch(setBotId(bot.data.id));
           setBasicFormData((prev) => {

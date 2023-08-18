@@ -37,7 +37,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
         <div onClick={()=>hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'></div >
             <div className='w-full sm:w-auto z-50 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
-                    <div className='flex flex-col sm:flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
+                    <div className='flex gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
                         <div className='flex flex-row flex-1'>
                             <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title'onChange={handleInputChange} />
                         </div>
