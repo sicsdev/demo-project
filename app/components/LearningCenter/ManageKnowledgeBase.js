@@ -141,6 +141,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "State",
             selector: (row) => row.state,
             sortable: true,
+            width:"120px",
             reorder: true,
             cell: (row) => (
                 <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
@@ -152,6 +153,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "Content Source",
             selector: (row) => row.source,
             sortable: true,
+            width:"200px",
             reorder: true,
             cell: (row) => (
                 <div data-tag="allowRowEvents" className="flex justify-center items-center gap-2">
@@ -164,23 +166,25 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "Bots",
             selector: (row) => row.bots,
             sortable: true,
+            width: "350px"    ,
             reorder: true,
             cell: (row, index) =>
-                <Multiselect
-                    options={basicFormData?.bots ?? []}
-                    selectedValues={basicFormData.selectedBot ? basicFormData?.selectedBot[index] : []}
-                    onSelect={(selectedList, selectedItem) => {
-                        onSelectData(selectedList, selectedItem, index);
-                        updateBotSelection(index, selectedList); // Call API when selection changes
-                    }}
-                    onRemove={(selectedList, selectedItem) => {
-                        onSelectData(selectedList, selectedItem, index);
-                        updateBotSelection(index, selectedList); // Call API when selection changes
-                    }}
-                    placeholder={"Select Bots"}
-                    displayValue="name"
-                    closeOnSelect={true}
-                />,
+                <div className="w-full">
+                    <Multiselect
+                        options={basicFormData?.bots ?? []}
+                        selectedValues={basicFormData.selectedBot ? basicFormData?.selectedBot[index] : []}
+                        onSelect={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        onRemove={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        placeholder={"Select Bots"}
+                        displayValue="name"
+                        closeOnSelect={true} 
+                    /></div>,
         },
         {
             name: "Last Edited",
@@ -358,17 +362,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
-                                    <p className="text-sm font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length > 1 ? "External pages" : "External page"}</p>
+                                    <p className="text-sm font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
-                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length > 1 ? 'Snippets' : "Snippet"}</p>
+                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
-                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length > 1 ? 'Files' : "File"}</p>
+                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
                                     <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
                                 </div>
                             </div>
@@ -445,6 +449,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                     title={``}
                                     fixedHeader
                                     highlightOnHover
+                                    className='data-table-class'
                                     pointerOnHover
                                     defaultSortFieldId="question"
                                     pagination
@@ -455,7 +460,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                             }
                                         }
                                     }}
-                                    className='custom-data-table'
                                     columns={knowledgeCenterColumns}
                                     onRowClicked={(rowData) => {
                                         viewKnowledgeCenterHandler(rowData);

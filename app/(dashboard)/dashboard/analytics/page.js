@@ -2,26 +2,34 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { ArrowLeftIcon, ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
-import { getBotConversation, getPaginateBotConversation } from "@/app/API/pages/Bot";
+import { ArrowLeftIcon, ArrowRightIcon, ChatBubbleLeftRightIcon, ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import { getBotConversation, getBotConversationMessages, getPaginateBotConversation } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Link from "next/link";
 import SelectOption from "@/app/components/Common/Input/SelectOption";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
+import Chat from "@/app/components/Chats/Chats";
+import Loading from "@/app/components/Loading/Loading";
 
 const Logs = () => {
   const columns = [
     {
-      name: "IP address",
-      selector: (row) => row.customer_ip,
+      name: "Workflow",
+      selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
       sortable: true,
       reorder: true,
     },
     {
-      name: "User Agent",
-      selector: (row) => <p className=" whitespace-normal">{row.customer_user_agent}</p>,
+      name: "Human Handoff",
+      selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
+      sortable: true,
+      reorder: true,
+    },
+    {
+      name: "Number of Messages ",
+      selector: (row) => <p className=" whitespace-normal">{row.number_of_messages}</p>,
       sortable: true,
       reorder: true,
     },
@@ -33,6 +41,7 @@ const Logs = () => {
     },
   ];
   const dispatch = useDispatch();
+  const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
   const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
@@ -41,8 +50,9 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
-
-
+  const [messages, setMessages] = useState([])
+  const [manageMessages, setManageMessages] = useState([])
+  const [indexVal, setIndexVal] = useState(0)
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [selectedFilters, setSelectedFilters] = useState({
@@ -165,11 +175,15 @@ const Logs = () => {
       if (newdata.length > 0) {
         for (let i = 0; i < newdata.length; i++) {
           newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
+          newdata[i].index = i;
           newdata[i].created = moment(newdata[i].created).format(
             "MM-DD-YYYY hh:mm:ss A"
           );
         }
       }
+      const getAllIds = newdata.map((ele) => { return { id: ele.id } })
+      setManageMessages(getAllIds)
+      setIndexVal(0)
       setTotalRows(data.count)
       setConversationData(newdata);
       setLoading(false);
@@ -178,106 +192,179 @@ const Logs = () => {
 
     }
   }
-
+  const [messageLoading, setMessagesLoading] = useState(false)
+  const getCoversationMessages = async (id) => {
+    setMessagesLoading(true)
+    const response = await getBotConversationMessages(id)
+    if (response.status === 200) {
+      setMessages(response.data.results)
+      setShowChat(true)
+      setMessagesLoading(false)
+    } else {
+      setMessagesLoading(false)
+      setShowChat(false)
+    }
+  }
   return (
-    <div>
-      <div className="border-b border-primary ">
-        <div className="flex items-center justify-between">
-          <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
-            <li className="mr-2">
-              <span
-                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
-                aria-current="page"
-              >
-                <ChatBubbleOvalLeftIcon className="h-6 w-6 text-gray-500" />{" "}
-                Chat Logs
-              </span>
-            </li>
-          </ul>
-          <p className="text-sm">
-            <Link href="/dashboard"><ArrowLeftIcon className="h-6 w-6 text-heading" /></Link>
-          </p>
-        </div>
-      </div>
-      <div className="block sm:flex justify-center gap-5">
-        <div className="mb-4 w-full">
-          <SelectOption
-            onChange={handleInputValues}
-            value={selectedBot}
-            name="bot"
-            values={botValue}
-            title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
-            id={"bots"}
-            className="py-3"
-            error={""}
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <SelectOption
-            onChange={(e) => filterDataHandler(e)}
-            value={selectedFilters.type || ''}
-            name="type"
-            values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
-            title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
-            id={"type"}
-            className="py-3"
-            error={""}
-          />
-        </div>
-        <div className="mb-4 w-full">
-          <SelectOption
-            onChange={(e) => filterDataHandler(e)}
-            value={selectedFilters.workflows || ''}
-            name="workflows"
-            values={workflowValue}
-            title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
-            id={"workflows"}
-            className="py-3"
-            error={""}
-          />
-        </div>
-      </div>
-      {loading === true || state.isLoading === true ? (
-        // <Loading />
-        <div className="">
-          <h1 className="mt-2 text-sm">
-            <SkeletonLoader height={40} width={100} />
-          </h1>
-          <div className="mt-3">
-            <SkeletonLoader count={9} height={30} className={"mt-2"} />
+    <>
+
+      <div>
+        <div className="border-b border-primary ">
+          <div className="flex items-center justify-between">
+            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
+              {showChat === true ?
+                <li className="mr-2">
+                  <span
+                    className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                    aria-current="page"
+                  >
+                    <ChatBubbleLeftRightIcon className="h-6 w-6 text-gray-500" /> Chats
+                    Chat Logs
+                  </span>
+                </li> :
+                <li className="mr-2">
+                  <span
+                    className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                    aria-current="page"
+                  >
+                    <ChatBubbleOvalLeftIcon className="h-6 w-6 text-gray-500" />{" "}
+                    Chat Logs
+                  </span>
+                </li>}
+            </ul>
+            {showChat === true ?
+              <div className="flex justify-end gap-2">
+
+                {indexVal !== 0 ?
+                  <p className="text-sm cursor-pointer" onClick={() => {
+                    getCoversationMessages(manageMessages[indexVal - 1].id)
+                    setIndexVal(indexVal - 1)
+                  }}>
+                    <ArrowLeftIcon className="h-6 w-6 text-heading" />
+                  </p> : <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+                    <ArrowLeftIcon className="h-6 w-6 text-heading" />
+                  </p>
+                }
+
+
+                {indexVal !== manageMessages.length - 1 && (
+                  <p className="text-sm cursor-pointer" onClick={() => {
+                    getCoversationMessages(manageMessages[indexVal + 1].id)
+                    setIndexVal(indexVal + 1)
+                  }}>
+
+                    <ArrowRightIcon className="h-6 w-6 text-heading" />
+                  </p>
+                )}
+              </div>
+              :
+              <div className="flex justify-end gap-2">
+                <p className="text-sm">
+                  <Link href="/dashboard">
+                    back
+                  </Link>
+                </p>
+              </div>
+            }
+
           </div>
         </div>
-      ) : (
-        <>
-          {selectedBot && (
-            <DataTable
-              title={<h3 className="text-sm font-semibold">View Logs</h3>}
-              fixedHeader
-              highlightOnHover
-              pointerOnHover
-              defaultSortFieldId="year"
-              onRowClicked={(rowData) => {
-                router.push(rowData.url);
-              }}
-              pagination
-              paginationServer
-              paginationPerPage={10}
-              paginationTotalRows={totalRows}
-              onChangePage={(page) => { handlePageChange(selectedBot,page,'') }}
-              noDataComponent={
-                <>
-                  <p className="text-center text-sm p-3">
-                    No Chat logs found!
-                  </p>
-                </>
-              }
-              columns={columns}
-              data={conversationData}
-            />
-          )}
-        </>
-      )}
-    </div>
+        {showChat === false ?
+          <>
+            <div className="block sm:flex justify-center gap-5">
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={handleInputValues}
+                  value={selectedBot}
+                  name="bot"
+                  values={botValue}
+                  title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
+                  id={"bots"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.type || ''}
+                  name="type"
+                  values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                  title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
+                  id={"type"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.workflows || ''}
+                  name="workflows"
+                  values={workflowValue}
+                  title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
+                  id={"workflows"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+            </div>
+            {loading === true || state.isLoading === true ? (
+              // <Loading />
+              <div className="">
+                <h1 className="mt-2 text-sm">
+                  <SkeletonLoader height={40} width={100} />
+                </h1>
+                <div className="mt-3">
+                  <SkeletonLoader count={9} height={30} className={"mt-2"} />
+                </div>
+              </div>
+            ) : (
+              <>
+                {selectedBot && (
+                  <DataTable
+                    title={<h3 className="text-sm font-semibold">View Logs</h3>}
+                    fixedHeader
+                    highlightOnHover
+                    pointerOnHover
+                    defaultSortFieldId="year"
+                    onRowClicked={(rowData) => {
+                      // router.push(rowData.url);
+                      getCoversationMessages(rowData.id)
+                      setIndexVal(rowData.index)
+
+                    }}
+                    pagination
+                    className='data-table-class'
+                    paginationServer
+                    paginationPerPage={10}
+                    paginationTotalRows={totalRows}
+                    onChangePage={(page) => { handlePageChange(selectedBot, page, '') }}
+                    noDataComponent={
+                      <>
+                        <p className="text-center text-sm p-3">
+                          No Chat logs found!
+                        </p>
+                      </>
+                    }
+                    columns={columns}
+                    data={conversationData}
+                  />
+                )}
+              </>
+            )}
+          </>
+          :
+          <>
+            {messageLoading ? <Loading /> : (
+              <Chat messages={messages} />
+            )}
+          </>
+        }
+      </div>
+    </>
+
+
   );
 };
 

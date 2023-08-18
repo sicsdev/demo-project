@@ -116,7 +116,7 @@ const EditKnowledgeCenter = ({ singleKnowledgeData, isClose, deleteRecord, setSi
                                 </p>
                             </div>
                             <div>
-                                <p className="text-sm font-semibold p-1">
+                                <p className="text-sm font-semibold p-1 break-words">
                                     {singleKnowledgeData.title}
                                 </p>
                             </div>
