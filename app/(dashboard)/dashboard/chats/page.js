@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { getBotConversationMessages } from '@/app/API/pages/Bot';
 import Loading from '@/app/components/Loading/Loading';
 import Link from 'next/link';
@@ -45,7 +45,7 @@ const Chat = () => {
                     </li>
                 </ul>
                 <p className="text-sm">
-                    <Link href="/dashboard">back</Link>
+                    <Link href="/dashboard/analytics"><ArrowLeftIcon className="h-6 w-6 text-heading" /></Link>
                 </p>
             </div>
 

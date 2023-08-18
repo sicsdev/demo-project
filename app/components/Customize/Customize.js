@@ -447,7 +447,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         {botDetails.id && (
           <>
             <br></br>
-            <div className="block sm:flex md:flex lg:flex justify-center items-start gap-4">
+            <div className="block sm:flex md:flex lg:flex justify-center items-stretch gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
                 {/* <div className="">
                   <a
@@ -737,7 +737,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   <hr className="opacity-10"></hr>
                 </div> */}
 
-                <div className="containerChatBot_entire justify-center flex">
+                <div className="containerChatBot_entire justify-center flex h-[100%]">
                   <div className="widget_container active w-[90%]">
                     <div className="header_ChatBotWidget">
                       <div className="profile_photo_container">
@@ -792,8 +792,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       </div>
                     </div>
 
-                    <hr className="custom_hr" />
+                    
                     <div className="reply_container">
+                    <hr className="custom_hr" />
                       <textarea
                         className="input_question"
                         disabled

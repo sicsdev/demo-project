@@ -229,6 +229,7 @@ const Page = () => {
                                     pointerOnHover
                                     defaultSortFieldId="question"
                                     pagination
+                                     className='data-table-class'
                                     columns={columns}
                                     noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                     data={state?.data?.results}

@@ -162,16 +162,16 @@ const Page = () => {
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(1) }}>
-              <span
-                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+            <span
+                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <EnvelopeIcon className="h-6 w-6 text-gray-500" /> Email Settings
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
-              <span
-                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+            <span
+                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <CalendarDaysIcon className="h-6 w-6 text-gray-500" /> Scheduling
