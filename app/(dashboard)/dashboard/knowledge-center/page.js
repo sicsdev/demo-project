@@ -237,7 +237,8 @@ const Page = () => {
                                 />
                             </div>
                         )}
-                        {tab === 1 && (
+                        {tab === 1 && basicFormData?.knowledgeData && (
+                            
                             <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                         )}
                     </>

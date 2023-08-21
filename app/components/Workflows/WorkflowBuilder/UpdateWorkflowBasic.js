@@ -4,6 +4,7 @@ import FileField from '../../Common/Input/FileField'
 import Image from 'next/image'
 import Button from '../../Common/Button/Button'
 import SelectOption from '../../Common/Input/SelectOption'
+import TextArea from '../../Common/Input/TextArea'
 
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue }) => {
     const DisablingButton = () => {
@@ -28,12 +29,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                 />
             </div>
             <div className='mt-2 '>
-                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                    <div className='flex items-center gap-2'><span>Description</span>  </div>
-                </label>
-                <textarea rows="5" cols="30" className='border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]'
-                    name='description' placeholder={"What is this workflow for?"} id={"description"} value={workflowFormData.description} onChange={handleInputValue}></textarea>
-
+                <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={workflowFormData.description} onChange={handleInputValue} title={"Description"} />
             </div>
             <div className='my-2'>
                 <TextField
@@ -47,29 +43,11 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     id={"policy_name"}
                 />
             </div>
-            <div className='my-2'>
-                <TextField
-                    onChange={handleInputValue}
-                    value={workflowFormData.policy_description}
-                    name="policy_description"
-                    className="py-3 w-full mt-1"
-                    title={<span className='flex items-center gap-2'>Policy Description</span>}
-                    placeholder={"Policy Description"}
-                    type={"text"}
-                    id={"policy_description"}
-                />
+            <div className='mt-2 '>
+                <TextArea name='policy_description' placeholder={"Policy Description"} id={"policy_description"} value={workflowFormData.policy_description} onChange={handleInputValue} title={"Policy Description"} />
             </div>
-            <div className='my-2'>
-                <TextField
-                    onChange={handleInputValue}
-                    value={workflowFormData.policy_exceptions}
-                    name="policy_exceptions"
-                    className="py-3 w-full mt-1"
-                    title={<span className='flex items-center gap-2'>Policy Exceptions</span>}
-                    placeholder={"Policy Exceptions"}
-                    type={"text"}
-                    id={"policy_exceptions"}
-                />
+            <div className='mt-2 '>
+                <TextArea name='policy_exceptions' placeholder={"Policy Exceptions"} id={"policy_exceptions"} value={workflowFormData.policy_exceptions} onChange={handleInputValue} title={'Policy Exceptions'} />
             </div>
             <div className="my-2">
                 <SelectOption
