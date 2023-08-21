@@ -110,9 +110,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* <!-- End Google Tag Manager --> */}{" "}
       </head>
 
-        />      
-        
-        </head>
+             
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
