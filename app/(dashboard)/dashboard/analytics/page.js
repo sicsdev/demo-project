@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 import Chat from "@/app/components/Chats/Chats";
 import Loading from "@/app/components/Loading/Loading";
+import { updateLogState } from "@/app/components/store/slices/logSlice";
+import page from "../phone-numbers/page";
 
 const Logs = () => {
   const columns = [
@@ -46,6 +48,7 @@ const Logs = () => {
   const [botValue, setBotValue] = useState([]);
   const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
   const state = useSelector((state) => state.botId);
+  const logState = useSelector((state) => state.logs);
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -55,11 +58,11 @@ const Logs = () => {
   const [indexVal, setIndexVal] = useState(0)
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
+  const [pageVal, setPageVal] = useState(1);
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
     workflows: '',
   });
-
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
@@ -73,6 +76,24 @@ const Logs = () => {
       };
     });
     setBotValue(mergedArray);
+
+    if (logState.data === null) {
+      setSelectedBot(mergedArray[0].value)
+      setIndexVal(0)
+      handlePageChange(mergedArray[0].value, 1, '')
+      dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }))
+    } else {
+
+
+      setSelectedFilters({
+        type: logState.data.type || '',
+        workflows: logState.data.workflows || '',
+      })
+      setSelectedBot(logState.data.bot)
+      setIndexVal(0)
+      handlePageChange(logState.data.bot, 1, logState.data.queryParam || '')
+    }
+
 
   };
 
@@ -102,36 +123,16 @@ const Logs = () => {
   }, [state.botData.data]);
 
 
-  const getCoversation = async (bot_id, queryParam) => {
-    setLoading(true)
-    const response = await getBotConversation(bot_id, queryParam);
-    if (response.status === 200) {
-      let data = response.data
-      let newdata = data.results;
-      if (newdata.length > 0) {
-        for (let i = 0; i < newdata.length; i++) {
-          newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
-          newdata[i].created = moment(newdata[i].created).format(
-            "MM-DD-YYYY hh:mm:ss A"
-          );
-        }
-      }
-      setTotalRows(data.count)
-      setConversationData(newdata);
-      setLoading(false);
-    } else {
-      setLoading(false);
-    }
-  };
-
   const handleInputValues = (e) => {
     setLoading(true)
     const { value } = e.target;
+    dispatch(updateLogState({ ...logState.data, bot: value }))
     setSelectedFilters({
       type: '',
       workflows: '',
     })
     setSelectedBot(value)
+    setIndexVal(0)
     handlePageChange(value, 1, '');
   };
 
@@ -146,7 +147,13 @@ const Logs = () => {
       [name]: value, // Update the selected value for the current dropdown
     });
 
+
+    let payload = {
+      [name]: value
+    }
+    dispatch(updateLogState({ ...logState.data, queryParam: queryParam, ...payload }))
     if (selectedBot) {
+      setIndexVal(0)
       handlePageChange(selectedBot, 1, queryParam);
     }
   };
@@ -183,7 +190,6 @@ const Logs = () => {
       }
       const getAllIds = newdata.map((ele) => { return { id: ele.id } })
       setManageMessages(getAllIds)
-      setIndexVal(0)
       setTotalRows(data.count)
       setConversationData(newdata);
       setLoading(false);
@@ -192,6 +198,10 @@ const Logs = () => {
 
     }
   }
+
+  useEffect(() => {
+    setConversationData(conversationData)
+  }, [conversationData.length])
   const [messageLoading, setMessagesLoading] = useState(false)
   const getCoversationMessages = async (id) => {
     setMessagesLoading(true)
@@ -205,6 +215,8 @@ const Logs = () => {
       setShowChat(false)
     }
   }
+  console.log("pageVal", pageVal)
+  console.log("index", indexVal)
   return (
     <>
 
@@ -233,29 +245,42 @@ const Logs = () => {
                 </li>}
             </ul>
             {showChat === true ?
-              <div className="flex justify-end gap-2">
+              <div className="flex justify-end gap-2 items-center">
 
-                {indexVal !== 0 ?
+                <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+                  back
+                </p>
+                {indexVal === 0 && pageVal === 1 ?
+                  null
+                  :
                   <p className="text-sm cursor-pointer" onClick={() => {
-                    getCoversationMessages(manageMessages[indexVal - 1].id)
-                    setIndexVal(indexVal - 1)
+                    if (indexVal === 0 && pageVal !== 1) {
+                      handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
+                      setPageVal(pageVal - 1)
+                      setIndexVal(9)
+                      getCoversationMessages(manageMessages[0].id)
+                    } else {
+                      getCoversationMessages(manageMessages[indexVal - 1].id)
+                      setIndexVal(indexVal - 1)
+                    }
                   }}>
-                    <ArrowLeftIcon className="h-6 w-6 text-heading" />
-                  </p> : <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
                     <ArrowLeftIcon className="h-6 w-6 text-heading" />
                   </p>
                 }
 
-
-                {indexVal !== manageMessages.length - 1 && (
-                  <p className="text-sm cursor-pointer" onClick={() => {
+                <p className="text-sm cursor-pointer" onClick={() => {
+                  if (indexVal !== manageMessages.length - 1) {
                     getCoversationMessages(manageMessages[indexVal + 1].id)
                     setIndexVal(indexVal + 1)
-                  }}>
-
-                    <ArrowRightIcon className="h-6 w-6 text-heading" />
-                  </p>
-                )}
+                  } else {
+                    handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
+                    setPageVal(pageVal + 1)
+                    setIndexVal(0)
+                    getCoversationMessages(manageMessages[0].id)
+                  }
+                }}>
+                  <ArrowRightIcon className="h-6 w-6 text-heading" />
+                </p>
               </div>
               :
               <div className="flex justify-end gap-2">
@@ -339,7 +364,10 @@ const Logs = () => {
                     paginationServer
                     paginationPerPage={10}
                     paginationTotalRows={totalRows}
-                    onChangePage={(page) => { handlePageChange(selectedBot, page, '') }}
+                    onChangePage={(page) => {
+                      setPageVal(page)
+                      handlePageChange(selectedBot, page, '')
+                    }}
                     noDataComponent={
                       <>
                         <p className="text-center text-sm p-3">

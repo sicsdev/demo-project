@@ -6,6 +6,7 @@ import memberReducer from './slices/memberSlice';
 import recommendationReducer from './slices/recommendation';
 import integrationReducer from './slices/integrationSlice';
 import workflowSlice from './slices/workflowSlice';
+import logSlice from './slices/logSlice';
 import integrationTemplateReducer from './slices/integrationTemplatesSlice';
 
 const store = configureStore({
@@ -18,6 +19,7 @@ const store = configureStore({
         integration:integrationReducer,
         workflow:workflowSlice,
         integrationTemplate:integrationTemplateReducer,
+        logs:logSlice,
     },
 });
 

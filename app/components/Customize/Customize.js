@@ -294,7 +294,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             setBasicFormData((prev_state) => {
               return {
                 ...prev_state,
-                chat_suggestions: [...prev, trimmedName],
+                chat_suggestions: [...prev, makeCapital(trimmedName)],
               };
             });
             return [...prev, makeCapital(trimmedName)];
@@ -323,7 +323,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             setBasicFormData((prev_state) => {
               return {
                 ...prev_state,
-                chat_suggestions: [...prev, trimmedName],
+                chat_suggestions: [...prev, makeCapital(trimmedName)],
               };
             });
             return [...prev, makeCapital(trimmedName)];
@@ -354,13 +354,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     });
   };
   const makeCapital = (str) => {
+    console.log(str)
     if (str.includes(" ")) {
       return str
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(" ");
     } else {
-      return str.charAt(0).toUpperCase() + str.slice(1);
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
   };
 
@@ -658,7 +659,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                               className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[12px] font-semibold normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                               key={key}
                             >
-                              {makeCapital(element.trim())}
+                              {element}
                               <XMarkIcon
                                 className=" h-4 w-4 cursor-pointer "
                                 onClick={(e) => {
@@ -715,7 +716,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     className="flex h-[37.5px] justify-start w-1/2 items-center"
                     onClick={() => setShowManageHideUrls(true)}
                   >
-                    <span className="text-sky text-underline cursor-pointer">
+                    <span className="text-sky text-[12px] font-semibold text-underline cursor-pointer">
                       Manage URL's
                     </span>
                   </div>
