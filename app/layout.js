@@ -48,7 +48,10 @@ export default function RootLayout({ children }) {
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"></meta>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
 
         <script
           type='application/ld+json'
@@ -79,7 +82,9 @@ export default function RootLayout({ children }) {
         gtag('config', 'G-HFHNKD99J4');
       `,
           }}
-        />      </head>
+        />      
+        
+        </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper >
           <div className="tempo_container">{children}</div>
