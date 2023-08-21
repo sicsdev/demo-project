@@ -14,11 +14,11 @@ const Homefold = () => {
   return (
     <>
       <div className="bg-home-above relative h-[700px]">
-        <div className="absolute w-[35%] h-full flex right-0">
-          <img src="/home-fold.png" className="object-fill w-full md:opacity-100	opacity-[0.75]" />
+        <div className="absolute w-[65%] h-full flex right-0">
+          <img src="/new-right-side.png" className="object-fill w-full md:opacity-[.4]	opacity-[0.4]" />
         </div>
-        <div className="absolute w-[35%] h-full flex left-0">
-        <img src="/left-side.png" className="object-fill w-full md:opacity-100	opacity-[0.75]" />
+        <div className="absolute w-[65%] h-full flex left-0">
+        <img src="/new-light-side.png" className="object-fill w-full md:opacity-[.4]	opacity-[0.4]" />
       </div>
         <div className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-12 sm:py-20 relative">
           <div className="block sm:flex   justify-center  gap-10">
