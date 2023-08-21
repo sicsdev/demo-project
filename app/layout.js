@@ -76,11 +76,11 @@ export default function RootLayout({ children }) {
 
         
         {/* Google tag */}
-        {/* <script
+        <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"
-        ></script> */}
-        {/* <script
+        ></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
         window.dataLayer = window.dataLayer || [];
@@ -91,7 +91,7 @@ export default function RootLayout({ children }) {
       `,
           }}
 
-        /> */}
+        />
         {/* <!-- Google Tag Manager -->  */}
 
         
