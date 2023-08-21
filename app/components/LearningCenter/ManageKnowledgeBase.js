@@ -29,6 +29,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const [loading, setLoading] = useState(false)
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [editKnowledgeCenter, setEditKnowledgeCenter] = useState(false);
+    const [placeholderText, setPlaceholderText] = useState('')
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
     const [filterText, setFilterText] = useState('');
     const handleFilterChange = (event) => {
@@ -141,7 +142,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "State",
             selector: (row) => row.state,
             sortable: true,
-            width:"120px",
+            width: "120px",
             reorder: true,
             cell: (row) => (
                 <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
@@ -153,7 +154,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "Content Source",
             selector: (row) => row.source,
             sortable: true,
-            width:"200px",
+            width: "200px",
             reorder: true,
             cell: (row) => (
                 <div data-tag="allowRowEvents" className="flex justify-center items-center gap-2">
@@ -166,7 +167,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "Bots",
             selector: (row) => row.bots,
             sortable: true,
-            width: "350px"    ,
+            width: "350px",
             reorder: true,
             cell: (row, index) =>
                 <div className="w-full">
@@ -181,9 +182,9 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             onSelectData(selectedList, selectedItem, index);
                             updateBotSelection(index, selectedList); // Call API when selection changes
                         }}
-                        placeholder={"Select Bots"}
+                        placeholder={basicFormData?.selectedBot[index]?.length === basicFormData?.bots?.length ? '' : "Select Bots"}
                         displayValue="name"
-                        closeOnSelect={true} 
+                        closeOnSelect={true}
                     /></div>,
         },
         {
@@ -363,17 +364,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
                                     <p className="text-sm font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
+                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
                                     <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
+                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
                                     <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
                                     <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'ALL').length}</p>
+                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'FILE').length}</p>
                                 </div>
                             </div>
                         </div>
