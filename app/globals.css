@@ -21,6 +21,12 @@ textarea::placeholder {
   font-size: 12px !important;
 }
 
+
+h2, h3{
+  font-family: 'Cairo', sans-serif;
+  font-weight: 450 !important;
+}
+
 .img-div-1:hover {
   filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
 }
