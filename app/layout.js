@@ -16,22 +16,22 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
 
-let schema ={
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Tempo AI Ventures",
-  "image": "https://usetempo.ai/logo.png",
-  "url": "https://usetempo.ai/",
-  "telephone": "8553083676",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "800 Third Avenue",
-    "addressLocality": "New York",
-    "addressRegion": "NY",
-    "postalCode": "10022",
-    "addressCountry": "US"
-  }  
-}
+  let schema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Tempo AI Ventures",
+    "image": "https://usetempo.ai/logo.png",
+    "url": "https://usetempo.ai/",
+    "telephone": "8553083676",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "800 Third Avenue",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10022",
+      "addressCountry": "US"
+    }
+  }
 
   return (
     <html lang="en" className="scroll-smooth ">
@@ -48,37 +48,43 @@ let schema ={
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
-     <script 
-            type='application/ld+json'
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-     <script src="https://widget-dev.usetempo.ai/v1/main.js" />
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
+
+        <script
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+
+        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
           ChatBot.Widget({
             id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
           });
         `,
-      }}
-    />
+          }}
+        />
 
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"
-  ></script>
-  <script
-    dangerouslySetInnerHTML={{
-      __html: `
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-HFHNKD99J4"
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
         gtag('config', 'G-HFHNKD99J4');
       `,
-    }}
-  />      </head>
+          }}
+        />      
+        
+        </head>
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper >
           <div className="tempo_container">{children}</div>
