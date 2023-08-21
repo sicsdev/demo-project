@@ -95,9 +95,9 @@ const AboveSection = () => {
     <div className="sm:bg-type-above bg-type-mobile">
     <div
       className=" mx-auto max-w-[90%] sm:max-w-[80%] md:max-w-[80%] lg:max-w-[80%]  py-10"
-      onClick={() =>
-        setHide({ first: false, second: false, third: false, fourth: false })
-      }
+      // onClick={() =>
+      //   setHide({ first: false, second: false, third: false, fourth: false })
+      // }
     >
       <div className="block sm:flex md:flex lg:flex justify-evenly items-center gap-14">
         <div className="">
@@ -117,7 +117,7 @@ const AboveSection = () => {
             Actively solving, not just resolving: With Tempo Chat, tackle
                 complicated support tickets head-on. Navigate shipping and
                 fulfillment hurdles to keep your customer journey smooth and
-                satisfying.{" "}
+                satisfying.{" "}handleBlurform_start
          
             </p>
           </div>
