@@ -40,7 +40,7 @@ const GetStarted = () => {
     policy_name: null,
     policy_description: null,
     policy_exceptions: null,
-    bots: ''
+    bots: []
   })
 
   // modals 
@@ -51,7 +51,7 @@ const GetStarted = () => {
   const [workflowModal, setWorkflowModal] = useState(false);
   const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
   const [mobileCss, setMobileCss] = useState('');
-  const [botValue, setBotValue] = useState([{ name: 'None', value: 'none' }]);
+  const [botValue, setBotValue] = useState([]);
   const [automationStepsData, setAutomationStepsData] = useState([]);
   const [automationStepsField, setAutomationStepsField] = useState([]);
   const router = useRouter();
@@ -97,7 +97,12 @@ const GetStarted = () => {
           policy_name: response?.policy_name === "default" ? "" : response?.policy_name,
           policy_description: response?.policy_description === "default" ? "" : response?.policy_description,
           policy_exceptions: response?.policy_exceptions === "default" ? "" : response?.policy_exceptions,
-          bots: response?.bots?.length > 0 ? response?.bots[0].id : ''
+          bots: response?.bots?.length > 0 ? response?.bots.map((ele) => {
+            return {
+              value: ele.id,
+              name: ele.chat_title
+            }
+          }) : []
         }
       })
       if (response?.automations?.length > 0) {
@@ -124,6 +129,8 @@ const GetStarted = () => {
 
 
   }
+  console.log(workflowFormData)
+  console.log(botValue)
   useEffect(() => {
     const flow = params.get("flow");
     if (flow) {
@@ -158,12 +165,18 @@ const GetStarted = () => {
           name: title,
         };
       });
-      const allOption = { name: 'None', value: 'none' };
-      mergedArray?.unshift(allOption);
       setBotValue(mergedArray);
     }
   };
+  const onSelectData = (selectedList, selectedItem) => {
+    setWorkFlowFormData((prev) => {
+      return {
+        ...prev,
+        bots: selectedList
 
+      }
+    })
+  }
 
   const divRef = useRef(null);
   useEffect(() => {
@@ -193,7 +206,12 @@ const GetStarted = () => {
             policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
             policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
             policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
-            bots: singleData?.bots?.length > 0 ? singleData?.bots[0].id : ''
+            bots: singleData?.bots?.length > 0 ? singleData?.bots.map((ele) => {
+              return {
+                value: ele.id,
+                name: ele.chat_title
+              }
+            }) : []
           }
         })
         // setDescriptionModal(true)
@@ -269,18 +287,18 @@ const GetStarted = () => {
             }
             return payload_automation;
           });
-        
+
           payload = { active: true, automations: finalData };
         }
       } else if (type === "EDIT") {
         payload = {
           logo: workflowFormData.logo,
           description: workflowFormData.description,
-          name: workflowFormData.name,  
+          name: workflowFormData.name,
           policy_name: workflowFormData.policy_name,
           policy_description: workflowFormData.policy_description,
           policy_exceptions: workflowFormData.policy_exceptions,
-          bots: workflowFormData?.bots !== '' && workflowFormData?.bots !== 'none' ? [workflowFormData?.bots] : []
+          bots: workflowFormData?.bots ? workflowFormData?.bots.map((ele) => ele.value) : []
         }
       } else if (type === "DISABLE") {
         payload = { active: false }
@@ -290,7 +308,7 @@ const GetStarted = () => {
       const updateWorkflow = await updateWorkFlowStatus(payload, singleData?.id);
       setPublishLoader(false);
       if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
-  
+
         if (type === "PUBLISH") {
           dispatch(editAutomationValue(null))
           successMessage("WorkFlow Published Successfully!");
@@ -413,7 +431,12 @@ const GetStarted = () => {
                         policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
                         policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
                         policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
-                        bots: singleData?.bots?.length > 0 ? singleData?.bots[0].id : ''
+                        bots: singleData?.bots?.length > 0 ? singleData?.bots.map((ele) => {
+                          return {
+                            value: ele.id,
+                            name: ele.chat_title
+                          }
+                        }) : []
                       }
                     })
                     setWorkflowModal(true)
@@ -462,7 +485,7 @@ const GetStarted = () => {
           {
             workflowModal &&
             <Modal alignment={'items-start'} title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"}>
-              <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} />
+              <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} />
             </Modal>
           }
           {/* workflowname modal end  */}

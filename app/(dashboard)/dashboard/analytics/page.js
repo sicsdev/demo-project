@@ -14,6 +14,7 @@ import Chat from "@/app/components/Chats/Chats";
 import Loading from "@/app/components/Loading/Loading";
 import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
+import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
   const columns = [
@@ -221,6 +222,7 @@ const Logs = () => {
     <>
 
       <div>
+
         <div className="border-b border-primary ">
           <div className="flex items-center justify-between">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
@@ -246,7 +248,6 @@ const Logs = () => {
             </ul>
             {showChat === true ?
               <div className="flex justify-end gap-2 items-center">
-
                 <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
                   back
                 </p>
@@ -267,7 +268,6 @@ const Logs = () => {
                     <ArrowLeftIcon className="h-6 w-6 text-heading" />
                   </p>
                 }
-
                 <p className="text-sm cursor-pointer" onClick={() => {
                   if (indexVal !== manageMessages.length - 1) {
                     getCoversationMessages(manageMessages[indexVal + 1].id)
@@ -291,9 +291,11 @@ const Logs = () => {
                 </p>
               </div>
             }
-
           </div>
         </div>
+
+
+        {/* <Reports /> */}
         {showChat === false ?
           <>
             <div className="block sm:flex justify-center gap-5">

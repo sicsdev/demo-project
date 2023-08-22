@@ -80,26 +80,19 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             sortable: false,
             cell: (row, index) => (
                 <>
-                    {row.id === isCopied.id && isCopied.copied === true && (
+                    {row.id === isCopied.id && isCopied.copied === true ? (
                         <button
                             type={"button"}
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
                             <CheckIcon className="h-5 w-5 " /> Copied!
-                        </button>)}
-                    {row.id !== isCopied.id &&
+                        </button>):
                         <button
                             type={"button"}
                             onClick={() => { getUrl(row.id) }}
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
                             <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
-                        </button>}
-                    {row.id === isCopied.id && isCopied.loading === true &&
-                        <button
-                            type={"button"}
-                            className="border-none p-0 m-0 flex gap-1 items-center"
-                        >loading...
                         </button>}
 
                 </>
@@ -194,7 +187,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
                     }}
-                    columns={status === true ? columns : columns1}
+                    columns={status === true ? columns : columns}
                     className='data-table-class'
                     data={data}
                     customStyles={customStyles}

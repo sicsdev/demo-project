@@ -233,14 +233,16 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
                                 <div className='flex justify-between gap-2 items-center'>
                                     <div className='flex justify-between gap-4 items-center'>
-                                        <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                            <Image
-                                                fill={"true"}
-                                                className="bg-contain mx-auto object-scale-down w-full rounded-lg"
-                                                alt="logo.png"
-                                                src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0])}
-                                            />
-                                        </div>
+                                        {ele.automation?.integration?.icon && (
+                                            <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                <Image
+                                                    fill={"true"}
+                                                    className="bg-contain mx-auto object-scale-down w-full rounded-lg"
+                                                    alt="logo.png"
+                                                    src={ele.automation?.integration?.icon || getLogo(ele?.automation?.name.split(" ")[0])}
+                                                />
+                                            </div>
+                                        )}
                                         <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
                                     </div>
                                     <div className=''>
@@ -320,7 +322,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                     name="description"
                                                 />
                                             </div>
-                                        </div> */}      
+                                        </div> */}
                                         {ele.id !== "automation_temp" && (
                                             <div className='my-2'>
                                                 {loading === key ? <LoaderButton /> :

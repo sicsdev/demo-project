@@ -5,8 +5,9 @@ import Image from 'next/image'
 import Button from '../../Common/Button/Button'
 import SelectOption from '../../Common/Input/SelectOption'
 import TextArea from '../../Common/Input/TextArea'
+import Multiselect from 'multiselect-react-dropdown'
 
-const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue }) => {
+const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData }) => {
     const DisablingButton = () => {
         const requiredKeys = ["description", "name"];
         return requiredKeys.some(
@@ -31,7 +32,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
             <div className='mt-2 '>
                 <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={workflowFormData.description} onChange={handleInputValue} title={"Description"} />
             </div>
-            <div className='my-2'>
+            {/* <div className='my-2'>
                 <TextField
                     onChange={handleInputValue}
                     value={workflowFormData.policy_name}
@@ -48,18 +49,23 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
             </div>
             <div className='mt-2 '>
                 <TextArea name='policy_exceptions' placeholder={"Policy Exceptions"} id={"policy_exceptions"} value={workflowFormData.policy_exceptions} onChange={handleInputValue} title={'Policy Exceptions'} />
-            </div>
+            </div> */}
             <div className="my-2">
-                <SelectOption
-                    onChange={handleInputValue}
-                    value={workflowFormData.bots ?? ''}
-                    labelClass={`new_input_label`}
-                    name="bots"
-                    values={botValue}
-                    title={<span className='flex items-center gap-2'>Bot Selector</span>}
-                    id={"bots"}
-                    className="py-3 w-full mt-1"
-                    error={""}
+                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                    <div className='flex items-center gap-2'><span>Bot Selector</span>  </div>
+                </label>
+                <Multiselect
+                    options={botValue}
+                    selectedValues={workflowFormData?.bots ?? []}
+                    onSelect={(selectedList, selectedItem) => {
+                        onSelectData(selectedList, selectedItem);
+                    }}
+                    onRemove={(selectedList, selectedItem) => {
+                        onSelectData(selectedList, selectedItem);
+                    }}
+                    placeholder={botValue.length === workflowFormData?.bots.length ? '' : "Select Bots"}
+                    displayValue="name"
+                    closeOnSelect={true}
                 />
             </div>
             <div
