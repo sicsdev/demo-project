@@ -50,7 +50,7 @@ export default function RootLayout({ children }) {
 
         <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
         ></meta>
 
 
@@ -73,8 +73,28 @@ export default function RootLayout({ children }) {
         `,
           }}
         />
+        {/* START:: To Disable Zoom Effect */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            // Disable zooming on input focus for iOS Safari
+            document.addEventListener('focusin', (event) => {
+              if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
+                const tagName = event.target.tagName.toLowerCase();
+                if (tagName === 'input' || tagName === 'textarea') {
+                  document.body.style.zoom = 1;
+                }
+              }
+            });
+            
+            document.addEventListener('focusout', () => {
+              document.body.style.zoom = 1;
+            });
+          `,
+          }}
+        />
 
-        
+
         {/* Google tag */}
         {/* <script
           async
@@ -94,7 +114,7 @@ export default function RootLayout({ children }) {
         /> */}
         {/* <!-- Google Tag Manager -->  */}
 
-        
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -110,7 +130,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* <!-- End Google Tag Manager --> */}{" "}
       </head>
 
-             
+
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
