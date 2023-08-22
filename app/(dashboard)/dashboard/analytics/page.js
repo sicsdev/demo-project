@@ -16,6 +16,7 @@ import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
 // import Reports from "@/app/components/Reports/Reports";
 
+
 const Logs = () => {
   const columns = [
     {
