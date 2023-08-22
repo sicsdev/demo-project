@@ -1,3 +1,4 @@
+'use client'
 import { EllipsisHorizontalIcon, InformationCircleIcon, KeyIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
