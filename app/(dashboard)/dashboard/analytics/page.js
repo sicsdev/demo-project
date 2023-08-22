@@ -14,7 +14,8 @@ import Chat from "@/app/components/Chats/Chats";
 import Loading from "@/app/components/Loading/Loading";
 import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
-import Reports from "@/app/components/Reports/Reports";
+// import Reports from "@/app/components/Reports/Reports";
+
 
 const Logs = () => {
   const columns = [
@@ -216,8 +217,6 @@ const Logs = () => {
       setShowChat(false)
     }
   }
-  console.log("pageVal", pageVal)
-  console.log("index", indexVal)
   return (
     <>
 

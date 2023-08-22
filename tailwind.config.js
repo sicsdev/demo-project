@@ -106,7 +106,7 @@ module.exports = {
       },
       boxShadow: {
         "3xl": "0 0.125rem 1.5625rem rgb(0 0 0/10%)",
-        card: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;'
+        "card": 'rgba(149, 157, 165, 0.2) 0px 8px 24px'
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

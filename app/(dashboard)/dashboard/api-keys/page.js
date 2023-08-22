@@ -1,7 +1,8 @@
+'use client'
 import { EllipsisHorizontalIcon, InformationCircleIcon, KeyIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
-const Page = () => {
+const Keys = () => {
   return (
     <div>
       <div className="border-b border-primary dark:border-gray-700">
@@ -208,4 +209,4 @@ const Page = () => {
     </div>
   )
 }
-export default Page   
+export default Keys   
