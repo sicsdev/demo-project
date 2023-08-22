@@ -73,6 +73,7 @@ module.exports = {
       background: color.slate[800],
       border: color.slate[400],
       input_color: color.gray[400],
+      border_color: "#00000017",
       btn_y_main: color.yellow[300],
       btn_y_hover: color.yellow[500],
       btn_p_main: color.purple[700],
@@ -97,6 +98,7 @@ module.exports = {
       skyblue: "#d8e4fa",
       red: "#dc2626",
       label: "#59f2f6",
+      fade_text:"#000000db"
     },
     extend: {
       gridTemplateColumns: {
@@ -104,6 +106,7 @@ module.exports = {
       },
       boxShadow: {
         "3xl": "0 0.125rem 1.5625rem rgb(0 0 0/10%)",
+        card: 'rgba(149, 157, 165, 0.2) 0px 8px 24px;'
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
