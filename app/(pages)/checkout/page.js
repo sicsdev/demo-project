@@ -7,14 +7,25 @@ import Button from "../../components/Common/Button/Button";
 import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
-import { useRouter, useSearchParams } from "next/navigation";
+import {
+  useRouter,
+  useSearchParams,
+  useSelectedLayoutSegment,
+} from "next/navigation";
 import Link from "next/link";
 import { testimonialsArray } from "@/app/assets/Testimonials/Testimonials";
 import StripeWrapper from "@/app/components/Stripe/Wrapper/StripeWrapper";
 import validator from "validator";
-import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
+import {
+  createContactInFreshsales,
+  updateContactInHubspot,
+} from "@/app/API/components/Demo";
 import { createPaymentIntent } from "@/app/API/pages/Checkout";
-import { ChevronDownIcon, ChevronUpIcon, ShoppingCartIcon } from "@heroicons/react/24/solid";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/solid";
 
 const Checkout = () => {
   const router = useRouter();
@@ -32,14 +43,14 @@ const Checkout = () => {
     email: "",
   });
   const getPaymentIntent = async () => {
-    const clientSecret = await createPaymentIntent({ amount: "500" })
+    const clientSecret = await createPaymentIntent({ amount: "500" });
     if (clientSecret?.client_secret) {
-      setClientSecret(clientSecret?.client_secret)
-      setPaymentId(clientSecret.id)
+      setClientSecret(clientSecret?.client_secret);
+      setPaymentId(clientSecret.id);
     }
-  }
+  };
   useEffect(() => {
-    getPaymentIntent()
+    getPaymentIntent();
     searchParams.get("plan")
       ? setPlanQuery(searchParams.get("plan"))
       : setPlanQuery("");
@@ -74,26 +85,33 @@ const Checkout = () => {
     });
   };
   const appearance = {
-    theme: 'stripe',
+    theme: "stripe",
   };
   const options = {
     clientSecret,
     appearance,
   };
+  const [hubID, setHubid] = useState(null);
   const handleBlur = async (e) => {
     if (validator.isEmail(checkoutForm.email)) {
+      let first_name = checkoutForm.name?.split(" ")[0] || null;
+      let last_name = checkoutForm.name?.split(" ")[1] || null;
 
-      let first_name = checkoutForm.name?.split(" ")[0] || null
-      let last_name = checkoutForm.name?.split(" ")[1] || null
-
-      let payload = { email: checkoutForm.email }
-      if (checkoutForm.phone) payload.mobile_number = checkoutForm.phone
-      if (first_name) payload.first_name = first_name
-      if (last_name) payload.last_name = last_name
-
-      await createContactInFreshsales(payload)
+      let payload = { email: checkoutForm.email };
+      if (checkoutForm.phone) payload.phone = checkoutForm.phone;
+      if (first_name) payload.firstname = first_name;
+      if (last_name) payload.lastname = last_name;
+      if (hubID) {
+        await updateContactInHubspot(payload, hubID)
+      } else {
+        const res = await createContactInFreshsales(payload);
+        if (res) {
+          setHubid(res.id);
+          localStorage.setItem("hubId", res.id)
+        }
+      }
     }
-  }
+  };
 
   const Abc = () => {
     setBoxValid(!boxValid);
@@ -113,10 +131,9 @@ const Checkout = () => {
   const toggleClass = () => {
     setShowSummary(!showSummary);
   };
-  const [showOrderSummary, setShowOrderSummary] = useState(false)
+  const [showOrderSummary, setShowOrderSummary] = useState(false);
   return (
     <div className="bg-white">
-
       <Container>
         <div className="relative w-28 h-8 mb-4">
           <Image
@@ -129,15 +146,35 @@ const Checkout = () => {
 
         <hr className=" sm:block md:block lg:block border-border" />
 
-        <div className="flex justify-between items-center sm:hidden md:hidden lg:hidden cursor-pointer my-4 " onClick={() => { setShowOrderSummary(prev => !prev) }} >
-          <div className="flex justify-between items-center gap-4"><ShoppingCartIcon className="h-6 w-6 text-gray-500" />{showOrderSummary === true ? <>Hide Order Summary <ChevronUpIcon className="h-6 w-6 text-heading" /></> : <>Show Order Summary <ChevronDownIcon class="h-6 w-6 text-heading" /></>}</div>
+        <div
+          className="flex justify-between items-center sm:hidden md:hidden lg:hidden cursor-pointer my-4 "
+          onClick={() => {
+            setShowOrderSummary((prev) => !prev);
+          }}
+        >
+          <div className="flex justify-between items-center gap-4">
+            <ShoppingCartIcon className="h-6 w-6 text-gray-500" />
+            {showOrderSummary === true ? (
+              <>
+                Hide Order Summary{" "}
+                <ChevronUpIcon className="h-6 w-6 text-heading" />
+              </>
+            ) : (
+              <>
+                Show Order Summary{" "}
+                <ChevronDownIcon class="h-6 w-6 text-heading" />
+              </>
+            )}
+          </div>
           <div>$0</div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-8 ">
           {showOrderSummary === true && (
             <div className="block sm:hidden md:hidden">
               <Card className={"border bg-white border-border "}>
-                <h2 className="sm:text-center sm:text-left text-xl mb-2">Order Summary</h2>
+                <h2 className="sm:text-center sm:text-left text-xl mb-2">
+                  Order Summary
+                </h2>
                 <hr style={{ borderColor: "#CCCCCC" }}></hr>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                   <tbody>
@@ -329,7 +366,9 @@ const Checkout = () => {
                 automatically charge your card for your usage once your credits
                 according to our{" "}
                 <span className="text-[blue]">
-                  <Link href="https://usetempo.ai/article/pricing-overview">Pricing Policy.</Link>{" "}
+                  <Link href="https://usetempo.ai/article/pricing-overview">
+                    Pricing Policy.
+                  </Link>{" "}
                 </span>{" "}
                 To establish your account and verify your payment method, we
                 will charge $1 to your credit card today.
@@ -401,7 +440,11 @@ const Checkout = () => {
         </div>
         <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
 
-        <p className="mt-2 text-xs sm:text-sm"> All rights reserved 2023 © <span className="text-[blue]">Tempo AI Ventures, Inc.</span></p>
+        <p className="mt-2 text-xs sm:text-sm">
+          {" "}
+          All rights reserved 2023 ©{" "}
+          <span className="text-[blue]">Tempo AI Ventures, Inc.</span>
+        </p>
       </Container>
     </div>
   );
