@@ -48,11 +48,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
 
-        <meta
+        {/* <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        ></meta>
+        ></meta> */}
 
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -74,7 +75,7 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        
+
         {/* Google tag */}
         {/* <script
           async
@@ -94,7 +95,7 @@ export default function RootLayout({ children }) {
         /> */}
         {/* <!-- Google Tag Manager -->  */}
 
-        
+
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -110,9 +111,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* <!-- End Google Tag Manager --> */}{" "}
       </head>
 
-        />      
-        
-        </head>
+
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <ProviderWrapper>
