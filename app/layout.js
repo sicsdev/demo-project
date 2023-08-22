@@ -48,10 +48,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
 
-        <meta
+        {/* <meta
           name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-        ></meta>
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
+        ></meta> */}
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -71,26 +73,6 @@ export default function RootLayout({ children }) {
             id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
           });
         `,
-          }}
-        />
-        {/* START:: To Disable Zoom Effect */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            // Disable zooming on input focus for iOS Safari
-            document.addEventListener('focusin', (event) => {
-              if (/(iPhone|iPod|iPad)/i.test(navigator.userAgent)) {
-                const tagName = event.target.tagName.toLowerCase();
-                if (tagName === 'input' || tagName === 'textarea') {
-                  document.body.style.zoom = 1;
-                }
-              }
-            });
-            
-            document.addEventListener('focusout', () => {
-              document.body.style.zoom = 1;
-            });
-          `,
           }}
         />
 
