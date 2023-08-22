@@ -499,6 +499,7 @@ const Intake = () => {
     switch (intakeStep) {
       case 0:
         SubmitBusinessDetails();
+        localStorage.removeItem("hubId");
         break;
       case 1:
         if (basicFormData?.bot === "success") {

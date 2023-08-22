@@ -9,7 +9,7 @@ import { useState } from "react";
 import validator from "validator";
 import { useEffect } from "react";
 import { getUserProfile } from "@/app/API/components/Sidebar";
-import { createContactInFreshsales, updateContactInFreshsales } from "@/app/API/components/Demo";
+import { createContactInFreshsales, updateContactInHubspot } from "@/app/API/components/Demo";
 
 export default function BasicDetails({ basicFormData, setBasicFormData }) {
   const [formValues, setFormValues] = useState({
@@ -25,6 +25,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
     customer_service_phone: basicFormData?.customer_service_phone ?? "",
     customer_service_email: basicFormData?.customer_service_email ?? "",
   });
+  const [hubID, setHubid] = useState(null);
 
   useEffect(() => {
 
@@ -86,15 +87,14 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
   const handleBlur = async (e) => {
     if (validator.isEmail(userProfile.email ?? '')) {
       let payload = { email: userProfile.email }
-      if (formValues.business_name) payload.custom_field = { ...payload.custom_field, cf_company_name: formValues.business_name }
+      if (formValues.business_name) payload.company =  formValues.business_name 
       if (formValues.business_street) payload.address = formValues.business_street
       if (formValues.business_city) payload.city = formValues.business_city
       if (formValues.business_state) payload.state = formValues.business_state
-      if (formValues.business_zipcode) payload.zipcode = formValues.business_zipcode
-      if (formValues.business_company_size) payload.custom_field = { ...payload.custom_field, cf_employees_size: formValues.business_company_size }
-      if (formValues.business_industry) payload.custom_field = { ...payload.custom_field, cf_industry: formValues.business_industry }
-      await createContactInFreshsales(payload)
-
+      if (formValues.business_zipcode) payload.zip = formValues.business_zipcode
+      if (formValues.business_company_size) payload.company_size = formValues.business_company_size 
+      if (formValues.business_industry) payload.industry =  formValues.business_industry 
+      await updateContactInHubspot(payload, localStorage.getItem("hubId"))
     }
   }
 
