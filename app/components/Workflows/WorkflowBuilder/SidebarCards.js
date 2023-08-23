@@ -1,7 +1,7 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { ChevronLeftIcon, ChevronRightIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { editAutomationValue } from '../../store/slices/workflowSlice'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, setRuleModal }) => {
     const dispatch = useDispatch()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
@@ -155,6 +155,34 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         </div>
                                     </li>
                                 )}
+
+                                <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
+                                    <div>
+                                        <div className='flex justify-between items-center '>
+                                            <div className="flex justify-start items-center gap-2">
+                                                <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+
+                                                <p className='text-heading text-sm'>Rule</p>
+                                                <p className='text-border text-[11px] font-light'></p>
+                                            </div>
+                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
+                                    <div>
+                                        <div className='flex justify-between items-center '>
+                                            <div className="flex justify-start items-center gap-2">
+                                                <DocumentTextIcon className="h-6 w-6 text-gray-500" />
+
+                                                <p className='text-heading text-sm'>Text</p>
+                                                <p className='text-border text-[11px] font-light'></p>
+                                            </div>
+                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
+                                        </div>
+                                    </div>
+                                </li>
 
                                 <li className={`my-4 cursor-pointer`}>
                                     <Link href={"/dashboard/workflow/integrations"}>

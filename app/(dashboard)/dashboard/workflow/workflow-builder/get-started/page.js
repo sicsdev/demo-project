@@ -1,7 +1,7 @@
 'use client'
 import Button from '@/app/components/Common/Button/Button'
 import RightSidebar from '@/app/components/Dashboard/AuthLayout/RightSidebar'
-import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -21,6 +21,7 @@ import DeleteWorkflow from '@/app/components/Workflows/WorkflowBuilder/DeleteWor
 import { useDispatch, useSelector } from 'react-redux'
 import { editAutomationValue } from '@/app/components/store/slices/workflowSlice'
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
+import TextField from '@/app/components/Common/Input/TextField'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -57,7 +58,7 @@ const GetStarted = () => {
   const router = useRouter();
   const inputRef = useRef(null);
   const [addStepIndex, setAddStepIndex] = useState(null);
-
+  const [ruleModal, setRuleModal] = useState(false);
   const handleButtonClick = (shake = true) => {
     setMobileCss(`!block`);
     setShake('w-full sm:w-80 transform translate-x-[-1] translate-y-0 scale-100 scale-x-[1.00018] scale-y-100')
@@ -129,8 +130,7 @@ const GetStarted = () => {
 
 
   }
-  console.log(workflowFormData)
-  console.log(botValue)
+
   useEffect(() => {
     const flow = params.get("flow");
     if (flow) {
@@ -400,7 +400,7 @@ const GetStarted = () => {
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData}>
+        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} setRuleModal={setRuleModal}>
           {singleData ? (
             <>
               <div className='flex md:flex lg:flex justify-between gap-2 items-center'>
@@ -565,6 +565,146 @@ const GetStarted = () => {
                   </Button>
                 </div>
               </form>
+            </Modal>
+          }
+          {
+            ruleModal &&
+            <Modal title={'Rule Builder'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+              <>
+                <div className=''>
+                  <h3 className="!font-bold text-heading text-xl">Conditions</h3>
+                  <p className='text-heading font-normal text-normal'>Segment your users and/or their sessions according to single or multi-session conditions.</p>
+                </div>
+                <div className=''>
+                  <div className='mt-4 border p-4 rounded-md'>
+                    <div className='flex justify-between'>
+                      <div className='flex items-center justify-center gap-2 font-bold'>
+                        <p>Filter</p>
+                        <p>User</p>
+                        <p>Include</p>
+                      </div>
+                      <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full' />
+                    </div>
+
+                    <div className='block sm:flex justify-between pt-4 sm:ml-10'>
+                      <div className='flex items-center justify-center gap-2 font-bold'>
+                        <SelectOption
+                          disabled
+                          value={`page`}
+                          name="bot"
+                          values={[{ name: 'page', value: 'Page' }]}
+                          title={``}
+                          id={"bots"}
+                          className="py-3 !w-[70px]"
+                        />
+                        <SelectOption
+                          disabled
+                          value={`contain`}
+                          name="contains"
+                          values={[{ name: 'contain', value: 'Contains' }]}
+                          title={``}
+                          id={"contains"}
+                          className="py-3 !w-[80px]"
+                        />
+                        <TextField
+                          value={``}
+                          name="billing_thresholds"
+                          className="py-3"
+                          title={""}
+                          placeholder={""}
+                          type={"number"}
+                          id={"billing_thresholds"}
+                          paddingleft={"pl-6"}
+                        />
+                      </div>
+                      <div className='mt-4 sm:mt-0 flex text-sm'>
+                        <button className='border-[1px] border-[#C7C6C7] rounded-tl-md rounded-bl-md font-bold bg-[#fafafa] px-2 !py-1'>-</button>
+                        <button className='border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] bg-[#fafafa] px-2 !py-1'>OR</button>
+                        <button className='border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold bg-[#fafafa] px-2 !py-1'>AND</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div className='mt-4 border p-4 rounded-md'>
+                    <div className='flex justify-between'>
+                      <div className='flex items-center justify-center gap-2 font-bold'>
+                        <p>Filter</p>
+                        <p>User</p>
+                        <p>Include</p>
+                      </div>
+                      <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full hover:text-[#334bfa]' />
+                    </div>
+
+                    <div className='block sm:flex justify-between pt-4 sm:ml-10'>
+                      <div className='flex items-center justify-center gap-2 font-bold'>
+                        <SelectOption
+                          disabled
+                          value={`page`}
+                          name="bot"
+                          values={[{ name: 'page', value: 'Page' }]}
+                          title={``}
+                          id={"bots"}
+                          className="py-3 !w-[70px]"
+                        />
+                        <SelectOption
+                          disabled
+                          value={`contain`}
+                          name="contains"
+                          values={[{ name: 'contain', value: 'Contains' }]}
+                          title={``}
+                          id={"contains"}
+                          className="py-3 !w-[80px]"
+                        />
+                        <TextField
+                          value={``}
+                          name="billing_thresholds"
+                          className="py-3"
+                          title={""}
+                          placeholder={""}
+                          type={"number"}
+                          id={"billing_thresholds"}
+                          paddingleft={"pl-6"}
+                        />
+                      </div>
+                      <div className='mt-4 sm:mt-0 flex text-sm'>
+                        <button className='border-[1px] border-[#C7C6C7] rounded-tl-md rounded-bl-md font-bold bg-[#fafafa] px-2 !py-1'>-</button>
+                        <button className='border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] bg-[#fafafa] px-2 !py-1'>OR</button>
+                        <button className='border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold bg-[#fafafa] px-2 !py-1'>AND</button>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div className='mt-3'>
+                    <Button
+                    type={`button`}
+                      className="flex gap-2 justify-center items-center rounded bg-[#fafafa] px-6 pb-2 pt-2.5 text-xs font-medium leading-normal text-heading border border-border "
+                    >
+                      <PlusIcon className='h-4 w-4' />
+                      Add Filter
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center justify-between mt-4">
+                    <div></div>
+                    <div>
+                      <Button
+                        type={"submit"}
+                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                      >
+                        Apply
+                      </Button>
+                      <Button
+                        className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                        onClick={() => { setRuleModal(false) }}
+                      >
+                        Cancel
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </>
             </Modal>
           }
         </RightSidebar>
