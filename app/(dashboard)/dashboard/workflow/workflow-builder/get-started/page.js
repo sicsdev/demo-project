@@ -65,7 +65,8 @@ const GetStarted = () => {
     availables: '',
     contains: '',
     filter_text: '',
-    type: ''
+    type: 'OR',
+    conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
   }]);
 
   const handleButtonClick = (shake = true) => {
@@ -117,20 +118,20 @@ const GetStarted = () => {
       })
       if (response?.automations?.length > 0) {
         setAutomationStepsData(response.automations)
-        const filterData = response.automations.map((ele) => {
-          const isEmptyObject = Object.keys(ele.output).length === 0;
-          const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
-          return {
-            key: '',
-            value: '',
-            name: '',
-            names_arr: objectValuesToArray(ele.data),
-            output: jsonString,
-            loading: false,
-            icon: response.icon
-          }
-        })
-        setAutomationStepsField(filterData)
+        // const filterData = response.automations.map((ele) => {
+        //   const isEmptyObject = Object.keys(ele.output).length === 0;
+        //   const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
+        //   return {
+        //     key: '',
+        //     value: '',
+        //     name: '',
+        //     names_arr: objectValuesToArray(ele.data),
+        //     output: jsonString,
+        //     loading: false,
+        //     icon: response.icon
+        //   }
+        // })
+        // setAutomationStepsField(filterData)
       }
       setIsLoading(false)
     } else {
@@ -296,7 +297,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = element
+              payload_automation = {condition:element.condition}
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -414,20 +415,49 @@ const GetStarted = () => {
       availables: '',
       contains: '',
       filter_text: '',
-      type: ''
+      type: 'OR',
+      conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
     }])
   }
 
-  const handleFilterChange = (key, e) => {
+  const handleFilterChange = (key, e, fieldType) => {
     const { name, value } = e?.target;
     const updatedFilters = [...conditionFilter];
-    // Update the specific filter's properties using the index
     updatedFilters[key] = {
       ...updatedFilters[key],
       [name]: value,
     };
     // Set the updated array
+    if (fieldType === 'availables') {
+      const findType = availableFilters.find((x) => x.value === value)
+      if (findType) {
+        switch (findType.type) {
+          case 'list':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'str':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'bool':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }]
+            break;
+          case 'int':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }, { name: '<', value: '<' }, { name: '>', value: '>' }]
+            break;
+          case 'dict':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'data':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }, { name: '<', value: '<' }, { name: '>', value: '>' }]
+            break;
+          default:
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+        }
+      }
+    }
     setConditionFilter(updatedFilters);
+
   };
 
   const selectConditionFilterType = (key, value, type) => {
@@ -445,8 +475,7 @@ const GetStarted = () => {
     return conditionFilter.some(filter =>
       filter.availables === '' ||
       filter.contains === '' ||
-      filter.filter_text === '' ||
-      filter.type === ''
+      filter.filter_text === ''
     );
   };
 
@@ -458,18 +487,23 @@ const GetStarted = () => {
   const addConditionalStepHandler = async () => {
     const conditionData = convertToQueryString(conditionFilter);
     const get_ids = automationStepsData.map((element) => {
-      return {
-        automation: element?.automation?.id,
-        data: element?.data,
-        output: element?.output
-      };
+      let payload_automation = {}
+      if (element?.automation) {
+        payload_automation = {
+          automation: element.automation.id,
+          output: {},
+          data: {}
+        };
+      } else {
+        payload_automation = {condition:element.condition}
+      }
+      return payload_automation
     })
-
     let newArray = null
     if (addStepIndex === null) {
-      newArray = [...get_ids, { condition_type: 'IF', condition_data: conditionData, data: {}, output: {} }];
+      newArray = [...get_ids, { condition: conditionData, data: {}, output: {} }];
     } else {
-      newArray = addDataAtIndex1(addStepIndex, get_ids, { condition_type: 'IF', condition_data: conditionData, data: {}, output: {} });
+      newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
     }
     const workflowId = params.get('flow');
     if (!singleData.active) {
@@ -477,8 +511,7 @@ const GetStarted = () => {
       getWorkflowData(workflowId)
     }
     else {
-      debugger
-      let data = [...automationStepsData, { automation: null, condition_type: 'IF', condition_data: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      let data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
       setAutomationStepsData(data)
       dispatch(editAutomationValue(newArray))
     }
@@ -508,7 +541,8 @@ const GetStarted = () => {
       availables: '',
       contains: '',
       filter_text: '',
-      type: ''
+      type: 'OR',
+      conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
     }]);
     setRuleModal(true);
     setMobileCss('')
@@ -521,11 +555,15 @@ const GetStarted = () => {
 
   const convertToQueryString = (array) => {
     let result = '';
+    if (array.length === 1) {
+      array[0].type = '';
+    }
     array.map((item, key) => {
+      delete item.conditions;
       const values = Object.values(item);
-      const str = values.join();
-      result += ` ` + str.replaceAll(',', ' ');
-    })
+      const str = values.join(' ');
+      result += ' ' + str;
+    });
 
     return result;
   };
@@ -707,11 +745,11 @@ const GetStarted = () => {
 
       {
         ruleModal === true &&
-        <Modal title={'Rule Builder'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+        <Modal title={'Add Condition'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
           <>
             <div className=''>
               <h3 className="!font-bold text-heading text-xl">Conditions</h3>
-              <p className='text-heading font-normal text-normal'>Segment your users and/or their sessions according to single or multi-session conditions.</p>
+              <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
             </div>
             <div className=''>
               {conditionFilter?.map((item, key) =>
@@ -729,11 +767,11 @@ const GetStarted = () => {
                     }
                   </div>
 
-                  <div className='block sm:flex justify-between pt-4 sm:ml-10'>
+                  <div className='block sm:flex justify-between pt-4 '>
                     <div className='flex items-center justify-center gap-2 font-bold'>
                       <SelectOption
                         value={item?.availables}
-                        onChange={(e) => handleFilterChange(key, e)}
+                        onChange={(e) => handleFilterChange(key, e, 'availables')}
                         name="availables"
                         values={availableFilters}
                         title={``}
@@ -742,16 +780,17 @@ const GetStarted = () => {
                       />
                       <SelectOption
                         value={item?.contains}
-                        onChange={(e) => handleFilterChange(key, e)}
+                        onChange={(e) => handleFilterChange(key, e, 'conditions')}
                         name="contains"
-                        values={[{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]}
+                        values={item?.conditions}
                         title={``}
                         id={"contains"}
+                        disabled={!item?.availables}
                         className="py-3 !w-[80px]"
                       />
                       <TextField
                         value={item?.filter_text}
-                        onChange={(e) => handleFilterChange(key, e)}
+                        onChange={(e) => handleFilterChange(key, e, 'text')}
                         name="filter_text"
                         className="py-3"
                         title={""}
@@ -761,20 +800,22 @@ const GetStarted = () => {
                         paddingleft={"pl-6"}
                       />
                     </div>
-                    <div className='mt-4 sm:mt-0 flex text-sm'>
-                      <button
-                        onClick={(e) => selectConditionFilterType(key, 'OR', 'type')}
-                        type='button'
-                        className={`border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] ${item?.type === 'OR' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
-                        OR
-                      </button>
-                      <button
-                        onClick={(e) => selectConditionFilterType(key, 'AND', 'type')}
-                        type='button'
-                        className={`border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold ${item?.type === 'AND' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
-                        AND
-                      </button>
-                    </div>
+                    {conditionFilter.length - 1 !== key && (
+                      <div className='mt-4 sm:mt-0 flex text-sm'>
+                        <button
+                          onClick={(e) => selectConditionFilterType(key, 'OR', 'type')}
+                          type='button'
+                          className={`border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] ${item?.type === 'OR' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                          OR
+                        </button>
+                        <button
+                          onClick={(e) => selectConditionFilterType(key, 'AND', 'type')}
+                          type='button'
+                          className={`border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold ${item?.type === 'AND' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                          AND
+                        </button>
+                      </div>
+                    )}
                   </div>
 
                 </div>
@@ -801,7 +842,7 @@ const GetStarted = () => {
                     onClick={() => addConditionalStepHandler()}
                     className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                   >
-                    Apply
+                    Save
                   </Button>
                   <Button
                     className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
