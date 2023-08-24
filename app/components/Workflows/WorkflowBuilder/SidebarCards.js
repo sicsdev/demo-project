@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { editAutomationValue } from '../../store/slices/workflowSlice'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, setRuleModal }) => {
+const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler }) => {
     const dispatch = useDispatch()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
@@ -47,6 +47,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         get_ids.splice(stepIndex, 0, newData);
         return get_ids;
     }
+    
     const addStepHandler = async (ele) => {
 
         const get_ids = automationStepsData.map((element) => {
@@ -156,7 +157,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     </li>
                                 )}
 
-                                <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
+                                <li className={`my-4 cursor-pointer`} onClick={() => { openRulesHandler() }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
@@ -170,7 +171,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     </div>
                                 </li>
 
-                                <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
+                                {/* <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
@@ -182,7 +183,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
 
                                 <li className={`my-4 cursor-pointer`}>
                                     <Link href={"/dashboard/workflow/integrations"}>

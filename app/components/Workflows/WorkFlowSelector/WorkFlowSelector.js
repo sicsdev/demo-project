@@ -243,19 +243,26 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 />
                                             </div>
                                         )}
-                                        <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
+                                        {ele?.automation !== null ? (
+                                            <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
+                                        ) : (
+                                            <p className='text-sm font-semibold '>Rule: {ele?.condition_data}</p>
+                                        )}
+
                                     </div>
                                     <div className=''>
                                         <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  h-[44px] group-hover:shadow] p-[2px]`}>
                                             {
                                                 showButtonStates == key &&
                                                 <>
-                                                    <Button
-                                                        type={"button"}
-                                                        onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele?.automation?.id, index: key })}
-                                                        className="inline-block  cursor-pointer p-[8px]  h-[38px] hover:bg-[#efefef]">
-                                                        <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
-                                                    </Button>
+                                                    {ele?.automation !== null && (
+                                                        <Button
+                                                            type={"button"}
+                                                            onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele?.automation?.id, index: key })}
+                                                            className="inline-block  cursor-pointer p-[8px]  h-[38px] hover:bg-[#efefef]">
+                                                            <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
+                                                        </Button>
+                                                    )}
                                                     <Button
                                                         type={"button"}
                                                         onClick={(e) => deleteTheEntry(key)}

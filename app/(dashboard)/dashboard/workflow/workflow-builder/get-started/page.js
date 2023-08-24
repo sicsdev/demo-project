@@ -33,6 +33,7 @@ const GetStarted = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [publishLoader, setPublishLoader] = useState(false);
   const [showHelp, setShowHelp] = useState(false)
+  const [availableFilters, setAvailableFilters] = useState([]);
 
   const [workflowFormData, setWorkFlowFormData] = useState({
     name: null,
@@ -59,6 +60,14 @@ const GetStarted = () => {
   const inputRef = useRef(null);
   const [addStepIndex, setAddStepIndex] = useState(null);
   const [ruleModal, setRuleModal] = useState(false);
+
+  const [conditionFilter, setConditionFilter] = useState([{
+    availables: '',
+    contains: '',
+    filter_text: '',
+    type: ''
+  }]);
+
   const handleButtonClick = (shake = true) => {
     setMobileCss(`!block`);
     setShake('w-full sm:w-80 transform translate-x-[-1] translate-y-0 scale-100 scale-x-[1.00018] scale-y-100')
@@ -395,12 +404,132 @@ const GetStarted = () => {
     })
   }
 
+  const addConditionFilter = (e) => {
+    setConditionFilter((pre) => [...pre, {
+      availables: '',
+      contains: '',
+      filter_text: '',
+      type: ''
+    }])
+  }
+
+  const handleFilterChange = (key, e) => {
+    const { name, value } = e?.target;
+    const updatedFilters = [...conditionFilter];
+    // Update the specific filter's properties using the index
+    updatedFilters[key] = {
+      ...updatedFilters[key],
+      [name]: value,
+    };
+    // Set the updated array
+    setConditionFilter(updatedFilters);
+  };
+
+  const selectConditionFilterType = (key, value, type) => {
+    const updatedFilters = [...conditionFilter];
+    updatedFilters[key] = {
+      ...updatedFilters[key],
+      [type]: value,
+    };
+    // Set the updated array
+    setConditionFilter(updatedFilters);
+  }
+
+  // Function to check if any values are empty
+  const areValuesEmpty = () => {
+    return conditionFilter.some(filter =>
+      filter.availables === '' ||
+      filter.contains === '' ||
+      filter.filter_text === '' ||
+      filter.type === ''
+    );
+  };
+
+  const removeActionFilter = (key) => {
+    const updatedFilters = conditionFilter.filter((_, index) => index !== key);
+    setConditionFilter(updatedFilters);
+  };
+
+  const addConditionalStepHandler = async () => {
+    const conditionData = convertToQueryString(conditionFilter);
+    const get_ids = automationStepsData.map((element) => {
+      return {
+        automation: element?.automation?.id,
+        data: element?.data,
+        output: element?.output
+      };
+    })
+
+    let newArray = null
+    if (addStepIndex === null) {
+      newArray = [...get_ids, { condition_type: 'IF', condition_data: conditionData, data: {}, output: {} }];
+    } else {
+      newArray = addDataAtIndex1(addStepIndex, get_ids, { condition_type: 'IF', condition_data: conditionData, data: {}, output: {} });
+    }
+    const workflowId = params.get('flow');
+    if (!singleData.active) {
+      const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+      getWorkflowData(workflowId)
+    }
+    // else {
+    //   let data = [...automationStepsData, { automation: ele, output: {}, data: {}, id: "automation_temp" }]
+    //   setAutomationStepsData(data)
+    //   dispatch(editAutomationValue(newArray))
+    // }
+    setRuleModal(false);
+    handleButtonClick(false)
+    setAddStepIndex(null);
+    setIndexSelector(null)
+    setMobileCss('')
+  }
+
+  const openRulesHandler = () => {
+    if (automationStepsData?.length > 0) {
+      let getAutomationIndexData = '';
+      if (addStepIndex !== null && addStepIndex !== '') {
+        if (addStepIndex === 0) {
+          getAutomationIndexData = automationStepsData[addStepIndex];
+        } else {
+          getAutomationIndexData = automationStepsData[addStepIndex - 1];
+        }
+      } else {
+        getAutomationIndexData = automationStepsData[automationStepsData?.length - 1];
+      }
+      const availableEntries = Object?.entries(getAutomationIndexData?.available).map(([name, type]) => ({ name, type, value: name }));
+      setAvailableFilters(availableEntries);
+    }
+    setConditionFilter([{
+      availables: '',
+      contains: '',
+      filter_text: '',
+      type: ''
+    }]);
+    setRuleModal(true);
+    setMobileCss('')
+  }
+
+  function addDataAtIndex1(stepIndex, get_ids, newData) {
+    get_ids.splice(stepIndex, 0, newData);
+    return get_ids;
+  }
+
+  const convertToQueryString = (array) => {
+    let result = '';
+    array.map((item, key) => {
+      const values = Object.values(item);
+      const str = values.join();
+      result += ` ` + str.replaceAll(',', ' ');
+    })
+
+    return result;
+  };
+
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} setRuleModal={setRuleModal}>
+        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
           {singleData ? (
             <>
               <div className='flex md:flex lg:flex justify-between gap-2 items-center'>
@@ -567,148 +696,121 @@ const GetStarted = () => {
               </form>
             </Modal>
           }
-          {
-            ruleModal &&
-            <Modal title={'Rule Builder'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-              <>
-                <div className=''>
-                  <h3 className="!font-bold text-heading text-xl">Conditions</h3>
-                  <p className='text-heading font-normal text-normal'>Segment your users and/or their sessions according to single or multi-session conditions.</p>
-                </div>
-                <div className=''>
-                  <div className='mt-4 border p-4 rounded-md'>
-                    <div className='flex justify-between'>
-                      <div className='flex items-center justify-center gap-2 font-bold'>
-                        <p>Filter</p>
-                        <p>User</p>
-                        <p>Include</p>
-                      </div>
-                      <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full' />
-                    </div>
-
-                    <div className='block sm:flex justify-between pt-4 sm:ml-10'>
-                      <div className='flex items-center justify-center gap-2 font-bold'>
-                        <SelectOption
-                          disabled
-                          value={`page`}
-                          name="bot"
-                          values={[{ name: 'page', value: 'Page' }]}
-                          title={``}
-                          id={"bots"}
-                          className="py-3 !w-[70px]"
-                        />
-                        <SelectOption
-                          disabled
-                          value={`contain`}
-                          name="contains"
-                          values={[{ name: 'contain', value: 'Contains' }]}
-                          title={``}
-                          id={"contains"}
-                          className="py-3 !w-[80px]"
-                        />
-                        <TextField
-                          value={``}
-                          name="billing_thresholds"
-                          className="py-3"
-                          title={""}
-                          placeholder={""}
-                          type={"number"}
-                          id={"billing_thresholds"}
-                          paddingleft={"pl-6"}
-                        />
-                      </div>
-                      <div className='mt-4 sm:mt-0 flex text-sm'>
-                        <button className='border-[1px] border-[#C7C6C7] rounded-tl-md rounded-bl-md font-bold bg-[#fafafa] px-2 !py-1'>-</button>
-                        <button className='border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] bg-[#fafafa] px-2 !py-1'>OR</button>
-                        <button className='border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold bg-[#fafafa] px-2 !py-1'>AND</button>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div className='mt-4 border p-4 rounded-md'>
-                    <div className='flex justify-between'>
-                      <div className='flex items-center justify-center gap-2 font-bold'>
-                        <p>Filter</p>
-                        <p>User</p>
-                        <p>Include</p>
-                      </div>
-                      <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full hover:text-[#334bfa]' />
-                    </div>
-
-                    <div className='block sm:flex justify-between pt-4 sm:ml-10'>
-                      <div className='flex items-center justify-center gap-2 font-bold'>
-                        <SelectOption
-                          disabled
-                          value={`page`}
-                          name="bot"
-                          values={[{ name: 'page', value: 'Page' }]}
-                          title={``}
-                          id={"bots"}
-                          className="py-3 !w-[70px]"
-                        />
-                        <SelectOption
-                          disabled
-                          value={`contain`}
-                          name="contains"
-                          values={[{ name: 'contain', value: 'Contains' }]}
-                          title={``}
-                          id={"contains"}
-                          className="py-3 !w-[80px]"
-                        />
-                        <TextField
-                          value={``}
-                          name="billing_thresholds"
-                          className="py-3"
-                          title={""}
-                          placeholder={""}
-                          type={"number"}
-                          id={"billing_thresholds"}
-                          paddingleft={"pl-6"}
-                        />
-                      </div>
-                      <div className='mt-4 sm:mt-0 flex text-sm'>
-                        <button className='border-[1px] border-[#C7C6C7] rounded-tl-md rounded-bl-md font-bold bg-[#fafafa] px-2 !py-1'>-</button>
-                        <button className='border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] bg-[#fafafa] px-2 !py-1'>OR</button>
-                        <button className='border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold bg-[#fafafa] px-2 !py-1'>AND</button>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div className='mt-3'>
-                    <Button
-                    type={`button`}
-                      className="flex gap-2 justify-center items-center rounded bg-[#fafafa] px-6 pb-2 pt-2.5 text-xs font-medium leading-normal text-heading border border-border "
-                    >
-                      <PlusIcon className='h-4 w-4' />
-                      Add Filter
-                    </Button>
-                  </div>
-
-                  <div className="flex items-center justify-between mt-4">
-                    <div></div>
-                    <div>
-                      <Button
-                        type={"submit"}
-                        className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                      >
-                        Apply
-                      </Button>
-                      <Button
-                        className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
-                        onClick={() => { setRuleModal(false) }}
-                      >
-                        Cancel
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </>
-            </Modal>
-          }
         </RightSidebar>
       }
+
+      {
+        ruleModal === true &&
+        <Modal title={'Rule Builder'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+          <>
+            <div className=''>
+              <h3 className="!font-bold text-heading text-xl">Conditions</h3>
+              <p className='text-heading font-normal text-normal'>Segment your users and/or their sessions according to single or multi-session conditions.</p>
+            </div>
+            <div className=''>
+              {conditionFilter?.map((item, key) =>
+                <div className='mt-4 border p-4 rounded-md' key={key}>
+                  <div className='flex justify-between'>
+                    {/* <div className='flex items-center justify-center gap-2 font-bold'>
+                      <p>Filter</p>
+                      <p>User</p>
+                      <p>Include</p>
+                    </div> */}
+                    {key !== 0 &&
+                      <div onClick={(e) => removeActionFilter(key)}>
+                        <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full hover:text-[#334bfa]' />
+                      </div>
+                    }
+                  </div>
+
+                  <div className='block sm:flex justify-between pt-4 sm:ml-10'>
+                    <div className='flex items-center justify-center gap-2 font-bold'>
+                      <SelectOption
+                        value={item?.availables}
+                        onChange={(e) => handleFilterChange(key, e)}
+                        name="availables"
+                        values={availableFilters}
+                        title={``}
+                        id={"availables"}
+                        className="py-3 !w-[80px]"
+                      />
+                      <SelectOption
+                        value={item?.contains}
+                        onChange={(e) => handleFilterChange(key, e)}
+                        name="contains"
+                        values={[{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]}
+                        title={``}
+                        id={"contains"}
+                        className="py-3 !w-[80px]"
+                      />
+                      <TextField
+                        value={item?.filter_text}
+                        onChange={(e) => handleFilterChange(key, e)}
+                        name="filter_text"
+                        className="py-3"
+                        title={""}
+                        placeholder={""}
+                        type={"text"}
+                        id={"filter_text"}
+                        paddingleft={"pl-6"}
+                      />
+                    </div>
+                    <div className='mt-4 sm:mt-0 flex text-sm'>
+                      <button
+                        onClick={(e) => selectConditionFilterType(key, 'OR', 'type')}
+                        type='button'
+                        className={`border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] ${item?.type === 'OR' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                        OR
+                      </button>
+                      <button
+                        onClick={(e) => selectConditionFilterType(key, 'AND', 'type')}
+                        type='button'
+                        className={`border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold ${item?.type === 'AND' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                        AND
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+              )}
+
+
+              <div className='mt-3'>
+                <Button
+                  type={`button`}
+                  className="flex gap-2 justify-center items-center rounded bg-[#fafafa] px-6 pb-2 pt-2.5 text-xs font-medium leading-normal text-heading border border-border "
+                  onClick={(e) => addConditionFilter(e)}
+                >
+                  <PlusIcon className='h-4 w-4' />
+                  Add Filter
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between mt-4">
+                <div></div>
+                <div>
+                  <Button
+                    type={"button"}
+                    disabled={areValuesEmpty()}
+                    onClick={() => addConditionalStepHandler()}
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                  >
+                    Apply
+                  </Button>
+                  <Button
+                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                    onClick={() => { setRuleModal(false) }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </>
+        </Modal>
+      }
+
       <ToastContainer />
     </>
   )

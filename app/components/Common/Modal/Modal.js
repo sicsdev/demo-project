@@ -15,11 +15,11 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
             };
 
             // Attach event listener to the document
-            document.addEventListener('click', handleClickOutside);
+            document.addEventListener('click', handleClickOutside, { capture: true });
 
             // Clean up the event listener when the component unmounts
             return () => {
-                document.removeEventListener('click', handleClickOutside);
+                document.removeEventListener('click', handleClickOutside, { capture: true });
             };
         }
     }, []);
