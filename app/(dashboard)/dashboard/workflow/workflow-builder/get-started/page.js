@@ -273,9 +273,11 @@ const GetStarted = () => {
 
   const saveWorkFlowHandler = async (type) => {
     try {
+      debugger
       let payload = {}
       setPublishLoader(true);
       if (type === "PUBLISH") {
+
         if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
           setPublishLoader(false);
           setShowPublishModal(false);
@@ -286,11 +288,16 @@ const GetStarted = () => {
         if (automationState && automationState.length > 0) {
           const finalData = automationState.map((element) => {
             const findFilter = automationStepsField.find((x) => x.key === element.automation);
-            const payload_automation = {
-              automation: element.automation,
-              output: {},
-              data: {}
-            };
+            let payload_automation = {}
+            if (element?.automation) {
+              payload_automation = {
+                automation: element.automation,
+                output: {},
+                data: {}
+              };
+            } else {
+              payload_automation = element
+            }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
             }
@@ -367,9 +374,7 @@ const GetStarted = () => {
       errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
-
-
-
+    debugger
     if (!automationState) {
       if (singleData.active) {
         saveWorkFlowHandler("DISABLE")
@@ -471,11 +476,12 @@ const GetStarted = () => {
       const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
       getWorkflowData(workflowId)
     }
-    // else {
-    //   let data = [...automationStepsData, { automation: ele, output: {}, data: {}, id: "automation_temp" }]
-    //   setAutomationStepsData(data)
-    //   dispatch(editAutomationValue(newArray))
-    // }
+    else {
+      debugger
+      let data = [...automationStepsData, { automation: null, condition_type: 'IF', condition_data: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      setAutomationStepsData(data)
+      dispatch(editAutomationValue(newArray))
+    }
     setRuleModal(false);
     handleButtonClick(false)
     setAddStepIndex(null);
