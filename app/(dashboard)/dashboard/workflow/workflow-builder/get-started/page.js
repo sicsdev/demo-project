@@ -711,11 +711,11 @@ const GetStarted = () => {
               {conditionFilter?.map((item, key) =>
                 <div className='mt-4 border p-4 rounded-md' key={key}>
                   <div className='flex justify-between'>
-                    {/* <div className='flex items-center justify-center gap-2 font-bold'>
+                    <div className='flex items-center justify-center gap-2 font-bold'>
                       <p>Filter</p>
                       <p>User</p>
                       <p>Include</p>
-                    </div> */}
+                    </div>
                     {key !== 0 &&
                       <div onClick={(e) => removeActionFilter(key)}>
                         <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full hover:text-[#334bfa]' />
