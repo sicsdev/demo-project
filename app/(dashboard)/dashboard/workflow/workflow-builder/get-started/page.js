@@ -1,7 +1,7 @@
 'use client'
 import Button from '@/app/components/Common/Button/Button'
 import RightSidebar from '@/app/components/Dashboard/AuthLayout/RightSidebar'
-import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -21,6 +21,7 @@ import DeleteWorkflow from '@/app/components/Workflows/WorkflowBuilder/DeleteWor
 import { useDispatch, useSelector } from 'react-redux'
 import { editAutomationValue } from '@/app/components/store/slices/workflowSlice'
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
+import TextField from '@/app/components/Common/Input/TextField'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -32,6 +33,7 @@ const GetStarted = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [publishLoader, setPublishLoader] = useState(false);
   const [showHelp, setShowHelp] = useState(false)
+  const [availableFilters, setAvailableFilters] = useState([]);
 
   const [workflowFormData, setWorkFlowFormData] = useState({
     name: null,
@@ -57,6 +59,15 @@ const GetStarted = () => {
   const router = useRouter();
   const inputRef = useRef(null);
   const [addStepIndex, setAddStepIndex] = useState(null);
+  const [ruleModal, setRuleModal] = useState(false);
+
+  const [conditionFilter, setConditionFilter] = useState([{
+    availables: '',
+    contains: '',
+    filter_text: '',
+    type: 'OR',
+    conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
+  }]);
 
   const handleButtonClick = (shake = true) => {
     setMobileCss(`!block`);
@@ -107,20 +118,20 @@ const GetStarted = () => {
       })
       if (response?.automations?.length > 0) {
         setAutomationStepsData(response.automations)
-        const filterData = response.automations.map((ele) => {
-          const isEmptyObject = Object.keys(ele.output).length === 0;
-          const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
-          return {
-            key: '',
-            value: '',
-            name: '',
-            names_arr: objectValuesToArray(ele.data),
-            output: jsonString,
-            loading: false,
-            icon: response.icon
-          }
-        })
-        setAutomationStepsField(filterData)
+        // const filterData = response.automations.map((ele) => {
+        //   const isEmptyObject = Object.keys(ele.output).length === 0;
+        //   const jsonString = isEmptyObject ? "" : JSON.stringify(ele.output);
+        //   return {
+        //     key: '',
+        //     value: '',
+        //     name: '',
+        //     names_arr: objectValuesToArray(ele.data),
+        //     output: jsonString,
+        //     loading: false,
+        //     icon: response.icon
+        //   }
+        // })
+        // setAutomationStepsField(filterData)
       }
       setIsLoading(false)
     } else {
@@ -129,8 +140,7 @@ const GetStarted = () => {
 
 
   }
-  console.log(workflowFormData)
-  console.log(botValue)
+
   useEffect(() => {
     const flow = params.get("flow");
     if (flow) {
@@ -264,9 +274,11 @@ const GetStarted = () => {
 
   const saveWorkFlowHandler = async (type) => {
     try {
+      debugger
       let payload = {}
       setPublishLoader(true);
       if (type === "PUBLISH") {
+
         if (singleData.policy_name === 'default' || singleData.policy_description === 'default') {
           setPublishLoader(false);
           setShowPublishModal(false);
@@ -277,11 +289,16 @@ const GetStarted = () => {
         if (automationState && automationState.length > 0) {
           const finalData = automationState.map((element) => {
             const findFilter = automationStepsField.find((x) => x.key === element.automation);
-            const payload_automation = {
-              automation: element.automation,
-              output: {},
-              data: {}
-            };
+            let payload_automation = {}
+            if (element?.automation) {
+              payload_automation = {
+                automation: element.automation,
+                output: {},
+                data: {}
+              };
+            } else {
+              payload_automation = {condition:element.condition}
+            }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
             }
@@ -358,9 +375,7 @@ const GetStarted = () => {
       errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
-
-
-
+    debugger
     if (!automationState) {
       if (singleData.active) {
         saveWorkFlowHandler("DISABLE")
@@ -395,12 +410,170 @@ const GetStarted = () => {
     })
   }
 
+  const addConditionFilter = (e) => {
+    setConditionFilter((pre) => [...pre, {
+      availables: '',
+      contains: '',
+      filter_text: '',
+      type: 'OR',
+      conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
+    }])
+  }
+
+  const handleFilterChange = (key, e, fieldType) => {
+    const { name, value } = e?.target;
+    const updatedFilters = [...conditionFilter];
+    updatedFilters[key] = {
+      ...updatedFilters[key],
+      [name]: value,
+    };
+    // Set the updated array
+    if (fieldType === 'availables') {
+      const findType = availableFilters.find((x) => x.value === value)
+      if (findType) {
+        switch (findType.type) {
+          case 'list':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'str':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'bool':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }]
+            break;
+          case 'int':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }, { name: '<', value: '<' }, { name: '>', value: '>' }]
+            break;
+          case 'dict':
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+          case 'data':
+            updatedFilters[key].conditions = [{ name: '=', value: '=' }, { name: '<', value: '<' }, { name: '>', value: '>' }]
+            break;
+          default:
+            updatedFilters[key].conditions = [{ name: 'contains', value: 'contains' }, { name: 'length =', value: 'length =' }, { name: 'length <', value: 'length <' }, { name: 'length >', value: 'length >' }]
+            break;
+        }
+      }
+    }
+    setConditionFilter(updatedFilters);
+
+  };
+
+  const selectConditionFilterType = (key, value, type) => {
+    const updatedFilters = [...conditionFilter];
+    updatedFilters[key] = {
+      ...updatedFilters[key],
+      [type]: value,
+    };
+    // Set the updated array
+    setConditionFilter(updatedFilters);
+  }
+
+  // Function to check if any values are empty
+  const areValuesEmpty = () => {
+    return conditionFilter.some(filter =>
+      filter.availables === '' ||
+      filter.contains === '' ||
+      filter.filter_text === ''
+    );
+  };
+
+  const removeActionFilter = (key) => {
+    const updatedFilters = conditionFilter.filter((_, index) => index !== key);
+    setConditionFilter(updatedFilters);
+  };
+
+  const addConditionalStepHandler = async () => {
+    const conditionData = convertToQueryString(conditionFilter);
+    const get_ids = automationStepsData.map((element) => {
+      let payload_automation = {}
+      if (element?.automation) {
+        payload_automation = {
+          automation: element.automation.id,
+          output: {},
+          data: {}
+        };
+      } else {
+        payload_automation = {condition:element.condition}
+      }
+      return payload_automation
+    })
+    let newArray = null
+    if (addStepIndex === null) {
+      newArray = [...get_ids, { condition: conditionData, data: {}, output: {} }];
+    } else {
+      newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
+    }
+    const workflowId = params.get('flow');
+    if (!singleData.active) {
+      const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
+      getWorkflowData(workflowId)
+    }
+    else {
+      let data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      setAutomationStepsData(data)
+      dispatch(editAutomationValue(newArray))
+    }
+    setRuleModal(false);
+    handleButtonClick(false)
+    setAddStepIndex(null);
+    setIndexSelector(null)
+    setMobileCss('')
+  }
+
+  const openRulesHandler = () => {
+    if (automationStepsData?.length > 0) {
+      let getAutomationIndexData = '';
+      if (addStepIndex !== null && addStepIndex !== '') {
+        if (addStepIndex === 0) {
+          getAutomationIndexData = automationStepsData[addStepIndex];
+        } else {
+          getAutomationIndexData = automationStepsData[addStepIndex - 1];
+        }
+      } else {
+        getAutomationIndexData = automationStepsData[automationStepsData?.length - 1];
+      }
+      const availableEntries = Object?.entries(getAutomationIndexData?.available).map(([name, type]) => ({ name, type, value: name }));
+      setAvailableFilters(availableEntries);
+    }
+    setConditionFilter([{
+      availables: '',
+      contains: '',
+      filter_text: '',
+      type: 'OR',
+      conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
+    }]);
+    setRuleModal(true);
+    setMobileCss('')
+  }
+
+  function addDataAtIndex1(stepIndex, get_ids, newData) {
+    get_ids.splice(stepIndex, 0, newData);
+    return get_ids;
+  }
+
+  const convertToQueryString = (array) => {
+    let result = '';
+    if (array.length === 1) {
+      array[0].type = '';
+    }
+    array.map((item, key) => {
+      delete item.conditions;
+      const values = Object.values(item);
+      const str = values.join(' ');
+      result += ' ' + str;
+    });
+
+    return result;
+  };
+
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData}>
+        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
           {singleData ? (
             <>
               <div className='flex md:flex lg:flex justify-between gap-2 items-center'>
@@ -569,6 +742,122 @@ const GetStarted = () => {
           }
         </RightSidebar>
       }
+
+      {
+        ruleModal === true &&
+        <Modal title={'Add Condition'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+          <>
+            <div className=''>
+              <h3 className="!font-bold text-heading text-xl">Conditions</h3>
+              <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
+            </div>
+            <div className=''>
+              {conditionFilter?.map((item, key) =>
+                <div className='mt-4 border p-4 rounded-md' key={key}>
+                  <div className='flex justify-between'>
+                    <div className='flex items-center justify-center gap-2 font-bold'>
+                      <p>Filter</p>
+                      <p>User</p>
+                      <p>Include</p>
+                    </div>
+                    {key !== 0 &&
+                      <div onClick={(e) => removeActionFilter(key)}>
+                        <XMarkIcon className='cursor-pointer p-1 font-bold text-white bg-[#bfbfbf] h-7 w-7 rounded-full hover:text-[#334bfa]' />
+                      </div>
+                    }
+                  </div>
+
+                  <div className='block sm:flex justify-between pt-4 '>
+                    <div className='flex items-center justify-center gap-2 font-bold'>
+                      <SelectOption
+                        value={item?.availables}
+                        onChange={(e) => handleFilterChange(key, e, 'availables')}
+                        name="availables"
+                        values={availableFilters}
+                        title={``}
+                        id={"availables"}
+                        className="py-3 !w-[80px]"
+                      />
+                      <SelectOption
+                        value={item?.contains}
+                        onChange={(e) => handleFilterChange(key, e, 'conditions')}
+                        name="contains"
+                        values={item?.conditions}
+                        title={``}
+                        id={"contains"}
+                        disabled={!item?.availables}
+                        className="py-3 !w-[80px]"
+                      />
+                      <TextField
+                        value={item?.filter_text}
+                        onChange={(e) => handleFilterChange(key, e, 'text')}
+                        name="filter_text"
+                        className="py-3"
+                        title={""}
+                        placeholder={""}
+                        type={"text"}
+                        id={"filter_text"}
+                        paddingleft={"pl-6"}
+                      />
+                    </div>
+                    {conditionFilter.length - 1 !== key && (
+                      <div className='mt-4 sm:mt-0 flex text-sm'>
+                        <button
+                          onClick={(e) => selectConditionFilterType(key, 'OR', 'type')}
+                          type='button'
+                          className={`border-[1px] border-[#C7C6C7] font-bold  border-r-[1px] ${item?.type === 'OR' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                          OR
+                        </button>
+                        <button
+                          onClick={(e) => selectConditionFilterType(key, 'AND', 'type')}
+                          type='button'
+                          className={`border-[1px] border-[#C7C6C7] rounded-tr-md rounded-br-md font-bold ${item?.type === 'AND' ? 'bg-primary text-white' : 'bg-[#fafafa]'} px-2 !py-1`}>
+                          AND
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                </div>
+              )}
+
+
+              <div className='mt-3'>
+                <Button
+                  type={`button`}
+                  className="flex gap-2 justify-center items-center rounded bg-[#fafafa] px-6 pb-2 pt-2.5 text-xs font-medium leading-normal text-heading border border-border "
+                  onClick={(e) => addConditionFilter(e)}
+                >
+                  <PlusIcon className='h-4 w-4' />
+                  Add Filter
+                </Button>
+              </div>
+
+              <div className="flex items-center justify-between mt-4">
+                <div></div>
+                <div>
+                  <Button
+                    type={"button"}
+                    disabled={areValuesEmpty()}
+                    onClick={() => addConditionalStepHandler()}
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                    onClick={() => { setRuleModal(false) }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </>
+        </Modal>
+      }
+
       <ToastContainer />
     </>
   )
