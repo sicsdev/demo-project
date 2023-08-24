@@ -361,7 +361,7 @@ const Sidebar = ({ children }) => {
                     {isOpen && (
                       <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
                         <li className="text-start p-2">
-                          <p className="text-xs font-semibold text-heading ml-4">
+                          <p className="text-xs font-normal text-heading ml-4 break-all">
                             {state?.email}
                           </p>
                         </li>
@@ -381,7 +381,18 @@ const Sidebar = ({ children }) => {
                             </Link>
                           </li>
                         ))}
-
+                        <li >
+                          <Link
+                            href={'/dashboard/api-keys'}
+                            className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {/* {element.icon} */}
+                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                              Keys
+                            </span>
+                          </Link>
+                        </li>
                         <hr className="text-border border-gray" />
                         <li className="p-2 relative hover:underline flex">
                           <input

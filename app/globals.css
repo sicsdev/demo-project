@@ -1110,8 +1110,15 @@ body .cursor-pointer {
   body .data-table-class{
     overflow: unset !important;
   }
+
+  .table_overflow{overflow:unset ;}
 }
 
 select:focus{
   font-size: 12px !important;
+}
+
+@media(max-width:990px)
+{
+  .table_overflow{overflow-x: scroll !important;}
 }
