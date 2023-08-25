@@ -474,7 +474,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div> */}
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Bot Title</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -503,7 +503,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Description</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Description</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -533,7 +533,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Widget Location</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Widget Location</span>
                   </div>
                   <div className="flex justify-start w-1/2 items-center">
                     <select
@@ -551,7 +551,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">
+                    <span className="text-gray-700 new_input_label block text-sm text-heading font-medium">
                       {preferences.logo && !preferences.logo_file_name ? (
                         <a
                           className="text-heading"
@@ -607,7 +607,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Customer Service Email</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Customer Service Email</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -622,7 +622,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Chat default Message</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -637,7 +637,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Customer Service Phone</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Customer Service Phone</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -650,9 +650,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className={`flex w-full mt-2 gap-2 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Default Prompts</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Prompts</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <div className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length > 0 && ("p-2")}`}>
@@ -689,7 +689,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Hide Chat Bot</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide Chat Bot</span>
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -714,7 +714,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="text-gray-700">Hide on Certain URLs</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
                   </div>
                   <div
                     className="flex h-[37.5px] justify-start w-1/2 items-center"
