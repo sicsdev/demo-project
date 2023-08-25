@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -47,11 +47,17 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     const deleteTheEntry = async (key) => {
         const filterData = stepData.filter((_, index) => index !== key)
         const get_ids = filterData.map((element) => {
-            return {
-                automation: element?.automation?.id,
-                data: element?.data,
-                output: element?.output
+            let payload_automation = {}
+            if (element?.automation) {
+                payload_automation = {
+                    automation: element.automation.id,
+                    output: {},
+                    data: {}
+                };
+            } else {
+                payload_automation = { condition: element.condition }
             }
+            return payload_automation
         })
 
 
@@ -243,19 +249,29 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                 />
                                             </div>
                                         )}
-                                        <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
+                                        {ele.automation === null && (
+                                            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+                                        )}
+                                        {ele?.automation !== null ? (
+                                            <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
+                                        ) : (
+                                            <p className='text-sm font-semibold '>Rule: {ele?.condition}</p>
+                                        )}
+
                                     </div>
                                     <div className=''>
                                         <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  h-[44px] group-hover:shadow] p-[2px]`}>
                                             {
                                                 showButtonStates == key &&
                                                 <>
-                                                    <Button
-                                                        type={"button"}
-                                                        onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele?.automation?.id, index: key })}
-                                                        className="inline-block  cursor-pointer p-[8px]  h-[38px] hover:bg-[#efefef]">
-                                                        <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
-                                                    </Button>
+                                                    {/* {ele?.automation !== null && (
+                                                        <Button
+                                                            type={"button"}
+                                                            onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele?.automation?.id, index: key })}
+                                                            className="inline-block  cursor-pointer p-[8px]  h-[38px] hover:bg-[#efefef]">
+                                                            <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
+                                                        </Button>
+                                                    )} */}
                                                     <Button
                                                         type={"button"}
                                                         onClick={(e) => deleteTheEntry(key)}
@@ -268,77 +284,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                     </div>
                                 </div>
                             </div>
-                            {automationStepsField.some((x) => x.key === ele?.automation?.id) && (
-                                <div className="mb-2 px-5 ">
-                                    <div className={`inline`}>
-                                        <div className='flex items-center gap-1'><span className='text-sm font-semibold'>Mandatory Input(s)</span><div className='group w-[2px] relative'><InformationCircleIcon className=" h-4 w-4 cursor-pointer " /><Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'> <span className='text-xs font-light'>Enter fields you need the bot to ask the customer for before calling this automation. For example "Name," "Email" or any other data point that the customer must enter. </span></Card></div></div>
-                                        <div className="flex flex-wrap justify-start items-center border h-auto w-auto border-border p-1 rounded-md mt-2">
-                                            <div className="flex flex-wrap items-center justify-start gap-1">
-                                                {automationStepsField[key]?.names_arr && automationStepsField[key]?.names_arr.length > 0 &&
-                                                    automationStepsField[key].names_arr.map((element, index) => (
-                                                        <div
-                                                            className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border"
-                                                            key={index}
-                                                        >
-                                                            {makeCapital(element.trim())}
-                                                            <XMarkIcon
-                                                                className=" h-4 w-4 cursor-pointer "
-                                                                onClick={(e) => {
-                                                                    RemoveFromAgentNameArr(element, key);
-                                                                }}
-                                                            />
-                                                        </div>
-                                                    ))}
-                                            </div>
-                                            <input
-                                                value={automationStepsField[key]?.name}
-                                                onKeyDown={(e) => handleKeyDown(e, key)}
-                                                required
-                                                onChange={(e) => handleAgentNameValue(e, key)}
-                                                type={"text"}
-                                                placeholder={"Enter names separate by comma"}
-                                                className={` block  px-3 py-2 bg-[#F8F8F8]  w-full rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500   border-none ring-0 focus:border-none focus-visible:border-none`}
-                                                id={ele?.automation?.id}
-                                                name={ele?.automation?.id}
-                                            />
-                                        </div>
-                                        {/* <div className='mt-2'>
-                                            <div className={`inline`}>
-                                                <div className='flex items-center gap-1'>
-                                                    <span className='text-sm font-semibold'>Output Format</span>
-                                                    <div className='group w-[2px] relative'>
-                                                        <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                                                        <Card className='animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block'>
-                                                            <span className='text-xs font-light'>Output Entries(s) </span>
-                                                        </Card>
-                                                    </div>
-                                                </div>
-                                                <textarea
-                                                    value={automationStepsField[key]?.output}
-                                                    onChange={(e) => handleOutputjson(e, key)}
-                                                    className={`new_input bg-[#F8F8F8] block border-[0.2px]  px-3  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-50 w-full`}
-                                                    placeholder="Output Entries(s)"
-                                                    id="integration_description"
-                                                    name="description"
-                                                />
-                                            </div>
-                                        </div> */}
-                                        {ele.id !== "automation_temp" && (
-                                            <div className='my-2'>
-                                                {loading === key ? <LoaderButton /> :
-                                                    <Button
-                                                        type={"button"}
-                                                        className="inline-block my-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                                        disabled={DisableButton(key)}
-                                                        onClick={(e) => SubmitFormValue(key)}
-                                                    >Save
-                                                    </Button>
-                                                }
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )}
                         </div>
 
 
