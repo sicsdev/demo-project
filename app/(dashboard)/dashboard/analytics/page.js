@@ -48,7 +48,8 @@ const Logs = () => {
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'Workflows', value: 'workflows' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
+  const [userWorkFlows, setUserWorkflows] = useState([]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector(state => state.workflow);
@@ -100,21 +101,21 @@ const Logs = () => {
 
   };
 
-  // const getAllWorkflows = () => {
-  //   const results = workflowState?.data?.results;
-  //   if (results && Array.isArray(results) && results.length > 0) {
-  //     const values = [
-  //       { name: 'Conversation Properties', value: 'all' },
-  //       { name: 'Human Handoff', value: 'handoff' },
-  //       ...results.map(item => ({ name: item.name, value: item.id })),
-  //     ];
-  //     setWorkflowValue(values);
-  //   }
-  // };
+  const getAllWorkflows = () => {
+    const results = workflowState?.data?.results;
+    if (results && Array.isArray(results) && results.length > 0) {
+      // const values = [
+      //   { name: 'Conversation Properties', value: 'all' },
+      //   { name: 'Human Handoff', value: 'handoff' },
+      //   ...results.map(item => ({ name: item.name, value: item.id })),
+      // ];
+      setUserWorkflows(results);
+    }
+  };
 
-  // useEffect(() => {
-  //   getAllWorkflows()
-  // }, [workflowState.data])
+  useEffect(() => {
+    getAllWorkflows()
+  }, [workflowState.data])
 
   useEffect(() => {
     if (state.botData.data === null) {
@@ -168,14 +169,9 @@ const Logs = () => {
         ([key, value]) => value !== '' && value !== 'all'
       )
     );
-    if (filteredFilters.workflows === 'handoff') {
+    if (filteredFilters.conversations === 'handoff') {
       filteredFilters.human_handoff = true;
-      delete filteredFilters.workflows;
-    }
-
-    if (filteredFilters.workflows === 'workflows') {
-      filteredFilters.is_workflow = true;
-      delete filteredFilters.workflows;
+      delete filteredFilters.conversations;
     }
 
     const queryParams = new URLSearchParams(filteredFilters).toString();
@@ -349,9 +345,21 @@ const Logs = () => {
                 <SelectOption
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.workflows || ''}
-                  name="workflows"
+                  name="conversations"
                   values={workflowValue}
                   title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
+                  id={"conversations"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.workflows || ''}
+                  name="workflows"
+                  values={userWorkFlows}
+                  title={<h3 className="text-sm my-4 font-semibold">Workflows</h3>}
                   id={"workflows"}
                   className="py-3"
                   error={""}

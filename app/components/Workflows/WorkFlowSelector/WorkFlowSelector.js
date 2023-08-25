@@ -170,7 +170,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     return (
         <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
-            { stepData?.length !== 0 &&
+            {/* { stepData?.length !== 0 &&
                 <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
                     <div className='flex justify-between gap-2 items-center'>
                         <div className='flex justify-between gap-4 items-center'>
@@ -184,7 +184,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                         </Button>
                     </div>
                 </div>
-            }
+            } */}
             {stepData?.length === 0 &&
                 <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                     onClick={(e) => openModal({ key: "STEPS", open: true, addKey: 0 })} >
@@ -224,27 +224,29 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
 
                     )}
+
                     <div
                         onMouseEnter={() => updateShowButtonState(key, 'show')}
                         onMouseLeave={() => updateShowButtonState(key, 'hide')}
                     >
-                        <div class="stepper-main-wrapper w-full">
-                            <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
-                                {indexSelector !== key && (
-                                    <>
-                                        <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
-                                        <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
-                                            <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                                        </button>
-                                        <div class="stpper-lines">
-                                        </div>
-                                    </>
-                                )}
-                                <div class="stepper-spacer">
+                        {key !== 0 &&
+                            <div class="stepper-main-wrapper w-full">
+                                <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
+                                    {indexSelector !== key && (
+                                        <>
+                                            <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
+                                            <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
+                                                <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                            </button>
+                                            <div class="stpper-lines">
+                                            </div>
+                                        </>
+                                    )}
+                                    <div class="stepper-spacer">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        }
 
 
                         <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] '>
