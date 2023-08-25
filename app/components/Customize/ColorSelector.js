@@ -28,7 +28,7 @@ const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
   return (
     <div className="flex items-center w-full gap-2 mt-2">
       <div className="flex justify-start w-1/2">
-        <span className="text-gray-700">{label}</span>
+        <span className="new_input_label block text-sm text-heading font-medium text-gray-700">{label}</span>
       </div>
       <div
         className="relative w-1/2"
