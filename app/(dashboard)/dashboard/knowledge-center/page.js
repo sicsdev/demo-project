@@ -79,7 +79,7 @@ const Page = () => {
             setUpdateLoader(null);
             if (updateRecord?.status === 201 || updateRecord?.status === 200) {
                 dispatch(fetchRecommendation());
-                successMessage("Recommendation Updated Successfully");
+                // successMessage("Recommendation Updated Successfully");
             } else {
                 errorMessage("Unable to Update!");
             }
@@ -93,7 +93,7 @@ const Page = () => {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
-                successMessage("Recommendation Delete Successfully");
+                // successMessage("Recommendation Delete Successfully");
                 setDeleteLoader(null)
             } else {
                 errorMessage("Unable to Delete!");

@@ -336,19 +336,19 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                         <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
                             <div className='flex justify-between items-center gap-1'>
                                 <ClipboardIcon className='h-4 w-4' />
-                                <h3 className="text-normal font-bold text-heading">Tempo Content</h3>
+                                <h3 className="text-sm font-bold text-heading">Tempo Content</h3>
                             </div>
                         </div>
                         <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
 
                             <div>
-                                <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
+                                <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center text-xs gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
                                     <Cog6ToothIcon className='h-4 w-4' />
                                     Manage Sources
                                 </button>
                             </div>
                             <div>
-                                <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center gap-2 text-xs focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
                                     <PlusSmallIcon className='h-4 w-4' />
                                     Create
                                 </button>
@@ -357,24 +357,24 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                     </div>
                     <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
                         <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
-                            <p className="text-sm mb-4 font-semibold">
+                            <p className="text-xs mb-5 font-semibold">
                                 To answer customer questions, Tempo is using:
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
-                                    <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
-                                    <p className="text-sm font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</p>
+                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
+                                    <p className="text-xs font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
-                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</p>
+                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
+                                    <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-3xl font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
-                                    <p className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
-                                    <p className="text-sm text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'FILE').length}</p>
+                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
+                                    <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'FILE').length}</p>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +398,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                         onClick={() => { setShowSourceFilter(prev => !prev) }}
                                     >
                                         <AdjustmentsHorizontalIcon className='h-4 w-4' />
-                                        <small className="">All content sources</small>
+                                        <small className="text-xs p-1">All content sources</small>
                                     </button>
                                 </div>
                                 {showSourceFilter && (
@@ -519,7 +519,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManagement hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
+                <UrlManageWorkflow Builder
+                ment hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
                 <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />

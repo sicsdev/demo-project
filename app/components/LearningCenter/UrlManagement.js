@@ -3,7 +3,7 @@ import { EllipsisHorizontalIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { XCircleIcon } from '@heroicons/react/24/solid'
 import React, { useRef, useState, useEffect } from 'react'
 
-const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord, knowledge, setKnowledge,hideComponent }) => {
+const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, basicFormData, setBasicFormData, handleSubmit, loading, getCount, deleteRecord, knowledge, setKnowledge, hideComponent }) => {
     const [url, setUrl] = useState(basicFormData?.url ?? '')
     const [knowledgeData, setKnowledgeData] = useState(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
     const handleInputChange = (e) => {
@@ -62,7 +62,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
 
     return (
         <>
-            <div onClick={()=>hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
+            <div onClick={() => hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
             <div className={` z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                 <div className={`shadow-lg w-full sm:w-[700px] relative flex flex-col pl-8 pr-8 ${knowledgeData.length < 2 && "h-[100%]"}`}>
                     <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
@@ -101,10 +101,14 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                 </div>
                             </div>
                             <div>
-                                <h3 className='font-bold text-black'>Synced external sources</h3>
-                                <p className="text font-normal text-xs">
-                                    Tempo will automatically generate responses using the following external sources:
-                                </p>
+                                {knowledgeData?.length > 0 &&
+                                    (<>
+                                        <h3 className='font-bold text-black'>Synced external sources</h3>
+                                        <p className="text font-normal text-xs">
+                                            Tempo will automatically generate responses using the following external sources:
+                                        </p>
+                                    </>)
+                                }
                                 <div className='mb-4'>
                                     {knowledgeData.map((_, key) =>
                                         <div className="cursor-pointer flex flex-col gap-4 mt-4  shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg " key={key}>
@@ -183,15 +187,15 @@ export const ButtonComponent = ({ data, deleteRecord, deleteRecordNew }) => {
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
                 setShowDelete(prev => { if (prev === data.id) { return null } else { return data.id } })
             }}>
-                <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
+                <EllipsisHorizontalIcon className="h-5 w-5 font-bold text-heading cursor-pointer" />
                 {showDelete === data.id && (
                     <div className={`absolute right-[0px] top-[20px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}>
-                        <button type='button' className="text-heading font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 " onClick={() => {
+                        <button type='button' className="text-heading font-xs font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 " onClick={() => {
                             deleteRecord(data.id)
                             deleteRecordNew(data.id)
                         }}>
                             <XCircleIcon className='w-4 h-4' />
-                            Delete</button>
+                           <span className='font-xs' style={{fontSize: '12px'}}>Delete</span> </button>
 
                     </div>
                 )}

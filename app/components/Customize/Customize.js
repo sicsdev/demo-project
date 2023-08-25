@@ -52,6 +52,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
       setBlockedUrls(basicFormData.origins_blocked ?? []);
+      console.log('preferences', basicFormData)
+
     }
 
 
@@ -85,7 +87,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     logo_file_name: "",
     active: true,
     origins_blocked: [],
-    customer_service_email: ""
+    customer_service_email: "",
+    chat_default_message: "How can I help you today?",
+    chat_suggestions: []
   });
 
   const colorCodes = [
@@ -651,7 +655,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     <span className="text-gray-700">Default Prompts</span>
                   </div>
                   <div className="flex justify-start w-1/2">
-                    <div className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length>0 &&("p-2")}`}>
+                    <div className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length > 0 && ("p-2")}`}>
                       <div className="flex flex-wrap items-center justify-start gap-1">
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
@@ -738,7 +742,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   <hr className="opacity-10"></hr>
                 </div> */}
 
-                <div className="containerChatBot_entire justify-center flex h-[100%]">
+                <div className="containerChatBot_entire justify-center flex">
                   <div className="widget_container active w-[90%]">
                     <div className="header_ChatBotWidget">
                       <div className="profile_photo_container">
@@ -779,7 +783,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                             color: preferences.secondary_text_color,
                           }}
                         >
-                          How can I help you today?
+                          {preferences.chat_default_message}
                         </div>
                       </div>
                       <div
@@ -791,30 +795,37 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       >
                         What is the price of the product?
                       </div>
+                      {preferences.chat_suggestions &&
+                        <div className="tempoWidget-suggestedQuestions-div">
+                          {preferences.chat_suggestions.map(el => (
+                            <div className="tempoWidget-suggestedQuestions-option">
+                              {el}
+                            </div>
+                          ))}
+                        </div>
+                      }
+
                     </div>
 
-                    
-                    <div className="reply_container">
-                    <hr className="custom_hr" />
-                      <textarea
-                        className="input_question"
-                        disabled
-                        type="text"
-                        maxLength="1000"
-                        placeholder="Write a reply..."
-                      ></textarea>
-                      <div className="send_button" id="sendButton">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="25px"
-                          viewBox="0 0 24 24"
-                          fill={preferences.primary_color}
-                          className=""
-                        >
-                          <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
-                        </svg>
+                    <div class="chatbotwidget_footer">
+                      <div className="reply_container">
+                        <textarea id="inputtext_chatwidget" className="input_question" type="text" maxlength="180" placeholder="Write a reply..." />
+
+
+                        <div className="send_audio_button" onclick="handleAudioButton()" id="audioButton">
+                          <svg fill={preferences.primary_color} width="25px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="${preferences.primary_color}"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 10V12C19 15.866 15.866 19 12 19M5 10V12C5 15.866 8.13401 19 12 19M12 19V22M8 22H16M12 15C10.3431 15 9 13.6569 9 12V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V12C15 13.6569 13.6569 15 12 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                        </div>
+
+                        <div className="send_button" onclick="handleSubmitQuestion()" id="sendButton">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" className=""  
+                          fill={preferences.primary_color}>
+                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+                          </svg>
+                        </div>
+
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -848,7 +859,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
             </>
           </>
-        )}
+        )
+        }
       </div >
     </>
   );

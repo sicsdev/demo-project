@@ -55,7 +55,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
                         <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.logo ?? '/workflow/reactive-subscription.png'} />
                     </div>
-                    <h3 className="text-heading font-semibold text-sm my-1 uppercase">{row.name}</h3>
+                    <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
                 </div>
             ),
             sortable: true,
@@ -165,7 +165,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     }
     return (
         <div>
-            <h3 className='text-heading text-center font-semibold text-xl my-2'>Add, edit, and manage your Tempo workflows</h3>
+            <h3 className='text-heading text-center font-semibold text-md my-4'>Add, edit, and manage your Tempo workflows</h3>
             <div className='flex justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">

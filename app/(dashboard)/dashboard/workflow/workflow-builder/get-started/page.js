@@ -297,7 +297,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = {condition:element.condition}
+              payload_automation = { condition: element.condition }
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -411,6 +411,7 @@ const GetStarted = () => {
   }
 
   const addConditionFilter = (e) => {
+    console.log(conditionFilter[conditionFilter.length - 1].conditions, conditionFilter[conditionFilter.length - 1].filter_text)
     setConditionFilter((pre) => [...pre, {
       availables: '',
       contains: '',
@@ -418,6 +419,7 @@ const GetStarted = () => {
       type: 'OR',
       conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
     }])
+
   }
 
   const handleFilterChange = (key, e, fieldType) => {
@@ -495,7 +497,7 @@ const GetStarted = () => {
           data: {}
         };
       } else {
-        payload_automation = {condition:element.condition}
+        payload_automation = { condition: element.condition }
       }
       return payload_automation
     })
@@ -748,17 +750,15 @@ const GetStarted = () => {
         <Modal title={'Add Condition'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
           <>
             <div className=''>
-              <h3 className="!font-bold text-heading text-xl">Conditions</h3>
+              <h3 className="!font-bold text-heading text-md">Conditions</h3>
               <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
             </div>
             <div className=''>
               {conditionFilter?.map((item, key) =>
                 <div className='mt-4 border p-4 rounded-md' key={key}>
                   <div className='flex justify-between'>
-                    <div className='flex items-center justify-center gap-2 font-bold'>
-                      <p>Filter</p>
-                      <p>User</p>
-                      <p>Include</p>
+                    <div className='flex items-center justify-center gap-2 text-md font-bold'>
+                      <p>Add Condition</p>
                     </div>
                     {key !== 0 &&
                       <div onClick={(e) => removeActionFilter(key)}>
@@ -820,13 +820,12 @@ const GetStarted = () => {
 
                 </div>
               )}
-
-
               <div className='mt-3'>
                 <Button
                   type={`button`}
                   className="flex gap-2 justify-center items-center rounded bg-[#fafafa] px-6 pb-2 pt-2.5 text-xs font-medium leading-normal text-heading border border-border "
                   onClick={(e) => addConditionFilter(e)}
+                  disabled={!conditionFilter[conditionFilter.length - 1].filter_text}
                 >
                   <PlusIcon className='h-4 w-4' />
                   Add Filter
