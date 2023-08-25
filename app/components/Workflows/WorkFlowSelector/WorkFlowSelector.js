@@ -224,27 +224,29 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
 
                     )}
+
                     <div
                         onMouseEnter={() => updateShowButtonState(key, 'show')}
                         onMouseLeave={() => updateShowButtonState(key, 'hide')}
                     >
-                        <div class="stepper-main-wrapper w-full">
-                            <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
-                                {indexSelector !== key && (
-                                    <>
-                                        <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
-                                        <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
-                                            <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                                        </button>
-                                        <div class="stpper-lines">
-                                        </div>
-                                    </>
-                                )}
-                                <div class="stepper-spacer">
+                        {key !== 0 &&
+                            <div class="stepper-main-wrapper w-full">
+                                <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
+                                    {indexSelector !== key && (
+                                        <>
+                                            <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
+                                            <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
+                                                <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                            </button>
+                                            <div class="stpper-lines">
+                                            </div>
+                                        </>
+                                    )}
+                                    <div class="stepper-spacer">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
+                        }
 
 
                         <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] '>
