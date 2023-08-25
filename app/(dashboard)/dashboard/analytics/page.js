@@ -48,7 +48,7 @@ const Logs = () => {
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'All Conversations', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'Workflows', value: 'workflows' }]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector(state => state.workflow);
@@ -61,6 +61,7 @@ const Logs = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [pageVal, setPageVal] = useState(1);
+  const [search, setSearch] = useState("")
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
     workflows: '',
@@ -99,21 +100,21 @@ const Logs = () => {
 
   };
 
-  const getAllWorkflows = () => {
-    const results = workflowState?.data?.results;
-    if (results && Array.isArray(results) && results.length > 0) {
-      const values = [
-        { name: 'All Conversations', value: 'all' },
-        { name: 'Human Handoff', value: 'handoff' },
-        ...results.map(item => ({ name: item.name, value: item.id })),
-      ];
-      setWorkflowValue(values);
-    }
-  };
+  // const getAllWorkflows = () => {
+  //   const results = workflowState?.data?.results;
+  //   if (results && Array.isArray(results) && results.length > 0) {
+  //     const values = [
+  //       { name: 'Conversation Properties', value: 'all' },
+  //       { name: 'Human Handoff', value: 'handoff' },
+  //       ...results.map(item => ({ name: item.name, value: item.id })),
+  //     ];
+  //     setWorkflowValue(values);
+  //   }
+  // };
 
-  useEffect(() => {
-    getAllWorkflows()
-  }, [workflowState.data])
+  // useEffect(() => {
+  //   getAllWorkflows()
+  // }, [workflowState.data])
 
   useEffect(() => {
     if (state.botData.data === null) {
@@ -172,6 +173,11 @@ const Logs = () => {
       delete filteredFilters.workflows;
     }
 
+    if (filteredFilters.workflows === 'workflows') {
+      filteredFilters.is_workflow = true;
+      delete filteredFilters.workflows;
+    }
+
     const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `&${queryParams}` : '';
   };
@@ -217,6 +223,12 @@ const Logs = () => {
       setShowChat(false)
     }
   }
+
+
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
+
   return (
     <>
 
@@ -293,6 +305,17 @@ const Logs = () => {
           </div>
         </div>
 
+        <div className='flex justify-end gap-4 items-center mt-2 p-2'>
+          <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+              </svg>
+            </div>
+            <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+          </div>
+        </div>
 
         {/* <Reports /> */}
         {showChat === false ?

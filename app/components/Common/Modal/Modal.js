@@ -7,7 +7,8 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
     const divRef = useRef(null);
 
     useEffect(() => {
-        if (alignment === 'items-center') {
+        // if (alignment === 'items-center') {
+        // if (hideOutslideClick === true) {
             const handleClickOutside = (event) => {
                 if (divRef.current && !divRef.current.contains(event.target)) {
                     setShow(false);
@@ -21,7 +22,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
             return () => {
                 document.removeEventListener('click', handleClickOutside, { capture: true });
             };
-        }
+        // }
     }, []);
     return (
         <div>

@@ -28,7 +28,6 @@ const Page = () => {
     const [workflowLoading, setWorkLoading] = useState(false)
     const [template, setTemplate] = useState([])
 
-
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
     }
@@ -115,14 +114,16 @@ const Page = () => {
                                             <BoltSlashIcon className="h-6 w-6 text-gray-500" /> Draft
                                         </span>
                                     </li>
-                                    <li className="mr-2" onClick={() => { setTab(2) }}>
-                                        <span
-                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
-                                            aria-current="page"
-                                        >
-                                            <ClipboardDocumentIcon className="h-6 w-6 text-gray-500" /> Templates
-                                        </span>
-                                    </li>
+                                    {template?.length > 0 &&
+                                        <li className="mr-2" onClick={() => { setTab(2) }}>
+                                            <span
+                                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                                aria-current="page"
+                                            >
+                                                <ClipboardDocumentIcon className="h-6 w-6 text-gray-500" /> Templates
+                                            </span>
+                                        </li>
+                                    }
                                 </ul>
                             </div>
                             {tab === 0 && (
@@ -131,7 +132,7 @@ const Page = () => {
                             {tab === 1 && (
                                 <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                             )}
-                            {tab === 2 && (
+                            {tab === 2 && template?.length > 0 && (
                                 <ManageTemplates template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
                             )}
                         </>

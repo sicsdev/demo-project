@@ -170,19 +170,32 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     return (
         <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
-            <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
-                <div className='flex justify-between gap-2 items-center'>
-                    <div className='flex justify-between gap-4 items-center'>
-                        <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                        <p className='text-sm font-semibold '>Starts with a description to trigger it. </p></div>
-                    <Button
-                        type={"button"}
-                        onClick={(e) => openModal({ key: "DESCRIPTION", open: true })}
-                        className="inline-block  cursor-pointer group-hover:border p-2 border-border rounded-lg h-[38px] group-hover:shadow]">
-                        <PencilIcon className="h-5 w-5 font-semibold" />
-                    </Button>
+            { stepData?.length !== 0 &&
+                <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
+                    <div className='flex justify-between gap-2 items-center'>
+                        <div className='flex justify-between gap-4 items-center'>
+                            <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                            <p className='text-sm font-semibold '>Starts with a description to trigger it. </p></div>
+                        <Button
+                            type={"button"}
+                            onClick={(e) => openModal({ key: "DESCRIPTION", open: true })}
+                            className="inline-block  cursor-pointer group-hover:border p-2 border-border rounded-lg h-[38px] group-hover:shadow]">
+                            <PencilIcon className="h-5 w-5 font-semibold" />
+                        </Button>
+                    </div>
                 </div>
-            </div>
+            }
+            {stepData?.length === 0 &&
+                <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
+                    onClick={(e) => openModal({ key: "STEPS", open: true, addKey: 0 })} >
+                    <div className='flex justify-between gap-2 items-center'>
+                        <div className='flex justify-between gap-4 items-center'>
+                            <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                            <p className='text-sm font-semibold'>Your first step goes here</p></div>
+
+                    </div>
+                </div>
+            }
             {stepData?.map((ele, key) =>
                 <div key={key}>
                     {indexSelector === key && (
@@ -289,20 +302,19 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
                     </div>
                 </div>
-
             )
             }
+            {stepData?.length !== 0 &&
+                <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
+                    onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
+                    <div className='flex justify-between gap-2 items-center'>
+                        <div className='flex justify-between gap-4 items-center'>
+                            <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                            <p className='text-sm font-semibold'>Your next step goes here</p></div>
 
-            <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
-                onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
-                <div className='flex justify-between gap-2 items-center'>
-                    <div className='flex justify-between gap-4 items-center'>
-                        <ClipboardIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                        <p className='text-sm font-semibold'>Your next step goes here</p></div>
-
+                    </div>
                 </div>
-            </div>
-
+            }
         </div >
     )
 }
