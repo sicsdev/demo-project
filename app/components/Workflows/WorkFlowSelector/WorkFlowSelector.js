@@ -277,7 +277,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                         >
                             <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
 
-                                {stepData?.length !== 0 &&
+                                {/* {stepData?.length !== 0 &&
                                     <div className='mt-6 border bg-[#F8F8F8] border-border rounded-lg shadow p-5 cursor-pointer group' >
                                         <div className='flex justify-between gap-2 items-center'>
                                             <div className='flex justify-between gap-4 items-center'>
@@ -291,7 +291,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                             </Button>
                                         </div>
                                     </div>
-                                }
+                                } */}
                                 {stepData?.length === 0 &&
                                     <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                                         onClick={(e) => openModal({ key: "STEPS", open: true, addKey: 0 })} >
