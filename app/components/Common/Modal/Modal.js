@@ -53,7 +53,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
 
                                 </div>
                                 {/*body*/}
-                                <div className={`relative ${hr === true ? ("p-6") : "px-3"} flex-auto`}>
+                                <div className={`relative ${hr === true ? ("p-3") : "px-3"} flex-auto`}>
                                     {children}
                                 </div>
                             </div>

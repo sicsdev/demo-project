@@ -382,7 +382,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
           showCancel={true}
         >
           <div>
-            <small>Block paths you don't want the widget to appear on.</small>
+            <small className="text-[12px] sm:text-[13px] md:text-[13px] lg:text-[13px]">Block paths you don't want the widget to appear on.</small>
           </div>
           <br></br>
           <div>
@@ -411,7 +411,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             ))}
             <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
               <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
-                <span className="text-gray-700">URL Containing:</span>
+                <span className="text-gray-700 text-[13px]">URL Containing:</span>
               </div>
               <input
                 placeholder="/path"
@@ -660,7 +660,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
                             <div
-                              className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[12px] font-semibold normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                               key={key}
                             >
                               {element}
@@ -680,7 +680,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         onChange={handleAgentNameValue}
                         type={"text"}
                         placeholder={"Enter prompts separated by ,"}
-                        className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                        className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
                       />

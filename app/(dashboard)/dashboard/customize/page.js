@@ -152,7 +152,7 @@ const Page = () => {
     <>
       <div className="border-b border-primary ">
         <div className="flex items-center justify-between gap-4 sm:gap-0">
-          <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+          <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500 headerAlignment">
             <li className="mr-2" onClick={() => { setTab(0) }}>
               <span
                 className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
