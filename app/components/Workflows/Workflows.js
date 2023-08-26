@@ -32,7 +32,7 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
                 />
               </div>}
             <div>
-              <h3 className='text-lg font-bold text-heading'>Workflow Builder</h3>
+              <h3 className='text-md font-bold text-heading'>Workflow Builder</h3>
               <p className='text-sm text-border'>{state.data.enterprise.name}</p>
             </div>
           </div>
