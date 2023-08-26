@@ -22,6 +22,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { editAutomationValue } from '@/app/components/store/slices/workflowSlice'
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 import TextField from '@/app/components/Common/Input/TextField'
+import { makeCapital } from '@/app/components/helper/capitalName'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -578,7 +579,7 @@ const GetStarted = () => {
         <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
           {singleData ? (
             <>
-              <div className='flex md:flex lg:flex justify-between gap-2 items-center'>
+              <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
                 <div className='flex justify-start sm:justify-between gap-2 items-center'>
                   <div>
                     <Link href={"/dashboard/workflow/workflow-builder"}>
@@ -616,7 +617,7 @@ const GetStarted = () => {
                     })
                     setWorkflowModal(true)
                   }}>
-                    <h3 className='text-heading font-bold text-sm sm:text-sm uppercase'>{singleData.name}</h3>
+                    <h3 className='text-heading font-bold text-sm sm:text-sm1'>{singleData.name === 'Default_name' ? "New Workflow 1" :  makeCapital(singleData.name)}</h3>
                     {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
                   </div>
                 </div>
@@ -755,7 +756,7 @@ const GetStarted = () => {
             </div>
             <div className=''>
               {conditionFilter?.map((item, key) =>
-                <div className='mt-4 border p-4 rounded-md' key={key}>
+                <div className='mt-4 rounded-md' key={key}>
                   <div className='flex justify-between'>
                     <div className='flex items-center justify-center gap-2 text-md font-bold'>
                       <p>Add Condition</p>

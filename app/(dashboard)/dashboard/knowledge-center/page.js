@@ -1,6 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, CheckCircleIcon, LinkIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useRef, useState } from "react";
+import { AcademicCapIcon, BookOpenIcon, CheckCircleIcon, LinkIcon, PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -13,19 +13,23 @@ import { ColorRing } from "react-loader-spinner";
 import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
 import ViewKnowledgeCenter from "@/app/components/LearningCenter/EditKnowledgeCenter";
 import { getKnowledgeData } from "@/app/API/pages/Knowledge";
+import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
+import UpdateWorkflowBasic from "@/app/components/Workflows/WorkflowBuilder/UpdateWorkflowBasic";
+import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 
 const Page = () => {
+    const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(null);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
     const [tab, setTab] = useState(0);
-
+    const [openWorkflows, setOpenWorkflow] = useState(null)
     const [tabLoader, setTabLoader] = useState(true);
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
-
+    const [workflow, setWorkflow] = useState([])
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
@@ -64,6 +68,22 @@ const Page = () => {
     useEffect(() => {
         getData()
     }, [])
+
+    const getAllWorkflowData = async () => {
+        dispatch(fetchWorkflows)
+    }
+
+    useEffect(() => {
+        getAllWorkflowData();
+        if (workflowState) {
+            manageData()
+        }
+    }, [workflowState])
+
+    const manageData = () => {
+        const result = workflowState?.data?.results?.filter((x) => x.active === true);
+        setWorkflow(result);
+    }
     const updateButtonHandler = async (id) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
@@ -116,7 +136,37 @@ const Page = () => {
         );
         dispatch(editRecommendation(updatedData));
     };
+    const handleWorkflow = async (workflow_data, questionId) => {
+        const row = state?.data?.results.find(item => item.id === questionId);
+        let Payload = {
+            description: workflow_data.description + " " + row.answer,
+        }
+        const response = await updateWorkFlowStatus(Payload, workflow_data.id)
+        if (response.status === 200 || response.status === 201) {
+            const excludeRecord = await excludeRecommendationRecord(questionId);
+            if (excludeRecord?.status === 204) {
+                dispatch(fetchRecommendation());
+                setOpenWorkflow(null)
+            } else {
+            }
+        }
 
+    }
+
+    const divRef = useRef(null);
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setOpenWorkflow(null);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
     const columns = [
         {
             name: "Question",
@@ -130,7 +180,7 @@ const Page = () => {
         {
             name: "Human Answer",
             selector: (row) => row.answer,
-            sortable: true,
+            // sortable: true,
             reorder: true,
             cell: (row) => (
                 <div className='my-2 w-[100%]'>
@@ -148,7 +198,20 @@ const Page = () => {
         {
             name: "",
             cell: (row) => (
-                <div className="flex justify-center gap-4">
+                <div className="flex justify-center gap-4 ml-5" >
+                    {deleteLoader === row.id ?
+                        <ColorRing
+                            height="30"
+                            width="30"
+                            color="#4fa94d"
+                            ariaLabel="tail-spin-loading"
+                            radius="1"
+                            wrapperClass="text-center"
+                            visible={true}
+                        /> :
+                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                    }
                     {updateLoader === row.id ?
                         <ColorRing
                             height="30"
@@ -163,19 +226,26 @@ const Page = () => {
                             <CheckCircleIcon className="h-6 w-6 text-success " />
                         </button>
                     }
-                    {deleteLoader === row.id ?
-                        <ColorRing
-                            height="30"
-                            width="30"
-                            color="#4fa94d"
-                            ariaLabel="tail-spin-loading"
-                            radius="1"
-                            wrapperClass="text-center"
-                            visible={true}
-                        /> :
-                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
-                    }
+                    <button type="button" onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
+                            <PlusCircleIcon className="h-6 w-6 text-success " />
+
+                        </button>
+                    <div className="relative" >
+                        
+                        {openWorkflows === row.id && (
+                            <div className={`absolute left-[-315px] top-[34px]  sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                                {workflow.length > 0 ?
+                                    <ul className="py-2 text-sm text-gray-700 ">
+                                        {workflow.map((ele, key) =>
+                                            <li className='hover:bg-primary hover:text-white text-heading my-2' key={key} onClick={() => handleWorkflow(ele, row.id)}>
+                                                <button type='button' className="block px-4 py-2 ">{ele.name}</button>
+                                            </li>
+                                        )}
+                                    </ul> : <small>No data found!</small>}
+                            </div>
+                        )}
+                    </div>
+
                 </div>
             ),
             style: {
@@ -221,7 +291,7 @@ const Page = () => {
                 ) : (
                     <>
                         {tab === 0 && (
-                            <div className="w-full">
+                            <div className="w-full" >
                                 <DataTable
                                     title={<h3 className="text-sm font-semibold">Learning center</h3>}
                                     fixedHeader
@@ -229,16 +299,17 @@ const Page = () => {
                                     pointerOnHover
                                     defaultSortFieldId="question"
                                     pagination
-                                     className='data-table-class'
+                                    className='data-table-class'
                                     columns={columns}
                                     noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                     data={state?.data?.results}
+                                    
 
                                 />
                             </div>
                         )}
                         {tab === 1 && basicFormData?.knowledgeData && (
-                            
+
                             <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                         )}
                     </>

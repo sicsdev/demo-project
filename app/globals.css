@@ -22,7 +22,8 @@ textarea::placeholder {
 }
 
 
-h2, h3{
+h2,
+h3 {
   /* font-family: 'Cairo', sans-serif; */
   font-weight: 450 !important;
 }
@@ -1105,13 +1106,26 @@ body .cursor-pointer {
 
 
 
-@media(min-width:991px)
-{
-  body .data-table-class{
+@media(min-width:991px) {
+  body .data-table-class {
     overflow: unset !important;
+  }
+
+  .table_overflow {
+    overflow: unset;
   }
 }
 
-select:focus{
+select:focus {
   font-size: 12px !important;
+}
+
+@media(max-width:990px) {
+  .table_overflow {
+    overflow-x: scroll !important;
+  }
+
+  .headerAlignment {
+    display: -webkit-inline-box !important;
+  }
 }

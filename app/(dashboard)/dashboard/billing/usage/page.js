@@ -128,8 +128,12 @@ const UsageLimit = () => {
           </div>
           {data ?
           <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
+         
             <h3 className="font-bold text-xl md:text-xl lg:text-xl sm:text-xl sm:leading-none my-2 text-heading">Usage</h3>
             <p className='text-sm my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
+            <h3 className="font-bold text-base md:text-base lg:text-base sm:text-base sm:leading-none mt-2 text-heading">Usage this month
+            </h3>
+            <p className='text-xs text-heading'>${totalUsage}</p>
             <div className='flex justify-between items-center my-3'>
               <div className='flex justify-between items-center gap-8'>
                 <p className='font-bold text-lg'>{curretYear}</p>
@@ -139,9 +143,7 @@ const UsageLimit = () => {
               data={data}
               options={options}
             />
-            <h3 className="font-bold text-base md:text-base lg:text-base sm:text-base sm:leading-none mt-2 text-heading">Usage this month
-            </h3>
-            <p className='text-xs text-heading'>${totalUsage}</p>
+          
           </div>
           :
           <div>

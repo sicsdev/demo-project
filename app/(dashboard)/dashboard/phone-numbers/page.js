@@ -59,7 +59,7 @@ const page = () => {
             <input
               required=""
               placeholder="Business Name"
-              className="py-3 mt-1 undefined block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full null"
+              className="py-3 !text-[16px] sm:text-[12px] mt-1 undefined block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full null"
               id="Primary"
               type="text"
               value="New Business"

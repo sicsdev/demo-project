@@ -11,7 +11,7 @@ import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
 const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData }) => {
-
+console.log(formData)
 
     const [customFields, setCustomFields] = useState({});
     const [loading, setLoading] = useState(false);
@@ -222,6 +222,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                     <div class="col-span-1 md:col-span-4 bg-red-300">
                         <div className="sm:mr-8">
                             <form>
+                                
                                 {Object.keys(formData).map((key) => (
                                     <div className='my-2' key={key}>
                                         <TextField
@@ -235,6 +236,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                             placeholder={convertToTitleCase(key)}
                                             type={"text"}
                                             id={key}
+                                            disabled={formData[key]}
                                             handleInputFocus={(e) => handleInputFocus(e, key)}
                                             onKeyDown={handleDeleteKeyPress}
                                         // disabled

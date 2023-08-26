@@ -47,15 +47,21 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
         get_ids.splice(stepIndex, 0, newData);
         return get_ids;
     }
-    
+
     const addStepHandler = async (ele) => {
 
         const get_ids = automationStepsData.map((element) => {
-            return {
-                automation: element?.automation?.id,
-                data: element?.data,
-                output: element?.output
-            };
+            let payload_automation = {}
+            if (element?.automation) {
+              payload_automation = {
+                automation: element.automation.id,
+                output: {},
+                data: {}
+              };
+            } else {
+              payload_automation = { condition: element.condition }
+            }
+            return payload_automation
         })
         const isElementExists = get_ids.find((x) => x.automation === ele.id);
         if (isElementExists) {
@@ -171,19 +177,6 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     </div>
                                 </li>
 
-                                {/* <li className={`my-4 cursor-pointer`} onClick={() => { setRuleModal(true); setMobileCss('') }}>
-                                    <div>
-                                        <div className='flex justify-between items-center '>
-                                            <div className="flex justify-start items-center gap-2">
-                                                <DocumentTextIcon className="h-6 w-6 text-gray-500" />
-
-                                                <p className='text-heading text-sm'>Text</p>
-                                                <p className='text-border text-[11px] font-light'></p>
-                                            </div>
-                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
-                                        </div>
-                                    </div>
-                                </li> */}
 
                                 <li className={`my-4 cursor-pointer`}>
                                     <Link href={"/dashboard/workflow/integrations"}>
@@ -220,25 +213,26 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     </div>
                                     <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
                                 </div>
-                                {integrationAutomationData?.map((ele, key) =>
-                                    <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
-                                        <div className='flex justify-start items-center gap-4'>
-                                            <div className="relative w-[25px] h-[20px] rounded-lg">
-                                                <Image
-                                                    fill={"true"}
-                                                    className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
-                                                    alt="logo.png"
-                                                    src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
-                                                />
+                                <div className='mb-32'>
+                                    {integrationAutomationData?.map((ele, key) =>
+                                        <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
+                                            <div className='flex justify-start items-center gap-4'>
+                                                <div className="relative w-[25px] h-[20px] rounded-lg">
+                                                    <Image
+                                                        fill={"true"}
+                                                        className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
+                                                        alt="logo.png"
+                                                        src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
+                                                    />
+                                                </div>
+                                                <div className='w-[200px]'>
+                                                    <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
+                                                    <p className='text-border text-[11px] font-light'>{ele?.description}</p>
+                                                </div>
                                             </div>
-                                            <div className='w-[200px]'>
-                                                <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
-                                                <p className='text-border text-[11px] font-light'>{ele?.description}</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                )}
-
+                                        </li>
+                                    )}
+                                </div>
                             </>}
                     </>
                 }
