@@ -190,6 +190,21 @@ const Sidebar = ({ children }) => {
     };
   }, []);
 
+  const divSideRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divSideRef.current && !divSideRef.current.contains(event.target)) {
+        setShow(false);
+      }
+    };
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -300,7 +315,7 @@ const Sidebar = ({ children }) => {
     <>
 
       <>
-        <nav className="fixed top-0 z-50 w-full bg-sidebar">
+        <nav className="fixed top-0 z-50 w-full bg-sidebar" ref={divSideRef}>
           <div className="px-3 py-3 lg:px-5 lg:pl-3">
             <div className="flex items-center justify-between text-white    ">
               <div className="flex items-center justify-start">
@@ -359,7 +374,7 @@ const Sidebar = ({ children }) => {
                     </button>
 
                     {isOpen && (
-                      <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg">
+                      <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                         <li className="text-start p-2">
                           <p className="text-xs font-normal text-heading ml-4 break-all">
                             {state?.email}
@@ -428,8 +443,8 @@ const Sidebar = ({ children }) => {
             </div>
           </div>
           {show && (
-            <div
-              className="block sm:hidden lg:hidden md:hidden items-centerjustify-between text-white z-[999999]  w-full md:w-auto md:order-1"
+            <div 
+              className="block  sm:hidden lg:hidden md:hidden items-centerjustify-between text-white z-[999999]  w-full md:w-auto md:order-1"
               id="navbar-cta"
             >
               <ul className="space-y-2 font-medium  w-full relative mb-4">

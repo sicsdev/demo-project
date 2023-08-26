@@ -494,7 +494,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 
             {createModal === true && (
                 <Modal title={'Add New Content'} show={createModal} setShow={setCreateModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-                    <div className='block sm:flex justify-center items-center gap-4 py-4'>
+                    <div className='block sm:flex justify-center items-center gap-4 '>
                         <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>

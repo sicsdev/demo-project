@@ -107,7 +107,7 @@ export const getBotConversation = async (id, queryParam = ``) => {
         return error
     }
 }
-export const getPaginateBotConversation = async (id,page,queryParam='') => {
+export const getPaginateBotConversation = async (id, page, queryParam = '') => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/?page=${page}&page_size=10${queryParam}`, config);
@@ -120,6 +120,15 @@ export const getBotConversationMessages = async (id) => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/conversations/${id}/messages/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+export const addBotConversationMessagesReaction = async (id, body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/messages/${id}/reaction/`, body, config);
         return response;
     } catch (error) {
         return error

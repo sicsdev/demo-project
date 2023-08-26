@@ -18,7 +18,7 @@ const RightSidebar = ({ children, inputRef, shake, setAutomationStepsData, autom
                         data-te-sidenav-init
                         data-te-sidenav-hidden="false"
                         data-te-sidenav-right="true">
-                        <div className={`w-full sm:w-72 pr-4`}>
+                        <div className={`w-full sm:w-72 sm:pr-4 md:pr-4 lg:pr-4`}>
                             <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} />
                         </div>
                     </nav>

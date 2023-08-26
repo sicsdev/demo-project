@@ -48,7 +48,7 @@ const Logs = () => {
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
   const [userWorkFlows, setUserWorkflows] = useState([]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
@@ -63,6 +63,8 @@ const Logs = () => {
   const [perPage, setPerPage] = useState(10);
   const [pageVal, setPageVal] = useState(1);
   const [search, setSearch] = useState("")
+  const [searchResults, setSearchResults] = useState([]);
+  const [typingTimeout, setTypingTimeout] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
     workflows: '',
@@ -92,6 +94,7 @@ const Logs = () => {
       setSelectedFilters({
         type: logState.data.type || '',
         workflows: logState.data.workflows || '',
+        conversations: logState.data.conversations || '',
       })
       setSelectedBot(logState.data.bot)
       setIndexVal(0)
@@ -151,7 +154,6 @@ const Logs = () => {
       [name]: value, // Update the selected value for the current dropdown
     });
 
-
     let payload = {
       [name]: value
     }
@@ -173,7 +175,14 @@ const Logs = () => {
       filteredFilters.human_handoff = true;
       delete filteredFilters.conversations;
     }
-
+    if (filteredFilters.conversations === 'downvotes') {
+      filteredFilters.has_downvotes = true;
+      delete filteredFilters.conversations;
+    }
+    if (filteredFilters.conversations === 'csat') {
+      filteredFilters.has_surveys = true;
+      delete filteredFilters.conversations;
+    }
     const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `&${queryParams}` : '';
   };
@@ -222,8 +231,29 @@ const Logs = () => {
 
 
   const handleChange = (e) => {
-    setSearch(e.target.value)
-  }
+    const searchText = e.target.value;
+    setSearch(searchText);
+
+    // Clear the previous timeout to prevent rapid search requests
+    if (typingTimeout) {
+      clearTimeout(typingTimeout);
+    }
+
+    // Set a new timeout to perform the search after a delay (e.g., 300 milliseconds)
+    const newTypingTimeout = setTimeout(() => {
+      performSearch(searchText);
+    }, 1000);
+
+    setTypingTimeout(newTypingTimeout);
+  };
+
+  const performSearch = (text) => {
+    if(selectedBot){
+     let searching=  logState.data.queryParam || ''
+      handlePageChange(selectedBot, 1, searching +'&search='+text);
+    }
+   
+  };
 
   return (
     <>
@@ -300,18 +330,19 @@ const Logs = () => {
             }
           </div>
         </div>
-
-        <div className='flex justify-end gap-4 items-center mt-2 p-2'>
-          <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-              </svg>
+        {showChat === false && (
+          <div className='flex justify-end gap-4 items-center mt-2 p-2'>
+            <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+              </div>
+              <input type="search" id="search" className="!text-[16px] sm:text-[12px] block w-full p-2 focus:outline-none focus:border-sky focus:ring-1 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
             </div>
-            <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
           </div>
-        </div>
+          )}
 
         {/* <Reports /> */}
         {showChat === false ?
@@ -344,7 +375,7 @@ const Logs = () => {
               <div className="mb-4 w-full">
                 <SelectOption
                   onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.workflows || ''}
+                  value={selectedFilters.conversations || ''}
                   name="conversations"
                   values={workflowValue}
                   title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
