@@ -23,6 +23,7 @@ import { editAutomationValue } from '@/app/components/store/slices/workflowSlice
 import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 import TextField from '@/app/components/Common/Input/TextField'
 import { makeCapital } from '@/app/components/helper/capitalName'
+import TextArea from '@/app/components/Common/Input/TextArea'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -35,7 +36,7 @@ const GetStarted = () => {
   const [publishLoader, setPublishLoader] = useState(false);
   const [showHelp, setShowHelp] = useState(false)
   const [availableFilters, setAvailableFilters] = useState([]);
-
+  const [rulesLoader, setRulesLoader] = useState(false)
   const [workflowFormData, setWorkFlowFormData] = useState({
     name: null,
     description: null,
@@ -61,6 +62,7 @@ const GetStarted = () => {
   const inputRef = useRef(null);
   const [addStepIndex, setAddStepIndex] = useState(null);
   const [ruleModal, setRuleModal] = useState(false);
+  const [deflectionModal, setDeflectionModal] = useState(false);
 
   const [conditionFilter, setConditionFilter] = useState([{
     availables: '',
@@ -275,7 +277,6 @@ const GetStarted = () => {
 
   const saveWorkFlowHandler = async (type) => {
     try {
-      debugger
       let payload = {}
       setPublishLoader(true);
       if (type === "PUBLISH") {
@@ -298,7 +299,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = { condition: element.condition }
+              payload_automation = { condition: element.condition, question: element.question }
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -376,7 +377,6 @@ const GetStarted = () => {
       errorMessage("Could not publish workflow, please first update the workflow details by clicking edit on the first box.");
       return false;
     }
-    debugger
     if (!automationState) {
       if (singleData.active) {
         saveWorkFlowHandler("DISABLE")
@@ -388,7 +388,12 @@ const GetStarted = () => {
     }
 
   };
-
+  const DisablingButton = () => {
+    const requiredKeys = ["question"];
+    return requiredKeys.some(
+      (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
+    );
+  };
   const convertToBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -487,7 +492,8 @@ const GetStarted = () => {
     setConditionFilter(updatedFilters);
   };
 
-  const addConditionalStepHandler = async () => {
+  const addConditionalStepHandler = async (type = { value: "RULE" }) => {
+    setRulesLoader(true)
     const conditionData = convertToQueryString(conditionFilter);
     const get_ids = automationStepsData.map((element) => {
       let payload_automation = {}
@@ -498,15 +504,23 @@ const GetStarted = () => {
           data: {}
         };
       } else {
-        payload_automation = { condition: element.condition }
+        payload_automation = { condition: element.condition, question: element.question }
       }
       return payload_automation
     })
     let newArray = null
-    if (addStepIndex === null) {
-      newArray = [...get_ids, { condition: conditionData, data: {}, output: {} }];
+    if (type.value === 'RULE') {
+      if (addStepIndex === null) {
+        newArray = [...get_ids, { condition: conditionData, data: {}, output: {} }];
+      } else {
+        newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
+      }
     } else {
-      newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
+      if (addStepIndex === null) {
+        newArray = [...get_ids, { question: workflowFormData.question, data: {}, output: {} }];
+      } else {
+        newArray = addDataAtIndex1(addStepIndex, get_ids, { question: workflowFormData.question, data: {}, output: {} });
+      }
     }
     const workflowId = params.get('flow');
     if (!singleData.active) {
@@ -514,41 +528,54 @@ const GetStarted = () => {
       getWorkflowData(workflowId)
     }
     else {
-      let data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      let data = null
+      if (type.value === "RULE") {
+        data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      } else {
+
+        data = [...automationStepsData, { automation: null, question: workflowFormData.question, data: {}, output: {}, id: "automation_temp" }]
+      }
       setAutomationStepsData(data)
       dispatch(editAutomationValue(newArray))
     }
     setRuleModal(false);
+    setRulesLoader(false)
+    setDeflectionModal(false);
     handleButtonClick(false)
     setAddStepIndex(null);
     setIndexSelector(null)
     setMobileCss('')
   }
 
-  const openRulesHandler = () => {
-    if (automationStepsData?.length > 0) {
-      let getAutomationIndexData = '';
-      if (addStepIndex !== null && addStepIndex !== '') {
-        if (addStepIndex === 0) {
-          getAutomationIndexData = automationStepsData[addStepIndex];
+  const openRulesHandler = (type = { value: "RULE" }) => {
+    if (type.value === 'RULE') {
+      if (automationStepsData?.length > 0) {
+        let getAutomationIndexData = '';
+        if (addStepIndex !== null && addStepIndex !== '') {
+          if (addStepIndex === 0) {
+            getAutomationIndexData = automationStepsData[addStepIndex];
+          } else {
+            getAutomationIndexData = automationStepsData[addStepIndex - 1];
+          }
         } else {
-          getAutomationIndexData = automationStepsData[addStepIndex - 1];
+          getAutomationIndexData = automationStepsData[automationStepsData?.length - 1];
         }
-      } else {
-        getAutomationIndexData = automationStepsData[automationStepsData?.length - 1];
+        const availableEntries = Object?.entries(getAutomationIndexData?.available).map(([name, type]) => ({ name, type, value: name }));
+        setAvailableFilters(availableEntries);
       }
-      const availableEntries = Object?.entries(getAutomationIndexData?.available).map(([name, type]) => ({ name, type, value: name }));
-      setAvailableFilters(availableEntries);
+      setConditionFilter([{
+        availables: '',
+        contains: '',
+        filter_text: '',
+        type: 'OR',
+        conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
+      }]);
+      setRuleModal(true);
+      setMobileCss('')
+
+    } else if (type.value === 'DEFLECTION') {
+      setDeflectionModal(true)
     }
-    setConditionFilter([{
-      availables: '',
-      contains: '',
-      filter_text: '',
-      type: 'OR',
-      conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
-    }]);
-    setRuleModal(true);
-    setMobileCss('')
   }
 
   function addDataAtIndex1(stepIndex, get_ids, newData) {
@@ -617,7 +644,7 @@ const GetStarted = () => {
                     })
                     setWorkflowModal(true)
                   }}>
-                    <h3 className='text-heading font-bold text-sm sm:text-sm1'>{singleData.name === 'Default_name' ? "New Workflow 1" :  makeCapital(singleData.name)}</h3>
+                    <h3 className='text-heading font-bold text-sm sm:text-sm1'>{singleData.name === 'Default_name' ? "New Workflow 1" : makeCapital(singleData.name)}</h3>
                     {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
                   </div>
                 </div>
@@ -838,15 +865,49 @@ const GetStarted = () => {
                 <div>
                   <Button
                     type={"button"}
-                    disabled={areValuesEmpty()}
+                    disabled={areValuesEmpty() || rulesLoader}
                     onClick={() => addConditionalStepHandler()}
                     className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                   >
-                    Save
+                    {rulesLoader ? "Loading..." : "Save"}
                   </Button>
                   <Button
                     className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
                     onClick={() => { setRuleModal(false) }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+
+            </div>
+          </>
+        </Modal>
+      }
+      {
+        deflectionModal === true &&
+        <Modal title={'Add Deflection'} show={deflectionModal} setShow={setDeflectionModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+          <>
+            {/* <div className=''>
+              <h3 className="!font-bold text-heading text-md">Conditions</h3>
+              <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
+            </div> */}
+            <div className=''>
+              <TextArea name='question' placeholder={"What is your question?"} id={"question"} value={workflowFormData.question} onChange={handleInputValue} title={"Deflection"} />
+              <div className="flex items-center justify-between mt-4">
+                <div></div>
+                <div>
+                  <Button
+                    type={"button"}
+                    disabled={DisablingButton() || rulesLoader}
+                    onClick={() => addConditionalStepHandler({ value: "DEFLECTION" })}
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                  >
+                    {rulesLoader ? "Loading..." : "Save"}
+                  </Button>
+                  <Button
+                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                    onClick={() => { setDeflectionModal(false) }}
                   >
                     Cancel
                   </Button>
