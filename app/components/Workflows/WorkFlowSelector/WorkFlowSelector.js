@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -17,7 +17,8 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     const [modal, setModal] = useState(false);
     const [automationDragHandle, setAutomationDragHandle] = useState({
         automation: null,
-        arr: []
+        arr: [],
+        deflection:null
     });
     const dispatch = useDispatch()
     const updateShowButtonState = (id, type) => {
@@ -61,7 +62,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition }
+                payload_automation = { condition: element.condition, question: element.question }
             }
             return payload_automation
         })
@@ -187,7 +188,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         return false;
     }
     const removeIndexAndUpdateAutomation = async () => {
-        const filterRules = automationDragHandle.arr.filter((x) => x.id !== automationDragHandle.automation)
+        let filterRules = null
+        filterRules = automationDragHandle.arr.filter((x) => x.id !== automationDragHandle.automation)
+        if (automationDragHandle.deflection !== null) {
+            filterRules = filterRules.filter((x) => x.id !== automationDragHandle.deflection)
+        }
         const get_ids = filterRules.map((element) => {
             let payload_automation = {}
             if (element?.automation) {
@@ -197,7 +202,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition }
+                payload_automation = { condition: element.condition, question: element.question }
             }
             return payload_automation
         })
@@ -216,20 +221,25 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                 const result = Array.from(list);
                 const [removed] = result.splice(startIndex, 1);
                 result.splice(endIndex, 0, removed);
+                let automationCurrentDeflectionIndex = hasNullAutomationAtIndex(startIndex + 1, list)
+
                 setAutomationDragHandle({
                     arr: result,
-                    automation: result[startIndex + 1].id
+                    automation: result[startIndex + 1].id,
+                    deflection: automationCurrentDeflectionIndex ? result[startIndex + 2].id : null
                 })
             } else {
                 const result = Array.from(list);
                 const [removed] = result.splice(startIndex, 1);
                 result.splice(endIndex, 0, removed);
-                let automationNewIndex = hasNullAutomationAtIndex(endIndex, result)
+                let automationNewIndex = hasNullAutomationAtIndex(endIndex + 1, result)
                 if (automationNewIndex) {
                     setModal(true)
+                    let automationCurrentDeflectionIndex = hasNullAutomationAtIndex(startIndex + 1, list)
                     setAutomationDragHandle({
                         arr: result,
-                        automation: result[endIndex + 1].id
+                        automation: result[endIndex + 1].id,
+                        deflection: automationCurrentDeflectionIndex ? result[endIndex + 2].id : null
                     })
                 } else {
                     const get_ids = result.map((element) => {
@@ -241,7 +251,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                 data: {}
                             };
                         } else {
-                            payload_automation = { condition: element.condition }
+                            payload_automation = { condition: element.condition, question: element.question }
                         }
                         return payload_automation
                     })
@@ -268,11 +278,16 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     return (
         <>
             <DragDropContext onDragEnd={onDragEnd}>
-                <Droppable droppableId="droppable">
+                <Droppable droppableId="droppable" direction={'vertical'}>
                     {(provided, snapshot) => (
                         <div
-                            {...provided.droppableProps}
                             ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            style={getItemStyle(
+                                snapshot.isDragging,
+                                provided?.draggableProps?.style || {}
+                            )}
                         // style={getListStyle(snapshot.isDraggingOver)}
                         >
                             <div className='w-[auto] sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto'>
@@ -347,23 +362,24 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                             onMouseEnter={() => updateShowButtonState(key, 'show')}
                                                             onMouseLeave={() => updateShowButtonState(key, 'hide')}
                                                         >
-                                                            <div class="stepper-main-wrapper w-full">
-                                                                <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
-                                                                    {indexSelector !== key && (
-                                                                        <>
-                                                                            <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
-                                                                            <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
-                                                                                <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
-                                                                            </button>
-                                                                            <div class="stpper-lines">
-                                                                            </div>
-                                                                        </>
-                                                                    )}
-                                                                    <div class="stepper-spacer">
+                                                            {key !== 0 && (
+                                                                <div class="stepper-main-wrapper w-full">
+                                                                    <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
+                                                                        {indexSelector !== key && (
+                                                                            <>
+                                                                                <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
+                                                                                <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
+                                                                                    <PlusIcon className="h-5 w-5 text-gray-500 font-semibold" />
+                                                                                </button>
+                                                                                <div class="stpper-lines">
+                                                                                </div>
+                                                                            </>
+                                                                        )}
+                                                                        <div class="stepper-spacer">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-
+                                                            )}
 
 
                                                             <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] '>
@@ -381,13 +397,24 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                     />
                                                                                 </div>
                                                                             )}
-                                                                            {ele.automation === null && (
+                                                                            {ele.condition && (
                                                                                 <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
-                                                                            {ele?.automation !== null ? (
+                                                                            {ele.question && (
+                                                                                <BookmarkIcon className="h-6 w-6 text-gray-500" />
+                                                                            )}
+                                                                            {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
-                                                                            ) : (
-                                                                                <p className='text-sm font-semibold '>Rule: {ele?.condition}</p>
+                                                                            )}
+                                                                            {ele?.condition && (
+                                                                                <>
+                                                                                    <p className='text-sm font-semibold '>Rule: {ele?.condition}</p>
+                                                                                </>
+                                                                            )}
+                                                                            {ele?.question && (
+                                                                                <>
+                                                                                    <p className='text-sm font-semibold '>Deflection: {ele?.question}</p>
+                                                                                </>
                                                                             )}
 
                                                                         </div>
