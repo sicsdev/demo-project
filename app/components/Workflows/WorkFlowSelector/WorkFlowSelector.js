@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -401,7 +401,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                 <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele.question && (
-                                                                                <BookmarkIcon className="h-6 w-6 text-gray-500" />
+                                                                                <BriefcaseIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
