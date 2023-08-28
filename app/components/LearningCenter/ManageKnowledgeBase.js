@@ -182,7 +182,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             onSelectData(selectedList, selectedItem, index);
                             updateBotSelection(index, selectedList); // Call API when selection changes
                         }}
-                        placeholder={basicFormData?.selectedBot[index]?.length === basicFormData?.bots?.length ? '' : "Select Bots"}
+                        placeholder={basicFormData?.selectedBot && basicFormData?.selectedBot[index]?.length === basicFormData?.bots?.length ? '' : "Select Bots"}
                         displayValue="name"
                         closeOnSelect={true}
                     /></div>,
