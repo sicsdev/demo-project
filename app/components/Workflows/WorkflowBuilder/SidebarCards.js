@@ -1,7 +1,7 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { BookmarkIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
@@ -180,7 +180,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
-                                                <BookmarkIcon className="h-6 w-6 text-gray-500" />
+                                                <BriefcaseIcon  className="h-6 w-6 text-gray-500" />
 
                                                 <p className='text-heading text-sm'>Deflection</p>
                                                 <p className='text-border text-[11px] font-light'></p>
