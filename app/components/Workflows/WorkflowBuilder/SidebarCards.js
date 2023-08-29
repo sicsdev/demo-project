@@ -1,7 +1,7 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
@@ -149,12 +149,13 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         <div className='flex justify-between items-center'>
                                             <div className='flex justify-between items-center gap-2'>
                                                 <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
-                                                    <Image
+                                                    {ele.icon ?   <Image
                                                         fill={"true"}
                                                         className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
                                                         alt="logo.png"
-                                                        src={ele.icon || getLogo(ele.name.split(" ")[0])}
-                                                    />
+                                                        src={ele.icon}
+                                                    />:<Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
+                                                 
                                                 </div>
                                                 <p className='text-heading text-sm'>{ele.name}</p>
                                             </div>

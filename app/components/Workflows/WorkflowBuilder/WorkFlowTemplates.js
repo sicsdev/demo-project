@@ -188,7 +188,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
                     }}
-                    columns={status === true ? columns : columns}
+                    columns={status === true ? columns1 : columns}
                     className='data-table-class'
                     data={data}
                     customStyles={customStyles}
