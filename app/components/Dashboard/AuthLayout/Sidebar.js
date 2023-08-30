@@ -26,13 +26,14 @@ import {
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
 import { fetchWorkflows } from "../../store/slices/workflowSlice";
-import { ChartBarIcon } from "@heroicons/react/24/outline";
+import { ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import Loading from "../../Loading/Loading";
 
 const Sidebar = ({ children }) => {
   const state = useSelector((state) => state.user.data);
   const recommedState = useSelector((state) => state.recommendation);
   const workflowState = useSelector((state) => state.workflow);
+  const [collaps, setCollaps] = useState(false)
 
   const dispatch = useDispatch();
   const pathname = usePathname();
@@ -238,9 +239,11 @@ const Sidebar = ({ children }) => {
             className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
           >
             {element.icon}
-            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-              {element.name}
-            </span>
+            {!collaps && (
+              <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                {element.name}
+              </span>
+            )}
           </Link>
           {showSubTabs === key && (
             <ul className="p-3 space-y-2">
@@ -259,9 +262,11 @@ const Sidebar = ({ children }) => {
                       } flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
                   >
                     {ele.icon}
-                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
-                      {ele.name}
-                    </span>
+                    {!collaps && (
+                      <span className="flex justify-between w-full ml-3 whitespace-nowrap text-sm font-normal">
+                        {ele.name}
+                      </span>
+                    )}
                   </Link>
                   {/* </div> */}
                 </li>
@@ -298,9 +303,11 @@ const Sidebar = ({ children }) => {
               </span>
             )}
           </div>
-          <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
-            {element.name}
-          </span>
+          {!collaps && (
+            <span className="flex ml-3 whitespace-nowrap text-sm font-normal">
+              {element.name}
+            </span>
+          )}
         </Link>
         {/* </div> */}
       </li>
@@ -443,10 +450,11 @@ const Sidebar = ({ children }) => {
             </div>
           </div>
           {show && (
-            <div 
+            <div
               className="block  sm:hidden lg:hidden md:hidden items-centerjustify-between text-white z-[999999]  w-full md:w-auto md:order-1"
               id="navbar-cta"
             >
+
               <ul className="space-y-2 font-medium  w-full relative mb-4">
                 {SideBarRoutes.map((element, key) =>
                   sendSideBarDetails(element, key)
@@ -468,34 +476,40 @@ const Sidebar = ({ children }) => {
 
         <aside
           id="logo-sidebar"
-          className="fixed  top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-sidebar border-r border-gray-200 sm:translate-x-0 flex flex-col"
+          className={`fixed  top-0 left-0 z-40 ${collaps ? "w-16 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"}  h-screen pt-20 bg-sidebar border-r border-gray-200 flex flex-col`}
           aria-label="Sidebar"
         >
           <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
+
             <ul className="space-y-2 font-medium  w-full relative">
+              {/* <li className="flex items-center justify-end cursor-pointer">
+                {!collaps ? <ChevronDoubleDownIcon className="h-6 w-6 text-white " onClick={(e) => { setCollaps(prev => !prev) }} /> : <ChevronDoubleRightIcon className="h-6 w-6 text-white " onClick={(e) => { setCollaps(prev => !prev) }} />}
+              </li> */}
               {SideBarRoutes.map((element, key) =>
                 sendSideBarDetails(element, key)
               )}
             </ul>
-            <div className="absolute bottom-0 w-[90%] text-sm mb-5">
-              <ul className="space-y-2 font-medium flex flex-col ">
-                <li>
-                  <a
-                    href={"mailto:team@usetempo.ai"}
-                    className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
-                  >
-                    <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />
-                    <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">
-                      Get Support
-                    </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
+            {!collaps && (
+              <div className="absolute bottom-0 w-[90%] text-sm mb-5">
+                <ul className="space-y-2 font-medium flex flex-col ">
+                  <li>
+                    <a
+                      href={"mailto:team@usetempo.ai"}
+                      className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
+                    >
+                      <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />
+                      <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">
+                        Get Support
+                      </span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </aside>
 
-        <div className="sm:p-4 md:p-4 lg:p-4 sm:ml-64 ">
+        <div className={`sm:p-4 md:p-4 lg:p-4 ${collaps ? 'sm:ml-20 transition-all duration-300 ease-in-out' : 'sm:ml-64 transition-all duration-300 ease-in-out'} `}>
           <div className="p-4  rounded-lg dark:border-gray-700 mt-14">
             {children}
           </div>

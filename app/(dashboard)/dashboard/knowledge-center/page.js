@@ -4,7 +4,7 @@ import { AcademicCapIcon, BookOpenIcon, CheckCircleIcon, LinkIcon, PlusCircleIco
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
-import { excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { GetAllRecommendations, excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,17 +25,16 @@ const Page = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
     const [tab, setTab] = useState(0);
-    const [openWorkflows, setOpenWorkflow] = useState(null)
     const [tabLoader, setTabLoader] = useState(true);
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [workflow, setWorkflow] = useState([])
+    console.log("state", state?.data?.count)
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
         if (response?.data?.results.length > 0) {
             setKnowledge(response?.data?.results)
-
 
             const botDataArray = response?.data?.results.map(entry => {
                 if (entry.bots.length === 0) {
@@ -146,7 +145,6 @@ const Page = () => {
             const excludeRecord = await excludeRecommendationRecord(questionId);
             if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
-                setOpenWorkflow(null)
             } else {
             }
         }
@@ -209,8 +207,9 @@ const Page = () => {
                             wrapperClass="text-center"
                             visible={true}
                         /> :
-                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                        <div>
+                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                                <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
                     }
                     {updateLoader === row.id ?
                         <ColorRing
@@ -222,29 +221,13 @@ const Page = () => {
                             wrapperClass="text-center"
                             visible={true}
                         /> :
-                        <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
-                            <CheckCircleIcon className="h-6 w-6 text-success " />
-                        </button>
+                        <div>
+                            <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
+                                <CheckCircleIcon className="h-6 w-6 text-success " />
+                            </button>
+                        </div>
                     }
-                    <button type="button" onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
-                            <PlusCircleIcon className="h-6 w-6 text-success " />
-
-                        </button>
-                    <div className="relative" >
-                        
-                        {openWorkflows === row.id && (
-                            <div className={`absolute left-[-315px] top-[34px]  sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
-                                {workflow.length > 0 ?
-                                    <ul className="py-2 text-sm text-gray-700 ">
-                                        {workflow.map((ele, key) =>
-                                            <li className='hover:bg-primary hover:text-white text-heading my-2' key={key} onClick={() => handleWorkflow(ele, row.id)}>
-                                                <button type='button' className="block px-4 py-2 ">{ele.name}</button>
-                                            </li>
-                                        )}
-                                    </ul> : <small>No data found!</small>}
-                            </div>
-                        )}
-                    </div>
+                    <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} />
 
                 </div>
             ),
@@ -254,7 +237,13 @@ const Page = () => {
             },
         },
     ];
-
+    const handleRecomodationValue = async (page) => {
+        const response = await GetAllRecommendations(page)
+        if(response){
+            const result = response?.results?.filter((item) => !item.accepted);
+            dispatch(editRecommendation( { ...response, totalCount: response?.result?.length }))
+        }
+    }
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -303,7 +292,13 @@ const Page = () => {
                                     columns={columns}
                                     noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                     data={state?.data?.results}
-                                    
+                                    paginationPerPage={10}
+                                    paginationTotalRows={state?.data?.count}
+                                    paginationServer
+                                    onChangePage={(page) => {
+                                        handleRecomodationValue(page)
+                                    }}
+
 
                                 />
                             </div>
@@ -321,3 +316,52 @@ const Page = () => {
 };
 
 export default Page;
+
+
+
+
+export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
+    const divRef = useRef(null);
+
+    const [openWorkflows, setOpenWorkflow] = useState(null)
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setOpenWorkflow(null);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+
+    return (
+        <>
+            <div className='cursor-pointer relative' ref={divRef} onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
+                <button type="button">
+                    <PlusCircleIcon className="h-6 w-6 text-success " />
+
+                </button>
+                <div className="relative" >
+
+                    {openWorkflows === row.id && (
+                        <div className={`absolute left-[-315px] top-[34px]  sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                            {workflow.length > 0 ?
+                                <ul className="py-2 text-sm text-gray-700 ">
+                                    {workflow.map((ele, key) =>
+                                        <li className='hover:bg-primary hover:text-white text-heading my-2' key={key} onClick={() => handleWorkflow(ele, row.id)}>
+                                            <button type='button' className="block px-4 py-2 ">{ele.name}</button>
+                                        </li>
+                                    )}
+                                </ul> : <small>No data found!</small>}
+                        </div>
+                    )}
+                </div>
+            </div>
+        </>
+    )
+
+}

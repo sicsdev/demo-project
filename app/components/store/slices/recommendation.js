@@ -10,7 +10,7 @@ export const fetchRecommendation = createAsyncThunk('recommendation/fetchRecomme
 
 const handleCount = (data) => {
     const result = data?.results?.filter((item) => !item.accepted);
-    return { ...data, count: result?.length };
+    return { ...data, totalCount: result?.length };
 }
 
 export const recommendationSlice = createSlice({
@@ -18,7 +18,7 @@ export const recommendationSlice = createSlice({
     initialState,
     reducers: {
         editRecommendation: (state, action) => {
-            return {...state,data:{...state.data,results:action.payload}}
+            return { ...state, data: action.payload }
         },
     },
     extraReducers: (builder) => {
@@ -40,7 +40,7 @@ export const recommendationSlice = createSlice({
     },
 })
 
-export const { editRecommendation,newRecodAction } = recommendationSlice.actions;
+export const { editRecommendation } = recommendationSlice.actions;
 export default recommendationSlice.reducer;
 
 
