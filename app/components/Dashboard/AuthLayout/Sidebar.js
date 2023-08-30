@@ -482,9 +482,9 @@ const Sidebar = ({ children }) => {
           <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
 
             <ul className="space-y-2 font-medium  w-full relative">
-              {/* <li className="flex items-center justify-end cursor-pointer">
+              <li className="flex items-center justify-end cursor-pointer">
                 {!collaps ? <ChevronDoubleDownIcon className="h-6 w-6 text-white " onClick={(e) => { setCollaps(prev => !prev) }} /> : <ChevronDoubleRightIcon className="h-6 w-6 text-white " onClick={(e) => { setCollaps(prev => !prev) }} />}
-              </li> */}
+              </li>
               {SideBarRoutes.map((element, key) =>
                 sendSideBarDetails(element, key)
               )}
