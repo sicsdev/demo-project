@@ -80,12 +80,12 @@ const Nav = () => {
                     setShowmenu(false);
                   }}
                 >
-                  <Link
+                  <a
                     href={element.link}
                     className="sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 "
                   >
                     {element.name}
-                  </Link>
+                  </a>
                   {element.card.links.length > 0 && (
                     <Card
                       className={`animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white ${
