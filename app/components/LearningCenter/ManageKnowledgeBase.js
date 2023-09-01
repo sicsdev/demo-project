@@ -146,7 +146,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             reorder: true,
             cell: (row) => (
                 <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
-                    {row.active ? "Active" : "Disable"}
+                    {row.active ? "Active" : "Disabled"}
                 </span>
             ),
         },
@@ -236,6 +236,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         }
 
         const response = await createNewKnowledge(payload)
+        console.log("response=>",response);
         if (response.status === 201) {
             setCreateModal(false)
             setLoading(false)
@@ -519,7 +520,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManageWorkflow Builder
+                <UrlManagement Builder
                 ment hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
