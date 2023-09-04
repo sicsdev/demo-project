@@ -18,6 +18,7 @@ import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
 
 const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
+    console.log("=>",knowledge);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);

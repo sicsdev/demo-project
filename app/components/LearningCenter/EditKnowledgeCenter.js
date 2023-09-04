@@ -21,6 +21,7 @@ const EditKnowledgeCenter = ({
   knowledge,
   hideComponent,
 }) => {
+
   const [content, setContent] = useState(singleKnowledgeData?.content ?? "");
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e) => {
@@ -225,21 +226,21 @@ const EditKnowledgeCenter = ({
                   </div>
                 </div>
 
-                {/* {singleKnowledgeData?.faqs &&
+                {singleKnowledgeData?.faqs &&
                   singleKnowledgeData?.faqs.map((faq,i) => (
                     <div className="shadow-xl sm:my-7  w-full mt-2 sm:m-0">
                       <div className="grid grid-cols-[10%,80%,10%] forBoredr bottom-2 ">
                         <div className="border text-center">{++i}</div>
                         <div className="border">{faq.question}</div>
                         <div className="border text-center">
-                          <TrashIcon className="h-6 w-6 text-gray-500 cursor-pointer"  onClick={()=>deleteKnowledgeFAQ(faq.id)} />
+                          <TrashIcon className="h-6 w-6 text-gray-500 cursor-pointer"  onClick={()=>deleteKnowledgeFAQ(singleKnowledgeData.id,faq.id)} />
                         </div>
                       </div>
                       <div className="border forBoredrbtm !w-[100%]">
                         <p className="text-[#7c8388]">{faq.answer}</p>
                       </div>
                     </div>
-                  ))} */}
+                  ))}
               </div>
               <div className="mt-2">
                 {singleKnowledgeData.source === "snippet" && (
