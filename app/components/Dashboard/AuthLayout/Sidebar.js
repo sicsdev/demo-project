@@ -476,7 +476,7 @@ const Sidebar = ({ children }) => {
 
         <aside
           id="logo-sidebar"
-          className={`fixed  top-0 left-0 z-40 ${collaps ? "w-16 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"}  h-screen pt-20 bg-sidebar border-r border-gray-200 flex flex-col`}
+          className={`hidden sm:block fixed top-0 left-0 z-40 ${collaps ? "w-16 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"}  h-screen pt-20 bg-sidebar border-r border-gray-200 flex flex-col`}
           aria-label="Sidebar"
         >
           <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebar  text-white">
