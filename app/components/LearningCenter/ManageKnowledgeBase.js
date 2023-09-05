@@ -538,4 +538,3 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 
 export default ManageKnowledgeBase
 
-

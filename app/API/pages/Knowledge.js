@@ -42,3 +42,15 @@ export const updateKnowledgeRecord = async (body, id) => {
         return error.response.data
     }
 }
+
+export const deleteKnowledgeFAQ = async (id, faqid) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/knowledge/${id}/faqs/${faqid}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+ 
