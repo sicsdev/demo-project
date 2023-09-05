@@ -16,9 +16,9 @@ import { errorMessage, successMessage } from '../Messages/Messages';
 import SkeletonLoader from '../Skeleton/Skeleton';
 import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
+import './ManageKnowledgeBase.css'
 
 const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
-    console.log("=>",knowledge);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);
@@ -168,11 +168,12 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             name: "Bots",
             selector: (row) => row.bots,
             sortable: true,
-            width: "350px",
+            width: "",
             reorder: true,
             cell: (row, index) =>
-                <div className="w-full">
+                <div className="">
                     <Multiselect
+                        className=''
                         options={basicFormData?.bots ?? []}
                         selectedValues={basicFormData.selectedBot ? basicFormData?.selectedBot[index] : []}
                         onSelect={(selectedList, selectedItem) => {
@@ -186,6 +187,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                         placeholder={basicFormData?.selectedBot && basicFormData?.selectedBot[index]?.length === basicFormData?.bots?.length ? '' : "Select Bots"}
                         displayValue="name"
                         closeOnSelect={true}
+                        showArrow={false}
                     /></div>,
         },
         {
@@ -237,7 +239,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         }
 
         const response = await createNewKnowledge(payload)
-        console.log("response=>",response);
         if (response.status === 201) {
             setCreateModal(false)
             setLoading(false)
@@ -521,8 +522,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManagement Builder
-                ment hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
+                <UrlManageWorkflow Builder
+                    ment hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
                 <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
@@ -536,5 +537,4 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 }
 
 export default ManageKnowledgeBase
-
 

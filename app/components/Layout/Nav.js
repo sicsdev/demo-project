@@ -11,8 +11,10 @@ import { nav_links } from "./data/navData";
 import Banner from "./Banner";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import VerifyEmailBanner from "./VerifyEmailBanner";
+import { usePathname } from "next/navigation";
 
 const Nav = () => {
+  const pathname = usePathname();
   const [show, setShow] = useState(false);
   const [showmenu, setShowmenu] = useState(false);
 
@@ -28,9 +30,12 @@ const Nav = () => {
       });
   }, []);
 
+  // const isMobile = window.innerWidth <= 768;
+
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
+
       const footer = document.getElementById("footer");
       const footerPosition = footer?.getBoundingClientRect().top;
       const viewportHeight = window.innerHeight;
@@ -51,11 +56,10 @@ const Nav = () => {
     <>
       <nav
         id="header"
-        className={` ${
-          shouldHideHeader
-            ? "hidden"
-            : "sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200"
-        }`}
+        className={` ${shouldHideHeader && pathname !== "/login"
+          ? "hidden"
+          : "sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200"
+          }`}
       >
         {!profile.email && <Banner />}
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
@@ -88,9 +92,8 @@ const Nav = () => {
                   </a>
                   {element.card.links.length > 0 && (
                     <Card
-                      className={`animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white ${
-                        showmenu ? "desk_headermenupopup" : ""
-                      }`}
+                      className={`animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                        }`}
                     >
                       <List
                         className={"grid grid-cols-2 gap-8"}
