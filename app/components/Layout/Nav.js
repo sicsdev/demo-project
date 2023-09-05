@@ -34,6 +34,7 @@ const Nav = () => {
 
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
   useEffect(() => {
+    setShouldHideHeader(false);
     const handleScroll = () => {
       if (pathname !== '/login') {
         const footer = document.getElementById("footer");
@@ -46,6 +47,8 @@ const Nav = () => {
         } else {
           setShouldHideHeader(false);
         }
+      } else {
+        setShouldHideHeader(false);
       }
     };
     window.addEventListener("scroll", handleScroll);
