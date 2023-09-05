@@ -26,8 +26,8 @@ body input[type='number']:focus,
 body input[type='email']:focus,
 body input[type='password']:focus,
 body textarea:focus {
-  outline: 1px solid #86b7fe;
-  border: 1px solid transparent;
+  outline: 1px solid transparent;
+  border: 2px solid rgb(19 95 194);
 }
 
 
