@@ -34,19 +34,15 @@ const Nav = () => {
 
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
   useEffect(() => {
-    setShouldHideHeader(false);
     const handleScroll = () => {
-      if (pathname !== '/login') {
-        const footer = document.getElementById("footer");
-        const footerPosition = footer?.getBoundingClientRect().top;
-        const viewportHeight = window.innerHeight;
-        const header = document.getElementById("header");
-        const headerPosition = header?.getBoundingClientRect().top;
-        if (footerPosition <= viewportHeight && footerPosition > 0) {
-          setShouldHideHeader(true);
-        } else {
-          setShouldHideHeader(false);
-        }
+
+      const footer = document.getElementById("footer");
+      const footerPosition = footer?.getBoundingClientRect().top;
+      const viewportHeight = window.innerHeight;
+      const header = document.getElementById("header");
+      const headerPosition = header?.getBoundingClientRect().top;
+      if (footerPosition <= viewportHeight && footerPosition > 0) {
+        setShouldHideHeader(true);
       } else {
         setShouldHideHeader(false);
       }
@@ -60,7 +56,7 @@ const Nav = () => {
     <>
       <nav
         id="header"
-        className={` ${shouldHideHeader
+        className={` ${shouldHideHeader && pathname !== "/login"
           ? "hidden"
           : "sticky top-0 start-0 z-[999999] sm:z-50 w-full  shadow-xl bg-white border-gray-200"
           }`}
