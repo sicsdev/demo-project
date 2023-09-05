@@ -31,7 +31,7 @@ const Nav = () => {
   }, []);
 
   // const isMobile = window.innerWidth <= 768;
-  const userAgent = navigator.userAgent.toLowerCase();
+  const userAgent = window?.navigator.userAgent.toLowerCase();
   const isUserAgentMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 
   const [shouldHideHeader, setShouldHideHeader] = useState(false);
