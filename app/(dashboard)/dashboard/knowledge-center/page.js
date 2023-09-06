@@ -194,40 +194,55 @@ const Page = () => {
             ),
         },
         {
+            name: "Accepted",
+            selector: (row) => <p className=' whitespace-normal'>{row.accepted === true ? 'Yes' : 'No'}</p>,
+            sortable: true,
+            reorder: true,
+            style: {
+                // width: '20%',
+                // justifyContent: 'end'
+            },
+        },
+        {
             name: "",
             cell: (row) => (
                 <div className="flex justify-center gap-4 ml-5" >
-                    {deleteLoader === row.id ?
-                        <ColorRing
-                            height="30"
-                            width="30"
-                            color="#4fa94d"
-                            ariaLabel="tail-spin-loading"
-                            radius="1"
-                            wrapperClass="text-center"
-                            visible={true}
-                        /> :
-                        <div>
-                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
-                    }
-                    {updateLoader === row.id ?
-                        <ColorRing
-                            height="30"
-                            width="30"
-                            color="#4fa94d"
-                            ariaLabel="tail-spin-loading"
-                            radius="1"
-                            wrapperClass="text-center"
-                            visible={true}
-                        /> :
-                        <div>
-                            <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
-                                <CheckCircleIcon className="h-6 w-6 text-success " />
-                            </button>
-                        </div>
-                    }
-                    <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} />
+                    {
+                        row?.accepted === false && (
+                            <>
+                                {deleteLoader === row.id ?
+                                    <ColorRing
+                                        height="30"
+                                        width="30"
+                                        color="#4fa94d"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperClass="text-center"
+                                        visible={true}
+                                    /> :
+                                    <div>
+                                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                                            <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
+                                }
+                                {updateLoader === row.id ?
+                                    <ColorRing
+                                        height="30"
+                                        width="30"
+                                        color="#4fa94d"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperClass="text-center"
+                                        visible={true}
+                                    /> :
+                                    <div>
+                                        <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
+                                            <CheckCircleIcon className="h-6 w-6 text-success " />
+                                        </button>
+                                    </div>
+                                }
+                                <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} />
+                            </>
+                        )}
 
                 </div>
             ),
@@ -239,9 +254,9 @@ const Page = () => {
     ];
     const handleRecomodationValue = async (page) => {
         const response = await GetAllRecommendations(page)
-        if(response){
+        if (response) {
             const result = response?.results?.filter((item) => !item.accepted);
-            dispatch(editRecommendation( { ...response, totalCount: response?.result?.length }))
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
         }
     }
     return (

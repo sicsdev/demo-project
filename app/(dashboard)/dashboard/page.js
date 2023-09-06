@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChevronUpIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 import Button from '@/app/components/Common/Button/Button';
 import Modal from '@/app/components/Common/Modal/Modal';
@@ -15,6 +15,7 @@ import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
 import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting';
 import { createEnterpriseAccount, enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService';
 import { useRouter } from 'next/navigation';
+import QuickStart from '@/app/components/Dashboard/QuickStart';
 
 const Page = () => {
     const router = useRouter()
@@ -99,6 +100,7 @@ const Page = () => {
 
                 </ul>
             </div>
+            <QuickStart />
             <div className='block sm:flex md:flex lg:flex justify-end items-center mt-4'>
                 {skeleton ? <SkeletonLoader /> :
                     <div>
@@ -112,7 +114,7 @@ const Page = () => {
             </div>
             <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
             {showModal === true ?
-                <Modal  alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
+                <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
                     title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
                     showCancel={true}>
                     <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
