@@ -9,7 +9,7 @@ import Multiselect from 'multiselect-react-dropdown'
 
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData }) => {
     const DisablingButton = () => {
-        const requiredKeys = ["description", "name"];
+        const requiredKeys = ["description", "name"];3
         return requiredKeys.some(
             (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
         );
@@ -32,24 +32,6 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
             <div className='mt-2 '>
                 <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={workflowFormData.description} onChange={handleInputValue} title={"Description"} />
             </div>
-            {/* <div className='my-2'>
-                <TextField
-                    onChange={handleInputValue}
-                    value={workflowFormData.policy_name}
-                    name="policy_name"
-                    className="py-3 w-full mt-1"
-                    title={<span className='flex items-center gap-2'>Policy Name</span>}
-                    placeholder={"Policy Name"}
-                    type={"text"}
-                    id={"policy_name"}
-                />
-            </div>
-            <div className='mt-2 '>
-                <TextArea name='policy_description' placeholder={"Policy Description"} id={"policy_description"} value={workflowFormData.policy_description} onChange={handleInputValue} title={"Policy Description"} />
-            </div>
-            <div className='mt-2 '>
-                <TextArea name='policy_exceptions' placeholder={"Policy Exceptions"} id={"policy_exceptions"} value={workflowFormData.policy_exceptions} onChange={handleInputValue} title={'Policy Exceptions'} />
-            </div> */}
             <div className="my-2">
                 <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
                     <div className='flex items-center gap-2'><span>Bot Selector</span>  </div>
