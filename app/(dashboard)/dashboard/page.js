@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { AdjustmentsHorizontalIcon, ChevronUpIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChevronUpIcon, ShoppingCartIcon, UsersIcon } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 import Button from '@/app/components/Common/Button/Button';
 import Modal from '@/app/components/Common/Modal/Modal';
@@ -25,6 +25,9 @@ const Page = () => {
     const dispatch = useDispatch()
     const [basicFormData, setBasicFormData] = useState({})
     const [skeleton, setSkeleton] = useState(true)
+
+    const [tab, setTab] = useState(0);
+
     const SubmitForm = async () => {
         setLoading(true)
         let payload = {
@@ -92,53 +95,69 @@ const Page = () => {
         <div>
             <div className="border-b border-primary dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                    <li className="mr-2">
-                        <a href="#" className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
-                            <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" /> View Agents
-                        </a>
+                    <li className="mr-2" onClick={() => { setTab(0) }}>
+                        <span
+                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                            aria-current="page"
+                        >
+                            <UsersIcon className="h-6 w-6 text-primary" /> Manage Team
+                        </span>
+                    </li>
+                    <li className="mr-2" onClick={() => { setTab(1) }}>
+                        <span
+                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                            aria-current="page"
+                        >
+                            <AdjustmentsHorizontalIcon className="h-6 w-6 text-primary" /> View Agents
+                        </span>
                     </li>
 
                 </ul>
             </div>
-            <QuickStart />
-            <div className='block sm:flex md:flex lg:flex justify-end items-center mt-4'>
-                {skeleton ? <SkeletonLoader /> :
-                    <div>
-                        <Button type={"button"} onClick={(e) => { setShowModal(true) }}
-                            className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                        >
-                            Create New Agent
-                        </Button>
-                    </div>
-                }
-            </div>
-            <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
-            {showModal === true ?
-                <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
-                    title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
-                    showCancel={true}>
-                    <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                    <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                    <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-
-                    {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
-                    <div className={`flex  p-2 rounded-b mt-5  justify-end`}>
-                        {loading ? <LoaderButton /> :
-                            <>
-                                <Button type={"button"}
-                                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
-                                    disabled={DisablingButton()}
-                                    onClick={(e) => SubmitForm()}
+            {tab === 0 && (
+                <QuickStart />
+            )}
+            {tab === 1 && (
+                <>
+                    <div className='block sm:flex md:flex lg:flex justify-end items-center mt-4'>
+                        {skeleton ? <SkeletonLoader /> :
+                            <div>
+                                <Button type={"button"} onClick={(e) => { setShowModal(true) }}
+                                    className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
                                 >
-                                    Submit
-
+                                    Create New Agent
                                 </Button>
-
-                            </>}
+                            </div>
+                        }
                     </div>
-                </Modal> : ""
-            }
+                    <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
+                    {showModal === true ?
+                        <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
+                            title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
+                            showCancel={true}>
+                            <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
+                            <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
+                            <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
 
+                            {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
+                            <div className={`flex  p-2 rounded-b mt-5  justify-end`}>
+                                {loading ? <LoaderButton /> :
+                                    <>
+                                        <Button type={"button"}
+                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                            disabled={DisablingButton()}
+                                            onClick={(e) => SubmitForm()}
+                                        >
+                                            Submit
+
+                                        </Button>
+
+                                    </>}
+                            </div>
+                        </Modal> : ""
+                    }
+                </>
+            )}
         </div>
     );
 }
