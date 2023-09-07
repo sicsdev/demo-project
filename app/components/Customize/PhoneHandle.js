@@ -16,6 +16,7 @@ import { ToastContainer } from 'react-toastify';
 const PhoneHandle = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state.botId);
+    console.log("state", state)
     const [botValue, setBotValue] = useState([]);
     const [basicFormData, setBasicFormData] = useState([])
     const [phoneNumbers, setPhoneNumbers] = useState(null);
@@ -54,9 +55,11 @@ const PhoneHandle = () => {
         }
     }, [state.botData.data]);
 
+    
     const EnterprisePhoneNumber = async () => {
         setPageLoading(true)
         const response = await getMyPhoneNumbers()
+        debugger
         if (response?.results?.length > 0) {
             setPhoneNumbers(response);
             let data = response.results[0]?.bots.map((ele, key) => {
@@ -158,7 +161,7 @@ const PhoneHandle = () => {
                 break;
         }
 
-
+        debugger
         const response = await updatePhoneNumberData(payload, id)
         if (response.status === 200) {
             if (type === "phone") {
@@ -198,8 +201,8 @@ const PhoneHandle = () => {
                             <div className='flex justify-between items-center gap-4'>
                                 {/* <div><PhoneIcon className="h-8 w-8" /></div> */}
                                 <div>
-                                    <h3 className='text-normal font-semibold text-heading'>Phone Menu</h3>
-                                    <p className='text-sm text-border font-normal'>Configure a custom phone menu callers can navigate</p>
+                                    <h3 className='text-sm font-semibold text-heading'>Phone Menu</h3>
+                                    <p className='text-xs text-border font-normal'>Configure a custom phone menu callers can navigate</p>
                                 </div>
 
                             </div>
@@ -208,7 +211,7 @@ const PhoneHandle = () => {
                             </div>
                         </div>
                         <div className='p-5'>
-                            <h3 className='text-normal font-semibold text-heading'>Greeting message</h3>
+                            <h3 className='text-sm font-semibold text-heading'>Greeting message</h3>
                             <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
                                 <div className='w-full sm:w-[80%] md:w-[80%] lg:w-[80%]'>
 
@@ -225,7 +228,7 @@ const PhoneHandle = () => {
                                 </div>
                                 <Button
                                     type={"button"}
-                                    className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                    className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                     disabled={basicField?.greeting === '' || greetingLoading === true}
                                     onClick={() => SubmitForm("greeting")}
                                 >
@@ -237,8 +240,8 @@ const PhoneHandle = () => {
                         <div className='px-5'>
                             <div className='flex justify-between items-center'>
                                 <div>
-                                    <h3 className='text-normal font-semibold text-heading'>Enable Phone Menu</h3>
-                                    <p className='text-sm font-normal text-border'>Enable if you want different bots to respond depending on customer query.</p>
+                                    <h3 className='text-sm font-semibold text-heading'>Enable Phone Menu</h3>
+                                    <p className='text-xs font-normal text-border'>Enable if you want different bots to respond depending on customer query.</p>
                                 </div>
                                 <div>
                                     <label className="switch">
@@ -252,8 +255,8 @@ const PhoneHandle = () => {
                         <div className='p-5'>
                             <div className='flex justify-between items-center'>
                                 <div className=''>
-                                    <h3 className='text-normal font-semibold text-heading'>Menu Options</h3>
-                                    <p className='text-sm font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
+                                    <h3 className='text-sm font-semibold text-heading'>Menu Options</h3>
+                                    <p className='text-xs font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
                                 </div>
                                 <div>
 
@@ -359,7 +362,7 @@ const PhoneHandle = () => {
                                 <div className='flex my-2 justify-end'>
                                     <Button
                                         type={"button"}
-                                        className=" inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                        className=" inline-block rounded bg-primary px-6 pb-2.5 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                         // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
                                         onClick={(e) => SubmitForm("phone")}
                                         disabled={basicFormData.some(

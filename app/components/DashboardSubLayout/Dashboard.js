@@ -8,6 +8,7 @@ import { fetchRecommendation } from '../store/slices/recommendation'
 import { fetchIntegrations } from '../store/slices/integrationSlice'
 import { fetchWorkflows } from '../store/slices/workflowSlice'
 import { fetchIntegrationsTemplates } from '../store/slices/integrationTemplatesSlice'
+import NewSidebar from '../Dashboard/AuthLayout/NewSidebar'
 
 const Dashboard = ({ children }) => {
     const dispatch = useDispatch()
@@ -25,9 +26,9 @@ const Dashboard = ({ children }) => {
             {state ?
                 <Intake />
                 :
-                <Sidebar>
+                <NewSidebar>
                     {children}
-                </Sidebar>
+                </NewSidebar>
             }
         </>
     )

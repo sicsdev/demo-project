@@ -74,10 +74,10 @@ const Logs = () => {
           <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
             <li className="mr-2">
               <span
-                className=" flex justify-start gap-2 cursor-pointer items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                className=" flex justify-start gap-2 cursor-pointer items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
                 aria-current="page"
               >
-                <CloudIcon className="h-6 w-6 text-gray-500" /> View Logs
+                <CloudIcon className="h-5 w-5 text-gray-500" /> View Logs
               </span>
             </li>
           </ul>
@@ -108,7 +108,7 @@ const Logs = () => {
           }}
           pagination
            className='data-table-class'
-          noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+          noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
           paginationPerPage={7}
           columns={columns}
           data={conversationData}

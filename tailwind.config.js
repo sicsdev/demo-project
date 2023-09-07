@@ -98,7 +98,10 @@ module.exports = {
       skyblue: "#d8e4fa",
       red: "#dc2626",
       label: "#59f2f6",
-      fade_text:"#000000db"
+      fade_text: "#000000db",
+      sidebarbg:"#151D23",
+      sidebarroute:"#1C252B",
+      sidebarsubroute:"#232D32"
     },
     extend: {
       gridTemplateColumns: {
@@ -118,8 +121,9 @@ module.exports = {
           "linear-gradient(to right, rgb(199, 210, 254), rgb(254, 202, 202), rgb(254, 249, 195))",
         "type-above": "linear-gradient(90deg,#09162A,#293445,white  )      ",
         "type-mobile": "linear-gradient(180deg,#09162A,#293445,white  )      ",
+        "sidebar-hover": "radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%)",
         "home-above":
-          "linear-gradient(       340.76deg          ,#2250f4 40.7%,#230a5c 80.03%)",
+          "linear-gradient(340.76deg,#2250f4 40.7%,#230a5c 80.03%)",
       },
       fontSize: {
         h1: "55px",
@@ -143,6 +147,7 @@ module.exports = {
         "clash-regular": ["ClashDisplay-Regular"],
         "clash-medium": ["ClashDisplay-Medium"],
         "clash-semibold": ["ClashDisplay-Semibold"],
+        "Inter": ["Inter", "sans-serif"],
         "clash-bold": ["ClashDisplay-Bold"],
       },
       keyframes: {

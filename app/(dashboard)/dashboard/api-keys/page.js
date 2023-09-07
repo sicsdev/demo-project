@@ -82,10 +82,10 @@ const Keys = () => {
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li className="mr-2">
             <span
-              className=" flex justify-start gap-2 items-center cursor-pointer p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+              className=" flex justify-start gap-2 items-center cursor-pointer py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
               aria-current="page"
             >
-              <KeyIcon className="h-6 w-6 text-gray-500" /> Api keys
+              <KeyIcon className="h-5 w-5 text-gray-500" /> Api keys
             </span>
           </li>
         </ul>
@@ -125,7 +125,7 @@ const Keys = () => {
               id={"key"}
             />
           </div>
-          <Button type="button" onClick={() => { submitForm() }} className="my-2 inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]" disabled={DisablingButton()}>{btnLoading ? "Loading..." : "Save"}</Button>
+          <Button type="button" onClick={() => { submitForm() }} className="my-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]" disabled={DisablingButton()}>{btnLoading ? "Loading..." : "Save"}</Button>
         </Modal>
       )}
 

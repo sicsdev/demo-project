@@ -330,7 +330,7 @@ const GetStarted = () => {
 
         if (type === "PUBLISH") {
           dispatch(editAutomationValue(null))
-          successMessage("WorkFlow Published Successfully!");
+          successMessage("Workflow is now active!");
         } else if (type === "DISABLE") {
           successMessage("Workflow Disabled Successfully");
         } else if (type === "EDIT") {
@@ -597,7 +597,6 @@ const GetStarted = () => {
 
     return result;
   };
-
   return (
     <>
       {isLoading === true ?
@@ -615,14 +614,17 @@ const GetStarted = () => {
                       </div>
                     </Link>
                   </div>
-                  <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
-                    <Image
-                      fill={"true"}
-                      className="bg-contain mx-auto w-full rounded-lg"
-                      alt="logo.png"
-                      src={singleData?.logo ?? '/workflow/reactive-subscription.png'}
-                    />
-                  </div>
+                  {singleData?.icon ? singleData?.icon :
+                    <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
+
+                      <Image
+                        fill={"true"}
+                        className="bg-contain mx-auto w-full rounded-lg"
+                        alt="logo.png"
+                        src={'/workflow/reactive-subscription.png'}
+                      />
+                    </div>
+                  }
                   <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => {
                     setWorkFlowFormData((prev) => {
                       return {
@@ -654,7 +656,7 @@ const GetStarted = () => {
                     <Button
                       type={"button"}
                       onClick={(e) => publishModelHandler(e)}
-                      className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                      className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                       disabled={automationStepsData.length === 0}
                     >
                       {automationState ? "Save" : singleData.active ? "Move To Draft" : "Publish"}
@@ -664,11 +666,11 @@ const GetStarted = () => {
                     {showHelp && (
                       <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
                         <ul className="py-2 text-sm text-gray-700 ">
-                          {singleData?.active && (
+                          {/* {singleData?.active && (
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler('DISABLE')}>
                               <button type='button' className="block px-4 py-2 ">Disable</button>
                             </li>
-                          )}
+                          )} */}
                           <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
                             <a className="block px-4 py-2 ">Delete</a>
                           </li>
@@ -762,7 +764,7 @@ const GetStarted = () => {
                 <div className="flex items-center justify-between">
                   <Button
                     type={"submit"}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                   >
                     Edit
                   </Button>
@@ -867,12 +869,12 @@ const GetStarted = () => {
                     type={"button"}
                     disabled={areValuesEmpty() || rulesLoader}
                     onClick={() => addConditionalStepHandler()}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                   >
                     {rulesLoader ? "Loading..." : "Save"}
                   </Button>
                   <Button
-                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
                     onClick={() => { setRuleModal(false) }}
                   >
                     Cancel
@@ -901,12 +903,12 @@ const GetStarted = () => {
                     type={"button"}
                     disabled={DisablingButton() || rulesLoader}
                     onClick={() => addConditionalStepHandler({ value: "DEFLECTION" })}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                   >
                     {rulesLoader ? "Loading..." : "Save"}
                   </Button>
                   <Button
-                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-heading border border-border "
+                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
                     onClick={() => { setDeflectionModal(false) }}
                   >
                     Cancel
