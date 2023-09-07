@@ -97,18 +97,18 @@ const Page = () => {
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                     <li className="mr-2" onClick={() => { setTab(0) }}>
                         <span
-                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                             aria-current="page"
                         >
-                            <UsersIcon className="h-6 w-6 text-primary" /> Manage Team
+                            <UsersIcon className="h-5 w-5 text-primary" /> Manage Team
                         </span>
                     </li>
                     <li className="mr-2" onClick={() => { setTab(1) }}>
                         <span
-                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center pl-2  py-2  ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                             aria-current="page"
                         >
-                            <AdjustmentsHorizontalIcon className="h-6 w-6 text-primary" /> View Agents
+                            <AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" /> View Agents
                         </span>
                     </li>
 
@@ -119,11 +119,11 @@ const Page = () => {
             )}
             {tab === 1 && (
                 <>
-                    <div className='block sm:flex md:flex lg:flex justify-end items-center mt-4'>
+                    <div className=' sm:px-5 md:px-5 lg:px-5 block sm:flex md:flex lg:flex justify-end items-center mt-4'>
                         {skeleton ? <SkeletonLoader /> :
                             <div>
                                 <Button type={"button"} onClick={(e) => { setShowModal(true) }}
-                                    className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                    className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
                                 >
                                     Create New Agent
                                 </Button>
@@ -133,7 +133,7 @@ const Page = () => {
                     <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
                     {showModal === true ?
                         <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
-                            title={<><ChatBubbleOvalLeftIcon className="w-10 h-10 mr-2" />Create New Widget</>}
+                            title={<><ChatBubbleOvalLeftIcon className="w-8 h-8 mr-2" />Create New Widget</>}
                             showCancel={true}>
                             <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                             <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
@@ -144,7 +144,7 @@ const Page = () => {
                                 {loading ? <LoaderButton /> :
                                     <>
                                         <Button type={"button"}
-                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                             disabled={DisablingButton()}
                                             onClick={(e) => SubmitForm()}
                                         >

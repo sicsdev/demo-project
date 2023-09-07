@@ -28,10 +28,10 @@ const page = () => {
                     <li className="mr-2">
                         <a
                             href="javascript:void(0)"
-                            className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+                            className=" flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
                             aria-current="page"
                         >
-                            <ClipboardIcon className="h-6 w-6 text-primary" /> Customer Inter
+                            <ClipboardIcon className="h-5 w-5 text-primary" /> Customer Inter
                         </a>
                     </li>
                 </ul>

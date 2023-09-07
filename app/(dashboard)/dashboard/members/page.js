@@ -38,10 +38,25 @@ const Page = () => {
 
   return (
     <div>
-      <div className="block sm:flex md:flex lg:flex justify-between items-center mb-2">
+      
+
+      <div className="border-b border-primary dark:border-gray-700">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <li className="mr-2">
+            <span
+              className=" flex justify-start gap-2 items-center cursor-pointer  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+              aria-current="page"
+            >
+              <UserGroupIcon className="h-5 w-5 text-gray-500" /> Invite and
+              manage team members
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div className="block sm:flex md:flex lg:flex justify-between items-center my-2">
         <div>
-          <h3 className="font-bold text-heading text-xl">Manage Team</h3>
-          <p className="text-heading font-normal text-normal">
+          <h3 className="font-bold text-heading text-sm">Manage Team</h3>
+          <p className="text-heading font-normal text-xs">
             Invite and manage team members to your account.
           </p>
         </div>
@@ -51,25 +66,11 @@ const Page = () => {
             onClick={(e) => {
               setTeamModal(true);
             }}
-            className="my-3 sm:my-0 md:my-0 lg:my-0 inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+            className="my-3 sm:my-0 md:my-0 lg:my-0 inline-block font-bold rounded bg-primary px-8 pb-2 pt-2 text-xs   leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
           >
             Invite Team Member
           </Button>
         </div>
-      </div>
-
-      <div className="border-b border-primary dark:border-gray-700">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          <li className="mr-2">
-            <span
-              className=" flex justify-start gap-2 items-center cursor-pointer p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-              aria-current="page"
-            >
-              <UserGroupIcon className="h-6 w-6 text-gray-500" /> Invite and
-              manage team members
-            </span>
-          </li>
-        </ul>
       </div>
       {state?.isLoading === true ? (
         <Loading />

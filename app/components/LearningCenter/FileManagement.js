@@ -32,20 +32,20 @@ const FileManagement = ({ createPdfModal, setCreatePdfModal, setCreateModal, bas
         >
             <div className=''>
                 <div className='border-b border-gray pb-5'>
-                    <h3 className='font-bold my-2'>File Upload</h3>
+                    <p className='font-semibold text-sm my-2'>File Upload</p>
                     <div className='block sm:flex items-center justify-between gap-8'>
                         <div>
-                            <FileUploader types={["pdf", "txt"]} handleChange={handleChange} name="file" />
+                            <FileUploader types={["pdf", "txt",""]} handleChange={handleChange} name="file"  />
                         </div>
                         <div className='pt-4 sm:pt-0'>
-                            <ul className='list-disc text-sm'>
+                            <ul className='list-disc text-xs'>
                                 <li>Support format is text PDF or txt in English. Images won't be scraped.</li>
                                 <li>Files with multiple text columns, encrypted or password protected are not supported.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <button onClick={(e) => handleSubmit({ type: 'FILE' })} type="button" className="my-2 flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true}>
+                <button onClick={(e) => handleSubmit({ type: 'FILE' })} type="button" className="my-2 flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true}>
                     {loading ? "Loading..." : "Save and close"}
                 </button>
             </div>

@@ -102,10 +102,10 @@ const UsageLimit = () => {
               <li className="mr-2">
                 <a
                   href="#"
-                  className=" flex justify-start gap-2 items-center p-4 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
+                  className=" flex justify-start gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
                   aria-current="page"
                 >
-                  <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />{" "}
+                  <CurrencyDollarIcon className="h-5 w-5 text-gray-500" />{" "}
                   Billing Threshold
                 </a>
               </li>
@@ -139,7 +139,7 @@ const UsageLimit = () => {
               ) : (
                 ""
               )}
-              <span className="absolute top-[10.2px] left-[14px] text-[12px]">$</span>
+              <span className="absolute top-[8px] left-[14px] text-[12px]">$</span>
             </div>
             <h3 className="font-bold text-base md:text-base lg:text-base sm:text-base sm:leading-none mt-2 text-heading">
               Current usage
@@ -163,7 +163,7 @@ const UsageLimit = () => {
               <>
                 <Button
                   type={"button"}
-                  className="inline-block mt-2 rounded bg-primary px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+                  className="inline-block mt-2 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                   // disabled={DisablingButton()}
                   onClick={(e) => SubmitForm()}
                 >

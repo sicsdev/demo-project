@@ -9,19 +9,19 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
     useEffect(() => {
         // if (alignment === 'items-center') {
         // if (hideOutslideClick === true) {
-            const handleClickOutside = (event) => {
-                if (divRef.current && !divRef.current.contains(event.target)) {
-                    setShow(false);
-                }
-            };
+        const handleClickOutside = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setShow(false);
+            }
+        };
 
-            // Attach event listener to the document
-            document.addEventListener('click', handleClickOutside, { capture: true });
+        // Attach event listener to the document
+        document.addEventListener('click', handleClickOutside, { capture: true });
 
-            // Clean up the event listener when the component unmounts
-            return () => {
-                document.removeEventListener('click', handleClickOutside, { capture: true });
-            };
+        // Clean up the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('click', handleClickOutside, { capture: true });
+        };
         // }
     }, []);
     return (
@@ -35,7 +35,10 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                                 {/*header*/}
                                 <div className={`flex items-center justify-between ${hr === true && ("py-3 border-b border-solid border-slate-200")} py-3 px-3 rounded-t`}>
 
-                                    <span className="flex items-center text-xl font-semibold sm:text-2xl whitespace-break-spaces sm:whitespace-nowrap text-heading">
+                                    <span
+                                        className={`flex justify-start cursor-pointer items-center  font-bold rounded-t-lg active `}
+                                        aria-current="page"
+                                    >
                                         {title}
                                     </span>
                                     {customHideButton === true ?

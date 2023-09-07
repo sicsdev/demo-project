@@ -133,6 +133,12 @@ const NewSidebar = ({ children }) => {
             notification: recommedState?.data?.count,
         },
         {
+          href: "/dashboard/manage-phones",
+          name: "Phone",
+          icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+          list: [],
+        },
+        {
             href: "/dashboard/analytics",
             name: "Reports",
             icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
@@ -171,12 +177,6 @@ const NewSidebar = ({ children }) => {
             icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
             list: [],
         },
-        // {
-        //   href: "/dashboard/manage-phones",
-        //   name: "Phone",
-        //   icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-        //   list: [],
-        // },
     ];
 
     const divRef = useRef(null);
@@ -410,7 +410,7 @@ const NewSidebar = ({ children }) => {
                                                 <hr className="text-border border-gray" />
                                                 <li className="p-2 relative hover:underline flex">
                                                     <input
-                                                        className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                        className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2 text-xs font-medium leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                                                         id="multiple_files"
                                                         type="file"
                                                         accept="image/*"
@@ -418,7 +418,7 @@ const NewSidebar = ({ children }) => {
                                                         onChange={(e) => handleFileInputChange(e)}
                                                     />
                                                     <label
-                                                        className="inline-block ml-4 rounded-full text-xs font-medium uppercase   leading-normal text-heading "
+                                                        className="inline-block ml-4 rounded-full text-xs font-medium    leading-normal text-heading "
                                                         for="file_input"
                                                     >
                                                         Upload logo
@@ -531,7 +531,7 @@ const NewSidebar = ({ children }) => {
                                                     <hr className="text-border border-gray" />
                                                     <li className="p-2 relative hover:underline flex">
                                                         <input
-                                                            className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2.5 text-xs font-medium uppercase leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                            className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2 text-xs font-medium leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
                                                             id="multiple_files"
                                                             type="file"
                                                             accept="image/*"
@@ -539,7 +539,7 @@ const NewSidebar = ({ children }) => {
                                                             onChange={(e) => handleFileInputChange(e)}
                                                         />
                                                         <label
-                                                            className="inline-block ml-4 rounded-full text-xs font-medium uppercase   leading-normal text-heading "
+                                                            className="inline-block ml-4 rounded-full text-xs font-medium    leading-normal text-heading "
                                                             for="file_input"
                                                         >
                                                             Upload logo

@@ -607,7 +607,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Customer Service Email</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation Email</span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -631,7 +631,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.chat_default_message}
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                      placeholder="Enter Chat Default Message"
+                      placeholder="Enter chat default message"
                     />
                   </div>
                 </div>
@@ -646,7 +646,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.customer_service_phone}
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                      placeholder="Enter Customer Service Phone"
+                      placeholder="Enter customer service phone"
                     />
                   </div>
                 </div>
@@ -680,7 +680,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         onChange={handleAgentNameValue}
                         type={"text"}
                         placeholder={"Enter prompts separated by ,"}
-                        className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                      className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
                       />

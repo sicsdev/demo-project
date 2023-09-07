@@ -88,9 +88,9 @@ const Page = () => {
                                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                                     <li className="mr-2">
                                         <span
-                                            className={`h-[50px]  flex justify-start gap-2 items-center p-4 font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group border-b-2 border-primary text-primary`}
+                                            className={`h-[50px]  flex justify-start gap-2 items-center  font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group border-b-2 border-primary text-primary`}
                                         >
-                                            <BriefcaseIcon className={`h-6 w-6 text-primary`} /> Your Workflows
+                                            <BriefcaseIcon className={`h-5 w-5 text-primary`} /> Your Workflows
                                         </span>
                                     </li>
                                 </ul>
@@ -100,28 +100,28 @@ const Page = () => {
                                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                                     <li className="mr-2" onClick={() => { setTab(0) }}>
                                         <span
-                                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BoltIcon className="h-6 w-6 text-gray-500" /> Active
+                                            <BoltIcon className="h-5 w-5 text-gray-500" /> Active
                                         </span>
                                     </li>
                                     <li className="mr-2" onClick={() => { setTab(1) }}>
                                         <span
-                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
                                             aria-current="page"
                                         >
-                                            <BoltSlashIcon className="h-6 w-6 text-gray-500" /> Draft
+                                            <BoltSlashIcon className="h-5 w-5 text-gray-500" /> Draft
                                         </span>
                                     </li>
                                     {
                                         template?.length > 0 &&
                                         <li className="mr-2" onClick={() => { setTab(2) }}>
                                             <span
-                                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center py-2   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  pl-2  group`}
                                                 aria-current="page"
                                             >
-                                                <ClipboardDocumentIcon className="h-6 w-6 text-gray-500" /> Templates
+                                                <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" /> Templates
                                             </span>
                                         </li>
                                     }

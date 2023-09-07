@@ -126,7 +126,7 @@ const EditKnowledgeCenter = ({
         <div className=" overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8">
           <div className="bg-white p-4">
             <div className="flex items-center justify-between border-b border-border dark:bg-gray-800 dark:border-gray-700">
-              <p className="text-black-color text-xl font-semibold my-4">
+              <p className="text-black-color text-sm font-semibold my-4">
                 {singleKnowledgeData?.title}
               </p>
               <div className="flex hover:cursor-pointer items-center justify-center gap-2">
@@ -272,7 +272,7 @@ const EditKnowledgeCenter = ({
                 <button
                   onClick={(e) => handleSubmit()}
                   type="button"
-                  className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                  className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
                   disabled={DisablingButton() || loading === true}
                 >
                   {loading ? "Loading..." : "Save and close"}

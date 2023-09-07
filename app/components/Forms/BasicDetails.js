@@ -126,10 +126,10 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               onChange={handleInputValues}
               value={formValues.customer_service_email}
               name="customer_service_email"
-              className="py-3 mt-1"
+              className="py-2 mt-1"
               title={"Existing Customer Service Email"}
               placeholder={"Existing Customer Service Email"}
-              type={"email"}
+              type={"text"}
               id={"customer_service_email"}
               error={returnErrorMessage("customer_service_email")}
               onBlur={handleBlur}

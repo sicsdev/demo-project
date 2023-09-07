@@ -16,6 +16,8 @@ import { getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import UpdateWorkflowBasic from "@/app/components/Workflows/WorkflowBuilder/UpdateWorkflowBasic";
 import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
+import { makeCapital } from "@/app/components/helper/capitalName";
+import Link from "next/link";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -81,7 +83,7 @@ const Page = () => {
 
     const manageData = () => {
         const result = workflowState?.data?.results?.filter((x) => x.active === true);
-        setWorkflow(result);
+        setWorkflow(result ?? []);
     }
     const updateButtonHandler = async (id) => {
         try {
@@ -176,7 +178,7 @@ const Page = () => {
             },
         },
         {
-            name: "Human Answer",
+            name: "New Answer",
             selector: (row) => row.answer,
             // sortable: true,
             reorder: true,
@@ -241,6 +243,7 @@ const Page = () => {
                                     </div>
                                 }
                                 <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} />
+
                             </>
                         )}
 
@@ -266,18 +269,18 @@ const Page = () => {
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                         <li className="mr-2" onClick={() => { setTab(0) }}>
                             <span
-                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2 ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                 aria-current="page"
                             >
-                                <BookOpenIcon className="h-6 w-6 text-primary" /> Learning center
+                                <BookOpenIcon className="h-5 w-5 text-primary" /> Learning center
                             </span>
                         </li>
                         <li className="mr-2" onClick={() => { setTab(1) }}>
                             <span
-                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center p-2 sm:p-4   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
+                                className={`flex justify-start gap-2 pl-2 text-xs sm:text-sm cursor-pointer items-center py-2  ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
                                 aria-current="page"
                             >
-                                <AcademicCapIcon className="h-6 w-6 text-primary" /> Manage Knowledge Base
+                                <AcademicCapIcon className="h-5 w-5 text-primary" /> Manage Knowledge Base
                             </span>
                         </li>
                     </ul>
@@ -297,7 +300,7 @@ const Page = () => {
                         {tab === 0 && (
                             <div className="w-full" >
                                 <DataTable
-                                    title={<h3 className="text-sm font-semibold">Learning center</h3>}
+                                    title={''}
                                     fixedHeader
                                     highlightOnHover
                                     pointerOnHover
@@ -305,7 +308,7 @@ const Page = () => {
                                     pagination
                                     className='data-table-class'
                                     columns={columns}
-                                    noDataComponent={<><p className="text-center text-sm p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                     data={state?.data?.results}
                                     paginationPerPage={10}
                                     paginationTotalRows={state?.data?.count}
@@ -368,9 +371,13 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
                                 <ul className="py-2 text-sm text-gray-700 ">
                                     {workflow.map((ele, key) =>
                                         <li className='hover:bg-primary hover:text-white text-heading my-2' key={key} onClick={() => handleWorkflow(ele, row.id)}>
-                                            <button type='button' className="block px-4 py-2 ">{ele.name}</button>
+                                            <button type='button' className="block px-4 py-2 ">{makeCapital(ele.name)}</button>
                                         </li>
+
                                     )}
+                                    <li className='hover:bg-primary hover:text-white text-heading my-2' >
+                                        <Link href={'/dashboard/workflow/workflow-builder'}><button type='button' className="block px-4 py-2 ">Add New Workflow </button></Link>
+                                    </li>
                                 </ul> : <small>No data found!</small>}
                         </div>
                     )}

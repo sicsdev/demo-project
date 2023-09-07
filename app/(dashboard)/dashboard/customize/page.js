@@ -2,6 +2,7 @@
 import { getAllBotData, modifyBot } from '@/app/API/pages/Bot'
 import Button from '@/app/components/Common/Button/Button'
 import LoaderButton from '@/app/components/Common/Button/Loaderbutton'
+import TextField from '@/app/components/Common/Input/TextField'
 import Customize from '@/app/components/Customize/Customize'
 import Schedule from '@/app/components/Customize/Schedule'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
@@ -155,26 +156,26 @@ const Page = () => {
           <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500 headerAlignment">
             <li className="mr-2" onClick={() => { setTab(0) }}>
               <span
-                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize Bot
+                <QrCodeIcon className="h-5 w-5 text-gray-500" /> Customize Bot
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(1) }}>
-            <span
-                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+              <span
+                className={`flex justify-start text-xs sm:text-sm pl-2 gap-2 cursor-pointer items-center  py-2  ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <EnvelopeIcon className="h-6 w-6 text-gray-500" /> Email Settings
+                <EnvelopeIcon className="h-5 w-5 text-gray-500" /> Email Settings
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
-            <span
-                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center p-2 sm:p-4  ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+              <span
+                className={`flex justify-start text-xs sm:text-sm gap-2 pl-2 cursor-pointer items-center  py-2  ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <CalendarDaysIcon className="h-6 w-6 text-gray-500" /> Scheduling
+                <CalendarDaysIcon className="h-5 w-5 text-gray-500" /> Scheduling
               </span>
             </li>
           </ul>
@@ -190,6 +191,23 @@ const Page = () => {
 
         <>
           <>
+            <div className="my-2">
+              <TextField
+                value={basicFormData.email}
+                name="email"
+                className="py-3 mt-1"
+                title={
+                  <div className="flex items-center gap-2 w-[150px]">
+                    <span>Agent Job Title</span>{" "}
+                  </div>
+                }
+                placeholder={"Email"}
+                type={"text"}
+                id={"agent_title"}
+                disabled={true}
+                error={""}
+              />
+            </div>
           </>
           <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
         </>
@@ -208,7 +226,7 @@ const Page = () => {
         <>
           <Button
             type={"button"}
-            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white disabled:shadow-none shadow-[0_4px_9px_-4px_#0000ff8a] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a]"
+            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
             disabled={DisablingButton()}
             onClick={(e) => SubmitForm()}
           >
