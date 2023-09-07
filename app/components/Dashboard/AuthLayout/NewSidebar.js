@@ -133,10 +133,10 @@ const NewSidebar = ({ children }) => {
             notification: recommedState?.data?.count,
         },
         {
-          href: "/dashboard/manage-phones",
-          name: "Phone",
-          icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-          list: [],
+            href: "/dashboard/manage-phones",
+            name: "Phone",
+            icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+            list: [],
         },
         {
             href: "/dashboard/analytics",
@@ -484,15 +484,22 @@ const NewSidebar = ({ children }) => {
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
                             <ul className="space-y-2 font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
-                                <li className="group hover:bg-sidebarsubroute flex  gap-2 rounded-lg cursor-pointer">
-
-                                    <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                <li className="group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
+                                    {state?.enterprise?.logo ? 
+                                    <img
+                                        className="w-8 h-8 rounded-lg"
+                                        src={state?.enterprise?.logo}
+                                        alt="user photo"
+                                    /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
                                         <span className="font-medium text-white">{state?.enterprise?.name.charAt(0)}</span>
-                                    </div >
+                                    </div >}
+
+
+
                                     {!collaps && (
                                         <div className="relative ">
                                             <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                            <p className="text-[12px] text-normal">Online</p>
+                                            <p className="text-[12px] text-normal">{state?.role}</p>
                                             {!isOpen && (
                                                 <ul className="hidden group-hover:block fixed w-[200px] text-center left-[236px] top-[266px] mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                     <li className="text-start p-2">
