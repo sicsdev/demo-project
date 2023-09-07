@@ -201,7 +201,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 </div>
               </div>
             }
-            placeholder={"Agent Job Title"}
+            placeholder={"Agent job title"}
             type={"text"}
             id={"agent_title"}
             error={returnErrorMessage("agent_title")}
@@ -230,12 +230,12 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 </div>
               </span>
             </label>
-            <div className="flex flex-wrap justify-start items-center border h-auto w-auto border-border p-1 rounded-md mt-2">
+            <div className={`flex flex-wrap justify-start items-center border h-auto w-auto border-[#C7C6C7]  rounded-md mt-2 ${tileAgentName.length > 0 &&('px-1')}`}>
               <div className="flex flex-wrap items-center justify-start gap-1">
                 {tileAgentName.length > 0 &&
                   tileAgentName.map((element, key) => (
                     <div
-                      className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border"
+                      className="[word-wrap: break-word]   flex  cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-[5px] text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                       key={key}
                     >
                       {makeCapital(element.trim())}
@@ -255,7 +255,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 onChange={handleAgentNameValue}
                 type={"text"}
                 placeholder={"Enter names separate by ,"}
-                className={` block  px-3 py-2 bg-white focus:bg-white  rounded-md  text-sm placeholder-slate-400   placeholder-slate-400  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500  w-auto  border-none ring-0 focus:border-none focus-visible:border-none`}
+                className={`block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
                 id={"agent_name"}
                 name={"agent_name"}
               />

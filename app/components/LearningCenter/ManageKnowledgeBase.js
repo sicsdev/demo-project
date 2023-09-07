@@ -119,32 +119,19 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 
     const knowledgeCenterColumns = [
         {
-            name: <div><input type="checkbox" className="" /></div>,
-            selector: (row) => ``,
+            name: "Title",
+            selector: (row) => row.title,
             sortable: false,
             reorder: false,
             cell: (row) => (
-                <div>
-                    <input type="checkbox" className="" />
-                </div>
+                <h3 data-tag="allowRowEvents" className={`font-normal text-xs `}>{row.title}</h3>
             ),
-            maxWidth: '20px'
-        },
-        {
-            name: "Title",
-            selector: (row) => <h3 data-tag="allowRowEvents" className={`font-normal text-xs whitespace-normal`}>{row.title}</h3>,
-            sortable: true,
-            reorder: true,
-            style: {
-                whiteSpace: "inherit"
-            },
         },
         {
             name: "State",
             selector: (row) => row.state,
-            sortable: true,
-            width: "120px",
-            reorder: true,
+            sortable: false,
+            reorder: false,
             cell: (row) => (
                 <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
                     {row.active ? "Active" : "Disabled"}
@@ -154,9 +141,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         {
             name: "Content Source",
             selector: (row) => row.source,
-            sortable: true,
-            width: "200px",
-            reorder: true,
+            sortable: false,
+            reorder: false,
             cell: (row) => (
                 <div data-tag="allowRowEvents" className="flex justify-center items-center gap-2">
                     <LinkIcon className="h-4 w-4 font-semibold" />
@@ -167,9 +153,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         {
             name: "Bots",
             selector: (row) => row.bots,
-            sortable: true,
-            width: "",
-            reorder: true,
+            sortable: false,
+            reorder: false,
             cell: (row, index) =>
                 <div className="">
                     <Multiselect
@@ -335,23 +320,23 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         <>
             {tabLoader ? <Loading /> :
                 <div className="w-full">
-                    <div className="sm:flex rounded-t-lg pt-4 sm:pt-4 p-2 sm:p-5 border-border justify-between items-center">
+                    <div className="sm:flex rounded-t-lg pt-4 sm:pt-4  border-border justify-between items-center">
                         <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
                             <div className='flex justify-between items-center gap-1'>
                                 <ClipboardIcon className='h-4 w-4' />
-                                <h3 className="text-sm font-bold text-heading">Tempo Content</h3>
+                                <p className="text-sm font-bold text-heading">Tempo Content</p>
                             </div>
                         </div>
                         <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
 
                             <div>
-                                <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center text-xs gap-2 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
+                                <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center text-xs gap-2 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
                                     <Cog6ToothIcon className='h-4 w-4' />
                                     Manage Sources
                                 </button>
                             </div>
                             <div>
-                                <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center gap-2 text-xs focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a,0_4px_18px_0_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
                                     <PlusSmallIcon className='h-4 w-4' />
                                     Create
                                 </button>
@@ -401,7 +386,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                         onClick={() => { setShowSourceFilter(prev => !prev) }}
                                     >
                                         <AdjustmentsHorizontalIcon className='h-4 w-4' />
-                                        <small className="text-xs p-1">All content sources</small>
+                                        <small className="text-xs p-2">All content sources</small>
                                     </button>
                                 </div>
                                 {showSourceFilter && (
@@ -455,8 +440,9 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                     highlightOnHover
                                     className='data-table-class'
                                     pointerOnHover
-                                    defaultSortFieldId="question"
+                                    defaultSortFieldId="title"
                                     pagination
+                                    selectableRows
                                     customStyles={{
                                         rows: {
                                             style: {
@@ -468,6 +454,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                     onRowClicked={(rowData) => {
                                         viewKnowledgeCenterHandler(rowData);
                                     }}
+                                    rowsPerPageOptions={[]}
                                     noDataComponent={<div className='bg-[#F1F1F1] w-full py-8 px-16'>
                                         <div className='block sm:flex justify-center items-center gap-4 py-4 '>
                                             <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
@@ -522,8 +509,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
-                <UrlManageWorkflow Builder
-                    ment hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
+                <UrlManagement
+                    hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} knowledge={knowledge} setKnowledge={setKnowledge} />
             )}
             {createPdfModal === true && (
                 <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChange} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleSubmit={handleSubmit} loading={loading} />
