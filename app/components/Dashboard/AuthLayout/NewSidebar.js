@@ -31,6 +31,7 @@ import {
     UsersIcon,
     CodeBracketIcon,
     BuildingOffice2Icon,
+    AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -154,9 +155,9 @@ const NewSidebar = ({ children }) => {
             isLink: false,
             list: [
                 {
-                    href: "/",
+                    href: "/dashboard/chat-bots",
                     name: "Chat Bots",
-                    icon: <ChatBubbleBottomCenterIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
         },

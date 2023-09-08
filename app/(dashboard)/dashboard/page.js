@@ -1,163 +1,26 @@
 'use client'
-import React, { useState } from 'react'
-import { AdjustmentsHorizontalIcon, ChevronUpIcon, ShoppingCartIcon, UsersIcon } from '@heroicons/react/24/outline';
-import Embed from '@/app/components/Embed/Embed';
-import Button from '@/app/components/Common/Button/Button';
-import Modal from '@/app/components/Common/Modal/Modal';
-import CustomerServiceSetupForm from '@/app/components/Forms/CustomerServiceSetupForm';
-import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline'
-import { createBot, createBotKnowledge, modifyBot } from '@/app/API/pages/Bot';
-import { useDispatch } from 'react-redux';
-import { fetchBot } from '@/app/components/store/slices/botIdSlice';
-import LoaderButton from '@/app/components/Common/Button/Loaderbutton';
-import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
-import EmailConfig from '@/app/components/EmailConfig/EmailConfig';
-import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting';
-import { createEnterpriseAccount, enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService';
-import { useRouter } from 'next/navigation';
+import React from 'react'
+import { UsersIcon } from '@heroicons/react/24/outline';
 import QuickStart from '@/app/components/Dashboard/QuickStart';
 
 const Page = () => {
-    const router = useRouter()
-    const [showModal, setShowModal] = useState(false)
-    const [errors, setErrors] = useState([])
-    const [loading, setLoading] = useState(false)
-    const dispatch = useDispatch()
-    const [basicFormData, setBasicFormData] = useState({})
-    const [skeleton, setSkeleton] = useState(true)
-
-    const [tab, setTab] = useState(0);
-
-    const SubmitForm = async () => {
-        setLoading(true)
-        let payload = {
-            "category": "standard",
-            "description": "",
-            "automation_tolerance": 0,
-            "logo": "",
-            "chat_title": 'Tempo Agent',
-            "payment_platform": "Order",
-            "ticketing_platform": "Other",
-            "cancellation_tolerance": 0,
-            "refund_tolerance": 0,
-            "ecommerce_platform": 'Other',
-        }
-        const bot = await createBot(payload);
-        if (bot?.status === 201) {
-            const bot_faq = await createBotKnowledge(bot.data.id, { urls: basicFormData.urls });
-            const enterprise = await createEnterpriseAccount({ slug_domain: basicFormData.company_name })
-            debugger
-            if (bot_faq?.status === 201 && enterprise?.status === 201) {
-                let email_payload = {
-                    email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
-                    email_agent_name: basicFormData.agent_name,
-                    email_agent_title: basicFormData.agent_title,
-                    email_greeting: basicFormData.email_introduction,
-                    email_farewell: basicFormData.email_signOff,
-                }
-                const verify = await modifyBot(bot.data.id, email_payload)
-                if (verify.status === 200) {
-                    setBasicFormData((prev) => {
-                        return {
-                            ...prev,
-                            configure: "success"
-                        }
-                    })
-                    router.push(`/customize?id=${bot.data.id}&name=`)
-                    setShowModal(false)
-                    setLoading(false)
-                } else {
-                    setErrors(domains.response.data.slug_domain)
-                    setLoading(false)
-                }
-            } else {
-
-                setLoading(false)
-            }
-        }
-    }
-
-    const DisablingButton = () => {
-        const bot_data = ['urls'].every(key => !basicFormData[key] || basicFormData[key].length === 0);
-        const email_config = ["email_prefix", "custom_email", "company_name"].some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        const email_agent = [
-            'agent_title',
-            'email_introduction',
-            'email_signOff'].some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        const arr_values = ['agent_name'].every(key => !basicFormData[key] || basicFormData[key].length === 0);
-        if (email_agent || arr_values || email_config || bot_data) {
-            return true
-        }
-        return false
-    }
 
     return (
         <div>
             <div className="border-b border-primary dark:border-gray-700">
                 <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                    <li className="mr-2" onClick={() => { setTab(0) }}>
+                    <li className="mr-2">
                         <span
-                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center py-2  "border-b-2 text-primary border-primary  font-bold  rounded-t-lg active  group`}
                             aria-current="page"
                         >
-                            <UsersIcon className="h-5 w-5 text-primary" /> Manage Team
-                        </span>
-                    </li>
-                    <li className="mr-2" onClick={() => { setTab(1) }}>
-                        <span
-                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center pl-2  py-2  ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
-                            aria-current="page"
-                        >
-                            <AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" /> View Agents
+                            <UsersIcon className="h-5 w-5 text-primary" /> Home
                         </span>
                     </li>
 
                 </ul>
             </div>
-            {tab === 0 && (
-                <QuickStart />
-            )}
-            {tab === 1 && (
-                <>
-                    <div className=' sm:px-5 md:px-5 lg:px-5 block sm:flex md:flex lg:flex justify-end items-center mt-4'>
-                        {skeleton ? <SkeletonLoader /> :
-                            <div>
-                                <Button type={"button"} onClick={(e) => { setShowModal(true) }}
-                                    className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-                                >
-                                    Create New Agent
-                                </Button>
-                            </div>
-                        }
-                    </div>
-                    <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
-                    {showModal === true ?
-                        <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
-                            title={<><ChatBubbleOvalLeftIcon className="w-8 h-8 mr-2" />Create New Widget</>}
-                            showCancel={true}>
-                            <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                            <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-                            <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
-
-                            {errors.length > 0 && errors.map((ele, key) => <p className='text-danger text-xs' key={key}>{ele}</p>)}
-                            <div className={`flex  p-2 rounded-b mt-5  justify-end`}>
-                                {loading ? <LoaderButton /> :
-                                    <>
-                                        <Button type={"button"}
-                                            className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                            disabled={DisablingButton()}
-                                            onClick={(e) => SubmitForm()}
-                                        >
-                                            Submit
-
-                                        </Button>
-
-                                    </>}
-                            </div>
-                        </Modal> : ""
-                    }
-                </>
-            )}
+            <QuickStart />
         </div>
     );
 }
