@@ -244,7 +244,7 @@ const NewSidebar = ({ children }) => {
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
-                    href: "/",
+                    href: "/dashboard/api-references",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
                 }
