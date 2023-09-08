@@ -28,7 +28,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
     }
   }, [basicFormData]);
   const handleInputValues = (e) => {
-    const { value } = e.target;
+    const { name, value } = e.target;
     setErrors([]);
     setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
     setBasicFormData((prev) => {

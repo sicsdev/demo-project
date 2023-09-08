@@ -208,7 +208,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                                                 value={schedule[day][index].start}
                                                                 type="time"
                                                                 name={day}
-                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] !text-[10px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                                             />
                                                         </div>
                                                         <div className='relative'>
@@ -218,7 +218,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                                                 value={schedule[day][index].end}
                                                                 type="time"
                                                                 name={day}
-                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[10px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                                             />
                                                         </div>
                                                         <div className='flex items-center'>
