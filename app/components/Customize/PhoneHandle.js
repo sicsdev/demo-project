@@ -198,7 +198,7 @@ const PhoneHandle = () => {
                 <div className='border border-border rounded-lg ' >
                     <div>
                         <div className='flex rounded-t-lg border border-t-0 border-r-0 border-l-0 p-5 border-border justify-between items-center'>
-                            <div className='flex justify-between items-center gap-4'>
+                            <div className='w-1/2 sm:w-auto flex justify-between items-center gap-4'>
                                 {/* <div><PhoneIcon className="h-8 w-8" /></div> */}
                                 <div>
                                     <h3 className='text-sm font-semibold text-heading'>Phone Menu</h3>

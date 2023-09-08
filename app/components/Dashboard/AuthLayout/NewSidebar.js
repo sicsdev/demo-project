@@ -483,8 +483,8 @@ const NewSidebar = ({ children }) => {
                         </ul>
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            <ul className="space-y-2 font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
-                                <li className="group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
+                            <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
+                                <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
                                     {state?.enterprise?.logo ? 
                                     <img
                                         className="w-8 h-8 rounded-lg"

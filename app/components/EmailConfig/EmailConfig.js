@@ -231,7 +231,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
               </span>
             </label>
             <div className={`flex flex-wrap justify-start items-center border h-auto w-auto border-[#C7C6C7]  rounded-md mt-2 ${tileAgentName.length > 0 &&('px-1')}`}>
-              <div className="flex flex-wrap items-center justify-start gap-1">
+              <div className={` ${tileAgentName?.length > 0 ? 'pt-1 sm:pt-0' : ''} flex flex-wrap items-center justify-start gap-1`}>
                 {tileAgentName.length > 0 &&
                   tileAgentName.map((element, key) => (
                     <div
@@ -254,7 +254,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 required
                 onChange={handleAgentNameValue}
                 type={"text"}
-                placeholder={"Enter names separate by ,"}
+                placeholder={"Enter names separated by ,"}
                 className={`block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
                 id={"agent_name"}
                 name={"agent_name"}
