@@ -200,7 +200,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
                                             <div className='col-span-1 w-[210px] sm:w-[270px]'>
                                                 {schedule[day].length > 0 ? schedule[day].map((time, index) => (
-                                                    <div key={index} style={{ gridTemplateColumns: "repeat(3, auto)" }} className={`grid grid-cols-3 gap-3 ${index !== 0 ? 'pt-2' : ''}`}>
+                                                    <div key={index} style={{ gridTemplateColumns: "repeat(3, auto)" }} className={`grid grid-cols-3 gap-1 sm:gap-3 ${index !== 0 ? 'pt-2' : ''}`}>
                                                         <div className='relative'>
                                                             <input
                                                                 id={index}

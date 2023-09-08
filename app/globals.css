@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.sidebar-wrapper-scroller::-webkit-scrollbar-thumb {
+  background-color: #ff5233; /* Change this to your desired scrollbar thumb color */
+  border-radius: 10px;
+}
+
+/* Scrollbar track (the background) */
+.sidebar-wrapper-scroller::-webkit-scrollbar-track {
+  background-color: transparent; /* Change this to your desired scrollbar track color */
+}
+
+/* Optional: Adjust scrollbar width and height */
+.sidebar-wrapper-scroller::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
 
 body input[type='text'],
 input[type='number'],

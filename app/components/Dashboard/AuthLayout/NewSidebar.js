@@ -25,12 +25,19 @@ import {
     CodeBracketSquareIcon,
     BookOpenIcon,
     ArrowSmallRightIcon,
+    AcademicCapIcon,
+    ChatBubbleBottomCenterIcon,
+    InboxIcon,
+    UsersIcon,
+    CodeBracketIcon,
+    BuildingOffice2Icon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
 import { fetchWorkflows } from "../../store/slices/workflowSlice";
 import { ArrowSmallLeftIcon, ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import Loading from "../../Loading/Loading";
+import { makeCapital } from "../../helper/capitalName";
 
 const NewSidebar = ({ children }) => {
     const state = useSelector((state) => state.user.data);
@@ -100,23 +107,20 @@ const NewSidebar = ({ children }) => {
             name: "Home",
             icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
             list: [],
+            isLink: true
         },
         {
             // href: "",
             href: workflowLinkHandler('/dashboard/workflow/integrations'),
             name: "Workflow Builder",
             icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
             list: [
                 {
                     href: "/dashboard/workflow/integrations",
                     name: "Integrations",
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
                 },
-                // {
-                //   href: "/dashboard/workflow/policies",
-                //   name: "Policies",
-                //   icon: <ClipboardIcon className="h-6 w-6 text-gray-500" />,
-                // },
                 {
                     href: "/dashboard/workflow/workflow-builder",
                     name: "Workflows",
@@ -124,29 +128,81 @@ const NewSidebar = ({ children }) => {
                 },
             ],
         },
-
         {
             href: "/dashboard/knowledge-center",
             name: "Learning Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            list: [],
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/knowledge-center",
+                    name: "Knowledge Center",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/dashboard/knowledge-center",
+                    name: "Recommendations",
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                },
+            ],
             notification: recommedState?.data?.count,
         },
         {
-            href: "/dashboard/manage-phones",
-            name: "Phone",
-            icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-            list: [],
+            href: "/",
+            name: "Tempo Chat",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/",
+                    name: "Chat Bots",
+                    icon: <ChatBubbleBottomCenterIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
         },
         {
-            href: "/dashboard/analytics",
+            href: "/",
+            name: "Smart Inbox",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/",
+                    name: "Email Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
+        },
+        {
+            href: "/",
+            name: "Smart IVR",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/manage-phones",
+                    name: "Phone Settings",
+                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
+        },
+        {
+            href: "/",
             name: "Reports",
-            icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
-            list: [],
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/analytics",
+                    name: "Chat Logs",
+                    icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
         },
         {
             href: "/dashboard/billing/usage",
             name: "Billing",
+            isLink: false,
             icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
             list: [
                 {
@@ -172,11 +228,28 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/dashboard/members",
-            name: "Team",
-            icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
-            list: [],
-        },
+            href: "/dashboard/knowledge-center",
+            name: "Organization Settings",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/",
+                    name: "Company Details",
+                    icon: <BuildingOffice2Icon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/dashboard/members",
+                    name: "Team",
+                    icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/",
+                    name: "API References",
+                    icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
+        }
     ];
 
     const divRef = useRef(null);
@@ -228,48 +301,28 @@ const NewSidebar = ({ children }) => {
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                <li key={key} className={`p-2 hover:bg-sidebarsubroute w-full rounded-lg ${pathname === element.href && "bg-sidebarsubroute"
+                <li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                     }`}>
-                    <Link
-                        href={element.href}
-                        onClick={() => {
-                            setShowSubTabs((prev) => {
-                                if (prev === key) {
-                                    return null;
-                                }
-                                return key;
-                            });
-                        }}
-                        className={` flex items-center text-gray-900 rounded-lg `}
-                    >
-                        {element.icon}
-                        {!collaps && (
-                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                {element.name}
-                            </span>
-                        )}
-                    </Link>
-                    {showSubTabs === key && (
-                        <ul className="p-3 space-y-2 bg-sidebarsubroute rounded-lg">
-                            {element.list.map((ele, key) => (
-                                <li key={key} className={`p-2 hover:bg-sidebar-hover w-full rounded-lg ${pathname === ele.href && "bg-sidebar-hover"
-                                    }`}>
-                                    <Link
-                                        href={ele.href}
-                                        onClick={() => handlerclosemenu(ele.href)}
-                                        className={` flex items-center  text-gray-900 `}
-                                    >
-                                        {ele.icon}
-                                        {!collaps && (
-                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                {ele.name}
-                                            </span>
-                                        )}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
+                    {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1">{element?.name}</p>)}
+                    <ul className="pt-1 rounded-lg">
+                        {element.list.map((ele, key) => (
+                            <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                }`}>
+                                <Link
+                                    href={ele.href}
+                                    onClick={() => handlerclosemenu(ele.href)}
+                                    className={`p-2 flex items-center`}
+                                >
+                                    {ele.icon}
+                                    {!collaps && (
+                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                            {ele.name}
+                                        </span>
+                                    )}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
                 </li>
             );
         }
@@ -473,9 +526,9 @@ const NewSidebar = ({ children }) => {
                     className={`hidden sm:block fixed py-5 bg-sidebarbg  text-white top-0 left-0 z-40 ${collaps ? "w-20 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"} h-[100vh]`}
                     aria-label="Sidebar"
                 >
-                    <div className="h-full px-3 pb-4 overflow-y-auto bg-sidebarbg  text-white">
+                    <div className="h-full px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
 
-                        <ul className="space-y-2 font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
+                        <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
                             {SideBarRoutes.map((element, key) =>
                                 sendSideBarDetails(element, key)
@@ -485,21 +538,21 @@ const NewSidebar = ({ children }) => {
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
                             <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                 <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
-                                    {state?.enterprise?.logo ? 
-                                    <img
-                                        className="w-8 h-8 rounded-lg"
-                                        src={state?.enterprise?.logo}
-                                        alt="user photo"
-                                    /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                        <span className="font-medium text-white">{state?.enterprise?.name.charAt(0)}</span>
-                                    </div >}
+                                    {state?.enterprise?.logo ?
+                                        <img
+                                            className="w-8 h-8 rounded-lg"
+                                            src={state?.enterprise?.logo}
+                                            alt="user photo"
+                                        /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                            <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                        </div >}
 
 
 
                                     {!collaps && (
                                         <div className="relative ">
                                             <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                            <p className="text-[12px] text-normal">{state?.role}</p>
+                                            <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
                                             {!isOpen && (
                                                 <ul className="hidden group-hover:block fixed w-[200px] text-center left-[236px] top-[266px] mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                     <li className="text-start p-2">

@@ -7,7 +7,7 @@ import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SelectField from "../Common/Input/SelectField";
 import Card from "../Common/Card/Card";
 import { useEffect } from "react";
-const EmailConfig = ({ basicFormData, setBasicFormData }) => {
+const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
   const [errors, setErrors] = useState([]);
   const [tileAgentName, setTileAgentName] = useState([]);
   const [formValues, setFormValues] = useState({
@@ -30,15 +30,31 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
   const handleInputValues = (e) => {
     const { name, value } = e.target;
     setErrors([]);
-    setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
-    setBasicFormData((prev) => {
-      return {
-        ...prev,
-        [e.target.name]: makeCapital(value),
-      };
-    });
+    if (name === 'agent_title' || name === 'email_signOff') {
+      if (tileAgentName.length === 0) {
+        setErrors([{ field: "tileAgentName", message: "Please enter one or more agent names first." }])
+      } else {
+        setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            [e.target.name]: makeCapital(value),
+          };
+        });
+      }
+
+    } else {
+      setFormValues({ ...formValues, [e.target.name]: makeCapital(value) });
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          [e.target.name]: makeCapital(value),
+        };
+      });
+    }
   };
   const handleAgentNameValue = (e) => {
+    setErrors([]);
     const { value } = e.target;
     if (value.includes(",")) {
       const agentNames = value.split(",");
@@ -69,6 +85,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
+      setErrors([]);
       const { value } = e.target;
       const agentNames = value.split(",");
       setFormValues((prev) => {
@@ -93,7 +110,6 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
       });
     }
   };
-
   const returnErrorMessage = (key) => {
     if (errors.length) {
       const findErr = errors.find((x) => x.field === key);
@@ -106,11 +122,12 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
   const RemoveFromAgentNameArr = (element) => {
     const updatedChips = tileAgentName.filter((x) => x !== element);
     setTileAgentName(updatedChips);
-
     setBasicFormData((prev_state) => {
       return {
         ...prev_state,
         agent_name: [...updatedChips],
+        agent_title: updatedChips.length > 0 ? basicFormData.agent_title : '',
+        email_signOff: updatedChips.length > 0 ? basicFormData.email_signOff : ''
       };
     });
   };
@@ -230,8 +247,8 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 </div>
               </span>
             </label>
-            <div className={`flex flex-wrap justify-start items-center border h-auto w-auto border-[#C7C6C7]  rounded-md mt-2 ${tileAgentName.length > 0 &&('px-1')}`}>
-              <div className={` ${tileAgentName?.length > 0 ? 'pt-1 sm:pt-0' : ''} flex flex-wrap items-center justify-start gap-1`}>
+            <div className={`flex flex-wrap justify-start items-center border h-auto w-auto ${returnErrorMessage("tileAgentName") ? "border-red" : "border-[#C7C6C7]"}   rounded-md mt-2 ${tileAgentName.length > 0 && ('px-1')}`}>
+              <div className={` ${tileAgentName?.length > 0 ? 'pt-1' : ''} flex flex-wrap items-center justify-start gap-1`}>
                 {tileAgentName.length > 0 &&
                   tileAgentName.map((element, key) => (
                     <div
@@ -260,6 +277,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData }) => {
                 name={"agent_name"}
               />
             </div>
+            {returnErrorMessage("tileAgentName") && (<small className="text-danger text-xs">{returnErrorMessage("tileAgentName")}</small>)}
           </div>
         </div>
       </div>
