@@ -18,7 +18,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     const [automationDragHandle, setAutomationDragHandle] = useState({
         automation: null,
         arr: [],
-        deflection:null
+        deflection: null
     });
     const dispatch = useDispatch()
     const updateShowButtonState = (id, type) => {
@@ -419,26 +419,23 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
                                                                         </div>
                                                                         <div className=''>
-                                                                            <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  h-[44px] group-hover:shadow] p-[2px]`}>
-                                                                                {
-                                                                                    showButtonStates == key &&
-                                                                                    <>
-                                                                                        {/* {ele?.automation !== null && (
-                                                        <Button
-                                                            type={"button"}
-                                                            onClick={(e) => openModal({ key: "EDIT", open: true, addKey: ele?.automation?.id, index: key })}
-                                                            className="inline-block  cursor-pointer p-[8px]  h-[38px] hover:bg-[#efefef]">
-                                                            <PencilSquareIcon className="h-5 w-5 font-semibold cursor-pointer" />
-                                                        </Button>
-                                                    )} */}
-                                                                                        <Button
-                                                                                            type={"button"}
-                                                                                            onClick={(e) => deleteTheEntry(key)}
-                                                                                            className="inline-block  cursor-pointer p-2  h-[38px] hover:bg-[#efefef]">
-                                                                                            <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
-                                                                                        </Button>
-                                                                                    </>
-                                                                                }
+                                                                            <div className='h-[44px] '>
+                                                                                {showButtonStates == key && (
+                                                                                    <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  group-hover:shadow] p-[2px]`}>
+                                                                                        {
+                                                                                            showButtonStates == key &&
+                                                                                            <>
+                                                                                                <Button
+                                                                                                    type={"button"}
+                                                                                                    onClick={(e) => deleteTheEntry(key)}
+                                                                                                    className="inline-block  cursor-pointer p-2  h-[38px] hover:bg-[#efefef]">
+                                                                                                    <TrashIcon className="h-5 w-5 font-semibold cursor-pointer" />
+                                                                                                </Button>
+                                                                                            </>
+                                                                                        }
+
+                                                                                    </div>
+                                                                                )}
                                                                             </div>
                                                                         </div>
                                                                     </div>
