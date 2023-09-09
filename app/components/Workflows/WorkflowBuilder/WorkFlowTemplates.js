@@ -39,7 +39,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     }), 2000); // Reset copied state after 2 seconds
                 })
                 .catch(err => console.error('Failed to copy: ', err));
-        }else{
+        } else {
             setIsCopied({
                 id: null,
                 copied: false,
@@ -54,11 +54,14 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             name: "Name",
             selector: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    {row.icon ?row.icon:
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
-                        <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={'/workflow/reactive-subscription.png'} />
-                    </div>
-        }
+                    {row.icon ? row.icon :
+                        <>
+                            <p className='text-[18px]'>😊</p>
+                            {/* <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
+                                <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={'/workflow/reactive-subscription.png'} />
+                            </div> */}
+                        </>
+                    }
                     <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
                 </div>
             ),
@@ -90,7 +93,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
                             <CheckIcon className="h-5 w-5 " /> Copied!
-                        </button>):
+                        </button>) :
                         <button
                             type={"button"}
                             onClick={() => { getUrl(row.id) }}

@@ -119,7 +119,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         return {
           ...prev,
           email: bot_res.email,
-          agent_name: bot_res.email_agent_name,
+          agent_name: bot_res.agent_name,
           agent_title: bot_res.email_agent_title,
           email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
           email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
@@ -540,7 +540,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
-                      className="custom-select !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="custom-select !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
                       <option value="bottom_left">Bottom Left</option>
@@ -567,7 +567,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                   <div className="relative inline-flex justify-start w-1/2 items-center">
                     <label className="cursor-pointer bg-white rounded w-full">
-                      <span className="border-gray h-[37.5px]  border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full new_input ">
+                      <span className="border-gray h-[37.5px]  text-[12px] border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full new_input ">
                         {preferences.logo_file_name ? (
                           preferences.logo_file_name
                         ) : (
@@ -615,7 +615,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                       name="customer_service_email"
                       value={preferences.customer_service_email}
                       type="email"
-                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      className="w-full block px-3 new_input bg-white focus:bg-white  border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter customer service email"
                     />
                   </div>

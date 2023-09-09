@@ -10,7 +10,7 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask }) => {
                     <h3 className="text-sm font-semibold mt-3">
                         {element.title}
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-2 mx-auto items-center my-2">
                         {element.tiles?.map((item, key) => (
                             <div
                                 className={`${item.grayscale && ("pointer-events-none")} ${item.checked && ("bg-[#ECF6FE] border-primary_hover")} border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}

@@ -2,24 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
+.sidebar-wrapper-scroller::-webkit-scrollbar-thumb {
+  background-color: #ff5233;
+  /* Change this to your desired scrollbar thumb color */
+  border-radius: 10px;
+}
+
+/* Scrollbar track (the background) */
+.sidebar-wrapper-scroller::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Change this to your desired scrollbar track color */
+}
+
+/* Optional: Adjust scrollbar width and height */
+.sidebar-wrapper-scroller::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
 
 body input[type='text'],
+body input[type='email'],
 input[type='number'],
 textarea {
   font-size: 12px !important;
 }
 
 body input[type='text']:focus,
+body input[type='email']:focus,
 input[type='number']:focus,
 textarea:focus {
   font-size: 12px !important;
 }
 
 body input[type='text']::placeholder,
+body input[type='email']::placeholder,
 input[type='number']::placeholder,
 textarea::placeholder {
   font-size: 12px !important;
 }
+
+select {
+  font-size: 12px !important;
+}
+
+@media(max-width:990px) {
+  body  select:focus {
+    font-size: 16px !important;
+  }
+  body  select {
+    font-size: 16px !important;
+  }
+
+  body input[type='text'],
+  input[type='number'],
+  input[type='email'],
+  textarea {
+    font-size: 16px !important;
+  }
+
+body  select,
+  textarea,
+  input {
+    font-size: 16px !important;
+  }
+
+  body input[type='text']:focus,
+  input[type='number']:focus,
+  input[type='email']:focus,
+  textarea:focus {
+    font-size: 16px !important;
+  }
+
+  body input[type='text']::placeholder,
+  input[type='number']::placeholder,
+  input[type='email']::placeholder,
+  textarea::placeholder {
+    font-size: 16px !important;
+  }
+
+
+}
+
+
 
 body input[type='text']:focus,
 body input[type='number']:focus,
@@ -701,7 +766,6 @@ transition: all .4s ease;
   font-weight: 500;
   border: 1px solid #C7C6C7;
   box-sizing: border-box;
-  font-size: 12px;
   width: 100%;
   position: relative;
   transition: none;
@@ -1126,9 +1190,7 @@ body .cursor-pointer {
   }
 }
 
-select:focus {
-  font-size: 12px !important;
-}
+
 
 @media(max-width:990px) {
   .table_overflow {
@@ -1151,12 +1213,14 @@ select:focus {
   padding: 8px 15px !important;
 }
 
-.fXTWVm{
+.fXTWVm {
   border: 0.5px dashed #2196f3 !important;
 }
-.rdt_TableBody{
-  height: 500px ;
+
+.rdt_TableBody {
+  height: 500px;
 }
-.rdt_TableRow{
+
+.rdt_TableRow {
   padding: 0px !important;
 }
