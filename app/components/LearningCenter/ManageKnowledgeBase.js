@@ -156,7 +156,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             sortable: false,
             reorder: false,
             cell: (row, index) =>
-                <div className="">
+                <div className="py-2">
                     <Multiselect
                         className=''
                         options={basicFormData?.bots ?? []}

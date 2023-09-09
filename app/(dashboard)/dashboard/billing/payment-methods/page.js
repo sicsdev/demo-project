@@ -75,7 +75,7 @@ const PaymentMethod = () => {
                                 {basicFormData && basicFormData?.card ? (
                                     <>
 
-                                        <h3 className="text-start text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-9 my-2 font-semibold text-heading">
+                                        <h3 className="text-start text-base sm:leading-9 my-2 font-semibold text-heading">
                                             Payment Methods
                                         </h3>
                                         <div className={'grid grid-cols-1 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-3 gap-4'}>
@@ -120,8 +120,8 @@ const PaymentMethod = () => {
                     <StripeWrapper>
 
                         <Card>
-                            <h3 className='font-semibold mb-2'>Add payment method</h3>
-                            <p className='text-sm text-border mb-4'>This card will be charged based on your metered usage. </p>
+                            <h3 className='font-semibold mb-2 text-base '>Add payment method</h3>
+                            <p className='text-xs text-border mb-4'>This card will be charged based on your metered usage. </p>
                             <Billing
                                 basicFormData={basicFormData}
                                 setShowBilling={setIsEdit}

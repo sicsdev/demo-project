@@ -615,15 +615,17 @@ const GetStarted = () => {
                     </Link>
                   </div>
                   {singleData?.icon ? singleData?.icon :
-                    <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
-
-                      <Image
-                        fill={"true"}
-                        className="bg-contain mx-auto w-full rounded-lg"
-                        alt="logo.png"
-                        src={'/workflow/reactive-subscription.png'}
-                      />
-                    </div>
+                    <>
+                      😊
+                      {/* <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
+                        <Image
+                          fill={"true"}
+                          className="bg-contain mx-auto w-full rounded-lg"
+                          alt="logo.png"
+                          src={'/workflow/reactive-subscription.png'}
+                        />
+                      </div> */}
+                    </>
                   }
                   <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => {
                     setWorkFlowFormData((prev) => {

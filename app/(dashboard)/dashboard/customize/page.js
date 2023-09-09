@@ -8,13 +8,14 @@ import Schedule from '@/app/components/Customize/Schedule'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
-import { CalendarDaysIcon, EnvelopeIcon, QrCodeIcon } from '@heroicons/react/24/outline'
+import { CalendarDaysIcon, CheckIcon, ClipboardIcon, EnvelopeIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
+import CopyToClipboard from "react-copy-to-clipboard";
 
 const Page = () => {
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const Page = () => {
   const [loading, setLoading] = useState(null)
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [isCopy, setIsCopy] = useState(false);
 
   const savePreferences = () => {
     setLoading(true);
@@ -46,7 +48,7 @@ const Page = () => {
       delete payload.ticketing_platform
     } else if (tab === 1) {
       payload = {
-        email_agent_name: basicFormData.agent_name,
+        agent_name: basicFormData.agent_name,
         email_agent_title: basicFormData.agent_title,
         email_greeting: basicFormData.email_introduction,
         email_farewell: basicFormData.email_signOff,
@@ -81,7 +83,7 @@ const Page = () => {
       // console.log("bot_res", bot_res)
       let payload = {
         // email: bot_res.email,
-        agent_name: bot_res.email_agent_name,
+        agent_name: bot_res.agent_name,
         agent_title: bot_res.email_agent_title,
         email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
         email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
@@ -167,7 +169,7 @@ const Page = () => {
                 className={`flex justify-start text-xs sm:text-sm pl-2 gap-2 cursor-pointer items-center  py-2  ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <EnvelopeIcon className="h-5 w-5 text-gray-500" /> Email Settings
+                <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Additional Settings
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
@@ -191,14 +193,15 @@ const Page = () => {
 
         <>
           <>
-            <div className="my-2">
+            <div className="my-2 flex items-center justify-between gap-1">
               <TextField
                 value={basicFormData.email}
                 name="email"
                 className="py-3 mt-1"
+                labelClassName={`${basicFormData?.email !== '' ? 'w-[95%]' : 'w-full'}`}
                 title={
                   <div className="flex items-center gap-2 w-[150px]">
-                    <span>Agent Job Title</span>{" "}
+                    <span>Agent Email</span>{" "}
                   </div>
                 }
                 placeholder={"Email"}
@@ -207,6 +210,35 @@ const Page = () => {
                 disabled={true}
                 error={""}
               />
+              {basicFormData?.email !== '' && (
+                <div className=''>
+                  {isCopy == true ? (
+                    <>
+                      <span className="mt-[20px] flex items-center text-sm">
+                        <CheckIcon className="h-4 w-4 " />
+                        <small className=''>Copied!</small>
+                      </span>{" "}
+                    </>
+                  ) : (
+                    <CopyToClipboard
+                      text={`${basicFormData.email}`}
+                      onCopy={() => {
+                        setIsCopy(true);
+                        setTimeout(() => {
+                          setIsCopy(false);
+                        }, 3000);
+                      }}
+                    >
+                      <button
+                        type={"button"}
+                        className="border-none p-0 mt-[20px] flex gap-1 items-center text-sm"
+                      >
+                        <ClipboardIcon className=" h-4 w-4" /> <small className=''>Copy</small>
+                      </button>
+                    </CopyToClipboard>
+                  )}
+                </div>
+              )}
             </div>
           </>
           <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />

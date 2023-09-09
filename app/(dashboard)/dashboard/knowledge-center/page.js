@@ -167,14 +167,28 @@ const Page = () => {
             document.removeEventListener("click", handleOutsideClick);
         };
     }, []);
+
+    const customStyles = {
+        rows: {
+            style: {
+                minHeight: '70px', // override the row height
+            },
+        }
+    };
+
     const columns = [
         {
             name: "Question",
-            selector: (row) => <p className=' whitespace-normal'>{row.question}</p>,
+            selector: (row) => <p className='whitespace-normal'>{row.question}</p>,
             sortable: true,
             reorder: true,
+            cell: (row) => (
+                <p className='whitespace-normal'>{row.question}</p>
+            ),
             style: {
-                whiteSpace: "inherit"
+                whiteSpace: "inherit",
+                width: '500px !important',
+                // padding: '10px 0 10px 0'
             },
         },
         {
@@ -196,8 +210,8 @@ const Page = () => {
             ),
         },
         {
-            name: "Accepted",
-            selector: (row) => <p className=' whitespace-normal'>{row.accepted === true ? 'Yes' : 'No'}</p>,
+            name: "Count",
+            selector: (row) => <p className=' whitespace-normal'>{row.number_of_messages}</p>,
             sortable: true,
             reorder: true,
             style: {
@@ -306,7 +320,7 @@ const Page = () => {
                                     pointerOnHover
                                     defaultSortFieldId="question"
                                     pagination
-                                    className='data-table-class'
+                                    className='data-table-class-old'
                                     columns={columns}
                                     noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                     data={state?.data?.results}
@@ -316,8 +330,7 @@ const Page = () => {
                                     onChangePage={(page) => {
                                         handleRecomodationValue(page)
                                     }}
-
-
+                                    customStyles={customStyles}
                                 />
                             </div>
                         )}
