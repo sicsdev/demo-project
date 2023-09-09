@@ -32,6 +32,7 @@ import {
     CodeBracketIcon,
     BuildingOffice2Icon,
     AdjustmentsHorizontalIcon,
+    PhoneIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -140,11 +141,11 @@ const NewSidebar = ({ children }) => {
                     name: "Knowledge Center",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
                 },
-                {
-                    href: "/dashboard/knowledge-center",
-                    name: "Recommendations",
-                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                },
+                // {
+                //     href: "/dashboard/knowledge-center",
+                //     name: "Recommendations",
+                //     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                // },
             ],
             notification: recommedState?.data?.count,
         },
@@ -183,7 +184,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/manage-phones",
                     name: "Phone Settings",
-                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <PhoneIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
         },
@@ -234,11 +235,11 @@ const NewSidebar = ({ children }) => {
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
-                {
-                    href: "/",
-                    name: "Company Details",
-                    icon: <BuildingOffice2Icon className="h-6 w-6 text-gray-500" />,
-                },
+                // {
+                //     href: "/",
+                //     name: "Company Details",
+                //     icon: <BuildingOffice2Icon className="h-6 w-6 text-gray-500" />,
+                // },
                 {
                     href: "/dashboard/members",
                     name: "Team",

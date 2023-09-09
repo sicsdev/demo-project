@@ -209,16 +209,16 @@ const Page = () => {
                 </div>
             ),
         },
-        // {
-        //     name: "Accepted",
-        //     selector: (row) => <p className=' whitespace-normal'>{row.accepted === true ? 'Yes' : 'No'}</p>,
-        //     sortable: true,
-        //     reorder: true,
-        //     style: {
-        //         // width: '20%',
-        //         // justifyContent: 'end'
-        //     },
-        // },
+        {
+            name: "Count",
+            selector: (row) => <p className=' whitespace-normal'>{row.number_of_messages}</p>,
+            sortable: true,
+            reorder: true,
+            style: {
+                // width: '20%',
+                // justifyContent: 'end'
+            },
+        },
         {
             name: "",
             cell: (row) => (

@@ -14,6 +14,7 @@ import Chat from "@/app/components/Chats/Chats";
 import Loading from "@/app/components/Loading/Loading";
 import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
+import Card from "@/app/components/Common/Card/Card";
 // import Reports from "@/app/components/Reports/Reports";
 
 
@@ -248,11 +249,11 @@ const Logs = () => {
   };
 
   const performSearch = (text) => {
-    if(selectedBot){
-     let searching=  logState.data.queryParam || ''
-      handlePageChange(selectedBot, 1, searching +'&search='+text);
+    if (selectedBot) {
+      let searching = logState.data.queryParam || ''
+      handlePageChange(selectedBot, 1, searching + '&search=' + text);
     }
-   
+
   };
 
   return (
@@ -283,51 +284,14 @@ const Logs = () => {
                   </span>
                 </li>}
             </ul>
-            {showChat === true ?
-              <div className="flex justify-end gap-2 items-center">
-                <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+            <div className="flex justify-end gap-2">
+              <p className="text-sm">
+                <Link href="/dashboard">
                   back
-                </p>
-                {indexVal === 0 && pageVal === 1 ?
-                  null
-                  :
-                  <p className="text-sm cursor-pointer" onClick={() => {
-                    if (indexVal === 0 && pageVal !== 1) {
-                      handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
-                      setPageVal(pageVal - 1)
-                      setIndexVal(9)
-                      getCoversationMessages(manageMessages[0].id)
-                    } else {
-                      getCoversationMessages(manageMessages[indexVal - 1].id)
-                      setIndexVal(indexVal - 1)
-                    }
-                  }}>
-                    <ArrowLeftIcon className="h-6 w-6 text-heading" />
-                  </p>
-                }
-                <p className="text-sm cursor-pointer" onClick={() => {
-                  if (indexVal !== manageMessages.length - 1) {
-                    getCoversationMessages(manageMessages[indexVal + 1].id)
-                    setIndexVal(indexVal + 1)
-                  } else {
-                    handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
-                    setPageVal(pageVal + 1)
-                    setIndexVal(0)
-                    getCoversationMessages(manageMessages[0].id)
-                  }
-                }}>
-                  <ArrowRightIcon className="h-6 w-6 text-heading" />
-                </p>
-              </div>
-              :
-              <div className="flex justify-end gap-2">
-                <p className="text-sm">
-                  <Link href="/dashboard">
-                    back
-                  </Link>
-                </p>
-              </div>
-            }
+                </Link>
+              </p>
+            </div>
+
           </div>
         </div>
         {showChat === false && (
@@ -342,116 +306,168 @@ const Logs = () => {
               <input type="search" id="search" className="!text-[16px] sm:text-[12px] block w-full p-2 focus:outline-none focus:border-sky focus:ring-1 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
             </div>
           </div>
-          )}
+        )}
 
         {/* <Reports /> */}
-        {showChat === false ?
-          <>
-            <div className="block sm:flex justify-center gap-5">
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={handleInputValues}
-                  value={selectedBot}
-                  name="bot"
-                  values={botValue}
-                  title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
-                  id={"bots"}
-                  className="py-3"
-                  error={""}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.type || ''}
-                  name="type"
-                  values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
-                  title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
-                  id={"type"}
-                  className="py-3"
-                  error={""}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.conversations || ''}
-                  name="conversations"
-                  values={workflowValue}
-                  title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
-                  id={"conversations"}
-                  className="py-3"
-                  error={""}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.workflows || ''}
-                  name="workflows"
-                  values={userWorkFlows}
-                  title={<h3 className="text-sm my-4 font-semibold">Workflows</h3>}
-                  id={"workflows"}
-                  className="py-3"
-                  error={""}
-                />
+        <>
+          <div className="block sm:flex justify-center gap-5">
+            <div className="mb-4 w-full">
+              <SelectOption
+                onChange={handleInputValues}
+                value={selectedBot}
+                name="bot"
+                values={botValue}
+                title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
+                id={"bots"}
+                className="py-3"
+                error={""}
+              />
+            </div>
+            <div className="mb-4 w-full">
+              <SelectOption
+                onChange={(e) => filterDataHandler(e)}
+                value={selectedFilters.type || ''}
+                name="type"
+                values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
+                id={"type"}
+                className="py-3"
+                error={""}
+              />
+            </div>
+            <div className="mb-4 w-full">
+              <SelectOption
+                onChange={(e) => filterDataHandler(e)}
+                value={selectedFilters.conversations || ''}
+                name="conversations"
+                values={workflowValue}
+                title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
+                id={"conversations"}
+                className="py-3"
+                error={""}
+              />
+            </div>
+            <div className="mb-4 w-full">
+              <SelectOption
+                onChange={(e) => filterDataHandler(e)}
+                value={selectedFilters.workflows || ''}
+                name="workflows"
+                values={userWorkFlows}
+                title={<h3 className="text-sm my-4 font-semibold">Workflows</h3>}
+                id={"workflows"}
+                className="py-3"
+                error={""}
+              />
+            </div>
+          </div>
+          {loading === true || state.isLoading === true ? (
+            // <Loading />
+            <div className="">
+              <h1 className="mt-2 text-sm">
+                <SkeletonLoader height={40} width={100} />
+              </h1>
+              <div className="mt-3">
+                <SkeletonLoader count={9} height={30} className={"mt-2"} />
               </div>
             </div>
-            {loading === true || state.isLoading === true ? (
-              // <Loading />
-              <div className="">
-                <h1 className="mt-2 text-sm">
-                  <SkeletonLoader height={40} width={100} />
-                </h1>
-                <div className="mt-3">
-                  <SkeletonLoader count={9} height={30} className={"mt-2"} />
-                </div>
-              </div>
-            ) : (
-              <>
-                {selectedBot && (
-                  <DataTable
-                    title={<h3 className="text-sm font-semibold">View Logs</h3>}
-                    fixedHeader
-                    highlightOnHover
-                    pointerOnHover
-                    defaultSortFieldId="year"
-                    onRowClicked={(rowData) => {
-                      // router.push(rowData.url);
-                      getCoversationMessages(rowData.id)
-                      setIndexVal(rowData.index)
+          ) : (
+            <>
+              {selectedBot && (
+                <DataTable
+                  title={<h3 className="text-sm font-semibold">View Logs</h3>}
+                  fixedHeader
+                  highlightOnHover
+                  pointerOnHover
+                  defaultSortFieldId="year"
+                  onRowClicked={(rowData) => {
+                    // router.push(rowData.url);
+                    getCoversationMessages(rowData.id)
+                    setIndexVal(rowData.index)
 
-                    }}
-                    pagination
-                    className='data-table-class'
-                    paginationServer
-                    paginationPerPage={10}
-                    paginationTotalRows={totalRows}
-                    onChangePage={(page) => {
-                      setPageVal(page)
-                      handlePageChange(selectedBot, page, '')
-                    }}
-                    noDataComponent={
-                      <>
-                        <p className="text-center text-sm p-3">
-                          No Chat logs found!
-                        </p>
-                      </>
-                    }
-                    columns={columns}
-                    data={conversationData}
-                  />
-                )}
-              </>
-            )}
-          </>
-          :
+                  }}
+                  pagination
+                  className='data-table-class'
+                  paginationServer
+                  paginationPerPage={10}
+                  paginationTotalRows={totalRows}
+                  onChangePage={(page) => {
+                    setPageVal(page)
+                    handlePageChange(selectedBot, page, '')
+                  }}
+                  noDataComponent={
+                    <>
+                      <p className="text-center text-sm p-3">
+                        No Chat logs found!
+                      </p>
+                    </>
+                  }
+                  columns={columns}
+                  data={conversationData}
+                />
+              )}
+            </>
+          )}
+        </>
+        {showChat && (
           <>
-            {messageLoading ? <Loading /> : (
-              <Chat messages={messages} />
-            )}
-          </>
-        }
+
+            <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => setShowChat(false)}>    </div >
+            <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+              <>
+                {/* <Card> */}
+                  <div className=''>
+                    <h3 className='text-heading font-semibold text-xl text-center mt-4'>Chat</h3>
+                  </div>
+
+                  <div className="flex justify-between p-2 my-4 gap-2 items-center">
+                    <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+                      back
+                    </p>
+                    <div className="flex justify-between p-2 my-4 gap-2 items-center">
+                      {indexVal === 0 && pageVal === 1 ?
+                        null
+                        :
+                        <p className="text-sm cursor-pointer" onClick={() => {
+                          if (indexVal === 0 && pageVal !== 1) {
+                            handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
+                            setPageVal(pageVal - 1)
+                            setIndexVal(9)
+                            getCoversationMessages(manageMessages[0].id)
+                          } else {
+                            getCoversationMessages(manageMessages[indexVal - 1].id)
+                            setIndexVal(indexVal - 1)
+                          }
+                        }}>
+                          <ArrowLeftIcon className="h-6 w-6 text-heading" />
+                        </p>
+                      }
+                      <p className="text-sm cursor-pointer" onClick={() => {
+                        if (indexVal !== manageMessages.length - 1) {
+                          getCoversationMessages(manageMessages[indexVal + 1].id)
+                          setIndexVal(indexVal + 1)
+                        } else {
+                          handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
+                          setPageVal(pageVal + 1)
+                          setIndexVal(0)
+                          getCoversationMessages(manageMessages[0].id)
+                        }
+                      }}>
+                        <ArrowRightIcon className="h-6 w-6 text-heading" />
+                      </p>
+                    </div>
+                  </div>
+                  <>
+
+                    <Chat messages={messages} />
+
+                  </>
+
+                {/* </Card> */}
+              </>
+            </div></>
+        )}
+
+
       </div>
     </>
 

@@ -48,7 +48,7 @@ const Page = () => {
             if (bot_faq?.status === 201 && enterprise?.status === 201) {
                 let email_payload = {
                     email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
-                    email_agent_name: basicFormData.agent_name,
+                    agent_name: basicFormData.agent_name,
                     email_agent_title: basicFormData.agent_title,
                     email_greeting: basicFormData.email_introduction,
                     email_farewell: basicFormData.email_signOff,

@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getPaymentHistory } from '@/app/API/pages/Usage';
 import Loading from '@/app/components/Loading/Loading';
+import Card from '@/app/components/Common/Card/Card';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -44,7 +45,7 @@ const UsageLimit = () => {
           },
         },
       },
-    
+
       title: {
         display: false, // Remove chart title
       },
@@ -119,7 +120,7 @@ const UsageLimit = () => {
           <div className="border-b border-primary dark:border-gray-700">
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
               <li className="mr-2">
-                <a href="#" className=" flex justify-start gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
+                <a href="#" className=" flex justify-start  gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
                   <TicketIcon className="h-5 w-5 text-gray-500" /> Usage
                 </a>
               </li>
@@ -127,28 +128,30 @@ const UsageLimit = () => {
             </ul>
           </div>
           {data ?
-          <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
-         
-            <h3 className="font-bold text-xl md:text-xl lg:text-xl sm:text-xl sm:leading-none my-2 text-heading">Usage</h3>
-            <p className='text-sm my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
-            <h3 className="font-bold text-base md:text-base lg:text-base sm:text-base sm:leading-none mt-2 text-heading">Usage this month
-            </h3>
-            <p className='text-xs text-heading'>${totalUsage}</p>
-            <div className='flex justify-between items-center my-3'>
-              <div className='flex justify-between items-center gap-8'>
-                <p className='font-bold text-lg'>{curretYear}</p>
-              </div>
+
+            <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
+              <Card>
+                <h3 className="font-bold text-base  sm:leading-none my-2 text-heading">Usage</h3>
+                <p className='text-sm my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
+                <h3 className="font-bold text-md sm:leading-none mt-2 text-heading">Usage this month
+                </h3>
+                <p className='text-xs text-heading'>${totalUsage}</p>
+                <div className='flex justify-between items-center my-3'>
+                  <div className='flex justify-between items-center gap-8'>
+                    <p className='font-bold text-lg'>{curretYear}</p>
+                  </div>
+                </div>
+                <Bar
+                  data={data}
+                  options={options}
+                />
+              </Card>
             </div>
-            <Bar
-              data={data}
-              options={options}
-            />
-          
-          </div>
-          :
-          <div>
-            <p className='mt-6 text-sm text-[#9CA3AF]'>No usage data</p>
-          </div>
+
+            :
+            <div>
+              <p className='mt-6 text-sm text-[#9CA3AF]'>No usage data</p>
+            </div>
           }
         </div>
       }
