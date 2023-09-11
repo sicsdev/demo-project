@@ -187,7 +187,7 @@ const Page = () => {
             ),
             style: {
                 whiteSpace: "inherit",
-                width: '500px !important',
+                width: '780px !important',
                 // padding: '10px 0 10px 0'
             },
         },
@@ -214,6 +214,7 @@ const Page = () => {
             selector: (row) => <p className=' whitespace-normal'>{row.number_of_messages}</p>,
             sortable: true,
             reorder: true,
+            width: '40px',
             style: {
                 // width: '20%',
                 // justifyContent: 'end'
