@@ -46,11 +46,16 @@ select {
   font-size: 12px !important;
 }
 
+.multiselect-container input.searchBox {
+  opacity: 0;
+}
+
 @media(max-width:990px) {
-  body  select:focus {
+  body select:focus {
     font-size: 16px !important;
   }
-  body  select {
+
+  body select {
     font-size: 16px !important;
   }
 
@@ -61,9 +66,9 @@ select {
     font-size: 16px !important;
   }
 
-body  select,
-body  textarea,
-body  input {
+  body select,
+  body textarea,
+  body input {
     font-size: 16px !important;
   }
 
