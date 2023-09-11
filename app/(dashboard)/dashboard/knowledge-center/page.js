@@ -214,7 +214,6 @@ const Page = () => {
             selector: (row) => <p className=' whitespace-normal'>{row.number_of_messages}</p>,
             sortable: true,
             reorder: true,
-            width: '40px',
             style: {
                 // width: '20%',
                 // justifyContent: 'end'
@@ -282,20 +281,12 @@ const Page = () => {
             <div style={{ whiteSpace: "normal" }}>
                 <div className="border-b border-border flex items-center justify-between">
                     <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                        <li className="mr-2" onClick={() => { setTab(0) }}>
+                        <li className="mr-2" >
                             <span
-                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2 ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2  "border-b-2 text-primary border-primary font-bold  rounded-t-lg active  group`}
                                 aria-current="page"
                             >
                                 <BookOpenIcon className="h-5 w-5 text-primary" /> Learning center
-                            </span>
-                        </li>
-                        <li className="mr-2" onClick={() => { setTab(1) }}>
-                            <span
-                                className={`flex justify-start gap-2 pl-2 text-xs sm:text-sm cursor-pointer items-center py-2  ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active  group`}
-                                aria-current="page"
-                            >
-                                <AcademicCapIcon className="h-5 w-5 text-primary" /> Manage Knowledge Base
                             </span>
                         </li>
                     </ul>
@@ -312,7 +303,6 @@ const Page = () => {
                     </div>
                 ) : (
                     <>
-                        {tab === 0 && (
                             <div className="w-full" >
                                 <DataTable
                                     title={''}
@@ -334,11 +324,6 @@ const Page = () => {
                                     customStyles={customStyles}
                                 />
                             </div>
-                        )}
-                        {tab === 1 && basicFormData?.knowledgeData && (
-
-                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                        )}
                     </>
                 )}
             </div>
