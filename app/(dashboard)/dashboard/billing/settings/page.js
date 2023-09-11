@@ -118,30 +118,8 @@ const Page = () => {
   };
   return (
     <div>
-      {isEdit == true ? (
-        <>
-          <p
-            className="float-right my-5 cursor-pointer"
-            onClick={() => {
-              setIsEdit(false);
-            }}
-          >
-            Edit
-          </p>
-        </>
-      ) : (
-        <>
-          <p
-            className="float-right my-5 cursor-pointer"
-            onClick={() => {
-              setIsEdit(true);
-            }}
-          >
-            Back
-          </p>
-        </>
-      )}
-      <div className="border-b border-primary dark:border-gray-700">
+     
+      <div className="border-b border-primary dark:border-gray-700 flex justify-between items-center">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li className="mr-2">
             <a
@@ -154,6 +132,29 @@ const Page = () => {
             </a>
           </li>
         </ul>
+        {isEdit == true ? (
+        <>
+          <p
+            className="text-sm cursor-pointer"
+            onClick={() => {
+              setIsEdit(false);
+            }}
+          >
+            Edit
+          </p>
+        </>
+      ) : (
+        <>
+          <p
+            className="text-sm cursor-pointer"
+            onClick={() => {
+              setIsEdit(true);
+            }}
+          >
+            Back
+          </p>
+        </>
+      )}
       </div>
       {isEdit == true ? (
         <>

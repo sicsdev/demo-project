@@ -1,6 +1,6 @@
 'use client'
 import PhoneHandle from '@/app/components/Customize/PhoneHandle'
-import { PhoneIcon } from '@heroicons/react/24/outline'
+import { DevicePhoneMobileIcon, PhoneIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -16,7 +16,7 @@ const Page = () => {
                                 className=" flex justify-start gap-2 cursor-pointer items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
                                 aria-current="page"
                             >
-                                <PhoneIcon className="h-5 w-5 text-gray-500" />{" "}
+                                <DevicePhoneMobileIcon className="h-5 w-5 text-gray-500" />{" "}
                                 Phone
                             </span>
                         </li>

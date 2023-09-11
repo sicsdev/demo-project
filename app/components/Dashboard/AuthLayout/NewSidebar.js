@@ -141,11 +141,11 @@ const NewSidebar = ({ children }) => {
                     name: "Knowledge Center",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
                 },
-                // {
-                //     href: "/dashboard/knowledge-center",
-                //     name: "Recommendations",
-                //     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                // },
+                {
+                    href: "/dashboard/basic-knowledge",
+                    name: "Manage Knowledge Base",
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                },
             ],
             notification: recommedState?.data?.count,
         },
@@ -157,24 +157,24 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/chat-bots",
-                    name: "Chat Bots",
+                    name: "Agents",
                     icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
         },
-        {
-            href: "/",
-            name: "Smart Inbox",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/",
-                    name: "Email Settings",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-                }
-            ],
-        },
+        // {
+        //     href: "/",
+        //     name: "Smart Inbox",
+        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+        //     isLink: false,
+        //     list: [
+        //         {
+        //             href: "/",
+        //             name: "Email Settings",
+        //             icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+        //         }
+        //     ],
+        // },
         {
             href: "/",
             name: "Smart IVR",
@@ -184,7 +184,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/manage-phones",
                     name: "Phone Settings",
-                    icon: <PhoneIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
         },
@@ -246,7 +246,7 @@ const NewSidebar = ({ children }) => {
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
-                    href: "/dashboard/api-references",
+                    href: "https://docs.usetempo.ai/reference",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
                 }
@@ -310,18 +310,34 @@ const NewSidebar = ({ children }) => {
                         {element.list.map((ele, key) => (
                             <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
                                 }`}>
-                                <Link
-                                    href={ele.href}
-                                    onClick={() => handlerclosemenu(ele.href)}
-                                    className={`p-2 flex items-center`}
-                                >
-                                    {ele.icon}
-                                    {!collaps && (
-                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                            {ele.name}
-                                        </span>
-                                    )}
-                                </Link>
+                                {ele.name === 'API References'
+                                    ? <Link
+                                        href={ele.href}
+                                        onClick={() => handlerclosemenu(ele.href)}
+                                        className={`p-2 flex items-center`}
+                                        target="_blank"
+                                    >
+                                        {ele.icon}
+                                        {!collaps && (
+                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                {ele.name}
+                                            </span>
+                                        )}
+                                    </Link>
+                                    : <Link
+                                        href={ele.href}
+                                        onClick={() => handlerclosemenu(ele.href)}
+                                        className={`p-2 flex items-center`}
+                                    >
+                                        {ele.icon}
+                                        {!collaps && (
+                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                {ele.name}
+                                            </span>
+                                        )}
+                                    </Link>
+                                }
+
                             </li>
                         ))}
                     </ul>
@@ -356,7 +372,6 @@ const NewSidebar = ({ children }) => {
                         </span>
                     )}
                 </Link>
-                {/* </div> */}
             </li>
         );
     };
@@ -440,7 +455,7 @@ const NewSidebar = ({ children }) => {
                                                     <li key={key}>
                                                         <Link
                                                             href={element.href}
-                                                            className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                             onClick={() => setIsOpen(false)}
                                                         >
                                                             {/* {element.icon} */}
@@ -453,7 +468,7 @@ const NewSidebar = ({ children }) => {
                                                 <li >
                                                     <Link
                                                         href={'/dashboard/api-keys'}
-                                                        className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                         onClick={() => setIsOpen(false)}
                                                     >
                                                         {/* {element.icon} */}
@@ -506,6 +521,9 @@ const NewSidebar = ({ children }) => {
                                 {SideBarRoutes.map((element, key) =>
                                     sendSideBarDetails(element, key)
                                 )}
+
+
+
                                 <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
                                     <Link
                                         href={"mailto:team@usetempo.ai"}
@@ -535,6 +553,7 @@ const NewSidebar = ({ children }) => {
                             {SideBarRoutes.map((element, key) =>
                                 sendSideBarDetails(element, key)
                             )}
+
                         </ul>
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
@@ -568,7 +587,7 @@ const NewSidebar = ({ children }) => {
                                                         <li key={key}>
                                                             <Link
                                                                 href={element.href}
-                                                                className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                                                                className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                 onClick={() => setIsOpen(false)}
                                                             >
                                                                 {/* {element.icon} */}
@@ -581,7 +600,7 @@ const NewSidebar = ({ children }) => {
                                                     <li >
                                                         <Link
                                                             href={'/dashboard/api-keys'}
-                                                            className={` flex items-center p-2 text-heading  hover:bg-linkhover hover:text-white`}
+                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                             onClick={() => setIsOpen(false)}
                                                         >
                                                             {/* {element.icon} */}
@@ -625,11 +644,11 @@ const NewSidebar = ({ children }) => {
                                 <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
                                     <Link
                                         href={"mailto:team@usetempo.ai"}
-                                        className={`flex items-center  text-gray-900 rounded-lg `}
+                                        className={`flex items-center gap-2 text-gray-900 rounded-lg `}
                                     >
-                                        <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />
+                                        <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />
                                         {!collaps && (
-                                            <span className="flex-1 ml-3 whitespace-nowrap text-[13px] font-normal">
+                                            <span className="whitespace-nowrap text-[13px] font-normal">
                                                 Get Support
                                             </span>
                                         )}

@@ -52,7 +52,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
       setBlockedUrls(basicFormData.origins_blocked ?? []);
-      console.log('preferences', basicFormData)
 
     }
 
@@ -369,7 +368,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     }
   };
 
-
+  console.log("preferences", preferences)
   return (
     <>
       {/* Modal to manage hide urls */}
@@ -472,6 +471,23 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   )}
                   <hr className="opacity-10"></hr>
                 </div> */}
+                {form === false && preferences?.agent_email_value === false && (
+                  <div className="flex items-center w-full mt-2 gap-2">
+                    <div className="flex justify-start w-1/2 items-center">
+                      <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Email</span>
+                    </div>
+                    <div className="flex justify-start w-1/2">
+                      <input
+                        onChange={handleInputChange}
+                        name="email"
+                        value={preferences.email}
+                        type="email"
+                        className="w-full block px-3 new_input bg-white focus:bg-white  border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                        placeholder="Enter Agent email"
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
@@ -488,18 +504,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     />
                   </div>
                 </div>
-                {/* <div className="mb-4">
-                  <TextField
-                    onChange={handleInputChange}
-                    value={preferences.chat_title}
-                    name="chat_title"
-                    className="py-3 mt-1 w-full"
-                    title={"Bot Title"}
-                    placeholder={"Enter chat title"}
-                    type={"text"}
-                    id={"chat_title"}
-                  />
-                </div> */}
 
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
@@ -680,7 +684,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         onChange={handleAgentNameValue}
                         type={"text"}
                         placeholder={"Enter prompts separated by ,"}
-                      className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
+                        className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
                       />
@@ -817,8 +821,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         </div>
 
                         <div className="send_button" onclick="handleSubmitQuestion()" id="sendButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" className=""  
-                          fill={preferences.primary_color}>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" className=""
+                            fill={preferences.primary_color}>
                             <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
                           </svg>
                         </div>
