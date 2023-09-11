@@ -229,7 +229,7 @@ const EditKnowledgeCenter = ({
                 {singleKnowledgeData?.faqs &&
                   singleKnowledgeData?.faqs.map((faq,i) => (
                     <div className="shadow-xl sm:my-7  w-full mt-2 sm:m-0">
-                      <div className="grid grid-cols-[10%,80%,10%] forBoredr bottom-2 ">
+                      <div className="grid grid-cols-[20%,60%,20%] sm:grid-cols-[10%,80%,10%] forBoredr bottom-2 ">
                         <div className="border text-center">{++i}</div>
                         <div className="border">{faq.question}</div>
                         <div className="border text-center">
