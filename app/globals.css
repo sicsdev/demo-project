@@ -55,29 +55,29 @@ select {
   }
 
   body input[type='text'],
-  input[type='number'],
-  input[type='email'],
-  textarea {
+  body input[type='number'],
+  body input[type='email'],
+  body textarea {
     font-size: 16px !important;
   }
 
 body  select,
-  textarea,
-  input {
+body  textarea,
+body  input {
     font-size: 16px !important;
   }
 
   body input[type='text']:focus,
-  input[type='number']:focus,
-  input[type='email']:focus,
-  textarea:focus {
+  body input[type='number']:focus,
+  body input[type='email']:focus,
+  body textarea:focus {
     font-size: 16px !important;
   }
 
   body input[type='text']::placeholder,
-  input[type='number']::placeholder,
-  input[type='email']::placeholder,
-  textarea::placeholder {
+  body input[type='number']::placeholder,
+  body input[type='email']::placeholder,
+  body textarea::placeholder {
     font-size: 16px !important;
   }
 
