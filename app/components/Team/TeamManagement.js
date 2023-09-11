@@ -21,9 +21,14 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                         scope="row"
                                         className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                     >
-                                        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-border rounded-full dark:bg-gray-600">
-                                            <span className="font-bold text-white dark:text-gray-300">{element.enterprise.name.substring(0, 2)}</span>
-                                        </div>
+                                        {element?.enterprise?.logo ?
+                                            <img
+                                                className="w-9 h-9 rounded-lg border border-border"
+                                                src={element?.enterprise?.logo}
+                                                alt="user photo"
+                                            /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                                <span className="font-medium text-white normal-case"> {element?.enterprise?.name.charAt(0)}</span>
+                                            </div >}
                                     </th>
                                     <td className="px-6 py-4 pb-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {element.email}

@@ -290,33 +290,29 @@ const PhoneHandle = () => {
                                 <p className='text-sm text-heading font-normal'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
                             </div>
                         </div>
-                        <div className='p-5'>
+                        <div className='p-5 block sm:flex md:flex lg:flex justify-between items-center'>
                             <h3 className='text-sm font-semibold text-heading'>Greeting message</h3>
-                            <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
-                                <div className={` border border-border rounded-lg shadow w-full cursor-pointer`}>
-                                    <ul className="text-sm">
-                                        <li onClick={() => {
-                                            setAudioModal(true)
-                                            setIndex(null
-                                            )
-                                        }} className='border rounded-lg rounded-b-none border-border border-l-0 border-r-0 border-t-0 hover:bg-primary hover:text-white text-heading  !cursor-pointer' >
-                                            <button type='button' className="block p-4  !cursor-pointer">Upload mp3</button>
-                                        </li>
-                                        {/* <li className='  hover:bg-primary hover:text-white text-heading !cursor-pointer' >
-                                            <button type='button' className="block p-4  !cursor-pointer">Record audio</button>
-                                        </li> */}
-                                        <li onClick={() => {
-                                            setModal(true)
-                                            setIndex(null)
-                                        }
-                                        } className='rounded-lg rounded-t-none  border border-border border-l-0 border-r-0 border-b-0 hover:bg-primary hover:text-white text-heading !cursor-pointer' >
-                                            <button type='button' className="block p-4  !cursor-pointer" >Type text, convert text to speech</button>
-                                        </li>
-                                    </ul>
+                            <div className='mt-2 sm:m-0 md:m-0 lg:m-0'>
+                                <div className="inline-flex rounded-md shadow-sm" role="group">
+                                    <button onClick={() => {
+                                        setAudioModal(true)
+                                        setIndex(null
+                                        )
+                                    }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
+                                        Upload mp3
+                                    </button>
+                                    <button type="button" onClick={() => {
+                                        setModal(true)
+                                        setIndex(null)
+                                    }
+                                    } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
+                                        Type text, convert text to speech
+                                    </button>
                                 </div>
+
                             </div>
-                            <hr className='mt-6 text-border' />
                         </div>
+                        <hr className='mt-1 mb-6 text-border' />
 
                         <div className='px-5'>
                             <div className='flex justify-between items-center'>
@@ -331,8 +327,9 @@ const PhoneHandle = () => {
                                     </label>
                                 </div>
                             </div>
-                            <hr className='mt-6 text-border' />
+
                         </div>
+                        <hr className='mt-6 text-border' />
                         <div className='p-5'>
                             <div className='flex justify-between items-center'>
                                 <div className=''>
@@ -416,7 +413,7 @@ const PhoneHandle = () => {
                                             </label>
                                             <Button
                                                 type={"button"}
-                                                className="w-full sm:w-auto md:w-auto lg:w-auto inline-block rounded bg-primary px-6 pb-2.5 pt-2.5 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                                 onClick={() => {
                                                     setIndex(key)
                                                     setShowIndexModal(true)
@@ -581,20 +578,30 @@ const PhoneHandle = () => {
                 showIndexModal &&
                 <Modal title={'Greeting '} show={showIndexModal} setShow={setShowIndexModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
                     <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
-                        <div className={` border border-border rounded-lg shadow w-full cursor-pointer`}>
-                            <ul className="text-sm">
-                                <li onClick={() => {
-                                    setShowIndexModal(false)
+
+
+                        <div className='mt-2 sm:m-0 md:m-0 lg:m-0'>
+                            <div className="inline-flex rounded-md shadow-sm" role="group">
+                                <button onClick={() => {
                                     setAudioModal(true)
-                                }} className='border rounded-lg rounded-b-none border-border border-l-0 border-r-0 border-t-0 hover:bg-primary hover:text-white text-heading  !cursor-pointer' >
-                                    <button type='button' className="block p-4  !cursor-pointer">Upload mp3</button>
-                                </li>
-                                {/* <li className='  hover:bg-primary hover:text-white text-heading !cursor-pointer' >
+                                    setShowIndexModal(false)
+                                }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
+                                    Upload mp3
+                                </button>
+                                <button type="button" onClick={() => {
+                                    setModal(true)
+                                    setShowIndexModal(false)
+                                }
+                                } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
+                                    Type text, convert text to speech
+                                </button>
+                            </div>
+
+                        </div>
+                        {/* <li className='  hover:bg-primary hover:text-white text-heading !cursor-pointer' >
                                     <button type='button' className="block p-4  !cursor-pointer">Record audio</button>
                                 </li> */}
 
-                            </ul>
-                        </div>
                     </div>
                 </Modal>
             }

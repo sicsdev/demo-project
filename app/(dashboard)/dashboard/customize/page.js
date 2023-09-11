@@ -44,8 +44,15 @@ const Page = () => {
         ...basicFormData,
         logo: basicFormData.logo_file_name ? basicFormData.logo : "",
       };
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          agent_email_value: true
+        }
+      })
       delete payload.payment_platform
       delete payload.ticketing_platform
+      delete payload.agent_email_value
     } else if (tab === 1) {
       payload = {
         agent_name: basicFormData.agent_name,
@@ -63,6 +70,7 @@ const Page = () => {
         if (res?.status === 200 || res?.status === 201) {
           setLoading(false);
           dispatch(fetchBot());
+          getBotInfo(botId)
           successMessage("Changes successfully saved!")
         } else {
           setLoading(false);
@@ -87,7 +95,8 @@ const Page = () => {
         agent_title: bot_res.email_agent_title,
         email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
         email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
-        customer_service_email: bot_res?.customer_service_email
+        customer_service_email: bot_res?.customer_service_email,
+        agent_email_value: bot_res?.email ? true : false
       }
       let data = res[0].data;
       setBasicFormData((prev) => {
@@ -103,16 +112,32 @@ const Page = () => {
     });
   };
   const DisablingButton = () => {
+    let requiredKeys = []
+    let str_values = null
+    let arr_values = null
     switch (tab) {
       case 1:
-        const requiredKeys = [
+        requiredKeys = [
           'agent_title',
           'email_introduction',
           'email_signOff']
-        const str_values = requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        const arr_values = ['agent_name'].every(key => !basicFormData[key] || basicFormData[key].length === 0);
+        str_values = requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
+        arr_values = ['agent_name'].every(key => !basicFormData[key] || basicFormData[key].length === 0);
         if (str_values || arr_values) {
           return true
+        }
+      case 0:
+        const requiredKeys = [
+          'chat_title',
+          'description',
+          'customer_service_email',
+          'chat_default_message',
+          'customer_service_phone'
+        ];
+        const str_values = requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
+        const arr_values = !basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0;
+        if (str_values || (arr_values && !basicFormData['agent_email_value']) || ['email'].some(key => !basicFormData[key] || basicFormData[key].trim() === '')) {
+          return true;
         }
         break;
 
@@ -182,7 +207,7 @@ const Page = () => {
             </li>
           </ul>
           <p className="text-sm">
-            <Link href="/dashboard">back</Link>
+            <Link href="/dashboard/chat-bots">back</Link>
           </p>
         </div>
       </div>

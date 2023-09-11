@@ -207,7 +207,7 @@ const Login = () => {
             <Input
               type={"email"}
               placeholder={"name@company.com"}
-              className={`w-full border mx-auto mt-4 !text-[16px] sm:text-sm ${
+              className={`w-full border mx-auto mt-4 ${
                 error.includes("email") && "border-red"
               }`}
               name="email"
@@ -225,7 +225,7 @@ const Login = () => {
             <Input
               type={"password"}
               placeholder={"password"}
-              className={`w-full border mx-auto mt-4 !text-[16px] sm:text-sm ${error && "border-red"}`}
+              className={`w-full border mx-auto mt-4 ${error && "border-red"}`}
               name="password"
               value={formValues.password}
               id={"password"}
