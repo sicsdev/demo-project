@@ -399,8 +399,8 @@ const NewSidebar = ({ children }) => {
                             <div className="flex items-center justify-start">
                                 {skeltonLoading ? (
                                     <>
-                                        <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" />
-                                        <SkeletonLoader className="ml-2" count={1} height={30} width={100} baseColor="#232d32" />
+                                        <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" highlightColor="#ff5233" />
+                                        <SkeletonLoader className="ml-2" count={1} height={30} width={100} baseColor="#232d32" highlightColor="#ff5233" />
                                     </>
                                 ) : (
                                     <>
@@ -441,7 +441,7 @@ const NewSidebar = ({ children }) => {
                                 <div className="flex items-center ml-3">
                                     <div className="relative">
                                         {skeltonLoading ? (
-                                            <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" />
+                                            <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" highlightColor="#ff5233" />
                                         ) : (
                                             <button
                                                 type="button"
@@ -570,7 +570,7 @@ const NewSidebar = ({ children }) => {
                         {skeltonLoading ? (
                             <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
                                 <li className="w-full rounded-lg">
-                                    <SkeletonLoader className="mt-3" count={9} height={40} width="100%" baseColor="#232d32" />
+                                    <SkeletonLoader className="mt-3" count={9} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
                                 </li>
                             </ul>
                         ) : (
@@ -585,7 +585,7 @@ const NewSidebar = ({ children }) => {
                             {skeltonLoading ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
-                                        <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" />
+                                        <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
                                     </li>
                                 </ul>
                             ) : (
