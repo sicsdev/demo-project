@@ -16,7 +16,7 @@ import Image from "next/image";
 import Button from "@/app/components/Common/Button/Button";
 import CustomIntegration from "@/app/components/Integration/CustomIntegration";
 import { useSelector } from "react-redux";
-
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
@@ -31,6 +31,8 @@ const Page = () => {
   const [integrationModal, setIntegrationModal] = useState(false);
   const [integrationform, setIntegrationform] = useState(false);
   const [integrationFormData, setIntegrationFormData] = useState({});
+  const [skeltonLoading, setSkeltonLoading] = useState(true);
+  const [help, setHelp] = useState([])
 
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
@@ -152,7 +154,7 @@ const Page = () => {
     }
   }, [state]);
 
-  const [help, setHelp] = useState([])
+
   const performIntegrationTask = (item, name) => {
     setIntegrationFormData(item);
     setFormData(item.data);
@@ -170,6 +172,7 @@ const Page = () => {
         break;
     }
   };
+
   const handleInput = (e) => {
     const { value } = e.target;
     let filteredTiles = [];
@@ -196,25 +199,50 @@ const Page = () => {
       .filter(Boolean);
     setIntegrationsTiles(filteredData);
   };
+
   return (
     <>
+      <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <li className="mr-2">
+            <a
+              href="javascript:void(0)"
+              className=" flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+              aria-current="page"
+            >
+              <ShareIcon className="h-5 w-5 text-primary" /> Integrations
+            </a>
+          </li>
+        </ul>
+      </div>
       {dataLoader === true ? (
-        <Loading />
+        <>
+          <div className="flex items-center justify-between">
+            <SkeletonLoader count={1} height={20} width={100} />
+          </div>
+          <div className="relative sm:max-w-[100%]  m-auto">
+            <SkeletonLoader count={1} height={20} width="80%" />
+          </div>
+          <div className={` mt-6`}>
+            {[...Array(5)].map((_, index) => (
+              <>
+                <h3 className="text-sm font-semibold mt-3">
+                  <SkeletonLoader count={1} height={20} width={100} />
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                </div>
+              </>
+            ))}
+          </div>
+
+        </>
       ) : (
         <>
-          <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
-            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-              <li className="mr-2">
-                <a
-                  href="javascript:void(0)"
-                  className=" flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                  aria-current="page"
-                >
-                  <ShareIcon className="h-5 w-5 text-primary" /> Integrations
-                </a>
-              </li>
-            </ul>
-          </div>
           {!integrationform && (
             <>
               <div className="flex items-center justify-between">
@@ -367,7 +395,7 @@ const Page = () => {
           </div>
         </Modal>
       )}
-      <ToastContainer/>
+      <ToastContainer />
     </>
   );
 };

@@ -40,6 +40,7 @@ import { fetchWorkflows } from "../../store/slices/workflowSlice";
 import { ArrowSmallLeftIcon, ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import Loading from "../../Loading/Loading";
 import { makeCapital } from "../../helper/capitalName";
+import SkeletonLoader from "../../Skeleton/Skeleton";
 
 const NewSidebar = ({ children }) => {
     const state = useSelector((state) => state.user.data);
@@ -53,6 +54,14 @@ const NewSidebar = ({ children }) => {
     const [base64Data, setBase64Data] = useState({ data: "", state: false });
     const [showSubTabs, setShowSubTabs] = useState(null);
     const router = useRouter();
+
+    const [skeltonLoading, setSkeltonLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setSkeltonLoading(false);
+        }, 2500);
+    }, []);
+
     useEffect(() => {
         if (!state) {
             dispatch(fetchProfile());
@@ -388,60 +397,71 @@ const NewSidebar = ({ children }) => {
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between text-white    ">
                             <div className="flex items-center justify-start">
-                                <button
-                                    onClick={() => setShow((prev) => !prev)}
-                                    data-drawer-target="logo-sidebar"
-                                    data-drawer-toggle="logo-sidebar"
-                                    aria-controls="logo-sidebar"
-                                    type="button"
-                                    className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                                >
-                                    <span className="sr-only">Open sidebar</span>
-                                    <svg
-                                        className="w-6 h-6"
-                                        aria-hidden="true"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            clipRule="evenodd"
-                                            fillRule="evenodd"
-                                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                                        ></path>
-                                    </svg>
-                                </button>
-
-                                <Link href="/dashboard" className="flex ml-2 md:mr-24">
-                                    <img
-                                        src="/logo.png"
-                                        alt="logo"
-                                        className="w-24 h-15 object-contain"
-                                    />
-                                </Link>
+                                {skeltonLoading ? (
+                                    <>
+                                        <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" />
+                                        <SkeletonLoader className="ml-2" count={1} height={30} width={100} baseColor="#232d32" />
+                                    </>
+                                ) : (
+                                    <>
+                                        <button
+                                            onClick={() => setShow((prev) => !prev)}
+                                            data-drawer-target="logo-sidebar"
+                                            data-drawer-toggle="logo-sidebar"
+                                            aria-controls="logo-sidebar"
+                                            type="button"
+                                            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                                        >
+                                            <span className="sr-only">Open sidebar</span>
+                                            <svg
+                                                className="w-6 h-6"
+                                                aria-hidden="true"
+                                                fill="currentColor"
+                                                viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                    clipRule="evenodd"
+                                                    fillRule="evenodd"
+                                                    d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                                                ></path>
+                                            </svg>
+                                        </button>
+                                        <Link href="/dashboard" className="flex ml-2 md:mr-24">
+                                            <img
+                                                src="/logo.png"
+                                                alt="logo"
+                                                className="w-24 h-15 object-contain"
+                                            />
+                                        </Link>
+                                    </>
+                                )}
                             </div>
                             <div className="flex items-center" ref={divRef}>
                                 <div className="flex items-center ml-3">
                                     <div className="relative">
-                                        <button
-                                            type="button"
-                                            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-                                            aria-expanded={isOpen}
-                                            onClick={handleToggle}
-                                            data-dropdown-toggle="dropdown-user"
-                                        >
-                                            <span className="sr-only">Open user menu</span>
-                                            <img
-                                                className="w-8 h-8 rounded-full"
-                                                src={
-                                                    state?.enterprise?.logo == null
-                                                        ? defaultPhoto
-                                                        : state?.enterprise?.logo
-                                                }
-                                                alt="user photo"
-                                            />
-                                        </button>
-
+                                        {skeltonLoading ? (
+                                            <SkeletonLoader count={1} height={30} width={40} baseColor="#232d32" />
+                                        ) : (
+                                            <button
+                                                type="button"
+                                                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                                                aria-expanded={isOpen}
+                                                onClick={handleToggle}
+                                                data-dropdown-toggle="dropdown-user"
+                                            >
+                                                <span className="sr-only">Open user menu</span>
+                                                <img
+                                                    className="w-8 h-8 rounded-full"
+                                                    src={
+                                                        state?.enterprise?.logo == null
+                                                            ? defaultPhoto
+                                                            : state?.enterprise?.logo
+                                                    }
+                                                    alt="user photo"
+                                                />
+                                            </button>
+                                        )}
                                         {isOpen && (
                                             <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                 <li className="text-start p-2">
@@ -547,114 +567,128 @@ const NewSidebar = ({ children }) => {
                     aria-label="Sidebar"
                 >
                     <div className="h-full px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
-
-                        <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
-
-                            {SideBarRoutes.map((element, key) =>
-                                sendSideBarDetails(element, key)
-                            )}
-
-                        </ul>
+                        {skeltonLoading ? (
+                            <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
+                                <li className="w-full rounded-lg">
+                                    <SkeletonLoader className="mt-3" count={9} height={40} width="100%" baseColor="#232d32" />
+                                </li>
+                            </ul>
+                        ) : (
+                            <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
+                                {SideBarRoutes.map((element, key) =>
+                                    sendSideBarDetails(element, key)
+                                )}
+                            </ul>
+                        )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
-                                <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
-                                    {state?.enterprise?.logo ?
-                                        <img
-                                            className="w-8 h-8 rounded-lg"
-                                            src={state?.enterprise?.logo}
-                                            alt="user photo"
-                                        /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                            <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
-                                        </div >}
+                            {skeltonLoading ? (
+                                <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
+                                    <li className="w-full rounded-lg">
+                                        <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" />
+                                    </li>
+                                </ul>
+                            ) : (
+                                <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
+                                    <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
+                                        {state?.enterprise?.logo ?
+                                            <img
+                                                className="w-8 h-8 rounded-lg"
+                                                src={state?.enterprise?.logo}
+                                                alt="user photo"
+                                            /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                                <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                            </div >}
 
 
 
-                                    {!collaps && (
-                                        <div className="relative ">
-                                            <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                            <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
-                                            {!isOpen && (
-                                                <ul className="hidden group-hover:block fixed w-[200px] text-center left-[236px] top-[266px] mt-2 py-2 bg-white rounded shadow-lg z-50">
-                                                    <li className="text-start p-2">
-                                                        <p className="text-xs font-normal text-heading ml-4 break-all">
-                                                            {state?.email}
-                                                        </p>
-                                                    </li>
+                                        {!collaps && (
+                                            <div className="relative ">
+                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                {!isOpen && (
+                                                    <ul className="hidden group-hover:block fixed w-[200px] text-center left-[236px] top-[266px] mt-2 py-2 bg-white rounded shadow-lg z-50">
+                                                        <li className="text-start p-2">
+                                                            <p className="text-xs font-normal text-heading ml-4 break-all">
+                                                                {state?.email}
+                                                            </p>
+                                                        </li>
 
-                                                    <hr className="text-border border-gray" />
-                                                    {SideBarRoutes.map((element, key) => (
-                                                        <li key={key}>
+                                                        <hr className="text-border border-gray" />
+                                                        {SideBarRoutes.map((element, key) => (
+                                                            <li key={key}>
+                                                                <Link
+                                                                    href={element.href}
+                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                >
+                                                                    {/* {element.icon} */}
+                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                        {sendNames(element.name)}
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                        <li >
                                                             <Link
-                                                                href={element.href}
+                                                                href={'/dashboard/api-keys'}
                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                 onClick={() => setIsOpen(false)}
                                                             >
                                                                 {/* {element.icon} */}
                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                    {sendNames(element.name)}
+                                                                    Keys
                                                                 </span>
                                                             </Link>
                                                         </li>
-                                                    ))}
-                                                    <li >
-                                                        <Link
-                                                            href={'/dashboard/api-keys'}
-                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                            onClick={() => setIsOpen(false)}
-                                                        >
-                                                            {/* {element.icon} */}
-                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                Keys
-                                                            </span>
-                                                        </Link>
-                                                    </li>
-                                                    <hr className="text-border border-gray" />
-                                                    <li className="p-2 relative hover:underline flex">
-                                                        <input
-                                                            className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2 text-xs font-medium leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
-                                                            id="multiple_files"
-                                                            type="file"
-                                                            accept="image/*"
-                                                            multiple
-                                                            onChange={(e) => handleFileInputChange(e)}
-                                                        />
-                                                        <label
-                                                            className="inline-block ml-4 rounded-full text-xs font-medium    leading-normal text-heading "
-                                                            for="file_input"
-                                                        >
-                                                            Upload logo
-                                                        </label>
-                                                    </li>
+                                                        <hr className="text-border border-gray" />
+                                                        <li className="p-2 relative hover:underline flex">
+                                                            <input
+                                                                className="inline-block cursor-pointer  absolute top-0 left-[28px] opacity-0 rounded-full px-6 pt-2 text-xs font-medium leading-normal text-[blue] shadow-[0_4px_9px_-4px_#14a44d] transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.3),0_4px_18px_0_rgba(20,164,77,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(20,164,77,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(20,164,77,0.2),0_4px_18px_0_rgba(20,164,77,0.1)]"
+                                                                id="multiple_files"
+                                                                type="file"
+                                                                accept="image/*"
+                                                                multiple
+                                                                onChange={(e) => handleFileInputChange(e)}
+                                                            />
+                                                            <label
+                                                                className="inline-block ml-4 rounded-full text-xs font-medium    leading-normal text-heading "
+                                                                for="file_input"
+                                                            >
+                                                                Upload logo
+                                                            </label>
+                                                        </li>
 
-                                                    <li className="text-start text-sm font-normal pl-2 ">
-                                                        <button
-                                                            type="button"
-                                                            className="inline-block  rounded-full ml-4 text-heading"
-                                                            onClick={handleLogout}
-                                                        >
-                                                            Logout
-                                                        </button>
-                                                    </li>
-                                                </ul>
-                                            )}
-                                        </div>
-                                    )}
-                                </li>
-                                <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
-                                    <Link
-                                        href={"mailto:team@usetempo.ai"}
-                                        className={`flex items-center gap-2 text-gray-900 rounded-lg `}
-                                    >
-                                        <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />
-                                        {!collaps && (
-                                            <span className="whitespace-nowrap text-[13px] font-normal">
-                                                Get Support
-                                            </span>
+                                                        <li className="text-start text-sm font-normal pl-2 ">
+                                                            <button
+                                                                type="button"
+                                                                className="inline-block  rounded-full ml-4 text-heading"
+                                                                onClick={handleLogout}
+                                                            >
+                                                                Logout
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                )}
+                                            </div>
                                         )}
-                                    </Link>
-                                </li>
-                            </ul>
+                                    </li>
+                                    <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
+                                        <Link
+                                            href={"mailto:team@usetempo.ai"}
+                                            className={`flex items-center gap-2 text-gray-900 rounded-lg `}
+                                        >
+                                            <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />
+                                            {!collaps && (
+                                                <span className="whitespace-nowrap text-[13px] font-normal">
+                                                    Get Support
+                                                </span>
+                                            )}
+                                        </Link>
+                                    </li>
+                                </ul>
+                            )}
+
                             <div className="cursor-pointer p-2 flex justify-center" onClick={(e) => { setCollaps(prev => !prev) }}>
                                 {!collaps ?
                                     <p className="text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
