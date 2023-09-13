@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
 import { getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
+import TopBar from "@/app/components/Common/Card/TopBar";
 
 const Page = () => {
     const [loading, setLoading] = useState(true);
@@ -62,7 +63,7 @@ const Page = () => {
         getAllWorkflowData();
     }, [])
 
-  
+
 
 
     useEffect(() => {
@@ -76,19 +77,7 @@ const Page = () => {
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <div className="border-b border-border flex items-center justify-between">
-                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                        <li className="mr-2">
-                            <span
-                                className={`flex justify-start gap-2 pl-2 text-xs sm:text-sm cursor-pointer items-center py-2  border-b-2  text-primary border-primary font-bold rounded-t-lg active  group`}
-                                aria-current="page"
-                            >
-                                <BookOpenIcon className="h-5 w-5 text-primary" /> Knowledge Base
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-
+                <TopBar title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
                         <h1 className="mt-2 text-sm">

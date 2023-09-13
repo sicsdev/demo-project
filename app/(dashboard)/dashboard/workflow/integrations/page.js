@@ -20,6 +20,7 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
+import TopBar from "@/app/components/Common/Card/TopBar";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -202,19 +203,10 @@ const Page = () => {
 
   return (
     <>
-      <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          <li className="mr-2">
-            <a
-              href="javascript:void(0)"
-              className=" flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-              aria-current="page"
-            >
-              <ShareIcon className="h-5 w-5 text-primary" /> Integrations
-            </a>
-          </li>
-        </ul>
+      <div style={{ whiteSpace: "normal" }}>
+        <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
       </div>
+
       {dataLoader === true ? (
         <>
           <div className="flex items-center justify-between">
