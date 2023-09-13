@@ -316,6 +316,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             document.removeEventListener("click", handleOutsideClick);
         };
     }, []);
+
+    
     return (
         <>
             {tabLoader ? <Loading /> :

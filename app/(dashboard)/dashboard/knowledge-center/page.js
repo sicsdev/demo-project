@@ -294,16 +294,18 @@ const Page = () => {
             }
         }, 100);
     };
+    const handlePerRowsChange = async (newPerPage, page) => {
 
+    }
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Knowledge Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
-                        <h1 className="mt-2 text-sm">
+                        {/* <h1 className="mt-2 text-sm">
                             <SkeletonLoader height={40} width={100} />
-                        </h1>
+                        </h1> */}
                         <div className="mt-3">
                             <SkeletonLoader count={9} height={30} className={"mt-2"} />
                         </div>
@@ -325,6 +327,7 @@ const Page = () => {
                                 paginationPerPage={10}
                                 paginationTotalRows={state?.data?.count}
                                 paginationServer
+                                onChangeRowsPerPage={handlePerRowsChange}
                                 onChangePage={(page) => {
                                     handleRecomodationValue(page)
                                 }}
