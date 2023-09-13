@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TextField from '../../Common/Input/TextField'
 import FileField from '../../Common/Input/FileField'
 import Image from 'next/image'
@@ -7,14 +7,23 @@ import SelectOption from '../../Common/Input/SelectOption'
 import TextArea from '../../Common/Input/TextArea'
 import Multiselect from 'multiselect-react-dropdown'
 
-const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData }) => {
+const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData, setWorkFlowFormData }) => {
+    const [description, setDescription] = useState(workflowFormData?.description.join('\n') ?? '')
     const DisablingButton = () => {
-        const requiredKeys = ["description", "name"];3
+        const requiredKeys = ["name"];
         return requiredKeys.some(
             (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
         );
     };
-
+    const handleInputValue1 = (e) => {
+        setDescription(e.target.value)
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                description: e.target.value.split('\n')
+            }
+        })
+    }
     return (
         <div>
             <div className='mt-2'>
@@ -30,13 +39,15 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                 />
             </div>
             <div className='mt-2 '>
-                <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={workflowFormData.description} onChange={handleInputValue} title={"Description"} />
+                <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={description} onChange={handleInputValue1} title={"Description"} />
             </div>
+
             <div className="my-2">
                 <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
                     <div className='flex items-center gap-2'><span>Bot Selector</span>  </div>
                 </label>
                 <Multiselect
+                    className='searchWrapper-live'
                     options={botValue}
                     selectedValues={workflowFormData?.bots ?? []}
                     onSelect={(selectedList, selectedItem) => {

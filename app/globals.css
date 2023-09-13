@@ -334,6 +334,25 @@ body .searchWrapper {
   width: 115px;
 }
 
+body .searchWrapper-live .searchWrapper {
+  background-color: #ffffff;
+  /* Set your desired background color */
+  color: #000000;
+  /* Set the text color */
+  -webkit-appearance: none;
+  /* Override Safari's default styling */
+  padding: 6px;
+  /* Adjust the padding as needed */
+  border-radius: 4px;
+  outline: none;
+  /* Remove the default focus outline */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: right;
+  width: 100%;
+}
+
 body .chip {
   font-size: 10px;
   text-align: center;
