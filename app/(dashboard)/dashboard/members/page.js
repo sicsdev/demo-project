@@ -74,7 +74,7 @@ const Page = () => {
       }
 
       {state?.isLoading === true ? (
-        <Loading />
+       <SkeletonLoader count={9} height={30} className={"mt-2"} />
       ) : (
         <TeamManagement state={state} removeMember={handleRemoveMember} changeRole={handleChangeRole} />
       )}
