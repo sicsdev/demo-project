@@ -1,5 +1,5 @@
 'use client'
-import { ChevronLeftIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import { ChevronRightIcon, TicketIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 import {
@@ -17,6 +17,14 @@ import { useEffect } from 'react';
 import { getPaymentHistory } from '@/app/API/pages/Usage';
 import Loading from '@/app/components/Loading/Loading';
 import Card from '@/app/components/Common/Card/Card';
+import LoaderButton from '@/app/components/Common/Button/Loaderbutton';
+import TextField from '@/app/components/Common/Input/TextField';
+import Link from 'next/link';
+import Button from '@/app/components/Common/Button/Button';
+import { updateThresholds } from '@/app/API/pages/EnterpriseService';
+import { successMessage } from '@/app/components/Messages/Messages';
+import { ToastContainer } from 'react-toastify';
+import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -31,6 +39,14 @@ const UsageLimit = () => {
   const [totalUsage, setTotalUsage] = useState(0)
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState(null)
+  const [currentMonth, setCurrentMonth] = useState(null);
+  const [btnLoading, setBtnLoading] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [error, setError] = useState(false);
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
   const options = {
     responsive: true,
     plugins: {
@@ -70,9 +86,13 @@ const UsageLimit = () => {
   };
 
   const getPaymentOldData = async () => {
+    setFormData(state.enterprise.billing_thresholds.amount_gte);
     const response = await getPaymentHistory(state.stripe_data.stripe_id)
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+    const currentMonthName = monthNames[currentMonth];
+    setCurrentMonth(currentMonthName)
     if (response.hasOwnProperty('response') && response.response.hasOwnProperty('status')) {
       setCurrentYear(currentYear)
       setLoading(false)
@@ -112,30 +132,132 @@ const UsageLimit = () => {
       getPaymentOldData()
     }
   }, [state])
+  const handleInputValues = (event) => {
+    let inputValue = event.target.value.replace(/[.,]/g, '');
+    if (inputValue > 10000) {
+      inputValue = 10000;
+    }
+    if (inputValue < 50 || inputValue > 10000) {
+      setError(true);
+    } else {
+      setError(false);
+    }
 
+    setFormData(inputValue);
+  };
+  const SubmitForm = async () => {
+    if (formData < 50 || formData > 10000) {
+    } else {
+      setBtnLoading(true);
+      const response = await updateThresholds({
+        billing_thresholds: { amount_gte: parseInt(formData) },
+      });
+      if (response.status === 200) {
+        successMessage("Form update successfully !")
+        setBtnLoading(false);
+      } else {
+        setBtnLoading(false);
+      }
+    }
+  };
   return (
     <>
-      {loading ? <Loading /> :
-        <div>
-          <div className="border-b border-primary dark:border-gray-700">
-            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-              <li className="mr-2">
-                <a href="#" className=" flex justify-start  gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
-                  <TicketIcon className="h-5 w-5 text-gray-500" /> Usage
-                </a>
-              </li>
 
-            </ul>
+      <div className="border-b border-primary dark:border-gray-700">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+          <li className="mr-2">
+            <a href="#" className=" flex justify-start  gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
+              <CurrencyDollarIcon className="h-5 w-5 text-gray-500" /> Usage
+            </a>
+          </li>
+
+        </ul>
+      </div>
+      {loading ? <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
+        <Card>
+          <div className='w-full'>
+          <SkeletonLoader count={1} height={20} width={"30%"} />
+          <SkeletonLoader count={2} height={10} width={"100%"} />
+          <SkeletonLoader count={1} height={30} width={"100%"} />
+          <SkeletonLoader count={1} height={30} width={80} />
           </div>
+          <div className='my-4 w-full'>
+            <SkeletonLoader count={1} height={20} width={150} />
+            <SkeletonLoader count={4} height={10} width={"100%"} />
+          </div>
+          <div className='w-full'>
+          <SkeletonLoader count={1} height={15} width={80} />
+          <SkeletonLoader count={1} height={20} width={100} />
+          </div>
+          <div className='my-2 w-full'>
+            <SkeletonLoader count={10} height={30} width={"100%"} />
+          </div>
+        </Card>
+      </div> :
+        <div>
           {data ?
 
             <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
               <Card>
-                <h3 className="font-bold text-base  sm:leading-none my-2 text-heading">Usage</h3>
-                <p className='text-sm my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
-                <h3 className="font-bold text-md sm:leading-none mt-2 text-heading">Usage this month
+                <h3 className="font-bold text-sm sm:leading-none my-2 text-heading">
+                  Billing Threshold
                 </h3>
-                <p className='text-xs text-heading'>${totalUsage}</p>
+                <p className="text-xs my-2">
+                  Your payment method on file will be charged each time your usage
+                  hits your threshold. Your threshold is adjusted automatically
+                  based on your usage. You can also edit it here.
+                </p>
+                <div className="relative">
+                  <TextField
+                    onChange={handleInputValues}
+                    value={formData}
+                    name="billing_thresholds"
+                    className="py-3 mt-2  !pl-[23px]"
+                    title={""}
+                    placeholder={""}
+                    type={"number"}
+                    id={"billing_thresholds"}
+                    paddingleft={"pl-6"}
+                  />
+                  {error ? (
+                    <span className="text-[#ff0000] text-xs">
+                      Please enter a whole number between 50 and $10,000.
+                    </span>
+                  ) : (
+                    ""
+                  )}
+                  <span className="absolute top-[9px] left-[14px] text-[12px]">$</span>
+                </div>
+
+
+                <>
+                  <Button
+                    type={"button"}
+                    className="inline-block mt-3 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    disabled={btnLoading === true}
+                    onClick={(e) => SubmitForm()}
+                  >
+                    {btnLoading ? "Loading..." : "Save"}
+                  </Button>
+                </>
+
+
+                <h3 className="font-bold text-sm sm:leading-none mt-4 mb-2 text-heading">
+                  Current usage
+                </h3>
+                <p className="text-xs mb-2">
+                  Your total usage so far in {currentMonth} (UTC). Note that this may include
+                  usage covered by a free trial or other credits, so your monthly
+                  bill might be less than the value shown here.{" "}
+                  <Link
+                    className="text-primary hover:text-border font-medium"
+                    href={"/dashboard/billing/usage"}
+                  >
+                    View usage records
+                  </Link>
+                </p><p className='text-xs my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
+
+                <p className="text-sm ">${totalUsage}.00</p>
                 <div className='flex justify-between items-center my-3'>
                   <div className='flex justify-between items-center gap-8'>
                     <p className='font-bold text-lg'>{curretYear}</p>
@@ -145,6 +267,8 @@ const UsageLimit = () => {
                   data={data}
                   options={options}
                 />
+
+
               </Card>
             </div>
 
@@ -155,6 +279,7 @@ const UsageLimit = () => {
           }
         </div>
       }
+      <ToastContainer />
     </>
   )
 }

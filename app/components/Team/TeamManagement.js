@@ -26,22 +26,23 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                                 className="w-9 h-9 rounded-lg border border-border"
                                                 src={element?.enterprise?.logo}
                                                 alt="user photo"
-                                            /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                            /> : 
+                                            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
                                                 <span className="font-medium text-white normal-case"> {element?.enterprise?.name.charAt(0)}</span>
                                             </div >}
                                     </th>
-                                    <td className="px-6 py-4 pb-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td className="px-6 py-4 pb-6 font-400 text-sm whitespace-nowrap dark:text-white">
                                         {element.email}
                                     </td>
-                                    <td className="px-6 py-4 pb-6">
+                                    <td className="px-6 py-4 pb-6 text-sm">
                                         {element.enterprise.name}
                                     </td>
-                                    <td className="px-6 py-4 pb-6 w-[200px]">
+                                    <td className="px-6 py-4 pb-6 w-[200px] text-sm">
                                         {element.phone_prefix + " " + element.phone}
                                     </td>
-                                    <td className="px-6 py-4 pb-6">
+                                    <td className="px-6 py-4 pb-6 text-sm">
                                         {
-                                            element?.role && <span className="inline-block whitespace-nowrap rounded-full bg-sky px-4 py-1 text-center align-baseline text-sm font-bold leading-none text-heading">{makeCapital(element?.role)}</span>
+                                            element?.role && <span className="inline-block whitespace-nowrap rounded-full text-white bg-primary px-4 py-1 text-center align-baseline text-xs font-[500] leading-none ">{makeCapital(element?.role)}</span>
                                         }
                                     </td>
                                     {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email && (

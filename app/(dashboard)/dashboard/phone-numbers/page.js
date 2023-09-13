@@ -103,7 +103,7 @@ const page = () => {
           <div className="">
             <label className="switch">
               <input type="checkbox" name="billingEnabled" />
-              <span className="slider round h-[27px] w-[55px]"></span>
+              <span className="slider round h-[21px] w-[40px]"></span>
             </label>
           </div>
         </div> */}
@@ -122,7 +122,7 @@ const page = () => {
           <div className="">
             <label className="switch">
               <input type="checkbox" name="billingEnabled" />
-              <span className="slider round h-[27px] w-[55px]"></span>
+              <span className="slider round h-[21px] w-[40px]"></span>
             </label>
           </div>
         </div>
@@ -324,7 +324,7 @@ const page = () => {
                   <div className="">
                     <label className="switch">
                       <input type="checkbox" name="billingEnabled" />
-                      <span className="slider round h-[27px] w-[55px]"></span>
+                      <span className="slider round h-[21px] w-[40px]"></span>
                     </label>
                   </div>
                 </div>

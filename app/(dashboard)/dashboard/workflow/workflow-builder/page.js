@@ -15,6 +15,7 @@ import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react
 import { fetchWorkflows } from '@/app/components/store/slices/workflowSlice';
 import { useDispatch } from 'react-redux';
 import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
+import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -79,8 +80,49 @@ const Page = () => {
 
     return (
         <>
-            {state.isLoading === true || loading === true || workflowState?.isLoading === true ? <Loading /> :
+            {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
+                <>
+                    <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
+                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                            <li className="mr-2">
+                                <span
+                                    className={`h-[50px]  flex justify-start gap-2 items-center  font-bold  rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group border-b-2 border-primary text-primary`}
+                                >
+                                    <BriefcaseIcon className={`h-5 w-5 text-primary`} /> Your Workflows
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div className='my-4'>
+                        <div className='flex justify-between gap-4 items-center'>
+                            <div className='flex justify-between gap-2'>
+                                <div className="relative w-[40px] h-[40px] gap-1 rounded-lg">
+                                    <SkeletonLoader count={1} height={40} />
+                                </div>
+                                <div>
+                                    <SkeletonLoader count={1} height={20} width={80} />
+                                    <SkeletonLoader count={1} height={20} width={80} />
+                                </div>
+                            </div>
+                            <div>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 className='my-3  text-heading text-center font-semibold text-sm'>
+                            <SkeletonLoader count={1} height={30} width="30%" className={"text-center"} />
+                        </h3>
+                        <div className="">
+                            <div className="mt-3">
+                                <SkeletonLoader count={10} height={30} className={"mt-2"} />
+                            </div>
+                        </div>
+                    </div>
+                </>
+                :
                 <>
                     {state?.data?.enterprise && (
                         <>

@@ -14,6 +14,7 @@ import Loading from '../Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import Modal from '../Common/Modal/Modal';
 import TextArea from '../Common/Input/TextArea';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const PhoneHandle = () => {
     const dispatch = useDispatch();
@@ -141,7 +142,6 @@ const PhoneHandle = () => {
     }
     const SubmitForm = async (type) => {
         let payload = {}
-        debugger
         let id = null
         switch (type) {
             case "phone":
@@ -269,8 +269,6 @@ const PhoneHandle = () => {
             errorMessage('Please select a valid WAV or MP3 audio file.');
         }
     };
-    console.log(index)
-    console.log(basicFormData)
     return (
         <div className='container my-8'>
             {pageLoading ? <Loading /> :
@@ -296,6 +294,7 @@ const PhoneHandle = () => {
                                 <div className="inline-flex rounded-md shadow-sm" role="group">
                                     <button onClick={() => {
                                         setAudioModal(true)
+                                        setModal(false)
                                         setIndex(null
                                         )
                                     }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
@@ -303,6 +302,7 @@ const PhoneHandle = () => {
                                     </button>
                                     <button type="button" onClick={() => {
                                         setModal(true)
+                                        setAudioModal(false)
                                         setIndex(null)
                                     }
                                     } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
@@ -323,7 +323,7 @@ const PhoneHandle = () => {
                                 <div>
                                     <label className="switch">
                                         <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicField?.checked === true} />
-                                        <span className="slider round h-[27px] w-[55px]"></span>
+                                        <span className="slider round h-[21px] w-[40px]"></span>
                                     </label>
                                 </div>
                             </div>
@@ -413,10 +413,10 @@ const PhoneHandle = () => {
                                             </label>
                                             <Button
                                                 type={"button"}
-                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                                 onClick={() => {
                                                     setIndex(key)
-                                                    setShowIndexModal(true)
+                                                    setAudioModal(true)
                                                 }
 
                                                 }
@@ -433,7 +433,7 @@ const PhoneHandle = () => {
                                                     type='button'
                                                     onClick={() => { removeNewValue(key) }}
                                                 >
-                                                    <MinusSmallIcon className="h-6 w-6 text-primary font-bold" />
+                                                    <XMarkIcon className="h-6 w-6 text-primary font-bold" />
                                                 </button>
                                             )}
                                             {botValue.length > basicFormData.length && (
@@ -459,7 +459,7 @@ const PhoneHandle = () => {
                                 <div className='flex my-2 justify-end'>
                                     <Button
                                         type={"button"}
-                                        className=" inline-block rounded bg-primary px-6 pb-2.5 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                        className=" inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                         // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
                                         onClick={(e) => SubmitForm("phone")}
                                         disabled={basicFormData.some(
@@ -483,98 +483,6 @@ const PhoneHandle = () => {
             <ToastContainer />
 
             {
-                modal &&
-                <Modal title={'Greeting message'} show={modal} setShow={setModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-                    <div className='p-5'>
-                        <div className='block mt-1'>
-                            <div className='w-full '>
-
-                                <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={"Type text, convert text to speech"} />
-                            </div>
-                            <Button
-                                type={"button"}
-                                className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                disabled={basicField?.greeting === '' || greetingLoading === true}
-                                onClick={() => SubmitForm('greetings')}
-                            >
-                                {greetingLoading ? "Loading..." : "Set a greeting message"}
-                            </Button>
-                        </div>
-                        <hr className='mt-6 text-border' />
-                    </div>
-                </Modal>
-            }
-            {
-                audioModal &&
-                <Modal title={'Greeting message'} show={audioModal} setShow={setAudioModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-                    <div className='p-5'>
-                        <div className='block mt-1'>
-                            <div className='w-full '>
-                                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                                    <div className='flex items-center gap-2'><span>Upload mp3</span>  </div>
-                                </label>
-                                {index !== null ?
-                                    <div className="flex items-center justify-center w-full">
-                                        <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                </svg>
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
-                                                {basicFormData[index].audioName && (
-                                                    <>
-
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
-                                                        <p className='text-xs text-border font-normal'>{basicFormData[index].audioName}</p>
-                                                    </>
-                                                )}
-
-                                            </div>
-                                            <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
-
-
-                                        </label>
-                                    </div>
-                                    : <div className="flex items-center justify-center w-full">
-                                        <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                                <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                </svg>
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
-                                                {basicField?.audioName && (
-                                                    <>
-
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
-                                                        <p className='text-xs text-border font-normal'>{basicField?.audioName}</p>
-                                                    </>
-                                                )}
-
-                                            </div>
-                                            <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
-
-
-                                        </label>
-                                    </div>}
-
-                            </div>
-                            {index === null && (
-                                <Button
-                                    type={"button"}
-                                    className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                    disabled={basicField?.audio === null || greetingLoading === true}
-                                    onClick={() => SubmitForm('audio')}
-                                >
-                                    {greetingLoading ? "Loading..." : "Set a greeting message"}
-                                </Button>)}
-                        </div>
-                        <hr className='mt-6 text-border' />
-                    </div>
-                </Modal>
-            }
-            {
                 showIndexModal &&
                 <Modal title={'Greeting '} show={showIndexModal} setShow={setShowIndexModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
                     <div className='block sm:flex md:flex lg:flex gap-2 justify-between items-center mt-1'>
@@ -588,13 +496,13 @@ const PhoneHandle = () => {
                                 }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
                                     Upload mp3
                                 </button>
-                                <button type="button" onClick={() => {
+                                {/* <button type="button" onClick={() => {
                                     setModal(true)
                                     setShowIndexModal(false)
                                 }
                                 } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
                                     Type text, convert text to speech
-                                </button>
+                                </button> */}
                             </div>
 
                         </div>
@@ -605,6 +513,138 @@ const PhoneHandle = () => {
                     </div>
                 </Modal>
             }
+
+            {audioModal === true && (
+                <>
+                    <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
+                        setAudioModal(false)
+                    }
+                    }></div>
+                    <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                        <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
+                            <div className='flex flex-1'>
+                                <h2 className='font-bold text-lg'>Greeting message</h2>
+                            </div>
+                            <div className='flex justify-end gap-2'>
+                                <div className='cursor-pointer' onClick={(e) => {
+                                    setAudioModal(false)
+                                }}>
+                                    <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2' />
+                                </div>
+                            </div>
+                        </div>
+                        {audioModal && (
+                            <div className='p-5'>
+                                <div className='block mt-1'>
+                                    <div className='w-full '>
+                                        <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                                            <div className='flex items-center gap-2'><span>Upload mp3</span>  </div>
+                                        </label>
+                                        {index !== null ?
+                                            <div className="flex items-center justify-center w-full">
+                                                <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        </svg>
+                                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
+                                                        {basicFormData[index].audioName && (
+                                                            <>
+
+                                                                <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
+                                                                <p className='text-xs text-border font-normal'>{basicFormData[index].audioName}</p>
+                                                            </>
+                                                        )}
+
+                                                    </div>
+                                                    <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
+
+
+                                                </label>
+                                            </div>
+                                            : <div className="flex items-center justify-center w-full">
+                                                <label for="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border   border-primary border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        <svg className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        </svg>
+                                                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
+                                                        {basicField?.audioName && (
+                                                            <>
+
+                                                                <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
+                                                                <p className='text-xs text-border font-normal'>{basicField?.audioName}</p>
+                                                            </>
+                                                        )}
+
+                                                    </div>
+                                                    <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
+
+
+                                                </label>
+                                            </div>}
+
+                                    </div>
+                                    {index === null && (
+                                        <Button
+                                            type={"button"}
+                                            className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                            disabled={basicField?.audio === null || greetingLoading === true}
+                                            onClick={() => SubmitForm('audio')}
+                                        >
+                                            {greetingLoading ? "Loading..." : "Set a greeting message"}
+                                        </Button>)}
+                                </div>
+                                <hr className='mt-6 text-border' />
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
+            {modal === true && (
+                <>
+                    <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
+
+                        setModal(false)
+                    }
+                    }></div>
+                    <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                        <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
+                            <div className='flex flex-1'>
+                                <h2 className='font-bold text-lg'>Greeting message</h2>
+                            </div>
+                            <div className='flex justify-end gap-2'>
+                                <div className='cursor-pointer' onClick={(e) => {
+
+                                    setModal(false)
+                                }}>
+                                    <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2' />
+                                </div>
+                            </div>
+                        </div>
+                        {modal === true && (
+                            <div className='p-5'>
+                                <div className='block mt-1'>
+                                    <div className='w-full '>
+                                        <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={"Type text, convert text to speech"} />
+                                    </div>
+                                    <Button
+                                        type={"button"}
+                                        className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                        disabled={basicField?.greeting === '' || greetingLoading === true}
+                                        onClick={() => SubmitForm('greetings')}
+                                    >
+                                        {greetingLoading ? "Loading..." : "Set a greeting message"}
+                                    </Button>
+                                </div>
+                                <hr className='mt-6 text-border' />
+                            </div>
+                        )}
+                    </div>
+                </>
+            )}
         </div >
     )
 }

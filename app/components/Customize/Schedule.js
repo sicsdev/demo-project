@@ -227,19 +227,26 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                                     </div>
                                                 ))
                                                     :
-                                                    <div key={'index'} className="grid grid-cols-3 gap-3 cursor-pointer">
-                                                        <input
-                                                            id={'index'}
-                                                            type="time"
-                                                            className=" border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
-                                                            disabled
-                                                        />
-                                                        <input
-                                                            id={'idnex'}
-                                                            disabled
-                                                            type="time"
-                                                            className=" border-gray border-2 rounded-md px-2 py-1 hover:border-sky cursor-pointer"
-                                                        />
+                                                    <div key={'index'} style={{ gridTemplateColumns: "repeat(3, auto)" }} className="grid grid-cols-3 gap-1 sm:gap-3 cursor-pointer">
+                                                        <div className='relative'>
+                                                            <input
+                                                                id={'index'}
+                                                                type="time"
+                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                                                disabled
+                                                            />
+                                                        </div>
+                                                        <div className='relative'>
+                                                            <input
+                                                                id={'idnex'}
+                                                                disabled
+                                                                type="time"
+                                                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                                            />
+                                                        </div>
+                                                        <div className='flex items-center'>
+                                                            <TrashIcon className="w-4 cursor-pointer hover:text-red opacity-0" />
+                                                        </div>
                                                     </div>
                                                 }
                                             </div>

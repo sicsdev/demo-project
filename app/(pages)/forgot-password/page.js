@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { forgotPassword } from '@/app/API/pages/Forgot-password'
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
+import { successMessage } from '@/app/components/Messages/Messages'
+import { ToastContainer } from 'react-toastify'
 
 const Page = () => {
   const router = useRouter()
@@ -23,12 +25,8 @@ const Page = () => {
 
       forgotPassword({ email: email })
         .then((res) => {
-          Swal.fire({
-            title: 'Success!',
-            text: `Please check your email for reset instructions`,
-            timer: 3500,
-            showConfirmButton: false,
-          })
+
+          successMessage("Please check your email for reset instructions")
           router.push(`/forgot-password/recovery?email=${email}`)
         })
         .catch(() => {
@@ -63,6 +61,7 @@ const Page = () => {
           > Send Reset Instructions</Button>
         </form>
       </div>
+      <ToastContainer />
     </Container>
   )
 }
