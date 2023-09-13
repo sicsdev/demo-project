@@ -298,7 +298,7 @@ const PhoneHandle = () => {
                                         setIndex(null
                                         )
                                     }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
-                                        Upload mp3
+                                        Upload MP3
                                     </button>
                                     <button type="button" onClick={() => {
                                         setModal(true)
@@ -306,7 +306,7 @@ const PhoneHandle = () => {
                                         setIndex(null)
                                     }
                                     } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
-                                        Type text, convert text to speech
+                                        Text to speech
                                     </button>
                                 </div>
 
@@ -389,7 +389,7 @@ const PhoneHandle = () => {
                                                 name="voice"
                                                 values={[{ name: 'Rachel', value: "rachel" }, { name: "Adam", value: "adam" }]}
                                                 id={"voice"}
-                                                className="py-2 "
+                                                className="py-2"
                                                 title={
                                                     <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
                                                 error={""}
@@ -399,7 +399,7 @@ const PhoneHandle = () => {
                                             <TextField
                                                 value={element?.sales ?? ''}
                                                 name="sales"
-                                                className="!py-2 leading-none"
+                                                className="!py-2"
                                                 title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                 placeholder={"Press key for {field name}"}
@@ -411,47 +411,37 @@ const PhoneHandle = () => {
                                             <label className={`new_input_label block text-sm text-heading `}>
                                                 <h3 className='font-bold my-2 text-sm text-heading'>Greetings</h3>
                                             </label>
-                                            <Button
-                                                type={"button"}
-                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                                onClick={() => {
-                                                    setIndex(key)
-                                                    setAudioModal(true)
-                                                }
-
-                                                }
-                                            >
-                                                {element.audioName ? "Update" : "Add"}
-                                            </Button>
-
-
-                                        </div>
-                                        <div className='mt-10 w-[24px]'>
-                                            {key > 0 && (
-                                                <button
-                                                    className='font-bold'
-                                                    type='button'
-                                                    onClick={() => { removeNewValue(key) }}
+                                            <div className='block sm:flex items-center justify-between'>
+                                                <Button
+                                                    type={"button"}
+                                                    className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                    onClick={() => {
+                                                        setIndex(key)
+                                                        setAudioModal(true)
+                                                    }}
                                                 >
-                                                    <XMarkIcon className="h-6 w-6 text-primary font-bold" />
-                                                </button>
-                                            )}
-                                            {botValue.length > basicFormData.length && (
-                                                <button
-                                                    className='font-bold'
-                                                    type='button'
-                                                    onClick={() => { addNewValue() }}
-                                                >
-                                                    <PlusSmallIcon className="h-6 w-6  text-primary  font-bold" />
-                                                </button>
-                                            )}
-                                            <button
-                                                className='font-bold'
-                                                type='button'
-                                            // onClick={() => { addNewValue() }}
-                                            >
-                                                {/* <PlusSmallIcon className="h-6 w-6 text-heading font-bold" /> */}
-                                            </button>
+                                                    {element.audioName ? "Update" : "Add"}
+                                                </Button>
+                                                {key > 0 && (
+                                                    <button
+                                                        className='font-bold mt-3 sm:mt-0'
+                                                        type='button'
+                                                        onClick={() => { removeNewValue(key) }}
+                                                    >
+                                                        <XMarkIcon className="h-[23px] w-[23px] text-primary font-bold" />
+                                                    </button>
+                                                )}
+                                                {botValue.length > basicFormData.length && (
+                                                    <button
+                                                        className='font-bold mt-3 sm:mt-0'
+                                                        type='button'
+                                                        onClick={() => { addNewValue() }}
+                                                    >
+                                                        <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
+                                                    </button>
+                                                )}
+                                            </div>
+
                                         </div>
                                     </div>
                                 )}
