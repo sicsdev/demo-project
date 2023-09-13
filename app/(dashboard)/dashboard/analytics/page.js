@@ -68,7 +68,7 @@ const Logs = () => {
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState('');
   const [messages, setMessages] = useState([])
   const [manageMessages, setManageMessages] = useState([])
@@ -201,8 +201,10 @@ const Logs = () => {
     return queryParams ? `&${queryParams}` : '';
   };
 
-  const handlePageChange = async (id, page, queryParam = '') => {
-    const response = await getPaginateBotConversation(id, page, queryParam)
+  const handlePageChange = async (id, page, queryParam = '', page_size = 10) => {
+    setPerPage(page_size)
+    setLoading(true)
+    const response = await getPaginateBotConversation(id, page, queryParam, page_size)
     if (response.status === 200) {
       let data = response.data
       let newdata = data.results;
@@ -315,7 +317,11 @@ const Logs = () => {
     }, 100);
   };
 
-
+  const handlePerRowsChange = async (newPerPage, page) => {
+    const queryParam = buildQueryParam(selectedFilters);
+    dispatch(updateLogState({ ...logState.data, queryParam: queryParam }))
+    handlePageChange(selectedBot, page, queryParam, newPerPage);
+  }
   return (
     <>
 
@@ -327,71 +333,102 @@ const Logs = () => {
         }
 
         {showChat === false && (
-          <div className='flex justify-end gap-4 items-center mt-2 p-2'>
-            <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div className="relative">
-              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                  <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                </svg>
+          <>
+            {loading === true || state.isLoading === true ?
+              <div className='grid grid-cols-[85%,15%] my-2'>
+                <div></div>
+                <SkeletonLoader height={30} width={"100%"} />
               </div>
-              <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
-            </div>
-          </div>
+              :
+              <div className='flex justify-end gap-4 items-center mt-2 p-2'>
+                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                  </div>
+                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                </div>
+              </div>
+            }
+          </>
         )}
 
         {/* <Reports /> */}
         <>
-          <div className="block sm:flex justify-center gap-5">
-            <div className="mb-4 w-full">
-              <SelectOption
-                onChange={handleInputValues}
-                value={selectedBot}
-                name="bot"
-                values={botValue}
-                title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
-                id={"bots"}
-                className="py-3"
-                error={""}
-              />
+          {loading === true || state.isLoading === true ?
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+              <div>
+                <SkeletonLoader height={20} width={"20%"} />
+                <SkeletonLoader height={35} width={"100%"} />
+              </div>
+              <div>
+                <SkeletonLoader height={20} width={"20%"} />
+                <SkeletonLoader height={35} width={"100%"} />
+              </div>
+              <div>
+                <SkeletonLoader height={20} width={"20%"} />
+                <SkeletonLoader height={35} width={"100%"} />
+              </div>
+              <div>
+                <SkeletonLoader height={20} width={"20%"} />
+                <SkeletonLoader height={35} width={"100%"} />
+              </div>
             </div>
-            <div className="mb-4 w-full">
-              <SelectOption
-                onChange={(e) => filterDataHandler(e)}
-                value={selectedFilters.type || ''}
-                name="type"
-                values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
-                title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
-                id={"type"}
-                className="py-3"
-                error={""}
-              />
-            </div>
-            <div className="mb-4 w-full">
-              <SelectOption
-                onChange={(e) => filterDataHandler(e)}
-                value={selectedFilters.conversations || ''}
-                name="conversations"
-                values={workflowValue}
-                title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
-                id={"conversations"}
-                className="py-3"
-                error={""}
-              />
-            </div>
-            <div className="mb-4 w-full">
-              <SelectOption
-                onChange={(e) => filterDataHandler(e)}
-                value={selectedFilters.workflows || ''}
-                name="workflows"
-                values={userWorkFlows}
-                title={<h3 className="text-sm my-4 font-semibold">Workflows</h3>}
-                id={"workflows"}
-                className="py-3"
-                error={""}
-              />
-            </div>
-          </div>
+            :
+            <div className="block sm:flex justify-center gap-5">
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={handleInputValues}
+                  value={selectedBot}
+                  name="bot"
+                  values={botValue}
+                  title={<h3 className="text-sm my-4 font-semibold">Chat Logs</h3>}
+                  id={"bots"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.type || ''}
+                  name="type"
+                  values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                  title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
+                  id={"type"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.conversations || ''}
+                  name="conversations"
+                  values={workflowValue}
+                  title={<h3 className="text-sm my-4 font-semibold">Conversations</h3>}
+                  id={"conversations"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.workflows || ''}
+                  name="workflows"
+                  values={userWorkFlows}
+                  title={<h3 className="text-sm my-4 font-semibold">Workflows</h3>}
+                  id={"workflows"}
+                  className="py-3"
+                  error={""}
+                />
+              </div>
+            </div>}
+
+
           {loading === true || state.isLoading === true ? (
             // <Loading />
             <div className="">
@@ -418,9 +455,9 @@ const Logs = () => {
 
                   }}
                   pagination
-                  className='data-table-class'
                   paginationServer
-                  paginationPerPage={10}
+                  paginationPerPage={perPage}
+                  onChangeRowsPerPage={handlePerRowsChange}
                   paginationTotalRows={totalRows}
                   onChangePage={(page) => {
                     setPageVal(page)
@@ -492,7 +529,7 @@ const Logs = () => {
                 </div>
                 <>
 
-                  <Chat messages={messages} selectedBot={selectedBot}/>
+                  <Chat messages={messages} selectedBot={selectedBot} />
 
                 </>
 
