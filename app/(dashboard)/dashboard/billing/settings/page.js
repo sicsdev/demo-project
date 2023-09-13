@@ -10,7 +10,16 @@ import Card from "@/app/components/Common/Card/Card";
 import { createEnterpriseAccount } from "@/app/API/pages/EnterpriseService";
 import { fetchProfile } from "@/app/components/store/slices/userSlice";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
+import { getBillingDetails, getPaymentDetails } from '@/app/API/pages/Checkout';
+import { logos } from '@/app/components/Forms/ReadOnly/logos_data';
+import Loading from '@/app/components/Loading/Loading';
+import Billing from '@/app/components/Stripe/Billing/Billing';
+import StripeWrapper from '@/app/components/Stripe/Wrapper/StripeWrapper';
+import { errorMessages } from '@/app/components/error/message';
 import Swal from "sweetalert2";
+import { ToastContainer } from "react-toastify";
+import { successMessage } from "@/app/components/Messages/Messages";
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 const Page = () => {
   const parseAddress = (address) => {
     let returned = {};
@@ -20,16 +29,19 @@ const Page = () => {
     returned.state = splitAddr[splitAddr.length - 3];
     returned.city = splitAddr[splitAddr.length - 4];
     returned.addrline = splitAddr[splitAddr.length - 5];
-
-    // returned.addrline = returned.addrline
     return returned;
   };
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
   const [isEdit, setIsEdit] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [pageLoading, setPageLoading] = useState(true);
   const [errors, setErrors] = useState(true);
   const [basicFormData, setBasicFormData] = useState(null);
+  const [logo, setLogo] = useState(null)
+  const [error, setError] = useState(null)
+
+
   useEffect(() => {
     if (state.data) {
       let address = parseAddress(state?.data?.enterprise?.address);
@@ -83,7 +95,7 @@ const Page = () => {
     if (createEnterprise?.status === 201) {
       dispatch(fetchProfile());
       setLoading(false);
-      Swal.fire("Success", "Updated Form", "success");
+      successMessage("Form updated sucessfully")
       setIsEdit(true);
     } else {
       setErrors([createEnterprise.message]);
@@ -103,22 +115,36 @@ const Page = () => {
     return requiredKeys.some(
       (key) => !basicFormData[key] || basicFormData[key].trim() === ""
     );
-
-    return false;
   };
-  const makeCapital = (str) => {
-    if (str?.includes(" ")) {
-      return str
-        .split(" ")
-        .map((word) => word?.charAt(0).toUpperCase() + word?.slice(1))
-        .join(" ");
+
+  const getBillingData = async () => {
+    const customer_id = state?.data?.stripe_data?.stripe_id
+    const resp = await getBillingDetails(customer_id);
+    if (resp?.data?.length > 0) {
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          card: resp.data,
+        };
+      });
+      setError(null)
+      setPageLoading(false)
     } else {
-      return str?.charAt(0).toUpperCase() + str?.slice(1);
+      setPageLoading(false)
+      setError(errorMessages.notFound)
     }
   };
+  useEffect(() => { if (basicFormData === null && state?.data) getBillingData() }, [state?.data])
+  const sendLogos = (element) => {
+    const findlogo = logos.find((x) => x.name.toLowerCase() === element.toLowerCase())
+    if (findlogo) return findlogo.logo
+    return element
+  }
+
+
   return (
     <div>
-     
+
       <div className="border-b border-primary dark:border-gray-700 flex justify-between items-center">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
           <li className="mr-2">
@@ -128,70 +154,144 @@ const Page = () => {
               aria-current="page"
             >
               <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />{" "}
-             Billing Settings
+              Billing Settings
             </a>
           </li>
         </ul>
         {isEdit == true ? (
-        <>
-          <p
-            className="text-sm cursor-pointer"
-            onClick={() => {
-              setIsEdit(false);
-            }}
-          >
-            Edit
-          </p>
-        </>
-      ) : (
-        <>
-          <p
-            className="text-sm cursor-pointer"
-            onClick={() => {
-              setIsEdit(true);
-            }}
-          >
-            Back
-          </p>
-        </>
-      )}
+          <>
+            <p
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                setIsEdit(false);
+              }}
+            >
+              Edit
+            </p>
+          </>
+        ) : (
+          <>
+            <p
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            >
+              Back
+            </p>
+          </>
+        )}
       </div>
-      {isEdit == true ? (
-        <>
+      <>
+        {isEdit == true ? (
+          <>
 
-          <BasicDetailsReadOnly state={basicFormData} />
-        </>
-      ) : (
-        <>
-          <Card className={"my-5"}>
-            <div className="my-3">
-              <BasicDetails
-                form={false}
-                basicFormData={basicFormData}
-                setBasicFormData={setBasicFormData}
-              />
-            </div>
-            <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-              <>
-                {loading ? (
-                  <LoaderButton />
-                ) : (
-                  <Button
-                    type={"button"}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                    onClick={(e) => {
-                      SubmitBusinessDetails();
-                    }}
-                    disabled={DisablingButton()}
-                  >
-                    Submit
-                  </Button>
-                )}
-              </>
-            </div>
-          </Card>
-        </>
-      )}
+            <Card className="p-5 mt-3 block sm:grid md:block lg:grid grid-cols-1 ">
+
+              {pageLoading === true ?
+                <>
+                  <SkeletonLoader count={1} height={20} width={150} />
+                  <div className={'grid grid-cols-1 mt-4 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4'}>
+
+
+                    <div className='border border-border rounded-lg p-4 ' >
+                      <div className=" text-start flex gap-6 items-center">
+                        <SkeletonLoader count={1} height={30} width={50} />
+
+                        <div>
+                          <SkeletonLoader count={1} height={20} width={60} />
+                        </div>
+                      </div>
+                      <SkeletonLoader count={1} height={10} width={100} />
+                      <SkeletonLoader count={1} height={10} width={50} />
+
+                    </div>
+                  </div>
+                </> :
+                <>
+                  {basicFormData && basicFormData?.card ? (
+                    <>
+
+                      <h3 className="text-start text-sm  my-2 font-semibold text-heading">
+                        Payment Methods
+                      </h3>
+
+
+                      <div className={'grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4'}>
+                        {basicFormData.card.map((element, key) =>
+                          <div className='border border-border rounded-lg p-4 ' key={key}>
+                            <div className=" text-start flex gap-6 items-center">
+                              <div className="h-[30px] w-[50px]"
+                                dangerouslySetInnerHTML={{ __html: sendLogos(element?.card?.brand) }}
+                              />
+                              <div>
+                                <h2 class=" font-normal text-sm text-heading">
+                                  ****{element?.card?.last4}
+                                </h2>
+                              </div>
+                            </div>
+
+                            <p className='text-border font-normal text-xs my-2'>Expires {element?.card?.exp_month}/{element?.card?.exp_year}</p>
+                            {key === 0 && (
+                              <p className='text-border font-normal text-xs mt-2'>Default</p>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
+
+                      <hr className="mt-4 text-border" />
+                    </>
+                  ) : ""}
+                </>}
+              <BasicDetailsReadOnly state={basicFormData} pageLoading={pageLoading} />
+            </Card>
+          </>
+        ) : (
+          <>
+            <Card className={"my-5"}>
+              <StripeWrapper>
+
+                <h3 className='font-semibold mb-2 text-base '>Add payment method</h3>
+                <p className='text-xs text-border mb-4'>This card will be charged based on your metered usage. </p>
+                <Billing
+                  basicFormData={basicFormData}
+                  setShowBilling={setIsEdit}
+                  getBillingData={getBillingData}
+                />
+              </StripeWrapper>
+
+              <div className="my-3">
+                <BasicDetails
+                  form={false}
+                  basicFormData={basicFormData}
+                  setBasicFormData={setBasicFormData}
+                />
+              </div>
+              <div className={`flex p-2 rounded-b mt-5 justify-between`}>
+                <>
+                  {loading ? (
+                    <LoaderButton />
+                  ) : (
+                    <Button
+                      type={"button"}
+                      className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      onClick={(e) => {
+                        SubmitBusinessDetails();
+                      }}
+                      disabled={DisablingButton()}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </>
+              </div>
+            </Card>
+          </>
+        )}
+      </>
+
+      <ToastContainer />
     </div>
   );
 };

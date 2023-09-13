@@ -60,7 +60,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                     <div>
                                         <label className="switch" style={{ height: "unset" }}>
                                             <input type="checkbox" name="snippet_active" onChange={handleToggleChange} />
-                                            <span className="slider round h-[27px] w-[55px]"></span>
+                                            <span className="slider round h-[21px] w-[40px]"></span>
                                         </label>
                                     </div>
                                     <p className={`inline-block whitespace-nowrap rounded ${basicFormData?.snippet_active === true ? `bg-[#d8efdc] text-[#107235]` : 'text-black bg-[#ececf1]'} px-4 py-2 align-baseline text-xs font-bold leading-none`}>

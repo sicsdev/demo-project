@@ -39,16 +39,7 @@ const PaymentMethod = () => {
     useEffect(() => {if(basicFormData === null && state) getBillingData() }, [state])
 
 
-    const makeCapital = (str) => {
-        if (str?.includes(" ")) {
-            return str
-                .split(" ")
-                .map((word) => word?.charAt(0).toUpperCase() + word?.slice(1))
-                .join(" ");
-        } else {
-            return str?.charAt(0).toUpperCase() + str?.slice(1);
-        }
-    };
+   
     const sendLogos = (element) => {
         const findlogo = logos.find((x) => x.name.toLowerCase() === element.toLowerCase())
         if (findlogo) return findlogo.logo

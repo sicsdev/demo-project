@@ -183,7 +183,7 @@ const Page = () => {
           <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500 headerAlignment">
             <li className="mr-2" onClick={() => { setTab(0) }}>
               <span
-                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <QrCodeIcon className="h-5 w-5 text-gray-500" /> Customize Bot
@@ -191,7 +191,7 @@ const Page = () => {
             </li>
             <li className="mr-2" onClick={() => { setTab(1) }}>
               <span
-                className={`flex justify-start text-xs sm:text-sm pl-2 gap-2 cursor-pointer items-center  py-2  ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Additional Settings
@@ -199,7 +199,7 @@ const Page = () => {
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
               <span
-                className={`flex justify-start text-xs sm:text-sm gap-2 pl-2 cursor-pointer items-center  py-2  ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                 aria-current="page"
               >
                 <CalendarDaysIcon className="h-5 w-5 text-gray-500" /> Scheduling

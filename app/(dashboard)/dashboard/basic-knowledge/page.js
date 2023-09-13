@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AcademicCapIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -83,7 +83,7 @@ const Page = () => {
                                 className={`flex justify-start gap-2 pl-2 text-xs sm:text-sm cursor-pointer items-center py-2  border-b-2  text-primary border-primary font-bold rounded-t-lg active  group`}
                                 aria-current="page"
                             >
-                                <AcademicCapIcon className="h-5 w-5 text-primary" /> Manage Knowledge Base
+                                <BookOpenIcon className="h-5 w-5 text-primary" /> Knowledge Base
                             </span>
                         </li>
                     </ul>

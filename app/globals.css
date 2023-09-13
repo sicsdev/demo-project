@@ -25,6 +25,7 @@ body input[type='text'],
 body input[type='email'],
 input[type='number'],
 input[type='password'],
+input[type='search'],
 textarea {
   font-size: 12px !important;
 }
@@ -33,6 +34,7 @@ body input[type='text']:focus,
 body input[type='email']:focus,
 input[type='number']:focus,
 input[type='password']:focus,
+input[type='search']:focus,
 textarea:focus {
   font-size: 12px !important;
 }
@@ -41,6 +43,7 @@ body input[type='text']::placeholder,
 body input[type='email']::placeholder,
 input[type='number']::placeholder,
 input[type='password']::placeholder,
+input[type='search']::placeholder,
 textarea::placeholder {
   font-size: 12px !important;
 }
@@ -65,6 +68,8 @@ select {
   body input[type='text'],
   body input[type='number'],
   body input[type='email'],
+  body input[type='search'],
+  body input[type='password'],
   body textarea {
     font-size: 16px !important;
   }
@@ -79,6 +84,7 @@ select {
   body input[type='number']:focus,
   body input[type='email']:focus,
   body input[type='password']:focus,
+  body input[type='search']:focus,
   body textarea:focus {
     font-size: 16px !important;
   }
@@ -87,6 +93,7 @@ select {
   body input[type='number']::placeholder,
   body input[type='email']::placeholder,
   body input[type='password']::placeholder,
+  body input[type='search ']::placeholder,
   body textarea::placeholder {
     font-size: 16px !important;
   }
@@ -323,10 +330,13 @@ body .searchWrapper {
   outline: none;
   background-repeat: no-repeat;
   background-position: right;
+  width: 115px;
 }
 
 body .chip {
   font-size: 10px;
+  text-align: center;
+  justify-content: center;
   line-height: 16px;
   margin-bottom: 2px;
   font-weight: 700;
@@ -335,6 +345,7 @@ body .chip {
   margin-right: 2px;
   padding: 3px 12px;
   word-wrap: break-word;
+  width: 100px;
 }
 
 body .highlightOption {
@@ -520,13 +531,15 @@ select.custom-select {
 .slider:before {
   position: absolute;
   content: "";
-  height: 21px;
-  width: 21px;
+  height: 15px;
+  width: 15px;
   left: 4px;
   bottom: 3px;
   background-color: white;
   transition: 0.4s;
 }
+
+input:checked+.slider:before{left: -3px;} 
 
 .active-class::before {
   border-top: 3px solid #1a73e8;

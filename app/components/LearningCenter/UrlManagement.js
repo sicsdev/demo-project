@@ -79,14 +79,14 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                     <div className='flex flex-col flex-1 p-0 my-2'>
                         <div className='flex flex-col gap-8 border-gray-lightest px-8 -mx-8'>
                             <div className='flex flex-col gap-2'>
-                                <h3 className='font-bold text-black'>Enter the URL of your external support content</h3>
+                                <h3 className='font-bold text-sm text-black'>Enter the URL of your external support content</h3>
                                 <p className="text font-normal text-xs">
                                     We will fetch all of the pages from the website URL you provide. Please provide a <strong>top-level domain</strong>. We will read from all the sub domain pages.
                                 </p>
                                 <input type='text' placeholder='https://support.mywebsite.com/' className='new_input block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[12px] text-[12px] disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white focus:text-[12px]' onChange={handleInputChange} name="url" id='url' />
                                 <div className='flex flex-col gap-2 pt-2'>
-                                    <ul className="text mt-0 px-6 list-disc text-sm">
-                                        <li className="mb-2">
+                                    <ul className="text-xs mt-0 px-6 list-disc ">
+                                        <li className="mb-2 ">
                                             Provide your <strong>external help center homepage link</strong> for best results
                                         </li>
                                         <li className="mb-2">
@@ -94,7 +94,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                         </li>
                                     </ul>
                                     <div className="flex flex-row">
-                                        <button type="button" className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:cursor-pointer disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true} onClick={() => handleSubmit({ type: "URL" })} value={url}>
+                                        <button type="button" className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color" disabled={DisablingButton() || loading === true} onClick={() => handleSubmit({ type: "URL" })} value={url}>
                                             {loading ? "Loading..." : "Sync external support content"}
                                         </button>
                                     </div>
@@ -118,7 +118,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                                         <div>
                                                             <label className="switch" style={{ height: "unset" }}>
                                                                 <input type="checkbox" name="url_active" onChange={() => { handleToggle(key, knowledgeData[key].id) }} checked={knowledgeData[key].active === true} />
-                                                                <span className="slider round h-[27px] w-[55px]"></span>
+                                                                <span className="slider round h-[21px] w-[40px]"></span>
                                                             </label>
                                                         </div>
                                                         <h3 className='font-semibold'>{knowledgeData[key]?.url}</h3>

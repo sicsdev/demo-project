@@ -108,17 +108,22 @@ const NewSidebar = ({ children }) => {
             return `/dashboard/workflow/workflow-builder`;
         } else {
             return link
-
         }
     }
 
     const SideBarRoutes = [
         {
             href: "/dashboard",
-            name: "Home",
+            name: "",
             icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-            list: [],
-            isLink: true
+            list: [
+                {
+                    href: "/dashboard",
+                    name: "Home",
+                    icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
+            isLink: false
         },
         {
             // href: "",
@@ -141,19 +146,19 @@ const NewSidebar = ({ children }) => {
         },
         {
             href: "/dashboard/knowledge-center",
-            name: "Learning Center",
+            name: "Knowledge Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
                     href: "/dashboard/knowledge-center",
-                    name: "Knowledge Center",
-                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    name: "Learning Center",
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
                     href: "/dashboard/basic-knowledge",
-                    name: "Manage Knowledge Base",
-                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                    name: "Knowledge Base",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
                 },
             ],
             notification: recommedState?.data?.count,
@@ -171,19 +176,6 @@ const NewSidebar = ({ children }) => {
                 }
             ],
         },
-        // {
-        //     href: "/",
-        //     name: "Smart Inbox",
-        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-        //     isLink: false,
-        //     list: [
-        //         {
-        //             href: "/",
-        //             name: "Email Settings",
-        //             icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-        //         }
-        //     ],
-        // },
         {
             href: "/",
             name: "Smart IVR",
@@ -219,17 +211,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/billing/usage",
                     name: "Usage",
-                    icon: <ArrowDownOnSquareIcon className="h-6 w-6 text-gray-500" />,
-                },
-                {
-                    href: "/dashboard/billing/daily-limit",
-                    name: "Billing Threshold",
                     icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
-                },
-                {
-                    href: "/dashboard/billing/payment-methods",
-                    name: "Payment Methods",
-                    icon: <CreditCardIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
                     href: "/dashboard/billing/settings",
@@ -376,7 +358,7 @@ const NewSidebar = ({ children }) => {
                         )}
                     </div>
                     {!collaps && (
-                        <span className="flex ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
                             {element.name}
                         </span>
                     )}
@@ -607,9 +589,9 @@ const NewSidebar = ({ children }) => {
                                                 <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
                                                 <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
                                                 {!isOpen && (
-                                                    <ul className="hidden group-hover:block fixed w-[200px] text-center left-[236px] top-[266px] mt-2 py-2 bg-white rounded shadow-lg z-50">
+                                                    <ul className="hidden group-hover:block absolute w-[290px] text-center left-[130px] bottom-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                         <li className="text-start p-2">
-                                                            <p className="text-xs font-normal text-heading ml-4 break-all">
+                                                            <p  className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  " >
                                                                 {state?.email}
                                                             </p>
                                                         </li>
@@ -652,7 +634,7 @@ const NewSidebar = ({ children }) => {
                                                                 onChange={(e) => handleFileInputChange(e)}
                                                             />
                                                             <label
-                                                                className="inline-block ml-4 rounded-full text-xs font-medium    leading-normal text-heading "
+                                                               className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  " 
                                                                 for="file_input"
                                                             >
                                                                 Upload logo

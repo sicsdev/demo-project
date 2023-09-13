@@ -21,7 +21,7 @@ const EditKnowledgeCenter = ({
   knowledge,
   hideComponent,
 }) => {
-
+  console.log("singleKnowledgeData", singleKnowledgeData)
   const [content, setContent] = useState(singleKnowledgeData?.content ?? "");
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e) => {
@@ -112,7 +112,7 @@ const EditKnowledgeCenter = ({
     });
   };
 
-  const handleToggleQuestion = () => {};
+  const handleToggleQuestion = () => { };
 
   return (
     <>
@@ -123,7 +123,7 @@ const EditKnowledgeCenter = ({
         className="rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
       ></div>
       <div className="w-full sm:w-auto fixed z-50 top-0 right-0 h-full m-auto max-h-[100%] bg-white">
-        <div className=" overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8">
+        <div className=" overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col p-2 sm:pl-8 md:pl-8 lg:pl-8 sm:pr-8 md:pr-8 lg:pr-8">
           <div className="bg-white p-4">
             <div className="flex items-center justify-between border-b border-border dark:bg-gray-800 dark:border-gray-700">
               <p className="text-black-color text-sm font-semibold my-4">
@@ -173,11 +173,10 @@ const EditKnowledgeCenter = ({
 
               <div>
                 <p
-                  className={` ${
-                    singleKnowledgeData.active === true
-                      ? "bg-[#d8efdc] text-[#107235] "
-                      : "text-black bg-[#ececf1]"
-                  } inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none`}
+                  className={` ${singleKnowledgeData.active === true
+                    ? "bg-[#d8efdc] text-[#107235] "
+                    : "text-black bg-[#ececf1]"
+                    } inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none`}
                 >
                   {singleKnowledgeData.active ? "Active" : "Disable"}
                 </p>
@@ -209,15 +208,14 @@ const EditKnowledgeCenter = ({
                           onChange={handleToggleChange}
                           checked={singleKnowledgeData?.active === true}
                         />
-                        <span className="slider round h-[27px] w-[55px]"></span>
+                        <span className="slider round h-[21px] w-[40px]"></span>
                       </label>
                     </div>
                     <p
-                      className={`inline-block whitespace-nowrap rounded ${
-                        singleKnowledgeData?.active === true
-                          ? `bg-[#d8efdc] text-[#107235]`
-                          : "text-black bg-[#ececf1]"
-                      } px-4 py-2 align-baseline text-xs font-bold leading-none`}
+                      className={`inline-block whitespace-nowrap rounded ${singleKnowledgeData?.active === true
+                        ? `bg-[#d8efdc] text-[#107235]`
+                        : "text-black bg-[#ececf1]"
+                        } px-4 py-2 align-baseline text-xs font-bold leading-none`}
                     >
                       {singleKnowledgeData?.active === true
                         ? `Active`
@@ -227,17 +225,17 @@ const EditKnowledgeCenter = ({
                 </div>
 
                 {singleKnowledgeData?.faqs &&
-                  singleKnowledgeData?.faqs.map((faq,i) => (
-                    <div className="shadow-xl sm:my-7  w-full mt-2 sm:m-0">
-                      <div className="grid grid-cols-[20%,60%,20%] sm:grid-cols-[10%,80%,10%] forBoredr bottom-2 ">
-                        <div className="border text-center">{++i}</div>
-                        <div className="border">{faq.question}</div>
-                        <div className="border text-center">
-                          <TrashIcon className="h-6 w-6 text-gray-500 cursor-pointer"  onClick={()=>deleteKnowledgeFAQ(singleKnowledgeData.id,faq.id)} />
+                  singleKnowledgeData?.faqs.map((faq, i) => (
+                    <div className="border border-border rounded-lg my-4">
+                      <div className="grid grid-cols-[20%,60%,20%] sm:grid-cols-[10%,80%,10%]  bottom-2 ">
+                        <div className="text-center border border-border border-t-0 border-l-0 border-r-0 p-2">{++i}</div>
+                        <div className="border border-border border-t-0 p-2"><span className="text-[20px]">{faq.icon}</span>  {faq.question}</div>
+                        <div className="p-2 text-center border border-border border-t-0 border-l-0 border-r-0">
+                          <TrashIcon className="h-6 w-6 text-gray-500 cursor-pointer m-auto" onClick={() => deleteKnowledgeFAQ(singleKnowledgeData.id, faq.id)} />
                         </div>
                       </div>
-                      <div className="border forBoredrbtm !w-[100%]">
-                        <p className="text-[#7c8388]">{faq.answer}</p>
+                      <div className="!w-[100%] p-3">
+                        <p className="text-[#7c8388] text-xs leading-relaxed text-justify">{faq.answer}</p>
                       </div>
                     </div>
                   ))}
@@ -256,6 +254,13 @@ const EditKnowledgeCenter = ({
                     />
                   </div>
                 )}
+
+
+
+
+
+
+
 
                 <div className="relative pb-6">
                   <textarea

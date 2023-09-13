@@ -10,6 +10,8 @@ import { InviteMembers } from "@/app/API/pages/Members";
 import { useDispatch } from "react-redux";
 import { fetchMembers } from "../store/slices/memberSlice";
 import Swal from "sweetalert2";
+import { successMessage } from "../Messages/Messages";
+import { ToastContainer } from "react-toastify";
 
 const schema = yup
   .object({
@@ -39,7 +41,7 @@ const Invite = ({ setTeamModal }) => {
       setTeamModal(false);
       setError(null);
       setLoading(false);
-      Swal.fire("Invited", "Team member invited successfully", "success");
+      successMessage("Team member invited successfully")
     } else {
       setLoading(false);
       setError(response.error);
@@ -76,10 +78,10 @@ const Invite = ({ setTeamModal }) => {
           type={"email"}
           id={"email"}
         />
-        <p className="text-start block my-4 text-md font-semibold text-heading  ">
+        <p className="text-start block my-4 text-sm font-semibold text-heading  ">
           Team Member Role <sup>(required)</sup>
         </p>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row items-center gap-4">
           <div
             className="mb-[0.125rem] block min-h-[1.5rem] pl-[1.5rem] text-left "
             value={admin}
@@ -93,14 +95,14 @@ const Invite = ({ setTeamModal }) => {
               checked
             />
             <label
-              className="mt-px text-heading font-bold pl-[0.15rem] hover:cursor-pointer sm:flex gap-5"
+              className="mt-px text-heading text-sm items-center font-bold pl-[0.15rem] hover:cursor-pointer sm:flex gap-5"
               for="Admin"
             >
               Admin
               <div>
                 <p
-                  className={`text-normal ${
-                    admin ? "text-first-section-color" : "text-border"
+                  className={`text-xs ${
+                    admin ? "text-sky" : "text-border"
                   }`}
                 >
                   {" "}
@@ -125,14 +127,14 @@ const Invite = ({ setTeamModal }) => {
               checked
             />
             <label
-              className="mt-px text-heading font-bold sm:flex gap-5 pl-[0.15rem] hover:cursor-pointer"
+              className="mt-px text-heading text-sm font-bold sm:flex gap-5 pl-[0.15rem] items-center hover:cursor-pointer"
               for="Collaborator"
             >
               Collaborator
               <div>
             <p
-              className={`text-normal ${
-                collab ? "text-first-section-color" : "text-border"
+              className={`text-xs ${
+                collab ? "text-sky" : "text-border"
               }`}
             >
               {" "}
@@ -149,15 +151,16 @@ const Invite = ({ setTeamModal }) => {
           </span>
         )}
         <hr className="text-border my-8" />
-        <div className="pb-10">
+        <div className="pb-10 text-left">
           <Button
             type={"submit"}
-            className="inline-block float-right mb-2 font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+            className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
           >
             {loading ? "Loading..." : "Send Invite"}
           </Button>
         </div>
       </form>
+      <ToastContainer />
     </div>
   );
 };
