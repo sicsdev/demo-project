@@ -10,11 +10,8 @@ import { successMessage, errorMessage } from "@/app/components/Messages/Messages
 import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 import { ColorRing } from "react-loader-spinner";
-import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
-import ViewKnowledgeCenter from "@/app/components/LearningCenter/EditKnowledgeCenter";
 import { getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
-import UpdateWorkflowBasic from "@/app/components/Workflows/WorkflowBuilder/UpdateWorkflowBasic";
 import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 import { makeCapital } from "@/app/components/helper/capitalName";
 import Link from "next/link";
@@ -24,6 +21,7 @@ const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(null);
     const [deleteLoader, setDeleteLoader] = useState(null);
+    const [perPage, setPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
@@ -139,13 +137,15 @@ const Page = () => {
         const updatedData = state?.data?.results?.map((item) =>
             item.id === row.id ? { ...item, ...row } : item
         );
-        dispatch(editRecommendation(updatedData));
+        dispatch(editRecommendation({ results: updatedData }));
     };
 
     const handleWorkflow = async (workflow_data, questionId) => {
         const row = state?.data?.results.find(item => item.id === questionId);
+        let descriptions = [...workflow_data.description]
+        descriptions.push(row.answer)
         let Payload = {
-            description: workflow_data.description + " " + row.answer,
+            description: descriptions,
         }
         const response = await updateWorkFlowStatus(Payload, workflow_data.id)
         if (response.status === 200 || response.status === 201) {
@@ -271,10 +271,13 @@ const Page = () => {
     ];
 
     const handleRecomodationValue = async (page) => {
-        const response = await GetAllRecommendations(page, recommendationOrderBy)
+        setLoading(true)
+        const response = await GetAllRecommendations(page, recommendationOrderBy, perPage)
         if (response) {
-            const result = response?.results?.filter((item) => !item.accepted);
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+            setLoading(false)
+        } else {
+            setLoading(false)
         }
     }
 
@@ -284,7 +287,7 @@ const Page = () => {
                 try {
                     const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
                     setRecommendationOrderBy(queryParam);
-                    const response = await GetAllRecommendations(1, queryParam)
+                    const response = await GetAllRecommendations(1, queryParam, perPage)
                     if (response) {
                         dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                     }
@@ -295,7 +298,15 @@ const Page = () => {
         }, 100);
     };
     const handlePerRowsChange = async (newPerPage, page) => {
-
+        setLoading(true)
+        const response = await GetAllRecommendations(page, recommendationOrderBy, newPerPage)
+        setPerPage(newPerPage)
+        if (response) {
+            setLoading(false)
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+        } else {
+            setLoading(false)
+        }
     }
     return (
         <>
@@ -324,7 +335,7 @@ const Page = () => {
                                 columns={columns}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
-                                paginationPerPage={10}
+                                paginationPerPage={perPage}
                                 paginationTotalRows={state?.data?.count}
                                 paginationServer
                                 onChangeRowsPerPage={handlePerRowsChange}
