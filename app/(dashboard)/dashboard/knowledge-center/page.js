@@ -179,8 +179,8 @@ const Page = () => {
     const columns = [
         {
             name: "Question",
-            selector: (row) => <p className='whitespace-normal'>{row.question}</p>,
-            sortable: true,
+            selector: 'question',
+            sortable: false,
             reorder: true,
             cell: (row) => (
                 <p className='whitespace-normal'>{row.question}</p>
@@ -193,7 +193,7 @@ const Page = () => {
         },
         {
             name: "New Answer",
-            selector: (row) => row.answer,
+            selector: 'question',
             // sortable: true,
             reorder: true,
             cell: (row) => (
@@ -211,7 +211,7 @@ const Page = () => {
         },
         {
             name: "Count",
-            selector: (row) => <p className=' whitespace-normal'>{row.number_of_messages}</p>,
+            selector: 'number_of_messages',
             sortable: true,
             reorder: true,
             style: {
@@ -286,7 +286,7 @@ const Page = () => {
                                 className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2  "border-b-2 text-primary border-primary font-bold  rounded-t-lg active  group`}
                                 aria-current="page"
                             >
-                                <BookOpenIcon className="h-5 w-5 text-primary" /> Learning center
+                                <AcademicCapIcon className="h-5 w-5 text-primary" /> Knowledge Center
                             </span>
                         </li>
                     </ul>
@@ -309,7 +309,7 @@ const Page = () => {
                                     fixedHeader
                                     highlightOnHover
                                     pointerOnHover
-                                    defaultSortFieldId="question"
+                                    defaultSortFieldId="number_of_messages"
                                     pagination
                                     className='data-table-class-old'
                                     columns={columns}

@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import Loading from "@/app/components/Loading/Loading";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import Card from "@/app/components/Common/Card/Card";
+import { successMessage } from "@/app/components/Messages/Messages";
+import { ToastContainer } from "react-toastify";
 
 const UsageLimit = () => {
   const state = useSelector((state) => state.user.data);
@@ -85,7 +87,8 @@ const UsageLimit = () => {
         billing_thresholds: { amount_gte: parseInt(formData) },
       });
       if (response.status === 200) {
-        Swal.fire("Success", "Updated Form", "success");
+        // Swal.fire("Success", "Updated Form", "success");
+        successMessage("Form updated successfully")
         setBtnLoading(false);
       } else {
         setBtnLoading(false);
@@ -177,6 +180,7 @@ const UsageLimit = () => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };

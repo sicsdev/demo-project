@@ -1,44 +1,23 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  QrCodeIcon,
-  EyeIcon,
-  CpuChipIcon,
   XMarkIcon,
-  CheckBadgeIcon,
-  CheckCircleIcon,
-  PlusCircleIcon,
   PlusSmallIcon,
-  CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 import { useSearchParams, useRouter } from "next/navigation";
 import "../../(dashboard)/dashboard/customize/widgetStyle.css";
-import Button from "@/app/components/Common/Button/Button";
 import {
-  addAllowedUrl,
   addBlockedUrl,
   getAllBotData,
-  modifyBot,
   removeBlockedUrl,
 } from "@/app/API/pages/Bot";
-import LoaderButton from "../Common/Button/Loaderbutton";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBot, setBotId } from "../store/slices/botIdSlice";
 import ColorSelector from "./ColorSelector";
 import Modal from "../Common/Modal/Modal";
-import EmailConfig from "../EmailConfig/EmailConfig";
-import Schedule from "./Schedule";
-import TextField from "../Common/Input/TextField";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
-  const dispatch = useDispatch();
   const [botDetails, setBotDetails] = useState({});
-  const [basicEmailFormData, setBasicEmailFormData] = useState({})
-  const [loading, setLoading] = useState(false);
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
-  // const id = "cfadd354-5f02-4e9d-b2e7-78c08900c845"
-  const searchParams = useSearchParams();
-  const router = useRouter();
 
   useEffect(() => {
     if (form === true && id) {

@@ -121,7 +121,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                 </svg>
                             </div>
                             <input autoComplete="off" type="search" ref={inputRef} value={search} onChange={handleSearch} id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border rounded-lg" placeholder="Search" required />
-                            <button type="submit" className="text-white hidden absolute right-2.5 bottom-2.5 bg-blue-700   font-medium rounded-lg text-sm px-4 py-2 ">Search</button>
+                            <button type="submit" className="text-white hidden absolute right-2.5 bottom-2.5 bg-blue-700   font-medium rounded-lg  px-4 py-2 ">Search</button>
                         </div>
                     </form>
                 </li>

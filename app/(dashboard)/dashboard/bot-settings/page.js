@@ -12,6 +12,8 @@ import { InboxStackIcon } from "@heroicons/react/24/solid";
 import Card from '@/app/components/Common/Card/Card';
 import Swal from 'sweetalert2';
 import Loading from '@/app/components/Loading/Loading';
+import { successMessage } from '@/app/components/Messages/Messages';
+import { ToastContainer } from 'react-toastify';
 
 const BotSetting = () => {
     const dispatch = useDispatch()
@@ -64,11 +66,7 @@ const BotSetting = () => {
         if (response.status === 200) {
             setLoading(false)
             setIsEdit(false)
-            Swal.fire(
-                'Success',
-                'Updated Form',
-                'success'
-            )
+           successMessage("Form update successfully")
         } else {
             setLoading(false)
         }
@@ -151,6 +149,7 @@ const BotSetting = () => {
 
                 </div>
             }
+            <ToastContainer />
         </div>
     )
 }

@@ -6,6 +6,7 @@ import { Input } from '../../../components/Common/Input/Input'
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { recoveryPassword } from '@/app/API/pages/Forgot-password'
+import { successMessage } from '@/app/components/Messages/Messages'
 
 const Page = () => {
 
@@ -40,12 +41,7 @@ const Page = () => {
     if (!validateForm()) return;
     recoveryPassword(form)
       .then((res) => {
-        Swal.fire({
-          title: 'Success!',
-          text: `Password reset successfully`,
-          timer: 3500,
-          showConfirmButton: false,
-        })
+        successMessage("Password reset successfully")
         router.push(`/login`)
       })
       .catch(() => {

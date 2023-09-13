@@ -18,7 +18,7 @@ const ApiKey = () => {
                         <div>
                             <label className="switch" style={{ height: "unset" }}>
                                 <input type="checkbox" name="snippet_active" />
-                                <span className="slider round h-[27px] w-[55px]"></span>
+                                <span className="slider round h-[21px] w-[40px]"></span>
                             </label>
                         </div>
                         <p className='text-sm'>View test data</p>

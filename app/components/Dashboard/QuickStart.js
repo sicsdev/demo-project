@@ -1,19 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BookOpenIcon, ChevronDownIcon, ChevronUpIcon, CodeBracketSquareIcon, EnvelopeOpenIcon, ShareIcon, ShoppingCartIcon, UserGroupIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import SkeletonLoader from '../Skeleton/Skeleton';
 
 const QuickStart = () => {
-    const quickStartNotShow = Cookies.get('quick-start-dont-show');
     const [isExpand, setIsExpand] = useState(true);
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
     const members = useSelector((state) => state.members);
-    console.log(members)
     const quickStartData = [
         {
             title: 'Connect Your APIs for Automations',
@@ -52,6 +50,13 @@ const QuickStart = () => {
         }
     ];
 
+    const [skeltonLoading, setSkeltonLoading] = useState(true);
+    useEffect(() => {
+        setTimeout(() => {
+            setSkeltonLoading(false);
+        }, 2500);
+    }, []);
+
     const setHideShow = (value) => {
         console.log(value)
         if (value === 0) {
@@ -75,62 +80,89 @@ const QuickStart = () => {
     return (
         <>
             {hideQuicStart === false && (
-                <div className="bg-white w-full sm:w-2/3 m-auto border-2 rounded-lg border-[#F0F0F1] mt-5">
-                    <div className={`py-4 px-6 block sm:flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
-                        <div className='flex items-center justify-center gap-2 mb-2 sm:mb-0'>
-                            <BoltIcon className='text-[#FF822D] w-5' />
-                            <p className='text-base font-medium text-[#151D23]'>Quick Start</p>
+                skeltonLoading ? (
+                    <div className="bg-white w-full sm:w-2/3 m-auto border-2 rounded-lg border-[#F0F0F1] mt-5">
+                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                            <div className='flex items-center justify-center gap-2'>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
+                            <div className='flex items-center gap-4'>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
                         </div>
-                        <div className='flex items-center gap-4'>
-
-                            <button
-                                className='flex items-center gap-2 justify-center font-semibold bg-white text-sm px-5 pb-2 pt-3 leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg border-[#F0F0F1] hover:opacity-60'
-                                onClick={(e) => setIsExpand(!isExpand)}
-                            >
-                                {isExpand === true ? (
-                                    <>
-                                        Collapse
-                                        <ChevronUpIcon className='w-5 h-5' />
-                                    </>
-                                ) : (
-                                    <>
-                                        Expand
-                                        <ChevronDownIcon className='w-5 h-5' />
-                                    </>
-                                )}
-
-                            </button>
-                        </div>
-                    </div>
-                    <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
-                        <p className='px-6 text-[#151D23] text-sm pb-5'>A few essential steps to get you up and running with Tempo immediately.</p>
-                        {quickStartData?.map((ele, key) =>
+                        <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                            <p className='px-6 text-[#151D23] text-sm pb-5'>
+                                <SkeletonLoader count={1} height={20} width="80%" />
+                            </p>
                             <div>
-                                {setHideShow(key) === true && (
-                                    <div className='cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3' key={key}>
-                                        <div className='px-6 flex items-center gap-4 justify-between'>
-                                            <div className='flex items-start gap-1'>
-                                                {ele?.icon}
-                                                <div className='px-3'>
-                                                    <h3 className='text-[#151D23] text-sm !font-semibold'>{ele?.title}</h3>
-                                                    <p className='font-medium text-sm pt-1 text-[#151d23cc]'>
-                                                        {ele?.content}
-                                                    </p>
+                                <div className='px-6 cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 grid grid-cols-[80%,20%] justify-between'>
+                                    <SkeletonLoader count={3} height={40} width="80%" />
+                                    <SkeletonLoader count={3} height={40} width="100%" />
+                                </div>
+                            </div>
+                        </div>
+                    </div >
+                ) : (
+                    <div className="bg-white w-full sm:w-2/3 m-auto border-2 rounded-lg border-[#F0F0F1] mt-5">
+                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                            <div className='flex items-center justify-center gap-2'>
+                                <BoltIcon className='text-[#FF822D] w-5' />
+                                <p className='text-base font-medium text-[#151D23]'>Quick Start</p>
+                            </div>
+                            <div className='flex items-center gap-4'>
+
+                                <button
+                                    className='flex items-center gap-2 justify-center font-semibold bg-white text-sm px-5 pb-2 pt-3 leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg border-[#F0F0F1] hover:opacity-60'
+                                    onClick={(e) => setIsExpand(!isExpand)}
+                                >
+                                    {isExpand === true ? (
+                                        <>
+                                            Collapse
+                                            <ChevronUpIcon className='w-5 h-5' />
+                                        </>
+                                    ) : (
+                                        <>
+                                            Expand
+                                            <ChevronDownIcon className='w-5 h-5' />
+                                        </>
+                                    )}
+
+                                </button>
+
+                            </div>
+                        </div>
+                        <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                            <p className='px-6 text-[#151D23] text-sm pb-5'>
+                                A few essential steps to get you up and running with Tempo immediately.
+                            </p>
+                            {quickStartData?.map((ele, key) =>
+                                <div>
+                                    {setHideShow(key) === true && (
+                                        <div className='cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3' key={key}>
+                                            <div className='px-6 flex items-center gap-4 justify-between'>
+                                                <div className='flex items-start gap-1'>
+                                                    {ele?.icon}
+                                                    <div className='px-3'>
+                                                        <h3 className='text-[#151D23] text-sm !font-semibold'>{ele?.title}</h3>
+                                                        <p className='font-medium text-sm pt-1 text-[#151d23cc]'>
+                                                            {ele?.content}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className=''>
+                                                    <Link href={ele?.link} className='text-[#007c8f] flex items-center justify-center gap-1 font-semibold text-sm hover:opacity-80'>
+                                                        {ele?.buttonName}
+                                                        <ArrowSmallRightIcon className='h-5 w-5 font-bold text-[#007c8f]' />
+                                                    </Link>
                                                 </div>
                                             </div>
-                                            <div className=''>
-                                                <Link href={ele?.link} className='text-[#007c8f] flex items-center justify-center gap-1 font-semibold text-sm hover:opacity-80'>
-                                                    {ele?.buttonName}
-                                                    <ArrowSmallRightIcon className='h-5 w-5 font-bold text-[#007c8f]' />
-                                                </Link>
-                                            </div>
                                         </div>
-                                    </div>
-                                )}
-                            </div>
-                        )}
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
-                </div>
+                )
             )}
         </>
     )

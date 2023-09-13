@@ -252,7 +252,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
             checked={automationFormData?.needs_otp === true ? true : false}
             onChange={(e) => { setAutomationFormData((prev) => ({ ...prev, needs_otp: e.target.checked })) }}
           />
-          <span className="slider round h-[27px] w-[55px]"></span>
+          <span className="slider round h-[21px] w-[40px]"></span>
         </label>
         <p className="text-sm mt-2">
           Require customer to confirm before action is performed.{" "}
