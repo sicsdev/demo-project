@@ -15,34 +15,47 @@ import Loading from "@/app/components/Loading/Loading";
 import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
 import Card from "@/app/components/Common/Card/Card";
+import TopBar from "@/app/components/Common/Card/TopBar";
 // import Reports from "@/app/components/Reports/Reports";
 
 
 const Logs = () => {
+
+  const formatDateFunc = (date) => {
+    const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
+    return inputDate.format("D/M/YY HH:mm A");
+  };
+
   const columns = [
     {
       name: "Workflow",
       selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
-      sortable: true,
-      reorder: true,
+      sortable: false,
+      reorder: false,
     },
     {
       name: "Human Handoff",
       selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
-      sortable: true,
-      reorder: true,
+      sortable: false,
+      reorder: false,
     },
     {
-      name: "Number of Messages ",
-      selector: (row) => <p className=" whitespace-normal">{row.number_of_messages}</p>,
+      name: "Number of Messages",
+      selector: (row) => row.number_of_messages,
       sortable: true,
-      reorder: true,
+      reorder: false,
+      cell: (row) => (
+        <p className=" whitespace-normal">{row.number_of_messages}</p>
+      )
     },
     {
       name: "Created At",
       selector: (row) => row.created,
-      sortable: true,
-      reorder: true,
+      sortable: false,
+      reorder: false,
+      cell: (row) => (
+        formatDateFunc(row.created)
+      )
     },
   ];
   const dispatch = useDispatch();
@@ -209,7 +222,6 @@ const Logs = () => {
       setLoading(false);
     } else {
       setLoading(false);
-
     }
   }
 
@@ -256,44 +268,64 @@ const Logs = () => {
 
   };
 
+  const handleSort = async (column, sortDirection) => {
+
+    setTimeout(async () => {
+      if (column?.name === 'Number of Messages') {
+        let orderBy = sortDirection === 'asc' ? 'number_of_messages' : '-number_of_messages';
+        setSelectedFilters((prevFilters) => ({
+          ...prevFilters,
+          'ordering': orderBy,
+        }));
+
+        const queryParam = buildQueryParam({
+          ...selectedFilters,
+          'ordering': orderBy, // Update the selected value for the current dropdown
+        });
+
+
+        try {
+          const response = await getPaginateBotConversation(selectedBot, 1, queryParam);
+          if (response.status === 200) {
+            let data = response.data;
+            let newdata = data.results;
+            if (newdata.length > 0) {
+              for (let i = 0; i < newdata.length; i++) {
+                newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
+                newdata[i].index = i;
+                newdata[i].created = moment(newdata[i].created).format("MM-DD-YYYY hh:mm:ss A");
+              }
+            }
+            const getAllIds = newdata.map((ele) => ({ id: ele.id }));
+
+            // Update state variables with the retrieved data
+            setManageMessages(getAllIds);
+            setTotalRows(data.count);
+            setConversationData(newdata);
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        } catch (error) {
+          // Handle errors here, e.g., log them or update UI accordingly
+          console.error("Error in getPaginateBotConversation:", error);
+          setLoading(false);
+        }
+      }
+    }, 100);
+  };
+
+
   return (
     <>
 
       <div>
+        {
+          showChat === true ?
+            <TopBar title={`Chats Chat Logs`} icon={<ChatBubbleLeftRightIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} /> :
+            <TopBar title={`Chat Logs`} icon={<ChatBubbleOvalLeftIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} />
+        }
 
-        <div className="border-b border-primary ">
-          <div className="flex items-center justify-between">
-            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 ">
-              {showChat === true ?
-                <li className="mr-2">
-                  <span
-                    className=" flex justify-start gap-2 cursor-pointer items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
-                    aria-current="page"
-                  >
-                    <ChatBubbleLeftRightIcon className="h-5 w-5 text-gray-500" /> Chats
-                    Chat Logs
-                  </span>
-                </li> :
-                <li className="mr-2">
-                  <span
-                    className=" flex justify-start gap-2 cursor-pointer pl-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group"
-                    aria-current="page"
-                  >
-                    <ChatBubbleOvalLeftIcon className="h-5 w-5 text-gray-500" />{" "}
-                    Chat Logs
-                  </span>
-                </li>}
-            </ul>
-            <div className="flex justify-end gap-2">
-              <p className="text-sm">
-                <Link href="/dashboard">
-                  back
-                </Link>
-              </p>
-            </div>
-
-          </div>
-        </div>
         {showChat === false && (
           <div className='flex justify-end gap-4 items-center mt-2 p-2'>
             <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -392,8 +424,10 @@ const Logs = () => {
                   paginationTotalRows={totalRows}
                   onChangePage={(page) => {
                     setPageVal(page)
-                    handlePageChange(selectedBot, page, '')
+                    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
                   }}
+                  sortServer
+                  onSort={handleSort}
                   noDataComponent={
                     <>
                       <p className="text-center text-sm p-3">
@@ -415,52 +449,52 @@ const Logs = () => {
             <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
               <>
                 {/* <Card> */}
-                  <div className=''>
-                    <h3 className='text-heading font-semibold text-xl text-center mt-4'>Chat</h3>
-                  </div>
+                <div className=''>
+                  <h3 className='text-heading font-semibold text-xl text-center mt-4'>Chat</h3>
+                </div>
 
+                <div className="flex justify-between p-2 my-4 gap-2 items-center">
+                  <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+                    back
+                  </p>
                   <div className="flex justify-between p-2 my-4 gap-2 items-center">
-                    <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
-                      back
-                    </p>
-                    <div className="flex justify-between p-2 my-4 gap-2 items-center">
-                      {indexVal === 0 && pageVal === 1 ?
-                        null
-                        :
-                        <p className="text-sm cursor-pointer" onClick={() => {
-                          if (indexVal === 0 && pageVal !== 1) {
-                            handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
-                            setPageVal(pageVal - 1)
-                            setIndexVal(9)
-                            getCoversationMessages(manageMessages[0].id)
-                          } else {
-                            getCoversationMessages(manageMessages[indexVal - 1].id)
-                            setIndexVal(indexVal - 1)
-                          }
-                        }}>
-                          <ArrowLeftIcon className="h-6 w-6 text-heading" />
-                        </p>
-                      }
+                    {indexVal === 0 && pageVal === 1 ?
+                      null
+                      :
                       <p className="text-sm cursor-pointer" onClick={() => {
-                        if (indexVal !== manageMessages.length - 1) {
-                          getCoversationMessages(manageMessages[indexVal + 1].id)
-                          setIndexVal(indexVal + 1)
-                        } else {
-                          handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
-                          setPageVal(pageVal + 1)
-                          setIndexVal(0)
+                        if (indexVal === 0 && pageVal !== 1) {
+                          handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
+                          setPageVal(pageVal - 1)
+                          setIndexVal(9)
                           getCoversationMessages(manageMessages[0].id)
+                        } else {
+                          getCoversationMessages(manageMessages[indexVal - 1].id)
+                          setIndexVal(indexVal - 1)
                         }
                       }}>
-                        <ArrowRightIcon className="h-6 w-6 text-heading" />
+                        <ArrowLeftIcon className="h-6 w-6 text-heading" />
                       </p>
-                    </div>
+                    }
+                    <p className="text-sm cursor-pointer" onClick={() => {
+                      if (indexVal !== manageMessages.length - 1) {
+                        getCoversationMessages(manageMessages[indexVal + 1].id)
+                        setIndexVal(indexVal + 1)
+                      } else {
+                        handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
+                        setPageVal(pageVal + 1)
+                        setIndexVal(0)
+                        getCoversationMessages(manageMessages[0].id)
+                      }
+                    }}>
+                      <ArrowRightIcon className="h-6 w-6 text-heading" />
+                    </p>
                   </div>
-                  <>
+                </div>
+                <>
 
-                    <Chat messages={messages} />
+                  <Chat messages={messages} selectedBot={selectedBot}/>
 
-                  </>
+                </>
 
                 {/* </Card> */}
               </>

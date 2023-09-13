@@ -16,6 +16,7 @@ import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSett
 import { createEnterpriseAccount, enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService';
 import { useRouter } from 'next/navigation';
 import QuickStart from '@/app/components/Dashboard/QuickStart';
+import TopBar from '@/app/components/Common/Card/TopBar';
 
 const Page = () => {
     const router = useRouter()
@@ -90,21 +91,8 @@ const Page = () => {
     }
 
     return (
-        <div>
-            <div className="border-b border-primary dark:border-gray-700">
-                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-                    <li className="mr-2">
-                        <span
-                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center pl-2  py-2  border-b-2  text-primary border-primary font-bold rounded-t-lg active  group`}
-                            aria-current="page"
-                        >
-                            <AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" /> View Agents
-                        </span>
-                    </li>
-
-                </ul>
-            </div>
-
+        <div style={{ whiteSpace: "normal" }}>
+            <TopBar title={`View Agents`} icon={<AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" />} />
             <>
                 <div className=' sm:px-5 md:px-5 lg:px-5 block sm:flex md:flex lg:flex justify-end items-center mt-4'>
                     {skeleton ? <SkeletonLoader /> :

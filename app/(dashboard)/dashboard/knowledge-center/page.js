@@ -18,6 +18,7 @@ import UpdateWorkflowBasic from "@/app/components/Workflows/WorkflowBuilder/Upda
 import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 import { makeCapital } from "@/app/components/helper/capitalName";
 import Link from "next/link";
+import TopBar from "@/app/components/Common/Card/TopBar";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -31,7 +32,8 @@ const Page = () => {
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [workflow, setWorkflow] = useState([])
-    console.log("state", state?.data?.count)
+    const [recommendationOrderBy, setRecommendationOrderBy] = useState('');
+
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
@@ -85,6 +87,7 @@ const Page = () => {
         const result = workflowState?.data?.results?.filter((x) => x.active === true);
         setWorkflow(result ?? []);
     }
+
     const updateButtonHandler = async (id) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
@@ -108,6 +111,7 @@ const Page = () => {
             setUpdateLoader(null);
         }
     };
+
     const deleteButtonHandler = async (id) => {
         setDeleteLoader(id)
         try {
@@ -137,6 +141,7 @@ const Page = () => {
         );
         dispatch(editRecommendation(updatedData));
     };
+
     const handleWorkflow = async (workflow_data, questionId) => {
         const row = state?.data?.results.find(item => item.id === questionId);
         let Payload = {
@@ -150,7 +155,6 @@ const Page = () => {
             } else {
             }
         }
-
     }
 
     const divRef = useRef(null);
@@ -214,10 +218,6 @@ const Page = () => {
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
-            style: {
-                // width: '20%',
-                // justifyContent: 'end'
-            },
         },
         {
             name: "",
@@ -269,29 +269,36 @@ const Page = () => {
             },
         },
     ];
+
     const handleRecomodationValue = async (page) => {
-        const response = await GetAllRecommendations(page)
+        const response = await GetAllRecommendations(page, recommendationOrderBy)
         if (response) {
             const result = response?.results?.filter((item) => !item.accepted);
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
         }
     }
+
+    const handleSort = async (column, sortDirection) => {
+        setTimeout(async () => {
+            if (column?.name === 'Count') {
+                try {
+                    const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
+                    setRecommendationOrderBy(queryParam);
+                    const response = await GetAllRecommendations(1, queryParam)
+                    if (response) {
+                        dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+                    }
+                } catch (error) {
+                    console.log("Error", error)
+                }
+            }
+        }, 100);
+    };
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <div className="border-b border-border flex items-center justify-between">
-                    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                        <li className="mr-2" >
-                            <span
-                                className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center  py-2  "border-b-2 text-primary border-primary font-bold  rounded-t-lg active  group`}
-                                aria-current="page"
-                            >
-                                <AcademicCapIcon className="h-5 w-5 text-primary" /> Knowledge Center
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-
+                <TopBar title={`Knowledge Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
                         <h1 className="mt-2 text-sm">
@@ -303,27 +310,29 @@ const Page = () => {
                     </div>
                 ) : (
                     <>
-                            <div className="w-full" >
-                                <DataTable
-                                    title={''}
-                                    fixedHeader
-                                    highlightOnHover
-                                    pointerOnHover
-                                    defaultSortFieldId="number_of_messages"
-                                    pagination
-                                    className='data-table-class-old'
-                                    columns={columns}
-                                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                                    data={state?.data?.results}
-                                    paginationPerPage={10}
-                                    paginationTotalRows={state?.data?.count}
-                                    paginationServer
-                                    onChangePage={(page) => {
-                                        handleRecomodationValue(page)
-                                    }}
-                                    customStyles={customStyles}
-                                />
-                            </div>
+                        <div className="w-full" >
+                            <DataTable
+                                title={''}
+                                fixedHeader
+                                highlightOnHover
+                                pointerOnHover
+                                defaultSortFieldId="number_of_messages"
+                                pagination
+                                className='data-table-class-old'
+                                columns={columns}
+                                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                data={state?.data?.results}
+                                paginationPerPage={10}
+                                paginationTotalRows={state?.data?.count}
+                                paginationServer
+                                onChangePage={(page) => {
+                                    handleRecomodationValue(page)
+                                }}
+                                sortServer
+                                onSort={handleSort}
+                                customStyles={customStyles}
+                            />
+                        </div>
                     </>
                 )}
             </div>

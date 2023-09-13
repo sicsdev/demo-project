@@ -25,6 +25,7 @@ import { updateThresholds } from '@/app/API/pages/EnterpriseService';
 import { successMessage } from '@/app/components/Messages/Messages';
 import { ToastContainer } from 'react-toastify';
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
+import TopBar from '@/app/components/Common/Card/TopBar';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -162,32 +163,24 @@ const UsageLimit = () => {
   };
   return (
     <>
-
-      <div className="border-b border-primary dark:border-gray-700">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          <li className="mr-2">
-            <a href="#" className=" flex justify-start  gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active  group" aria-current="page">
-              <CurrencyDollarIcon className="h-5 w-5 text-gray-500" /> Usage
-            </a>
-          </li>
-
-        </ul>
+      <div style={{ whiteSpace: "normal" }}>
+        <TopBar title={`Usage`} icon={<CurrencyDollarIcon className="h-5 w-5 text-primary" />} />
       </div>
       {loading ? <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
         <Card>
           <div className='w-full'>
-          <SkeletonLoader count={1} height={20} width={"30%"} />
-          <SkeletonLoader count={2} height={10} width={"100%"} />
-          <SkeletonLoader count={1} height={30} width={"100%"} />
-          <SkeletonLoader count={1} height={30} width={80} />
+            <SkeletonLoader count={1} height={20} width={"30%"} />
+            <SkeletonLoader count={2} height={10} width={"100%"} />
+            <SkeletonLoader count={1} height={30} width={"100%"} />
+            <SkeletonLoader count={1} height={30} width={80} />
           </div>
           <div className='my-4 w-full'>
             <SkeletonLoader count={1} height={20} width={150} />
             <SkeletonLoader count={4} height={10} width={"100%"} />
           </div>
           <div className='w-full'>
-          <SkeletonLoader count={1} height={15} width={80} />
-          <SkeletonLoader count={1} height={20} width={100} />
+            <SkeletonLoader count={1} height={15} width={80} />
+            <SkeletonLoader count={1} height={20} width={100} />
           </div>
           <div className='my-2 w-full'>
             <SkeletonLoader count={10} height={30} width={"100%"} />

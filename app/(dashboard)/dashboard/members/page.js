@@ -15,6 +15,7 @@ import Loading from "@/app/components/Loading/Loading";
 import Invite from "@/app/components/Invite/Invite";
 import TeamManagement from "@/app/components/Team/TeamManagement";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+import TopBar from "@/app/components/Common/Card/TopBar";
 
 const Page = () => {
   const [teamModal, setTeamModal] = useState(false);
@@ -38,28 +39,14 @@ const Page = () => {
 
 
   return (
-    <div>
-
-
-      <div className="border-b border-primary dark:border-gray-700">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          <li className="mr-2">
-            <span
-              className=" flex justify-start gap-2 items-center cursor-pointer  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-              aria-current="page"
-            >
-              <UserGroupIcon className="h-5 w-5 text-gray-500" /> Invite and
-              manage team members
-            </span>
-          </li>
-        </ul>
-      </div>
+    <div style={{ whiteSpace: "normal" }}>
+      <TopBar title={`Invite and manage team members`} icon={<UserGroupIcon className="h-5 w-5 text-primary" />} />
       {state?.isLoading === true ? <div className='my-4'>
         <div className='block sm:flex md:flex lg:flex justify-between items-center my-2'>
-            <div>
-              <SkeletonLoader count={1} height={20} width={80} />
-              <SkeletonLoader count={1} height={10} width={300} />
-            </div>
+          <div>
+            <SkeletonLoader count={1} height={20} width={80} />
+            <SkeletonLoader count={1} height={10} width={300} />
+          </div>
           <div>
             <SkeletonLoader count={1} height={40} width={200} />
           </div>

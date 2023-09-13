@@ -143,19 +143,17 @@ const Page = () => {
 
 
   return (
-    <div>
+    <div style={{ whiteSpace: "normal" }}>
 
-      <div className="border-b border-primary dark:border-gray-700 flex justify-between items-center">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-          <li className="mr-2">
-            <a
-              href="#"
-              className=" flex justify-start gap-2 items-center py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
+      <div className="border-b border-border flex items-center justify-between">
+        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+          <li className="mr-2" >
+            <span
+              className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
               aria-current="page"
             >
-              <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />{" "}
-              Billing Settings
-            </a>
+              <WrenchScrewdriverIcon className="h-5 w-5 text-primary" /> Billing Settings
+            </span>
           </li>
         </ul>
         {isEdit == true ? (
