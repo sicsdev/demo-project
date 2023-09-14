@@ -47,6 +47,15 @@ export default function RootLayout({ children }) {
           href="https://assets.calendly.com/assets/external/widget.css"
           rel="stylesheet"
         />
+        <link
+          rel="stylesheet"
+          href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
+        />
+
+        <link
+          rel="stylesheet"
+          href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
+        />
 
         {/* <meta
           name="viewport"
