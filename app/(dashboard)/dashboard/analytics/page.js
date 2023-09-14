@@ -486,7 +486,7 @@ const Logs = () => {
           <>
 
             <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => setShowChat(false)}>    </div >
-            <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+            <div className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
               <>
                 {/* <Card> */}
                 <div className=''>
@@ -497,7 +497,7 @@ const Logs = () => {
                   <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
                     back
                   </p>
-                  <div className="flex justify-between p-2 my-4 gap-2 items-center">
+                  <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ?
                       null
                       :
