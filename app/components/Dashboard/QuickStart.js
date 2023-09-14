@@ -81,7 +81,7 @@ const QuickStart = () => {
         <>
             {hideQuicStart === false && (
                 skeltonLoading ? (
-                    <div className="bg-white w-full sm:w-2/3 m-auto border-2 rounded-lg border-[#F0F0F1] mt-5">
+                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
                             <div className='flex items-center justify-center gap-2'>
                                 <SkeletonLoader count={1} height={40} width={100} />
@@ -103,8 +103,8 @@ const QuickStart = () => {
                         </div>
                     </div >
                 ) : (
-                    <div className="bg-white w-full sm:w-2/3 m-auto border-2 rounded-lg border-[#F0F0F1] mt-5">
-                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                        <div className={`py-4 px-6  items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
                             <div className='flex items-center justify-center gap-2'>
                                 <BoltIcon className='text-[#FF822D] w-5' />
                                 <p className='text-base font-medium text-[#151D23]'>Quick Start</p>
@@ -112,7 +112,7 @@ const QuickStart = () => {
                             <div className='flex items-center gap-4'>
 
                                 <button
-                                    className='flex items-center gap-2 justify-center font-semibold bg-white text-sm px-5 pb-2 pt-3 leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg border-[#F0F0F1] hover:opacity-60'
+                                    className='flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60'
                                     onClick={(e) => setIsExpand(!isExpand)}
                                 >
                                     {isExpand === true ? (
@@ -139,20 +139,20 @@ const QuickStart = () => {
                                 <div>
                                     {setHideShow(key) === true && (
                                         <div className='cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3' key={key}>
-                                            <div className='px-6 flex items-center gap-4 justify-between'>
-                                                <div className='flex items-start gap-1'>
-                                                    {ele?.icon}
-                                                    <div className='px-3'>
-                                                        <h3 className='text-[#151D23] text-sm !font-semibold'>{ele?.title}</h3>
-                                                        <p className='font-medium text-sm pt-1 text-[#151d23cc]'>
+                                            <div className='px-6 sm:grid grid-cols-[70%,30%] items-center'>
+                                                <div className='flex gap-2  items-start'>
+                                                    <span>{ele?.icon}</span>
+                                                    <div className=''>
+                                                        <h3 className='text-[#151D23] text-sm !font-[500]'>{ele?.title}</h3>
+                                                        <p className=' text-xs pt-1 text-[#151d23cc]'>
                                                             {ele?.content}
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div className=''>
-                                                    <Link href={ele?.link} className='text-[#007c8f] flex items-center justify-center gap-1 font-semibold text-sm hover:opacity-80'>
+                                                <div className='text-end'>
+                                                    <Link href={ele?.link} className='text-[#007c8f] flex items-center justify-end gap-1 font-semibold text-xs hover:opacity-80'>
                                                         {ele?.buttonName}
-                                                        <ArrowSmallRightIcon className='h-5 w-5 font-bold text-[#007c8f]' />
+                                                        <ArrowSmallRightIcon className='h-4 w-5 font-bold text-[#007c8f]' />
                                                     </Link>
                                                 </div>
                                             </div>

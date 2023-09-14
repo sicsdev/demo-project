@@ -59,7 +59,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                     data: {}
                 };
             } else {
-                payload_automation =  { condition: element.condition, question: element.question }
+                payload_automation = { condition: element.condition, question: element.question }
             }
             return payload_automation
         })
@@ -149,13 +149,13 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         <div className='flex justify-between items-center'>
                                             <div className='flex justify-between items-center gap-2'>
                                                 <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
-                                                    {ele.icon ?   <Image
+                                                    {ele.icon ? <Image
                                                         fill={"true"}
                                                         className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
                                                         alt="logo.png"
                                                         src={ele.icon}
-                                                    />:<Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
-                                                 
+                                                    /> : <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
+
                                                 </div>
                                                 <p className='text-heading text-sm'>{ele.name}</p>
                                             </div>
@@ -181,7 +181,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
-                                                <BriefcaseIcon  className="h-6 w-6 text-gray-500" />
+                                                <BriefcaseIcon className="h-6 w-6 text-gray-500" />
 
                                                 <p className='text-heading text-sm'>Deflection</p>
                                                 <p className='text-border text-[11px] font-light'></p>
@@ -217,28 +217,33 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             }
                                         })
                                     }}><ChevronLeftIcon className="h-4 w-4" /></span>
-                                    <div className="relative w-[20px] h-[20px] rounded-lg">
-                                        <Image
-                                            fill={"true"}
-                                            className={`bg-contain mx-auto object-scale-down w-full rounded-lg`}
-                                            alt="logo.png"
-                                            src={innerSide?.value.icon || getLogo(innerSide?.value.name)}
-                                        />
-                                    </div>
+                                    {innerSide?.value.icon ?
+                                        <div className="relative w-[20px] h-[20px] rounded-lg">
+                                            <Image
+                                                fill={"true"}
+                                                className={`bg-contain mx-auto object-scale-down w-full rounded-lg`}
+                                                alt="logo.png"
+                                                src={innerSide?.value.icon || getLogo(innerSide?.value.name)}
+                                            />
+                                        </div> : <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
+
                                     <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
                                 </div>
                                 <div className='mb-32'>
                                     {integrationAutomationData?.map((ele, key) =>
                                         <li className={`my-4 cursor-pointer border border-border rounded-md p-2 bg-[#F8F8F8]`} key={key} onClick={(e) => addStepHandler(ele)}>
                                             <div className='flex justify-start items-center gap-4'>
-                                                <div className="relative w-[25px] h-[20px] rounded-lg">
-                                                    <Image
-                                                        fill={"true"}
-                                                        className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
-                                                        alt="logo.png"
-                                                        src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
-                                                    />
-                                                </div>
+
+                                                {ele?.integration?.icon ?
+                                                      <div className="relative w-[25px] h-[20px] rounded-lg">
+                                                      <Image
+                                                          fill={"true"}
+                                                          className={`bg-contain object-scale-down mx-auto w-full rounded-lg`}
+                                                          alt="logo.png"
+                                                          src={ele?.integration?.icon || getLogo(innerSide?.value.name)}
+                                                      />
+                                                  </div>: <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
+                                             
                                                 <div className='w-[200px]'>
                                                     <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
                                                     <p className='text-border text-[11px] font-light'>{ele?.description}</p>

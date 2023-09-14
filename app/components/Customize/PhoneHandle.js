@@ -299,13 +299,13 @@ const PhoneHandle = () => {
                             <h3 className='text-sm font-semibold text-heading'>Greeting message</h3>}
                         <div className='mt-2 sm:m-0 md:m-0 lg:m-0 sm:text-end  '>
                             {!pageLoading ?
-                                <div className="inline-flex rounded-md shadow-sm" role="group">
+                                <div className="inline-flex rounded-md shadow-sm w-full sm:w-auto" role="group">
                                     <button onClick={() => {
                                         setAudioModal(true)
                                         setModal(false)
                                         setIndex(null
                                         )
-                                    }} type="button" className="px-4 py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
+                                    }} type="button" className="px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
                                         Upload MP3
                                     </button>
                                     <button type="button" onClick={() => {
@@ -313,7 +313,7 @@ const PhoneHandle = () => {
                                         setAudioModal(false)
                                         setIndex(null)
                                     }
-                                    } className="px-4 py-2 text-[10px] sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
+                                    } className="px-4 py-2 text-[10px] w-[50%] sm:w-auto sm:text-xs md:text-xs font-medium text-heading bg-white border border-border border-l-0 rounded-r-md hover:bg-primary hover:text-white ">
                                         Text to speech
                                     </button>
                                 </div> :
@@ -324,7 +324,7 @@ const PhoneHandle = () => {
                     <hr className='mt-1 mb-6 text-border' />
 
                     <div className='px-5'>
-                        <div className='grid grid-cols-1 sm:grid-cols-2 justify-between items-center'>
+                        <div className='grid grid-cols-[90%,10%] justify-between items-center'>
                             {pageLoading ?
                                 <div>
                                     <SkeletonLoader count={1} height={20} width={"20%"} />
@@ -336,10 +336,10 @@ const PhoneHandle = () => {
                                 </div>
                             }
                             {pageLoading ?
-                                <div className='sm:text-end'>
+                                <div className='text-end'>
                                     <SkeletonLoader count={1} height={20} width={"8%"} />
                                 </div> :
-                                <div className='sm:text-end'>
+                                <div className='text-end'>
                                     <label className="switch">
                                         <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicField?.checked === true} />
                                         <span className="slider round h-[21px] w-[40px]"></span>
@@ -393,7 +393,7 @@ const PhoneHandle = () => {
                                 <>
                                     {basicFormData.map((element, key) =>
                                         <div key={key} className='block sm:flex md:flex lg:flex justify-between items-center gap-3'>
-                                            <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                            <div className='w-full sm:w-[40px] md:w-[40px] lg:w-[40px]'>
                                                 <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
                                                 <SelectOption
                                                     onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
@@ -412,7 +412,7 @@ const PhoneHandle = () => {
                                                         { "name": "9", "value": 9 }
                                                     ]}
                                                     id={"options"}
-                                                    className="py-2"
+                                                    className="py-2]"
                                                     error={""}
                                                     optionDisabled={basicFormData.map((ele) => ele.options)}
                                                 />
@@ -585,7 +585,7 @@ const PhoneHandle = () => {
                                 <div className='block mt-1'>
                                     <div className='w-full '>
                                         <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                                            <div className='flex items-center gap-2'><span>Upload mp3</span>  </div>
+                                            <div className='flex items-center gap-2'><span>Upload file</span>  </div>
                                         </label>
                                         {index !== null ?
                                             <div className="flex items-center justify-center w-full">
@@ -595,7 +595,7 @@ const PhoneHandle = () => {
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
                                                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav or MP3</p>
                                                         {basicFormData[index].audioName && (
                                                             <>
 
@@ -617,7 +617,7 @@ const PhoneHandle = () => {
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
                                                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav , MP3</p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav or MP3</p>
                                                         {basicField?.audioName && (
                                                             <>
 
@@ -644,7 +644,6 @@ const PhoneHandle = () => {
                                             {greetingLoading ? "Loading..." : "Set a greeting message"}
                                         </Button>)}
                                 </div>
-                                <hr className='mt-6 text-border' />
                             </div>
                         )}
                     </div>

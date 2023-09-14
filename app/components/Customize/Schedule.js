@@ -258,7 +258,6 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                         </div>
 
                                     </div>
-                                    <hr className="opacity-10" />
                                 </>
                             ))}
                         </div>

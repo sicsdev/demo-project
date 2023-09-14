@@ -62,7 +62,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                             </div> */}
                         </>
                     }
-                    <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
+                    <h3 className="text-heading font-semibold text-xs my-1">{row.name}</h3>
                 </div>
             ),
             sortable: true,
@@ -82,7 +82,41 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                 <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
-        }, {
+        }
+
+
+    ]
+    const columns1 = [
+        {
+            name: "Name",
+            selector: (row, index) => (
+                <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
+                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
+                        <p className='text-[18px]'>{row.icon}</p>
+                        {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
+                    </div>
+                    <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 uppercase">{row.name}</h3>
+                </div>
+            ),
+            sortable: true,
+            reorder: true,
+            minWidth: '250px'
+        },
+        {
+            name: "Status",
+            selector: (row) => row.active ? 'Active' : 'Draft',
+            sortable: true,
+            reorder: true,
+        },
+        {
+            name: "Actions",
+            sortable: false,
+            cell: (row, index) => (
+                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
+            ),
+
+        },
+        {
             name: "Embed URL",
             sortable: false,
             cell: (row, index) => (
@@ -106,39 +140,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             ),
 
         },
-
-
-    ]
-    const columns1 = [
-        {
-            name: "Name",
-            selector: (row, index) => (
-                <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        <p className='text-[18px]'>{row.icon}</p>
-                        {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
-                    </div>
-                    <h3 className="text-heading font-semibold text-sm my-1 uppercase">{row.name}</h3>
-                </div>
-            ),
-            sortable: true,
-            reorder: true,
-            minWidth: '250px'
-        },
-        {
-            name: "Status",
-            selector: (row) => row.active ? 'Active' : 'Draft',
-            sortable: true,
-            reorder: true,
-        },
-        {
-            name: "Actions",
-            sortable: false,
-            cell: (row, index) => (
-                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
-            ),
-
-        }
 
 
     ]

@@ -44,22 +44,22 @@ const Page = () => {
         ...basicFormData,
         logo: basicFormData.logo_file_name ? basicFormData.logo : "",
       };
-      setBasicFormData((prev) => {
-        return {
-          ...prev,
-          agent_email_value: true
-        }
-      })
       delete payload.payment_platform
       delete payload.ticketing_platform
-      delete payload.agent_email_value
     } else if (tab === 1) {
       payload = {
         agent_name: basicFormData.agent_name,
         email_agent_title: basicFormData.agent_title,
         email_greeting: basicFormData.email_introduction,
         email_farewell: basicFormData.email_signOff,
+        email: basicFormData.email
       }
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          agent_email_value: true
+        }
+      })
     } else if (tab === 2) {
       payload = { schedule: scheduleData }
     }
@@ -112,44 +112,33 @@ const Page = () => {
     });
   };
   const DisablingButton = () => {
-    let requiredKeys = []
-    let str_values = null
-    let arr_values = null
+    const checkFormData = (keys) => {
+      return keys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
+    };
+  
     switch (tab) {
       case 1:
-        requiredKeys = [
+        const tab1Keys = [
           'agent_title',
           'email_introduction',
-          'email_signOff']
-        str_values = requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        arr_values = ['agent_name'].every(key => !basicFormData[key] || basicFormData[key].length === 0);
-        if (str_values || arr_values) {
-          return true
-        }
+          'email_signOff',
+          'email'
+        ];
+        return checkFormData(tab1Keys) || (!basicFormData['agent_name'] || basicFormData['agent_name'].length === 0);
       case 0:
-        const requiredKeys = [
+        const tab0Keys = [
           'chat_title',
           'description',
           'customer_service_email',
           'chat_default_message',
           'customer_service_phone'
         ];
-        const str_values = requiredKeys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        const arr_values = !basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0;
-        if (str_values || (arr_values && !basicFormData['agent_email_value']) || ['email'].some(key => !basicFormData[key] || basicFormData[key].trim() === '')) {
-          return true;
-        }
-        break;
-
+        return checkFormData(tab0Keys) || (!basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0);
+  
       default:
-        break;
+        return false;
     }
-
-
-    return false
-
   }
-
 
   useEffect(() => {
     const bot_id = searchParams.get("id");
@@ -176,6 +165,8 @@ const Page = () => {
         break;
     }
   }
+
+  console.log(basicFormData)
   return (
     <>
       <div className="border-b border-primary ">
@@ -219,23 +210,31 @@ const Page = () => {
         <>
           <>
             <div className="my-2 flex items-center justify-between gap-1">
+
+
+
               <TextField
-                value={basicFormData.email}
+                value={basicFormData?.email}
                 name="email"
                 className="py-3 mt-1"
-                labelClassName={`${basicFormData?.email !== '' ? 'w-[95%]' : 'w-full'}`}
+                labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}
                 title={
                   <div className="flex items-center gap-2 w-[150px]">
                     <span>Agent Email</span>{" "}
                   </div>
                 }
                 placeholder={"Email"}
+                onChange={(e) => {
+                  setBasicFormData((prev) => {
+                    return { ...prev, email: e.target.value };
+                  })
+                }}
                 type={"text"}
                 id={"agent_title"}
-                disabled={true}
+                disabled={basicFormData?.agent_email_value === true}
                 error={""}
               />
-              {basicFormData?.email !== '' && (
+              {basicFormData?.agent_email_value === true && (
                 <div className=''>
                   {isCopy == true ? (
                     <>
