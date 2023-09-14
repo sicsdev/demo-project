@@ -22,6 +22,7 @@ const Page = () => {
     const [updateLoader, setUpdateLoader] = useState(null);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
+    const [pageVal, setPageVal] = useState(1);
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
@@ -272,6 +273,7 @@ const Page = () => {
 
     const handleRecomodationValue = async (page) => {
         setLoading(true)
+        setPageVal(page)
         const response = await GetAllRecommendations(page, recommendationOrderBy, perPage)
         if (response) {
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
@@ -282,17 +284,21 @@ const Page = () => {
     }
 
     const handleSort = async (column, sortDirection) => {
+        
         setTimeout(async () => {
             if (column?.name === 'Count') {
+                setLoading(true)
                 try {
                     const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
                     setRecommendationOrderBy(queryParam);
                     const response = await GetAllRecommendations(1, queryParam, perPage)
                     if (response) {
                         dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+                        setLoading(false)
                     }
                 } catch (error) {
                     console.log("Error", error)
+                    setLoading(false)
                 }
             }
         }, 100);
@@ -335,6 +341,8 @@ const Page = () => {
                                 columns={columns}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
+
+                                paginationDefaultPage={pageVal}
                                 paginationPerPage={perPage}
                                 paginationTotalRows={state?.data?.count}
                                 paginationServer
