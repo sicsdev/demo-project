@@ -432,41 +432,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             <br></br>
             <div className="block sm:flex md:flex lg:flex justify-center items-stretch gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
-                {/* <div className="">
-                  <a
-                    className="flex justify-start gap-2 items-center py-1 text-sm font-semibold text-heading border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                    aria-current="preview"
-                  >
-                    <QrCodeIcon className="h-6 w-6 text-gray-500" /> Customize
-                    Chat Interface
-                  </a>
-                  {form === false && (
-                    <>
-                      <small className="text-[#7e7e7e] mb-3">
-                        Customize the colors, position, and user interface of your Tempo
-                        chat widget.
-                      </small>  
-                    </>
-                  )}
-                  <hr className="opacity-10"></hr>
-                </div> */}
-                {form === false && preferences?.agent_email_value === false && (
-                  <div className="flex items-center w-full mt-2 gap-2">
-                    <div className="flex justify-start w-1/2 items-center">
-                      <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Email</span>
-                    </div>
-                    <div className="flex justify-start w-1/2">
-                      <input
-                        onChange={handleInputChange}
-                        name="email"
-                        value={preferences.email}
-                        type="email"
-                        className="w-full block px-3 new_input bg-white focus:bg-white  border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                        placeholder="Enter Agent email"
-                      />
-                    </div>
-                  </div>
-                )}
+
+            
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>

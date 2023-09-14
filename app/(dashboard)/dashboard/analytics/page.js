@@ -23,7 +23,7 @@ const Logs = () => {
 
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
-    return inputDate.format("D/M/YY HH:mm A");
+    return inputDate.format("DD/MM/YY HH:mm A");
   };
 
   const columns = [
@@ -32,15 +32,16 @@ const Logs = () => {
       selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
       sortable: false,
       reorder: false,
+      
     },
     {
-      name: "Human Handoff",
+      name: <p className=" whitespace-break-spaces">Human Handoff</p>,
       selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
       sortable: false,
       reorder: false,
     },
     {
-      name: "Number of Messages",
+      name: <p className=" whitespace-break-spaces">Number of Messages</p>,
       selector: (row) => row.number_of_messages,
       sortable: true,
       reorder: false,

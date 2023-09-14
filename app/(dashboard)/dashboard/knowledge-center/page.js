@@ -219,6 +219,7 @@ const Page = () => {
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
+            width:"100px"
         },
         {
             name: "",
@@ -266,7 +267,7 @@ const Page = () => {
             ),
             style: {
                 width: '20%',
-                justifyContent: 'end'
+                justifyContent: 'start'
             },
         },
     ];
