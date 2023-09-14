@@ -310,14 +310,23 @@ const Page = () => {
           ) : (
             <>
               {formData && (
-                <CustomIntegration
-                  help={help}
-                  fetchData={fetchIntegrations}
-                  formData={formData}
-                  setFormData={setFormData}
-                  setIntegrationform={setIntegrationform}
-                  integrationFormData={integrationFormData}
-                />
+                <>
+                  <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
+
+                    setFormData({})
+                  }
+                  }></div>
+                  <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                    <CustomIntegration
+                      help={help}
+                      fetchData={fetchIntegrations}
+                      formData={formData}
+                      setFormData={setFormData}
+                      setIntegrationform={setIntegrationform}
+                      integrationFormData={integrationFormData}
+                    />
+                  </div>
+                </>
               )}
             </>
           )}

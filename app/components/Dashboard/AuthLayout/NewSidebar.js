@@ -7,6 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../../store/slices/userSlice";
 import Cookies from "js-cookie";
+import { isMobile } from 'react-device-detect';
 import { uploadLOgo } from "@/app/API/pages/Bot";
 import {
     ArrowDownOnSquareIcon,
@@ -33,6 +34,7 @@ import {
     BuildingOffice2Icon,
     AdjustmentsHorizontalIcon,
     PhoneIcon,
+    ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -371,11 +373,20 @@ const NewSidebar = ({ children }) => {
         if (name === "Workflows") return "Workflows";
         return name;
     };
+
+
+    useEffect(() => {
+        if (show && isMobile) {
+            document.body.classList.add('overflow-hidden');
+        } else {
+            document.body.classList.remove('overflow-hidden');
+        }
+    }, [show])
     return (
         <>
 
             <>
-                <nav className="block sm:hidden md:hidden lg:hiddenfixed top-0 z-50 w-full bg-sidebarbg" ref={divSideRef}>
+                <nav className="block  sm:hidden md:hidden lg:hiddenfixed top-0 z-50 w-full bg-sidebarbg" ref={divSideRef}>
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between text-white    ">
                             <div className="flex items-center justify-start">
@@ -514,33 +525,95 @@ const NewSidebar = ({ children }) => {
                         </div>
                     </div>
                     {show && (
-                        <div
-                            className="block bg-sidebarbg absolute  sm:hidden lg:hidden md:hidden items-centerjustify-between text-white z-[999999]  w-full md:w-auto md:order-1"
-                            id="navbar-cta"
-                        >
+                        <div className="h-screen px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
+                            {skeltonLoading ? (
+                                <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
+                                    <li className="w-full rounded-lg">
+                                        <SkeletonLoader className="mt-3" count={9} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
+                                    </li>
+                                </ul>
+                            ) : (
+                                <>
+                                    <ul>
+                                        <li className="p-2 group hover:bg-sidebarsubroute mb-2 items-center rounded-lg cursor-pointer">
+                                            <Link
+                                                onClick={() => {
+                                                    setShowSubTabs(null);
+                                                    handlerclosemenu('/dashboard');
+                                                }}
+                                                href={'/dashboard'}
+                                                className={`flex justify-between    gap-1 items-center  text-gray-900 rounded-lg `}
+                                            >
+                                                <div className="flex items-center justify-start">
+                                                    <img
+                                                        className="w-6 h-6 rounded-lg"
+                                                        src={'/tempologo.png'}
+                                                        alt="user photo"
+                                                    />
+                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-base transition-all duration-300 ease-in-out">
+                                                        Admin center
+                                                    </span>
 
-                            <ul className="space-y-2 font-medium  w-full relative">
-                                {SideBarRoutes.map((element, key) =>
-                                    sendSideBarDetails(element, key)
-                                )}
-
-
-
-                                <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
-                                    <Link
-                                        href={"mailto:team@usetempo.ai"}
-                                        className={`flex items-center  text-gray-900 rounded-lg `}
-                                    >
-                                        <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />
-                                        {!collaps && (
-                                            <span className="flex-1 ml-3 whitespace-nowrap text-[13px] font-normal">
-                                                Get Support
-                                            </span>
+                                                </div>
+                                                <span>
+                                                    <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                                </span>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                    <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
+                                        {SideBarRoutes.map((element, key) =>
+                                            sendSideBarDetails(element, key)
                                         )}
-                                    </Link>
-                                </li>
-                            </ul>
+                                    </ul>
+                                </>
+                            )}
+                            <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
+                                {skeltonLoading ? (
+                                    <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
+                                        <li className="w-full rounded-lg">
+                                            <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
+                                        </li>
+                                    </ul>
+                                ) : (
+                                    <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
+                                        <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" onClick={() => handleToggle()} >
+                                            {state?.enterprise?.logo ?
+                                                <img
+                                                    className="w-8 h-8 rounded-lg"
+                                                    src={state?.enterprise?.logo}
+                                                    alt="user photo"
+                                                /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                                    <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                                </div >}
+                                            <div className="relative ">
+                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+
+                                            </div>
+
+                                        </li>
+
+                                        <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer" onClick={() => setShow(false)}>
+                                            <Link
+                                                href={"mailto:team@usetempo.ai"}
+                                                className={`flex items-center gap-2 text-gray-900 rounded-lg `}
+                                            >
+                                                <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />
+                                                {!collaps && (
+                                                    <span className="whitespace-nowrap text-[13px] font-normal">
+                                                        Get Support
+                                                    </span>
+                                                )}
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                )}
+                            </div>
+
+
                         </div>
+
                     )}
                 </nav>
                 <aside
@@ -556,11 +629,42 @@ const NewSidebar = ({ children }) => {
                                 </li>
                             </ul>
                         ) : (
-                            <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
-                                {SideBarRoutes.map((element, key) =>
-                                    sendSideBarDetails(element, key)
-                                )}
-                            </ul>
+                            <>
+                                <ul>
+                                    <li className="p-2 group hover:bg-sidebarsubroute mb-2 items-center rounded-lg cursor-pointer">
+                                        <Link
+                                            onClick={() => {
+                                                setShowSubTabs(null);
+                                                handlerclosemenu('/dashboard');
+                                            }}
+                                            href={'/dashboard'}
+                                            className={`flex justify-between    gap-1 items-center  text-gray-900 rounded-lg `}
+                                        >
+                                            <div className="flex items-center justify-start">
+                                                <img
+                                                    className="w-6 h-6 rounded-lg"
+                                                    src={'/tempologo.png'}
+                                                    alt="user photo"
+                                                />
+                                                <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-base transition-all duration-300 ease-in-out">
+                                                    Admin center
+                                                </span>
+
+                                            </div>
+                                            <span>
+                                                <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                            </span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                                <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
+
+
+                                    {SideBarRoutes.map((element, key) =>
+                                        sendSideBarDetails(element, key)
+                                    )}
+                                </ul>
+                            </>
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
@@ -591,7 +695,7 @@ const NewSidebar = ({ children }) => {
                                                 {!isOpen && (
                                                     <ul className="hidden group-hover:block absolute w-[290px] text-center left-[130px] bottom-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                         <li className="text-start p-2">
-                                                            <p  className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  " >
+                                                            <p className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  " >
                                                                 {state?.email}
                                                             </p>
                                                         </li>
@@ -634,7 +738,7 @@ const NewSidebar = ({ children }) => {
                                                                 onChange={(e) => handleFileInputChange(e)}
                                                             />
                                                             <label
-                                                               className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  " 
+                                                                className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal text-heading  "
                                                                 for="file_input"
                                                             >
                                                                 Upload logo

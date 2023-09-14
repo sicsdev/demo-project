@@ -62,7 +62,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                             </div> */}
                         </>
                     }
-                    <h3 className="text-heading font-semibold text-sm my-1">{row.name}</h3>
+                    <h3 className="text-heading font-semibold text-xs my-1">{row.name}</h3>
                 </div>
             ),
             sortable: true,
@@ -95,7 +95,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                         <p className='text-[18px]'>{row.icon}</p>
                         {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
                     </div>
-                    <h3 className="text-heading font-semibold text-sm my-1 uppercase">{row.name}</h3>
+                    <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 uppercase">{row.name}</h3>
                 </div>
             ),
             sortable: true,

@@ -358,11 +358,12 @@ body .chip {
   text-align: center;
   justify-content: center;
   line-height: 16px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
-  margin-right: 2px;
+  margin-right: 3px;
+  margin-top: 3px;
   padding: 3px 12px;
   word-wrap: break-word;
   width: 100px;
@@ -524,8 +525,8 @@ select.custom-select {
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width:40px;
+  height: 20px;
 }
 
 /* Hide default HTML checkbox */
@@ -1058,7 +1059,7 @@ body .cursor-pointer {
   display: none;
 }
 
-.stripe_cards:hover .stripe_card_btn {
+.stripe_cards:hover .stripe_card_btn {  
   display: block;
   transition: opacity 400ms ease 0s;
 }
@@ -1238,6 +1239,9 @@ body .cursor-pointer {
 @media(max-width:990px) {
   .table_overflow {
     overflow-x: scroll !important;
+  }
+  body .hide-body {
+    overflow: hidden !important;
   }
 
   .headerAlignment {
