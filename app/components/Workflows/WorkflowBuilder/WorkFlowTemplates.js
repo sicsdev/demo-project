@@ -82,30 +82,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                 <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
-        }, {
-            name: "Embed URL",
-            sortable: false,
-            cell: (row, index) => (
-                <>
-                    {row.id === isCopied.id && isCopied.copied === true ? (
-                        <button
-                            type={"button"}
-                            className="border-none p-0 m-0 flex gap-1 items-center"
-                        >
-                            <CheckIcon className="h-5 w-5 " /> Copied!
-                        </button>) :
-                        <button
-                            type={"button"}
-                            onClick={() => { getUrl(row.id) }}
-                            className="border-none p-0 m-0 flex gap-1 items-center"
-                        >
-                            <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
-                        </button>}
-
-                </>
-            ),
-
-        },
+        }
 
 
     ]
@@ -138,7 +115,31 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                 <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
             ),
 
-        }
+        },
+        {
+            name: "Embed URL",
+            sortable: false,
+            cell: (row, index) => (
+                <>
+                    {row.id === isCopied.id && isCopied.copied === true ? (
+                        <button
+                            type={"button"}
+                            className="border-none p-0 m-0 flex gap-1 items-center"
+                        >
+                            <CheckIcon className="h-5 w-5 " /> Copied!
+                        </button>) :
+                        <button
+                            type={"button"}
+                            onClick={() => { getUrl(row.id) }}
+                            className="border-none p-0 m-0 flex gap-1 items-center"
+                        >
+                            <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
+                        </button>}
+
+                </>
+            ),
+
+        },
 
 
     ]
