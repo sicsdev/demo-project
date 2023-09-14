@@ -31,7 +31,7 @@ const Chat = ({ messages, selectedBot }) => {
             <div className='z-[50]'>
                 <div className="chatbot_widget" id="chatbot_widget">
                     <div className="containerChatBot_entire !block">
-                        <div className={`!h-[80vh] sm:!h-auto !top-[25%] widget_container active`}>
+                        <div className={`widget_container active`}>
                             <div className="header_ChatBotWidget_container" id="widget_headerContainer">
                                 <div className="header_ChatBotWidget">
                                     <div className="profile_photo_container">

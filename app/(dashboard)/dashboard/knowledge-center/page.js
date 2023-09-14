@@ -23,7 +23,6 @@ const Page = () => {
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
     const [loading, setLoading] = useState(true);
-    const [tableDataLoading, setTableDataLoading] = useState(false);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
     const [tab, setTab] = useState(0);
@@ -67,7 +66,6 @@ const Page = () => {
             setTabLoader(false);
         }
     }
-
     useEffect(() => {
         getData()
     }, [])
@@ -273,13 +271,13 @@ const Page = () => {
     ];
 
     const handleRecomodationValue = async (page) => {
-        setTableDataLoading(true);
+        setLoading(true)
         const response = await GetAllRecommendations(page, recommendationOrderBy, perPage)
         if (response) {
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
-            setTableDataLoading(false);
+            setLoading(false)
         } else {
-            setTableDataLoading(false);
+            setLoading(false)
         }
     }
 
@@ -287,40 +285,38 @@ const Page = () => {
         setTimeout(async () => {
             if (column?.name === 'Count') {
                 try {
-                    setTableDataLoading(true);
                     const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
                     setRecommendationOrderBy(queryParam);
                     const response = await GetAllRecommendations(1, queryParam, perPage)
                     if (response) {
                         dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                     }
-                    setTableDataLoading(false);
                 } catch (error) {
                     console.log("Error", error)
-                    setTableDataLoading(false);
                 }
             }
         }, 100);
     };
-
     const handlePerRowsChange = async (newPerPage, page) => {
-        setTableDataLoading(true);
+        setLoading(true)
         const response = await GetAllRecommendations(page, recommendationOrderBy, newPerPage)
         setPerPage(newPerPage)
         if (response) {
-            setTableDataLoading(false);
+            setLoading(false)
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
         } else {
-            setTableDataLoading(false);
+            setLoading(false)
         }
     }
-
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Knowledge Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
+                        {/* <h1 className="mt-2 text-sm">
+                            <SkeletonLoader height={40} width={100} />
+                        </h1> */}
                         <div className="mt-3">
                             <SkeletonLoader count={9} height={30} className={"mt-2"} />
                         </div>
@@ -338,8 +334,6 @@ const Page = () => {
                                 className='data-table-class-old'
                                 columns={columns}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                                progressPending={tableDataLoading}
-                                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                                 data={state?.data?.results}
                                 paginationPerPage={perPage}
                                 paginationTotalRows={state?.data?.count}

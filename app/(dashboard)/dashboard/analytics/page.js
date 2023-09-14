@@ -69,7 +69,6 @@ const Logs = () => {
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [tableDataLoader, setTableDataLoader] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
   const [messages, setMessages] = useState([])
   const [manageMessages, setManageMessages] = useState([])
@@ -288,7 +287,6 @@ const Logs = () => {
 
 
         try {
-          setLoading(true);
           const response = await getPaginateBotConversation(selectedBot, 1, queryParam);
           if (response.status === 200) {
             let data = response.data;
@@ -428,53 +426,58 @@ const Logs = () => {
                   error={""}
                 />
               </div>
-            </div>
-          }
+            </div>}
 
 
-          {/* {loading === true || state.isLoading === true ? (
+          {loading === true || state.isLoading === true ? (
+            // <Loading />
+            <div className="">
+              <h1 className="mt-2 text-sm">
+                <SkeletonLoader height={40} width={100} />
+              </h1>
               <div className="mt-3">
                 <SkeletonLoader count={9} height={30} className={"mt-2"} />
               </div>
-          ) : ( */}
-          <>
-            {selectedBot && (
-              <DataTable
-                title={<h3 className="text-sm font-semibold">View Logs</h3>}
-                fixedHeader
-                highlightOnHover
-                pointerOnHover
-                defaultSortFieldId="year"
-                onRowClicked={(rowData) => {
-                  getCoversationMessages(rowData.id)
-                  setIndexVal(rowData.index)
-                }}
-                progressPending={loading}
-                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
-                pagination
-                paginationServer
-                paginationPerPage={perPage}
-                onChangeRowsPerPage={handlePerRowsChange}
-                paginationTotalRows={totalRows}
-                onChangePage={(page) => {
-                  setPageVal(page)
-                  handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
-                }}
-                sortServer
-                onSort={handleSort}
-                noDataComponent={
-                  <>
-                    <p className="text-center text-sm p-3">
-                      No Chat logs found!
-                    </p>
-                  </>
-                }
-                columns={columns}
-                data={conversationData}
-              />
-            )}
-          </>
-          {/* )} */}
+            </div>
+          ) : (
+            <>
+              {selectedBot && (
+                <DataTable
+                  title={<h3 className="text-sm font-semibold">View Logs</h3>}
+                  fixedHeader
+                  highlightOnHover
+                  pointerOnHover
+                  defaultSortFieldId="year"
+                  onRowClicked={(rowData) => {
+                    // router.push(rowData.url);
+                    getCoversationMessages(rowData.id)
+                    setIndexVal(rowData.index)
+
+                  }}
+                  pagination
+                  paginationServer
+                  paginationPerPage={perPage}
+                  onChangeRowsPerPage={handlePerRowsChange}
+                  paginationTotalRows={totalRows}
+                  onChangePage={(page) => {
+                    setPageVal(page)
+                    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
+                  }}
+                  sortServer
+                  onSort={handleSort}
+                  noDataComponent={
+                    <>
+                      <p className="text-center text-sm p-3">
+                        No Chat logs found!
+                      </p>
+                    </>
+                  }
+                  columns={columns}
+                  data={conversationData}
+                />
+              )}
+            </>
+          )}
         </>
         {showChat && (
           <>
