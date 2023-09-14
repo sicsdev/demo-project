@@ -322,6 +322,10 @@ const Logs = () => {
     dispatch(updateLogState({ ...logState.data, queryParam: queryParam }))
     handlePageChange(selectedBot, page, queryParam, newPerPage);
   }
+  const changePage = (page) => {
+    setPageVal(page)
+    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
+  }
   return (
     <>
 
@@ -454,15 +458,13 @@ const Logs = () => {
                     setIndexVal(rowData.index)
 
                   }}
+                  paginationDefaultPage={pageVal}
                   pagination
                   paginationServer
                   paginationPerPage={perPage}
                   onChangeRowsPerPage={handlePerRowsChange}
                   paginationTotalRows={totalRows}
-                  onChangePage={(page) => {
-                    setPageVal(page)
-                    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
-                  }}
+                  onChangePage={changePage}
                   sortServer
                   onSort={handleSort}
                   noDataComponent={
