@@ -284,17 +284,21 @@ const Page = () => {
     }
 
     const handleSort = async (column, sortDirection) => {
+        
         setTimeout(async () => {
             if (column?.name === 'Count') {
+                setLoading(true)
                 try {
                     const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
                     setRecommendationOrderBy(queryParam);
                     const response = await GetAllRecommendations(1, queryParam, perPage)
                     if (response) {
                         dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+                        setLoading(false)
                     }
                 } catch (error) {
                     console.log("Error", error)
+                    setLoading(false)
                 }
             }
         }, 100);

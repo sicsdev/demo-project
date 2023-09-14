@@ -274,6 +274,7 @@ const Logs = () => {
 
     setTimeout(async () => {
       if (column?.name === 'Number of Messages') {
+        setLoading(true)
         let orderBy = sortDirection === 'asc' ? 'number_of_messages' : '-number_of_messages';
         setSelectedFilters((prevFilters) => ({
           ...prevFilters,
