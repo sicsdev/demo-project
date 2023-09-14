@@ -317,7 +317,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         };
     }, []);
 
-    
+
     return (
         <>
             {tabLoader ? <Loading /> :
@@ -481,7 +481,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                         )
                     }
 
-                </div>}
+                </div>
+            }
 
 
             {createModal === true && (

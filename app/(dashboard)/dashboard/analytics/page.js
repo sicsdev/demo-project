@@ -69,6 +69,7 @@ const Logs = () => {
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [tableDataLoader, setTableDataLoader] = useState(false);
   const [selectedBot, setSelectedBot] = useState('');
   const [messages, setMessages] = useState([])
   const [manageMessages, setManageMessages] = useState([])
@@ -287,6 +288,7 @@ const Logs = () => {
 
 
         try {
+          setLoading(true);
           const response = await getPaginateBotConversation(selectedBot, 1, queryParam);
           if (response.status === 200) {
             let data = response.data;
@@ -426,64 +428,59 @@ const Logs = () => {
                   error={""}
                 />
               </div>
-            </div>}
+            </div>
+          }
 
 
-          {loading === true || state.isLoading === true ? (
-            // <Loading />
-            <div className="">
-              <h1 className="mt-2 text-sm">
-                <SkeletonLoader height={40} width={100} />
-              </h1>
+          {/* {loading === true || state.isLoading === true ? (
               <div className="mt-3">
                 <SkeletonLoader count={9} height={30} className={"mt-2"} />
               </div>
-            </div>
-          ) : (
-            <>
-              {selectedBot && (
-                <DataTable
-                  title={<h3 className="text-sm font-semibold">View Logs</h3>}
-                  fixedHeader
-                  highlightOnHover
-                  pointerOnHover
-                  defaultSortFieldId="year"
-                  onRowClicked={(rowData) => {
-                    // router.push(rowData.url);
-                    getCoversationMessages(rowData.id)
-                    setIndexVal(rowData.index)
-
-                  }}
-                  pagination
-                  paginationServer
-                  paginationPerPage={perPage}
-                  onChangeRowsPerPage={handlePerRowsChange}
-                  paginationTotalRows={totalRows}
-                  onChangePage={(page) => {
-                    setPageVal(page)
-                    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
-                  }}
-                  sortServer
-                  onSort={handleSort}
-                  noDataComponent={
-                    <>
-                      <p className="text-center text-sm p-3">
-                        No Chat logs found!
-                      </p>
-                    </>
-                  }
-                  columns={columns}
-                  data={conversationData}
-                />
-              )}
-            </>
-          )}
+          ) : ( */}
+          <>
+            {selectedBot && (
+              <DataTable
+                title={<h3 className="text-sm font-semibold">View Logs</h3>}
+                fixedHeader
+                highlightOnHover
+                pointerOnHover
+                defaultSortFieldId="year"
+                onRowClicked={(rowData) => {
+                  getCoversationMessages(rowData.id)
+                  setIndexVal(rowData.index)
+                }}
+                progressPending={loading}
+                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                pagination
+                paginationServer
+                paginationPerPage={perPage}
+                onChangeRowsPerPage={handlePerRowsChange}
+                paginationTotalRows={totalRows}
+                onChangePage={(page) => {
+                  setPageVal(page)
+                  handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
+                }}
+                sortServer
+                onSort={handleSort}
+                noDataComponent={
+                  <>
+                    <p className="text-center text-sm p-3">
+                      No Chat logs found!
+                    </p>
+                  </>
+                }
+                columns={columns}
+                data={conversationData}
+              />
+            )}
+          </>
+          {/* )} */}
         </>
         {showChat && (
           <>
 
             <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => setShowChat(false)}>    </div >
-            <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+            <div className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
               <>
                 {/* <Card> */}
                 <div className=''>
@@ -494,7 +491,7 @@ const Logs = () => {
                   <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
                     back
                   </p>
-                  <div className="flex justify-between p-2 my-4 gap-2 items-center">
+                  <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ?
                       null
                       :
