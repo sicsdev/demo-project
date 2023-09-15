@@ -7,7 +7,7 @@ const TopBar = ({ title, icon, isBackButton = false, backButtonUrl = '/' }) => {
             <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                 <li className="mr-2" >
                     <span
-                        className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
+                        className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
                         aria-current="page"
                     >
                         {icon} {" "} {title}
