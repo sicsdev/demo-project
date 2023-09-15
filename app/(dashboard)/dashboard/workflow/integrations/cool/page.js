@@ -32,7 +32,7 @@ const Page = () => {
   const [integrationModal, setIntegrationModal] = useState(false);
   const [automationID, setAutomationID] = useState(null);
 
-  const [integrationform, setIntegrationform] = useState(false);
+  const [integrationform, setIntegrationform] = useState(true);
 
   const addAutomationHandler = (type) => {
     setEdit(true);

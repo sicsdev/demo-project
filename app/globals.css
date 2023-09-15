@@ -55,7 +55,6 @@ select {
 .multiselect-container input.searchBox {
   opacity: 0;
 }
-
 @media(max-width:990px) {
   body select:focus {
     font-size: 16px !important;

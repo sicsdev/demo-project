@@ -182,7 +182,12 @@ const Page = () => {
             },
         }
     };
-
+    const checkValue = (str) => {
+        if (str.length < 2) {
+            return false
+        }
+        return true
+    }
     const columns = [
         {
             name: "Question",
@@ -194,7 +199,7 @@ const Page = () => {
             ),
             style: {
                 whiteSpace: "inherit",
-                width: '780px !important',
+                width: '300px !important',
                 // padding: '10px 0 10px 0'
             },
         },
@@ -255,8 +260,12 @@ const Page = () => {
                                         visible={true}
                                     /> :
                                     <div>
-                                        <button type="button" onClick={(e) => updateButtonHandler(row.id)}>
-                                            <CheckCircleIcon className="h-6 w-6 text-success " />
+                                        <button type="button" onClick={(e) => {
+                                            if (checkValue(row.answer) === true) {
+                                                updateButtonHandler(row.id)
+                                            }
+                                        }}>
+                                            <CheckCircleIcon className={`${checkValue(row.answer) === false ? "text-border" : "text-success"} h-6 w-6 `} />
                                         </button>
                                     </div>
                                 }
@@ -350,7 +359,7 @@ const Page = () => {
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Knowledge Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
+                <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
                         <div className='grid grid-cols-[85%,15%] my-2'>
@@ -419,7 +428,6 @@ export default Page;
 
 export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
     const divRef = useRef(null);
-
     const [openWorkflows, setOpenWorkflow] = useState(null)
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -427,7 +435,6 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
                 setOpenWorkflow(null);
             }
         };
-
         document.addEventListener("click", handleOutsideClick);
 
         return () => {
