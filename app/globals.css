@@ -525,7 +525,7 @@ select.custom-select {
 .switch {
   position: relative;
   display: inline-block;
-  width:40px;
+  width: 40px;
   height: 20px;
 }
 
@@ -560,7 +560,9 @@ select.custom-select {
   transition: 0.4s;
 }
 
-input:checked+.slider:before{left: -3px;} 
+input:checked+.slider:before {
+  left: -3px;
+}
 
 .active-class::before {
   border-top: 3px solid #1a73e8;
@@ -1059,7 +1061,7 @@ body .cursor-pointer {
   display: none;
 }
 
-.stripe_cards:hover .stripe_card_btn {  
+.stripe_cards:hover .stripe_card_btn {
   display: block;
   transition: opacity 400ms ease 0s;
 }
@@ -1240,6 +1242,7 @@ body .cursor-pointer {
   .table_overflow {
     overflow-x: scroll !important;
   }
+
   body .hide-body {
     overflow: hidden !important;
   }
@@ -1270,4 +1273,17 @@ body .cursor-pointer {
 
 .rdt_TableRow {
   padding: 0px !important;
+}
+
+.admin-sidebar-wrapper:hover .admin-sidebar-logo {
+  opacity: 0;
+}
+
+.admin-sidebar-wrapper:hover .admin-sidebar-title {
+  margin-left: 0px;
+}
+
+.admin-sidebar-title {
+  transition: margin-left 0.15s ease 0s;
+  margin-left: 37px;
 }
