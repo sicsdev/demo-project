@@ -32,6 +32,8 @@ const Page = () => {
     const [basicFormData, setBasicFormData] = useState({})
     const [workflow, setWorkflow] = useState([])
     const [recommendationOrderBy, setRecommendationOrderBy] = useState('');
+    const [search, setSearch] = useState('');
+    const [typingTimeout, setTypingTimeout] = useState(null);
 
     const getData = async () => {
         setTabLoader(true);
@@ -219,7 +221,7 @@ const Page = () => {
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
-            width:"100px"
+            width: "100px"
         },
         {
             name: "",
@@ -285,7 +287,7 @@ const Page = () => {
     }
 
     const handleSort = async (column, sortDirection) => {
-        
+
         setTimeout(async () => {
             if (column?.name === 'Count') {
                 setLoading(true)
@@ -315,15 +317,46 @@ const Page = () => {
             setLoading(false)
         }
     }
+
+    const handleChange = (e) => {
+        const searchText = e.target.value;
+        setSearch(searchText);
+
+        // Clear the previous timeout to prevent rapid search requests
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        // Set a new timeout to perform the search after a delay (e.g., 300 milliseconds)
+        const newTypingTimeout = setTimeout(() => {
+            performSearch(searchText);
+        }, 1000);
+
+        setTypingTimeout(newTypingTimeout);
+    };
+
+    const performSearch = async (text) => {
+        setLoading(true)
+        const queryParam = `&search=` + text;
+        const response = await GetAllRecommendations(1, queryParam, perPage)
+        if (response) {
+            setLoading(false)
+            dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+        } else {
+            setLoading(false)
+        }
+    };
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Knowledge Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <div className="">
-                        {/* <h1 className="mt-2 text-sm">
-                            <SkeletonLoader height={40} width={100} />
-                        </h1> */}
+                        <div className='grid grid-cols-[85%,15%] my-2'>
+                            <div></div>
+                            <SkeletonLoader height={30} width={"100%"} />
+                        </div>
                         <div className="mt-3">
                             <SkeletonLoader count={9} height={30} className={"mt-2"} />
                         </div>
@@ -331,6 +364,21 @@ const Page = () => {
                 ) : (
                     <>
                         <div className="w-full" >
+
+
+                            <div className='flex justify-end gap-4 items-center mt-2 p-2'>
+                                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                <div className="relative">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                        </svg>
+                                    </div>
+                                    <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                </div>
+                            </div>
+
+
                             <DataTable
                                 title={''}
                                 fixedHeader
