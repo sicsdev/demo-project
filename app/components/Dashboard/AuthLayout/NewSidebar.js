@@ -169,13 +169,13 @@ const NewSidebar = ({ children }) => {
         },
         {
             href: "/dashboard/knowledge-center",
-            name: "Knowledge Center",
+            name: "Learning Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
                     href: "/dashboard/knowledge-center",
-                    name: "Knowledge Center",
+                    name: "Learning Center",
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
