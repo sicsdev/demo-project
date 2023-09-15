@@ -84,7 +84,7 @@ const Page = () => {
             {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
                 <>
                     <div style={{ whiteSpace: "normal" }}>
-                        <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
+                        <TopBar title={`Templates`} icon={<ClipboardDocumentIcon className="h-5 w-5 text-primary" />} />
                     </div>
 
                     <div className='my-4'>
@@ -120,49 +120,11 @@ const Page = () => {
                     {state?.data?.enterprise && (
                         <>
                             <div style={{ whiteSpace: "normal" }}>
-                                <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
+                                <TopBar title={`Templates`} icon={<ClipboardDocumentIcon className="h-5 w-5 text-primary" />} />
                             </div>
                             <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
-                            <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
-                                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                                    <li className="mr-2" onClick={() => { setTab(0) }}>
-                                        <span
-                                            className={`flex justify-start text-xs sm:text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
-                                            aria-current="page"
-                                        >
-                                            <BoltIcon className="h-5 w-5 text-gray-500" /> Active
-                                        </span>
-                                    </li>
-                                    <li className="mr-2" onClick={() => { setTab(1) }}>
-                                        <span
-                                            className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
-                                            aria-current="page"
-                                        >
-                                            <BoltSlashIcon className="h-5 w-5 text-gray-500" /> Draft
-                                        </span>
-                                    </li>
-                                    {
-                                        template?.length > 0 &&
-                                        <li className="mr-2" onClick={() => { setTab(2) }}>
-                                            <span
-                                                className={`flex justify-start gap-2 text-xs sm:text-sm cursor-pointer items-center py-2   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  pl-2  group`}
-                                                aria-current="page"
-                                            >
-                                                <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" /> Templates
-                                            </span>
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                            {tab === 0 && (
-                                <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
-                            )}
-                            {tab === 1 && (
-                                <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
-                            )}
-                            {tab === 2 && (
-                                <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
-                            )}
+
+                            <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
                         </>
                     )}
                 </>

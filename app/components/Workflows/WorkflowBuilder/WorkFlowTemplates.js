@@ -167,8 +167,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         setSearch(e.target.value)
         const workflowOptionsfilter = data?.filter(
             (item) =>
-                item?.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
-                item?.description.toLowerCase().includes(e.target.value.toLowerCase())
+                item?.name?.toLowerCase().includes(e.target.value.toLowerCase())
         );
         setData(workflowOptionsfilter)
     }
