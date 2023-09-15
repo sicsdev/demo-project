@@ -23,25 +23,13 @@ const Logs = () => {
 
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
-    return inputDate.format("DD/MM/YY HH:mm A");
+    return inputDate.format("MM/DD/YY hh:mm a");
   };
 
   const columns = [
+ 
     {
-      name: "Workflow",
-      selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
-      sortable: false,
-      reorder: false,
-      
-    },
-    {
-      name: <p className=" whitespace-break-spaces">Human Handoff</p>,
-      selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
-      sortable: false,
-      reorder: false,
-    },
-    {
-      name: <p className=" whitespace-break-spaces">Number of Messages</p>,
+      name: <p className=" whitespace-break-spaces text-xs">Number of Messages</p>,
       selector: (row) => row.number_of_messages,
       sortable: true,
       reorder: false,
@@ -50,13 +38,25 @@ const Logs = () => {
       )
     },
     {
-      name: "Created At",
+      name: <p className=" whitespace-break-spaces text-xs">Created At</p>,
       selector: (row) => row.created,
       sortable: false,
       reorder: false,
       cell: (row) => (
         formatDateFunc(row.created)
       )
+    },   {
+      name:  <p className=" whitespace-break-spaces text-xs">Workflow Triggered</p>,
+      selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
+      sortable: false,
+      reorder: false,
+      
+    },
+    {
+      name: <p className=" whitespace-break-spaces text-xs">Escalated to Human</p>,
+      selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
+      sortable: false,
+      reorder: false,
     },
   ];
   const dispatch = useDispatch();

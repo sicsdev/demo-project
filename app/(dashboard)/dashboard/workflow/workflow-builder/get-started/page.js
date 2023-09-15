@@ -88,7 +88,6 @@ const GetStarted = () => {
   };
 
   const params = useSearchParams()
-
   function objectValuesToArray(obj) {
     if (typeof obj === 'object' && !Array.isArray(obj)) {
       const values = Object.values(obj);
@@ -607,13 +606,9 @@ const GetStarted = () => {
             <>
               <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
                 <div className='flex justify-start sm:justify-between gap-2 items-center'>
-                  <div>
-                    <Link href={"/dashboard/workflow/workflow-builder"}>
-                      <div>
-                        <ChevronLeftIcon className="h-6 w-6 text-gray-500" />
-                      </div>
-                    </Link>
-                  </div>
+                  <button className='cursor-pointer' type='button' onClick={() => { router.back() }}>
+                    <ChevronLeftIcon className="h-5 w-5 text-gray-500" />
+                  </button>
                   {singleData?.icon ? singleData?.icon :
                     <>
                       😊

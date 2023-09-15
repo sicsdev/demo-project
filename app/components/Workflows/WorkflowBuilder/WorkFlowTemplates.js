@@ -73,7 +73,13 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             name: "Status",
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
-            reorder: true,
+            reorder: true,  
+              style: {
+                background: "#FAFAFB",
+                "border": "1px solid #E0E0E0",
+                "border-bottom": "none",
+                "border-top": "none"
+            }
         },
         {
             name: "Actions",
@@ -107,6 +113,12 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
+            style: {
+                background: "#FAFAFB",
+                "border": "1px solid #E0E0E0",
+                "border-bottom": "none",
+                "border-top": "none"
+            }
         },
         {
             name: "Actions",
@@ -130,7 +142,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                         </button>) :
                         <button
                             type={"button"}
-                            onClick={() => { getUrl(row.id) }}
+                            onClick={() => getUrl(row.id)}
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
                             <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
@@ -138,6 +150,12 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
 
                 </>
             ),
+            style: {
+                background: "#FAFAFB",
+                    "border": "1px solid #E0E0E0",
+                    "border-bottom": "none",
+                "border-top": "none"
+            }
 
         },
 
@@ -174,7 +192,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
+            <div className='sm:border sm:border-gray'>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8] sm:border-b sm:border-gray'>
 
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
@@ -203,6 +222,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div>
+            </div>
+
         </div>
     )
 }
