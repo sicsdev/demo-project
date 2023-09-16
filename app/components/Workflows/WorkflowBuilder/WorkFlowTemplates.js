@@ -73,13 +73,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             name: "Status",
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
-            reorder: true,  
-              style: {
-                background: "#FAFAFB",
-                "border": "1px solid #E0E0E0",
-                "border-bottom": "none",
-                "border-top": "none"
-            }
+            reorder: true,
         },
         {
             name: "Actions",
@@ -113,12 +107,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
-            style: {
-                background: "#FAFAFB",
-                "border": "1px solid #E0E0E0",
-                "border-bottom": "none",
-                "border-top": "none"
-            }
         },
         {
             name: "Actions",
@@ -150,12 +138,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
 
                 </>
             ),
-            style: {
-                background: "#FAFAFB",
-                    "border": "1px solid #E0E0E0",
-                    "border-bottom": "none",
-                "border-top": "none"
-            }
 
         },
 
@@ -174,7 +156,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         setData(result);
     }
     const customStyles = {
-        rows: {
+        rows: { 
             style: {
                 padding: "10px 0",
                 cursor: 'pointer',
@@ -192,9 +174,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='sm:border sm:border-gray'>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8] sm:border-b sm:border-gray'>
-
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8]'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -222,8 +202,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div>
-            </div>
-
         </div>
     )
 }

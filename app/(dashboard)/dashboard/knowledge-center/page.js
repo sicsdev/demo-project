@@ -178,7 +178,8 @@ const Page = () => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '70px', // override the row height
+                minHeight: '100px', // override the row height
+                maxHeight: '200px', // override the row height
             },
         }
     };
@@ -191,6 +192,7 @@ const Page = () => {
     const columns = [
         {
             name: "Question",
+            id:"question",
             selector: 'question',
             sortable: false,
             reorder: true,
@@ -398,7 +400,7 @@ const Page = () => {
                                 className='data-table-class-old'
                                 columns={columns}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                                data={state?.data?.results}
+                                data={state?.data?.results.filter(item => item.accepted === false)}
 
                                 paginationDefaultPage={pageVal}
                                 paginationPerPage={perPage}

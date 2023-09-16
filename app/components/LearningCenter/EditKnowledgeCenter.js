@@ -229,7 +229,7 @@ const EditKnowledgeCenter = ({
                     <div className="border border-border rounded-lg my-4">
                       <div className="grid grid-cols-[20%,60%,20%] sm:grid-cols-[10%,80%,10%]  bottom-2 ">
                         <div className="text-center border border-border border-t-0 border-l-0 border-r-0 p-2">{++i}</div>
-                        <div className="border border-border border-t-0 p-2"><span className="text-[12px]">{faq.icon}</span>  {faq.question}</div>
+                        <div className="border border-border border-t-0 p-2 text-sm"><span className="">{faq.icon}</span>  {faq.question}</div>
                         <div className="p-3 text-center border border-border border-t-0 border-l-0 border-r-0">
                           <TrashIcon className="h-4 w-4 text-gray-500 cursor-pointer m-auto" onClick={() => deleteKnowledgeFAQ(singleKnowledgeData.id, faq.id)} />
                         </div>

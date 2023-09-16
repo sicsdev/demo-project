@@ -1270,10 +1270,6 @@ body .cursor-pointer {
   height: 500px;
 }
 
-.rdt_TableRow {
-  padding: 0px !important;
-}
-
 .admin-sidebar-wrapper:hover .admin-sidebar-logo {
   opacity: 0;
 }
@@ -1285,4 +1281,8 @@ body .cursor-pointer {
 .admin-sidebar-title {
   transition: margin-left 0.15s ease 0s;
   margin-left: 37px;
+}
+
+.rdt_TableRow{
+  padding: 12px 0;
 }
