@@ -35,9 +35,6 @@ import {
     AdjustmentsHorizontalIcon,
     PhoneIcon,
     ChevronRightIcon,
-    BoltIcon,
-    BoltSlashIcon,
-    ClipboardDocumentIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -59,7 +56,6 @@ const NewSidebar = ({ children }) => {
     const [base64Data, setBase64Data] = useState({ data: "", state: false });
     const [showSubTabs, setShowSubTabs] = useState(null);
     const router = useRouter();
-    const [subMenus, setSubMenus] = useState("");
 
     const [skeltonLoading, setSkeltonLoading] = useState(true);
     useEffect(() => {
@@ -144,26 +140,9 @@ const NewSidebar = ({ children }) => {
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
                 },
                 {
-                    href: "/dashboard/workflow/workflow-builder/active",
-                    name: "Your Workflows",
+                    href: "/dashboard/workflow/workflow-builder",
+                    name: "Workflows",
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-                    subMenus: [
-                        {
-                            href: "/dashboard/workflow/workflow-builder/active",
-                            name: "Active",
-                            icon: <BoltIcon className="h-6 w-6 text-gray-500" />,
-                        },
-                        {
-                            href: "/dashboard/workflow/workflow-builder/draft",
-                            name: "Draft",
-                            icon: <BoltSlashIcon className="h-6 w-6 text-gray-500" />,
-                        },
-                        {
-                            href: "/dashboard/workflow/workflow-builder/manage-templates",
-                            name: "Templates",
-                            icon: <ClipboardDocumentIcon className="h-6 w-6 text-gray-500" />,
-                        },
-                    ]
                 },
             ],
         },
@@ -194,7 +173,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/chat-bots",
-                    name: "View Agents",
+                    name: "Agents",
                     icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
@@ -207,7 +186,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/manage-phones",
-                    name: "Phone",
+                    name: "Phone Settings",
                     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
@@ -317,20 +296,18 @@ const NewSidebar = ({ children }) => {
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                <li key={key} className={` ${key === 0 ? 'pt-0' : 'pt-1'} w-full rounded-lg ${pathname === element.href && ""
+                <li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                     }`}>
-                    {!collaps && element?.name !== '' && (
-                        <p className="pl-2 text-white font-semibold text-xs mt-1">{element?.name}</p>
-                    )}
-                    <ul className={`${key === 0 ? 'pt-0' : 'pt-1'} rounded-lg`}>
+                    {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1">{element?.name}</p>)}
+                    <ul className="pt-1 rounded-lg">
                         {element.list.map((ele, key) => (
-                            <li key={key} className={`mb-1`}>
+                            <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                }`}>
                                 {ele.name === 'API References'
                                     ? <Link
                                         href={ele.href}
                                         onClick={() => handlerclosemenu(ele.href)}
-                                        className={`p-2 flex items-center mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
-                                            }`}
+                                        className={`p-2 flex items-center`}
                                         target="_blank"
                                     >
                                         {ele.icon}
@@ -342,8 +319,8 @@ const NewSidebar = ({ children }) => {
                                     </Link>
                                     : <Link
                                         href={ele.href}
-                                        onClick={() => { handlerclosemenu(ele.href); setSubMenus(ele.name) }}
-                                        className={`p-2 flex justify-center items-center hover:text-white w-full ${(pathname === ele.href || ele?.subMenus?.filter(e => e.href === pathname).length > 0) ? (ele?.subMenus?.length > 0 ? 'mobile-bg-sidebar-hover sm:!rounded-t-lg sm:bg-[#323B41] sm:hover:bg-[#323B41]' : 'bg-sidebar-hover text-white rounded-lg') : 'text-[#cfdae2cc] rounded-lg'} ${ele?.subMenus?.length > 0 ? 'hover:bg-[#323B41]' : 'hover:bg-sidebar-hover rounded-lg'}`}
+                                        onClick={() => handlerclosemenu(ele.href)}
+                                        className={`p-2 flex items-center`}
                                     >
                                         {ele.icon}
                                         {!collaps && (
@@ -353,24 +330,7 @@ const NewSidebar = ({ children }) => {
                                         )}
                                     </Link>
                                 }
-                                {(ele?.subMenus?.length > 0 && subMenus === ele.name || ele?.subMenus?.filter(e => e.href === pathname).length > 0) && !collaps && (
-                                    <ul className={`pt-2 bg-[#cfdae20a] p-[0.5rem]`}>
-                                        {ele?.subMenus.map((men, index) => (
-                                            <li key={index} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === men.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
-                                                }`}>
-                                                <Link
-                                                    href={men.href}
-                                                    className={`p-2 flex items-center`}
-                                                >
-                                                    {men.icon}
-                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                        {men.name}
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
+
                             </li>
                         ))}
                     </ul>
@@ -658,7 +618,7 @@ const NewSidebar = ({ children }) => {
                 </nav>
                 <aside
                     id="logo-sidebar"
-                    className={`hidden sm:block fixed py-[8px] bg-sidebarbg  text-white top-0 left-0 z-40 ${collaps ? "w-20 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"} h-[100vh]`}
+                    className={`hidden sm:block fixed py-5 bg-sidebarbg  text-white top-0 left-0 z-40 ${collaps ? "w-20 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"} h-[100vh]`}
                     aria-label="Sidebar"
                 >
                     <div className="h-full px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
@@ -670,64 +630,33 @@ const NewSidebar = ({ children }) => {
                             </ul>
                         ) : (
                             <>
-                                {!collaps ? (
-                                    <ul>
-                                        <li className="group mb-2 items-center rounded-lg cursor-pointer">
-                                            <Link
-                                                onClick={() => {
-                                                    setShowSubTabs(null);
-                                                    handlerclosemenu('/dashboard');
-                                                }}
-                                                href={'/dashboard'}
-                                                className={`text-gray-900 rounded-lg `}
-                                            >
-                                                <div className="flex items-center justify-start admin-sidebar-wrapper">
-                                                    <div className="absolute ml-[10px] admin-sidebar-logo">
-                                                        <img
-                                                            className="w-6 h-6 rounded-lg"
-                                                            src={'/tempologo.png'}
-                                                            alt="user photo"
-                                                        />
-                                                    </div>
+                                <ul>
+                                    <li className="p-2 group hover:bg-sidebarsubroute mb-2 items-center rounded-lg cursor-pointer">
+                                        <Link
+                                            onClick={() => {
+                                                setShowSubTabs(null);
+                                                handlerclosemenu('/dashboard');
+                                            }}
+                                            href={'/dashboard'}
+                                            className={`flex justify-between    gap-1 items-center  text-gray-900 rounded-lg `}
+                                        >
+                                            <div className="flex items-center justify-start">
+                                                <img
+                                                    className="w-6 h-6 rounded-lg"
+                                                    src={'/tempologo.png'}
+                                                    alt="user photo"
+                                                />
+                                                <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-base transition-all duration-300 ease-in-out">
+                                                    Admin center
+                                                </span>
 
-                                                    <div className={`admin-sidebar-title flex justify-between gap-1 items-center ml-[25px] w-full hover:bg-sidebarsubroute p-[0.75rem] rounded-lg`}>
-                                                        <span className="font-semibold text-white w-full ml-3 whitespace-nowrap text-sm font-base transition-all duration-300 ease-in-out">
-                                                            Admin center
-                                                        </span>
-                                                        <span>
-                                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M5.66474 12.3354C5.25858 11.9293 5.25856 11.2708 5.6647 10.8646L8.52933 7.99986L5.66474 5.13543C5.25858 4.72929 5.25856 4.0708 5.6647 3.66464C6.07083 3.25849 6.72932 3.25847 7.13548 3.6646L10.7355 7.26441C10.9305 7.45944 11.0401 7.72397 11.0401 7.99979C11.0401 8.27562 10.9306 8.54015 10.7355 8.73519L7.13552 12.3354C6.72938 12.7415 6.07089 12.7416 5.66474 12.3354Z"></path></svg>
-                                                        </span>
-                                                    </div>
-                                                </div>
-
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                ) : (
-                                    <ul className="flex items-center justify-center min-h-[3rem] hover:bg-[#323B41] rounded-lg mb-1">
-                                        <li className="group items-center rounded-lg cursor-pointer">
-                                            <Link
-                                                onClick={() => {
-                                                    setShowSubTabs(null);
-                                                    handlerclosemenu('/dashboard');
-                                                }}
-                                                href={'/dashboard'}
-                                                className={`text-gray-900 rounded-lg `}
-                                            >
-                                                <div className="flex items-center justify-start">
-                                                    <div className="">
-                                                        <img
-                                                            className="w-6 h-6 rounded-lg"
-                                                            src={'/tempologo.png'}
-                                                            alt="user photo"
-                                                        />
-                                                    </div>
-                                                </div>
-
-                                            </Link>
-                                        </li>
-                                    </ul>
-                                )}
+                                            </div>
+                                            <span>
+                                                <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                            </span>
+                                        </Link>
+                                    </li>
+                                </ul>
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
 
@@ -848,7 +777,7 @@ const NewSidebar = ({ children }) => {
 
                             <div className="cursor-pointer p-2 flex justify-center" onClick={(e) => { setCollaps(prev => !prev) }}>
                                 {!collaps ?
-                                    <p className="text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-[#cfdae2cc] " /> Collapse</p>
+                                    <p className="text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
                                     : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
                             </div>
                         </div>

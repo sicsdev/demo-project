@@ -23,7 +23,7 @@ const Logs = () => {
 
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
-    return inputDate.format("MM/DD/YY hh:mm a");
+    return inputDate.format("MM/DD/YY hh:mm A");
   };
 
   const columns = [
@@ -38,7 +38,7 @@ const Logs = () => {
       )
     },
     {
-      name: <p className=" whitespace-break-spaces text-xs">Created At</p>,
+      name: <p className=" whitespace-break-spaces text-xs">Created At</p>  ,
       selector: (row) => row.created,
       sortable: false,
       reorder: false,
@@ -47,14 +47,14 @@ const Logs = () => {
       )
     },   {
       name:  <p className=" whitespace-break-spaces text-xs">Workflow Triggered</p>,
-      selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "True" : "False"}</p>,
+      selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "Yes" : "No"}</p>,
       sortable: false,
       reorder: false,
       
     },
     {
       name: <p className=" whitespace-break-spaces text-xs">Escalated to Human</p>,
-      selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "True" : "False"}</p>,
+      selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "Yes" : "No"}</p>,
       sortable: false,
       reorder: false,
     },
