@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
-import { useRef } from 'react';
+import copy from 'copy-to-clipboard';
+
 const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
@@ -16,7 +17,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         loading: false
     })
 
-    
+
     const getUrl = async (id) => {
         setIsCopied(prev => {
             return {
@@ -28,9 +29,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
 
         try {
             const response = await getWorkflowEmbed(id);
-
             if (response && response.url) {
-                await navigator.clipboard.writeText(response.url);
+                console.log("responseUrl: ", response?.url);
+                copy(response.url);
+                // await navigator.clipboard.writeText(response.url);
                 setIsCopied({
                     id: id,
                     copied: true,
