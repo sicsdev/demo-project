@@ -104,8 +104,6 @@ const Logs = () => {
       handlePageChange(mergedArray[0].value, 1, '')
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }))
     } else {
-
-
       setSelectedFilters({
         type: logState.data.type || '',
         workflows: logState.data.workflows || '',
