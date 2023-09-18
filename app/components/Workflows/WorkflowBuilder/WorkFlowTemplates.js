@@ -15,6 +15,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         copied: false,
         loading: false
     })
+
+    
     const getUrl = async (id) => {
         setIsCopied(prev => {
             return {
@@ -22,33 +24,40 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                 id: id,
                 loading: true
             }
-        })
-        const response = await getWorkflowEmbed(id)
-        if (response && response.url) {
-            navigator.clipboard.writeText(response.url)
-                .then(() => {
-                    setIsCopied({
-                        id: id,
-                        copied: true,
-                        loading: false
-                    });
-                    setTimeout(() => setIsCopied({
-                        id: null,
-                        copied: false,
-                        loading: false
-                    }), 2000); // Reset copied state after 2 seconds
-                })
-                .catch(err => console.error('Failed to copy: ', err));
-        } else {
+        });
+
+        try {
+            const response = await getWorkflowEmbed(id);
+
+            if (response && response.url) {
+                await navigator.clipboard.writeText(response.url);
+                setIsCopied({
+                    id: id,
+                    copied: true,
+                    loading: false
+                });
+                setTimeout(() => setIsCopied({
+                    id: null,
+                    copied: false,
+                    loading: false
+                }), 2000); // Reset copied state after 2 seconds
+            } else {
+                setIsCopied({
+                    id: null,
+                    copied: false,
+                    loading: false
+                });
+            }
+        } catch (err) {
+            console.error('Failed to copy: ', err);
             setIsCopied({
                 id: null,
                 copied: false,
                 loading: false
-            })
+            });
         }
     }
 
-    console.log(data)
     const columns = [
         {
             name: "Name",
@@ -156,7 +165,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         setData(result);
     }
     const customStyles = {
-        rows: { 
+        rows: {
             style: {
                 padding: "10px 0",
                 cursor: 'pointer',

@@ -24,59 +24,17 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
             setTeams(mapData)
         }
     }, [state?.data])
-    const columns = [
-        {
-            name: "Logo",
-            selector: row => row?.logo,
-            reorder: true,
-            cell: (row) => (
-                <>
-                    {row?.logo ?
-                        <img
-                            className="w-9 h-9 rounded-lg border border-border"
-                            src={row?.logo}
-                            alt="user photo"
-                        /> :
-                        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                            <span className="font-medium text-white normal-case"> {row?.name.charAt(0)}</span>
-                        </div >}</>
-            ),
-        },
-        {
-            name: "Email",
-            selector: row => row?.email,
-            cell: (row) => (
-                <p className='whitespace-normal'>{row.email}</p>
-            ),
-            reorder: true,
 
-        },
-        {
-            name: "Name",
-            selector: row => row?.name,
-            cell: (row) => (
-                <p className='whitespace-normal'>{row?.name}</p>
-            ),
-            reorder: true,
-        },
-        {
-            name: "Contact",
-            selector: row => row?.contact,
-            cell: (row) => (
-                <p className='whitespace-normal'>  {row.contact}</p>
-            ),
-            reorder: true,
-        },
-        {
-            name: "Role",
-            selector: row => row?.role,
-            cell: (row) => (
-                <span className="inline-block whitespace-nowrap rounded-full text-white bg-primary px-4 py-1 text-center align-baseline text-xs font-[500] leading-none ">{makeCapital(row?.role)}</span>
-            ),
-            reorder: true,
-        },
+    function formatPhoneNumber(phoneNumber) {
+        // Use regular expressions to extract the different parts of the phone number
+        const countryCode = phoneNumber?.substring(0, 2);
+        const areaCode = phoneNumber?.substring(3, 6);
+        const firstPart = phoneNumber?.substring(6, 9);
+        const secondPart = phoneNumber?.substring(9);
+        const formattedNumber = `${countryCode} (${areaCode}) ${firstPart}-${secondPart}`;
+        return formattedNumber;
+    }
 
-    ];
     const columns2 = [
         {
             name: "Logo",
@@ -94,7 +52,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                             <span className="font-medium text-white normal-case"> {row?.name.charAt(0)}</span>
                         </div >}</>
             ),
-            width:"80px"
+            width: "80px"
         },
         {
             name: "Email",
@@ -103,8 +61,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                 <p className='whitespace-normal'>{row.email}</p>
             ),
             reorder: true,
-            
-            width:"200px"
+
+            width: "200px"
 
         },
         {
@@ -114,16 +72,16 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                 <p className='whitespace-normal'>{row?.name}</p>
             ),
             reorder: true,
-            width:"200px"
+            width: "200px"
         },
         {
             name: "Contact",
             selector: row => row?.contact,
             cell: (row) => (
-                <p className='whitespace-normal'>  {row.contact}</p>
+                <p className='whitespace-normal'> {row?.contact !== '' && row?.contact !== ' ' ? formatPhoneNumber(row?.contact) : ''}</p>
             ),
             reorder: true,
-            width:"200px"
+            width: "200px"
         },
         {
             name: "Role",
@@ -136,28 +94,28 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                 </div>
             ),
             reorder: true,
-            
-            width:"150px"
+
+            width: "150px"
         },
         {
             name: "Action",
             selector: row => row?.action,
             cell: (element) => (
-                <div className='flex justify-between gap-2 items-center'>
+                <div className='flex justify-between gap-2 items-center w-full'>
 
                     {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email && (
-                            <div className=" w-full">
-                                <SelectOption
-                                    onChange={(e) => changeRole(element.email, e.target.value)}
-                                    value={element?.role}
-                                    name="role"
-                                    values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
-                                    title={""}
-                                    id={"role"}
-                                    disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
-                                    className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none w-full' : 'py-3 w-full'}
-                                // error={returnErrorMessage("business_state")}
-                                />
+                        <div className=" w-full">
+                            <SelectOption
+                                onChange={(e) => changeRole(element.email, e.target.value)}
+                                value={element?.role}
+                                name="role"
+                                values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
+                                title={""}
+                                id={"role"}
+                                disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
+                                className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none w-full' : 'py-3 w-full'}
+                            // error={returnErrorMessage("business_state")}
+                            />
                         </div>
                     )}
 
@@ -175,8 +133,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                 </div>
             ),
             reorder: true,
-            
-            width:"300px"
+
+            width: "300px"
         }
 
     ];
