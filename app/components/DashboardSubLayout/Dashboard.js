@@ -9,18 +9,22 @@ import { fetchIntegrations } from '../store/slices/integrationSlice'
 import { fetchWorkflows } from '../store/slices/workflowSlice'
 import { fetchIntegrationsTemplates } from '../store/slices/integrationTemplatesSlice'
 import NewSidebar from '../Dashboard/AuthLayout/NewSidebar'
+import { fetchBot } from '../store/slices/botIdSlice'
 
 const Dashboard = ({ children }) => {
     const dispatch = useDispatch()
     let state = useSelector((state) => state.botId.showModal)
     useEffect(() => {
-        dispatch(fetchProfile());
-        dispatch(fetchRecommendation());
-        dispatch(fetchIntegrations());
-        dispatch(fetchWorkflows());
-        dispatch(fetchIntegrationsTemplates())
+        if (!state) {
+            dispatch(fetchBot())
+            dispatch(fetchProfile());
+            dispatch(fetchRecommendation());
+            dispatch(fetchIntegrations());
+            dispatch(fetchWorkflows());
+            dispatch(fetchIntegrationsTemplates())
+        }
 
-    }, []);
+    }, [state]);
     return (
         <>
             {state ?

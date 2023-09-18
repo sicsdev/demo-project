@@ -60,13 +60,13 @@ const QuickStart = () => {
     const setHideShow = (value) => {
         console.log(value)
         if (value === 0) {
-            if (integrations?.data?.results.length > 0) {
+            if (integrations?.data?.results?.length > 0) {
                 return false
             }
 
         }
         if (value === 3) {
-            if (workflow?.data?.results.length > 0) {
+            if (workflow?.data?.results?.length > 0) {
                 return false
             }
         }
