@@ -72,7 +72,12 @@ const Page = () => {
     useEffect(() => {
         getData()
     }, [])
-
+    const checkValue = (str) => {
+        if (str.length < 2) {
+            return false
+        }
+        return true
+    }
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows)
     }
@@ -104,7 +109,7 @@ const Page = () => {
             setUpdateLoader(null);
             if (updateRecord?.status === 201 || updateRecord?.status === 200) {
                 dispatch(fetchRecommendation());
-                // successMessage("Recommendation Updated Successfully");
+                successMessage("Recommendation Updated Successfully");
             } else {
                 errorMessage("Unable to Update!");
             }
@@ -119,7 +124,7 @@ const Page = () => {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
-                // successMessage("Recommendation Delete Successfully");
+                successMessage("Question Delete Successfully");
                 setDeleteLoader(null)
             } else {
                 errorMessage("Unable to Delete!");
@@ -145,21 +150,30 @@ const Page = () => {
 
     const handleWorkflow = async (workflow_data, questionId) => {
         const row = state?.data?.results.find(item => item.id === questionId);
-        let descriptions = [...workflow_data.description]
-        descriptions.push(row.answer)
-        let Payload = {
-            description: descriptions,
-        }
-        const response = await updateWorkFlowStatus(Payload, workflow_data.id)
-        if (response.status === 200 || response.status === 201) {
-            const excludeRecord = await excludeRecommendationRecord(questionId);
-            if (excludeRecord?.status === 204) {
-                dispatch(fetchRecommendation());
-            } else {
+        if (checkValue(row.answer) === true) {
+            let descriptions = [...workflow_data.description]
+            descriptions.push(row.answer)
+            let Payload = {
+                description: descriptions.filter((x) => x !== ''),
             }
+            const updateRecord = await updateRecommendationRecord({ answer: row.answer }, questionId);
+            if (updateRecord?.status === 201 || updateRecord?.status === 200) {
+                const response = await updateWorkFlowStatus(Payload, workflow_data.id)
+                if (response.status === 200 || response.status === 201) {
+                    const excludeRecord = await excludeRecommendationRecord(questionId);
+                    if (excludeRecord?.status === 204) {
+                        dispatch(fetchRecommendation());
+                    } else {
+                        errorMessage(response.response.data.description)
+                    }
+                }
+            } else {
+                errorMessage("Something is wrong !")
+            }
+        } else {
+            errorMessage("Please write answer first !")
         }
     }
-
     const divRef = useRef(null);
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -183,16 +197,11 @@ const Page = () => {
             },
         }
     };
-    const checkValue = (str) => {
-        if (str.length < 2) {
-            return false
-        }
-        return true
-    }
+
     const columns = [
         {
             name: "Question",
-            id:"question",
+            id: "question",
             selector: 'question',
             sortable: false,
             reorder: true,
