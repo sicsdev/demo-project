@@ -11,6 +11,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
+    const [urls, setUrls] = useState([])
     const [isCopied, setIsCopied] = useState({
         id: null,
         copied: false,
@@ -27,12 +28,15 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             }
         });
 
+        let urlFinder = urls.find(e => e.id == id)
+
         try {
-            const response = await getWorkflowEmbed(id);
-            if (response && response.url) {
-                console.log("responseUrl: ", response?.url);
-                copy(response.url);
-                // await navigator.clipboard.writeText(response.url);
+            // const response = await getWorkflowEmbed(id);
+            // if (response && response.url) {
+            // copy(response.url);
+
+            if (urlFinder?.url) {
+                copy(urlFinder.url)
                 setIsCopied({
                     id: id,
                     copied: true,
@@ -50,6 +54,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     loading: false
                 });
             }
+
         } catch (err) {
             console.error('Failed to copy: ', err);
             setIsCopied({
@@ -137,7 +142,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                             type={"button"}
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
-                            <CheckIcon className="h-5 w-5 " /> Copied!
+                            <CheckIcon className="h-4 w-4 " /> Copied!
                         </button>) :
                         <button
                             type={"button"}
@@ -162,8 +167,17 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
-    const manageData = () => {
+    const manageData = async () => {
         const result = workflowData?.results?.filter((x) => x.active === status);
+
+        let array_of_urls = []
+        result.forEach(async (el) => {
+            let result = await getWorkflowEmbed(el.id).then(url => {
+                array_of_urls.push({ id: el.id, url: url.url })
+            })
+        })
+
+        setUrls(array_of_urls)
         setData(result);
     }
     const customStyles = {
