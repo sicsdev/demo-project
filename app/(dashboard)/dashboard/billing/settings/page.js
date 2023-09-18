@@ -237,8 +237,8 @@ const Page = () => {
                         )}
                       </div>
 
-
-                      <hr className="mt-4 text-border" />
+                      <div style={{boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset"}} className="h-[1px] mt-4"></div>
+                      {/* <hr className="mt-4 text-border" /> */}
                     </>
                   ) : ""}
                 </>}
