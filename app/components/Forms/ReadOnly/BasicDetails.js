@@ -8,42 +8,42 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
         <div>
             {pageLoading ?
                 <div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />
                     </div>
                     <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                    <div className="mt-3">
+                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
 
                         <SkeletonLoader count={1} height={20} width={150} />
                         <SkeletonLoader count={1} height={10} width={100} />

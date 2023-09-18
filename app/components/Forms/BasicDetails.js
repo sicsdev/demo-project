@@ -108,7 +108,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
       <div className="mt-3">
         <>
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Business Name</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Business Name</lable>
             <TextField
               onChange={handleInputValues}
               value={formValues.business_name}
@@ -120,12 +120,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_name"}
               error={returnErrorMessage("business_name")}
               onBlur={handleBlur}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
             />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Existing Customer Service Email</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Existing Customer Service Email</lable>
             <TextField
               onChange={handleInputValues}
               value={formValues.customer_service_email}
@@ -134,7 +134,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               title={""}
               placeholder={"Existing Customer Service Email"}
               type={"text"}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
               id={"customer_service_email"}
               error={returnErrorMessage("customer_service_email")}
               onBlur={handleBlur}
@@ -142,14 +142,14 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Existing Customer Service Phone</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Existing Customer Service Phone</lable>
             <TextField
               onChange={handleInputValues}
               value={formValues.customer_service_phone}
               name="customer_service_phone"
               className="py-3 mt-1"
               title={""}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
               placeholder={"Please enter Existing Customer Service Phone"}
               type={"number"}
               id={"customer_service_phone"}
@@ -157,11 +157,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               onBlur={handleBlur}
             />
           </div>
+
           <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] my-8"></div>
           <h3 className="text-primary mb-4 !font-semibold">Business Address</h3>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Street Address</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Street Address</lable>
             <TextField
               onChange={handleInputValues}
               value={formValues.business_street}
@@ -173,12 +174,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_street"}
               error={returnErrorMessage("business_street")}
               onBlur={handleBlur}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
             />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">City</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">City</lable>
             <TextField
               onChange={handleInputValues}
               value={formValues.business_city}
@@ -190,12 +191,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_city"}
               error={returnErrorMessage("business_city")}
               onBlur={handleBlur}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
             />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">State</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">State</lable>
             <SelectField
               onChange={handleInputValues}
               value={formValues.business_state}
@@ -205,12 +206,12 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_state"}
               className="py-2"
               error={returnErrorMessage("business_state")}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
             />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Zipcode</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Zipcode</lable>
 
             <TextField
               onChange={handleInputValues}
@@ -223,14 +224,14 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_zipcode"}
               error={returnErrorMessage("business_zipcode")}
               onBlur={handleBlur}
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
             />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Unit No.</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Unit No.</lable>
             <TextField
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
               onChange={handleInputValues}
               value={formValues.business_unit_no}
               name="business_unit_no"
@@ -245,9 +246,9 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Business Company Size</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Business Company Size</lable>
             <SelectField
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
               onChange={handleInputValues}
               value={formValues.business_company_size}
               name="business_company_size"
@@ -260,9 +261,9 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
-            <lable className=" w-1/2 !font-semibold text-sm text-[#151d23]">Business Industry</lable>
+            <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Business Industry</lable>
             <SelectField
-              labelClassName={"w-full"}
+              labelClassName={"w-full sm:w-1/2"}
               onChange={handleInputValues}
               value={formValues.business_industry}
               name="business_industry"
