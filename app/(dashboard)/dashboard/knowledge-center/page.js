@@ -16,6 +16,7 @@ import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 import { makeCapital } from "@/app/components/helper/capitalName";
 import Link from "next/link";
 import TopBar from "@/app/components/Common/Card/TopBar";
+import TextArea from "@/app/components/Common/Input/TextArea";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -192,8 +193,8 @@ const Page = () => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '100px', // override the row height
-                maxHeight: '200px', // override the row height
+                minHeight: '200px', // override the row height
+                maxHeight: '300px', // override the row height
             },
         }
     };
@@ -221,14 +222,12 @@ const Page = () => {
             reorder: true,
             cell: (row) => (
                 <div className='my-2 w-[100%]'>
-                    <TextField
-                        onChange={(e) => handleInput({ ...row, answer: e.target.value })}
-                        value={row.answer}
-                        name="interrogatory_type"
+                    <TextArea name="interrogatory_type"
                         className="py-2 mt-2"
                         type={"text"}
                         id={"interrogatory_type"}
-                    />
+                        onChange={(e) => handleInput({ ...row, answer: e.target.value })}
+                        value={row.answer} />
                 </div>
             ),
         },
@@ -241,25 +240,12 @@ const Page = () => {
         },
         {
             name: "",
-            cell: (row) => (
+            cell: (row, index) => (
                 <div className="flex justify-center gap-4 ml-5" >
                     {
                         row?.accepted === false && (
                             <>
-                                {deleteLoader === row.id ?
-                                    <ColorRing
-                                        height="30"
-                                        width="30"
-                                        color="#4fa94d"
-                                        ariaLabel="tail-spin-loading"
-                                        radius="1"
-                                        wrapperClass="text-center"
-                                        visible={true}
-                                    /> :
-                                    <div>
-                                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                            <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
-                                }
+
                                 {updateLoader === row.id ?
                                     <ColorRing
                                         height="30"
@@ -280,7 +266,21 @@ const Page = () => {
                                         </button>
                                     </div>
                                 }
-                                <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} />
+                                {deleteLoader === row.id ?
+                                    <ColorRing
+                                        height="30"
+                                        width="30"
+                                        color="#4fa94d"
+                                        ariaLabel="tail-spin-loading"
+                                        radius="1"
+                                        wrapperClass="text-center"
+                                        visible={true}
+                                    /> :
+                                    <div>
+                                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                                            <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
+                                }
+                                <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} index={index} total={state?.data?.results?.length} />
 
                             </>
                         )}
@@ -408,7 +408,7 @@ const Page = () => {
                             pagination
                             columns={columns}
                             noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                            data={state?.data?.results.filter(item => item.accepted === false)}
+                            data={state?.data?.results}
                             progressPending={loading}
                             progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                             paginationDefaultPage={pageVal}
@@ -419,7 +419,7 @@ const Page = () => {
                             onChangePage={(page) => {
                                 handleRecomodationValue(page)
                             }}
-
+                            paginationRowsPerPageOptions={[5, 10, 15, 30]}
                             className=''
                             sortServer
                             onSort={handleSort}
@@ -439,7 +439,7 @@ export default Page;
 
 
 
-export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
+export const ButtonComponent = ({ row, handleWorkflow, workflow, index, total }) => {
     const divRef = useRef(null);
     const [openWorkflows, setOpenWorkflow] = useState(null)
     useEffect(() => {
@@ -460,12 +460,12 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow }) => {
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
                 <button type="button">
                     <PlusCircleIcon className="h-6 w-6 text-success " />
-
+                    {index}
                 </button>
                 <div className="relative" >
 
                     {openWorkflows === row.id && (
-                        <div className={`absolute left-[-315px] top-[34px]  sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                        <div className={`absolute left-[-315px]  ${index === total - 1 ? 'top-[unset] bottom-[50px]' : 'top-[34px]'}   sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                             {workflow.length > 0 ?
                                 <ul className="py-2 text-sm text-gray-700 ">
                                     {workflow.map((ele, key) =>
