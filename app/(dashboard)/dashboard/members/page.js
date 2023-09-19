@@ -16,6 +16,7 @@ import Invite from "@/app/components/Invite/Invite";
 import TeamManagement from "@/app/components/Team/TeamManagement";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TopBar from "@/app/components/Common/Card/TopBar";
+import SideModal from "@/app/components/SideModal/SideModal";
 
 const Page = () => {
   const [teamModal, setTeamModal] = useState(false);
@@ -40,7 +41,7 @@ const Page = () => {
 
   return (
     <div style={{ whiteSpace: "normal" }}>
-      <TopBar title={`Invite and manage team members`} icon={<UserGroupIcon className="h-5 w-5 text-primary" />} />
+      <TopBar title={`Team`} icon={<UserGroupIcon className="h-5 w-5 text-primary" />} />
       {state?.isLoading === true ? <div className='my-4'>
         <div className='block sm:flex md:flex lg:flex justify-between items-center my-2'>
           <div>
@@ -74,25 +75,31 @@ const Page = () => {
       }
 
       {state?.isLoading === true ? (
-       <SkeletonLoader count={9} height={30} className={"mt-2"} />
+        <SkeletonLoader count={9} height={30} className={"mt-2"} />
       ) : (
         <TeamManagement state={state} removeMember={handleRemoveMember} changeRole={handleChangeRole} />
       )}
 
       {teamModal ? (
-        <Modal
-          title={"Invite Team Member"}
-          show={teamModal}
-          setShow={setTeamModal}
-          className={"text-center w-[80%] rounded-lg"}
-          showCancel={true}
-        >
-          <Invite setTeamModal={setTeamModal} />
-        </Modal>
+        <>
+          <SideModal setShow={setTeamModal} heading={'Invite Team Member'} >
+            <Invite setTeamModal={setTeamModal} />
+          </SideModal>
+
+          {/* // <Modal
+        //   title={"Invite Team Member"}
+        //   show={teamModal}
+        //   setShow={setTeamModal}
+        //   className={"text-center w-[80%] rounded-lg"}
+        //   showCancel={true}
+        // > */}
+          {/* // </Modal> */}
+        </>
       ) : (
         ""
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

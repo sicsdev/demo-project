@@ -292,8 +292,8 @@ const PhoneHandle = () => {
                                     <SkeletonLoader count={1} height={10} width={"60%"} />
                                 </div> :
                                 <div>
-                                    <h3 className='text-sm font-semibold text-heading'>Phone Menu</h3>
-                                    <p className='text-xs text-border font-normal'>Configure a custom phone menu callers can navigate</p>
+                                    <h3 className='text-sm font-semibold text-heading'>Phone Number</h3>
+                                    <p className='text-xs text-border font-normal'>Configure a custom IVR that callers can speak to</p>
                                 </div>}
 
                         </div>
@@ -327,7 +327,7 @@ const PhoneHandle = () => {
                                         setIndex(null
                                         )
                                     }} type="button" className="px-4 w-[50%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-l-md hover:bg-primary hover:text-white ">
-                                        Upload MP3
+                                        Upload MP3 or WAV
                                     </button>
                                     <button type="button" onClick={() => {
                                         setModal(true)
@@ -352,7 +352,7 @@ const PhoneHandle = () => {
                                     <SkeletonLoader count={1} height={10} width={"70%"} />
                                 </div> :
                                 <div>
-                                    <h3 className='text-sm font-semibold text-heading'>Enable Phone Menu</h3>
+                                    <h3 className='text-sm font-semibold text-heading'>Enable Phone Number</h3>
                                     <p className='text-xs font-normal text-border'>Enable if you want different bots to respond depending on customer query.</p>
                                 </div>
                             }
@@ -621,7 +621,7 @@ const PhoneHandle = () => {
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
                                                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav or MP3</p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
                                                         {basicFormData[index].audioName && (
                                                             <>
 
@@ -654,7 +654,7 @@ const PhoneHandle = () => {
                                                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
                                                         <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span></p>
-                                                        <p className="text-xs text-gray-500 dark:text-gray-400">wav or MP3</p>
+                                                        <p className="text-xs text-gray-500 dark:text-gray-400">MP3 or WAV</p>
                                                         {basicField?.audioName && (
                                                             <>
 
@@ -690,7 +690,7 @@ const PhoneHandle = () => {
                                             disabled={basicField?.audio === null || greetingLoading === true}
                                             onClick={() => SubmitForm('audio')}
                                         >
-                                            {greetingLoading ? "Loading..." : "Set a greeting message"}
+                                            {greetingLoading ? "Loading..." : "Set as greeting message"}
                                         </Button>)}
                                 </div>
                             </div>
@@ -723,7 +723,7 @@ const PhoneHandle = () => {
                             <div className='p-5'>
                                 <div className='block mt-1'>
                                     <div className='w-full '>
-                                        <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={"Type text, convert text to speech"} />
+                                        <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={"Type text to convert to speech"} />
                                     </div>
                                     <Button
                                         type={"button"}
@@ -731,7 +731,7 @@ const PhoneHandle = () => {
                                         disabled={basicField?.greeting === '' || greetingLoading === true}
                                         onClick={() => SubmitForm('greetings')}
                                     >
-                                        {greetingLoading ? "Loading..." : "Set a greeting message"}
+                                        {greetingLoading ? "Loading..." : "Set as greeting message"}
                                     </Button>
                                 </div>
                                 <hr className='mt-6 text-border' />

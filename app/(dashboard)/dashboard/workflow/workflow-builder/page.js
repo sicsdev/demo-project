@@ -84,7 +84,7 @@ const Page = () => {
             {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
                 <>
                     <div style={{ whiteSpace: "normal" }}>
-                        <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
+                        <TopBar title={`Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
                     </div>
 
                     <div className='my-4'>

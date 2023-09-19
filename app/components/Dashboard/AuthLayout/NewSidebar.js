@@ -641,22 +641,27 @@ const NewSidebar = ({ children }) => {
                                                 href={'/dashboard'}
                                                 className={`text-gray-900 rounded-lg `}
                                             >
-                                                <div className="flex items-center justify-start admin-sidebar-wrapper">
-                                                    <div className="absolute ml-[10px] admin-sidebar-logo">
+                                                <div className="flex items-center justify-start">
+                                                    {/* <div className="absolute ml-[10px]">
                                                         <img
                                                             className="w-6 h-6 rounded-lg"
                                                             src={'/tempologo.png'}
                                                             alt="user photo"
                                                         />
-                                                    </div>
+                                                    </div> */}
 
-                                                    <div className={`admin-sidebar-title flex justify-between gap-1 items-center ml-[25px] w-full hover:bg-sidebarsubroute p-[0.75rem] rounded-lg`}>
+                                                    <div className={`flex justify-between gap-1 items-center w-full p-[0.75rem] rounded-lg`}>
+                                                        <img
+                                                            className="w-6 h-6 rounded-lg"
+                                                            src={'/tempologo.png'}
+                                                            alt="user photo"
+                                                        />
                                                         <span className="font-semibold text-white w-full ml-3 whitespace-nowrap text-sm font-base transition-all duration-300 ease-in-out">
                                                             Admin center
                                                         </span>
-                                                        <span>
+                                                        {/* <span>
                                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M5.66474 12.3354C5.25858 11.9293 5.25856 11.2708 5.6647 10.8646L8.52933 7.99986L5.66474 5.13543C5.25858 4.72929 5.25856 4.0708 5.6647 3.66464C6.07083 3.25849 6.72932 3.25847 7.13548 3.6646L10.7355 7.26441C10.9305 7.45944 11.0401 7.72397 11.0401 7.99979C11.0401 8.27562 10.9306 8.54015 10.7355 8.73519L7.13552 12.3354C6.72938 12.7415 6.07089 12.7416 5.66474 12.3354Z"></path></svg>
-                                                        </span>
+                                                        </span> */}
                                                     </div>
                                                 </div>
 
@@ -664,7 +669,7 @@ const NewSidebar = ({ children }) => {
                                         </li>
                                     </ul>
                                 ) : (
-                                    <ul className="flex items-center justify-center min-h-[3rem] hover:bg-[#323B41] rounded-lg mb-1">
+                                    <ul className="flex items-center justify-center min-h-[3rem] rounded-lg mb-1">
                                         <li className="group items-center rounded-lg cursor-pointer">
                                             <Link
                                                 onClick={() => {
