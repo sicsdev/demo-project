@@ -21,16 +21,19 @@ const Dashboard = ({ children }) => {
         {
             href: "/dashboard/workflow/integrations",
             name: "Integrations",
+            subheading: "Workflow Builder",
             icon: "ShareIcon",
         },
         {
             href: "/dashboard/workflow/workflow-builder",
             name: "Workflows",
+            subheading: "Workflow Builder",
             icon: "BriefcaseIcon",
         },
         {
             href: "/dashboard/knowledge-center",
             name: "Learning Center",
+            subheading: "Learning Center",
             icon: "BookOpenIcon",
             isLink: false,
         },
@@ -38,12 +41,14 @@ const Dashboard = ({ children }) => {
         {
             href: "/dashboard/basic-knowledge",
             name: "Knowledge Base",
+            subheading: "Learning Center",
             icon: "BookOpenIcon",
         },
 
         {
             href: "/dashboard/chat-bots",
             name: "Agents",
+            subheading: "Tempo Chat",
             icon: "AdjustmentsHorizontalIcon",
         },
 
@@ -51,40 +56,36 @@ const Dashboard = ({ children }) => {
             href: "/dashboard/manage-phones",
             name: "Phone",
             icon: "DevicePhoneMobileIcon",
-        },
-        {
-            href: "/",
-            name: "Reports",
-            icon: "BookOpenIcon",
+            subheading: "Smart IVR"
         },
         {
             href: "/dashboard/analytics",
             name: "Chat Logs",
             icon: "ChartBarIcon",
+            subheading: "Reports"
         },
         {
             href: "/dashboard/billing/usage",
             name: "Billing",
             icon: "BanknotesIcon",
+            subheading: "Billing"
         }, {
             href: "/dashboard/billing/usage",
             name: "Usage",
             icon: "CurrencyDollarIcon",
+            subheading: "Billing"
         },
         {
             href: "/dashboard/billing/settings",
             name: "Billing Settings",
             icon: "WrenchScrewdriverIcon",
-        },
-        {
-            href: "/dashboard/knowledge-center",
-            name: "Organization Settings",
-            icon: "BookOpenIcon",
+            subheading: "Billing"
         },
         {
             href: "/dashboard/members",
             name: "Team",
             icon: "UserGroupIcon",
+            subheading: "Organization Settings"
         },
     ];
     let state = useSelector((state) => state.botId.showModal)
@@ -110,15 +111,15 @@ const Dashboard = ({ children }) => {
                 if (!findData) {
                     let newdata = []
                     if (data.length === 2) {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon }, data[0]]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, data[0]]
                     } else {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon }, ...data,]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, ...data,]
                     }
                     Cookies.set("visit", JSON.stringify(newdata))
                 }
             } else {
                 if (findRoute) {
-                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon }]
+                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }]
                     Cookies.set('visit', JSON.stringify(data))
                 }
             }

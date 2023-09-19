@@ -23,7 +23,7 @@ const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
-    return inputDate.format("M/DD/YY h:mm A");
+    return inputDate.format("M/D/YY h:mm A");
   };
   useEffect(() => {
     // Check screen width to determine if it's a mobile view
