@@ -497,24 +497,42 @@ const PhoneHandle = () => {
                                                             >
                                                                 {element.audioName ? "Update" : "Add"}
                                                             </Button>
-                                                            {key > 0 && (
-                                                                <button
-                                                                    className='font-bold mt-3 sm:mt-0'
-                                                                    type='button'
-                                                                    onClick={() => { removeNewValue(key) }}
-                                                                >
-                                                                    <XMarkIcon className="h-[23px] w-[23px] text-primary font-bold" />
-                                                                </button>
-                                                            )}
-                                                            {botValue.length > basicFormData.length && (
-                                                                <button
-                                                                    className='font-bold mt-3 sm:mt-0'
-                                                                    type='button'
-                                                                    onClick={() => { addNewValue() }}
-                                                                >
-                                                                    <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
-                                                                </button>
-                                                            )}
+                                                            <div class="flex items-center justify-center rounded-md w-full sm:w-auto" role="group">
+                                                                {key > 0 && (
+                                                                    <>
+                                                                        <button type="button"
+                                                                            className="sm:hidden px-4 w-[50%] sm:w-auto py-2 mt-[20px] text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-md hover:bg-primary hover:text-white "
+                                                                            onClick={() => { removeNewValue(key) }}
+                                                                        >
+                                                                            Remove
+                                                                        </button>
+                                                                        <button
+                                                                            className='hidden sm:block font-bold mt-3 sm:mt-0'
+                                                                            type='button'
+                                                                            onClick={() => { removeNewValue(key) }}
+                                                                        >
+                                                                            <XMarkIcon className="h-[23px] w-[23px] text-primary font-bold" />
+                                                                        </button>
+                                                                    </>
+                                                                )}
+                                                                {botValue.length > basicFormData.length && (
+                                                                    <>
+                                                                        <button type="button"
+                                                                            className="sm:hidden px-4 w-[50%] sm:w-auto py-2 mt-[20px] text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-md hover:bg-primary hover:text-white "
+                                                                            onClick={() => { addNewValue() }}
+                                                                        >
+                                                                            Add
+                                                                        </button>
+                                                                        <button
+                                                                            className='hidden sm:block font-bold mt-3 sm:mt-0'
+                                                                            type='button'
+                                                                            onClick={() => { addNewValue() }}
+                                                                        >
+                                                                            <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
+                                                                        </button>
+                                                                    </>
+                                                                )}
+                                                            </div>
                                                         </div>
 
                                                     </div>
@@ -596,7 +614,7 @@ const PhoneHandle = () => {
                     <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
-                            <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
+                                <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
                             </div>
                             <div className='flex justify-end gap-2'>
                                 <div className='cursor-pointer' onClick={(e) => {
@@ -708,7 +726,7 @@ const PhoneHandle = () => {
                     <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
-                            <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
+                                <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
                             </div>
                             <div className='flex justify-end gap-2'>
                                 <div className='cursor-pointer' onClick={(e) => {
