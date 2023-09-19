@@ -371,7 +371,7 @@ const Page = () => {
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
-                {loading === true ? (
+                {/* {loading === true ? (
                     <div className="">
                         <div className='grid grid-cols-[85%,15%] my-2'>
                             <div></div>
@@ -381,7 +381,7 @@ const Page = () => {
                             <SkeletonLoader count={9} height={30} className={"mt-2"} />
                         </div>
                     </div>
-                ) : (
+                ) : ( */}
                     <>
                         <div className="w-full" >
 
@@ -406,11 +406,11 @@ const Page = () => {
                                 pointerOnHover
                                 defaultSortFieldId="number_of_messages"
                                 pagination
-                                className='data-table-class-old'
                                 columns={columns}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results.filter(item => item.accepted === false)}
-
+                                progressPending={loading}
+                                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                                 paginationDefaultPage={pageVal}
                                 paginationPerPage={perPage}
                                 paginationTotalRows={state?.data?.count}
@@ -425,7 +425,7 @@ const Page = () => {
                             />
                         </div>
                     </>
-                )}
+                {/* )} */}
             </div>
             <ToastContainer />
         </>

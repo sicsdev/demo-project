@@ -224,7 +224,7 @@ const EditKnowledgeCenter = ({
                   </div>
                 </div>
 
-                {singleKnowledgeData?.faqs &&
+                {/* {singleKnowledgeData?.faqs &&
                   singleKnowledgeData?.faqs.map((faq, i) => (
                     <div className="border border-border rounded-lg my-4">
                       <div className="grid grid-cols-[20%,60%,20%] sm:grid-cols-[10%,80%,10%]  bottom-2 ">
@@ -238,7 +238,7 @@ const EditKnowledgeCenter = ({
                         <p className="text-[#7c8388] text-xs leading-relaxed text-justify">{faq.answer}</p>
                       </div>
                     </div>
-                  ))}
+                  ))} */}
               </div>
               <div className="mt-2">
                 {singleKnowledgeData.source === "snippet" && (
