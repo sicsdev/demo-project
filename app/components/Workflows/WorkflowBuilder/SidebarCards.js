@@ -140,7 +140,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                     <>
                         {innerSide.value === null ?
                             <>
-                                <p className='text-sm text-heading font-[300] my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
+                                <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
 
                                 {allData.map((ele, key) =>
                                     <li className='my-4 cursor-pointer ' key={key} onClick={(e) => {
@@ -157,7 +157,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                                     /> : <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
 
                                                 </div>
-                                                <p className='text-heading text-sm'>{ele.name}</p>
+                                                <p className='text-heading text-xs'>{ele.name}</p>
                                             </div>
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
                                         </div>
@@ -170,7 +170,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             <div className="flex justify-start items-center gap-2">
                                                 <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
 
-                                                <p className='text-heading text-sm'>Rule</p>
+                                                <p className='text-heading text-xs'>Rule</p>
                                                 <p className='text-border text-[11px] font-light'></p>
                                             </div>
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
@@ -183,7 +183,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             <div className="flex justify-start items-center gap-2">
                                                 <BriefcaseIcon className="h-6 w-6 text-gray-500" />
 
-                                                <p className='text-heading text-sm'>Deflection</p>
+                                                <p className='text-heading text-xs'>Deflection</p>
                                                 <p className='text-border text-[11px] font-light'></p>
                                             </div>
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
@@ -192,7 +192,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                 </li>
 
 
-                                <li className={`my-4 cursor-pointer`}>
+                                {/* <li className={`my-4 cursor-pointer`}>
                                     <Link href={"/dashboard/workflow/integrations"}>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
@@ -204,7 +204,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
                                         </div>
                                     </Link>
-                                </li>
+                                </li> */}
                             </> :
                             <>
                                 <div className='flex justify-start items-center my-8 gap-2'>
@@ -227,7 +227,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                             />
                                         </div> : <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
 
-                                    <p className='text-heading font-bold text-[14px]'>{innerSide?.value.name}</p>
+                                    <p className='text-heading text-sm'>{innerSide?.value.name}</p>
                                 </div>
                                 <div className='mb-32'>
                                     {integrationAutomationData?.map((ele, key) =>
@@ -245,7 +245,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                                   </div>: <Cog8ToothIcon className="h-6 w-6 text-gray-500" />}
                                              
                                                 <div className='w-[200px]'>
-                                                    <h3 className='text-[13px] font-[4500]'>{ele?.name}</h3>
+                                                    <h3 className='text-xs'>{ele?.name}</h3>
                                                     <p className='text-border text-[11px] font-light'>{ele?.description}</p>
                                                 </div>
                                             </div>

@@ -398,25 +398,25 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'ALL'))
                                                 setShowSourceFilter(prev => !prev)
                                             }}>
-                                                <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
+                                                <p className="block px-4 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
                                             </li>
                                             <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
                                                 setShowSourceFilter(prev => !prev)
                                             }}>
-                                                <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
+                                                <p className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
                                             </li>
                                             <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
                                                 setShowSourceFilter(prev => !prev)
                                             }}>
-                                                <p href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
+                                                <p href="#" className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
                                             </li>
                                             <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
                                                 setShowSourceFilter(prev => !prev)
                                             }}>
-                                                <p href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
+                                                <p href="#" className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
                                             </li>
                                         </ul>
                                     </div>
