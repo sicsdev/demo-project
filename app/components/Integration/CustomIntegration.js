@@ -10,10 +10,10 @@ import { useDispatch } from 'react-redux';
 import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
-const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData }) => {
+const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData, checked }) => {
     console.log(formData)
 
-    const [customFields, setCustomFields] = useState({});
+    const [customFields, setCustomFields] = useState(formData ?? {});
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
     const [payloadData, setPayloadData] = useState({
@@ -28,14 +28,6 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     });
     const [inputFocus, setInputFocus] = useState({});
 
-    useEffect(() => {
-        // const maskedFormData = Object.keys(formData).reduce((acc, key) => {
-        //     acc[key] = maskLastFour(formData[key]);
-        //     return acc;
-        // }, {});
-        const maskedFormData = Object.fromEntries(Object.keys(formData).map((key) => [key, '']))
-        setCustomFields(maskedFormData);
-    }, [formData]);
 
     const convertToTitleCase = (str) => {
         const words = str.split('_');
@@ -130,7 +122,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
-                // successMessage(message);
+                successMessage(message);
             } else {
                 errorMessage(configureIntegration.response.data.error);
             }
@@ -148,7 +140,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
 
-                // successMessage('Integration Deleted Successfully!');
+                successMessage('Integration Deleted Successfully!');
             }
         } catch (error) {
             setLoading(false);
@@ -177,7 +169,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
 
     return (
         <>
-            <div className="block sm:flex items-center justify-between">
+            <div className="flex items-center justify-between">
                 <div class="flex items-center gap-2 mb-2 sm:mb-0">
                     <span
                         className="text-[#b3b3b3] cursor-pointer"
@@ -221,10 +213,9 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                 <div class="grid grid-cols-1 md:grid-cols-[80%,20%] items-center">
                     <div className="">
                         <div className="sm:mr-8">
-                            <form>
-
-                                {Object.keys(formData).map((key) => (
-                                   formData[key] ? null : (
+                            {checked ?
+                                <form>
+                                    {Object.keys(formData).map((key) => (
                                         <div className='my-2' key={key}>
                                             <TextField
                                                 onChange={(e) => handleIntegrationInputChange(e)}
@@ -237,27 +228,39 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                                 placeholder={convertToTitleCase(key)}
                                                 type={"text"}
                                                 id={key}
-                                                disabled={formData[key]}
+                                                // disabled={formData[key]}
                                                 handleInputFocus={(e) => handleInputFocus(e, key)}
                                                 onKeyDown={handleDeleteKeyPress}
                                             // disabled
                                             />
                                         </div>
-                                    )))}
-                                {/* {loading ? (
-                                    <LoaderButton />
-                                ) : (
-                                    <Button
-                                        type={"button"}
-                                        className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                        disabled={DisablingButton()}
-                                        onClick={(e) => configureIntegrationHandler(e)}
-                                    >
+                                    ))}
+                                </form>
+                                :
+                                <form>
+                                    {Object.keys(formData).map((key) => (
+                                        formData[key] ? null : (
+                                            <div className='my-2' key={key}>
+                                                <TextField
+                                                    onChange={(e) => handleIntegrationInputChange(e)}
+                                                    value={payloadData?.data[key] || ''}
+                                                    name={key}
+                                                    autoComplete={'off'}
+                                                    labelClass={"font-bold mb-2"}
+                                                    className="py-3 mt-2"
+                                                    title={convertToTitleCase(key)}
+                                                    placeholder={convertToTitleCase(key)}
+                                                    type={"text"}
+                                                    id={key}
+                                                    disabled={formData[key]}
+                                                    handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                    onKeyDown={handleDeleteKeyPress}
+                                                // disabled
+                                                />
+                                            </div>
+                                        )))}
+                                </form>}
 
-                                        {integrationFormData?.checked === true ? 'Update' : 'Save'}
-                                    </Button>
-                                )} */}
-                            </form>
                         </div>
                     </div>
                     <div className="">
