@@ -208,7 +208,7 @@ const Page = () => {
       </div>
 
       {dataLoader === true ? (
-        <>
+        <div>
           <div className="flex items-center justify-between">
             <SkeletonLoader count={1} height={20} width={100} />
           </div>
@@ -217,7 +217,7 @@ const Page = () => {
           </div>
           <div className={` mt-6`}>
             {[...Array(5)].map((_, index) => (
-              <>
+              <div>
                 <h3 className="text-sm font-semibold mt-3">
                   <SkeletonLoader count={1} height={20} width={100} />
                 </h3>
@@ -228,18 +228,18 @@ const Page = () => {
                   <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
                 </div>
-              </>
+              </div>
             ))}
           </div>
 
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           {!integrationform && (
-            <>
+            <div>
               <div className="flex items-center justify-between">
-                <p class="text-black-color text-sm font-semibold my-4">
-                  Search for integration
+                <p class="text-black-color text-sm font-semibold my-2">
+                 
                 </p>
               </div>
               <div className="relative sm:max-w-[100%]  m-auto">
@@ -257,10 +257,10 @@ const Page = () => {
                   src="/search.png"
                 />
               </div>
-            </>
+            </div>
           )}
           {!integrationform ? (
-            <>
+            <div>
               {integrationData.length > 0 ? (
                 <>
                   <IntegrationTemplates
@@ -283,12 +283,12 @@ const Page = () => {
                             }}
                           >
                             <div className="flex justify-start gap-1 items-center">
-                              <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
+                              <div className="relative rounded-lg m-auto">
                                 <Image
                                   fill={"true"}
                                   className={`${item.grayscale &&
                                     "grayscale pointer-events-none"
-                                    } bg-contain mx-auto w-full rounded-lg`}
+                                    } mx-auto rounded-lg !static !w-[20px] !h-auto`}
                                   alt="logo.png"
                                   src={item.logo}
                                 />
@@ -306,11 +306,11 @@ const Page = () => {
               ) : (
                 <p>No data Found !</p>
               )}
-            </>
+            </div>
           ) : (
-            <>
+            <div>
               {formData && (
-                <>
+                <div>
                   <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
 
                     setFormData({})
@@ -327,11 +327,11 @@ const Page = () => {
                       integrationFormData={integrationFormData}
                     />
                   </div>
-                </>
+                </div>
               )}
-            </>
+            </div>
           )}
-        </>
+        </div>
       )}
 
       {integrationModal ? (
