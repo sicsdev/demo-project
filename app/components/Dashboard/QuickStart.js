@@ -117,7 +117,7 @@ const QuickStart = () => {
         },
         {
             href: "/dashboard/manage-phones",
-            name: "Phone Settings",
+            name: "Phone",
             icon: <DevicePhoneMobileIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
@@ -340,13 +340,13 @@ const QuickStart = () => {
 
                                                     </div>
 
-                                                    <div className="sm:w-[30%] ">
+                                                    <div className="w-[20%] sm:w-[30%] sm:ml-0 ml-[28px] ">
 
                                                         <Link
 
                                                             href={ele?.link}
 
-                                                            className="text-[#007c8f] flex items-center justify-end sm:justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                            className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                         >
                                                             {ele?.buttonName}

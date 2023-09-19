@@ -49,7 +49,7 @@ const Dashboard = ({ children }) => {
 
         {
             href: "/dashboard/manage-phones",
-            name: "Phone Settings",
+            name: "Phone",
             icon: "DevicePhoneMobileIcon",
         },
         {

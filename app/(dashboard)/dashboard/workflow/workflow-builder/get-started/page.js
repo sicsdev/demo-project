@@ -330,11 +330,11 @@ const GetStarted = () => {
 
         if (type === "PUBLISH") {
           dispatch(editAutomationValue(null))
-          successMessage("Workflow is now active!");
+          // successMessage("Workflow is now active!");
         } else if (type === "DISABLE") {
-          successMessage("Workflow Disabled Successfully");
+          // successMessage("Workflow Disabled Successfully");
         } else if (type === "EDIT") {
-          successMessage("WorkFlow Updated Successfully!");
+          // successMessage("WorkFlow Updated Successfully!");
         }
 
         setPublishLoader(false);
@@ -355,7 +355,7 @@ const GetStarted = () => {
     const flow = params.get("flow");
     const deleteWorkFlow = await removeWorkFlow(flow)
     if (deleteWorkFlow.status === 204) {
-      successMessage("Workflow deleted successfully")
+      // successMessage("Workflow deleted successfully")
       router.push(`/dashboard/workflow/workflow-builder`);
     }
   }

@@ -34,7 +34,7 @@ const Keys = () => {
     if (response.status == 204 || response.status == 200 || response.status == 201) {
       const filterData = keysData.filter((x) => x.id !== id)
       setKeysData(filterData)
-      successMessage('Key deleted successfully !')
+      // successMessage('Key deleted successfully !')
     }
 
   }
@@ -57,7 +57,7 @@ const Keys = () => {
     console.log(response)
     if (response.status === 201 || response.status === 200) {
       getKeysData()
-      successMessage("Key create successfully !")
+      // successMessage("Key create successfully !")
       setCreateModal(false)
       setBtnLoading(false)  
       setFormData({})

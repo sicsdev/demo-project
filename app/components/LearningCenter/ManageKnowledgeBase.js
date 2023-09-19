@@ -251,7 +251,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 }
             })
             setKnowledge(knowledgeDataValue)
-            successMessage(value.type + " Added successfully")
+            // successMessage(value.type + " Added successfully")
 
         }
     }
@@ -269,7 +269,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const deleteKnowledgeCenterHandler = async (id) => {
         const deleteRecord = await deleteKnowledgeRecord(id)
         if (deleteRecord.status === 204) {
-            successMessage("Knowledge deleted successfully")
+            // successMessage("Knowledge deleted successfully")
             const filterKnowledge = basicFormData.knowledgeData.filter((x) => x.id !== id)
             const knowledgeDataValue = knowledge.filter((x) => x.id !== id)
             setBasicFormData((prev) => {

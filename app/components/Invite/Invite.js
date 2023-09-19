@@ -41,7 +41,7 @@ const Invite = ({ setTeamModal }) => {
       setTeamModal(false);
       setError(null);
       setLoading(false);
-      successMessage("Team member invited successfully")
+      // successMessage("Team member invited successfully")
     } else {
       setLoading(false);
       setError(response.error);

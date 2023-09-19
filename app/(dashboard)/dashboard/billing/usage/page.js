@@ -154,7 +154,7 @@ const UsageLimit = () => {
         billing_thresholds: { amount_gte: parseInt(formData) },
       });
       if (response.status === 200) {
-        successMessage("Form update successfully !")
+        // successMessage("Form update successfully !")
         setBtnLoading(false);
       } else {
         setBtnLoading(false);

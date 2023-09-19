@@ -95,7 +95,7 @@ const Page = () => {
     if (createEnterprise?.status === 201) {
       dispatch(fetchProfile());
       setLoading(false);
-      successMessage("Form updated sucessfully")
+      // successMessage("Form updated sucessfully")
       setIsEdit(true);
     } else {
       setErrors([createEnterprise.message]);

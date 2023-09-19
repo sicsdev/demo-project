@@ -78,7 +78,7 @@ const PhoneHandle = () => {
                     options: ele.option,
                     bots: ele?.bot?.id ?? '',
                     sales: ele?.name,
-                    audio: null,
+                    audio: ele.audio ? ele.audio : null,
                     audioName: ele?.audio
                 }
             })
@@ -86,8 +86,10 @@ const PhoneHandle = () => {
                 return {
                     ...prev,
                     phone: response.results[0].data,
+                    audio: response.results[0].audio,
                     id: response.results[0].id,
                     greeting: response.results[0].greeting,
+                    audioName: response.results[0].audio,
                     checked: response.results[0].active
                 }
             })
@@ -310,7 +312,7 @@ const PhoneHandle = () => {
                         {basicField?.audioName && (
                             <div className='px-6 my-2'>
                                 <AudioPlayer
-                                    header={<p className='text-sm whitespace-nowrap'>{basicField?.audioName}</p>}
+                                    header={<p className='text-xs text-ellipsis'>{basicField?.audioName}</p>}
                                     customVolumeControls={[]}
                                     customAdditionalControls={[]}
                                     src={basicField.audio}
@@ -486,7 +488,7 @@ const PhoneHandle = () => {
                                                         <label className={`new_input_label block text-sm text-heading `}>
                                                             <h3 className='font-bold my-2 text-sm text-heading'>Greeting</h3>
                                                         </label>
-                                                        <div className='block sm:flex items-center justify-between'>
+                                                        <div className='block sm:flex items-center justify-start gap-4'>
                                                             <Button
                                                                 type={"button"}
                                                                 className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"

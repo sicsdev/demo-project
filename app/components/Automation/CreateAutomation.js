@@ -51,7 +51,7 @@ const CreateAutomation = ({ integrationData, name, createAutomationRecord, setAu
       }
       if (createOrUpdateRecord?.status === 201 || createOrUpdateRecord?.status === 200) {
         router.push(`${pathname}`);
-        successMessage(message);
+        // successMessage(message);
         setAutomationModal(false);
         getAutomations();
       } else {

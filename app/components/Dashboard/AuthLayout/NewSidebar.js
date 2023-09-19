@@ -811,7 +811,7 @@ const NewSidebar = ({ children }) => {
                                 </ul>
                             )}
 
-                            <div className="cursor-pointer p-2 flex justify-center" onClick={(e) => { setCollaps(prev => !prev) }}>
+                            <div className="cursor-pointer py-4 flex justify-start" onClick={(e) => { setCollaps(prev => !prev) }}>
                                 {!collaps ?
                                     <p className="text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
                                     : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
