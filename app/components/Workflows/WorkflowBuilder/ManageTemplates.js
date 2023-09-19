@@ -16,7 +16,7 @@ const ManageTemplates = ({ template, fetchData, fetchTemplates, setTemplate }) =
             if (response.status === 201 || response.status === 200) {
                 fetchData();
                 fetchTemplates();
-                successMessage("Workflow Template Created Successfully!")
+                // successMessage("Workflow Template Created Successfully!")
             } else {
                 errorMessage("Unable To Create Template!")
             }

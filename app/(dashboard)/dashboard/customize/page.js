@@ -71,7 +71,7 @@ const Page = () => {
           setLoading(false);
           dispatch(fetchBot());
           getBotInfo(botId)
-          successMessage("Changes successfully saved!")
+          // successMessage("Changes successfully saved!")
         } else {
           setLoading(false);
           errorMessage("Unable to update!");
@@ -180,7 +180,7 @@ const Page = () => {
                 <QrCodeIcon className="h-4 w-4 text-gray-500" /> Customize Bot
               </span>
             </li>
-            <li className="mr-2" onClick={() => { setTab(1) }}>
+            <li className="mx-4 " onClick={() => { setTab(1) }}>
               <span
                 className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 1 && ("border-b-2 text-primary border-primary")}  rounded-t-lg active  group`}
                 aria-current="page"
@@ -188,7 +188,7 @@ const Page = () => {
                 <WrenchScrewdriverIcon className="h-4 w-4 text-gray-500" /> Additional Settings
               </span>
             </li>
-            <li className="mr-2" onClick={() => { setTab(2) }}>
+            <li className="mx-4" onClick={() => { setTab(2) }}>
               <span
                 className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 2 && ("border-b-2 text-primary border-primary")}  rounded-t-lg active  group`}
                 aria-current="page"

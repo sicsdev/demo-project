@@ -66,7 +66,7 @@ const BotSetting = () => {
         if (response.status === 200) {
             setLoading(false)
             setIsEdit(false)
-           successMessage("Form update successfully")
+           // successMessage("Form update successfully")
         } else {
             setLoading(false)
         }
