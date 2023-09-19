@@ -129,7 +129,7 @@ const Chat = ({ messages, selectedBot }) => {
                                                         }
 
                                                         {
-                                                            element.content === 'OPTIONS' &&
+                                                            element.content === 'OPTIONS' && element?.actions?.options &&
                                                             <>
                                                                 <div className="tempo-widget-options-container">
                                                                     {Object.keys(element.actions.options).map((key, index) =>
@@ -143,7 +143,7 @@ const Chat = ({ messages, selectedBot }) => {
 
 
                                                         {
-                                                            element.content === 'FORM' &&
+                                                            element.content === 'FORM' && element?.actions &&
 
                                                             <>
                                                                 <div className="component_answer" style={{ width: '300px' }}></div>
