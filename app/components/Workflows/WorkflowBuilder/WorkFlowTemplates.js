@@ -11,6 +11,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
+    const [urls, setUrls] = useState([])
     const [isCopied, setIsCopied] = useState({
         id: null,
         copied: false,
@@ -27,12 +28,15 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             }
         });
 
+        let urlFinder = urls.find(e => e.id == id)
+
         try {
-            const response = await getWorkflowEmbed(id);
-            if (response && response.url) {
-                console.log("responseUrl: ", response?.url);
-                copy(response.url);
-                // await navigator.clipboard.writeText(response.url);
+            // const response = await getWorkflowEmbed(id);
+            // if (response && response.url) {
+            // copy(response.url);
+
+            if (urlFinder?.url) {
+                copy(urlFinder.url)
                 setIsCopied({
                     id: id,
                     copied: true,
@@ -50,6 +54,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     loading: false
                 });
             }
+
         } catch (err) {
             console.error('Failed to copy: ', err);
             setIsCopied({
@@ -63,22 +68,23 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const columns = [
         {
             name: "Name",
-            selector: (row, index) => (
+            selector: (row, index) => row.name,
+            sortable: true,
+            reorder: true, 
+            minWidth: '250px',
+            cell: (row, index) => {
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     {row.icon ? row.icon :
                         <>
                             <p className='text-[18px]'>😊</p>
                             {/* <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden bg-border rounded-lg">
-                                <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={'/workflow/reactive-subscription.png'} />
-                            </div> */}
+                            <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={'/workflow/reactive-subscription.png'} />
+                        </div> */}
                         </>
                     }
                     <h3 className="text-heading font-semibold text-xs my-1">{row.name}</h3>
                 </div>
-            ),
-            sortable: true,
-            reorder: true,
-            minWidth: '250px'
+            }
         },
         {
             name: "Status",
@@ -100,7 +106,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const columns1 = [
         {
             name: "Name",
-            selector: (row, index) => (
+            selector: (row, index) => row.name,
+            sortable: true,
+            reorder: true,
+            minWidth: '250px',
+            cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
                         <p className='text-[18px]'>{row.icon}</p>
@@ -108,10 +118,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     </div>
                     <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 uppercase">{row.name}</h3>
                 </div>
-            ),
-            sortable: true,
-            reorder: true,
-            minWidth: '250px'
+            )
         },
         {
             name: "Status",
@@ -137,7 +144,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                             type={"button"}
                             className="border-none p-0 m-0 flex gap-1 items-center"
                         >
-                            <CheckIcon className="h-5 w-5 " /> Copied!
+                            <CheckIcon className="h-4 w-4 " /> Copied!
                         </button>) :
                         <button
                             type={"button"}
@@ -162,8 +169,17 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
-    const manageData = () => {
+    const manageData = async () => {
         const result = workflowData?.results?.filter((x) => x.active === status);
+
+        let array_of_urls = []
+        result.forEach(async (el) => {
+            let result = await getWorkflowEmbed(el.id).then(url => {
+                array_of_urls.push({ id: el.id, url: url.url })
+            })
+        })
+
+        setUrls(array_of_urls)
         setData(result);
     }
     const customStyles = {

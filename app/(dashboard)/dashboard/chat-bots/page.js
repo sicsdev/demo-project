@@ -92,7 +92,7 @@ const Page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`View Agents`} icon={<AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" />} />
+            <TopBar title={`Agents`} icon={<AdjustmentsHorizontalIcon className="h-5 w-5 text-primary" />} />
             <>
                 <div className=' sm:px-5 md:px-5 lg:px-5 block sm:flex md:flex lg:flex justify-end items-center mt-4'>
                     {skeleton ? <SkeletonLoader /> :

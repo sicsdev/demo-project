@@ -671,7 +671,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     onClick={() => setShowManageHideUrls(true)}
                   >
                     <span className="text-sky text-[12px] font-semibold text-underline cursor-pointer">
-                      Manage URL's
+                      Manage URLs
                     </span>
                   </div>
                 </div>

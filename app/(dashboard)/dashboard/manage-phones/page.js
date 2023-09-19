@@ -9,7 +9,7 @@ const Page = () => {
 
     return (
         <div>
-            <TopBar title={`Phone`} icon={<DevicePhoneMobileIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} />
+            <TopBar title={`Phone Settings`} icon={<DevicePhoneMobileIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} />
             <PhoneHandle />
         </div>
     )

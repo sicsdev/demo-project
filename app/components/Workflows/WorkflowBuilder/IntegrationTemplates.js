@@ -17,11 +17,11 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask }) => {
                                 key={key}
                                 onClick={() => { performIntegrationTask(item) }}
                             >
-                                <div className="flex justify-start gap-1 items-center">
-                                    <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
+                                <div className="flex justify-start gap-1 items-center relative">
+                                    <div className="relative rounded-lg m-auto">
                                         <Image
                                             fill={"true"}
-                                            className={`${item.grayscale && ("grayscale pointer-events-none")} bg-contain mx-auto w-full rounded-lg`}
+                                            className={`${item.grayscale && ("grayscale pointer-events-none")}  mx-auto rounded-lg !static !w-[20px] !h-auto`}
                                             alt="logo.png"
                                             src={item.logo}
                                         />
@@ -30,7 +30,7 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask }) => {
                                         {item.name}
                                     </h3>
 
-                                    {item.checked && (<CheckCircleIcon className="h-5 w-5 text-primary font-semibold " />)}
+                                    {item.checked && (<CheckCircleIcon className="absolute right-[0px] h-5 w-5 text-primary font-semibold " />)}
                                 </div>
                             </div>
                         ))}

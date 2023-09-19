@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { ArrowLeftIcon, ArrowRightIcon, ChatBubbleLeftRightIcon, ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ArrowRightIcon, ChatBubbleLeftRightIcon, ChatBubbleOvalLeftIcon, QueueListIcon } from "@heroicons/react/24/outline";
 import { getBotConversation, getBotConversationMessages, getPaginateBotConversation } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
@@ -20,50 +20,72 @@ import TopBar from "@/app/components/Common/Card/TopBar";
 
 
 const Logs = () => {
-
+  const [isMobile, setIsMobile] = useState(false);
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
     return inputDate.format("MM/DD/YY hh:mm A");
   };
+  useEffect(() => {
+    // Check screen width to determine if it's a mobile view
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768); // Adjust the breakpoint as needed
+    };
+
+    // Attach the event listener
+    window.addEventListener('resize', checkIsMobile);
+
+    // Initial check
+    checkIsMobile();
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener('resize', checkIsMobile);
+    };
+  }, []);
+
 
   const columns = [
- 
+
     {
-      name: <p className=" whitespace-break-spaces text-xs">Number of Messages</p>,
+      name: <p className=" whitespace-break-spaces text-xs">{isMobile ? 'Messages' : 'Number of Messages'}</p>,
       selector: (row) => row.number_of_messages,
       sortable: true,
       reorder: false,
       cell: (row) => (
         <p className=" whitespace-normal">{row.number_of_messages}</p>
-      )
+      ),
+      minWidth: "50px"
     },
     {
-      name: <p className=" whitespace-break-spaces text-xs">Created At</p>  ,
+      name: <p className=" whitespace-break-spaces text-xs">Created At</p>,
       selector: (row) => row.created,
       sortable: false,
       reorder: false,
       cell: (row) => (
         formatDateFunc(row.created)
-      )
-    },   {
-      name:  <p className=" whitespace-break-spaces text-xs">Workflow Triggered</p>,
+      ),
+      minWidth: "50px"
+    }, {
+      name: <p className=" whitespace-break-spaces text-xs">Workflow Triggered</p>,
       selector: (row) => <p className=" whitespace-normal">{row.is_workflow ? "Yes" : "No"}</p>,
       sortable: false,
       reorder: false,
-      
+      minWidth: "50px"
+
     },
     {
       name: <p className=" whitespace-break-spaces text-xs">Escalated to Human</p>,
       selector: (row) => <p className=" whitespace-normal">{row.human_handoff ? "Yes" : "No"}</p>,
       sortable: false,
       reorder: false,
+      minWidth: "50px"
     },
   ];
   const dispatch = useDispatch();
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Select All', value: 'alll' },{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
   const [userWorkFlows, setUserWorkflows] = useState([]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
@@ -120,12 +142,11 @@ const Logs = () => {
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
     if (results && Array.isArray(results) && results.length > 0) {
-      // const values = [
-      //   { name: 'Conversation Properties', value: 'all' },
-      //   { name: 'Human Handoff', value: 'handoff' },
-      //   ...results.map(item => ({ name: item.name, value: item.id })),
-      // ];
-      setUserWorkflows(results);
+      const values = [
+        { name: 'Select All', value: 'all' },
+        ...results.map(item => ({ name: item.name, value: item.id })),
+      ];
+      setUserWorkflows(values);
     }
   };
 
@@ -181,7 +202,7 @@ const Logs = () => {
     // Filter out the empty and 'all' values from the filters object
     const filteredFilters = Object.fromEntries(
       Object.entries(filters).filter(
-        ([key, value]) => value !== '' && value !== 'all'
+        ([key, value]) => value !== '' && value !== 'all' && value !== 'alll'
       )
     );
     if (filteredFilters.conversations === 'handoff') {
@@ -270,50 +291,50 @@ const Logs = () => {
   };
 
   const handleSort = async (column, sortDirection) => {
-
+    console.log("sortDirection", sortDirection)
     setTimeout(async () => {
-      if (column?.name === 'Number of Messages') {
-        setLoading(true)
-        let orderBy = sortDirection === 'asc' ? 'number_of_messages' : '-number_of_messages';
-        setSelectedFilters((prevFilters) => ({
-          ...prevFilters,
-          'ordering': orderBy,
-        }));
+      // if (column?.name === 'Number of Messages') {
+      setLoading(true)
+      let orderBy = sortDirection === 'asc' ? 'number_of_messages' : '-number_of_messages';
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        'ordering': orderBy,
+      }));
 
-        const queryParam = buildQueryParam({
-          ...selectedFilters,
-          'ordering': orderBy, // Update the selected value for the current dropdown
-        });
+      const queryParam = buildQueryParam({
+        ...selectedFilters,
+        'ordering': orderBy, // Update the selected value for the current dropdown
+      });
 
 
-        try {
-          const response = await getPaginateBotConversation(selectedBot, 1, queryParam);
-          if (response.status === 200) {
-            let data = response.data;
-            let newdata = data.results;
-            if (newdata.length > 0) {
-              for (let i = 0; i < newdata.length; i++) {
-                newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
-                newdata[i].index = i;
-                newdata[i].created = moment(newdata[i].created).format("MM-DD-YYYY hh:mm:ss A");
-              }
+      try {
+        const response = await getPaginateBotConversation(selectedBot, 1, queryParam);
+        if (response.status === 200) {
+          let data = response.data;
+          let newdata = data.results;
+          if (newdata.length > 0) {
+            for (let i = 0; i < newdata.length; i++) {
+              newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
+              newdata[i].index = i;
+              newdata[i].created = moment(newdata[i].created).format("MM-DD-YYYY hh:mm:ss A");
             }
-            const getAllIds = newdata.map((ele) => ({ id: ele.id }));
-
-            // Update state variables with the retrieved data
-            setManageMessages(getAllIds);
-            setTotalRows(data.count);
-            setConversationData(newdata);
-            setLoading(false);
-          } else {
-            setLoading(false);
           }
-        } catch (error) {
-          // Handle errors here, e.g., log them or update UI accordingly
-          console.error("Error in getPaginateBotConversation:", error);
+          const getAllIds = newdata.map((ele) => ({ id: ele.id }));
+
+          // Update state variables with the retrieved data
+          setManageMessages(getAllIds);
+          setTotalRows(data.count);
+          setConversationData(newdata);
+          setLoading(false);
+        } else {
           setLoading(false);
         }
+      } catch (error) {
+        // Handle errors here, e.g., log them or update UI accordingly
+        console.error("Error in getPaginateBotConversation:", error);
+        setLoading(false);
       }
+      // }
     }, 100);
   };
 
@@ -332,8 +353,8 @@ const Logs = () => {
       <div>
         {
           showChat === true ?
-            <TopBar title={`Chats Chat Logs`} icon={<ChatBubbleLeftRightIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} /> :
-            <TopBar title={`Chat Logs`} icon={<ChatBubbleOvalLeftIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} />
+            <TopBar title={`Chats Chat Logs`} icon={<QueueListIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} /> :
+            <TopBar title={`Chat Logs`} icon={<QueueListIcon className="h-5 w-5 text-primary" />} isBackButton={true} backButtonUrl={`/dashboard`} />
         }
 
         {showChat === false && (
@@ -399,7 +420,7 @@ const Logs = () => {
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.type || ''}
                   name="type"
-                  values={[{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                  values={[{ name: 'Select All', value: 'all' },{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
                   title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
                   id={"type"}
                   className="py-3"
@@ -433,8 +454,7 @@ const Logs = () => {
             </div>}
 
 
-          {loading === true || state.isLoading === true ? (
-            // <Loading />
+          {/* {loading === true || state.isLoading === true ? (
             <div className="">
               <h1 className="mt-2 text-sm">
                 <SkeletonLoader height={40} width={100} />
@@ -443,44 +463,44 @@ const Logs = () => {
                 <SkeletonLoader count={9} height={30} className={"mt-2"} />
               </div>
             </div>
-          ) : (
-            <>
-              {selectedBot && (
-                <DataTable
-                  title={''}
-                  fixedHeader
-                  highlightOnHover
-                  pointerOnHover
-                  defaultSortFieldId="year"
-                  onRowClicked={(rowData) => {
-                    // router.push(rowData.url);
-                    setIndexVal(rowData.index)
-                    getCoversationMessages(rowData.id)
-                   
-
-                  }}
-                  paginationDefaultPage={pageVal}
-                  pagination
-                  paginationServer
-                  paginationPerPage={perPage}
-                  onChangeRowsPerPage={handlePerRowsChange}
-                  paginationTotalRows={totalRows}
-                  onChangePage={changePage}
-                  sortServer
-                  onSort={handleSort}
-                  noDataComponent={
-                    <>
-                      <p className="text-center text-sm p-3">
-                        No Chat logs found!
-                      </p>
-                    </>
-                  }
-                  columns={columns}
-                  data={conversationData}
-                />
-              )}
-            </>
-          )}
+          ) : ( */}
+          <>
+            {selectedBot && (
+              <DataTable
+                title={''}
+                fixedHeader
+                highlightOnHover
+                pointerOnHover
+                defaultSortFieldId="year"
+                onRowClicked={(rowData) => {
+                  // router.push(rowData.url);
+                  setIndexVal(rowData.index)
+                  getCoversationMessages(rowData.id)
+                }}
+                progressPending={loading}
+                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                paginationDefaultPage={pageVal}
+                pagination
+                paginationServer
+                paginationPerPage={perPage}
+                onChangeRowsPerPage={handlePerRowsChange}
+                paginationTotalRows={totalRows}
+                onChangePage={changePage}
+                sortServer
+                onSort={handleSort}
+                noDataComponent={
+                  <>
+                    <p className="text-center text-sm p-3">
+                      No Chat logs found!
+                    </p>
+                  </>
+                }
+                columns={columns}
+                data={conversationData}
+              />
+            )}
+          </>
+          {/* )} */}
         </>
         {showChat && (
           <>
@@ -490,7 +510,7 @@ const Logs = () => {
               <>
                 {/* <Card> */}
                 <div className=''>
-                <h1 className='text-heading text-sm font-semibold'>Chat</h1>
+                  <h1 className='text-heading text-sm font-semibold'>Chat</h1>
                 </div>
 
                 <div className="flex justify-between p-2 gap-2 items-center">
