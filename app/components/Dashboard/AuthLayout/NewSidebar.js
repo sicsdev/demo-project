@@ -186,7 +186,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/manage-phones",
-                    name: "Phone Settings",
+                    name: "Phone",
                     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
