@@ -312,7 +312,7 @@ const PhoneHandle = () => {
                         {basicField?.audioName && (
                             <div className='px-6 my-2'>
                                 <AudioPlayer
-                                    header={<p className='text-xs text-ellipsis'>{basicField?.audioName}</p>}
+                                    header={<p className='text-xs text-ellipsis text-border'>{basicField?.audioName.replace("https://", '')}</p>}
                                     customVolumeControls={[]}
                                     customAdditionalControls={[]}
                                     src={basicField.audio}
@@ -646,14 +646,12 @@ const PhoneHandle = () => {
                                                             <>
 
                                                                 <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
-                                                                <p className='text-xs text-border font-normal'>{basicFormData[index].audioName}</p>
                                                             </>
                                                         )}
                                                         {basicFormData[index].audioName && (
-                                                            <div className='px-6 my-2'>
-                                                                <AudioPlayer style={{
-                                                                    width: '300px'
-                                                                }}
+                                                            <div className='px-6'>
+                                                                <AudioPlayer
+                                                                    header={<p className='text-xs  text-border text-ellipsis'>{basicFormData[index].audioName.replace("https://", '')}</p>}
                                                                     customVolumeControls={[]}
                                                                     customAdditionalControls={[]}
                                                                     src={basicFormData[index].audio}
@@ -679,14 +677,12 @@ const PhoneHandle = () => {
                                                             <>
 
                                                                 <p className="text-xs text-gray-500 dark:text-gray-400">You Uploaded</p>
-                                                                <p className='text-xs text-border font-normal'>{basicField?.audioName}</p>
                                                             </>
                                                         )}
                                                         {basicField?.audioName && (
-                                                            <div className='px-6 my-2'>
-                                                                <AudioPlayer style={{
-                                                                    width: '300px'
-                                                                }}
+                                                            <div className='px-6'>
+                                                                <AudioPlayer
+                                                                    header={<p className='text-xs text-ellipsis text-border'>{basicField?.audioName.replace("https://", '')}</p>}
                                                                     customVolumeControls={[]}
                                                                     customAdditionalControls={[]}
                                                                     src={basicField.audio}
@@ -740,10 +736,11 @@ const PhoneHandle = () => {
                             </div>
                         </div>
                         {modal === true && (
-                            <div className='p-5'>
-                                <div className='block mt-1'>
+                            <>
+                            <p className='text-xs mt-2 font-semibold'>Type text to convert to speech</p>
+                                <div className='block'>
                                     <div className='w-full '>
-                                        <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={"Type text to convert to speech"} />
+                                        <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} />
                                     </div>
                                     <Button
                                         type={"button"}
@@ -755,7 +752,7 @@ const PhoneHandle = () => {
                                     </Button>
                                 </div>
                                 <hr className='mt-6 text-border' />
-                            </div>
+                            </>
                         )}
                     </div>
                 </>

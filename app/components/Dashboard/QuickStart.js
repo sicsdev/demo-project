@@ -376,7 +376,7 @@ const QuickStart = () => {
                                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                                     {recentlyView.map((ele, key) =>
                                         <div className="bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5" key={key}>
-                                            <p className='text-border  font-semibold text-[12px]'>meetings</p>
+                                         {ele?.subheading &&(   <p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}        
                                             <p className='mt-2 font-semibold'>{ele.name}</p>
                                             {findIcon(ele.route)}
                                             <Link href={ele.route}>
