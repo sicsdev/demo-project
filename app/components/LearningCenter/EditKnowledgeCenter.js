@@ -125,10 +125,10 @@ const EditKnowledgeCenter = ({
       <div className="w-full sm:w-auto fixed z-50 top-0 right-0 h-full m-auto max-h-[100%] bg-white">
         <div className=" overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col p-2 sm:pl-8 md:pl-8 lg:pl-8 sm:pr-8 md:pr-8 lg:pr-8">
           <div className="bg-white p-4">
-            <div className="flex items-center justify-between border-b border-border dark:bg-gray-800 dark:border-gray-700">
-              <p className="text-black-color text-sm font-semibold my-4">
+            <div className="flex items-center justify-between border-b border-border dark:bg-gray-800 dark:border-gray-700 ">
+            <h1 className='text-heading text-sm font-semibold my-2'>
                 {singleKnowledgeData?.title}
-              </p>
+              </h1>
               <div className="flex hover:cursor-pointer items-center justify-center gap-2">
                 <ButtonComponent
                   data={singleKnowledgeData}
@@ -141,7 +141,7 @@ const EditKnowledgeCenter = ({
                 </div>
               </div>
             </div>
-            <p className="text-xs my-2 font-bold ">DETAILS</p>
+            <p className="text-xs my-2 font-semibold ">DETAILS</p>
             <div className="my-4 grid grid-cols-2 gap-4 items-center">
               <div>
                 <p className="w-[105px] text-sm text-[#9CA3AF] font-semibold">
@@ -151,7 +151,7 @@ const EditKnowledgeCenter = ({
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold p-1 break-words">
+                <p className="text-xs font-semibold p-1 break-words">
                   {singleKnowledgeData.title}
                 </p>
               </div>
@@ -188,7 +188,7 @@ const EditKnowledgeCenter = ({
                 </p>
               </div>
               <div>
-                <p className="text-sm font-semibold p-1">
+                <p className="text-xs font-semibold p-1">
                   {moment(singleKnowledgeData.created).fromNow()}
                 </p>
               </div>

@@ -250,7 +250,7 @@ const UsageLimit = () => {
                   </Link>
                 </p><p className='text-xs my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
 
-                <p className="text-sm ">${totalUsage}.00</p>
+                <p className="text-sm ">${totalUsage}</p>
                 <div className='flex justify-between items-center my-3'>
                   <div className='flex justify-between items-center gap-8'>
                     <p className='font-bold text-lg'>{curretYear}</p>

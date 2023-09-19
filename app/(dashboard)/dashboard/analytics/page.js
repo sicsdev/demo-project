@@ -447,15 +447,16 @@ const Logs = () => {
             <>
               {selectedBot && (
                 <DataTable
-                  title={<h3 className="text-sm font-semibold">View Logs</h3>}
+                  title={''}
                   fixedHeader
                   highlightOnHover
                   pointerOnHover
                   defaultSortFieldId="year"
                   onRowClicked={(rowData) => {
                     // router.push(rowData.url);
-                    getCoversationMessages(rowData.id)
                     setIndexVal(rowData.index)
+                    getCoversationMessages(rowData.id)
+                   
 
                   }}
                   paginationDefaultPage={pageVal}
@@ -489,18 +490,18 @@ const Logs = () => {
               <>
                 {/* <Card> */}
                 <div className=''>
-                  <h3 className='text-heading font-semibold text-xl text-center mt-4'>Chat</h3>
+                <h1 className='text-heading text-sm font-semibold'>Chat</h1>
                 </div>
 
-                <div className="flex justify-between p-2 my-4 gap-2 items-center">
-                  <p className="text-sm cursor-pointer" onClick={() => setShowChat(false)}>
+                <div className="flex justify-between p-2 gap-2 items-center">
+                  <p className="text-xs cursor-pointer" onClick={() => setShowChat(false)}>
                     back
                   </p>
                   <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ?
                       null
                       :
-                      <p className="text-sm cursor-pointer" onClick={() => {
+                      <p className="text-xs cursor-pointer" onClick={() => {
                         if (indexVal === 0 && pageVal !== 1) {
                           handlePageChange(logState.data.bot, pageVal - 1, logState.data.queryParam || '')
                           setPageVal(pageVal - 1)
@@ -511,10 +512,10 @@ const Logs = () => {
                           setIndexVal(indexVal - 1)
                         }
                       }}>
-                        <ArrowLeftIcon className="h-6 w-6 text-heading" />
+                        <ArrowLeftIcon className="h-4 w-4 text-heading" />
                       </p>
                     }
-                    <p className="text-sm cursor-pointer" onClick={() => {
+                    <p className="text-xs cursor-pointer" onClick={() => {
                       if (indexVal !== manageMessages.length - 1) {
                         getCoversationMessages(manageMessages[indexVal + 1].id)
                         setIndexVal(indexVal + 1)
@@ -525,7 +526,7 @@ const Logs = () => {
                         getCoversationMessages(manageMessages[0].id)
                       }
                     }}>
-                      <ArrowRightIcon className="h-6 w-6 text-heading" />
+                      <ArrowRightIcon className="h-4 w-4 text-heading" />
                     </p>
                   </div>
                 </div>

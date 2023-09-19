@@ -171,29 +171,29 @@ const Page = () => {
     <>
       <div className="border-b border-primary ">
         <div className="flex items-center justify-between gap-4 sm:gap-0">
-          <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500 headerAlignment">
+          <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-semibold text-center text-gray-500 headerAlignment">
             <li className="mr-2" onClick={() => { setTab(0) }}>
               <span
-                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2  font-bold rounded-t-lg active   ${tab === 0 && ("border-b-2 text-primary border-primary")}rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <QrCodeIcon className="h-5 w-5 text-gray-500" /> Customize Bot
+                <QrCodeIcon className="h-4 w-4 text-gray-500" /> Customize Bot
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(1) }}>
               <span
-                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 1 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 1 && ("border-b-2 text-primary border-primary")}  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Additional Settings
+                <WrenchScrewdriverIcon className="h-4 w-4 text-gray-500" /> Additional Settings
               </span>
             </li>
             <li className="mr-2" onClick={() => { setTab(2) }}>
               <span
-                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                className={`h-[40px] flex justify-start gap-2 items-center  py-2 font-bold rounded-t-lg active   ${tab === 2 && ("border-b-2 text-primary border-primary")}  rounded-t-lg active  group`}
                 aria-current="page"
               >
-                <CalendarDaysIcon className="h-5 w-5 text-gray-500" /> Scheduling
+                <CalendarDaysIcon className="h-4 w-4 text-gray-500" /> Scheduling
               </span>
             </li>
           </ul>

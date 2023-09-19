@@ -67,7 +67,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                 <div className={`shadow-lg w-full sm:w-[700px] relative flex flex-col pl-8 pr-8 ${knowledgeData.length < 2 && "h-[100%]"}`}>
                     <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                         <div className='flex flex-1'>
-                            <h2 className='font-bold text-lg'>Manage sources</h2>
+                        <h1 className='text-heading text-sm font-semibold'>Manage sources</h1>
                         </div>
                         <div className='flex justify-end gap-2'>
                             <div className='cursor-pointer' onClick={(e) => setCreateOptions(null)}>

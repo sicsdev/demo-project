@@ -11,7 +11,7 @@ import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
 const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData }) => {
-console.log(formData)
+    console.log(formData)
 
     const [customFields, setCustomFields] = useState({});
     const [loading, setLoading] = useState(false);
@@ -178,18 +178,18 @@ console.log(formData)
     return (
         <>
             <div className="block sm:flex items-center justify-between">
-                <div class="flex items-center gap-2 mt-8">
+                <div class="flex items-center gap-2 ">
                     <span
                         className="text-[#b3b3b3] cursor-pointer"
                         onClick={() => setIntegrationform(false)}
                     >
                         <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg>
                     </span>
-                    <p class="text-black-color text-xl font-semibold">
+                    <p class="text-black-color text-sm font-semibold">
                         Configure {integrationFormData?.name}
                     </p>
                 </div>
-                <div class="text-center my-3 flex justify-between items-center gap-3 ">
+                <div>
                     {integrationFormData?.checked === true && (
 
                         <p
@@ -218,31 +218,32 @@ console.log(formData)
             </div>
 
             <div className="pt-8">
-                <div class="grid grid-cols-1 md:grid-cols-5">
-                    <div class="col-span-1 md:col-span-4 bg-red-300">
+                <div class="grid grid-cols-1 md:grid-cols-[80%,20%] items-center">
+                    <div className="">
                         <div className="sm:mr-8">
                             <form>
-                                
+
                                 {Object.keys(formData).map((key) => (
-                                    <div className='my-2' key={key}>
-                                        <TextField
-                                            onChange={(e) => handleIntegrationInputChange(e)}
-                                            value={payloadData?.data[key] || ''}
-                                            name={key}
-                                            autoComplete={'off'}
-                                            labelClass={"font-bold mb-2"}
-                                            className="py-3 mt-2"
-                                            title={convertToTitleCase(key)}
-                                            placeholder={convertToTitleCase(key)}
-                                            type={"text"}
-                                            id={key}
-                                            disabled={formData[key]}
-                                            handleInputFocus={(e) => handleInputFocus(e, key)}
-                                            onKeyDown={handleDeleteKeyPress}
-                                        // disabled
-                                        />
-                                    </div>
-                                ))}
+                                   formData[key] ? null : (
+                                        <div className='my-2' key={key}>
+                                            <TextField
+                                                onChange={(e) => handleIntegrationInputChange(e)}
+                                                value={payloadData?.data[key] || ''}
+                                                name={key}
+                                                autoComplete={'off'}
+                                                labelClass={"font-bold mb-2"}
+                                                className="py-3 mt-2"
+                                                title={convertToTitleCase(key)}
+                                                placeholder={convertToTitleCase(key)}
+                                                type={"text"}
+                                                id={key}
+                                                disabled={formData[key]}
+                                                handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                onKeyDown={handleDeleteKeyPress}
+                                            // disabled
+                                            />
+                                        </div>
+                                    )))}
                                 {/* {loading ? (
                                     <LoaderButton />
                                 ) : (
@@ -259,10 +260,10 @@ console.log(formData)
                             </form>
                         </div>
                     </div>
-                    <div class="col-span-4 md:col-span-1 bg-blue-300">
+                    <div className="">
                         <div className="bg-[#F9F9F9] p-5 rounded-md mt-5 sm:mt-0">
                             <p className="font-semibold text-sm mb-2">Need help?</p>
-                            <Link href={`${help?.link}`} className="font-normal text-sm flex items-center gap-2 hover:text-primary">
+                            <Link href={`${help?.link}`} className="font-normal text-xs flex items-center gap-2 hover:text-primary">
                                 <BookOpenIcon className="h-4 w-4 text-gray-500" />
                                 <span className="">{help?.ele} Guide</span>
                             </Link>

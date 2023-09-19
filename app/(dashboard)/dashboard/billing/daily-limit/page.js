@@ -160,7 +160,7 @@ const UsageLimit = () => {
                   View usage records
                 </Link>
               </p>
-              <p className="text-sm py-2">${totalUsage}.00</p>
+              <p className="text-sm py-2">${totalUsage}</p>
 
               {btnLoading ? (
                 <LoaderButton />
