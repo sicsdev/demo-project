@@ -20,10 +20,15 @@ const Chat = ({ messages, selectedBot }) => {
                 setBotUnique(filterBot)
             }
         }
+
     }, [bot])
 
     const copyMessageText = (text) => {
         navigator?.clipboard?.writeText(text)
+    }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
     return (
@@ -65,9 +70,157 @@ const Chat = ({ messages, selectedBot }) => {
                                                         src={`${botUnique?.enterprise?.logo ||
                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                     <div className="answer_text_div">
-                                                        <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
-                                                            <div className="title-element-right" style={{ display: "none" }}>14:11</div>{element.content}
-                                                        </div>
+                                                        {/* <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}> */}
+                                                        <div className="title-element-right" style={{ display: "none" }}>14:11</div>
+
+                                                        {
+                                                            element.content === 'HUMAN-HANDOFF' &&
+                                                            <>
+                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
+                                                                </div>
+                                                            </>
+                                                        }
+
+                                                        {
+                                                            element.content === 'OPTIONS' &&
+                                                            <>
+                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+
+                                                                    Could you please clarify how I can best help you?
+                                                                </div>
+                                                            </>
+                                                        }
+
+
+                                                        {
+                                                            element.content === 'FORM' &&
+                                                            <>
+                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    No problem, I can help you with that! Could you please provide the following information:
+                                                                </div>
+                                                            </>
+                                                        }
+
+                                                        {
+                                                            element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' &&
+
+                                                            <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                {element.content}
+                                                            </div>
+                                                        }
+
+
+
+
+                                                        {/* </div> */}
+
+
+
+                                                        {/* BUTTONS AND HELPERS FOR WORKFLOWS BELOW TEXT */}
+
+                                                        {
+                                                            element.content === 'HUMAN-HANDOFF' &&
+                                                            <><div className="attention_required_answer">
+                                                                <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
+                                                                <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
+                                                            </div>
+                                                            </>
+                                                        }
+
+                                                        {
+                                                            element.content === 'OPTIONS' &&
+                                                            <>
+                                                                <div className="tempo-widget-options-container">
+                                                                    {Object.keys(element.actions.options).map((key, index) =>
+                                                                        <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
+                                                                            ({index + 1}) {element.actions.options[key]}
+                                                                        </button>
+                                                                    )}
+                                                                </div>
+                                                            </>
+                                                        }
+
+
+                                                        {
+                                                            element.content === 'FORM' &&
+
+                                                            <>
+                                                                <div className="component_answer" style={{ width: '300px' }}></div>
+                                                                <div className="tempo-widget-custom-form">
+                                                                    {Object.keys(element.actions).map(key => {
+                                                                        const elementData = element.actions[key];
+                                                                        const elementId = `tempo-widget-custom-form-${key}`;
+
+                                                                        return (
+                                                                            <div key={key}>
+                                                                                <label className="tempo-widget-custom-form-label">
+                                                                                    {capitalizeFirstLetter(elementData.name)}
+                                                                                </label>
+
+                                                                                {elementData.type === "select" && (
+                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                        <button
+                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                            data-value="Yes"
+                                                                                            id={`custom-form-yes-button-${key}`}
+                                                                                        >
+                                                                                            Yes
+                                                                                        </button>
+                                                                                        <button
+                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                            data-value="No"
+                                                                                            id={`custom-form-no-button-${key}`}
+                                                                                        >
+                                                                                            No
+                                                                                        </button>
+                                                                                    </div>
+                                                                                )}
+
+                                                                                {elementData.type === "multiselect" && (
+                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                        {elementData.options.map(option => (
+                                                                                            <button
+                                                                                                key={`${key}_${elementData.name}_${option}`}
+                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                data-value={option}
+                                                                                                id={`${key}_${elementData.name}_${option}`}
+                                                                                            >
+                                                                                                {option}
+                                                                                            </button>
+                                                                                        ))}
+                                                                                    </div>
+                                                                                )}
+
+                                                                                {elementData.type === "str" && (
+                                                                                    <input
+                                                                                        type="text"
+                                                                                        id={elementId}
+                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
+                                                                                        placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
+                                                                                        disabled
+                                                                                    />
+                                                                                )}
+
+                                                                                {elementData.type === "date" && (
+                                                                                    <input
+                                                                                        type="date"
+                                                                                        id={elementId}
+                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
+                                                                                        placeholder={elementData.default || ""}
+                                                                                        name={elementData.name}
+                                                                                        disabled
+                                                                                    />
+                                                                                )}
+                                                                            </div>
+                                                                        );
+                                                                    })}
+                                                                </div>
+
+                                                            </>
+
+
+                                                        }
                                                     </div>
                                                     <div className="chatBotWidgetThumbs">
                                                         {/* <div className="chatBotWidgetThumbs_thumb_up">
@@ -92,18 +245,43 @@ const Chat = ({ messages, selectedBot }) => {
                                                             </svg>
                                                         </button>
                                                     </div>
-                                                </div>
+
+
+                                                </div >
                                             )}
                                         {element.sender === 'user' &&
                                             (
-                                                <div className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>{element.content}
+                                                <div className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+
+                                                    {
+                                                        element.content === 'WORKFLOW' &&
+                                                        <>
+                                                            User selected 1
+                                                        </>
+                                                    }
+
+                                                    {
+                                                        element.content === 'INFORMATION' &&
+                                                        <>
+                                                            User selected 2
+                                                        </>
+                                                    }
+
+                                                    {
+                                                        element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' &&
+                                                        <>
+                                                            {element.content}
+                                                        </>
+                                                    }
+
+
                                                     <div className="title-element-left" style={{ display: "none" }}>14:11</div>
                                                 </div>
                                             )}
 
                                     </>
                                 )}
-                            </div>
+                            </div >
 
                         </div>
                     </div>
