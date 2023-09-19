@@ -130,7 +130,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
-                successMessage(message);
+                // successMessage(message);
             } else {
                 errorMessage(configureIntegration.response.data.error);
             }
@@ -148,7 +148,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                 dispatch(fetchIntegrations())
                 setIntegrationform(false);
 
-                successMessage('Integration Deleted Successfully!');
+                // successMessage('Integration Deleted Successfully!');
             }
         } catch (error) {
             setLoading(false);

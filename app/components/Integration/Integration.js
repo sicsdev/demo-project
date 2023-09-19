@@ -182,7 +182,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 setLoading(false);
                 setShow(false);
                 fetchIntegrations();
-                successMessage(message);
+                // successMessage(message);
                 router.push(`${pathname}`);
             } else {
                 setLoading(false);

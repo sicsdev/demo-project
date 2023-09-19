@@ -26,7 +26,7 @@ const Page = () => {
       forgotPassword({ email: email })
         .then((res) => {
 
-          successMessage("Please check your email for reset instructions")
+          // successMessage("Please check your email for reset instructions")
           router.push(`/forgot-password/recovery?email=${email}`)
         })
         .catch(() => {

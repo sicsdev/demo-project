@@ -118,7 +118,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
                 ]);
             }
             if (configureIntegration?.status === 201 || configureIntegration?.status === 200) {
-                successMessage(message);
+                // successMessage(message);
                 if (currentStep < tiles.length - 1) {
                     setCurrentStep(currentStep + 1);
                     performIntegrationTask(tiles[currentStep + 1])

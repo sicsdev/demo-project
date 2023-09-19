@@ -88,7 +88,7 @@ const UsageLimit = () => {
       });
       if (response.status === 200) {
         // Swal.fire("Success", "Updated Form", "success");
-        successMessage("Form updated successfully")
+        // successMessage("Form updated successfully")
         setBtnLoading(false);
       } else {
         setBtnLoading(false);

@@ -247,7 +247,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
         if (deleteWorkFlow.status === 204) {
             fetchData();
             setData(filterData)
-            successMessage("Workflow deleted successfully")
+            // successMessage("Workflow deleted successfully")
         }
     }
 
@@ -271,7 +271,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
             !payload.logo && delete payload.logo;
             const updateWorkflow = await updateWorkFlowStatus(payload, element?.id);
             if (updateWorkflow?.status === 201 || updateWorkflow?.status === 200) {
-                successMessage("Workflow Disabled Successfully!");
+                // successMessage("Workflow Disabled Successfully!");
                 fetchData();
             } else {
                 errorMessage("Unable to Proceed!");

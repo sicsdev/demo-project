@@ -124,7 +124,7 @@ const Page = () => {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
-                successMessage("Question Deleted Successfully");
+                // successMessage("Question Deleted Successfully");
                 setDeleteLoader(null)
             } else {
                 errorMessage("Unable to Delete!");

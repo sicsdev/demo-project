@@ -41,7 +41,7 @@ const Page = () => {
     if (!validateForm()) return;
     recoveryPassword(form)
       .then((res) => {
-        successMessage("Password reset successfully")
+        // successMessage("Password reset successfully")
         router.push(`/login`)
       })
       .catch(() => {

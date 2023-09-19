@@ -37,7 +37,7 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
            errorMessage(response?.data?.message)
             setLoading(false)
         } else {
-            successMessage(response?.data?.message)
+            // successMessage(response?.data?.message)
             setLoading(false)
             getBillingData()
             setShowBilling(false)

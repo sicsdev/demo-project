@@ -63,7 +63,7 @@ const EditKnowledgeCenter = ({
       singleKnowledgeData.id
     );
     if (response.status === 201 || response.status === 200) {
-      successMessage(singleKnowledgeData.source + " Updated Successfully !");
+      // successMessage(singleKnowledgeData.source + " Updated Successfully !");
       setLoading(false);
       isClose();
       const knowledgeIndex = knowledge.findIndex(
