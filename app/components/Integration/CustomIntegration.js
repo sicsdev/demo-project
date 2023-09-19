@@ -178,7 +178,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     return (
         <>
             <div className="block sm:flex items-center justify-between">
-                <div class="flex items-center gap-2 ">
+                <div class="flex items-center gap-2 mb-2 sm:mb-0">
                     <span
                         className="text-[#b3b3b3] cursor-pointer"
                         onClick={() => setIntegrationform(false)}
@@ -217,7 +217,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                 </div>
             </div>
 
-            <div className="pt-8">
+            <div className="sm:pt-8 pt-2">
                 <div class="grid grid-cols-1 md:grid-cols-[80%,20%] items-center">
                     <div className="">
                         <div className="sm:mr-8">
@@ -263,8 +263,8 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                     <div className="">
                         <div className="bg-[#F9F9F9] p-5 rounded-md mt-5 sm:mt-0">
                             <p className="font-semibold text-sm mb-2">Need help?</p>
-                            <Link href={`${help?.link}`} className="font-normal text-xs flex items-center gap-2 hover:text-primary">
-                                <BookOpenIcon className="h-4 w-4 text-gray-500" />
+                            <Link href={`${help?.link}`} className="font-normal text-xs flex items-start gap-2 hover:text-primary">
+                                <BookOpenIcon className="mt-[1px] h-4 w-4 text-gray-500" />
                                 <span className="">{help?.ele} Guide</span>
                             </Link>
                         </div>
