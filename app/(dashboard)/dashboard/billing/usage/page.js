@@ -1,5 +1,5 @@
 'use client'
-import { ChevronLeftIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
+import { BoltIcon, ChevronLeftIcon, ChevronUpIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline'
 import { ChevronRightIcon, TicketIcon } from '@heroicons/react/24/solid'
 import React, { useState } from 'react'
 import {
@@ -167,104 +167,113 @@ const UsageLimit = () => {
         <TopBar title={`Usage`} icon={<CurrencyDollarIcon className="h-5 w-5 text-primary" />} />
       </div>
       {loading ? <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
-        <Card>
-          <div className='w-full'>
+        <div className='bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5'>
+          <div className='w-full py-4 px-6'>
             <SkeletonLoader count={1} height={20} width={"30%"} />
             <SkeletonLoader count={2} height={10} width={"100%"} />
             <SkeletonLoader count={1} height={30} width={"100%"} />
             <SkeletonLoader count={1} height={30} width={80} />
           </div>
-          <div className='my-4 w-full'>
+          <div className='my-4 w-full py-4 px-6'>
             <SkeletonLoader count={1} height={20} width={150} />
             <SkeletonLoader count={4} height={10} width={"100%"} />
           </div>
-          <div className='w-full'>
+          <div className='w-full py-4 px-6'>
             <SkeletonLoader count={1} height={15} width={80} />
             <SkeletonLoader count={1} height={20} width={100} />
           </div>
-          <div className='my-2 w-full'>
+          <div className='my-2 w-full py-4 px-6'>
             <SkeletonLoader count={10} height={30} width={"100%"} />
           </div>
-        </Card>
+        </div>
       </div> :
         <div>
           {data ?
-
-            <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
-              <Card>
-                <h3 className="font-bold text-sm sm:leading-none my-2 text-heading">
-                  Billing Threshold
-                </h3>
-                <p className="text-xs my-2">
-                  Your payment method on file will be charged each time your usage
-                  hits your threshold. Your threshold is adjusted automatically
-                  based on your usage. You can also edit it here.
-                </p>
-                <div className="relative">
-                  <TextField
-                    onChange={handleInputValues}
-                    value={formData}
-                    name="billing_thresholds"
-                    className="py-3 mt-2  !pl-[23px]"
-                    title={""}
-                    placeholder={""}
-                    type={"number"}
-                    id={"billing_thresholds"}
-                    paddingleft={"pl-6"}
-                  />
-                  {error ? (
-                    <span className="text-[#ff0000] text-xs">
-                      Please enter a whole number between 50 and $10,000.
-                    </span>
-                  ) : (
-                    ""
-                  )}
-                  <span className="absolute top-[9px] left-[14px] text-[12px]">$</span>
-                </div>
-
-
-                <>
-                  <Button
-                    type={"button"}
-                    className="inline-block mt-3 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                    disabled={btnLoading === true}
-                    onClick={(e) => SubmitForm()}
-                  >
-                    {btnLoading ? "Loading..." : "Save"}
-                  </Button>
-                </>
-
-
-                <h3 className="font-bold text-sm sm:leading-none mt-4 mb-2 text-heading">
-                  Current usage
-                </h3>
-                <p className="text-xs mb-2">
-                  Your total usage so far in {currentMonth} (UTC). Note that this may include
-                  usage covered by a free trial or other credits, so your monthly
-                  bill might be less than the value shown here.{" "}
-                  <Link
-                    className="text-primary hover:text-border font-medium"
-                    href={"/dashboard/billing/usage"}
-                  >
-                    View usage records
-                  </Link>
-                </p><p className='text-xs my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
-
-                <p className="text-sm ">${totalUsage}</p>
-                <div className='flex justify-between items-center my-3'>
-                  <div className='flex justify-between items-center gap-8'>
-                    <p className='font-bold text-lg'>{curretYear}</p>
+            <>
+              <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                  <div className="flex items-start sm:items-center  gap-2">
+                    {/* <BoltIcon className="text-[#FF822D] w-5" /> */}
+                    <p className="text-base font-medium text-[#151D23]">Billing Threshold</p>
                   </div>
+                  <div className="flex items-center gap-4 "></div>
                 </div>
-                <Bar
-                  data={data}
-                  options={options}
-                />
+                <div className={`overflow-hidden visible h-auto py-4 px-6`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                  <p className="text-xs my-2">
+                    Your payment method on file will be charged each time your usage
+                    hits your threshold. Your threshold is adjusted automatically
+                    based on your usage. You can also edit it here.
+                  </p>
+                  <div className="relative">
+                    <TextField
+                      onChange={handleInputValues}
+                      value={formData}
+                      name="billing_thresholds"
+                      className="py-3 mt-2  !pl-[23px]"
+                      title={""}
+                      placeholder={""}
+                      type={"number"}
+                      id={"billing_thresholds"}
+                      paddingleft={"pl-6"}
+                    />
+                    {error ? (
+                      <span className="text-[#ff0000] text-xs">
+                        Please enter a whole number between 50 and $10,000.
+                      </span>
+                    ) : (
+                      ""
+                    )}
+                    <span className="absolute top-[13px] sm:top-[9px] left-[14px] text-[12px]">$</span>
+                  </div>
 
 
-              </Card>
-            </div>
+                  <>
+                    <Button
+                      type={"button"}
+                      className="inline-block mt-3 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      disabled={btnLoading === true}
+                      onClick={(e) => SubmitForm()}
+                    >
+                      {btnLoading ? "Loading..." : "Save"}
+                    </Button>
+                  </>
 
+
+                  <h3 className="font-bold text-sm sm:leading-none mt-4 mb-2 text-heading">
+                    Current usage
+                  </h3>
+                  <p className="text-xs mb-2">
+                    Your total usage so far in {currentMonth} (UTC). Note that this may include
+                    usage covered by a free trial or other credits, so your monthly
+                    bill might be less than the value shown here.{" "}
+                    {/* <Link
+                      className="text-primary hover:text-border font-medium"
+                      href={"/dashboard/billing/usage"}
+                    >
+                      View usage records
+                    </Link> */}
+                  </p><p className='text-xs my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
+
+                  <p className="text-sm ">${totalUsage}</p>
+                  <div className='flex justify-between items-center my-3'>
+                    <div className='flex justify-between items-center gap-8'>
+                      <p className='font-bold text-lg'>{curretYear}</p>
+                    </div>
+                  </div>
+                  <Bar
+                    data={data}
+                    options={options}
+                  />
+                </div>
+              </div>
+              {/* <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
+                <Card>
+
+
+
+                </Card>
+              </div> */}
+            </>
             :
             <div>
               <p className='mt-6 text-sm text-[#9CA3AF]'>No usage data</p>

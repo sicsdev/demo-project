@@ -46,8 +46,12 @@ export const EmbedCard = ({
 
   const [isEmbedEnabled, setIsEmbedEnabled] = useState(false);
 
-  const toggleEmbed = () => {
-    setIsEmbedEnabled((prev) => !prev);
+  const toggleEmbed = (type) => {
+    if (type === 'embed') {
+      setIsEmbedEnabled(true);
+    } else {
+      setIsEmbedEnabled(false);
+    }
   };
 
   const divRef = useRef(null);
@@ -83,10 +87,11 @@ export const EmbedCard = ({
                 <WrenchScrewdriverIcon className="h-5 w-5 text-white" />
               </button>
             </Link>
-            <div className="flex items-center justify-end mx-5 my-2 pointer" onClick={toggleEmbed} style={{ cursor: "pointer" }}>
+            <div className="flex items-center justify-end mx-5 my-2 pointer" style={{ cursor: "pointer" }}>
               <span
                 className={`text-sm px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
                   }`}
+                onClick={(e) => toggleEmbed('embed')}
               >
                 Embed
               </span>
@@ -94,8 +99,9 @@ export const EmbedCard = ({
               <span
                 className={`text-sm px-1 ml-1 ${!isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
                   }`}
+                onClick={(e) => toggleEmbed('chat')}
               >
-                Chat
+                Widget
               </span>
             </div>
           </div>
@@ -104,7 +110,7 @@ export const EmbedCard = ({
           <div className="my-2">
             <div className='my-3'>
 
-              <small>Add this code to the head section of your website's HTML</small>
+              <small>Add this code to the head section of your website's HTML:</small>
             </div>
             <CodeMirror
               value={isEmbedEnabled ? embedCode.trim() : code.trim()}
@@ -170,7 +176,7 @@ export const EmbedCard = ({
               <div className='mt-5'>
                 <hr className='opacity-10 my-2'></hr>
                 <div className='my-3'>
-                  <small>Add this code to the HTML where you want display the Tempo chat</small>
+                  <small>Add this code to the HTML where you want display the Tempo chat:</small>
                 </div>
                 <CodeMirror
                   value={`<div id="chatbot_widget"></div>`}
