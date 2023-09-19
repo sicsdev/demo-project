@@ -60,7 +60,7 @@ const Chat = ({ messages, selectedBot }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="chat_content">
+                            <div className="chat_content" style={{maxHeight: '60vh'}}>
                                 {messages.map((element, key) =>
                                     <>
                                         {element.sender === 'bot' &&
