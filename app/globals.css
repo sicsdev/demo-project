@@ -55,6 +55,7 @@ select {
 .multiselect-container input.searchBox {
   opacity: 0;
 }
+
 @media(max-width:990px) {
   body select:focus {
     font-size: 16px !important;
@@ -354,17 +355,15 @@ body .searchWrapper-live .searchWrapper {
 
 body .chip {
   font-size: 10px;
-  text-align: center;
-  justify-content: center;
   line-height: 16px;
   margin-bottom: 4px;
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
-  margin-right: 3px;
-  margin-top: 3px;
-  padding: 3px 12px;
   word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 7px;
   width: 100px;
 }
 
@@ -1283,6 +1282,32 @@ body .cursor-pointer {
   margin-left: 37px;
 }
 
-.rdt_TableRow{
+.rdt_TableRow {
   padding: 12px 0;
+}
+
+body .rhap_container {
+  box-shadow: none !important;
+  background-color: #fff;
+}
+
+body .rhap_time {
+  font-size: 12px !important;
+}
+
+body .rhap_progress-filled,
+.rhap_download-progress,
+.rhap_progress-indicator,
+.rhap_progress-bar-show-download {
+  background-color: #0057ff !important;
+}
+
+body .rhap_main-controls-button {
+  color: #0057ff;
+}
+.closeIcon {
+  cursor: pointer;
+  float:none;
+  height: 13px;
+  margin-left: 0;
 }

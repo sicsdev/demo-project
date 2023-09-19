@@ -16,7 +16,8 @@ import Modal from '../Common/Modal/Modal';
 import TextArea from '../Common/Input/TextArea';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import SkeletonLoader from '../Skeleton/Skeleton';
-
+import AudioPlayer from 'react-h5-audio-player';
+import 'react-h5-audio-player/lib/styles.css';
 const PhoneHandle = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state.botId);
@@ -69,7 +70,6 @@ const PhoneHandle = () => {
     const EnterprisePhoneNumber = async () => {
         setPageLoading(true)
         const response = await getMyPhoneNumbers()
-        debugger
         if (response?.results?.length > 0) {
             setPhoneNumbers(response);
             let data = response.results[0]?.bots.map((ele, key) => {
@@ -107,6 +107,8 @@ const PhoneHandle = () => {
                     checked: false
                 }
             })
+
+            SubmitForm('toggle', false)
         } else {
             setBasicField(prev => {
                 return {
@@ -114,7 +116,9 @@ const PhoneHandle = () => {
                     checked: true
                 }
             })
+            SubmitForm('toggle', true)
         }
+
     }
     const handleInput = (e) => {
         const { value, name } = e.target
@@ -141,7 +145,7 @@ const PhoneHandle = () => {
         }
         return "";
     }
-    const SubmitForm = async (type) => {
+    const SubmitForm = async (type, checked = false) => {
         let payload = {}
         let id = null
         switch (type) {
@@ -187,6 +191,13 @@ const PhoneHandle = () => {
                 }
                 id = basicField?.id
                 break;
+
+            case "toggle":
+                payload = {
+                    active: checked
+                }
+                id = basicField?.id
+                break;
             default:
                 break;
         }
@@ -194,9 +205,9 @@ const PhoneHandle = () => {
         const response = await updatePhoneNumberData(payload, id)
         if (response.status === 200) {
             if (type === "phone") {
-                successMessage("Phonenumber Submited ! ")
+                // successMessage("Phonenumber Submited ! ")
             } else {
-                successMessage("Greeting submitted !")
+                // successMessage("Greeting submitted !")
             }
             setModal(false)
             setAudioModal(false)
@@ -239,7 +250,6 @@ const PhoneHandle = () => {
                         'audioName': file.name
                     };
                     setBasicFormData(updatedData);
-                    setAudioModal(false)
                 } else {
                     setBasicField((prev) => {
                         return {
@@ -293,11 +303,22 @@ const PhoneHandle = () => {
                                 <p className='text-sm  text-heading font-normal'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>}
                         </div>
                     </div>
-                    <div className='p-5 grid grid-cols-1 sm:grid-cols-2  justify-between items-center'>
+                    <div className='p-5 grid grid-cols-1 sm:grid-cols-3  justify-between items-center'>
                         {pageLoading ?
                             <SkeletonLoader count={1} height={20} width={"20%"} /> :
                             <h3 className='text-sm font-semibold text-heading'>Greeting message</h3>}
-                        <div className='mt-2 sm:m-0 md:m-0 lg:m-0 sm:text-end  '>
+                        {basicField?.audioName && (
+                            <div className='px-6 my-2'>
+                                <AudioPlayer
+                                    header={<p className='text-sm whitespace-nowrap'>{basicField?.audioName}</p>}
+                                    customVolumeControls={[]}
+                                    customAdditionalControls={[]}
+                                    src={basicField.audio}
+                                    showSkipControls={false}
+                                    showJumpControls={false} />
+                            </div>
+                        )}
+                        <div className={`${!basicField?.audioName && ("col-span-2")} mt-2 sm:m-0 md:m-0 lg:m-0 sm:text-end`}>
                             {!pageLoading ?
                                 <div className="inline-flex rounded-md shadow-sm w-full sm:w-auto" role="group">
                                     <button onClick={() => {
@@ -324,7 +345,7 @@ const PhoneHandle = () => {
                     <hr className='mt-1 mb-6 text-border' />
 
                     <div className='px-5'>
-                        <div className='grid grid-cols-[90%,10%] justify-between items-center'>
+                        <div className={`grid grid-cols-[90%,10%] justify-between items-center ${basicField?.checked === false && ("mb-6")}`}>
                             {pageLoading ?
                                 <div>
                                     <SkeletonLoader count={1} height={20} width={"20%"} />
@@ -349,181 +370,186 @@ const PhoneHandle = () => {
                         </div>
 
                     </div>
-                    <hr className='mt-6 text-border' />
-                    <div className='p-5'>
-                        <div className='grid justify-between grid-cols-1 sm:grid-cols-2 items-center'>
-                            {pageLoading ?
-                                <div>
-                                    <SkeletonLoader count={1} height={20} width={"20%"} />
-                                    <SkeletonLoader count={1} height={10} width={"80%"} />
-                                </div> :
-                                <div className=''>
-                                    <h3 className='text-sm font-semibold text-heading'>Menu Options</h3>
-                                    <p className='text-xs font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
-                                </div>
-                            }
-                            <div>
 
-                            </div>
-                        </div>
-                        <div>
-                            {pageLoading ?
-                                <div className='grid grid-cols-1 sm:grid-cols-5 gap-2'>
-                                    <div>
-                                        <SkeletonLoader count={1} height={15} width={"20%"} />
-                                        <SkeletonLoader count={1} height={30} width={"100%"} />
-                                    </div>
-                                    <div>
-                                        <SkeletonLoader count={1} height={15} width={"20%"} />
-                                        <SkeletonLoader count={1} height={30} width={"100%"} />
-                                    </div>
-                                    <div>
-                                        <SkeletonLoader count={1} height={15} width={"20%"} />
-                                        <SkeletonLoader count={1} height={30} width={"100%"} />
-                                    </div>
-                                    <div>
-                                        <SkeletonLoader count={1} height={15} width={"20%"} />
-                                        <SkeletonLoader count={1} height={30} width={"100%"} />
-                                    </div>
-                                    <div>
-                                        <SkeletonLoader count={1} height={15} width={"20%"} />
-                                        <SkeletonLoader count={1} height={30} width={"45%"} />
-                                    </div>
-                                </div> :
-                                <>
-                                    {basicFormData.map((element, key) =>
-                                        <div key={key} className='block sm:flex md:flex lg:flex justify-between items-center gap-3'>
-                                            <div className='w-full sm:w-[40px] md:w-[40px] lg:w-[40px]'>
-                                                <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
-                                                <SelectOption
-                                                    onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
-                                                    value={element?.options ?? ''}
-                                                    name="options"
-                                                    values={[
-                                                        { "name": "0", "value": 0 },
-                                                        { "name": "1", "value": 1 },
-                                                        { "name": "2", "value": 2 },
-                                                        { "name": "3", "value": 3 },
-                                                        { "name": "4", "value": 4 },
-                                                        { "name": "5", "value": 5 },
-                                                        { "name": "6", "value": 6 },
-                                                        { "name": "7", "value": 7 },
-                                                        { "name": "8", "value": 8 },
-                                                        { "name": "9", "value": 9 }
-                                                    ]}
-                                                    id={"options"}
-                                                    className="py-2]"
-                                                    error={""}
-                                                    optionDisabled={basicFormData.map((ele) => ele.options)}
-                                                />
 
-                                            </div>
-                                            <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
-                                                <SelectOption
-                                                    onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
-                                                    value={element?.bots ?? ''}
-                                                    name="bots"
-                                                    values={botValue}
-                                                    id={"bots"}
-                                                    className="py-2 "
-                                                    title={
-                                                        <h3 className='font-bold my-2 text-sm text-heading'>Select Bot</h3>}
-                                                    error={""}
-                                                    optionDisabled={basicFormData.map((ele) => ele.bots)}
-                                                />
-                                            </div>
-                                            <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
-                                                <SelectOption
-                                                    onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
-                                                    value={element?.voice ?? ''}
-                                                    name="voice"
-                                                    values={[{ name: 'Rachel', value: "rachel" }, { name: "Adam", value: "adam" }]}
-                                                    id={"voice"}
-                                                    className="py-2"
-                                                    title={
-                                                        <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
-                                                    error={""}
-                                                    optionDisabled={basicFormData.map((ele) => ele.voice)}
-                                                /></div>
-                                            <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
-                                                <TextField
-                                                    value={element?.sales ?? ''}
-                                                    name="sales"
-                                                    className="!py-2"
-                                                    title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
-                                                    onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
-                                                    placeholder={"Press key for {field name}"}
-                                                    type={"text"}
-                                                    id={"sales"}
-                                                />
-                                            </div>
-                                            <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%] relative' >
-                                                <label className={`new_input_label block text-sm text-heading `}>
-                                                    <h3 className='font-bold my-2 text-sm text-heading'>Greetings</h3>
-                                                </label>
-                                                <div className='block sm:flex items-center justify-between'>
-                                                    <Button
-                                                        type={"button"}
-                                                        className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                                        onClick={() => {
-                                                            setIndex(key)
-                                                            setAudioModal(true)
-                                                        }}
-                                                    >
-                                                        {element.audioName ? "Update" : "Add"}
-                                                    </Button>
-                                                    {key > 0 && (
-                                                        <button
-                                                            className='font-bold mt-3 sm:mt-0'
-                                                            type='button'
-                                                            onClick={() => { removeNewValue(key) }}
-                                                        >
-                                                            <XMarkIcon className="h-[23px] w-[23px] text-primary font-bold" />
-                                                        </button>
-                                                    )}
-                                                    {botValue.length > basicFormData.length && (
-                                                        <button
-                                                            className='font-bold mt-3 sm:mt-0'
-                                                            type='button'
-                                                            onClick={() => { addNewValue() }}
-                                                        >
-                                                            <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
-                                                        </button>
-                                                    )}
-                                                </div>
-
-                                            </div>
+                    {basicField?.checked === true && (
+                        <>
+                            <hr className='mt-6 text-border' />
+                            <div className='p-5'>
+                                <div className='grid justify-between grid-cols-1 sm:grid-cols-2 items-center'>
+                                    {pageLoading ?
+                                        <div>
+                                            <SkeletonLoader count={1} height={20} width={"20%"} />
+                                            <SkeletonLoader count={1} height={10} width={"80%"} />
+                                        </div> :
+                                        <div className=''>
+                                            <h3 className='text-sm font-semibold text-heading'>Menu Options</h3>
+                                            <p className='text-xs font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
                                         </div>
-                                    )}
-                                </>}
-                            {pageLoading ?
-                                <div className='grid grid-cols-[90%,10%]'>
-                                    <div></div>
-                                    <SkeletonLoader count={1} height={30} width={"100%"} />
-                                </div> :
-                                <div className='flex my-2 justify-end'>
-                                    <Button
-                                        type={"button"}
-                                        className=" inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                        // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
-                                        onClick={(e) => SubmitForm("phone")}
-                                        disabled={basicFormData.some(
-                                            (element) =>
-                                                element?.options === null ||
-                                                element?.bots?.trim() === '' ||
-                                                element?.bots?.trim() === '' ||
-                                                element?.sales?.trim() === '' ||
-                                                element?.voice?.trim() === ''
-                                        )}
-                                    >
-                                        {formLoading === true ? "Loading" : "Submit"}
-                                    </Button>
+                                    }
+                                    <div>
+
+                                    </div>
                                 </div>
-                            }
+                                <div>
+                                    {pageLoading ?
+                                        <div className='grid grid-cols-1 sm:grid-cols-5 gap-2'>
+                                            <div>
+                                                <SkeletonLoader count={1} height={15} width={"20%"} />
+                                                <SkeletonLoader count={1} height={30} width={"100%"} />
+                                            </div>
+                                            <div>
+                                                <SkeletonLoader count={1} height={15} width={"20%"} />
+                                                <SkeletonLoader count={1} height={30} width={"100%"} />
+                                            </div>
+                                            <div>
+                                                <SkeletonLoader count={1} height={15} width={"20%"} />
+                                                <SkeletonLoader count={1} height={30} width={"100%"} />
+                                            </div>
+                                            <div>
+                                                <SkeletonLoader count={1} height={15} width={"20%"} />
+                                                <SkeletonLoader count={1} height={30} width={"100%"} />
+                                            </div>
+                                            <div>
+                                                <SkeletonLoader count={1} height={15} width={"20%"} />
+                                                <SkeletonLoader count={1} height={30} width={"45%"} />
+                                            </div>
+                                        </div> :
+                                        <>
+                                            {basicFormData.map((element, key) =>
+                                                <div key={key} className='block sm:flex md:flex lg:flex justify-between items-center gap-3'>
+                                                    <div className='w-full sm:w-[100px] md:w-[100px] lg:w-[100px]'>
+                                                        <h3 className='font-bold my-2 text-sm text-heading'>Key</h3>
+                                                        <SelectOption
+                                                            onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                            value={element?.options ?? ''}
+                                                            name="options"
+                                                            values={[
+                                                                { "name": "0", "value": 0 },
+                                                                { "name": "1", "value": 1 },
+                                                                { "name": "2", "value": 2 },
+                                                                { "name": "3", "value": 3 },
+                                                                { "name": "4", "value": 4 },
+                                                                { "name": "5", "value": 5 },
+                                                                { "name": "6", "value": 6 },
+                                                                { "name": "7", "value": 7 },
+                                                                { "name": "8", "value": 8 },
+                                                                { "name": "9", "value": 9 }
+                                                            ]}
+                                                            id={"options"}
+                                                            className="py-2]"
+                                                            error={""}
+                                                            optionDisabled={[]}
+                                                        />
 
-                        </div>
-                    </div>
+                                                    </div>
+                                                    <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                        <SelectOption
+                                                            onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                            value={element?.bots ?? ''}
+                                                            name="bots"
+                                                            values={botValue}
+                                                            id={"bots"}
+                                                            className="py-2 "
+                                                            title={
+                                                                <h3 className='font-bold my-2 text-sm text-heading'>Select Bot</h3>}
+                                                            error={""}
+                                                            optionDisabled={[]}
+                                                        />
+                                                    </div>
+                                                    <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                        <SelectOption
+                                                            onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                            value={element?.voice ?? ''}
+                                                            name="voice"
+                                                            values={[{ name: 'Rachel', value: "rachel" }, { name: "Adam", value: "adam" }]}
+                                                            id={"voice"}
+                                                            className="py-2"
+                                                            title={
+                                                                <h3 className='font-bold my-2 text-sm text-heading'>Voice</h3>}
+                                                            error={""}
+                                                            optionDisabled={[]}
+                                                        /></div>
+                                                    <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                        <TextField
+                                                            value={element?.sales ?? ''}
+                                                            name="sales"
+                                                            className="!py-2"
+                                                            title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
+                                                            onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
+                                                            placeholder={"Press key for {field name}"}
+                                                            type={"text"}
+                                                            id={"sales"}
+                                                        />
+                                                    </div>
+                                                    <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%] relative' >
+                                                        <label className={`new_input_label block text-sm text-heading `}>
+                                                            <h3 className='font-bold my-2 text-sm text-heading'>Greeting</h3>
+                                                        </label>
+                                                        <div className='block sm:flex items-center justify-between'>
+                                                            <Button
+                                                                type={"button"}
+                                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                                onClick={() => {
+                                                                    setIndex(key)
+                                                                    setAudioModal(true)
+                                                                }}
+                                                            >
+                                                                {element.audioName ? "Update" : "Add"}
+                                                            </Button>
+                                                            {key > 0 && (
+                                                                <button
+                                                                    className='font-bold mt-3 sm:mt-0'
+                                                                    type='button'
+                                                                    onClick={() => { removeNewValue(key) }}
+                                                                >
+                                                                    <XMarkIcon className="h-[23px] w-[23px] text-primary font-bold" />
+                                                                </button>
+                                                            )}
+                                                            {botValue.length > basicFormData.length && (
+                                                                <button
+                                                                    className='font-bold mt-3 sm:mt-0'
+                                                                    type='button'
+                                                                    onClick={() => { addNewValue() }}
+                                                                >
+                                                                    <PlusSmallIcon className="h-[26px] w-[26px] text-primary  font-bold" />
+                                                                </button>
+                                                            )}
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>}
+                                    {pageLoading ?
+                                        <div className='grid grid-cols-[90%,10%]'>
+                                            <div></div>
+                                            <SkeletonLoader count={1} height={30} width={"100%"} />
+                                        </div> :
+                                        <div className='flex my-2 justify-end'>
+                                            <Button
+                                                type={"button"}
+                                                className=" inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
+                                                onClick={(e) => SubmitForm("phone")}
+                                                disabled={basicFormData.some(
+                                                    (element) =>
+                                                        element?.options === null ||
+                                                        element?.bots?.trim() === '' ||
+                                                        element?.bots?.trim() === '' ||
+                                                        element?.sales?.trim() === '' ||
+                                                        element?.voice?.trim() === ''
+                                                )}
+                                            >
+                                                {formLoading === true ? "Loading" : "Submit"}
+                                            </Button>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -570,7 +596,7 @@ const PhoneHandle = () => {
                     <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
-                                <h2 className='font-bold text-lg'>Greeting message</h2>
+                            <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
                             </div>
                             <div className='flex justify-end gap-2'>
                                 <div className='cursor-pointer' onClick={(e) => {
@@ -603,7 +629,18 @@ const PhoneHandle = () => {
                                                                 <p className='text-xs text-border font-normal'>{basicFormData[index].audioName}</p>
                                                             </>
                                                         )}
-
+                                                        {basicFormData[index].audioName && (
+                                                            <div className='px-6 my-2'>
+                                                                <AudioPlayer style={{
+                                                                    width: '300px'
+                                                                }}
+                                                                    customVolumeControls={[]}
+                                                                    customAdditionalControls={[]}
+                                                                    src={basicFormData[index].audio}
+                                                                    showSkipControls={false}
+                                                                    showJumpControls={false} />
+                                                            </div>
+                                                        )}
                                                     </div>
                                                     <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
 
@@ -625,8 +662,20 @@ const PhoneHandle = () => {
                                                                 <p className='text-xs text-border font-normal'>{basicField?.audioName}</p>
                                                             </>
                                                         )}
-
+                                                        {basicField?.audioName && (
+                                                            <div className='px-6 my-2'>
+                                                                <AudioPlayer style={{
+                                                                    width: '300px'
+                                                                }}
+                                                                    customVolumeControls={[]}
+                                                                    customAdditionalControls={[]}
+                                                                    src={basicField.audio}
+                                                                    showSkipControls={false}
+                                                                    showJumpControls={false} />
+                                                            </div>
+                                                        )}
                                                     </div>
+
                                                     <input id="dropzone-file" type="file" accept="audio/*" onChange={handleFileSelect} className="hidden" />
 
 
@@ -659,7 +708,7 @@ const PhoneHandle = () => {
                     <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
-                                <h2 className='font-bold text-lg'>Greeting message</h2>
+                            <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
                             </div>
                             <div className='flex justify-end gap-2'>
                                 <div className='cursor-pointer' onClick={(e) => {

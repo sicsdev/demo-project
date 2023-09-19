@@ -24,6 +24,7 @@ import { fetchBot } from "@/app/components/store/slices/botIdSlice";
 import TextField from '@/app/components/Common/Input/TextField'
 import { makeCapital } from '@/app/components/helper/capitalName'
 import TextArea from '@/app/components/Common/Input/TextArea'
+import SideModal from '@/app/components/SideModal/SideModal'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -772,20 +773,19 @@ const GetStarted = () => {
         </RightSidebar>
       }
 
-      {
-        ruleModal === true &&
-        <Modal title={'Add Condition'} show={ruleModal} setShow={setRuleModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+      {ruleModal === true && (
+        <SideModal setShow={setRuleModal} heading={'Add Condition'} >
           <>
             <div className=''>
-              <h3 className="!font-bold text-heading text-md">Conditions</h3>
-              <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
+              <h1 className="font-semibold my-2 text-heading text-sm">Conditions</h1>
+              <p className='text-heading font-normal text-xs'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
             </div>
             <div className=''>
               {conditionFilter?.map((item, key) =>
                 <div className='mt-4 rounded-md' key={key}>
                   <div className='flex justify-between'>
                     <div className='flex items-center justify-center gap-2 text-md font-bold'>
-                      <p>Add Condition</p>
+                    <h1 className="font-semibold text-heading text-sm">Add Condition</h1>
                     </div>
                     {key !== 0 &&
                       <div onClick={(e) => removeActionFilter(key)}>
@@ -881,42 +881,38 @@ const GetStarted = () => {
 
             </div>
           </>
-        </Modal>
-      }
-      {
-        deflectionModal === true &&
-        <Modal title={'Add Deflection'} show={deflectionModal} setShow={setDeflectionModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-          <>
-            {/* <div className=''>
-              <h3 className="!font-bold text-heading text-md">Conditions</h3>
-              <p className='text-heading font-normal text-normal'>Establish conditions that have to be met in order to trigger the next step in the workflow.</p>
-            </div> */}
-            <div className=''>
-              <TextArea name='question' placeholder={"What is your question?"} id={"question"} value={workflowFormData.question} onChange={handleInputValue} title={"Deflection"} />
-              <div className="flex items-center justify-between mt-4">
-                <div></div>
-                <div>
-                  <Button
-                    type={"button"}
-                    disabled={DisablingButton() || rulesLoader}
-                    onClick={() => addConditionalStepHandler({ value: "DEFLECTION" })}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                  >
-                    {rulesLoader ? "Loading..." : "Save"}
-                  </Button>
-                  <Button
-                    className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
-                    onClick={() => { setDeflectionModal(false) }}
-                  >
-                    Cancel
-                  </Button>
-                </div>
-              </div>
 
+
+        </SideModal>
+      )}
+      {deflectionModal === true && (
+        <SideModal setShow={setDeflectionModal} heading={'Add Deflection'} >
+          <div className=''>
+            <TextArea name='question' placeholder={"What is your question?"} id={"question"} value={workflowFormData.question} onChange={handleInputValue} title={"Deflection"} />
+            <div className="flex items-center justify-between mt-4">
+              <div></div>
+              <div>
+                <Button
+                  type={"button"}
+                  disabled={DisablingButton() || rulesLoader}
+                  onClick={() => addConditionalStepHandler({ value: "DEFLECTION" })}
+                  className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                >
+                  {rulesLoader ? "Loading..." : "Save"}
+                </Button>
+                <Button
+                  className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
+                  onClick={() => { setDeflectionModal(false) }}
+                >
+                  Cancel
+                </Button>
+              </div>
             </div>
-          </>
-        </Modal>
-      }
+
+          </div>
+        </SideModal>
+      )}
+
 
       <ToastContainer />
     </>
