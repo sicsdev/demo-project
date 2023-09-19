@@ -166,7 +166,7 @@ const UsageLimit = () => {
       <div style={{ whiteSpace: "normal" }}>
         <TopBar title={`Usage`} icon={<CurrencyDollarIcon className="h-5 w-5 text-primary" />} />
       </div>
-      {loading ? <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
+      {loading ?
         <div className='bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5'>
           <div className='w-full py-4 px-6'>
             <SkeletonLoader count={1} height={20} width={"30%"} />
@@ -186,7 +186,7 @@ const UsageLimit = () => {
             <SkeletonLoader count={10} height={30} width={"100%"} />
           </div>
         </div>
-      </div> :
+        :
         <div>
           {data ?
             <>
@@ -239,9 +239,9 @@ const UsageLimit = () => {
                   </>
 
 
-                  <h3 className="font-bold text-sm sm:leading-none mt-4 mb-2 text-heading">
+                  <h1 className=" text-sm sm:leading-none mt-4 mb-2 text-heading">
                     Current usage
-                  </h3>
+                  </h1>
                   <p className="text-xs mb-2">
                     Your total usage so far in {currentMonth} (UTC). Note that this may include
                     usage covered by a free trial or other credits, so your monthly
@@ -254,7 +254,7 @@ const UsageLimit = () => {
                     </Link> */}
                   </p><p className='text-xs my-2'>Below you'll find a summary of usage for your organization. All dates and times are UTC-based, and data may be delayed up to 24 hours.</p>
 
-                  <p className="text-sm ">${totalUsage}</p>
+                  <p className="text-[16px] font-semibold sm:text-xs ml-[14px]">$ {totalUsage}</p>
                   <div className='flex justify-between items-center my-3'>
                     <div className='flex justify-between items-center gap-8'>
                       <p className='font-bold text-lg'>{curretYear}</p>
