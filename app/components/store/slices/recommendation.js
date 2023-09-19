@@ -4,7 +4,7 @@ const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 const initialState = { isLoading: false, data: null, error: null }
 
 export const fetchRecommendation = createAsyncThunk('recommendation/fetchRecommendation', async () => {
-    const response = await GetAllRecommendations()
+    const response = await GetAllRecommendations()  
     return response
 });
 

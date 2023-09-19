@@ -325,6 +325,7 @@ const Page = () => {
                       setFormData={setFormData}
                       setIntegrationform={setIntegrationform}
                       integrationFormData={integrationFormData}
+                      checked={sendCheckedOrNo(state?.data?.results, integrationFormData?.name)}
                     />
                   </div>
                 </div>
