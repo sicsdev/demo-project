@@ -17,6 +17,7 @@ import { createEnterpriseAccount, enterpriseDomainInitialize } from '@/app/API/p
 import { useRouter } from 'next/navigation';
 import QuickStart from '@/app/components/Dashboard/QuickStart';
 import TopBar from '@/app/components/Common/Card/TopBar';
+import SideModal from '@/app/components/SideModal/SideModal';
 
 const Page = () => {
     const router = useRouter()
@@ -45,7 +46,6 @@ const Page = () => {
         if (bot?.status === 201) {
             const bot_faq = await createBotKnowledge(bot.data.id, { urls: basicFormData.urls });
             const enterprise = await createEnterpriseAccount({ slug_domain: basicFormData.company_name })
-            debugger
             if (bot_faq?.status === 201 && enterprise?.status === 201) {
                 let email_payload = {
                     email: basicFormData.email_prefix + "@" + basicFormData.company_name + '.gettempo.ai',
@@ -107,9 +107,7 @@ const Page = () => {
                 </div>
                 <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} />
                 {showModal === true ?
-                    <Modal alignment={'items-start'} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} show={showModal} setShow={setShowModal}
-                        title={<><ChatBubbleOvalLeftIcon className="w-8 h-8 mr-2" />Create New Widget</>}
-                        showCancel={true}>
+                    <SideModal setShow={setShowModal} heading={'Create New Widget'} >
                         <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
@@ -129,7 +127,7 @@ const Page = () => {
 
                                 </>}
                         </div>
-                    </Modal> : ""
+                    </SideModal> : ""
                 }
             </>
 

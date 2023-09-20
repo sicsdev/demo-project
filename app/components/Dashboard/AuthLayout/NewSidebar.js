@@ -156,6 +156,7 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/knowledge-center",
                     name: "Learning Center",
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                    notification: recommedState?.data?.count,
                 },
                 {
                     href: "/dashboard/basic-knowledge",
@@ -163,7 +164,7 @@ const NewSidebar = ({ children }) => {
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
                 },
             ],
-            notification: recommedState?.data?.count,
+
         },
         {
             href: "/dashboard/chat-bots",
@@ -322,7 +323,17 @@ const NewSidebar = ({ children }) => {
                                         onClick={() => handlerclosemenu(ele.href)}
                                         className={`p-2 flex items-center`}
                                     >
-                                        {ele.icon}
+                                        <div class="relative">
+                                            {ele.icon}
+                                            {ele.notification !== 0 && (
+                                                <span
+                                                    style={{ fontSize: "10px" }}
+                                                    className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                >
+                                                    {ele.notification}
+                                                </span>
+                                            )}
+                                        </div>
                                         {!collaps && (
                                             <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
                                                 {ele.name}
@@ -813,11 +824,11 @@ const NewSidebar = ({ children }) => {
 
                             <div className={`cursor-pointer py-4 px-2 flex ${!collaps ? 'justify-start' : 'justify-center'}`} onClick={(e) => { setCollaps(prev => !prev) }}>
                                 {/* <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out"> */}
-                                    {/* <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer"> */}
-                                        {!collaps ?
-                                            <p className="px-2 text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
-                                            : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
-                                    {/* </li> */}
+                                {/* <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer"> */}
+                                {!collaps ?
+                                    <p className="px-2 text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
+                                    : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
+                                {/* </li> */}
                                 {/* </ul> */}
 
                             </div>
