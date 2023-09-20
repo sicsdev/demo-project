@@ -69,7 +69,7 @@ const Intake = () => {
   useEffect(() => {
     setShowModal(state);
   }, [state]);
-
+console.log(basicFormData)
   function displayErrorMessages(errors) {
     let firstError = '';
 
@@ -218,7 +218,7 @@ const Intake = () => {
     //   }
     // }
     if (intakeStep === 2) {
-      const requiredKeys = ["email_prefix", "custom_email", "company_name", "phone", "area_code"];
+      const requiredKeys = ["email_prefix", "custom_email", "company_name"];
       return requiredKeys.some(
         (key) => !basicFormData[key] || basicFormData[key].trim() === ""
       );
@@ -363,15 +363,15 @@ const Intake = () => {
       email_agent_title: basicFormData.agent_title,
       email_greeting: basicFormData.email_introduction,
       email_farewell: basicFormData.email_signOff,
-      phone_number: basicFormData?.phone
+      // phone_number: basicFormData?.phone
 
     };
     !payload.logo && delete payload.logo;
-    const response = await buyAvailableMobileNumbers({ name: basicFormData.company_name, data: basicFormData?.phone, greeting: `Hello, thank you for calling ${basicFormData.company_name}` })
+    // const response = await buyAvailableMobileNumbers({ name: basicFormData.company_name, data: basicFormData?.phone, greeting: `Hello, thank you for calling ${basicFormData.company_name}` })
     modifyBot(payload.id, payload)
       .then(async (res) => {
 
-        if (response) {
+     
           setLoading(false);
 
           if (basicFormData?.recommended_integrations.length > 0) {
@@ -380,7 +380,7 @@ const Intake = () => {
           } else {
             dispatch(setModalValue(false));
             dispatch(fetchBot());
-          }
+          
         }
         // setIntakeStep(4);
         // setIntakeCompleteStep(4);

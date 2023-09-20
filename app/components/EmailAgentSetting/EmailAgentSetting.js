@@ -19,9 +19,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         custom_email: basicFormData?.custom_email ?? '',
         enable_email_forwarding: basicFormData?.enable_email_forwarding ?? '',
         company_name: basicFormData?.company_name ?? '',
-        phone_number: basicFormData?.phone ?? '',
         friendly_name: basicFormData?.friendly_name ?? '',
-        area_code: basicFormData?.area_code ?? '',
         phone_numbers: basicFormData?.phone_numbers ?? null,
         selectedFile: basicFormData?.selectedFile ?? '',
     })
@@ -56,9 +54,6 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                         }
                     })
                     break;
-                case 'area_code':
-                    getPhoneNumbers(value)
-                    break;
 
                 default:
                     break;
@@ -76,51 +71,9 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
         return null
     }
 
-    const handlePhoneChange = (value) => {
-        setFormValues({ ...formValues, ['phone_number']: value })
-        setBasicFormData((prev) => {
-            return {
-                ...prev,
-                ['phone_number']: value
-            }
-        })
-    };
+ 
 
-
-    const getPhoneNumbers = async (value) => {
-        const timeoutId = setTimeout(async () => {
-            const response = await getAvailableMobileNumbers(value)
-            if (response?.length > 0) {
-                setBasicFormData((prev) => {
-                    return {
-                        ...prev,
-                        ['phone_numbers']: response
-                    }
-                })
-                setFormValues({
-                    ...formValues,
-                    'phone_numbers': response,
-                    area_code: value
-                }
-                )
-            }
-        }, 2000);
-        return () => clearTimeout(timeoutId);
-    }
-    const addPhone = (element) => {
-        setBasicFormData((prev) => {
-            return {
-                ...prev,
-                'phone': element.data,
-                'friendly_name': element.name,
-            }
-        })
-        setFormValues({
-            ...formValues,
-            ['phone_number']: element.data,
-            ['friendly_name']: element.name
-        })
-    }
+ 
     return (
         <div className=''>
             <div className=''>
@@ -164,72 +117,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
 
                     }} error={errors} />
                 </div>
-                {form === true && (
-                    <>
-                        <div>
-                            <TextField
-                                onChange={handleInputValues}
-                                value={formValues.area_code}
-                                name="area_code"
-                                className="py-3 mt-1"
-                                title={"Area Code"}
-                                placeholder={"Please enter area code"}
-                                type={"number"}
-                                id={"area_code"}
-                                error={returnErrorMessage("area_code")}
-                            // onBlur={() => { getPhoneNumbers() }}
-                            />
-                        </div>
-                        {formValues?.phone_numbers?.length > 0 && (formValues.phone_number === '' || formValues.phone_number === undefined) && (
-
-                            <div className="relative overflow-x-auto my-2">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs text-heading uppercase bg-gray ">
-                                        <tr>
-                                            <th scope="col" className="px-3 py-2">
-                                                Number
-                                            </th>
-                                            <th scope="col" className="px-3 py-2">
-                                                Region
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {formValues.phone_numbers && formValues?.phone_numbers.slice(0, 10).map((element, key) =>
-                                            <tr className={`${basicFormData?.phone === element.phone_number ? 'bg-heading text-white' : "bg-white text-heading"}  border-b border-border  hover:bg-heading hover:text-white cursor-pointer`} key={key} onClick={(e) => {
-                                                addPhone(element)
-                                            }} >
-                                                <th scope="row" className="px-3 py-2 font-normal  whitespace-nowrap text-[12px]">
-                                                    {element.name}
-                                                </th>
-                                                <td className="px-3 py-2 font-normal whitespace-nowrap text-[12px]">
-                                                    {element.region}
-                                                </td>
-                                            </tr>
-                                        )}
-                                        {formValues.phone_numbers && formValues?.phone_numbers.length === 0 && (
-                                            <p className='text-danger'> No data found please try a new area code.</p>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-
-
-
-                        )}
-                        {formValues.phone_number && formValues.friendly_name && (
-                            <div className='my-2 cursor-pointer'  >
-                                {/* <p className='text-primary' onClick={() => {
-                                    addPhone({ friendly_name: '', phone_number: '' })
-                                }}>back</p> */}
-                                <div className='rounded-lg p-4 shadow-md flex justify-start gap-4 items-center border border-border '>
-                                    <PhoneIcon className="h-6 w-6 text-heading" />
-                                    <span className='text-heading'>{formValues.friendly_name}</span>
-                                </div>
-                            </div>
-                        )}
-                    </>
-                )}
+            
             </div>
 
         </div>

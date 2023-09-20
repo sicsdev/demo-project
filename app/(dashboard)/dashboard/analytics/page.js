@@ -85,14 +85,14 @@ const Logs = () => {
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'Select All', value: 'alll' },{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Select', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
   const [userWorkFlows, setUserWorkflows] = useState([]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector(state => state.workflow);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedBot, setSelectedBot] = useState('');
+  const [selectedBot, setSelectedBot] = useState('Select');
   const [messages, setMessages] = useState([])
   const [manageMessages, setManageMessages] = useState([])
   const [indexVal, setIndexVal] = useState(0)
@@ -103,8 +103,9 @@ const Logs = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [selectedFilters, setSelectedFilters] = useState({
-    type: '',
-    workflows: '',
+    type: 'all',
+    workflows: 'all',
+    conversations: 'all',
   });
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
@@ -127,9 +128,9 @@ const Logs = () => {
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }))
     } else {
       setSelectedFilters({
-        type: logState.data.type || '',
-        workflows: logState.data.workflows || '',
-        conversations: logState.data.conversations || '',
+        type: logState.data.type || 'all',
+        workflows: logState.data.workflows || 'all',
+        conversations: logState.data.conversations || 'all',
       })
       setSelectedBot(logState.data.bot)
       setIndexVal(0)
@@ -139,12 +140,13 @@ const Logs = () => {
 
   };
 
+  console.log("selectedFilters", selectedFilters)
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
-    if (results && Array.isArray(results) && results.length > 0) {
+    if (results && Array.isArray(results) && results.length > 0) {  
       const values = [
-        { name: 'Select All', value: 'all' },
-        ...results.map(item => ({ name: item.name, value: item.id })),
+        { name: 'Select', value: 'all' },
+        ...results.map(item => ({ name: item.name.concat(item.active ? " (active)" : " (draft)"), value: item.id })),
       ];
       setUserWorkflows(values);
     }
@@ -413,6 +415,7 @@ const Logs = () => {
                   id={"bots"}
                   className="py-3"
                   error={""}
+                  showOption={false}
                 />
               </div>
               <div className="mb-4 w-full">
@@ -420,11 +423,12 @@ const Logs = () => {
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.type || ''}
                   name="type"
-                  values={[{ name: 'Select All', value: 'all' },{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                  values={[{ name: 'Select', value: 'all' }, { name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
                   title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
                   id={"type"}
                   className="py-3"
                   error={""}
+                  showOption={false}
                 />
               </div>
               <div className="mb-4 w-full">
@@ -437,6 +441,7 @@ const Logs = () => {
                   id={"conversations"}
                   className="py-3"
                   error={""}
+                  showOption={false}
                 />
               </div>
               <div className="mb-4 w-full">
@@ -449,6 +454,7 @@ const Logs = () => {
                   id={"workflows"}
                   className="py-3"
                   error={""}
+                  showOption={false}
                 />
               </div>
             </div>}
