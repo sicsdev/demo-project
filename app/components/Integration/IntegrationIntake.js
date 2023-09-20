@@ -195,6 +195,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
                         <div class="grid grid-cols-1 md:grid-cols-6 items-center sm:gap-4 md:gap-4 lg:gap-4">
                             <div class="col-span-1 md:col-span-4 bg-red-300">
                                 {Object.keys(tiles[currentStep].data).map((key) => (
+                                    tilesCheck[currentStep]?.data[key] ? null :
                                         <div className='my-2' key={key}>
                                             <TextField
                                                 onChange={(e) => handleIntegrationInputChange(e)}
