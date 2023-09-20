@@ -52,22 +52,22 @@ const EditKnowledge = ({ item, allKnowledge }) => {
     const handlePatchFaq = async () => {
         setLoading(true)
         await patchKnowledgeQuestion(info, item?.information?.id)
-            .then(() => {setLoading(false); isDropdownOpen(false)})
+            .then(() => { setLoading(false); isDropdownOpen(false) })
     }
 
     return (
         <>
             {thisKnowledge &&
 
-                <div key={item.information.knowledge.id} className='mt-1 border p-2 rounded border-gray'>
+                <div key={item.information.knowledge.id} className='mt-1 border p-2 rounded-md border-gray shadow-md'>
 
                     <div className="relative">
 
                         <div className="flex pointer" onClick={toggleDropdown}>
                             <span className="w-full flex items-center" >
-                                <span id={item?.information?.knowledge?.id}>
+                                <small id={item?.information?.knowledge?.id}>
                                     {item?.information?.question}
-                                </span>
+                                </small>
                             </span>
 
 
@@ -107,7 +107,7 @@ const EditKnowledge = ({ item, allKnowledge }) => {
                                         name="title"
                                         value={info.answer}
                                         onChange={handleInputAnswer}
-                                        style={{minHeight: '100px'}}
+                                        style={{ minHeight: '100px' }}
                                     />
 
                                 </div>
