@@ -347,7 +347,17 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
     }
   };
 
-  console.log("preferences", preferences)
+  useEffect(() => {
+    const textarea = document.querySelector('.resizable-textarea');
+    textarea?.setAttribute('rows', '1'); // Set the 'rows' attribute
+    const rows = Math.min(
+      Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+      6 // Limit to a maximum of 6 rows
+    );
+    
+    textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+  }, [preferences.chat_default_message]);
+
   return (
     <>
       {/* Modal to manage hide urls */}
@@ -433,7 +443,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
             <div className="block sm:flex md:flex lg:flex justify-center items-stretch gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
 
-            
+
                 <div className="flex items-center w-full mt-2 gap-2">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
@@ -575,14 +585,24 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
                   </div>
                   <div className="flex justify-start w-1/2">
-                    <input
+                    <textarea
+                      onChange={handleInputChange}
+                      name="chat_default_message"
+                      type="text"
+                      className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder="Enter chat default message"
+                      rows={'1'}
+                    >
+                      {preferences.chat_default_message}
+                    </textarea>
+                    {/* <input
                       onChange={handleInputChange}
                       name="chat_default_message"
                       value={preferences.chat_default_message}
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat default message"
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div className="flex items-center w-full mt-2 gap-2">
