@@ -551,12 +551,12 @@ const NewSidebar = ({ children }) => {
                                                         alt="user photo"
                                                     />
                                                     <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-base transition-all duration-300 ease-in-out">
-                                                        Admin center
+                                                        Admin Center
                                                     </span>
 
                                                 </div>
                                                 <span>
-                                                    <ChevronRightIcon className="h-5 w-5 text-gray-500" />
+                                                    <ChevronRightIcon className="h-5 w-5 hidden sm:block text-gray-500" />
                                                 </span>
                                             </Link>
                                         </li>
@@ -657,7 +657,7 @@ const NewSidebar = ({ children }) => {
                                                             alt="user photo"
                                                         />
                                                         <span className="font-semibold text-white w-full ml-3 whitespace-nowrap text-sm font-base transition-all duration-300 ease-in-out">
-                                                            Admin center
+                                                            Admin Center
                                                         </span>
                                                         {/* <span>
                                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M5.66474 12.3354C5.25858 11.9293 5.25856 11.2708 5.6647 10.8646L8.52933 7.99986L5.66474 5.13543C5.25858 4.72929 5.25856 4.0708 5.6647 3.66464C6.07083 3.25849 6.72932 3.25847 7.13548 3.6646L10.7355 7.26441C10.9305 7.45944 11.0401 7.72397 11.0401 7.99979C11.0401 8.27562 10.9306 8.54015 10.7355 8.73519L7.13552 12.3354C6.72938 12.7415 6.07089 12.7416 5.66474 12.3354Z"></path></svg>
