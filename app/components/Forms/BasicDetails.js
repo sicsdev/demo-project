@@ -99,7 +99,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
   }
 
   return (
-    <div>
+    <div> 
       <span className="text-sm my-5 text-[#808080]">
         Please provide us with some important information about your business.
       </span>
@@ -159,7 +159,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
           </div>
 
           <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] my-8"></div>
-          <h3 className="text-primary mb-4 !font-semibold">Business Address</h3>
+          <h3 className=" mb-4 !font-semibold">Business Address</h3>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
             <lable className="w-full sm:w-1/3 !font-semibold text-sm text-[#151d23]">Street Address</lable>
@@ -220,6 +220,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               className="py-3 mt-1"
               title={""}
               placeholder={"Zipcode"}
+              maxLength="5"
               type={"text"}
               id={"business_zipcode"}
               error={returnErrorMessage("business_zipcode")}
