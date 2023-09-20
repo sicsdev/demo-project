@@ -209,11 +209,9 @@ const Page = () => {
 
       {dataLoader === true ? (
         <div>
-          <div className="flex items-center justify-between">
-            <SkeletonLoader count={1} height={20} width={100} />
-          </div>
-          <div className="relative sm:max-w-[100%]  m-auto">
-            <SkeletonLoader count={1} height={20} width="80%" />
+          <div className='grid grid-cols-[85%,15%] my-2'>
+            <div></div>
+            <SkeletonLoader height={30} width={"100%"} />
           </div>
           <div className={` mt-6`}>
             {[...Array(5)].map((_, index) => (
@@ -239,10 +237,10 @@ const Page = () => {
             <div>
               <div className="flex items-center justify-between">
                 <p class="text-black-color text-sm font-semibold my-2">
-                 
+
                 </p>
               </div>
-              <div className="relative sm:max-w-[100%]  m-auto">
+              {/* <div className="relative sm:max-w-[100%]  m-auto">
                 <input
                   type={"search_integration"}
                   placeholder={"Search for integration"}
@@ -256,7 +254,26 @@ const Page = () => {
                   className="w-5 top-[10px] left-[14px] absolute"
                   src="/search.png"
                 />
+              </div> */}
+
+              <div className='flex justify-center sm:justify-end gap-4 items-center p-2'>
+                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    id={"search_integration"}
+                    onChange={handleInput}
+                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                    placeholder={"Search for integration"}
+                  />
+                </div>
               </div>
+
             </div>
           )}
           {!integrationform ? (
@@ -358,13 +375,14 @@ const Page = () => {
       {suggestModal && (
         <Modal
           title={
-            <h3 className="text-base font-semibold">Suggest a resource</h3>
+            <h3 className="text-base !font-bold">Suggest Resource</h3>
           }
           className={"w-[30%]"}
           show={suggestModal}
           setShow={setSuggestModal}
           showCancel={true}
           customHideButton={false}
+          showTopCancleButton={false}
           hr={false}
         >
           <h3 className="text-xs my-2 text-heading font-normal">
@@ -376,7 +394,7 @@ const Page = () => {
             className=" block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
             placeholder="Write your thoughts here..."
           ></textarea>
-          <div className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}>
+          <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
             {" "}
             <Button
               className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
@@ -384,7 +402,7 @@ const Page = () => {
                 setSuggestModal((prev) => !prev);
               }}
             >
-              Back
+              Cancel
             </Button>
             <Button
               type={"button"}

@@ -201,7 +201,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                             disabled={DisablingButton()}
                             onClick={(e) => configureIntegrationHandler(e)}
                         >
-                            {integrationFormData?.checked === true ? 'Update' : 'Create'} resource
+                            {integrationFormData?.checked === true ? `Connect ${integrationFormData?.name}` : `Connect ${integrationFormData?.name}` }
                         </Button>
                     )}
                     {/* <button class="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
@@ -210,7 +210,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
             </div>
 
             <div className="sm:pt-8 pt-2">
-                <div class="grid grid-cols-1 md:grid-cols-[80%,20%] items-center">
+                <div class="grid grid-cols-1 md:grid-cols-[80%,20%] items-start">
                     <div className="">
                         <div className="sm:mr-8">
                             {checked ?
@@ -263,7 +263,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
 
                         </div>
                     </div>
-                    <div className="">
+                    <div className="my-2 mt-[35px]">
                         <div className="bg-[#F9F9F9] p-5 rounded-md mt-5 sm:mt-0">
                             <p className="font-semibold text-sm mb-2">Need help?</p>
                             <Link href={`${help?.link}`} className="font-normal text-xs flex items-start gap-2 hover:text-primary">
