@@ -377,7 +377,7 @@ const QuickStart = () => {
                                 <div className='py-4 px-6'>
                                     <div className="flex items-start sm:items-center  gap-2">
                                         <EyeIcon className="text-[#FF822D] w-5" />
-                                        <p className="text-base font-medium text-[#151D23]">Recently Viewed</p>
+                                        <p className="leading-[0px] text-base font-medium text-[#151D23]">Recently Viewed</p>
                                     </div>
                                     <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
                                         {recentlyView.map((ele, key) =>
