@@ -100,6 +100,7 @@ const PhoneHandle = () => {
             })
             setBasicFormData(data)
             setPageLoading(false)
+            setShowPageView(true)
         } else {
             setPageLoading(false)
             setShowPageView(false)
@@ -306,6 +307,7 @@ const PhoneHandle = () => {
             setPhoneLoading(false)
             EnterprisePhoneNumber()
         } else {
+            EnterprisePhoneNumber()
             setPageLoading(false)
         }
     }
@@ -698,6 +700,9 @@ const PhoneHandle = () => {
                                                         {basicFormData[index].audioName && (
                                                             <div className='px-6'>
                                                                 <AudioPlayer
+                                                                    style={{
+                                                                        width: "200px"
+                                                                    }}
                                                                     customVolumeControls={[]}
                                                                     customAdditionalControls={[]}
                                                                     src={basicFormData[index].audio}
@@ -723,6 +728,9 @@ const PhoneHandle = () => {
                                                         {basicField?.audioName && (
                                                             <div className='px-6'>
                                                                 <AudioPlayer
+                                                                    style={{
+                                                                        width: "300px"
+                                                                    }}
                                                                     customVolumeControls={[]}
                                                                     customAdditionalControls={[]}
                                                                     src={basicField.audio}

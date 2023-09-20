@@ -17,6 +17,7 @@ import { makeCapital } from "@/app/components/helper/capitalName";
 import Link from "next/link";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import TextArea from "@/app/components/Common/Input/TextArea";
+import { isMobile } from "react-device-detect";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -207,6 +208,8 @@ const Page = () => {
             style: {
                 whiteSpace: "inherit",
                 width: '300px !important',
+                "overflow-y": isMobile ? 'scroll' : "none",
+                "align-items": isMobile ? "flex-start" : "center"
                 // padding: '10px 0 10px 0'
             },
         },
