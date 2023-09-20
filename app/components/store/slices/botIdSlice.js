@@ -2,7 +2,7 @@ import { getAllBotData, getAllWidgetData, getBotAllData, getBotWidget } from "@/
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
-const initialState = { id: null, botData: { isLoading: false, data: null, error: null }, showModal: true }
+const initialState = { id: null, botData: { isLoading: false, data: null, error: null }, showModal: false }
 
 export const botIdSlice = createSlice({
     name: "bot_id",
