@@ -312,7 +312,6 @@ const PhoneHandle = () => {
                         {basicField?.audioName && (
                             <div className='px-6 my-2'>
                                 <AudioPlayer
-                                    header={<p className='text-xs text-ellipsis text-border'>{basicField?.audioName.replace("https://", '')}</p>}
                                     customVolumeControls={[]}
                                     customAdditionalControls={[]}
                                     src={basicField.audio}
@@ -488,28 +487,20 @@ const PhoneHandle = () => {
                                                         <label className={`new_input_label block text-sm text-heading `}>
                                                             <h3 className='font-bold my-2 text-sm text-heading'>Greeting</h3>
                                                         </label>
-                                                        <div className='block sm:flex items-center justify-start gap-4'>
-                                                            <Button
-                                                                type={"button"}
-                                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                        <div className="inline-flex rounded-md w-full sm:w-auto gap-2 sm:gap-4" role="group">
+                                                            <button
                                                                 onClick={() => {
                                                                     setIndex(key)
                                                                     setAudioModal(true)
                                                                 }}
-                                                            >
-                                                                {element.audioName ? "Update" : "Add"}
-                                                            </Button>
+                                                                type="button" className="px-4 w-[100%] sm:w-auto py-2 text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-md hover:bg-primary hover:text-white ">
+                                                                Upload MP3 or WAV
+                                                            </button>
                                                             <div class="flex items-center justify-center rounded-md w-full sm:w-auto" role="group">
                                                                 {key > 0 && (
                                                                     <>
-                                                                        <button type="button"
-                                                                            className="sm:hidden px-4 w-[50%] sm:w-auto py-2 mt-[20px] text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-md hover:bg-primary hover:text-white "
-                                                                            onClick={() => { removeNewValue(key) }}
-                                                                        >
-                                                                            Remove
-                                                                        </button>
                                                                         <button
-                                                                            className='hidden sm:block font-bold mt-3 sm:mt-0'
+                                                                            className='font-bold mt-0'
                                                                             type='button'
                                                                             onClick={() => { removeNewValue(key) }}
                                                                         >
@@ -519,14 +510,8 @@ const PhoneHandle = () => {
                                                                 )}
                                                                 {botValue.length > basicFormData.length && (
                                                                     <>
-                                                                        <button type="button"
-                                                                            className="sm:hidden px-4 w-[50%] sm:w-auto py-2 mt-[20px] text-[10px] sm:text-xs md:text-xs lg:text-xs font-medium text-heading bg-white border border-border rounded-md hover:bg-primary hover:text-white "
-                                                                            onClick={() => { addNewValue() }}
-                                                                        >
-                                                                            Add
-                                                                        </button>
                                                                         <button
-                                                                            className='hidden sm:block font-bold mt-3 sm:mt-0'
+                                                                            className='font-bold mt-0'
                                                                             type='button'
                                                                             onClick={() => { addNewValue() }}
                                                                         >
@@ -535,6 +520,19 @@ const PhoneHandle = () => {
                                                                     </>
                                                                 )}
                                                             </div>
+                                                        </div>
+                                                        <div className='block sm:flex items-center justify-start gap-4'>
+                                                            {/* <Button
+                                                                type={"button"}
+                                                                className="w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                                                onClick={() => {
+                                                                    setIndex(key)
+                                                                    setAudioModal(true)
+                                                                }}
+                                                            >
+                                                                {element.audioName ? "Update" : "Add"}
+                                                            </Button> */}
+
                                                         </div>
 
                                                     </div>
@@ -546,23 +544,35 @@ const PhoneHandle = () => {
                                             <div></div>
                                             <SkeletonLoader count={1} height={30} width={"100%"} />
                                         </div> :
-                                        <div className='flex my-2 justify-end'>
-                                            <Button
-                                                type={"button"}
-                                                className=" inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                                // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
-                                                onClick={(e) => SubmitForm("phone")}
-                                                disabled={basicFormData.some(
-                                                    (element) =>
-                                                        element?.options === null ||
-                                                        element?.bots?.trim() === '' ||
-                                                        element?.bots?.trim() === '' ||
-                                                        element?.sales?.trim() === '' ||
-                                                        element?.voice?.trim() === ''
-                                                )}
-                                            >
-                                                {formLoading === true ? "Loading" : "Submit"}
-                                            </Button>
+                                        <div className='mt-6'>
+                                            <div className='block sm:flex md:flex lg:flex justify-between items-center gap-3'>
+                                                <div className='w-full sm:w-[100px] md:w-[100px] lg:w-[100px]'>
+                                                </div>
+                                                <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                </div>
+                                                <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                </div>
+                                                <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%]'>
+                                                </div>
+                                                <div className='w-full sm:w-[20%] md:w-[20%] lg:w-[20%] relative' >
+                                                    <Button
+                                                        type={"button"}
+                                                        className=" focus:outline-none focus:ring-4  font-bold rounded-md text-base py-2.5  w-full sm:w-[100px] md:w-[100px] lg:w-[100px] inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none transition duration-150 ease-in-out  hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white"
+                                                        // disabled={basicFormData?.bots.length === 0 || basicFormData?.voice === '' || formLoading === true}
+                                                        onClick={(e) => SubmitForm("phone")}
+                                                        disabled={basicFormData.some(
+                                                            (element) =>
+                                                                element?.options === null ||
+                                                                element?.bots?.trim() === '' ||
+                                                                element?.bots?.trim() === '' ||
+                                                                element?.sales?.trim() === '' ||
+                                                                element?.voice?.trim() === ''
+                                                        )}
+                                                    >
+                                                        {formLoading === true ? "Loading" : "Submit"}
+                                                    </Button>
+                                                </div>
+                                            </div>
                                         </div>
                                     }
 
@@ -737,7 +747,7 @@ const PhoneHandle = () => {
                         </div>
                         {modal === true && (
                             <>
-                            <p className='text-xs mt-2 font-semibold'>Type text to convert to speech</p>
+                                <p className='text-xs mt-2 font-semibold'>Type text to convert to speech</p>
                                 <div className='block'>
                                     <div className='w-full '>
                                         <TextArea name='greeting' placeholder={"Example: Hi! Thanks for calling. For sales, press 1 or say sales Set a greeting message For support, press 2 or say support"} id={"greeting_text"} value={basicField.greeting} onChange={handleInput} title={""} />
