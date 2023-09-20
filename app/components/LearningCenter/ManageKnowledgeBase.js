@@ -34,7 +34,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const [placeholderText, setPlaceholderText] = useState('')
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
     const [filterText, setFilterText] = useState('');
-    const [filterhead, setFilterhead] = useState('ALL');
+    const [filterhead, setFilterhead] = useState('All');
 
     const handleFilterChange = (event) => {
         const searchText = event.target.value;
@@ -406,9 +406,9 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                         style={{ border: "1px solid #C7C6C7" }}>
                                         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
                                             <li className='hover:bg-gray cursor-pointer' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'ALL'))
+                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'All'))
                                                 setShowSourceFilter(prev => !prev)
-                                                setFilterhead('ALL')
+                                                setFilterhead('All')
                                             }}>
                                                 <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
                                             </li>

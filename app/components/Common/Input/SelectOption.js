@@ -15,7 +15,8 @@ const SelectOption = ({
     onChange,
     value,
     disabled = false,
-    optionDisabled = []
+    optionDisabled = [],
+    showOption = true
 }) => {
 
     return (
@@ -37,16 +38,17 @@ const SelectOption = ({
                     value={value}
                     disabled={disabled === true}
                 >
-                    <option value={""} className="text-gray" disabled>
-                        Select
-                    </option>
+                    {showOption && (
+                        <option value={""} className="text-gray" disabled>
+                            Select
+                        </option>
+                    )}
                     {values?.map((element, key) => (
                         <>
-                            {optionDisabled.includes(element.value) ? <option disabled key={key} value={element.value}>
+                            <option key={key} value={element.value}>
                                 {makeCapital(element.name)}
-                            </option> : <option key={key} value={element.value}>
-                                {makeCapital(element.name)}
-                            </option>}</>
+                            </option>
+                        </>
 
                     ))}
                 </select>
