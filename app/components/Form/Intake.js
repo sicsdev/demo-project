@@ -55,7 +55,213 @@ const Intake = () => {
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
   ]
-  const [basicFormData, setBasicFormData] = useState({});
+  const [basicFormData, setBasicFormData] = useState({
+    "recommended_integrations": [
+        "slack",
+        "salesforce",
+        "paypal"
+    ],
+    "business_name": "Wzir",
+    "customer_service_email": "",
+    "customer_service_phone": "",
+    "business_street": "911 Hillside Dr",
+    "business_city": "Kodiak",
+    "business_state": "Alaska",
+    "business_zipcode": "99615",
+    "business_company_size": "1-50 Employees",
+    "business_industry": "Banking",
+    "prev_customer_service_email": "yopmail.com",
+    "urls": [
+        "sdsdd.com"
+    ],
+    "bot": "success",
+    "id": "7de48740-e45e-4fd6-8bdc-c82c080b8ee7",
+    "email_prefix": "customersuccess",
+    "company_name": "waxi",
+    "custom_email": "wa@yopmail.com",
+    "configure": "success",
+    "email": "customersuccess@waxi.tickets-dev.withtempo.com",
+    "agent_name": [],
+    "agent_title": "",
+    "email_introduction": "",
+    "email_signOff": "",
+    "enterprise": {
+        "id": "702537ec-1543-4966-9586-aee50e975b87",
+        "name": "Wzir",
+        "logo": null,
+        "country": {
+            "code": "US",
+            "name": "United States of America"
+        },
+        "address": "911 Hillside Dr, Kodiak, AK, USA, 99615",
+        "email": "Wzir@yopmail.com",
+        "phone": "8484848484",
+        "customer_service_email": "",
+        "industry": "Banking",
+        "company_size": "1-50 Employees",
+        "ecommerce_platform": "",
+        "billing_thresholds": {
+            "amount_gte": 5000
+        },
+        "show_quick_start": true,
+        "slug_domain": "waxi",
+        "recommended_integrations": [
+            "slack",
+            "salesforce",
+            "paypal"
+        ]
+    },
+    "category": "standard",
+    "description": "",
+    "refund_tolerance": 0,
+    "automation_tolerance": 0,
+    "primary_color": "#0057FF",
+    "secondary_color": "#000000",
+    "primary_text_color": "#FFFFFF",
+    "secondary_text_color": "#FFFFFF",
+    "logo": null,
+    "thumbnail": "https://static-server-dev.usetempo.ai/bot/thumbnail/normal.png",
+    "chat_default_message": "Hello there, you're now speaking with {name}! I am {company_name} new AI agent and I'm here to answer your questions.",
+    "chat_title": "Wzir",
+    "chat_message_business_hours": "How can we help?",
+    "chat_message_after_hours": "We'll be back tomorrow at 9 am EST",
+    "chat_suggestions": [],
+    "widget_location": "bottom_right",
+    "widget_offset_horizontal": 0,
+    "widget_offset_vertical": 0,
+    "language": "en",
+    "cancellation_tolerance": "0",
+    "payment_platform": "Order",
+    "ticketing_platform": "Other",
+    "email_agent_title": "",
+    "email_greeting": "",
+    "email_farewell": "",
+    "active": true,
+    "feeded": false,
+    "origins_blocked": [],
+    "origins_allowed": [
+        "*"
+    ],
+    "schedule": {
+        "Friday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Monday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Sunday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Tuesday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Saturday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Thursday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ],
+        "Wednesday": [
+            {
+                "end": "23:59",
+                "start": "00:00"
+            }
+        ]
+    },
+    "working": true,
+    "timezone": "America/New_York",
+    "declare_ai": true,
+    "tiles": [
+        {
+            "id": "0afe6d64-b0a6-475e-8d77-6c52e167acb3",
+            "type": "COMMUNICATION",
+            "specification": "REST",
+            "popular": true,
+            "icon": "https://media-server-dev.usetempo.ai/enterprises/logos/slack-logo-icon.png",
+            "name": "Slack",
+            "auth_type": "",
+            "data": {
+                "scope": "users:read,channels:read,etc",
+                "client_id": "",
+                "token_url": "https://slack.com/api/oauth.v2.access",
+                "redirect_uri": "https://dev.usetempo.ai/login",
+                "client_secret": "",
+                "refresh_token_url": "https://slack.com/api/oauth.v2.access",
+                "authorization_base_url": "https://slack.com/oauth/v2/authorize"
+            },
+            "route": "https://slack.com",
+            "ping_route": "/api/conversations.list",
+            "ping_method": "POST",
+            "ping_input": {},
+            "token_lifetime": 30,
+            "created": "2023-07-24T14:39:44.384902-04:00",
+            "added": false
+        },
+        {
+            "id": "187db899-c4e5-4181-8ea3-2ebc1c3cb0b7",
+            "type": "SALES",
+            "specification": "REST",
+            "popular": true,
+            "icon": "https://media-server-dev.usetempo.ai/enterprises/logos/salesforce-logo.png",
+            "name": "SalesForce",
+            "auth_type": "",
+            "data": {
+                "Authorization": ""
+            },
+            "route": "https://MyDomainName.my.salesforce.com",
+            "ping_route": "/services/data/v58.0/process/rules/",
+            "ping_method": "GET",
+            "ping_input": {},
+            "token_lifetime": 30,
+            "created": "2023-07-24T14:21:37.248074-04:00",
+            "added": false
+        },
+        {
+            "id": "78937c36-50d1-4ccd-8ff4-4a5a90d48420",
+            "type": "BILLING",
+            "specification": "REST",
+            "popular": true,
+            "icon": "https://media-server-dev.usetempo.ai/enterprises/logos/paypal-icon-logo-png-transparent.png",
+            "name": "PayPal",
+            "auth_type": "",
+            "data": {
+                "client_id": "",
+                "token_url": "https://api-m.sandbox.paypal.com/v1/oauth2/token",
+                "redirect_uri": "",
+                "client_secret": "",
+                "refresh_token_url": "https://api-m.sandbox.paypal.com/v1/oauth2/token"
+            },
+            "route": "https://api-m.paypal.com/v1",
+            "ping_route": "/identity/oauth2/userinfo?schema=paypalv1.1",
+            "ping_method": "GET",
+            "ping_input": {},
+            "token_lifetime": 30,
+            "created": "2023-07-22T17:10:18.175939-04:00",
+            "added": false
+        }
+    ],
+    "stepIds": [
+        "0afe6d64-b0a6-475e-8d77-6c52e167acb3"
+    ]
+});
   let state = useSelector((state) => state.botId.showModal);
   let user = useSelector((state) => state.user.data);
   const [errors, setErrors] = useState([]);
@@ -69,7 +275,7 @@ const Intake = () => {
   useEffect(() => {
     setShowModal(state);
   }, [state]);
-console.log(basicFormData)
+  console.log(basicFormData)
   function displayErrorMessages(errors) {
     let firstError = '';
 
@@ -371,16 +577,16 @@ console.log(basicFormData)
     modifyBot(payload.id, payload)
       .then(async (res) => {
 
-     
-          setLoading(false);
 
-          if (basicFormData?.recommended_integrations.length > 0) {
-            setIntakeStep(4);
-            setIntakeCompleteStep(4);
-          } else {
-            dispatch(setModalValue(false));
-            dispatch(fetchBot());
-          
+        setLoading(false);
+
+        if (basicFormData?.recommended_integrations.length > 0) {
+          setIntakeStep(4);
+          setIntakeCompleteStep(4);
+        } else {
+          dispatch(setModalValue(false));
+          dispatch(fetchBot());
+
         }
         // setIntakeStep(4);
         // setIntakeCompleteStep(4);

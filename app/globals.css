@@ -23,7 +23,7 @@
 }
 
 select {
-  font-family:  'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 
@@ -1339,4 +1339,13 @@ body .rhap_progress-indicator {
   background: #868686;
   border-radius: 50px;
   box-shadow: rgba(134, 134, 134, 0.5) 0 0 5px;
+}
+
+body .rhap_controls-section {
+  flex: unset;
+}
+
+body .rdt_TableBody {
+  height: 450px !important;
+  overflow-y: scroll !important;
 }
