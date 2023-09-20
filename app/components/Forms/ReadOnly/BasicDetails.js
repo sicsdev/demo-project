@@ -111,7 +111,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                         <div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23] ">
 
@@ -125,7 +125,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
@@ -139,7 +139,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
@@ -153,7 +153,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
@@ -167,7 +167,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
@@ -181,7 +181,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
@@ -195,7 +195,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
-                            <div className="mt-3 flex items-center justify-start gap-4">
+                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 

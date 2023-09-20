@@ -111,7 +111,7 @@ const PaymentMethod = () => {
                     <StripeWrapper>
 
                         <Card>
-                            <h3 className='font-semibold mb-2 text-base '>Add payment method</h3>
+                            <h3 className=' mb-4 !font-semibold '>Add payment method</h3>
                             <p className='text-xs text-border mb-4'>This card will be charged based on your metered usage. </p>
                             <Billing
                                 basicFormData={basicFormData}
