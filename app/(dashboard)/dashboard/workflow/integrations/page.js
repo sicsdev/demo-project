@@ -240,21 +240,6 @@ const Page = () => {
 
                 </p>
               </div>
-              {/* <div className="relative sm:max-w-[100%]  m-auto">
-                <input
-                  type={"search_integration"}
-                  placeholder={"Search for integration"}
-                  className={
-                    "border !text-[12px]  font-[500] border-input_color w-full block  px-2 py-2 bg-white focus:border-2 focus:border-[#0057ff]  focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                  }
-                  id={"search_integration"}
-                  onChange={handleInput}
-                />
-                <img
-                  className="w-5 top-[10px] left-[14px] absolute"
-                  src="/search.png"
-                />
-              </div> */}
 
               <div className='flex justify-center sm:justify-end gap-4 items-center p-2'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -276,54 +261,55 @@ const Page = () => {
 
             </div>
           )}
-          {!integrationform ? (
-            <div>
-              {integrationData.length > 0 ? (
-                <>
-                  <IntegrationTemplates
-                    performIntegrationTask={performIntegrationTask}
-                    integrationTiles={integrationTiles}
-                  />
-                  {tiles_data.map((element, key) => (
-                    <div className={` mt-6`} key={key}>
-                      <h3 className="text-sm font-semibold mt-3">
-                        {element.title}
-                      </h3>
-                      <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
-                        {element.tiles?.map((item, key) => (
-                          <div
-                            className={`${item.grayscale && "pointer-events-none"
-                              } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
-                            key={key}
-                            onClick={() => {
-                              performIntegrationTask(item);
-                            }}
-                          >
-                            <div className="flex justify-start gap-1 items-center">
-                              <div className="relative rounded-lg m-auto">
-                                <Image
-                                  fill={"true"}
-                                  className={`${item.grayscale &&
-                                    "grayscale pointer-events-none"
-                                    } mx-auto rounded-lg !static !w-[20px] !h-auto`}
-                                  alt="logo.png"
-                                  src={item.logo}
-                                />
-                              </div>
-                              <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
-                                {item.name}
-                              </h3>
+          <div>
+            {integrationData.length > 0 ? (
+              <>
+                <IntegrationTemplates
+                  performIntegrationTask={performIntegrationTask}
+                  integrationTiles={integrationTiles}
+                />
+                {tiles_data.map((element, key) => (
+                  <div className={` mt-6`} key={key}>
+                    <h3 className="text-sm font-semibold mt-3">
+                      {element.title}
+                    </h3>
+                    <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                      {element.tiles?.map((item, key) => (
+                        <div
+                          className={`${item.grayscale && "pointer-events-none"
+                            } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                          key={key}
+                          onClick={() => {
+                            performIntegrationTask(item);
+                          }}
+                        >
+                          <div className="flex justify-start gap-1 items-center">
+                            <div className="relative rounded-lg m-auto">
+                              <Image
+                                fill={"true"}
+                                className={`${item.grayscale &&
+                                  "grayscale pointer-events-none"
+                                  } mx-auto rounded-lg !static !w-[20px] !h-auto`}
+                                alt="logo.png"
+                                src={item.logo}
+                              />
                             </div>
+                            <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
+                              {item.name}
+                            </h3>
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </>
-              ) : (
-                <p>No data Found !</p>
-              )}
-            </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p>No data Found !</p>
+            )}
+          </div>
+          {!integrationform ? (
+            null
           ) : (
             <div>
               {formData && (
@@ -391,7 +377,8 @@ const Page = () => {
           <textarea
             id="message"
             rows="4"
-            className=" block border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
+            style={{ resize: "none"}}
+            className=" block border-[0.2px]  px-2 py-1 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
             placeholder="Write your thoughts here..."
           ></textarea>
           <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
