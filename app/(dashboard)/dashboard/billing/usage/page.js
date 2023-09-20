@@ -273,7 +273,7 @@ const UsageLimit = () => {
 
                
                   <p className="text-xs mb-2 px-6 py-4">
-                    Your total usage so far in {currentMonth} (UTC) is <span className="text-[blue]"> $ {totalUsage}.</span> Note that
+                    Your total usage so far in {currentMonth} (UTC) is <span className="text-[blue] font-bold"> ${totalUsage}.</span> Note that
                     this may include usage covered by a free trial or other
                     credits, so your monthly bill might be less than the value
                     shown here.{" "}
