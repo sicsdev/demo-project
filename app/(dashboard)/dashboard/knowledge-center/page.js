@@ -236,7 +236,8 @@ const Page = () => {
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
-            width: "100px"
+            width: "100px",
+            center:true
         },
         {
             name: "",
