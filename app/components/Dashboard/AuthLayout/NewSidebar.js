@@ -218,7 +218,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/billing/settings",
                     name: "Billing Settings",
-                    icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                 },
             ],
         },
