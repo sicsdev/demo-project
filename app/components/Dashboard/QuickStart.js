@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ChevronDownIcon, ChevronUpIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
-import { ArrowSmallRightIcon, BoltIcon } from '@heroicons/react/24/solid';
+import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
 import { useSelector } from 'react-redux';
@@ -201,27 +201,29 @@ const QuickStart = () => {
         <>
             {hideQuicStart === false && (
                 skeltonLoading ? (
-                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
-                            <div className='flex items-center justify-center gap-2'>
-                                <SkeletonLoader count={1} height={40} width={100} />
+                    <>
+                        <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                                <div className='flex items-center justify-center gap-2'>
+                                    <SkeletonLoader count={1} height={40} width={100} />
+                                </div>
+                                <div className='flex items-center gap-4'>
+                                    <SkeletonLoader count={1} height={40} width={100} />
+                                </div>
                             </div>
-                            <div className='flex items-center gap-4'>
-                                <SkeletonLoader count={1} height={40} width={100} />
-                            </div>
-                        </div>
-                        <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
-                            <p className='px-6 text-[#151D23] text-sm pb-5'>
-                                <SkeletonLoader count={1} height={20} width="80%" />
-                            </p>
-                            <div>
-                                <div className='px-6 cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 grid grid-cols-[80%,20%] justify-between'>
-                                    <SkeletonLoader count={3} height={40} width="80%" />
-                                    <SkeletonLoader count={3} height={40} width="100%" />
+                            <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                                <p className='px-6 text-[#151D23] text-sm pb-5'>
+                                    <SkeletonLoader count={1} height={20} width="80%" />
+                                </p>
+                                <div>
+                                    <div className='px-6 cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 grid grid-cols-[80%,20%] justify-between'>
+                                        <SkeletonLoader count={3} height={40} width="80%" />
+                                        <SkeletonLoader count={3} height={40} width="100%" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div >
+                    </>
                 ) : (
                     <>
                         <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
@@ -371,21 +373,26 @@ const QuickStart = () => {
 
                         </div>
                         {recentlyView && (
-                            <div className='py-4 px-6 bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
-                                <p className='text-base font-medium text-[#151D23]'>Recently Viewed</p>
-                                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
-                                    {recentlyView.map((ele, key) =>
-                                        <div className="flex flex-col items-center bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5" key={key}>
-                                            {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
-                                            <p className='my-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
-                                            {findIcon(ele.route)}
-                                            <Link href={ele.route}>
-                                                <div className='mt-2'>
-                                                    <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    )}
+                            <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                                <div className='py-4 px-6'>
+                                    <div className="flex items-start sm:items-center  gap-2">
+                                        <EyeIcon className="text-[#FF822D] w-5" />
+                                        <p className="text-base font-medium text-[#151D23]">Recently Viewed</p>
+                                    </div>
+                                    <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+                                        {recentlyView.map((ele, key) =>
+                                            <div className={`${key > 1 && 'hidden sm:flex'} flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
+                                                {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
+                                                <p className='my-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
+                                                {findIcon(ele.route)}
+                                                <Link href={ele.route}>
+                                                    <div className='mt-2'>
+                                                        <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
                             </div>
                         )}

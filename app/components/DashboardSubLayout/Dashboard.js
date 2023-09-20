@@ -63,12 +63,6 @@ const Dashboard = ({ children }) => {
             name: "Chat Logs",
             icon: "ChartBarIcon",
             subheading: "Reports"
-        },
-        {
-            href: "/dashboard/billing/usage",
-            name: "Billing",
-            icon: "BanknotesIcon",
-            subheading: "Billing"
         }, {
             href: "/dashboard/billing/usage",
             name: "Usage",
@@ -110,7 +104,7 @@ const Dashboard = ({ children }) => {
                 const findData = data.find((x) => x.route === pathname)
                 if (!findData) {
                     let newdata = []
-                    if (data.length === 2) {
+                    if (data.length === 3) {
                         newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, data[0]]
                     } else {
                         newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, ...data,]
