@@ -156,6 +156,29 @@ const Page = () => {
             </span>
           </li>
         </ul>
+        {isEdit == true ? (
+          <>
+            <p
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                setIsEdit(false);
+              }}
+            >
+              Edit
+            </p>
+          </>
+        ) : (
+          <>
+            <p
+              className="text-sm cursor-pointer"
+              onClick={() => {
+                setIsEdit(true);
+              }}
+            >
+              Back
+            </p>
+          </>
+        )}
       </div>
       <>
         {isEdit == true ? (
@@ -182,139 +205,87 @@ const Page = () => {
 
                     </div>
                   </div>
-                  <div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                    <div className="mt-3 grid grid-cols-[50%,50%] sm:grid-cols-[30%,70%]">
-
-
-
-                      <SkeletonLoader count={1} height={20} width={150} />
-
-                      <SkeletonLoader count={1} height={10} width={100} />
-
-                    </div>
-
-                    <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                  </div>
                 </> :
                 <>
-                  {basicFormData && basicFormData?.card && (
-                    <div className={"my-5"}>
-                      <StripeWrapper>
+                  {basicFormData && basicFormData?.card ? (
+                    <>
 
-                        <h3 className='font-semibold mb-2 text-base '>Add payment method</h3>
-                        <p className='text-xs text-border mb-4'>This card will be charged based on your metered usage. </p>
-                        <Billing
-                          basicFormData={basicFormData}
-                          setShowBilling={setIsEdit}
-                          getBillingData={getBillingData}
-                        />
-                      </StripeWrapper>
+                      <h3 className="text-start text-sm  my-2 font-semibold text-heading">
+                        Payment Methods
+                      </h3>
 
-                      <div className="my-3">
-                        <BasicDetails
-                          form={false}
-                          basicFormData={basicFormData}
-                          setBasicFormData={setBasicFormData}
-                        />
+
+                      <div className={'grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4'}>
+                        {basicFormData.card.map((element, key) =>
+                          <div className='border border-border rounded-lg p-4 ' key={key}>
+                            <div className=" text-start flex gap-6 items-center">
+                              <div className="h-[30px] w-[50px]"
+                                dangerouslySetInnerHTML={{ __html: sendLogos(element?.card?.brand) }}
+                              />
+                              <div>
+                                <h2 class=" font-normal text-sm text-heading">
+                                  ****{element?.card?.last4}
+                                </h2>
+                              </div>
+                            </div>
+
+                            <p className='text-border font-normal text-xs my-2'>Expires {element?.card?.exp_month}/{element?.card?.exp_year}</p>
+                            {key === 0 && (
+                              <p className='text-border font-normal text-xs mt-2'>Default</p>
+                            )}
+                          </div>
+                        )}
                       </div>
-                      <div className={`flex p-2 rounded-b mt-5 justify-between`}>
-                        <>
-                          {loading ? (
-                            <LoaderButton />
-                          ) : (
-                            <Button
-                              type={"button"}
-                              className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                              onClick={(e) => {
-                                SubmitBusinessDetails();
-                              }}
-                              disabled={DisablingButton()}
-                            >
-                              Submit
-                            </Button>
-                          )}
-                        </>
-                      </div>
-                    </div>
-                  )}
-                </>}
+
+                      <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+                      {/* <hr className="mt-4 text-border" /> */}
+                    </>
+                  ) : ""}
+                </>
+              }
+              <BasicDetailsReadOnly state={basicFormData} pageLoading={pageLoading} />
             </div>
           </>
         ) : (
           <>
+            <div className="bg-white m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
+              <StripeWrapper>
 
+                <h3 className='font-semibold mb-2 text-base '>Add payment method</h3>
+                <p className='text-xs text-border mb-4'>This card will be charged based on your metered usage. </p>
+                <Billing
+                  basicFormData={basicFormData}
+                  setShowBilling={setIsEdit}
+                  getBillingData={getBillingData}
+                />
+              </StripeWrapper>
+
+              <div className="my-3">
+                <BasicDetails
+                  form={false}
+                  basicFormData={basicFormData}
+                  setBasicFormData={setBasicFormData}
+                />
+              </div>
+              <div className={`flex p-2 rounded-b mt-5 justify-between`}>
+                <>
+                  {loading ? (
+                    <LoaderButton />
+                  ) : (
+                    <Button
+                      type={"button"}
+                      className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      onClick={(e) => {
+                        SubmitBusinessDetails();
+                      }}
+                      disabled={DisablingButton()}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </>
+              </div>
+            </div>
           </>
         )}
       </>

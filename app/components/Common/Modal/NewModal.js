@@ -3,7 +3,7 @@ import Button from '../Button/Button'
 import Card from '../Card/Card'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const Modal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true, alignment = 'items-center', showTopCancleButton = true }) => {
+const NewModal = ({ title, show, setShow, children, className, showCancel = false, customHideButton = false, closeFunction, hr = true, alignment = 'items-center' }) => {
     const divRef = useRef(null);
 
     useEffect(() => {
@@ -41,19 +41,16 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                                     >
                                         {title}
                                     </span>
-                                    {
-                                        showTopCancleButton === true && (
-                                            customHideButton === true ?
-                                                <Button className="text-border font-normal font-sm" onClick={() => { setShow(false); closeFunction() }}>
-                                                    <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2" />
-                                                </Button> :
-                                                showCancel && (
-                                                    <div className='flex justify-end gap-2'>
-                                                        <div className='cursor-pointer' onClick={() => setShow(false)}>
-                                                            <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2' />
-                                                        </div>
-                                                    </div>
-                                                )
+                                    {customHideButton === true ?
+                                        <Button className="text-border font-normal font-sm" onClick={() => { setShow(false); closeFunction() }}>
+                                            <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2" />
+                                        </Button> :
+                                        showCancel && (
+                                            <div className='flex justify-end gap-2'>
+                                                <div className='cursor-pointer' onClick={() => setShow(false)}>
+                                                    <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2' />
+                                                </div>
+                                            </div>
                                         )
                                     }
 
@@ -71,4 +68,4 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
     )
 }
 
-export default Modal
+export default NewModal
