@@ -1,27 +1,53 @@
 
 import { addBotConversationMessagesReaction } from '@/app/API/pages/Bot';
+import { getKnowledgeData } from '@/app/API/pages/Knowledge';
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
+import EditKnowledge from './EditKnowledge';
 
-const Chat = ({ messages, selectedBot }) => {
-    const [botUnique, setBotUnique] = useState({})
+const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
+
+
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
+    const [botUnique, setBotUnique] = useState({})
+    const [allKnowledge, setAllKnowledge] = useState([])
+    const bot = useSelector(state => state.botId.botData.data)
+
+
+    useEffect(() => {
+        getKnowledge()
+
+        if (bot) {
+            const filterBot = bot.bots.find((x) => x.id === selectedBot)
+            if (filterBot) { setBotUnique(filterBot) }
+        }
+
+        // responsive
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+
+    }, [bot])
+
+
+    // Handlers 
+
+    function handleResize() {
+        window && setIsSmallScreen(window.innerWidth < 600);
+    }
+
     const createFlag = async (value) => {
         const response = await addBotConversationMessagesReaction(value.id, { reaction: "DISLIKE" })
     }
-    const bot = useSelector(state => state.botId.botData.data)
 
-    useEffect(() => {
-        if (bot) {
-            const filterBot = bot.bots.find((x) => x.id === selectedBot)
-            if (filterBot) {
-                setBotUnique(filterBot)
-            }
-        }
-
-    }, [bot])
+    const getKnowledge = async () => {
+        const response = await getKnowledgeData()
+        setAllKnowledge(response?.data?.results)
+    }
 
     const copyMessageText = (text) => {
         navigator?.clipboard?.writeText(text)
@@ -31,9 +57,31 @@ const Chat = ({ messages, selectedBot }) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
 
+    function formatDateTime(dateTimeString) {
+        const date = new Date(dateTimeString);
+        const options = {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true,
+            timeZoneName: 'short',
+        };
+
+        return date.toLocaleDateString('en-US', options);
+    }
+
+    
     return (
         <>
-            <div className='z-[50]'>
+            <div className='flex justify-content-center'>
+                <small className='m-auto' >{detailsOfOpenConversation?.datetime && formatDateTime(detailsOfOpenConversation.datetime)}</small>
+            </div>
+
+            <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
+
                 <div className="chatbot_widget" id="chatbot_widget">
                     <div className="containerChatBot_entire !block">
                         <div className={``}>
@@ -60,12 +108,12 @@ const Chat = ({ messages, selectedBot }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="chat_content" style={{maxHeight: '60vh'}}>
+                            <div className="chat_content" style={{ maxHeight: isSmallScreen ? '80vh' : '60vh' }}>
                                 {messages.map((element, key) =>
                                     <>
                                         {element.sender === 'bot' &&
                                             (
-                                                <div className="answer_with_thumbs" style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                <div className="answer_with_thumbs" style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
                                                     <img className="profile-photo_ChatBot_back"
                                                         src={`${botUnique?.enterprise?.logo ||
                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
@@ -86,7 +134,6 @@ const Chat = ({ messages, selectedBot }) => {
                                                             element.content === 'OPTIONS' &&
                                                             <>
                                                                 <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
-
                                                                     Could you please clarify how I can best help you?
                                                                 </div>
                                                             </>
@@ -104,10 +151,25 @@ const Chat = ({ messages, selectedBot }) => {
 
                                                         {
                                                             element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' &&
+                                                            <>
+                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    {element.content}
 
-                                                            <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
-                                                                {element.content}
-                                                            </div>
+                                                                </div>
+                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                    <small><b>Sources</b></small><br />
+                                                                    {
+                                                                        element?.knowledge?.length ? element?.knowledge?.map(item => (
+
+                                                                            <EditKnowledge item={item} allKnowledge={allKnowledge}></EditKnowledge>
+
+                                                                        ))
+
+                                                                            :
+                                                                            <small>LLM</small>
+                                                                    }
+                                                                </div>
+                                                            </>
                                                         }
 
 
@@ -125,6 +187,13 @@ const Chat = ({ messages, selectedBot }) => {
                                                                 <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
                                                                 <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
                                                             </div>
+                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                    <small>
+                                                                        <b>Sources</b>
+                                                                        <br />
+                                                                        Custom
+                                                                    </small>
+                                                                </div>
                                                             </>
                                                         }
 
@@ -137,6 +206,13 @@ const Chat = ({ messages, selectedBot }) => {
                                                                             ({index + 1}) {element.actions.options[key]}
                                                                         </button>
                                                                     )}
+                                                                </div>
+                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
+
+                                                                    <small>
+                                                                        <b>Sources</b><br />
+                                                                        Custom
+                                                                    </small>
                                                                 </div>
                                                             </>
                                                         }
@@ -216,11 +292,19 @@ const Chat = ({ messages, selectedBot }) => {
                                                                         );
                                                                     })}
                                                                 </div>
+                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
+
+                                                                    <small><b>Sources</b><br />Custom</small>
+                                                                </div>
 
                                                             </>
-
-
                                                         }
+
+
+
+                                                        {/* SOURCES */}
+
+
                                                     </div>
                                                     <div className="chatBotWidgetThumbs">
                                                         {/* <div className="chatBotWidgetThumbs_thumb_up">

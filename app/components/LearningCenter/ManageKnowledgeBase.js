@@ -266,6 +266,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     }
 
     const viewKnowledgeCenterHandler = (data) => {
+        console.log(data)
         setEditKnowledgeCenter(true);
         setSingleKnowledgeData(data)
     };
@@ -320,7 +321,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             }
         };
         document.addEventListener("click", handleOutsideClick);
-
         return () => {
             document.removeEventListener("click", handleOutsideClick);
         };

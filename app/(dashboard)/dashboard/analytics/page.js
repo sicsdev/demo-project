@@ -102,6 +102,7 @@ const Logs = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const [detailsOfOpenConversation, setDetailsOfOpenConversation] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({
     type: 'all',
     workflows: 'all',
@@ -482,6 +483,7 @@ const Logs = () => {
                   // router.push(rowData.url);
                   setIndexVal(rowData.index)
                   getCoversationMessages(rowData.id)
+                  setDetailsOfOpenConversation(rowData)
                 }}
                 progressPending={loading}
                 progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
@@ -558,7 +560,7 @@ const Logs = () => {
                 </div>
                 <>
 
-                  <Chat messages={messages} selectedBot={selectedBot} />
+                  <Chat detailsOfOpenConversation={detailsOfOpenConversation} messages={messages} selectedBot={selectedBot} />
 
                 </>
 

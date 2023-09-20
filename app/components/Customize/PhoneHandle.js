@@ -23,7 +23,7 @@ const PhoneHandle = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state.botId);
     const user = useSelector((state) => state.user.data);
-    console.log("state", user)
+    // console.log("state", user)
     const [botValue, setBotValue] = useState([]);
     const [basicFormData, setBasicFormData] = useState([])
     const [showPhoneView, setShowPageView] = useState(true)
@@ -103,7 +103,7 @@ const PhoneHandle = () => {
         } else {
             setPageLoading(false)
             setShowPageView(false)
-            console.log("response", response)
+            // console.log("response", response)
         }
     }
 
@@ -309,7 +309,7 @@ const PhoneHandle = () => {
             setPageLoading(false)
         }
     }
-    console.log("basicFormData", basicFormData)
+    // console.log("basicFormData", basicFormData)
     return (
         <div className='container my-8'>
             <div className='border border-border rounded-lg ' >

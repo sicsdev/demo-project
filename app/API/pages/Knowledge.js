@@ -53,4 +53,17 @@ export const deleteKnowledgeFAQ = async (id, faqid) => {
     }
 };
 
- 
+export const patchKnowledgeQuestion = async (body, id) => {
+
+    // answer= \
+    //   question= \
+    //   active= \
+
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/faqs/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
