@@ -85,7 +85,7 @@ const Logs = () => {
   const [showChat, setShowChat] = useState(false)
   const router = useRouter();
   const [botValue, setBotValue] = useState([]);
-  const [workflowValue, setWorkflowValue] = useState([{ name: 'Select All', value: 'alll' },{ name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
+  const [workflowValue, setWorkflowValue] = useState([{ name: 'Select All', value: 'alll' }, { name: 'Conversation Properties', value: 'all' }, { name: 'Human Handoff', value: 'handoff' }, { name: 'CSAT', value: 'csat' }, { name: 'Downvoted', value: 'downvotes' }]);
   const [userWorkFlows, setUserWorkflows] = useState([]);
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
@@ -102,6 +102,7 @@ const Logs = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
+  const [detailsOfOpenConversation, setDetailsOfOpenConversation] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({
     type: '',
     workflows: '',
@@ -420,7 +421,7 @@ const Logs = () => {
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.type || ''}
                   name="type"
-                  values={[{ name: 'Select All', value: 'all' },{ name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
+                  values={[{ name: 'Select All', value: 'all' }, { name: 'Chat', value: 'chat' }, { name: 'Email', value: 'email' }, { name: 'Phone', value: 'phone' }]}
                   title={<h3 className="text-sm my-4 font-semibold">Channel</h3>}
                   id={"type"}
                   className="py-3"
@@ -476,6 +477,7 @@ const Logs = () => {
                   // router.push(rowData.url);
                   setIndexVal(rowData.index)
                   getCoversationMessages(rowData.id)
+                  setDetailsOfOpenConversation(rowData)
                 }}
                 progressPending={loading}
                 progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
@@ -552,7 +554,7 @@ const Logs = () => {
                 </div>
                 <>
 
-                  <Chat messages={messages} selectedBot={selectedBot} />
+                  <Chat detailsOfOpenConversation={detailsOfOpenConversation} messages={messages} selectedBot={selectedBot} />
 
                 </>
 

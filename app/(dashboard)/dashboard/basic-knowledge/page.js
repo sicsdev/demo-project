@@ -20,6 +20,7 @@ const Page = () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
         if (response?.data?.results.length > 0) {
+            console.log(response.data, 'knowledge data')
             setKnowledge(response?.data?.results)
 
             const botDataArray = response?.data?.results.map(entry => {
