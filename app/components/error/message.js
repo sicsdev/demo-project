@@ -8,5 +8,5 @@ export const errorMessages = {
     forbidden: 'Access to the requested resource is forbidden.',
     timeout: 'The request timed out.',
     conflict: 'Conflict. The requested operation conflicts with an existing resource.',
-    serviceUnavailable: 'The server is currently unavailable. Please try again later.',
+    serviceUnavailable: 'The server is currently unavailable. Please try again later.', 
 };

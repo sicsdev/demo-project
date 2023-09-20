@@ -151,29 +151,24 @@ const Page = () => {
 
     const handleWorkflow = async (workflow_data, questionId) => {
         const row = state?.data?.results.find(item => item.id === questionId);
-        if (checkValue(row.answer) === true) {
-            let descriptions = [...workflow_data.description]
+        let descriptions = [...workflow_data.description]
+        if (row.answer) {
             descriptions.push(row.answer)
-            let Payload = {
-                description: descriptions.filter((x) => x !== ''),
-            }
-            const updateRecord = await updateRecommendationRecord({ answer: row.answer }, questionId);
-            if (updateRecord?.status === 201 || updateRecord?.status === 200) {
-                const response = await updateWorkFlowStatus(Payload, workflow_data.id)
-                if (response.status === 200 || response.status === 201) {
-                    const excludeRecord = await excludeRecommendationRecord(questionId);
-                    if (excludeRecord?.status === 204) {
-                        dispatch(fetchRecommendation());
-                    } else {
-                        errorMessage(response.response.data.description)
-                    }
-                }
-            } else {
-                errorMessage("Something is wrong !")
-            }
-        } else {
-            errorMessage("Please write answer first !")
         }
+        let Payload = {
+            description: descriptions.filter((x) => x !== ''),
+        }
+        const response = await updateWorkFlowStatus(Payload, workflow_data.id)
+        if (response.status === 200 || response.status === 201) {
+            const excludeRecord = await excludeRecommendationRecord(questionId);
+            if (excludeRecord?.status === 204) {
+                dispatch(fetchRecommendation());
+            } else {
+                errorMessage(response.response.data.description)
+            }
+        }
+
+
     }
     const divRef = useRef(null);
     useEffect(() => {
@@ -422,7 +417,7 @@ const Page = () => {
                             onChangePage={(page) => {
                                 handleRecomodationValue(page)
                             }}
-                            paginationRowsPerPageOptions={[5,10, 20, 30]}
+                            paginationRowsPerPageOptions={[5, 10, 20, 30]}
                             className=''
                             sortServer
                             onSort={handleSort}
