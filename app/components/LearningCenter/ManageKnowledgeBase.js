@@ -33,6 +33,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const [placeholderText, setPlaceholderText] = useState('')
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
     const [filterText, setFilterText] = useState('');
+    const [filterhead, setFilterhead] = useState('ALL');
+
     const handleFilterChange = (event) => {
         const searchText = event.target.value;
         setFilterText(searchText);
@@ -48,7 +50,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
 
         return () => clearInterval(interval);
     }, []);
-
 
 
     const getCount = (data, type) => {
@@ -124,7 +125,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             sortable: false,
             reorder: false,
             cell: (row) => (
-                <h3 data-tag="allowRowEvents" className={`font-normal text-xs `}>{row.title}</h3>
+                <h3 data-tag="allowRowEvents" className={`font-normal text-xs w-[200px] sm:w-auto`}>{row.title}</h3>
             ),
         },
         {
@@ -133,7 +134,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             sortable: false,
             reorder: false,
             cell: (row) => (
-                <span data-tag="allowRowEvents" className={`inline-block w-auto sm:w-[100px] text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                <span data-tag="allowRowEvents" className={`w-[94px] inline-block w-auto text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
                     {row.active ? "Active" : "Disabled"}
                 </span>
             )
@@ -145,7 +146,15 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             reorder: false,
             cell: (row) => (
                 <div data-tag="allowRowEvents" className="flex justify-center items-center gap-2">
-                    <LinkIcon className="h-4 w-4 font-semibold" />
+
+                    {row.source === 'snippet' ?
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" className="h-[32px] w-auto text-white bg-red rounded-lg p-[6px]" ><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path></svg>
+                        : row.source === 'file' ?
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" className="h-[32px] w-auto text-white bg-primary rounded-lg p-[6px]"><path stroke-linecap="round" stroke-linejoin="round" d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"></path></svg>
+                            :
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" className="h-[32px] w-auto text-white bg-btn_y_hover rounded-lg p-[6px]"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"></path></svg>
+                    }
+
                     <span className="text-xs font-semibold">{row.source}</span>
                 </div>
             ),
@@ -324,22 +333,28 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <div className="w-full">
                     <div className="sm:flex rounded-t-lg pt-4 sm:pt-4  border-border justify-between items-center">
                         <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
+                            {/* 
                             <div className='flex justify-between items-center gap-1'>
                                 <ClipboardIcon className='h-4 w-4' />
                                 <p className="text-sm font-bold text-heading">Tempo Content</p>
                             </div>
+                    */}
+
                         </div>
                         <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
-
+                            {/* 
                             <div>
                                 <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center text-xs gap-2 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
                                     <Cog6ToothIcon className='h-4 w-4' />
                                     Manage Sources
                                 </button>
                             </div>
-                            <div>
+                    */}
+                            <div className='mr-[18px]'>
                                 <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                    {/* 
                                     <PlusSmallIcon className='h-4 w-4' />
+                                     */}
                                     Create
                                 </button>
                             </div>
@@ -369,7 +384,61 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             </div>
                         </div>
 
-                        <div className="block sm:flex gap-10 justify-start items-center">
+                        <div className="flex justify-between sm:flex gap-10 justify-start items-center">
+                            <div className='mt-0 sm:mt-0 relative' ref={dropdown}>
+                                <div className="text-sm bg-[#FFF] rounded-md inline-block"
+                                    style={{ border: "1px solid #C7C6C7" }}>
+                                    <button
+                                        type="button"
+                                        className="border-none m-0 p-1 px-[0px] flex gap-1 items-center text-lg font-semibold w-[175px]"
+                                        onClick={() => { setShowSourceFilter(prev => !prev) }}
+                                    >
+                                        {/* 
+                                        <AdjustmentsHorizontalIcon className='h-4 w-4' />
+                                    */}
+                                        <small className="flex gap-2 justify-between w-full font-normal items-center text-xs p-2">{filterhead}
+                                            <i style={{ fontSize: "15px" }} className="fa">&#xf0d7;</i>
+                                        </small>
+                                    </button>
+                                </div>
+                                {showSourceFilter && (
+                                    <div id="dropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
+                                        style={{ border: "1px solid #C7C6C7" }}>
+                                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                                            <li className='hover:bg-gray cursor-pointer' onClick={() => {
+                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'ALL'))
+                                                setShowSourceFilter(prev => !prev)
+                                                setFilterhead('ALL')
+                                            }}>
+                                                <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
+                                            </li>
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
+                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
+                                                setShowSourceFilter(prev => !prev)
+                                                setFilterhead('EXTERNAL')
+
+                                            }}>
+                                                <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
+                                            </li>
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
+                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
+                                                setShowSourceFilter(prev => !prev)
+                                                setFilterhead('SNIPPET')
+
+                                            }}>
+                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
+                                            </li>
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
+                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
+                                                setShowSourceFilter(prev => !prev)
+                                                setFilterhead('FILE')
+                                            }}>
+                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
                             <div className="relative">
                                 <input
                                     placeholder="Search"
@@ -379,48 +448,6 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                     onChange={handleFilterChange}
                                 />
                                 <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
-                            </div>
-                            <div className='mt-4 sm:mt-0 relative' ref={dropdown}>
-                                <div className="text-sm bg-[#F1F1F1] rounded-lg inline-block p-1 px-2">
-                                    <button
-                                        type="button"
-                                        className="border-none p-0 m-0 flex gap-1 items-center text-lg font-bold "
-                                        onClick={() => { setShowSourceFilter(prev => !prev) }}
-                                    >
-                                        <AdjustmentsHorizontalIcon className='h-4 w-4' />
-                                        <small className="text-xs p-2">All content sources</small>
-                                    </button>
-                                </div>
-                                {showSourceFilter && (
-                                    <div id="dropdown" className="z-10 absolute my-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                                        <ul className="p-2  text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                            <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'ALL'))
-                                                setShowSourceFilter(prev => !prev)
-                                            }}>
-                                                <p className="block px-4 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
-                                            </li>
-                                            <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
-                                                setShowSourceFilter(prev => !prev)
-                                            }}>
-                                                <p className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
-                                            </li>
-                                            <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
-                                                setShowSourceFilter(prev => !prev)
-                                            }}>
-                                                <p href="#" className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
-                                            </li>
-                                            <li className='hover:bg-gray rounded-md cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
-                                                setShowSourceFilter(prev => !prev)
-                                            }}>
-                                                <p href="#" className="block text-xs px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </div>
