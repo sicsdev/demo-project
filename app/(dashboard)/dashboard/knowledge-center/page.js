@@ -237,12 +237,14 @@ const Page = () => {
             sortable: true,
             reorder: true,
             width: "100px",
-            center:true
+            center: true,
+            hide: "sm"
         },
         {
-            name: "",
+            name: "Actions",
+            center: true,
             cell: (row, index) => (
-                <div className="flex justify-center gap-4 ml-5" >
+                <div className="flex justify-center gap-4 w-[100%]" >
                     {
                         row?.accepted === false && (
                             <>
@@ -420,11 +422,12 @@ const Page = () => {
                             onChangePage={(page) => {
                                 handleRecomodationValue(page)
                             }}
-                            paginationRowsPerPageOptions={[5, 10, 15, 30]}
+                            paginationRowsPerPageOptions={[5, 15, 30]}
                             className=''
                             sortServer
                             onSort={handleSort}
                             customStyles={customStyles}
+                            defaultSortAsc={false}
                         />
                     </div>
                 </>
@@ -466,7 +469,7 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow, index, total })
                 <div className="relative" >
 
                     {openWorkflows === row.id && (
-                        <div className={`absolute left-[-315px]  ${index === total - 1 ? 'top-[unset] bottom-[50px]' : 'top-[34px]'}   sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                        <div className={`absolute left-[-315px]  ${(index === total - 1 || index === total - 2 || index === total - 3) ? 'top-[unset] bottom-[50px]' : 'top-[34px]'}   sm:left-[-280px] md:left-[-280px] lg:left-[-280px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                             {workflow.length > 0 ?
                                 <ul className="py-2 text-sm text-gray-700 ">
                                     {workflow.map((ele, key) =>
