@@ -422,7 +422,7 @@ const Page = () => {
                             onChangePage={(page) => {
                                 handleRecomodationValue(page)
                             }}
-                            paginationRowsPerPageOptions={[5, 15, 30]}
+                            paginationRowsPerPageOptions={[5,10, 20, 30]}
                             className=''
                             sortServer
                             onSort={handleSort}

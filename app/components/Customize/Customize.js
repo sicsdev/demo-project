@@ -650,7 +650,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         onChange={handleAgentNameValue}
                         type={"text"}
                         placeholder={"Enter prompts separated by ,"}
-                        className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`}
+                        className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
                       />
