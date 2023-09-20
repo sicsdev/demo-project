@@ -166,7 +166,7 @@ const NewSidebar = ({ children }) => {
             notification: recommedState?.data?.count,
         },
         {
-            href: "/",
+            href: "/dashboard/chat-bots",
             name: "Tempo Chat",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
@@ -179,7 +179,7 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/",
+            href: "/dashboard/manage-phones",
             name: "Smart IVR",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
@@ -192,7 +192,7 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/",
+            href: "/dashboard/analytics",
             name: "Reports",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
@@ -223,7 +223,7 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/dashboard/knowledge-center",
+            href: "/dashboard/members",
             name: "Organization Settings",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
@@ -811,10 +811,15 @@ const NewSidebar = ({ children }) => {
                                 </ul>
                             )}
 
-                            <div className="cursor-pointer py-4 flex justify-start" onClick={(e) => { setCollaps(prev => !prev) }}>
-                                {!collaps ?
-                                    <p className="text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
-                                    : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
+                            <div className={`cursor-pointer py-4 px-2 flex ${!collaps ? 'justify-start' : 'justify-center'}`} onClick={(e) => { setCollaps(prev => !prev) }}>
+                                {/* <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out"> */}
+                                    {/* <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer"> */}
+                                        {!collaps ?
+                                            <p className="px-2 text-[12px] font-normal flex items-center gap-2"> <ArrowSmallLeftIcon className="h-4 w-4 text-white " /> Collapse</p>
+                                            : <ArrowSmallRightIcon className="h-4 w-4 text-white " />}
+                                    {/* </li> */}
+                                {/* </ul> */}
+
                             </div>
                         </div>
 

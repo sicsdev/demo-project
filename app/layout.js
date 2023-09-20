@@ -57,6 +57,10 @@ export default function RootLayout({ children }) {
           href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
         />
 
+        <link
+          rel="stylesheet"
+          href="https://widget-dev.usetempo.ai/v1/assets/css/optionsbuttons.css"
+        />
         {/* <meta
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
