@@ -1276,9 +1276,6 @@ body .cursor-pointer {
   border: 0.5px dashed #2196f3 !important;
 }
 
-.rdt_TableBody {
-  height: 500px;
-}
 
 .admin-sidebar-wrapper:hover .admin-sidebar-logo {
   opacity: 0;
@@ -1293,9 +1290,6 @@ body .cursor-pointer {
   margin-left: 37px;
 }
 
-.rdt_TableRow {
-  padding: 12px 0;
-}
 
 body .rhap_container {
   box-shadow: none !important;

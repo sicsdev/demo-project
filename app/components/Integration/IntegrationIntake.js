@@ -17,6 +17,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
     const dispatch = useDispatch()
     const state = useSelector((state) => state.integrationTemplate);
     const [tiles, setTiles] = useState(basicFormData?.tiles ?? [])
+    const [tilesCheck, setTilesCheck] = useState(basicFormData?.tiles ?? [])
     const [stepIds, setStepIds] = useState(basicFormData?.stepIds ?? [])
     const [help, setHelp] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -31,7 +32,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
                     return findData !== undefined; // Filter out undefined elements
                 })
                 .map((ele) => ele);
-            setTiles(filteredData)
+            setTiles(filteredData)      
             performIntegrationTask(filteredData[0])
             setBasicFormData((prev) => {
                 return {
@@ -194,20 +195,20 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
                         <div class="grid grid-cols-1 md:grid-cols-6 items-center sm:gap-4 md:gap-4 lg:gap-4">
                             <div class="col-span-1 md:col-span-4 bg-red-300">
                                 {Object.keys(tiles[currentStep].data).map((key) => (
-                                    <div className='my-2' key={key}>
-                                        <TextField
-                                            onChange={(e) => handleIntegrationInputChange(e)}
-                                            value={tiles[currentStep].data[key] || ''}
-                                            name={key}
-                                            autoComplete={'off'}
-                                            labelClass={"font-bold mb-2"}
-                                            className="py-3 mt-2"
-                                            title={convertToTitleCase(key)}
-                                            placeholder={convertToTitleCase(key)}
-                                            type={"text"}
-                                            id={key}
-                                        />
-                                    </div>
+                                        <div className='my-2' key={key}>
+                                            <TextField
+                                                onChange={(e) => handleIntegrationInputChange(e)}
+                                                value={tiles[currentStep].data[key] || ''}
+                                                name={key}
+                                                autoComplete={'off'}
+                                                labelClass={"font-bold mb-2"}
+                                                className="py-3 mt-2"
+                                                title={convertToTitleCase(key)}
+                                                placeholder={convertToTitleCase(key)}
+                                                type={"text"}
+                                                id={key}
+                                            />
+                                        </div>
                                 ))}
 
                             </div>
