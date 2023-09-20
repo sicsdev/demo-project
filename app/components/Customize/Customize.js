@@ -680,7 +680,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
 
               <div
                 id="chatbot_preview"
-                className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%] mt-6 sm:mt-0"
+                className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0"
               >
                 {/* <div className="mb-8">
                   <a

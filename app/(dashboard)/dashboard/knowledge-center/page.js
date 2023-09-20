@@ -460,7 +460,7 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow, index, total })
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
                 <button type="button">
                     <PlusCircleIcon className="h-6 w-6 text-success " />
-                    {index}
+                    {/* {index} */}
                 </button>
                 <div className="relative" >
 

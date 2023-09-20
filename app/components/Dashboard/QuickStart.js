@@ -371,13 +371,13 @@ const QuickStart = () => {
 
                         </div>
                         {recentlyView && (
-                            <div className='p-3 bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
-                                <h3 className='my-4'>Recently Viewed</h3>
+                            <div className='py-4 px-6 bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                                <p className='text-base font-medium text-[#151D23]'>Recently Viewed</p>
                                 <div className='grid grid-cols-1 sm:grid-cols-2 gap-4'>
                                     {recentlyView.map((ele, key) =>
-                                        <div className="bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5" key={key}>
-                                         {ele?.subheading &&(   <p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}        
-                                            <p className='mt-2 font-semibold'>{ele.name}</p>
+                                        <div className="flex flex-col items-center bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5" key={key}>
+                                            {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
+                                            <p className='my-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
                                             {findIcon(ele.route)}
                                             <Link href={ele.route}>
                                                 <div className='mt-2'>
