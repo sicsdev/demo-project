@@ -193,7 +193,7 @@ const Page = () => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '200px', // override the row height
+                minHeight: '80px', // override the row height
                 maxHeight: '300px', // override the row height
             },
         }
@@ -221,9 +221,9 @@ const Page = () => {
             // sortable: true,
             reorder: true,
             cell: (row) => (
-                <div className='my-2 w-[100%]'>
+                <div className='w-[100%]'>
                     <TextArea name="interrogatory_type"
-                        className="py-2 mt-2"
+                        className="py-2"
                         type={"text"}
                         id={"interrogatory_type"}
                         onChange={(e) => handleInput({ ...row, answer: e.target.value })}
@@ -460,7 +460,7 @@ export const ButtonComponent = ({ row, handleWorkflow, workflow, index, total })
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => setOpenWorkflow(prev => prev === row.id ? null : row.id)}>
                 <button type="button">
                     <PlusCircleIcon className="h-6 w-6 text-success " />
-                    {index}
+                    {/* {index} */}
                 </button>
                 <div className="relative" >
 

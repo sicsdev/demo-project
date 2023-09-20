@@ -1220,8 +1220,13 @@ body .cursor-pointer {
   border-radius: 10px
 }
 
+.rhap_container .rhap_main.rhap_stacked {
+  flex-direction: row;
+}
 
-
+.rhap_container .rhap_stacked .rhap_controls-section {
+  margin-top: 0px;
+}
 
 
 @media(min-width:991px) {
@@ -1304,21 +1309,25 @@ body .rhap_progress-filled,
 body .rhap_main-controls-button {
   color: #0057ff;
 }
+
 .closeIcon {
   cursor: pointer;
-  float:none;
+  float: none;
   height: 13px;
   margin-left: 0;
 }
+
 body .rhap_play-pause-button {
   font-size: 20px;
   width: 24px;
   height: 29px;
   margin-left: 30px;
 }
+
 body .rhap_additional-controls {
   display: none;
 }
+
 body .rhap_progress-indicator {
   box-sizing: border-box;
   position: absolute;
