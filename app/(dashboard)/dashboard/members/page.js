@@ -82,7 +82,7 @@ const Page = () => {
 
       {teamModal ? (
         <>
-          <SideModal setShow={setTeamModal} heading={'Invite Team Member'} >
+          <SideModal setShow={setTeamModal} heading={'Invite Team Member'} border={false}>
             <Invite setTeamModal={setTeamModal} />
           </SideModal>
 
