@@ -31,7 +31,6 @@ import { buyAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
 import { errorMessage } from "../Messages/Messages";
 import { ToastContainer } from "react-toastify";
 import { createNewKnowledge } from "@/app/API/pages/Knowledge";
-import Modal from "../Common/Modal/Modal";
 
 const Intake = () => {
   const headingData = [
@@ -56,7 +55,6 @@ const Intake = () => {
       logo: <InboxArrowDownIcon className="w-10 h-10 mr-2" />,
     },
   ]
-  const [intakeModal, setIntakeModal] = useState(true);
   const [basicFormData, setBasicFormData] = useState({});
   let state = useSelector((state) => state.botId.showModal);
   let user = useSelector((state) => state.user.data);
@@ -71,7 +69,7 @@ const Intake = () => {
   useEffect(() => {
     setShowModal(state);
   }, [state]);
-  
+  console.log(basicFormData)
   function displayErrorMessages(errors) {
     let firstError = '';
 
@@ -102,7 +100,6 @@ const Intake = () => {
       }
     }
   }, [user])
-
   const GetStepForm = () => {
     switch (intakeStep) {
       case 0:
@@ -174,7 +171,6 @@ const Intake = () => {
         return { title: "Form not found !", form: <h1>Something wrong !</h1> };
     }
   };
-
   const getAbbrevationOfState = (abber) => {
     const findAbber = state_data.find((state) => state.name === abber);
     if (findAbber) {
@@ -182,7 +178,6 @@ const Intake = () => {
     }
     return "";
   };
-
   const DisablingButton = () => {
     if (intakeStep === 0) {
       const requiredKeys = [
@@ -395,7 +390,6 @@ const Intake = () => {
         setLoading(false);
       });
   };
-
   const SubmitConfigureEmail = async () => {
     setLoading(true);
     const response = await createEnterpriseAccount({
@@ -431,12 +425,10 @@ const Intake = () => {
       setLoading(false);
     }
   };
-
   function validateURL(url) {
     var urlPattern = /^(https?:\/\/)?([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(:\d+)?(\/\S*)?$/;
     return urlPattern.test(url);
   }
-
   const handleIntegrationSubmitForm = async () => {
 
 
@@ -548,7 +540,6 @@ const Intake = () => {
     }
     return "text-border";
   };
-  
   const changeStep = (element) => {
     if (
       intakeCompleteStep > element.step ||
@@ -557,7 +548,6 @@ const Intake = () => {
       setIntakeStep(element.step);
     }
   };
-
   const sendActiveValueLabel = (element) => {
     if (intakeStep === element.step) {
       return "text-white bg-heading";
@@ -579,11 +569,9 @@ const Intake = () => {
     }
     return key + 1;
   };
-
   const handleBack = () => {
     setIntakeStep(intakeStep - 1);
   };
-
   return (
     <>
       {showModal && (

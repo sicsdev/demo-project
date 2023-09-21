@@ -51,7 +51,12 @@ const Dashboard = ({ children }) => {
             subheading: "Tempo Chat",
             icon: "AdjustmentsHorizontalIcon",
         },
-
+        {
+            href: "/dashboard/smart-inbox/email-settings",
+            name: "Email Settings",
+            icon: "InboxIcon",
+            subheading: "Smart Inbox"
+        },
         {
             href: "/dashboard/manage-phones",
             name: "Phone",
