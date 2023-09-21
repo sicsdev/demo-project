@@ -131,7 +131,7 @@ const Sidebar = ({ children }) => {
     },
     {
       href: "/dashboard/analytics",
-      name: "Reports",
+      name: "Logs",
       icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
       list: [],
     },
@@ -157,7 +157,7 @@ const Sidebar = ({ children }) => {
         },
         {
           href: "/dashboard/billing/settings",
-          name: "Billing Settings",
+          name: "Billing",
           icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
         },
       ],

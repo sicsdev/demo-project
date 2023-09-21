@@ -220,7 +220,7 @@ const Page = () => {
       <>
         {isEdit == true ? (
           <>
-            <div className="bg-white m-auto border w-full sm:w-2/3 m-auto rounded-lg border-[#F0F0F1] mt-5 py-4">
+            <div className="bg-white m-auto border w-full m-auto rounded-lg border-[#F0F0F1] mt-5 py-4">
               {pageLoading === true ? (
                 <>
                   <SkeletonLoader count={1} height={20} width={150} />
