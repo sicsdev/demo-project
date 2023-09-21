@@ -36,7 +36,7 @@ const Page = () => {
     const [recommendationOrderBy, setRecommendationOrderBy] = useState('');
     const [search, setSearch] = useState('');
     const [typingTimeout, setTypingTimeout] = useState(null);
-
+    console.log("state", state);
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
