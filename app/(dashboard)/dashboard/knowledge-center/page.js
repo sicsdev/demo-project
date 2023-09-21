@@ -189,8 +189,9 @@ const Page = () => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '80px', // override the row height
-                maxHeight: '300px', // override the row height
+                minHeight: 'auto', // override the row height
+                // maxHeight: '100%', // override the row height
+                height: "auto"
             },
         }
     };
@@ -201,25 +202,20 @@ const Page = () => {
             id: "question",
             selector: 'question',
             sortable: false,
+            minWidth: "300px",
             reorder: true,
             cell: (row) => (
                 <p className='whitespace-normal'>{row.question}</p>
-            ),
-            style: {
-                whiteSpace: "inherit",
-                width: '300px !important',
-                "overflow-y": isMobile ? 'scroll' : "none",
-                "align-items": isMobile ? "flex-start" : "center"
-                // padding: '10px 0 10px 0'
-            },
+            )
         },
         {
             name: "New Answer",
             selector: 'question',
             // sortable: true,
+            minWidth: "300px",
             reorder: true,
             cell: (row) => (
-                <div className='w-[100%]'>
+                <div className='w-[100%] p-2'>
                     <TextArea name="interrogatory_type"
                         className="py-2"
                         type={"text"}
