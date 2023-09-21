@@ -6,6 +6,8 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
+import { setForReview } from '@/app/API/pages/Logs';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/outline';
 
 const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -14,6 +16,8 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
+    const [conversationDetails, setConversationDetails] = useState({})
+
     const bot = useSelector(state => state.botId.botData.data)
 
 
@@ -23,6 +27,10 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
         if (bot) {
             const filterBot = bot.bots.find((x) => x.id === selectedBot)
             if (filterBot) { setBotUnique(filterBot) }
+        }
+
+        if (detailsOfOpenConversation) {
+            setConversationDetails(detailsOfOpenConversation)
         }
 
         // responsive
@@ -73,13 +81,45 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
         return date.toLocaleDateString('en-US', options);
     }
 
-    
+
+    async function handleForReview(e) {
+        setConversationDetails({ ...conversationDetails, for_review: e.target.checked })
+
+        await setForReview(detailsOfOpenConversation.id, { for_review: e.target.checked })
+    }
+
     return (
         <>
             <div className='flex justify-content-center'>
                 <small className='m-auto' >{detailsOfOpenConversation?.datetime && formatDateTime(detailsOfOpenConversation.datetime)}</small>
             </div>
 
+
+            <div className='mt-5'>
+                {/* <div className='flex justify-center'>
+                    <small>Channel</small>
+                </div> */}
+                <div className='flex justify-around rounded-md' style={{ fontSize: '12px' }}>
+
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray rounded-tl-lg rounded-bl-lg items-center p-1 ${conversationDetails.type == 'chat' && "text-primary"}`}>
+                            <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4 mx-2" />
+                            Chat
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray items-center p-1 ${conversationDetails.type == 'email' && "text-primary"}`}>
+                            <AtSymbolIcon className="w-4 h-4 mx-2" />
+                            Email
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray rounded-tr-lg rounded-br-lg items-center p-1 ${conversationDetails.type == 'phone' && "text-primary"}`}>
+                            <DevicePhoneMobileIcon className="w-4 h-4 mx-2" /> Phone
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
 
                 <div className="chatbot_widget" id="chatbot_widget">
@@ -371,6 +411,18 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                     </div>
                 </div>
             </div >
+
+            <div className="flex items-center space-x-2 mt-4 justify-end mx-3">
+                <input
+                    type="checkbox"
+                    id="forReviewCheckbox"
+                    className="form-checkbox h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
+                    checked={conversationDetails?.for_review}
+                    onClick={handleForReview}
+                />
+                <label for="forReviewCheckbox" className="text-gray-700">For review</label>
+            </div>
+
         </>
     )
 }
