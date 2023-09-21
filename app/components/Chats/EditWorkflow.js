@@ -1,22 +1,22 @@
 import { getKnowledgeData, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge'
+import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
 const EditWorkflow = ({ item, allKnowledge }) => {
 
-    // let descriptions = item?.information?.description[0].split(', ') || null
-    // let descriptions = item?.information?.description[0] || null
-    let descriptionLine = "If user says I want a refund"
+    let descriptions = item?.information?.description[0].split(', ') || ['Add new line']
 
     useEffect(() => {
         // getThisKnowledge()
-
+        console.log('item', item)
     }, [])
 
 
 
     // Local states
+    const [descriptionLine, setDescriptionLine] = useState(descriptions[item.index])
     const [loading, setLoading] = useState(false)
     const [dropdownOpen, isDropdownOpen] = useState(false)
     const [inputValue, setInputValue] = useState(descriptionLine)
@@ -35,14 +35,16 @@ const EditWorkflow = ({ item, allKnowledge }) => {
     const handlePatchWorkflow = async () => {
         setLoading(true)
         let newDescription = item?.information?.description[0].replace(descriptionLine, inputValue)
-        await updateWorkFlowStatus({ description: [newDescription] })
+        await updateWorkFlowStatus({ description: [newDescription] }, item.information?.id)
         setLoading(false)
+        toggleDropdown()
     }
+
 
     return (
         <>
 
-            <div key={item.information?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md'>
+            <div key={item.information?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md hover:text-primary'>
 
                 <div className="relative">
 

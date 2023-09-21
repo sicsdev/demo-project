@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DataTable from "react-data-table-component";
-import { ArrowLeftIcon, ArrowRightIcon, ChatBubbleLeftRightIcon, ChatBubbleOvalLeftIcon, QueueListIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, ArrowRightIcon, ChatBubbleLeftRightIcon, ChatBubbleOvalLeftIcon, QueueListIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { getBotConversation, getBotConversationMessages, getPaginateBotConversation } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
@@ -16,6 +16,7 @@ import { updateLogState } from "@/app/components/store/slices/logSlice";
 import page from "../phone-numbers/page";
 import Card from "@/app/components/Common/Card/Card";
 import TopBar from "@/app/components/Common/Card/TopBar";
+import { setViewed, getConversationDetails } from "@/app/API/pages/Logs";
 // import Reports from "@/app/components/Reports/Reports";
 
 
@@ -102,12 +103,17 @@ const Logs = () => {
   const [search, setSearch] = useState("")
   const [searchResults, setSearchResults] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
-  const [detailsOfOpenConversation, setDetailsOfOpenConversation] = useState({})
+  const [idOfOpenConversation, setIdOfOpenConversation] = useState({})
   const [selectedFilters, setSelectedFilters] = useState({
+    created__gte: 'all',
+    created__lte: 'all',
     type: 'all',
     workflows: 'all',
     conversations: 'all',
+    viewed: 'all',
+    for_review: 'all',
   });
+
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
@@ -129,6 +135,7 @@ const Logs = () => {
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }))
     } else {
       setSelectedFilters({
+        ...selectedFilters,
         type: logState.data.type || 'all',
         workflows: logState.data.workflows || 'all',
         conversations: logState.data.conversations || 'all',
@@ -172,8 +179,13 @@ const Logs = () => {
     const { value } = e.target;
     dispatch(updateLogState({ ...logState.data, bot: value }))
     setSelectedFilters({
-      type: '',
-      workflows: '',
+      created__gte: 'all',
+      created__lte: 'all',
+      type: 'all',
+      workflows: 'all',
+      conversations: 'all',
+      viewed: 'all',
+      for_review: 'all',
     })
     setSelectedBot(value)
     setIndexVal(0)
@@ -350,6 +362,31 @@ const Logs = () => {
     setPageVal(page)
     handlePageChange(selectedBot, page, buildQueryParam(selectedFilters))
   }
+
+  const handleSetViewed = async (rowData) => {
+    const idToSetViewed = rowData.id;
+
+    // Find and update array locally
+    const updatedConversationData = conversationData.map((item) => {
+      if (item.id === idToSetViewed) { return { ...item, viewed: true } }
+      return item;
+    });
+    setConversationData(updatedConversationData)
+
+    // Update element in API.
+    await setViewed(rowData.id);
+  }
+
+  const handleCleanDates = (type) => {
+    setSelectedFilters({ ...selectedFilters, [type]: 'all' })
+    const mockEvent = { target: { value: "all", name: type }, };
+    filterDataHandler(mockEvent)
+  }
+
+  const handleConversationDetail = async (id) => {
+    setIdOfOpenConversation(id)
+  }
+
   return (
     <>
 
@@ -458,7 +495,79 @@ const Logs = () => {
                   showOption={false}
                 />
               </div>
-            </div>}
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.viewed || ''}
+                  name="viewed"
+                  values={[{ name: 'Select', value: 'all' }, { name: 'Viewed', value: true }, { name: 'Not viewed', value: false }]}
+                  title={<h3 className="text-sm my-4 font-semibold">Viewed</h3>}
+                  id={"viewed"}
+                  className="py-3"
+                  error={""}
+                  showOption={false}
+                />
+              </div>
+              <div className="mb-4 w-full">
+                <SelectOption
+                  onChange={(e) => filterDataHandler(e)}
+                  value={selectedFilters.for_review || ''}
+                  name="for_review"
+                  values={[{ name: 'Select', value: 'all' }, { name: 'For review', value: true }]}
+                  title={<h3 className="text-sm my-4 font-semibold">For review</h3>}
+                  id={"for_review"}
+                  className="py-3"
+                  error={""}
+                  showOption={false}
+                />
+              </div>
+
+              <div className="w-full mt-4">
+                <div className={`inline`}>
+                  <label className={`block text-sm text-heading font-medium pb-1 pt-1`}>
+                    From
+                    <p style={{ fontSize: "10px" }}></p>
+                  </label>
+                  <div className={`selectdiv flex items-center gap-2`}>
+                    <input
+                      onChange={(e) => filterDataHandler(e)}
+                      value={selectedFilters.created__gte || ''}
+                      type="date"
+                      id="created__gte"
+                      name="created__gte"
+                      className="w-full border rounded-md p-1 mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
+                    <div onClick={() => handleCleanDates('created__gte')}>
+                      {selectedFilters?.created__gte !== 'all' && <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="w-full mt-4">
+                <div className={`inline`}>
+                  <label className={`block text-sm text-heading font-medium pb-1 pt-1`}>
+                    To
+                    <p style={{ fontSize: "10px" }}></p>
+                  </label>
+                  <div className={`selectdiv flex items-center gap-2`}>
+                    <input
+                      onChange={(e) => filterDataHandler(e)}
+                      value={selectedFilters.created__lte || ''}
+                      type="date"
+                      id="created__lte"
+                      name="created__lte"
+                      className="w-full border rounded-md p-1 mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
+                    <div onClick={() => handleCleanDates('created__lte')}>
+                      {
+                        selectedFilters?.created__lte !== 'all' &&
+                        <XMarkIcon className="w-4 h-4 mt-1" style={{ cursor: 'pointer' }}></XMarkIcon>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
 
 
           {/* {loading === true || state.isLoading === true ? (
@@ -483,7 +592,8 @@ const Logs = () => {
                   // router.push(rowData.url);
                   setIndexVal(rowData.index)
                   getCoversationMessages(rowData.id)
-                  setDetailsOfOpenConversation(rowData)
+                  setIdOfOpenConversation(rowData.id)
+                  handleSetViewed(rowData)
                 }}
                 progressPending={loading}
                 progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
@@ -518,13 +628,13 @@ const Logs = () => {
             <div className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
               <>
                 {/* <Card> */}
-                <div className=''>
+                <div className='flex justify-center'>
                   <h1 className='text-heading text-sm font-semibold'>Chat</h1>
                 </div>
 
                 <div className="flex justify-between p-2 gap-2 items-center">
-                  <p className="text-xs cursor-pointer" onClick={() => setShowChat(false)}>
-                    back
+                  <p className="text-xs cursor-pointer p-1 px-2 bg-gray rounded-md" onClick={() => setShowChat(false)}>
+                    X
                   </p>
                   <div className="flex justify-between p-2 gap-2 items-center">
                     {indexVal === 0 && pageVal === 1 ?
@@ -539,6 +649,7 @@ const Logs = () => {
                         } else {
                           getCoversationMessages(manageMessages[indexVal - 1].id)
                           setIndexVal(indexVal - 1)
+                          handleConversationDetail(manageMessages[indexVal - 1].id)
                         }
                       }}>
                         <ArrowLeftIcon className="h-4 w-4 text-heading" />
@@ -548,6 +659,8 @@ const Logs = () => {
                       if (indexVal !== manageMessages.length - 1) {
                         getCoversationMessages(manageMessages[indexVal + 1].id)
                         setIndexVal(indexVal + 1)
+                        handleConversationDetail(manageMessages[indexVal + 1].id)
+
                       } else {
                         handlePageChange(logState.data.bot, pageVal + 1, logState.data.queryParam || '')
                         setPageVal(pageVal + 1)
@@ -561,7 +674,7 @@ const Logs = () => {
                 </div>
                 <>
 
-                  <Chat detailsOfOpenConversation={detailsOfOpenConversation} messages={messages} selectedBot={selectedBot} />
+                  <Chat idOfOpenConversation={idOfOpenConversation} messages={messages} selectedBot={selectedBot} />
 
                 </>
 
@@ -571,7 +684,7 @@ const Logs = () => {
         )}
 
 
-      </div>
+      </div >
     </>
 
 

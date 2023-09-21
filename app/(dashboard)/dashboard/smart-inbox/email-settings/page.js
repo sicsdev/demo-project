@@ -6,6 +6,8 @@ import TopBar from '@/app/components/Common/Card/TopBar';
 import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting';
 import { useState } from 'react';
 import Button from '@/app/components/Common/Button/Button';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 const Page = () => {
     const [basicFormData, setBasicFormData] = useState({});
@@ -20,7 +22,7 @@ const Page = () => {
     const SubmitForm = () => {
         console.log("I am in progress!")
     };
-
+    
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
