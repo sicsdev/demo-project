@@ -66,8 +66,7 @@ select {
   body select:focus {
     font-size: 16px !important;
   }
-
-  body select {
+select {
     font-size: 16px !important;
   }
 
@@ -1349,3 +1348,21 @@ body .rdt_TableBody {
   height: 500px !important;
   overflow-y: scroll !important;
 }
+div[data-column-id="Role"] {
+display: flex;
+justify-content: center;
+}
+div[data-column-id="Action"] {
+  display: flex;
+  justify-content: center;
+  }
+  @media (max-width: 768px) {
+    div[data-column-id="Role"] {
+      display: none;
+    
+      }
+      div[data-column-id="Action"] {
+        display: flex;
+        justify-content: start !important;
+        }
+  }

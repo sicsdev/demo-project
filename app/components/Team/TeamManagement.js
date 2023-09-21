@@ -5,6 +5,7 @@ import { makeCapital } from '../helper/capitalName'
 import SelectOption from '../Common/Input/SelectOption'
 import DataTable from 'react-data-table-component'
 import { useState } from 'react'
+import { isMobile, mobileModel } from 'react-device-detect'
 const TeamManagement = ({ state, removeMember, changeRole }) => {
     const stateM = useSelector((state) => state.user);
     const [teams, setTeams] = useState(state?.data ?? [])
@@ -38,6 +39,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     const columns2 = [
         {
             name: "Logo",
+            id:"logo",
             selector: row => row?.logo,
             reorder: true,
             cell: (row) => (
@@ -52,39 +54,46 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                             <span className="font-medium text-white normal-case"> {row?.name.charAt(0)}</span>
                         </div >}</>
             ),
-            width: "80px"
+            width: "80px",
+            hide:"sm"
         },
         {
             name: "Email",
+            id:"Email",
             selector: row => row?.email,
             cell: (row) => (
                 <p className='whitespace-normal'>{row.email}</p>
             ),
             reorder: true,
 
-            width: "200px"
+            width: "200px",
 
         },
         {
             name: "Name",
+            id:"Name",
             selector: row => row?.name,
             cell: (row) => (
-                <p className='whitespace-normal'>{row?.name}</p>
+                <p className='whitespace-normal text-xs'>{row?.name}</p>
             ),
             reorder: true,
-            width: "200px"
+            width: isMobile ?"100px":"200px",
+            hide:"sm"
         },
         {
             name: "Contact",
+            id:"Contact",
             selector: row => row?.contact,
             cell: (row) => (
                 <p className='whitespace-normal'> {row?.contact !== '' && row?.contact !== ' ' ? formatPhoneNumber(row?.contact) : ''}</p>
             ),
             reorder: true,
-            width: "200px"
+            width: "200px",
+            hide:"sm"
         },
         {
             name: "Role",
+            id:"Role",
             selector: row => row?.role,
             cell: (element) => (
                 <div className='flex justify-between gap-2 items-center'>
@@ -94,17 +103,18 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                 </div>
             ),
             reorder: true,
-
-            width: "150px"
+            width: "150px",
+            hide:"sm"
         },
         {
             name: "Action",
+            id:"Action",
             selector: row => row?.action,
             cell: (element) => (
-                <div className='flex justify-between gap-2 items-center w-full'>
+                <div className='gird grid-cols-1  sm:flex  justify-between gap-2 items-center w-full'>
 
                     {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email && (
-                        <div className=" w-full">
+                        <div className=" w-[50%] sm:w-full ">
                             <SelectOption
                                 onChange={(e) => changeRole(element.email, e.target.value)}
                                 value={element?.role}
@@ -112,32 +122,38 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                                 values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
                                 title={""}
                                 id={"role"}
+                                
                                 disabled={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR"}
-                                className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none w-full' : 'py-3 w-full'}
+                                className={stateM?.data?.email === element.email || stateM?.data?.role !== "ADMINISTRATOR" ? 'py-3 bg-none w-full' : 'py-3 w-full !text-[13px] gap-[2rem] '}
                             // error={returnErrorMessage("business_state")}
                             />
                         </div>
                     )}
 
                     {stateM?.data?.role === "ADMINISTRATOR" && stateM?.data?.email !== element.email ?
-                        < Button
+                        <div className=" w-[50%] sm:w-full my-3 sm:my-0">
+                       
+                       < Button
                             type="button"
                             disabled=""
-                            className="focus:outline-none font-normal rounded-md text-xs py-[9px] px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black"
+                            className="focus:outline-none font-normal rounded-md text-xs py-[9px] px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black "
                             onClick={() => removeMember(element.email)}
                         >
                             Remove
                         </Button>
+                       </div>
                         : null
                     }
                 </div>
             ),
             reorder: true,
-
             width: "300px"
         }
 
     ];
+
+
+
 
     const customStyles = {
         rows: {
@@ -165,6 +181,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
                     paginationPerPage={perPage}
                 />
             </div>
+       
         </div >
     )
 }
