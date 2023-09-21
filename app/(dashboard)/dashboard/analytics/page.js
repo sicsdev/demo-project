@@ -144,7 +144,7 @@ const Logs = () => {
   console.log("selectedFilters", selectedFilters)
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
-    if (results && Array.isArray(results) && results.length > 0) {  
+    if (results && Array.isArray(results) && results.length > 0) {
       const values = [
         { name: 'Select', value: 'all' },
         ...results.map(item => ({ name: item.name.concat(item.active ? " (active)" : " (draft)"), value: item.id })),
@@ -505,6 +505,7 @@ const Logs = () => {
                 }
                 columns={columns}
                 data={conversationData}
+                defaultSortAsc={false}
               />
             )}
           </>

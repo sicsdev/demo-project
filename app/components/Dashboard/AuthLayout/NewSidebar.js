@@ -180,6 +180,19 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
+            href: "/dashboard/smart-inbox/email-settings",
+            name: "Smart IVR",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/smart-inbox/email-settings",
+                    name: "Email Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                }
+            ],
+        },
+        {
             href: "/dashboard/manage-phones",
             name: "Smart IVR",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
