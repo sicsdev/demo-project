@@ -302,10 +302,10 @@ const Checkout = () => {
                   Industry
                 </span>
                 <select onChange={handleFormValues}
-                  name="business_company_name"
+                  name="business_industry"
                   
-                  value={checkoutForm?.business_company_name ?? ''}
-                  id={"business_company_name"}
+                  value={checkoutForm?.business_industry ?? ''}
+                  id={"business_industry"}
                   className={
                     "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
                   }>
