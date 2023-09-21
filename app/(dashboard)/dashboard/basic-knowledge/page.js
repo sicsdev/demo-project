@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, PencilIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -155,7 +155,7 @@ const Page = () => {
                                         className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
                                         aria-current="page"
                                     >
-                                        <BookOpenIcon className="h-5 w-5 text-gray-500" /> Questions
+                                        <PencilIcon className="h-5 w-5 text-gray-500" /> Questions
                                     </span>
                                 </li>
                             </ul>
