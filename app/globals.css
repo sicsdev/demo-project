@@ -108,6 +108,10 @@ select {
 }
 
 
+body .hide-focus {
+  outline: unset !important;
+  border: white !important;
+}
 
 body input[type='text']:focus,
 body input[type='number']:focus,
