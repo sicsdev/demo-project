@@ -10,7 +10,7 @@ import { successMessage, errorMessage } from "@/app/components/Messages/Messages
 import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 import { ColorRing } from "react-loader-spinner";
-import { getKnowledgeData } from "@/app/API/pages/Knowledge";
+import { getFaqQuestions, getKnowledgeData, patchKnowledgeQuestion } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 import { makeCapital } from "@/app/components/helper/capitalName";
@@ -19,10 +19,11 @@ import TopBar from "@/app/components/Common/Card/TopBar";
 import TextArea from "@/app/components/Common/Input/TextArea";
 import { isMobile } from "react-device-detect";
 import SideModal from "@/app/components/SideModal/SideModal";
+import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
-    const [updateLoader, setUpdateLoader] = useState(null);
+    const [updateLoader, setUpdateLoader] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
     const [pageVal, setPageVal] = useState(1);
@@ -38,11 +39,13 @@ const Page = () => {
     const [search, setSearch] = useState('');
     const [searchKnowledge, setSearchKnowledge] = useState('');
     const [typingTimeout, setTypingTimeout] = useState(null);
-
+    const faqQuestionState = useSelector((state) => state.faqQuestions);
     const [workflowView, setWorkflowView] = useState(null)
     const [show, setShow] = useState(null)
     const [knowledgeId, setKnowledgeId] = useState(null)
     const [answer, setAnswer] = useState('')
+    const [questionData, setQuestionData] = useState([])
+    const [workflowValue, setWorkflowValue] = useState(null)
 
     const getData = async () => {
         setTabLoader(true);
@@ -94,24 +97,29 @@ const Page = () => {
     const updateButtonHandler = async (id) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
-            const inputValue = row.answer;
+            const inputValue = answer
             if (inputValue === '' || inputValue === undefined) {
                 return false;
             }
             let payload = {
                 answer: inputValue
             }
-            setUpdateLoader(id);
+            setUpdateLoader(true);
             const updateRecord = await updateRecommendationRecord(payload, id);
-            setUpdateLoader(null);
             if (updateRecord?.status === 201 || updateRecord?.status === 200) {
+                setWorkflowView(null)
+                setKnowledgeId(null)
+                setUpdateLoader(false);
+                setWorkflowValue(null)
+                setUpdateLoader(false);
+
                 dispatch(fetchRecommendation());
-                // successMessage("Recommendation Updated Successfully");
             } else {
                 errorMessage("Unable to Update!");
+                setUpdateLoader(false);
             }
         } catch (error) {
-            setUpdateLoader(null);
+            setUpdateLoader(false);
         }
     };
 
@@ -138,18 +146,12 @@ const Page = () => {
         }, 1200);
     }, [])
 
-    const handleInput = (row) => {
-        const updatedData = state?.data?.results?.map((item) =>
-            item.id === row.id ? { ...item, ...row } : item
-        );
-        dispatch(editRecommendation({ results: updatedData }));
-    };
 
     const handleWorkflow = async (workflow_data, questionId) => {
-        const row = state?.data?.results.find(item => item.id === questionId);
+        setUpdateLoader(true)
         let descriptions = [...workflow_data.description]
-        if (row.answer) {
-            descriptions.push(row.answer)
+        if (answer) {
+            descriptions.push(answer)
         }
         let Payload = {
             description: descriptions.filter((x) => x !== ''),
@@ -159,15 +161,19 @@ const Page = () => {
             const excludeRecord = await excludeRecommendationRecord(questionId);
             if (excludeRecord?.status === 204) {
                 dispatch(fetchRecommendation());
+                setWorkflowView(null)
+                setKnowledgeId(null)
+                setUpdateLoader(false);
+                setWorkflowValue(null)
+                setUpdateLoader(false)
             } else {
                 errorMessage(response.response.data.description)
+                setUpdateLoader(false)
             }
         }
 
 
     }
-
-
 
 
     const divRef = useRef(null);
@@ -212,22 +218,6 @@ const Page = () => {
                 // padding: '10px 0 10px 0'
             },
         },
-        // {
-        //     name: "New Answer",
-        //     selector: 'question',
-        //     // sortable: true,
-        //     reorder: true,
-        //     cell: (row) => (
-        //         <div className='w-[100%]'>
-        //             <TextArea name="interrogatory_type"
-        //                 className="py-2"
-        //                 type={"text"}
-        //                 id={"interrogatory_type"}
-        //                 onChange={(e) => handleInput({ ...row, answer: e.target.value })}
-        //                 value={row.answer} />
-        //         </div>
-        //     ),
-        // },
         {
             name: "Count",
             selector: 'number_of_messages',
@@ -238,10 +228,10 @@ const Page = () => {
             hide: "sm"
         },
         {
-            name: "Actions",
+            name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center gap-4 w-[100%]" >
+                <div className="flex justify-center items-center gap-4 w-[100%]" >
                     {
                         row?.accepted === false && (
                             <>
@@ -250,8 +240,12 @@ const Page = () => {
                                 <div>
                                     <button type="button" onClick={(e) => {
                                         setWorkflowView(row)
-                                        console.log("row", row)
                                         setShow(true)
+                                        setAnswer('')
+                                        setQuestionData([])
+                                        setSearchKnowledge('')
+                                        setKnowledgeId(null)
+                                        setWorkflowValue(null)
                                     }}>
                                         <PlusCircleIcon className="h-6 w-6 text-success " />
                                     </button>
@@ -269,7 +263,8 @@ const Page = () => {
                                     /> :
                                     <div>
                                         <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                            <XCircleIcon className="h-6 w-6 text-danger " /></button></div>
+                                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                                    </div>
                                 }
                                 {/* <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} index={index} total={state?.data?.results?.length} /> */}
 
@@ -278,10 +273,6 @@ const Page = () => {
 
                 </div>
             ),
-            style: {
-                width: '20%',
-                justifyContent: 'start'
-            },
         },
     ];
 
@@ -357,36 +348,53 @@ const Page = () => {
             setLoading(false)
         }
     };
-    const searchKnowledgeData = (e) => {
-        const { value, name } = e.target;
-        setSearchKnowledge(value);
-      
-        const filteredKnowledge = basicFormData.knowledge.filter((x) => {
-          if (x.title.includes(value)) {
-            return true; // Include this item in the filtered result
-          } else {
-            return false; // Exclude this item from the filtered result
-          }
-        });
-      
-        setKnowledge(filteredKnowledge);
+    const searchQuestionFaq = async (value) => {
+        const response = await getFaqQuestions(`page=1&page_size=10&search=${value}`)
+        if (response && response.results) {
+            setQuestionData(response.results ?? [])
+        }
     }
-    console.log("knowledge", knowledge)
+    const searchFaqs = (e) => {
+        const searchText = e.target.value;
+        setSearchKnowledge(searchText);
+        setKnowledgeId(null)
+        setAnswer('')
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+        const newTypingTimeout = setTimeout(() => {
+            searchQuestionFaq(searchText)
+        }, 1000);
+
+        setTypingTimeout(newTypingTimeout);
+    }
+
+
+
+
+    const updateFaq = async () => {
+        const response = await patchKnowledgeQuestion({ answer: answer }, knowledgeId.id)
+        if (response.status === 200 || response.status === 201) {
+            setUpdateLoader(false)
+            setWorkflowView(null)
+            setKnowledgeId(null)
+        } else {
+            setUpdateLoader(false)
+        }
+    }
+    const SubmitTheForm = () => {
+        setUpdateLoader(true)
+        if (knowledgeId) {
+            updateFaq()
+        } else {
+            updateButtonHandler(workflowView.id)
+        }
+    }
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
-                {/* {loading === true ? (
-                    <div className="">
-                        <div className='grid grid-cols-[85%,15%] my-2'>
-                            <div></div>
-                            <SkeletonLoader height={30} width={"100%"} />
-                        </div>
-                        <div className="mt-3">
-                            <SkeletonLoader count={9} height={30} className={"mt-2"} />
-                        </div>
-                    </div>
-                ) : ( */}
                 <>
                     <div className="w-full" >
 
@@ -465,56 +473,68 @@ const Page = () => {
                                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                             </svg>
                                         </div>
-                                        <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchKnowledgeData(e) }} />
+                                        <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
                                     </div>
                                 </div>
 
-                                {!knowledgeId && (
+                                {!knowledgeId && questionData.length > 0 && (
                                     <div className={` bg-[#F8F8F8] my-4`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
-                                            {knowledge.map((element, key) =>
-                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => { setKnowledgeId(element) }}>
-                                                    <button type='button' className="block px-4 py-2 text-xs">{makeCapital(element.title)}</button>
+                                            {questionData.map((element, key) =>
+                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
+
+                                                    setKnowledgeId(element)
+                                                    setAnswer(element.answer)
+
+                                                }}>
+                                                    <button type='button' className="block px-4 py-2 text-xs">{makeCapital(element.question)}</button>
                                                 </li>
                                             )}
                                         </ul>
                                     </div>
                                 )}
-                                {knowledgeId && (
-                                    <div>
-                                        <div className={` bg-[#F8F8F8] my-4 p-4`}>
-                                            <p className="text-xs">{knowledgeId.title}</p>
-                                        </div>
-                                        <div className=''>
-                                            <TextArea name="answer"
-                                                className="py-2"
-                                                type={"text"}
-                                                id={"answer"}
-                                                placeholder={""}
-                                                onChange={(e) => setAnswer(e.target.value)}
-                                                value={answer} />
-                                        </div>
-                                        <button onClick={(e) => console.log("yes")} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                            Submit
-                                        </button>
+
+                                <div>
+                                    {knowledgeId && (
+                                        <div className={` bg-primary text-white my-4 p-4`}>
+                                            <p className="text-xs">{knowledgeId.question}</p>
+                                        </div>)}
+                                    <div className='my-2'>
+                                        <TextArea name="answer"
+                                            className="py-2"
+                                            type={"text"}
+                                            id={"answer"}
+                                            placeholder={""}
+                                            onChange={(e) => setAnswer(e.target.value)}
+                                            value={answer} />
                                     </div>
-                                )}
+                                    <button onClick={(e) => SubmitTheForm()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader}>
+                                        {updateLoader ? "Loading..." : "Submit"}
+                                    </button>
+                                </div>
+
                             </div>
                         )}
                         {tab === 1 && (
-                            <div className={` bg-[#F8F8F8] my-4`}>
-                                {workflow.length > 0 ?
-                                    <ul className="py-2 text-sm text-gray-700 ">
-                                        {workflow.map((ele, key) =>
-                                            <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key}>
-                                                <button type='button' className="block px-4 py-2 ">{makeCapital(ele.name)}</button>
-                                            </li>
-
-                                        )}
-                                        <li className='hover:bg-primary hover:text-white text-heading my-2' >
-                                            <Link href={'/dashboard/workflow/workflow-builder'}><button type='button' className="block px-4 py-2 ">Add New Workflow </button></Link>
-                                        </li>
-                                    </ul> : <small>No data found!</small>}
+                            <div>
+                                {workflowValue && (
+                                    <div className={` bg-primary text-white my-4 p-4`}>
+                                        <p className="text-xs">{workflowValue.name}</p>
+                                    </div>)}
+                                <div className={` bg-[#F8F8F8] my-4`}>
+                                    {!workflowValue && workflow.length > 0 && (
+                                        <ul className="py-2 text-sm text-gray-700 ">
+                                            {workflow.map((ele, key) =>
+                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={() => { setWorkflowValue(ele) }}>
+                                                    <button type='button' className="block px-4 py-2 ">{makeCapital(ele.name)}</button>
+                                                </li>
+                                            )}
+                                        </ul>
+                                    )}
+                                </div>
+                                <button onClick={(e) => handleWorkflow(workflowValue, workflowView.id)} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={workflowValue === null || updateLoader}>
+                                    {updateLoader ? "Loading..." : "Submit"}
+                                </button>
                             </div>
                         )}
                     </SideModal>
