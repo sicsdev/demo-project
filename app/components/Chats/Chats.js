@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
+import EditWorkflow from './EditWorkflow';
 
 const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -73,7 +74,7 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
         return date.toLocaleDateString('en-US', options);
     }
 
-    
+
     return (
         <>
             <div className='flex justify-content-center'>
@@ -162,7 +163,6 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                                                                         element?.knowledge?.length ? element?.knowledge?.map(item => (
 
                                                                             <EditKnowledge item={item} allKnowledge={allKnowledge}></EditKnowledge>
-
                                                                         ))
 
                                                                             :
@@ -209,10 +209,12 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
 
-                                                                    <small>
-                                                                        <b>Sources</b><br />
-                                                                        Custom
-                                                                    </small>
+                                                                    <small><b>Sources</b><br /></small>
+                                                                    {/* {element?.workflows[0]?.information?.name} */}
+
+                                                                    {element?.workflows?.map(workflow => (
+                                                                        <EditWorkflow item={workflow}></EditWorkflow>
+                                                                    ))}
                                                                 </div>
                                                             </>
                                                         }
