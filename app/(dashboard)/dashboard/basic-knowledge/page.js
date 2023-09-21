@@ -5,22 +5,26 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
 import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
-import { getKnowledgeData } from "@/app/API/pages/Knowledge";
+import { getFaqQuestions, getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import TopBar from "@/app/components/Common/Card/TopBar";
+import ManageFaqs from "@/app/components/LearningCenter/ManageFaqs";
+import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 
 const Page = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
+    const faqQuestionState = useSelector((state) => state.faqQuestions);
     const [tabLoader, setTabLoader] = useState(true);
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
+    const [tab, setTab] = useState(0);
+
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
         if (response?.data?.results.length > 0) {
-            console.log(response.data, 'knowledge data')
             setKnowledge(response?.data?.results)
 
             const botDataArray = response?.data?.results.map(entry => {
@@ -51,9 +55,18 @@ const Page = () => {
             setTabLoader(false);
         }
     }
+
     useEffect(() => {
         getData()
     }, [])
+
+
+
+    useEffect(() => {
+        if (faqQuestionState?.data === null) {
+            dispatch(fetchFaqQuestions());
+        }
+    }, [faqQuestionState?.data]);
 
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows)
@@ -68,8 +81,6 @@ const Page = () => {
             setLoading(false);
         }, 1200);
     }, [])
-
-
 
     return (
         <>
@@ -129,9 +140,35 @@ const Page = () => {
                     </>
                 ) : (
                     <>
-                        {basicFormData?.knowledgeData && (
+                        <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
+                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+                                <li className="mr-2" onClick={() => { setTab(0) }}>
+                                    <span
+                                        className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                        aria-current="page"
+                                    >
+                                        <BookOpenIcon className="h-5 w-5 text-gray-500" /> Sources
+                                    </span>
+                                </li>
+                                <li className="mr-2" onClick={() => { setTab(1) }}>
+                                    <span
+                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                                        aria-current="page"
+                                    >
+                                        <BookOpenIcon className="h-5 w-5 text-gray-500" /> Questions
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        {tab === 0 && (
+                            basicFormData?.knowledgeData && (
 
-                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                                <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                            )
+                        )}
+
+                        {tab === 1 && (
+                            <ManageFaqs questions={faqQuestionState} />
                         )}
                     </>
                 )}

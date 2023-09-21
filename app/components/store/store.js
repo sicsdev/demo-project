@@ -4,6 +4,7 @@ import botIdReducer from './slices/botIdSlice';
 import userReducer from './slices/userSlice';
 import memberReducer from './slices/memberSlice';
 import recommendationReducer from './slices/recommendation';
+import faqQuestionsReducer from './slices/questionsSlice';
 import integrationReducer from './slices/integrationSlice';
 import workflowSlice from './slices/workflowSlice';
 import logSlice from './slices/logSlice';
@@ -16,6 +17,7 @@ const store = configureStore({
         user: userReducer,
         members: memberReducer,
         recommendation: recommendationReducer,
+        faqQuestions: faqQuestionsReducer,
         integration:integrationReducer,
         workflow:workflowSlice,
         integrationTemplate:integrationTemplateReducer,

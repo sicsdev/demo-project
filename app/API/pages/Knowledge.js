@@ -67,3 +67,13 @@ export const patchKnowledgeQuestion = async (body, id) => {
         return error
     }
 };
+
+export const getFaqQuestions = async (queryParam) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs?${queryParam}`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
