@@ -332,7 +332,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         };
     }, []);
 
-
+    const customStyles = {
+        rows: {
+            style: {
+                minHeight: 'auto', // override the row height
+                // maxHeight: '100%', // override the row height
+                paddingTop:"10px",
+                paddingBottom:"10px",
+                height: "auto"
+            },
+        }
+    }
     return (
         <>
             {tabLoader ? <Loading /> :
@@ -478,13 +488,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                     defaultSortFieldId="title"
                                     pagination
                                     selectableRows
-                                    customStyles={{
-                                        rows: {
-                                            style: {
-                                                padding: '5px' // Adjust as needed
-                                            }
-                                        }
-                                    }}
+                                    customStyles={customStyles}
                                     columns={knowledgeCenterColumns}
                                     onRowClicked={(rowData) => {
                                         viewKnowledgeCenterHandler(rowData);
