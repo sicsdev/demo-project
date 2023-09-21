@@ -196,6 +196,8 @@ const Page = () => {
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
+                paddingTop:"10px",
+                paddingBottom:"10px",
                 height: "auto"
             },
         }
@@ -207,7 +209,7 @@ const Page = () => {
             id: "question",
             selector: 'question',
             sortable: false,
-            minWidth: "300px",
+            minWidth: "200px",
             reorder: true,
             cell: (row) => (
                 <p className='whitespace-normal'>{row.question}</p>
