@@ -1,4 +1,4 @@
-const { withSentryConfig } = require("@sentry/nextjs");
+// const { withSentryConfig } = require("@sentry/nextjs");
 
 
 const nextConfig = {
@@ -18,23 +18,24 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // output: 'export',
+  output: 'export',
   reactStrictMode: false,
 }
 
 
 
 
-const sentryConfig = {
-  silent: true,
-  org: "tempo-ee56a7c44",
-  project: "tempo-ai",
-}
+// const sentryConfig = {
+//   silent: true,
+//   org: "tempo-ee56a7c44",
+//   project: "tempo-ai",
+// }
 
 
+module.exports = nextConfig; // Desactiva Sentry temporalmente
 
 
-module.exports = withSentryConfig(
-  nextConfig,
-  sentryConfig
-);
+// module.exports = withSentryConfig(
+//   nextConfig,
+//   sentryConfig
+// );
