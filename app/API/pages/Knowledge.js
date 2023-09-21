@@ -54,11 +54,6 @@ export const deleteKnowledgeFAQ = async (id, faqid) => {
 };
 
 export const patchKnowledgeQuestion = async (body, id) => {
-
-    // answer= \
-    //   question= \
-    //   active= \
-
     let config = returnConfig()
     try {
         const response = await axios.patch(`${API_URL}/api/v1/main/faqs/${id}/`, body, config);
@@ -69,6 +64,15 @@ export const patchKnowledgeQuestion = async (body, id) => {
 };
 
 export const getFaqQuestions = async (queryParam) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs?${queryParam}`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+export const searchFaqQuestions = async (queryParam) => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/faqs?${queryParam}`, config);
