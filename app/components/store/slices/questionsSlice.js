@@ -3,7 +3,7 @@ import { getFaqQuestions } from "@/app/API/pages/Knowledge";
 
 const initialState = { isLoading: false, data: null, error: null }
 
-export const fetchFaqQuestions = createAsyncThunk('faqQuestions/fetchFaqQuestions', async (queryParam = `page=1&page_size=20`) => {
+export const fetchFaqQuestions = createAsyncThunk('faqQuestions/fetchFaqQuestions', async (queryParam = `page=1&page_size=10`) => {
     const response = await getFaqQuestions(queryParam)
     return response
 });

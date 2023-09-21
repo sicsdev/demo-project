@@ -32,7 +32,7 @@ const IntegrationIntake = ({ basicFormData, setBasicFormData, setIntakeStep }) =
                     return findData !== undefined; // Filter out undefined elements
                 })
                 .map((ele) => ele);
-            setTiles(filteredData)      
+            setTiles(filteredData)
             performIntegrationTask(filteredData[0])
             setBasicFormData((prev) => {
                 return {
