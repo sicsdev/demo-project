@@ -6,9 +6,11 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
+import SideModal from '../SideModal/SideModal';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(20);
+    const [selected, setSelected] = useState(null);
     const dispatch = useDispatch();
 
     const customStyles = {
@@ -16,26 +18,14 @@ const ManageFaqs = ({ questions }) => {
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
-                height: "auto"
+                height: "auto",
+                paddingTop: "10px",
+                paddingBottom: "10px",
             },
         }
     };
 
     const columns = [
-        {
-            name: "Icon",
-            selector: (row, index) => row.icon,
-            sortable: false,
-            reorder: false,
-            // width: "5%",
-            cell: (row) => (
-                <div className="flex gap-2 items-center cursor-pointer">
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        <p className='text-[18px]'>{row.icon}</p>
-                    </div>
-                </div>
-            )
-        },
         {
             name: "Question",
             selector: (row, index) => row.question,
@@ -47,20 +37,12 @@ const ManageFaqs = ({ questions }) => {
             )
         },
         {
-            name: "Answer",
-            selector: (row, index) => row.answer,
-            sortable: false,
-            reorder: false,
-            minWidth: "500px",
-            cell: (row) => (
-                <p className='whitespace-normal p-2'>{row.answer}</p>
-            )
-        },
-        {
             name: "Content Source",
             selector: (row) => row?.knowledge?.source,
             sortable: false,
             reorder: false,
+            minWidth: "200px",
+            hide: "sm",
             // width: "10%",
             cell: (row) => (
                 <div className="flex justify-start w-full items-center gap-2">
@@ -101,7 +83,6 @@ const ManageFaqs = ({ questions }) => {
         const queryParam = `page=${page}&page_size=${perPage}`;
         dispatch(fetchFaqQuestions(queryParam));
     }
-
     return (
         <div className="w-full mt-5">
             <DataTable
@@ -117,6 +98,7 @@ const ManageFaqs = ({ questions }) => {
                 progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                 paginationTotalRows={questions?.data?.count}
                 paginationDefaultPage={questions?.data?.page}
+                onRowClicked={(rowData) => { setSelected(rowData) }}
                 paginationPerPage={perPage}
                 paginationServer
                 onChangeRowsPerPage={handlePerRowsChange}
@@ -126,6 +108,12 @@ const ManageFaqs = ({ questions }) => {
                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
                 customStyles={customStyles}
             />
+            {selected && (
+                <SideModal heading={selected.question} setShow={(text) => { setSelected(null) }}>
+                    <h1 className='text-sm my-4 font-semibold'>Answer</h1>
+                    <p className='text-xs'>{selected.answer}</p>
+                </SideModal>
+            )}
         </div>
     )
 }

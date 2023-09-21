@@ -67,7 +67,7 @@ const Dashboard = ({ children }) => {
             href: "/dashboard/analytics",
             name: "Chat Logs",
             icon: "ChartBarIcon",
-            subheading: "Reports"
+            subheading: "Logs"
         }, {
             href: "/dashboard/billing/usage",
             name: "Usage",
@@ -76,7 +76,7 @@ const Dashboard = ({ children }) => {
         },
         {
             href: "/dashboard/billing/settings",
-            name: "Billing Settings",
+            name: "Billing",
             icon: "WrenchScrewdriverIcon",
             subheading: "Billing"
         },
