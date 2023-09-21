@@ -1,7 +1,6 @@
-const { withSentryConfig } = require("@sentry/nextjs");
-
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+
   images: {
     domains: [
       "dam.freshworks.com",
@@ -20,24 +19,16 @@ const nextConfig = {
   },
   output: 'export',
   reactStrictMode: false,
-  sentry: {
-    disableServerWebpackPlugin: true,
-    disableClientWebpackPlugin: true,
-  },
-}
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/robots.txt",
+  //       destination: "/api/robots",
+  //     },
+  //   ];
+  // },
 
+  // To use Amazon s3 we need to use output export, but this is not compatible with rewrites.
+};
 
-module.exports = withSentryConfig(
-  nextConfig,
-  {
-    //Sentry config
-    silent: true,
-    org: "tempo-ee56a7c44",
-    project: "tempo-ai",
-    widenClientFileUpload: true,
-    transpileClientSDK: true,
-    tunnelRoute: "/monitoring",
-    hideSourceMaps: true,
-    disableLogger: true,
-  }
-);
+module.exports = nextConfig;
