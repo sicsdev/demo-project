@@ -35,6 +35,8 @@ import {
     AdjustmentsHorizontalIcon,
     PhoneIcon,
     ChevronRightIcon,
+    QrCodeIcon,
+    CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -166,19 +168,19 @@ const NewSidebar = ({ children }) => {
             ],
 
         },
-        {
-            href: "/dashboard/chat-bots",
-            name: "Tempo Chat",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/chat-bots",
-                    name: "Agents",
-                    icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
-                }
-            ],
-        },
+        // {
+        //     href: "/dashboard/chat-bots",
+        //     name: "Tempo Chat",
+        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+        //     isLink: false,
+        //     list: [
+        //         {
+        //             href: "/dashboard/chat-bots",
+        //             name: "Agents",
+        //             icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
+        //         }
+        //     ],
+        // },
         // {
         //     href: "/dashboard/smart-inbox/email-settings",
         //     name: "Smart Inbox",
@@ -193,18 +195,46 @@ const NewSidebar = ({ children }) => {
         //     ],
         // },
         {
-            href: "/dashboard/manage-phones",
-            name: "Smart IVR",
+            name: "Channels",
+            href: "/dashboard/chat-bots",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
+                    href: "/dashboard/chat-bots",
+                    name: "Tempo Agents",
+                    icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/dashboard/chat-settings",
+                    name: "Tempo Chat Settings",
+                    icon: <QrCodeIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/dashboard/email-settings",
+                    name: "Smart Email Settings",
+                    icon: <WrenchScrewdriverIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
                     href: "/dashboard/manage-phones",
-                    name: "Phone",
+                    name: "Smart IVR Settings",
                     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
         },
+        // {
+        //     href: "/dashboard/manage-phones",
+        //     name: "Smart IVR",
+        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+        //     isLink: false,
+        //     list: [
+        //         {
+        //             href: "/dashboard/manage-phones",
+        //             name: "Phone",
+        //             icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+        //         }
+        //     ],
+        // },
         {
             href: "/dashboard/analytics",
             name: "Logs",
@@ -233,6 +263,11 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/billing/settings",
                     name: "Billing",
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+                },
+                {
+                    href: "/dashboard/scheduling-settings",
+                    name: "Scheduling",
+                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
                 },
             ],
         },
@@ -590,6 +625,7 @@ const NewSidebar = ({ children }) => {
                                             sendSideBarDetails(element, key)
                                         )}
                                     </ul>
+                                    <p className="mb-[40px]"></p>
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>

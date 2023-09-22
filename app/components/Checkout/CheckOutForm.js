@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
+import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
@@ -89,11 +90,28 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         let bodyForSubscribe = {
           token: confirmStatus.paymentIntent.payment_method,
         };
-        console.log(bodyForSubscribe)
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
         if (response) {
           localStorage.setItem("Token", result.token);
-          router.push("/dashboard");
+          let payload = {
+            "category": "standard",
+            "description": "",
+            "automation_tolerance": 0,
+            "logo": "",
+            "chat_title": 'Tempo Agent',
+            "payment_platform": "Order",
+            "ticketing_platform": "Other",
+            "cancellation_tolerance": 0,
+            "refund_tolerance": 0,
+            "ecommerce_platform": 'Other',  
+          }
+          const bot = await createCheckoutBot(payload, result.token);
+          if (bot.status === 200 || bot.status === 201) {
+            router.push("/dashboard");
+          } else {
+            setLoading(false);
+          }
+
         }
         setError([]);
       } else {
