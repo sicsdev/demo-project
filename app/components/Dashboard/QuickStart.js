@@ -41,6 +41,37 @@ const QuickStart = () => {
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
     const members = useSelector((state) => state.members);
+    const user = useSelector(state => state.user.data)
+    const quickStartData1 = [
+        {
+            title: 'Complete Your Profile',
+            content: "Finalize your setup by filling out your business information in your Tempo profile.",
+            buttonName: "Complete",
+            icon: <ShareIcon className='w-5 h-5 ' />,
+            link: '/dashboard/billing/settings',
+        },
+        {
+            title: 'Customize Your New Bot',
+            content: "After creating your new bot, set its display settings and where you want it to show on your website.",
+            buttonName: "Customize",
+            icon: <BookOpenIcon className='w-5 h-5 ' />,
+            link: "/dashboard/chat-settings",
+        },
+        {
+            title: 'Configure Email Settings',
+            content: "Enter a subdomain to fully begin using your Smart Inbox.",
+            buttonName: "Configure",
+            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+            link: "/dashboard/email-settings",
+        },
+        {
+            title: 'Configure Phone Settings',
+            content: "Select a Tempo phone number to get started with Smart IVR.",
+            buttonName: "Configure",
+            icon: <CodeBracketSquareIcon className='w-5 h-5 ' />,
+            link: '/dashboard/workflow/manage-phones',
+        },
+    ];
     const quickStartData = [
         {
             title: 'Connect Your APIs for Automations',
@@ -285,92 +316,179 @@ const QuickStart = () => {
                                 </div>
 
                             </div>
+                            {user && user?.enterprise?.slug_domain === "" ?
+                                <div
 
-                            <div
+                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
 
-                                className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
+                                        }`}
 
-                                    }`}
+                                    style={{ transition: `all 0.2s ease-out 0s` }}
 
-                                style={{ transition: `all 0.2s ease-out 0s` }}
+                                >
+                                    {user?.enterprise?.country === '' && (
+                                        <p className="px-6 text-[#151D23] text-sm pb-5">
 
-                            >
+                                            Please enter your address first in business profile.
 
-                                <p className="px-6 text-[#151D23] text-sm pb-5">
+                                        </p>
+                                    )}
 
-                                    A few essential steps to get you up and running with Tempo
+                                    {quickStartData1?.map((ele, key) => (
 
-                                    immediately.
+                                        <div key={key}>
+                                            {user?.enterprise?.country === '' && key === 3 ? null :
+                                                <div>
 
-                                </p>
+                                                    {setHideShow(key) === true && (
 
-                                {quickStartData?.map((ele, key) => (
+                                                        <div
 
-                                    <div>
+                                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                        {setHideShow(key) === true && (
+                                                            key={key}
 
-                                            <div
+                                                        >
 
-                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                            <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
 
-                                                key={key}
+                                                                <div className="flex gap-2  items-start">
 
-                                            >
+                                                                    <span>{ele?.icon}</span>
 
-                                                <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                                    <div className="">
 
-                                                    <div className="flex gap-2  items-start">
+                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                        <span>{ele?.icon}</span>
+                                                                            {ele?.title}
 
-                                                        <div className="">
+                                                                        </h3>
 
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                                {ele?.title}
+                                                                            {ele?.content}
 
-                                                            </h3>
+                                                                        </p>
 
-                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    </div>
 
-                                                                {ele?.content}
+                                                                </div>
 
-                                                            </p>
+                                                                <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+
+                                                                    <Link
+
+                                                                        href={ele?.link}
+
+                                                                        className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                    >
+                                                                        {ele?.buttonName}
+
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                    </Link>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    )}
+
+                                                </div>
+                                            }
+                                        </div>))}
+
+                                </div>
+                                :
+
+                                <div
+
+                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
+
+                                        }`}
+
+                                    style={{ transition: `all 0.2s ease-out 0s` }}
+
+                                >
+
+                                    <p className="px-6 text-[#151D23] text-sm pb-5">
+
+                                        A few essential steps to get you up and running with Tempo
+
+                                        immediately.
+
+                                    </p>
+
+                                    {quickStartData?.map((ele, key) => (
+
+                                        <div>
+
+                                            {setHideShow(key) === true && (
+
+                                                <div
+
+                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+
+                                                    key={key}
+
+                                                >
+
+                                                    <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+
+                                                        <div className="flex gap-2  items-start">
+
+                                                            <span>{ele?.icon}</span>
+
+                                                            <div className="">
+
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                    {ele?.title}
+
+                                                                </h3>
+
+                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
+
+                                                                    {ele?.content}
+
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div className="w-[20%] sm:w-[30%] sm:ml-0 ml-[28px] ">
+
+                                                            <Link
+
+                                                                href={ele?.link}
+
+                                                                className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                            >
+                                                                {ele?.buttonName}
+
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                            </Link>
 
                                                         </div>
 
                                                     </div>
 
-                                                    <div className="w-[20%] sm:w-[30%] sm:ml-0 ml-[28px] ">
-
-                                                        <Link
-
-                                                            href={ele?.link}
-
-                                                            className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                        >
-                                                            {ele?.buttonName}
-
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                        </Link>
-
-                                                    </div>
-
                                                 </div>
 
-                                            </div>
+                                            )}
 
-                                        )}
+                                        </div>
 
-                                    </div>
+                                    ))}
 
-                                ))}
-
-                            </div>
-
+                                </div>
+                            }
                         </div>
                         {recentlyView && (
                             <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>

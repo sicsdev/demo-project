@@ -76,7 +76,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        <p className='text-[18px]'>{row.icon}</p>
+                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> :  <span className='text-[18px]'>😊</span>}
+
                         {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
                     </div>
                     <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 ">{makeCapital(row.name)}</h3>
@@ -110,8 +111,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        <p className='text-[18px]'>{row.icon}</p>
-                        {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
+                    {row.icon ? <p className='text-[18px]'>{row.icon}</p> :  <span className='text-[18px]'>😊</span>}
+
                     </div>
                     <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 ">{makeCapital(row.name)}</h3>
                 </div>

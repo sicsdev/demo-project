@@ -625,6 +625,7 @@ const NewSidebar = ({ children }) => {
                                             sendSideBarDetails(element, key)
                                         )}
                                     </ul>
+                                    <p className="mb-[40px]"></p>
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>

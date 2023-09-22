@@ -27,7 +27,6 @@ export const botIdSlice = createSlice({
                 if (action.payload.main_bot_data.results.length === 0) {
                     state.showModal = true
                 }
-
             })
             .addCase(fetchBot.rejected, (state, action) => {
                 state.botData.isLoading = false;

@@ -35,7 +35,7 @@ const Page = () => {
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [workflow, setWorkflow] = useState([])
-    const [recommendationOrderBy, setRecommendationOrderBy] = useState('');
+    const [recommendationOrderBy, setRecommendationOrderBy] = useState('&ordering=number_of_messages');
     const [search, setSearch] = useState('');
     const [searchKnowledge, setSearchKnowledge] = useState('');
     const [typingTimeout, setTypingTimeout] = useState(null);
@@ -196,8 +196,8 @@ const Page = () => {
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
-                paddingTop:"10px",
-                paddingBottom:"10px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
                 height: "auto"
             },
         }
@@ -527,9 +527,7 @@ const Page = () => {
                                                     <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
                                                 </li>
                                             )}
-                                            <li className='hover:bg-primary hover:text-white text-heading my-2' >
-                                        <Link href={'/dashboard/workflow/workflow-builder'}><button type='button' className="block px-4 py-2 text-xs">Add New Workflow </button></Link>
-                                    </li>
+
                                         </ul>
                                     )}
                                 </div>

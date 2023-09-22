@@ -1,11 +1,13 @@
 'use client'
 import { getAllBotData, modifyBot } from '@/app/API/pages/Bot'
+import { createEnterpriseAccount, enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService'
 import Button from '@/app/components/Common/Button/Button'
 import LoaderButton from '@/app/components/Common/Button/Loaderbutton'
 import TopBar from '@/app/components/Common/Card/TopBar'
 import SelectOption from '@/app/components/Common/Input/SelectOption'
 import TextField from '@/app/components/Common/Input/TextField'
 import Customize from '@/app/components/Customize/Customize'
+import EmailAgentSetting from '@/app/components/EmailAgentSetting/EmailAgentSetting'
 import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
@@ -22,9 +24,9 @@ const page = () => {
     const [basicFormData, setBasicFormData] = useState({});
     const [botValue, setBotValue] = useState([]);
     const state = useSelector((state) => state.botId);
+    const user = useSelector((state) => state.user.data);
     const [selectedBot, setSelectedBot] = useState('Select');
     const dispatch = useDispatch();
-
     useEffect(() => {
         if (state.botData.data === null) {
             dispatch(fetchBot());
@@ -43,7 +45,8 @@ const page = () => {
                 email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
                 email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
                 customer_service_email: bot_res?.customer_service_email,
-                agent_email_value: bot_res?.email ? true : false
+                agent_email_value: bot_res?.email ? true : false,
+
             }
             let data = res[0].data;
             setBasicFormData((prev) => {
@@ -91,12 +94,29 @@ const page = () => {
             'agent_title',
             'email_introduction',
             'email_signOff',
-            'email'
+            'email',
+            "email_prefix",
+            "custom_email",
+            "company_name"
         ];
-        return checkFormData(tab0Keys) || (!basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0);
+        return checkFormData(tab0Keys) || (!basicFormData['agent_name'] || basicFormData['agent_name'].length === 0);
     }
 
-    const SubmitForm = () => {
+
+    const DisablingButton1 = () => {
+        const checkFormData = (keys) => {
+            return keys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
+        };
+        const tab0Keys = [
+            'agent_title',
+            'email_introduction',
+            'email_signOff',
+        ];
+        return checkFormData(tab0Keys) || (!basicFormData['agent_name'] || basicFormData['agent_name'].length === 0);
+    }
+
+
+    const SubmitForm = async () => {
         setLoading(true);
         let payload = {}
         payload = {
@@ -104,7 +124,10 @@ const page = () => {
             email_agent_title: basicFormData.agent_title,
             email_greeting: basicFormData.email_introduction,
             email_farewell: basicFormData.email_signOff,
-            email: basicFormData.email
+            email: basicFormData.email_prefix +
+                "@" +
+                basicFormData.company_name +
+                ".gettempo.ai",
         }
         setBasicFormData((prev) => {
             return {
@@ -115,10 +138,63 @@ const page = () => {
 
         !payload.logo && delete payload.logo;
         !payload.email && delete payload.email;
+        const response_companyname = await createEnterpriseAccount({
+            slug_domain: basicFormData.company_name,
+        });
+        const domains = await enterpriseDomainInitialize({
+            slug_domain: basicFormData.company_name,
+        });
+        if (response_companyname.status === 200 && domains.status === 200) {
+            modifyBot(selectedBot, payload)
+                .then(async (res) => {
+                    if (res?.status === 200 || res?.status === 201) {
 
+                        setLoading(false);
+                        dispatch(fetchBot());
+                        getBotInfo(selectedBot)
+                        successMessage("Changes successfully saved!")
+                    } else {
+                        setLoading(false);
+                        errorMessage("Unable to update!");
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setLoading(false);
+                    errorMessage("Unable to update!");
+                });
+        } else {
+            console.log(err);
+            setLoading(false);
+            errorMessage("Unable to update!");
+        }
+    }
+    const SubmitForm1 = async () => {
+        setLoading(true);
+        let payload = {}
+        payload = {
+            agent_name: basicFormData.agent_name,
+            email_agent_title: basicFormData.agent_title,
+            email_greeting: basicFormData.email_introduction,
+            email_farewell: basicFormData.email_signOff,
+            email: basicFormData.email_prefix +
+                "@" +
+                basicFormData.company_name +
+                ".gettempo.ai",
+        }
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                agent_email_value: true
+            }
+        })
+
+        !payload.logo && delete payload.logo;
+        !payload.email && delete payload.email;
         modifyBot(selectedBot, payload)
-            .then((res) => {
+            .then(async (res) => {
                 if (res?.status === 200 || res?.status === 201) {
+
                     setLoading(false);
                     dispatch(fetchBot());
                     getBotInfo(selectedBot)
@@ -133,6 +209,7 @@ const page = () => {
                 setLoading(false);
                 errorMessage("Unable to update!");
             });
+
     }
 
 
@@ -231,23 +308,34 @@ const page = () => {
                                     )}
                                 </div>
                             </>
+                            {user && user?.enterprise?.slug_domain === '' && (
+                                <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                            )}
                             <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                             <div className='flex justify-end items-center'>
-                                {
-                                    loading ? (
-                                        <LoaderButton />
-                                    ) : (
-                                        <>
-                                            <Button
-                                                type={"button"}
-                                                className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                                disabled={DisablingButton()}
-                                                onClick={(e) => SubmitForm()}
-                                            >
-                                                Save
-                                            </Button>
-                                        </>
-                                    )}
+
+                                <>
+                                    {user && user?.enterprise?.slug_domain === '' ?
+                                        <Button
+                                            type={"button"}
+                                            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                            disabled={DisablingButton() || loading}
+                                            onClick={(e) => SubmitForm()}
+                                        >
+                                            {loading ? "Loading..." : "Save"}
+                                        </Button>
+                                        :
+                                        <Button
+                                            type={"button"}
+                                            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                            disabled={DisablingButton1() || loading}
+                                            onClick={(e) => SubmitForm()}
+                                        >
+                                            {loading ? "Loading..." : "Save"}
+                                        </Button>
+                                    }
+                                </>
+
                             </div>
                             <ToastContainer />
                         </>

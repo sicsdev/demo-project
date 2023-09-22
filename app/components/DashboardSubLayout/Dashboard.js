@@ -110,15 +110,15 @@ const Dashboard = ({ children }) => {
                 if (!findData) {
                     let newdata = []
                     if (data.length === 3) {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, data[0]]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }, data[0]]
                     } else {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }, ...data,]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }, ...data,]
                     }
                     Cookies.set("visit", JSON.stringify(newdata))
                 }
             } else {
                 if (findRoute) {
-                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon,subheading:findRoute.subheading }]
+                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }]
                     Cookies.set('visit', JSON.stringify(data))
                 }
             }
@@ -126,13 +126,10 @@ const Dashboard = ({ children }) => {
     }
     return (
         <>
-            {state ?
-                <Intake />
-                :
-                <NewSidebar>
-                    {children}
-                </NewSidebar>
-            }
+            <NewSidebar>
+                {children}
+            </NewSidebar>
+
         </>
     )
 }
