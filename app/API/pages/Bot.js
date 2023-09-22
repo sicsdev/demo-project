@@ -107,7 +107,7 @@ export const getBotConversation = async (id, queryParam = ``) => {
         return error
     }
 }
-export const getPaginateBotConversation = async (id, page, queryParam = '', page_size = 10) => {
+export const getPaginateBotConversation = async (id, page, queryParam, page_size = 10) => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/?page=${page}&page_size=${page_size}${queryParam}`, config);

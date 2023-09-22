@@ -1356,7 +1356,7 @@ body .rhap_controls-section {
 }
 
 body .rdt_TableBody {
-  
+
   height: 500px !important;
   overflow-y: scroll !important;
 }
@@ -1380,3 +1380,18 @@ div[data-column-id="Action"] {
         justify-content: start !important;
         }
   }
+
+  @media (min-width: 768px) {
+
+    .centered-table .rdt_TableCell  {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .centered-table .rdt_TableCol_Sortable{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    }
