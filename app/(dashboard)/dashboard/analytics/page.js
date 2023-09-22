@@ -203,6 +203,7 @@ const Logs = () => {
       [name]: value, // Update the selected value for the current dropdown
     });
 
+    
     let payload = {
       [name]: value
     }

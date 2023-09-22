@@ -1356,6 +1356,7 @@ body .rhap_controls-section {
 }
 
 body .rdt_TableBody {
+  
   height: 500px !important;
   overflow-y: scroll !important;
 }
