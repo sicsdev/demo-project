@@ -387,7 +387,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                 <div className='  p-5 cursor-pointer group  rounded-lg' >
 
                                                                     <div className='flex justify-between gap-2 items-center'>
-                                                                        <div className='flex justify-between gap-4 items-center'>
+                                                                        <div className='flex justify-start gap-4 items-center w-[90%]'>
                                                                             {ele.automation?.integration?.icon && (
                                                                                 <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
                                                                                     <Image
@@ -405,7 +405,9 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                 <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele?.transformer && (
-                                                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+                                                                                <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                                                    <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+                                                                                </div>
                                                                             )}
                                                                             {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
