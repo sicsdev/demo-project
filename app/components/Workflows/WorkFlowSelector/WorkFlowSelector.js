@@ -425,7 +425,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
                                                                             {ele?.transformer && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>Transformer: {ele?.transformer}</p>
+                                                                                    <p className='text-sm font-semibold '>Transformer</p>
                                                                                 </>
                                                                             )}
 

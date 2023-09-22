@@ -81,7 +81,7 @@ const Invite = ({ setTeamModal }) => {
         <p className="text-start block my-4 text-sm font-semibold text-heading  ">
           Team Member Role <span className="text-[10px]">(required)</span>
         </p>
-        <div className="flex flex-row items-center gap-4">
+        {/* <div className="flex flex-row items-center gap-4">
           <div
             className="block sm:flex items-center justify-center mb-[0.125rem] min-h-[1.5rem] pl-[1.5rem] text-left "
             value={admin}
@@ -111,8 +111,19 @@ const Invite = ({ setTeamModal }) => {
               </div>
             </label>
           </div>
+        </div> */}
+
+        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${admin &&('bg-[#D4F1F4]')}`} onClick={handlerAdminChecked} >
+          <input id="admin" type="radio" checked={admin} value={admin} name="bordered-radio" className="w-4 h-4" />
+          <label for="admin" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Admins will be able to log in and help manage this integration.</label>
         </div>
-        <div className="flex flex-row gap-4 mt-2">
+        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${collab &&('bg-[#D4F1F4]')}`}  onClick={handlerCollaboratorChecked}>
+          <input checked={collab} id="collab" type="radio" value={collab} name="bordered-radio" className="w-4 h-4 " />
+          <label for="collab" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Collaborators can log in to view performance data, user feedback,
+            and access embed tools, but can't make changes.</label>
+        </div>
+
+        {/* <div className="flex flex-row gap-4 mt-2">
           <div
             className="block sm:flex items-center justify-center mb-[0.125rem] min-h-[1.5rem] pl-[1.5rem] text-left "
             value={admin}
@@ -142,7 +153,7 @@ const Invite = ({ setTeamModal }) => {
               </div>
             </label>
           </div>
-        </div>
+        </div> */}
         {error && (
           <span className="text-xs text-danger col-span-2 mt-2 text-center">
             {error}
