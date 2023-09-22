@@ -1,7 +1,7 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { ArrowUturnLeftIcon, BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon, BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, PuzzlePieceIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
@@ -59,7 +59,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question }
+                payload_automation = { condition: element.condition, question: element.question, question: element.transformer }
             }
             return payload_automation
         })
@@ -181,7 +181,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
-                                                <BriefcaseIcon className="h-6 w-6 text-gray-500" />
+                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
 
                                                 <p className='text-heading text-xs'>Deflection</p>
                                                 <p className='text-border text-[11px] font-light'></p>
@@ -194,7 +194,7 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
-                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
 
                                                 <p className='text-heading text-xs'>Transformer</p>
                                                 <p className='text-border text-[11px] font-light'></p>
