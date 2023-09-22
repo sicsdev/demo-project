@@ -7,12 +7,15 @@ import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice"
 import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
+import TextArea from '../Common/Input/TextArea';
+import { patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(20);
     const [selected, setSelected] = useState(null);
     const dispatch = useDispatch();
 
+    const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
         rows: {
             style: {
@@ -24,7 +27,17 @@ const ManageFaqs = ({ questions }) => {
             },
         }
     };
-
+    const updateFaq = async () => {
+        setUpdateLoader(true)
+        const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
+        if (response.status === 200 || response.status === 201) {
+            dispatch(fetchFaqQuestions('page=1&page_size=10'));
+            setUpdateLoader(false)
+            setSelected(null)
+        } else {
+            setUpdateLoader(false)
+        }
+    }
     const columns = [
         {
             name: "Question",
@@ -33,7 +46,7 @@ const ManageFaqs = ({ questions }) => {
             reorder: false,
             minWidth: "200px",
             cell: (row) => (
-                <p className='whitespace-normal p-2'>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             )
         },
         {
@@ -45,7 +58,7 @@ const ManageFaqs = ({ questions }) => {
             hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2">
+                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected(row) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -66,7 +79,7 @@ const ManageFaqs = ({ questions }) => {
         },
         {
             name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).fromNow()}</span>,
+            selector: (row) => <span data-tag="allowRowEvents" onClick={() => { setSelected(row) }} className="text-xs">{moment(row.created).fromNow()}</span>,
             sortable: false,
             // width: "10%",
             reorder: false,
@@ -111,7 +124,23 @@ const ManageFaqs = ({ questions }) => {
             {selected && (
                 <SideModal heading={selected.question} setShow={(text) => { setSelected(null) }}>
                     <h1 className='text-sm my-4 font-semibold'>Answer</h1>
-                    <p className='text-xs'>{selected.answer}</p>
+                    <div className='my-2'>
+                        <TextArea name="answer"
+                            className="py-2"
+                            type={"text"}
+                            id={"answer"}
+                            placeholder={""}
+                            onChange={(e) => setSelected((prev) => {
+                                return {
+                                    ...prev,
+                                    [e.target.name]: e.target.value
+                                }
+                            })}
+                            value={selected.answer} />
+                    </div>
+                    <button onClick={(e) => updateFaq()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
+                        {updateLoader ? "Loading..." : "Submit"}
+                    </button>
                 </SideModal>
             )}
         </div>

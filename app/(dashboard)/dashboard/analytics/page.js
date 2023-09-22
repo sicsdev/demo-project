@@ -528,14 +528,14 @@ const Logs = () => {
                     From
                     <p style={{ fontSize: "10px" }}></p>
                   </label>
-                  <div className={`selectdiv flex items-center gap-2`}>
+                  <div className={` flex items-center `}>
                     <input
                       onChange={(e) => filterDataHandler(e)}
                       value={selectedFilters.created__gte || ''}
                       type="date"
                       id="created__gte"
                       name="created__gte"
-                      className="w-full border rounded-md p-1 mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
+                      className="w-full border rounded-md p-[7px] mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
                     <div onClick={() => handleCleanDates('created__gte')}>
                       {selectedFilters?.created__gte !== 'all' && <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>}
                     </div>
@@ -549,14 +549,14 @@ const Logs = () => {
                     To
                     <p style={{ fontSize: "10px" }}></p>
                   </label>
-                  <div className={`selectdiv flex items-center gap-2`}>
+                  <div className={`flex items-center`}>
                     <input
                       onChange={(e) => filterDataHandler(e)}
                       value={selectedFilters.created__lte || ''}
                       type="date"
                       id="created__lte"
                       name="created__lte"
-                      className="w-full border rounded-md p-1 mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
+                      className="w-full p-[7px] border rounded-md  mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500" />
                     <div onClick={() => handleCleanDates('created__lte')}>
                       {
                         selectedFilters?.created__lte !== 'all' &&
