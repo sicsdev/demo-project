@@ -59,7 +59,7 @@ const EditKnowledge = ({ item, allKnowledge }) => {
         <>
             {thisKnowledge &&
 
-                <div key={item.information.knowledge.id} className='mt-1 border p-2 rounded-md border-gray shadow-md'>
+                <div key={item.information?.knowledge?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md hover:text-primary'>
 
                     <div className="relative">
 

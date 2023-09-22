@@ -487,6 +487,7 @@ const Page = () => {
                                                     <button type='button' className="block px-4 py-2 text-xs">{makeCapital(element.question)}</button>
                                                 </li>
                                             )}
+
                                         </ul>
                                     </div>
                                 )}
@@ -523,9 +524,12 @@ const Page = () => {
                                         <ul className="py-2 text-sm text-gray-700 ">
                                             {workflow.map((ele, key) =>
                                                 <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={() => { setWorkflowValue(ele) }}>
-                                                    <button type='button' className="block px-4 py-2 ">{makeCapital(ele.name)}</button>
+                                                    <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
                                                 </li>
                                             )}
+                                            <li className='hover:bg-primary hover:text-white text-heading my-2' >
+                                        <Link href={'/dashboard/workflow/workflow-builder'}><button type='button' className="block px-4 py-2 text-xs">Add New Workflow </button></Link>
+                                    </li>
                                         </ul>
                                     )}
                                 </div>

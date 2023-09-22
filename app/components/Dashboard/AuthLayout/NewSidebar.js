@@ -207,13 +207,13 @@ const NewSidebar = ({ children }) => {
         },
         {
             href: "/dashboard/analytics",
-            name: "Reports",
+            name: "Logs",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
                     href: "/dashboard/analytics",
-                    name: "Chat Logs",
+                    name: "Logs",
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                 }
             ],
@@ -231,7 +231,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/billing/settings",
-                    name: "Billing Settings",
+                    name: "Billing",
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                 },
             ],

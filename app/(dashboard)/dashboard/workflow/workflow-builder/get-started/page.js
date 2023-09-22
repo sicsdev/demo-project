@@ -38,6 +38,7 @@ const GetStarted = () => {
   const [showHelp, setShowHelp] = useState(false)
   const [availableFilters, setAvailableFilters] = useState([]);
   const [rulesLoader, setRulesLoader] = useState(false)
+  const [transformeLoader, setTransformeLoader] = useState(false);
   const [workflowFormData, setWorkFlowFormData] = useState({
     name: null,
     description: [],
@@ -64,6 +65,7 @@ const GetStarted = () => {
   const [addStepIndex, setAddStepIndex] = useState(null);
   const [ruleModal, setRuleModal] = useState(false);
   const [deflectionModal, setDeflectionModal] = useState(false);
+  const [transformerModal, setTransformerModal] = useState(false);
 
   const [conditionFilter, setConditionFilter] = useState([{
     availables: '',
@@ -299,7 +301,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = { condition: element.condition, question: element.question }
+              payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -394,6 +396,14 @@ const GetStarted = () => {
       (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
     );
   };
+
+  const DisablingTransformerButton = () => {
+    const requiredKeys = ["transformer"];
+    return requiredKeys.some(
+      (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
+    );
+  }
+
   const convertToBase64 = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -504,7 +514,7 @@ const GetStarted = () => {
           data: {}
         };
       } else {
-        payload_automation = { condition: element.condition, question: element.question }
+        payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
       }
       return payload_automation
     })
@@ -515,6 +525,13 @@ const GetStarted = () => {
       } else {
         newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
       }
+    } else if (type.value === 'TRANSFORMER') {
+      // setTransformeLoader(true)
+      if (addStepIndex === null) {
+        newArray = [...get_ids, { transformer: workflowFormData.transformer, data: {}, output: {} }];
+      } else {
+        newArray = addDataAtIndex1(addStepIndex, get_ids, { transformer: workflowFormData.transformer, data: {}, output: {} });
+      }
     } else {
       if (addStepIndex === null) {
         newArray = [...get_ids, { question: workflowFormData.question, data: {}, output: {} }];
@@ -522,6 +539,7 @@ const GetStarted = () => {
         newArray = addDataAtIndex1(addStepIndex, get_ids, { question: workflowFormData.question, data: {}, output: {} });
       }
     }
+
     const workflowId = params.get('flow');
     if (!singleData.active) {
       const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
@@ -531,8 +549,9 @@ const GetStarted = () => {
       let data = null
       if (type.value === "RULE") {
         data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      } else if (type.value === 'TRANSFORMER') {
+        data = [...automationStepsData, { automation: null, transformer: workflowFormData.transformer, data: {}, output: {}, id: "automation_temp" }]
       } else {
-
         data = [...automationStepsData, { automation: null, question: workflowFormData.question, data: {}, output: {}, id: "automation_temp" }]
       }
       setAutomationStepsData(data)
@@ -541,10 +560,18 @@ const GetStarted = () => {
     setRuleModal(false);
     setRulesLoader(false)
     setDeflectionModal(false);
+    setTransformerModal(false);
     handleButtonClick(false)
     setAddStepIndex(null);
     setIndexSelector(null)
     setMobileCss('')
+    setWorkFlowFormData((prev) => {
+      return {
+        ...prev,
+        question: '',
+        transformer: ''
+      }
+    })
   }
 
   const openRulesHandler = (type = { value: "RULE" }) => {
@@ -575,6 +602,8 @@ const GetStarted = () => {
 
     } else if (type.value === 'DEFLECTION') {
       setDeflectionModal(true)
+    } else if (type.value === 'TRANSFORMER') {
+      setTransformerModal(true)
     }
   }
 
@@ -785,7 +814,7 @@ const GetStarted = () => {
                 <div className='mt-4 rounded-md' key={key}>
                   <div className='flex justify-between'>
                     <div className='flex items-center justify-center gap-2 text-md font-bold'>
-                    <h1 className="font-semibold text-heading text-sm">Add Condition</h1>
+                      <h1 className="font-semibold text-heading text-sm">Add Condition</h1>
                     </div>
                     {key !== 0 &&
                       <div onClick={(e) => removeActionFilter(key)}>
@@ -878,11 +907,8 @@ const GetStarted = () => {
                   </Button>
                 </div>
               </div>
-
             </div>
           </>
-
-
         </SideModal>
       )}
       {deflectionModal === true && (
@@ -903,6 +929,33 @@ const GetStarted = () => {
                 <Button
                   className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
                   onClick={() => { setDeflectionModal(false) }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </div>
+        </SideModal>
+      )}
+
+      {transformerModal === true && (
+        <SideModal setShow={setTransformerModal} heading={'Add Transformer'} >
+          <div className=''>
+            <TextArea name='transformer' placeholder={"Add your transformer"} id={"transformer"} value={workflowFormData.transformer} onChange={handleInputValue} title={"Transformer"} />
+            <div className="flex items-center justify-between mt-4">
+              <div></div>
+              <div>
+                <Button
+                  type={"button"}
+                  disabled={DisablingTransformerButton() || rulesLoader}
+                  onClick={() => addConditionalStepHandler({ value: "TRANSFORMER" })}
+                  className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                >
+                  {rulesLoader ? "Loading..." : "Save"}
+                </Button>
+                <Button
+                  className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
+                  onClick={() => { setTransformerModal(false) }}
                 >
                   Cancel
                 </Button>

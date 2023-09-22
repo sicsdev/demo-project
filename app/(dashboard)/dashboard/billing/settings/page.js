@@ -220,7 +220,7 @@ const Page = () => {
       <>
         {isEdit == true ? (
           <>
-            <div className="bg-white m-auto border w-full sm:w-2/3 m-auto rounded-lg border-[#F0F0F1] mt-5 py-4">
+            <div className="bg-white m-auto border w-full m-auto rounded-lg border-[#F0F0F1] mt-5 py-4">
               {pageLoading === true ? (
                 <>
                   <SkeletonLoader count={1} height={20} width={150} />
@@ -308,7 +308,7 @@ const Page = () => {
           </>
         ) : (
           <>
-            <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
+            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
               <StripeWrapper>
                 <h3 className=" mb-4 !font-semibold ">Add payment method</h3>
                 <p className="text-xs text-border mb-4">

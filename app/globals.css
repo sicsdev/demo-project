@@ -30,6 +30,7 @@ select {
 body input[type='text'],
 body input[type='email'],
 input[type='number'],
+input[type='date'],
 input[type='password'],
 input[type='search'],
 textarea {
@@ -40,6 +41,7 @@ body input[type='text']:focus,
 body input[type='email']:focus,
 input[type='number']:focus,
 input[type='password']:focus,
+input[type='date']:focus,
 input[type='search']:focus,
 textarea:focus {
   font-size: 12px !important;
@@ -47,6 +49,7 @@ textarea:focus {
 
 body input[type='text']::placeholder,
 body input[type='email']::placeholder,
+body input[type='date']::placeholder,
 input[type='number']::placeholder,
 input[type='password']::placeholder,
 input[type='search']::placeholder,
@@ -66,14 +69,14 @@ select {
   body select:focus {
     font-size: 16px !important;
   }
-
-  body select {
+select {
     font-size: 16px !important;
   }
 
   body input[type='text'],
   body input[type='number'],
   body input[type='email'],
+  body input[type='date'],
   body input[type='search'],
   body input[type='password'],
   body textarea {
@@ -88,6 +91,7 @@ select {
 
   body input[type='text']:focus,
   body input[type='number']:focus,
+  body input[type='date']:focus,
   body input[type='email']:focus,
   body input[type='password']:focus,
   body input[type='search']:focus,
@@ -99,6 +103,7 @@ select {
   body input[type='number']::placeholder,
   body input[type='email']::placeholder,
   body input[type='password']::placeholder,
+  body input[type='date']::placeholder,
   body input[type='search ']::placeholder,
   body textarea::placeholder {
     font-size: 16px !important;
@@ -108,9 +113,14 @@ select {
 }
 
 
+body .hide-focus {
+  outline: unset !important;
+  border: white !important;
+}
 
 body input[type='text']:focus,
 body input[type='number']:focus,
+body input[type='date']:focus,
 body input[type='email']:focus,
 body input[type='password']:focus,
 body select:focus,
@@ -1346,20 +1356,26 @@ body .rhap_controls-section {
 }
 
 body .rdt_TableBody {
-  height: 450px !important;
+  height: 500px !important;
   overflow-y: scroll !important;
 }
-@media (min-width: 768px) {
 
-  .centered-table .rdt_TableCell  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+div[data-column-id="Role"] {
+display: flex;
+justify-content: center;
+}
+div[data-column-id="Action"] {
+  display: flex;
+  justify-content: center;
   }
   
-  .centered-table .rdt_TableCol_Sortable{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  @media (max-width: 768px) {
+    div[data-column-id="Role"] {
+      display: none;
+    
+      }
+      div[data-column-id="Action"] {
+        display: flex;
+        justify-content: start !important;
+        }
   }

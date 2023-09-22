@@ -122,7 +122,7 @@ const QuickStart = () => {
         },
         {
             href: "/",
-            name: "Reports",
+            name: "Logs",
             icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         }, {
             href: "/dashboard/analytics",
@@ -140,7 +140,7 @@ const QuickStart = () => {
         },
         {
             href: "/dashboard/billing/settings",
-            name: "Billing Settings",
+            name: "Billing",
             icon: <WrenchScrewdriverIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {

@@ -65,7 +65,15 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
       let checkoutForm2 = {
         ...checkoutForm,
         password_confirm: checkoutForm.password,
+        enterprise: {
+          name: checkoutForm.business_name,
+          industry: checkoutForm.business_industry,
+          company_size: checkoutForm.business_company_size,
+        }
       };
+      delete checkoutForm2?.business_company_size
+      delete checkoutForm2?.business_industry
+      delete checkoutForm2?.business_name
       // Hardcoded  "password_confirm" because API expects password_confirm but we are not using it.
 
       let googleAuthInfoPayload = {

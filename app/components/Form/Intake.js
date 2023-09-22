@@ -83,6 +83,18 @@ const Intake = () => {
     return firstError;
   }
   useEffect(() => {
+    if (!basicFormData?.business_industry) {
+      if (user?.enterprise) {
+        setBasicFormData((prev) => {
+          return {
+            ...prev,
+            business_industry: user?.enterprise?.industry,
+            business_name: user?.enterprise?.name,
+            business_company_size: user?.enterprise?.company_size
+          }
+        })
+      }
+    }
     if (!basicFormData?.recommended_integrations) {
       setBasicFormData((prev) => {
         return {
@@ -100,6 +112,7 @@ const Intake = () => {
       }
     }
   }, [user])
+  console.log(basicFormData)
   const GetStepForm = () => {
     switch (intakeStep) {
       case 0:

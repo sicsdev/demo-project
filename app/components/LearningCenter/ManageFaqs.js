@@ -6,36 +6,39 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
+import SideModal from '../SideModal/SideModal';
+import TextArea from '../Common/Input/TextArea';
+import { patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(20);
+    const [selected, setSelected] = useState(null);
     const dispatch = useDispatch();
 
+    const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
         rows: {
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
-                height: "auto"
+                height: "auto",
+                paddingTop: "10px",
+                paddingBottom: "10px",
             },
         }
     };
-
+    const updateFaq = async () => {
+        setUpdateLoader(true)
+        const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
+        if (response.status === 200 || response.status === 201) {
+            dispatch(fetchFaqQuestions('page=1&page_size=10'));
+            setUpdateLoader(false)
+            setSelected(null)
+        } else {
+            setUpdateLoader(false)
+        }
+    }
     const columns = [
-        {
-            name: "Icon",
-            selector: (row, index) => row.icon,
-            sortable: false,
-            reorder: false,
-            // width: "5%",
-            cell: (row) => (
-                <div className="flex gap-2 items-center cursor-pointer">
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        <p className='text-[18px]'>{row.icon}</p>
-                    </div>
-                </div>
-            )
-        },
         {
             name: "Question",
             selector: (row, index) => row.question,
@@ -43,17 +46,7 @@ const ManageFaqs = ({ questions }) => {
             reorder: false,
             minWidth: "200px",
             cell: (row) => (
-                <p className='whitespace-normal p-2'>{row.question}</p>
-            )
-        },
-        {
-            name: "Answer",
-            selector: (row, index) => row.answer,
-            sortable: false,
-            reorder: false,
-            minWidth: "500px",
-            cell: (row) => (
-                <p className='whitespace-normal p-2'>{row.answer}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             )
         },
         {
@@ -61,9 +54,11 @@ const ManageFaqs = ({ questions }) => {
             selector: (row) => row?.knowledge?.source,
             sortable: false,
             reorder: false,
+            minWidth: "200px",
+            hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2">
+                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected(row) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -84,7 +79,7 @@ const ManageFaqs = ({ questions }) => {
         },
         {
             name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).fromNow()}</span>,
+            selector: (row) => <span data-tag="allowRowEvents" onClick={() => { setSelected(row) }} className="text-xs">{moment(row.created).fromNow()}</span>,
             sortable: false,
             // width: "10%",
             reorder: false,
@@ -101,7 +96,6 @@ const ManageFaqs = ({ questions }) => {
         const queryParam = `page=${page}&page_size=${perPage}`;
         dispatch(fetchFaqQuestions(queryParam));
     }
-
     return (
         <div className="w-full mt-5">
             <DataTable
@@ -117,6 +111,7 @@ const ManageFaqs = ({ questions }) => {
                 progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                 paginationTotalRows={questions?.data?.count}
                 paginationDefaultPage={questions?.data?.page}
+                onRowClicked={(rowData) => { setSelected(rowData) }}
                 paginationPerPage={perPage}
                 paginationServer
                 onChangeRowsPerPage={handlePerRowsChange}
@@ -126,6 +121,28 @@ const ManageFaqs = ({ questions }) => {
                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
                 customStyles={customStyles}
             />
+            {selected && (
+                <SideModal heading={selected.question} setShow={(text) => { setSelected(null) }}>
+                    <h1 className='text-sm my-4 font-semibold'>Answer</h1>
+                    <div className='my-2'>
+                        <TextArea name="answer"
+                            className="py-2"
+                            type={"text"}
+                            id={"answer"}
+                            placeholder={""}
+                            onChange={(e) => setSelected((prev) => {
+                                return {
+                                    ...prev,
+                                    [e.target.name]: e.target.value
+                                }
+                            })}
+                            value={selected.answer} />
+                    </div>
+                    <button onClick={(e) => updateFaq()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
+                        {updateLoader ? "Loading..." : "Submit"}
+                    </button>
+                </SideModal>
+            )}
         </div>
     )
 }

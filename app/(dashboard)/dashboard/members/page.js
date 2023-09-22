@@ -82,7 +82,12 @@ const Page = () => {
 
       {teamModal ? (
         <>
-          <SideModal setShow={setTeamModal} heading={'Invite Team Member'} >
+          <SideModal setShow={setTeamModal} heading={<p className="flex justify-start items-center gap-2">  <span
+            className="text-[#b3b3b3] cursor-pointer"
+            onClick={() => setTeamModal(false)}
+          >
+            <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg>
+          </span>Invite Team Member</p>} border={false}>
             <Invite setTeamModal={setTeamModal} />
           </SideModal>
 

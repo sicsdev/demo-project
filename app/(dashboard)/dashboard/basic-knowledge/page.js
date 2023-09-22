@@ -81,7 +81,7 @@ const Page = () => {
             setLoading(false);
         }, 1200);
     }, [])
-
+   
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
