@@ -5,6 +5,8 @@ import Button from "@/app/components/Common/Button/Button"
 import { fillInvitedUserInfo } from "@/app/API/pages/Login"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import PhoneInput from "react-phone-input-2"
+import 'react-phone-input-2/lib/style.css'
 
 const page = () => {
     const router = useRouter()
@@ -14,7 +16,8 @@ const page = () => {
         name: '',
         phone: '',
         new_password: '',
-        password_confirm: ''
+        password_confirm: '',
+        phone_prefix: ''
     })
 
 
@@ -24,9 +27,11 @@ const page = () => {
             setErrors('')
             setLoading(true)
             await fillInvitedUserInfo(inputValues)
+            setLoading(false)
             router.push("/dashboard");
         } else {
             setErrors(validationErrors);
+            setLoading(false)
         }
         setLoading(false)
     }
@@ -41,7 +46,7 @@ const page = () => {
     }
 
     const validateForm = () => {
-        const { name, phone, new_password, password_confirm } = inputValues;
+        const { name, phone, new_password, password_confirm, phone_prefix } = inputValues;
         const minPasswordLength = 6;
         const errors = {};
 
@@ -51,8 +56,10 @@ const page = () => {
 
         if (!phone) {
             errors.phone = "Cell Phone is required.";
-        } else if (phone.toString().length < minPasswordLength) {
-            errors.phone = "Cell Phone should be at least 6 characters.";
+        }
+
+        if (!phone_prefix) {
+            errors.phone = "Phone prefix is required.";
         }
 
         if (!new_password) {
@@ -70,6 +77,12 @@ const page = () => {
         return errors;
     };
 
+    const handlePhoneChange = (value, country, e, formattedValue) => {
+        const extractedPrefix = `+${country.dialCode}`;
+        const phoneWithoutPrefix = extractedPrefix.replace('+', '')
+        const extractedNumber = value.replace(phoneWithoutPrefix, '').trim();
+        setInputValues({ ...inputValues, phone_prefix: extractedPrefix, phone: extractedNumber })
+    };
 
     return (
         <Container>
@@ -98,23 +111,32 @@ const page = () => {
                             onChange={handleInputValues}
                         />
                     </div>
-                    <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
+                    <div className="flex justify-start gap-4 items-center  pl-5 py-4 border border-l-0 border-r-0 border-border">
                         <span className="text-start text-sm font-normal w-[100px] text-black">
                             Cell Phone
                         </span>
-                        <input
-                            type={"number"}
-                            placeholder={"Cell Phone"}
-                            className={
-                                "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
-                            }
-                            min={0}
-                            name="phone"
-                            id={"phone"}
-                            onChange={handleInputValues}
 
+                        <PhoneInput
+                            placeholder="Phone Number"
+                            countryCodeEditable={false}
+                            disableDropdown={false}
+                            country={"us"}
+                            autoFormat={false}
+                            inputProps={{
+                                autoFocus: false,
+                                id: "phoneNumber",
+                                name: " ",
+                                style: {
+                                    width: "100%",
+                                    paddingLeft: 50,
+                                },
+                                className: "lg-form-control form-border",
+                            }}
+                            onChange={handlePhoneChange}
                         />
                     </div>
+
+
                     <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0 border-l-0 border-r-0 border-border">
                         <span className="text-start text-sm font-normal w-[100px] text-black">
                             Password
@@ -155,7 +177,7 @@ const page = () => {
                     </div>
                 )}
 
-                <Button type={"submit"} onClick={postInfo} className="flex mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-primary border border-gray-300 rounded-md shadow-sm checkout w-1/2">
+                <Button type={"submit"} disabled={loading} onClick={postInfo} className="flex mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-primary border border-gray-300 rounded-md shadow-sm checkout w-1/2">
                     {loading ? "Loading..." : "Start Now"}
                 </Button>
             </div>
