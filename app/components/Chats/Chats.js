@@ -6,14 +6,19 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
+import EditWorkflow from './EditWorkflow';
+import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/outline';
 
-const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
 
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
+    const [conversationDetails, setConversationDetails] = useState({})
+
     const bot = useSelector(state => state.botId.botData.data)
 
 
@@ -25,16 +30,26 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
             if (filterBot) { setBotUnique(filterBot) }
         }
 
+        getDetails()
+
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [bot])
+
+    }, [bot, idOfOpenConversation])
 
 
     // Handlers 
+
+    async function getDetails() {
+        if (idOfOpenConversation) {
+            let convoDetails = await getConversationDetails(idOfOpenConversation)
+            setConversationDetails(convoDetails.data)
+        }
+    }
 
     function handleResize() {
         window && setIsSmallScreen(window.innerWidth < 600);
@@ -73,13 +88,44 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
         return date.toLocaleDateString('en-US', options);
     }
 
-    
+
+    async function handleForReview(e) {
+        setConversationDetails({ ...conversationDetails, for_review: e.target.checked })
+        await setForReview(idOfOpenConversation, { for_review: e.target.checked })
+    }
+
     return (
         <>
             <div className='flex justify-content-center'>
-                <small className='m-auto' >{detailsOfOpenConversation?.datetime && formatDateTime(detailsOfOpenConversation.datetime)}</small>
+                <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
             </div>
 
+
+            <div className='mt-5'>
+                {/* <div className='flex justify-center'>
+                    <small>Channel</small>
+                </div> */}
+                <div className='flex justify-around rounded-md' style={{ fontSize: '12px' }}>
+
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray rounded-tl-lg rounded-bl-lg items-center p-1 ${conversationDetails.type == 'chat' && "text-primary"}`}>
+                            <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4 mx-2" />
+                            Chat
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray items-center p-1 ${conversationDetails.type == 'email' && "text-primary"}`}>
+                            <AtSymbolIcon className="w-4 h-4 mx-2" />
+                            Email
+                        </div>
+                    </div>
+                    <div className='w-full'>
+                        <div className={`flex justify-center bg-gray rounded-tr-lg rounded-br-lg items-center p-1 ${conversationDetails.type == 'phone' && "text-primary"}`}>
+                            <DevicePhoneMobileIcon className="w-4 h-4 mx-2" /> Phone
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
 
                 <div className="chatbot_widget" id="chatbot_widget">
@@ -162,7 +208,6 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                                                                         element?.knowledge?.length ? element?.knowledge?.map(item => (
 
                                                                             <EditKnowledge item={item} allKnowledge={allKnowledge}></EditKnowledge>
-
                                                                         ))
 
                                                                             :
@@ -209,10 +254,12 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
 
-                                                                    <small>
-                                                                        <b>Sources</b><br />
-                                                                        Custom
-                                                                    </small>
+                                                                    <small><b>Sources</b><br /></small>
+                                                                    {/* {element?.workflows[0]?.information?.name} */}
+
+                                                                    {element?.workflows?.map(workflow => (
+                                                                        <EditWorkflow item={workflow}></EditWorkflow>
+                                                                    ))}
                                                                 </div>
                                                             </>
                                                         }
@@ -293,8 +340,13 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                                                                     })}
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
-
-                                                                    <small><b>Sources</b><br />Custom</small>
+                                                                    <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                        <small><b>Sources</b><br /></small>
+                                                                        {/* {element?.workflows[0]?.information?.name} */}
+                                                                        {element?.workflows?.map(workflow => (
+                                                                            <EditWorkflow item={workflow}></EditWorkflow>
+                                                                        ))}
+                                                                    </div>
                                                                 </div>
 
                                                             </>
@@ -371,6 +423,18 @@ const Chat = ({ messages, selectedBot, detailsOfOpenConversation }) => {
                     </div>
                 </div>
             </div >
+
+            <div className="flex items-center space-x-2 mt-4 justify-end mx-3">
+                <input
+                    type="checkbox"
+                    id="forReviewCheckbox"
+                    className="form-checkbox h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
+                    checked={conversationDetails?.for_review}
+                    onClick={handleForReview}
+                />
+                <label for="forReviewCheckbox" className="text-gray-700">For review</label>
+            </div>
+
         </>
     )
 }

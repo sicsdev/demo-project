@@ -26,6 +26,8 @@ import {
   ChevronUpIcon,
   ShoppingCartIcon,
 } from "@heroicons/react/24/solid";
+import SelectField from "@/app/components/Common/Input/SelectField";
+import { business_company_size_data, business_industry_data } from "@/app/components/Forms/data/FormData";
 
 const Checkout = () => {
   const router = useRouter();
@@ -77,7 +79,7 @@ const Checkout = () => {
 
   const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
   const [userformErrors, setUserformErrors] = useState([]);
-
+  console.log("checkoutForm", checkoutForm)
   const handleFormValues = (e) => {
     setCheckoutForm({
       ...checkoutForm,
@@ -202,12 +204,12 @@ const Checkout = () => {
             </div>
           )}
           <div>
-            <h1 className="text-start text-2xl tracking-wide sm:text-3xl md:text-3xl lg:text-3xl my-4 font-bold text-heading">
+            <h1 className="text-start text-lg tracking-wide  my-4 font-bold text-heading">
               Checkout
             </h1>
-            <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
+            <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               1. Enter Your Info
-            </h3>
+            </h1>
             <div className="border bg-white rounded-lg border-border">
               {googleAuthInfo.googleLogin ? (
                 <div className="flex justify-start items-center py-4  bg-[#3c6df1]">
@@ -224,49 +226,106 @@ const Checkout = () => {
                 </div>
               ) : (
                 <div className="flex justify-start gap-4 items-center  pl-5 p-1">
-                  <span className="text-start text-sm font-normal w-[100px] text-black">
+                  <span className="text-start text-xs font-normal w-[100px] text-black">
                     Email
                   </span>
                   <input
                     type={"email"}
                     placeholder={"Email"}
                     className={
-                      "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                      "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0    invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                     }
                     name="email"
                     id={"email"}
                     onChange={handleFormValues}
                     onBlur={handleBlur}
-                    value={checkoutForm.email && checkoutForm.email}
+                    value={checkoutForm?.email ?? ''}
                   />
                 </div>
               )}
 
               <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
-                <span className="text-start text-sm font-normal w-[100px] text-black">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
                   Full Name
                 </span>
                 <input
                   type={"text"}
                   placeholder={"Full Name"}
                   className={
-                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                   }
+                  
+                  value={checkoutForm?.name ?? ''}
                   name="name"
                   id={"name"}
                   onChange={handleFormValues}
                   onBlur={handleBlur}
                 />
               </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Business Name
+                </span>
+                <input
+                  type={"text"}
+                  placeholder={"Business Name"}
+                  className={
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                  }
+                  name="business_name"
+                  id={"business_name"}
+                  
+                  value={checkoutForm?.business_name ?? ''}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Company size
+                </span>
+                <select onChange={handleFormValues}
+                  name="business_company_size"
+                  
+                  value={checkoutForm?.business_company_size ?? ''}
+                  id={"business_company_size"} className={
+                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                  }>
+                  <option value={''} disabled>Select</option>
+                  {business_company_size_data.map((ele, key) =>
+                    <option value={ele} key={key}>{ele}</option>
+                  )}
+                </select>
+              </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Industry
+                </span>
+                <select onChange={handleFormValues}
+                  name="business_industry"
+                  
+                  value={checkoutForm?.business_industry ?? ''}
+                  id={"business_industry"}
+                  className={
+                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                  }>
+                  <option value={''} disabled>Select</option>
+                  {business_industry_data.map((ele, key) =>
+                    <option value={ele} key={key}>{ele}</option>
+                  )}
+                </select>
+              </div>
               <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
-                <span className="text-start text-sm font-normal w-[100px] text-black">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
                   Cell Phone
                 </span>
                 <input
                   type={"number"}
+                  
+                  value={checkoutForm?.phone ?? ''}
                   placeholder={"Cell Phone"}
                   className={
-                    "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                   }
                   min={0}
                   name="phone"
@@ -277,17 +336,18 @@ const Checkout = () => {
               </div>
               {!googleAuthInfo.googleLogin && (
                 <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
-                  <span className="text-start text-sm font-normal w-[100px] text-black">
+                  <span className="text-start text-xs font-normal w-[100px] text-black">
                     Password
                   </span>
                   <input
                     type={"password"}
                     placeholder={"Password"}
                     className={
-                      "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                      "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                     }
                     name="password"
                     id={"password"}
+                    value={checkoutForm?.password ?? ''}
                     onChange={handleFormValues}
                   />
                 </div>
@@ -302,7 +362,7 @@ const Checkout = () => {
               />
               <label
                 htmlFor="link-checkbox"
-                className="ml-2 text-sm font-medium text-border "
+                className="ml-2 text-xs font-medium text-border "
               >
                 I agree with the{" "}
                 <a
@@ -334,13 +394,13 @@ const Checkout = () => {
                 })}
             </div>
 
-            <h3 className="text-start text-xl tracking-wide sm:text-2xl md:text-2xl lg:text-2xl my-4 font-bold text-heading ">
+            <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               2. Select Payment Method
-            </h3>
+            </h1>
             <div className="border border-border rounded-lg p-4 bg-white">
               <div className="flex items-center justify-between">
                 <div className="payment-element-child">
-                  <h3 className="text-sm text-black">Credit or Debit Card</h3>
+                  <h3 className="text-xs text-black">Credit or Debit Card</h3>
                   {/* <p className="text-sm text-black mt-1">HSA / FSA accepted</p> */}
                 </div>
                 <Logos />
@@ -361,7 +421,7 @@ const Checkout = () => {
               )}
             </div>
             <div className="mt-5 ">
-              <p className="text-justify text-xs sm:text-sm">
+              <p className="text-justify text-xs ">
                 By entering your information, you authorize Tempo AI to
                 automatically charge your card for your usage once your credits
                 according to our{" "}
@@ -379,24 +439,24 @@ const Checkout = () => {
           <div className="hidden lg:block">
             <div className="relative overflow-x-auto sm:p-8 md:p-8 lg:p-8 bg-sky2 my-8 rounded-lg bg-white">
               <Card className={"border bg-white border-border "}>
-                <h2 className="text-left text-xl mb-2">Order Summary</h2>
+                <h1 className="text-left text-sm mb-2">Order Summary</h1>
                 <hr style={{ borderColor: "#CCCCCC" }}></hr>
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 rounded-lg">
                   <tbody>
                     <tr className="dark:bg-gray-800 bg-white">
                       <th
                         scope="row"
-                        className="px-6 pl-0 py-4 font-lg text-base text-gray-900 whitespace-nowrap text-black"
+                        className="px-6 pl-0 py-4 font-lg text-xs text-gray-900 whitespace-nowrap text-black"
                       >
                         {planQuery == 1 && "Enterprise Plan"}
                         {planQuery == 0 && "Starter Plan"}
                       </th>
-                      <td className="px-6 py-4 text-base">$200 Free Credits</td>
+                      <td className="px-6 py-4 text-xs">$200 Free Credits</td>
                     </tr>
                   </tbody>
                   <tfoot>
-                    <tr className="text-base text-gray-900 bg-white text-black text-black">
-                      <th scope="row" className="px-6 pl-0 py-3 text-base">
+                    <tr className="text-base xs-gray-900 bg-white text-black text-black">
+                      <th scope="row" className="px-6 pl-0 py-3 text-xs">
                         Total Today
                       </th>
                       <td className="px-6 py-3">$0</td>
@@ -440,7 +500,7 @@ const Checkout = () => {
         </div>
         <hr className=" my-1 mb-3 text-[black] w-[50%]"></hr>
 
-        <p className="mt-2 text-xs sm:text-sm">
+        <p className="mt-2 text-xs ">
           {" "}
           All rights reserved 2023 ©{" "}
           <span className="text-[blue]">Tempo AI Ventures, Inc.</span>
