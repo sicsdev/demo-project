@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question }
+                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
             }
             return payload_automation
         })
@@ -203,7 +203,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question }
+                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
             }
             return payload_automation
         })
@@ -252,7 +252,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                 data: {}
                             };
                         } else {
-                            payload_automation = { condition: element.condition, question: element.question }
+                            payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
                         }
                         return payload_automation
                     })
@@ -402,10 +402,10 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                 <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele.question && (
-                                                                                <BriefcaseIcon className="h-6 w-6 text-gray-500" />
+                                                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele?.transformer && (
-                                                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
                                                                             {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
@@ -459,11 +459,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                             )}
                                         </Draggable>
                                     )}
-
-
-
-
-
                                     {stepData?.length !== 0 &&
                                         <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                                             onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >

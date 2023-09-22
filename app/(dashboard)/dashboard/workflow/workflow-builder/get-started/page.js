@@ -301,7 +301,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = { condition: element.condition, question: element.question }
+              payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -504,7 +504,6 @@ const GetStarted = () => {
 
   const addConditionalStepHandler = async (type = { value: "RULE" }) => {
     setRulesLoader(true)
-    setTransformeLoader(true);
     const conditionData = convertToQueryString(conditionFilter);
     const get_ids = automationStepsData.map((element) => {
       let payload_automation = {}
@@ -515,7 +514,7 @@ const GetStarted = () => {
           data: {}
         };
       } else {
-        payload_automation = { condition: element.condition, question: element.question }
+        payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
       }
       return payload_automation
     })
@@ -527,6 +526,7 @@ const GetStarted = () => {
         newArray = addDataAtIndex1(addStepIndex, get_ids, { condition: conditionData, data: {}, output: {} });
       }
     } else if (type.value === 'TRANSFORMER') {
+      // setTransformeLoader(true)
       if (addStepIndex === null) {
         newArray = [...get_ids, { transformer: workflowFormData.transformer, data: {}, output: {} }];
       } else {
@@ -539,7 +539,7 @@ const GetStarted = () => {
         newArray = addDataAtIndex1(addStepIndex, get_ids, { question: workflowFormData.question, data: {}, output: {} });
       }
     }
-    
+
     const workflowId = params.get('flow');
     if (!singleData.active) {
       const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
@@ -549,8 +549,9 @@ const GetStarted = () => {
       let data = null
       if (type.value === "RULE") {
         data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
+      } else if (type.value === 'TRANSFORMER') {
+        data = [...automationStepsData, { automation: null, transformer: workflowFormData.transformer, data: {}, output: {}, id: "automation_temp" }]
       } else {
-
         data = [...automationStepsData, { automation: null, question: workflowFormData.question, data: {}, output: {}, id: "automation_temp" }]
       }
       setAutomationStepsData(data)
@@ -564,6 +565,13 @@ const GetStarted = () => {
     setAddStepIndex(null);
     setIndexSelector(null)
     setMobileCss('')
+    setWorkFlowFormData((prev) => {
+      return {
+        ...prev,
+        question: '',
+        transformer: ''
+      }
+    })
   }
 
   const openRulesHandler = (type = { value: "RULE" }) => {
@@ -899,11 +907,8 @@ const GetStarted = () => {
                   </Button>
                 </div>
               </div>
-
             </div>
           </>
-
-
         </SideModal>
       )}
       {deflectionModal === true && (
@@ -929,7 +934,6 @@ const GetStarted = () => {
                 </Button>
               </div>
             </div>
-
           </div>
         </SideModal>
       )}
@@ -943,11 +947,11 @@ const GetStarted = () => {
               <div>
                 <Button
                   type={"button"}
-                  disabled={DisablingTransformerButton() || transformeLoader}
+                  disabled={DisablingTransformerButton() || rulesLoader}
                   onClick={() => addConditionalStepHandler({ value: "TRANSFORMER" })}
                   className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                 >
-                  {transformeLoader ? "Loading..." : "Save"}
+                  {rulesLoader ? "Loading..." : "Save"}
                 </Button>
                 <Button
                   className="mr-2 inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
