@@ -19,6 +19,7 @@ import {
 } from "@/app/API/pages/Login";
 import { editUserValue } from "@/app/components/store/slices/userSlice";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
+import { getUserProfile } from "@/app/API/components/Sidebar";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -82,10 +83,19 @@ const Login = () => {
     let result = dispatch(userLogin(formValues));
     // let result = dispatch(fetchProfile(formValues))
 
-    result.then((res) => {
+    result.then(async (res) => {
       if (res.payload?.token) {
         localStorage.setItem("Token", res.payload.token);
-        router.push("/dashboard");
+
+        //// This next logic is for collect data from invited new users
+        let checkProperties = await getUserProfile()
+        if (checkProperties?.is_first_login && checkProperties?.was_invited) {
+          router.push("/invited-email-info");
+        } else {
+          router.push("/dashboard");
+        }
+        ////
+
       } else {
         setError("Unable to log in with provided credentials.");
         setLoading(false);
@@ -202,14 +212,13 @@ const Login = () => {
         <form>
           <label className="block my-5" htmlFor="email">
             <span className="block text-start text-sm font-normal text-border">
-               Email
+              Email
             </span>
             <Input
               type={"email"}
               placeholder={"name@company.com"}
-              className={`w-full border mx-auto mt-4 ${
-                error.includes("email") && "border-red"
-              }`}
+              className={`w-full border mx-auto mt-4 ${error.includes("email") && "border-red"
+                }`}
               name="email"
               value={formValues.email}
               id={"email"}
@@ -229,9 +238,10 @@ const Login = () => {
               name="password"
               value={formValues.password}
               id={"password"}
-              onKeyDown={(event)=>{if (event.key === 'Enter') 
-                // Perform action when Enter key is pressed
-               handleLogin()
+              onKeyDown={(event) => {
+                if (event.key === 'Enter')
+                  // Perform action when Enter key is pressed
+                  handleLogin()
               }}
               onChange={(value) => {
                 handleFormValues(value);
@@ -251,9 +261,8 @@ const Login = () => {
             <div>
               <Link
                 href="/forgot-password"
-                className={`${
-                  error && "text-sky underline"
-                }  text-border text-sm font-normal`}
+                className={`${error && "text-sky underline"
+                  }  text-border text-sm font-normal`}
               >
                 Forgot your password?
               </Link>

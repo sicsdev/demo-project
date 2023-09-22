@@ -254,7 +254,7 @@ const Checkout = () => {
                   className={
                     "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                   }
-                  
+
                   value={checkoutForm?.name ?? ''}
                   name="name"
                   id={"name"}
@@ -274,7 +274,7 @@ const Checkout = () => {
                   }
                   name="business_name"
                   id={"business_name"}
-                  
+
                   value={checkoutForm?.business_name ?? ''}
                   onChange={handleFormValues}
                   onBlur={handleBlur}
@@ -286,7 +286,7 @@ const Checkout = () => {
                 </span>
                 <select onChange={handleFormValues}
                   name="business_company_size"
-                  
+
                   value={checkoutForm?.business_company_size ?? ''}
                   id={"business_company_size"} className={
                     "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
@@ -303,7 +303,7 @@ const Checkout = () => {
                 </span>
                 <select onChange={handleFormValues}
                   name="business_industry"
-                  
+
                   value={checkoutForm?.business_industry ?? ''}
                   id={"business_industry"}
                   className={
@@ -321,7 +321,7 @@ const Checkout = () => {
                 </span>
                 <input
                   type={"number"}
-                  
+
                   value={checkoutForm?.phone ?? ''}
                   placeholder={"Cell Phone"}
                   className={

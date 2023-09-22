@@ -55,7 +55,7 @@ const Page = () => {
         setWorkLoading(true)
         let formData = {
             name: "Default_name",
-            description: "",
+            description: [],
             policy_name: "",
             policy_description: "",
             policy_exceptions: ""

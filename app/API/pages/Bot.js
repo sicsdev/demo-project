@@ -11,16 +11,15 @@ export const createBot = async (body) => {
         return error
     }
 };
-// export const createBotFaqFile = async (id, body) => {
-//     let config = returnConfig()
-
-//     try {
-//         const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/knowledge/`, body, config);
-//         return response;
-//     } catch (error) {
-//         return error
-//     }
-// };
+export const createCheckoutBot = async (body, token) => {
+    let config = { headers: { "Content-Type": "application/json", "Authorization": "Token " + token } };
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/bots/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
 
 export const getBotWidget = async (id) => {
     let config = returnConfig()
