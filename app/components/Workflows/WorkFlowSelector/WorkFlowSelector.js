@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -13,6 +13,7 @@ import { editAutomationValue } from '../../store/slices/workflowSlice';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from '../../Common/Modal/Modal';
 const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField, getWorkflowData, singleData1 }) => {
+    console.log("stepData", stepData)
     const [showButtonStates, setShowButtonStates] = useState(null);
     const [modal, setModal] = useState(false);
     const [automationDragHandle, setAutomationDragHandle] = useState({
@@ -382,7 +383,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                             )}
 
 
-                                                            <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] '>
+                                                            <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] asdasd'>
                                                                 <div className='  p-5 cursor-pointer group  rounded-lg' >
 
                                                                     <div className='flex justify-between gap-2 items-center'>
@@ -403,6 +404,9 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             {ele.question && (
                                                                                 <BriefcaseIcon className="h-6 w-6 text-gray-500" />
                                                                             )}
+                                                                            {ele?.transformer && (
+                                                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                                            )}
                                                                             {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
                                                                             )}
@@ -414,6 +418,12 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             {ele?.question && (
                                                                                 <>
                                                                                     <p className='text-sm font-semibold '>Deflection: {ele?.question}</p>
+                                                                                </>
+                                                                            )}
+
+                                                                            {ele?.transformer && (
+                                                                                <>
+                                                                                    <p className='text-sm font-semibold '>Transformer: {ele?.transformer}</p>
                                                                                 </>
                                                                             )}
 
