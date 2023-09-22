@@ -62,7 +62,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
             id:"Email",
             selector: row => row?.email,
             cell: (row) => (
-                <p className='whitespace-normal'>{row.email}</p>
+                <p className='whitespace-normal text-xs'>{row.email}</p>
             ),
             reorder: true,
 
@@ -85,7 +85,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
             id:"Contact",
             selector: row => row?.contact,
             cell: (row) => (
-                <p className='whitespace-normal'> {row?.contact !== '' && row?.contact !== ' ' ? formatPhoneNumber(row?.contact) : ''}</p>
+                <p className='whitespace-normal xs'> {row?.contact !== '' && row?.contact !== ' ' ? formatPhoneNumber(row?.contact) : ''}</p>
             ),
             reorder: true,
             width: "200px",

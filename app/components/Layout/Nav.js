@@ -98,7 +98,7 @@ const Nav = () => {
                       <List
                         className={"grid grid-cols-2 gap-8"}
                         nav_links={element.card.links}
-                        setShowmenu={setShowmenu}
+                        setShow={setShowmenu}
                       />
                     </Card>
                   )}
