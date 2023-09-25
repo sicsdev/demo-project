@@ -18,6 +18,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 const page = () => {
     const [pageLoading, setPageLoading] = useState(true);
+    const [pageSubLoading, setSubLoading] = useState(true);
     const [isCopy, setIsCopy] = useState(false);
     const [loading, setLoading] = useState(null)
     const [botValue, setBotValue] = useState([]);
@@ -58,7 +59,10 @@ const page = () => {
             let schedule = res[0].data?.schedule
             schedule ? delete schedule.updatedSchedule : scheduleData
             setScheduleData(schedule)
-            setPageLoading(false);
+            setTimeout(() => {
+                setPageLoading(false);
+                setSubLoading(false);
+            }, 2000);
         });
     };
 
@@ -81,7 +85,7 @@ const page = () => {
 
     const selectBotHandler = (id) => {
         setSelectedBot(id)
-        setPageLoading(true);
+        setPageLoading(true)
         getBotInfo(id);
     };
 
@@ -114,38 +118,19 @@ const page = () => {
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
-                {
-                    (
-                        pageLoading == true || state?.isLoading == true) ? (
-                        <>
-                            <SkeletonLoader width={"80%"} />
-                            <div>
-                                <div className='mt-5 border border-3 border-gray rounded p-3 lg:w-1/2 '>
-                                    <SkeletonLoader width={100} />
-                                    <div>
-                                        {[...Array(7)].map((_, index) => (
-                                            <>
-                                                <div className="flex m-2 my-2 items-center justify-around gap-3">
-                                                    <div className='w-[50px] flex items-center gap-3 col-span-1'>
-                                                        <SkeletonLoader width={100} />
-                                                    </div>
-                                                    <div className="lg:flex flex items-center gap-3">
-                                                        <div className='col-span-1 w-[210px] sm:w-[270px]'>
-                                                            <SkeletonLoader width={100} />
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex gap-3">
-                                                        <SkeletonLoader width={20} />
-                                                    </div>
-                                                </div>
-                                            </>
-                                        ))}
-                                    </div>
-                                </div>
 
+
+
+
+                <div className='block'>
+                    {pageSubLoading ?
+                        <>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <div className="my-4 w-full grid grid-cols-2 sm:grid-cols-[10%,10%,10%,10%,10%,10%,10%,10%] justify-start" >
+                                <SkeletonLoader count={1} height={35} width={"90%"} />
+                                <SkeletonLoader count={1} height={35} width={"90%"} />
                             </div>
-                        </>
-                    ) : (
+                        </> :
                         <>
                             <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
                             <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
@@ -157,18 +142,43 @@ const page = () => {
                                     > {element?.name}
                                     </button>
                                 ))}
-                                {/* <SelectOption
-                                        onChange={handleInputValues}
-                                        value={selectedBot}
-                                        name="bot"
-                                        values={botValue}
-                                        title={<h3 className="text-sm my-4 font-semibold">Select Bot</h3>}
-                                        id={"bots"}
-                                        className="py-3"
-                                        error={""}
-                                        showOption={false}
-                                    /> */}
                             </div>
+                        </>
+                    }
+                </div>
+                {
+                    (
+                        pageLoading == true || state?.isLoading == true) ? (
+                        <div>
+                            <div className='mt-5 border border-3 border-gray rounded p-3 lg:w-1/2 '>
+                                <div>
+
+                                    <SkeletonLoader count={1} height={20} width={"30%"} />
+                                    {[...Array(7)].map((_, index) => (
+                                        <>
+                                            <div className="flex m-2 my-3 items-center justify-around gap-3">
+                                                <div className='w-[50px] flex items-center gap-3 col-span-1'>
+                                                    <SkeletonLoader width={30} />
+                                                </div>
+                                                <div className="flex justify-center items-center gap-3">
+                                                    <SkeletonLoader height={35} width={80} />
+                                                    <SkeletonLoader height={35} width={80} />
+                                                    <SkeletonLoader height={20} width={20} />
+                                                </div>
+                                                <div className="flex gap-3">
+                                                    <SkeletonLoader width={20} />
+                                                </div>
+                                            </div>
+                                        </>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    ) : (
+                        <>
+
                             <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
                             <div className='flex justify-end items-center'>
                                 {

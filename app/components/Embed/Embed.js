@@ -20,7 +20,7 @@ import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { EmbedCard } from "./EmbedCard";
-const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
+const Embed = ({ form = true,  setTotalRecords }) => {
   const router = useRouter();
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
@@ -56,11 +56,6 @@ const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
       });
       setDetailsData(mergedArray);
       setTotalRecords(mergedArray)
-      if (form === false) {
-        setTimeout(() => {
-          setSkeleton(false);
-        }, 2000);
-      }
     }
   }, [state.botData.data]);
   const getBotWidgetData = async () => {
@@ -154,26 +149,7 @@ const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
                 {detailsData &&
                   detailsData.map((element, key) => (
                     <div className="p-2 sm:p-5 md:p-5 lg:p-5 " key={key}>
-                      {skeleton ? (
-                        <div className="mt-5 border rounded-md border-border  bg-white">
-                          <div className="rounded-t-md py-2 px-5 border-border items-center">
-                            <SkeletonLoader />
-                          </div>
-                          <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
-                            <div className="my-2">
-                              <SkeletonLoader count={1} />
-                              <SkeletonLoader count={1} width={100} />
-                              <SkeletonLoader count={1} width={200} />
-                              <SkeletonLoader count={1} width={300} />
-                              <SkeletonLoader count={1} width={80} />
-                              <SkeletonLoader count={1} width={100} />
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <EmbedCard key={key} element={element} copied={copied} setCopied={setCopied}></EmbedCard>
-                      )}
-
+                      <EmbedCard key={key} element={element} copied={copied} setCopied={setCopied}></EmbedCard>
                     </div>
                   ))}
               </div>

@@ -57,8 +57,10 @@ const page = () => {
                     ...payload
                 };
             });
-            setPageLoading(false);
-            setPageSubLoading(false)
+            setTimeout(() => {
+                setPageLoading(false);
+                setPageSubLoading(false);
+            }, 2000);
         });
     };
 
@@ -77,8 +79,10 @@ const page = () => {
         setBotValue(mergedArray);
         setSelectedBot(mergedArray[0].value)
         getBotInfo(mergedArray[0].value);
-        setPageLoading(false);
-        setPageSubLoading(false);
+        setTimeout(() => {
+            setPageLoading(false);
+            setPageSubLoading(false);
+        }, 2000);
     };
 
     const selectBotHandler = (id) => {
