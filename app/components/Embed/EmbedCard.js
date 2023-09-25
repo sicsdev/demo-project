@@ -75,7 +75,7 @@ export const EmbedCard = ({
     <>
       <div className="mt-5 border rounded-md border-border  bg-white">
         <div className="bg-border rounded-t-md py-1 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
-          <h3 className="font-xl font-bold text-white my-2">{element.title}</h3>
+          <h3 className="text-xs font-bold text-white my-2">{element.title}</h3>
           <div className=" relative items-start flex flex-row-reverse pr-2">
             {/* <Link
               href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
@@ -89,7 +89,7 @@ export const EmbedCard = ({
             </Link> */}
             <div className="flex items-center justify-end my-2 pointer" style={{ cursor: "pointer" }}>
               <span
-                className={`text-sm px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
+                className={`text-xs px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
                   }`}
                 onClick={(e) => toggleEmbed('embed')}
               >
@@ -97,7 +97,7 @@ export const EmbedCard = ({
               </span>
               <span className="text-white">|</span>
               <span
-                className={`text-sm px-1 ml-1 ${!isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
+                className={`text-xs px-1 ml-1 ${!isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
                   }`}
                 onClick={(e) => toggleEmbed('chat')}
               >

@@ -50,8 +50,10 @@ const page = () => {
                     ...payload
                 };
             });
-            setPageLoading(false);
-            setSubLoading(false);
+            setTimeout(() => {
+                setPageLoading(false);
+                setSubLoading(false);
+            }, 2000);
         });
     };
 
@@ -78,12 +80,6 @@ const page = () => {
         setPageLoading(true);
         getBotInfo(id);
     };
-    // const handleInputValues = (e) => {
-    //     const { value } = e.target;
-    //     setSelectedBot(value)
-    //     setPageLoading(true);
-    //     getBotInfo(value);
-    // };
 
     const DisablingButton = () => {
         const checkFormData = (keys) => {
