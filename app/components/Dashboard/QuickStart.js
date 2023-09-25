@@ -436,9 +436,9 @@ const QuickStart = () => {
 
                                                 >
 
-                                                    <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                    <div className="px-6 sm:flex justify-between items-center sm:gap-0">
 
-                                                        <div className="flex gap-2  items-start">
+                                                        <div className="sm:w-[70%] flex gap-2  items-start">
 
                                                             <span>{ele?.icon}</span>
 
@@ -460,13 +460,13 @@ const QuickStart = () => {
 
                                                         </div>
 
-                                                        <div className="w-[20%] sm:w-[30%] sm:ml-0 ml-[28px] ">
+                                                        <div className=" sm:ml-0 ml-[28px] ">
 
                                                             <Link
 
                                                                 href={ele?.link}
 
-                                                                className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                className="text-[#007c8f] flex items-center  gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                             >
                                                                 {ele?.buttonName}
