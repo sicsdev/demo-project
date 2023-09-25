@@ -15,6 +15,18 @@ export const getAllWorkflow = async () => {
         return error
     }
 };
+
+
+export const getWorkflowByStatus = async (status) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
 export const getSingleWorkflow = async (id) => {
     let config = returnConfig()
     try {
@@ -74,10 +86,10 @@ export const getWorkflowEmbed = async (id) => {
         return error
     }
 };
-export const createWorkflowTemplate = async (id,body) => {
+export const createWorkflowTemplate = async (id, body) => {
     let config = returnConfig()
     try {
-        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`,body, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`, body, config);
         return response;
     } catch (error) {
         return error

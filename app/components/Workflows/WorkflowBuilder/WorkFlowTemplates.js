@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
@@ -164,13 +164,14 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         manageData()
     }, [workflowData])
 
+
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
     const manageData = async () => {
-        let result;
-        result = workflowData?.results?.filter((x) => x.active === status);
 
+        let workflows = await getWorkflowByStatus(status)
+        let result = workflows.results
         let array_of_urls = []
 
         result?.forEach(async (el) => {
