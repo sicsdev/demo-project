@@ -12,7 +12,7 @@ import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
-import { CheckIcon, ClipboardIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
+import { CheckIcon, ClipboardIcon, InboxArrowDownIcon, InboxIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
@@ -78,11 +78,10 @@ const page = () => {
         setPageLoading(false);
     };
 
-    const handleInputValues = (e) => {
+    const selectBotHandler = (id) => {
+        setSelectedBot(id)
         setPageLoading(true);
-        const { value } = e.target;
-        setSelectedBot(value)
-        getBotInfo(value);
+        getBotInfo(id);
     };
 
     const DisablingButton = () => {
@@ -215,7 +214,7 @@ const page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`Email Settings`} icon={<WrenchScrewdriverIcon className="h-5 w-5 text-primary" />} />
+            <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
                 {
                     (
@@ -236,9 +235,17 @@ const page = () => {
                         </>
                     ) : (
                         <>
-                            <div className="block sm:flex justify-center gap-5">
-                                <div className="mb-4 w-full">
-                                    <SelectOption
+                            <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
+                            <div className="mb-4 w-full flex items-center justify-start flex-wrap" >
+                                {botValue?.map((element, key) => (
+                                    <button
+                                        onClick={(e) => selectBotHandler(element.value)}
+                                        key={key}
+                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1`}
+                                    > {element?.name}
+                                    </button>
+                                ))}
+                                {/* <SelectOption
                                         onChange={handleInputValues}
                                         value={selectedBot}
                                         name="bot"
@@ -248,8 +255,7 @@ const page = () => {
                                         className="py-3"
                                         error={""}
                                         showOption={false}
-                                    />
-                                </div>
+                                    /> */}
                             </div>
                             <>
                                 <div className="my-2 flex items-center justify-between gap-1">

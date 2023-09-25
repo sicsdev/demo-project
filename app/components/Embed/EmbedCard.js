@@ -77,7 +77,7 @@ export const EmbedCard = ({
         <div className="bg-border rounded-t-md py-1 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
           <h3 className="font-xl font-bold text-white my-2">{element.title}</h3>
           <div className=" relative items-start flex flex-row-reverse pr-2">
-            <Link
+            {/* <Link
               href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
               className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-white "
             >
@@ -86,7 +86,7 @@ export const EmbedCard = ({
               >
                 <WrenchScrewdriverIcon className="h-5 w-5 text-white" />
               </button>
-            </Link>
+            </Link> */}
             <div className="flex items-center justify-end mx-5 my-2 pointer" style={{ cursor: "pointer" }}>
               <span
                 className={`text-sm px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
@@ -107,7 +107,7 @@ export const EmbedCard = ({
           </div>
         </div>
         <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
-          <div className="my-2">
+          <div className="my-2 text-[10px]">
             <div className='my-3'>
 
               <small>Add this code to the head section of your website's HTML:</small>
@@ -128,7 +128,7 @@ export const EmbedCard = ({
               className="border-none"
             // onChange={onChange}
             />
-            <div className='flex justify-end'>
+            <div className='flex justify-end mt-2'>
               <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                 {copied.message && copied.key === element.id ? (
                   <>

@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import {
   ClipboardIcon,
   CheckIcon,
-  EllipsisVerticalIcon,
 } from "@heroicons/react/24/outline";
 
 import { xcodeLight } from "@uiw/codemirror-theme-xcode";
@@ -21,7 +20,7 @@ import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { EmbedCard } from "./EmbedCard";
-const Embed = ({ form = true, skeleton, setSkeleton }) => {
+const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
   const router = useRouter();
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
@@ -56,6 +55,7 @@ const Embed = ({ form = true, skeleton, setSkeleton }) => {
         };
       });
       setDetailsData(mergedArray);
+      setTotalRecords(mergedArray)
       if (form === false) {
         setTimeout(() => {
           setSkeleton(false);
