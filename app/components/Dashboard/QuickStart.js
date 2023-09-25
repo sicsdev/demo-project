@@ -34,7 +34,8 @@ import {
     PhoneIcon,
     ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-const QuickStart = ({ setSkeleton, skeleton }) => {
+import ChatBots from './ChatBots';
+const QuickStart = () => {
     const [isExpand, setIsExpand] = useState(true);
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
@@ -230,293 +231,384 @@ const QuickStart = ({ setSkeleton, skeleton }) => {
     }
     return (
         <>
-            {hideQuicStart === false && (
-                skeltonLoading || skeleton === true ? (
-                    <>
-                        <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                            <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
-                                <div className='flex items-center justify-center gap-2'>
-                                    <SkeletonLoader count={1} height={40} width={100} />
-                                </div>
-                                <div className='flex items-center gap-4'>
-                                    <SkeletonLoader count={1} height={40} width={100} />
-                                </div>
+
+            {skeltonLoading ?
+                <>
+                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                            <div className='flex items-center justify-center gap-2'>
+                                <SkeletonLoader count={1} height={40} width={100} />
                             </div>
-                            <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
-                                <p className='px-6 text-[#151D23] text-sm pb-5'>
-                                    <SkeletonLoader count={1} height={20} width="80%" />
-                                </p>
-                                <div>
-                                    <div className='px-6 cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 grid grid-cols-[80%,20%] justify-between'>
-                                        <SkeletonLoader count={3} height={40} width="80%" />
-                                        <SkeletonLoader count={3} height={40} width="100%" />
-                                    </div>
+                            <div className='flex items-center gap-4'>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
+                        </div>
+                        <div className={`overflow-hidden ${isExpand === true ? 'visible h-auto pt-6' : 'invisible h-0'}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                            <p className='px-6 text-[#151D23] text-sm pb-5'>
+                                <SkeletonLoader count={1} height={20} width="80%" />
+                            </p>
+                            <div>
+                                <div className='px-6 cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 grid grid-cols-[80%,20%] justify-between'>
+                                    <SkeletonLoader count={3} height={40} width="80%" />
+                                    <SkeletonLoader count={3} height={40} width="100%" />
                                 </div>
                             </div>
                         </div>
-                    </>
-                ) : (
-                    <>
-                        <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                    </div>
+
+
+                    <div className="bg-[#F8F8F8]  w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                        <div className={`py-4 px-6  items-center gap-4 `}>
+                            <div className=''>
+                                <SkeletonLoader count={1} height={30} width={"30%"} />
+                            </div>
+                        </div>
+                        <div className='grid grid-cols-2 sm:grid-cols-3 gap-4 p-4 mt-2'>
+                            <div className='bg-[#FFF] w-full m-auto border rounded-lg border-[#F0F0F1]  cursor-pointer p-2'>
+                                <SkeletonLoader count={1} height={15} width={"50%"} />
+                                <div className='my-3'>
+                                    <SkeletonLoader count={1} height={20} width={"60%"} />
+                                </div>
+                                <SkeletonLoader count={1} height={40} width={"20%"} />
+                                <SkeletonLoader count={1} height={30} width={"50%"} />
+                            </div>
+                            <div className='bg-[#FFF] w-full m-auto border rounded-lg border-[#F0F0F1] cursor-pointer p-2'>
+                                <SkeletonLoader count={1} height={15} width={"50%"} />
+                                <div className='my-3'>
+                                    <SkeletonLoader count={1} height={20} width={"60%"} />
+                                </div>
+                                <SkeletonLoader count={1} height={40} width={"20%"} />
+                                <SkeletonLoader count={1} height={30} width={"50%"} />
+                            </div>
+                            <div className='bg-[#FFF] w-full m-auto border rounded-lg border-[#F0F0F1] cursor-pointer p-2'>
+                                <SkeletonLoader count={1} height={15} width={"50%"} />
+                                <div className='my-3'>
+                                    <SkeletonLoader count={1} height={20} width={"60%"} />
+                                </div>
+                                <SkeletonLoader count={1} height={40} width={"20%"} />
+                                <SkeletonLoader count={1} height={30} width={"50%"} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="bg-[#F8F8F8]  w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                    <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                            <div className='flex items-center justify-center gap-2'>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
+                            <div className='flex items-center gap-4'>
+                                <SkeletonLoader count={1} height={40} width={100} />
+                            </div>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 p-4  bg-white gap-4">
+                            <div className=' border rounded-md border-border '>
+                                <div className="bg-border rounded-t-md   py-2 cursor-pointer  w-full border border-border text-xs text-white gap-1 items-center">
+                                    <div className={` px-2 flex justify-between items-center gap-2`}>
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <SkeletonLoader count={1} height={18} width={100} />
+                                        </div>
+                                        <div className='flex items-center gap-4'>
+                                            <SkeletonLoader count={1} height={18} width={100} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='py-2 px-4'>
+                                    <SkeletonLoader count={1} height={10} width={200} />
+                                </div>
+                                <div className='py-2 px-4'>
+                                    <SkeletonLoader count={1} height={10} width={"90%"} />
+                                    <SkeletonLoader count={1} height={10} width={"70%"} />
+                                    <SkeletonLoader count={1} height={10} width={"50%"} />
+                                    <SkeletonLoader count={1} height={10} width={"80%"} />
+                                </div>
+                            </div>
+                            <div className=' border rounded-md border-border '>
+                                <div className="bg-border rounded-t-md   py-2 cursor-pointer  w-full border border-border text-xs text-white gap-1 items-center">
+                                    <div className={` px-2 flex justify-between items-center gap-2`}>
+                                        <div className='flex items-center justify-center gap-2'>
+                                            <SkeletonLoader count={1} height={18} width={100} />
+                                        </div>
+                                        <div className='flex items-center gap-4'>
+                                            <SkeletonLoader count={1} height={18} width={100} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='py-2 px-4'>
+                                    <SkeletonLoader count={1} height={10} width={200} />
+                                </div>
+                                <div className='py-2 px-4'>
+                                    <SkeletonLoader count={1} height={10} width={"90%"} />
+                                    <SkeletonLoader count={1} height={10} width={"70%"} />
+                                    <SkeletonLoader count={1} height={10} width={"50%"} />
+                                    <SkeletonLoader count={1} height={10} width={"80%"} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </>
+                :
+
+                <>
+                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                        <div
+                            className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""
+
+                                }`}
+
+                        >
+
+                            <div className="flex items-start sm:items-center  gap-2">
+
+                                <BoltIcon className="text-[#FF822D] w-5" />
+
+                                <p className="text-base font-medium text-[#151D23]">
+
+                                    Quick Start
+
+                                </p>
+
+                            </div>
+
+                            <div className="flex items-center gap-4 ">
+
+                                <button
+
+                                    className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
+
+                                    onClick={(e) => setIsExpand(!isExpand)}
+
+                                >
+
+                                    {isExpand === true ? (
+
+                                        <>
+
+                                            <p className="hidden sm:block "> Collapse</p>
+
+                                            <ChevronUpIcon className="w-5 h-5" />
+
+                                        </>
+
+                                    ) : (
+
+                                        <>
+
+                                            <p className="hidden sm:block"> Expand</p>
+
+
+
+                                            <ChevronDownIcon className="w-5 h-5" />
+
+                                        </>
+
+                                    )}
+
+                                </button>
+
+                            </div>
+
+                        </div>
+                        {user && user?.enterprise?.slug_domain === "" ?
                             <div
-                                className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""
+
+                                className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
 
                                     }`}
 
+                                style={{ transition: `all 0.2s ease-out 0s` }}
+
                             >
-
-                                <div className="flex items-start sm:items-center  gap-2">
-
-                                    <BoltIcon className="text-[#FF822D] w-5" />
-
-                                    <p className="text-base font-medium text-[#151D23]">
-
-                                        Quick Start
-
-                                    </p>
-
-                                </div>
-
-                                <div className="flex items-center gap-4 ">
-
-                                    <button
-
-                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
-
-                                        onClick={(e) => setIsExpand(!isExpand)}
-
-                                    >
-
-                                        {isExpand === true ? (
-
-                                            <>
-
-                                                <p className="hidden sm:block "> Collapse</p>
-
-                                                <ChevronUpIcon className="w-5 h-5" />
-
-                                            </>
-
-                                        ) : (
-
-                                            <>
-
-                                                <p className="hidden sm:block"> Expand</p>
-
-
-
-                                                <ChevronDownIcon className="w-5 h-5" />
-
-                                            </>
-
-                                        )}
-
-                                    </button>
-
-                                </div>
-
-                            </div>
-                            {user && user?.enterprise?.slug_domain === "" ?
-                                <div
-
-                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
-
-                                        }`}
-
-                                    style={{ transition: `all 0.2s ease-out 0s` }}
-
-                                >
-                                    {user?.enterprise?.country === '' && (
-                                        <p className="px-6 text-[#151D23] text-sm pb-5">
-
-                                            Please enter your address first in business profile.
-
-                                        </p>
-                                    )}
-
-                                    {quickStartData1?.map((ele, key) => (
-
-                                        <div key={key}>
-                                            {user?.enterprise?.country === '' && key === 3 ? null :
-                                                <div>
-
-                                                    {setHideShow(key) === true && (
-
-                                                        <div
-
-                                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
-
-                                                            key={key}
-
-                                                        >
-
-                                                            <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
-
-                                                                <div className="flex gap-2  items-start">
-
-                                                                    <span>{ele?.icon}</span>
-
-                                                                    <div className="">
-
-                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
-
-                                                                            {ele?.title}
-
-                                                                        </h3>
-
-                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
-
-                                                                            {ele?.content}
-
-                                                                        </p>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
-
-                                                                    <Link
-
-                                                                        href={ele?.link}
-
-                                                                        className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                    >
-                                                                        {ele?.buttonName}
-
-                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                    </Link>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                        </div>
-
-                                                    )}
-
-                                                </div>
-                                            }
-                                        </div>))}
-
-                                </div>
-                                :
-
-                                <div
-
-                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
-
-                                        }`}
-
-                                    style={{ transition: `all 0.2s ease-out 0s` }}
-
-                                >
-
+                                {user?.enterprise?.country === '' && (
                                     <p className="px-6 text-[#151D23] text-sm pb-5">
 
-                                        A few essential steps to get you up and running with Tempo
-
-                                        immediately.
+                                        Please enter your address first in business profile.
 
                                     </p>
+                                )}
 
-                                    {quickStartData?.map((ele, key) => (
+                                {quickStartData1?.map((ele, key) => (
 
-                                        <div>
+                                    <div key={key}>
+                                        {user?.enterprise?.country === '' && key === 3 ? null :
+                                            <div>
 
-                                            {setHideShow(key) === true && (
+                                                {setHideShow(key) === true && (
 
-                                                <div
+                                                    <div
 
-                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                        className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                                    key={key}
+                                                        key={key}
 
-                                                >
+                                                    >
 
-                                                    <div className="px-6 sm:flex justify-between items-center sm:gap-0">
+                                                        <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
 
-                                                        <div className="sm:w-[70%] flex gap-2  items-start">
+                                                            <div className="flex gap-2  items-start">
 
-                                                            <span>{ele?.icon}</span>
+                                                                <span>{ele?.icon}</span>
 
-                                                            <div className="">
+                                                                <div className="">
 
-                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                                    {ele?.title}
+                                                                        {ele?.title}
 
-                                                                </h3>
+                                                                    </h3>
 
-                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                                    {ele?.content}
+                                                                        {ele?.content}
 
-                                                                </p>
+                                                                    </p>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+
+                                                                <Link
+
+                                                                    href={ele?.link}
+
+                                                                    className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                >
+                                                                    {ele?.buttonName}
+
+                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                </Link>
 
                                                             </div>
 
                                                         </div>
 
-                                                        <div className=" sm:ml-0 ml-[28px] ">
+                                                    </div>
 
-                                                            <Link
+                                                )}
 
-                                                                href={ele?.link}
+                                            </div>
+                                        }
+                                    </div>))}
 
-                                                                className="text-[#007c8f] flex items-center  gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                            </div>
+                            :
 
-                                                            >
-                                                                {ele?.buttonName}
+                            <div
 
-                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
 
-                                                            </Link>
+                                    }`}
+
+                                style={{ transition: `all 0.2s ease-out 0s` }}
+
+                            >
+
+                                <p className="px-6 text-[#151D23] text-sm pb-5">
+
+                                    A few essential steps to get you up and running with Tempo
+
+                                    immediately.
+
+                                </p>
+
+                                {quickStartData?.map((ele, key) => (
+
+                                    <div>
+
+                                        {setHideShow(key) === true && (
+
+                                            <div
+
+                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+
+                                                key={key}
+
+                                            >
+
+                                                <div className="px-6 sm:flex justify-between items-center sm:gap-0">
+
+                                                    <div className="sm:w-[70%] flex gap-2  items-start">
+
+                                                        <span>{ele?.icon}</span>
+
+                                                        <div className="">
+
+                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                {ele?.title}
+
+                                                            </h3>
+
+                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+
+                                                                {ele?.content}
+
+                                                            </p>
 
                                                         </div>
 
                                                     </div>
 
+                                                    <div className=" sm:ml-0 ml-[28px] ">
+
+                                                        <Link
+
+                                                            href={ele?.link}
+
+                                                            className="text-[#007c8f] flex items-center  gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                        >
+                                                            {ele?.buttonName}
+
+                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                        </Link>
+
+                                                    </div>
+
                                                 </div>
 
-                                            )}
-
-                                        </div>
-
-                                    ))}
-
-                                </div>
-                            }
-                        </div>
-                        {recentlyView && (
-                            <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
-                                <div className='py-4 px-6'>
-                                    <div className="flex items-start sm:items-center  gap-2">
-                                        <EyeIcon className="text-[#FF822D] w-5" />
-                                        <p className="leading-[0px] text-base font-medium text-[#151D23]">Recently Viewed</p>
-                                    </div>
-                                    <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
-                                        {recentlyView.map((ele, key) =>
-                                            <div className={`${key > 1 && 'hidden sm:flex'} flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
-                                                {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
-                                                <p className='mt-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
-                                                {findIcon(ele.route)}
-                                                <Link href={ele.route}>
-                                                    <div className='mt-2'>
-                                                        <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
-                                                    </div>
-                                                </Link>
                                             </div>
+
                                         )}
+
                                     </div>
+
+                                ))}
+
+                            </div>
+                        }
+                    </div>
+                    {recentlyView && (
+                        <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                            <div className='py-4 px-6'>
+                                <div className="flex items-start sm:items-center  gap-2">
+                                    <EyeIcon className="text-[#FF822D] w-5" />
+                                    <p className="leading-[0px] text-base font-medium text-[#151D23]">Recently Viewed</p>
+                                </div>
+                                <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+                                    {recentlyView.map((ele, key) =>
+                                        <div className={`${key > 1 && 'hidden sm:flex'} flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
+                                            {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
+                                            <p className='mt-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
+                                            {findIcon(ele.route)}
+                                            <Link href={ele.route}>
+                                                <div className='mt-2'>
+                                                    <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                        )}
-                    </>
-                )
-            )}
+                        </div>
+                    )}
+
+                    <ChatBots />
+                </>
+            }
         </>
     )
 }
