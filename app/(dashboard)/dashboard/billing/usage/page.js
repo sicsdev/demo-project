@@ -39,6 +39,25 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+
+
 const UsageLimit = () => {
   const state = useSelector((state) => state.user.data);
   const [curretYear, setCurrentYear] = useState(null);
@@ -49,20 +68,14 @@ const UsageLimit = () => {
   const [btnLoading, setBtnLoading] = useState(false);
   const [formData, setFormData] = useState(null);
   const [error, setError] = useState(false);
-  const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
+
+  useEffect(() => {
+    if (state) {
+      getPaymentOldData();
+    }
+  }, [state]);
+
+
   const options = {
     responsive: true,
     plugins: {
@@ -101,6 +114,8 @@ const UsageLimit = () => {
     },
   };
 
+
+
   const getPaymentOldData = async () => {
     setFormData(state.enterprise.billing_thresholds.amount_gte);
     const response = await getPaymentHistory(state.stripe_data.stripe_id);
@@ -123,14 +138,23 @@ const UsageLimit = () => {
         const monthName = date.toLocaleString("default", { month: "long" });
         labels.push(monthName);
       }
+
+      let monthData;
+      const getTotalAmount = (data) => {
+        return data.reduce((accumulator, transaccion) => {
+          return accumulator + transaccion.amount;
+        }, 0);
+      };
+
       const amounts = labels.map((month) => {
-        const monthData = response[currentYear][month];
-        return monthData && monthData.length > 0 ? monthData[0].amount : 0;
+        monthData = response[currentYear][month];
+        console.log(monthData, 'monthData');
+        return monthData && monthData.length > 0 ? getTotalAmount(monthData) : 0;
       });
-      const total = amounts.reduce(
-        (accumulator, currentValue) => accumulator + currentValue,
-        0
-      );
+
+      const total = getTotalAmount(monthData);
+
+
       setTotalUsage(total);
       setData({
         labels,
@@ -148,11 +172,7 @@ const UsageLimit = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    if (state) {
-      getPaymentOldData();
-    }
-  }, [state]);
+
   const handleInputValues = (event) => {
     let inputValue = event.target.value.replace(/[.,]/g, "");
     if (inputValue > 10000) {
@@ -166,6 +186,7 @@ const UsageLimit = () => {
 
     setFormData(inputValue);
   };
+
   const SubmitForm = async () => {
     if (formData < 50 || formData > 10000) {
     } else {
@@ -181,6 +202,9 @@ const UsageLimit = () => {
       }
     }
   };
+
+
+
   return (
     <>
       <div style={{ whiteSpace: "normal" }}>
@@ -271,19 +295,19 @@ const UsageLimit = () => {
                   </div>
                   <div className=" sm:mt-1 ">
 
-               
-                  <p className="text-xs mb-2 px-6 py-4">
-                    Your total usage so far in {currentMonth} (UTC) is <span className="text-primary font-bold"> ${totalUsage}.</span> Note that
-                    this may include usage covered by a free trial or other
-                    credits, so your monthly bill might be less than the value
-                    shown here.{" "}
-                    {/* <Link
+
+                    <p className="text-xs mb-2 px-6 py-4">
+                      Your total usage so far in {currentMonth} (UTC) is <span className="text-primary font-bold"> ${totalUsage}.</span> Note that
+                      this may include usage covered by a free trial or other
+                      credits, so your monthly bill might be less than the value
+                      shown here.{" "}
+                      {/* <Link
                       className="text-primary hover:text-border font-medium"
                       href={"/dashboard/billing/usage"}
                     >
                       View usage records
                     </Link> */}
-                  </p>
+                    </p>
                   </div>
 
                   <p className="text-xs my-2 px-6 border-b border-[#F0F0F1]  pb-4">
@@ -299,9 +323,9 @@ const UsageLimit = () => {
                   </div>
                   <div className="px-6 sm:w-[630px] sm:h-[291px] text-center m-auto">
 
-                  
-                  <Bar data={data} options={options} />
-                </div>
+
+                    <Bar data={data} options={options} />
+                  </div>
                 </div>
               </div>
               {/* <div className='w-full sm:w-[60%] md:w-[60%] lg:w-[60%] mx-auto my-5'>
