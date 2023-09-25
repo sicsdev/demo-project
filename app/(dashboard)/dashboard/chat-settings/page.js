@@ -14,6 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 const page = () => {
     const [pageLoading, setPageLoading] = useState(true);
+    const [pageSubLoading, setSubLoading] = useState(true);
     const [loading, setLoading] = useState(null)
     const [basicFormData, setBasicFormData] = useState({});
     const [botValue, setBotValue] = useState([]);
@@ -50,6 +51,7 @@ const page = () => {
                 };
             });
             setPageLoading(false);
+            setSubLoading(false);
         });
     };
 
@@ -72,6 +74,7 @@ const page = () => {
 
     const selectBotHandler = (id) => {
         setSelectedBot(id)
+        // setSubLoading(true);
         setPageLoading(true);
         getBotInfo(id);
     };
@@ -133,55 +136,87 @@ const page = () => {
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Chat Settings`} icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
-                {
-                    (
-                        pageLoading == true || state?.isLoading == true) ? (
-                        <>
-                            <SkeletonLoader height={40} width={"100%"} />
-                            <div className='grid grid-cols-[50%,50%] sm:grid-cols-[100%]'>
-                                <div>
-                                    {[...Array(8)].map((_, index) => (
-                                        <>
-                                            <div className="mt-3 grid grid-cols-[50%,50%]">
-                                                <SkeletonLoader count={1} height={20} width={150} />
-                                                <SkeletonLoader count={1} height={10} width={100} />
-                                            </div>
-                                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                                        </>
-                                    ))}
+                <>
+                    {pageSubLoading ?
+                        <div className='block'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <div className="my-4 w-full grid grid-cols-2 sm:grid-cols-[10%,10%,10%,10%,10%,10%,10%,10%] justify-start" >
+                                <SkeletonLoader count={1} height={35} width={"90%"} />
+                                <SkeletonLoader count={1} height={35} width={"90%"} />
+                            </div>
+                        </div> :
+                        <div className="block">
+                            <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
+                            <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
+                                {botValue?.map((element, key) => (
+                                    <button
+                                        onClick={(e) => selectBotHandler(element.value)}
+                                        key={key}
+                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
+                                    > {element?.name}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>}
+                    {pageLoading || state?.isLoading ?
+                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center'>
+                            <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
+                                {[...Array(12)].map((ele) =>
+                                    <>
+                                        <div>  <SkeletonLoader count={1} height={18} width={"30%"} /></div>
+                                        <div>  <SkeletonLoader count={1} height={33} width={"90%"} /></div>
+                                    </>
+                                )}
+                            </div>
+
+                            <div className='bg-[rgb(250, 249, 249)] shadow-md sm:w-[90%]'>
+                                <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4'>
+                                    <div><SkeletonLoader count={1} height={50} width={"90%"} /></div>
+                                    <div>
+                                        <div>  <SkeletonLoader count={1} height={18} width={"30%"} /></div>
+                                        <div> <SkeletonLoader count={1} height={22} width={"35%"} /></div>
+                                    </div>
                                 </div>
-                                <div className='mt-2 ml-2'>
-                                    <SkeletonLoader height={"45vh"} width={"100%"} />
+                                <hr className='text-gray' />
+                                <div className='p-4 flex flex-col'>
+                                    <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
+                                        <div>
+                                            <SkeletonLoader count={1} height={50} width={"90%"} /></div>
+                                        <div className=' rounded-xl border border-gray p-2 w-[70%]'>
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"30%"} />
+                                        </div>
+
+                                    </div>
+                                    <div className=' self-end rounded-xl border border-gray p-2 w-[70%] mt-2'>
+                                        <SkeletonLoader count={1} height={10} width={"100%"} />
+                                        <SkeletonLoader count={1} height={10} width={"100%"} />
+                                        <SkeletonLoader count={1} height={10} width={"100%"} />
+                                        <SkeletonLoader count={1} height={10} width={"30%"} />
+                                    </div>
+                                    <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
+                                        <div>
+                                            <SkeletonLoader count={1} height={50} width={"90%"} /></div>
+                                        <div className=' rounded-xl border border-gray p-2 w-[70%]'>
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"30%"} />
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <hr className='text-gray' />
+                                <div className='w-[95%] mx-auto py-2'>
+                                    <SkeletonLoader count={1} height={30} width={"100%"} />
                                 </div>
                             </div>
 
-                        </>
-                    ) : (
+                        </div>
+                        :
                         <>
-                            <div className="block">
-                                <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
-                                <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
-                                    {botValue?.map((element, key) => (
-                                        <button
-                                            onClick={(e) => selectBotHandler(element.value)}
-                                            key={key}
-                                            className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
-                                        > {element?.name}
-                                        </button>
-                                    ))}
-                                    {/* <SelectOption
-                                        onChange={handleInputValues}
-                                        value={selectedBot}
-                                        name="bot"
-                                        values={botValue}
-                                        title={<h3 className="text-sm my-4 font-semibold">Select Bot</h3>}
-                                        id={"bots"}
-                                        className="py-3"
-                                        error={""}
-                                        showOption={false}
-                                    /> */}
-                                </div>
-                            </div>
                             <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                             <div className='flex justify-end items-center'>
                                 {
@@ -200,10 +235,15 @@ const page = () => {
                                         </>
                                     )}
                             </div>
-                            <ToastContainer />
                         </>
-                    )
-                }
+
+                    }
+
+
+
+
+                    <ToastContainer />
+                </>
             </div>
         </div>
     )
