@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import { getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
@@ -76,7 +76,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> :  <span className='text-[18px]'>😊</span>}
+                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                         {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
                     </div>
@@ -111,7 +111,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
                     <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                    {row.icon ? <p className='text-[18px]'>{row.icon}</p> :  <span className='text-[18px]'>😊</span>}
+                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                     </div>
                     <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 ">{makeCapital(row.name)}</h3>
@@ -164,15 +164,18 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         manageData()
     }, [workflowData])
 
+
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
     const manageData = async () => {
-        const result = workflowData?.results?.filter((x) => x.active === status);
 
+        let workflows = await getWorkflowByStatus(status)
+        let result = workflows.results
         let array_of_urls = []
-        result.forEach(async (el) => {
-            let result = await getWorkflowEmbed(el.id).then(url => {
+
+        result?.forEach(async (el) => {
+            result = await getWorkflowEmbed(el.id).then(url => {
                 array_of_urls.push({ id: el.id, url: url.url })
             })
         })
@@ -283,16 +286,16 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
     return (
         <>
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
-                setShowHelp(prev => { if (prev === data.id) { return null } else { return data.id } })
+                setShowHelp(prev => { if (prev === data?.id) { return null } else { return data?.id } })
             }}>
                 <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
-                {showHelp === data.id && (
+                {showHelp === data?.id && (
                     <div className={`absolute left-[-280px] ${index === alldata.length - 1 || index === alldata.length - 2 ? "top-[-106px]" : "top-[40px]"}  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                         <ul className="py-2 text-sm text-gray-700 ">
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>
                             </li>
-                            {data.active && (
+                            {data?.active && (
                                 <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler(data)}>
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
