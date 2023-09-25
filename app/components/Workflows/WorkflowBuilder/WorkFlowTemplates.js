@@ -218,7 +218,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     fixedHeader
                     highlightOnHover
                     pagination
-                    paginationPerPage={5}
+                    paginationPerPage={10}
                     onRowClicked={(rowData) => {
                         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
                     }}
