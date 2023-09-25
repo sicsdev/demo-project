@@ -34,7 +34,7 @@ import {
     PhoneIcon,
     ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-const QuickStart = () => {
+const QuickStart = ({ setSkeleton, skeleton }) => {
     const [isExpand, setIsExpand] = useState(true);
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
@@ -231,7 +231,7 @@ const QuickStart = () => {
     return (
         <>
             {hideQuicStart === false && (
-                skeltonLoading ? (
+                skeltonLoading || skeleton === true ? (
                     <>
                         <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
