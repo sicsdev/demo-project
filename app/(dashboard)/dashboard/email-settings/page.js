@@ -19,6 +19,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 const page = () => {
     const [pageLoading, setPageLoading] = useState(true);
+    const [pageSubLoading, setPageSubLoading] = useState(true);
     const [isCopy, setIsCopy] = useState(false);
     const [loading, setLoading] = useState(null)
     const [basicFormData, setBasicFormData] = useState({});
@@ -57,6 +58,7 @@ const page = () => {
                 };
             });
             setPageLoading(false);
+            setPageSubLoading(false)
         });
     };
 
@@ -76,6 +78,7 @@ const page = () => {
         setSelectedBot(mergedArray[0].value)
         getBotInfo(mergedArray[0].value);
         setPageLoading(false);
+        setPageSubLoading(false);
     };
 
     const selectBotHandler = (id) => {
@@ -216,136 +219,140 @@ const page = () => {
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
-                {
-                    (
-                        pageLoading == true || state?.isLoading == true) ? (
+                {pageSubLoading ?
+                    <div className='block'>
+                        <SkeletonLoader count={1} height={20} width={90} />
+                        <div className="my-4 w-full grid grid-cols-2 sm:grid-cols-[10%,10%,10%,10%,10%,10%,10%,10%] justify-start" >
+                            <SkeletonLoader count={1} height={35} width={"90%"} />
+                            <SkeletonLoader count={1} height={35} width={"90%"} />
+                        </div>
+                    </div> :
+                    <>
+                        <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
+                        <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
+                            {botValue?.map((element, key) => (
+                                <button
+                                    onClick={(e) => selectBotHandler(element.value)}
+                                    key={key}
+                                    className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
+                                > {element?.name}
+                                </button>
+                            ))}
+                        </div></>}
+                {pageLoading || state?.isLoading ?
+                    <div>
+                        <div className='mt-3'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <SkeletonLoader count={1} height={35} width={'100%'} />
+                        </div>
+                        <div className='mt-3'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <SkeletonLoader count={1} height={35} width={'100%'} />
+                        </div>
+                        <div className='mt-3'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <SkeletonLoader count={1} height={35} width={'100%'} />
+                        </div>
+                        <div className='mt-3'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <SkeletonLoader count={1} height={35} width={'100%'} />
+                        </div>
+                        <div className='mt-3'>
+                            <SkeletonLoader count={1} height={20} width={90} />
+                            <SkeletonLoader count={1} height={35} width={'100%'} />
+                        </div>
+                    </div> :
+                    <>
+
                         <>
-                            <SkeletonLoader width={"80%"} />
-                            <div>
-                                {[...Array(6)].map((_, index) => (
-                                    <>
-                                        <div className="mt-3">
-                                            <SkeletonLoader count={1} height={10} width={150} />
-                                            <SkeletonLoader count={1} height={30} width="100%" />
+                            <div className="my-2 flex items-center justify-between gap-1">
+
+
+
+                                <TextField
+                                    value={basicFormData?.email}
+                                    name="email"
+                                    className="py-3 mt-1"
+                                    labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}
+                                    title={
+                                        <div className="flex items-center gap-2 w-[150px]">
+                                            <span>Agent Email</span>{" "}
                                         </div>
-                                        <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-                                    </>
-                                ))}
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
-                            <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
-                                {botValue?.map((element, key) => (
-                                    <button
-                                        onClick={(e) => selectBotHandler(element.value)}
-                                        key={key}
-                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
-                                    > {element?.name}
-                                    </button>
-                                ))}
-                                {/* <SelectOption
-                                        onChange={handleInputValues}
-                                        value={selectedBot}
-                                        name="bot"
-                                        values={botValue}
-                                        title={<h3 className="text-sm my-4 font-semibold">Select Bot</h3>}
-                                        id={"bots"}
-                                        className="py-3"
-                                        error={""}
-                                        showOption={false}
-                                    /> */}
-                            </div>
-                            <>
-                                <div className="my-2 flex items-center justify-between gap-1">
-
-
-
-                                    <TextField
-                                        value={basicFormData?.email}
-                                        name="email"
-                                        className="py-3 mt-1"
-                                        labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}
-                                        title={
-                                            <div className="flex items-center gap-2 w-[150px]">
-                                                <span>Agent Email</span>{" "}
-                                            </div>
-                                        }
-                                        placeholder={"Email"}
-                                        onChange={(e) => {
-                                            setBasicFormData((prev) => {
-                                                return { ...prev, email: e.target.value };
-                                            })
-                                        }}
-                                        type={"text"}
-                                        id={"agent_title"}
-                                        disabled={basicFormData?.agent_email_value === true}
-                                        error={""}
-                                    />
-                                    {basicFormData?.agent_email_value === true && (
-                                        <div className=''>
-                                            {isCopy == true ? (
-                                                <>
-                                                    <span className="mt-[20px] flex items-center text-sm">
-                                                        <CheckIcon className="h-4 w-4 " />
-                                                        <small className=''>Copied!</small>
-                                                    </span>{" "}
-                                                </>
-                                            ) : (
-                                                <CopyToClipboard
-                                                    text={`${basicFormData.email}`}
-                                                    onCopy={() => {
-                                                        setIsCopy(true);
-                                                        setTimeout(() => {
-                                                            setIsCopy(false);
-                                                        }, 3000);
-                                                    }}
-                                                >
-                                                    <button
-                                                        type={"button"}
-                                                        className="border-none p-0 mt-[20px] flex gap-1 items-center text-sm"
-                                                    >
-                                                        <ClipboardIcon className=" h-4 w-4" /> <small className=''>Copy</small>
-                                                    </button>
-                                                </CopyToClipboard>
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                            </>
-                            {user && user?.enterprise?.slug_domain === '' && (
-                                <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            )}
-                            <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            <div className='flex justify-end items-center'>
-
-                                <>
-                                    {user && user?.enterprise?.slug_domain === '' ?
-                                        <Button
-                                            type={"button"}
-                                            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                            disabled={DisablingButton() || loading}
-                                            onClick={(e) => SubmitForm()}
-                                        >
-                                            {loading ? "Loading..." : "Save"}
-                                        </Button>
-                                        :
-                                        <Button
-                                            type={"button"}
-                                            className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                            disabled={DisablingButton1() || loading}
-                                            onClick={(e) => SubmitForm()}
-                                        >
-                                            {loading ? "Loading..." : "Save"}
-                                        </Button>
                                     }
-                                </>
-
+                                    placeholder={"Email"}
+                                    onChange={(e) => {
+                                        setBasicFormData((prev) => {
+                                            return { ...prev, email: e.target.value };
+                                        })
+                                    }}
+                                    type={"text"}
+                                    id={"agent_title"}
+                                    disabled={basicFormData?.agent_email_value === true}
+                                    error={""}
+                                />
+                                {basicFormData?.agent_email_value === true && (
+                                    <div className=''>
+                                        {isCopy == true ? (
+                                            <>
+                                                <span className="mt-[20px] flex items-center text-sm">
+                                                    <CheckIcon className="h-4 w-4 " />
+                                                    <small className=''>Copied!</small>
+                                                </span>{" "}
+                                            </>
+                                        ) : (
+                                            <CopyToClipboard
+                                                text={`${basicFormData.email}`}
+                                                onCopy={() => {
+                                                    setIsCopy(true);
+                                                    setTimeout(() => {
+                                                        setIsCopy(false);
+                                                    }, 3000);
+                                                }}
+                                            >
+                                                <button
+                                                    type={"button"}
+                                                    className="border-none p-0 mt-[20px] flex gap-1 items-center text-sm"
+                                                >
+                                                    <ClipboardIcon className=" h-4 w-4" /> <small className=''>Copy</small>
+                                                </button>
+                                            </CopyToClipboard>
+                                        )}
+                                    </div>
+                                )}
                             </div>
-                            <ToastContainer />
                         </>
-                    )}
+                        {user && user?.enterprise?.slug_domain === '' && (
+                            <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        )}
+                        <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        <div className='flex justify-end items-center'>
+
+                            <>
+                                {user && user?.enterprise?.slug_domain === '' ?
+                                    <Button
+                                        type={"button"}
+                                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                        disabled={DisablingButton() || loading}
+                                        onClick={(e) => SubmitForm()}
+                                    >
+                                        {loading ? "Loading..." : "Save"}
+                                    </Button>
+                                    :
+                                    <Button
+                                        type={"button"}
+                                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                        disabled={DisablingButton1() || loading}
+                                        onClick={(e) => SubmitForm()}
+                                    >
+                                        {loading ? "Loading..." : "Save"}
+                                    </Button>
+                                }
+                            </>
+
+                        </div>
+                        <ToastContainer />
+                    </>
+                }
             </div>
         </div>
     )
