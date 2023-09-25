@@ -87,7 +87,7 @@ export const EmbedCard = ({
                 <WrenchScrewdriverIcon className="h-5 w-5 text-white" />
               </button>
             </Link> */}
-            <div className="flex items-center justify-end mx-5 my-2 pointer" style={{ cursor: "pointer" }}>
+            <div className="flex items-center justify-end my-2 pointer" style={{ cursor: "pointer" }}>
               <span
                 className={`text-sm px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
                   }`}

@@ -236,12 +236,12 @@ const page = () => {
                     ) : (
                         <>
                             <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
-                            <div className="mb-4 w-full flex items-center justify-start flex-wrap" >
+                            <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
                                 {botValue?.map((element, key) => (
                                     <button
                                         onClick={(e) => selectBotHandler(element.value)}
                                         key={key}
-                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1`}
+                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
                                     > {element?.name}
                                     </button>
                                 ))}

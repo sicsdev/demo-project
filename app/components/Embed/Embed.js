@@ -76,7 +76,7 @@ const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
       {form ? (
         <>
           {markdown && (
-            <div className=" sm:p-5 md:p-5 lg:p-5 ">
+            <div className="p-2 sm:p-5 md:p-5 lg:p-5 ">
               <h3 className="font-bold text-heading text-center">
                 Copy and Install Bot HTML Code
               </h3>
@@ -153,7 +153,7 @@ const Embed = ({ form = true, skeleton, setSkeleton, setTotalRecords }) => {
               <div className="grid grid-cols-1 sm:grid-cols-2   md:grid-cols-2 lg:grid-cols-2">
                 {detailsData &&
                   detailsData.map((element, key) => (
-                    <div className=" sm:p-5 md:p-5 lg:p-5 " key={key}>
+                    <div className="p-2 sm:p-5 md:p-5 lg:p-5 " key={key}>
                       {skeleton ? (
                         <div className="mt-5 border rounded-md border-border  bg-white">
                           <div className="rounded-t-md py-2 px-5 border-border items-center">
