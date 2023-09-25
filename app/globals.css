@@ -69,7 +69,8 @@ select {
   body select:focus {
     font-size: 16px !important;
   }
-select {
+
+  select {
     font-size: 16px !important;
   }
 
@@ -1362,36 +1363,187 @@ body .rdt_TableBody {
 }
 
 div[data-column-id="Role"] {
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
+
 div[data-column-id="Action"] {
   display: flex;
   justify-content: center;
-  }
-  
-  @media (max-width: 768px) {
-    div[data-column-id="Role"] {
-      display: none;
-    
-      }
-      div[data-column-id="Action"] {
-        display: flex;
-        justify-content: start !important;
-        }
+}
+
+@media (max-width: 768px) {
+  div[data-column-id="Role"] {
+    display: none;
+
   }
 
-  @media (min-width: 768px) {
+  div[data-column-id="Action"] {
+    display: flex;
+    justify-content: start !important;
+  }
+}
 
-    .centered-table .rdt_TableCell  {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .centered-table .rdt_TableCol_Sortable{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    }
+@media (min-width: 768px) {
+
+  .centered-table .rdt_TableCell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .centered-table .rdt_TableCol_Sortable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+/* new table css */
+
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.wrap-table100 {
+  width: 100%;
+}
+
+.wrap-table100 table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.wrap-table100 table tbody tr {
+  height: 50px;
+}
+
+.wrap-table100 table td,
+.wrap-table100 table th {
+  text-align: left;
+  padding-left: 8px;
+}
+
+.wrap-table100 .column1 {
+  width: 260px;
+  padding-left: 40px;
+}
+
+.wrap-table100 .column2 {
+  width: 160px;
+}
+
+.wrap-table100 .column3 {
+  width: 245px;
+}
+
+.wrap-table100 .column4 {
+  width: 110px;
+  text-align: right;
+}
+
+.wrap-table100 .column5 {
+  width: 170px;
+  text-align: right;
+}
+
+.wrap-table100 .column6 {
+  width: 222px;
+  text-align: right;
+  padding-right: 62px;
+}
+
+.wrap-table100 tbody tr:hover {
+  color: #555;
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.wrap-table100 tbody tr:nth-child(2n) {
+  background-color: #f5f5f5;
+}
+
+@media screen and (max-width: 992px) {
+  .wrap-table100 .wrap-table100 {
+    width: 100%;
+  }
+
+  .wrap-table100 table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .wrap-table100 table thead {
+    display: none;
+  }
+
+  .wrap-table100 table tbody tr {
+    height: auto;
+    padding: 37px 0;
+    display: block;
+  }
+
+  .wrap-table100 table tbody tr td::before {
+    font-size: 14px;
+    color: #999;
+    line-height: 1.2;
+    font-weight: 700;
+    position: absolute;
+    left: 30px;
+  }
+
+  .wrap-table100 .column4,
+  .wrap-table100 .column5,
+  .wrap-table100 .column6,
+  .wrap-table100 .column1,
+  .wrap-table100 .column2,
+  .wrap-table100 .column3 {
+    width: 100%;
+    text-align: left !important;
+    position: relative;
+  }
+  .wrap-table100 table tbody tr td {
+    padding-left: 110px !important;
+    margin-bottom: 24px;
+    display: block;
+    text-align: left !important;
+
+  }
+
+  .wrap-table100 table tbody tr td:nth-child(1)::before {
+    content: "Logo";
+  }
+
+  .wrap-table100 table tbody tr td:nth-child(2)::before {
+    content: "Email";
+  }
+
+  .wrap-table100 table tbody tr td:nth-child(3)::before {
+    content: "Name";
+  }
+
+  .wrap-table100 table tbody tr td:nth-child(4)::before {
+    content: "Contact";
+  }
+  .wrap-table100 table tbody tr td:nth-child(5)::before {
+    content: "Role";
+  }
+  .wrap-table100 table tbody tr td:nth-child(6)::before {
+    content: "Action";
+  }
+}
