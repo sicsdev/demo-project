@@ -17,7 +17,7 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
 import './ManageKnowledgeBase.css'
-import SideModal from '../SideModal/SideModal';
+import SideModal from '../SideModal/SideModal'; 
 import Button from '../Common/Button/Button';
 
 const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
