@@ -142,7 +142,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 <div className="chatbot_widget" id="chatbot_widget">
                     <div className="containerChatBot_entire !block">
                         <div className={``}>
-                            <div className="header_ChatBotWidget_container" id="widget_headerContainer">
+                            <div className="" id="widget_headerContainer">
                                 <div className="header_ChatBotWidget">
                                     <div className="profile_photo_container">
                                         <img width="45px" src={`${botUnique?.enterprise?.logo ||
