@@ -159,7 +159,7 @@ const page = () => {
                             <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
                                 {[...Array(12)].map((ele) =>
                                     <>
-                                        <div>  <SkeletonLoader count={1} height={18} width={"30%"} /></div>
+                                        <div>  <SkeletonLoader count={1} height={18} width={"60%"} /></div>
                                         <div>  <SkeletonLoader count={1} height={33} width={"90%"} /></div>
                                     </>
                                 )}
