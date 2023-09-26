@@ -12,7 +12,7 @@ import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
-import { CheckIcon, ClipboardIcon, InboxArrowDownIcon, InboxIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
+import { AdjustmentsHorizontalIcon, CheckIcon, ClipboardIcon, InboxArrowDownIcon, InboxIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
@@ -222,29 +222,42 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
-                {pageSubLoading ?
-                    <div className='block'>
-                        <SkeletonLoader count={1} height={20} width={90} />
-                        <div className="my-4 w-full grid grid-cols-2 sm:grid-cols-[10%,10%,10%,10%,10%,10%,10%,10%] justify-start" >
-                            <SkeletonLoader count={1} height={35} width={"90%"} />
-                            <SkeletonLoader count={1} height={35} width={"90%"} />
+            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                {
+                    pageSubLoading ?
+                        <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                            <div className="flex items-start sm:items-center  gap-2">
+                                <SkeletonLoader count={1} height={35} width={90} />
+                            </div>
+                            <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
+                                <SkeletonLoader count={1} height={35} width={100} />
+                                <SkeletonLoader count={1} height={35} width={100} />
+                            </div>
                         </div>
-                    </div> :
-                    <>
-                        <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
-                        <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
-                            {botValue?.map((element, key) => (
-                                <button
-                                    onClick={(e) => selectBotHandler(element.value)}
-                                    key={key}
-                                    className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
-                                > {element?.name}
-                                </button>
-                            ))}
-                        </div></>}
+                        :
+                        <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1] `}>
+                            <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
+                                <AdjustmentsHorizontalIcon className="text-[#FF822D] w-5" />
+                                <p className="text-base font-medium text-[#151D23]">
+                                    Select Bot
+                                </p>
+                            </div>
+                            <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
+                                <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
+                                    {botValue?.map((element, key) => (
+                                        <button
+                                            onClick={(e) => selectBotHandler(element.value)}
+                                            key={key}
+                                            className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-1 w-[120px] text-center`}
+                                        > {element?.name}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                }
                 {pageLoading || state?.isLoading ?
-                    <div>
+                    <div className='px-6 py-4'>
                         <div className='mt-3'>
                             <SkeletonLoader count={1} height={20} width={90} />
                             <SkeletonLoader count={1} height={35} width={'100%'} />
@@ -269,10 +282,7 @@ const page = () => {
                     <>
 
                         <>
-                            <div className="my-2 flex items-center justify-between gap-1">
-
-
-
+                            <div className="flex items-center justify-between gap-1 px-6 mt-4">
                                 <TextField
                                     value={basicFormData?.email}
                                     name="email"
@@ -325,34 +335,32 @@ const page = () => {
                                 )}
                             </div>
                         </>
-                        {user && user?.enterprise?.slug_domain === '' && (
-                            <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                        )}
-                        <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                        <div className='flex justify-end items-center'>
-
-                            <>
-                                {user && user?.enterprise?.slug_domain === '' ?
-                                    <Button
-                                        type={"button"}
-                                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                        disabled={DisablingButton() || loading}
-                                        onClick={(e) => SubmitForm()}
-                                    >
-                                        {loading ? "Loading..." : "Save"}
-                                    </Button>
-                                    :
-                                    <Button
-                                        type={"button"}
-                                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                        disabled={DisablingButton1() || loading}
-                                        onClick={(e) => SubmitForm()}
-                                    >
-                                        {loading ? "Loading..." : "Save"}
-                                    </Button>
-                                }
-                            </>
-
+                        <div className='px-6'>
+                            {user && user?.enterprise?.slug_domain === '' && (
+                                <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                            )}
+                            <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                        </div>
+                        <div className='flex justify-end items-center px-6 py-4'>
+                            {user && user?.enterprise?.slug_domain === '' ?
+                                <Button
+                                    type={"button"}
+                                    className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                    disabled={DisablingButton() || loading}
+                                    onClick={(e) => SubmitForm()}
+                                >
+                                    {loading ? "Loading..." : "Save"}
+                                </Button>
+                                :
+                                <Button
+                                    type={"button"}
+                                    className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                    disabled={DisablingButton1() || loading}
+                                    onClick={(e) => SubmitForm()}
+                                >
+                                    {loading ? "Loading..." : "Save"}
+                                </Button>
+                            }
                         </div>
                         <ToastContainer />
                     </>

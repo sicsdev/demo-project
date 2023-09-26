@@ -1,7 +1,7 @@
 import { InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading ,hideComponent}) => {
+const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent }) => {
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
     const handleInputChange = (e) => {
@@ -28,18 +28,35 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     };
 
     const DisablingButton = () => {
-        return ["content",'title'].some(
+        return ["content", 'title'].some(
             (key) => !basicFormData[key] || basicFormData[key].trim() === ""
         );
     }
+
+    useEffect(() => {
+        const handleEscapeKeyPress = (event) => {
+            if (event.key === 'Escape') {
+                hideComponent();
+            }
+        };
+
+        // Add the event listener when the component mounts
+        document.addEventListener('keydown', handleEscapeKeyPress);
+
+        // Remove the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+    }, []);
+
     return (
         <>
-        <div onClick={()=>hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'></div >
+            <div onClick={() => hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'></div >
             <div className='w-full sm:w-auto z-50 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
                     <div className='flex gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
                         <div className='flex flex-row flex-1'>
-                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title'onChange={handleInputChange} />
+                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title' onChange={handleInputChange} />
                         </div>
                         <div className='flex flex-row justify-end gap-2'>
                             <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-bold rounded-md text-sm py-2 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">

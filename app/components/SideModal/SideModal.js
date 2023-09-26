@@ -1,7 +1,22 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useEffect } from "react";
 
 const SideModal = ({ setShow, children, heading, border = true }) => {
+  useEffect(() => {
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        setShow();
+      }
+    };
+
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleEscapeKeyPress);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
   return (
     <>
       <div
@@ -14,9 +29,8 @@ const SideModal = ({ setShow, children, heading, border = true }) => {
         className={` z-50 overflow-y-scroll w-full sm:w-[800px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
       >
         <div
-          className={`flex flex-row gap-2 items-center py-4 ${
-            border && "border-b border-border"
-          } dark:bg-gray-800`}
+          className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border"
+            } dark:bg-gray-800`}
         >
           <div className="flex flex-1">
             <h1 className="text-heading text-sm font-semibold">{heading}</h1>
