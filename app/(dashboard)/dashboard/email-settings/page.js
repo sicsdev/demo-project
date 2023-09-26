@@ -293,7 +293,7 @@ const page = () => {
                                             <span>Agent Email</span>{" "}
                                         </div>
                                     }
-                                    placeholder={"Email"}
+                                    placeholder={"Set Agent Email"}
                                     onChange={(e) => {
                                         setBasicFormData((prev) => {
                                             return { ...prev, email: e.target.value };
