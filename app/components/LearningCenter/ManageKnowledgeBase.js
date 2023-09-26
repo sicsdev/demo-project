@@ -18,6 +18,7 @@ import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
 import './ManageKnowledgeBase.css'
 import SideModal from '../SideModal/SideModal';
+import Button from '../Common/Button/Button';
 
 const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
     const dispatch = useDispatch()
@@ -35,6 +36,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const [singleKnowledgeData, setSingleKnowledgeData] = useState(null);
     const [filterText, setFilterText] = useState('');
     const [filterhead, setFilterhead] = useState('All');
+    const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
+    const [knowledgeRecordID, setKnowledgeRecordID] = useState(null);
 
     const handleFilterChange = (event) => {
         const searchText = event.target.value;
@@ -135,7 +138,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             sortable: false,
             reorder: false,
             cell: (row) => (
-                <span data-tag="allowRowEvents" className={`inline-block w-auto text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none`}>
+                <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
                     {row.active ? "Active" : "Disabled"}
                 </span>
             )
@@ -192,9 +195,12 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         },
         {
             name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).fromNow()}</span>,
+            selector: (row) => row.created,
             sortable: false,
-            reorder: false
+            reorder: false,
+            cell: (row, index) => (
+                <span data-tag="allowRowEvents" className="text-xs">{moment(row.created).fromNow()}</span>
+            )
         },
     ];
     const handleCreateOptions = (option) => {
@@ -283,11 +289,15 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     }
 
     const deleteKnowledgeCenterHandler = async (id) => {
-        const deleteRecord = await deleteKnowledgeRecord(id)
+        setKnowledgeRecordID(id)
+        setDeleteConfirmationModal(true);
+    };
+
+    const deleteKnowledgeCenterRecord = async () => {
+        const deleteRecord = await deleteKnowledgeRecord(knowledgeRecordID)
         if (deleteRecord.status === 204) {
-            // successMessage("Knowledge deleted successfully")
-            const filterKnowledge = basicFormData.knowledgeData.filter((x) => x.id !== id)
-            const knowledgeDataValue = knowledge.filter((x) => x.id !== id)
+            const filterKnowledge = basicFormData.knowledgeData.filter((x) => x.id !== knowledgeRecordID)
+            const knowledgeDataValue = knowledge.filter((x) => x.id !== knowledgeRecordID)
             setBasicFormData((prev) => {
                 const botDataArray = filterKnowledge.map(entry => {
                     if (entry.bots.length === 0) {
@@ -305,13 +315,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                     selectedBot: botDataArray,
                 }
             })
+            successMessage("Knowledge Removed Successfully")
             setKnowledge(knowledgeDataValue)
             setEditKnowledgeCenter(false);
             setSingleKnowledgeData(null)
+            setDeleteConfirmationModal(false);
+            setKnowledgeRecordID(null);
         } else {
             errorMessage('Unable To Delete Record!');
         }
     };
+
     const hideComponent = () => {
         setCreateOptions(null)
         setCreatePdfModal(false)
@@ -323,6 +337,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (dropdown.current && !dropdown.current.contains(event.target)) {
+                console.log("Asdsd")
                 setShowSourceFilter(false);
             }
         };
@@ -337,8 +352,8 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
-                paddingTop:"10px",
-                paddingBottom:"10px",
+                paddingTop: "10px",
+                paddingBottom: "10px",
                 height: "auto"
             },
         }
@@ -431,7 +446,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                             <li className='hover:bg-gray cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
                                                 setShowSourceFilter(prev => !prev)
-                                                setFilterhead('EXTERNAL')
+                                                setFilterhead('External')
 
                                             }}>
                                                 <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
@@ -439,7 +454,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                             <li className='hover:bg-gray cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
                                                 setShowSourceFilter(prev => !prev)
-                                                setFilterhead('SNIPPET')
+                                                setFilterhead('Snippet')
 
                                             }}>
                                                 <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
@@ -447,7 +462,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                             <li className='hover:bg-gray cursor-pointer ' onClick={() => {
                                                 setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
                                                 setShowSourceFilter(prev => !prev)
-                                                setFilterhead('FILE')
+                                                setFilterhead('File')
                                             }}>
                                                 <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
                                             </li>
@@ -560,6 +575,43 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
             {editKnowledgeCenter === true && (
                 <EditKnowledgeCenter hideComponent={hideComponent} singleKnowledgeData={singleKnowledgeData} setSingleKnowledgeData={setSingleKnowledgeData} isClose={closeKnowledgeCenter} deleteRecord={deleteKnowledgeCenterHandler} handleSubmit={handleSubmit} setKnowledge={setKnowledge} setBasicFormData={setBasicFormData} basicFormData={basicFormData} knowledge={knowledge} />
             )}
+
+            {
+                deleteConfirmationModal &&
+                <Modal
+                    title={<h3 className="text-base !font-bold">Remove Knowledge Base</h3>}
+                    show={deleteConfirmationModal}
+                    setShow={setDeleteConfirmationModal}
+                    showCancel={true}
+                    className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"}
+                    customHideButton={false}
+                    showTopCancleButton={false}
+                    hr={false}
+                >
+                    <div className=''>
+                        <h3 className="text-xs my-2 text-heading font-normal">Are you sure you want to remove this content from the knowledge base?</h3>
+                        <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+                            {" "}
+                            <Button
+                                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+                                onClick={() => {
+                                    setDeleteConfirmationModal((prev) => !prev);
+                                }}
+                            >
+                                No
+                            </Button>
+                            <Button
+                                type={"button"}
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                onClick={() => { deleteKnowledgeCenterRecord() }}
+                            >
+                                Yes
+                            </Button>
+                        </div>
+                    </div>
+                </Modal>
+            }
+
 
         </>
     )

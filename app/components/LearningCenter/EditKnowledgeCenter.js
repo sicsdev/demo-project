@@ -21,7 +21,7 @@ const EditKnowledgeCenter = ({
   knowledge,
   hideComponent,
 }) => {
-  console.log("singleKnowledgeData", singleKnowledgeData)
+
   const [content, setContent] = useState(singleKnowledgeData?.content ?? "");
   const [loading, setLoading] = useState(false);
   const handleInputChange = (e) => {
@@ -112,7 +112,32 @@ const EditKnowledgeCenter = ({
     });
   };
 
-  const handleToggleQuestion = () => { };
+  useEffect(() => {
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        hideComponent();
+      }
+    };
+
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleEscapeKeyPress);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
+
+  useEffect(() => {
+    const textarea = document.querySelector('.resizable-textarea');
+    textarea?.setAttribute('rows', '1'); // Set the 'rows' attribute
+    const rows = Math.min(
+      Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+      6 // Limit to a maximum of 6 rows
+    );
+
+    textarea?.setAttribute('rows', (rows)?.toString()); // Set the 'rows' attribute with the new value
+  }, [content]);
 
   return (
     <>
@@ -126,7 +151,7 @@ const EditKnowledgeCenter = ({
         <div className=" overflow-y-scroll shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col p-2 sm:pl-8 md:pl-8 lg:pl-8 sm:pr-8 md:pr-8 lg:pr-8">
           <div className="bg-white p-4">
             <div className="flex items-center justify-between border-b border-border dark:bg-gray-800 dark:border-gray-700 ">
-            <h1 className='text-heading text-sm font-semibold my-2'>
+              <h1 className='text-heading text-sm font-semibold my-2'>
                 {singleKnowledgeData?.title}
               </h1>
               <div className="flex hover:cursor-pointer items-center justify-center gap-2">
@@ -161,7 +186,7 @@ const EditKnowledgeCenter = ({
                 </p>
               </div>
               <div>
-                <p className=" bg-[#E5EDFF] text-primary inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none">
+                <p className=" bg-[#E5EDFF] text-primary inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px] text-center">
                   {makeCapital(singleKnowledgeData.source)}
                 </p>
               </div>
@@ -176,7 +201,7 @@ const EditKnowledgeCenter = ({
                   className={` ${singleKnowledgeData.active === true
                     ? "bg-[#d8efdc] text-[#107235] "
                     : "text-black bg-[#ececf1]"
-                    } inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none`}
+                    } inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px] text-center`}
                 >
                   {singleKnowledgeData.active ? "Active" : "Disable"}
                 </p>
@@ -215,7 +240,7 @@ const EditKnowledgeCenter = ({
                       className={`inline-block whitespace-nowrap rounded ${singleKnowledgeData?.active === true
                         ? `bg-[#d8efdc] text-[#107235]`
                         : "text-black bg-[#ececf1]"
-                        } px-4 py-2 align-baseline text-xs font-bold leading-none`}
+                        } px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px] text-center`}
                     >
                       {singleKnowledgeData?.active === true
                         ? `Active`
@@ -264,9 +289,9 @@ const EditKnowledgeCenter = ({
 
                 <div className="relative pb-6">
                   <textarea
-                    rows="10"
+                    rows={'2'}
                     cols="30"
-                    className="border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
+                    className="resizable-textarea border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
                     placeholder="Start writing your content..."
                     value={content}
                     name="content"
