@@ -1,7 +1,7 @@
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import React, { useEffect } from "react";
+import { EllipsisHorizontalIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import React, { useEffect, useRef, useState } from "react";
 
-const SideModal = ({ setShow, children, heading, border = true }) => {
+const SideModal = ({ setShow, children, heading, border = true, deleteButton = false ,data,deleteRecord}) => {
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -35,9 +35,17 @@ const SideModal = ({ setShow, children, heading, border = true }) => {
           <div className="flex flex-1">
             <h1 className="text-heading text-sm font-semibold">{heading}</h1>
           </div>
-          <div className="flex justify-end gap-2">
-            <div className="cursor-pointer" onClick={(e) => setShow(false)}>
-              <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
+          <div className="flex hover:cursor-pointer items-center justify-center gap-2">
+            {deleteButton && (
+              <ButtonComponent
+                data={data}
+                deleteRecord={deleteRecord}
+              />
+            )}
+            <div className="flex justify-end gap-2">
+              <div className="cursor-pointer" onClick={(e) => setShow(false)}>
+                <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
+              </div>
             </div>
           </div>
         </div>
@@ -49,3 +57,57 @@ const SideModal = ({ setShow, children, heading, border = true }) => {
 };
 
 export default SideModal;
+
+
+
+export const ButtonComponent = ({ data, deleteRecord }) => {
+  const [showDelete, setShowDelete] = useState(null);
+
+  const divRef = useRef(null);
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        setShowDelete(null);
+      }
+    };
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
+  return (
+    <>
+      <div
+        className="cursor-pointer relative"
+        ref={divRef}
+        onClick={(e) => {
+          setShowDelete((prev) => {
+            if (prev === data.id) {
+              return null;
+            } else {
+              return data.id;
+            }
+          });
+        }}
+      >
+        <EllipsisHorizontalIcon className="h-8 w-8 rounded-lg text-black  hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
+        {showDelete === data.id && (
+          <div
+            className={`absolute right-[0px] top-[20px] z-10 w-auto bg-[#F8F8F8] divide-y divide-gray-100shadow`}
+          >
+            <button
+              type="button"
+              className="text-heading font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 "
+              onClick={() => deleteRecord(data.id)}
+            >
+              <XCircleIcon className="w-4 h-4" />
+              Delete
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};

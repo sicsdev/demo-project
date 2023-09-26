@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, LinkIcon, PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -10,7 +10,7 @@ import { successMessage, errorMessage } from "@/app/components/Messages/Messages
 import { useDispatch, useSelector } from "react-redux";
 import { editRecommendation, fetchRecommendation } from "@/app/components/store/slices/recommendation";
 import { ColorRing } from "react-loader-spinner";
-import { getFaqQuestions, getKnowledgeData, patchKnowledgeQuestion } from "@/app/API/pages/Knowledge";
+import { getFaqQuestions, getKnowledgeData, patchKnowledgeQuestion, searchMatchesFaqQuestions } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import { updateWorkFlowStatus } from "@/app/API/pages/Workflow";
 import { makeCapital } from "@/app/components/helper/capitalName";
@@ -46,7 +46,7 @@ const Page = () => {
     const [answer, setAnswer] = useState('')
     const [questionData, setQuestionData] = useState([])
     const [workflowValue, setWorkflowValue] = useState(null)
-
+    const [subQuestions, setSubQuestions] = useState([])
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
@@ -271,6 +271,9 @@ const Page = () => {
                 </div>
             ),
         },
+
+
+
     ];
 
     const handleRecomodationValue = async (page) => {
@@ -387,7 +390,18 @@ const Page = () => {
             updateButtonHandler(workflowView.id)
         }
     }
-
+    const searchMatched = async (element) => {
+        setKnowledgeId(element)
+        let queryParam = 'search=' + element.question
+        const response = await searchMatchesFaqQuestions(queryParam)
+        if (response && response.length > 0) {
+            setSubQuestions(response)
+            setAnswer('')
+        } else {
+            setSubQuestions([])
+            setAnswer(element.answer)
+        }
+    }
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -439,7 +453,7 @@ const Page = () => {
                     </div>
                 </>
                 {workflowView && show && (
-                    <SideModal setShow={setShow} heading={<p className="w-full sm:w-[80%]">{workflowView?.question}</p>}>
+                    <SideModal setShow={setShow} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
@@ -463,6 +477,51 @@ const Page = () => {
                         {tab === 0 && (
                             <div>
                                 <div className=' mt-2 '>
+                                    {knowledgeId && subQuestions.length > 0 && (
+                                        <>
+                                            <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                <ul className="text-start py-2 text-sm text-gray-700 ">
+                                                    <h3>Recommended Answer:</h3>
+                                                    {subQuestions.slice(0, 1).map((element, key) =>
+                                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}
+                                                            onClick={(e) => {
+                                                                setAnswer(element.data.answer)
+
+                                                            }}>
+                                                            <p className="text-xs font-semibold">{makeCapital(element.data.question)}</p>
+                                                            <p className="text-xs  mt-2">{makeCapital(element.data.answer)}</p>
+                                                            <div className='flex justify-end mt-2'>
+                                                                <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                    {element.data.answer === answer ? (
+                                                                        <>
+                                                                            <span className="flex items-center text-sm">
+                                                                                <CheckIcon className="h-4 w-4 " />
+                                                                                <small className=''>Accepted!</small>
+                                                                            </span>{" "}
+                                                                        </>
+                                                                    ) : (
+                                                                        <button
+                                                                            type={"submit"}
+                                                                            className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+                                                                            onClick={(e) => {
+                                                                                setAnswer(element.data.answer)
+
+                                                                            }}
+                                                                        >
+                                                                            <ClipboardIcon className=" h-4 w-4" /> <small className=''>Answer Accepted  </small>
+                                                                        </button>
+                                                                    )}
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    )}
+
+                                                </ul>
+
+
+                                            </div>
+                                        </>
+                                    )}
                                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -475,13 +534,11 @@ const Page = () => {
                                 </div>
 
                                 {!knowledgeId && questionData.length > 0 && (
-                                    <div className={` bg-[#F8F8F8] my-4`}>
+                                    <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
                                             {questionData.map((element, key) =>
                                                 <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
-
-                                                    setKnowledgeId(element)
-                                                    setAnswer(element.answer)
+                                                    searchMatched(element)
 
                                                 }}>
                                                     <button type='button' className="block px-4 py-2 text-xs">{makeCapital(element.question)}</button>
@@ -494,19 +551,28 @@ const Page = () => {
 
                                 <div>
                                     {knowledgeId && (
-                                        <div className={` bg-primary text-white my-4 p-4`}>
-                                            <p className="text-xs">{knowledgeId.question}</p>
-                                        </div>)}
+                                        <>
+                                            <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
+                                                <p className="text-xs">{knowledgeId.question}</p>
+
+                                            </div>
+
+                                        </>
+                                    )}
                                     <div className='my-2'>
                                         <TextArea name="answer"
                                             className="py-2"
                                             type={"text"}
                                             id={"answer"}
                                             placeholder={""}
+                                            rows="8"
                                             onChange={(e) => setAnswer(e.target.value)}
                                             value={answer} />
                                     </div>
-                                    <button onClick={(e) => SubmitTheForm()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader}>
+                                    <button
+                                        onClick={(e) => SubmitTheForm()}
+                                        type="button"
+                                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader}>
                                         {updateLoader ? "Loading..." : "Submit"}
                                     </button>
                                 </div>
@@ -523,7 +589,11 @@ const Page = () => {
                                     {!workflowValue && workflow.length > 0 && (
                                         <ul className="py-2 text-sm text-gray-700 ">
                                             {workflow.map((ele, key) =>
-                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={() => { setWorkflowValue(ele) }}>
+                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={() => {
+
+
+                                                    setWorkflowValue(ele)
+                                                }}>
                                                     <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
                                                 </li>
                                             )}

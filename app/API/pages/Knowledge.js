@@ -81,3 +81,21 @@ export const searchFaqQuestions = async (queryParam) => {
         return error
     }
 };
+export const searchMatchesFaqQuestions = async (queryParam) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs/matches?${queryParam}`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+export const deleteFaqQuestions = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/faqs/${id}`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
