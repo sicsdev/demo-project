@@ -1,0 +1,52 @@
+import axios from 'axios'
+import { returnConfig } from '../_helpers/returnConfig';
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+export const getNagetiveQuestionData = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs-negative/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+export const getSingleNagetiveQuestionData = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs/${id}/negatives/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const addNagetiveQuestionData = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/faqs-negative/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const editNagetiveQuestionData = async (body,id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/faqs-negative/${id}`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+export const deleteNagetiveQuestionData = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/faqs-negative/${id}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

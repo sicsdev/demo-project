@@ -237,7 +237,7 @@ const page = () => {
                         :
                         <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1] `}>
                             <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
-                                <AdjustmentsHorizontalIcon className="text-[#FF822D] w-5" />
+                                <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
                                     Select Bot
                                 </p>
