@@ -105,26 +105,37 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 {/* <div className='flex justify-center'>
                     <small>Channel</small>
                 </div> */}
-                <div className='flex justify-around rounded-md' style={{ fontSize: '12px' }}>
+                <div className='flex justify-start rounded-md' style={{ fontSize: '12px' }}>
 
-                    <div className='w-full'>
-                        <div className={`flex justify-center bg-gray rounded-tl-lg rounded-bl-lg items-center p-1 ${conversationDetails.type == 'chat' && "text-primary"}`}>
-                            <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4 mx-2" />
-                            Chat
+                    {conversationDetails.type == 'chat' &&
+                        <div className=''>
+                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4" />
+                                Chat
+                            </div>
                         </div>
-                    </div>
-                    <div className='w-full'>
-                        <div className={`flex justify-center bg-gray items-center p-1 ${conversationDetails.type == 'email' && "text-primary"}`}>
-                            <AtSymbolIcon className="w-4 h-4 mx-2" />
-                            Email
+
+                    }
+                    {conversationDetails.type == 'email' &&
+                        <div className=''>
+                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                <AtSymbolIcon className="w-4 h-4" />
+                                Email
+                            </div>
                         </div>
-                    </div>
-                    <div className='w-full'>
-                        <div className={`flex justify-center bg-gray rounded-tr-lg rounded-br-lg items-center p-1 ${conversationDetails.type == 'phone' && "text-primary"}`}>
-                            <DevicePhoneMobileIcon className="w-4 h-4 mx-2" /> Phone
+                    }
+
+                    {conversationDetails.type == 'phone' &&
+
+                        <div className=''>
+                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                <DevicePhoneMobileIcon className="w-4 h-4" /> Phone
+                            </div>
                         </div>
-                    </div>
+                    }
+
                 </div>
+
             </div>
             <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
 
@@ -196,7 +207,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         }
 
                                                         {
-                                                            element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' &&
+                                                            element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
                                                             <>
                                                                 <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                     {element.content}
@@ -207,7 +218,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                     {
                                                                         element?.knowledge?.length ? element?.knowledge?.map(item => (
 
-                                                                            <EditKnowledge item={item} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                            <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
                                                                         ))
 
                                                                             :
@@ -258,7 +269,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                     {/* {element?.workflows[0]?.information?.name} */}
 
                                                                     {element?.workflows?.map(workflow => (
-                                                                        <EditWorkflow item={workflow}></EditWorkflow>
+                                                                        <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
                                                                     ))}
                                                                 </div>
                                                             </>
@@ -266,12 +277,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
                                                         {
-                                                            element.content === 'FORM' && element?.actions &&
+                                                            element.type == "action" && !element.actions.options && element?.actions && (!element.content === 'HUMAN-HANDOFF') && (!element.content === 'OPTIONS') &&
 
                                                             <>
                                                                 <div className="component_answer" style={{ width: '300px' }}></div>
                                                                 <div className="tempo-widget-custom-form">
                                                                     {Object.keys(element.actions).map(key => {
+                                                                        console.log(key, 'elem')
                                                                         const elementData = element.actions[key];
                                                                         const elementId = `tempo-widget-custom-form-${key}`;
 
@@ -344,7 +356,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         <small><b>Sources</b><br /></small>
                                                                         {/* {element?.workflows[0]?.information?.name} */}
                                                                         {element?.workflows?.map(workflow => (
-                                                                            <EditWorkflow item={workflow}></EditWorkflow>
+                                                                            <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
                                                                         ))}
                                                                     </div>
                                                                 </div>
@@ -428,11 +440,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 <input
                     type="checkbox"
                     id="forReviewCheckbox"
-                    className="form-checkbox h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
+                    className="h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
                     checked={conversationDetails?.for_review}
                     onClick={handleForReview}
                 />
-                <label for="forReviewCheckbox" className="text-gray-700">For review</label>
+                <label className="text-gray-700">For review</label>
             </div>
 
         </>
