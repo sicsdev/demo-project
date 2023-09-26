@@ -1547,3 +1547,9 @@ div[data-column-id="Action"] {
     content: "Action";
   }
 }
+textarea#answer {
+  width: 100%;
+  border: 1px solid #00000059;
+  padding: 3px;
+  border-radius: 3px;
+}

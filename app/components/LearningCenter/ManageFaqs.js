@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
+import { deleteFaqQuestions, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(20);
@@ -96,6 +96,14 @@ const ManageFaqs = ({ questions }) => {
         const queryParam = `page=${page}&page_size=${perPage}`;
         dispatch(fetchFaqQuestions(queryParam));
     }
+
+    const deleteRecord = async (id) => {
+        await deleteFaqQuestions(id)
+        const queryParam = `page=1&page_size=${10}`;
+        dispatch(fetchFaqQuestions(queryParam));
+        setUpdateLoader(false)
+        setSelected(null)
+    }
     return (
         <div className="w-full mt-5">
             <DataTable
@@ -122,7 +130,7 @@ const ManageFaqs = ({ questions }) => {
                 customStyles={customStyles}
             />
             {selected && (
-                <SideModal heading={selected.question} setShow={(text) => { setSelected(null) }}>
+                <SideModal heading={selected.question} setShow={(text) => { setSelected(null) }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
                     <h1 className='text-sm my-4 font-semibold'>Answer</h1>
                     <div className='my-2'>
                         <TextArea name="answer"
