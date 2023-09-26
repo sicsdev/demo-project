@@ -772,7 +772,7 @@ const Logs = () => {
 
                 <div className="flex justify-between p-2 gap-2 items-center">
                   <p
-                    className="text-xs cursor-pointer p-1 px-2 bg-gray rounded-md"
+                    className="text-xs cursor-pointer p-1 px-2 rounded-md"
                     onClick={() => setShowChat(false)}
                   >
                     X

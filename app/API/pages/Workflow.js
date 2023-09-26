@@ -95,3 +95,21 @@ export const createWorkflowTemplate = async (id, body) => {
         return error
     }
 };
+
+export const rateWorkflowNegative = async (body) => {
+    let config = returnConfig()
+
+    // Example payload:
+    // search = "refund" \
+    // workflows = ["5c40b67b-03ef-4493-8e21-eca4a11f9d62", "ab7ff579-4900-40d2-aae7-20818c41b872"] \
+    // "Authorization: Token 166a3d8984b62c3b1c885b88dab47cf54f259888"
+
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflows-negative/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+
