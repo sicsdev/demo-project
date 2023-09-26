@@ -52,10 +52,10 @@ export default function RootLayout({ children }) {
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
 
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
-        />
+        /> */}
 
         <link
           rel="stylesheet"
