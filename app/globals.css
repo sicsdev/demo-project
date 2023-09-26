@@ -1553,6 +1553,7 @@ div[data-column-id="Action"] {
 
 textarea#answer,
 textarea#negative_answer {
+
   width: 100%;
   border: 1px solid #00000059;
   padding: 3px;
