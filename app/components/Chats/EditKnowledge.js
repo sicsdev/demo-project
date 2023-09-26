@@ -73,7 +73,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
         await rateFaqNegative({
             search: contentToSend,
-            faqs: [item.information.id]
+            faqs: item.information.id
         })
 
         setRated(true)

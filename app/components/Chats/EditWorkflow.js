@@ -58,7 +58,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
         await rateWorkflowNegative({
             search: contentToSend,
-            workflows: [item.information.id]
+            workflows: item.information.id
         })
 
         setRated(true)
