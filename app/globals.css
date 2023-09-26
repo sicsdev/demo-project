@@ -1358,7 +1358,7 @@ body .rhap_controls-section {
 
 body .rdt_TableBody {
 
-  height: 500px !important;
+  height: 650px !important;
   overflow-y: auto !important;
 }
 
@@ -1517,6 +1517,7 @@ div[data-column-id="Action"] {
     text-align: left !important;
     position: relative;
   }
+
   .wrap-table100 table tbody tr td {
     padding-left: 110px !important;
     margin-bottom: 24px;
@@ -1540,10 +1541,21 @@ div[data-column-id="Action"] {
   .wrap-table100 table tbody tr td:nth-child(4)::before {
     content: "Contact";
   }
+
   .wrap-table100 table tbody tr td:nth-child(5)::before {
     content: "Role";
   }
+
   .wrap-table100 table tbody tr td:nth-child(6)::before {
     content: "Action";
   }
+}
+
+textarea#answer,
+textarea#negative_answer {
+
+  width: 100%;
+  border: 1px solid #00000059;
+  padding: 3px;
+  border-radius: 3px;
 }
