@@ -14,6 +14,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ColorSelector from "./ColorSelector";
 import Modal from "../Common/Modal/Modal";
+import Button from "../Common/Button/Button";
+import TextField from "../Common/Input/TextField";
 const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
@@ -219,7 +221,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
         });
         setBlockedUrls(res.data.origins_blocked);
         setNewBlockedUrl("");
-        debugger
         setBasicFormData((prev) => {
           return {
             ...prev,
@@ -354,7 +355,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
       6 // Limit to a maximum of 6 rows
     );
-    
+
     textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [preferences.chat_default_message]);
 
@@ -363,34 +364,41 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
       {/* Modal to manage hide urls */}
       {showManageHideUrls && (
         <Modal
-          title="Hide widget on Certain URLs"
+          title={<h3 className="text-base !font-bold">Hide widget on Certain URLs</h3>}
           show={showManageHideUrls}
           setShow={setShowManageHideUrls}
           className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"}
           showCancel={true}
+          customHideButton={false}
+          showTopCancleButton={false}
+          hr={false}
         >
           <div>
-            <small className="text-[12px] sm:text-[13px] md:text-[13px] lg:text-[13px]">Block paths you don't want the widget to appear on.</small>
+            <h3 className="text-xs my-2 text-heading font-normal">Block paths you don't want the widget to appear on.</h3>
           </div>
-          <br></br>
           <div>
             {blockedUrls.map((item, index) => (
               <div
                 key={index}
                 className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
               >
-                <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
-                  <span className="text-gray-700">URL Containing:</span>
+                <div className="flex justify-start w-1/2 items-center rounded border-gray">
+                  <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
                 </div>
-                <input
-                  placeholder="/path"
+                <TextField
                   value={item}
-                  className="flex justify-start w-1/2 items-center border rounded focus:bg-white border-gray px-2 mx-2"
-                  disabled
+                  name=""
+                  className="py-3 !pl-[23px]"
+                  title={""}
+                  placeholder="/path"
+                  type={""}
+                  id={""}
+                  paddingleft={"pl-6"}
+                  disabled={true}
                 />
                 <XMarkIcon
                   fill="red"
-                  className="w-6 h-6 mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                  className="w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
                   onClick={(e) => handleRemoveUrl(e)}
                   title="Delete URL"
                   id={item}
@@ -398,36 +406,45 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               </div>
             ))}
             <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
-              <div className="flex justify-start w-1/2 items-center rounded border-gray px-2">
-                <span className="text-gray-700 text-[13px]">URL Containing:</span>
+              <div className="flex justify-start w-1/2 items-center rounded border-gray">
+                <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
               </div>
-              <input
-                placeholder="/path"
-                value={newBlockedUrl}
-                className="flex justify-start w-1/2 items-center border rounded focus:bg-white border-gray px-2 mx-2"
+              <TextField
                 onChange={(e) => setNewBlockedUrl(e.target.value)}
+                value={newBlockedUrl}
+                name="blockUrls"
+                className="py-3 !pl-[23px]"
+                // className="py-3 mt-1"
+                title={""}
+                placeholder="/path"
+                type={""}
+                id={"blockUrls"}
+                paddingleft={"pl-6"}
               />
               <PlusSmallIcon
                 fill="green"
-                className="w-6 h-6 text-soft-green mr-2 rounded-full cursor-pointer"
+                className="w-[20px] h-[20px] text-soft-green mr-2 rounded-full cursor-pointer"
                 title="Add URL"
                 onClick={saveNewBlockedUrl}
               />
             </div>
 
-            {/* <div className="mt-2 mx-2">
-                        <span className="text-sky text-underline cursor-pointer">
-                            + Add URL
-                        </span>
-                    </div> */}
-
-            <div className="float-right">
-              <button
-                className="mt-4 rounded py-1 border border-gray px-3 bg-primary text-white"
+            <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+              <Button
+                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+                onClick={() => {
+                  setShowManageHideUrls((prev) => !prev);
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                type={"button"}
+                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                 onClick={() => setShowManageHideUrls(false)}
               >
                 Done
-              </button>
+              </Button>
             </div>
           </div>
         </Modal>
@@ -649,7 +666,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         required
                         onChange={handleAgentNameValue}
                         type={"text"}
-                        placeholder={"Enter prompts separated by ,"}
+                        placeholder={"Enter prompts separated by commas"}
                         className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
@@ -686,14 +703,14 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
                   </div>
-                  <div
-                    className="flex h-[37.5px] justify-start w-1/2 items-center"
+                  <Button
+                    type={"button"}
+                    className="inline-block mt-0 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                     onClick={() => setShowManageHideUrls(true)}
                   >
-                    <span className="text-sky text-[12px] font-semibold text-underline cursor-pointer">
-                      Manage URLs
-                    </span>
-                  </div>
+                    Manage URLs
+                  </Button>
+
                 </div>
               </div>
 

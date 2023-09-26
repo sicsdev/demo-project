@@ -102,21 +102,10 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
 
     return (
-        <div className='my-5' >
-
-            {/* <div className='gap-3 flex'>
-                <div onClick={() => setCustom(false)} className={`border rounded p-2 inline-block border-gray hover:border-sky cursor-pointer ${!custom && 'border-sky'}`} style={{ borderWidth: '3px' }}>
-                    Use an existing schedule
-                </div>
-
-                <div onClick={() => setCustom(true)} className={`border rounded p-2 inline-block border-gray hover:border-sky cursor-pointer ${custom && 'border-sky'}`} style={{ borderWidth: '3px' }}>
-                    Set custom hours
-                </div>
-            </div> */}
-
+        <div className='' >
             {/* EXISTING SCHEDULE OPTION */}
             {!custom &&
-                <div className='mt-5 pt-5'>
+                <div className=''>
                     <div>
                         <div className='my-4'>Which schedule do you want to use?</div>
                     </div>
@@ -162,29 +151,11 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                 </div>
             }
 
-
-
             {/* CUSTOM SCHEDULE OPTION */}
             {
                 custom &&
-                <div className='mt-0 sm:mt-5 mx-0 sm:mx-0'>
-                    {/* <small>TIME ZONE</small>
-                    <div>
-                        <select className={`p-1 border-gray text-sky block lg:w-1/4  bg-white rounded-md text-sm p-3 `}>
-                            <option>
-                                Eastern Time - US & Canada
-                            </option>
-                            <option>
-                                Eastern Time - US & Canada
-                            </option>
-                            <option>
-                                Eastern Time - US & Canada
-                            </option>
-                        </select>
-                    </div> */}
-
-
-                    <div className='mt-5 border border-3 border-gray rounded p-3 lg:w-1/2 '>
+                <div className=''>
+                    <div className=' p-3 lg:w-1/2 '>
                         <h3 class="text-sm font-semibold my-3">Set your weekly hours</h3>
                         <div>
                             {Object.keys(schedule).map((day) => (
@@ -271,13 +242,8 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
 
 
                     </div>
-
                 </div>
             }
-
-
-
-
         </div >
     )
 }

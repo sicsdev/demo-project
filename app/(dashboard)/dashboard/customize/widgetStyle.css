@@ -321,7 +321,8 @@
 
 
 #chatbot_preview .tempoWidget-suggestedQuestions-div {
-  position: absolute;
+  /* position: absolute; */
+  width: 100%;
   bottom: 0;
   right: 0;
   color: black;

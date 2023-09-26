@@ -81,7 +81,7 @@ const Page = () => {
             setLoading(false);
         }, 1200);
     }, [])
-   
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -89,22 +89,26 @@ const Page = () => {
                 {loading === true ? (
                     <>
                         <div className="w-full">
+                            <div className="dark:border-gray-700 flex items-center justify-between mt-5">
+                                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+                                    <li className="mr-2">
+                                        <SkeletonLoader height={30} width={100} />
+                                    </li>
+                                    <li className="mr-2">
+                                        <SkeletonLoader height={30} width={100} />
+                                    </li>
+                                </ul>
+                            </div>
                             <div className="sm:flex rounded-t-lg pt-4 sm:pt-4  border-border justify-between items-center">
                                 <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
-                                    <div className='flex justify-between items-center gap-1'>
-                                        <SkeletonLoader height={30} width={100} />
-                                    </div>
                                 </div>
                                 <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
-
-                                    <div>
-                                        <SkeletonLoader height={40} width={100} />
-                                    </div>
                                     <div>
                                         <SkeletonLoader height={40} width={100} />
                                     </div>
                                 </div>
                             </div>
+
                             <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
                                 <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
                                     <SkeletonLoader height={20} width={200} />
@@ -121,12 +125,12 @@ const Page = () => {
                                     </div>
                                 </div>
 
-                                <div className="block sm:flex gap-10 justify-start items-center">
+                                <div className="flex gap-10 justify-between items-center">
                                     <div className="relative">
-                                        <SkeletonLoader height={40} width={200} />
+                                        <SkeletonLoader height={40} width={150} />
                                     </div>
-                                    <div className='mt-4 sm:mt-0 relative'>
-                                        <SkeletonLoader height={40} width={200} />
+                                    <div className='mt-0 relative'>
+                                        <SkeletonLoader height={40} width={150} />
                                     </div>
                                 </div>
                             </div>
