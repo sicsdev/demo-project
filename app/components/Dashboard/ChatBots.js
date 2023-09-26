@@ -84,7 +84,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
 
     return (
         <>
-            <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+            <div className='bg-[#F8F8F8] w-full lg:w-[768px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                 {
                     skeleton === true ? (
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 border-b border-[#F0F0F1]`}>
@@ -99,7 +99,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                         <div
                             className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
                         >
-                            <div className="flex items-start sm:items-center  gap-2">
+                            <div className="flex items-center  gap-2">
                                 <AdjustmentsHorizontalIcon className="text-[#FF822D] w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
                                     {totalRecords?.length > 1 ? 'Install Widget(s)' : 'Install Widget'}
