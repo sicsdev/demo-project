@@ -203,9 +203,8 @@ const Page = () => {
 
   return (
     <>
-      <div style={{ whiteSpace: "normal" }}>
-        <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
-      </div>
+      <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
+
 
       {dataLoader === true ? (
         <div>
@@ -377,7 +376,7 @@ const Page = () => {
           <textarea
             id="message"
             rows="4"
-            style={{ resize: "none"}}
+            style={{ resize: "none" }}
             className=" block border-[0.2px]  px-2 py-1 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full "
             placeholder="Write your thoughts here..."
           ></textarea>

@@ -181,7 +181,7 @@ const Page = () => {
 
   return (
     <div style={{ whiteSpace: "normal" }}>
-      <div className="border-b border-border flex items-center justify-between">
+      <div className="border-b border-border flex items-center justify-between sticky top-0 bg-[#fff] z-40">
         <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
           <li className="mr-2">
             <span

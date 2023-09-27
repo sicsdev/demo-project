@@ -119,9 +119,7 @@ const Page = () => {
                 <>
                     {state?.data?.enterprise && (
                         <>
-                            <div style={{ whiteSpace: "normal" }}>
-                                <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
-                            </div>
+                            <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
                             <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                             <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
                                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
