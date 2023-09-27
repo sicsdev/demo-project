@@ -12,6 +12,8 @@ import { deleteFaqQuestions, patchKnowledgeQuestion } from '@/app/API/pages/Know
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Modal from '../Common/Modal/Modal';
+import Button from '../Common/Button/Button';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(10);
@@ -23,6 +25,8 @@ const ManageFaqs = ({ questions }) => {
     const dispatch = useDispatch();
     const [negativeQuestions, setNagetiveQuestions] = useState([])
     const [negative, setNagetive] = useState(null)
+    const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
+    const [knowledgeQuesRecordID, setKnowledgeQuesRecordID] = useState(null);
 
     const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
@@ -116,13 +120,22 @@ const ManageFaqs = ({ questions }) => {
         dispatch(fetchFaqQuestions(queryParam));
     }
 
-    const deleteRecord = async (id) => {
+    const deleteRecord = (id) => {
+        setKnowledgeQuesRecordID(id);
+        setDeleteConfirmationModal(true);
+    }
+
+    const deleteKnowledgeFaqRecord = async () => {
         await deleteFaqQuestions(id)
         const queryParam = `page=1&page_size=${10}`;
         dispatch(fetchFaqQuestions(queryParam));
         setUpdateLoader(false)
         setSelected(null)
+        setDeleteConfirmationModal(false);
     }
+
+
+
     const getNagetiveQuestions = async (id) => {
         const response = await getSingleNagetiveQuestionData(id)
         setNagetiveQuestions(response?.data)
@@ -132,6 +145,7 @@ const ManageFaqs = ({ questions }) => {
         const filterData = negativeQuestions.filter((x) => x.id !== id)
         setNagetiveQuestions(filterData)
     }
+
     const addNewNagetiveFaq = async () => {
         setNLoading(true)
         if (isEdit === false) {
@@ -208,7 +222,7 @@ const ManageFaqs = ({ questions }) => {
                 <SideModal heading={selected.question} setShow={(text) => {
                     setIsEdit(false)
                     setShowAdd(false)
-                    setTab(0    )
+                    setTab(0)
                     setSelected(null)
                 }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
                     <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
@@ -339,6 +353,43 @@ const ManageFaqs = ({ questions }) => {
 
                 </SideModal>
             )}
+
+            {
+                deleteConfirmationModal &&
+                <Modal
+                    title={<h3 className="text-base !font-bold">Remove Question</h3>}
+                    show={deleteConfirmationModal}
+                    setShow={setDeleteConfirmationModal}
+                    showCancel={true}
+                    className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"}
+                    customHideButton={false}
+                    showTopCancleButton={false}
+                    hr={false}
+                >
+                    <div className=''>
+                        <h3 className="text-xs my-2 text-heading font-normal">Are you sure you want to remove this content from the questions?</h3>
+                        <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+                            {" "}
+                            <Button
+                                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+                                onClick={() => {
+                                    setDeleteConfirmationModal((prev) => !prev);
+                                }}
+                            >
+                                No
+                            </Button>
+                            <Button
+                                type={"button"}
+                                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                onClick={() => { deleteKnowledgeFaqRecord() }}
+                            >
+                                Yes
+                            </Button>
+                        </div>
+                    </div>
+                </Modal>
+            }
+
         </div>
     )
 }

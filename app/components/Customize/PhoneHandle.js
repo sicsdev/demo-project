@@ -395,6 +395,23 @@ const PhoneHandle = () => {
 
                         </div>
 
+                        {/* <div className='px-6 py-4 grid-cols-2  justify-between items-center border-b border-[#F0F0F1]'>
+                            {
+                                pageLoading ?
+                                    <>
+                                        <SkeletonLoader count={1} height={20} width={"20%"} />
+                                        <SkeletonLoader count={1} height={20} width={"50%"} />
+                                    </>
+                                    :
+                                    <>
+                                        <div>
+                                            <h3 className='text-sm font-semibold text-heading'>Human Handoff Number</h3>
+                                            <p className='text-xs font-normal text-border'>Enter the phone number you would like to forward calls to for escalations.</p>
+                                        </div>
+                                    </>
+                            }
+                        </div> */}
+
 
                         {/* <div className={`px-6 py-4 grid grid-cols-[90%,10%] justify-between items-center ${(basicFormData.length === 0 || basicField?.checked === false) && ("")}`}>
                             {pageLoading ?
