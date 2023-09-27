@@ -1356,11 +1356,6 @@ body .rhap_controls-section {
   flex: unset;
 }
 
-body .rdt_TableBody {
-
-  height: 650px !important;
-  overflow-y: auto !important;
-}
 
 div[data-column-id="Role"] {
   display: flex;
