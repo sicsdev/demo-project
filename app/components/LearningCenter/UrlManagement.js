@@ -60,6 +60,22 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
         setKnowledgeData(filerData)
     }
 
+    useEffect(() => {
+        const handleEscapeKeyPress = (event) => {
+            if (event.key === 'Escape') {
+                hideComponent();
+            }
+        };
+
+        // Add the event listener when the component mounts
+        document.addEventListener('keydown', handleEscapeKeyPress);
+
+        // Remove the event listener when the component unmounts
+        return () => {
+            document.removeEventListener('keydown', handleEscapeKeyPress);
+        };
+    }, []);
+
     return (
         <>
             <div onClick={() => hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
@@ -67,7 +83,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                 <div className={`shadow-lg w-full sm:w-[700px] relative flex flex-col pl-8 pr-8 ${knowledgeData.length < 2 && "h-[100%]"}`}>
                     <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                         <div className='flex flex-1'>
-                        <h1 className='text-heading text-sm font-semibold'>Manage sources</h1>
+                            <h1 className='text-heading text-sm font-semibold'>Manage sources</h1>
                         </div>
                         <div className='flex justify-end gap-2'>
                             <div className='cursor-pointer' onClick={(e) => setCreateOptions(null)}>
@@ -195,7 +211,7 @@ export const ButtonComponent = ({ data, deleteRecord, deleteRecordNew }) => {
                             deleteRecordNew(data.id)
                         }}>
                             <XCircleIcon className='w-4 h-4' />
-                           <span className='font-xs' style={{fontSize: '12px'}}>Delete</span> </button>
+                            <span className='font-xs' style={{ fontSize: '12px' }}>Delete</span> </button>
 
                     </div>
                 )}

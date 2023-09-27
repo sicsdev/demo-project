@@ -30,7 +30,7 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                 <>
                     <Card className={` justify-center ${alignment}   flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none p-2`}
                     >
-                        <div className={`relative max-h-[80vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
+                        <div style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} className={`relative max-h-[80vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
                                 <div className={`flex items-center justify-between ${hr === true && ("py-3 border-b border-solid border-slate-200")} py-3 px-3 rounded-t`}>

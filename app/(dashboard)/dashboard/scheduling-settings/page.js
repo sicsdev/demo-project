@@ -11,7 +11,7 @@ import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
-import { CalendarDaysIcon, CheckIcon, ClipboardIcon, QrCodeIcon } from '@heroicons/react/24/outline'
+import { AdjustmentsHorizontalIcon, CalendarDaysIcon, CheckIcon, ClipboardIcon, QrCodeIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
@@ -117,40 +117,46 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 p-4">
+            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5">
 
-
-
-
-                <div className='block'>
-                    {pageSubLoading ?
-                        <>
-                            <SkeletonLoader count={1} height={20} width={90} />
-                            <div className="my-4 w-full grid grid-cols-2 sm:grid-cols-[10%,10%,10%,10%,10%,10%,10%,10%] justify-start" >
-                                <SkeletonLoader count={1} height={35} width={"90%"} />
-                                <SkeletonLoader count={1} height={35} width={"90%"} />
-                            </div>
-                        </> :
-                        <>
-                            <h3 className="text-sm my-2 font-semibold">Select Bot</h3>
-                            <div className="mb-4 w-full flex items-center justify-between sm:justify-start flex-wrap" >
+                {pageSubLoading ?
+                    <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                        <div className="flex items-start sm:items-center  gap-2">
+                            <SkeletonLoader count={1} height={35} width={90} />
+                        </div>
+                        <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
+                            <SkeletonLoader count={1} height={35} width={100} />
+                            <SkeletonLoader count={1} height={35} width={100} />
+                        </div>
+                    </div>
+                    :
+                    <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                        <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
+                            <AdjustmentsHorizontalIcon className="text-primary w-5" />
+                            <p className="text-base font-medium text-[#151D23]">
+                                Select Bot
+                            </p>
+                        </div>
+                        <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
+                            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
                                 {botValue?.map((element, key) => (
                                     <button
                                         onClick={(e) => selectBotHandler(element.value)}
                                         key={key}
-                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'}  text-xs px-[2px] sm:px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal  disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-2 my-1 w-[45%] sm:w-auto`}
+                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-1 w-[120px] text-center`}
                                     > {element?.name}
                                     </button>
                                 ))}
                             </div>
-                        </>
-                    }
-                </div>
+                        </div>
+                    </div>
+                }
+
                 {
                     (
                         pageLoading == true || state?.isLoading == true) ? (
                         <div>
-                            <div className='mt-5 border border-3 border-gray rounded p-3 lg:w-1/2 '>
+                            <div className='p-3 lg:w-1/2 '>
                                 <div>
 
                                     <SkeletonLoader count={1} height={20} width={"30%"} />
@@ -180,7 +186,7 @@ const page = () => {
                         <>
 
                             <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
-                            <div className='flex justify-end items-center'>
+                            <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
                                         <LoaderButton />
