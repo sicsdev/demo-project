@@ -212,7 +212,7 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p className='whitespace-normal'>{row.question}</p>
+                <p data-tag="allowRowEvents" className='whitespace-normal'>{row.question}</p>
             )
         },
         {
@@ -228,7 +228,7 @@ const Page = () => {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" >
+                <div  className="flex justify-center items-center gap-4 w-[100%]" >
                     {
                         row?.accepted === false && (
                             <>
@@ -442,6 +442,15 @@ const Page = () => {
                             onChangeRowsPerPage={handlePerRowsChange}
                             onChangePage={(page) => {
                                 handleRecomodationValue(page)
+                            }}
+                            onRowClicked={(rowData) => {
+                                setWorkflowView(rowData)
+                                setShow(true)
+                                setAnswer('')
+                                setQuestionData([])
+                                setSearchKnowledge('')
+                                setKnowledgeId(null)
+                                setWorkflowValue(null)
                             }}
                             paginationRowsPerPageOptions={[5, 10, 20, 30]}
                             className=''
