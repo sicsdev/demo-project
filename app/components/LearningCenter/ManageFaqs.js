@@ -12,21 +12,17 @@ import { deleteFaqQuestions, patchKnowledgeQuestion } from '@/app/API/pages/Know
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
-import Modal from '../Common/Modal/Modal';
-import Button from '../Common/Button/Button';
 
 const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
-    const [showAdd, setShowAdd] = useState(false);
+    const [showAdd, setShowAdd] = useState(true);
     const [nLoading, setNLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const dispatch = useDispatch();
     const [negativeQuestions, setNagetiveQuestions] = useState([])
     const [negative, setNagetive] = useState(null)
-    const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
-    const [knowledgeQuesRecordID, setKnowledgeQuesRecordID] = useState(null);
 
     const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
@@ -120,22 +116,13 @@ const ManageFaqs = ({ questions }) => {
         dispatch(fetchFaqQuestions(queryParam));
     }
 
-    const deleteRecord = (id) => {
-        setKnowledgeQuesRecordID(id);
-        setDeleteConfirmationModal(true);
-    }
-
-    const deleteKnowledgeFaqRecord = async () => {
+    const deleteRecord = async (id) => {
         await deleteFaqQuestions(id)
         const queryParam = `page=1&page_size=${10}`;
         dispatch(fetchFaqQuestions(queryParam));
         setUpdateLoader(false)
         setSelected(null)
-        setDeleteConfirmationModal(false);
     }
-
-
-
     const getNagetiveQuestions = async (id) => {
         const response = await getSingleNagetiveQuestionData(id)
         setNagetiveQuestions(response?.data)
@@ -145,13 +132,11 @@ const ManageFaqs = ({ questions }) => {
         const filterData = negativeQuestions.filter((x) => x.id !== id)
         setNagetiveQuestions(filterData)
     }
-
     const addNewNagetiveFaq = async () => {
         setNLoading(true)
         if (isEdit === false) {
             const response = await addNagetiveQuestionData({ search: selected.negative_answer, faq: selected.id })
             if (response.status === 200 || response.status === 201) {
-                setShowAdd(false)
                 setIsEdit(false)
                 setNagetiveQuestions((prev) => {
                     return [
@@ -175,7 +160,6 @@ const ManageFaqs = ({ questions }) => {
             if (response.status === 200 || response.status === 201) {
                 const filterData = [...negativeQuestions]
                 filterData[selected.index].search = selected.negative_answer
-                setShowAdd(false)
                 setIsEdit(false)
                 setNagetiveQuestions(filterData
                 )
@@ -221,7 +205,6 @@ const ManageFaqs = ({ questions }) => {
             {selected && (
                 <SideModal heading={selected.question} setShow={(text) => {
                     setIsEdit(false)
-                    setShowAdd(false)
                     setTab(0)
                     setSelected(null)
                 }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
@@ -275,30 +258,14 @@ const ManageFaqs = ({ questions }) => {
                         </>)}
                     {tab === 1 && (
                         <>
-                            {!showAdd && (
-                                <button
-                                    onClick={(e) => {
-                                        setShowAdd(true)
-                                        setIsEdit(false)
-                                        setSelected((prev) => {
-                                            return {
-                                                ...prev,
-                                                negative_answer: null
-                                            }
-                                        })
-                                    }}
-                                    type="button"
-                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                    Add Negative Search Term
-                                </button>)}
-
                             {showAdd && (
                                 <div className='my-8'>
                                     <TextArea name="negative_answer"
                                         className="py-2"
                                         type={"text"}
                                         id={"negative_answer"}
-                                        placeholder={""}
+
+                                        placeholder={negativeQuestions.length === 0 ? "You don't have any negative keywords yet. Please enter your first keyword below to get started." : ""}
                                         rows={'5'}
                                         onChange={(e) => setSelected((prev) => {
                                             return {
@@ -326,7 +293,6 @@ const ManageFaqs = ({ questions }) => {
                                                 <div className='flex justify-start gap-4 items-center'>
                                                     <PencilSquareIcon className="h-5 w-5" onClick={() => {
                                                         setIsEdit(true)
-                                                        setShowAdd(true)
                                                         setSelected((prev) => {
                                                             return {
                                                                 ...prev,
@@ -353,43 +319,6 @@ const ManageFaqs = ({ questions }) => {
 
                 </SideModal>
             )}
-
-            {
-                deleteConfirmationModal &&
-                <Modal
-                    title={<h3 className="text-base !font-bold">Remove Question</h3>}
-                    show={deleteConfirmationModal}
-                    setShow={setDeleteConfirmationModal}
-                    showCancel={true}
-                    className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"}
-                    customHideButton={false}
-                    showTopCancleButton={false}
-                    hr={false}
-                >
-                    <div className=''>
-                        <h3 className="text-xs my-2 text-heading font-normal">Are you sure you want to remove this content from the questions?</h3>
-                        <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
-                            {" "}
-                            <Button
-                                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
-                                onClick={() => {
-                                    setDeleteConfirmationModal((prev) => !prev);
-                                }}
-                            >
-                                No
-                            </Button>
-                            <Button
-                                type={"button"}
-                                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                onClick={() => { deleteKnowledgeFaqRecord() }}
-                            >
-                                Yes
-                            </Button>
-                        </div>
-                    </div>
-                </Modal>
-            }
-
         </div>
     )
 }
