@@ -24,6 +24,7 @@ import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice"
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
+    const [updateLoader1, setUpdateLoader1] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
     const [pageVal, setPageVal] = useState(1);
@@ -94,10 +95,10 @@ const Page = () => {
         setWorkflow(result ?? []);
     }
 
-    const updateButtonHandler = async (id) => {
+    const updateButtonHandler = async (id, new_answer = null) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
-            const inputValue = answer
+            const inputValue = new_answer ? new_answer : answer
             if (inputValue === '' || inputValue === undefined) {
                 return false;
             }
@@ -105,21 +106,24 @@ const Page = () => {
                 answer: inputValue
             }
             setUpdateLoader(true);
+            setUpdateLoader1(true);
             const updateRecord = await updateRecommendationRecord(payload, id);
             if (updateRecord?.status === 201 || updateRecord?.status === 200) {
                 setWorkflowView(null)
                 setKnowledgeId(null)
                 setUpdateLoader(false);
                 setWorkflowValue(null)
-                setUpdateLoader(false);
+                setUpdateLoader1(false);
 
                 dispatch(fetchRecommendation());
             } else {
                 errorMessage("Unable to Update!");
                 setUpdateLoader(false);
+                setUpdateLoader1(false);
             }
         } catch (error) {
             setUpdateLoader(false);
+            setUpdateLoader1(false);
         }
     };
 
@@ -149,6 +153,7 @@ const Page = () => {
 
     const handleWorkflow = async (workflow_data, questionId) => {
         setUpdateLoader(true)
+        setUpdateLoader1(true)
         let descriptions = [...workflow_data.description]
         if (answer) {
             descriptions.push(answer)
@@ -164,11 +169,12 @@ const Page = () => {
                 setWorkflowView(null)
                 setKnowledgeId(null)
                 setUpdateLoader(false);
+                setUpdateLoader1(false);
                 setWorkflowValue(null)
-                setUpdateLoader(false)
             } else {
                 errorMessage(response.response.data.description)
                 setUpdateLoader(false)
+                setUpdateLoader1(false)
             }
         }
 
@@ -379,14 +385,16 @@ const Page = () => {
 
 
 
-    const updateFaq = async () => {
-        const response = await patchKnowledgeQuestion({ answer: answer }, knowledgeId.id)
+    const updateFaq = async (new_answer = null) => {
+        const response = await patchKnowledgeQuestion({ answer: new_answer ? new_answer : answer }, knowledgeId.id)
         if (response.status === 200 || response.status === 201) {
             setUpdateLoader(false)
+            setUpdateLoader1(false)
             setWorkflowView(null)
             setKnowledgeId(null)
         } else {
             setUpdateLoader(false)
+            setUpdateLoadesetUpdateLoader1(false)
         }
     }
     const SubmitTheForm = () => {
@@ -395,6 +403,14 @@ const Page = () => {
             updateFaq()
         } else {
             updateButtonHandler(workflowView.id)
+        }
+    }
+    const SubmitTheAnswerForm = (new_answer) => {
+        setUpdateLoader1(true)
+        if (knowledgeId) {
+            updateFaq(new_answer)
+        } else {
+            updateButtonHandler(workflowView.id, new_answer)
         }
     }
     const searchMatched = async (element, showknowledge = true) => {
@@ -507,34 +523,25 @@ const Page = () => {
                                                 <ul className="text-start py-2 text-sm text-gray-700 ">
                                                     <h3>Recommended Answer:</h3>
                                                     {subQuestions.slice(0, 1).map((element, key) =>
-                                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}
-                                                            onClick={(e) => {
-                                                                setAnswer(element.data.answer)
-
-                                                            }}>
+                                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
                                                             <p className="text-xs font-semibold">{makeCapital(element.data.question)}</p>
                                                             <p className="text-xs  mt-2">{makeCapital(element.data.answer)}</p>
                                                             <div className='flex justify-end mt-2'>
                                                                 <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
-                                                                    {element.data.answer === answer ? (
-                                                                        <>
-                                                                            <span className="flex items-center text-sm">
-                                                                                <CheckIcon className="h-4 w-4 " />
-                                                                                <small className=''>Accepted!</small>
-                                                                            </span>{" "}
-                                                                        </>
-                                                                    ) : (
-                                                                        <button
-                                                                            type={"submit"}
-                                                                            className="border-none p-0 m-0 flex gap-1 items-center text-sm"
-                                                                            onClick={(e) => {
-                                                                                setAnswer(element.data.answer)
 
-                                                                            }}
-                                                                        >
-                                                                            <ClipboardIcon className=" h-4 w-4" /> <small className=''>Answer Accepted  </small>
-                                                                        </button>
-                                                                    )}
+                                                                    <button
+                                                                        type={"submit"}
+                                                                        className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+                                                                        onClick={(e) => {
+                                                                            if (updateLoader1) {
+                                                                            } else {
+                                                                                SubmitTheAnswerForm(element.data.answer)
+                                                                            }
+
+                                                                        }}
+                                                                    > <small className=''>{updateLoader1 ? "Loading..." : "Accept Answer"}</small>
+                                                                    </button>
+
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -597,8 +604,8 @@ const Page = () => {
                                     <button
                                         onClick={(e) => SubmitTheForm()}
                                         type="button"
-                                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader}>
-                                        {updateLoader ? "Loading..." : "Submit"}
+                                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
+                                        {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
                                     </button>
                                 </div>
 
