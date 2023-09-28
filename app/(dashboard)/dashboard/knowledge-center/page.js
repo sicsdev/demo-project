@@ -228,7 +228,7 @@ const Page = () => {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div  className="flex justify-center items-center gap-4 w-[100%]" >
+                <div className="flex justify-center items-center gap-4 w-[100%]" >
                     {
                         row?.accepted === false && (
                             <>
@@ -237,7 +237,9 @@ const Page = () => {
                                 <div>
                                     <button type="button" onClick={(e) => {
                                         setWorkflowView(row)
+                                        searchMatched({ question: row.question }, false)
                                         setShow(true)
+                                        setSubQuestions([])
                                         setAnswer('')
                                         setQuestionData([])
                                         setSearchKnowledge('')
@@ -357,16 +359,21 @@ const Page = () => {
     const searchFaqs = (e) => {
         const searchText = e.target.value;
         setSearchKnowledge(searchText);
-        setKnowledgeId(null)
-        setAnswer('')
-        if (typingTimeout) {
-            clearTimeout(typingTimeout);
-        }
-        const newTypingTimeout = setTimeout(() => {
-            searchQuestionFaq(searchText)
-        }, 1000);
+        if (searchText === '') {
+            searchMatched({ question: workflowView.question }, false)
+        } else {
+            setKnowledgeId(null)
+            setAnswer('')
+            if (typingTimeout) {
+                clearTimeout(typingTimeout);
+            }
+            const newTypingTimeout = setTimeout(() => {
+                searchQuestionFaq(searchText)
+            }, 1000);
 
-        setTypingTimeout(newTypingTimeout);
+            setTypingTimeout(newTypingTimeout);
+        }
+
     }
 
 
@@ -390,8 +397,12 @@ const Page = () => {
             updateButtonHandler(workflowView.id)
         }
     }
-    const searchMatched = async (element) => {
-        setKnowledgeId(element)
+    const searchMatched = async (element, showknowledge = true) => {
+        if (showknowledge) {
+            setKnowledgeId(element)
+        }
+
+
         let queryParam = 'search=' + element.question
         const response = await searchMatchesFaqQuestions(queryParam)
         if (response && response.length > 0) {
@@ -402,6 +413,8 @@ const Page = () => {
             setAnswer(element.answer)
         }
     }
+
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -451,6 +464,8 @@ const Page = () => {
                                 setSearchKnowledge('')
                                 setKnowledgeId(null)
                                 setWorkflowValue(null)
+                                setSubQuestions([])
+                                searchMatched({ question: rowData.question }, false)
                             }}
                             paginationRowsPerPageOptions={[5, 10, 20, 30]}
                             className=''
@@ -462,7 +477,7 @@ const Page = () => {
                     </div>
                 </>
                 {workflowView && show && (
-                    <SideModal setShow={setShow} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
+                    <SideModal setShow={(setShow)} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
@@ -486,7 +501,7 @@ const Page = () => {
                         {tab === 0 && (
                             <div>
                                 <div className=' mt-2 '>
-                                    {knowledgeId && subQuestions.length > 0 && (
+                                    {subQuestions.length > 0 && (
                                         <>
                                             <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                 <ul className="text-start py-2 text-sm text-gray-700 ">
@@ -559,6 +574,7 @@ const Page = () => {
                                 )}
 
                                 <div>
+
                                     {knowledgeId && (
                                         <>
                                             <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
