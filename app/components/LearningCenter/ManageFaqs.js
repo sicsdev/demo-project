@@ -146,12 +146,17 @@ const ManageFaqs = ({ questions }) => {
                 setSelected((prev) => {
                     return {
                         ...prev,
-                        negative_answer: null
+                        negative_answer: ''
                     }
                 })
                 setNLoading(false)
             } else {
-
+                setSelected((prev) => {
+                    return {
+                        ...prev,
+                        negative_answer: ''
+                    }
+                })
                 setNLoading(false)
             }
         } else {
@@ -165,7 +170,7 @@ const ManageFaqs = ({ questions }) => {
                 setSelected((prev) => {
                     return {
                         ...prev,
-                        negative_answer: null
+                        negative_answer: ''
                     }
                 })
 
