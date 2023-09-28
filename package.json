@@ -34,6 +34,7 @@
     "multiselect-react-dropdown": "^2.0.25",
     "next": "13.4.2",
     "postcss": "8.4.23",
+    "pusher-js": "^8.3.0",
     "react": "18.2.0",
     "react-accessible-accordion": "^5.0.0",
     "react-beautiful-dnd": "^13.1.1",
