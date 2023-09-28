@@ -1544,7 +1544,8 @@ div[data-column-id="Action"] {
 }
 
 textarea#answer,
-textarea#negative_answer {
+textarea#negative_answer,
+textarea#workflow_answer {
 
   width: 100%;
   border: 1px solid #00000059;
@@ -1552,9 +1553,10 @@ textarea#negative_answer {
   border-radius: 3px;
 }
 
-body .rdt_Pagination select:focus{
-	border: 1px solid rgb(19 95 194) !important;
+body .rdt_Pagination select:focus {
+  border: 1px solid rgb(19 95 194) !important;
 }
-body .rdt_Pagination select{
-	border: 1px solid transparent !important;
+
+body .rdt_Pagination select {
+  border: 1px solid transparent !important;
 }

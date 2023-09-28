@@ -20,6 +20,8 @@ import TextArea from "@/app/components/Common/Input/TextArea";
 import { isMobile } from "react-device-detect";
 import SideModal from "@/app/components/SideModal/SideModal";
 import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
+import { searchReccomodationWorkflow } from "@/app/API/pages/NagetiveWorkflow";
+import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -45,6 +47,19 @@ const Page = () => {
     const [show, setShow] = useState(null)
     const [knowledgeId, setKnowledgeId] = useState(null)
     const [answer, setAnswer] = useState('')
+    const [workFlowData, setWorkFlowData] = useState({
+        name: "",
+        id: "",
+        accepted_loader: false,
+        submit_loader: false,
+        name: "",
+        workflow: [],
+        showInput: false,
+        answer: '',
+        target: "workflow",
+        workflowValue: null,
+        reccomodation: []
+    })
     const [questionData, setQuestionData] = useState([])
     const [workflowValue, setWorkflowValue] = useState(null)
     const [subQuestions, setSubQuestions] = useState([])
@@ -92,13 +107,18 @@ const Page = () => {
 
     const manageData = () => {
         const result = workflowState?.data?.results?.filter((x) => x.active === true);
-        setWorkflow(result ?? []);
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                workflow: result ?? []
+            }
+        })
     }
 
     const updateButtonHandler = async (id, new_answer = null) => {
         try {
             const row = state?.data?.results.find(item => item.id === id);
-            const inputValue = new_answer ? new_answer : answer
+            const inputValue = answer ? answer : new_answer
             if (inputValue === '' || inputValue === undefined) {
                 return false;
             }
@@ -112,9 +132,7 @@ const Page = () => {
                 setWorkflowView(null)
                 setKnowledgeId(null)
                 setUpdateLoader(false);
-                setWorkflowValue(null)
                 setUpdateLoader1(false);
-
                 dispatch(fetchRecommendation());
             } else {
                 errorMessage("Unable to Update!");
@@ -151,35 +169,6 @@ const Page = () => {
     }, [])
 
 
-    const handleWorkflow = async (workflow_data, questionId) => {
-        setUpdateLoader(true)
-        setUpdateLoader1(true)
-        let descriptions = [...workflow_data.description]
-        if (answer) {
-            descriptions.push(answer)
-        }
-        let Payload = {
-            description: descriptions.filter((x) => x !== ''),
-        }
-        const response = await updateWorkFlowStatus(Payload, workflow_data.id)
-        if (response.status === 200 || response.status === 201) {
-            const excludeRecord = await excludeRecommendationRecord(questionId);
-            if (excludeRecord?.status === 204) {
-                dispatch(fetchRecommendation());
-                setWorkflowView(null)
-                setKnowledgeId(null)
-                setUpdateLoader(false);
-                setUpdateLoader1(false);
-                setWorkflowValue(null)
-            } else {
-                errorMessage(response.response.data.description)
-                setUpdateLoader(false)
-                setUpdateLoader1(false)
-            }
-        }
-
-
-    }
 
 
     const divRef = useRef(null);
@@ -244,13 +233,13 @@ const Page = () => {
                                     <button type="button" onClick={(e) => {
                                         setWorkflowView(row)
                                         searchMatched({ question: row.question }, false)
+
+                                        getWorkFlowReccomodation(row.question)
                                         setShow(true)
-                                        setSubQuestions([])
                                         setAnswer('')
                                         setQuestionData([])
                                         setSearchKnowledge('')
                                         setKnowledgeId(null)
-                                        setWorkflowValue(null)
                                     }}>
                                         <PlusCircleIcon className="h-6 w-6 text-success " />
                                     </button>
@@ -271,7 +260,6 @@ const Page = () => {
                                             <XCircleIcon className="h-6 w-6 text-danger " /></button>
                                     </div>
                                 }
-                                {/* <ButtonComponent row={row} handleWorkflow={handleWorkflow} workflow={workflow} index={index} total={state?.data?.results?.length} /> */}
 
                             </>
                         )}
@@ -367,6 +355,8 @@ const Page = () => {
         setSearchKnowledge(searchText);
         if (searchText === '') {
             searchMatched({ question: workflowView.question }, false)
+            setKnowledgeId(null)
+            setQuestionData([])
         } else {
             setKnowledgeId(null)
             setAnswer('')
@@ -386,7 +376,7 @@ const Page = () => {
 
 
     const updateFaq = async (new_answer = null) => {
-        const response = await patchKnowledgeQuestion({ answer: new_answer ? new_answer : answer }, knowledgeId.id)
+        const response = await patchKnowledgeQuestion({ answer: answer ? answer : new_answer }, knowledgeId.id)
         if (response.status === 200 || response.status === 201) {
             setUpdateLoader(false)
             setUpdateLoader1(false)
@@ -413,24 +403,157 @@ const Page = () => {
             updateButtonHandler(workflowView.id, new_answer)
         }
     }
+    const getWorkFlowReccomodation = async (question) => {
+        const response = await searchReccomodationWorkflow('search=' + question)
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                reccomodation: response
+            }
+        })
+    }
+
+
+    const [subQuestionLoading, setSubQuestionLoading] = useState(false)
     const searchMatched = async (element, showknowledge = true) => {
+
+        setSubQuestionLoading(true)
         if (showknowledge) {
             setKnowledgeId(element)
         }
-
-
         let queryParam = 'search=' + element.question
         const response = await searchMatchesFaqQuestions(queryParam)
         if (response && response.length > 0) {
             setSubQuestions(response)
+            setSubQuestionLoading(false)
             setAnswer('')
         } else {
             setSubQuestions([])
             setAnswer(element.answer)
+            setSubQuestionLoading(false)
         }
     }
 
+    const handleWorkflow = async (workflow_data) => {
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                accepted_loader: true
+            }
+        })
+        let descriptions = workflow_data.answer.split('\n')
+        let Payload = {
+            description: descriptions.filter((x) => x !== ''),
+        }
+        const response = await updateWorkFlowStatus(Payload, workflow_data.workflowValue.id)
+        if (response.status === 200 || response.status === 201) {
+            const excludeRecord = await excludeRecommendationRecord(workflowView.id);
+            if (excludeRecord?.status === 204) {
+                dispatch(fetchRecommendation());
+                setWorkflowView(null)
+                setKnowledgeId(null)
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        name: "",
+                        id: "",
+                        name: "",
+                        submit_loader: false,
+                        accepted_loader: false,
+                        showInput: false,
+                        answer: '',
+                        target: "workflow",
+                        workflowValue: null,
+                    }
+                })
+            } else {
+                errorMessage(response.response.data.description)
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        accepted_loader: false
+                    }
+                })
+            }
+        }
 
+    }
+    const submitWorkflowTrigger = async () => {
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                submit_loader: true
+            }
+        })
+        if (workFlowData.target === "workflow") {
+            let descriptions = workFlowData.answer.split('\n')
+            let Payload = {
+                description: descriptions.filter((x) => x !== ''),
+            }
+            const response = await updateWorkFlowStatus(Payload, workFlowData.workflowValue.id)
+            if (response.status === 200 || response.status === 201) {
+                const excludeRecord = await excludeRecommendationRecord(workflowView.id);
+                if (excludeRecord?.status === 204) {
+                    dispatch(fetchRecommendation());
+                    setWorkflowView(null)
+                    setKnowledgeId(null)
+                    setWorkFlowData((prev) => {
+                        return {
+                            ...prev,
+                            name: "",
+                            id: "",
+                            name: "",
+                            submit_loader: false,
+                            accepted_loader: false,
+                            showInput: false,
+                            answer: '',
+                            target: "workflow",
+                            workflowValue: null,
+                        }
+                    })
+                } else {
+                    errorMessage(response.response.data.description)
+                    setWorkFlowData((prev) => {
+                        return {
+                            ...prev,
+                            submit_loader: false
+                        }
+                    })
+                }
+            }
+        } else if (workFlowData.target === "human_handoff") {
+            let payload = {
+                search: workFlowData.answer
+            }
+            const response = await addHumanHandoffWorkflowData(payload)
+            if (response.status === 201 || response.status === 200) {
+                dispatch(fetchRecommendation());
+                setWorkflowView(null)
+                setKnowledgeId(null)
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        name: "",
+                        id: "",
+                        name: "",
+                        submit_loader: false,
+                        accepted_loader: false,
+                        showInput: false,
+                        answer: '',
+                        target: "workflow",
+                        workflowValue: null,
+                    }
+                })
+            } else {
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        submit_loader: false
+                    }
+                })
+            }
+        }
+    }
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -448,7 +571,6 @@ const Page = () => {
                                 <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                             </div>
                         </div>
-
 
                         <DataTable
                             title={''}
@@ -477,8 +599,7 @@ const Page = () => {
                                 setQuestionData([])
                                 setSearchKnowledge('')
                                 setKnowledgeId(null)
-                                setWorkflowValue(null)
-                                setSubQuestions([])
+                                getWorkFlowReccomodation(rowData.question)
                                 searchMatched({ question: rowData.question }, false)
                             }}
                             paginationRowsPerPageOptions={[5, 10, 20, 30]}
@@ -491,7 +612,13 @@ const Page = () => {
                     </div>
                 </>
                 {workflowView && show && (
-                    <SideModal setShow={(setShow)} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
+                    <SideModal setShow={(t) => {
+                        setWorkflowView(null)
+                        setKnowledgeId(null)
+                        setUpdateLoader(false);
+                        setUpdateLoader1(false);
+                        setShow(false)
+                    }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
@@ -512,130 +639,283 @@ const Page = () => {
                                 </li>
                             </ul>
                         </div>
-                        {tab === 0 && (
-                            <div>
-                                <div className=' mt-2 '>
-                                    {subQuestions.length > 0 && (
-                                        <>
-                                            <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                                <ul className="text-start py-2 text-sm text-gray-700 ">
-                                                    <h3>Recommended Answer:</h3>
-                                                    {subQuestions.slice(0, 1).map((element, key) =>
-                                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
-                                                            <p className="text-xs font-semibold">{makeCapital(element.data.question)}</p>
-                                                            <p className="text-xs  mt-2">{makeCapital(element.data.answer)}</p>
-                                                            <div className='flex justify-end mt-2'>
-                                                                <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
-
-                                                                    <button
-                                                                        type={"submit"}
-                                                                        className="border-none p-0 m-0 flex gap-1 items-center text-sm"
-                                                                        onClick={(e) => {
-                                                                            if (updateLoader1) {
-                                                                            } else {
-                                                                                SubmitTheAnswerForm(element.data.answer)
-                                                                            }
-
-                                                                        }}
-                                                                    > <small className=''>{updateLoader1 ? "Loading..." : "Accept Answer"}</small>
-                                                                    </button>
-
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    )}
-
-                                                </ul>
 
 
-                                            </div>
-                                        </>
-                                    )}
-                                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                                    <div className="relative">
-                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                            </svg>
-                                        </div>
-                                        <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
-                                    </div>
-                                </div>
+                        <>
 
-                                {!knowledgeId && questionData.length > 0 && (
-                                    <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
-                                        <ul className="py-2 text-sm text-gray-700 ">
-                                            {questionData.map((element, key) =>
-                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
-                                                    searchMatched(element)
-
-                                                }}>
-                                                    <button type='button' className="block px-4 py-2 text-xs">{makeCapital(element.question)}</button>
-                                                </li>
-                                            )}
-
-                                        </ul>
-                                    </div>
-                                )}
-
+                            {tab === 0 && (
                                 <div>
+                                    <div className=' mt-2 '>
+                                        {subQuestionLoading === true ?
+                                            <div className="mt-6">
+                                                <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                    <SkeletonLoader height={20} width={"20%"} />
+                                                    <div className="p-2">
+                                                        <div className="mt-3">
+                                                            <SkeletonLoader height={18} width={"60%"} />
+                                                        </div>
+                                                        <div className="mt-1">
+                                                            <SkeletonLoader height={15} width={"70%"} />
+                                                            <SkeletonLoader height={15} width={"50%"} />
+                                                            <SkeletonLoader height={15} width={"80%"} />
+                                                        </div>
+                                                        <div className="flex justify-end">
+                                                            <SkeletonLoader height={25} width={100} />
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                    {knowledgeId && (
-                                        <>
-                                            <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
-                                                <p className="text-xs">{knowledgeId.question}</p>
+                                            </div> :
+                                            <>
+                                                {subQuestions.length > 0 && (
+                                                    <>
+                                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                            <ul className="text-start py-2 text-sm text-gray-700 ">
+                                                                <h3>Recommended Answer:</h3>
+                                                                {subQuestions.slice(0, 1).map((element, key) =>
+                                                                    <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
 
+                                                                        <p className="text-xs font-semibold">{element.data.question}</p>
+
+                                                                        <p className="text-xs  mt-2">{element.data.answer}</p>
+                                                                        <div className='mt-2'>
+                                                                            <div className="flex justify-between items-center gap-2">
+                                                                                <div onClick={() => {
+                                                                                    setAnswer(element.data.answer)
+                                                                                }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+
+                                                                                    <button
+                                                                                        type={"button"}
+                                                                                        className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+
+                                                                                    >
+                                                                                        <small className=''>Edit</small>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div onClick={(e) => {
+                                                                                    if (updateLoader1) {
+                                                                                    } else {
+                                                                                        SubmitTheAnswerForm(element.data.answer)
+                                                                                    }
+
+                                                                                }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                                    <button
+                                                                                        type={"submit"}
+                                                                                        className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+
+                                                                                    > <small className=''>{updateLoader1 ? "Loading..." : "Accept Answer"}</small>
+                                                                                    </button>
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                )}
+
+                                                            </ul>
+
+
+                                                        </div>
+                                                    </>
+                                                )}
+                                            </>}
+
+                                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                                </svg>
                                             </div>
-
-                                        </>
-                                    )}
-                                    <div className='my-2'>
-                                        <TextArea name="answer"
-                                            className="py-2"
-                                            type={"text"}
-                                            id={"answer"}
-                                            placeholder={""}
-                                            rows="8"
-                                            onChange={(e) => setAnswer(e.target.value)}
-                                            value={answer} />
+                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                                        </div>
                                     </div>
-                                    <button
-                                        onClick={(e) => SubmitTheForm()}
-                                        type="button"
-                                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
-                                        {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
-                                    </button>
+
+                                    {!knowledgeId && questionData.length > 0 && (
+                                        <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
+                                            <ul className="py-2 text-sm text-gray-700 ">
+                                                {questionData.map((element, key) =>
+                                                    <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
+                                                        searchMatched(element)
+
+                                                    }}>
+                                                        <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
+                                                    </li>
+                                                )}
+
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    <div>
+
+                                        {knowledgeId && (
+                                            <>
+                                                <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
+                                                    <p className="text-xs">{knowledgeId.question}</p>
+
+                                                </div>
+
+                                            </>
+                                        )}
+                                        <div className='my-2'>
+                                            <TextArea name="answer"
+                                                className="py-2"
+                                                type={"text"}
+                                                id={"answer"}
+                                                placeholder={""}
+                                                rows="8"
+                                                onChange={(e) => setAnswer(e.target.value)}
+                                                value={answer} />
+                                        </div>
+                                        <button
+                                            onClick={(e) => SubmitTheForm()}
+                                            type="button"
+                                            className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
+                                            {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
+                                        </button>
+                                    </div>
+
                                 </div>
+                            )}
+                            {tab === 1 && (
+                                <div>
+                                    <div className=' mt-2 '>
+                                        {workFlowData.reccomodation.length > 0 && (
+                                            <>
+                                                <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                    <ul className="text-start py-2 text-sm text-gray-700 ">
+                                                        <h1 className="text-sm">Recommended Answer:</h1>
+                                                        {workFlowData.reccomodation.slice(0, 1).map((element, key) =>
+                                                            <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
+                                                                <p className="text-xs font-semibold">{element?.data?.name}</p>
+                                                                <p className="text-xs  mt-2">{element?.data?.description.join('\n')}</p>
+                                                                <div className='mt-2'>
+                                                                    <div className="flex justify-between items-center gap-2">
+                                                                        <div onClick={() => {
+                                                                            setWorkFlowData((prev) => {
+                                                                                return {
+                                                                                    ...prev,
+                                                                                    answer: element?.data?.description.join('\n'),
+                                                                                    workflowValue: element.data,
+                                                                                    showInput: true,
+                                                                                    target: 'workflow'
 
-                            </div>
-                        )}
-                        {tab === 1 && (
-                            <div>
-                                {workflowValue && (
-                                    <div className={` bg-primary text-white my-4 p-4`}>
-                                        <p className="text-xs">{workflowValue.name}</p>
-                                    </div>)}
-                                <div className={` bg-[#F8F8F8] my-4`}>
-                                    {!workflowValue && workflow.length > 0 && (
+                                                                                }
+                                                                            })
+                                                                        }}
+                                                                            className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                            <button
+                                                                                type={"button"}
+                                                                                className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+
+                                                                            >
+                                                                                <small className='' >Edit</small>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div onClick={() => {
+                                                                            if (!workFlowData.accepted_loader) {
+                                                                                setWorkFlowData((prev) => {
+                                                                                    return {
+                                                                                        ...prev,
+                                                                                        answer: element?.data?.description.join('\n'),
+                                                                                        workflowValue: element.data,
+                                                                                        showInput: false,
+                                                                                        target: 'workflow'
+
+                                                                                    }
+                                                                                })
+                                                                                handleWorkflow({
+                                                                                    answer: element?.data?.description.join('\n'),
+                                                                                    workflowValue: element.data,
+                                                                                    showInput: false,
+                                                                                    target: 'workflow'
+                                                                                })
+                                                                            }
+                                                                        }}
+                                                                            className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                            <button
+                                                                                type={"button"}
+                                                                                className="border-none p-0 m-0 flex gap-1 items-center text-sm"
+
+
+                                                                            > <small className=''>{workFlowData.accepted_loader ? "Loading..." : "Accept Answer"}</small>
+                                                                            </button>
+                                                                        </div>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        )}
+
+                                                    </ul>
+                                                </div>
+                                            </>
+                                        )}
+                                    </div>
+                                    <div className={` bg-[#F8F8F8] my-4`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
-                                            {workflow.map((ele, key) =>
-                                                <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={() => {
-
-
-                                                    setWorkflowValue(ele)
+                                            {workFlowData.workflow.length > 0 && workFlowData.workflow.map((ele, key) =>
+                                                <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
+                                                    setWorkFlowData((prev) => {
+                                                        return {
+                                                            ...prev,
+                                                            workflowValue: ele,
+                                                            showInput: false,
+                                                            target: 'workflow',
+                                                            answer: ele.description.join('\n')
+                                                        }
+                                                    })
                                                 }}>
                                                     <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
                                                 </li>
                                             )}
+                                            <li className={`${"Human Handoff" === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} onClick={() => {
+                                                setWorkFlowData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        workflowValue: { "name": "Human Handoff", id: "human_handoff" },
+                                                        showInput: true,
+                                                        answer: '',
+                                                        target: 'human_handoff'
+                                                    }
+                                                })
 
+                                            }}>
+                                                <button type='button' className="block px-4 py-2  text-xs">Human Handoff</button>
+                                            </li>
                                         </ul>
-                                    )}
+
+                                    </div>
+                                    {workFlowData.showInput && (<>
+                                        <div className='my-2'>
+                                            <TextArea name="workflow_answer"
+                                                className="py-2"
+                                                type={"text"}
+                                                id={"workflow_answer"}
+                                                placeholder={""}
+                                                rows="8"
+                                                onChange={(e) => setWorkFlowData((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        answer: e.target.value
+                                                    }
+                                                })}
+                                                value={workFlowData.answer} />
+                                        </div>
+
+                                    </>)}
+                                    <button onClick={(e) => submitWorkflowTrigger()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={workFlowData.workflowValue === null || workFlowData.submit_loader || workFlowData.answer === ''}>
+                                        {workFlowData.submit_loader ? "Loading..." : "Submit"}
+                                    </button>
                                 </div>
-                                <button onClick={(e) => handleWorkflow(workflowValue, workflowView.id)} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={workflowValue === null || updateLoader}>
-                                    {updateLoader ? "Loading..." : "Submit"}
-                                </button>
-                            </div>
-                        )}
+
+                            )}
+                        </>
+
+
                     </SideModal>
                 )}
             </div >
