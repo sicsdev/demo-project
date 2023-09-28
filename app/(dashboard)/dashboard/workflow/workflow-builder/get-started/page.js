@@ -25,7 +25,7 @@ import TextField from '@/app/components/Common/Input/TextField'
 import { makeCapital } from '@/app/components/helper/capitalName'
 import TextArea from '@/app/components/Common/Input/TextArea'
 import SideModal from '@/app/components/SideModal/SideModal'
-import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow'
+import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getNagetiveWorkflowData, getSingleNagetiveWorkflowData, searchReccomodationWorkflow } from '@/app/API/pages/NagetiveWorkflow'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -713,6 +713,8 @@ const GetStarted = () => {
       }
     })
   }
+
+ 
   return (
     <>
       {isLoading === true ?
@@ -908,8 +910,6 @@ const GetStarted = () => {
           {tab === 2 && (
             <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
               <>
-
-
                 {showAdd && (
                   <div className='my-8'>
                     <TextArea name="negative_answer"
