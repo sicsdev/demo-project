@@ -66,7 +66,7 @@ const Sidebar = ({ children }) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("Token");
+    // localStorage.removeItem("Token");
     clearCookies();
     window.location.href = "/";
   };

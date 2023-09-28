@@ -20,6 +20,7 @@ import {
 import { editUserValue } from "@/app/components/store/slices/userSlice";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
 import { getUserProfile } from "@/app/API/components/Sidebar";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ const Login = () => {
   const code = searchParams.get("code");
 
   useEffect(() => {
-    const isLogged = window.localStorage.getItem("Token");
+    const isLogged = Cookies.get("Token")
     if (search) {
       setShow(true);
     }
@@ -85,7 +86,8 @@ const Login = () => {
 
     result.then(async (res) => {
       if (res.payload?.token) {
-        localStorage.setItem("Token", res.payload.token);
+        // localStorage.setItem("Token", res.payload.token);
+        Cookies.set("Token", res.payload.token)
 
         //// This next logic is for collect data from invited new users
         let checkProperties = await getUserProfile()

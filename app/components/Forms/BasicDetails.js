@@ -10,6 +10,7 @@ import validator from "validator";
 import { useEffect } from "react";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import { createContactInFreshsales, updateContactInHubspot } from "@/app/API/components/Demo";
+import Cookies from "js-cookie";
 
 export default function BasicDetails({ basicFormData, setBasicFormData }) {
   const [formValues, setFormValues] = useState({
@@ -29,7 +30,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
 
   useEffect(() => {
 
-    let token = localStorage.getItem('Token')
+    let token = Cookies.get("Token")
     if (token) getUserProfile().then((res) => { setUserProfile(res) })
 
     // Next code block is for watch for changes in the formValues object, to update the Freshsales contact
@@ -99,7 +100,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
   }
 
   return (
-    <div> 
+    <div>
       <span className="text-sm my-5 text-[#808080]">
         Please provide us with some important information about your business.
       </span>
