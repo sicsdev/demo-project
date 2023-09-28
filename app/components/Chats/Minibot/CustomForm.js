@@ -84,7 +84,7 @@ const CustomForm = ({ payload, customFormId, preferences, conversation_id }) => 
                         <div className={`tempo-widget-custom-form-buttons`}>
                             {elementData.options.map((option) => (
                                 <button
-                                    key={option}
+                                    key={option} 
                                     className={`${(formValues[elementData.name]?.includes(option)) ? " tempo-widget-custom-form-button-selected" : "tempo-widget-custom-form-button"}`}
                                     data-value={option}
                                     id={`${key}_${elementData.name}_${option}`}
