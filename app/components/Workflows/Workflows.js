@@ -16,7 +16,7 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
 
   return (
     <>
-      <div className='my-4'>
+      <div className='mt-4'>
         <div className='flex justify-between gap-4 items-center'>
           <div className='flex justify-between gap-2 items-center'>
             {!state.data.enterprise.logo ?
@@ -24,17 +24,22 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
                 <span className="font-bold text-white">{getInitials(state.data.enterprise.name)}</span>
               </div> :
               <div className="relative w-[30px] h-[30px] gap-1 rounded-lg">
+                {/*
                 <Image
                   fill={"true"}
                   className="bg-contain mx-auto w-full rounded-lg"
                   alt="logo.png"
                   src={state.data.enterprise.logo}
                 />
+                */}
               </div>}
+            {/*
             <div>
               <h3 className='text-sm font-bold text-heading'>Workflow Builder</h3>
               <p className='text-xs text-border'>{state.data.enterprise.name}</p>
             </div>
+                */}
+
           </div>
           <div>
 

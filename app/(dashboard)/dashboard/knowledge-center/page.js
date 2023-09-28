@@ -436,12 +436,10 @@ const Page = () => {
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 <>
-                    <div className="w-full" >
-
-
-                        <div className='flex justify-end gap-4 items-center mt-2 p-2'>
+                    <div className="w-full sm:relative sm:mt-[20px]">
+                        <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
                             <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div className="relative">
+                            <div className="relative w-full sm:w-[unset]">
                                 <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
@@ -506,7 +504,7 @@ const Page = () => {
                                 </li>
                                 <li className="mr-2" onClick={() => { setTab(1) }}>
                                     <span
-                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
                                         aria-current="page"
                                     >
                                         <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Trigger Workflow

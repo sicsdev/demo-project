@@ -84,7 +84,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
 
     return (
         <>
-            <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+            <div className='bg-[#F8F8F8] w-full lg:w-[768px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                 {
                     skeleton === true ? (
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 border-b border-[#F0F0F1]`}>

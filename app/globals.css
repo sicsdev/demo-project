@@ -1554,3 +1554,10 @@ textarea#negative_answer {
   padding: 3px;
   border-radius: 3px;
 }
+
+body .rdt_Pagination select:focus{
+	border: 1px solid rgb(19 95 194) !important;
+}
+body .rdt_Pagination select{
+	border: 1px solid transparent !important;
+}

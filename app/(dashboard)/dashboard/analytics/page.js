@@ -63,6 +63,7 @@ const Logs = () => {
       ),
       selector: (row) => row.number_of_messages,
       sortable: true,
+      sortDescFirst: true,
       reorder: false,
       cell: (row) => (
         <p className=" whitespace-normal">{row.number_of_messages}</p>
@@ -149,12 +150,15 @@ const Logs = () => {
         name: title,
       };
     });
+
+    mergedArray.sort((a, b) => a.name.localeCompare(b.name))
+
     setBotValue(mergedArray);
 
     if (logState.data === null) {
       setSelectedBot(mergedArray[0].value);
       setIndexVal(0);
-      handlePageChange(mergedArray[0].value, 1, 
+      handlePageChange(mergedArray[0].value, 1,
         "&ordering=-number_of_messages");
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     } else {
@@ -215,6 +219,7 @@ const Logs = () => {
     setIndexVal(0);
     handlePageChange(value, 1, "");
   };
+
 
   const filterDataHandler = (e) => {
     const { value, name } = e?.target;
@@ -293,6 +298,7 @@ const Logs = () => {
       });
       setManageMessages(getAllIds);
       setTotalRows(data.count);
+      
       setConversationData(newdata);
       setLoading(false);
     } else {
@@ -747,7 +753,6 @@ const Logs = () => {
                 }
                 columns={columns}
                 data={conversationData}
-                defaultSortAsc={false}
               />
             )}
           </>
@@ -851,54 +856,54 @@ const Logs = () => {
 
 
 
- 
+
 
         <div className="hidden limiter">
-        <div className="container-table100">
-          <div className="wrap-table100">
-            <div className="table100">
-              <table>
-                <thead>
-                  <tr className="table100-head">
-                    <th className="column1  text-xs">Number of Messages</th>
-                    <th className="column2  text-xs">Created At</th>
-                    <th className="column3  text-xs">Workflow Triggered</th>
-                    <th className="column4  text-xs">Escalated to Human</th>
-  
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td className="column1 text-sm">2017-09-29 01:22</td>
-                    <td className="column2 text-sm">200398</td>
-                    <td className="column3 text-sm">iPhone X 64Gb Grey</td>
-                    <td className="column4 text-sm">$999.00</td>
-                  </tr>
-                  <tr>
-                    <td className="column1 text-sm">2017-09-28 05:57</td>
-                    <td className="column2 text-sm">200397</td>
-                    <td className="column3 text-sm">Samsung S8 Black</td>
-                    <td className="column4 text-sm">$756.00</td>
-                  </tr>
-                  <tr>
-                    <td className="column1 text-sm">2017-09-26 05:57</td>
-                    <td className="column2 text-sm">200396</td>
-                    <td className="column3 text-sm">Game Console Controller</td>
-                    <td className="column4 text-sm">$22.00</td>
-                  </tr>
-                  <tr>
-                  <td className="column1 text-sm">2017-09-28 05:57</td>
-                  <td className="column2 text-sm">200397</td>
-                  <td className="column3 text-sm">Samsung S8 Black</td>
-                  <td className="column4 text-sm">$756.00</td>
-                </tr>
-                </tbody>
-              </table>
+          <div className="container-table100">
+            <div className="wrap-table100">
+              <div className="table100">
+                <table>
+                  <thead>
+                    <tr className="table100-head">
+                      <th className="column1  text-xs">Number of Messages</th>
+                      <th className="column2  text-xs">Created At</th>
+                      <th className="column3  text-xs">Workflow Triggered</th>
+                      <th className="column4  text-xs">Escalated to Human</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="column1 text-sm">2017-09-29 01:22</td>
+                      <td className="column2 text-sm">200398</td>
+                      <td className="column3 text-sm">iPhone X 64Gb Grey</td>
+                      <td className="column4 text-sm">$999.00</td>
+                    </tr>
+                    <tr>
+                      <td className="column1 text-sm">2017-09-28 05:57</td>
+                      <td className="column2 text-sm">200397</td>
+                      <td className="column3 text-sm">Samsung S8 Black</td>
+                      <td className="column4 text-sm">$756.00</td>
+                    </tr>
+                    <tr>
+                      <td className="column1 text-sm">2017-09-26 05:57</td>
+                      <td className="column2 text-sm">200396</td>
+                      <td className="column3 text-sm">Game Console Controller</td>
+                      <td className="column4 text-sm">$22.00</td>
+                    </tr>
+                    <tr>
+                      <td className="column1 text-sm">2017-09-28 05:57</td>
+                      <td className="column2 text-sm">200397</td>
+                      <td className="column3 text-sm">Samsung S8 Black</td>
+                      <td className="column4 text-sm">$756.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-                
+
 
 
 

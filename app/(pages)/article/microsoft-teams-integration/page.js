@@ -74,7 +74,7 @@ const page = () => {
 ) : (
   <p className="font-bold  pt-8 text-heading text-2xl md:text-h4 lg:text-h4 sm:text-h4 sm:leading-none">
     {single?.acf?.first_head || (
-      <SkeletonLoader className="h-[70px] sm:h-[200px] sm:w-[800px]" />
+      <Loader className="h-[70px] sm:h-[200px] sm:w-[800px]" />
     )}
   </p>
 )}
