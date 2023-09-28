@@ -158,11 +158,10 @@ const CustomForm = ({ payload, customFormId, preferences, conversation_id }) => 
     };
 
     const handleSubmit = async () => {
-        console.log(formValues)
-        // setSubmited(true)
-        // let content = JSON.stringify(formValues)
-        // let type = "FORM-RESPONSE"
-        // await postQuestion(content, conversation_id, type)
+        setSubmited(true)
+        let content = JSON.stringify(formValues)
+        let type = "FORM-RESPONSE"
+        await postQuestion(content, conversation_id, type)
 
         // setFormValues({});
     };
