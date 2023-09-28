@@ -1247,9 +1247,6 @@ body .cursor-pointer {
 
 
 @media(min-width:991px) {
-  body .data-table-class {
-    overflow: unset !important;
-  }
 
   .table_overflow {
     overflow: unset;
