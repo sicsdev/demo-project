@@ -7,10 +7,8 @@ import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowSt
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
-import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 
-
-const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
+const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest }) => {
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
@@ -96,7 +94,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             name: "Actions",
             sortable: false,
             cell: (row, index) => (
-                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
+                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} setShowTestBot={setShowTestBot} setWorkflowToTest={setWorkflowToTest} />
             ),
 
         }
@@ -112,7 +110,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             minWidth: '250px',
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center !whitespace-pre-wrap w-[18px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
+                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
                         {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                     </div>
@@ -130,7 +128,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             name: "Actions",
             sortable: false,
             cell: (row, index) => (
-                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} />
+                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} setShowTestBot={setShowTestBot} setWorkflowToTest={setWorkflowToTest} />
             ),
 
         },
@@ -201,17 +199,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         );
         setData(workflowOptionsfilter)
     }
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 1200);
-    }, [])
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8]'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -236,11 +227,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     className='data-table-class'
                     data={data}
                     customStyles={customStyles}
-                    noDataComponent={
-                        <>
-                        <div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>
-                        </>
-                    }
+                    noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div>
         </div>
@@ -249,7 +236,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
 
 export default WorkFlowTemplates
 
-export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) => {
+export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setShowTestBot, setWorkflowToTest }) => {
     const [showHelp, setShowHelp] = useState(null)
     const router = useRouter()
     const editWorkFlowHandler = (ele) => {
@@ -296,6 +283,10 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
         }
     };
 
+    const handleShowTestWorkflow = (workflow) => {
+        setWorkflowToTest(workflow)
+        setShowTestBot(true)
+    }
     return (
         <>
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
@@ -303,7 +294,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
             }}>
                 <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
                 {showHelp === data?.id && (
-                    <div className={`absolute left-[-280px] ${index === alldata.length - 1 || index === alldata.length - 2 ? "top-[-106px]" : "top-[40px]"}  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
+                    <div className={`absolute left-[-280px] ${index === alldata.length - 1 || index === alldata.length - 2 ? "top-[40px]" : "top-[40px]"}  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44`}>
                         <ul className="py-2 text-sm text-gray-700 ">
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => editWorkFlowHandler(data)}>
                                 <button type='button' className="block px-4 py-2 ">Edit</button>
@@ -313,9 +304,15 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index }) =>
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
                             )}
+                            <li className='hover:bg-primary hover:text-white text-primary my-2 cursor-pointer' onClick={(e) => { handleShowTestWorkflow(data) }}>
+                                <button type='button' className="block px-4 py-2 ">Test workflow</button>
+                            </li>
+
                             <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
                             </li>
+
+
                         </ul>
                     </div>
                 )}

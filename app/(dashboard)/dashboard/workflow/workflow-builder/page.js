@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 import TopBar from '@/app/components/Common/Card/TopBar';
+import TestingMiniBot from '@/app/components/Chats/TestingMiniBot';
 
 const Page = () => {
     const workflowState = useSelector(state => state.workflow);
@@ -30,9 +31,15 @@ const Page = () => {
     const [workflowLoading, setWorkLoading] = useState(false)
     const [template, setTemplate] = useState([])
 
+    // Local states for workflow testing
+    const [showTestBot, setShowTestBot] = useState(false)
+    const [workflowToTest, setWorkflowToTest] = useState('')
+
+
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
     }
+
     useEffect(() => {
         if (!workflowState?.data?.results?.some(e => e.active === true)) { setTab(1) } else { setTab(0) } // If there is no active workflows, setTab to draft section.
     }, [workflowState?.data])
@@ -81,6 +88,22 @@ const Page = () => {
 
     return (
         <>
+
+            {showTestBot &&
+                <> <div
+                    className="rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
+                    onClick={() => setShowTestBot(false)}
+                >
+                    {" "}
+                </div>
+                    <div
+                        className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+                    >
+                        <TestingMiniBot workflow={workflowToTest}></TestingMiniBot>
+                    </div>
+                </>
+            }
+
             {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
                 <>
                     <div style={{ whiteSpace: "normal" }}>
@@ -119,7 +142,9 @@ const Page = () => {
                 <>
                     {state?.data?.enterprise && (
                         <>
-                            <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
+                            <div style={{ whiteSpace: "normal" }}>
+                                <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
+                            </div>
                             <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                             <div className="border-b border-border dark:border-gray-700 flex items-center justify-between">
                                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
@@ -153,10 +178,10 @@ const Page = () => {
                                 </ul>
                             </div>
                             {tab === 0 && (
-                                <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
+                                <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} setWorkflowToTest={setWorkflowToTest} setShowTestBot={setShowTestBot} />
                             )}
                             {tab === 1 && (
-                                <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
+                                <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} setWorkflowToTest={setWorkflowToTest} setShowTestBot={setShowTestBot} />
                             )}
                             {tab === 2 && (
                                 <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
