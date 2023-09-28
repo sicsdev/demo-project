@@ -7,6 +7,8 @@ import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowSt
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
+import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
+
 
 const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
     const [data, setData] = useState([]);
@@ -110,7 +112,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
             minWidth: '250px',
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
+                    <div className="relative inline-flex items-center justify-center !whitespace-pre-wrap w-[18px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
                         {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                     </div>
@@ -199,10 +201,17 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
         );
         setData(workflowOptionsfilter)
     }
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 1200);
+    }, [])
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8]'>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -227,7 +236,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status }) => {
                     className='data-table-class'
                     data={data}
                     customStyles={customStyles}
-                    noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
+                    noDataComponent={
+                        <>
+                        <div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>
+                        </>
+                    }
                 />
             </div>
         </div>

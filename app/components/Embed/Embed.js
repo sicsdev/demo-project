@@ -145,10 +145,10 @@ const Embed = ({ form = true,  setTotalRecords }) => {
             <Loading />
           ) : (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2   md:grid-cols-2 lg:grid-cols-2">
+              <div className="grid grid-cols-1 sm:pb-3 md:grid-cols-2 lg:grid-cols-2">
                 {detailsData &&
                   detailsData.map((element, key) => (
-                    <div className="p-2 sm:p-5 md:p-5 lg:p-5 " key={key}>
+                    <div className="p-2 sm:pt-0 sm:px-5" key={key}>
                       <EmbedCard key={key} element={element} copied={copied} setCopied={setCopied}></EmbedCard>
                     </div>
                   ))}

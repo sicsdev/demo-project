@@ -114,12 +114,12 @@ const Dashboard = ({ children }) => {
                     } else {
                         newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }, ...data,]
                     }
-                    Cookies.set("visit", JSON.stringify(newdata))
+                    Cookies.set("visit", JSON.stringify(newdata), { expires: 30 })
                 }
             } else {
                 if (findRoute) {
                     let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }]
-                    Cookies.set('visit', JSON.stringify(data))
+                    Cookies.set('visit', JSON.stringify(data), { expires: 30 })
                 }
             }
         }

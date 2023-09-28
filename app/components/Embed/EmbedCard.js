@@ -89,15 +89,15 @@ export const EmbedCard = ({
             </Link> */}
             <div className="flex items-center justify-end my-2 pointer" style={{ cursor: "pointer" }}>
               <span
-                className={`text-xs px-1 mr-1 ${isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
-                  }`}
+                  className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
+                }`}
                 onClick={(e) => toggleEmbed('embed')}
               >
                 Embed
               </span>
-              <span className="text-white">|</span>
+              <span className="text-white"></span>
               <span
-                className={`text-xs px-1 ml-1 ${!isEmbedEnabled ? "text-white rounded" : "text-[#fffafa] opacity-30"
+                className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${!isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
                   }`}
                 onClick={(e) => toggleEmbed('chat')}
               >
@@ -129,10 +129,10 @@ export const EmbedCard = ({
             // onChange={onChange}
             />
             <div className='flex justify-end mt-2'>
-              <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+              <div className='text-sm  rounded-xl inline-block p-1 px-2  hover:text-white text-sky'>
                 {copied.message && copied.key === element.id ? (
                   <>
-                    <span className="flex items-center text-sm">
+                    <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
                       <CheckIcon className="h-4 w-4 " />
                       <small className=''>Copied!</small>
                     </span>{" "}
@@ -159,12 +159,18 @@ export const EmbedCard = ({
                       }, 3000);
                     }}
                   >
-                    <button
-                      type={"submit"}
-                      className="border-none p-0 m-0 flex gap-1 items-center text-sm"
-                    >
-                      <ClipboardIcon className=" h-4 w-4" /> <small className=''>Copy code</small>
-                    </button>
+
+                    <div className="flex items-center gap-4 ">
+                      <button
+                        type={"submit"}
+                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none hover:bg-primary hover:text-[#ffffff] transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+
+                      >
+                        <ClipboardIcon className=" h-4 w-4" />
+                        Copy code
+                      </button>
+
+                    </div>
                   </CopyToClipboard>
                 )}
               </div>
@@ -195,10 +201,10 @@ export const EmbedCard = ({
                 // onChange={onChange}
                 />
                 <div className='flex justify-end'>
-                  <div className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                  <div className='text-sm rounded-xl inline-block p-1 px-2 hover:text-white text-sky'>
                     {copied.message && copied.key === `${element.id}embed` ? (
                       <>
-                        <span className="flex items-center text-sm">
+                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
                           <CheckIcon className="h-4 w-4 " />
                           <small className=''>Copied!</small>
                         </span>{" "}
@@ -225,12 +231,15 @@ export const EmbedCard = ({
                           }, 3000);
                         }}
                       >
-                        <button
-                          type={"submit"}
-                          className="border-none p-0 m-0 flex gap-1 items-center text-sm"
-                        >
-                          <ClipboardIcon className=" h-4 w-4" /> <small className=''>Copy code</small>
-                        </button>
+                        <div className="flex items-center gap-4 ">
+                          <button
+                            type={"submit"}
+                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none hover:bg-primary hover:text-[#ffffff] transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+                          >
+                            <ClipboardIcon className=" h-4 w-4" />
+                            Copy code
+                          </button>
+                        </div>
                       </CopyToClipboard>
                     )}
                   </div>

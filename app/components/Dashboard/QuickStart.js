@@ -348,7 +348,7 @@ const QuickStart = () => {
                 :
 
                 <>
-                    <div className="bg-white w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                    <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                         <div
                             className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""
 
@@ -356,7 +356,7 @@ const QuickStart = () => {
 
                         >
 
-                            <div className="flex items-start sm:items-center  gap-2">
+                            <div className="flex items-center  gap-2">
 
                                 <BoltIcon className="text-[#FF822D] w-5" />
 
@@ -582,15 +582,15 @@ const QuickStart = () => {
                         }
                     </div>
                     {recentlyView && (
-                        <div className='bg-[#F8F8F8] w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                             <div className='py-4 px-6'>
-                                <div className="flex items-start sm:items-center  gap-2">
+                                <div className="flex items-center  gap-2">
                                     <EyeIcon className="text-[#FF822D] w-5" />
                                     <p className="leading-[0px] text-base font-medium text-[#151D23]">Recently Viewed</p>
                                 </div>
-                                <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'>
+                                <div className='flex gap-4'>
                                     {recentlyView.map((ele, key) =>
-                                        <div className={`${key > 1 && 'hidden sm:flex'} flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
+                                        <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
                                             {ele?.subheading && (<p className='text-border  font-semibold text-[12px]'>{ele.subheading}</p>)}
                                             <p className='mt-2 text-base font-medium text-[#151D23]'>{ele.name}</p>
                                             {findIcon(ele.route)}

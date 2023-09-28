@@ -174,6 +174,21 @@ const Page = () => {
     }
   };
 
+  useEffect(() => {
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        setIntegrationform(false);
+      }
+    };
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleEscapeKeyPress);
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
+
+
   const handleInput = (e) => {
     const { value } = e.target;
     let filteredTiles = [];
@@ -272,11 +287,11 @@ const Page = () => {
                     <h3 className="text-sm font-semibold mt-3">
                       {element.title}
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mx-auto items-center my-2">
                       {element.tiles?.map((item, key) => (
                         <div
                           className={`${item.grayscale && "pointer-events-none"
-                            } border border-border p-3 rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            } border border-border px-[2px] py-[12px] rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                           key={key}
                           onClick={() => {
                             performIntegrationTask(item);

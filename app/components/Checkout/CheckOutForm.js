@@ -92,7 +92,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
         if (response) {
-          localStorage.setItem("Token", result.token);
+          // localStorage.setItem("Token", result.token);
+          Cookies.set("Token", result.token)
           let payload = {
             "category": "standard",
             "description": "",
