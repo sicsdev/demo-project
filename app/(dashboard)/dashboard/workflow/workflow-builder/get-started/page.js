@@ -1,7 +1,7 @@
 'use client'
 import Button from '@/app/components/Common/Button/Button'
 import RightSidebar from '@/app/components/Dashboard/AuthLayout/RightSidebar'
-import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon, XMarkIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, EllipsisVerticalIcon, ChatBubbleOvalLeftIcon, FolderOpenIcon, XMarkIcon, PlusIcon, BookOpenIcon, PencilSquareIcon, BriefcaseIcon, MinusCircleIcon, WrenchScrewdriverIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef } from 'react'
@@ -25,6 +25,7 @@ import TextField from '@/app/components/Common/Input/TextField'
 import { makeCapital } from '@/app/components/helper/capitalName'
 import TextArea from '@/app/components/Common/Input/TextArea'
 import SideModal from '@/app/components/SideModal/SideModal'
+import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -36,9 +37,15 @@ const GetStarted = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [publishLoader, setPublishLoader] = useState(false);
   const [showHelp, setShowHelp] = useState(false)
+  const [selected, setSelected] = useState(null);
+  const [showAdd, setShowAdd] = useState(true);
+  const [nLoading, setNLoading] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const [negativeQuestions, setNagetiveQuestions] = useState([])
   const [availableFilters, setAvailableFilters] = useState([]);
   const [rulesLoader, setRulesLoader] = useState(false)
   const [transformeLoader, setTransformeLoader] = useState(false);
+  const [tab, setTab] = useState(0);
   const [workflowFormData, setWorkFlowFormData] = useState({
     name: null,
     description: [],
@@ -626,23 +633,134 @@ const GetStarted = () => {
 
     return result;
   };
+  const getNegativeWorkflow = async () => {
+    if (singleData) {
+      setWorkFlowFormData((prev) => {
+        return {
+          ...prev,
+          name: singleData.name === "Default_name" ? "" : singleData.name,
+          description: singleData.description == "Default_description" ? "" : singleData.description,
+          logo: '',
+          preview: singleData.logo ?? '/workflow/reactive-subscription.png',
+          policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
+          policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
+          policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
+          bots: singleData?.bots?.length > 0 ? singleData?.bots.map((ele) => {
+            return {
+              value: ele.id,
+              name: ele.chat_title
+            }
+          }) : []
+        }
+      })
+      const response = await getSingleNagetiveWorkflowData(singleData?.id)
+      setNagetiveQuestions(response.data)
+    }
+  }
+  useEffect(() => {
+    getNegativeWorkflow()
+  }, [singleData])
+  const addNewNagetiveFaq = async () => {
+    setNLoading(true)
+    if (isEdit === false) {
+      const response = await addNagetiveWorkflowData({ search: selected.negative_answer, workflow: singleData.id })
+      if (response.status === 200 || response.status === 201) {
+        setNagetiveQuestions((prev) => {
+          return [...prev, response.data]
+        })
+        setSelected((prev) => {
+          return {
+            ...prev,
+            negative_answer: ''
+          }
+        })
+        setNLoading(false)
+      } else {
+        setNLoading(false)
+      }
+    } else {
+      const response = await editNagetiveWorkflowData({ search: selected.negative_answer }, selected.negative_id)
+      if (response.status === 200 || response.status === 201) {
+        const filterData = [...negativeQuestions]
+        filterData[selected.index].search = selected.negative_answer
+        setIsEdit(false)
+        setNagetiveQuestions(filterData
+        )
+        setSelected((prev) => {
+          return {
+            ...prev,
+            negative_answer: ''
+          }
+        })
+
+        setNLoading(false)
+      } else {
+
+        setNLoading(false)
+
+      }
+
+    }
+  }
+  const deleteNegativeFaq = async (id) => {
+    const response = await deleteNagetiveWorkflowData(id)
+    const filterData = negativeQuestions.filter((x) => x.id !== id)
+    setNagetiveQuestions(filterData)
+    setSelected((prev) => {
+      return {
+        ...prev,
+        negative_answer: ''
+      }
+    })
+  }
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
-        <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
-          {singleData ? (
-            <>
-              <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
-                <div className='flex justify-start sm:justify-between gap-2 items-center'>
-                  <button className='cursor-pointer' type='button' onClick={() => { router.back() }}>
-                    <ChevronLeftIcon className="h-5 w-5 text-gray-500" />
-                  </button>
-                  {singleData?.icon ? singleData?.icon :
-                    <>
-                      😊
-                      {/* <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
+        <>
+          <div className={`w-full sm:w-[${tab === 0 ? '77%' : '100%'}] border-b border-border dark:border-gray-700 flex items-center justify-between mt-3 mb-5`}>
+            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+              <li className="mr-2" onClick={() => { setTab(0) }}>
+                <span
+                  className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                  aria-current="page"
+                >
+                  <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Workflow
+                </span>
+              </li>
+              <li className="mr-2" onClick={() => { setTab(1) }}>
+                <span
+                  className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  aria-current="page"
+                >
+                  <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Settings
+                </span>
+              </li>
+              <li className="mr-2" onClick={() => { setTab(2) }}>
+                <span
+                  className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 2 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  aria-current="page"
+                >
+                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Keywords
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {tab === 0 && (
+            <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
+              {singleData ? (
+                <>
+                  <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
+                    <div className='flex justify-start sm:justify-between gap-2 items-center'>
+                      <button className='cursor-pointer' type='button' onClick={() => { router.back() }}>
+                        <ChevronLeftIcon className="h-5 w-5 text-gray-500" />
+                      </button>
+                      {singleData?.icon ? singleData?.icon :
+                        <>
+                          😊
+                          {/* <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
                         <Image
                           fill={"true"}
                           className="bg-contain mx-auto w-full rounded-lg"
@@ -650,156 +768,207 @@ const GetStarted = () => {
                           src={'/workflow/reactive-subscription.png'}
                         />
                       </div> */}
-                    </>
-                  }
-                  <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' onClick={() => {
-                    setWorkFlowFormData((prev) => {
-                      return {
-                        ...prev,
-                        name: singleData.name === "Default_name" ? "" : singleData.name,
-                        description: singleData.description == "Default_description" ? "" : singleData.description,
-                        logo: '',
-                        preview: singleData.logo ?? '/workflow/reactive-subscription.png',
-                        policy_name: singleData?.policy_name === "default" ? "" : singleData?.policy_name,
-                        policy_description: singleData?.policy_description === "default" ? "" : singleData?.policy_description,
-                        policy_exceptions: singleData?.policy_exceptions === "default" ? "" : singleData?.policy_exceptions,
-                        bots: singleData?.bots?.length > 0 ? singleData?.bots.map((ele) => {
-                          return {
-                            value: ele.id,
-                            name: ele.chat_title
-                          }
-                        }) : []
+                        </>
                       }
-                    })
-                    setWorkflowModal(true)
-                  }}>
-                    <h3 className='text-heading font-bold text-sm sm:text-sm1'>{singleData.name === 'Default_name' ? "New Workflow 1" : makeCapital(singleData.name)}</h3>
-                    {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
-                  </div>
-                </div>
-                <div className='flex justify-between gap-2 items-center'>
-                  <div><small className='text-xs text-border'>{singleData?.active ? 'Active' : 'Draft'}</small></div>
-                  <div>
-                    <Button
-                      type={"button"}
-                      onClick={(e) => publishModelHandler(e)}
-                      className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                      disabled={automationStepsData.length === 0}
-                    >
-                      {automationState ? "Save" : singleData.active ? "Move To Draft" : "Publish"}
-                    </Button>
-                  </div>
-                  <div className='cursor-pointer relative' ref={divRef} onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
-                    {showHelp && (
-                      <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
-                        <ul className="py-2 text-sm text-gray-700 ">
-                          {/* {singleData?.active && (
+                      <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' >
+                        <h3 className='text-heading font-bold text-sm sm:text-sm1'>{singleData.name === 'Default_name' ? "New Workflow 1" : makeCapital(singleData.name)}</h3>
+                        {/* <p className='text-border font-normal text-sm'>{singleData.description}</p> */}
+                      </div>
+                    </div>
+                    <div className='flex justify-between gap-2 items-center'>
+                      <div><small className='text-xs text-border'>{singleData?.active ? 'Active' : 'Draft'}</small></div>
+                      <div>
+                        <Button
+                          type={"button"}
+                          onClick={(e) => publishModelHandler(e)}
+                          className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                          disabled={automationStepsData.length === 0}
+                        >
+                          {automationState ? "Save" : singleData.active ? "Move To Draft" : "Publish"}
+                        </Button>
+                      </div>
+                      <div className='cursor-pointer relative' ref={divRef} onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
+                        {showHelp && (
+                          <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
+                            <ul className="py-2 text-sm text-gray-700 ">
+                              {/* {singleData?.active && (
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler('DISABLE')}>
                               <button type='button' className="block px-4 py-2 ">Disable</button>
                             </li>
                           )} */}
-                          <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
-                            <a className="block px-4 py-2 ">Delete</a>
-                          </li>
-                        </ul>
+                              <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
+                                <a className="block px-4 py-2 ">Delete</a>
+                              </li>
+                            </ul>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
-                </div>
-              </div>
 
-              <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData} singleData1={singleData} />
-            </>) : <p>No Data Found !</p>}
+                  <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData} singleData1={singleData} />
+                </>) : <p>No Data Found !</p>}
 
-          {/* Modals  */}
+              {/* Modals  */}
 
-          {/* workflowname modal start  */}
-          {
-            workflowModal &&
-            <Modal alignment={'items-start'} hideOutslideClick={true} title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"}>
+              {/* workflowname modal start  */}
+              {
+                workflowModal &&
+                <Modal alignment={'items-start'} hideOutslideClick={true} title={<h3 className='text-lg font-semibold'>Edit WorkFlow</h3>} hr={false} show={workflowModal} setShow={setWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[540%] md:w-[40%] lg:w-[40%]"}>
+                  <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} />
+                </Modal>
+              }
+              {/* workflowname modal end  */}
+              {
+                showPublishModal &&
+                <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                  <PublishWorkflow publishLoader={publishLoader} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
+                </Modal>
+              }
+              {
+                deleteWorkflowModal &&
+                <Modal title={`Are you sure you want to delete ${workflowFormData.name}?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                  <DeleteWorkflow publishLoader={publishLoader} active={singleData?.active} deleteWorkFlow={deleteWorkFlow} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
+                </Modal>
+              }
+
+              {
+                stepModal &&
+                <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                  <div>
+                    <div className='flex justify-between gap-2 items-center mb-5'>
+                      <div className='flex justify-between gap-4 items-center'>
+                        <ChatBubbleOvalLeftIcon className="h-7 w-7 font-semibold" />
+                        <div>
+                          <h4 className='font-bold'>Send a Message</h4>
+                          <p>Tempo</p>
+                        </div>
+                      </div>
+                      <div className=''>
+                        <Button
+                          type={"button"}
+                          className="focus:outline-none font-normal rounded-md text-sm py-2 px-4 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black">
+                          Add
+                        </Button>
+                      </div>
+                    </div>
+                    <div className='flex justify-between gap-2 items-center'>
+                      <div className='flex justify-between gap-4 items-center'>
+                        <FolderOpenIcon className="h-7 w-7 font-semibold" />
+                        <div>
+                          <h4 className='font-bold'>Send a Form</h4>
+                          <p>Tempo</p>
+                        </div>
+                      </div>
+                      <div className=''>
+                        <Button
+                          type={"button"}
+                          className="focus:outline-none font-normal rounded-md text-sm py-2 px-4 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black">
+                          Add
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </Modal>
+              }
+
+
+              {
+                editModal &&
+                <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                  <form>
+                    <div className="mb-4">
+                      <SelectOption
+                        name="role"
+                        values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
+                        title={"Send this message to"}
+                        id={"role"}
+                        className="py-3"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Button
+                        type={"submit"}
+                        className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      >
+                        Edit
+                      </Button>
+                    </div>
+                  </form>
+                </Modal>
+              }
+            </RightSidebar>
+          )}
+
+          {tab === 1 && (
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
               <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} />
-            </Modal>
-          }
-          {/* workflowname modal end  */}
-          {
-            showPublishModal &&
-            <Modal title={'Are you sure you want to publish?'} show={showPublishModal} setShow={setShowPublishModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-              <PublishWorkflow publishLoader={publishLoader} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
-            </Modal>
-          }
-          {
-            deleteWorkflowModal &&
-            <Modal title={`Are you sure you want to delete ${workflowFormData.name}?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-              <DeleteWorkflow publishLoader={publishLoader} active={singleData?.active} deleteWorkFlow={deleteWorkFlow} saveWorkFlowHandler={saveWorkFlowHandler} name={singleData?.name} />
-            </Modal>
-          }
-
-          {
-            stepModal &&
-            <Modal title={'Step Library'} show={stepModal} setShow={setStepModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-              <div>
-                <div className='flex justify-between gap-2 items-center mb-5'>
-                  <div className='flex justify-between gap-4 items-center'>
-                    <ChatBubbleOvalLeftIcon className="h-7 w-7 font-semibold" />
-                    <div>
-                      <h4 className='font-bold'>Send a Message</h4>
-                      <p>Tempo</p>
-                    </div>
-                  </div>
-                  <div className=''>
-                    <Button
-                      type={"button"}
-                      className="focus:outline-none font-normal rounded-md text-sm py-2 px-4 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black">
-                      Add
-                    </Button>
-                  </div>
-                </div>
-                <div className='flex justify-between gap-2 items-center'>
-                  <div className='flex justify-between gap-4 items-center'>
-                    <FolderOpenIcon className="h-7 w-7 font-semibold" />
-                    <div>
-                      <h4 className='font-bold'>Send a Form</h4>
-                      <p>Tempo</p>
-                    </div>
-                  </div>
-                  <div className=''>
-                    <Button
-                      type={"button"}
-                      className="focus:outline-none font-normal rounded-md text-sm py-2 px-4 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black">
-                      Add
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </Modal>
-          }
+            </div>
+          )}
+          {tab === 2 && (
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
+              <>
 
 
-          {
-            editModal &&
-            <Modal title={'Send a Message'} show={editModal} setShow={setEditModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-              <form>
-                <div className="mb-4">
-                  <SelectOption
-                    name="role"
-                    values={[{ name: 'Admin', value: 'ADMINISTRATOR' }, { name: 'Collaborator', value: 'MEMBER' }]}
-                    title={"Send this message to"}
-                    id={"role"}
-                    className="py-3"
-                  />
-                </div>
-                <div className="flex items-center justify-between">
-                  <Button
-                    type={"submit"}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                  >
-                    Edit
-                  </Button>
-                </div>
-              </form>
-            </Modal>
-          }
-        </RightSidebar>
+                {showAdd && (
+                  <div className='my-8'>
+                    <TextArea name="negative_answer"
+                      className="py-2"
+                      type={"text"}
+                      id={"negative_answer"}
+                      placeholder={negativeQuestions.length === 0 ? "You don't have any negative keywords yet. Please enter your first keyword below to get started." : ""}
+                      rows={'5'}
+                      onChange={(e) => setSelected((prev) => {
+                        return {
+                          ...prev,
+                          [e.target.name]: e.target.value
+                        }
+                      })}
+                      value={selected?.negative_answer} />
+                    <button
+                      onClick={(e) => addNewNagetiveFaq()}
+                      type="button"
+                      disabled={selected?.negative_answer === "" || !selected?.negative_answer || nLoading}
+                      className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                      {nLoading ? 'Loading...' : isEdit ? "Edit" : "Add"}
+                    </button>
+                  </div>
+                )}
+                {negativeQuestions.length > 0 && (
+
+                  <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                    <ul className="text-start py-2 text-sm text-gray-700 ">
+                      {negativeQuestions.map((element, key) =>
+                        <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
+                          <p className="text-xs">{makeCapital(element.search)}</p>
+                          <div className='flex justify-start gap-4 items-center'>
+                            <PencilSquareIcon className="h-5 w-5" onClick={() => {
+                              setIsEdit(true)
+                              setShowAdd(true)
+                              setSelected((prev) => {
+                                return {
+                                  ...prev,
+                                  negative_answer: element.search,
+                                  negative_id: element.id,
+                                  index: key
+                                }
+                              })
+                            }} />
+                            <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
+
+                          </div>
+                        </li>
+                      )}
+
+                    </ul>
+
+
+                  </div>
+                )}
+              </>
+            </div>
+          )}
+        </>
       }
 
       {ruleModal === true && (

@@ -712,7 +712,6 @@ const Logs = () => {
             {selectedBot && (
               <DataTable
                 title={""}
-                defaultSortAsc={false}
                 fixedHeader
                 highlightOnHover
                 pointerOnHover

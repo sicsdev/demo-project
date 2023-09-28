@@ -17,13 +17,12 @@ const ManageFaqs = ({ questions }) => {
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
-    const [showAdd, setShowAdd] = useState(false);
+    const [showAdd, setShowAdd] = useState(true);
     const [nLoading, setNLoading] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const dispatch = useDispatch();
     const [negativeQuestions, setNagetiveQuestions] = useState([])
     const [negative, setNagetive] = useState(null)
-
     const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
         rows: {
@@ -137,7 +136,6 @@ const ManageFaqs = ({ questions }) => {
         if (isEdit === false) {
             const response = await addNagetiveQuestionData({ search: selected.negative_answer, faq: selected.id })
             if (response.status === 200 || response.status === 201) {
-                setShowAdd(false)
                 setIsEdit(false)
                 setNagetiveQuestions((prev) => {
                     return [
@@ -148,12 +146,17 @@ const ManageFaqs = ({ questions }) => {
                 setSelected((prev) => {
                     return {
                         ...prev,
-                        negative_answer: null
+                        negative_answer: ''
                     }
                 })
                 setNLoading(false)
             } else {
-
+                setSelected((prev) => {
+                    return {
+                        ...prev,
+                        negative_answer: ''
+                    }
+                })
                 setNLoading(false)
             }
         } else {
@@ -161,14 +164,13 @@ const ManageFaqs = ({ questions }) => {
             if (response.status === 200 || response.status === 201) {
                 const filterData = [...negativeQuestions]
                 filterData[selected.index].search = selected.negative_answer
-                setShowAdd(false)
                 setIsEdit(false)
                 setNagetiveQuestions(filterData
                 )
                 setSelected((prev) => {
                     return {
                         ...prev,
-                        negative_answer: null
+                        negative_answer: ''
                     }
                 })
 
@@ -207,8 +209,7 @@ const ManageFaqs = ({ questions }) => {
             {selected && (
                 <SideModal heading={selected.question} setShow={(text) => {
                     setIsEdit(false)
-                    setShowAdd(false)
-                    setTab(0    )
+                    setTab(0)
                     setSelected(null)
                 }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
                     <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
@@ -261,30 +262,14 @@ const ManageFaqs = ({ questions }) => {
                         </>)}
                     {tab === 1 && (
                         <>
-                            {!showAdd && (
-                                <button
-                                    onClick={(e) => {
-                                        setShowAdd(true)
-                                        setIsEdit(false)
-                                        setSelected((prev) => {
-                                            return {
-                                                ...prev,
-                                                negative_answer: null
-                                            }
-                                        })
-                                    }}
-                                    type="button"
-                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                    Add Negative Search Term
-                                </button>)}
-
                             {showAdd && (
                                 <div className='my-8'>
                                     <TextArea name="negative_answer"
                                         className="py-2"
                                         type={"text"}
                                         id={"negative_answer"}
-                                        placeholder={""}
+
+                                        placeholder={negativeQuestions.length === 0 ? "You don't have any negative keywords yet. Please enter your first keyword below to get started." : ""}
                                         rows={'5'}
                                         onChange={(e) => setSelected((prev) => {
                                             return {
@@ -303,7 +288,6 @@ const ManageFaqs = ({ questions }) => {
                                 </div>
                             )}
                             {negativeQuestions.length > 0 && (
-
                                 <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                     <ul className="text-start py-2 text-sm text-gray-700 ">
                                         {negativeQuestions.map((element, key) =>
@@ -312,7 +296,6 @@ const ManageFaqs = ({ questions }) => {
                                                 <div className='flex justify-start gap-4 items-center'>
                                                     <PencilSquareIcon className="h-5 w-5" onClick={() => {
                                                         setIsEdit(true)
-                                                        setShowAdd(true)
                                                         setSelected((prev) => {
                                                             return {
                                                                 ...prev,
@@ -323,20 +306,13 @@ const ManageFaqs = ({ questions }) => {
                                                         })
                                                     }} />
                                                     <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
-
                                                 </div>
                                             </li>
                                         )}
-
                                     </ul>
-
-
                                 </div>
                             )}
                         </>)}
-
-
-
                 </SideModal>
             )}
         </div>
