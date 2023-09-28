@@ -671,7 +671,7 @@ const Page = () => {
                                                     <>
                                                         <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                             <ul className="text-start py-2 text-sm text-gray-700 ">
-                                                                <h3>Recommended Answer:</h3>
+                                                                <h1 className="text-xs font-semibold">Recommended Answer:</h1>
                                                                 {subQuestions.slice(0, 1).map((element, key) =>
                                                                     <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
 
@@ -786,7 +786,7 @@ const Page = () => {
                                             <>
                                                 <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                     <ul className="text-start py-2 text-sm text-gray-700 ">
-                                                        <h1 className="text-sm">Recommended Answer:</h1>
+                                                        <h1 className="text-xs font-semibold">Recommended Answer:</h1>
                                                         {workFlowData.reccomodation.slice(0, 1).map((element, key) =>
                                                             <li className='p-2 text-justify text-heading my-2 cursor-pointer' key={key}>
                                                                 <p className="text-xs font-semibold">{element?.data?.name}</p>
