@@ -1558,3 +1558,7 @@ body .rdt_Pagination select:focus{
 body .rdt_Pagination select{
 	border: 1px solid transparent !important;
 }
+
+.data-table-class{
+  min-height: 50vh !important;
+}
