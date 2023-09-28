@@ -719,7 +719,7 @@ const GetStarted = () => {
         <Loading />
         :
         <>
-          <div className={`w-full sm:w-[${tab === 0 ? '77%' : '100%'}] border-b border-border dark:border-gray-700 flex items-center justify-between mt-3 mb-5`}>
+          <div className={`w-full  ${tab === 0 ? 'sm:w-[77%]' : ''} border-b border-border dark:border-gray-700 flex items-center justify-between mt-3 mb-5`}>
             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
               <li className="mr-2" onClick={() => { setTab(0) }}>
                 <span
