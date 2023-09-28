@@ -23,7 +23,6 @@ const ManageFaqs = ({ questions }) => {
     const dispatch = useDispatch();
     const [negativeQuestions, setNagetiveQuestions] = useState([])
     const [negative, setNagetive] = useState(null)
-
     const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
         rows: {
@@ -284,7 +283,6 @@ const ManageFaqs = ({ questions }) => {
                                 </div>
                             )}
                             {negativeQuestions.length > 0 && (
-
                                 <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                     <ul className="text-start py-2 text-sm text-gray-700 ">
                                         {negativeQuestions.map((element, key) =>
@@ -303,20 +301,13 @@ const ManageFaqs = ({ questions }) => {
                                                         })
                                                     }} />
                                                     <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
-
                                                 </div>
                                             </li>
                                         )}
-
                                     </ul>
-
-
                                 </div>
                             )}
                         </>)}
-
-
-
                 </SideModal>
             )}
         </div>
