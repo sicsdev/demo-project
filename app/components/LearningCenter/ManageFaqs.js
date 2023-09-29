@@ -182,7 +182,7 @@ const ManageFaqs = ({ questions }) => {
         }
     }
     return (
-        <div className="w-full mt-5">
+        <div className="w-full mt-5 basic-knowledge">
             <DataTable
                 title={''}
                 fixedHeader
@@ -239,7 +239,7 @@ const ManageFaqs = ({ questions }) => {
                         <>
                             <div className='my-8'>
                                 <TextArea name="answer"
-                                    className="py-2"
+                                    className="py-2 "
                                     type={"text"}
                                     id={"answer"}
                                     placeholder={""}
@@ -252,13 +252,14 @@ const ManageFaqs = ({ questions }) => {
                                             }
                                         })}
                                     value={selected.answer} />
-                            </div>
                             <button
                                 onClick={(e) => updateFaq()}
                                 type="button"
                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
                                 {updateLoader ? "Loading..." : "Submit"}
                             </button>
+                            </div>
+
                         </>)}
                     {tab === 1 && (
                         <>

@@ -307,6 +307,9 @@ const QuickStart = () => {
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                         <div className='flex items-center gap-4'>
+
+
+                                            <SkeletonLoader count={1} height={18} width={100} />
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                     </div>
@@ -328,6 +331,11 @@ const QuickStart = () => {
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                         <div className='flex items-center gap-4'>
+
+
+
+                                            
+                                            <SkeletonLoader count={1} height={18} width={100} />
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                     </div>

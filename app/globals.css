@@ -1519,11 +1519,11 @@ div[data-column-id="Action"] {
   }
 
   .wrap-table100 table tbody tr td:nth-child(1)::before {
-    content: "Logo";
+    content: "Email";
   }
 
   .wrap-table100 table tbody tr td:nth-child(2)::before {
-    content: "Email";
+    content: "Action";
   }
 
   .wrap-table100 table tbody tr td:nth-child(3)::before {
@@ -1568,3 +1568,8 @@ body .rdt_Pagination select{
 .data-table-class{
   min-height: 50vh !important;
 }
+.basic-knowledge .rdt_TableRow{
+   padding: 0 !important;
+   height: 55px !important;
+}
+.tbsearchbar::-webkit-input-placeholder { padding-top: 5px;}

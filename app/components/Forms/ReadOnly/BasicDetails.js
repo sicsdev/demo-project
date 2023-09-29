@@ -122,6 +122,63 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
                                 <p className="  text-xs my-2">{state?.business_name}</p>
 
                             </div>
+                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+
+<div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
+
+    <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
+
+        Business Street
+
+    </h3>
+
+    <p className="text-xs my-2">{state?.business_street}</p>
+
+</div>
+
+<div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+
+<div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
+
+    <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
+
+        Business City
+
+    </h3>
+
+    <p className="  text-xs my-2">{state?.business_city}</p>
+
+</div>
+
+                       
+
+<div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+
+<div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
+
+    <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
+
+        Business State
+
+    </h3>
+
+    <p className="text-xs my-2">{state?.business_state}</p>
+
+</div>
+
+<div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+
+<div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
+
+    <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
+
+        Business Zipcode
+
+    </h3>
+
+    <p className="text-xs my-2">{state?.business_zipcode}</p>
+
+</div>
 
                             <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
 
@@ -129,7 +186,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
-                                    Business Industry
+                                     Industry
 
                                 </h3>
 
@@ -143,7 +200,7 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                                 <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
-                                    Business Company Size
+                                     Company Size
 
                                 </h3>
 
@@ -151,63 +208,10 @@ const BasicDetailsReadOnly = ({ state, pageLoading = false }) => {
 
                             </div>
 
-                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
+                          
 
-                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
 
-                                <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
 
-                                    Business City
-
-                                </h3>
-
-                                <p className="  text-xs my-2">{state?.business_city}</p>
-
-                            </div>
-
-                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
-
-                                <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
-
-                                    Business Street
-
-                                </h3>
-
-                                <p className="text-xs my-2">{state?.business_street}</p>
-
-                            </div>
-
-                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
-
-                                <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
-
-                                    Business State
-
-                                </h3>
-
-                                <p className="text-xs my-2">{state?.business_state}</p>
-
-                            </div>
-
-                            <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div>
-
-                            <div className="mt-3 flex items-center justify-start gap-4 px-[1rem]">
-
-                                <h3 className=" w-1/2 sm:w-1/3 !font-semibold text-sm text-[#151d23]">
-
-                                    Business Zipcode
-
-                                </h3>
-
-                                <p className="text-xs my-2">{state?.business_zipcode}</p>
-
-                            </div>
-
-                            {/* <div style={{ boxShadow: "rgba(21, 29, 35, 0.08) 0px 1px 1px inset" }} className="h-[1px] mt-4"></div> */}
 
                         </div>
 
