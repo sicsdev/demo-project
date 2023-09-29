@@ -127,10 +127,6 @@
   color: rgb(29, 29, 29);
 }
 
-#minibotContainer .answer_text_testing:hover {
-  background-color: var(--secondary-color-darkened)
-}
-
 #minibotContainer .question_testing  {
   padding: 1.5vh;
   margin: 1vh;

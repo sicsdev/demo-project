@@ -283,10 +283,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
         }
     };
 
-    const handleShowTestWorkflow = (workflow) => {
-        setWorkflowToTest(workflow)
-        setShowTestBot(true)
-    }
+
     return (
         <>
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
@@ -304,10 +301,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
                             )}
-                            <li className='hover:bg-primary hover:text-white text-primary my-2 cursor-pointer' onClick={(e) => { handleShowTestWorkflow(data) }}>
-                                <button type='button' className="block px-4 py-2 ">Test workflow</button>
-                            </li>
-
+                            
                             <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
                             </li>

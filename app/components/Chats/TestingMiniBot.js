@@ -10,6 +10,7 @@ import { getConversationId, getTestBot, postQuestion, startWorkflowMessages } fr
 import Pusher from 'pusher-js';
 // import renderCustomForm from './Minibot/CustomForm'
 import CustomForm from './Minibot/CustomForm'
+import { getBotAllData } from '@/app/API/pages/Bot'
 
 const TestingMiniBot = ({ workflow }) => {
     const pusher = new Pusher("1fc282a0eb5e42789c23", {
@@ -27,7 +28,7 @@ const TestingMiniBot = ({ workflow }) => {
         secondary_text_color: "#000000",
         primary_color: "#0057ff",
         secondary_color: "#dcdcdc",
-        logo: "",
+        logo: "https://usetempo.ai/bot.png",
         thumbnail: "",
         chat_title: "Tempo AI Bot (Test Mode)",
         chat_message_business_hours: "How can we help?",
@@ -47,86 +48,110 @@ const TestingMiniBot = ({ workflow }) => {
         chat_suggestions: []
     });
 
-    const [chatContent, setChatContent] = useState([<div className="first_answer_testing ">
-        <img
-            className="profile-photo_ChatBot_testing "
-            src={
-                preferences.logo || "https://usetempo.ai/bot.png"
-            }
-            alt="Profile Photo"
-            width="35px"
-        />
-        <div
-            className="answer_text_testing"
-            style={{
-                backgroundColor: preferences.secondary_color,
-                color: preferences.secondary_text_color,
-            }}
-        >
-            {preferences.chat_default_message}
-        </div>
-    </div>,]);
+    const [defaultPreferences, setDefaultPreferences] = useState({
+        id: "",
+        enterprise: {},
+        category: "",
+        description: "",
+        refund_tolerance: 0,
+        automation_tolerance: 0,
+        primary_text_color: "#ffffff",
+        secondary_text_color: "#000000",
+        primary_color: "#0057ff",
+        secondary_color: "#dcdcdc",
+        logo: "https://usetempo.ai/bot.png",
+        thumbnail: "",
+        chat_title: "Tempo AI Bot (Test Mode)",
+        chat_message_business_hours: "How can we help?",
+        chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
+        widget_location: "bottom_right",
+        widget_offset_horizontal: 0,
+        widget_offset_vertical: 0,
+        language: "en",
+        cancellation_tolerance: "0",
+        payment_platform: "Other",
+        ticketing_platform: "Other",
+        logo_file_name: "",
+        active: true,
+        origins_blocked: [],
+        customer_service_email: "",
+        chat_default_message: "Welcome to Tempo Bot's Test Mode!",
+        chat_suggestions: []
+    });
+
+
+    const [chatContent, setChatContent] = useState([]);
 
 
     useEffect(() => {
         getTestingBot()
+        getActiveBots()
     }, []);
 
+    useEffect(() => {
+        cleanChat()
+        getConvoID(currentBotId || testBotId)
+    }, [preferences]);
 
     const [conversationId, setConversationId] = useState('')
     const [inputValue, setInputValue] = useState('')
     const [sendingQuestion, setSendingQuestion] = useState(false)
+    const [allActiveBots, setAllActiveBots] = useState([])
+    const [testBotId, setTestBotId] = useState('')
+    const [currentBotId, setCurrentBotId] = useState('')
+
+    const getActiveBots = async () => {
+        await getBotAllData().then(res => { if (res?.results) setAllActiveBots(res.results) })
+    }
 
     const getTestingBot = () => {
         getTestBot().then(res => {
+            // setPreferences(res)
+            setPreferences(defaultPreferences)
             getConvoID(res.id);
+            setTestBotId(res.id)
+            // cleanChat()
             // getConvoID("0975dbcc-d2a5-4aaf-8e46-c020ae625652") // hardcode nextmed bot id
         })
     }
 
     const getConvoID = async (botId) => {
-        await getConversationId(botId)
-            .then(res => {
-                setConversationId(res.id)
-                const channel = pusher.subscribe(`conversation-${res.id}`);
-                channel.bind('messages', data => {
-                    appendAnswer(data)
-                    console.log('Recibido en tiempo real:', data);
-                });
+        if (botId) {
+            await getConversationId(botId)
+                .then(res => {
+                    setConversationId(res.id)
+                    const channel = pusher.subscribe(`conversation-${res.id}`);
+                    channel.bind('messages', data => {
+                        appendAnswer(data)
+                        console.log('Recibido en tiempo real:', data);
+                    });
 
-                channel.bind('actions', async function (data) {
-                    console.log('pusher channel action received:', data)
-                    // if (data.type == "HUMAN-HANDOFF") {
-                    //     renderHumanHandoffResponse()
-                    // }
+                    channel.bind('actions', async function (data) {
+                        console.log('pusher channel action received:', data)
+                        if (data.type == "FORM") { renderCustom(data, res.id) }
+                        if (data.type == "OPTIONS") { renderOptionsComponent(data) }
+                    })
 
-                    if (data.type == "FORM") { renderCustom(data, res.id) }
-                    // if (data.type == "SCHEDULE") {
-                    //     createAppointmentComponent(data.data, companyName)
-                    // }
-                    if (data.type == "OPTIONS") { renderOptionsComponent(data) }
+                    if (workflow) testWorkflow(workflow, res.id)
+
+                    return () => {
+                        channel.unbind('messages');
+                        channel.unsubscribe();
+                    };
 
                 })
+        }
 
-                if (workflow) testWorkflow(workflow, res.id)
-
-                return () => {
-                    channel.unbind('messages');
-                    channel.unsubscribe();
-                };
-
-            })
     }
 
     const appendAnswer = (data) => {
+        console.log(preferences, 'preferences on append')
         setChatContent((prevChatContent) => {
             const newAnswer = (
-                <div className="first_answer_testing ">
+                <div className="first_answer_testing " key={data.id}>
                     <img
-                        className="profile-photo_ChatBot_testing "
-                        src={
-                            preferences.logo || "https://usetempo.ai/bot.png"
-                        }
+                        className="profile-photo_ChatBot_testing"
+                        src={preferences.logo || defaultPreferences.logo}
                         alt="Profile Photo"
                         width="35px"
                     />
@@ -151,8 +176,8 @@ const TestingMiniBot = ({ workflow }) => {
                 <div
                     className="question_testing"
                     style={{
-                        backgroundColor: preferences.primary_color,
-                        color: preferences.primary_text_color,
+                        backgroundColor: preferences.primary_color || defaultPreferences.primary_color,
+                        color: preferences.primary_text_color || defaultPreferences.primary_text_color,
                     }}
                 >
                     {question}
@@ -188,7 +213,7 @@ const TestingMiniBot = ({ workflow }) => {
                     {Object.entries(optionsData.options).map(([key, value]) => (
                         <button
                             key={key}
-                            className="tempo-widget-options-button_testing "
+                            className="tempo-widget-options-button_testing"
                             data-options-id={id}
                             name={key}
                             onClick={postQuestion(value, conversationId)}
@@ -222,6 +247,38 @@ const TestingMiniBot = ({ workflow }) => {
 
     }
 
+
+    // Swit
+
+    const handleSwitchBot = (e) => {
+        let botId = e.target.value
+        setCurrentBotId(botId)
+        let finder = allActiveBots.find(e => e.id == botId)
+        if (botId == testBotId) { getTestingBot(); return }
+        if (finder) { setPreferences(finder) }
+    }
+
+    const cleanChat = () => {
+        setChatContent([<div className="first_answer_testing ">
+            <img
+                className="profile-photo_ChatBot_testing "
+                src={preferences?.logo || "https://usetempo.ai/bot.png"}
+                alt="Profile Photo"
+                width="35px"
+            />
+            <div
+                className="answer_text_testing"
+                style={{
+                    backgroundColor: preferences?.secondary_color,
+                    color: preferences?.secondary_text_color,
+                }}
+            >
+                {preferences.chat_default_message || defaultPreferences.chat_default_message}
+            </div>
+        </div>])
+        getConvoID()
+    }
+
     return (
 
 
@@ -237,20 +294,21 @@ const TestingMiniBot = ({ workflow }) => {
                             <img
                                 width="45px"
                                 src={
-                                    preferences.logo || "https://usetempo.ai/bot.png"
+                                    preferences?.logo || "https://usetempo.ai/bot.png"
                                 }
                             />
                         </div>
-                        <div>
-                            <div>
+                            <div className='w-3/4'>
                                 <select
                                     id="chatTitle"
                                     name="chatTitle"
                                     className="block w-full p-2 border rounded-md w-full"
+                                    onChange={handleSwitchBot}
                                 >
-                                    <option value="1">{preferences.chat_title}</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                    <option value={testBotId}>Tempo Test Bot</option>
+                                    {allActiveBots?.map(bot =>
+                                        <option value={bot.id}>{bot.chat_title}</option>
+                                    )}
                                 </select>
                             </div>
                             {/* <div className="subtitle_div_testing ">
@@ -259,7 +317,6 @@ const TestingMiniBot = ({ workflow }) => {
                                     {preferences.description || "Powered by Tempo"}
                                 </span>
                             </div> */}
-                        </div>
                     </div>
                     <hr className="custom_hr_testing " />
                     <div className="chat_content_testing">
@@ -316,12 +373,12 @@ const TestingMiniBot = ({ workflow }) => {
                             <textarea value={inputValue} disabled={sendingQuestion} id="inputtext_chatwidget_testing" onChange={handleInputValue} className="input_question_testing" type="text" maxlength="180" placeholder={sendingQuestion ? "Please wait for a response..." : "Write a reply..."} />
 
                             <div className="send_audio_button_testing " onclick="handleAudioButton()" id="audioButton">
-                                <svg fill={preferences.primary_color} width="25px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="${preferences.primary_color}"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 10V12C19 15.866 15.866 19 12 19M5 10V12C5 15.866 8.13401 19 12 19M12 19V22M8 22H16M12 15C10.3431 15 9 13.6569 9 12V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V12C15 13.6569 13.6569 15 12 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                                <svg fill={preferences?.primary_color} width="25px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="${preferences.primary_color}"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 10V12C19 15.866 15.866 19 12 19M5 10V12C5 15.866 8.13401 19 12 19M12 19V22M8 22H16M12 15C10.3431 15 9 13.6569 9 12V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V12C15 13.6569 13.6569 15 12 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
                             </div>
 
                             <div className="send_button_testing " onClick={sendQuestion} id="sendButton">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" className=""
-                                    fill={preferences.primary_color}>
+                                    fill={preferences?.primary_color}>
                                     <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
                                 </svg>
                             </div>
@@ -331,7 +388,7 @@ const TestingMiniBot = ({ workflow }) => {
 
                 </div>
             </div>
-            {/* <button onClick={testWorkflow}>test workflow</button> */}
+
         </div>
     )
 }

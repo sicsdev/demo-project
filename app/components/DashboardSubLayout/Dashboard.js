@@ -13,6 +13,7 @@ import Cookies from 'js-cookie'
 import { usePathname, useSearchParams } from 'next/navigation';
 import TestingMiniBot from '../Chats/TestingMiniBot'
 import { useState } from 'react'
+import TestWidgetLayout from './TestWidgetLayout'
 
 const Dashboard = ({ children }) => {
 
@@ -127,12 +128,11 @@ const Dashboard = ({ children }) => {
         }
     }
 
-    const [showTestBot, setShowTestBot] = useState(false)
 
     return (
         <>
             <NewSidebar>
-                {showTestBot &&
+                {/* {showTestBot &&
                     <>
 
                         <div
@@ -144,7 +144,7 @@ const Dashboard = ({ children }) => {
                         <div
                             className={` z-50 w-full sm:w-[550px] fixed right-0 m-auto max-h-[100%] shadow-md rounded-xl testbotwidget `}
                         >
-                            <TestingMiniBot workflow={'workflowToTest'}></TestingMiniBot>
+                            <TestingMiniBot></TestingMiniBot>
 
                         </div>
 
@@ -153,7 +153,7 @@ const Dashboard = ({ children }) => {
 
                 <button
                     onClick={() => setShowTestBot(!showTestBot)}
-                    className={`fixed bottom-3 right-3 m-auto rounded-xl pointer`}
+                    className={`fixed bottom-3 right-3 m-auto rounded-xl pointer z-100`}
                 >
                     <div class="p-3 bg-primary rounded-full">
                         {showTestBot ?
@@ -172,7 +172,9 @@ const Dashboard = ({ children }) => {
                             )
                         }
                     </div>
-                </button>
+                </button> */}
+
+                <TestWidgetLayout></TestWidgetLayout>
 
 
                 {children}

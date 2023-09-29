@@ -161,10 +161,10 @@ const Page = () => {
                                     </ul>
                                 </div>
                                 {tab === 0 && (
-                                    <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} setWorkflowToTest={setWorkflowToTest} setShowTestBot={setShowTestBot} />
+                                    <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                                 )}
                                 {tab === 1 && (
-                                    <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} setWorkflowToTest={setWorkflowToTest} setShowTestBot={setShowTestBot} />
+                                    <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
                                 )}
                                 {tab === 2 && (
                                     <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
