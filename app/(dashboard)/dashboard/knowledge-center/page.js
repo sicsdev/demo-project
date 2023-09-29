@@ -728,7 +728,7 @@ const Page = () => {
                                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                                 </svg>
                                             </div>
-                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search knowledge base" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
                                         </div>
                                     </div>
 
@@ -761,10 +761,10 @@ const Page = () => {
                                         )}
                                         <div className='my-2'>
                                             <TextArea name="answer"
-                                                className="py-2"
+                                                className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"answer"}
-                                                placeholder={""}
+                                                placeholder={"Create new knowledge base entry"}
                                                 rows="8"
                                                 onChange={(e) => setAnswer(e.target.value)}
                                                 value={answer} />
@@ -772,7 +772,7 @@ const Page = () => {
                                         <button
                                             onClick={(e) => SubmitTheForm()}
                                             type="button"
-                                            className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
+                                            className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
                                             {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
                                         </button>
                                     </div>
