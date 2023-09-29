@@ -10,7 +10,7 @@ import { getConversationId, getTestBot, postQuestion, startWorkflowMessages } fr
 import Pusher from 'pusher-js';
 // import renderCustomForm from './Minibot/CustomForm'
 import CustomForm from './Minibot/CustomForm'
-import { getBotAllData } from '@/app/API/pages/Bot'
+import { getAllActiveBots, getBotAllData } from '@/app/API/pages/Bot'
 
 const TestingMiniBot = ({ workflow }) => {
     const pusher = new Pusher("1fc282a0eb5e42789c23", {
@@ -101,7 +101,7 @@ const TestingMiniBot = ({ workflow }) => {
     const [currentBotId, setCurrentBotId] = useState('')
 
     const getActiveBots = async () => {
-        await getBotAllData().then(res => { if (res?.results) setAllActiveBots(res.results) })
+        await getAllActiveBots().then(res => { if (res?.results) setAllActiveBots(res.results) })
     }
 
     const getTestingBot = () => {

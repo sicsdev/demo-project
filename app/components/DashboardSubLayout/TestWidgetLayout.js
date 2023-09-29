@@ -31,6 +31,7 @@ const TestWidgetLayout = () => {
             <button
                 onClick={() => setShowTestBot(!showTestBot)}
                 className={`fixed bottom-3 right-3 m-auto rounded-xl pointer z-100`}
+                style={{ zIndex: '9999999' }}
             >
                 <div class="p-3 bg-primary rounded-full">
                     {showTestBot ?
@@ -49,7 +50,7 @@ const TestWidgetLayout = () => {
                         )
                     }
                 </div>
-            </button>
+            </button >
 
 
         </>
