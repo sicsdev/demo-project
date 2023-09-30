@@ -292,7 +292,7 @@ const ManageFaqs = ({ questions }) => {
                                                 type={"text"}
                                                 id={"negative_answer"}
 
-                                                placeholder={negativeQuestions.length === 0 ? "you don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
+                                                placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
                                                 rows={'5'}
                                                 onChange={(e) => setSelected((prev) => {
                                                     return {
