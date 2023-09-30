@@ -744,7 +744,7 @@ const GetStarted = () => {
                   className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 2 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
                   aria-current="page"
                 >
-                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Keywords
+                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Search Terms
                 </span>
               </li>
             </ul>
@@ -903,17 +903,20 @@ const GetStarted = () => {
           )}
 
           {tab === 1 && (
-            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
               <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} />
             </div>
           )}
           {tab === 2 && (
-            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
+
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
+              <h1 className="font-semibold my-2 text-heading text-sm">Description</h1>
+         
               <>
                 {showAdd && (
                   <div className='my-8'>
                     <TextArea name="negative_answer"
-                      className="py-2"
+                      className="py-2 tbsearchbar"
                       type={"text"}
                       id={"negative_answer"}
                       placeholder={negativeQuestions.length === 0 ? "you don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
