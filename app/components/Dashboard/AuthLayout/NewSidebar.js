@@ -489,6 +489,7 @@ const NewSidebar = ({ children }) => {
                                     <div className="rounded-lg cursor-pointer my-2" >
                                         <div className={`flex items-center hover:bg-[#323B41]  rounded-t-lg p-2 ${pathname.includes(ele.href) ? "bg-[#323B41]" : "text-[#cfdae2cc]"}`} onClick={() => {
                                             router.push(ele.target)
+                                             handlerclosemenu(ele.target)
                                         }}>
                                             <div className="relative">
                                                 {ele.icon}
