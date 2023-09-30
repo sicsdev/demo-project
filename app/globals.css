@@ -1561,11 +1561,12 @@ body .rdt_Pagination select:focus {
 body .rdt_Pagination select {
   border: 1px solid transparent !important;
 }
-body .rdt_Pagination select{
-	border: 1px solid transparent !important;
+
+body .rdt_Pagination select {
+  border: 1px solid transparent !important;
 }
 
-.data-table-class{
+.data-table-class {
   min-height: 50vh !important;
 }
 .basic-knowledge .rdt_TableRow{
@@ -1573,3 +1574,18 @@ body .rdt_Pagination select{
    height: 55px !important;
 }
 .tbsearchbar::-webkit-input-placeholder { padding-top: 5px;}
+
+
+.testbotwidget {
+  bottom: 75px;
+  right: 20px;
+}
+
+@media (max-width: 768px) {
+  .testbotwidget {
+    bottom: 0px;
+    right: 0px;
+    top: 0px;
+    left: 0px;
+  } 
+}
