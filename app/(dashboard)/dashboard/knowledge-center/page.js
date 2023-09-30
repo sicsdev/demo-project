@@ -4,7 +4,7 @@ import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIco
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
-import { GetAllRecommendations, excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { GetAllRecommendations, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,7 @@ const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
+    const [explandLoader, setExplandLoader] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
     const [pageVal, setPageVal] = useState(1);
@@ -46,6 +47,7 @@ const Page = () => {
     const [workflowView, setWorkflowView] = useState(null)
     const [show, setShow] = useState(null)
     const [knowledgeId, setKnowledgeId] = useState(null)
+    const [mode, setMode] = useState('normal')
     const [answer, setAnswer] = useState('')
     const [workFlowData, setWorkFlowData] = useState({
         name: "",
@@ -395,6 +397,27 @@ const Page = () => {
             updateButtonHandler(workflowView.id)
         }
     }
+
+    const SubmitTheFormExpand = async () => {
+        setExplandLoader(true)
+        let payload = {
+            question: workflowView?.question,
+            answer: answer
+        }
+        const resposne = await expandRecommendationRecord(payload)
+        if (resposne.status === 200 || resposne.status === 201) {
+            setUpdateLoader(false)
+            setUpdateLoader1(false)
+            setWorkflowView(null)
+            setKnowledgeId(null)
+            setMode('normal')
+            setExplandLoader(false)
+            dispatch(fetchRecommendation());
+        } else {
+            setExplandLoader(false)
+        }
+    }
+
     const SubmitTheAnswerForm = (new_answer) => {
         setUpdateLoader1(true)
         if (knowledgeId) {
@@ -669,7 +692,7 @@ const Page = () => {
                                             <>
                                                 {subQuestions.length > 0 && (
                                                     <>
-                                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                        <div className={`bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                             <ul className="text-start py-2 text-sm text-gray-700 ">
                                                                 <h1 className="text-xs font-semibold">Recommended Answer:</h1>
                                                                 {subQuestions.slice(0, 1).map((element, key) =>
@@ -678,10 +701,11 @@ const Page = () => {
                                                                         <p className="text-xs font-semibold">{element.data.question}</p>
 
                                                                         <p className="text-xs  mt-2">{element.data.answer}</p>
-                                                                        <div className='mt-2'>
+                                                                        <div className='mt-6'>
                                                                             <div className="flex justify-between items-center gap-2">
                                                                                 <div onClick={() => {
                                                                                     setAnswer(element.data.answer)
+                                                                                    setMode('normal')
                                                                                 }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
 
                                                                                     <button
@@ -692,12 +716,9 @@ const Page = () => {
                                                                                         <small className=''>Edit</small>
                                                                                     </button>
                                                                                 </div>
-                                                                                <div onClick={(e) => {
-                                                                                    if (updateLoader1) {
-                                                                                    } else {
-                                                                                        SubmitTheAnswerForm(element.data.answer)
-                                                                                    }
-
+                                                                                <div onClick={() => {
+                                                                                    setAnswer(element.data.answer)
+                                                                                    setMode('normal')
                                                                                 }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                                                                                     <button
                                                                                         type={"submit"}
@@ -737,7 +758,8 @@ const Page = () => {
                                             <ul className="py-2 text-sm text-gray-700 ">
                                                 {questionData.map((element, key) =>
                                                     <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
-                                                        searchMatched(element)
+                                                        setAnswer(element.answer)
+                                                        setKnowledgeId(element)
 
                                                     }}>
                                                         <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
@@ -754,7 +776,6 @@ const Page = () => {
                                             <>
                                                 <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
                                                     <p className="text-xs">{knowledgeId.question}</p>
-
                                                 </div>
 
                                             </>
@@ -766,15 +787,32 @@ const Page = () => {
                                                 id={"answer"}
                                                 placeholder={""}
                                                 rows="8"
-                                                onChange={(e) => setAnswer(e.target.value)}
+                                                onChange={(e) => {
+                                                    if (e.target.value.length === 1) {
+                                                        setMode("expand")
+                                                    } else if (e.target.value.length === 0) {
+                                                        setMode("normal")
+                                                    }
+                                                    setAnswer(e.target.value)
+                                                }}
                                                 value={answer} />
                                         </div>
-                                        <button
-                                            onClick={(e) => SubmitTheForm()}
-                                            type="button"
-                                            className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
-                                            {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
-                                        </button>
+                                        <div className="flex justify-between items-center gap-2">
+                                            <button
+                                                onClick={(e) => SubmitTheForm()}
+                                                type="button"
+                                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
+                                                {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
+                                            </button>
+                                            {mode === 'expand' && (
+                                                <button
+                                                    onClick={(e) => SubmitTheFormExpand()}
+                                                    type="button"
+                                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || explandLoader}>
+                                                    {explandLoader ? "Loading..." : "Expand Answer"}
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
 
                                 </div>
@@ -858,20 +896,25 @@ const Page = () => {
                                     <div className={` bg-[#F8F8F8] my-4`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
                                             {workFlowData.workflow.length > 0 && workFlowData.workflow.map((ele, key) =>
-                                                <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
-                                                    setWorkFlowData((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            workflowValue: ele,
-                                                            showInput: false,
-                                                            target: 'workflow',
-                                                            answer: ele.description.join('\n')
-                                                        }
-                                                    })
-                                                }}>
-                                                    <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
-                                                </li>
+                                                <>
+                                                    {workFlowData.reccomodation.find((x) => x.data.name === ele.name) ? null :
+                                                        <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
+                                                            setWorkFlowData((prev) => {
+                                                                return {
+                                                                    ...prev,
+                                                                    workflowValue: ele,
+                                                                    showInput: false,
+                                                                    target: 'workflow',
+                                                                    answer: ele.description.join('\n')
+                                                                }
+                                                            })
+                                                        }}>
+                                                            <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
+                                                        </li>
+                                                    }
+                                                </>
                                             )}
+
                                             <li className={`${"Human Handoff" === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} onClick={() => {
                                                 setWorkFlowData((prev) => {
                                                     return {

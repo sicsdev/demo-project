@@ -9,6 +9,7 @@ import { errorMessage, successMessage } from '@/app/components/Messages/Messages
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
 import { AdjustmentsHorizontalIcon, BoltIcon, ChatBubbleLeftIcon, QrCodeIcon } from '@heroicons/react/24/outline'
+import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
@@ -21,7 +22,8 @@ const page = () => {
     const state = useSelector((state) => state.botId);
     const [selectedBot, setSelectedBot] = useState('Select');
     const dispatch = useDispatch();
-
+    const searchParams = useSearchParams()
+    const search = searchParams.get('id')
     useEffect(() => {
         if (state.botData.data === null) {
             dispatch(fetchBot());
@@ -30,6 +32,8 @@ const page = () => {
             getAllBots();
         }
     }, [state.botData.data]);
+
+
 
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
@@ -70,8 +74,13 @@ const page = () => {
             };
         });
         setBotValue(mergedArray);
-        setSelectedBot(mergedArray[0].value)
-        getBotInfo(mergedArray[0].value);
+        if (search) {
+            selectBotHandler(search)
+
+        } else {
+            setSelectedBot(mergedArray[0].value)
+            getBotInfo(mergedArray[0].value);
+        }
     };
 
     const selectBotHandler = (id) => {
