@@ -222,7 +222,7 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5">
+            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:max-w-[750px]">
                 {
                     pageSubLoading ?
                         <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
@@ -231,7 +231,7 @@ const page = () => {
                             </div>
                             <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
                                 <SkeletonLoader count={1} height={35} width={100} />
-                                <SkeletonLoader count={1} height={35} width={100} />
+                                {/* <SkeletonLoader count={1} height={35} width={100} /> */}
                             </div>
                         </div>
                         :

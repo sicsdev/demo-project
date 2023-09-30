@@ -41,6 +41,15 @@ export const excludeRecommendationRecord = async (id) => {
         return error
     }
 };
+export const expandRecommendationRecord = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/recommendations/expand-answer/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
 
 export const updateAnser = async (body, id) => {
     let config = returnConfig()

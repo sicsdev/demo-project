@@ -89,6 +89,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
+       
         },
         {
             name: "Actions",
@@ -123,6 +124,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
+            hide:"sm"
         },
         {
             name: "Actions",
@@ -151,9 +153,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                         >
                             <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
                         </button>}
+                        
 
                 </>
             ),
+            hide:"sm"
 
         },
 

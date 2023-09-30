@@ -89,7 +89,7 @@ const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
   return (
     <div className="w-full sm:w-[84.2%]">
       <div
-        className="border rounded px-2 border-gray-100"
+        className=" rounded border-gray-100"
         style={{ borderColor: "#80808080" }}
       >
         <CardElement

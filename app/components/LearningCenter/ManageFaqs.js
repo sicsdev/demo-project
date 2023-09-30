@@ -22,7 +22,7 @@ const ManageFaqs = ({ questions }) => {
     const [isEdit, setIsEdit] = useState(false);
     const dispatch = useDispatch();
     const [negativeQuestions, setNagetiveQuestions] = useState([])
-    const [negative, setNagetive] = useState(null)
+    const [negative, setNagetive] = useState(false)
     const [updateLoader, setUpdateLoader] = useState(false);
     const customStyles = {
         rows: {
@@ -125,6 +125,7 @@ const ManageFaqs = ({ questions }) => {
     const getNagetiveQuestions = async (id) => {
         const response = await getSingleNagetiveQuestionData(id)
         setNagetiveQuestions(response?.data)
+        setNagetive(false)
     }
     const deleteNegativeFaq = async (id) => {
         const response = await deleteNagetiveQuestionData(id)
@@ -182,7 +183,7 @@ const ManageFaqs = ({ questions }) => {
         }
     }
     return (
-        <div className="w-full mt-5">
+        <div className="w-full mt-5 basic-knowledge">
             <DataTable
                 title={''}
                 fixedHeader
@@ -223,6 +224,7 @@ const ManageFaqs = ({ questions }) => {
                                 </span>
                             </li>
                             <li className="mr-2" onClick={() => {
+                                setNagetive(true)
                                 getNagetiveQuestions(selected.id)
                                 setTab(1)
                             }}>
@@ -239,7 +241,7 @@ const ManageFaqs = ({ questions }) => {
                         <>
                             <div className='my-8'>
                                 <TextArea name="answer"
-                                    className="py-2"
+                                    className="py-2 "
                                     type={"text"}
                                     id={"answer"}
                                     placeholder={""}
@@ -252,67 +254,92 @@ const ManageFaqs = ({ questions }) => {
                                             }
                                         })}
                                     value={selected.answer} />
-                            </div>
                             <button
                                 onClick={(e) => updateFaq()}
                                 type="button"
                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
                                 {updateLoader ? "Loading..." : "Submit"}
                             </button>
+                            </div>
+
                         </>)}
                     {tab === 1 && (
                         <>
-                            {showAdd && (
-                                <div className='my-8'>
-                                    <TextArea name="negative_answer"
-                                        className="py-2"
-                                        type={"text"}
-                                        id={"negative_answer"}
+                            {negative ?
+                                <div className="mt-6">
+                                    <SkeletonLoader height={100} width={"100%"} />
+                                    <div className="mt-3">
+                                        <SkeletonLoader height={40} width={"10%"} />
+                                    </div>
 
-                                        placeholder={negativeQuestions.length === 0 ? "You don't have any negative keywords yet. Please enter your first keyword below to get started." : ""}
-                                        rows={'5'}
-                                        onChange={(e) => setSelected((prev) => {
-                                            return {
-                                                ...prev,
-                                                [e.target.name]: e.target.value
-                                            }
-                                        })}
-                                        value={selected.negative_answer} />
-                                    <button
-                                        onClick={(e) => addNewNagetiveFaq()}
-                                        type="button"
-                                        disabled={selected.negative_answer === "" || !selected.negative_answer || nLoading}
-                                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                        {nLoading ? 'Loading...' : isEdit ? "Edit" : "Submit"}
-                                    </button>
+                                    <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                        <div className="mt-1 flex items-center justify-between">
+                                            <SkeletonLoader height={15} width={500} />
+                                            <div className="flex items-center justify-between gap-2">
+                                                <SkeletonLoader height={25} width={25} />
+                                                <SkeletonLoader height={25} width={25} />
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            )}
-                            {negativeQuestions.length > 0 && (
-                                <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                    <ul className="text-start py-2 text-sm text-gray-700 ">
-                                        {negativeQuestions.map((element, key) =>
-                                            <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
-                                                <p className="text-xs">{makeCapital(element.search)}</p>
-                                                <div className='flex justify-start gap-4 items-center'>
-                                                    <PencilSquareIcon className="h-5 w-5" onClick={() => {
-                                                        setIsEdit(true)
-                                                        setSelected((prev) => {
-                                                            return {
-                                                                ...prev,
-                                                                negative_answer: element.search,
-                                                                negative_id: element.id,
-                                                                index: key
-                                                            }
-                                                        })
-                                                    }} />
-                                                    <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
-                                                </div>
-                                            </li>
-                                        )}
-                                    </ul>
-                                </div>
-                            )}
-                        </>)}
+                                :
+                                <>
+                                    {showAdd && (
+                                        <div className='my-8'>
+                                            <TextArea name="negative_answer"
+                                                className="py-2"
+                                                type={"text"}
+                                                id={"negative_answer"}
+
+                                                placeholder={negativeQuestions.length === 0 ? "you don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
+                                                rows={'5'}
+                                                onChange={(e) => setSelected((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        [e.target.name]: e.target.value
+                                                    }
+                                                })}
+                                                value={selected.negative_answer} />
+                                            <button
+                                                onClick={(e) => addNewNagetiveFaq()}
+                                                type="button"
+                                                disabled={selected.negative_answer === "" || !selected.negative_answer || nLoading}
+                                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                                {nLoading ? 'Loading...' : isEdit ? "Edit" : "Submit"}
+                                            </button>
+                                        </div>
+                                    )}
+                                    {negativeQuestions.length > 0 && (
+                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                            <ul className="text-start py-2 text-sm text-gray-700 ">
+                                                {negativeQuestions.map((element, key) =>
+                                                    <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
+                                                        <p className="text-xs">{element.search}</p>
+                                                        <div className='flex justify-start gap-4 items-center'>
+                                                            <PencilSquareIcon className="h-5 w-5" onClick={() => {
+                                                                setIsEdit(true)
+                                                                setSelected((prev) => {
+                                                                    return {
+                                                                        ...prev,
+                                                                        negative_answer: element.search,
+                                                                        negative_id: element.id,
+                                                                        index: key
+                                                                    }
+                                                                })
+                                                            }} />
+                                                            <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
+                                                        </div>
+                                                    </li>
+                                                )}
+                                            </ul>
+                                        </div>
+                                    )}
+                                </>}
+                        </>
+
+
+                    )}
                 </SideModal>
             )}
         </div>

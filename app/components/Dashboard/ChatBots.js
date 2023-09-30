@@ -102,7 +102,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                             <div className="flex items-start sm:items-center  gap-2">
                                 <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
-                                    {totalRecords?.length > 1 ? 'Install Widget(s)' : 'Install Widget'}
+                                    {totalRecords?.length > 1 ? 'Install Widgets' : 'Install Widget'}
                                 </p>
                             </div>
                             <div className="flex items-center gap-4 ">

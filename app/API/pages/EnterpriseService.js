@@ -73,3 +73,15 @@ export const addNewDomain = async (body) => {
 };
 
 
+export const ManageExpand = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/accounts/users/`, body, config);
+        console.log(response)
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
+

@@ -71,7 +71,7 @@ const Logs = () => {
       minWidth: "50px",
     },
     {
-      name: <p className=" whitespace-break-spaces text-xs">Created At</p>,
+      name: <p className=" whitespace-break-spaces text-xs">Created</p>,
       selector: (row) => row.created,
       sortable: true,
       reorder: false,
@@ -99,6 +99,7 @@ const Logs = () => {
       sortable: false,
       reorder: false,
       minWidth: "50px",
+      hide:"sm"
     },
   ];
   const dispatch = useDispatch();
@@ -358,7 +359,7 @@ const Logs = () => {
           sortDirection === "asc"
             ? "-number_of_messages"
             : "number_of_messages";
-      } else if (column?.name?.props.children === "Created At") {
+      } else if (column?.name?.props.children === "Created") {
         setLoading(true);
 
         orderBy = sortDirection === "asc" ? "-created" : "created";
@@ -866,7 +867,7 @@ const Logs = () => {
                   <thead>
                     <tr className="table100-head">
                       <th className="column1  text-xs">Number of Messages</th>
-                      <th className="column2  text-xs">Created At</th>
+                      <th className="column2  text-xs">Created</th>
                       <th className="column3  text-xs">Workflow Triggered</th>
                       <th className="column4  text-xs">Escalated to Human</th>
 
