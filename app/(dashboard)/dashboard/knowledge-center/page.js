@@ -408,11 +408,9 @@ const Page = () => {
         if (resposne.status === 200 || resposne.status === 201) {
             setUpdateLoader(false)
             setUpdateLoader1(false)
-            setWorkflowView(null)
-            setKnowledgeId(null)
-            setMode('normal')
             setExplandLoader(false)
-            dispatch(fetchRecommendation());
+            setAnswer(resposne.data.answer)
+            setMode("normal")
         } else {
             setExplandLoader(false)
         }
