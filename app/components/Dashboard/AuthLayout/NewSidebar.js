@@ -127,6 +127,7 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard",
                     name: "Home",
                     icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 }
             ],
             isLink: false
@@ -142,11 +143,13 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/workflow/integrations",
                     name: "Integrations",
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
                 {
                     href: "/dashboard/workflow/workflow-builder",
                     name: "Workflows",
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
             ],
         },
@@ -157,45 +160,34 @@ const NewSidebar = ({ children }) => {
             isLink: false,
             list: [
                 {
-                    href: "/dashboard/knowledge-center",
-                    name: "Learning Center",
-                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                    notification: recommedState?.data?.count,
-                },
-                {
                     href: "/dashboard/basic-knowledge",
+                    target: "/dashboard/basic-knowledge/source",
                     name: "Knowledge Base",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: true,
+                    list: [
+                        {
+                            href: "/dashboard/basic-knowledge/source",
+                            name: "Sources",
+                            icon: <BookOpenIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                        {
+                            href: "/dashboard/basic-knowledge/questions",
+                            name: "Questions",
+                            icon: <BriefcaseIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                    ]
+                },
+                {
+                    href: "/dashboard/knowledge-center",
+                    name: "Learning Center",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    notification: recommedState?.data?.count,
+                    isLink: false,
                 },
             ],
 
         },
-        // {
-        //     href: "/dashboard/chat-bots",
-        //     name: "Tempo Chat",
-        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-        //     isLink: false,
-        //     list: [
-        //         {
-        //             href: "/dashboard/chat-bots",
-        //             name: "Agents",
-        //             icon: <AdjustmentsHorizontalIcon className="h-6 w-6 text-gray-500" />,
-        //         }
-        //     ],
-        // },
-        // {
-        //     href: "/dashboard/smart-inbox/email-settings",
-        //     name: "Smart Inbox",
-        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-        //     isLink: false,
-        //     list: [
-        //         {
-        //             href: "/dashboard/smart-inbox/email-settings",
-        //             name: "Email Settings",
-        //             icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-        //         }
-        //     ],
-        // },
         {
             name: "Channels",
             href: "/dashboard/chat-bots",
@@ -206,32 +198,22 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/chat-settings",
                     name: "Chat",
                     icon: <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
                 {
                     href: "/dashboard/email-settings",
                     name: "Email",
                     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
-                {
-                    href: "/dashboard/manage-phones",
-                    name: "Phone",
-                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-                }
+                // {
+                //     href: "/dashboard/manage-phones",
+                //     name: "Phone",
+                //     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // }
             ],
         },
-        // {
-        //     href: "/dashboard/manage-phones",
-        //     name: "Smart IVR",
-        //     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-        //     isLink: false,
-        //     list: [
-        //         {
-        //             href: "/dashboard/manage-phones",
-        //             name: "Phone",
-        //             icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-        //         }
-        //     ],
-        // },
         {
             href: "/dashboard/analytics",
             name: "Logs",
@@ -242,6 +224,7 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/analytics",
                     name: "Logs",
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 }
             ],
         },
@@ -255,16 +238,19 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/billing/usage",
                     name: "Usage",
                     icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
                 {
                     href: "/dashboard/billing/settings",
                     name: "Billing",
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
                 {
                     href: "/dashboard/scheduling-settings",
                     name: "Scheduling",
                     icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
             ],
         },
@@ -274,20 +260,169 @@ const NewSidebar = ({ children }) => {
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
-                // {
-                //     href: "/",
-                //     name: "Company Details",
-                //     icon: <BuildingOffice2Icon className="h-6 w-6 text-gray-500" />,
-                // },
                 {
                     href: "/dashboard/members",
                     name: "Team",
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 },
                 {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
+            ],
+        }
+    ];
+    const SideBarRoutes2 = [
+        {
+            href: "/dashboard",
+            name: "",
+            icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+            list: [
+                {
+                    href: "/dashboard",
+                    name: "Home",
+                    icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
+            ],
+            isLink: false
+        },
+        {
+            // href: "",
+            href: workflowLinkHandler('/dashboard/workflow/integrations'),
+            name: "Workflow Builder",
+            icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/workflow/integrations",
+                    name: "Integrations",
+                    icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+            ],
+        },
+        {
+            href: "/dashboard/knowledge-center",
+            name: "Learning Center",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/basic-knowledge",
+                    target: "/dashboard/basic-knowledge/source",
+                    name: "Knowledge Base",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: true,
+                    list: [
+                        {
+                            href: "/dashboard/basic-knowledge/source",
+                            name: "Sources",
+                            icon: <BookOpenIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                        {
+                            href: "/dashboard/basic-knowledge/questions",
+                            name: "Questions",
+                            icon: <BriefcaseIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                    ]
+                },
+                {
+                    href: "/dashboard/knowledge-center",
+                    name: "Learning Center",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    notification: recommedState?.data?.count,
+                    isLink: false,
+                },
+            ],
+
+        },
+        {
+            name: "Channels",
+            href: "/dashboard/chat-bots",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/chat-settings",
+                    name: "Chat",
+                    icon: <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/email-settings",
+                    name: "Email",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                // {
+                //     href: "/dashboard/manage-phones",
+                //     name: "Phone",
+                //     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // }
+            ],
+        },
+        {
+            href: "/dashboard/analytics",
+            name: "Logs",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/analytics",
+                    name: "Logs",
+                    icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
+            ],
+        },
+        {
+            href: "/dashboard/billing/usage",
+            name: "Billing",
+            isLink: false,
+            icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+            list: [
+                {
+                    href: "/dashboard/billing/usage",
+                    name: "Usage",
+                    icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/billing/settings",
+                    name: "Billing",
+                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/scheduling-settings",
+                    name: "Scheduling",
+                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+            ],
+        },
+        {
+            href: "/dashboard/members",
+            name: "Organization Settings",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/members",
+                    name: "Team",
+                    icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "https://docs.usetempo.ai/reference",
+                    name: "API References",
+                    icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
                 }
             ],
         }
@@ -344,50 +479,120 @@ const NewSidebar = ({ children }) => {
             return (
                 <li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                     }`}>
-                    {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1">{element?.name}</p>)}
+                    {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1" >{element?.name}</p>)}
                     <ul className="pt-1 rounded-lg">
                         {element.list.map((ele, key) => (
-                            <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
-                                }`}>
-                                {ele.name === 'API References'
-                                    ? <Link
-                                        href={ele.href}
-                                        onClick={() => handlerclosemenu(ele.href)}
-                                        className={`p-2 flex items-center`}
-                                        target="_blank"
-                                    >
-                                        {ele.icon}
-                                        {!collaps && (
-                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                {ele.name}
-                                            </span>
-                                        )}
-                                    </Link>
-                                    : <Link
-                                        href={ele.href}
-                                        onClick={() => handlerclosemenu(ele.href)}
-                                        className={`p-2 flex items-center`}
-                                    >
-                                        <div class="relative">
-                                            {ele.icon}
-                                            {ele.notification !== 0 && (
-                                                <span
-                                                    style={{ fontSize: "10px" }}
-                                                    className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                >
-                                                    {ele.notification}
+                            <>
+
+                                {ele.isLink === true ?
+
+                                    <div className="rounded-lg cursor-pointer my-2" >
+                                        <div className={`flex items-center hover:bg-[#323B41]  rounded-t-lg p-2 ${pathname.includes(ele.href) ? "bg-[#323B41]" : "text-[#cfdae2cc]"}`} onClick={() => {
+                                            router.push(ele.target)
+                                        }}>
+                                            <div className="relative">
+                                                {ele.icon}
+                                                {ele.notification !== 0 && (
+                                                    <span
+                                                        style={{ fontSize: "10px" }}
+                                                        className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                    >
+                                                        {ele.notification}
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {!collaps && (
+                                                <span className={`flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out`}>
+                                                    {ele.name}
                                                 </span>
                                             )}
                                         </div>
-                                        {!collaps && (
-                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                {ele.name}
-                                            </span>
-                                        )}
-                                    </Link>
-                                }
+                                        {pathname.includes(ele.href) && (
+                                            <div className={`${!collaps && ("p-2")} bg-[#232D32]`}>
+                                                {ele.list.map((item, indexItem) =>
+                                                    <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                                        } mt-2`} >
+                                                        <>
 
-                            </li>
+                                                            <Link
+                                                                href={item.href}
+                                                                onClick={() => handlerclosemenu(item.href)}
+                                                                className={`p-2 flex items-center justify-center`}
+                                                            >
+                                                                <div class="relative">
+                                                                    {item.icon}
+                                                                    {item.notification !== 0 && (
+                                                                        <span
+                                                                            style={{ fontSize: "10px" }}
+                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                        >
+                                                                            {item.notification}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                {!collaps && (
+                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                        {item.name}
+                                                                    </span>
+                                                                )}
+                                                            </Link>
+
+                                                        </>
+                                                    </li>
+
+                                                )}
+                                            </div>
+                                        )}
+                                    </div>
+
+
+                                    :
+                                    <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                        }`}>
+                                        <>
+
+                                            {ele.name === 'API References'
+                                                ? <Link
+                                                    href={ele.href}
+                                                    onClick={() => handlerclosemenu(ele.href)}
+                                                    className={`p-2 flex items-center justify-center`}
+                                                    target="_blank"
+                                                >
+                                                    {ele.icon}
+                                                    {!collaps && (
+                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                            {ele.name}
+                                                        </span>
+                                                    )}
+                                                </Link>
+                                                :
+                                                <Link
+                                                    href={ele.href}
+                                                    onClick={() => handlerclosemenu(ele.href)}
+                                                    className={`p-2 flex items-center justify-center`}
+                                                >
+                                                    <div class="relative">
+                                                        {ele.icon}
+                                                        {ele.notification !== 0 && (
+                                                            <span
+                                                                style={{ fontSize: "10px" }}
+                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                            >
+                                                                {ele.notification}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                    {!collaps && (
+                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                            {ele.name}
+                                                        </span>
+                                                    )}
+                                                </Link>
+                                            }
+                                        </>
+                                    </li>
+                                }
+                            </>
                         ))}
                     </ul>
                 </li>
@@ -520,20 +725,40 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {SideBarRoutes.map((element, key) => (
-                                                    <li key={key}>
-                                                        <Link
-                                                            href={element.href}
-                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                            onClick={() => setIsOpen(false)}
-                                                        >
-                                                            {/* {element.icon} */}
-                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                {sendNames(element.name)}
-                                                            </span>
-                                                        </Link>
-                                                    </li>
-                                                ))}
+                                                {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                                    <>
+                                                        {SideBarRoutes.map((element, key) => (
+                                                            <li key={key}>
+                                                                <Link
+                                                                    href={element.href}
+                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                >
+                                                                    {/* {element.icon} */}
+                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                        {sendNames(element.name)}
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                    </> :
+                                                    <>
+                                                        {SideBarRoutes2.map((element, key) => (
+                                                            <li key={key}>
+                                                                <Link
+                                                                    href={element.href}
+                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                >
+                                                                    {/* {element.icon} */}
+                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                        {sendNames(element.name)}
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                    </>
+                                                }
                                                 <li >
                                                     <Link
                                                         href={'/dashboard/api-keys'}
@@ -618,9 +843,20 @@ const NewSidebar = ({ children }) => {
                                         </li>
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
-                                        {SideBarRoutes.map((element, key) =>
-                                            sendSideBarDetails(element, key)
-                                        )}
+
+                                        {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                            <>
+                                                {SideBarRoutes.map((element, key) =>
+                                                    sendSideBarDetails(element, key)
+                                                )}
+                                            </> :
+                                            <>
+                                                {SideBarRoutes2.map((element, key) =>
+                                                    sendSideBarDetails(element, key)
+                                                )}
+                                            </>
+                                        }
+
                                     </ul>
                                     <p className="mb-[40px]"></p>
                                 </>
@@ -752,10 +988,18 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-
-                                    {SideBarRoutes.map((element, key) =>
-                                        sendSideBarDetails(element, key)
-                                    )}
+                                {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                            <>
+                                                {SideBarRoutes.map((element, key) =>
+                                                    sendSideBarDetails(element, key)
+                                                )}
+                                            </> :
+                                            <>
+                                                {SideBarRoutes2.map((element, key) =>
+                                                    sendSideBarDetails(element, key)
+                                                )}
+                                            </>
+                                        }
                                 </ul>
                             </>
                         )}
@@ -794,20 +1038,41 @@ const NewSidebar = ({ children }) => {
                                                         </li>
 
                                                         <hr className="text-border border-gray" />
-                                                        {SideBarRoutes.map((element, key) => (
-                                                            <li key={key}>
-                                                                <Link
-                                                                    href={element.href}
-                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                    onClick={() => setIsOpen(false)}
-                                                                >
-                                                                    {/* {element.icon} */}
-                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                        {sendNames(element.name)}
-                                                                    </span>
-                                                                </Link>
-                                                            </li>
-                                                        ))}
+
+                                                        {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                                            <>
+                                                                {SideBarRoutes.map((element, key) => (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </> :
+                                                            <>
+                                                                {SideBarRoutes2.map((element, key) => (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </>}
+
                                                         <li >
                                                             <Link
                                                                 href={'/dashboard/api-keys'}
@@ -884,7 +1149,7 @@ const NewSidebar = ({ children }) => {
                 </aside>
 
                 <div className={`${collaps ? 'pt-2 sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
-                    <div className="bg-[#FCFCFC] p-4 rounded-tl-lg">
+                    <div className="bg-white p-4 rounded-tl-lg">
 
                         {children}
                     </div>

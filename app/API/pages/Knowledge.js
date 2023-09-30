@@ -12,6 +12,16 @@ export const getKnowledgeData = async () => {
     }
 };
 
+export const searchKnowledgeData = async (query) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/knowledge/?${query}`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
 export const createNewKnowledge = async (body) => {
     let config = returnConfig()
     try {
@@ -117,3 +127,4 @@ export const rateFaqNegative = async (body) => {
         return error
     }
 };
+

@@ -35,14 +35,16 @@ import {
     ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import ChatBots from './ChatBots';
+import { ManageExpand } from '@/app/API/pages/EnterpriseService';
 const QuickStart = () => {
-    const [isExpand, setIsExpand] = useState(true);
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
+
+    const [isExpand, setIsExpand] = useState(true);
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
@@ -229,6 +231,18 @@ const QuickStart = () => {
         }
         return <CheckBadgeIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />
     }
+
+    const ExpandChange = async () => {
+        setIsExpand(!isExpand)
+        const response = await ManageExpand({ show_quick_start: !isExpand })
+
+    }
+
+    useEffect(() => {
+        if (user) {
+            setIsExpand(user?.show_quick_start)
+        }
+    }, [user])
     return (
         <>
 
@@ -291,7 +305,7 @@ const QuickStart = () => {
                         </div>
                     </div>
                     <div className="bg-[#F8F8F8]  w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                    <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
                             <div className='flex items-center justify-center gap-2'>
                                 <SkeletonLoader count={1} height={40} width={100} />
                             </div>
@@ -374,7 +388,7 @@ const QuickStart = () => {
 
                                     className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
 
-                                    onClick={(e) => setIsExpand(!isExpand)}
+                                    onClick={(e) => ExpandChange()}
 
                                 >
 
