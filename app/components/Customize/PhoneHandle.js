@@ -166,7 +166,8 @@ const PhoneHandle = () => {
                 {
                     active: basicField.checked ?? false,
                     bots: basicFormData.map((formDataItem) => {
-                        if (formDataItem.audio !== null) {
+                        if (formDataItem.audio !== null && formDataItem?.audio?.trim() !== '' &&
+                            formDataItem?.audio?.includes('https') === false) {
                             return {
                                 bot: formDataItem.bots,
                                 option: basicField.checked ? formDataItem.options : 0,
@@ -785,7 +786,7 @@ const PhoneHandle = () => {
                                         <Button
                                             type={"button"}
                                             className="mt-2 inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                            disabled={basicField?.audio === null || greetingLoading === true}
+                                            disabled={basicField?.audio === null || greetingLoading === true || basicField?.audio.includes("https") === true}
                                             onClick={() => SubmitForm('audio')}
                                         >
                                             {greetingLoading ? "Loading..." : "Set as greeting message"}
