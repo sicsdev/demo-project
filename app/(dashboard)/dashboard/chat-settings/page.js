@@ -100,7 +100,6 @@ const page = () => {
             'description',
             'customer_service_email',
             'chat_default_message',
-            'customer_service_phone'
         ];
         return checkFormData(tab0Keys) || (!basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0);
     }
