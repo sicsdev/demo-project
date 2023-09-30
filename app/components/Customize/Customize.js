@@ -622,21 +622,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     /> */}
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Customer Service Phone</span>
-                  </div>
-                  <div className="flex justify-start w-1/2">
-                    <input
-                      onChange={handleInputChange}
-                      name="customer_service_phone"
-                      value={preferences.customer_service_phone}
-                      type="text"
-                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                      placeholder="Enter customer service phone"
-                    />
-                  </div>
-                </div>
+                
                 <div className={`flex w-full mt-2 gap-2 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Prompts</span>

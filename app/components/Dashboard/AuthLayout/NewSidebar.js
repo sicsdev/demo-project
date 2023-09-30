@@ -206,12 +206,12 @@ const NewSidebar = ({ children }) => {
                     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                // {
-                //     href: "/dashboard/manage-phones",
-                //     name: "Phone",
-                //     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // }
+                {
+                    href: "/dashboard/manage-phones",
+                    name: "Phone",
+                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
             ],
         },
         {
@@ -988,18 +988,18 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
-                                            <>
-                                                {SideBarRoutes.map((element, key) =>
-                                                    sendSideBarDetails(element, key)
-                                                )}
-                                            </> :
-                                            <>
-                                                {SideBarRoutes2.map((element, key) =>
-                                                    sendSideBarDetails(element, key)
-                                                )}
-                                            </>
-                                        }
+                                    {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                        <>
+                                            {SideBarRoutes.map((element, key) =>
+                                                sendSideBarDetails(element, key)
+                                            )}
+                                        </> :
+                                        <>
+                                            {SideBarRoutes2.map((element, key) =>
+                                                sendSideBarDetails(element, key)
+                                            )}
+                                        </>
+                                    }
                                 </ul>
                             </>
                         )}
