@@ -132,10 +132,10 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                                         <td className="w-[30%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.name}
                                                         </td>
-                                                        <td className="px-6 py-4 font-medium text-xs  break-all ">
+                                                        <td className="w-[50%] px-6 py-4 font-medium text-xs  break-all ">
                                                             {item?.value}
                                                         </td>
-                                                        <td className="px-6 py-4 font-medium text-xs  break-all">
+                                                        <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.record_type}
                                                         </td>
                                                         <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
