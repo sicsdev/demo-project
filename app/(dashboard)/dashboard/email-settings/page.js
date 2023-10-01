@@ -336,7 +336,7 @@ const page = () => {
                             </div>
                         </>
                         <div className='px-6'>
-                            {user && user?.enterprise?.slug_domain === '' && (
+                            {user && user?.enterprise?.domain === '' && (
                                 <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                             )}
                             <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />

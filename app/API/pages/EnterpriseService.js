@@ -19,7 +19,6 @@ export const enterpriseDomainInitialize = async (body) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/accounts/enterprises/domains/`, body, config);
-        console.log(response)
         return response;
     } catch (error) {
         return error

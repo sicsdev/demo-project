@@ -55,7 +55,7 @@ const Embed = ({ form = true,  setTotalRecords }) => {
         };
       });
       setDetailsData(mergedArray);
-      setTotalRecords(mergedArray)
+      // setTotalRecords(mergedArray)
     }
   }, [state.botData.data]);
   const getBotWidgetData = async () => {
