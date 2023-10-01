@@ -128,3 +128,13 @@ export const rateFaqNegative = async (body) => {
     }
 };
 
+export const uploadAttachment = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/knowledge/attachments/images/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+

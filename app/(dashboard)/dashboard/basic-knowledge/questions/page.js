@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, PencilIcon, PencilSquareIcon, QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -107,7 +107,7 @@ const Page = () => {
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Questions`} icon={<PencilSquareIcon className="h-5 w-5 text-primary" />} />
+                <TopBar title={`Questions`} icon={<QuestionMarkCircleIcon className="h-5 w-5 text-primary" />} />
                 <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2'>
                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     <div className="relative w-full sm:w-[unset]">

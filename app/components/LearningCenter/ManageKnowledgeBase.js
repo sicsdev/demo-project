@@ -87,6 +87,19 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         }
     }
 
+    const getActiveCount = (data, type) => {
+        switch (type) {
+            case "FILE":
+                return data.filter((x) => x.source === 'file' && x.active == true)
+            case "EXTERNAL":
+                return data.filter((x) => x.source === 'external' && x.active == true)
+            case "SNIPPET":
+                return data.filter((x) => x.source === 'snippet' && x.active == true)
+            default:
+                return data
+        }
+    }
+
 
     const [file, setFile] = useState(null);
     const handleChange = (file) => {
@@ -399,17 +412,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
                                     <p className="text-xs font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
                                     <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
                                     <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'FILE').length}</p>
                                 </div>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, DocumentMagnifyingGlassIcon, PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -84,7 +84,7 @@ const Page = () => {
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Sources`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
+                <TopBar title={`Sources`} icon={<DocumentMagnifyingGlassIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <>
                         <div className="w-full">
