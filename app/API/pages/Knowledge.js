@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const getKnowledgeData = async () => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/knowledge/`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/knowledge?page_size=100`, config);
         return response;
     } catch (error) {
         return error
