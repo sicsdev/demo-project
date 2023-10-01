@@ -1569,11 +1569,15 @@ body .rdt_Pagination select {
 .data-table-class {
   min-height: 50vh !important;
 }
-.basic-knowledge .rdt_TableRow{
-   padding: 0 !important;
-   height: 55px !important;
+
+.basic-knowledge .rdt_TableRow {
+  padding: 0 !important;
+  height: 55px !important;
 }
-.tbsearchbar::-webkit-input-placeholder { padding-top: 5px;}
+
+.tbsearchbar::-webkit-input-placeholder {
+  padding-top: 5px;
+}
 
 
 .testbotwidget {
@@ -1587,5 +1591,44 @@ body .rdt_Pagination select {
     right: 0px;
     top: 0px;
     left: 0px;
-  } 
+  }
+}
+
+input[type=checkbox].custom-checkbox {
+  position: relative;
+  border: 2px solid blue;
+  border-radius: 2px;
+  background: none;
+  cursor: pointer;
+  line-height: 0;
+  outline: 0;
+  padding: 0 !important;
+  vertical-align: text-top;
+  height: 16px;
+  width: 16px;
+  -webkit-appearance: none;
+  opacity: .5;
+}
+
+input[type=checkbox].custom-checkbox:hover {
+  opacity: 1;
+}
+
+input[type=checkbox].custom-checkbox:checked {
+  background-color: blue;
+  opacity: 1;
+}
+
+input[type=checkbox].custom-checkbox:before {
+  content: '';
+  position: absolute;
+  right: 50%;
+  top: 50%;
+  width: 5px;
+  height: 9px;
+  border: solid #FFF;
+  border-width: 0 2px 2px 0;
+  margin: -1px -1px 0 -1px;
+  transform: rotate(45deg) translate(-50%, -50%);
+  z-index: 2;
 }

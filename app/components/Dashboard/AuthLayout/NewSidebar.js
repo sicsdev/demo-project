@@ -39,6 +39,8 @@ import {
     CalendarDaysIcon,
     InboxArrowDownIcon,
     ChatBubbleLeftIcon,
+    DocumentMagnifyingGlassIcon,
+    EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -47,11 +49,13 @@ import { ArrowSmallLeftIcon, ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleR
 import Loading from "../../Loading/Loading";
 import { makeCapital } from "../../helper/capitalName";
 import SkeletonLoader from "../../Skeleton/Skeleton";
+import { fetchBot } from "../../store/slices/botIdSlice";
 
 const NewSidebar = ({ children }) => {
     const state = useSelector((state) => state.user.data);
     const recommedState = useSelector((state) => state.recommendation);
     const workflowState = useSelector((state) => state.workflow);
+    const stateBots = useSelector((state) => state.botId);
     const [collaps, setCollaps] = useState(false)
 
     const dispatch = useDispatch();
@@ -74,6 +78,7 @@ const NewSidebar = ({ children }) => {
             dispatch(fetchRecommendation());
             dispatch(fetchIntegrations());
             dispatch(fetchWorkflows());
+            dispatch(fetchBot());
         }
     }, [state]);
 
@@ -169,19 +174,19 @@ const NewSidebar = ({ children }) => {
                         {
                             href: "/dashboard/basic-knowledge/source",
                             name: "Sources",
-                            icon: <BookOpenIcon className="h-5 w-5 text-gray-500" />,
+                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
                         {
                             href: "/dashboard/basic-knowledge/questions",
                             name: "Questions",
-                            icon: <BriefcaseIcon className="h-5 w-5 text-gray-500" />,
+                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
                         },
                     ]
                 },
                 {
                     href: "/dashboard/knowledge-center",
                     name: "Learning Center",
-                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                     notification: recommedState?.data?.count,
                     isLink: false,
                 },
@@ -203,7 +208,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/email-settings",
                     name: "Email",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
@@ -267,6 +272,12 @@ const NewSidebar = ({ children }) => {
                     isLink: false,
                 },
                 {
+                    href: "/dashboard/verify-email",
+                    name: "DNS Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
@@ -321,19 +332,19 @@ const NewSidebar = ({ children }) => {
                         {
                             href: "/dashboard/basic-knowledge/source",
                             name: "Sources",
-                            icon: <BookOpenIcon className="h-5 w-5 text-gray-500" />,
+                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
                         {
                             href: "/dashboard/basic-knowledge/questions",
                             name: "Questions",
-                            icon: <BriefcaseIcon className="h-5 w-5 text-gray-500" />,
+                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
                         },
                     ]
                 },
                 {
                     href: "/dashboard/knowledge-center",
                     name: "Learning Center",
-                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                     notification: recommedState?.data?.count,
                     isLink: false,
                 },
@@ -355,7 +366,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/email-settings",
                     name: "Email",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 // {
@@ -419,6 +430,12 @@ const NewSidebar = ({ children }) => {
                     isLink: false,
                 },
                 {
+                    href: "/dashboard/verify-email",
+                    name: "DNS Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
@@ -474,129 +491,135 @@ const NewSidebar = ({ children }) => {
         reader.readAsDataURL(file);
     };
 
+    const excludeMenuArrayList = ['Channels', 'Logs', 'Billing'];
+
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                <li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
-                    }`}>
-                    {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1" >{element?.name}</p>)}
-                    <ul className="pt-1 rounded-lg">
-                        {element.list.map((ele, key) => (
-                            <>
+                (excludeMenuArrayList?.includes(element.name) && (stateBots?.botData?.data?.bots?.length == 0 || stateBots?.botData?.data?.bots?.length == undefined)) ? ("") : (
+                    < li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
+                        }`
+                    }>
+                        {!collaps && (<p className="pl-2 text-white font-semibold text-xs mt-1" >{element?.name}</p>)
+                        }
+                        <ul className="pt-1 rounded-lg">
+                            {element.list.map((ele, key) => (
+                                <>
 
-                                {ele.isLink === true ?
+                                    {ele.isLink === true ?
 
-                                    <div className="rounded-lg cursor-pointer my-2" >
-                                        <div className={`flex items-center hover:bg-[#323B41]  rounded-t-lg p-2 ${pathname.includes(ele.href) ? "bg-[#323B41]" : "text-[#cfdae2cc]"}`} onClick={() => {
-                                            router.push(ele.target)
-                                             handlerclosemenu(ele.target)
-                                        }}>
-                                            <div className="relative">
-                                                {ele.icon}
-                                                {ele.notification !== 0 && (
-                                                    <span
-                                                        style={{ fontSize: "10px" }}
-                                                        className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                    >
-                                                        {ele.notification}
+                                        <div className="rounded-lg cursor-pointer my-2" >
+                                            <div className={`flex items-center hover:bg-[#323B41]  rounded-t-lg p-2 ${pathname.includes(ele.href) ? "bg-[#323B41]" : "text-[#cfdae2cc]"}`} onClick={() => {
+                                                router.push(ele.target)
+                                                handlerclosemenu(ele.target)
+                                            }}>
+                                                <div className="relative">
+                                                    {ele.icon}
+                                                    {ele.notification !== 0 && (
+                                                        <span
+                                                            style={{ fontSize: "10px" }}
+                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                        >
+                                                            {ele.notification}
+                                                        </span>
+                                                    )}
+                                                </div>
+                                                {!collaps && (
+                                                    <span className={`flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out`}>
+                                                        {ele.name}
                                                     </span>
                                                 )}
                                             </div>
-                                            {!collaps && (
-                                                <span className={`flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out`}>
-                                                    {ele.name}
-                                                </span>
-                                            )}
-                                        </div>
-                                        {pathname.includes(ele.href) && (
-                                            <div className={`${!collaps && ("p-2")} bg-[#232D32]`}>
-                                                {ele.list.map((item, indexItem) =>
-                                                    <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
-                                                        } mt-2`} >
-                                                        <>
+                                            {pathname.includes(ele.href) && (
+                                                <div className={`${!collaps && ("p-2")} bg-[#232D32]`}>
+                                                    {ele.list.map((item, indexItem) =>
+                                                        <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                                            } mt-2`} >
+                                                            <>
 
-                                                            <Link
-                                                                href={item.href}
-                                                                onClick={() => handlerclosemenu(item.href)}
-                                                                className={`p-2 flex items-center justify-center`}
-                                                            >
-                                                                <div class="relative">
-                                                                    {item.icon}
-                                                                    {item.notification !== 0 && (
-                                                                        <span
-                                                                            style={{ fontSize: "10px" }}
-                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                        >
-                                                                            {item.notification}
+                                                                <Link
+                                                                    href={item.href}
+                                                                    onClick={() => handlerclosemenu(item.href)}
+                                                                    className={`p-2 flex items-center justify-center`}
+                                                                >
+                                                                    <div class="relative">
+                                                                        {item.icon}
+                                                                        {item.notification !== 0 && (
+                                                                            <span
+                                                                                style={{ fontSize: "10px" }}
+                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                            >
+                                                                                {item.notification}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    {!collaps && (
+                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                            {item.name}
                                                                         </span>
                                                                     )}
-                                                                </div>
-                                                                {!collaps && (
-                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                        {item.name}
-                                                                    </span>
-                                                                )}
-                                                            </Link>
+                                                                </Link>
 
-                                                        </>
-                                                    </li>
+                                                            </>
+                                                        </li>
 
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-
-
-                                    :
-                                    <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
-                                        }`}>
-                                        <>
-
-                                            {ele.name === 'API References'
-                                                ? <Link
-                                                    href={ele.href}
-                                                    onClick={() => handlerclosemenu(ele.href)}
-                                                    className={`p-2 flex items-center justify-center`}
-                                                    target="_blank"
-                                                >
-                                                    {ele.icon}
-                                                    {!collaps && (
-                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                            {ele.name}
-                                                        </span>
                                                     )}
-                                                </Link>
-                                                :
-                                                <Link
-                                                    href={ele.href}
-                                                    onClick={() => handlerclosemenu(ele.href)}
-                                                    className={`p-2 flex items-center justify-center`}
-                                                >
-                                                    <div class="relative">
+                                                </div>
+                                            )}
+                                        </div>
+
+
+                                        :
+                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                            }`}>
+                                            <>
+
+                                                {ele.name === 'API References'
+                                                    ? <Link
+                                                        href={ele.href}
+                                                        onClick={() => handlerclosemenu(ele.href)}
+                                                        className={`p-2 flex items-center justify-center`}
+                                                        target="_blank"
+                                                    >
                                                         {ele.icon}
-                                                        {ele.notification !== 0 && (
-                                                            <span
-                                                                style={{ fontSize: "10px" }}
-                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                            >
-                                                                {ele.notification}
+                                                        {!collaps && (
+                                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                {ele.name}
                                                             </span>
                                                         )}
-                                                    </div>
-                                                    {!collaps && (
-                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                            {ele.name}
-                                                        </span>
-                                                    )}
-                                                </Link>
-                                            }
-                                        </>
-                                    </li>
-                                }
-                            </>
-                        ))}
-                    </ul>
-                </li>
+                                                    </Link>
+                                                    :
+                                                    <Link
+                                                        href={ele.href}
+                                                        onClick={() => handlerclosemenu(ele.href)}
+                                                        className={`p-2 flex items-center justify-center`}
+                                                    >
+                                                        <div class="relative">
+                                                            {ele.icon}
+                                                            {ele.notification !== 0 && (
+                                                                <span
+                                                                    style={{ fontSize: "10px" }}
+                                                                    className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                >
+                                                                    {ele.notification}
+                                                                </span>
+                                                            )}
+                                                        </div>
+                                                        {!collaps && (
+                                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                {ele.name}
+                                                            </span>
+                                                        )}
+                                                    </Link>
+                                                }
+                                            </>
+                                        </li>
+                                    }
+                                </>
+                            ))}
+                        </ul>
+                    </li >
+                )
             );
         }
         return (
@@ -726,7 +749,7 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                                {state && state?.email?.split("@")[1] === 'joinnextmed.com' ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             <li key={key}>
@@ -845,7 +868,7 @@ const NewSidebar = ({ children }) => {
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                        {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                        {state && state?.email?.split("@")[1] === 'joinnextmed.com' ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
                                                     sendSideBarDetails(element, key)
