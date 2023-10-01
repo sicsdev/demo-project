@@ -122,14 +122,14 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                                         <th scope="col" className="px-6 py-3 bg-[#E2E2E2] ml-2 border-l-2 border-white">
                                                             Type
                                                         </th>
-                                                        {/* <th scope="col" className="px-6 py-3 bg-[#E2E2E2] ml-2 border-l-2 border-white">
+                                                        <th scope="col" className="px-6 py-3 bg-[#E2E2E2] ml-2 border-l-2 border-white">
                                                             Priority
-                                                        </th> */}
+                                                        </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr className="w-full">
-                                                        <td className="w-[30%] px-6 py-4 font-medium text-xs  whitespace-nowrap">
+                                                        <td className="w-[30%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.name}
                                                         </td>
                                                         <td className="px-6 py-4 font-medium text-xs  break-all ">
@@ -138,9 +138,9 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                                         <td className="px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.record_type}
                                                         </td>
-                                                        {/* <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
+                                                        <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.priority}
-                                                        </td> */}
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>

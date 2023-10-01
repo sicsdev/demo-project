@@ -32,6 +32,7 @@ import { setViewed, getConversationDetails } from "@/app/API/pages/Logs";
 
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
+
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
     return inputDate.format("M/D/YY h:mm A");
@@ -99,7 +100,7 @@ const Logs = () => {
       sortable: false,
       reorder: false,
       minWidth: "50px",
-      hide:"sm"
+      hide: "sm"
     },
   ];
   const dispatch = useDispatch();
@@ -116,6 +117,7 @@ const Logs = () => {
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector((state) => state.workflow);
+  const userState = useSelector((state) => state.user.data);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
@@ -299,7 +301,7 @@ const Logs = () => {
       });
       setManageMessages(getAllIds);
       setTotalRows(data.count);
-      
+
       setConversationData(newdata);
       setLoading(false);
     } else {
@@ -559,11 +561,15 @@ const Logs = () => {
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.type || ""}
                   name="type"
-                  values={[
+                  values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
                     { name: "Select", value: "all" },
                     { name: "Chat", value: "chat" },
                     { name: "Email", value: "email" },
-                    { name: "Phone", value: "phone" },
+                    { name: "Phone", value: "phone" }
+                  ] : [
+                    { name: "Select", value: "all" },
+                    { name: "Chat", value: "chat" },
+                    { name: "Email", value: "email" },
                   ]}
                   title={
                     <h3 className="text-sm my-4 font-semibold">Channel</h3>
@@ -591,21 +597,23 @@ const Logs = () => {
                   showOption={false}
                 />
               </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.workflows || ""}
-                  name="workflows"
-                  values={userWorkFlows}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">Workflows</h3>
-                  }
-                  id={"workflows"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
+              {userWorkFlows?.length > 0 && (
+                <div className="mb-4 w-full">
+                  <SelectOption
+                    onChange={(e) => filterDataHandler(e)}
+                    value={selectedFilters.workflows || ""}
+                    name="workflows"
+                    values={userWorkFlows}
+                    title={
+                      <h3 className="text-sm my-4 font-semibold">Workflows</h3>
+                    }
+                    id={"workflows"}
+                    className="py-3"
+                    error={""}
+                    showOption={false}
+                  />
+                </div>
+              )}
               <div className="mb-4 w-full">
                 <SelectOption
                   onChange={(e) => filterDataHandler(e)}
