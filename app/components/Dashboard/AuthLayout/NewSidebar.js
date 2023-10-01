@@ -752,34 +752,38 @@ const NewSidebar = ({ children }) => {
                                                 {state && state?.email?.split("@")[1] === 'joinnextmed.com' ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
-                                                            <li key={key}>
-                                                                <Link
-                                                                    href={element.href}
-                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                    onClick={() => setIsOpen(false)}
-                                                                >
-                                                                    {/* {element.icon} */}
-                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                        {sendNames(element.name)}
-                                                                    </span>
-                                                                </Link>
-                                                            </li>
+                                                            element?.name !== "Channels" && (
+                                                                <li key={key}>
+                                                                    <Link
+                                                                        href={element.href}
+                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                        onClick={() => setIsOpen(false)}
+                                                                    >
+                                                                        {/* {element.icon} */}
+                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                            {sendNames(element.name)}
+                                                                        </span>
+                                                                    </Link>
+                                                                </li>
+                                                            )
                                                         ))}
                                                     </> :
                                                     <>
                                                         {SideBarRoutes2.map((element, key) => (
-                                                            <li key={key}>
-                                                                <Link
-                                                                    href={element.href}
-                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                    onClick={() => setIsOpen(false)}
-                                                                >
-                                                                    {/* {element.icon} */}
-                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                        {sendNames(element.name)}
-                                                                    </span>
-                                                                </Link>
-                                                            </li>
+                                                            element?.name !== "Channels" && (
+                                                                <li key={key}>
+                                                                    <Link
+                                                                        href={element.href}
+                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                        onClick={() => setIsOpen(false)}
+                                                                    >
+                                                                        {/* {element.icon} */}
+                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                            {sendNames(element.name)}
+                                                                        </span>
+                                                                    </Link>
+                                                                </li>
+                                                            )
                                                         ))}
                                                     </>
                                                 }
@@ -1065,49 +1069,52 @@ const NewSidebar = ({ children }) => {
                                                         {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
-                                                                    <li key={key}>
-                                                                        <Link
-                                                                            href={element.href}
-                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                            onClick={() => setIsOpen(false)}
-                                                                        >
-                                                                            {/* {element.icon} */}
-                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                                {sendNames(element.name)}
-                                                                            </span>
-                                                                        </Link>
-                                                                    </li>
+                                                                    element?.name !== "Channels" && (
+                                                                        <li key={key}>
+                                                                            <Link
+                                                                                href={element.href}
+                                                                                className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                                onClick={() => setIsOpen(false)}
+                                                                            >
+                                                                                {/* {element.icon} */}
+                                                                                <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                    {sendNames(element.name)}
+                                                                                </span>
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
                                                                 ))}
                                                             </> :
                                                             <>
                                                                 {SideBarRoutes2.map((element, key) => (
-                                                                    <li key={key}>
-                                                                        <Link
-                                                                            href={element.href}
-                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                            onClick={() => setIsOpen(false)}
-                                                                        >
-                                                                            {/* {element.icon} */}
-                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                                {sendNames(element.name)}
-                                                                            </span>
-                                                                        </Link>
-                                                                    </li>
+                                                                    element.name !== 'Channels' && (
+                                                                        <li key={key}>
+                                                                            <Link
+                                                                                href={element.href}
+                                                                                className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                                onClick={() => setIsOpen(false)}
+                                                                            >
+                                                                                {/* {element.icon} */}
+                                                                                <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                    {sendNames(element.name)}
+                                                                                </span>
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
                                                                 ))}
                                                             </>}
 
-                                                        <li >
+                                                        {/* <li >
                                                             <Link
                                                                 href={'/dashboard/api-keys'}
                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                 onClick={() => setIsOpen(false)}
                                                             >
-                                                                {/* {element.icon} */}
                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                     Keys
                                                                 </span>
                                                             </Link>
-                                                        </li>
+                                                        </li> */}
                                                         <hr className="text-border border-gray" />
                                                         <li className="p-2 relative hover:underline flex">
                                                             <input
