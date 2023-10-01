@@ -783,18 +783,17 @@ const NewSidebar = ({ children }) => {
                                                         ))}
                                                     </>
                                                 }
-                                                <li >
+                                                {/* <li >
                                                     <Link
                                                         href={'/dashboard/api-keys'}
                                                         className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                         onClick={() => setIsOpen(false)}
                                                     >
-                                                        {/* {element.icon} */}
                                                         <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                             Keys
                                                         </span>
                                                     </Link>
-                                                </li>
+                                                </li> */}
                                                 <hr className="text-border border-gray" />
                                                 <li className="p-2 relative hover:underline flex">
                                                     <input

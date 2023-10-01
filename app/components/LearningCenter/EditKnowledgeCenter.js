@@ -217,7 +217,7 @@ const EditKnowledgeCenter = ({
                     : "text-black bg-[#ececf1]"
                     } inline-block whitespace-nowrap rounded px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px] text-center`}
                 >
-                  {singleKnowledgeData.active ? "Active" : "Disable"}
+                  {singleKnowledgeData.active ? "Active" : "Disabled"}
                 </p>
               </div>
 
