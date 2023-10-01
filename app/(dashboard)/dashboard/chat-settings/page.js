@@ -156,7 +156,7 @@ const page = () => {
                             <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
                                 <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
-                                    Select Bot
+                                    {botValue?.length > 1 ? 'Edit Settings' : 'Select Bot'}
                                 </p>
                             </div>
                             <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
@@ -232,8 +232,8 @@ const page = () => {
                         </div>
                         :
                         <>
-                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            <div className='flex justify-end items-center px-6 py-4'>
+                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} buttonLoading={loading} DisablingButton={DisablingButton} SubmitForm={SubmitForm} />
+                            {/* <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
                                         <LoaderButton />
@@ -249,7 +249,7 @@ const page = () => {
                                             </Button>
                                         </>
                                     )}
-                            </div>
+                            </div> */}
                         </>
 
                     }
