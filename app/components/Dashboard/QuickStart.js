@@ -348,7 +348,7 @@ const QuickStart = () => {
 
 
 
-                                            
+
                                             <SkeletonLoader count={1} height={18} width={100} />
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
@@ -455,58 +455,61 @@ const QuickStart = () => {
 
                                                 {setHideShow(key) === true && (
 
-                                                    <div
+                                                    ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                        <div
 
-                                                        className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                                        key={key}
+                                                            key={key}
 
-                                                    >
+                                                        >
 
-                                                        <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                            <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
 
-                                                            <div className="flex gap-2  items-start">
+                                                                <div className="flex gap-2  items-start">
 
-                                                                <span>{ele?.icon}</span>
+                                                                    <span>{ele?.icon}</span>
 
-                                                                <div className="">
+                                                                    <div className="">
 
-                                                                    <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                                        {ele?.title}
+                                                                            {ele?.title}
 
-                                                                    </h3>
+                                                                        </h3>
 
-                                                                    <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                                        {ele?.content}
+                                                                            {ele?.content}
 
-                                                                    </p>
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+
+                                                                    <Link
+
+                                                                        href={ele?.link}
+
+                                                                        className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                    >
+                                                                        {ele?.buttonName}
+
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                    </Link>
 
                                                                 </div>
 
                                                             </div>
 
-                                                            <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
-
-                                                                <Link
-
-                                                                    href={ele?.link}
-
-                                                                    className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                >
-                                                                    {ele?.buttonName}
-
-                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                </Link>
-
-                                                            </div>
-
                                                         </div>
+                                                    )
 
-                                                    </div>
 
                                                 )}
 
@@ -540,60 +543,60 @@ const QuickStart = () => {
                                     <div>
 
                                         {setHideShow(key) === true && (
+                                            ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                <div
 
-                                            <div
+                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                    key={key}
 
-                                                key={key}
+                                                >
 
-                                            >
+                                                    <div className="px-6 sm:flex justify-between items-center sm:gap-0">
 
-                                                <div className="px-6 sm:flex justify-between items-center sm:gap-0">
+                                                        <div className="sm:w-[70%] flex gap-2  items-start">
 
-                                                    <div className="sm:w-[70%] flex gap-2  items-start">
+                                                            <span>{ele?.icon}</span>
 
-                                                        <span>{ele?.icon}</span>
+                                                            <div className="">
 
-                                                        <div className="">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    {ele?.title}
 
-                                                                {ele?.title}
+                                                                </h3>
 
-                                                            </h3>
+                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    {ele?.content}
 
-                                                                {ele?.content}
+                                                                </p>
 
-                                                            </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
+
+                                                            <Link
+
+                                                                href={ele?.link}
+
+                                                                className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                            >
+                                                                {ele?.buttonName}
+
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                            </Link>
 
                                                         </div>
 
                                                     </div>
 
-                                                    <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
-
-                                                        <Link
-
-                                                            href={ele?.link}
-
-                                                            className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                        >
-                                                            {ele?.buttonName}
-
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                        </Link>
-
-                                                    </div>
-
                                                 </div>
-
-                                            </div>
-
+                                            )
                                         )}
 
                                     </div>

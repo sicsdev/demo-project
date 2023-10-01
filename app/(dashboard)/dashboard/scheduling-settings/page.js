@@ -139,7 +139,7 @@ const page = () => {
                         </div>
                         <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
                             <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
-                                {botValue?.map((element, key) => (
+                                {botValue?.length > 1 && botValue?.map((element, key) => (
                                     <button
                                         onClick={(e) => selectBotHandler(element.value)}
                                         key={key}
