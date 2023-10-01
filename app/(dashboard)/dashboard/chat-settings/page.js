@@ -232,8 +232,8 @@ const page = () => {
                         </div>
                         :
                         <>
-                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            <div className='flex justify-end items-center px-6 py-4'>
+                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} buttonLoading={loading} DisablingButton={DisablingButton} SubmitForm={SubmitForm} />
+                            {/* <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
                                         <LoaderButton />
@@ -249,7 +249,7 @@ const page = () => {
                                             </Button>
                                         </>
                                     )}
-                            </div>
+                            </div> */}
                         </>
 
                     }
