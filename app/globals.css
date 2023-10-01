@@ -382,6 +382,7 @@ body .chip {
   justify-content: space-between;
   padding: 4px 7px;
   width: 100px;
+  text-wrap: wrap;
 }
 
 body .highlightOption {

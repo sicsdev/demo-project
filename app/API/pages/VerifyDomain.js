@@ -12,20 +12,10 @@ export const getEnterpriseDomains = async () => {
     }
 };
 
-export const searchKnowledgeData = async (query) => {
+export const verifyDomain = async (body) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/knowledge/?${query}`, config);
-        return response;
-    } catch (error) {
-        return error
-    }
-};
-
-export const createNewKnowledge = async (body) => {
-    let config = returnConfig()
-    try {
-        const response = await axios.post(`${API_URL}/api/v1/main/knowledge/`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/accounts/enterprises/domains/verify/`, body, config);
         return response;
     } catch (error) {
         return error
