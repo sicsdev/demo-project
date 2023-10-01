@@ -121,7 +121,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                 <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
-                    <SideModal setShow={setShowModal} heading={'Create New Widget'} >
+                    <SideModal setShow={setShowModal} heading={'Create New Agent'} >
                         <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />

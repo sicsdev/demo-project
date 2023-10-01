@@ -573,13 +573,13 @@ const QuickStart = () => {
 
                                                     </div>
 
-                                                    <div className=" sm:ml-0 ml-[28px] ">
+                                                    <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
 
                                                         <Link
 
                                                             href={ele?.link}
 
-                                                            className="text-[#007c8f] flex items-center  gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                            className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                         >
                                                             {ele?.buttonName}

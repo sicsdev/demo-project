@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import moment from "moment";
 import { makeCapital } from "../helper/capitalName";
-import { deleteKnowledgeFAQ, updateKnowledgeRecord } from "@/app/API/pages/Knowledge";
+import { deleteKnowledgeFAQ, updateKnowledgeRecord, uploadAttachment } from "@/app/API/pages/Knowledge";
 import { errorMessage, successMessage } from "../Messages/Messages";
 import { TrashIcon } from "@heroicons/react/24/outline";
 const EditKnowledgeCenter = ({
@@ -24,6 +24,7 @@ const EditKnowledgeCenter = ({
 
   const [content, setContent] = useState(singleKnowledgeData?.content ?? "");
   const [loading, setLoading] = useState(false);
+  const [fileLoading, setFileLoading] = useState(false);
   const handleInputChange = (e) => {
     const { value, name } = e.target;
     if (name === "content") {
@@ -138,6 +139,19 @@ const EditKnowledgeCenter = ({
 
     textarea?.setAttribute('rows', (rows)?.toString()); // Set the 'rows' attribute with the new value
   }, [content]);
+
+  const handleFileInputChange = async (event) => {
+    setFileLoading(true);
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = async () => {
+      const base64Content = reader.result;
+      await uploadAttachment({ file: base64Content });
+    };
+    setFileLoading(false);
+    reader.readAsDataURL(file);
+  };
 
   return (
     <>
@@ -299,14 +313,26 @@ const EditKnowledgeCenter = ({
                     onChange={handleInputChange}
                   ></textarea>
                 </div>
-                <button
-                  onClick={(e) => handleSubmit()}
-                  type="button"
-                  className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                  disabled={DisablingButton() || loading === true}
-                >
-                  {loading ? "Loading..." : "Save and close"}
-                </button>
+                <div className="flex items-center justify-between">
+                  <button
+                    onClick={(e) => handleSubmit()}
+                    type="button"
+                    className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                    disabled={DisablingButton() || loading === true}
+                  >
+                    {loading ? "Loading..." : "Save and close"}
+                  </button>
+                  {/* <div>
+                    <input type="file"
+                      accept="image/*"
+                      id="imgupload"
+                      onChange={(e) => handleFileInputChange(e)}
+                      className="hidden" />
+                    <label htmlFor='imgupload' className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none">
+                      {fileLoading == true ? "Loading..." : "Add File"}
+                    </label>
+                  </div> */}
+                </div>
               </div>
             </div>
           </div>
