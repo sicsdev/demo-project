@@ -40,6 +40,7 @@ import {
     InboxArrowDownIcon,
     ChatBubbleLeftIcon,
     DocumentMagnifyingGlassIcon,
+    EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -207,7 +208,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/email-settings",
                     name: "Email",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
@@ -268,6 +269,12 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/members",
                     name: "Team",
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/verify-email",
+                    name: "DNS Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
@@ -359,7 +366,7 @@ const NewSidebar = ({ children }) => {
                 {
                     href: "/dashboard/email-settings",
                     name: "Email",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 // {
@@ -423,6 +430,12 @@ const NewSidebar = ({ children }) => {
                     isLink: false,
                 },
                 {
+                    href: "/dashboard/verify-email",
+                    name: "DNS Settings",
+                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
@@ -483,7 +496,7 @@ const NewSidebar = ({ children }) => {
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                (excludeMenuArrayList?.includes(element.name) && (stateBots?.botData?.data?.bots?.length == 0 || stateBots?.botData?.data?.bots?.length == undefined )) ? ("") : (
+                (excludeMenuArrayList?.includes(element.name) && (stateBots?.botData?.data?.bots?.length == 0 || stateBots?.botData?.data?.bots?.length == undefined)) ? ("") : (
                     < li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                         }`
                     }>
