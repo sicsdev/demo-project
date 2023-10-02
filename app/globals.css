@@ -1581,21 +1581,6 @@ body .rdt_Pagination select {
   padding-top: 5px;
 }
 
-
-.testbotwidget {
-  bottom: 75px;
-  right: 20px;
-}
-
-@media (max-width: 768px) {
-  .testbotwidget {
-    bottom: 0px;
-    right: 0px;
-    top: 0px;
-    left: 0px;
-  }
-}
-
 input[type=checkbox].custom-checkbox {
   position: relative;
   border: 2px solid #2563EB;
