@@ -7,6 +7,7 @@ import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowSt
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
+import DeleteWorkflow from './DeleteWorkflow';
 
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest }) => {
     const [data, setData] = useState([]);
@@ -18,7 +19,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         copied: false,
         loading: false
     })
-
 
     const getUrl = async (id) => {
         setIsCopied(prev => {
@@ -89,7 +89,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
-       
+
         },
         {
             name: "Actions",
@@ -102,6 +102,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
 
     ]
+
     const columns1 = [
         {
             name: "Name",
@@ -124,7 +125,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
-            hide:"sm"
+            hide: "sm"
         },
         {
             name: "Actions",
@@ -153,11 +154,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                         >
                             <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
                         </button>}
-                        
+
 
                 </>
             ),
-            hide:"sm"
+            hide: "sm"
 
         },
 
@@ -172,6 +173,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
+
     const manageData = async () => {
 
         let workflows = await getWorkflowByStatus(status)
@@ -187,6 +189,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         setUrls(array_of_urls)
         setData(result);
     }
+
     const customStyles = {
         rows: {
             style: {
@@ -195,6 +198,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             },
         }
     };
+
     const handleChange = (e) => {
         setSearch(e.target.value)
         const workflowOptionsfilter = data?.filter(
@@ -203,6 +207,18 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         );
         setData(workflowOptionsfilter)
     }
+
+    const deleteWorkflowHandler = async (event, item) => {
+        event.stopPropagation();
+        const filterData = data.filter((x) => x.id !== item.id)
+        const deleteWorkFlow = await removeWorkFlow(item.id)
+        if (deleteWorkFlow.status === 204) {
+            fetchData();
+            setData(filterData)
+            // successMessage("Workflow deleted successfully")
+        }
+    }
+
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
@@ -217,7 +233,57 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
             </div>
-            <div className='data_table_wrapper w-full'>
+            <div className='w-full'>
+
+                {
+                    data?.length > 0 ? (
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2'>
+                            {data?.map((item, key) =>
+                                <div
+                                    style={{
+                                        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                                    }}
+                                    key={key}
+                                    className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+                                    onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
+                                >
+                                    <div className='relative h-full'>
+                                        <div className='flex items-center justify-start gap-4'>
+                                            {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
+                                                (element?.automation?.integration?.icon != "" && element?.automation?.integration?.icon != null) && (
+                                                    <div key={index} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                        <Image
+                                                            fill={"true"}
+                                                            className="bg-contain mx-auto object-scale-down w-full rounded-lg"
+                                                            alt="logo.png"
+                                                            src={element?.automation?.integration?.icon}
+                                                        />
+                                                    </div>
+                                                )
+                                            )}
+                                        </div>
+                                        <div className=''>
+                                            <h2 className='text-primary !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
+                                            <p className='text-xs text-[#151d23cc] mt-1'>By Tempo AI</p>
+                                        </div>
+                                        <div className='absolute bottom-0 w-full'>
+                                            <div className='flex items-center justify-between '>
+                                                <p className='text-xs text-[#151d23cc]'>{item.active ? 'Active' : 'Draft'}</p>
+                                                <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>Delete</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    )
+                        :
+                        <p className="text-center p-3 my-4">No workflows found</p>
+                }
+
+            </div>
+
+            {/* <div className='data_table_wrapper w-full'>
                 <DataTable
                     title=""
                     fixedHeader
@@ -233,7 +299,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     customStyles={customStyles}
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
-            </div>
+            </div> */}
         </div>
     )
 }
@@ -305,7 +371,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
                             )}
-                            
+
                             <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
                             </li>

@@ -141,16 +141,24 @@ const EditKnowledgeCenter = ({
   }, [content]);
 
   const handleFileInputChange = async (event) => {
-    setFileLoading(true);
-    const file = event.target.files[0];
-    const reader = new FileReader();
+    try {
+      setFileLoading(true);
+      const file = event.target.files[0];
+      const reader = new FileReader();
 
-    reader.onloadend = async () => {
-      const base64Content = reader.result;
-      await uploadAttachment({ file: base64Content });
-    };
-    setFileLoading(false);
-    reader.readAsDataURL(file);
+      reader.onloadend = async () => {
+        const base64Content = reader.result;
+        const fileUrlData = await uploadAttachment({ file: base64Content });
+        if (fileUrlData?.status == 200 || fileUrlData?.status == 201) {
+          let updatedTextArea = `${content} \n${fileUrlData?.data?.url}`;
+          setContent(updatedTextArea)
+        }
+        setFileLoading(false);
+      };
+      reader.readAsDataURL(file);
+    } catch (error) {
+      setFileLoading(false);
+    }
   };
 
   return (
@@ -322,7 +330,7 @@ const EditKnowledgeCenter = ({
                   >
                     {loading ? "Loading..." : "Save and close"}
                   </button>
-                  {/* <div>
+                  <div>
                     <input type="file"
                       accept="image/*"
                       id="imgupload"
@@ -331,7 +339,7 @@ const EditKnowledgeCenter = ({
                     <label htmlFor='imgupload' className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none">
                       {fileLoading == true ? "Loading..." : "Add File"}
                     </label>
-                  </div> */}
+                  </div>
                 </div>
               </div>
             </div>

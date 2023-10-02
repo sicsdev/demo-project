@@ -262,6 +262,7 @@ const NewSidebar = ({ children }) => {
         {
             href: "/dashboard/members",
             name: "Organization Settings",
+            navBarName: "Organization",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
@@ -420,6 +421,7 @@ const NewSidebar = ({ children }) => {
         {
             href: "/dashboard/members",
             name: "Organization Settings",
+            navBarName: "Organization",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
@@ -656,6 +658,7 @@ const NewSidebar = ({ children }) => {
     const sendNames = (name) => {
         if (name === "Home") return "Widgets";
         if (name === "Workflows") return "Workflows";
+        if (name === "Organization Settings") return "Organization";
         return name;
     };
 
@@ -671,7 +674,7 @@ const NewSidebar = ({ children }) => {
         <>
 
             <>
-                <nav className="block  sm:hidden md:hidden lg:hiddenfixed top-0 z-50 w-full bg-sidebarbg" ref={divSideRef}>
+                <nav className="sticky top-0 block  sm:hidden md:hidden lg:hiddenfixed z-50 w-full bg-sidebarbg" ref={divSideRef}>
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between text-white    ">
                             <div className="flex items-center justify-start">
