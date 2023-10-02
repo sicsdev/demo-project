@@ -827,7 +827,7 @@ transition: all .4s ease;
   padding: 8px;
   outline: none;
   font-weight: 500;
-  border: 1px solid #C7C6C7;
+  border: 1px solid #C7C6C7 !important;
   box-sizing: border-box;
   width: 100%;
   position: relative;

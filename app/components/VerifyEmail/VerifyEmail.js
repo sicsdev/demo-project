@@ -10,19 +10,21 @@ import { errorMessage, successMessage } from '../Messages/Messages'
 import { useDispatch } from 'react-redux'
 import { fetchProfile } from '../store/slices/userSlice'
 import SkeletonLoader from '../Skeleton/Skeleton'
+import SelectOption from '../Common/Input/SelectOption'
 
 const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLoader, verifyDomainData }) => {
-    console.log("data", data)
+
     const dispatch = useDispatch();
+    const [basicFormData, setBasicFormData] = useState({ domainName: "", subDomain: "" });
     const [domainName, setDomainName] = useState("");
-    const domainPattern = /^[a-zA-Z0-9.-]*$/;
+    const domainPattern = /^[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})+$/;
     const [isValid, setIsValid] = useState(true);
     const [loaderButton, setLoaderButton] = useState(false);
 
     const createDomainHandler = async () => {
         try {
             setLoaderButton(true);
-            const userDomainName = domainName + `.tickets-docker.withtempo.com`;
+            const userDomainName = basicFormData.subDomain + `.` + basicFormData.domainName;
             const domains = await enterpriseDomainInitialize({
                 domain: userDomainName,
             });
@@ -40,14 +42,27 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
     };
 
     const handleInputChange = (e) => {
-        const value = e.target.value;
-        setDomainName(value)
-        setIsValid(domainPattern.test(value));
+        const { name, value } = e.target;
+        setBasicFormData(prev => {
+            return {
+                ...prev,
+                [name]: value
+            }
+        })
+        if (name === "domainName") {
+            setIsValid(domainPattern.test(value));
+        }
     }
 
     useEffect(() => {
         if (user && user?.enterprise?.domain !== '') {
-            setDomainName(user?.enterprise?.domain);
+            setBasicFormData(prev => {
+                return {
+                    ...prev,
+                    domainName: user?.enterprise?.domain
+                }
+            })
+            // setDomainName(user?.enterprise?.domain);
         }
     }, [user])
 
@@ -65,20 +80,38 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                 <div className=' p-4'>
                     <div className=''>
                         <div className='my-2'>
-                            <TextField
-                                name='domain_name'
-                                className='py-3 w-full mt-1'
-                                value={domainName}
-                                onChange={(e) => handleInputChange(e)}
-                                style={{ borderColor: isValid ? 'initial' : 'red' }}
-                                title={<div className='flex items-center gap-2'><span>Domain Name</span></div>}
-                                placeholder={"Domain name"}
-                                type={'text'}
-                                id={"company_name"}
-                                disabled={user && user?.enterprise?.domain !== '' ? true : false}
-                            />
-                            {!isValid && <p className='text-xs' style={{ color: 'red' }}>Invalid domain format</p>}
-                            {domainName !== '' && isValid && user && user?.enterprise?.domain === '' && <p className='text-primary text-xs'>Your domain name: {domainName}.tickets-docker.withtempo.com </p>}
+                            {user && user?.enterprise?.domain === '' &&
+                                <SelectOption
+                                    onChange={(e) => handleInputChange(e)}
+                                    value={basicFormData.subDomain || ""}
+                                    name="subDomain"
+                                    values={[
+                                        { name: "Help", value: "help" },
+                                        { name: "Support", value: "support" },
+                                        { name: "Tickets", value: "tickets" },
+                                    ]}
+                                    title={<div className='flex items-center gap-2'><span>Select Subdomain</span></div>}
+                                    id={"subDomain"}
+                                    className="py-3"
+                                    error={""}
+                                />
+                            }
+                            <div className='pt-2'>
+                                <TextField
+                                    name='domainName'
+                                    className='py-3 w-full mt-'
+                                    value={basicFormData.domainName || ""}
+                                    onChange={(e) => handleInputChange(e)}
+                                    style={{ borderColor: isValid ? 'initial' : 'red' }}
+                                    title={<div className='flex items-center gap-2'><span>Domain Name</span></div>}
+                                    placeholder={"Domain name"}
+                                    type={'text'}
+                                    id={"domainName"}
+                                    disabled={user && user?.enterprise?.domain !== '' ? true : false}
+                                />
+
+                                {!isValid && <p className='text-xs' style={{ color: 'red' }}>Invalid domain format</p>}
+                            </div>
                             {user && user?.enterprise?.domain === '' && (
                                 <div className='flex items-center justify-between'>
                                     <div></div>
@@ -86,7 +119,7 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                         type={"button"}
                                         className="inline-block rounded bg-primary mt-3 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                                         onClick={(e) => createDomainHandler()}
-                                        disabled={domainName === '' || !isValid ? true : false}
+                                        disabled={basicFormData?.domainName === '' || basicFormData?.subDomain === '' || !isValid ? true : false}
                                     >
                                         {loaderButton === true ? 'Loading...' : 'Save'}
                                     </Button>
