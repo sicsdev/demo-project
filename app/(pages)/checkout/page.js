@@ -289,7 +289,7 @@ const Checkout = () => {
 
                   value={checkoutForm?.business_company_size ?? ''}
                   id={"business_company_size"} className={
-                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
                   }>
                   <option value={''} disabled>Select</option>
                   {business_company_size_data.map((ele, key) =>
@@ -307,7 +307,7 @@ const Checkout = () => {
                   value={checkoutForm?.business_industry ?? ''}
                   id={"business_industry"}
                   className={
-                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
                   }>
                   <option value={''} disabled>Select</option>
                   {business_industry_data.map((ele, key) =>

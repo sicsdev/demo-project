@@ -92,11 +92,11 @@ const Nav = () => {
                   </a>
                   {element.card.links.length > 0 && (
                     <Card
-                      className={`animate-fadeIn w-[800px] hidden group-hover:block absolute top-[61px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                      className={`animate-fadeIn w-[500px] hidden group-hover:block absolute top-[61px] bg-white ${showmenu ? "desk_headermenupopup" : ""
                         }`}
                     >
                       <List
-                        className={"grid grid-cols-2 gap-8"}
+                        className={"grid grid-cols-1 gap-8"}
                         nav_links={element.card.links}
                         setShow={setShowmenu}
                       />

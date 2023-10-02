@@ -24,6 +24,7 @@ import TopBar from "@/app/components/Common/Card/TopBar";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
+  const userState = useSelector((state) => state.user.data);
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([]);
   const [integrationTiles, setIntegrationsTiles] = useState([]);
@@ -281,6 +282,7 @@ const Page = () => {
                 <IntegrationTemplates
                   performIntegrationTask={performIntegrationTask}
                   integrationTiles={integrationTiles}
+                  userState={userState}
                 />
                 {tiles_data.map((element, key) => (
                   <div className={` mt-6`} key={key}>
