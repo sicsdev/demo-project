@@ -140,7 +140,12 @@ const Logs = () => {
     viewed: "all",
     for_review: "all",
   });
+  const [additionalData, setAdditionalData] = useState({
+    conversations: null,
+    dflection: null,
+    csat: null
 
+  })
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
@@ -157,6 +162,15 @@ const Logs = () => {
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
 
     setBotValue(mergedArray);
+
+
+
+
+
+
+    getAdditionalData(mergedArray)
+
+
 
     if (logState.data === null) {
       setSelectedBot(mergedArray[0].value);
@@ -176,7 +190,27 @@ const Logs = () => {
       handlePageChange(logState.data.bot, 1, logState.data.queryParam || "");
     }
   };
-
+  const  calculateDeflectionRate = state => {
+    const { totalConversations, humanHandoffs } = state;
+    const deflectionRate = 1 - humanHandoffs / totalConversations;
+    return deflectionRate.toFixed(2); // You can format the result as needed
+  };
+  const getAdditionalData = async (arr) => {
+    const human_handoff = await getBotConversation(arr[0].value, '?human_handoff=true')
+    const has_surveys = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_surveys=true')
+    const has_downvotes = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_downvotes=true')
+    if (human_handoff && has_surveys && has_downvotes) {
+      const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
+      setAdditionalData((prev) => {
+        return {
+          ...prev,
+          conversations: allconversation,
+          dflection:calculateDeflectionRate({totalConversations:allconversation, humanHandoffs:human_handoff.data.count}),
+          csat: has_surveys.data.count
+        }
+      })
+    }
+  }
   console.log("selectedFilters", selectedFilters);
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
@@ -491,26 +525,26 @@ const Logs = () => {
             )}
           </>
         )}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">Conversations</h1>
-            <p className="text-2xl text-heading font-bold my-2">$12,300</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
             <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">15&#8453;&uarr;</span>
             <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
           </div>
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
-            <p className="text-2xl text-heading font-bold my-2">322</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.dflection}</p>
             <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">20&#8453;&uarr;</span>
             <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
           </div>
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">CSAT</h1>
-            <p className="text-2xl text-heading font-bold my-2">$12,300</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
             <span class="bg-[#FAEFED] text-[#BB6C5C] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">25&#8453;&darr;</span>
             <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
           </div>
-        </div> */}
+        </div>
         {/* <Reports /> */}
         <>
           {loading === true || state.isLoading === true ? (

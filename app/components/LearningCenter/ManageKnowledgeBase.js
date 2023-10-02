@@ -19,8 +19,9 @@ import Loading from '../Loading/Loading';
 import './ManageKnowledgeBase.css'
 import SideModal from '../SideModal/SideModal';
 import Button from '../Common/Button/Button';
+import ManageFaqs from './ManageFaqs';
 
-const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
+const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData, questions,handleChangeSearch,search }) => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const [createModal, setCreateModal] = useState(false);
@@ -429,74 +430,23 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             </div>
                         </div>
 
-                        <div className="flex justify-between sm:flex gap-10 justify-start items-center">
-                            <div className='mt-0 sm:mt-0 relative' ref={dropdown}>
-                                <div className="text-sm bg-[#FFF] rounded-md inline-block"
-                                    style={{ border: "1px solid #C7C6C7" }}>
-                                    <button
-                                        type="button"
-                                        className="border-none m-0 p-1 px-[0px] flex gap-1 items-center text-lg font-semibold w-[175px]"
-                                        onClick={() => { setShowSourceFilter(prev => !prev) }}
-                                    >
-                                        {/* 
-                                        <AdjustmentsHorizontalIcon className='h-4 w-4' />
-                                    */}
-                                        <small className="flex gap-2 justify-between w-full font-normal items-center text-xs p-2">{filterhead}
-                                            <i style={{ fontSize: "15px" }} className="fa">&#xf0d7;</i>
-                                        </small>
-                                    </button>
-                                </div>
-                                {showSourceFilter && (
-                                    <div id="dropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
-                                        style={{ border: "1px solid #C7C6C7" }}>
-                                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                            <li className='hover:bg-gray cursor-pointer' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'All'))
-                                                setShowSourceFilter(prev => !prev)
-                                                setFilterhead('All')
-                                            }}>
-                                                <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
-                                                setShowSourceFilter(prev => !prev)
-                                                setFilterhead('External')
-
-                                            }}>
-                                                <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
-                                                setShowSourceFilter(prev => !prev)
-                                                setFilterhead('Snippet')
-
-                                            }}>
-                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                                setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
-                                                setShowSourceFilter(prev => !prev)
-                                                setFilterhead('File')
-                                            }}>
-                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
+                        <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2'>
+                            <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             <div className="relative">
                                 <input
                                     placeholder="Search"
                                     className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
                                     type="text"
-                                    value={filterText}
-                                    onChange={handleFilterChange}
+                                    value={search}
+                                    onChange={handleChangeSearch}
                                 />
                                 <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
                             </div>
                         </div>
                     </div>
-                    {
+
+                    <ManageFaqs questions={questions} />
+                    {/* {
                         tabLoader === true ? (
                             <div className="">
                                 <h1 className="mt-2 text-sm">
@@ -545,7 +495,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                 />
                             </div>
                         )
-                    }
+                    } */}
 
                 </div>
             }
