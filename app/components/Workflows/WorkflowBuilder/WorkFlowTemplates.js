@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
-import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon, CheckIcon, ClipboardDocumentListIcon, ClipboardIcon, EllipsisHorizontalIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
@@ -219,6 +219,15 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         }
     }
 
+    const getIntegrationIcon = (automations, name = "") => {
+        const getIcon = automations?.find((x) => x?.automation?.integration?.icon !== null && x?.automation?.integration?.icon !== "");
+    
+        if (getIcon !== undefined && getIcon?.automation?.integration?.icon !== undefined) {
+            return getIcon?.automation?.integration?.icon;
+        }
+        return null;
+    };
+
     return (
         <div>
             <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
@@ -248,23 +257,40 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                     onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
                                 >
                                     <div className='relative h-full'>
-                                        <div className='flex items-center justify-start gap-4'>
+                                        <div className='flex items-center justify-start gap-2'>
+                                            {getIntegrationIcon(item?.automations, item?.name) !== null && (
+                                                <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
+                                                    <Image
+                                                        fill={"true"}
+                                                        className="bg-contain mx-auto object-scale-down w-full rounded-lg"
+                                                        alt="logo.png"
+                                                        src={getIntegrationIcon(item?.automations, item?.name)}
+                                                    />
+                                                </div>
+                                            )}
                                             {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
-                                                (element?.automation?.integration?.icon != "" && element?.automation?.integration?.icon != null) && (
-                                                    <div key={index} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                                        <Image
-                                                            fill={"true"}
-                                                            className="bg-contain mx-auto object-scale-down w-full rounded-lg"
-                                                            alt="logo.png"
-                                                            src={element?.automation?.integration?.icon}
-                                                        />
+                                                (element?.automation == null) && (
+                                                    <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                        {element.condition && (
+                                                            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+                                                        )}
+
+                                                        {element.question && (
+                                                            <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                        )}
+
+                                                        {element?.transformer && (
+
+                                                            <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+
+                                                        )}
                                                     </div>
                                                 )
                                             )}
                                         </div>
                                         <div className=''>
-                                            <h2 className='text-primary !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
-                                            <p className='text-xs text-[#151d23cc] mt-1'>By Tempo AI</p>
+                                            <h2 className='text-[#151D23] !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
+                                            <p className='text-xs text-[#151d23cc] mt-1'>By Tempo</p>
                                         </div>
                                         <div className='absolute bottom-0 w-full'>
                                             <div className='flex items-center justify-between '>
@@ -300,7 +326,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
                 />
             </div> */}
-        </div>
+        </div >
     )
 }
 
