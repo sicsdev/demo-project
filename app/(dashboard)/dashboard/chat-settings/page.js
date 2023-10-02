@@ -174,7 +174,7 @@ const page = () => {
                         </div>
                     }
                     {pageLoading || state?.isLoading ?
-                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4'>
+                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4 px-2 sm:px-0'>
                             <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
                                 {[...Array(12)].map((ele) =>
                                     <>
