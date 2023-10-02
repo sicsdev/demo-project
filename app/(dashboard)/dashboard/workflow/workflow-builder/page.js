@@ -115,9 +115,38 @@ const Page = () => {
                                 <SkeletonLoader count={1} height={30} width="30%" className={"text-center"} />
                             </h3>
                             <div className="">
-                                <div className="mt-3">
-                                    <SkeletonLoader count={10} height={30} className={"mt-2"} />
+                                <div className='mt-3'>
+                                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2'>
+                                        {[...Array(8)].map((ele) =>
+                                            <div
+                                                style={{
+                                                    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                                                }}
+                                                className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+                                            >
+                                                <div className='relative h-full'>
+                                                    <div className='flex items-center justify-start gap-4'>
+                                                        <SkeletonLoader height={30} width={30} />
+                                                        <SkeletonLoader height={30} width={30} />
+                                                    </div>
+                                                    <div className=''>
+                                                        <SkeletonLoader height={20} width={100} />
+                                                    </div>
+                                                    <div className='absolute bottom-0 w-full'>
+                                                        <div className='flex items-center justify-between '>
+                                                            <SkeletonLoader height={20} width={100} />
+                                                            <SkeletonLoader height={20} width={100} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                    </div>
                                 </div>
+                                {/* <div className="mt-3">
+                                    <SkeletonLoader count={10} height={30} className={"mt-2"} />
+                                </div> */}
                             </div>
                         </div>
                     </>

@@ -77,13 +77,6 @@ const QuickStart = () => {
     ];
     const quickStartData = [
         {
-            title: 'Connect Your APIs for Automations',
-            content: "Initiate the process by connecting your existing APIs to generate a library of automations.",
-            buttonName: "Connect",
-            icon: <ShareIcon className='w-5 h-5 ' />,
-            link: '/dashboard/workflow/integrations',
-        },
-        {
             title: 'Upload FAQ to Knowledge Base',
             content: "Enhance your customer service by uploading frequently asked questions to Tempo's Knowledge Base.",
             buttonName: "Upload",
@@ -91,12 +84,19 @@ const QuickStart = () => {
             link: "/dashboard/basic-knowledge",
         },
         {
-            title: 'Upload Email or Ticket History',
-            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
-            buttonName: "Upload",
-            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
-            link: "/dashboard/basic-knowledge",
+            title: 'Connect Your APIs for Automations',
+            content: "Initiate the process by connecting your existing APIs to generate a library of automations.",
+            buttonName: "Connect",
+            icon: <ShareIcon className='w-5 h-5 ' />,
+            link: '/dashboard/workflow/integrations',
         },
+        // {
+        //     title: 'Upload Email or Ticket History',
+        //     content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+        //     buttonName: "Upload",
+        //     icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+        //     link: "/dashboard/basic-knowledge",
+        // },
         {
             title: 'Create Your First Workflow',
             content: "Combine automations to create your initial workflow, making your operations more efficient from day one.",

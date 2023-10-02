@@ -383,6 +383,7 @@ body .chip {
   padding: 4px 7px;
   width: 100px;
   text-wrap: wrap;
+  white-space: normal;
 }
 
 body .highlightOption {
@@ -1597,7 +1598,7 @@ body .rdt_Pagination select {
 
 input[type=checkbox].custom-checkbox {
   position: relative;
-  border: 2px solid blue;
+  border: 2px solid #2563EB;
   border-radius: 2px;
   background: none;
   cursor: pointer;
@@ -1608,7 +1609,7 @@ input[type=checkbox].custom-checkbox {
   height: 16px;
   width: 16px;
   -webkit-appearance: none;
-  opacity: .5;
+  opacity: .8;
 }
 
 input[type=checkbox].custom-checkbox:hover {
@@ -1616,7 +1617,7 @@ input[type=checkbox].custom-checkbox:hover {
 }
 
 input[type=checkbox].custom-checkbox:checked {
-  background-color: blue;
+  background-color: #2563EB;
   opacity: 1;
 }
 
@@ -1632,4 +1633,16 @@ input[type=checkbox].custom-checkbox:before {
   margin: -1px -1px 0 -1px;
   transform: rotate(45deg) translate(-50%, -50%);
   z-index: 2;
+}
+
+.checkout-dropdown {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  background: url(http://dropdown/arrow/url/) no-repeat;
+  background-position: right center;
+  background-color: #fff;
 }
