@@ -145,10 +145,10 @@ const page = () => {
         !payload.logo && delete payload.logo;
         !payload.email && delete payload.email;
         const response_companyname = await createEnterpriseAccount({
-            slug_domain: basicFormData.company_name,
+            domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
         });
         const domains = await enterpriseDomainInitialize({
-            slug_domain: basicFormData.company_name,
+            domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
         });
         if (response_companyname.status === 200 && domains.status === 200) {
             modifyBot(selectedBot, payload)
@@ -342,7 +342,7 @@ const page = () => {
                             <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                         </div>
                         <div className='flex justify-end items-center px-6 py-4'>
-                            {user && user?.enterprise?.slug_domain === '' ?
+                            {user && user?.enterprise?.domain === '' ?
                                 <Button
                                     type={"button"}
                                     className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
