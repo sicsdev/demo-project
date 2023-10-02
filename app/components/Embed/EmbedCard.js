@@ -166,7 +166,7 @@ export const EmbedCard = ({
                         }}
                       >
 
-                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
+                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky sm:mr-[-11px]  bg-skyblue">
                           <ClipboardIcon className=" h-4 w-4" />
                           <small className=''>Copy code</small>
                         </span>

@@ -90,13 +90,13 @@ const QuickStart = () => {
             icon: <ShareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/integrations',
         },
-        {
-            title: 'Upload Email or Ticket History',
-            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
-            buttonName: "Upload",
-            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
-            link: "/dashboard/basic-knowledge",
-        },
+        // {
+        //     title: 'Upload Email or Ticket History',
+        //     content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+        //     buttonName: "Upload",
+        //     icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+        //     link: "/dashboard/basic-knowledge",
+        // },
         {
             title: 'Create Your First Workflow',
             content: "Combine automations to create your initial workflow, making your operations more efficient from day one.",
