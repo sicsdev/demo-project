@@ -7,6 +7,7 @@ import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowSt
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import DeleteWorkflow from './DeleteWorkflow';
 
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest }) => {
@@ -75,7 +76,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             minWidth: '250px',
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
+                    <div className="relative inline-flex items-center justify-center mr-2 !whitespace-pre-wrap w-[20px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
                         {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                         {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
@@ -112,7 +113,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             minWidth: '250px',
             cell: (row, index) => (
                 <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center min-w-[40px] !whitespace-pre-wrap w-[40px] sm:w-10 h-[40px] sm:h-10 overflow-hidden rounded-lg">
+                    <div className="relative inline-flex items-center justify-center mr-2 !whitespace-pre-wrap w-[20px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
                         {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
 
                     </div>
@@ -221,17 +222,24 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const getIntegrationIcon = (automations, name = "") => {
         const getIcon = automations?.find((x) => x?.automation?.integration?.icon !== null && x?.automation?.integration?.icon !== "");
-    
+
         if (getIcon !== undefined && getIcon?.automation?.integration?.icon !== undefined) {
             return getIcon?.automation?.integration?.icon;
         }
         return null;
     };
 
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [])
     return (
         <div>
-            <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-[#F8F8F8]'>
+            <h3 className='my-3  text-heading text-center font-semibold text-sm'>Manage your Tempo workflows</h3>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -256,55 +264,59 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                     className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
                                     onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
                                 >
-                                    <div className='relative h-full'>
-                                        <div className='flex items-center justify-start gap-2'>
-                                            {getIntegrationIcon(item?.automations, item?.name) !== null && (
-                                                <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
-                                                    <Image
-                                                        fill={"true"}
-                                                        className="bg-contain mx-auto object-scale-down w-full rounded-lg"
-                                                        alt="logo.png"
-                                                        src={getIntegrationIcon(item?.automations, item?.name)}
-                                                    />
-                                                </div>
-                                            )}
-                                            {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
-                                                (element?.automation == null) && (
-                                                    <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                                        {element.condition && (
-                                                            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
-                                                        )}
-
-                                                        {element.question && (
-                                                            <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
-                                                        )}
-
-                                                        {element?.transformer && (
-
-                                                            <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
-
-                                                        )}
+                                    {loading ?
+                                        <SkeletonLoader count={2} height={30} width="70%" />
+                                        :
+                                        <div className='relative h-full'>
+                                            <div className='flex items-center justify-start gap-2'>
+                                                {getIntegrationIcon(item?.automations, item?.name) !== null && (
+                                                    <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
+                                                        <Image
+                                                            fill={"true"}
+                                                            className="bg-contain mx-auto object-scale-down w-full rounded-lg"
+                                                            alt="logo.png"
+                                                            src={getIntegrationIcon(item?.automations, item?.name)}
+                                                        />
                                                     </div>
-                                                )
-                                            )}
-                                        </div>
-                                        <div className=''>
-                                            <h2 className='text-[#151D23] !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
-                                            <p className='text-xs text-[#151d23cc] mt-1'>By Tempo</p>
-                                        </div>
-                                        <div className='absolute bottom-0 w-full'>
-                                            <div className='flex items-center justify-between '>
-                                                <p className='text-xs text-[#151d23cc]'>{item.active ? 'Active' : 'Draft'}</p>
-                                                <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>Delete</p>
+                                                )}
+                                                {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
+                                                    (element?.automation == null) && (
+                                                        <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                            {element.condition && (
+                                                                <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+                                                            )}
+
+                                                            {element.question && (
+                                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                            )}
+
+                                                            {element?.transformer && (
+
+                                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+
+                                                            )}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                            <div className=''>
+                                                <h2 className='text-[#151D23] !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
+                                                <p className='text-xs text-[#151d23cc] mt-1'>By Tempo</p>
+                                            </div>
+                                            <div className='absolute bottom-0 w-full'>
+                                                <div className='flex items-center justify-between '>
+                                                    <p className='text-xs text-[#151d23cc]'>{item.active ? 'Active' : 'Draft'}</p>
+                                                    <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>Delete</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                             )}
                         </div>
                     )
                         :
-                        <p className="text-center p-3 my-4">No workflows found</p>
+                        ""
                 }
 
             </div>
@@ -323,7 +335,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     className='data-table-class'
                     data={data}
                     customStyles={customStyles}
-                    noDataComponent={<><p className="text-center p-3 my-4">No workflows found</p></>}
+                    noDataComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>}
                 />
             </div> */}
         </div >
