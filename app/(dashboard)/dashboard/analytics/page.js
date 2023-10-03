@@ -547,9 +547,9 @@ const Logs = () => {
           />
         ) : (
           <TopBar
-            title={`Chat Logs`}
+            title={` Logs`}
             icon={<QueueListIcon className="h-5 w-5 text-primary" />}
-            isBackButton={true}
+            isBackButton={false}
             backButtonUrl={`/dashboard`}
           />
         )}
