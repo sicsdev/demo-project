@@ -1638,6 +1638,7 @@ input[type="checkbox"].custom-checkbox:before {
   border: none !important;
 }
 
-body .invite-email input::placeholder,.invite-email input,body .invite-email input[type="text"] {
+body .invite-email input::placeholder,.invite-email input,body .invite-email input[type="text"] 
+body  .invite-email input[type="text"]:focus, body  .invite-email input[type="email"]:focus, .invite-email input[type="number"]:focus, .invite-email input[type="password"]:focus, .invite-email input[type="date"]:focus, .invite-email input[type="search"]:focus, .invite-email textarea:focus{
   font-size:0.875rem !important;
 }
