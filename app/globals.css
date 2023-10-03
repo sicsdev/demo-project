@@ -1634,7 +1634,7 @@ input[type="checkbox"].custom-checkbox:before {
   height: 70vh;
 }
 .invite-email input:focus {
-  outline: none !important;
+ 
   border: none !important;
 }
 
