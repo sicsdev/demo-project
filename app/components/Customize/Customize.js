@@ -368,7 +368,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         <SideModal setShow={setShowManageHideUrls} heading={'Hide widget on Certain URLs'} >
           <>
             <div>
-              <h3 className="text-xs my-2 text-heading font-normal">Block paths you don't want the widget to appear on.</h3>
+              <h3 className="my-2 font-normal new_input_label text-sm text-heading">Block paths you don't want the widget to appear on.</h3>
             </div>
             <div>
               {blockedUrls.map((item, index) => (
@@ -377,7 +377,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
                 >
                   <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                    <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
+                    <span className="new_input_label block text-sm text-heading
+                    ">URL Containing:</span>
                   </div>
                   <TextField
                     value={item}
@@ -401,7 +402,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
               ))}
               <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                 <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                  <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
+                  <span className="new_input_label block text-sm text-heading">URL Containing:</span>
                 </div>
                 <TextField
                   onChange={(e) => setNewBlockedUrl(e.target.value)}
