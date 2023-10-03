@@ -22,8 +22,17 @@ import SideModal from "@/app/components/SideModal/SideModal";
 import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 import { searchReccomodationWorkflow } from "@/app/API/pages/NagetiveWorkflow";
 import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
+import Pusher from 'pusher-js';
+import { v4 as uuidv4 } from 'uuid';
+
+const pusher = new Pusher("1fc282a0eb5e42789c23", {
+    cluster: "mt1",
+});
+
 
 const Page = () => {
+
+
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
@@ -65,6 +74,9 @@ const Page = () => {
     const [questionData, setQuestionData] = useState([])
     const [workflowValue, setWorkflowValue] = useState(null)
     const [subQuestions, setSubQuestions] = useState([])
+    const [newUUI, setNewUUI] = useState('')
+
+
     const getData = async () => {
         setTabLoader(true);
         const response = await getKnowledgeData()
@@ -105,6 +117,15 @@ const Page = () => {
         if (workflowState) {
             manageData()
         }
+
+        let newUUID = uuidv4()
+        setNewUUI(newUUID)
+
+        const channel = pusher.subscribe(`recommendation-${newUUID}`);
+        channel.bind('messages', data => {
+            setAnswer(prev => prev + data.message);
+        })
+
     }, [workflowState])
 
     const manageData = () => {
@@ -575,6 +596,42 @@ const Page = () => {
             }
         }
     }
+
+
+
+    const getExpandedAnswer = async () => {
+        let answerBackup = answer
+        setAnswer('')
+
+        await expandRecommendationRecord({
+            question: workflowView?.question,
+            answer: answerBackup,
+            streaming: true,
+            id: `recommendation-${newUUI}`
+        })
+
+
+        // let newUUID = uuidv4()
+        // setNewUUI(newUUID)
+
+        // const channel = pusher.subscribe(`recommendation-${newUUID}`);
+        // channel.bind('messages', data => {
+        //     setAnswer(prev => prev + data.message);
+        // })
+    }
+
+    // const sendQuestionToPusher = async () => {
+    //     setAnswer('')
+    //     await expandRecommendationRecord({
+    //         question: "How do I sign up?",
+    //         answer: "Go to your profile",
+    //         streaming: true,
+    //         id: `recommendation-${newUUI}`
+    //     })
+    // }
+
+
+
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -804,7 +861,8 @@ const Page = () => {
                                             </button>
                                             {mode === 'expand' && (
                                                 <button
-                                                    onClick={(e) => SubmitTheFormExpand()}
+                                                    // onClick={(e) => SubmitTheFormExpand()}
+                                                    onClick={getExpandedAnswer}
                                                     type="button"
                                                     className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || explandLoader}>
                                                     {explandLoader ? (
@@ -829,6 +887,7 @@ const Page = () => {
                                                         </>
                                                     ) : "Expand Answer"}
                                                 </button>
+
                                             )}
                                         </div>
                                     </div>
@@ -910,6 +969,7 @@ const Page = () => {
                                                 </div>
                                             </>
                                         )}
+
                                     </div>
                                     <div className={` bg-[#F8F8F8] my-4`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
