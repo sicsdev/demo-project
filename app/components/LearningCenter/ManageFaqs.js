@@ -28,13 +28,13 @@ const ManageFaqs = ({ questions }) => {
         rows: {
             style: {
                 minHeight: 'auto', // override the row height
-                // maxHeight: '100%', // override the row height
-                height: "auto",
+                maxHeight: '100%', // override the row height
                 paddingTop: "10px",
                 paddingBottom: "10px",
+                height: "auto"
             },
         }
-    };
+    }
     const updateFaq = async () => {
         setUpdateLoader(true)
         const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
@@ -53,6 +53,7 @@ const ManageFaqs = ({ questions }) => {
             sortable: false,
             reorder: false,
             minWidth: "200px",
+            padding:"12px",
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             )
@@ -183,7 +184,7 @@ const ManageFaqs = ({ questions }) => {
         }
     }
     return (
-        <div className="w-full mt-5 basic-knowledge">
+        <div className="w-full px-2 pt-2">
             <DataTable
                 title={''}
                 fixedHeader

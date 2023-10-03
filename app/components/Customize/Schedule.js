@@ -202,7 +202,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                     </div>
 
                     <div className="lg:flex flex items-center gap-3">
-                      <div className="col-span-1 w-[210px] sm:w-[270px]">
+                      <div className="col-span-1 w-[225px] sm:w-[270px]">
                         {schedule[day].length > 0 ? (
                           schedule[day].map((time, index) => (
                             <div
