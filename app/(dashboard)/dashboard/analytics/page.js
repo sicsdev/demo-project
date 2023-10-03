@@ -215,7 +215,6 @@ const Logs = () => {
       })
     }
   }
-  console.log("selectedFilters", selectedFilters);
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
     if (results && Array.isArray(results) && results.length > 0) {
