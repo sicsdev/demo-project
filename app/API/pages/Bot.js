@@ -207,3 +207,14 @@ export const getAllActiveBots = async () => {
         return error
     }
 };
+
+
+export const getBotById = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}

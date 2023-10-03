@@ -1,10 +1,18 @@
 import React from 'react'
 import TestingMiniBot from '../Chats/TestingMiniBot'
 import { useState } from 'react'
+import { useEffect } from 'react'
+import { getBotById } from '@/app/API/pages/Bot'
 
 const TestWidgetLayout = () => {
 
     const [showTestBot, setShowTestBot] = useState(false)
+    const [globalPreferences, setGlobalPreferences] = useState({})
+
+    useEffect(() => {
+        const defaultTestBotId = localStorage.getItem('defaultTestBot');
+        if (defaultTestBotId) { getBotById(defaultTestBotId).then(res => setGlobalPreferences(res)) }
+    }, [])
 
     return (
         <>
@@ -13,15 +21,15 @@ const TestWidgetLayout = () => {
                 <>
 
                     <div
-                        className=" bg-transparent overflow-auto  flex flex-col z-50"
+                        className=" bg-transparent overflow-auto flex flex-col z-50"
                         onClick={() => setShowTestBot(false)}
                     >
                         {" "}
                     </div>
                     <div
-                        className={` z-50 w-full sm:w-[550px] fixed right-0 m-auto max-h-[100%] shadow-md rounded-xl testbotwidget `}
+                        className={` z-50 w-full sm:w-[550px] fixed right-0 m-auto max-h-[100%] shadow shadow-xl rounded-xl testbotwidget  hidden lg:block `}
                     >
-                        <TestingMiniBot></TestingMiniBot>
+                        <TestingMiniBot globalPreferences={globalPreferences} setGlobalPreferences={setGlobalPreferences}></TestingMiniBot>
 
                     </div>
 
@@ -30,10 +38,10 @@ const TestWidgetLayout = () => {
 
             <button
                 onClick={() => setShowTestBot(!showTestBot)}
-                className={`fixed bottom-3 right-3 m-auto rounded-xl pointer z-100`}
+                className={`fixed bottom-3 right-3 m-auto rounded-xl pointer z-100 hidden lg:block`}
                 style={{ zIndex: '9999999' }}
             >
-                <div class="p-3 bg-primary rounded-full">
+                <div class="p-3 rounded-full" style={{ backgroundColor: globalPreferences?.primary_color || '#0057ff' }}>
                     {showTestBot ?
                         (
 

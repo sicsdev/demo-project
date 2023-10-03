@@ -1,4 +1,3 @@
-"use client"
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -12,7 +11,10 @@ import Pusher from 'pusher-js';
 import CustomForm from './Minibot/CustomForm'
 import { getAllActiveBots, getBotAllData } from '@/app/API/pages/Bot'
 
-const TestingMiniBot = ({ workflow }) => {
+import { StarIcon as StarOutlineIcon } from '@heroicons/react/24/outline'
+import { StarIcon as StarSolidIcon } from '@heroicons/react/24/solid'
+
+const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) => {
     const pusher = new Pusher("1fc282a0eb5e42789c23", {
         cluster: "mt1",
     });
@@ -84,8 +86,14 @@ const TestingMiniBot = ({ workflow }) => {
 
 
     useEffect(() => {
-        getTestingBot()
         getActiveBots()
+        if (globalPreferences?.id) {
+            setPreferences(globalPreferences)
+            setDefaultTestBotIdStored(globalPreferences.id)
+            setCurrentBotId(globalPreferences.id)
+        } else {
+            getTestingBot()
+        }
     }, []);
 
     useEffect(() => {
@@ -99,6 +107,7 @@ const TestingMiniBot = ({ workflow }) => {
     const [allActiveBots, setAllActiveBots] = useState([])
     const [testBotId, setTestBotId] = useState('')
     const [currentBotId, setCurrentBotId] = useState('')
+    const [defaultTestBotIdStored, setDefaultTestBotIdStored] = useState()
 
     const getActiveBots = async () => {
         await getAllActiveBots().then(res => { if (res?.results) setAllActiveBots(res.results) })
@@ -108,6 +117,7 @@ const TestingMiniBot = ({ workflow }) => {
         getTestBot().then(res => {
             // setPreferences(res)
             setPreferences(defaultPreferences)
+            setGlobalPreferences(defaultPreferences)
             getConvoID(res.id);
             setTestBotId(res.id)
             // cleanChat()
@@ -248,14 +258,16 @@ const TestingMiniBot = ({ workflow }) => {
     }
 
 
-    // Swit
+    // Switch
 
-    const handleSwitchBot = (e) => {
+    const handleSwitchBot = async (e) => {
         let botId = e.target.value
         setCurrentBotId(botId)
-        let finder = allActiveBots.find(e => e.id == botId)
+
+        let bots = await getAllActiveBots()
+        let finder = bots.results.find(e => e.id == botId)
         if (botId == testBotId) { getTestingBot(); return }
-        if (finder) { setPreferences(finder) }
+        if (finder) { setPreferences(finder); setGlobalPreferences(finder) }
     }
 
     const cleanChat = () => {
@@ -279,6 +291,13 @@ const TestingMiniBot = ({ workflow }) => {
         getConvoID()
     }
 
+
+    const handleSetAsDefault = () => {
+        let value = defaultTestBotIdStored === preferences.id ? '' : preferences.id
+        localStorage.setItem('defaultTestBot', value);
+        setDefaultTestBotIdStored(value)
+    }
+
     return (
 
 
@@ -290,34 +309,48 @@ const TestingMiniBot = ({ workflow }) => {
             <div className="justify-center bg-white rounded-xl">
                 <div className="containerChatBot_entire_testing" >
                     <div className="header_ChatBotWidget_testing">
-                        <div className="profile_photo_container_testing ">
+                        <div className="profile_photo_container_testing gap-2 mx-4">
                             <img
                                 width="45px"
-                                src={
-                                    preferences?.logo || "https://usetempo.ai/bot.png"
-                                }
+                                src={preferences?.logo || "https://usetempo.ai/bot.png"}
                             />
-                        </div>
-                            <div className='w-3/4'>
+                            <div className="mx-5 w-3/4" style={{ minWidth: '200px' }}>
+                                <small className="block mx-1 my-1 "><b>Select an active bot</b></small>
                                 <select
                                     id="chatTitle"
                                     name="chatTitle"
-                                    className="block w-full p-2 border rounded-md w-full"
+                                    className="block w-full p-1 border border-gray rounded-md w-full font-xs"
                                     onChange={handleSwitchBot}
+                                    value={currentBotId}
                                 >
-                                    <option value={testBotId}>Tempo Test Bot</option>
-                                    {allActiveBots?.map(bot =>
-                                        <option value={bot.id}>{bot.chat_title}</option>
-                                    )}
+                                    <option className='text-xs' value={testBotId}>Tempo Test Bot</option>
+                                    {allActiveBots?.map(bot => (
+                                        <option className='text-xs' key={bot.id} value={bot.id}>
+                                            {bot.chat_title}
+                                        </option>
+                                    ))}
                                 </select>
+
+                                
                             </div>
-                            {/* <div className="subtitle_div_testing ">
-                                <span className="subtitle_ChatBotWidget_testing ">
-                                    <span className="ai_icon_testing ">AI</span>{" "}
-                                    {preferences.description || "Powered by Tempo"}
-                                </span>
-                            </div> */}
+                        </div>
+                        <div className="flex items-center mx-3">
+                            <button
+                                className="text-yellow-500"
+                                onClick={handleSetAsDefault}
+                                title="Set as Default"
+                            >
+                                {defaultTestBotIdStored === preferences?.id ?
+                                    <StarSolidIcon className="h-6 w-6 text-primary" ></StarSolidIcon  >
+
+                                    :
+                                    <StarOutlineIcon className="h-6 w-6 text-primary" ></StarOutlineIcon >
+                                }
+
+                            </button>
+                        </div>
                     </div>
+
                     <hr className="custom_hr_testing " />
                     <div className="chat_content_testing">
                         {chatContent?.map((message, index) => (

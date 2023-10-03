@@ -1568,6 +1568,7 @@ body .rdt_Pagination select {
 }
 
 input[type="checkbox"].custom-checkbox {
+
   position: relative;
   border: 2px solid #2563eb;
   border-radius: 2px;
