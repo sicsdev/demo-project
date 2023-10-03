@@ -349,11 +349,11 @@ body .searchWrapper {
   border-radius: 4px;
   outline: none;
   /* Remove the default focus outline */
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  /* background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>"); */
   outline: none;
   background-repeat: no-repeat;
   background-position: right;
-  width: 115px;
+  width: 150px;
 }
 
 body .searchWrapper-live .searchWrapper {
@@ -385,8 +385,7 @@ body .chip {
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
-  padding: 4px 7px;
-  width: 100px;
+  padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
 }

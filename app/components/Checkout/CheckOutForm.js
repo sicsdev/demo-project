@@ -14,6 +14,7 @@ import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
+import Cookies from "js-cookie";
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
@@ -116,7 +117,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         }
         setError([]);
       } else {
-        setError(getErrorsArray(result.response.data));
+        setLoading(false);
+        // setError(getErrorsArray(result.response.data));
       }
 
     } catch (error) {
