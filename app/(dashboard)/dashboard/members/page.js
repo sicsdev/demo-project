@@ -26,9 +26,12 @@ const Page = () => {
   const getMembersData = () => {
     dispatch(fetchMembers());
   };
+
   useEffect(() => {
-    getMembersData();
-  }, []);
+    if (state.data === null) {
+      dispatch(fetchMembers());
+    }
+  }, [state.data]);
 
   const handleRemoveMember = (email) => {
     dispatch(removeMember({ email }));

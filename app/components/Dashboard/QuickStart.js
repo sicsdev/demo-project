@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import { useSelector } from 'react-redux';
 import SkeletonLoader from '../Skeleton/Skeleton';
 import Card from '../Common/Card/Card';
+import { useDispatch } from 'react-redux';
 
 import { ArrowSmallLeftIcon, ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import {
@@ -36,7 +37,9 @@ import {
 } from "@heroicons/react/24/outline";
 import ChatBots from './ChatBots';
 import { ManageExpand } from '@/app/API/pages/EnterpriseService';
+import { fetchMembers } from '../store/slices/memberSlice';
 const QuickStart = () => {
+    const dispatch = useDispatch();
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
@@ -204,24 +207,31 @@ const QuickStart = () => {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
         }
     })
-    const setHideShow = (value) => {
-        console.log(value)
+
+    useEffect(() => {
+        if (members.data === null) {
+            dispatch(fetchMembers());
+        }
+    }, [members.data]);
+
+    const setHideShow = (value, ele) => {
+        console.log("Value: ", value, "Element: ", ele)
         if (value === 0) {
             if (integrations?.data?.results?.length > 0) {
                 return false
             }
 
         }
-        if (value === 3) {
+        if (value === 2) {
             if (workflow?.data?.results?.length > 0) {
                 return false
             }
         }
-        // if (value === 4) {
-        //     if (members?.data.length > 0) {
-        //         return false
-        //     }
-        // }
+        if (value === 3) {
+            if (members?.data?.length > 1) {
+                return false
+            }
+        }
         return true
     }
     const findIcon = (route) => {
@@ -451,9 +461,9 @@ const QuickStart = () => {
 
                                     <div key={key}>
                                         {user?.enterprise?.country === '' && key === 3 ? null :
-                                            <div>
+                                            <div key={key}>
 
-                                                {setHideShow(key) === true && (
+                                                {setHideShow(key, ele) === true && (
 
                                                     ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                         <div
@@ -540,9 +550,9 @@ const QuickStart = () => {
 
                                 {quickStartData?.map((ele, key) => (
 
-                                    <div>
+                                    <div key={ele}>
 
-                                        {setHideShow(key) === true && (
+                                        {setHideShow(key, ele) === true && (
                                             ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                 <div
 
