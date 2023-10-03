@@ -22,7 +22,7 @@ const page = () => {
                 if (res.payload.phone.length == 0) {
 
                 } else {
-                    return router.push('/dashboard')
+                    // return router.push('/dashboard')
                 }
             }
             )
@@ -80,6 +80,7 @@ const page = () => {
         if (!phone_prefix) {
             errors.phone = "Phone prefix is required.";
         }
+        console.log("phone",phone_prefix.length)
 
         if (!new_password) {
             errors.new_password = "New Password is required.";
@@ -105,7 +106,7 @@ const page = () => {
 
     return (
         <Container>
-            <div className="rounded-lg mx-auto text-center py-5">
+            <div className="rounded-lg mx-auto text-center py-5 invite-email">
                 <div className='mb-5 pb-5  w-3/4 m-auto'>
                     <h2 className="text-2xl font-bold mb-4">Complete Your Profile</h2>
                     <p className="text-gray-700">
@@ -129,6 +130,7 @@ const page = () => {
                             id={"name"}
                             onChange={handleInputValues}
                         />
+                    
                     </div>
                     <div className="flex justify-start gap-4 items-center  pl-5 py-4 border border-l-0 border-r-0 border-border">
                         <span className="text-start text-sm font-normal w-[100px] text-black">

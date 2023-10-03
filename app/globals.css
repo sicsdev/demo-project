@@ -1633,3 +1633,11 @@ input[type="checkbox"].custom-checkbox:before {
 .learning-class .rdt_Table {
   height: 70vh;
 }
+.invite-email input:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+body .invite-email input::placeholder,.invite-email input,body .invite-email input[type="text"] {
+  font-size:0.875rem !important;
+}
