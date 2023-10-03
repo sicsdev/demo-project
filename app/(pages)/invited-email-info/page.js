@@ -16,6 +16,7 @@ const page = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state.user.data);
     useEffect(() => {
+        
         if (state === null) {
             dispatch(fetchProfile()).then((res) => {
                 if (res.payload.phone.length == 0) {
