@@ -68,7 +68,7 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
         if (verifyDomainData?.registers?.length > 0) {
             const findRecord = verifyDomainData?.registers?.find((x) => x.name == item.name && x.value == item.value);
             if (findRecord !== undefined) {
-                if (findRecord?.valid === "valid") {
+                if (findRecord?.active === true) {
                     return true;
                 }
             }
@@ -216,7 +216,15 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                         )}
                                         <div className='my-2'>
                                             <h1 className='text-sm font-semibold '>REQUIRED VALUE</h1>
-                                            <p className='text-xs break-words'>   {item?.value}</p></div>
+                                            <div className='flex items-center justify-start gap-1'>
+                                                {
+                                                    isVerifyRecord(item) === true ? <CheckCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-soft-green' />
+                                                        :
+                                                        <XCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-red' />
+                                                }
+                                                <p className='text-xs break-words w-full pr-[10px]'>   {item?.value}</p>
+                                            </div>
+                                        </div>
                                         <div className='my-2'>
                                             <h1 className='text-sm font-semibold'>TYPE</h1>
                                             <p className='text-xs'> {item?.record_type}</p></div>
