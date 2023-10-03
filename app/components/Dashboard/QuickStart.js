@@ -227,6 +227,11 @@ const QuickStart = () => {
                 return false
             }
         }
+        if (value === 1) {
+            if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
+                return false
+            }
+        }
         if (value === 3) {
             if (members?.data?.length > 1) {
                 return false
@@ -328,13 +333,15 @@ const QuickStart = () => {
                                 <div className="bg-border rounded-t-md   py-2 cursor-pointer  w-full border border-border text-xs text-white gap-1 items-center">
                                     <div className={` px-2 flex justify-between items-center gap-2`}>
                                         <div className='flex items-center justify-center gap-2'>
-                                            <SkeletonLoader count={1} height={18} width={100} />
+                                            <SkeletonLoader count={1} height={18} width={50} />
                                         </div>
                                         <div className='flex items-center gap-4'>
 
 
-                                            <SkeletonLoader count={1} height={18} width={100} />
-                                            <SkeletonLoader count={1} height={18} width={100} />
+
+
+                                            <SkeletonLoader count={1} height={18} width={50} />
+                                            <SkeletonLoader count={1} height={18} width={50} />
                                         </div>
                                     </div>
                                 </div>
@@ -352,15 +359,15 @@ const QuickStart = () => {
                                 <div className="bg-border rounded-t-md   py-2 cursor-pointer  w-full border border-border text-xs text-white gap-1 items-center">
                                     <div className={` px-2 flex justify-between items-center gap-2`}>
                                         <div className='flex items-center justify-center gap-2'>
-                                            <SkeletonLoader count={1} height={18} width={100} />
+                                            <SkeletonLoader count={1} height={18} width={50} />
                                         </div>
                                         <div className='flex items-center gap-4'>
 
 
 
 
-                                            <SkeletonLoader count={1} height={18} width={100} />
-                                            <SkeletonLoader count={1} height={18} width={100} />
+                                            <SkeletonLoader count={1} height={18} width={50} />
+                                            <SkeletonLoader count={1} height={18} width={50} />
                                         </div>
                                     </div>
                                 </div>
@@ -555,11 +562,8 @@ const QuickStart = () => {
                                         {setHideShow(key, ele) === true && (
                                             ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                 <div
-
                                                     className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
-
                                                     key={key}
-
                                                 >
 
                                                     <div className="px-6 sm:flex justify-between items-center sm:gap-0">

@@ -37,7 +37,7 @@ const FileManagement = ({ createPdfModal, setCreatePdfModal, setCreateModal, bas
                     </div>
                 </div>
             </div>
-            <button onClick={(e) => handleSubmit({ type: 'FILE' })} type="button" className="my-2 flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true}>
+            <button onClick={(e) => handleSubmit({ type: 'FILE' })} type="button" className="my-2 flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white" disabled={DisablingButton() || loading === true}>
                 {loading ? "Loading..." : "Save and close"}
             </button>
         </div>

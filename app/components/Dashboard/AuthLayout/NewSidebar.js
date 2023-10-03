@@ -659,6 +659,8 @@ const NewSidebar = ({ children }) => {
         if (name === "Home") return "Widgets";
         if (name === "Workflows") return "Workflows";
         if (name === "Organization Settings") return "Organization";
+        if (name === "") return "Home";
+       
         return name;
     };
 
