@@ -95,7 +95,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                     <div className='flex flex-col flex-1 p-0 my-2'>
                         <div className='flex flex-col gap-8 border-gray-lightest px-8 -mx-8'>
                             <div className='flex flex-col gap-2'>
-                                <h3 className='font-bold text-sm text-black'>Enter the URL of your external support content</h3>
+                                <h1 className='font-bold text-xs text-black'>Enter the URL of your external support content</h1>
                                 <p className="text font-normal text-xs">
                                     We will fetch all of the pages from the website URL you provide. Please provide a <strong>top-level domain</strong>. We will read from all the sub domain pages.
                                 </p>
