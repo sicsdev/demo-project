@@ -138,7 +138,7 @@ const page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`Chat Settings`} icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />} />
+            <TopBar title={`Chat`} icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
                 <>
                     {pageSubLoading ?
