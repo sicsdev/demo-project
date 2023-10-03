@@ -780,10 +780,10 @@ const Page = () => {
                                         )}
                                         <div className='my-2'>
                                             <TextArea name="answer"
-                                                className="py-2"
+                                                className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"answer"}
-                                                placeholder={""}
+                                                placeholder={"Create new knowledge base entry"}
                                                 rows="8"
                                                 onChange={(e) => {
                                                     if (e.target.value.length === 1) {

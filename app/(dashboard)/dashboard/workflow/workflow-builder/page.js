@@ -62,7 +62,7 @@ const Page = () => {
         }
         const findDuplicate = workflowState?.data?.results?.find((x) => x.name === "Default_name")
         if (findDuplicate) {
-            errorMessage("Workflow already exists with name “Default_name”")
+            router.push('/dashboard/workflow/workflow-builder/get-started?flow=' + findDuplicate.id)
             setWorkLoading(false)
         } else {
             const response = await createWorkflow(formData)

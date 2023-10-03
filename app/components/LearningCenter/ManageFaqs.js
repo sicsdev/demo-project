@@ -240,9 +240,9 @@ const ManageFaqs = ({ questions }) => {
                     </div>
                     {tab === 0 && (
                         <>
-                            <div className='my-8'>
+                            <div className='my-8 sss'>
                                 <TextArea name="answer"
-                                    className="py-2 "
+                                    className="py-2 !p-[10px]"
                                     type={"text"}
                                     id={"answer"}
                                     placeholder={""}
@@ -289,7 +289,7 @@ const ManageFaqs = ({ questions }) => {
                                     {showAdd && (
                                         <div className='my-8'>
                                             <TextArea name="negative_answer"
-                                                className="py-2"
+                                                className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"negative_answer"}
 

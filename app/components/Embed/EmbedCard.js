@@ -203,7 +203,7 @@ export const EmbedCard = ({
                 <div className='flex justify-end items-center'>
                
 
-                  <div className='text-sm rounded-xl inline-block p-1 px-2 hover:text-white text-sky'>
+                  <div className='text-sm rounded-xl inline-block p-1 px-2 hover:text-white text-sky sm:mr-[-11px] '>
                     {copied.message && copied.key === `${element.id}embed` ? (
                       <>
                         <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">

@@ -29,10 +29,10 @@ const Page = () => {
             setKnowledge(response?.data?.results)
 
             const botDataArray = response?.data?.results.map(entry => {
-                if (entry.bots.length === 0) {
+                if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
                 } else {
-                    return entry.bots.map(bot => ({
+                    return entry?.bots?.map(bot => ({
                         value: bot.bot.id,
                         name: bot.bot.chat_title,
                     }));
