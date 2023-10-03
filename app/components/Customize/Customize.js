@@ -368,7 +368,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         <SideModal setShow={setShowManageHideUrls} heading={'Hide widget on Certain URLs'} >
           <>
             <div>
-              <h3 className="text-xs my-2 text-heading font-normal">Block paths you don't want the widget to appear on.</h3>
+              <h3 className="my-2 font-normal new_input_label text-sm text-heading">Block paths you don't want the widget to appear on.</h3>
             </div>
             <div>
               {blockedUrls.map((item, index) => (
@@ -377,7 +377,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
                 >
                   <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                    <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
+                    <span className="new_input_label block text-sm text-heading
+                    ">URL Containing:</span>
                   </div>
                   <TextField
                     value={item}
@@ -401,7 +402,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
               ))}
               <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                 <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                  <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
+                  <span className="new_input_label block text-sm text-heading">URL Containing:</span>
                 </div>
                 <TextField
                   onChange={(e) => setNewBlockedUrl(e.target.value)}
@@ -449,8 +450,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
 
 
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center  w-1/2 items-center ">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start  w-1/2 items-center ">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -466,8 +467,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   </div>
                 </div>
 
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Description</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -496,8 +497,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   label="Secondary Color"
                 ></ColorSelector>
 
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Widget Location</span>
                   </div>
                   <div className="flex justify-start w-1/2 items-center">
@@ -514,8 +515,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     </select>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700 new_input_label block text-sm text-heading font-medium">
                       {preferences.logo && !preferences.logo_file_name ? (
                         <a
@@ -530,7 +531,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                       )}
                     </span>
                   </div>
-                  <div className="relative inline-flex sm:justify-start  justify-center w-1/2 items-center">
+                  <div className="relative inline-flex justify-start w-1/2 items-center">
                     <label className="cursor-pointer bg-white rounded w-full">
                       <span className="border-gray h-[37.5px]  text-[12px] border py-2 p-2 rounded-md shadow-sm flex items-center break-all hover:bg-gray w-full new_input ">
                         {preferences.logo_file_name ? (
@@ -570,8 +571,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     </label>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation Email</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -585,8 +586,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     />
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -611,8 +612,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   </div>
                 </div>
 
-                <div className={`flex w-full mt-2 gap-2 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Prompts</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -621,7 +622,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
                             <div
-                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[16px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                               key={key}
                             >
                               {element}
@@ -648,8 +649,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide Chat Bot</span>
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
@@ -673,8 +674,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-start w-full mt-2 gap-2 sm:hidden px-2 sm:px-0">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                <div className="sm:hidden flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
                   </div>
                   <Button
@@ -801,7 +802,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
             <div className="hidden sm:flex md:flex lg:flex justify-center items-center gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
                 <div className="items-center w-full mt-2 gap-2 flex">
-                  <div className="flex sm:justify-start  justify-center w-1/2 items-center">
+                  <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
                   </div>
                   <Button type={"button"}

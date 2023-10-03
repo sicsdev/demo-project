@@ -19,6 +19,8 @@ const Page = () => {
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [tab, setTab] = useState(0);
+    const [typingTimeout, setTypingTimeout] = useState(null);
+    const [search, setSearch] = useState('');
 
     const getData = async () => {
         setTabLoader(true);
@@ -27,10 +29,10 @@ const Page = () => {
             setKnowledge(response?.data?.results)
 
             const botDataArray = response?.data?.results.map(entry => {
-                if (entry.bots.length === 0) {
+                if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
                 } else {
-                    return entry.bots.map(bot => ({
+                    return entry?.bots?.map(bot => ({
                         value: bot.bot.id,
                         name: bot.bot.chat_title,
                     }));
@@ -80,11 +82,30 @@ const Page = () => {
             setLoading(false);
         }, 1200);
     }, [])
+    const handleChange = (e) => {
+        const searchText = e.target.value;
+        setSearch(searchText);
 
+        // Clear the previous timeout to prevent rapid search requests
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        // Set a new timeout to perform the search after a delay (e.g., 300 milliseconds)
+        const newTypingTimeout = setTimeout(() => {
+            performSearch(searchText);
+        }, 1000);
+
+        setTypingTimeout(newTypingTimeout);
+    };
+    const performSearch = async (text) => {
+        const queryParam = `page=1&page_size=10&search=` + text;
+        dispatch(fetchFaqQuestions(queryParam));
+    };
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Sources`} icon={<DocumentMagnifyingGlassIcon className="h-5 w-5 text-primary" />} />
+                <TopBar title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
                 {loading === true ? (
                     <>
                         <div className="w-full">
@@ -135,7 +156,7 @@ const Page = () => {
                     <>
                         {basicFormData?.knowledgeData && (
 
-                            <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                            <ManageKnowledgeBase questions={faqQuestionState} tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleChangeSearch={handleChange} search={search}/>
                         )}
 
 

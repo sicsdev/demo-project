@@ -248,7 +248,6 @@ const Page = () => {
         </div>
       ) : (
         <div>
-          {!integrationform && (
             <div>
               <div className="flex items-center justify-between">
                 <p class="text-black-color text-sm font-semibold my-2">
@@ -268,14 +267,13 @@ const Page = () => {
                     type="search"
                     id={"search_integration"}
                     onChange={handleInput}
-                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                    placeholder={"Search for integration"}
+                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                    placeholder={"Search"}
                   />
                 </div>
               </div>
 
             </div>
-          )}
           <div>
             {integrationData.length > 0 ? (
               <>

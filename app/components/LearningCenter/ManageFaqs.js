@@ -28,13 +28,13 @@ const ManageFaqs = ({ questions }) => {
         rows: {
             style: {
                 minHeight: 'auto', // override the row height
-                // maxHeight: '100%', // override the row height
-                height: "auto",
+                maxHeight: '100%', // override the row height
                 paddingTop: "10px",
                 paddingBottom: "10px",
+                height: "auto"
             },
         }
-    };
+    }
     const updateFaq = async () => {
         setUpdateLoader(true)
         const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
@@ -53,6 +53,7 @@ const ManageFaqs = ({ questions }) => {
             sortable: false,
             reorder: false,
             minWidth: "200px",
+            padding:"12px",
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             )
@@ -183,7 +184,7 @@ const ManageFaqs = ({ questions }) => {
         }
     }
     return (
-        <div className="w-full mt-5 basic-knowledge">
+        <div className="w-full px-2 pt-2">
             <DataTable
                 title={''}
                 fixedHeader
@@ -239,9 +240,9 @@ const ManageFaqs = ({ questions }) => {
                     </div>
                     {tab === 0 && (
                         <>
-                            <div className='my-8'>
+                            <div className='my-8 sss'>
                                 <TextArea name="answer"
-                                    className="py-2 "
+                                    className="py-2 !p-[10px]"
                                     type={"text"}
                                     id={"answer"}
                                     placeholder={""}
@@ -288,7 +289,7 @@ const ManageFaqs = ({ questions }) => {
                                     {showAdd && (
                                         <div className='my-8'>
                                             <TextArea name="negative_answer"
-                                                className="py-2"
+                                                className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"negative_answer"}
 

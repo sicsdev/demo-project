@@ -196,21 +196,20 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                         checked={schedule[day].length > 0}
                         onClick={() => handleCheckbox(day)}
                       />
-                      <small className="text-xs sm:text-[14px]">
+                      <small className="text-xs sm:text-[12px]">
                         {day.substr(0, 3).toUpperCase()}
                       </small>
                     </div>
 
                     <div className="lg:flex flex items-center gap-3">
-                      <div className="col-span-1 w-[210px] sm:w-[270px]">
+                      <div className="col-span-1 w-[225px] sm:w-[270px]">
                         {schedule[day].length > 0 ? (
                           schedule[day].map((time, index) => (
                             <div
                               key={index}
                               style={{ gridTemplateColumns: "repeat(3, auto)" }}
-                              className={`grid grid-cols-3 gap-1 sm:gap-3 ${
-                                index !== 0 ? "pt-2" : ""
-                              }`}
+                              className={`grid grid-cols-3 gap-1 sm:gap-3 ${index !== 0 ? "pt-2" : ""
+                                }`}
                             >
                               <div className="relative">
                                 <input
@@ -219,7 +218,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                   value={schedule[day][index].start}
                                   type="time"
                                   name={day}
-                                  className="text-center sm:text-[14px] flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] text-[9px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                  className="text-center sm:text-[10px] flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] text-[9px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 />
                               </div>
                               <div className="relative">
@@ -229,16 +228,16 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                   value={schedule[day][index].end}
                                   type="time"
                                   name={day}
-                                  className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] text-[9px] sm:text-[14px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                  className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] text-[9px] sm:text-[10px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 />
                               </div>
                               <div className="flex items-center">
                                 <MinusIcon
                                   className="w-4 cursor-pointer hover:text-red"
                                   onClick={() => handleDeleteHour(day, index)}
-                              />
-                                
-                        
+                                />
+
+
                               </div>
                             </div>
                           ))
@@ -252,7 +251,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                               <input
                                 id={"index"}
                                 type="time"
-                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                className="text-center sm:text-[10px] flex items-center justify-center new_input !p-0 !m-0 h-[37.5px] text-[9px] border-[0.2px] px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                                 disabled
                               />
                             </div>
@@ -261,7 +260,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
                                 id={"idnex"}
                                 disabled
                                 type="time"
-                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] !text-[9px] sm:text-[12px]  border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
+                                className="text-center flex items-center justify-center new_input !p-0 !m-0 new_input h-[37.5px] text-[9px] sm:text-[10px] border-[0.2px]  px-3 bg-white  rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2 disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full relative py-1 hover:border-sky cursor-pointer"
                               />
                             </div>
                             <div className="flex items-center">

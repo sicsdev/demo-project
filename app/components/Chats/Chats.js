@@ -209,9 +209,17 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         {
                                                             element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
                                                             <>
-                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
-                                                                    {element.content}
-
+                                                                <div className='flex items-center justify-between gap-1'>
+                                                                    <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                        {element.content}
+                                                                    </div>
+                                                                    <div className="chatBotWidgetThumbs">
+                                                                        <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
+                                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[13px] h-[13px] opacity-80">
+                                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+                                                                            </svg>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                     <small><b>Sources</b></small><br />
@@ -368,32 +376,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
                                                         {/* SOURCES */}
 
-
                                                     </div>
-                                                    <div className="chatBotWidgetThumbs">
-                                                        {/* <div className="chatBotWidgetThumbs_thumb_up">
-                                                            <svg stroke="currentColor" className="chatWidgetThumb_icon" fill="none" strokeWidth="2" viewBox="0 0 24 24"
-                                                                strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 2ca2H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3">
-                                                                </path>
-                                                            </svg>
-                                                        </div>
-                                                        <div className="chatBotWidgetThumbs_thumb_down">
-                                                            <svg stroke="currentColor" className="chatWidgetThumb_icon" fill="none" strokeWidth="2" viewBox="0 0 24 24"
-                                                                strokeLinecap="round" strokeLinejoin="round" xmlns="http://www.w3.org/2000/svg">
-                                                                <path
-                                                                    d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm7-13h2.67A2.31 2.31 0 0 1 22 4v7a2.31 2.31 0 0 1-2.33 2H17">
-                                                                </path>
-                                                            </svg>
-                                                        </div> */}
-                                                        <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[13px] h-[13px] opacity-80">
-                                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-
 
                                                 </div >
                                             )}
@@ -436,15 +419,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 </div>
             </div >
 
-            <div className="flex items-center space-x-2 mt-4 justify-end mx-3">
+            <div className="flex items-center space-x-2 mt-4 justify-start">
                 <input
                     type="checkbox"
                     id="forReviewCheckbox"
-                    className="h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
+                    className="custom-checkbox h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
                     checked={conversationDetails?.for_review}
                     onClick={handleForReview}
                 />
-                <label className="text-gray-700">For review</label>
+                <label className="text-gray-700 ">For review</label>
             </div>
 
         </>

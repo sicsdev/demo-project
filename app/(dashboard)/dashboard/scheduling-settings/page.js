@@ -44,6 +44,8 @@ const page = () => {
         }
     }, [state.botData.data]);
 
+    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
             let bot_res = res[0].data
@@ -57,8 +59,15 @@ const page = () => {
             }
 
             let schedule = res[0].data?.schedule
+            const sortedData = Object.entries(schedule)
+                .sort(([a], [b]) => daysOfWeek.indexOf(a) - daysOfWeek.indexOf(b))
+                .reduce((obj, [key, value]) => {
+                    obj[key] = value;
+                    return obj;
+                }, {});
+
             schedule ? delete schedule.updatedSchedule : scheduleData
-            setScheduleData(schedule)
+            setScheduleData(sortedData)
             setTimeout(() => {
                 setPageLoading(false);
                 setSubLoading(false);

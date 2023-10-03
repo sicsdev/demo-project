@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '../Common/Button/Button'
 import TextField from '../Common/Input/TextField'
-import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Card from '../Common/Card/Card'
 import { useState } from 'react'
 import { enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService'
@@ -11,12 +10,11 @@ import { useDispatch } from 'react-redux'
 import { fetchProfile } from '../store/slices/userSlice'
 import SkeletonLoader from '../Skeleton/Skeleton'
 import SelectOption from '../Common/Input/SelectOption'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 
 const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLoader, verifyDomainData }) => {
-
     const dispatch = useDispatch();
     const [basicFormData, setBasicFormData] = useState({ domainName: "", subDomain: "" });
-    const [domainName, setDomainName] = useState("");
     const domainPattern = /^[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})+$/;
     const [isValid, setIsValid] = useState(true);
     const [loaderButton, setLoaderButton] = useState(false);
@@ -65,6 +63,18 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
             // setDomainName(user?.enterprise?.domain);
         }
     }, [user])
+
+    const isVerifyRecord = (item) => {
+        if (verifyDomainData?.registers?.length > 0) {
+            const findRecord = verifyDomainData?.registers?.find((x) => x.name == item.name && x.value == item.value);
+            if (findRecord !== undefined) {
+                if (findRecord?.active === true) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
 
     return (
         <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
@@ -133,7 +143,7 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                             <p className='text-xs'>Step 2: Hit the 'Update Verification' button to confirm the entered records.</p>
                             <p className='text-xs mt-2'>Be aware that after setting the correct DNS records, there may be a propagation delay lasting several hours. Once the records are fully authenticated, Tempo will have the capability to dispatch emails using this domain.
                             </p>
-                            <div className='bg-[#F3F6F9] p-4 my-6'>
+                            <div className='bg-[#F3F6F9] p-4 my-6 hidden sm:block'>
 
                                 <h1 className='text-sm font-semibold my-4'>DNS Server Records</h1>
                                 <div className='flex justify-between gap-4 items-center'>
@@ -166,7 +176,14 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                                             {item?.name}
                                                         </td>
                                                         <td className="w-[50%] px-6 py-4 font-medium text-xs  break-all ">
-                                                            {item?.value}
+                                                            <div className='flex items-center justify-start gap-1'>
+                                                                {
+                                                                    isVerifyRecord(item) === true ? <CheckCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-soft-green' />
+                                                                        :
+                                                                        <XCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-red' />
+                                                                }
+                                                                {item?.value}
+                                                            </div>
                                                         </td>
                                                         <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.record_type}
@@ -183,6 +200,43 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                 )}
 
                             </div>
+                            <div className='bg-[#F3F6F9] p-4 my-6  sm:hidden'>
+                                <h1 className='text-sm font-semibold my-4'>DNS Server Records</h1>
+                                <div className='flex justify-between gap-4 items-center'>
+                                    <p className="text-xs font-semibold">Verification Record</p>
+                                    <span className={`${verifyDomainData?.success === true ? 'bg-[#0F9960]' : 'bg-border'}   text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded`}>Status: {verifyDomainData?.success === true ? 'Verified' : 'Unverified'}</span>
+                                </div>
+                                {data?.length > 0 && data?.map((item, key) =>
+                                    <div className='p-6 my-2 border border-border rounded-md bg-white' key={key}>
+                                        {item.name && (
+                                            <div className='my-2'>
+                                                <h1 className='text-sm font-semibold'>Name</h1>
+                                                <p className='text-xs'>  {item?.name}</p>
+                                            </div>
+                                        )}
+                                        <div className='my-2'>
+                                            <h1 className='text-sm font-semibold '>REQUIRED VALUE</h1>
+                                            <div className='flex items-center justify-start gap-1'>
+                                                {
+                                                    isVerifyRecord(item) === true ? <CheckCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-soft-green' />
+                                                        :
+                                                        <XCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-red' />
+                                                }
+                                                <p className='text-xs break-words w-full pr-[10px]'>   {item?.value}</p>
+                                            </div>
+                                        </div>
+                                        <div className='my-2'>
+                                            <h1 className='text-sm font-semibold'>TYPE</h1>
+                                            <p className='text-xs'> {item?.record_type}</p></div>
+                                        <div className='my-2'>
+                                            <h1 className='text-sm font-semibold'>PRIORITY</h1>
+                                            <p className='text-xs'>{item?.priority}</p>
+
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
                             <Button
                                 type={"button"}
                                 className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"

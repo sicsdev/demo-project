@@ -646,7 +646,7 @@ const Page = () => {
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                             </div>
                         </div>
 
@@ -698,10 +698,10 @@ const Page = () => {
                         setShow(false)
                     }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
-                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
                                     <span
-                                        className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                        className={`flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                         aria-current="page"
                                     >
                                         <AcademicCapIcon className="h-5 w-5 text-gray-500" /> Add to Knowledge Base
@@ -709,7 +709,7 @@ const Page = () => {
                                 </li>
                                 <li className="mr-2" onClick={() => { setTab(1) }}>
                                     <span
-                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
+                                        className={`flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
                                         aria-current="page"
                                     >
                                         <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Trigger Workflow
@@ -804,7 +804,7 @@ const Page = () => {
                                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                                 </svg>
                                             </div>
-                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
                                         </div>
                                     </div>
 
@@ -837,10 +837,10 @@ const Page = () => {
                                         )}
                                         <div className='my-2'>
                                             <TextArea name="answer"
-                                                className="py-2"
+                                                className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"answer"}
-                                                placeholder={""}
+                                                placeholder={"Create new knowledge base entry"}
                                                 rows="8"
                                                 onChange={(e) => {
                                                     if (e.target.value.length === 1) {
