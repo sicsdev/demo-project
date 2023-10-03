@@ -169,7 +169,9 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
 
     return (
         <>
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between
+             pb-4 pt-2 border-b border-border dark:bg-gray-800
+            ">
                 <div class="mb-2 sm:mb-0">
                     <p class="text-black-color text-sm font-semibold">
                         Configure {integrationFormData?.name}
