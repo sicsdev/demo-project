@@ -27,61 +27,8 @@ const UpperBasicKnowledge = ({ basicFormData, search, handleChange }) => {
                 </div>
             </div>
 
-            <div className="flex justify-between sm:flex gap-10 justify-start items-center">
-                <div className='mt-0 sm:mt-0 relative' >
-                    <div className="text-sm bg-[#FFF] rounded-md inline-block"
-                        style={{ border: "1px solid #C7C6C7" }}>
-                        <button
-                            type="button"
-                            className="border-none m-0 p-1 px-[0px] flex gap-1 items-center text-lg font-semibold w-[175px]"
-                            onClick={() => { setShowSourceFilter(prev => !prev) }}
-                        >
-                            {/* 
-                    <AdjustmentsHorizontalIcon className='h-4 w-4' />
-                */}
-                            <small className="flex gap-2 justify-between w-full font-normal items-center text-xs p-2">all
-                                <i style={{ fontSize: "15px" }} className="fa">&#xf0d7;</i>
-                            </small>
-                        </button>
-                    </div>
-                    {showSourceFilter && (
-                        <div id="dropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
-                            style={{ border: "1px solid #C7C6C7" }}>
-                            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                <li className='hover:bg-gray cursor-pointer' onClick={() => {
-                                    // setKnowledge(getCount(basicFormData?.knowledgeData || [], 'All'))
-                                    // setShowSourceFilter(prev => !prev)
-                                    // setFilterhead('All')
-                                }}>
-                                    <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
-                                </li>
-                                <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                    // setKnowledge(getCount(basicFormData?.knowledgeData || [], 'EXTERNAL'))
-                                    // setShowSourceFilter(prev => !prev)
-                                    // setFilterhead('External')
-
-                                }}>
-                                    <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
-                                </li>
-                                <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                    // setKnowledge(getCount(basicFormData?.knowledgeData || [], 'SNIPPET'))
-                                    // setShowSourceFilter(prev => !prev)
-                                    // setFilterhead('Snippet')
-
-                                }}>
-                                    <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
-                                </li>
-                                <li className='hover:bg-gray cursor-pointer ' onClick={() => {
-                                    // setKnowledge(getCount(basicFormData?.knowledgeData || [], 'FILE'))
-                                    // setShowSourceFilter(prev => !prev)
-                                    // setFilterhead('File')
-                                }}>
-                                    <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
-                                </li>
-                            </ul>
-                        </div>
-                    )}
-                </div>
+            <div className="block sm:flex gap-10 justify-start items-center">
+             
                 <div className="relative">
                     <input
                         placeholder="Search"
