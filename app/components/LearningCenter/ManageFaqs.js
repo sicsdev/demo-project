@@ -184,7 +184,7 @@ const ManageFaqs = ({ questions }) => {
         }
     }
     return (
-        <div className="w-full mt-5">
+        <div className="w-full px-2 pt-2">
             <DataTable
                 title={''}
                 fixedHeader

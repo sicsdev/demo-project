@@ -140,7 +140,16 @@ const Logs = () => {
     viewed: "all",
     for_review: "all",
   });
+  const [additionalData, setAdditionalData] = useState({
+    conversations: null,
+    csat: null,
+    deflection_data: {
+      date: null,
+      precent: null,
+      dflection: null,
+    }
 
+  })
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
@@ -157,6 +166,15 @@ const Logs = () => {
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
 
     setBotValue(mergedArray);
+
+
+
+
+
+
+    getAdditionalData(mergedArray)
+
+
 
     if (logState.data === null) {
       setSelectedBot(mergedArray[0].value);
@@ -176,7 +194,27 @@ const Logs = () => {
       handlePageChange(logState.data.bot, 1, logState.data.queryParam || "");
     }
   };
-
+  const calculateDeflectionRate = state => {
+    const { totalConversations, humanHandoffs } = state;
+    const deflectionRate = 1 - humanHandoffs / totalConversations;
+    return deflectionRate.toFixed(2); // You can format the result as needed
+  };
+  const getAdditionalData = async (arr) => {
+    const human_handoff = await getBotConversation(arr[0].value, '?human_handoff=true')
+    const has_surveys = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_surveys=true')
+    const has_downvotes = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_downvotes=true')
+    if (human_handoff && has_surveys && has_downvotes) {
+      const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
+      setAdditionalData((prev) => {
+        return {
+          ...prev,
+          conversations: allconversation,
+          deflection_data: { ...additionalData.deflection_data, dflection: calculateDeflectionRate({ totalConversations: allconversation, humanHandoffs: human_handoff.data.count }), },
+          csat: has_surveys.data.count
+        }
+      })
+    }
+  }
   console.log("selectedFilters", selectedFilters);
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
@@ -234,7 +272,7 @@ const Logs = () => {
       ...selectedFilters,
       [name]: value, // Update the selected value for the current dropdown
     });
-
+    console.log("queryParam", value)
     let payload = {
       [name]: value,
     };
@@ -449,7 +487,55 @@ const Logs = () => {
   const handleConversationDetail = async (id) => {
     setIdOfOpenConversation(id);
   };
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Zero-padding the month
+    const day = String(date.getDate()).padStart(2, '0'); // Zero-padding the day
+    return `${year}-${month}-${day}`;
+  }
+  const getDatatBewtweenTwoDates = async (prev, next) => {
+    const currentDate = moment();
+    let next_date = currentDate.format('YYYY-MM-DD');
+    if (next === 'all') {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next_date);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = current_response.data.count - response.data.count / response.data.count
+        console.log("calculateDates", calculateDates)
+      }
+    } else {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}&created__lte=${next}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = current_response.data.count - response.data.count / response.data.count
+        console.log("calculateDates", calculateDates)
+      }
+    }
 
+  }
+  // useEffect(() => {
+  //   if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
+  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+  //   } else if (selectedFilters.created__gte !== 'all') {
+  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+  //   }
+  // }, [selectedFilters.created__gte, selectedFilters.created__lte,])
   return (
     <>
       <div>
@@ -494,19 +580,19 @@ const Logs = () => {
         {/* <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">Conversations</h1>
-            <p className="text-2xl text-heading font-bold my-2">$12,300</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
             <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">15&#8453;&uarr;</span>
             <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
           </div>
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
-            <p className="text-2xl text-heading font-bold my-2">322</p>
-            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">20&#8453;&uarr;</span>
-            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
+            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.deflection_data.precent ? additionalData.deflection_data.precent + "&#8453;&uarr;" : "+ ♾️"}</span>
+            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v{additionalData.deflection_data.date ? additionalData.deflection_data.date : "N/A"}</p>
           </div>
           <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
             <h1 className="text-sm text-heading font-semibold">CSAT</h1>
-            <p className="text-2xl text-heading font-bold my-2">$12,300</p>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
             <span class="bg-[#FAEFED] text-[#BB6C5C] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">25&#8453;&darr;</span>
             <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
           </div>

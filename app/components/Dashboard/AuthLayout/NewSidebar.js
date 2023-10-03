@@ -91,7 +91,6 @@ const NewSidebar = ({ children }) => {
         }
     }, [base64Data]);
     const [isOpen, setIsOpen] = useState(false);
-    const [isOpen2, setIsOpen2] = useState(false);
     const [show, setShow] = useState(false);
 
     const handleToggle = () => {
@@ -153,7 +152,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/workflow/workflow-builder",
-                    name: "Your Workflows",
+                    name: "Workflows",
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -166,23 +165,23 @@ const NewSidebar = ({ children }) => {
             isLink: false,
             list: [
                 {
-                    href: "/dashboard/basic-knowledge/source",
+                    href: "/dashboard/basic-knowledge",
                     target: "/dashboard/basic-knowledge/source",
                     name: "Knowledge Base",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                    // list: [
-                    //     {
-                    //         href: "/dashboard/basic-knowledge/source",
-                    //         name: "Sources",
-                    //         icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
-                    //     },
-                    //     {
-                    //         href: "/dashboard/basic-knowledge/questions",
-                    //         name: "Questions",
-                    //         icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                    //     },
-                    // ]
+                    isLink: true,
+                    list: [
+                        {
+                            href: "/dashboard/basic-knowledge/source",
+                            name: "Sources",
+                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                        {
+                            href: "/dashboard/basic-knowledge/questions",
+                            name: "Questions",
+                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                    ]
                 },
                 {
                     href: "/dashboard/knowledge-center",
@@ -463,21 +462,6 @@ const NewSidebar = ({ children }) => {
         };
     }, []);
 
-    const divRef2 = useRef(null);
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (divRef2.current && !divRef2.current.contains(event.target)) {
-                setIsOpen2(false);
-            }
-        };
-
-        document.addEventListener("click", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("click", handleOutsideClick);
-        };
-    }, []);
-
     const divSideRef = useRef(null);
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -503,7 +487,7 @@ const NewSidebar = ({ children }) => {
             setBase64Data({ data: base64Content, state: true });
             setTimeout(() => {
                 setIsOpen(false);
-            }, 1000);x
+            }, 1000);
         };
 
         reader.readAsDataURL(file);
@@ -588,7 +572,7 @@ const NewSidebar = ({ children }) => {
 
 
                                         :
-                                        <li key={key} className={`${ele.name === "API References" && isMobile ? "mb-[70px]" : "mb-1"}  hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
                                             }`}>
                                             <>
 
@@ -603,7 +587,6 @@ const NewSidebar = ({ children }) => {
                                                         {!collaps && (
                                                             <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
                                                                 {ele.name}
-
                                                             </span>
                                                         )}
                                                     </Link>
@@ -674,7 +657,7 @@ const NewSidebar = ({ children }) => {
     };
     const sendNames = (name) => {
         if (name === "Home") return "Widgets";
-        if (name === "Your Workflows") return "Your Workflows";
+        if (name === "Workflows") return "Workflows";
         if (name === "Organization Settings") return "Organization";
         return name;
     };
@@ -760,8 +743,8 @@ const NewSidebar = ({ children }) => {
                                                 />
                                             </button>
                                         )}
-                                        {isOpen === true || isOpen2 === true ? (
-                                            <ul className="fixed w-[200px] text-center right-[20px] mt-2 py-2 bg-white rounded shadow-lg z-50">
+                                        {isOpen && (
+                                            <ul className="absolute w-[200px] text-center right-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                 <li className="text-start p-2">
                                                     <p className="text-xs font-normal text-heading ml-4 break-all">
                                                         {state?.email}
@@ -846,7 +829,7 @@ const NewSidebar = ({ children }) => {
                                                     </button>
                                                 </li>
                                             </ul>
-                                        ):null}
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -908,7 +891,7 @@ const NewSidebar = ({ children }) => {
                                     <p className="mb-[40px]"></p>
                                 </>
                             )}
-                            <div className={`absolute ${!collaps && ("w-[95%]")}   text-sm mb-5`}>
+                            <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
                                 {skeltonLoading ? (
                                     <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="w-full rounded-lg">
@@ -916,8 +899,8 @@ const NewSidebar = ({ children }) => {
                                         </li>
                                     </ul>
                                 ) : (
-                                    <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out" >
-                                        <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" ref={divRef2} onClick={() => setIsOpen2(!isOpen2)} >
+                                    <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
+                                        <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" onClick={() => handleToggle()} >
                                             {state?.enterprise?.logo ?
                                                 <img
                                                     className="w-8 h-8 rounded-lg"
