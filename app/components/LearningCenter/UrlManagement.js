@@ -23,37 +23,37 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
         );
     }
 
-    const handleToggle = async (index, id) => {
-        const knowledgeIndex = knowledge.findIndex(obj => obj.id === id);
-        const basicFormDataIndex = basicFormData?.knowledgeData.findIndex(obj => obj.id === id);
-        let knowledgeData = [...knowledge]
-        let basic = [...basicFormData.knowledgeData]
-        let singleData = [...knowledgeData]
-        const payload = { active: true };
-        if (singleData[index].active === true) {
-            singleData[index].active = false
-            payload.active = false
-            basic[basicFormDataIndex].active = false
-            knowledgeData[knowledgeIndex].active = false
-        } else {
-            singleData[index].active = true
-            basic[basicFormDataIndex].active = true
-            knowledgeData[knowledgeIndex].active = true
-        }
-        setBasicFormData((prev) => {
-            return {
-                ...prev,
-                knowledgeData: basic
-            }
-        })
-        try {
-            await updateKnowledgeRecord(payload, singleData[index].id);
-            setKnowledge(knowledgeData)
-            setKnowledgeData(getCount(basic || [], 'EXTERNAL'))
-        } catch (error) {
-        }
+    // const handleToggle = async (index, id) => {
+    //     const knowledgeIndex = knowledge.findIndex(obj => obj.id === id);
+    //     const basicFormDataIndex = basicFormData?.knowledgeData.findIndex(obj => obj.id === id);
+    //     let knowledgeData = [...knowledge]
+    //     let basic = [...basicFormData.knowledgeData]
+    //     let singleData = [...knowledgeData]
+    //     const payload = { active: true };
+    //     if (singleData[index].active === true) {
+    //         singleData[index].active = false
+    //         payload.active = false
+    //         basic[basicFormDataIndex].active = false
+    //         knowledgeData[knowledgeIndex].active = false
+    //     } else {
+    //         singleData[index].active = true
+    //         basic[basicFormDataIndex].active = true
+    //         knowledgeData[knowledgeIndex].active = true
+    //     }
+    //     setBasicFormData((prev) => {
+    //         return {
+    //             ...prev,
+    //             knowledgeData: basic
+    //         }
+    //     })
+    //     try {
+    //         await updateKnowledgeRecord(payload, singleData[index].id);
+    //         setKnowledge(knowledgeData)
+    //         setKnowledgeData(getCount(basic || [], 'EXTERNAL'))
+    //     } catch (error) {
+    //     }
 
-    }
+    // }
 
     const deleteRecordNew = (id) => {
         const filerData = knowledgeData.filter((x) => x.id !== id)
@@ -126,7 +126,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                     </>)
                                 }
                                 <div className='mb-4'>
-                                    {knowledgeData.map((_, key) =>
+                                    {/* {knowledgeData.map((_, key) =>
                                         <div className="cursor-pointer flex flex-col gap-4 mt-4  shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg " key={key}>
                                             <div className=' '>
                                                 <div className="flex flex-wrap sm:flex-auto justify-between rounded bg-white p-4">
@@ -165,7 +165,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                                 )}
                                             </div>
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                             </div>
                         </div>
