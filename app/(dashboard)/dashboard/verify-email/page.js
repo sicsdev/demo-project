@@ -14,7 +14,7 @@ const VerifyEmail = () => {
     const [allDomainsData, setAllDomainsData] = useState([]);
     const [dataLoader, setDataLoader] = useState(false);
     const [verifyLoader, setVerifyLoader] = useState(false);
-    const [verifyDomainData, setVerifyDomainData] = useState({ success: false });
+    const [verifyDomainData, setVerifyDomainData] = useState({ success: false, registers: [] });
     useEffect(() => {
         getAllDomains();
     }, [])

@@ -1,7 +1,6 @@
 import React from 'react'
 import Button from '../Common/Button/Button'
 import TextField from '../Common/Input/TextField'
-import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import Card from '../Common/Card/Card'
 import { useState } from 'react'
 import { enterpriseDomainInitialize } from '@/app/API/pages/EnterpriseService'
@@ -11,12 +10,11 @@ import { useDispatch } from 'react-redux'
 import { fetchProfile } from '../store/slices/userSlice'
 import SkeletonLoader from '../Skeleton/Skeleton'
 import SelectOption from '../Common/Input/SelectOption'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/solid'
 
 const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLoader, verifyDomainData }) => {
-
     const dispatch = useDispatch();
     const [basicFormData, setBasicFormData] = useState({ domainName: "", subDomain: "" });
-    const [domainName, setDomainName] = useState("");
     const domainPattern = /^[a-zA-Z0-9.-]+(\.[a-zA-Z]{2,})+$/;
     const [isValid, setIsValid] = useState(true);
     const [loaderButton, setLoaderButton] = useState(false);
@@ -65,6 +63,18 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
             // setDomainName(user?.enterprise?.domain);
         }
     }, [user])
+
+    const isVerifyRecord = (item) => {
+        if (verifyDomainData?.registers?.length > 0) {
+            const findRecord = verifyDomainData?.registers?.find((x) => x.name == item.name && x.value == item.value);
+            if (findRecord !== undefined) {
+                if (findRecord?.valid === "valid") {
+                    return true;
+                }
+            }
+        }
+        return false;
+    };
 
     return (
         <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
@@ -166,7 +176,14 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                                             {item?.name}
                                                         </td>
                                                         <td className="w-[50%] px-6 py-4 font-medium text-xs  break-all ">
-                                                            {item?.value}
+                                                            <div className='flex items-center justify-start gap-1'>
+                                                                {
+                                                                    isVerifyRecord(item) === true ? <CheckCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-soft-green' />
+                                                                        :
+                                                                        <XCircleIcon className='min-w-[20px] h-[20px] w-[20px] text-red' />
+                                                                }
+                                                                {item?.value}
+                                                            </div>
                                                         </td>
                                                         <td className="w-[10%] px-6 py-4 font-medium text-xs  break-all">
                                                             {item?.record_type}
