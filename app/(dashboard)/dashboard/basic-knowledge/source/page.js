@@ -1,8 +1,10 @@
 'use client'
 import { getFaqQuestions } from '@/app/API/pages/Knowledge'
+import TopBar from '@/app/components/Common/Card/TopBar'
 import ManageFaqs from '@/app/components/LearningCenter/ManageFaqs'
 import UpperBasicKnowledge from '@/app/components/LearningCenter/UpperBasicKnowledge'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
+import { BookOpenIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -98,12 +100,18 @@ const Source = () => {
     };
     return (
         <>
+            <TopBar title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
+
+
+            <>
             {basicFormData?.data && (
                 <>
-                    <UpperBasicKnowledge basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} />
-                    <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData}/>
+
+                    <UpperBasicKnowledge questions={basicFormData}  basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} setBasicFormData={setBasicFormData}/>
+                    <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                 </>
             )}
+        </>
         </>
     )
 }
