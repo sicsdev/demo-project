@@ -16,7 +16,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
         return {
           logo: ele?.enterprise?.logo,
           email: ele.email,
-          name: ele.enterprise.name,
+          name: ele.name,
           role: ele?.role,
           contact: ele.phone_prefix + " " + ele.phone,
         };
