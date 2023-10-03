@@ -492,6 +492,7 @@ const Logs = () => {
     const formattedDay = day === 1 ? `${day}st` : day === 2 ? `${day}nd` : day === 3 ? `${day}rd` : `${day}th`;
     return `${formattedDay} ${month}`;
   }
+  console.log(additionalData)
   const getDatatBewtweenTwoDates = async (prev, next) => {
     const currentDate = moment();
     let next_date = currentDate.format('YYYY-MM-DD');
@@ -509,7 +510,7 @@ const Logs = () => {
       if (current_response.status === 200 && response.status === 200) {
         const calculateDates = (current_response.data.count - response.data.count) / response.data.count
         const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
-        const conversationRate = ((current_response.data.count -  response.data.count) /  response.data.count) * 100;
+        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
         const formattedDate1 = formatDateMonths(selectedDate1);
         const formattedDate2 = formatDateMonths(selectedDate2);
         setAdditionalData((prev) => {
@@ -517,7 +518,7 @@ const Logs = () => {
             ...prev,
             deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
             average: (calculateAverage * 100).toFixed(1),
-            conversations_avg:conversationRate.toFixed(1)
+            conversations_avg: conversationRate.toFixed(1)
           }
         })
       }
@@ -535,7 +536,7 @@ const Logs = () => {
       if (current_response.status === 200 && response.status === 200) {
         const calculateDates = (current_response.data.count - response.data.count) / response.data.count
         const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
-        const conversationRate = ((current_response.data.count -  response.data.count) /  response.data.count) * 100;
+        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
         const formattedDate1 = formatDateMonths(selectedDate1);
         const formattedDate2 = formatDateMonths(selectedDate2);
         setAdditionalData((prev) => {
@@ -543,7 +544,7 @@ const Logs = () => {
             ...prev,
             deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
             average: (calculateAverage * 100).toFixed(1),
-            conversations_avg:conversationRate.toFixed(1)
+            conversations_avg: conversationRate.toFixed(1)
           }
         })
       }
@@ -665,7 +666,7 @@ const Logs = () => {
               <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
 
-              {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) ? (
+              {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
                 <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
               ) : (
                 <>
