@@ -176,11 +176,11 @@ const NewSidebar = ({ children }) => {
                             name: "Sources",
                             icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
-                        {
-                            href: "/dashboard/basic-knowledge/questions",
-                            name: "Questions",
-                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                        },
+                        // {
+                        //     href: "/dashboard/basic-knowledge/questions",
+                        //     name: "Questions",
+                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
+                        // },
                     ]
                 },
                 {
