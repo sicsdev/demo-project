@@ -142,7 +142,9 @@ const Logs = () => {
   });
   const [additionalData, setAdditionalData] = useState({
     conversations: null,
+    conversations_avg: null,
     csat: null,
+    average: null,
     deflection_data: {
       date: null,
       precent: null,
@@ -164,40 +166,20 @@ const Logs = () => {
     });
 
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
-
     setBotValue(mergedArray);
-
-
-
-
-
-
     getAdditionalData(mergedArray)
-
-
-
-    if (logState.data === null) {
+    if (mergedArray?.length > 0) {
       setSelectedBot(mergedArray[0].value);
       setIndexVal(0);
       handlePageChange(mergedArray[0].value, 1,
         "&ordering=-number_of_messages");
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
-    } else {
-      setSelectedFilters({
-        ...selectedFilters,
-        type: logState.data.type || "all",
-        workflows: logState.data.workflows || "all",
-        conversations: logState.data.conversations || "all",
-      });
-      setSelectedBot(logState.data.bot);
-      setIndexVal(0);
-      handlePageChange(logState.data.bot, 1, logState.data.queryParam || "");
     }
   };
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
     const deflectionRate = 1 - humanHandoffs / totalConversations;
-    return deflectionRate.toFixed(2); // You can format the result as needed
+    return (deflectionRate * 100).toFixed(1); // You can format the result as needed
   };
   const getAdditionalData = async (arr) => {
     const human_handoff = await getBotConversation(arr[0].value, '?human_handoff=true')
@@ -210,7 +192,8 @@ const Logs = () => {
           ...prev,
           conversations: allconversation,
           deflection_data: { ...additionalData.deflection_data, dflection: calculateDeflectionRate({ totalConversations: allconversation, humanHandoffs: human_handoff.data.count }), },
-          csat: has_surveys.data.count
+          csat: has_surveys.data.count,
+          average: human_handoff.data.surveys.average
         }
       })
     }
@@ -237,7 +220,7 @@ const Logs = () => {
     if (state.botData.data === null) {
       dispatch(fetchBot());
     }
-    if (state.botData.data?.bots && state.botData.data?.widgets) {
+    if (state.botData.data?.bots && state.botData.data?.widgets && conversationData.length === 0) {
       getAllBots();
     }
   }, [state.botData.data]);
@@ -278,7 +261,7 @@ const Logs = () => {
     dispatch(
       updateLogState({ ...logState.data, queryParam: queryParam, ...payload })
     );
-    if (selectedBot) {
+    if (selectedBot !== "Select") {
       setIndexVal(0);
       handlePageChange(selectedBot, 1, queryParam);
     }
@@ -340,7 +323,10 @@ const Logs = () => {
       setTotalRows(data.count);
 
       setConversationData(newdata);
-      setLoading(false);
+      setTimeout(() => {
+
+        setLoading(false);
+      }, 2000);
     } else {
       setLoading(false);
     }
@@ -381,7 +367,7 @@ const Logs = () => {
   };
 
   const performSearch = (text) => {
-    if (selectedBot) {
+    if (selectedBot !== "Select") {
       let searching = logState.data.queryParam || "";
       handlePageChange(selectedBot, 1, searching + "&search=" + text);
     }
@@ -452,13 +438,17 @@ const Logs = () => {
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
-    const queryParam = buildQueryParam(selectedFilters);
-    dispatch(updateLogState({ ...logState.data, queryParam: queryParam }));
-    handlePageChange(selectedBot, page, queryParam, newPerPage);
+    if (selectedBot !== "Select") {
+      const queryParam = buildQueryParam(selectedFilters);
+      dispatch(updateLogState({ ...logState.data, queryParam: queryParam }));
+      handlePageChange(selectedBot, page, queryParam, newPerPage);
+    }
   };
   const changePage = (page) => {
-    setPageVal(page);
-    handlePageChange(selectedBot, page, buildQueryParam(selectedFilters));
+    if (selectedBot !== "Select") {
+      setPageVal(page);
+      handlePageChange(selectedBot, page, buildQueryParam(selectedFilters));
+    }
   };
 
   const handleSetViewed = async (rowData) => {
@@ -492,6 +482,17 @@ const Logs = () => {
     const day = String(date.getDate()).padStart(2, '0'); // Zero-padding the day
     return `${year}-${month}-${day}`;
   }
+  function formatDateMonths(date) {
+    const day = date.getDate();
+    const monthNames = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    const month = monthNames[date.getMonth()];
+    const formattedDay = day === 1 ? `${day}st` : day === 2 ? `${day}nd` : day === 3 ? `${day}rd` : `${day}th`;
+    return `${formattedDay} ${month}`;
+  }
+  console.log(additionalData)
   const getDatatBewtweenTwoDates = async (prev, next) => {
     const currentDate = moment();
     let next_date = currentDate.format('YYYY-MM-DD');
@@ -504,11 +505,22 @@ const Logs = () => {
       date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
       const dateOneDayBefore = new Date(selectedDate1);
       dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
-      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
-      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}`)
+      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}`)
       if (current_response.status === 200 && response.status === 200) {
-        const calculateDates = current_response.data.count - response.data.count / response.data.count
-        console.log("calculateDates", calculateDates)
+        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
+        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
+        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
+        const formattedDate1 = formatDateMonths(selectedDate1);
+        const formattedDate2 = formatDateMonths(selectedDate2);
+        setAdditionalData((prev) => {
+          return {
+            ...prev,
+            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
+            average: (calculateAverage * 100).toFixed(1),
+            conversations_avg: conversationRate.toFixed(1)
+          }
+        })
       }
     } else {
       const selectedDate1 = new Date(prev);
@@ -519,22 +531,33 @@ const Logs = () => {
       date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
       const dateOneDayBefore = new Date(selectedDate1);
       dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
-      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
-      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}&created__lte=${next}`)
+      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}&created__lte=${next}`)
       if (current_response.status === 200 && response.status === 200) {
-        const calculateDates = current_response.data.count - response.data.count / response.data.count
-        console.log("calculateDates", calculateDates)
+        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
+        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
+        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
+        const formattedDate1 = formatDateMonths(selectedDate1);
+        const formattedDate2 = formatDateMonths(selectedDate2);
+        setAdditionalData((prev) => {
+          return {
+            ...prev,
+            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
+            average: (calculateAverage * 100).toFixed(1),
+            conversations_avg: conversationRate.toFixed(1)
+          }
+        })
       }
     }
-
   }
-  // useEffect(() => {
-  //   if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
-  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
-  //   } else if (selectedFilters.created__gte !== 'all') {
-  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
-  //   }
-  // }, [selectedFilters.created__gte, selectedFilters.created__lte,])
+
+  useEffect(() => {
+    if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
+      getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+    } else if (selectedFilters.created__gte !== 'all') {
+      getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+    }
+  }, [selectedFilters.created__gte, selectedFilters.created__lte,])
   return (
     <>
       <div>
@@ -576,26 +599,122 @@ const Logs = () => {
             )}
           </>
         )}
-        {/* <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
-          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-            <h1 className="text-sm text-heading font-semibold">Conversations</h1>
-            <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
-            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">15&#8453;&uarr;</span>
-            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
+        {loading === true || state.isLoading === true ? (
+          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <SkeletonLoader height={25} width={"30%"} />
+              <div className="my-2">
+                <SkeletonLoader height={32} width={"22%"} />
+              </div>
+              <div className="mt-2">
+                <SkeletonLoader height={17} width={"20%"} />
+              </div>
+              <div className="mt-1">
+                <SkeletonLoader height={20} width={"30%"} />
+              </div>
+            </div>
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <SkeletonLoader height={25} width={"30%"} />
+              <div className="my-2">
+                <SkeletonLoader height={32} width={"22%"} />
+              </div>
+              <div className="mt-2">
+                <SkeletonLoader height={17} width={"20%"} />
+              </div>
+              <div className="mt-1">
+                <SkeletonLoader height={20} width={"30%"} />
+              </div>
+            </div>
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <SkeletonLoader height={25} width={"30%"} />
+              <div className="my-2">
+                <SkeletonLoader height={32} width={"22%"} />
+              </div>
+              <div className="mt-2">
+                <SkeletonLoader height={17} width={"20%"} />
+              </div>
+              <div className="mt-1">
+                <SkeletonLoader height={20} width={"30%"} />
+              </div>
+            </div>
           </div>
-          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-            <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
-            <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
-            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.deflection_data.precent ? additionalData.deflection_data.precent + "&#8453;&uarr;" : "+ ♾️"}</span>
-            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v{additionalData.deflection_data.date ? additionalData.deflection_data.date : "N/A"}</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <h1 className="text-sm text-heading font-semibold">Conversations</h1>
+              <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
+              {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
+                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+              ) : (
+                <>
+                  {additionalData.conversations_avg > 0 && isFinite(additionalData.conversations_avg) && (
+                    <span class="bg-[#EDF9F4] text-[#86B094]  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.conversations_avg + "℅↑"}</span>
+                  )}
+                  {additionalData.conversations_avg < 0 && isFinite(additionalData.conversations_avg) && (
+                    <span class="bg-[#FAEFED] text-red text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.conversations_avg + "℅↓"}</span>
+                  )}
+                </>
+              )}
+              {additionalData.deflection_data.date === null ? (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v N/A</p>
+              ) : (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
+              )
+              }
+            </div>
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
+              <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
+
+              {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
+                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+              ) : (
+                <>
+                  {additionalData.deflection_data.precent > 0 && isFinite(additionalData.deflection_data.precent) && (
+                    <span class="bg-[#EDF9F4] text-[#86B094]  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.deflection_data.precent + "℅↑"}</span>
+                  )}
+                  {additionalData.deflection_data.precent < 0 && isFinite(additionalData.deflection_data.precent) && (
+                    <span class="bg-[#FAEFED] text-red text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.deflection_data.precent + "℅↓"}</span>
+                  )}
+                </>
+              )}
+              {additionalData.deflection_data.date === null ? (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v N/A</p>
+              ) : (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
+              )
+              }
+
+
+
+
+
+
+            </div>
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+              <h1 className="text-sm text-heading font-semibold">CSAT</h1>
+              <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
+              {additionalData.average === null || !isFinite(additionalData.average) || additionalData.average === 0 || additionalData.average === '0.0' ? (
+                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+              ) : (
+                <>
+                  {additionalData.average > 0 && isFinite(additionalData.average) && (
+                    <span class="bg-[#EDF9F4] text-[#86B094]  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.average + "℅↑"}</span>
+                  )}
+                  {additionalData.average < 0 && isFinite(additionalData.average) && (
+                    <span class="bg-[#FAEFED] text-red text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.average + "℅↓"}</span>
+                  )}
+                </>
+              )}
+              {additionalData.deflection_data.date === null ? (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v N/A</p>
+              ) : (
+                <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
+              )
+              }
+            </div>
           </div>
-          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-            <h1 className="text-sm text-heading font-semibold">CSAT</h1>
-            <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
-            <span class="bg-[#FAEFED] text-[#BB6C5C] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">25&#8453;&darr;</span>
-            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
-          </div>
-        </div> */}
+        )}
         {/* <Reports /> */}
         <>
           {loading === true || state.isLoading === true ? (
@@ -790,7 +909,7 @@ const Logs = () => {
           )}
 
           <>
-            {selectedBot && (
+            {selectedBot !== 'Select' && (
               <DataTable
                 title={""}
                 fixedHeader
