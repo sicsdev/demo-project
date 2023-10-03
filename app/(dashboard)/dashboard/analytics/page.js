@@ -494,39 +494,61 @@ const Logs = () => {
   }
   const getDatatBewtweenTwoDates = async (prev, next) => {
     const currentDate = moment();
-    const next_date = currentDate.format('YYYY-MM-DD');
-    const selectedDate1 = new Date(prev);
-    const selectedDate2 = next === 'all' ? new Date(next_date) : new Date(next);
-
-    const timeDifference = selectedDate2 - selectedDate1;
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    const date7DaysAgo = new Date(selectedDate1);
-    date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
-    const dateOneDayBefore = new Date(selectedDate1);
-    dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
-
-    const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`);
-    const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}${next === 'all' ? '' : `&created__lte=${next}`}`);
-
-    if (current_response.status === 200 && response.status === 200) {
-      const calculateDates = (current_response.data.count - response.data.count) / response.data.count;
-      const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average;
-      const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
-      const formattedDate1 = formatDateMonths(selectedDate1);
-      const formattedDate2 = formatDateMonths(selectedDate2);
-
-      setAdditionalData((prev) => ({
-        ...prev,
-        deflection_data: {
-          ...additionalData.deflection_data,
-          date: `${formattedDate1} - ${formattedDate2}`,
-          precent: (calculateDates * 100).toFixed(1),
-        },
-        average: (calculateAverage * 100).toFixed(1),
-        conversations_avg: conversationRate.toFixed(1),
-      }));
+    let next_date = currentDate.format('YYYY-MM-DD');
+    if (next === 'all') {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next_date);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
+        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
+        const conversationRate = ((current_response.data.count -  response.data.count) /  response.data.count) * 100;
+        const formattedDate1 = formatDateMonths(selectedDate1);
+        const formattedDate2 = formatDateMonths(selectedDate2);
+        setAdditionalData((prev) => {
+          return {
+            ...prev,
+            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
+            average: (calculateAverage * 100).toFixed(1),
+            conversations_avg:conversationRate.toFixed(1)
+          }
+        })
+      }
+    } else {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}&created__lte=${next}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
+        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
+        const conversationRate = ((current_response.data.count -  response.data.count) /  response.data.count) * 100;
+        const formattedDate1 = formatDateMonths(selectedDate1);
+        const formattedDate2 = formatDateMonths(selectedDate2);
+        setAdditionalData((prev) => {
+          return {
+            ...prev,
+            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
+            average: (calculateAverage * 100).toFixed(1),
+            conversations_avg:conversationRate.toFixed(1)
+          }
+        })
+      }
     }
-  };
+  }
 
   useEffect(() => {
     if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
