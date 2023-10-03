@@ -75,7 +75,7 @@ const Page = () => {
     const [workflowValue, setWorkflowValue] = useState(null)
     const [subQuestions, setSubQuestions] = useState([])
     const [newUUI, setNewUUI] = useState('')
-
+    const [pusherStreaming, setPusherStreaming] = useState(false)
 
     const getData = async () => {
         setTabLoader(true);
@@ -121,9 +121,16 @@ const Page = () => {
         let newUUID = uuidv4()
         setNewUUI(newUUID)
 
+
+        let timeoutId;
         const channel = pusher.subscribe(`recommendation-${newUUID}`);
         channel.bind('messages', data => {
+            clearTimeout(timeoutId);
+            setPusherStreaming(true)
             setAnswer(prev => prev + data.message);
+            timeoutId = setTimeout(() => {
+                setPusherStreaming(false)
+            }, 2000);
         })
 
     }, [workflowState])
@@ -864,16 +871,16 @@ const Page = () => {
                                                     // onClick={(e) => SubmitTheFormExpand()}
                                                     onClick={getExpandedAnswer}
                                                     type="button"
-                                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || explandLoader}>
-                                                    {explandLoader ? (
+                                                    className="my-6 flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || pusherStreaming}>
+                                                    {pusherStreaming ? (
                                                         <>
-                                                            <span>Loading</span>
+                                                            <span className="text-black">Generating</span>
                                                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                                 width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
-                                                                <path opacity="0.2" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                                                <path opacity="0.4" fill="#00000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
           s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
           c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-                                                                <path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                                                                <path fill="#00000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
           C22.32,8.481,24.301,9.057,26.013,10.047z">
                                                                     <animateTransform attributeType="xml"
                                                                         attributeName="transform"
