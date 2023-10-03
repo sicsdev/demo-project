@@ -4,7 +4,7 @@ import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIco
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
-import { GetAllRecommendations, excludeRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { GetAllRecommendations, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +27,7 @@ const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
+    const [explandLoader, setExplandLoader] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
     const [pageVal, setPageVal] = useState(1);
@@ -46,6 +47,7 @@ const Page = () => {
     const [workflowView, setWorkflowView] = useState(null)
     const [show, setShow] = useState(null)
     const [knowledgeId, setKnowledgeId] = useState(null)
+    const [mode, setMode] = useState('normal')
     const [answer, setAnswer] = useState('')
     const [workFlowData, setWorkFlowData] = useState({
         name: "",
@@ -395,6 +397,25 @@ const Page = () => {
             updateButtonHandler(workflowView.id)
         }
     }
+
+    const SubmitTheFormExpand = async () => {
+        setExplandLoader(true)
+        let payload = {
+            question: workflowView?.question,
+            answer: answer
+        }
+        const resposne = await expandRecommendationRecord(payload)
+        if (resposne.status === 200 || resposne.status === 201) {
+            setUpdateLoader(false)
+            setUpdateLoader1(false)
+            setExplandLoader(false)
+            setAnswer(resposne.data.answer)
+            setMode("normal")
+        } else {
+            setExplandLoader(false)
+        }
+    }
+
     const SubmitTheAnswerForm = (new_answer) => {
         setUpdateLoader1(true)
         if (knowledgeId) {
@@ -568,7 +589,7 @@ const Page = () => {
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                             </div>
                         </div>
 
@@ -620,10 +641,10 @@ const Page = () => {
                         setShow(false)
                     }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
-                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
                                     <span
-                                        className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                        className={`flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                                         aria-current="page"
                                     >
                                         <AcademicCapIcon className="h-5 w-5 text-gray-500" /> Add to Knowledge Base
@@ -631,7 +652,7 @@ const Page = () => {
                                 </li>
                                 <li className="mr-2" onClick={() => { setTab(1) }}>
                                     <span
-                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
+                                        className={`flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
                                         aria-current="page"
                                     >
                                         <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Trigger Workflow
@@ -669,7 +690,7 @@ const Page = () => {
                                             <>
                                                 {subQuestions.length > 0 && (
                                                     <>
-                                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                                                        <div className={`bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                             <ul className="text-start py-2 text-sm text-gray-700 ">
                                                                 <h1 className="text-xs font-semibold">Recommended Answer:</h1>
                                                                 {subQuestions.slice(0, 1).map((element, key) =>
@@ -678,10 +699,11 @@ const Page = () => {
                                                                         <p className="text-xs font-semibold">{element.data.question}</p>
 
                                                                         <p className="text-xs  mt-2">{element.data.answer}</p>
-                                                                        <div className='mt-2'>
+                                                                        <div className='mt-6'>
                                                                             <div className="flex justify-between items-center gap-2">
                                                                                 <div onClick={() => {
                                                                                     setAnswer(element.data.answer)
+                                                                                    setMode('normal')
                                                                                 }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
 
                                                                                     <button
@@ -692,12 +714,9 @@ const Page = () => {
                                                                                         <small className=''>Edit</small>
                                                                                     </button>
                                                                                 </div>
-                                                                                <div onClick={(e) => {
-                                                                                    if (updateLoader1) {
-                                                                                    } else {
-                                                                                        SubmitTheAnswerForm(element.data.answer)
-                                                                                    }
-
+                                                                                <div onClick={() => {
+                                                                                    setAnswer(element.data.answer)
+                                                                                    setMode('normal')
                                                                                 }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                                                                                     <button
                                                                                         type={"submit"}
@@ -728,7 +747,7 @@ const Page = () => {
                                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                                 </svg>
                                             </div>
-                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search knowledge base" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
                                         </div>
                                     </div>
 
@@ -737,7 +756,8 @@ const Page = () => {
                                             <ul className="py-2 text-sm text-gray-700 ">
                                                 {questionData.map((element, key) =>
                                                     <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
-                                                        searchMatched(element)
+                                                        setAnswer(element.answer)
+                                                        setKnowledgeId(element)
 
                                                     }}>
                                                         <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
@@ -754,7 +774,6 @@ const Page = () => {
                                             <>
                                                 <div className={` bg-primary text-white my-4 p-4 rounded-md`}>
                                                     <p className="text-xs">{knowledgeId.question}</p>
-
                                                 </div>
 
                                             </>
@@ -766,15 +785,52 @@ const Page = () => {
                                                 id={"answer"}
                                                 placeholder={"Create new knowledge base entry"}
                                                 rows="8"
-                                                onChange={(e) => setAnswer(e.target.value)}
+                                                onChange={(e) => {
+                                                    if (e.target.value.length === 1) {
+                                                        setMode("expand")
+                                                    } else if (e.target.value.length === 0) {
+                                                        setMode("normal")
+                                                    }
+                                                    setAnswer(e.target.value)
+                                                }}
                                                 value={answer} />
                                         </div>
-                                        <button
-                                            onClick={(e) => SubmitTheForm()}
-                                            type="button"
-                                            className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
-                                            {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
-                                        </button>
+                                        <div className="flex justify-between items-center gap-2">
+                                            <button
+                                                onClick={(e) => SubmitTheForm()}
+                                                type="button"
+                                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={updateLoader || answer === ""}>
+                                                {updateLoader1 ? "Submit" : updateLoader ? "Loading..." : "Submit"}
+                                            </button>
+                                            {mode === 'expand' && (
+                                                <button
+                                                    onClick={(e) => SubmitTheFormExpand()}
+                                                    type="button"
+                                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || explandLoader}>
+                                                    {explandLoader ? (
+                                                        <>
+                                                            <span>Loading</span>
+                                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                                width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
+                                                                <path opacity="0.2" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+          s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+          c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+                                                                <path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+          C22.32,8.481,24.301,9.057,26.013,10.047z">
+                                                                    <animateTransform attributeType="xml"
+                                                                        attributeName="transform"
+                                                                        type="rotate"
+                                                                        from="0 20 20"
+                                                                        to="360 20 20"
+                                                                        dur="0.5s"
+                                                                        repeatCount="indefinite" />
+                                                                </path>
+                                                            </svg>
+                                                        </>
+                                                    ) : "Expand Answer"}
+                                                </button>
+                                            )}
+                                        </div>
                                     </div>
 
                                 </div>
@@ -858,20 +914,25 @@ const Page = () => {
                                     <div className={` bg-[#F8F8F8] my-4`}>
                                         <ul className="py-2 text-sm text-gray-700 ">
                                             {workFlowData.workflow.length > 0 && workFlowData.workflow.map((ele, key) =>
-                                                <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
-                                                    setWorkFlowData((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            workflowValue: ele,
-                                                            showInput: false,
-                                                            target: 'workflow',
-                                                            answer: ele.description.join('\n')
-                                                        }
-                                                    })
-                                                }}>
-                                                    <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
-                                                </li>
+                                                <>
+                                                    {workFlowData.reccomodation.find((x) => x.data.name === ele.name) ? null :
+                                                        <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
+                                                            setWorkFlowData((prev) => {
+                                                                return {
+                                                                    ...prev,
+                                                                    workflowValue: ele,
+                                                                    showInput: false,
+                                                                    target: 'workflow',
+                                                                    answer: ele.description.join('\n')
+                                                                }
+                                                            })
+                                                        }}>
+                                                            <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
+                                                        </li>
+                                                    }
+                                                </>
                                             )}
+
                                             <li className={`${"Human Handoff" === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} onClick={() => {
                                                 setWorkFlowData((prev) => {
                                                     return {
@@ -889,7 +950,7 @@ const Page = () => {
                                         </ul>
 
                                     </div>
-                                    {workFlowData.showInput && (<>
+                                    {/* {workFlowData.showInput && (<>
                                         <div className='my-2'>
                                             <TextArea name="workflow_answer"
                                                 className="py-2"
@@ -906,8 +967,8 @@ const Page = () => {
                                                 value={workFlowData.answer} />
                                         </div>
 
-                                    </>)}
-                                    <button onClick={(e) => submitWorkflowTrigger()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={workFlowData.workflowValue === null || workFlowData.submit_loader || workFlowData.answer === ''}>
+                                    </>)} */}
+                                    <button onClick={(e) => submitWorkflowTrigger()} type="button" className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={workFlowData.workflowValue === null || workFlowData.submit_loader}>
                                         {workFlowData.submit_loader ? "Loading..." : "Submit"}
                                     </button>
                                 </div>

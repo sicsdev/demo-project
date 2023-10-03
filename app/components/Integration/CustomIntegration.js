@@ -170,43 +170,45 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     return (
         <>
             <div className="flex items-center justify-between">
-                <div class="flex items-center gap-2 mb-2 sm:mb-0">
-                    <span
-                        className="text-[#b3b3b3] cursor-pointer"
-                        onClick={() => setIntegrationform(false)}
-                    >
-                        <svg width="18" height="18" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class=""><path d="M6.99951 9L3.99994 6L6.99951 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"></path></svg>
-                    </span>
+                <div class="mb-2 sm:mb-0">
                     <p class="text-black-color text-sm font-semibold">
                         Configure {integrationFormData?.name}
                     </p>
                 </div>
-                <div>
-                    {integrationFormData?.checked === true && (
+                <div className='flex items-center gap-4'>
+                    <div>
+                        {integrationFormData?.checked === true && (
 
-                        <p
-                            className="text-red cursor-pointer m-0 p-0 text-xs"
-                            // disabled={DisablingButton()}
-                            onClick={(e) => deleteEntry(e)}
-                        >
-                            Delete resource
-                        </p>
-                    )}
-                    {loading ? (
-                        <LoaderButton parentClass={'py-2 px-8  sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3'} />
-                    ) : (
-                        <Button
-                            type={"button"}
-                            className="py-2 px-8   sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full inline-block rounded bg-primary pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                            disabled={DisablingButton()}
-                            onClick={(e) => configureIntegrationHandler(e)}
-                        >
-                            {integrationFormData?.checked === true ? `Connect ${integrationFormData?.name}` : `Connect ${integrationFormData?.name}` }
-                        </Button>
-                    )}
-                    {/* <button class="py-2 px-8  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
+                            <p
+                                className="text-red cursor-pointer m-0 p-0 text-xs"
+                                // disabled={DisablingButton()}
+                                onClick={(e) => deleteEntry(e)}
+                            >
+                                Delete resource
+                            </p>
+                        )}
+                        {loading ? (
+                            <LoaderButton parentClass={'py-2 px-4 sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3'} />
+                        ) : (
+                            <Button
+                                type={"button"}
+                                className="py-2 px-4 sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full inline-block rounded bg-primary pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                disabled={DisablingButton()}
+                                onClick={(e) => configureIntegrationHandler(e)}
+                            >
+                                {integrationFormData?.checked === true ? `Connect ${integrationFormData?.name}` : `Connect ${integrationFormData?.name}`}
+                            </Button>
+                        )}
+                        {/* <button class="py-2 px-4  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
                         {integrationFormData?.checked === true ? 'Update' : 'Create'} resource</button> */}
+                    </div>
+                    <div class="cursor-pointer"
+                        onClick={() => setIntegrationform(false)}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </div>
                 </div>
+
             </div>
 
             <div className="sm:pt-8 pt-2">

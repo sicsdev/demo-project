@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '../../Common/Input/TextField'
 import FileField from '../../Common/Input/FileField'
 import Image from 'next/image'
@@ -24,6 +24,17 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
             }
         })
     }
+    
+    useEffect(() => {
+        const textarea = document.querySelector('.resizable-textarea');
+        textarea?.setAttribute('rows', '3'); // Set the 'rows' attribute
+        const rows = Math.min(
+          Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+          8// Limit to a maximum of 6 rows
+        );
+    
+        textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+      }, [description]);
     return (
         <div>
             <div className='mt-2'>
@@ -36,10 +47,22 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={"Something short and descriptive"}
                     type={'text'}
                     id={"name"}
+                    
                 />
             </div>
             <div className='mt-2 '>
-                <TextArea name='description' placeholder={"What is this workflow for?"} id={"description"} value={description} onChange={handleInputValue1} title={"Description"} />
+                {/* <TextArea name='description' className={'resizable-textarea'} placeholder={"What is this workflow for?"} id={"description"} onChange={handleInputValue1} title={"Description"} rows={'1'}>{description}</TextArea> */}
+                <textarea
+                      onChange={handleInputValue1}
+                      name="description"
+                      type="text"
+                      id='description'
+                      className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder="What is this workflow for?"
+                      rows={'3'}
+                    >
+                      {description}
+                    </textarea>
             </div>
 
             <div className="my-2">
@@ -62,7 +85,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                 />
             </div>
             <div
-                className={`flex  p-2 rounded-b mt-5 justify-end gap-4`}
+                className={`flex   rounded-b mt-3 justify-end gap-4`}
             >
                 {/* <Button
                     className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "

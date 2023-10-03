@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { AdjustmentsHorizontalIcon, ClipboardIcon, DocumentTextIcon, LinkIcon, PaperClipIcon } from "@heroicons/react/24/outline";
 import { Cog6ToothIcon, PlusSmallIcon, UserIcon } from '@heroicons/react/24/solid';
 import Modal from '../Common/Modal/Modal';
-import { createNewKnowledge, getKnowledgeData, deleteKnowledgeRecord, updateKnowledgeRecord } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, getKnowledgeData, deleteKnowledgeRecord, updateKnowledgeRecord, searchKnowledgeData } from '@/app/API/pages/Knowledge';
 
 import Multiselect from 'multiselect-react-dropdown';
 import SnippetManagement from './SnippetManagement';
@@ -17,7 +17,7 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import EditKnowledgeCenter from './EditKnowledgeCenter';
 import Loading from '../Loading/Loading';
 import './ManageKnowledgeBase.css'
-import SideModal from '../SideModal/SideModal'; 
+import SideModal from '../SideModal/SideModal';
 import Button from '../Common/Button/Button';
 
 const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData, setBasicFormData }) => {
@@ -38,15 +38,33 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
     const [filterhead, setFilterhead] = useState('All');
     const [deleteConfirmationModal, setDeleteConfirmationModal] = useState(false);
     const [knowledgeRecordID, setKnowledgeRecordID] = useState(null);
+    const [typingTimeout, setTypingTimeout] = useState(null);
 
     const handleFilterChange = (event) => {
         const searchText = event.target.value;
         setFilterText(searchText);
-        const filteredData = basicFormData?.knowledgeData.filter(item =>
-            item.title.toLowerCase().includes(searchText.toLowerCase())
-        );
-        setKnowledge(filteredData);
-    };
+        // setKnowledge(filteredData);
+
+
+        // Clear the previous timeout to prevent rapid search requests
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        // Set a new timeout to perform the search after a delay (e.g., 300 milliseconds)
+        const newTypingTimeout = setTimeout(() => {
+            performSearch(searchText);
+        }, 1000);
+        setTypingTimeout(newTypingTimeout);
+    }
+
+    const performSearch = async (searchText) => {
+        const response = await searchKnowledgeData('search=' + searchText)
+        if (response?.status === 200 || response?.status === 201) {
+            setKnowledge(response.data.results)
+        }
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % 4);
@@ -64,6 +82,19 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 return data.filter((x) => x.source === 'external')
             case "SNIPPET":
                 return data.filter((x) => x.source === 'snippet')
+            default:
+                return data
+        }
+    }
+
+    const getActiveCount = (data, type) => {
+        switch (type) {
+            case "FILE":
+                return data.filter((x) => x.source === 'file' && x.active == true)
+            case "EXTERNAL":
+                return data.filter((x) => x.source === 'external' && x.active == true)
+            case "SNIPPET":
+                return data.filter((x) => x.source === 'snippet' && x.active == true)
             default:
                 return data
         }
@@ -100,7 +131,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
         setBasicFormData((prev) => {
             return {
                 ...prev,
-                bots: mergedArray
+                bots: mergedArray.filter((x) => x.name !== '')
             }
         })
     }
@@ -364,28 +395,11 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                 <div className="w-full">
                     <div className="sm:flex rounded-t-lg pt-4 sm:pt-4  border-border justify-between items-center">
                         <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
-                            {/* 
-                            <div className='flex justify-between items-center gap-1'>
-                                <ClipboardIcon className='h-4 w-4' />
-                                <p className="text-sm font-bold text-heading">Tempo Content</p>
-                            </div>
-                    */}
 
                         </div>
                         <div className='flex flex-wrap sm:justify-end items-center gap-2 w-full sm:w-3/4'>
-                            {/* 
-                            <div>
-                                <button type="button" onClick={() => handleCreateOptions('url')} className="flex items-center justify-center text-xs gap-2 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
-                                    <Cog6ToothIcon className='h-4 w-4' />
-                                    Manage Sources
-                                </button>
-                            </div>
-                    */}
                             <div className='mr-[18px]'>
                                 <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                    {/* 
-                                    <PlusSmallIcon className='h-4 w-4' />
-                                     */}
                                     Create
                                 </button>
                             </div>
@@ -398,17 +412,17 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</h2>
                                     <p className="text-xs font-semibold"> {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length === 1 ? "External page" : "External pages"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'EXTERNAL').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</h2>
                                     <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length === 1 ? 'Snippet' : "Snippets"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'SNIPPET').length}</p>
                                 </div>
                                 <div className='w-[25%]'>
-                                    <h2 className="text-sm font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
+                                    <h2 className="text-sm font-semibold">{getActiveCount(basicFormData?.knowledgeData || [], 'FILE').length}</h2>
                                     <p className="text-xs font-semibold">{getCount(basicFormData?.knowledgeData || [], 'FILE').length === 1 ? 'File' : "Files"}</p>
                                     <p className="text-xs text-[#9CA3AF] font-semibold">out of {getCount(basicFormData?.knowledgeData || [], 'FILE').length}</p>
                                 </div>

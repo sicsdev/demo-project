@@ -196,3 +196,25 @@ export const modifyIntegration = async (body) => {
         return error
     }
 }
+
+export const getAllActiveBots = async () => {
+    let config = returnConfig()
+
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots?active=true`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+export const getBotById = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}

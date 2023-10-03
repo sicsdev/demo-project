@@ -9,6 +9,7 @@ import { errorMessage, successMessage } from '@/app/components/Messages/Messages
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
 import { AdjustmentsHorizontalIcon, BoltIcon, ChatBubbleLeftIcon, QrCodeIcon } from '@heroicons/react/24/outline'
+import { useParams, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
@@ -21,7 +22,8 @@ const page = () => {
     const state = useSelector((state) => state.botId);
     const [selectedBot, setSelectedBot] = useState('Select');
     const dispatch = useDispatch();
-
+    const searchParams = useSearchParams()
+    const search = searchParams.get('id')
     useEffect(() => {
         if (state.botData.data === null) {
             dispatch(fetchBot());
@@ -30,6 +32,8 @@ const page = () => {
             getAllBots();
         }
     }, [state.botData.data]);
+
+
 
     const getBotInfo = (id) => {
         getAllBotData([id]).then((res) => {
@@ -70,8 +74,13 @@ const page = () => {
             };
         });
         setBotValue(mergedArray);
-        setSelectedBot(mergedArray[0].value)
-        getBotInfo(mergedArray[0].value);
+        if (search) {
+            selectBotHandler(search)
+
+        } else {
+            setSelectedBot(mergedArray[0].value)
+            getBotInfo(mergedArray[0].value);
+        }
     };
 
     const selectBotHandler = (id) => {
@@ -91,9 +100,8 @@ const page = () => {
             'description',
             'customer_service_email',
             'chat_default_message',
-            'customer_service_phone'
         ];
-        return checkFormData(tab0Keys) || (!basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0);
+        return checkFormData(tab0Keys) || !basicFormData['chat_suggestions'];
     }
 
     const SubmitForm = () => {
@@ -148,12 +156,12 @@ const page = () => {
                             <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
                                 <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
-                                    Select Bot
+                                    {botValue?.length > 1 ? 'Select Bot' : 'Edit Settings'}
                                 </p>
                             </div>
                             <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
                                 <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
-                                    {botValue?.map((element, key) => (
+                                    {botValue?.length > 1 && botValue?.map((element, key) => (
                                         <button
                                             onClick={(e) => selectBotHandler(element.value)}
                                             key={key}
@@ -166,7 +174,7 @@ const page = () => {
                         </div>
                     }
                     {pageLoading || state?.isLoading ?
-                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4'>
+                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4 px-2 sm:px-0'>
                             <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
                                 {[...Array(12)].map((ele) =>
                                     <>
@@ -224,8 +232,8 @@ const page = () => {
                         </div>
                         :
                         <>
-                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            <div className='flex justify-end items-center px-6 py-4'>
+                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} buttonLoading={loading} DisablingButton={DisablingButton} SubmitForm={SubmitForm} />
+                            {/* <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
                                         <LoaderButton />
@@ -241,7 +249,7 @@ const page = () => {
                                             </Button>
                                         </>
                                     )}
-                            </div>
+                            </div> */}
                         </>
 
                     }

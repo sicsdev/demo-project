@@ -16,7 +16,9 @@ import ColorSelector from "./ColorSelector";
 import Modal from "../Common/Modal/Modal";
 import Button from "../Common/Button/Button";
 import TextField from "../Common/Input/TextField";
-const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
+import LoaderButton from "../Common/Button/Loaderbutton";
+import SideModal from "../SideModal/SideModal";
+const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoading, DisablingButton, SubmitForm }) => {
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
@@ -362,93 +364,79 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
   return (
     <>
       {/* Modal to manage hide urls */}
-      {showManageHideUrls && (
-        <Modal
-          title={<h3 className="text-base !font-bold">Hide widget on Certain URLs</h3>}
-          show={showManageHideUrls}
-          setShow={setShowManageHideUrls}
-          className={"w-[90%]  sm:w-[90%] md:w-[60%] lg:w-[60%]"}
-          showCancel={true}
-          customHideButton={false}
-          showTopCancleButton={false}
-          hr={false}
-        >
-          <div>
-            <h3 className="text-xs my-2 text-heading font-normal">Block paths you don't want the widget to appear on.</h3>
-          </div>
-          <div>
-            {blockedUrls.map((item, index) => (
-              <div
-                key={index}
-                className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
-              >
+      {showManageHideUrls === true &&
+        <SideModal setShow={setShowManageHideUrls} heading={'Hide widget on Certain URLs'} >
+          <>
+            <div>
+              <h3 className="text-xs my-2 text-heading font-normal">Block paths you don't want the widget to appear on.</h3>
+            </div>
+            <div>
+              {blockedUrls.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
+                >
+                  <div className="flex justify-start w-1/2 items-center rounded border-gray">
+                    <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
+                  </div>
+                  <TextField
+                    value={item}
+                    name=""
+                    className="py-3 !pl-[23px]"
+                    title={""}
+                    placeholder="/path"
+                    type={""}
+                    id={""}
+                    paddingleft={"pl-6"}
+                    disabled={true}
+                  />
+                  <XMarkIcon
+                    fill="red"
+                    className="w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
+                    onClick={(e) => handleRemoveUrl(e)}
+                    title="Delete URL"
+                    id={item}
+                  />
+                </div>
+              ))}
+              <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                 <div className="flex justify-start w-1/2 items-center rounded border-gray">
                   <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
                 </div>
                 <TextField
-                  value={item}
-                  name=""
+                  onChange={(e) => setNewBlockedUrl(e.target.value)}
+                  value={newBlockedUrl}
+                  name="blockUrls"
                   className="py-3 !pl-[23px]"
+                  // className="py-3 mt-1"
                   title={""}
                   placeholder="/path"
                   type={""}
-                  id={""}
+                  id={"blockUrls"}
                   paddingleft={"pl-6"}
-                  disabled={true}
                 />
-                <XMarkIcon
-                  fill="red"
-                  className="w-[20px] h-[20px] mr-2 text-red cursor-pointer rounded-full hover:text-black"
-                  onClick={(e) => handleRemoveUrl(e)}
-                  title="Delete URL"
-                  id={item}
+                <PlusSmallIcon
+                  fill="green"
+                  className="w-[20px] h-[20px] text-soft-green mr-2 rounded-full cursor-pointer"
+                  title="Add URL"
+                  onClick={saveNewBlockedUrl}
                 />
               </div>
-            ))}
-            <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
-              <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                <span className="!font-semibold text-xs text-[#151d23]">URL Containing:</span>
-              </div>
-              <TextField
-                onChange={(e) => setNewBlockedUrl(e.target.value)}
-                value={newBlockedUrl}
-                name="blockUrls"
-                className="py-3 !pl-[23px]"
-                // className="py-3 mt-1"
-                title={""}
-                placeholder="/path"
-                type={""}
-                id={"blockUrls"}
-                paddingleft={"pl-6"}
-              />
-              <PlusSmallIcon
-                fill="green"
-                className="w-[20px] h-[20px] text-soft-green mr-2 rounded-full cursor-pointer"
-                title="Add URL"
-                onClick={saveNewBlockedUrl}
-              />
-            </div>
 
-            <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
-              <Button
-                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
-                onClick={() => {
-                  setShowManageHideUrls((prev) => !prev);
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                type={"button"}
-                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                onClick={() => setShowManageHideUrls(false)}
-              >
-                Done
-              </Button>
+              <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+
+                <Button
+                  type={"button"}
+                  className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                  onClick={() => setShowManageHideUrls(false)}
+                >
+                  Done
+                </Button>
+              </div>
             </div>
-          </div>
-        </Modal>
-      )}
+          </>
+        </SideModal>
+      }
       {/* End of modal to manage hide urls */}
 
       <div className="w-full">
@@ -461,8 +449,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
 
 
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex justify-start w-1/2 items-center">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start  w-1/2 items-center ">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
                   </div>
                   <div className="flex justify-start w-1/2">
@@ -478,7 +466,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Description</span>
                   </div>
@@ -508,7 +496,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   label="Secondary Color"
                 ></ColorSelector>
 
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Widget Location</span>
                   </div>
@@ -526,7 +514,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     </select>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="text-gray-700 new_input_label block text-sm text-heading font-medium">
                       {preferences.logo && !preferences.logo_file_name ? (
@@ -582,7 +570,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     </label>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation Email</span>
                   </div>
@@ -597,7 +585,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     />
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
                   </div>
@@ -622,22 +610,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     /> */}
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
-                  <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Customer Service Phone</span>
-                  </div>
-                  <div className="flex justify-start w-1/2">
-                    <input
-                      onChange={handleInputChange}
-                      name="customer_service_phone"
-                      value={preferences.customer_service_phone}
-                      type="text"
-                      className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                      placeholder="Enter customer service phone"
-                    />
-                  </div>
-                </div>
-                <div className={`flex w-full mt-2 gap-2 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
+
+                <div className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Prompts</span>
                   </div>
@@ -647,7 +621,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
                             <div
-                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[16px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                               key={key}
                             >
                               {element}
@@ -674,7 +648,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide Chat Bot</span>
                   </div>
@@ -699,7 +673,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </div>
                 </div>
 
-                <div className="flex items-center w-full mt-2 gap-2">
+                <div className="sm:hidden flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
                   </div>
@@ -712,6 +686,21 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                   </Button>
 
                 </div>
+                <div className='flex sm:hidden justify-end items-center px-2 py-4'>
+                  {
+                    buttonLoading ? (
+                      <LoaderButton className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`} />
+                    ) : (
+                      <>
+                        <Button type={"button"}
+                          className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                          disabled={DisablingButton()} onClick={(e) => SubmitForm()}
+                        >
+                          Save
+                        </Button>
+                      </>
+                    )}
+                </div>
               </div>
 
 
@@ -719,15 +708,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
                 id="chatbot_preview"
                 className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0"
               >
-                {/* <div className="mb-8">
-                  <a
-                    className="flex justify-start gap-2 items-center p-4 text-heading text-sm font-semibold border-heading rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group"
-                    aria-current="preview"
-                  >
-                    <EyeIcon className="h-6 w-6 text-gray-500" /> Preview
-                  </a>
-                  <hr className="opacity-10"></hr>
-                </div> */}
 
                 <div className="containerChatBot_entire justify-center flex">
                   <div className="widget_container active w-[90%]">
@@ -818,33 +798,40 @@ const Customize = ({ form = false, basicFormData, setBasicFormData }) => {
               </div>
             </div>
 
-            <>
-              <div>
-                {/* {form === true && (
-                  <EmailConfig basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                )} */}
+            <div className="hidden sm:flex md:flex lg:flex justify-center items-center gap-4">
+              <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
+                <div className="items-center w-full mt-2 gap-2 flex">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
+                  </div>
+                  <Button type={"button"}
+                    className="inline-block mt-0 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    onClick={() => setShowManageHideUrls(true)}
+                  >
+                    Manage URLs
+                  </Button>
+
+                </div>
               </div>
+              <div className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0">
+                <div className='flex justify-end items-center px-6 py-4'>
+                  {
+                    buttonLoading ? (
+                      <LoaderButton className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`} />
+                    ) : (
+                      <>
+                        <Button type={"button"}
+                          className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                          disabled={DisablingButton()} onClick={(e) => SubmitForm()}
+                        >
+                          Save
+                        </Button>
+                      </>
+                    )}
+                </div>
+              </div>
+            </div>
 
-
-
-
-              {/* DATES/HOURS RANGES THAT WIDGET WILL ACTIVE */}
-              {/* <div style={{ marginTop: '100px' }}>
-                <span className="text-heading font-bold mb-4 flex">
-                  <CalendarDaysIcon
-                    fill="white"
-                    className="w-6 h-6 text-sky mr-2 rounded-full"
-                    title="Add URL"
-                  />
-                  Schedule</span>
-                <hr className="opacity-10 mt-4"></hr>
-                <Schedule preferences={preferences} setPreferences={setPreferences}></Schedule>
-
-              </div> */}
-
-
-
-            </>
           </>
         )
         }

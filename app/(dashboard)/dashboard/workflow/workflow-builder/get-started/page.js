@@ -26,6 +26,7 @@ import { makeCapital } from '@/app/components/helper/capitalName'
 import TextArea from '@/app/components/Common/Input/TextArea'
 import SideModal from '@/app/components/SideModal/SideModal'
 import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getNagetiveWorkflowData, getSingleNagetiveWorkflowData, searchReccomodationWorkflow } from '@/app/API/pages/NagetiveWorkflow'
+import TopBar from '@/app/components/Common/Card/TopBar'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
@@ -713,27 +714,48 @@ const GetStarted = () => {
       }
     })
   }
+  useEffect(() => {
+    const textarea = document.querySelector('.resizable-textarea');
+    textarea?.setAttribute('rows', '3'); // Set the 'rows' attribute
+    const rows = Math.min(
+      Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+      8// Limit to a maximum of 6 rows
+    );
 
- 
+    textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+  }, [selected?.negative_answer]);
+
   return (
     <>
       {isLoading === true ?
         <Loading />
         :
         <>
+          <div className={`${tab === 0 ? 'sm:w-[77%]' : ''} border-b border-border flex items-center justify-between sticky top-0 bg-[#fff] z-40`}>
+            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
+                <li className="mr-2" >
+                    <span
+                        className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
+                        aria-current="page"
+                    >
+                       <BriefcaseIcon className="h-5 w-5 text-primary" /> {" "} Your Workflows
+                    </span>
+                </li>
+            </ul>
+        </div>
           <div className={`w-full  ${tab === 0 ? 'sm:w-[77%]' : ''} border-b border-border dark:border-gray-700 flex items-center justify-between mt-3 mb-5`}>
-            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
+            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
               <li className="mr-2" onClick={() => { setTab(0) }}>
                 <span
-                  className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                  className={`flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
                   aria-current="page"
                 >
-                  <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Workflow
+                  <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Edit Workflow
                 </span>
               </li>
               <li className="mr-2" onClick={() => { setTab(1) }}>
                 <span
-                  className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  className={`flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
                   aria-current="page"
                 >
                   <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Settings
@@ -741,10 +763,10 @@ const GetStarted = () => {
               </li>
               <li className="mr-2" onClick={() => { setTab(2) }}>
                 <span
-                  className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 2 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  className={`flex justify-start gap-2 text-sm cursor-pointer items-center py-2   ${tab === 2 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
                   aria-current="page"
                 >
-                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Keywords
+                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Search Terms
                 </span>
               </li>
             </ul>
@@ -903,67 +925,80 @@ const GetStarted = () => {
           )}
 
           {tab === 1 && (
-            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
               <UpdateWorkflowBasic botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} />
             </div>
           )}
           {tab === 2 && (
-            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[90%] p-4">
+
+            <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
+              <span className="text-[12px] text-[#555555b5]  block  text-heading font-[600]">Description</span>
+
               <>
                 {showAdd && (
                   <div className='my-8'>
-                    <TextArea name="negative_answer"
-                      className="py-2"
-                      type={"text"}
-                      id={"negative_answer"}
-                      placeholder={negativeQuestions.length === 0 ? "You don't have any negative keywords yet. Please enter your first keyword below to get started." : ""}
-                      rows={'5'}
+
+                    <textarea
+                      name="negative_answer"
+                      type="text"
+                      id='negative_answer'
+                      className="resizable-textarea w-full block py-3 px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet. Please enter your first search term here to get started." : "Enter negative search term"}
                       onChange={(e) => setSelected((prev) => {
                         return {
                           ...prev,
                           [e.target.name]: e.target.value
                         }
                       })}
-                      value={selected?.negative_answer} />
-                    <button
-                      onClick={(e) => addNewNagetiveFaq()}
-                      type="button"
-                      disabled={selected?.negative_answer === "" || !selected?.negative_answer || nLoading}
-                      className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                      {nLoading ? 'Loading...' : isEdit ? "Edit" : "Add"}
-                    </button>
+                      rows={'3'}
+                      value={selected?.negative_answer}
+                    >
+                      {/* {selected?.negative_answer} */}
+                    </textarea> <div
+                      className={`flex   rounded-b mt-5 justify-end gap-4`}
+                    >
+                      <button
+                        onClick={(e) => addNewNagetiveFaq()}
+                        type="button"
+                        disabled={selected?.negative_answer === "" || !selected?.negative_answer || nLoading}
+                        className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                        {nLoading ? 'Loading...' : isEdit ? "Edit" : "Add"}
+                      </button>
+                    </div>
                   </div>
                 )}
                 {negativeQuestions.length > 0 && (
+                  <>
+                  <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
+                    <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                      <ul className="text-start py-2 text-sm text-gray-700 ">
+                        {negativeQuestions.map((element, key) =>
+                          <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
+                            <p className="text-xs">{element.search}</p>
+                            <div className='flex justify-start gap-4 items-center'>
+                              <PencilSquareIcon className="h-5 w-5" onClick={() => {
+                                setIsEdit(true)
+                                setShowAdd(true)
+                                setSelected((prev) => {
+                                  return {
+                                    ...prev,
+                                    negative_answer: element.search,
+                                    negative_id: element.id,
+                                    index: key
+                                  }
+                                })
+                              }} />
+                              <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
 
-                  <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                    <ul className="text-start py-2 text-sm text-gray-700 ">
-                      {negativeQuestions.map((element, key) =>
-                        <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
-                          <p className="text-xs">{makeCapital(element.search)}</p>
-                          <div className='flex justify-start gap-4 items-center'>
-                            <PencilSquareIcon className="h-5 w-5" onClick={() => {
-                              setIsEdit(true)
-                              setShowAdd(true)
-                              setSelected((prev) => {
-                                return {
-                                  ...prev,
-                                  negative_answer: element.search,
-                                  negative_id: element.id,
-                                  index: key
-                                }
-                              })
-                            }} />
-                            <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
+                            </div>
+                          </li>
+                        )}
 
-                          </div>
-                        </li>
-                      )}
-
-                    </ul>
+                      </ul>
 
 
-                  </div>
+                    </div>
+                  </>
                 )}
               </>
             </div>

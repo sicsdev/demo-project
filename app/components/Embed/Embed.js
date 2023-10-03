@@ -7,10 +7,7 @@ import { checkBotInstallation, getBotWidget } from "@/app/API/pages/Bot";
 import { fetchBot } from "../store/slices/botIdSlice";
 import Loading from "../Loading/Loading";
 import { useRouter } from "next/navigation";
-import {
-  ClipboardIcon,
-  CheckIcon,
-} from "@heroicons/react/24/outline";
+import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
 
 import { xcodeLight } from "@uiw/codemirror-theme-xcode";
 
@@ -20,7 +17,7 @@ import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { EmbedCard } from "./EmbedCard";
-const Embed = ({ form = true,  setTotalRecords }) => {
+const Embed = ({ form = true, setTotalRecords }) => {
   const router = useRouter();
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
@@ -55,7 +52,7 @@ const Embed = ({ form = true,  setTotalRecords }) => {
         };
       });
       setDetailsData(mergedArray);
-      setTotalRecords(mergedArray)
+      // setTotalRecords(mergedArray)
     }
   }, [state.botData.data]);
   const getBotWidgetData = async () => {
@@ -131,7 +128,7 @@ const Embed = ({ form = true,  setTotalRecords }) => {
                       }}
                       readOnly={true}
                       className="border-none"
-                    // onChange={onChange}
+                      // onChange={onChange}
                     />
                   </div>
                 </div>
@@ -149,7 +146,12 @@ const Embed = ({ form = true,  setTotalRecords }) => {
                 {detailsData &&
                   detailsData.map((element, key) => (
                     <div className="p-2 sm:pt-0 sm:px-5" key={key}>
-                      <EmbedCard key={key} element={element} copied={copied} setCopied={setCopied}></EmbedCard>
+                      <EmbedCard
+                        key={key}
+                        element={element}
+                        copied={copied}
+                        setCopied={setCopied}
+                      ></EmbedCard>
                     </div>
                   ))}
               </div>

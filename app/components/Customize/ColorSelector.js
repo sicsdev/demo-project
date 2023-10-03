@@ -26,8 +26,8 @@ const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
   return (
-    <div className="flex items-center w-full gap-2 mt-2">
-      <div className="flex justify-start w-1/2">
+    <div className="flex items-center justify-between w-full mt-2 gap-2 sm:hidden px-2 sm:px-0">
+      <div className="flex justify-start  w-1/2">
         <span className="new_input_label block text-sm text-heading font-medium text-gray-700">{label}</span>
       </div>
       <div

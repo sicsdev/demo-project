@@ -94,13 +94,13 @@ export default function CustomerServiceSetupForm({ setBasicFormData, basicFormDa
   return (
     <div className="w-full">
       <div className="">
-        <div className="grid grid-cols-1  my-4 gap-4">
+        <div className="grid grid-cols-1  mt-4 gap-4">
           <div className='my-2'>
             <div className={`inline`}>
-              <label htmlFor={"agent_name"} className="block text-sm font-medium text-heading"><span className='flex items-center gap-2'>Add your Help Center or FAQ URL
+              <label htmlFor={"agent_name"} className="new_input_label block text-sm text-heading font-medium"><span className='flex items-center gap-2'>Add your Help Center or FAQ URL
               </span></label>
-              <div className={`flex flex-wrap justify-start items-center border h-auto w-auto border-[#C7C6C7]  rounded-md mt-2 ${urls.length > 0 &&('px-1')}`}>
-                <div className='flex flex-wrap items-center justify-start gap-1'>
+              <div className={`flex flex-wrap justify-start items-center border h-auto w-auto border-[#C7C6C7]  rounded-md mt-1 ${urls.length > 0 &&('px-1')}`}>
+                <div style={{rowGap: "5px"}} className={` ${urls?.length > 0 ? 'py-1' : ''} flex flex-wrap items-center justify-start gap-1`}>
                   {urls.length > 0 && urls.map((element, key) =>
                     <div
                       className="[word-wrap: break-word]   flex h-[32px] cursor-pointer items-center justify-between rounded-[16px] key  px-[10px] py-0 text-[13px] font-normal normal-case leading-loose text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-border" key={key}>
@@ -109,7 +109,7 @@ export default function CustomerServiceSetupForm({ setBasicFormData, basicFormDa
                     </div>
                   )}
                 </div>
-                <input onKeyDown={handleKeyDown} value={formValues.faq_url} required onChange={handleUrlValue} type={"text"} placeholder={urls.length>0 ?'Add another url':"Add your Help Center or FAQ URL"} className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-auto md:w-auto lg:w-auto  border-none ring-0 focus-visible:border-none`} id={"faq_url"} name={"faq_url"} />
+                <input onKeyDown={handleKeyDown} value={formValues.faq_url} required onChange={handleUrlValue} type={"text"} placeholder={urls.length>0 ?'Add another url':"Add your Help Center or FAQ URL"} className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full sm:w-[220px]  border-none ring-0 focus-visible:border-none`} id={"faq_url"} name={"faq_url"} />
               </div>
             </div>
           </div>

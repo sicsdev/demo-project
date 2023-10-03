@@ -32,6 +32,7 @@ import { setViewed, getConversationDetails } from "@/app/API/pages/Logs";
 
 const Logs = () => {
   const [isMobile, setIsMobile] = useState(false);
+
   const formatDateFunc = (date) => {
     const inputDate = moment(date, "MM-DD-YYYY h:mm:ss A");
     return inputDate.format("M/D/YY h:mm A");
@@ -71,7 +72,7 @@ const Logs = () => {
       minWidth: "50px",
     },
     {
-      name: <p className=" whitespace-break-spaces text-xs">Created At</p>,
+      name: <p className=" whitespace-break-spaces text-xs">Created</p>,
       selector: (row) => row.created,
       sortable: true,
       reorder: false,
@@ -99,6 +100,7 @@ const Logs = () => {
       sortable: false,
       reorder: false,
       minWidth: "50px",
+      hide: "sm"
     },
   ];
   const dispatch = useDispatch();
@@ -115,6 +117,7 @@ const Logs = () => {
   const state = useSelector((state) => state.botId);
   const logState = useSelector((state) => state.logs);
   const workflowState = useSelector((state) => state.workflow);
+  const userState = useSelector((state) => state.user.data);
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
@@ -137,7 +140,16 @@ const Logs = () => {
     viewed: "all",
     for_review: "all",
   });
+  const [additionalData, setAdditionalData] = useState({
+    conversations: null,
+    csat: null,
+    deflection_data: {
+      date: null,
+      precent: null,
+      dflection: null,
+    }
 
+  })
   const getAllBots = () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
@@ -154,6 +166,15 @@ const Logs = () => {
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
 
     setBotValue(mergedArray);
+
+
+
+
+
+
+    getAdditionalData(mergedArray)
+
+
 
     if (logState.data === null) {
       setSelectedBot(mergedArray[0].value);
@@ -173,7 +194,27 @@ const Logs = () => {
       handlePageChange(logState.data.bot, 1, logState.data.queryParam || "");
     }
   };
-
+  const calculateDeflectionRate = state => {
+    const { totalConversations, humanHandoffs } = state;
+    const deflectionRate = 1 - humanHandoffs / totalConversations;
+    return deflectionRate.toFixed(2); // You can format the result as needed
+  };
+  const getAdditionalData = async (arr) => {
+    const human_handoff = await getBotConversation(arr[0].value, '?human_handoff=true')
+    const has_surveys = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_surveys=true')
+    const has_downvotes = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_downvotes=true')
+    if (human_handoff && has_surveys && has_downvotes) {
+      const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
+      setAdditionalData((prev) => {
+        return {
+          ...prev,
+          conversations: allconversation,
+          deflection_data: { ...additionalData.deflection_data, dflection: calculateDeflectionRate({ totalConversations: allconversation, humanHandoffs: human_handoff.data.count }), },
+          csat: has_surveys.data.count
+        }
+      })
+    }
+  }
   console.log("selectedFilters", selectedFilters);
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
@@ -231,7 +272,7 @@ const Logs = () => {
       ...selectedFilters,
       [name]: value, // Update the selected value for the current dropdown
     });
-
+    console.log("queryParam", value)
     let payload = {
       [name]: value,
     };
@@ -298,7 +339,7 @@ const Logs = () => {
       });
       setManageMessages(getAllIds);
       setTotalRows(data.count);
-      
+
       setConversationData(newdata);
       setLoading(false);
     } else {
@@ -358,7 +399,7 @@ const Logs = () => {
           sortDirection === "asc"
             ? "-number_of_messages"
             : "number_of_messages";
-      } else if (column?.name?.props.children === "Created At") {
+      } else if (column?.name?.props.children === "Created") {
         setLoading(true);
 
         orderBy = sortDirection === "asc" ? "-created" : "created";
@@ -446,7 +487,55 @@ const Logs = () => {
   const handleConversationDetail = async (id) => {
     setIdOfOpenConversation(id);
   };
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Zero-padding the month
+    const day = String(date.getDate()).padStart(2, '0'); // Zero-padding the day
+    return `${year}-${month}-${day}`;
+  }
+  const getDatatBewtweenTwoDates = async (prev, next) => {
+    const currentDate = moment();
+    let next_date = currentDate.format('YYYY-MM-DD');
+    if (next === 'all') {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next_date);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = current_response.data.count - response.data.count / response.data.count
+        console.log("calculateDates", calculateDates)
+      }
+    } else {
+      const selectedDate1 = new Date(prev);
+      const selectedDate2 = new Date(next);
+      const timeDifference = selectedDate2 - selectedDate1;
+      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const date7DaysAgo = new Date(selectedDate1);
+      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+      const dateOneDayBefore = new Date(selectedDate1);
+      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+      const response = await getBotConversation(selectedBot, `?created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
+      const current_response = await getBotConversation(selectedBot, `?created__gte=${prev}&created__lte=${next}`)
+      if (current_response.status === 200 && response.status === 200) {
+        const calculateDates = current_response.data.count - response.data.count / response.data.count
+        console.log("calculateDates", calculateDates)
+      }
+    }
 
+  }
+  // useEffect(() => {
+  //   if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
+  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+  //   } else if (selectedFilters.created__gte !== 'all') {
+  //     getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
+  //   }
+  // }, [selectedFilters.created__gte, selectedFilters.created__lte,])
   return (
     <>
       <div>
@@ -474,47 +563,40 @@ const Logs = () => {
                 <SkeletonLoader height={30} width={"100%"} />
               </div>
             ) : (
-              <div className="flex justify-end gap-4 items-center mt-2 p-2">
-                <label
-                  htmlFor="search"
-                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                >
-                  Search
-                </label>
-                <div className="relative">
+              <div className='flex justify-end gap-4 items-center mt-2 pt-2'>
+                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div className="relative w-full sm:w-[unset]">
                   <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg
-                      className="w-4 h-4 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
                   </div>
-                  <input
-                    type="search"
-                    id="search"
-                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                    placeholder="Search"
-                    value={search}
-                    onChange={(e) => {
-                      handleChange(e);
-                    }}
-                  />
+                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
               </div>
             )}
           </>
         )}
-
+        {/* <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
+          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <h1 className="text-sm text-heading font-semibold">Conversations</h1>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
+            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">15&#8453;&uarr;</span>
+            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
+          </div>
+          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
+            <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">{additionalData.deflection_data.precent ? additionalData.deflection_data.precent + "&#8453;&uarr;" : "+ ♾️"}</span>
+            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v{additionalData.deflection_data.date ? additionalData.deflection_data.date : "N/A"}</p>
+          </div>
+          <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <h1 className="text-sm text-heading font-semibold">CSAT</h1>
+            <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
+            <span class="bg-[#FAEFED] text-[#BB6C5C] text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">25&#8453;&darr;</span>
+            <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v 13-19th jul</p>
+          </div>
+        </div> */}
         {/* <Reports /> */}
         <>
           {loading === true || state.isLoading === true ? (
@@ -537,6 +619,10 @@ const Logs = () => {
               </div>
             </div>
           ) : (
+
+
+
+
             <div className="block sm:flex justify-center gap-5">
               <div className="mb-4 w-full">
                 <SelectOption
@@ -558,11 +644,15 @@ const Logs = () => {
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.type || ""}
                   name="type"
-                  values={[
+                  values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
                     { name: "Select", value: "all" },
                     { name: "Chat", value: "chat" },
                     { name: "Email", value: "email" },
-                    { name: "Phone", value: "phone" },
+                    { name: "Phone", value: "phone" }
+                  ] : [
+                    { name: "Select", value: "all" },
+                    { name: "Chat", value: "chat" },
+                    { name: "Email", value: "email" },
                   ]}
                   title={
                     <h3 className="text-sm my-4 font-semibold">Channel</h3>
@@ -590,21 +680,23 @@ const Logs = () => {
                   showOption={false}
                 />
               </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.workflows || ""}
-                  name="workflows"
-                  values={userWorkFlows}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">Workflows</h3>
-                  }
-                  id={"workflows"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
+              {userWorkFlows?.length > 0 && (
+                <div className="mb-4 w-full">
+                  <SelectOption
+                    onChange={(e) => filterDataHandler(e)}
+                    value={selectedFilters.workflows || ""}
+                    name="workflows"
+                    values={userWorkFlows}
+                    title={
+                      <h3 className="text-sm my-4 font-semibold">Workflows</h3>
+                    }
+                    id={"workflows"}
+                    className="py-3"
+                    error={""}
+                    showOption={false}
+                  />
+                </div>
+              )}
               <div className="mb-4 w-full">
                 <SelectOption
                   onChange={(e) => filterDataHandler(e)}
@@ -698,16 +790,6 @@ const Logs = () => {
             </div>
           )}
 
-          {/* {loading === true || state.isLoading === true ? (
-            <div className="">
-              <h1 className="mt-2 text-sm">
-                <SkeletonLoader height={40} width={100} />
-              </h1>
-              <div className="mt-3">
-                <SkeletonLoader count={9} height={30} className={"mt-2"} />
-              </div>
-            </div>
-          ) : ( */}
           <>
             {selectedBot && (
               <DataTable
@@ -866,7 +948,7 @@ const Logs = () => {
                   <thead>
                     <tr className="table100-head">
                       <th className="column1  text-xs">Number of Messages</th>
-                      <th className="column2  text-xs">Created At</th>
+                      <th className="column2  text-xs">Created</th>
                       <th className="column3  text-xs">Workflow Triggered</th>
                       <th className="column4  text-xs">Escalated to Human</th>
 

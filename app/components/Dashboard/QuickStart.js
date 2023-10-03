@@ -35,14 +35,16 @@ import {
     ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import ChatBots from './ChatBots';
+import { ManageExpand } from '@/app/API/pages/EnterpriseService';
 const QuickStart = () => {
-    const [isExpand, setIsExpand] = useState(true);
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
+
+    const [isExpand, setIsExpand] = useState(true);
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
@@ -75,13 +77,6 @@ const QuickStart = () => {
     ];
     const quickStartData = [
         {
-            title: 'Connect Your APIs for Automations',
-            content: "Initiate the process by connecting your existing APIs to generate a library of automations.",
-            buttonName: "Connect",
-            icon: <ShareIcon className='w-5 h-5 ' />,
-            link: '/dashboard/workflow/integrations',
-        },
-        {
             title: 'Upload FAQ to Knowledge Base',
             content: "Enhance your customer service by uploading frequently asked questions to Tempo's Knowledge Base.",
             buttonName: "Upload",
@@ -89,12 +84,19 @@ const QuickStart = () => {
             link: "/dashboard/basic-knowledge",
         },
         {
-            title: 'Upload Email or Ticket History',
-            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
-            buttonName: "Upload",
-            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
-            link: "/dashboard/basic-knowledge",
+            title: 'Connect Your APIs for Automations',
+            content: "Initiate the process by connecting your existing APIs to generate a library of automations.",
+            buttonName: "Connect",
+            icon: <ShareIcon className='w-5 h-5 ' />,
+            link: '/dashboard/workflow/integrations',
         },
+        // {
+        //     title: 'Upload Email or Ticket History',
+        //     content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+        //     buttonName: "Upload",
+        //     icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+        //     link: "/dashboard/basic-knowledge",
+        // },
         {
             title: 'Create Your First Workflow',
             content: "Combine automations to create your initial workflow, making your operations more efficient from day one.",
@@ -229,6 +231,18 @@ const QuickStart = () => {
         }
         return <CheckBadgeIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />
     }
+
+    const ExpandChange = async () => {
+        setIsExpand(!isExpand)
+        const response = await ManageExpand({ show_quick_start: !isExpand })
+
+    }
+
+    useEffect(() => {
+        if (user) {
+            setIsExpand(user?.show_quick_start)
+        }
+    }, [user])
     return (
         <>
 
@@ -291,7 +305,7 @@ const QuickStart = () => {
                         </div>
                     </div>
                     <div className="bg-[#F8F8F8]  w-full sm:w-2/3 m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                    <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
+                        <div className={`py-4 px-6 flex justify-between items-center gap-4 ${isExpand === true ? 'border-b border-[#F0F0F1]' : ''}`}>
                             <div className='flex items-center justify-center gap-2'>
                                 <SkeletonLoader count={1} height={40} width={100} />
                             </div>
@@ -307,6 +321,9 @@ const QuickStart = () => {
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                         <div className='flex items-center gap-4'>
+
+
+                                            <SkeletonLoader count={1} height={18} width={100} />
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                     </div>
@@ -328,6 +345,11 @@ const QuickStart = () => {
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                         <div className='flex items-center gap-4'>
+
+
+
+
+                                            <SkeletonLoader count={1} height={18} width={100} />
                                             <SkeletonLoader count={1} height={18} width={100} />
                                         </div>
                                     </div>
@@ -374,7 +396,7 @@ const QuickStart = () => {
 
                                     className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
 
-                                    onClick={(e) => setIsExpand(!isExpand)}
+                                    onClick={(e) => ExpandChange()}
 
                                 >
 
@@ -433,58 +455,61 @@ const QuickStart = () => {
 
                                                 {setHideShow(key) === true && (
 
-                                                    <div
+                                                    ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                        <div
 
-                                                        className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                                        key={key}
+                                                            key={key}
 
-                                                    >
+                                                        >
 
-                                                        <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                            <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
 
-                                                            <div className="flex gap-2  items-start">
+                                                                <div className="flex gap-2  items-start">
 
-                                                                <span>{ele?.icon}</span>
+                                                                    <span>{ele?.icon}</span>
 
-                                                                <div className="">
+                                                                    <div className="">
 
-                                                                    <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                                        {ele?.title}
+                                                                            {ele?.title}
 
-                                                                    </h3>
+                                                                        </h3>
 
-                                                                    <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                                        {ele?.content}
+                                                                            {ele?.content}
 
-                                                                    </p>
+                                                                        </p>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+
+                                                                    <Link
+
+                                                                        href={ele?.link}
+
+                                                                        className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                    >
+                                                                        {ele?.buttonName}
+
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                    </Link>
 
                                                                 </div>
 
                                                             </div>
 
-                                                            <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
-
-                                                                <Link
-
-                                                                    href={ele?.link}
-
-                                                                    className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                >
-                                                                    {ele?.buttonName}
-
-                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                </Link>
-
-                                                            </div>
-
                                                         </div>
+                                                    )
 
-                                                    </div>
 
                                                 )}
 
@@ -518,60 +543,60 @@ const QuickStart = () => {
                                     <div>
 
                                         {setHideShow(key) === true && (
+                                            ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                <div
 
-                                            <div
+                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
 
-                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                    key={key}
 
-                                                key={key}
+                                                >
 
-                                            >
+                                                    <div className="px-6 sm:flex justify-between items-center sm:gap-0">
 
-                                                <div className="px-6 sm:flex justify-between items-center sm:gap-0">
+                                                        <div className="sm:w-[70%] flex gap-2  items-start">
 
-                                                    <div className="sm:w-[70%] flex gap-2  items-start">
+                                                            <span>{ele?.icon}</span>
 
-                                                        <span>{ele?.icon}</span>
+                                                            <div className="">
 
-                                                        <div className="">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    {ele?.title}
 
-                                                                {ele?.title}
+                                                                </h3>
 
-                                                            </h3>
+                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
 
-                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    {ele?.content}
 
-                                                                {ele?.content}
+                                                                </p>
 
-                                                            </p>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
+
+                                                            <Link
+
+                                                                href={ele?.link}
+
+                                                                className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                            >
+                                                                {ele?.buttonName}
+
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                            </Link>
 
                                                         </div>
 
                                                     </div>
 
-                                                    <div className=" sm:ml-0 ml-[28px] ">
-
-                                                        <Link
-
-                                                            href={ele?.link}
-
-                                                            className="text-[#007c8f] flex items-center  gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                        >
-                                                            {ele?.buttonName}
-
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                        </Link>
-
-                                                    </div>
-
                                                 </div>
-
-                                            </div>
-
+                                            )
                                         )}
 
                                     </div>

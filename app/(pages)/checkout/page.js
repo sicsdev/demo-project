@@ -289,7 +289,7 @@ const Checkout = () => {
 
                   value={checkoutForm?.business_company_size ?? ''}
                   id={"business_company_size"} className={
-                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
                   }>
                   <option value={''} disabled>Select</option>
                   {business_company_size_data.map((ele, key) =>
@@ -307,7 +307,7 @@ const Checkout = () => {
                   value={checkoutForm?.business_industry ?? ''}
                   id={"business_industry"}
                   className={
-                    "hide-focus px-[11px] py-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
                   }>
                   <option value={''} disabled>Select</option>
                   {business_industry_data.map((ele, key) =>
@@ -357,7 +357,7 @@ const Checkout = () => {
               <input
                 id="link-checkbox"
                 type="checkbox"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                className="custom-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 onChange={(e) => Abc(e)}
               />
               <label
@@ -367,7 +367,7 @@ const Checkout = () => {
                 I agree with the{" "}
                 <a
                   href="/terms-of-service"
-                  className="text-blue-600 dark:text-blue-500 hover:underline"
+                  className="text-primary dark:text-blue-500 hover:underline"
                   onClick={(e) => handleDownload()}
                 >
                   Terms of Service{" "}
@@ -375,7 +375,7 @@ const Checkout = () => {
                 and{" "}
                 <a
                   href="/privacy-policy"
-                  className="text-blue-600 dark:text-blue-500 hover:underline"
+                  className="text-primary dark:text-blue-500 hover:underline"
                   onClick={(e) => handleDownload()}
                 >
                   Privacy Policy

@@ -117,7 +117,7 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5">
+            <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
 
                 {pageSubLoading ?
                     <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
@@ -126,7 +126,7 @@ const page = () => {
                         </div>
                         <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
                             <SkeletonLoader count={1} height={35} width={100} />
-                            <SkeletonLoader count={1} height={35} width={100} />
+                            {/* <SkeletonLoader count={1} height={35} width={100} /> */}
                         </div>
                     </div>
                     :
@@ -134,12 +134,12 @@ const page = () => {
                         <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
                             <AdjustmentsHorizontalIcon className="text-primary w-5" />
                             <p className="text-base font-medium text-[#151D23]">
-                                Select Bot
+                                {botValue?.length > 1 ? 'Select Bot' : 'Edit Settings'}
                             </p>
                         </div>
                         <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
                             <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
-                                {botValue?.map((element, key) => (
+                                {botValue?.length > 1 && botValue?.map((element, key) => (
                                     <button
                                         onClick={(e) => selectBotHandler(element.value)}
                                         key={key}

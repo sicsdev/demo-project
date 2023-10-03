@@ -33,7 +33,7 @@ const SideModal = ({ setShow, children, heading, border = true, deleteButton = f
             } dark:bg-gray-800`}
         >
           <div className="flex flex-1">
-            <h1 className="text-heading text-sm font-semibold">{heading}</h1>
+            <h2 className="text-heading text-sm font-semibold">{heading}</h2>
           </div>
           <div className="flex hover:cursor-pointer items-center justify-center gap-2">
             {deleteButton && (

@@ -14,12 +14,11 @@ const nextConfig = {
     ],
     unoptimized: true,
   },
-  reactStrictMode: true,
   eslint: {
     ignoreDuringBuilds: true,
   },
   // output: 'export',
-  reactStrictMode: false,
+  reactStrictMode: true,
   sentry: {}
 }
 

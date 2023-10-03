@@ -3,13 +3,10 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
 import * as Sentry from "@sentry/nextjs";
-
+  
 
 Sentry.init({
   dsn: "https://74970f546e04204042e62fdd0cb54157@o4505909542191104.ingest.sentry.io/4505920458326016",
-  replaysSessionSampleRate: 0.5,
-  replaysOnErrorSampleRate: 1.0,
-  integrations: [new Sentry.Replay()],
   ignoreErrors: [
     /Network Error/i,
     /Request Failed/i,

@@ -102,7 +102,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                             <div className="flex items-start sm:items-center  gap-2">
                                 <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                 <p className="text-base font-medium text-[#151D23]">
-                                    {totalRecords?.length > 1 ? 'Install Widget(s)' : 'Install Widget'}
+                                    {totalRecords?.length > 1 ? 'Install Widgets' : 'Install Widget'}
                                 </p>
                             </div>
                             <div className="flex items-center gap-4 ">
@@ -121,7 +121,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                 <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
-                    <SideModal setShow={setShowModal} heading={'Create New Widget'} >
+                    <SideModal setShow={setShowModal} heading={'Create New Agent'} >
                         <CustomerServiceSetupForm form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailConfig form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />
                         <EmailAgentSetting form={false} setBasicFormData={setBasicFormData} basicFormData={basicFormData} />

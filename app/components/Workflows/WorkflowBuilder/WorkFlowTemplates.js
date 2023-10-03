@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
-import { CheckIcon, ClipboardIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon, CheckIcon, ClipboardDocumentListIcon, ClipboardIcon, EllipsisHorizontalIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
 import { makeCapital } from '../../helper/capitalName';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
-
+import DeleteWorkflow from './DeleteWorkflow';
 
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest }) => {
     const [data, setData] = useState([]);
@@ -20,7 +20,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         copied: false,
         loading: false
     })
-
 
     const getUrl = async (id) => {
         setIsCopied(prev => {
@@ -91,6 +90,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
+
         },
         {
             name: "Actions",
@@ -103,6 +103,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
 
     ]
+
     const columns1 = [
         {
             name: "Name",
@@ -125,6 +126,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             selector: (row) => row.active ? 'Active' : 'Draft',
             sortable: true,
             reorder: true,
+            hide: "sm"
         },
         {
             name: "Actions",
@@ -154,8 +156,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                             <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
                         </button>}
 
+
                 </>
             ),
+            hide: "sm"
 
         },
 
@@ -170,6 +174,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
+
     const manageData = async () => {
 
         let workflows = await getWorkflowByStatus(status)
@@ -185,6 +190,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         setUrls(array_of_urls)
         setData(result);
     }
+
     const customStyles = {
         rows: {
             style: {
@@ -193,6 +199,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             },
         }
     };
+
     const handleChange = (e) => {
         setSearch(e.target.value)
         const workflowOptionsfilter = data?.filter(
@@ -201,9 +208,37 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         );
         setData(workflowOptionsfilter)
     }
+
+    const deleteWorkflowHandler = async (event, item) => {
+        event.stopPropagation();
+        const filterData = data.filter((x) => x.id !== item.id)
+        const deleteWorkFlow = await removeWorkFlow(item.id)
+        if (deleteWorkFlow.status === 204) {
+            fetchData();
+            setData(filterData)
+            // successMessage("Workflow deleted successfully")
+        }
+    }
+
+    const getIntegrationIcon = (automations, name = "") => {
+        const getIcon = automations?.find((x) => x?.automation?.integration?.icon !== null && x?.automation?.integration?.icon !== "");
+
+        if (getIcon !== undefined && getIcon?.automation?.integration?.icon !== undefined) {
+            return getIcon?.automation?.integration?.icon;
+        }
+        return null;
+    };
+
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
+    }, [])
     return (
         <div>
-            <h3 className='my-3  text-heading text-center font-semibold text-sm'>Add, edit, and manage your Tempo workflows</h3>
+            <h3 className='my-3  text-heading text-center font-semibold text-sm'>Manage your Tempo workflows</h3>
             <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative">
@@ -212,10 +247,81 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                         </svg>
                     </div>
-                    <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border rounded-lg" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                    <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
             </div>
-            <div className='data_table_wrapper w-full'>
+            <div className='w-full'>
+
+                {
+                    data?.length > 0 ? (
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2'>
+                            {data?.map((item, key) =>
+                                <div
+                                    style={{
+                                        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                                    }}
+                                    key={key}
+                                    className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+                                    onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
+                                >
+                                    {loading ?
+                                        <SkeletonLoader count={2} height={30} width="70%" />
+                                        :
+                                        <div className='relative h-full'>
+                                            <div className='flex items-center justify-start gap-2'>
+                                                {getIntegrationIcon(item?.automations, item?.name) !== null && (
+                                                    <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
+                                                        <Image
+                                                            fill={"true"}
+                                                            className="bg-contain mx-auto object-scale-down w-full rounded-lg"
+                                                            alt="logo.png"
+                                                            src={getIntegrationIcon(item?.automations, item?.name)}
+                                                        />
+                                                    </div>
+                                                )}
+                                                {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
+                                                    (element?.automation == null) && (
+                                                        <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                            {element.condition && (
+                                                                <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+                                                            )}
+
+                                                            {element.question && (
+                                                                <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                            )}
+
+                                                            {element?.transformer && (
+
+                                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+
+                                                            )}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                            <div className=''>
+                                                <h2 className='text-[#151D23] !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
+                                                <p className='text-xs text-[#151d23cc] mt-1'>By Tempo</p>
+                                            </div>
+                                            <div className='absolute bottom-0 w-full'>
+                                                <div className='flex items-center justify-between '>
+                                                    <p className='text-xs text-[#151d23cc]'>{item.active ? 'Active' : 'Draft'}</p>
+                                                    <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>Delete</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            )}
+                        </div>
+                    )
+                        :
+                        ""
+                }
+
+            </div>
+
+            {/* <div className='data_table_wrapper w-full'>
                 <DataTable
                     title=""
                     fixedHeader
@@ -231,8 +337,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     customStyles={customStyles}
                     noDataComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>}
                 />
-            </div>
-        </div>
+            </div> */}
+        </div >
     )
 }
 
@@ -285,10 +391,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
         }
     };
 
-    const handleShowTestWorkflow = (workflow) => {
-        setWorkflowToTest(workflow)
-        setShowTestBot(true)
-    }
+
     return (
         <>
             <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
@@ -306,9 +409,6 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
                                     <button type='button' className="block px-4 py-2 ">Disable</button>
                                 </li>
                             )}
-                            <li className='hover:bg-primary hover:text-white text-primary my-2 cursor-pointer' onClick={(e) => { handleShowTestWorkflow(data) }}>
-                                <button type='button' className="block px-4 py-2 ">Test workflow</button>
-                            </li>
 
                             <li className='hover:bg-danger hover:text-white text-danger my-2 cursor-pointer' onClick={(e) => { deleteWorkFlow(data) }}>
                                 <button type='button' className="block px-4 py-2 ">Delete</button>
