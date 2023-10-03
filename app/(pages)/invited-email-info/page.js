@@ -22,7 +22,7 @@ const page = () => {
                 if (res.payload.phone.length == 0) {
 
                 } else {
-                    // return router.push('/dashboard')
+                    return router.push('/dashboard')
                 }
             }
             )
