@@ -73,6 +73,8 @@ const page = () => {
                 name: title
             };
         });
+
+        mergedArray.sort((a, b) => a.name.localeCompare(b.name))
         setBotValue(mergedArray);
         if (search) {
             selectBotHandler(search)
@@ -135,7 +137,7 @@ const page = () => {
                 errorMessage("Unable to update!");
             });
     }
-
+    console.log("botValue", botValue)
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Chat`} icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />} />
