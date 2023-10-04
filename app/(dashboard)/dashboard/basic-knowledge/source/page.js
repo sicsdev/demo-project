@@ -71,7 +71,25 @@ const Source = () => {
         }
     }, [state.botData.data]);
 
+    const getDataWithFilters = (type) => {
+        let query = 'page=1&page_size=10'
+        switch (type) {
+            case 'FILE':
+                query = `page=1&page_size=10&knowledge__source=file`
+                break;
+            case 'SNIPPET':
+                query = `page=1&page_size=10&knowledge__source=snippet`
+                break;
+            case 'EXTERNAL':
+                query = `page=1&page_size=10&knowledge__source=external`
+                break;
 
+            default:
+                break;
+        }
+        getQuestionsData(query)
+
+    }
     const handleChange = (e) => {
         const searchText = e.target.value;
         setSearch(searchText);
@@ -104,14 +122,14 @@ const Source = () => {
 
 
             <>
-            {basicFormData?.data && (
-                <>
+                {basicFormData?.data && (
+                    <>
 
-                    <UpperBasicKnowledge questions={basicFormData}  basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} setBasicFormData={setBasicFormData}/>
-                    <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
-                </>
-            )}
-        </>
+                        <UpperBasicKnowledge questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} />
+                        <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData}  />
+                    </>
+                )}
+            </>
         </>
     )
 }

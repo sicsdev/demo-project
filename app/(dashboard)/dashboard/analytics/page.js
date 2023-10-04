@@ -7,6 +7,7 @@ import {
   ArrowRightIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftIcon,
+
   QueueListIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -28,6 +29,7 @@ import page from "../phone-numbers/page";
 import Card from "@/app/components/Common/Card/Card";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import { setViewed, getConversationDetails } from "@/app/API/pages/Logs";
+import { PlusSmallIcon } from "@heroicons/react/24/solid";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -64,8 +66,6 @@ const Logs = () => {
       ),
       selector: (row) => row.number_of_messages,
       sortable: true,
-      sortDescFirst: true,
-      reorder: false,
       cell: (row) => (
         <p className=" whitespace-normal">{row.number_of_messages}</p>
       ),
@@ -75,7 +75,6 @@ const Logs = () => {
       name: <p className=" whitespace-break-spaces text-xs">Created</p>,
       selector: (row) => row.created,
       sortable: true,
-      reorder: false,
       cell: (row) => formatDateFunc(row.created),
       minWidth: "50px",
     },
@@ -128,7 +127,7 @@ const Logs = () => {
   const [perPage, setPerPage] = useState(10);
   const [pageVal, setPageVal] = useState(1);
   const [search, setSearch] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchLoading, setSearchLoading] = useState(true);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [idOfOpenConversation, setIdOfOpenConversation] = useState({});
   const [selectedFilters, setSelectedFilters] = useState({
@@ -141,9 +140,9 @@ const Logs = () => {
     for_review: "all",
   });
   const [additionalData, setAdditionalData] = useState({
-    conversations: null,
+    conversations: 0,
     conversations_avg: null,
-    csat: null,
+    csat: 0,
     average: null,
     deflection_data: {
       date: null,
@@ -166,13 +165,15 @@ const Logs = () => {
     });
 
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
+    debugger
     setBotValue(mergedArray);
-    getAdditionalData(mergedArray)
+    // getAdditionalData(mergedArray)
     if (mergedArray?.length > 0) {
       setSelectedBot(mergedArray[0].value);
+      firstTimeAnalytics(mergedArray[0].value)
       setIndexVal(0);
       handlePageChange(mergedArray[0].value, 1,
-        "&ordering=-number_of_messages");
+        "&ordering=-number_of_messages&ordering=-created");
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
   };
@@ -181,22 +182,62 @@ const Logs = () => {
     const deflectionRate = 1 - humanHandoffs / totalConversations;
     return (deflectionRate * 100).toFixed(1); // You can format the result as needed
   };
-  const getAdditionalData = async (arr) => {
-    const human_handoff = await getBotConversation(arr[0].value, '?human_handoff=true')
-    const has_surveys = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_surveys=true')
-    const has_downvotes = await getBotConversation(arr[0].value, '?page=1&page_size=10&has_downvotes=true')
+
+  const firstTimeAnalytics = async (bot) => {
+    const human_handoff = await getBotConversation(bot, '?human_handoff=true')
+    const has_surveys = await getBotConversation(bot, '?has_surveys=true')
+    const has_downvotes = await getBotConversation(bot, '?has_downvotes=true')
     if (human_handoff && has_surveys && has_downvotes) {
       const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
       setAdditionalData((prev) => {
         return {
           ...prev,
           conversations: allconversation,
-          deflection_data: { ...additionalData.deflection_data, dflection: calculateDeflectionRate({ totalConversations: allconversation, humanHandoffs: human_handoff.data.count }), },
-          csat: has_surveys.data.count,
-          average: human_handoff.data.surveys.average
+          csat: human_handoff.data.surveys.average,
+          deflection_data: {
+            ...additionalData.deflection_data,
+            dflection: calculateDeflectionRate({
+              totalConversations: allconversation,
+              humanHandoffs: human_handoff.data.count
+            }),
+          },
         }
       })
     }
+  }
+  const getAdditionalData = async (bot, query = '', query1 = '', selectedDate1, selectedDate2) => {
+    const human_handoff = await getBotConversation(bot, '?human_handoff=true' + query1)
+    const has_surveys = await getBotConversation(bot, '?has_surveys=true' + query1)
+    const has_downvotes = await getBotConversation(bot, '?has_downvotes=true' + query1)
+    const previous_response_ = await getBotConversation(selectedBot, `?human_handoff=true${query}`)
+    const current_response = await getBotConversation(selectedBot, `?human_handoff=true${query1}`)
+    if (current_response.status === 200 && previous_response_.status === 200 && human_handoff && has_surveys && has_downvotes) {
+      const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
+      const calculateDates = (current_response.data.count - previous_response_.data.count) / previous_response_.data.count
+      const calculateAverage = (current_response.data.surveys.average - previous_response_.data.surveys.average) / previous_response_.data.surveys.average
+      const conversationRate = ((current_response.data.count - previous_response_.data.count) / previous_response_.data.count) * 100;
+      const formattedDate1 = formatDateMonths(selectedDate1);
+      const formattedDate2 = formatDateMonths(selectedDate2);
+      setAdditionalData((prev) => {
+        return {
+          ...prev,
+          average: (calculateAverage * 100).toFixed(1),
+          conversations_avg: conversationRate.toFixed(1),
+          conversations: allconversation,
+          csat: human_handoff.data.surveys.average,
+          deflection_data: {
+            ...additionalData.deflection_data,
+            date: `${formattedDate1} - ${formattedDate2}`,
+            precent: (calculateDates * 100).toFixed(1),
+            dflection: calculateDeflectionRate({
+              totalConversations: allconversation,
+              humanHandoffs: human_handoff.data.count
+            }),
+          },
+        }
+      })
+    }
+
   }
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
@@ -226,7 +267,6 @@ const Logs = () => {
   }, [state.botData.data]);
 
   const handleInputValues = (e) => {
-    setLoading(true);
     const { value } = e.target;
     dispatch(updateLogState({ ...logState.data, bot: value }));
     setSelectedFilters({
@@ -237,10 +277,11 @@ const Logs = () => {
       conversations: "all",
       viewed: "all",
       for_review: "all",
+      search: ''
     });
     setSelectedBot(value);
     setIndexVal(0);
-    handlePageChange(value, 1, "");
+    handlePageChange(value, 1, "", '10', 'mm');
   };
 
 
@@ -262,7 +303,7 @@ const Logs = () => {
     );
     if (selectedBot !== "Select") {
       setIndexVal(0);
-      handlePageChange(selectedBot, 1, queryParam);
+      handlePageChange(selectedBot, 1, queryParam, '10', 'mm');
     }
   };
 
@@ -293,10 +334,17 @@ const Logs = () => {
     id,
     page,
     queryParam,
-    page_size = 10
+    page_size = 10,
+    page1 = "main"
   ) => {
     setPerPage(page_size);
-    setLoading(true);
+    if (page1 === "main") {
+      setLoading(true);
+      setSearchLoading(true)
+    } else {
+      setSearchLoading(true)
+    }
+
     const response = await getPaginateBotConversation(
       id,
       page,
@@ -324,10 +372,13 @@ const Logs = () => {
       setConversationData(newdata);
       setTimeout(() => {
 
+        setSearchLoading(false)
         setLoading(false);
+
       }, 2000);
     } else {
       setLoading(false);
+      setSearchLoading(false)
     }
   };
 
@@ -351,7 +402,12 @@ const Logs = () => {
   const handleChange = (e) => {
     const searchText = e.target.value;
     setSearch(searchText);
-
+    setSelectedFilters((prev) => {
+      return {
+        ...prev,
+        search: searchText
+      }
+    })
     // Clear the previous timeout to prevent rapid search requests
     if (typingTimeout) {
       clearTimeout(typingTimeout);
@@ -368,7 +424,7 @@ const Logs = () => {
   const performSearch = (text) => {
     if (selectedBot !== "Select") {
       let searching = logState.data.queryParam || "";
-      handlePageChange(selectedBot, 1, searching + "&search=" + text);
+      handlePageChange(selectedBot, 1, searching + "&search=" + text, '10', 'mm');
     }
   };
 
@@ -445,7 +501,7 @@ const Logs = () => {
   const changePage = (page) => {
     if (selectedBot !== "Select") {
       setPageVal(page);
-      handlePageChange(selectedBot, page, buildQueryParam(selectedFilters));
+      handlePageChange(selectedBot, page, buildQueryParam(selectedFilters),'10','mm');
     }
   };
 
@@ -490,63 +546,24 @@ const Logs = () => {
     const formattedDay = day === 1 ? `${day}st` : day === 2 ? `${day}nd` : day === 3 ? `${day}rd` : `${day}th`;
     return `${formattedDay} ${month}`;
   }
-  
+
   const getDatatBewtweenTwoDates = async (prev, next) => {
     const currentDate = moment();
     let next_date = currentDate.format('YYYY-MM-DD');
+    const selectedDate1 = new Date(prev);
+    const selectedDate2 = next === "all" ? new Date(next_date) : new Date(next);
+    const timeDifference = selectedDate2 - selectedDate1;
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const date7DaysAgo = new Date(selectedDate1);
+    date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
+    const dateOneDayBefore = new Date(selectedDate1);
+    dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
+    let query = `&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`
+    let query1 = `&created__gte=${prev}&created__lte=${next}`
     if (next === 'all') {
-      const selectedDate1 = new Date(prev);
-      const selectedDate2 = new Date(next_date);
-      const timeDifference = selectedDate2 - selectedDate1;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const date7DaysAgo = new Date(selectedDate1);
-      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
-      const dateOneDayBefore = new Date(selectedDate1);
-      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
-      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
-      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}`)
-      if (current_response.status === 200 && response.status === 200) {
-        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
-        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
-        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
-        const formattedDate1 = formatDateMonths(selectedDate1);
-        const formattedDate2 = formatDateMonths(selectedDate2);
-        setAdditionalData((prev) => {
-          return {
-            ...prev,
-            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
-            average: (calculateAverage * 100).toFixed(1),
-            conversations_avg: conversationRate.toFixed(1)
-          }
-        })
-      }
-    } else {
-      const selectedDate1 = new Date(prev);
-      const selectedDate2 = new Date(next);
-      const timeDifference = selectedDate2 - selectedDate1;
-      const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-      const date7DaysAgo = new Date(selectedDate1);
-      date7DaysAgo.setDate(selectedDate1.getDate() - (daysDifference <= 0 ? 1 : daysDifference));
-      const dateOneDayBefore = new Date(selectedDate1);
-      dateOneDayBefore.setDate(selectedDate1.getDate() - 1);
-      const response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${formatDate(date7DaysAgo)}&created__lte=${formatDate(dateOneDayBefore)}`)
-      const current_response = await getBotConversation(selectedBot, `?human_handoff=true&created__gte=${prev}&created__lte=${next}`)
-      if (current_response.status === 200 && response.status === 200) {
-        const calculateDates = (current_response.data.count - response.data.count) / response.data.count
-        const calculateAverage = (current_response.data.surveys.average - response.data.surveys.average) / response.data.surveys.average
-        const conversationRate = ((current_response.data.count - response.data.count) / response.data.count) * 100;
-        const formattedDate1 = formatDateMonths(selectedDate1);
-        const formattedDate2 = formatDateMonths(selectedDate2);
-        setAdditionalData((prev) => {
-          return {
-            ...prev,
-            deflection_data: { ...additionalData.deflection_data, date: `${formattedDate1} - ${formattedDate2}`, precent: (calculateDates * 100).toFixed(1) },
-            average: (calculateAverage * 100).toFixed(1),
-            conversations_avg: conversationRate.toFixed(1)
-          }
-        })
-      }
+      query1 = `&created__gte=${prev}`
     }
+    getAdditionalData(selectedBot, query, query1, selectedDate1, selectedDate2)
   }
 
   useEffect(() => {
@@ -597,7 +614,7 @@ const Logs = () => {
             )}
           </>
         )}
-        {loading === true || state.isLoading === true ? (
+        {searchLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
               <SkeletonLoader height={25} width={"30%"} />
@@ -642,7 +659,14 @@ const Logs = () => {
               <h1 className="text-sm text-heading font-semibold">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
-                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+                <p className="text-center w-[15%] rounded-md text-heading font-bold my-2 px-3 py-1 bg-[#4bff521c]">
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                    <PlusSmallIcon className="h-3 w-3 text-black" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                    </svg>
+                  </span>
+                </p>
               ) : (
                 <>
                   {additionalData.conversations_avg > 0 && isFinite(additionalData.conversations_avg) && (
@@ -662,10 +686,27 @@ const Logs = () => {
             </div>
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
               <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
-              <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}</p>
+              {additionalData.deflection_data.dflection === null || !isFinite(additionalData.deflection_data.dflection) ?
+                <p className="text-2xl text-center w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4bff521c]">
+                  <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
+                    <PlusSmallIcon className="h-4 w-4 text-black" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                    </svg>
+                  </span>
+                </p>
+                :
+                <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}%</p>}
 
               {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
-                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+                <p className="text-center w-[15%] rounded-md text-heading font-bold my-2 px-3 py-1 bg-[#4bff521c]">
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                    <PlusSmallIcon className="h-3 w-3 text-black" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                    </svg>
+                  </span>
+                </p>
               ) : (
                 <>
                   {additionalData.deflection_data.precent > 0 && isFinite(additionalData.deflection_data.precent) && (
@@ -682,18 +723,21 @@ const Logs = () => {
                 <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
               )
               }
-
-
-
-
-
-
             </div>
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
               <h1 className="text-sm text-heading font-semibold">CSAT</h1>
-              <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>
+
+              <p className="text-2xl text-heading font-bold my-2">  {additionalData.csat}</p>
+
               {additionalData.average === null || !isFinite(additionalData.average) || additionalData.average === 0 || additionalData.average === '0.0' ? (
-                <span class="bg-[#EDF9F4] text-[#86B094] text-xs font-medium mr-2 px-2.5 py-0.5 rounded "> <span>+</span> <span>♾️</span></span>
+                <p className="text-center w-[15%] rounded-md text-heading font-bold my-2 px-3 py-1 bg-[#4bff521c]">
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                    <PlusSmallIcon className="h-3 w-3 text-black" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                    </svg>
+                  </span>
+                </p>
               ) : (
                 <>
                   {additionalData.average > 0 && isFinite(additionalData.average) && (
@@ -922,7 +966,7 @@ const Logs = () => {
                   setIdOfOpenConversation(rowData.id);
                   handleSetViewed(rowData);
                 }}
-                progressPending={loading}
+                progressPending={searchLoading}
                 progressComponent={
                   <div className="w-full mt-3 relative">
                     <SkeletonLoader

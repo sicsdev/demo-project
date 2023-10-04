@@ -215,7 +215,6 @@ const QuickStart = () => {
     }, [members.data]);
 
     const setHideShow = (value, ele) => {
-        console.log("Value: ", value, "Element: ", ele)
         if (value === 0) {
             if (integrations?.data?.results?.length > 0) {
                 return false
