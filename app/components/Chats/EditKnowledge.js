@@ -1,5 +1,5 @@
-import { getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative } from '@/app/API/pages/Knowledge'
-import { MinusIcon } from '@heroicons/react/24/outline'
+import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative } from '@/app/API/pages/Knowledge'
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -8,10 +8,15 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
     useEffect(() => {
         getThisKnowledge()
+        getAllNegativeFaqs()
     }, [])
 
 
     // Local states
+    const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
+    const [faqObject, setFAQObject] = useState({})
+
+
     const [loading, setLoading] = useState(false)
     const [thisKnowledge, setThisKnowledge] = useState({})
     const [dropdownOpen, isDropdownOpen] = useState(false)
@@ -22,6 +27,18 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     })
 
     // Handlers
+
+    const getAllNegativeFaqs = async () => {
+        await getFaqNegative().then(res => {
+            setAllNegativeFAQS(res.results);
+            console.log(res.results, 'results faqs')
+            let faqFinder = res.results.find(faq => faq?.faq?.id == item.information.id)
+            if (faqFinder) {
+                setRated(true); setFAQObject(faqFinder)
+            } else { setRated(false) }
+
+        })
+    }
 
     const getThisKnowledge = async () => {
         const response = await getKnowledgeData()
@@ -76,9 +93,15 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
             faq: item.information.id
         })
 
-        setRated(true)
+        await getAllNegativeFaqs()
 
     }
+
+    const handleRateAsPositive = async () => {
+        await deleteNegativeFaq(faqObject?.id)
+        await getAllNegativeFaqs()
+    }
+
 
 
     return (
@@ -154,9 +177,12 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                     </div>
 
 
-                    <button disabled={rated} onClick={handleRateNegative} >
-                        <MinusIcon className="h-5 w-5 text-black mx-3" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
-                    </button>
+                    <button >
+                        {rated ?
+                            <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                            :
+                            <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
+                        }                    </button>
                 </div>
             }
         </>

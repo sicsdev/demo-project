@@ -26,142 +26,137 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
     const [loading, setLoading] = useState(false)
     const [dropdownOpen, isDropdownOpen] = useState(false)
     const [inputValue, setInputValue] = useState(descriptionLine)
-
+    const [workflowObject, setWorflowObject] = useState({})
     // Handlers
 
     const getAllNegativeWorkflows = async () => {
         await getNegativeWorkflows().then(res => {
             setAllNegativeWorkflows(res.results);
-            console.log(res.results, 'new logic')
-            console.log(item.information.id)
-            //8b8bafc7-df7f-4a68-8fde-1409b6ca73e4
-            if (res.results.some(wkf => wkf.workflow.id == item.information.id)) {setRated(true)} else {setRated(false)}
-    })
-}
+            let workflowFinder = res.results.find(wkf => wkf.workflow.id == item.information.id)
+            if (workflowFinder) {
+                setRated(true); setWorflowObject(workflowFinder)
+            } else { setRated(false) }
 
-const toggleDropdown = () => {
-    isDropdownOpen(!dropdownOpen)
-}
-
-
-const handleInput = (e) => {
-    setInputValue(e.target.value)
-}
-
-const handlePatchWorkflow = async () => {
-    setLoading(true)
-    let newDescription = item?.information?.description[0].replace(descriptionLine, inputValue)
-    await updateWorkFlowStatus({ description: [newDescription] }, item.information?.id)
-    setLoading(false)
-    toggleDropdown()
-}
-
-const handleRateNegative = async () => {
-    let previousMessage = allMessages[indexOfMessage - 1]
-    let contentToSend;
-
-    if (previousMessage.content === 'WORKFLOW') {
-        let finder = allMessages[indexOfMessage - 2]
-        contentToSend = finder.actions.options.WORKFLOW
-    } else if (previousMessage.content === 'INFORMATION') {
-        let finder = allMessages[indexOfMessage - 2]
-        contentToSend = finder.actions.options.INFORMATION
-    } else {
-        contentToSend = previousMessage.content
+        })
     }
 
-    await rateWorkflowNegative({
-        search: contentToSend,
-        workflow: item.information.id
-    })
-
-    await getAllNegativeWorkflows()
-
-}
+    const toggleDropdown = () => {
+        isDropdownOpen(!dropdownOpen)
+    }
 
 
-const handleRateAsPositive = async () => {
-    console.log('asdasd')
-    await deleteNegativeWorkflow(item.information.id)
-    await getAllNegativeWorkflows()
-}
+    const handleInput = (e) => {
+        setInputValue(e.target.value)
+    }
 
-const handleRate = async () => {
-    console.log(item)
-    rated ? handleRateAsPositive() : handleRateNegative()
-}
+    const handlePatchWorkflow = async () => {
+        setLoading(true)
+        let newDescription = item?.information?.description[0].replace(descriptionLine, inputValue)
+        await updateWorkFlowStatus({ description: [newDescription] }, item.information?.id)
+        setLoading(false)
+        toggleDropdown()
+    }
 
-return (
-    <>
+    const handleRateNegative = async () => {
+        let previousMessage = allMessages[indexOfMessage - 1]
+        let contentToSend;
 
-        <div className='flex items-center w-full align-middle'>
-            <div key={item.information?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md hover:text-primary w-full'>
+        if (previousMessage.content === 'WORKFLOW') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder.actions.options.WORKFLOW
+        } else if (previousMessage.content === 'INFORMATION') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder.actions.options.INFORMATION
+        } else {
+            contentToSend = previousMessage.content
+        }
 
-                <div className="relative">
+        await rateWorkflowNegative({
+            search: contentToSend,
+            workflow: item.information.id
+        })
 
-                    <div className="flex pointer" onClick={toggleDropdown}>
-                        <span className="w-full flex items-center" >
-                            <small id={item?.information?.id}>
-                                {item?.information?.name}
-                            </small>
-                        </span>
+        await getAllNegativeWorkflows()
+
+    }
 
 
-                        {!dropdownOpen ?
-                            <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                            :
-                            <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        }
-                    </div>
-                    {dropdownOpen &&
+    const handleRateAsPositive = async () => {
+        await deleteNegativeWorkflow(workflowObject?.id)
+        await getAllNegativeWorkflows()
+    }
 
-                        <div className="my-2">
-                            {/* {descriptions?.map(w => ( */}
+    return (
+        <>
 
-                            <div className="flex flex-row flex-1">
-                                <input
-                                    type="text"
-                                    className="border border-border my-2 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
-                                    placeholder="Question"
-                                    id={descriptionLine}
-                                    name={descriptionLine}
-                                    value={inputValue}
-                                    onChange={handleInput}
-                                />
-                            </div>
-                            {/* ))} */}
+            <div className='flex items-center w-full align-middle'>
+                <div key={item.information?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md hover:text-primary w-full'>
 
-                            <button
-                                type="button"
-                                onClick={handlePatchWorkflow}
-                                className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                            >
-                                {loading ? "Saving.." : "Save"}
-                            </button>
+                    <div className="relative">
+
+                        <div className="flex pointer" onClick={toggleDropdown}>
+                            <span className="w-full flex items-center" >
+                                <small id={item?.information?.id}>
+                                    {item?.information?.name}
+                                </small>
+                            </span>
+
+
+                            {!dropdownOpen ?
+                                <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                                :
+                                <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            }
                         </div>
+                        {dropdownOpen &&
 
-                    }
+                            <div className="my-2">
+                                {/* {descriptions?.map(w => ( */}
+
+                                <div className="flex flex-row flex-1">
+                                    <input
+                                        type="text"
+                                        className="border border-border my-2 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
+                                        placeholder="Question"
+                                        id={descriptionLine}
+                                        name={descriptionLine}
+                                        value={inputValue}
+                                        onChange={handleInput}
+                                    />
+                                </div>
+                                {/* ))} */}
+
+                                <button
+                                    type="button"
+                                    onClick={handlePatchWorkflow}
+                                    className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                >
+                                    {loading ? "Saving.." : "Save"}
+                                </button>
+                            </div>
+
+                        }
+
+                    </div>
+
 
                 </div>
 
+                <button>
+                    {rated ?
+                        <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                        :
+                        <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
 
+                    }
+                </button>
             </div>
-
-            <button onClick={handleRate} >
-                {rated ?
-                    <PlusIcon className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
-                    :
-                    <MinusIcon className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
-
-                }
-            </button>
-        </div>
-    </>
-)
+        </>
+    )
 }
 
 export default EditWorkflow
