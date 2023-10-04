@@ -1,11 +1,12 @@
 // import ChatBot from '../components/Chatbot/ChatBot'
 // 'use client'
+// import { useEffect, useState } from "react";
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Swal from "sweetalert2";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -60,7 +61,7 @@ export default function RootLayout({ children }) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
   }
 
-  const router = useRouter();
+  // const router = useRouter();
   let inactivityTime = 0;
   const maxInactivityTime = 30;
   const warningTime = 25;
