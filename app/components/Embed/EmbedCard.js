@@ -14,6 +14,7 @@ import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from "next/link";
 import { useRef } from "react";
+import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 
 export const EmbedCard = ({
   element,
@@ -71,11 +72,27 @@ export const EmbedCard = ({
 
   const tooltipText = `By default, the widget will be rendered in chat mode, but you can also use it integrated directly in your HTML.\n\nTo do this, simply enable this option and add a container with the ID 'chatbot_widget' on your page.\n\nExample:\n<div id='chatbot_widget'></div>\n\nThe chat will be rendered inside that container.`;
 
+  const [skeltonLoading, setSkeltonLoading] = useState(true);
+  useEffect(() => {
+      setTimeout(() => {
+          setSkeltonLoading(false);
+      }, 2500);
+  }, []);
+
+
   return (
     <>
       <div className="mt-5 border rounded-md border-border  bg-white">
         <div className="bg-border rounded-t-md py-1 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
-          <h3 className="text-xs font-bold text-white my-2">{element.title}</h3>
+          <h3 className="text-xs font-bold text-white my-2">
+          {skeltonLoading ?
+            <SkeletonLoader count={1} height={30} width={100} />
+            :
+            <>
+            {element.title}
+            </>
+          }
+          </h3>
           <div className=" relative items-start flex flex-row-reverse pr-2">
             {/* <Link
               href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
@@ -88,6 +105,9 @@ export const EmbedCard = ({
               </button>
             </Link> */}
             <div className="flex items-center justify-end my-2 pointer" style={{ cursor: "pointer" }}>
+            {skeltonLoading ?
+              <SkeletonLoader className="mr-2" count={1} height={35} width={60} />
+              :
               <span
                 className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
                   }`}
@@ -95,7 +115,11 @@ export const EmbedCard = ({
               >
                 Embed
               </span>
+                }
               <span className="text-white"></span>
+              {skeltonLoading ?
+                <SkeletonLoader count={1} height={35} width={60} />
+                :
               <span
                 className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${!isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
                   }`}
@@ -103,15 +127,24 @@ export const EmbedCard = ({
               >
                 Widget
               </span>
+                }
             </div>
           </div>
         </div>
         <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
           <div className="my-2 text-[10px]">
             <div className='my-3'>
-
-              <small>Add this code to the head section of your website's HTML:</small>
+              <small>
+              {skeltonLoading ?
+                <SkeletonLoader count={1} height={10} width="80%" />
+                :
+              "Add this code to the head section of your website's HTML:"
+              }
+              </small>
             </div>
+            {skeltonLoading ?
+              <SkeletonLoader count={4} height={10} width="100%" />
+              :
             <CodeMirror
               value={isEmbedEnabled ? embedCode.trim() : code.trim()}
               height="auto"
@@ -128,11 +161,16 @@ export const EmbedCard = ({
               className="border-none"
             // onChange={onChange}
             />
+            }
             <div className='flex justify-between items-center'>
                   <Link href={`/dashboard/chat-settings?name=${element.title}&id=${element.id}`}>
+                  {skeltonLoading ?
+                    <SkeletonLoader count={1} height={30} width={45} />
+                    :
                     <span className="flex items-center hover:text-white text-sky text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
                       <small>Edit </small>
                     </span>
+                  }
                   </Link>
 
                   <div className='text-sm  rounded-xl inline-block p-1 px-2  hover:text-white text-sky'>
@@ -165,12 +203,14 @@ export const EmbedCard = ({
                           }, 3000);
                         }}
                       >
-
+                      {skeltonLoading ?
+                        <SkeletonLoader count={1} height={30} width={85} />
+                        :
                         <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky sm:mr-[-11px]  bg-skyblue">
                           <ClipboardIcon className=" h-4 w-4" />
                           <small className=''>Copy code</small>
                         </span>
-
+                      }
                       </CopyToClipboard>
                     )}
                   </div>

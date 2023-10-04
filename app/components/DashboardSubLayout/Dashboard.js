@@ -14,6 +14,9 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import TestingMiniBot from '../Chats/TestingMiniBot'
 import { useState } from 'react'
 import TestWidgetLayout from './TestWidgetLayout'
+import { getAllActiveBots } from '@/app/API/pages/Bot'
+import { getUserProfile } from '@/app/API/components/Sidebar'
+import { getTestBot } from '@/app/API/components/Minibot'
 
 const Dashboard = ({ children }) => {
 
@@ -91,6 +94,8 @@ const Dashboard = ({ children }) => {
         },
     ];
     let state = useSelector((state) => state.botId.showModal)
+    const userState = useSelector((state) => state.user_profile);
+
     useEffect(() => {
         if (!state) {
             dispatch(fetchBot())
@@ -101,9 +106,36 @@ const Dashboard = ({ children }) => {
             dispatch(fetchIntegrationsTemplates())
         }
 
-
-
+        getActiveBots()
+        // localStorage.setItem(`inTempoPortal`, true);
+        // return () => { localStorage.removeItem('inTempoPortal') }
     }, [state]);
+
+
+
+    const [activeBots, setActiveBots] = useState([])
+
+    const getActiveBots = async () => {
+        await getAllActiveBots().then(async (res) => {
+            setActiveBots(res.results)
+
+            const profile = await getUserProfile()
+            const testBot = await getTestBot()
+
+            if (profile?.email) {
+                const activeBotsInLocalStorage = JSON.stringify(res.results)
+                localStorage.setItem(`tempoportallastlogin`, profile.email)
+                localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
+            }
+
+            if (testBot?.id) {
+                const userTestBot = JSON.stringify(testBot)
+                localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
+            }
+        })
+
+    }
+
     if (!state) {
         if (pathname !== '/dashboard') {
             const findRoute = SideBarRoutes.find((x) => x.href === pathname)
@@ -174,7 +206,7 @@ const Dashboard = ({ children }) => {
                     </div>
                 </button> */}
 
-                <TestWidgetLayout></TestWidgetLayout>
+                {/* <TestWidgetLayout></TestWidgetLayout> */}
 
 
                 {children}

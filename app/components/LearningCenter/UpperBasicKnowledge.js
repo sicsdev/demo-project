@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SideModal from '../SideModal/SideModal'
 import { DocumentTextIcon, LinkIcon, PaperClipIcon } from '@heroicons/react/24/outline'
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
 import { createNewKnowledge } from '@/app/API/pages/Knowledge'
+import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 
 const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, setBasicFormData }) => {
     const [showSourceFilter, setShowSourceFilter] = useState(false)
@@ -139,6 +140,15 @@ const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, s
     const handleChangeFile = (file) => {
         setFile(file);
     };
+
+    const [skeletonloading, setSkeletonLoading] = useState(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSkeletonLoading(false);
+        }, 1200);
+    }, [])
+
     return (
         <>  <div className='flex justify-end items-center gap-2 w-full mt-2'>
             <div className='mr-[18px]'>
@@ -151,29 +161,105 @@ const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, s
 
                 <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
                     <p className="text-xs mb-5 font-semibold">
-                        To answer customer questions, Tempo is using:
+                    {skeletonloading ?
+                        <SkeletonLoader count={1} height={20} width={150} /> 
+                        :
+                        "To answer customer questions, Tempo is using:"
+                    }
                     </p>
                     <div className="flex gap-4 sm:gap-10 justify-start align-top">
                         <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">{basicFormData?.external}</h2>
-                            <p className="text-xs font-semibold"> {basicFormData?.external === 1 ? "External page" : "External pages"}</p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">out of {basicFormData?.external}</p>
+                            <h2 className="text-sm font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={30} /> 
+                                :
+                                <>
+                            {basicFormData?.external}
+                            </>
+                            }
+                            </h2>
+                            <p className="text-xs font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={140} /> 
+                                :
+                                <>
+                            {basicFormData?.external === 1 ? "External page" : "External pages"}
+                            </>
+                            }
+                            </p>
+                            <p className="text-xs text-[#9CA3AF] font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={100} /> 
+                                :
+                                <>
+                            out of {basicFormData?.external}
+                            </>
+                            }
+                            </p>
                         </div>
                         <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">{basicFormData?.snippet}</h2>
-                            <p className="text-xs font-semibold">{basicFormData?.snippet === 1 ? 'Snippet' : "Snippets"}</p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">out of {basicFormData?.snippet}</p>
+                            <h2 className="text-sm font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={30} /> 
+                                :
+                                <>
+                            {basicFormData?.snippet}
+                            </>
+                            }
+                            </h2>
+                            <p className="text-xs font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={140} /> 
+                                :
+                                <>
+                            {basicFormData?.snippet === 1 ? 'Snippet' : "Snippets"}
+                            </>
+                            }
+                            </p>
+                            <p className="text-xs text-[#9CA3AF] font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={100} /> 
+                                :
+                                <>
+                            out of {basicFormData?.snippet}
+                            </>
+                            }</p>
                         </div>
                         <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">{basicFormData?.file}</h2>
-                            <p className="text-xs font-semibold">{basicFormData?.file === 1 ? 'File' : "Files"}</p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">out of {basicFormData?.file}</p>
+                            <h2 className="text-sm font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={30} /> 
+                                :
+                                <>
+                            {basicFormData?.file}
+                            </>
+                            }
+                            </h2>
+                            <p className="text-xs font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={140} /> 
+                                :
+                                <>
+                            {basicFormData?.file === 1 ? 'File' : "Files"}
+                            </>
+                            }</p>
+                            <p className="text-xs text-[#9CA3AF] font-semibold">
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={20} width={100} /> 
+                                :
+                                <>
+                            out of {basicFormData?.file}
+                            </>
+                            }
+                            </p>
                         </div>
                     </div>
                 </div>
 
                 <div className="block sm:flex gap-10 justify-start items-center">
-
+                {skeletonloading ?
+                    <SkeletonLoader count={1} height={35} width={200} /> 
+                    :
                     <div className="relative">
                         <input
                             placeholder="Search"
@@ -184,6 +270,7 @@ const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, s
                         />
                         <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
                     </div>
+                }
                 </div>
             </div>
 
