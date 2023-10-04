@@ -166,7 +166,6 @@ const Page = () => {
     }
   }
 
-  console.log(basicFormData)
   return (
     <>
       <div className="border-b border-primary ">

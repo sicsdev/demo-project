@@ -41,7 +41,6 @@ const Page = () => {
   const [logo, setLogo] = useState(null);
   const [error, setError] = useState(null);
   const [userData, setUserData] = useState(null);
-  console.log("userData", userData);
   useEffect(() => {
     if (state.data) {
       let address = parseAddress(state?.data?.enterprise?.address);
