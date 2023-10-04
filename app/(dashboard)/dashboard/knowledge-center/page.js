@@ -572,7 +572,7 @@ const Page = () => {
             }
         } else if (workFlowData.target === "human_handoff") {
             let payload = {
-                search: workFlowData.answer
+                search:workflowView?.question
             }
             const response = await addHumanHandoffWorkflowData(payload)
             if (response.status === 201 || response.status === 200) {

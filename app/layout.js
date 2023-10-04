@@ -1,8 +1,12 @@
 // import ChatBot from '../components/Chatbot/ChatBot'
+// 'use client'
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Script from "next/script";
+import Swal from "sweetalert2";
+import { useRouter } from 'next/navigation';
+
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title:
@@ -13,6 +17,7 @@ export const metadata = {
     icon: "favicon.ico",
   },
 };
+
 
 export default function RootLayout({ children }) {
   let schema = {
@@ -31,6 +36,92 @@ export default function RootLayout({ children }) {
       addressCountry: "US",
     },
   };
+
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem('Token');
+  //   const storedTokenCookie = getCookie('Token');
+  //   console.log(storedTokenCookie)
+  //   console.log(storedToken)
+  //   if (storedToken || storedTokenCookie) checkActivity();
+  // }, [])
+
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return decodeURIComponent(cookie.substring(name.length + 1));
+      }
+    }
+    return null;
+  }
+
+  function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
+
+  const router = useRouter();
+  let inactivityTime = 0;
+  const maxInactivityTime = 30;
+  const warningTime = 25;
+  let alreadyWarned = false;
+
+  function resetTimer() {
+    inactivityTime = 0;
+  }
+
+  function handleInactive() {
+    localStorage.removeItem("Token");
+    deleteCookie("Token")
+    location.reload();
+    console.log("30 min of inactivity. Session closed.");
+  }
+
+  function checkActivity() {
+    document.addEventListener("mousemove", resetTimer);
+    document.addEventListener("keydown", resetTimer);
+    document.addEventListener("mousedown", resetTimer);
+    document.addEventListener("touchstart", resetTimer);
+    document.addEventListener("scroll", resetTimer);
+
+    setInterval(function () {
+      inactivityTime += 1;
+      if (inactivityTime >= maxInactivityTime) {
+        handleInactive();
+      } else if (inactivityTime >= warningTime) {
+        if (!alreadyWarned) showWarning();
+      }
+    }, 1000);
+  }
+
+
+  function showWarning() {
+    // This function will be executed when there are 5 minutes left before session expiration
+    alreadyWarned = true;
+
+    Swal.fire({
+      title: 'Warning!',
+      text: 'Your session is about to expire. Do you want to continue?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Continue',
+      cancelButtonText: 'Log Out',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        alreadyWarned = false;
+        resetTimer();
+      } else {
+        localStorage.removeItem("Token");
+        deleteCookie("Token")
+        location.reload();
+        console.log('User chose to log out');
+      }
+    });
+  }
+
+
+
 
   return (
     <html lang="en" className="scroll-smooth ">
@@ -71,7 +162,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
         <script
           type="application/ld+json"

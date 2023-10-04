@@ -1,6 +1,6 @@
 import { getKnowledgeData, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge'
-import { rateWorkflowNegative, updateWorkFlowStatus } from '@/app/API/pages/Workflow'
-import { MinusIcon } from '@heroicons/react/24/outline'
+import { deleteNegativeWorkflow, getNegativeWorkflows, rateWorkflowNegative, updateWorkFlowStatus } from '@/app/API/pages/Workflow'
+import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -9,8 +9,12 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
     let descriptions = item?.information?.description[0].split(', ') || ['Add new line']
 
+    const [allNegativeWorkflows, setAllNegativeWorkflows] = useState([])
+
     useEffect(() => {
         // getThisKnowledge()
+        // console.log(allNegativeWorkflows.some(wkf => wkf.id === item.information.id), item.information.name)
+        getAllNegativeWorkflows()
     }, [])
 
 
@@ -22,8 +26,19 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
     const [loading, setLoading] = useState(false)
     const [dropdownOpen, isDropdownOpen] = useState(false)
     const [inputValue, setInputValue] = useState(descriptionLine)
-
+    const [workflowObject, setWorflowObject] = useState({})
     // Handlers
+
+    const getAllNegativeWorkflows = async () => {
+        await getNegativeWorkflows().then(res => {
+            setAllNegativeWorkflows(res.results);
+            let workflowFinder = res.results.find(wkf => wkf.workflow.id == item.information.id)
+            if (workflowFinder) {
+                setRated(true); setWorflowObject(workflowFinder)
+            } else { setRated(false) }
+
+        })
+    }
 
     const toggleDropdown = () => {
         isDropdownOpen(!dropdownOpen)
@@ -58,13 +73,18 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
         await rateWorkflowNegative({
             search: contentToSend,
-            workflows: item.information.id
+            workflow: item.information.id
         })
 
-        setRated(true)
+        await getAllNegativeWorkflows()
 
     }
 
+
+    const handleRateAsPositive = async () => {
+        await deleteNegativeWorkflow(workflowObject?.id)
+        await getAllNegativeWorkflows()
+    }
 
     return (
         <>
@@ -126,8 +146,13 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
                 </div>
 
-                <button disabled={rated} onClick={handleRateNegative} >
-                    <MinusIcon className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as negative' style={{border: '1px solid gray', borderRadius: '50%'}}></MinusIcon>
+                <button>
+                    {rated ?
+                        <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                        :
+                        <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
+
+                    }
                 </button>
             </div>
         </>
