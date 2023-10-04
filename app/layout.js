@@ -39,8 +39,27 @@ export default function RootLayout({ children }) {
   };
 
   useEffect(() => {
-    checkActivity();
+    const storedToken = localStorage.getItem('Token');
+    const storedTokenCookie = getCookie('Token');
+    console.log(storedTokenCookie)
+    console.log(storedToken)
+    if (storedToken || storedTokenCookie) checkActivity();
   }, [])
+
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith(`${name}=`)) {
+        return decodeURIComponent(cookie.substring(name.length + 1));
+      }
+    }
+    return null;
+  }
+
+  function deleteCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  }
 
   const router = useRouter();
   let inactivityTime = 0;
@@ -53,7 +72,8 @@ export default function RootLayout({ children }) {
   }
 
   function handleInactive() {
-    localStorage.removeItem("token");
+    localStorage.removeItem("Token");
+    deleteCookie("Token")
     location.reload();
     console.log("30 min of inactivity. Session closed.");
   }
@@ -72,14 +92,14 @@ export default function RootLayout({ children }) {
       } else if (inactivityTime >= warningTime) {
         if (!alreadyWarned) showWarning();
       }
-    }, 60000);
+    }, 1000);
   }
 
 
   function showWarning() {
     // This function will be executed when there are 5 minutes left before session expiration
     alreadyWarned = true;
-    
+
     Swal.fire({
       title: 'Warning!',
       text: 'Your session is about to expire. Do you want to continue?',
@@ -93,14 +113,15 @@ export default function RootLayout({ children }) {
         alreadyWarned = false;
         resetTimer();
       } else {
-        localStorage.removeItem("token");
+        localStorage.removeItem("Token");
+        deleteCookie("Token")
         location.reload();
         console.log('User chose to log out');
       }
     });
   }
-  
-  
+
+
 
 
   return (
