@@ -234,7 +234,13 @@ const Page = () => {
                 <h3 className="text-sm font-semibold mt-3">
                   <SkeletonLoader count={1} height={20} width={100} />
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-5 lg:grid-cols-5 gap-2 mx-auto items-center my-2">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mx-auto items-center my-2
+                ">
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
+                  <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
