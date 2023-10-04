@@ -148,7 +148,6 @@ const UsageLimit = () => {
 
       const amounts = labels.map((month) => {
         monthData = response[currentYear][month];
-        console.log(monthData, 'monthData');
         return monthData && monthData.length > 0 ? getTotalAmount(monthData) : 0;
       });
 

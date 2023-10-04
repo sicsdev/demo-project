@@ -254,7 +254,6 @@ const Logs = () => {
       ...selectedFilters,
       [name]: value, // Update the selected value for the current dropdown
     });
-    console.log("queryParam", value)
     let payload = {
       [name]: value,
     };
@@ -374,7 +373,6 @@ const Logs = () => {
   };
 
   const handleSort = async (column, sortDirection) => {
-    console.log("sortDirection", column?.name);
     setTimeout(async () => {
       let orderBy;
       if (column?.name?.props?.children == "Number of Messages") {
@@ -492,7 +490,7 @@ const Logs = () => {
     const formattedDay = day === 1 ? `${day}st` : day === 2 ? `${day}nd` : day === 3 ? `${day}rd` : `${day}th`;
     return `${formattedDay} ${month}`;
   }
-  console.log(additionalData)
+  
   const getDatatBewtweenTwoDates = async (prev, next) => {
     const currentDate = moment();
     let next_date = currentDate.format('YYYY-MM-DD');
