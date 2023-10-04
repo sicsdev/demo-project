@@ -87,7 +87,6 @@ const Page = () => {
     useEffect(() => {
         if (faqQuestionState?.data === null) {
             dispatch(fetchFaqQuestions());
-            console.log("sdasSDAFFFFFFFFFFFFFFFFFFFF",faqQuestionState.data)
         }
     }, [faqQuestionState?.data]);
 

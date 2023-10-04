@@ -54,7 +54,6 @@ const Keys = () => {
       api_key: formData.key,
     }
     const response = await createKeyPairs(payload)
-    console.log(response)
     if (response.status === 201 || response.status === 200) {
       getKeysData()
       // successMessage("Key create successfully !")
