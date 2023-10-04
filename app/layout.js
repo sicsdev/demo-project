@@ -1,6 +1,5 @@
 // import ChatBot from '../components/Chatbot/ChatBot'
-'use client'
-import { useEffect, useState } from "react";
+// 'use client'
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
@@ -38,13 +37,13 @@ export default function RootLayout({ children }) {
     },
   };
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('Token');
-    const storedTokenCookie = getCookie('Token');
-    console.log(storedTokenCookie)
-    console.log(storedToken)
-    if (storedToken || storedTokenCookie) checkActivity();
-  }, [])
+  // useEffect(() => {
+  //   const storedToken = localStorage.getItem('Token');
+  //   const storedTokenCookie = getCookie('Token');
+  //   console.log(storedTokenCookie)
+  //   console.log(storedToken)
+  //   if (storedToken || storedTokenCookie) checkActivity();
+  // }, [])
 
   function getCookie(name) {
     const cookies = document.cookie.split(';');
