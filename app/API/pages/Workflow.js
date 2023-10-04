@@ -112,4 +112,23 @@ export const rateWorkflowNegative = async (body) => {
     }
 };
 
+export const getNegativeWorkflows = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows-negative/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
 
+
+export const deleteNegativeWorkflow = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/workflows-negative/${id}/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
