@@ -1,5 +1,5 @@
 // import ChatBot from '../components/Chatbot/ChatBot'
-'use client'
+// 'use client'
 // import { useEffect, useState } from "react";
 import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
