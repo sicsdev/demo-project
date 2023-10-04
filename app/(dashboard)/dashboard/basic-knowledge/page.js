@@ -126,9 +126,6 @@ const Page = () => {
                                 </div>
 
                                 <div className="flex gap-10 justify-between items-center">
-                                    <div className="relative">
-                                        <SkeletonLoader height={40} width={150} />
-                                    </div>
                                     <div className='mt-0 relative'>
                                         <SkeletonLoader height={40} width={150} />
                                     </div>
