@@ -754,7 +754,7 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.split("@")[1] === 'usetempo.ai') ?
+                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             element?.name !== "Channels" && (
@@ -876,7 +876,7 @@ const NewSidebar = ({ children }) => {
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.split("@")[1] === 'usetempo.ai') ?
+                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
                                                     sendSideBarDetails(element, key)
@@ -1020,7 +1020,7 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.split("@")[1] === 'usetempo.ai')  ?
+                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai')  ?
                                         <>
                                             {SideBarRoutes.map((element, key) =>
                                                 sendSideBarDetails(element, key)
@@ -1071,7 +1071,7 @@ const NewSidebar = ({ children }) => {
 
                                                         <hr className="text-border border-gray" />
 
-                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.split("@")[1] === 'usetempo.ai') ?
+                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
                                                                     element?.name !== "Channels" && (

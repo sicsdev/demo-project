@@ -896,7 +896,7 @@ const Logs = () => {
               <div className="w-full mt-4">
                 <div className={`inline`}>
                   <label
-                    className={`block text-sm text-heading font-medium pb-1 pt-1`}
+                    className={`block text-sm text-heading font-medium pb-2 pt-0`}
                   >
                     From
                     <p style={{ fontSize: "10px" }}></p>
@@ -922,7 +922,7 @@ const Logs = () => {
               <div className="w-full mt-4">
                 <div className={`inline`}>
                   <label
-                    className={`block text-sm text-heading font-medium pb-1 pt-1`}
+                    className={`block text-sm text-heading font-medium pb-2 pt-0`}
                   >
                     To
                     <p style={{ fontSize: "10px" }}></p>

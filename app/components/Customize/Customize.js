@@ -71,7 +71,10 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     origins_blocked: [],
     customer_service_email: "",
     chat_default_message: "How can I help you today?",
-    chat_suggestions: []
+    chat_suggestions: [],
+    chat_suggestions_show: false,
+    chat_suggestions_secondary_color: '#CED9F195',
+    chat_suggestions_primary_color: '#3042CCFF'
   });
 
   const colorCodes = [
@@ -170,6 +173,17 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     });
     setBasicFormData((prev) => {
       return { ...prev, [name]: preferences.active === false ? true : false };
+    });
+
+  };
+  const handleCheckBoxChange1 = (e) => {
+    const { name } = e.target;
+    setPreferences({
+      ...preferences,
+      [name]: preferences.chat_suggestions_show === false ? true : false,
+    });
+    setBasicFormData((prev) => {
+      return { ...prev, [name]: preferences.chat_suggestions_show === false ? true : false };
     });
 
   };
@@ -651,7 +665,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide Chat Bot</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Show Chat Bot</span>
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -666,6 +680,30 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                       />
                       <div
                         className={`w-11 h-6 ${preferences.active === false
+                          ? "bg-border"
+                          : "bg-primary"
+                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                      ></div>
+                    </label>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Show Unopened Suggestions</span>
+                  </div>
+                  <div className="flex justify-start h-[37.5px] w-1/2 items-center">
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value=""
+                        id="chat_suggestions_show"
+                        name="chat_suggestions_show"
+                        onChange={handleCheckBoxChange1}
+                        className="sr-only peer"
+                        checked={preferences.chat_suggestions_show === true}
+                      />
+                      <div
+                        className={`w-11 h-6 ${preferences.chat_suggestions_show === false
                           ? "bg-border"
                           : "bg-primary"
                           } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}

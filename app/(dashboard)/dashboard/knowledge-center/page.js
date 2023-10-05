@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PencilSquareIcon, PlusCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -24,6 +24,7 @@ import { searchReccomodationWorkflow } from "@/app/API/pages/NagetiveWorkflow";
 import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
 import Pusher from 'pusher-js';
 import { v4 as uuidv4 } from 'uuid';
+import Modal from "@/app/components/Common/Modal/Modal";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -36,6 +37,13 @@ const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [link, setLink] = useState({
+        url: '',
+        links: [],
+        index: null,
+        edit: false
+    });
     const [explandLoader, setExplandLoader] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
@@ -572,7 +580,8 @@ const Page = () => {
             }
         } else if (workFlowData.target === "human_handoff") {
             let payload = {
-                search:workflowView?.question
+                search: workflowView?.question,
+                recommendation: workflowView.id
             }
             const response = await addHumanHandoffWorkflowData(payload)
             if (response.status === 201 || response.status === 200) {
@@ -673,7 +682,7 @@ const Page = () => {
                             progressPending={loading}
                             progressComponent={
                                 <div className="w-full mt-3 relative">
-                                <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
+                                    <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
                                 </div>}
                             paginationDefaultPage={pageVal}
                             paginationPerPage={perPage}
@@ -848,7 +857,43 @@ const Page = () => {
 
                                             </>
                                         )}
-                                        <div className='my-2'>
+                                        <div className='my-2 relative'>
+                                            {link.links.length > 0 && (
+                                                <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+
+                                                    {link.links.map((element, key) =>
+                                                        <div className="flex justify-between items-center my-2" key={key}>
+                                                            <a href={element} target="_blank" className="hover:text-primary"> <span className="text-xs font-semibold">{element}</span></a>
+                                                            <div className="flex justify-end gap-4 items-center">
+                                                                <PencilSquareIcon className="h-4 w-4 text-gray-500 cursor-pointer " onClick={(e) => {
+                                                                    setLink((prev) => {
+                                                                        return {
+                                                                            ...prev,
+                                                                            edit: true,
+                                                                            index: key,
+                                                                            url: element
+                                                                        }
+                                                                    })
+                                                                    setModal(true)
+
+                                                                }}
+                                                                />
+                                                                <XMarkIcon className="h-4 w-4 cursor-pointer text-gray-500" onClick={() => {
+                                                                    let data = link.links.filter((x) => x !== element)
+                                                                    setLink((prev) => {
+                                                                        return {
+                                                                            ...prev,
+                                                                            links: data
+                                                                        }
+                                                                    })
+
+                                                                }
+                                                                } />
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
                                             <TextArea name="answer"
                                                 className="py-2 !p-[10px]"
                                                 type={"text"}
@@ -864,8 +909,19 @@ const Page = () => {
                                                     setAnswer(e.target.value)
                                                 }}
                                                 value={answer} />
+                                            {/* <button
+                                                onClick={(e) => setModal(true)}
+                                                type="button"
+                                                className="button-link absolute left-[9px] bottom-[9px] cursor-pointer  flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                                <LinkIcon className="h-4 w-4 text-gray-500" />
+
+                                            </button> */}
                                         </div>
+
+
                                         <div className="flex justify-between items-center gap-2">
+
+
                                             <button
                                                 onClick={(e) => SubmitTheForm()}
                                                 type="button"
@@ -1049,11 +1105,72 @@ const Page = () => {
                             )}
                         </>
 
+                        {modal === true
+                            ? (
+                                <Modal
+                                    title={''}
+                                    className={"w-[50%]"}
+                                    show={modal}
+                                    setShow={setModal}
+                                    showCancel={true}
+                                    customHideButton={false}
+                                    showTopCancleButton={false}
+                                    hr={false}
+                                >
+                                    <form onSubmit={() => {
 
+                                        if (link.edit === true) {
+                                            let data = [...link.links]
+                                            data[link.index] = link.url
+                                            setLink((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    links: data,
+                                                    edit: false,
+                                                    index: null,
+                                                    url: ''
+
+                                                }
+                                            })
+                                        } else {
+                                            setLink((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    links: [...link.links, link.url],
+                                                    edit: false,
+                                                    index: null,
+                                                    url: ''
+                                                }
+                                            })
+                                        }
+                                        setModal(false)
+
+                                    }}>
+                                        <div className="mb-5 flex justify-between  gap-4 items-center">
+                                            <input type="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 " placeholder="Enter or paste link" value={link.url} onChange={(e) => {
+                                                setLink((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        url: e.target.value
+                                                    }
+                                                })
+                                            }} />
+                                            <button
+                                                type="submit"
+
+                                                className=" flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md  py-2 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={link.url === ''}>
+                                                Apply
+                                            </button>
+                                        </div>
+                                    </form>
+                                </Modal>
+                            ) : null}
                     </SideModal>
                 )}
             </div >
             <ToastContainer />
+
+
         </>
     );
 };
