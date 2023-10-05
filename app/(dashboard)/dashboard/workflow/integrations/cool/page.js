@@ -289,7 +289,7 @@ const Page = () => {
         suggestModal ? (
           <Modal
             title={<h3 className="text-base font-semibold">Suggest a resource</h3>}
-            className={"w-[30%]"}
+            className={"w-[100%] sm:w-[30%]  "}
             show={suggestModal}
             setShow={setSuggestModal}
             showCancel={true}

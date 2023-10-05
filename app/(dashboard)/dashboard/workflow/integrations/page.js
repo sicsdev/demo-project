@@ -5,6 +5,7 @@ import {
   getAllIntegration,
   getAllIntegrationTemplates,
   getIntegrationTemplateByType,
+  getPopularIntegrationsTemplate
 } from "@/app/API/pages/Integration";
 import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
@@ -21,6 +22,7 @@ import { tiles_icons } from "@/app/data/icon_data";
 import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
 import TopBar from "@/app/components/Common/Card/TopBar";
+import axios from "axios";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -35,6 +37,7 @@ const Page = () => {
   const [integrationFormData, setIntegrationFormData] = useState({});
   const [skeltonLoading, setSkeltonLoading] = useState(true);
   const [help, setHelp] = useState([])
+  const [popularTabs, setPopularTabs] = useState([])
 
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
@@ -61,48 +64,79 @@ const Page = () => {
     return null;
   };
 
+
+
+
+  
+
+  const dupRemove = (inputArray) => {
+    return [...new Set(inputArray)];
+  }
+
+
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      if (dataTemplates && dataTemplates?.length > 0) {
-        const transformedData = dataTemplates.reduce((result, item) => {
-          if (item.popular) {
-            const popularCategoryIndex = result.findIndex(
-              (category) => category.key === "POPULAR"
-            );
-            if (popularCategoryIndex === -1) {
-              result.push({
-                key: "POPULAR",
-                title: "Popular",
-                grayscale: false,
-                tiles: [],
-              });
-            }
-            result[
-              popularCategoryIndex === -1
-                ? result.length - 1
-                : popularCategoryIndex
-            ].tiles.push({
-              name: item.name,
-              logo: item.icon ?? findIconValue(item.name),
-              grayscale: false,
-              checked: sendCheckedOrNo(state.data.results, item.name),
-              integration_data: getDataAttributes(
-                state.data.results,
-                item.name
-              ),
-              id: item.id,
-              type: item.type,
-              data:
-                getDataAttributes(state.data.results, item.name)?.data ||
-                item?.data,
-              // "data": item.data,
-              http_auth_scheme: item.http_auth_scheme,
-              http_base: item.http_base,
-            });
-          }
+      const popIntegrations = await getPopularIntegrationsTemplate()
+      if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
+        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.flatMap(entry => Object.values(entry)[0])))
+        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.includes(x.name))
+        const updateArray = filterDataPopular.slice(0, 5).map((item) => ({
+          name: item.name,
+          logo: item.icon ?? findIconValue(item.name),
+          grayscale: false,
+          checked: sendCheckedOrNo(state.data.results, item.name),
+          integration_data: getDataAttributes(
+            state.data.results,
+            item.name
+          ),
+          id: item.id,
+          type: item.type,
+          data:
+            getDataAttributes(state.data.results, item.name)?.data ||
+            item?.data,
+          // "data": item.data,
+          http_auth_scheme: item.http_auth_scheme,
+          http_base: item.http_base,
+        }))
 
+        const transformedData = dataTemplates.reduce((result, item) => {
+          // if (item.popular) {
+          //   const popularCategoryIndex = result.findIndex(
+          //     (category) => category.key === "POPULAR"
+          //   );
+          //   if (popularCategoryIndex === -1) {
+          //     result.push({
+          //       key: "POPULAR",
+          //       title: "Popular",
+          //       grayscale: false,
+          //       tiles: [],
+          //     });
+          //   }
+          //   result[
+          //     popularCategoryIndex === -1
+          //       ? result.length - 1
+          //       : popularCategoryIndex
+          //   ].tiles.push({
+          //     name: item.name,
+          //     logo: item.icon ?? findIconValue(item.name),
+          //     grayscale: false,
+          //     checked: sendCheckedOrNo(state.data.results, item.name),
+          //     integration_data: getDataAttributes(
+          //       state.data.results,
+          //       item.name
+          //     ),
+          //     id: item.id,
+          //     type: item.type,
+          //     data:
+          //       getDataAttributes(state.data.results, item.name)?.data ||
+          //       item?.data,
+          //     // "data": item.data,
+          //     http_auth_scheme: item.http_auth_scheme,
+          //     http_base: item.http_base,
+          //   });
+          // }
           const categoryIndex = result.findIndex(
             (category) => category.key === item.type
           );
@@ -140,9 +174,14 @@ const Page = () => {
           if (b.key === "POPULAR") return 1;
           return 0;
         });
-        setIntegrationsTiles(sortedData);
+
+        setIntegrationsTiles([{
+          key: "POPULAR",
+          title: "Popular",
+          grayscale: false,
+          tiles: updateArray
+        }, ...sortedData]);
         setFixeData(sortedData);
-        console.log(sortedData);
       }
       setDataLoader(false);
     } catch (error) {
@@ -220,8 +259,6 @@ const Page = () => {
   return (
     <>
       <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
-
-
       {dataLoader === true ? (
         <div>
           <div className='grid grid-cols-[85%,15%] my-2'>
@@ -254,32 +291,32 @@ const Page = () => {
         </div>
       ) : (
         <div>
-            <div>
-              <div className="flex items-center justify-between">
-                <p class="text-black-color text-sm font-semibold my-2">
+          <div>
+            <div className="flex items-center justify-between">
+              <p class="text-black-color text-sm font-semibold my-2">
 
-                </p>
-              </div>
-
-              <div className='flex justify-center sm:justify-end gap-4 items-center p-2'>
-                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                  </div>
-                  <input
-                    type="search"
-                    id={"search_integration"}
-                    onChange={handleInput}
-                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                    placeholder={"Search"}
-                  />
-                </div>
-              </div>
-
+              </p>
             </div>
+
+            <div className='flex justify-center sm:justify-end gap-4 items-center p-2'>
+              <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                  </svg>
+                </div>
+                <input
+                  type="search"
+                  id={"search_integration"}
+                  onChange={handleInput}
+                  className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                  placeholder={"Search"}
+                />
+              </div>
+            </div>
+
+          </div>
           <div>
             {integrationData.length > 0 ? (
               <>
@@ -383,7 +420,7 @@ const Page = () => {
           title={
             <h3 className="text-base !font-bold">Suggest Resource</h3>
           }
-          className={"w-[30%]"}
+          className={"sm:w-[30%] w-[100%]"}
           show={suggestModal}
           setShow={setSuggestModal}
           showCancel={true}
