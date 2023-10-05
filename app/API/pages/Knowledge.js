@@ -138,3 +138,23 @@ export const uploadAttachment = async (body) => {
     }
 };
 
+export const getFaqNegative = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs-negative/`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+export const deleteNegativeFaq = async (faqid) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.delete(`${API_URL}/api/v1/main/faqs-negative/${faqid}/`, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

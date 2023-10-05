@@ -12,8 +12,10 @@ import { deleteFaqQuestions, patchKnowledgeQuestion } from '@/app/API/pages/Know
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Multiselect from 'multiselect-react-dropdown';
 
-const ManageFaqs = ({ questions }) => {
+const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
+    console.log("questions", questions)
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -35,6 +37,28 @@ const ManageFaqs = ({ questions }) => {
             },
         }
     }
+
+    
+    const updateBotSelection = async (rowIndex, selectedBots) => {
+        const recordId = questions?.data?.results[rowIndex]?.id; // Assuming your data contains the record ID
+        const payload = { bots: selectedBots.map(botId => ({ bot: botId.value, active: true })) };
+        try {
+            await patchKnowledgeQuestion(payload, recordId);
+        } catch (error) {
+            // Handle error
+        }
+    };
+
+    const onSelectData = (selectedList, selectedItem, index) => {
+        let updatedSelectedList = [...questions.selectedBot];
+        updatedSelectedList[index] = selectedList;
+        console.log("updatedSelectedList",updatedSelectedList)
+        setBasicFormData(prev => ({
+            ...prev,
+            selectedBot: updatedSelectedList
+        }));
+    }
+
     const updateFaq = async () => {
         setUpdateLoader(true)
         const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
@@ -53,9 +77,19 @@ const ManageFaqs = ({ questions }) => {
             sortable: false,
             reorder: false,
             minWidth: "200px",
-            padding:"12px",
+            padding: "12px",
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+            )
+        }, {
+            name: "State",
+            selector: (row) => row.active,
+            sortable: false,
+            reorder: false,
+            cell: (row) => (
+                <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
+                    {row.active ? "Active" : "Disabled"}
+                </span>
             )
         },
         {
@@ -87,6 +121,31 @@ const ManageFaqs = ({ questions }) => {
             ),
         },
         {
+            name: "Bots",
+            selector: (row) => row.bots,
+            sortable: false,
+            reorder: false,
+            cell: (row, index) =>
+                <div className="py-2">
+                    <Multiselect
+                        className=''
+                        options={bots ?? []}
+                        selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
+                        onSelect={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        onRemove={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        placeholder={questions?.selectedBot && questions?.selectedBot[index]?.length === questions?.bots?.length ? '' : "Select Bots"}
+                        displayValue="name"
+                        closeOnSelect={true}
+                        showArrow={false}
+                    /></div>,
+        },
+        {
             name: "Negative Search Terms",
             center: true,
             width: "200px",
@@ -113,7 +172,7 @@ const ManageFaqs = ({ questions }) => {
 
     const onPageChange = async (page) => {
         const queryParam = `page=${page}&page_size=${perPage}`;
-        dispatch(fetchFaqQuestions(queryParam));
+        getQuestionsData(queryParam)
     }
 
     const deleteRecord = async (id) => {
@@ -255,12 +314,12 @@ const ManageFaqs = ({ questions }) => {
                                             }
                                         })}
                                     value={selected.answer} />
-                            <button
-                                onClick={(e) => updateFaq()}
-                                type="button"
-                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
-                                {updateLoader ? "Loading..." : "Submit"}
-                            </button>
+                                <button
+                                    onClick={(e) => updateFaq()}
+                                    type="button"
+                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
+                                    {updateLoader ? "Loading..." : "Submit"}
+                                </button>
                             </div>
 
                         </>)}

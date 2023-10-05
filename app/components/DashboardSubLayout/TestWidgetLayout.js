@@ -38,8 +38,8 @@ const TestWidgetLayout = () => {
 
             <button
                 onClick={() => setShowTestBot(!showTestBot)}
-                className={`fixed bottom-3 right-3 m-auto rounded-xl pointer z-100 hidden lg:block`}
-                style={{ zIndex: '9999999' }}
+                className={`fixed bottom-3 right-3 m-auto rounded-xl pointer hidden lg:block`}
+                style={{ zIndex: '45' }}
             >
                 <div class="p-3 rounded-full" style={{ backgroundColor: globalPreferences?.primary_color || '#0057ff' }}>
                     {showTestBot ?

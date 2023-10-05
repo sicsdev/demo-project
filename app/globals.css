@@ -318,6 +318,19 @@ select.custom-select {
   font-weight: 500;
   background-position: right;
 }
+select.upper-select {
+  background-color: #ffffff;
+  color: #000000;
+  -webkit-appearance: none;
+  padding: 8px;
+  border-radius: 4px;
+  outline: none;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  outline: none;
+  background-repeat: no-repeat;
+  font-weight: 500;
+  background-position: right;
+}
 
 body .new_fade {
   color: #c7c6c7 !important;
@@ -336,11 +349,11 @@ body .searchWrapper {
   border-radius: 4px;
   outline: none;
   /* Remove the default focus outline */
-  background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  /* background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>"); */
   outline: none;
   background-repeat: no-repeat;
   background-position: right;
-  width: 115px;
+  width: 150px;
 }
 
 body .searchWrapper-live .searchWrapper {
@@ -372,8 +385,7 @@ body .chip {
   word-wrap: break-word;
   display: flex;
   justify-content: space-between;
-  padding: 4px 7px;
-  width: 100px;
+  padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
 }
@@ -1620,4 +1632,13 @@ input[type="checkbox"].custom-checkbox:before {
 }
 .learning-class .rdt_Table {
   height: 70vh;
+}
+.invite-email input:focus {
+ 
+  border: none !important;
+}
+
+body .invite-email input::placeholder,.invite-email input,body .invite-email input[type="text"] 
+body  .invite-email input[type="text"]:focus, body  .invite-email input[type="email"]:focus, .invite-email input[type="number"]:focus, .invite-email input[type="password"]:focus, .invite-email input[type="date"]:focus, .invite-email input[type="search"]:focus, .invite-email textarea:focus{
+  font-size:0.875rem !important;
 }

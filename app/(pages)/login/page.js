@@ -87,7 +87,7 @@ const Login = () => {
     result.then(async (res) => {
       if (res.payload?.token) {
         // localStorage.setItem("Token", res.payload.token);
-        Cookies.set("Token", res.payload.token)
+        Cookies.set('Token', res.payload.token, { expires: 1 });
 
         //// This next logic is for collect data from invited new users
         let checkProperties = await getUserProfile()

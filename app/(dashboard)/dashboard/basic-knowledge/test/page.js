@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, DocumentMagnifyingGlassIcon, PencilIcon, PencilSquareIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,6 @@ import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledge
 import { getFaqQuestions, getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import TopBar from "@/app/components/Common/Card/TopBar";
-import ManageFaqs from "@/app/components/LearningCenter/ManageFaqs";
 import { fetchFaqQuestions } from "@/app/components/store/slices/questionsSlice";
 
 const Page = () => {
@@ -20,6 +19,8 @@ const Page = () => {
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [tab, setTab] = useState(0);
+    const [typingTimeout, setTypingTimeout] = useState(null);
+    const [search, setSearch] = useState('');
 
     const getData = async () => {
         setTabLoader(true);
@@ -28,10 +29,10 @@ const Page = () => {
             setKnowledge(response?.data?.results)
 
             const botDataArray = response?.data?.results.map(entry => {
-                if (entry.bots.length === 0) {
+                if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
                 } else {
-                    return entry.bots.map(bot => ({
+                    return entry?.bots?.map(bot => ({
                         value: bot.bot.id,
                         name: bot.bot.chat_title,
                     }));
@@ -40,7 +41,7 @@ const Page = () => {
             setBasicFormData(prev => {
                 return {
                     ...prev,
-                    selectedBot: botDataArray,
+                    selectedBot: botDataArray.filter((x) => x.name !== ''),
                     knowledgeData: response?.data?.results
                 }
             })
@@ -81,7 +82,26 @@ const Page = () => {
             setLoading(false);
         }, 1200);
     }, [])
+    const handleChange = (e) => {
+        const searchText = e.target.value;
+        setSearch(searchText);
 
+        // Clear the previous timeout to prevent rapid search requests
+        if (typingTimeout) {
+            clearTimeout(typingTimeout);
+        }
+
+        // Set a new timeout to perform the search after a delay (e.g., 300 milliseconds)
+        const newTypingTimeout = setTimeout(() => {
+            performSearch(searchText);
+        }, 1000);
+
+        setTypingTimeout(newTypingTimeout);
+    };
+    const performSearch = async (text) => {
+        const queryParam = `page=1&page_size=10&search=` + text;
+        dispatch(fetchFaqQuestions(queryParam));
+    };
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
@@ -89,16 +109,6 @@ const Page = () => {
                 {loading === true ? (
                     <>
                         <div className="w-full">
-                            <div className="dark:border-gray-700 flex items-center justify-between mt-5">
-                                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
-                                    <li className="mr-2">
-                                        <SkeletonLoader height={30} width={100} />
-                                    </li>
-                                    <li className="mr-2">
-                                        <SkeletonLoader height={30} width={100} />
-                                    </li>
-                                </ul>
-                            </div>
                             <div className="sm:flex rounded-t-lg pt-4 sm:pt-4  border-border justify-between items-center">
                                 <div className="flex justify-between items-center gap-4 w-full sm:w-1/4">
                                 </div>
@@ -126,6 +136,9 @@ const Page = () => {
                                 </div>
 
                                 <div className="flex gap-10 justify-between items-center">
+                                    <div className="relative">
+                                        <SkeletonLoader height={40} width={150} />
+                                    </div>
                                     <div className='mt-0 relative'>
                                         <SkeletonLoader height={40} width={150} />
                                     </div>
@@ -141,36 +154,13 @@ const Page = () => {
                     </>
                 ) : (
                     <>
-                        <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
-                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
-                                <li className="mr-2" onClick={() => { setTab(0) }}>
-                                    <span
-                                        className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
-                                        aria-current="page"
-                                    >
-                                        <BookOpenIcon className="h-5 w-5 text-gray-500" /> Sources
-                                    </span>
-                                </li>
-                                <li className="mr-2" onClick={() => { setTab(1) }}>
-                                    <span
-                                        className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
-                                        aria-current="page"
-                                    >
-                                        <PencilSquareIcon className="h-5 w-5 text-gray-500" /> Questions
-                                    </span>
-                                </li>
-                            </ul>
-                        </div>
-                        {tab === 0 && (
-                            basicFormData?.knowledgeData && (
+                        {basicFormData?.knowledgeData && (
 
-                                <ManageKnowledgeBase tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                            )
+                            <ManageKnowledgeBase questions={faqQuestionState} tabLoader={tabLoader} setTabLoader={setTabLoader} knowledge={knowledge} setKnowledge={setKnowledge} basicFormData={basicFormData} setBasicFormData={setBasicFormData} handleChangeSearch={handleChange} search={search}/>
                         )}
 
-                        {tab === 1 && (
-                            <ManageFaqs questions={faqQuestionState} />
-                        )}
+
+
                     </>
                 )}
             </div>

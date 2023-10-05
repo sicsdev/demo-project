@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../Common/Button/Button'
 import Image from 'next/image'
+import SkeletonLoader from '../Skeleton/Skeleton'
 
-const Workflows = ({ state, createNewWorkFlow, loading }) => {
+const Workflows = ({ state, createNewWorkFlow, loading}) => {
   const getInitials = (name) => {
     const words = name.split(' ');
     if (words.length === 1) {
@@ -13,7 +14,13 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
       return words.map(word => word.charAt(0)).join('').toUpperCase();
     }
   }
+  const [skeletonloading, setSkeletonLoading] = useState(true);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setSkeletonLoading(false);
+    }, 2000);
+}, [])
   return (
     <>
       <div className='mt-4'>
@@ -42,7 +49,9 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
 
           </div>
           <div>
- 
+          {skeletonloading ?
+            <SkeletonLoader count={1} height={30} width={80} />
+            :
             <Button
               type={"button"}
               className="inline-block ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
@@ -51,6 +60,7 @@ const Workflows = ({ state, createNewWorkFlow, loading }) => {
             >
               {loading ? "Loading..." : 'Create'}
             </Button>
+          }
           </div>
         </div>
       </div>

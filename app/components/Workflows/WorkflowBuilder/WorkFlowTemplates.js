@@ -238,9 +238,17 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
     }, [])
     return (
         <div>
-            <h3 className='my-3  text-heading text-center font-semibold text-sm'>Manage your Tempo workflows</h3>
+            <h3 className='my-3  text-heading text-center font-semibold text-sm'>
+            {loading ?
+                <SkeletonLoader count={1} height={20} width="30%" />
+                :
+            "Manage your Tempo workflows"
+            }</h3>
             <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                {loading ?
+                    <SkeletonLoader count={1} height={35} width={200} />
+                    :
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -249,6 +257,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     </div>
                     <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
+                }
             </div>
             <div className='w-full'>
 
@@ -264,53 +273,100 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                     className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
                                     onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
                                 >
-                                    {loading ?
-                                        <SkeletonLoader count={2} height={30} width="70%" />
-                                        :
+                                 
                                         <div className='relative h-full'>
                                             <div className='flex items-center justify-start gap-2'>
                                                 {getIntegrationIcon(item?.automations, item?.name) !== null && (
                                                     <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
+                                                    {loading ?
+                                                        <SkeletonLoader className="mr-2" count={1} height={30} width={40} />
+                                                        :
                                                         <Image
                                                             fill={"true"}
                                                             className="bg-contain mx-auto object-scale-down w-full rounded-lg"
                                                             alt="logo.png"
                                                             src={getIntegrationIcon(item?.automations, item?.name)}
                                                         />
+                                                    }
                                                     </div>
                                                 )}
                                                 {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
                                                     (element?.automation == null) && (
                                                         <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
                                                             {element.condition && (
+                                                                <>
+                                                                {loading ?
+                                                                    <SkeletonLoader count={1} height={30} width={40} />
+                                                                    :
                                                                 <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+                                                                }
+                                                                </>
                                                             )}
 
                                                             {element.question && (
+                                                                <>
+                                                                {loading ?
+                                                                    <SkeletonLoader count={1} height={30} width={40} />
+                                                                    :
                                                                 <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
+                                                                }
+                                                                </>
                                                             )}
 
                                                             {element?.transformer && (
-
+                                                                <>
+                                                                {loading ?
+                                                                    <SkeletonLoader count={1} height={30} width={40} />
+                                                                    :
                                                                 <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
-
+                                                                }
+                                                                </>
                                                             )}
                                                         </div>
                                                     )
                                                 )}
                                             </div>
                                             <div className=''>
-                                                <h2 className='text-[#151D23] !font-bold mt-2 text-base'>{makeCapital(item.name)}</h2>
-                                                <p className='text-xs text-[#151d23cc] mt-1'>By Tempo</p>
+                                                <h2 className='text-[#151D23] !font-bold mt-2 text-base'>
+                                                {loading ?
+                                                    <SkeletonLoader count={1} height={30} width="70%" />
+                                                    :
+                                                    <>
+                                                {makeCapital(item.name)}
+                                                </>
+                                                }</h2>
+                                                <p className='text-xs text-[#151d23cc] mt-1'>
+                                                
+                                                {loading ?
+                                                    <SkeletonLoader count={1} height={20} width="50%" />
+                                                    :
+                                                    <>
+                                                    By Tempo
+                                                    </>
+                                                }
+                                                </p>
                                             </div>
                                             <div className='absolute bottom-0 w-full'>
                                                 <div className='flex items-center justify-between '>
-                                                    <p className='text-xs text-[#151d23cc]'>{item.active ? 'Active' : 'Draft'}</p>
-                                                    <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>Delete</p>
+                                                    <p className='text-xs text-[#151d23cc]'>
+                                                        {loading ?
+                                                            <SkeletonLoader count={1} height={30} width={50} />
+                                                            : <>
+                                                                {item.active ? 'Active' : 'Draft'}
+                                                            </>
+                                                        }
+                                                    </p>
+                                                    <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>
+                                                        {loading ?
+                                                            <SkeletonLoader count={1} height={30} width={50} />
+                                                            : <>
+                                                                Delete
+                                                            </>
+                                                        }</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    }
+                                
                                 </div>
                             )}
                         </div>

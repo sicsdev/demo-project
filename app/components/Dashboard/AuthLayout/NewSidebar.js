@@ -159,28 +159,28 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/dashboard/knowledge-center",
+            href: "/dashboard/basic-knowledge/source",
             name: "Learning Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
-                    href: "/dashboard/basic-knowledge",
+                    href: "/dashboard/basic-knowledge/source",
                     target: "/dashboard/basic-knowledge/source",
                     name: "Knowledge Base",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: true,
+                    isLink: false,
                     list: [
                         {
                             href: "/dashboard/basic-knowledge/source",
                             name: "Sources",
                             icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
-                        {
-                            href: "/dashboard/basic-knowledge/questions",
-                            name: "Questions",
-                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                        },
+                        // {
+                        //     href: "/dashboard/basic-knowledge/questions",
+                        //     name: "Questions",
+                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
+                        // },
                     ]
                 },
                 {
@@ -659,6 +659,8 @@ const NewSidebar = ({ children }) => {
         if (name === "Home") return "Widgets";
         if (name === "Workflows") return "Workflows";
         if (name === "Organization Settings") return "Organization";
+        if (name === "") return "Home";
+       
         return name;
     };
 
@@ -752,7 +754,7 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && state?.email?.split("@")[1] === 'joinnextmed.com' ?
+                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             element?.name !== "Channels" && (
@@ -874,7 +876,7 @@ const NewSidebar = ({ children }) => {
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                        {state && state?.email?.split("@")[1] === 'joinnextmed.com' ?
+                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
                                                     sendSideBarDetails(element, key)
@@ -1018,7 +1020,7 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                    {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai')  ?
                                         <>
                                             {SideBarRoutes.map((element, key) =>
                                                 sendSideBarDetails(element, key)
@@ -1069,7 +1071,7 @@ const NewSidebar = ({ children }) => {
 
                                                         <hr className="text-border border-gray" />
 
-                                                        {state && state?.email.split("@")[1] === 'joinnextmed.com' ?
+                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai') ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
                                                                     element?.name !== "Channels" && (

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PlusCircleIcon, XCircleIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PencilSquareIcon, PlusCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -24,6 +24,7 @@ import { searchReccomodationWorkflow } from "@/app/API/pages/NagetiveWorkflow";
 import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
 import Pusher from 'pusher-js';
 import { v4 as uuidv4 } from 'uuid';
+import Modal from "@/app/components/Common/Modal/Modal";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -36,6 +37,13 @@ const Page = () => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
+    const [modal, setModal] = useState(false);
+    const [link, setLink] = useState({
+        url: '',
+        links: [],
+        index: null,
+        edit: false
+    });
     const [explandLoader, setExplandLoader] = useState(false);
     const [deleteLoader, setDeleteLoader] = useState(null);
     const [perPage, setPerPage] = useState(10);
@@ -75,7 +83,7 @@ const Page = () => {
     const [workflowValue, setWorkflowValue] = useState(null)
     const [subQuestions, setSubQuestions] = useState([])
     const [newUUI, setNewUUI] = useState('')
-
+    const [pusherStreaming, setPusherStreaming] = useState(false)
 
     const getData = async () => {
         setTabLoader(true);
@@ -121,9 +129,16 @@ const Page = () => {
         let newUUID = uuidv4()
         setNewUUI(newUUID)
 
+
+        let timeoutId;
         const channel = pusher.subscribe(`recommendation-${newUUID}`);
         channel.bind('messages', data => {
+            clearTimeout(timeoutId);
+            setPusherStreaming(true)
             setAnswer(prev => prev + data.message);
+            timeoutId = setTimeout(() => {
+                setPusherStreaming(false)
+            }, 2000);
         })
 
     }, [workflowState])
@@ -565,7 +580,8 @@ const Page = () => {
             }
         } else if (workFlowData.target === "human_handoff") {
             let payload = {
-                search: workFlowData.answer
+                search: workflowView?.question,
+                recommendation: workflowView.id
             }
             const response = await addHumanHandoffWorkflowData(payload)
             if (response.status === 201 || response.status === 200) {
@@ -640,14 +656,17 @@ const Page = () => {
                     <div className="w-full sm:relative sm:mt-[20px]">
                         <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
                             <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div className="relative w-full sm:w-[unset]">
-                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
+                            {loading ? "" :
+                                <div className="relative w-full sm:w-[unset]">
+                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                        </svg>
+                                    </div>
+
+                                    <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                                 </div>
-                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
-                            </div>
+                            }
                         </div>
 
                         <DataTable
@@ -661,7 +680,10 @@ const Page = () => {
                             noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                             data={state?.data?.results}
                             progressPending={loading}
-                            progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                            progressComponent={
+                                <div className="w-full mt-3 relative">
+                                    <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
+                                </div>}
                             paginationDefaultPage={pageVal}
                             paginationPerPage={perPage}
                             paginationTotalRows={state?.data?.count}
@@ -835,7 +857,43 @@ const Page = () => {
 
                                             </>
                                         )}
-                                        <div className='my-2'>
+                                        <div className='my-2 relative'>
+                                            {link.links.length > 0 && (
+                                                <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+
+                                                    {link.links.map((element, key) =>
+                                                        <div className="flex justify-between items-center my-2" key={key}>
+                                                            <a href={element} target="_blank" className="hover:text-primary"> <span className="text-xs font-semibold">{element}</span></a>
+                                                            <div className="flex justify-end gap-4 items-center">
+                                                                <PencilSquareIcon className="h-4 w-4 text-gray-500 cursor-pointer " onClick={(e) => {
+                                                                    setLink((prev) => {
+                                                                        return {
+                                                                            ...prev,
+                                                                            edit: true,
+                                                                            index: key,
+                                                                            url: element
+                                                                        }
+                                                                    })
+                                                                    setModal(true)
+
+                                                                }}
+                                                                />
+                                                                <XMarkIcon className="h-4 w-4 cursor-pointer text-gray-500" onClick={() => {
+                                                                    let data = link.links.filter((x) => x !== element)
+                                                                    setLink((prev) => {
+                                                                        return {
+                                                                            ...prev,
+                                                                            links: data
+                                                                        }
+                                                                    })
+
+                                                                }
+                                                                } />
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            )}
                                             <TextArea name="answer"
                                                 className="py-2 !p-[10px]"
                                                 type={"text"}
@@ -851,8 +909,19 @@ const Page = () => {
                                                     setAnswer(e.target.value)
                                                 }}
                                                 value={answer} />
+                                            {/* <button
+                                                onClick={(e) => setModal(true)}
+                                                type="button"
+                                                className="button-link absolute left-[9px] bottom-[9px] cursor-pointer  flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                                <LinkIcon className="h-4 w-4 text-gray-500" />
+
+                                            </button> */}
                                         </div>
+
+
                                         <div className="flex justify-between items-center gap-2">
+
+
                                             <button
                                                 onClick={(e) => SubmitTheForm()}
                                                 type="button"
@@ -864,16 +933,16 @@ const Page = () => {
                                                     // onClick={(e) => SubmitTheFormExpand()}
                                                     onClick={getExpandedAnswer}
                                                     type="button"
-                                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || explandLoader}>
-                                                    {explandLoader ? (
+                                                    className="my-6 flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={answer === "" || pusherStreaming}>
+                                                    {pusherStreaming ? (
                                                         <>
-                                                            <span>Loading</span>
+                                                            <span className="text-black">Generating</span>
                                                             <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                                                 width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
-                                                                <path opacity="0.2" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                                                <path opacity="0.4" fill="#00000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
           s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
           c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-                                                                <path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                                                                <path fill="#00000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
           C22.32,8.481,24.301,9.057,26.013,10.047z">
                                                                     <animateTransform attributeType="xml"
                                                                         attributeName="transform"
@@ -1036,11 +1105,72 @@ const Page = () => {
                             )}
                         </>
 
+                        {modal === true
+                            ? (
+                                <Modal
+                                    title={''}
+                                    className={"w-[50%]"}
+                                    show={modal}
+                                    setShow={setModal}
+                                    showCancel={true}
+                                    customHideButton={false}
+                                    showTopCancleButton={false}
+                                    hr={false}
+                                >
+                                    <form onSubmit={() => {
 
+                                        if (link.edit === true) {
+                                            let data = [...link.links]
+                                            data[link.index] = link.url
+                                            setLink((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    links: data,
+                                                    edit: false,
+                                                    index: null,
+                                                    url: ''
+
+                                                }
+                                            })
+                                        } else {
+                                            setLink((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    links: [...link.links, link.url],
+                                                    edit: false,
+                                                    index: null,
+                                                    url: ''
+                                                }
+                                            })
+                                        }
+                                        setModal(false)
+
+                                    }}>
+                                        <div className="mb-5 flex justify-between  gap-4 items-center">
+                                            <input type="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 " placeholder="Enter or paste link" value={link.url} onChange={(e) => {
+                                                setLink((prev) => {
+                                                    return {
+                                                        ...prev,
+                                                        url: e.target.value
+                                                    }
+                                                })
+                                            }} />
+                                            <button
+                                                type="submit"
+
+                                                className=" flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md  py-2 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={link.url === ''}>
+                                                Apply
+                                            </button>
+                                        </div>
+                                    </form>
+                                </Modal>
+                            ) : null}
                     </SideModal>
                 )}
             </div >
             <ToastContainer />
+
+
         </>
     );
 };

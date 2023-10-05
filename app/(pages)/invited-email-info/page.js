@@ -1,5 +1,5 @@
 'use client'
-import React from "react"
+import React, { useEffect } from "react"
 import Container from '../../components/Container/Container'
 import Button from "@/app/components/Common/Button/Button"
 import { fillInvitedUserInfo } from "@/app/API/pages/Login"
@@ -7,16 +7,35 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import PhoneInput from "react-phone-input-2"
 import 'react-phone-input-2/lib/style.css'
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { fetchProfile } from "@/app/components/store/slices/userSlice"
 
 const page = () => {
     const router = useRouter()
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state.user.data);
+    useEffect(() => {
+        
+        if (state === null) {
+            dispatch(fetchProfile()).then((res) => {
+                if (res.payload.phone.length == 0) {
+
+                } else {
+                    return router.push('/dashboard')
+                }
+            }
+            )
+        }
+    }, [state])
+    console.log("state", state)
     const [errors, setErrors] = useState('')
     const [loading, setLoading] = useState(false)
     const [inputValues, setInputValues] = useState({
         name: '',
         phone: '',
         new_password: '',
-        password_confirm: '',
+        confirm_password: '',
         phone_prefix: ''
     })
 
@@ -46,7 +65,7 @@ const page = () => {
     }
 
     const validateForm = () => {
-        const { name, phone, new_password, password_confirm, phone_prefix } = inputValues;
+        const { name, phone, new_password, confirm_password, phone_prefix } = inputValues;
         const minPasswordLength = 6;
         const errors = {};
 
@@ -61,6 +80,7 @@ const page = () => {
         if (!phone_prefix) {
             errors.phone = "Phone prefix is required.";
         }
+        console.log("phone",phone_prefix.length)
 
         if (!new_password) {
             errors.new_password = "New Password is required.";
@@ -68,10 +88,10 @@ const page = () => {
             errors.new_password = "New Password should be at least 6 characters.";
         }
 
-        if (!password_confirm) {
-            errors.password_confirm = "Password Confirm is required.";
-        } else if (password_confirm !== new_password) {
-            errors.password_confirm = "Password Confirm must match the New Password.";
+        if (!confirm_password) {
+            errors.confirm_password = "Password Confirm is required.";
+        } else if (confirm_password !== new_password) {
+            errors.confirm_password = "Password Confirm must match the New Password.";
         }
 
         return errors;
@@ -86,7 +106,7 @@ const page = () => {
 
     return (
         <Container>
-            <div className="rounded-lg mx-auto text-center py-5">
+            <div className="rounded-lg mx-auto text-center py-5 invite-email">
                 <div className='mb-5 pb-5  w-3/4 m-auto'>
                     <h2 className="text-2xl font-bold mb-4">Complete Your Profile</h2>
                     <p className="text-gray-700">
@@ -110,6 +130,7 @@ const page = () => {
                             id={"name"}
                             onChange={handleInputValues}
                         />
+                    
                     </div>
                     <div className="flex justify-start gap-4 items-center  pl-5 py-4 border border-l-0 border-r-0 border-border">
                         <span className="text-start text-sm font-normal w-[100px] text-black">
@@ -162,8 +183,8 @@ const page = () => {
                             className={
                                 "p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
                             }
-                            name="password_confirm"
-                            id={"password_confirm"}
+                            name="confirm_password"
+                            id={"confirm_password"}
                             onChange={handleInputValues}
                         />
                     </div>
