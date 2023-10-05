@@ -59,10 +59,10 @@ export default function Home() {
 
         <Newstandard />
         {/* <Trial /> */}
-        <Social />
+        {/* <Social /> */}
         {/* <Marketing/> */}
 
-        <Launch />
+        {/* <Launch /> */}
         {/* <Benifits />         */}
         {/* <Faq />   */}
         {/* <Iconanimation /> */}
