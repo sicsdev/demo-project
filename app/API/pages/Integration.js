@@ -40,6 +40,7 @@ export const getAllIntegration = async () => {
         return error
     }
 };
+
 export const getAllIntegrationTemplates = async () => {
     let config = returnConfig()
     try {
@@ -49,6 +50,36 @@ export const getAllIntegrationTemplates = async () => {
         return error
     }
 };
+
+
+
+export const getPopularIntegrationsTemplate = async () => {
+    let config = returnConfig()
+    try {
+        const body = {
+            "Agriculture": [
+                { "Indigo Agriculture": "indigoag.com" },
+                { "Farmers Business Network": "fbn.com" },
+                { "AppHarvest": "appharvest.com" },
+                { "Bowery Farming": "bowery.co" },
+                { "AeroFarms": "aerofarms.com" }
+            ],
+            "Automotive": [
+                { "Rivian": "rivian.com" },
+                { "NIO": "nio.com" },
+                { "Cruise": "cruise.com" },
+                { "Waymo": "waymo.com" },
+                { "Zoox": "zoox.com" }
+            ]
+        }
+        const response = await axios.post(`${API_URL}/api/v1/integrations/builwith/popular-integrations/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+
 
 export const addIntegrationTemplate = async (body, id) => {
     let config = returnConfig()
