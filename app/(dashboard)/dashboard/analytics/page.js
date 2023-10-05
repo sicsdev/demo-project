@@ -655,7 +655,7 @@ const Logs = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
               <h1 className="text-sm text-heading font-semibold">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
@@ -684,7 +684,7 @@ const Logs = () => {
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
               <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
               {additionalData.deflection_data.dflection === null || !isFinite(additionalData.deflection_data.dflection) ?
                 <p className="text-2xl text-center w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4bff521c]">
@@ -724,11 +724,16 @@ const Logs = () => {
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
+            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
               <h1 className="text-sm text-heading font-semibold">CSAT</h1>
-
-              <p className="text-2xl text-heading font-bold my-2">  {additionalData.csat}</p>
-
+              {additionalData.csat === null  ?
+                <p className="text-2xl text-center w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4bff521c]">
+                  <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
+                  N/A
+                  </span>
+                </p>
+                :
+                <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>}
               {additionalData.average === null || !isFinite(additionalData.average) || additionalData.average === 0 || additionalData.average === '0.0' ? (
                 <p className="text-center w-[15%] rounded-md text-heading font-bold my-2 px-3 py-1 bg-[#4bff521c]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
