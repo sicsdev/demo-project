@@ -52,6 +52,7 @@ const GetStarted = () => {
     description: [],
     logo: null,
     policy_name: null,
+    question:"deflection",
     policy_description: null,
     policy_exceptions: null,
     bots: []
@@ -511,6 +512,7 @@ const GetStarted = () => {
   };
 
   const addConditionalStepHandler = async (type = { value: "RULE" }) => {
+    debugger
     setRulesLoader(true)
     const conditionData = convertToQueryString(conditionFilter);
     const get_ids = automationStepsData.map((element) => {
@@ -773,7 +775,7 @@ const GetStarted = () => {
           </div>
 
           {tab === 0 && (
-            <RightSidebar stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
+            <RightSidebar addConditionalStepHandler={addConditionalStepHandler} stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler}>
               {singleData ? (
                 <>
                   <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
