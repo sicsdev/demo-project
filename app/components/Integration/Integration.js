@@ -19,10 +19,10 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
     const pathname = usePathname();
 
     const [integrationFormData, setIntegrationFormData] = useState({
-        type: "CUSTOM ",
-        baseUrl: integrationRecord?.http_base || "",
+        type: "CUSTOM",
+        baseUrl: integrationRecord?.route || "",
         provider: integrationRecord?.provider || "",
-        authType: integrationRecord?.http_auth_scheme || "",
+        authType: integrationRecord?.auth_type || "",
         username: integrationRecord?.data?.username || "",
         password: integrationRecord?.data?.password || "" || "",
         apiKey: integrationRecord?.data?.apikey || "",
@@ -165,8 +165,8 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 type: integrationFormData?.type,
                 name: integrationFormData.name,
                 provider: integrationFormData?.provider,
-                http_auth_scheme: integrationFormData?.authType,
-                http_base: integrationFormData?.baseUrl,
+                auth_type: integrationFormData?.authType,
+                route: integrationFormData?.baseUrl,
                 data: data
             }
             let configureIntegration;

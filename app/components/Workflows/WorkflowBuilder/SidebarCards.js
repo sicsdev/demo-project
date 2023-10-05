@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { editAutomationValue } from '../../store/slices/workflowSlice'
 
-const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler }) => {
+const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler }) => {
     const dispatch = useDispatch()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
@@ -49,7 +49,8 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
     }
 
     const addStepHandler = async (ele) => {
-
+        console.log(ele, "ele")
+        debugger
         const get_ids = automationStepsData.map((element) => {
             let payload_automation = {}
             if (element?.automation) {
@@ -177,7 +178,9 @@ const SidebarCards = ({ inputRef, state, setAutomationStepsData, automationSteps
                                         </div>
                                     </div>
                                 </li>
-                                <li className={`my-4 cursor-pointer`} onClick={() => { openRulesHandler({ value: "DEFLECTION" }) }}>
+                                <li className={`my-4 cursor-pointer`} onClick={() => {
+                                    addConditionalStepHandler({value:"DEFLECTION"})
+                                }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
