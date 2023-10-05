@@ -74,7 +74,6 @@ const Page = () => {
   }
 
 
-
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
