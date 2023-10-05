@@ -23,6 +23,7 @@ import { ConfigureIntegration } from "@/app/components/Integration/Integration";
 import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/IntegrationTemplates";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import axios from "axios";
+import SideModal from "@/app/components/SideModal/SideModal";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -38,7 +39,7 @@ const Page = () => {
   const [skeltonLoading, setSkeltonLoading] = useState(true);
   const [help, setHelp] = useState([])
   const [popularTabs, setPopularTabs] = useState([])
-
+  console.log("integrations", state)
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
       (x) => x.name.toLowerCase() === name.toLowerCase()
@@ -46,7 +47,7 @@ const Page = () => {
     if (findIcon) {
       return findIcon.logo;
     }
-    return "";
+    return "/integrations/plus.svg";
   };
   const sendCheckedOrNo = (integration_data, item) => {
     const findIntegration = integration_data.find((x) => x.name === item);
@@ -67,7 +68,7 @@ const Page = () => {
 
 
 
-  
+
 
   const dupRemove = (inputArray) => {
     return [...new Set(inputArray)];
@@ -79,6 +80,12 @@ const Page = () => {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
       const popIntegrations = await getPopularIntegrationsTemplate()
+      let custom_integrations = null
+      if (state && state?.data && state?.data?.results) {
+        custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
+        console.log("cuaomer", custom_integrations)
+      }
+
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
         let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.flatMap(entry => Object.values(entry)[0])))
         const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.includes(x.name))
@@ -102,41 +109,6 @@ const Page = () => {
         }))
 
         const transformedData = dataTemplates.reduce((result, item) => {
-          // if (item.popular) {
-          //   const popularCategoryIndex = result.findIndex(
-          //     (category) => category.key === "POPULAR"
-          //   );
-          //   if (popularCategoryIndex === -1) {
-          //     result.push({
-          //       key: "POPULAR",
-          //       title: "Popular",
-          //       grayscale: false,
-          //       tiles: [],
-          //     });
-          //   }
-          //   result[
-          //     popularCategoryIndex === -1
-          //       ? result.length - 1
-          //       : popularCategoryIndex
-          //   ].tiles.push({
-          //     name: item.name,
-          //     logo: item.icon ?? findIconValue(item.name),
-          //     grayscale: false,
-          //     checked: sendCheckedOrNo(state.data.results, item.name),
-          //     integration_data: getDataAttributes(
-          //       state.data.results,
-          //       item.name
-          //     ),
-          //     id: item.id,
-          //     type: item.type,
-          //     data:
-          //       getDataAttributes(state.data.results, item.name)?.data ||
-          //       item?.data,
-          //     // "data": item.data,
-          //     http_auth_scheme: item.http_auth_scheme,
-          //     http_base: item.http_base,
-          //   });
-          // }
           const categoryIndex = result.findIndex(
             (category) => category.key === item.type
           );
@@ -175,13 +147,49 @@ const Page = () => {
           return 0;
         });
 
-        setIntegrationsTiles([{
-          key: "POPULAR",
-          title: "Popular",
-          grayscale: false,
-          tiles: updateArray
-        }, ...sortedData]);
-        setFixeData(sortedData);
+        if (custom_integrations && custom_integrations.length > 0) {
+          const updateArrayCustom = custom_integrations.map((item) => ({
+            name: item.name,
+            logo: item.icon ?? findIconValue(item.name),
+            grayscale: false,
+            checked: sendCheckedOrNo(state.data.results, item.name),
+            integration_data: getDataAttributes(
+              state.data.results,
+              item.name
+            ),
+            id: item.id,
+            type: item.type,
+            data:
+              getDataAttributes(state.data.results, item.name)?.data ||
+              item?.data,
+            // "data": item.data,
+            http_auth_scheme: item.http_auth_scheme,
+            http_base: item.http_base,
+          }))
+          setIntegrationsTiles([
+            {
+              key: "CUSTOM",
+              title: "Custom",
+              grayscale: false,
+              tiles: updateArrayCustom
+            }
+            , {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray
+            }, ...sortedData]);
+        } else {
+
+
+          setIntegrationsTiles([{
+            key: "POPULAR",
+            title: "Popular",
+            grayscale: false,
+            tiles: updateArray
+          }, ...sortedData]);
+          setFixeData(sortedData);
+        }
       }
       setDataLoader(false);
     } catch (error) {
@@ -290,32 +298,36 @@ const Page = () => {
 
         </div>
       ) : (
-        <div>
-          <div>
-            <div className="flex items-center justify-between">
-              <p class="text-black-color text-sm font-semibold my-2">
-
-              </p>
-            </div>
-
-            <div className='flex justify-center sm:justify-end gap-4 items-center p-2'>
-              <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                  <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                  </svg>
+        <div className="mt-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className=' items-center p-2'>
+                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    id={"search_integration"}
+                    onChange={handleInput}
+                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
+                    placeholder={"Search"}
+                  />
                 </div>
-                <input
-                  type="search"
-                  id={"search_integration"}
-                  onChange={handleInput}
-                  className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                  placeholder={"Search"}
-                />
               </div>
             </div>
-
+            <div>
+              <div className=' gap-2 w-full '>
+                <div className='mr-[18px]'>
+                  <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                    Create
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <div>
             {integrationData.length > 0 ? (
@@ -330,14 +342,17 @@ const Page = () => {
                     <h3 className="text-sm font-semibold mt-3">
                       {element.title}
                     </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mx-auto items-center my-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto items-center my-2">
                       {element.tiles?.map((item, key) => (
                         <div
                           className={`${item.grayscale && "pointer-events-none"
                             } border border-border px-[2px] py-[12px] rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
                           key={key}
                           onClick={() => {
-                            performIntegrationTask(item);
+                            if (element.title.toLowerCase() !== "custom") {
+                              performIntegrationTask(item);
+                            }
+
                           }}
                         >
                           <div className="flex justify-start gap-1 items-center">
@@ -351,7 +366,7 @@ const Page = () => {
                                 src={item.logo}
                               />
                             </div>
-                            <h3 className="w-[80%] font-semibold text-[13px]  text-heading">
+                            <h3 className=" font-semibold text-xs  text-heading">
                               {item.name}
                             </h3>
                           </div>
@@ -396,14 +411,9 @@ const Page = () => {
       )}
 
       {integrationModal ? (
-        <Modal
-          title={"Manage Integration"}
-          className={"w-[80%]"}
-          show={integrationModal}
-          setShow={setIntegrationModal}
-          showCancel={true}
-          customHideButton={true}
-        >
+
+        <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
+          <div className="my-2">
           <ConfigureIntegration
             fetchIntegrations={fetchIntegrations}
             setShow={setIntegrationModal}
@@ -411,7 +421,8 @@ const Page = () => {
             integrationRecord={{}}
             type={"custom"}
           />
-        </Modal>
+          </div>
+        </SideModal>
       ) : (
         ""
       )}

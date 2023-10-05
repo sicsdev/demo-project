@@ -178,7 +178,7 @@ const NewSidebar = ({ children }) => {
                         },
                         // {
                         //     href: "/dashboard/basic-knowledge/questions",
-                        //     name: "Questions",
+                        //     name: "Questions",   
                         //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
                         // },
                     ]
@@ -315,31 +315,37 @@ const NewSidebar = ({ children }) => {
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
+                // {
+                //     href: "/dashboard/workflow/workflow-builder",
+                //     name: "Workflows",
+                //     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
             ],
         },
         {
-            href: "/dashboard/knowledge-center",
+            href: "/dashboard/basic-knowledge/source",
             name: "Learning Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
             list: [
                 {
-                    href: "/dashboard/basic-knowledge",
+                    href: "/dashboard/basic-knowledge/source",
                     target: "/dashboard/basic-knowledge/source",
                     name: "Knowledge Base",
                     icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: true,
+                    isLink: false,
                     list: [
                         {
                             href: "/dashboard/basic-knowledge/source",
                             name: "Sources",
                             icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
-                        {
-                            href: "/dashboard/basic-knowledge/questions",
-                            name: "Questions",
-                            icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                        },
+                        // {
+                        //     href: "/dashboard/basic-knowledge/questions",
+                        //     name: "Questions",   
+                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
+                        // },
                     ]
                 },
                 {

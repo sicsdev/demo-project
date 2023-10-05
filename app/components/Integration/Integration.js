@@ -11,6 +11,7 @@ import TextAreaField from '../Common/Input/TextAreaField';
 import TextField from '../Common/Input/TextField';
 import { useRouter, usePathname } from 'next/navigation';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
+import TextArea from '../Common/Input/TextArea';
 
 export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRecord, mode, type, setBasicFormData, form = false, ...rest }) => {
     const [loading, setLoading] = useState(false);
@@ -18,10 +19,10 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
     const pathname = usePathname();
 
     const [integrationFormData, setIntegrationFormData] = useState({
-        type: "CUSTOM ",
-        baseUrl: integrationRecord?.http_base || "",
+        type: "CUSTOM",
+        baseUrl: integrationRecord?.route || "",
         provider: integrationRecord?.provider || "",
-        authType: integrationRecord?.http_auth_scheme || "",
+        authType: integrationRecord?.auth_type || "",
         username: integrationRecord?.data?.username || "",
         password: integrationRecord?.data?.password || "" || "",
         apiKey: integrationRecord?.data?.apikey || "",
@@ -164,8 +165,8 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 type: integrationFormData?.type,
                 name: integrationFormData.name,
                 provider: integrationFormData?.provider,
-                http_auth_scheme: integrationFormData?.authType,
-                http_base: integrationFormData?.baseUrl,
+                auth_type: integrationFormData?.authType,
+                route: integrationFormData?.baseUrl,
                 data: data
             }
             let configureIntegration;
@@ -211,15 +212,18 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
             </div>
 
             <div className="mb-4">
-                <TextAreaField
-                    title="Description"
-                    placeholder="Enter your description"
-                    id="integration_description"
+                <label className={`new_input_label block text-sm text-heading text-gray-700 font-bold mb-2`}>
+                    Description
+                </label>
+                <TextArea
                     name="description"
+                    className="py-2 !p-[10px]"
+                    type={"text"}
+                    id={"description"}
+                    placeholder={"Enter your description"}
+                    rows="4"
                     value={integrationFormData.description}
-                    onChange={handleIntegrationInputChange}
-                    labelClass={"block text-gray-700 text-sm font-bold mb-2"}
-                />
+                    onChange={handleIntegrationInputChange} />
             </div>
 
             <div className="mb-4">
@@ -232,7 +236,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                     className="py-3 mt-2"
                     title={"Base URL"}
                     placeholder={"Enter text..."}
-                    type={"url"}
+                    type={"text"}
                     id={"integration_base_url"}
                 />
                 <p className="text-[12px] mt-2">

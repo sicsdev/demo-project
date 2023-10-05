@@ -133,8 +133,7 @@ h3 {
 }
 
 .img-div-1:hover {
-  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%)
-    hue-rotate(510deg) brightness(51%) contrast(196%);
+  filter: brightness(0) saturate(78%) invert(77%) sepia(282%) saturate(707%) hue-rotate(510deg) brightness(51%) contrast(196%);
 }
 
 .img-platform {
@@ -196,6 +195,7 @@ span.hljs-tag {
 }
 
 @keyframes shake {
+
   0%,
   100% {
     transform: translateY(0);
@@ -218,6 +218,7 @@ span.hljs-tag {
 }
 
 @keyframes shake2 {
+
   0%,
   100% {
     transform: translateY(0);
@@ -240,6 +241,7 @@ span.hljs-tag {
 }
 
 @keyframes shake3 {
+
   0%,
   100% {
     transform: translateY(0);
@@ -318,6 +320,7 @@ select.custom-select {
   font-weight: 500;
   background-position: right;
 }
+
 select.upper-select {
   background-color: #ffffff;
   color: #000000;
@@ -475,7 +478,7 @@ select.custom-select::-ms-expand {
   }
 }
 
-.div-anima .bg-black + .rainbow .facet-pill-border rect,
+.div-anima .bg-black+.rainbow .facet-pill-border rect,
 .start-rainbow .facet-pill-border rect {
   visibility: visible !important;
 }
@@ -580,7 +583,7 @@ select.custom-select {
   transition: 0.4s;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   left: -3px;
 }
 
@@ -596,15 +599,15 @@ input:checked + .slider:before {
   z-index: 0;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: #2196f3;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px #2196f3;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -625,7 +628,7 @@ input[type="number"]::-webkit-outer-spin-button {
   display: none;
 }
 
-.myparent input:hover + label {
+.myparent input:hover+label {
   text-decoration: underline;
 }
 
@@ -1137,8 +1140,8 @@ body .cursor-pointer {
   pointer-events: all;
 }
 
-.stepper-plus-icon:focus + .stpper-lines,
-.stepper-plus-icon:hover + .stpper-lines {
+.stepper-plus-icon:focus+.stpper-lines,
+.stepper-plus-icon:hover+.stpper-lines {
   background-color: #0057ff;
   height: 2px;
 }
@@ -1148,8 +1151,8 @@ body .cursor-pointer {
   box-shadow: 0 1px 3px 0 #00000014;
 }
 
-.stepper-plus-icon:focus ~ .stepper-spacer,
-.stepper-plus-icon:hover ~ .stepper-spacer {
+.stepper-plus-icon:focus~.stepper-spacer,
+.stepper-plus-icon:hover~.stepper-spacer {
   height: 34px;
 }
 
@@ -1185,6 +1188,7 @@ body .cursor-pointer {
   display: none;
 } */
 @media screen and (max-width: 768px) {
+
   /* Your CSS rules for phones go here */
   .my-page {
     overflow-y: scroll;
@@ -1552,6 +1556,10 @@ body .rdt_Pagination select {
   border: 1px solid transparent !important;
 }
 
+body .rdt_Pagination {
+  font-size: 12px !important;
+}
+
 .data-table-class {
   min-height: 50vh !important;
 }
@@ -1630,15 +1638,24 @@ input[type="checkbox"].custom-checkbox:before {
   background-position: right center;
   background-color: #fff;
 }
+
 .learning-class .rdt_Table {
   height: 70vh;
 }
+
 .invite-email input:focus {
- 
+
   border: none !important;
 }
 
-body .invite-email input::placeholder,.invite-email input,body .invite-email input[type="text"] 
-body  .invite-email input[type="text"]:focus, body  .invite-email input[type="email"]:focus, .invite-email input[type="number"]:focus, .invite-email input[type="password"]:focus, .invite-email input[type="date"]:focus, .invite-email input[type="search"]:focus, .invite-email textarea:focus{
-  font-size:0.875rem !important;
+body .invite-email input::placeholder,
+.invite-email input,
+body .invite-email input[type="text"] body .invite-email input[type="text"]:focus,
+body .invite-email input[type="email"]:focus,
+.invite-email input[type="number"]:focus,
+.invite-email input[type="password"]:focus,
+.invite-email input[type="date"]:focus,
+.invite-email input[type="search"]:focus,
+.invite-email textarea:focus {
+  font-size: 0.875rem !important;
 }
