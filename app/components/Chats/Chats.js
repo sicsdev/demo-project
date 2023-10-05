@@ -434,11 +434,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 <input
                     type="checkbox"
                     id="forReviewCheckbox"
-                    className="custom-checkbox h-5 w-5 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
+                    className="custom-checkbox h-3 w-3 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
                     checked={conversationDetails?.for_review}
                     onClick={handleForReview}
                 />
-                <label className="text-gray-700 ">For review</label>
+                <label className="text-gray-700 text-xs ">For review</label>
             </div>
 
         </>
