@@ -218,3 +218,23 @@ export const getBotById = async (id) => {
         return error
     }
 }
+
+export const exportCsvFile = async (id, filter = ``) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/export-csv${filter !== '' ? '?' + filter : ''}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}
+
+export const disputeCharge = async (body, id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/conversations/${id}/dispute-charge/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
