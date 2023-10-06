@@ -22,7 +22,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
     const searchParams = useSearchParams()
 
-    const [showwyg, setShowWyg] = useState(false)
+    const [debugMode, setDebugMode] = useState(false)
 
     useEffect(() => {
         const handleEscapeKeyPress = (event) => {
@@ -30,8 +30,8 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                 hideComponent();
             }
         };
-        let wyg = searchParams.get('testwyg')
-        if (wyg) setShowWyg(true)
+        let wyg = searchParams.get('debugTextEditor')
+        if (wyg) setDebugMode(true)
 
         // Add the event listener when the component mounts
         document.addEventListener('keydown', handleEscapeKeyPress);
@@ -62,7 +62,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
         setBasicFormData((prev) => {
             return {
                 ...prev,
-                content: value,
+                content: formatedContent,
             }
         })
     }
@@ -121,9 +121,9 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 </div>
                             </div>
 
-                            {showwyg &&
-                                <TextEditor handleTextEditorChange={handleTextEditorChange}></TextEditor>
-                            }
+
+                            <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode}></TextEditor>
+
 
                             {/* TEXT EDITOR */}
 
@@ -167,9 +167,9 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
                             </div> */}
 
-                            <div className='relative pb-6'>
+                            {/* <div className='relative pb-6'>
                                 <textarea rows="10" cols="30" className='border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Start writing your content...' content={content} name='content' id='content' onChange={handleTextEditorChange}></textarea>
-                            </div>
+                            </div> */}
 
 
 

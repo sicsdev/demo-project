@@ -1,5 +1,5 @@
 .rdw-link-modal-target-option {
-    display: none important !
+    display: none !important
 }
 
 .rdw-editor-toolbar {
@@ -9,4 +9,8 @@
 
 .rdw-link-decorator-wrapper {
     color: blue;
+}
+
+.rdw-editor-main {
+    min-height: 250px !important;
 }

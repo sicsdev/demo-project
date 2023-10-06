@@ -5,7 +5,7 @@ import draftToHtml from 'draftjs-to-html';
 import './customstyles.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-const TextEditor = ({ oldContent, editing, handleTextEditorChange }) => {
+const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) => {
 
   const [editorState, setEditorState] = useState(() => {
     // if (oldContent) {
@@ -21,6 +21,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange }) => {
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     setPostContent(replaceLink(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
+    handleTextEditorChange(replaceLink(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
   };
 
   const showOutput = () => {
@@ -43,17 +44,20 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange }) => {
   function replaceLink(html) {
     let pattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
     let matches = html.match(pattern);
-
-    matches.forEach(function (match) {
-      let parts = pattern.exec(match);
-      let url = parts[1];
-      let name = parts[2];
-      let newFormat = '[' + name + ':' + url + ']';
-      html = html.replace(match, newFormat);
-    });
-
+  
+    if (matches) {
+      matches.forEach(function (match) {
+        let parts = pattern.exec(match);
+        let url = parts[1];
+        let name = parts[2];
+        let newFormat = '[' + name + ':' + url + ']';
+        html = html.replace(match, newFormat);
+      });
+    }
+  
     return html;
   }
+  
 
   // uses example
   // let originalHtml = '<p><a href="www.usetempo.ai" target="_self">Use Tempo</a>&nbsp;</p>';
@@ -83,13 +87,13 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange }) => {
             options: ['Arial', 'Georgia', 'Impact', 'Tahoma', 'Times New Roman', 'Verdana'],
           },
           link: {
-            options: ['link', 'unlink'],
+            options: ['link'],
           },
         }}
         placeholder="Start writing your content..."
       />
 
-      <button onClick={showOutput}>show output</button>
+      {debugMode && <button onClick={showOutput}>show output</button>}
     </div>
   );
 };
