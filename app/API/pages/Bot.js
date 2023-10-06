@@ -222,7 +222,7 @@ export const getBotById = async (id) => {
 export const exportCsvFile = async (id, filter = ``) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/export-csv${filter !== '' ? '?' + filter : ''}`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/conversations/export-csv/${filter !== '' ? '?' + filter : ''}`, config);
         return response.data;
     } catch (error) {
         return error
