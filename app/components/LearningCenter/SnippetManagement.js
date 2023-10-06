@@ -56,6 +56,17 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
             }
         })
     }
+
+
+    const handleTextEditorChange = (formatedContent) => {
+        setBasicFormData((prev) => {
+            return {
+                ...prev,
+                content: value,
+            }
+        })
+    }
+
     const handleToggleChange = (e) => {
         const { checked, name } = e.target; // Use checked instead of value for checkbox
         setBasicFormData((prev) => {
@@ -111,12 +122,12 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             </div>
 
                             {showwyg &&
-                                <TextEditor></TextEditor>
+                                <TextEditor handleTextEditorChange={handleTextEditorChange}></TextEditor>
                             }
 
                             {/* TEXT EDITOR */}
 
-                            <Modal title={'Add hyperlink'} show={showHyperlinkModal} setShow={setShowHyperlinkModal} className={'w-[30%] rounded-lg'} showCancel={true} >
+                            {/* <Modal title={'Add hyperlink'} show={showHyperlinkModal} setShow={setShowHyperlinkModal} className={'w-[30%] rounded-lg'} showCancel={true} >
 
                                 <div className='gap-2 w-100 mb-3'>
                                     <small>Text to display:</small>
@@ -147,7 +158,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                         Create
                                     </Button>
                                 </div>
-                            </Modal>
+                            </Modal> */}
 
 
                             {/* <div>
@@ -157,7 +168,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             </div> */}
 
                             <div className='relative pb-6'>
-                                <textarea rows="10" cols="30" className='border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Start writing your content...' content={content} name='content' id='content' onChange={handleInputChange}></textarea>
+                                <textarea rows="10" cols="30" className='border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Start writing your content...' content={content} name='content' id='content' onChange={handleTextEditorChange}></textarea>
                             </div>
 
 
