@@ -346,7 +346,7 @@ const Page = () => {
                       {element.tiles?.map((item, key) => (
                         <div
                           className={`${item.grayscale && "pointer-events-none"
-                            } border border-border px-[2px] py-[12px] rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover`}
+                            } border border-border  rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover  p-2`}
                           key={key}
                           onClick={() => {
                             if (element.title.toLowerCase() !== "custom") {
@@ -356,7 +356,7 @@ const Page = () => {
                           }}
                         >
                           <div className="flex justify-start gap-1 items-center">
-                            <div className="relative rounded-lg m-auto">
+                            <div className=" rounded-lg">
                               <Image
                                 fill={"true"}
                                 className={`${item.grayscale &&

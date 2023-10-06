@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Button from '../../Common/Button/Button'
 import { createWorkflowTemplate } from '@/app/API/pages/Workflow'
 import { successMessage, errorMessage } from '../../Messages/Messages'
-const ManageTemplates = ({ template, fetchData, fetchTemplates, setTemplate }) => {
+const ManageTemplates = ({ template, fetchData, fetchTemplates, setTemplate, state, workflowLoading, createNewWorkFlow  }) => {
     const [addTemplateLoader, setAddTemplateLoader] = useState(null);
     const [search, setSearch] = useState("")
     const [showTemplate, setShowTemplate] = useState(template || []);
@@ -86,16 +86,38 @@ const ManageTemplates = ({ template, fetchData, fetchTemplates, setTemplate }) =
 
     return (
         <div>
-            <h3 className='text-heading text-center font-semibold text-sm my-2'>Add, edit, and manage your Tempo workflows</h3>
-            <div className='flex justify-end gap-4 items-center mt-2 p-2 bg-[#F8F8F8]'>
-                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div className="relative">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                        </svg>
+                 <div className='mt-4'>
+                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  items-center p-2 bg-white'>
+                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
+                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        {loading ?
+                            <SkeletonLoader count={1} height={35} width={200} />
+                            :
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                            </div>
+                        }
                     </div>
-                    <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10  text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                    <div>
+                        {loading ?
+                            <SkeletonLoader count={1} height={30} width={80} />
+                            :
+                            <Button
+                                type={"button"}
+                                className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                disabled={workflowLoading === true}
+                                onClick={(e) => createNewWorkFlow()}
+                            >
+                                {workflowLoading ? "Loading..." : 'Create'}
+                            </Button>
+                        }
+                    </div>
+
                 </div>
             </div>
             <div className='data_table_wrapper w-full'>

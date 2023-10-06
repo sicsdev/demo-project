@@ -52,7 +52,7 @@ const GetStarted = () => {
     description: [],
     logo: null,
     policy_name: null,
-    question:"deflection",
+    question: "deflection",
     policy_description: null,
     policy_exceptions: null,
     bots: []
@@ -512,7 +512,6 @@ const GetStarted = () => {
   };
 
   const addConditionalStepHandler = async (type = { value: "RULE" }) => {
-    debugger
     setRulesLoader(true)
     const conditionData = convertToQueryString(conditionFilter);
     const get_ids = automationStepsData.map((element) => {
@@ -733,42 +732,34 @@ const GetStarted = () => {
         <Loading />
         :
         <>
-          <div className={`${tab === 0 ? 'sm:w-[77%]' : ''} border-b border-border flex items-center justify-between sticky top-0 bg-[#fff] z-40`}>
-            <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-                <li className="mr-2" >
-                    <span
-                        className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
-                        aria-current="page"
-                    >
-                       <BriefcaseIcon className="h-5 w-5 text-primary" /> {" "} Your Workflows
-                    </span>
-                </li>
-            </ul>
-        </div>
-          <div className={`w-full  ${tab === 0 ? 'sm:w-[77%]' : ''} border-b border-border dark:border-gray-700 flex items-center justify-between mt-3 mb-5`}>
-            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-              <li className="mr-2" onClick={() => { setTab(0) }}>
+          <h1 className='text-xl font-semibold'>Your Workflows</h1>
+          <div className={`w-full  ${tab === 0 ? 'sm:w-[77%]' : ''} border-b-2 border-border dark:border-gray-700 flex items-center justify-between mt-1 mb-5`}>
+            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+              <li className={` ${tab === 0 ? "boredractive":'boredrinactive hover:text-black' }`} onClick={() => { setTab(0) }}>
                 <span
-                  className={`flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                  className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-2  items-center py-2  
+                  rounded-lg active  group`}
                   aria-current="page"
                 >
-                  <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Edit Workflow
+                  Edit Workflow
                 </span>
               </li>
-              <li className="mr-2" onClick={() => { setTab(1) }}>
+              <li className={`  ${tab === 1 ? "boredractive":'boredrinactive hover:text-black' }`}  onClick={() => { setTab(1) }}>
                 <span
-                  className={`flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  className={`flex mr-2  justify-start gap-2  text-[13px]   
+                   cursor-pointer items-center py-2 px-2 rounded-lg active pl-2 group hover:bg-[#038ff408]`}
                   aria-current="page"
                 >
-                  <WrenchScrewdriverIcon className="h-5 w-5 text-gray-500" /> Settings
+                  Settings
                 </span>
               </li>
-              <li className="mr-2" onClick={() => { setTab(2) }}>
+              <li className={`hover:text-black  ${tab === 2 ? "boredractive":'boredrinactive ' }`}  onClick={() => { setTab(2) }}>
                 <span
-                  className={`flex justify-start gap-2 text-sm cursor-pointer items-center py-2   ${tab === 2 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                  className={`flex mr-2 justify-start gap-2  text-[13px]  hover:bg-[#038ff408] cursor-pointer items-center py-2 px-2  
+                  rounded-lg active pl-2 group`}
                   aria-current="page"
                 >
-                  <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Search Terms
+                  Negative Search Terms
                 </span>
               </li>
             </ul>
@@ -971,7 +962,7 @@ const GetStarted = () => {
                 )}
                 {negativeQuestions.length > 0 && (
                   <>
-                  <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
+                    <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
                     <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                       <ul className="text-start py-2 text-sm text-gray-700 ">
                         {negativeQuestions.map((element, key) =>
