@@ -1,4 +1,4 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon, PuzzlePieceIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
+                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer, notification: element.notification }
             }
             return payload_automation
         })
@@ -203,7 +203,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
+                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer,notification:element.notification  }
             }
             return payload_automation
         })
@@ -252,7 +252,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                 data: {}
                             };
                         } else {
-                            payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
+                            payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer,notification:element.notification }
                         }
                         return payload_automation
                     })
@@ -409,6 +409,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                     <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
                                                                                 </div>
                                                                             )}
+                                                                            {ele?.notification && ele?.notification?.recipient && (
+                                                                                <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                                                    <EnvelopeIcon className="h-6 w-6 text-gray-500" />
+                                                                                </div>
+                                                                            )}
                                                                             {ele?.automation && (
                                                                                 <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
                                                                             )}
@@ -426,6 +431,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             {ele?.transformer && (
                                                                                 <>
                                                                                     <p className='text-sm font-semibold '>Transformer</p>
+                                                                                </>
+                                                                            )}
+                                                                            {ele?.notification && ele?.notification?.recipient && (
+                                                                                <>
+                                                                                    <p className='text-sm font-semibold '>{ele.notification.recipient}</p>
                                                                                 </>
                                                                             )}
 

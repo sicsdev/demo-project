@@ -55,7 +55,10 @@ const GetStarted = () => {
     question: "deflection",
     policy_description: null,
     policy_exceptions: null,
-    bots: []
+    bots: [],
+    recipient_email: "test@test.com",
+    subject: "Subject"
+
   })
 
   // modals 
@@ -310,7 +313,7 @@ const GetStarted = () => {
                 data: {}
               };
             } else {
-              payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
+              payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer ,notification:element.notification }
             }
             if (findFilter && findFilter.names_arr.length > 0) {
               payload_automation.data = convertArrayToObject(findFilter.names_arr);
@@ -511,6 +514,18 @@ const GetStarted = () => {
     setConditionFilter(updatedFilters);
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  };
+
+  const DisablingButton1 = () => {
+    if (!workflowFormData.recipient_email || workflowFormData.recipient_email === 'test@test.com' || !validateEmail(workflowFormData.recipient_email) || !workflowFormData.subject || workflowFormData.subject === "Subject") {
+      return true
+    }
+    return false
+  };
+
   const addConditionalStepHandler = async (type = { value: "RULE" }) => {
     setRulesLoader(true)
     const conditionData = convertToQueryString(conditionFilter);
@@ -523,7 +538,7 @@ const GetStarted = () => {
           data: {}
         };
       } else {
-        payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer }
+        payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer, notification: element.notification }
       }
       return payload_automation
     })
@@ -541,6 +556,12 @@ const GetStarted = () => {
       } else {
         newArray = addDataAtIndex1(addStepIndex, get_ids, { transformer: workflowFormData.transformer, data: {}, output: {} });
       }
+    } else if (type.value === "EMAIL") {
+      if (addStepIndex === null) {
+        newArray = [...get_ids, { notification: { "recipient": workflowFormData.recipient_email, "subject": workflowFormData.subject }, data: {}, output: {} }];
+      } else {
+        newArray = addDataAtIndex1(addStepIndex, get_ids, { notification: { "recipient": workflowFormData.recipient_email, "subject": workflowFormData.subject }, data: {}, output: {} });
+      }
     } else {
       if (addStepIndex === null) {
         newArray = [...get_ids, { question: workflowFormData.question, data: {}, output: {} }];
@@ -550,6 +571,7 @@ const GetStarted = () => {
     }
 
     const workflowId = params.get('flow');
+    debugger
     if (!singleData.active) {
       const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
       getWorkflowData(workflowId)
@@ -560,6 +582,8 @@ const GetStarted = () => {
         data = [...automationStepsData, { automation: null, condition: conditionData, data: {}, output: {}, id: "automation_temp" }]
       } else if (type.value === 'TRANSFORMER') {
         data = [...automationStepsData, { automation: null, transformer: workflowFormData.transformer, data: {}, output: {}, id: "automation_temp" }]
+      } else if (type.value === 'EMAIL') {
+        data = [...automationStepsData, { notification: { "recipient": workflowFormData.recipient_email, "subject": workflowFormData.subject }, data: {}, output: {}, id: "automation_temp" }]
       } else {
         data = [...automationStepsData, { automation: null, question: workflowFormData.question, data: {}, output: {}, id: "automation_temp" }]
       }
@@ -578,7 +602,9 @@ const GetStarted = () => {
       return {
         ...prev,
         question: '',
-        transformer: ''
+        transformer: '',
+        subject:"Subject",
+        recipient_email:"test@test.com"
       }
     })
   }
@@ -609,7 +635,7 @@ const GetStarted = () => {
       setRuleModal(true);
       setMobileCss('')
 
-    } else if (type.value === 'DEFLECTION') {
+    } else if (type.value === 'EMAIL') {
       setDeflectionModal(true)
     } else if (type.value === 'TRANSFORMER') {
       setTransformerModal(true)
@@ -735,27 +761,27 @@ const GetStarted = () => {
           <h1 className='text-xl font-semibold'>Your Workflows</h1>
           <div className={`w-full  ${tab === 0 ? 'sm:w-[77%]' : ''} border-b-2 border-border dark:border-gray-700 flex items-center justify-between mt-1 mb-5`}>
             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
-              <li className={` ${tab === 0 ? "boredractive":'boredrinactive hover:text-black' }`} onClick={() => { setTab(0) }}>
+              <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
                 <span
-                  className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-2  items-center py-2  
+                  className={`flex justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-2  items-center py-2  
                   rounded-lg active  group`}
                   aria-current="page"
                 >
                   Edit Workflow
                 </span>
               </li>
-              <li className={`  ${tab === 1 ? "boredractive":'boredrinactive hover:text-black' }`}  onClick={() => { setTab(1) }}>
+              <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                 <span
-                  className={`flex mr-2  justify-start gap-2  text-[13px]   
+                  className={`flex  justify-start gap-2  text-[13px]   
                    cursor-pointer items-center py-2 px-2 rounded-lg active pl-2 group hover:bg-[#038ff408]`}
                   aria-current="page"
                 >
                   Settings
                 </span>
               </li>
-              <li className={`hover:text-black  ${tab === 2 ? "boredractive":'boredrinactive ' }`}  onClick={() => { setTab(2) }}>
+              <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => { setTab(2) }}>
                 <span
-                  className={`flex mr-2 justify-start gap-2  text-[13px]  hover:bg-[#038ff408] cursor-pointer items-center py-2 px-2  
+                  className={`flex justify-start gap-2  text-[13px]  hover:bg-[#038ff408] cursor-pointer items-center py-2 px-2  
                   rounded-lg active pl-2 group`}
                   aria-current="page"
                 >
@@ -1109,16 +1135,87 @@ const GetStarted = () => {
         </SideModal>
       )}
       {deflectionModal === true && (
-        <SideModal setShow={setDeflectionModal} heading={'Add Deflection'} >
-          <div className=''>
-            <TextArea name='question' placeholder={"What is your question?"} id={"question"} value={workflowFormData.question} onChange={handleInputValue} title={"Deflection"} />
+        <SideModal setShow={setDeflectionModal} heading={'Email'} >
+          <div className='my-3'>
+            <TextField
+              value={workflowFormData?.recipient_email}
+              name="recipient_email"
+              className="py-3 mt-1"
+              placeholder={'test@test.com'}
+              onClick={() => {
+                if (workflowFormData.recipient_email === "test@test.com") {
+                  setWorkFlowFormData((prev) => {
+                    return {
+                      ...prev,
+                      recipient_email: ""
+                    }
+                  })
+                }
+              }}
+              onBlur={() => {
+                if (workflowFormData.recipient_email === "") {
+                  setWorkFlowFormData((prev) => {
+                    return {
+                      ...prev,
+                      recipient_email: "test@test.com"
+                    }
+                  })
+                }
+              }}
+              labelClassName={"w-full"}
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Recipient</span>{" "}
+                </div>
+              }
+              onChange={handleInputValue}
+              type={"text"}
+              id={"recipient_email"}
+              error={""}
+            />
+            <TextField
+              value={workflowFormData?.subject}
+              name="subject"
+              className="py-3 mt-1"
+              placeholder={'Subject'}
+              onClick={() => {
+                if (workflowFormData.subject === "Subject") {
+                  setWorkFlowFormData((prev) => {
+                    return {
+                      ...prev,
+                      subject: ""
+                    }
+                  })
+                }
+              }}
+              onBlur={() => {
+                if (workflowFormData.subject === "") {
+                  setWorkFlowFormData((prev) => {
+                    return {
+                      ...prev,
+                      subject: "Subject"
+                    }
+                  })
+                }
+              }} 
+              labelClassName={"w-full"}
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Subject</span>{" "}
+                </div>
+              }
+              onChange={handleInputValue}
+              type={"text"}
+              id={"subject"}
+              error={""}
+            />
             <div className="flex items-center justify-between mt-4">
               <div></div>
               <div>
                 <Button
                   type={"button"}
-                  disabled={DisablingButton() || rulesLoader}
-                  onClick={() => addConditionalStepHandler({ value: "DEFLECTION" })}
+                  disabled={DisablingButton1() || rulesLoader}
+                  onClick={() => addConditionalStepHandler({ value: "EMAIL" })}
                   className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                 >
                   {rulesLoader ? "Loading..." : "Save"}

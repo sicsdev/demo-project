@@ -199,9 +199,8 @@ const Logs = () => {
 
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
-    const deflectionRate = humanHandoffs / totalConversations;
-    const resultTotal = (deflectionRate * 100).toFixed(1)
-    return resultTotal; // Puedes formatear el resultado según sea necesario
+    const deflectionRate = 1 - humanHandoffs / totalConversations;
+    return ((1 - deflectionRate.toFixed(1)) * 100).toFixed(1); // You can format the result as needed
   };
 
 
@@ -758,14 +757,14 @@ const Logs = () => {
               <h1 className="text-sm text-heading font-semibold">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
-                <p className="text-start w-[15%] rounded-md text-heading font-bold my-2">
-                  <span className="flex items-center justify-start text-xs text-black font-bold mx-auto text-center">
-                    <PlusSmallIcon className="h-3 w-3 text-black" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                    </svg>
-                  </span>
-                </p>
+                <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4caf504d]">
+                <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                  <PlusSmallIcon className="h-3 w-3 text-black" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                    <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                  </svg>
+                </span>
+              </p>
               ) : (
                 <>
                   {additionalData.conversations_avg > 0 && isFinite(additionalData.conversations_avg) && (
@@ -795,8 +794,8 @@ const Logs = () => {
               }
 
               {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
-                <p className="text-start w-[15%] rounded-md text-heading font-bold my-2 ">
-                  <span className="flex items-center justify-start text-xs text-black font-bold mx-auto text-center">
+              <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4caf504d]">
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                     <PlusSmallIcon className="h-3 w-3 text-black" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
                       <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
@@ -821,7 +820,7 @@ const Logs = () => {
               }
             </div>
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
-              <h1 className="text-sm text-heading font-semibold">CSAT</h1>
+              <h1 className="text-sm text-heading font-semibold">Avg. CSAT</h1>
               {additionalData.csat === null ?
                 <p className="text-2xl w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
@@ -836,14 +835,14 @@ const Logs = () => {
                     + N/A
                   </span>
                 </p> :
-                  <p className="w-[15%] rounded-md text-heading font-bold my-2  ">
-                    <span className="flex items-center justify-start text-xs text-black font-bold mx-auto text-center">
-                      <PlusSmallIcon className="h-3 w-3 text-black" />
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                      </svg>
-                    </span>
-                  </p>
+                 <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#4caf504d]">
+                 <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                   <PlusSmallIcon className="h-3 w-3 text-black" />
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                     <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                   </svg>
+                 </span>
+               </p>
               ) : (
                 <>
                   {additionalData.average > 0 && isFinite(additionalData.average) && (
