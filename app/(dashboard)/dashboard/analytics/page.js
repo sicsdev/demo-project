@@ -187,16 +187,30 @@ const Logs = () => {
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
   };
+  // const calculateDeflectionRate = state => {
+  //   const { totalConversations, humanHandoffs } = state;
+  //   console.log('total', totalConversations, 'humanhandofftotal: ', humanHandoffs)
+  //   const deflectionRate = 1 - humanHandoffs / totalConversations;
+  //   console.log(deflectionRate)
+  //   const resultTotal = (deflectionRate * 100).toFixed(1)
+  //   console.log(resultTotal)
+  //   return resultTotal; // You can format the result as needed
+  // };
+
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
-    const deflectionRate = 1 - humanHandoffs / totalConversations;
-    return (deflectionRate * 100).toFixed(1); // You can format the result as needed
+    const deflectionRate = humanHandoffs / totalConversations;
+    const resultTotal = (deflectionRate * 100).toFixed(1)
+    return resultTotal; // Puedes formatear el resultado según sea necesario
   };
+
 
   const firstTimeAnalytics = async (bot) => {
     const human_handoff = await getBotConversation(bot, '?human_handoff=true')
     const has_surveys = await getBotConversation(bot, '?has_surveys=true')
     const has_downvotes = await getBotConversation(bot, '?has_downvotes=true')
+    const totalConvos = await getBotConversation(bot)
+    console.log('total has_surveys, ', has_surveys)
     if (human_handoff && has_surveys && has_downvotes) {
       const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
       setAdditionalData((prev) => {
@@ -207,7 +221,7 @@ const Logs = () => {
           deflection_data: {
             ...additionalData.deflection_data,
             dflection: calculateDeflectionRate({
-              totalConversations: allconversation,
+              totalConversations: totalConvos?.data.count,
               humanHandoffs: human_handoff.data.count
             }),
           },
@@ -221,6 +235,8 @@ const Logs = () => {
     const has_downvotes = await getBotConversation(bot, '?has_downvotes=true' + query1)
     const previous_response_ = await getBotConversation(selectedBot, `?human_handoff=true${query}`)
     const current_response = await getBotConversation(selectedBot, `?human_handoff=true${query1}`)
+    const totalConvos = await getBotConversation(bot)
+
     if (current_response.status === 200 && previous_response_.status === 200 && human_handoff && has_surveys && has_downvotes) {
       const allconversation = human_handoff.data.count + has_surveys.data.count + has_downvotes.data.count
       const calculateDates = (current_response.data.count - previous_response_.data.count) / previous_response_.data.count
@@ -240,7 +256,7 @@ const Logs = () => {
             date: `${formattedDate1} - ${formattedDate2}`,
             precent: (calculateDates * 100).toFixed(1),
             dflection: calculateDeflectionRate({
-              totalConversations: allconversation,
+              totalConversations: totalConvos.data.count,
               humanHandoffs: human_handoff.data.count
             }),
           },
@@ -402,7 +418,7 @@ const Logs = () => {
 
   const [messageLoading, setMessagesLoading] = useState(false);
   const getCoversationMessages = async (id) => {
-    
+
     router.push('/dashboard/analytics?id=' + id)
     setMessagesLoading(true);
     const response = await getBotConversationMessages(id);
@@ -1051,7 +1067,7 @@ const Logs = () => {
                 defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                   // router.push(rowData.url);
-                  
+
                   setIndexVal(rowData.index);
                   getCoversationMessages(rowData.id);
                   setIdOfOpenConversation(rowData.id);
