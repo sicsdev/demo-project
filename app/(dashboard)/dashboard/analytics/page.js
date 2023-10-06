@@ -13,6 +13,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   getBotConversation,
+  exportCsvFile,
   getBotConversationMessages,
   getPaginateBotConversation,
 } from "@/app/API/pages/Bot";
@@ -30,6 +31,9 @@ import Card from "@/app/components/Common/Card/Card";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import { setViewed, getConversationDetails } from "@/app/API/pages/Logs";
 import { PlusSmallIcon } from "@heroicons/react/24/solid";
+import Button from "@/app/components/Common/Button/Button";
+import { ToastContainer } from "react-toastify";
+import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -136,6 +140,7 @@ const Logs = () => {
   const [searchLoading, setSearchLoading] = useState(true);
   const [typingTimeout, setTypingTimeout] = useState(null);
   const [idOfOpenConversation, setIdOfOpenConversation] = useState({});
+  const [exportLoader, setExportLoader] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({
     created__gte: "all",
     created__lte: "all",
@@ -171,7 +176,6 @@ const Logs = () => {
     });
 
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
-    debugger
     setBotValue(mergedArray);
     // getAdditionalData(mergedArray)
     if (mergedArray?.length > 0) {
@@ -332,6 +336,10 @@ const Logs = () => {
       filteredFilters.has_surveys = true;
       delete filteredFilters.conversations;
     }
+    if (filteredFilters.ordering === undefined) {
+      delete filteredFilters.ordering;
+    }
+
     const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `&${queryParams}` : "";
   };
@@ -391,6 +399,7 @@ const Logs = () => {
   useEffect(() => {
     setConversationData(conversationData);
   }, [conversationData.length]);
+
   const [messageLoading, setMessagesLoading] = useState(false);
   const getCoversationMessages = async (id) => {
     setMessagesLoading(true);
@@ -587,6 +596,15 @@ const Logs = () => {
     getAdditionalData(selectedBot, query, query1, selectedDate1, selectedDate2)
   }
 
+  function downloadBlob(blob, fileName) {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
   useEffect(() => {
     if (selectedFilters.created__gte !== 'all' && selectedFilters.created__lte !== 'all') {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
@@ -594,6 +612,32 @@ const Logs = () => {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
+
+  const exportCsvHandler = async (event) => {
+    try {
+      let filters = ``;
+      const allFilters = buildQueryParam(selectedFilters);
+      if (allFilters !== "" && allFilters !== undefined) {
+        filters = allFilters.substring(1);
+      }
+      
+      if (selectedBot !== "Select") {
+        setExportLoader(true);
+        const getCsvData = await exportCsvFile(selectedBot, filters);
+        if (getCsvData?.file !== "" && getCsvData?.file !== undefined) {
+          const decodedData = atob(getCsvData?.file);
+          const blob = new Blob([decodedData], { type: 'text/csv' });
+          const fileName = 'logs.csv';
+          downloadBlob(blob, fileName);
+          // var blob = new Blob([csvContent], {type: "data:application/octet-stream;base64"});
+        }
+        setExportLoader(false);
+      }
+    } catch (error) {
+      setExportLoader(false);
+    }
+  };
+
   return (
     <>
       <div>
@@ -616,20 +660,38 @@ const Logs = () => {
         {showChat === false && (
           <>
             {loading === true || state.isLoading === true ? (
-              <div className="grid grid-cols-[85%,15%] my-2">
+              <div className="grid grid-cols-[74%,10%,1%,15%] my-2">
+                <div></div>
+                <SkeletonLoader count={1} height={30} width={"100%"} />
                 <div></div>
                 <SkeletonLoader height={30} width={"100%"} />
               </div>
             ) : (
               <div className='flex justify-end gap-4 items-center mt-2 pt-2'>
-                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                <div className="relative w-full sm:w-[unset]">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
+
+                {
+                  exportLoader === true ?
+                    <LoaderButton name={"Exporting"} className={`inline-block ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                    <Button
+                      type={"button"}
+                      className="inline-block ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      disabled={selectedBot === 'Select'}
+                      onClick={(e) => exportCsvHandler(e)}
+                    >
+                      Export CSV
+                    </Button>
+                }
+
+                <div>
+                  <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                  <div className="relative w-full sm:w-[unset]">
+                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                      </svg>
+                    </div>
+                    <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                   </div>
-                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
               </div>
             )}
@@ -1184,6 +1246,7 @@ const Logs = () => {
 
 
       </div>
+      <ToastContainer />
     </>
   );
 };

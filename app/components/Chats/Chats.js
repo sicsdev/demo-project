@@ -1,5 +1,5 @@
 
-import { addBotConversationMessagesReaction } from '@/app/API/pages/Bot';
+import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
 import React from 'react';
 import { useEffect } from 'react';
@@ -9,7 +9,9 @@ import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
 import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/outline';
-import { getNegativeWorkflows } from '@/app/API/pages/Workflow';
+import Button from '../Common/Button/Button';
+import LoaderButton from '../Common/Button/Loaderbutton';
+import { errorMessage, successMessage } from '../Messages/Messages';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -19,7 +21,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
-
+    const [disputeLoader, setDisputeLoader] = useState(false);
     const bot = useSelector(state => state.botId.botData.data)
 
 
@@ -32,7 +34,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         }
 
         getDetails()
-        
+
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
@@ -41,7 +43,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
     }, [bot, idOfOpenConversation])
-
 
     // Handlers 
 
@@ -94,6 +95,24 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         setConversationDetails({ ...conversationDetails, for_review: e.target.checked })
         await setForReview(idOfOpenConversation, { for_review: e.target.checked })
     }
+
+    const raiseDisputHandler = async (event) => {
+        try {
+            setDisputeLoader(true);
+            const disputeResult = await disputeCharge({}, idOfOpenConversation);
+            console.log("disputeResult", disputeResult);
+            if (disputeResult?.status === 200 || disputeResult?.status === 201) {
+                disputeResult();
+                successMessage("Dispute Created Successfully!");
+            } else {
+                errorMessage("Unable to create dispute!");
+            }
+            setDisputeLoader(false);
+        } catch (error) {
+            errorMessage("Unable to create dispute!");
+            setDisputeLoader(false)
+        }
+    };
 
 
 
@@ -429,8 +448,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                     </div>
                 </div>
             </div >
-
-            <div className="flex items-center space-x-2 mt-4 justify-start">
+            {/* <div className="flex items-center space-x-2 mt-4 justify-start">
                 <input
                     type="checkbox"
                     id="forReviewCheckbox"
@@ -439,6 +457,22 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                     onClick={handleForReview}
                 />
                 <label className="text-gray-700 text-xs ">For review</label>
+            </div> */}
+            <div className="flex items-center space-x-2 mt-4 justify-start">
+                {
+                    disputeLoader === true ? (
+                        <LoaderButton className={`inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} />
+                    ) : (
+                        <Button
+                            type={"button"}
+                            className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                            disabled={conversationDetails?.charge_status === 'REFUNDED'}
+                            onClick={(e) => raiseDisputHandler(e)}
+                        >
+                            {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
+                        </Button>
+                    )
+                }
             </div>
 
         </>

@@ -193,7 +193,7 @@ const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomation
                                         </div>
                                     </div>
                                 </li>
-                                <li className={`my-4 cursor-pointer`} onClick={() => { openRulesHandler({ value: "TRANSFORMER" }) }}>
+                                {/* <li className={`my-4 cursor-pointer`} onClick={() => { openRulesHandler({ value: "TRANSFORMER" }) }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
@@ -205,7 +205,7 @@ const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomation
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
                                         </div>
                                     </div>
-                                </li>
+                                </li> */}
 
 
                                 {/* <li className={`my-4 cursor-pointer`}>
