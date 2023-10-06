@@ -708,16 +708,13 @@ const Logs = () => {
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
               <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
               {additionalData.deflection_data.dflection === null || !isFinite(additionalData.deflection_data.dflection) ?
-                <p className="text-2xl text-start w-[15%] rounded-md text-heading font-bold mt-2 mb-4 ">
-                  <span className="flex items-center justify-start text-sm text-black font-bold mx-auto text-center">
-                    <PlusSmallIcon className="h-4 w-4 text-black" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                    </svg>
+                <p className="text-2xl w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
+                  <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
+                    N/A
                   </span>
                 </p>
-                :
-                <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}%</p>}
+                : <p className="text-2xl text-heading font-bold my-2">{additionalData.deflection_data.dflection}%</p>
+              }
 
               {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
                 <p className="text-start w-[15%] rounded-md text-heading font-bold my-2 ">
@@ -756,14 +753,19 @@ const Logs = () => {
                 :
                 <p className="text-2xl text-heading font-bold my-2">{additionalData.csat}</p>}
               {additionalData.average === null || !isFinite(additionalData.average) || additionalData.average === 0 || additionalData.average === '0.0' ? (
-                <p className="w-[15%] rounded-md text-heading font-bold my-2  ">
-                  <span className="flex items-center justify-start text-xs text-black font-bold mx-auto text-center">
-                    <PlusSmallIcon className="h-3 w-3 text-black" />
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                    </svg>
+                additionalData.csat === null ? <p className="text-xs w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                    + N/A
                   </span>
-                </p>
+                </p> :
+                  <p className="w-[15%] rounded-md text-heading font-bold my-2  ">
+                    <span className="flex items-center justify-start text-xs text-black font-bold mx-auto text-center">
+                      <PlusSmallIcon className="h-3 w-3 text-black" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                      </svg>
+                    </span>
+                  </p>
               ) : (
                 <>
                   {additionalData.average > 0 && isFinite(additionalData.average) && (
