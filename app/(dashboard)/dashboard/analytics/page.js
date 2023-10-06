@@ -402,6 +402,8 @@ const Logs = () => {
 
   const [messageLoading, setMessagesLoading] = useState(false);
   const getCoversationMessages = async (id) => {
+    
+    router.push('/dashboard/analytics?id=' + id)
     setMessagesLoading(true);
     const response = await getBotConversationMessages(id);
     if (response.status === 200) {
@@ -620,7 +622,7 @@ const Logs = () => {
       if (allFilters !== "" && allFilters !== undefined) {
         filters = allFilters.substring(1);
       }
-      
+
       if (selectedBot !== "Select") {
         setExportLoader(true);
         const getCsvData = await exportCsvFile(selectedBot, filters);
@@ -667,21 +669,7 @@ const Logs = () => {
                 <SkeletonLoader height={30} width={"100%"} />
               </div>
             ) : (
-              <div className='flex justify-end gap-4 items-center mt-2 pt-2'>
-
-                {
-                  exportLoader === true ?
-                    <LoaderButton name={"Exporting"} className={`inline-block ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
-                    <Button
-                      type={"button"}
-                      className="inline-block ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                      disabled={selectedBot === 'Select'}
-                      onClick={(e) => exportCsvHandler(e)}
-                    >
-                      Export CSV
-                    </Button>
-                }
-
+              <div className='block  sm:flex justify-end items-center mt-2 pt-2'>
                 <div>
                   <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                   <div className="relative w-full sm:w-[unset]">
@@ -693,6 +681,18 @@ const Logs = () => {
                     <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                   </div>
                 </div>
+                {
+                  exportLoader === true ?
+                    <LoaderButton name={"Exporting"} className={`inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                    <Button
+                      type={"button"}
+                      className="inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                      disabled={selectedBot === 'Select'}
+                      onClick={(e) => exportCsvHandler(e)}
+                    >
+                      Export CSV
+                    </Button>
+                }
               </div>
             )}
           </>
@@ -998,7 +998,7 @@ const Logs = () => {
                       type="date"
                       id="created__gte"
                       name="created__gte"
-                      className="w-full border rounded-md p-[7px] mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      className="w-full border rounded-[4px] p-[7px] mt-2 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                     />
                     <div onClick={() => handleCleanDates("created__gte")}>
                       {selectedFilters?.created__gte !== "all" && (
@@ -1024,7 +1024,7 @@ const Logs = () => {
                       type="date"
                       id="created__lte"
                       name="created__lte"
-                      className="w-full p-[7px] border rounded-md  mt-2 border-input_color focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      className="w-full p-[7px] border rounded-[4px] mt-2 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                     />
                     <div onClick={() => handleCleanDates("created__lte")}>
                       {selectedFilters?.created__lte !== "all" && (
@@ -1051,6 +1051,7 @@ const Logs = () => {
                 defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                   // router.push(rowData.url);
+                  
                   setIndexVal(rowData.index);
                   getCoversationMessages(rowData.id);
                   setIdOfOpenConversation(rowData.id);

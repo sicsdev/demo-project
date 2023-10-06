@@ -1659,3 +1659,17 @@ body .invite-email input[type="email"]:focus,
 .invite-email textarea:focus {
   font-size: 0.875rem !important;
 }
+.boredractive {
+  position: relative;
+  border-bottom: 2px solid #0057ff;
+  box-sizing: border-box;
+  color: #0057ff;
+  padding-bottom: 3px;
+}
+.boredrinactive {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  box-sizing: border-box;
+  color: #000;
+  padding-bottom: 3px;
+}
