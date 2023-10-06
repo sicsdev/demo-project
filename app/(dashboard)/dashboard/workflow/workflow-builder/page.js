@@ -136,7 +136,7 @@ const Page = () => {
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
                                         <span
-                                            className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
@@ -149,7 +149,7 @@ const Page = () => {
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
                                         <span
-                                            className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
@@ -164,7 +164,7 @@ const Page = () => {
                                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                             :
                                             <span
-                                                className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
                                                 aria-current="page"
                                             >

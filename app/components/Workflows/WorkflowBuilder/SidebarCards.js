@@ -1,7 +1,7 @@
 import { getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
-import { ArrowUturnLeftIcon, BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, PuzzlePieceIcon, ShareIcon } from '@heroicons/react/24/outline'
+import { ArrowUturnLeftIcon, BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, EnvelopeIcon, PuzzlePieceIcon, ShareIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 import React from 'react'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { editAutomationValue } from '../../store/slices/workflowSlice'
 
-const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler }) => {
+const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler }) => {
     const dispatch = useDispatch()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
@@ -60,7 +60,7 @@ const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomation
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question, question: element.transformer }
+                payload_automation = { condition: element.condition, question: element.question, question: element.transformer,notification: element.notification }
             }
             return payload_automation
         })
@@ -179,7 +179,7 @@ const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomation
                                     </div>
                                 </li>
                                 <li className={`my-4 cursor-pointer`} onClick={() => {
-                                    addConditionalStepHandler({value:"DEFLECTION"})
+                                    addConditionalStepHandler({ value: "DEFLECTION" })
                                 }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
@@ -193,34 +193,22 @@ const SidebarCards = ({ addConditionalStepHandler,inputRef, state, setAutomation
                                         </div>
                                     </div>
                                 </li>
-                                {/* <li className={`my-4 cursor-pointer`} onClick={() => { openRulesHandler({ value: "TRANSFORMER" }) }}>
+                                <li className={`my-4 cursor-pointer`} onClick={() => {
+                                    openRulesHandler({ value: "EMAIL" })
+                                }}>
                                     <div>
                                         <div className='flex justify-between items-center '>
                                             <div className="flex justify-start items-center gap-2">
-                                                <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
+                                                <EnvelopeIcon className="h-6 w-6 text-gray-500" />
 
-                                                <p className='text-heading text-xs'>Transformer</p>
+                                                <p className='text-heading text-xs'>Email</p>
                                                 <p className='text-border text-[11px] font-light'></p>
                                             </div>
                                             <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
                                         </div>
                                     </div>
-                                </li> */}
+                                </li>
 
-
-                                {/* <li className={`my-4 cursor-pointer`}>
-                                    <Link href={"/dashboard/workflow/integrations"}>
-                                        <div className='flex justify-between items-center '>
-                                            <div className="flex justify-start items-center gap-2">
-                                                <ShareIcon className="h-6 w-6 text-gray-500" />
-
-                                                <p className='text-heading text-sm'>Add Integration</p>
-                                                <p className='text-border text-[11px] font-light'></p>
-                                            </div>
-                                            <span><ChevronRightIcon className="h-5 w-5 text-gray-500" /></span>
-                                        </div>
-                                    </Link>
-                                </li> */}
                             </> :
                             <>
                                 <div className='flex justify-start items-center my-8 gap-2'>
