@@ -169,7 +169,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script src="http://192.168.0.15:3005/v1/main.js" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

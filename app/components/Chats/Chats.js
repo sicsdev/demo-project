@@ -448,31 +448,20 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                     </div>
                 </div>
             </div >
-            {/* <div className="flex items-center space-x-2 mt-4 justify-start">
-                <input
-                    type="checkbox"
-                    id="forReviewCheckbox"
-                    className="custom-checkbox h-3 w-3 text-indigo-600 border-indigo-600 rounded-md transition duration-300 ease-in-out transform hover:scale-110"
-                    checked={conversationDetails?.for_review}
-                    onClick={handleForReview}
-                />
-                <label className="text-gray-700 text-xs ">For review</label>
-            </div> */}
             <div className="flex items-center space-x-2 mt-4 justify-start">
-                {
-                    disputeLoader === true ? (
-                        <LoaderButton className={`inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} />
-                    ) : (
-                        <Button
-                            type={"button"}
-                            className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                            disabled={conversationDetails?.charge_status === 'REFUNDED'}
-                            onClick={(e) => raiseDisputHandler(e)}
-                        >
-                            {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
-                        </Button>
-                    )
-                }
+
+                <span
+                    className="text-xs text-border font-[500] cursor-pointer"
+                    onClick={(e) => {
+                        raiseDisputHandler(e)
+
+                    }
+                    }
+                >
+                    {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
+                </span>
+
+
             </div>
 
         </>

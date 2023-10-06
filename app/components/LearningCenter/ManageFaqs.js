@@ -13,8 +13,9 @@ import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuesti
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
+import TextEditor from '../URL/Richtext';
 
-const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
+const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
     console.log("questions", questions)
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
@@ -38,7 +39,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
         }
     }
 
-    
+
     const updateBotSelection = async (rowIndex, selectedBots) => {
         const recordId = questions?.data?.results[rowIndex]?.id; // Assuming your data contains the record ID
         const payload = { bots: selectedBots.map(botId => ({ bot: botId.value, active: true })) };
@@ -52,7 +53,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
     const onSelectData = (selectedList, selectedItem, index) => {
         let updatedSelectedList = [...questions.selectedBot];
         updatedSelectedList[index] = selectedList;
-        console.log("updatedSelectedList",updatedSelectedList)
+        console.log("updatedSelectedList", updatedSelectedList)
         setBasicFormData(prev => ({
             ...prev,
             selectedBot: updatedSelectedList
@@ -242,6 +243,16 @@ const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
             }
         }
     }
+
+    const handleTextEditorChange = (content) => {
+        setSelected((prev) => {
+            return {
+                ...prev,
+                answer: content
+            }
+        })
+    }
+
     return (
         <div className="w-full px-2 pt-2">
             <DataTable
@@ -299,7 +310,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
                     </div>
                     {tab === 0 && (
                         <>
-                            <div className='my-8 sss'>
+                            {/* <div className='my-8 sss'>
                                 <TextArea name="answer"
                                     className="py-2 !p-[10px]"
                                     type={"text"}
@@ -314,14 +325,17 @@ const ManageFaqs = ({ questions, bots, getQuestionsData,setBasicFormData }) => {
                                             }
                                         })}
                                     value={selected.answer} />
-                                <button
-                                    onClick={(e) => updateFaq()}
-                                    type="button"
-                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
-                                    {updateLoader ? "Loading..." : "Submit"}
-                                </button>
-                            </div>
+                               
+                            </div> */}
 
+                            <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
+
+                            <button
+                                onClick={(e) => updateFaq()}
+                                type="button"
+                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
+                                {updateLoader ? "Loading..." : "Submit"}
+                            </button>
                         </>)}
                     {tab === 1 && (
                         <>

@@ -1,0 +1,16 @@
+.rdw-link-modal-target-option {
+    display: none !important
+}
+
+.rdw-editor-toolbar {
+    border: none !important;
+    border-bottom: none !important
+}
+
+.rdw-link-decorator-wrapper {
+    color: blue;
+}
+
+.rdw-editor-main {
+    min-height: 250px !important;
+}

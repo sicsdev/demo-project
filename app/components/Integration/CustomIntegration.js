@@ -178,7 +178,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                     </p>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <div>
+                    <div  className='flex items-center gap-4'>
                         {integrationFormData?.checked === true && (
 
                             <p
@@ -186,7 +186,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                 // disabled={DisablingButton()}
                                 onClick={(e) => deleteEntry(e)}
                             >
-                                Delete resource
+                                Delete Resource
                             </p>
                         )}
                         {loading ? (
@@ -202,8 +202,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                 {integrationFormData?.checked === true ? `Connect ${integrationFormData?.name}` : `Connect ${integrationFormData?.name}`}
                             </Button>
                         )}
-                        {/* <button class="py-2 px-4  w-[100%] sm:px-10 mt-4 md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full focus:ring-yellow-300 text-sm font-semibold text-white bg-primary hover:bg-white dark:focus:ring-yellow-900 rounded-lg hover:text-primary" style={{ border: "1px solid #ebebeb" }}>
-                        {integrationFormData?.checked === true ? 'Update' : 'Create'} resource</button> */}
+                        
                     </div>
                     <div class="cursor-pointer"
                         onClick={() => setIntegrationform(false)}
