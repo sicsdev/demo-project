@@ -9,12 +9,14 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
 
   const [editorState, setEditorState] = useState(() => {
     if (oldContent) {
-      const blocksFromHtml = convertFromHTML(oldContent);
+
+      const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
+      console.log(restoreLinks(oldContent))
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       console.log(oldContent, 'oldcontent')
       console.log(blocksFromHtml, 'blocks')
       console.log('state', state)
-      return EditorState.createWithContent(restoreLinks(state));
+      return EditorState.createWithContent(state);
     }
     return EditorState.createEmpty();
   });
@@ -47,27 +49,36 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
 
 
   function replaceLink(html) {
-    let pattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
-    let matches = html.match(pattern);
 
-    if (matches) {
-      matches.forEach(function (match) {
-        let parts = pattern.exec(match);
-        let url = parts[1];
-        let name = parts[2];
-        let newFormat = '[' + name + ':' + url + ']';
-        html = html.replace(match, newFormat);
-      });
+    if (html) {
+      let pattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
+      let matches = html?.match(pattern);
+
+      if (matches) {
+
+        matches.forEach(function (match) {
+          let parts = pattern.exec(match);
+          let url = parts[1];
+          let name = parts[2];
+          let newFormat = '[' + name + ':' + url + ']';
+          html = html.replace(match, newFormat);
+        });
+      }
     }
 
-    html = html.replace(/^<p>/, '').replace(/<\/p>$/, '');
+    if (html.startsWith("<p>") && html.endsWith("</p>")) {
+      html = html.substring(3, html.length - 4);
+    }
+
+
     return html;
   }
 
 
   function restoreLinks(html) {
+    console.log(html, 'html')
     let pattern = /\[([^:]+):([^]+)\]/g;
-    let matches = html.match(pattern);
+    let matches = html?.match(pattern);
 
     if (matches) {
       matches.forEach(function (match) {
