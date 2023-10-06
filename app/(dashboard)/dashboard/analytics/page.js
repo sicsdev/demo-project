@@ -336,6 +336,10 @@ const Logs = () => {
       filteredFilters.has_surveys = true;
       delete filteredFilters.conversations;
     }
+    if (filteredFilters.ordering === undefined) {
+      delete filteredFilters.ordering;
+    }
+
     const queryParams = new URLSearchParams(filteredFilters).toString();
     return queryParams ? `&${queryParams}` : "";
   };
@@ -611,9 +615,15 @@ const Logs = () => {
 
   const exportCsvHandler = async (event) => {
     try {
+      let filters = ``;
+      const allFilters = buildQueryParam(selectedFilters);
+      if (allFilters !== "" && allFilters !== undefined) {
+        filters = allFilters.substring(1);
+      }
+      
       if (selectedBot !== "Select") {
         setExportLoader(true);
-        const getCsvData = await exportCsvFile(selectedBot);
+        const getCsvData = await exportCsvFile(selectedBot, filters);
         if (getCsvData?.file !== "" && getCsvData?.file !== undefined) {
           const decodedData = atob(getCsvData?.file);
           const blob = new Blob([decodedData], { type: 'text/csv' });
