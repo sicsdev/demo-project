@@ -22,7 +22,10 @@ const TextEditor = ({ oldContent, editing }) => {
     setPostContent(draftToHtml(convertToRaw(editorState.getCurrentContent())));
   };
 
-
+  const showOutput = () => {
+    console.log(postContent, 'postcontent')
+    console.log(editorState, 'editrostarte')
+  }
   return (
     <div>
       <Editor
@@ -32,7 +35,7 @@ const TextEditor = ({ oldContent, editing }) => {
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
         toolbar={{
-          options: ['inline', 'fontSize', 'fontFamily', 'colorPicker', 'emoji', 'link'],
+          options: ['inline', 'fontSize', 'fontFamily', 'link'],
           inline: {
             options: ['bold', 'italic', 'underline'],
           },
@@ -48,6 +51,8 @@ const TextEditor = ({ oldContent, editing }) => {
         }}
         placeholder="Que deseas publicar?"
       />
+
+      <button onClick={showOutput}>show output</button>
     </div>
   );
 };
