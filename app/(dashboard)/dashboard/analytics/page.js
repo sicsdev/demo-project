@@ -216,7 +216,7 @@ const Logs = () => {
       setAdditionalData((prev) => {
         return {
           ...prev,
-          conversations: allconversation,
+          conversations: totalConvos?.data.count,
           csat: human_handoff.data.surveys.average,
           deflection_data: {
             ...additionalData.deflection_data,
@@ -249,7 +249,7 @@ const Logs = () => {
           ...prev,
           average: (calculateAverage * 100).toFixed(1),
           conversations_avg: conversationRate.toFixed(1),
-          conversations: allconversation,
+          conversations: totalConvos.data.count,
           csat: human_handoff.data.surveys.average,
           deflection_data: {
             ...additionalData.deflection_data,
