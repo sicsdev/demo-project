@@ -4,18 +4,14 @@ import { EditorState, convertToRaw, ContentState, convertFromHTML } from 'draft-
 import draftToHtml from 'draftjs-to-html';
 import './customstyles.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { useEffect } from 'react';
 
-const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) => {
+const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
 
   const [editorState, setEditorState] = useState(() => {
     if (oldContent) {
-
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
-      console.log(restoreLinks(oldContent))
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
-      console.log(oldContent, 'oldcontent')
-      console.log(blocksFromHtml, 'blocks')
-      console.log('state', state)
       return EditorState.createWithContent(state);
     }
     return EditorState.createEmpty();
@@ -23,6 +19,17 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
 
   const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
+
+
+
+
+  useEffect(() => {
+    if (externalContent !== oldContent) {
+      const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
+      const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
+      setEditorState(EditorState.createWithContent(state));
+    }
+  }, [externalContent, oldContent]);
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -47,15 +54,12 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
   };
 
 
-
   function replaceLink(html) {
-
     if (html) {
       let pattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
       let matches = html?.match(pattern);
 
       if (matches) {
-
         matches.forEach(function (match) {
           let parts = pattern.exec(match);
           let url = parts[1];
@@ -66,14 +70,13 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
       }
     }
 
-    if (html.startsWith("<p>") && html.endsWith("</p>")) {
-      html = html.substring(3, html.length - 4);
-    }
-
-
+    html = html.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll(`\n`, "")
     return html;
   }
 
+  // if (html.startsWith("<p>") && html.endsWith("</p>") || html.endsWith(`</p>\n`)) {
+  //   html = html.substring(3, html.length - 4);
+  // }
 
   function restoreLinks(html) {
     console.log(html, 'html')
@@ -92,7 +95,6 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode }) 
 
     return html;
   }
-
 
 
   // uses example

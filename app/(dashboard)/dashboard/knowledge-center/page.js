@@ -25,6 +25,7 @@ import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
 import Pusher from 'pusher-js';
 import { v4 as uuidv4 } from 'uuid';
 import Modal from "@/app/components/Common/Modal/Modal";
+import TextEditor from "@/app/components/URL/Richtext";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -84,6 +85,8 @@ const Page = () => {
     const [subQuestions, setSubQuestions] = useState([])
     const [newUUI, setNewUUI] = useState('')
     const [pusherStreaming, setPusherStreaming] = useState(false)
+    const [externalContentForTextEditor, setExternalContentForTextEditor] = useState('')
+
 
     const getData = async () => {
         setTabLoader(true);
@@ -136,6 +139,9 @@ const Page = () => {
             clearTimeout(timeoutId);
             setPusherStreaming(true)
             setAnswer(prev => prev + data.message);
+
+            setExternalContentForTextEditor(prev => prev + data.message)
+
             timeoutId = setTimeout(() => {
                 setPusherStreaming(false)
             }, 2000);
@@ -647,6 +653,15 @@ const Page = () => {
     // }
 
 
+    const handleTextEditorChange = (content) => {
+        if (content) {
+            setMode("expand")
+        } else {
+            setMode("normal")
+        }
+        setAnswer(content)
+    }
+
 
     return (
         <>
@@ -894,7 +909,7 @@ const Page = () => {
                                                     )}
                                                 </div>
                                             )}
-                                            <TextArea name="answer"
+                                            {/* <TextArea name="answer"
                                                 className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"answer"}
@@ -908,7 +923,9 @@ const Page = () => {
                                                     }
                                                     setAnswer(e.target.value)
                                                 }}
-                                                value={answer} />
+                                                value={answer} /> */}
+
+                                            <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor}></TextEditor>
                                             {/* <button
                                                 onClick={(e) => setModal(true)}
                                                 type="button"
