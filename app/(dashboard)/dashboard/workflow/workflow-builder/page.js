@@ -88,7 +88,7 @@ const Page = () => {
 
     return (
         <>
-         {/*
+            {/*
             {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
                 <>
                     <div style={{ whiteSpace: "normal" }}>
@@ -124,67 +124,71 @@ const Page = () => {
                     </div>
                 </>
                 : */}
-                <>
-                    {state?.data?.enterprise && (
-                        <>
-                            <TopBar title={`Your Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />   
-                            <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
-                            <div className={skeletonloading ? " " : "border-b border-border dark:border-gray-700 flex items-center justify-between"}>
-                                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
-                                    <li className="mr-2" onClick={() => { setTab(0) }}>
+            <>
+                {state?.data?.enterprise && (
+                    <>
+                        <h1 className='pl-2 text-xl font-semibold'>Your Workflows</h1>
+                        <div className={skeletonloading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+
+                                <li className={` ${skeletonloading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
                                         <span
-                                            className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                            className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BoltIcon className="h-5 w-5 text-gray-500" /> Active
+                                            Active
                                         </span>
                                     }
-                                    </li>
-                                    <li className="mr-2" onClick={() => { setTab(1) }}>
+                                </li>
+                                <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
                                         <span
-                                            className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                                            className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            <BoltSlashIcon className="h-5 w-5 text-gray-500" /> Draft
+                                            Draft
                                         </span>
                                     }
-                                    </li>
-                                    {
-                                        template?.length > 0 &&
-                                        <li className="mr-2" onClick={() => { setTab(2) }}>
+                                </li>
+                                {
+                                    template?.length > 0 &&
+                                    <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => { setTab(2) }}>
                                         {skeletonloading ?
                                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                             :
                                             <span
-                                                className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 2 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  pl-2  group`}
+                                                className={`flex mr-2 justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                                 aria-current="page"
                                             >
-                                                <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" /> Templates
+                                                Templates
                                             </span>
                                         }
-                                        </li>
-                                    }
-                                </ul>
-                            </div>
-                            {tab === 0 && (
-                                <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
-                            )}
-                            {tab === 1 && (
-                                <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} />
-                            )}
-                            {tab === 2 && (
-                                <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} />
-                            )}
-                        </>
-                    )}
-                </>
-            
+                                    </li>}
+                            </ul>
+                        </div>
+
+                        {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
+                        {tab === 0 && (
+                            <WorkFlowTemplates status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                        )}
+                        {tab === 1 && (
+                            <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                        )}
+                        {tab === 2 && (
+                            <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                        )}
+                    </>
+                )}
+            </>
+
             <ToastContainer />
         </>
     )
