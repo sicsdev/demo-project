@@ -170,7 +170,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
 
                 <div className="chatbot_widget" id="chatbot_widget">
-                    <div className="containerChatBot_entire !block">
+                    <div className="containerChatBot_entire !bg-transparent !block">
                         <div className={``}>
                             <div className="" id="widget_headerContainer">
                                 <div className="header_ChatBotWidget">
@@ -205,13 +205,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         src={`${botUnique?.enterprise?.logo ||
                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                     <div className="answer_text_div">
-                                                        {/* <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}> */}
+                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}> */}
                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
 
                                                         {
                                                             element.content === 'HUMAN-HANDOFF' &&
                                                             <>
-                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                     I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
                                                                 </div>
                                                             </>
@@ -220,7 +220,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         {
                                                             element.content === 'OPTIONS' &&
                                                             <>
-                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                     Could you please clarify how I can best help you?
                                                                 </div>
                                                             </>
@@ -230,7 +230,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         {
                                                             element.content === 'FORM' &&
                                                             <>
-                                                                <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                     No problem, I can help you with that! Could you please provide the following information:
                                                                 </div>
                                                             </>
@@ -240,7 +240,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
                                                             <>
                                                                 <div className='flex items-center justify-between gap-1'>
-                                                                    <div className="answer_text_with_thumbs pointer" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                         {element.content}
                                                                     </div>
                                                                     <div className="chatBotWidgetThumbs">

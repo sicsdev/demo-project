@@ -399,7 +399,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             )}
                                                                             {ele?.question && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>{ele?.question}</p>
+                                                                                    <p className='text-sm font-semibold '>{makeCapital(ele?.question)}</p>
                                                                                 </>
                                                                             )}
 
