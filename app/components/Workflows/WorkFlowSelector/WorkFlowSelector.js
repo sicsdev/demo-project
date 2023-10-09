@@ -182,11 +182,11 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     // drag and drop functions 
     function hasNullAutomationAtIndex(index, data) {
         if (index >= 0 && index < data.length - 1) {
-            if (data[index + 1].automation === null) {
-                return true;
+            if (data[index + 1].automation || data[index + 1].quesiton) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
     const removeIndexAndUpdateAutomation = async () => {
         let filterRules = null
@@ -203,7 +203,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                     data: {}
                 };
             } else {
-                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer,notification:element.notification  }
+                payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer, notification: element.notification }
             }
             return payload_automation
         })
@@ -212,56 +212,31 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         setModal(false)
     }
     const reorder = async (list, startIndex, endIndex) => {
-        if (list[startIndex].automation === null) {
+        if (list[startIndex].question || list[startIndex].automation) {
+            let automationCurrentIndex = hasNullAutomationAtIndex(startIndex, list)
+            const result = Array.from(list);
+            const [removed] = result.splice(startIndex, 1);
+            result.splice(endIndex, 0, removed);
+            const get_ids = result.map((element) => {
+                let payload_automation = {}
+                if (element?.automation) {
+                    payload_automation = {
+                        automation: element.automation.id,
+                        output: {},
+                        data: {}
+                    };
+                } else {
+                    payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer, notification: element.notification }
+                }
+                return payload_automation
+            })
+            setAutomationStepsData(result)
+            await updateWorkFlowStatus({ active: false, "automations": get_ids }, workflowId)
+        } else {
             errorMessage("You can't move rules")
             return
-        } else {
-            let automationCurrentIndex = hasNullAutomationAtIndex(startIndex, list)
-            if (automationCurrentIndex) {
-                setModal(true)
-                const result = Array.from(list);
-                const [removed] = result.splice(startIndex, 1);
-                result.splice(endIndex, 0, removed);
-                let automationCurrentDeflectionIndex = hasNullAutomationAtIndex(startIndex + 1, list)
-
-                setAutomationDragHandle({
-                    arr: result,
-                    automation: result[startIndex + 1].id,
-                    deflection: automationCurrentDeflectionIndex ? result[startIndex + 2].id : null
-                })
-            } else {
-                const result = Array.from(list);
-                const [removed] = result.splice(startIndex, 1);
-                result.splice(endIndex, 0, removed);
-                let automationNewIndex = hasNullAutomationAtIndex(endIndex + 1, result)
-                if (automationNewIndex) {
-                    setModal(true)
-                    let automationCurrentDeflectionIndex = hasNullAutomationAtIndex(startIndex + 1, list)
-                    setAutomationDragHandle({
-                        arr: result,
-                        automation: result[endIndex + 1].id,
-                        deflection: automationCurrentDeflectionIndex ? result[endIndex + 2].id : null
-                    })
-                } else {
-                    const get_ids = result.map((element) => {
-                        let payload_automation = {}
-                        if (element?.automation) {
-                            payload_automation = {
-                                automation: element.automation.id,
-                                output: {},
-                                data: {}
-                            };
-                        } else {
-                            payload_automation = { condition: element.condition, question: element.question, transformer: element.transformer,notification:element.notification }
-                        }
-                        return payload_automation
-                    })
-                    setAutomationStepsData(result)
-                    await updateWorkFlowStatus({ active: false, "automations": get_ids }, workflowId)
-
-                }
-            }
         }
+
     };
 
     const onDragEnd = (result) => {
@@ -424,7 +399,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             )}
                                                                             {ele?.question && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>{ele?.question}</p>
+                                                                                    <p className='text-sm font-semibold '>{makeCapital(ele?.question)}</p>
                                                                                 </>
                                                                             )}
 
