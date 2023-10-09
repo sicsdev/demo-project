@@ -105,6 +105,9 @@ const NewSidebar = ({ children }) => {
 
     const clearCookies = () => {
         const cookies = Cookies.get();
+        if (cookies.hasOwnProperty("visit")) {
+            delete cookies.visit;
+          }
         Object.keys(cookies).forEach((cookieName) => {
             Cookies.remove(cookieName);
         });

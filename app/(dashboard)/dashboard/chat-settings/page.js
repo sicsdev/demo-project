@@ -7,6 +7,7 @@ import SelectOption from '@/app/components/Common/Input/SelectOption'
 import Customize from '@/app/components/Customize/Customize'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
+import EmailHandle from '@/app/components/VerifyEmail/EmailHaandle'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
 import { AdjustmentsHorizontalIcon, BoltIcon, ChatBubbleLeftIcon, QrCodeIcon } from '@heroicons/react/24/outline'
 import { useParams, useSearchParams } from 'next/navigation'
@@ -15,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 const page = () => {
     const [pageLoading, setPageLoading] = useState(true);
+    const [tab, setTab] = useState(0)
     const [pageSubLoading, setSubLoading] = useState(true);
     const [loading, setLoading] = useState(null)
     const [basicFormData, setBasicFormData] = useState({});
@@ -141,124 +143,151 @@ const page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Chat`} icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />} />
-            <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                <>
-                    {pageSubLoading ?
-                        <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
-                            <div className="flex items-start sm:items-center  gap-2">
-                                <SkeletonLoader count={1} height={35} width={90} />
-                            </div>
-                            <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
-                                <SkeletonLoader count={1} height={35} width={100} />
-                                <SkeletonLoader count={1} height={35} width={100} />
-                            </div>
-                        </div>
-                        :
-                        <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
-                            <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
-                                <AdjustmentsHorizontalIcon className="text-primary w-5" />
-                                <p className="text-base font-medium text-[#151D23]">
-                                    {botValue?.length > 1 ? 'Select Bot' : 'Edit Settings'}
-                                </p>
-                            </div>
-                            <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
-                                <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
-                                    {botValue?.length > 1 && botValue?.map((element, key) => (
-                                        <button
-                                            onClick={(e) => selectBotHandler(element.value)}
-                                            key={key}
-                                            className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-1 w-[120px] text-center`}
-                                        > {element?.name}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    {pageLoading || state?.isLoading ?
-                        <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4 px-2 sm:px-0'>
-                            <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
-                                {[...Array(12)].map((ele) =>
-                                    <>
-                                        <div>  <SkeletonLoader count={1} height={18} width={"60%"} /></div>
-                                        <div>  <SkeletonLoader count={1} height={33} width={"90%"} /></div>
-                                    </>
-                                )}
-                            </div>
+            <div className={pageLoading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
-                            <div className='bg-[rgb(250, 249, 249)] shadow-md sm:w-[90%]'>
-                                <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4'>
-                                    <div><SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
-                                    <div>
-                                        <div>  <SkeletonLoader count={1} height={18} width={"30%"} /></div>
-                                        <div> <SkeletonLoader count={1} height={22} width={"35%"} /></div>
-                                    </div>
-                                </div>
-                                <hr className='text-gray' />
-                                <div className='p-4 flex flex-col'>
-                                    <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
-                                        <div>
-                                            <SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
-                                        <div className=' rounded-xl border border-gray p-2 w-[70%]'>
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"30%"} />
+                    <li className={` ${pageLoading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
+                        {pageLoading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                Chat Settings
+                            </span>
+                        }
+                    </li>
+                    <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                        {pageLoading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                DNS Settings
+                            </span>
+                        }
+                    </li>
+                </ul>
+            </div>
+            {tab === 0 && (
+                <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                    <>
+                        {tab === 0 && (
+                            <>
+                                {pageSubLoading ?
+                                    <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                                        <div className="flex items-start sm:items-center  gap-2">
+                                            <SkeletonLoader count={1} height={35} width={90} />
                                         </div>
-
-                                    </div>
-                                    <div className=' self-end rounded-xl border border-gray p-2 w-[70%] mt-2'>
-                                        <SkeletonLoader count={1} height={10} width={"100%"} />
-                                        <SkeletonLoader count={1} height={10} width={"100%"} />
-                                        <SkeletonLoader count={1} height={10} width={"100%"} />
-                                        <SkeletonLoader count={1} height={10} width={"30%"} />
-                                    </div>
-                                    <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
-                                        <div>
-                                            <SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
-                                        <div className=' rounded-xl border border-gray p-2 w-[70%]'>
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"100%"} />
-                                            <SkeletonLoader count={1} height={10} width={"30%"} />
+                                        <div className="w-full grid grid-cols-2 sm:grid-cols-[10%,10%] justify-end" >
+                                            <SkeletonLoader count={1} height={35} width={100} />
+                                            <SkeletonLoader count={1} height={35} width={100} />
                                         </div>
-
                                     </div>
-                                </div>
-                                <hr className='text-gray' />
-                                <div className='w-[95%] mx-auto py-2'>
-                                    <SkeletonLoader count={1} height={30} width={"100%"} />
-                                </div>
-                            </div>
-
-                        </div>
-                        :
-                        <>
-                            <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} buttonLoading={loading} DisablingButton={DisablingButton} SubmitForm={SubmitForm} />
-                            {/* <div className='flex justify-end items-center px-6 py-4'>
-                                {
-                                    loading ? (
-                                        <LoaderButton />
-                                    ) : (
+                                    :
+                                    <div className={`w-full py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>
+                                        <div className="w-full sm:w-1/4 flex items-start sm:items-center  gap-2">
+                                            <AdjustmentsHorizontalIcon className="text-primary w-5" />
+                                            <p className="text-base font-medium text-[#151D23]">
+                                                {botValue?.length > 1 ? 'Select Bot' : 'Edit Settings'}
+                                            </p>
+                                        </div>
+                                        <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
+                                            <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
+                                                {botValue?.length > 1 && botValue?.map((element, key) => (
+                                                    <button
+                                                        onClick={(e) => selectBotHandler(element.value)}
+                                                        key={key}
+                                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-1 w-[120px] text-center`}
+                                                    > {element?.name}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </>
+                        )}
+                        {pageLoading || state?.isLoading ?
+                            <div className='mt-[50px] grid grid-cols-1 sm:grid-cols-[55%,45%] mx-auto gap-6 w-full sm:w-[92%] items-center pb-4 px-2 sm:px-0'>
+                                <div className='grid grid-cols-[47%,53%] gap-2 mx-auto w-full items-center'>
+                                    {[...Array(12)].map((ele) =>
                                         <>
-                                            <Button
-                                                type={"button"}
-                                                className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                                disabled={DisablingButton()}
-                                                onClick={(e) => SubmitForm()}
-                                            >
-                                                Save
-                                            </Button>
+                                            <div>  <SkeletonLoader count={1} height={18} width={"60%"} /></div>
+                                            <div>  <SkeletonLoader count={1} height={33} width={"90%"} /></div>
                                         </>
                                     )}
-                            </div> */}
-                        </>
+                                </div>
 
-                    }
+                                <div className='bg-[rgb(250, 249, 249)] shadow-md sm:w-[90%]'>
+                                    <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4'>
+                                        <div><SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
+                                        <div>
+                                            <div>  <SkeletonLoader count={1} height={18} width={"30%"} /></div>
+                                            <div> <SkeletonLoader count={1} height={22} width={"35%"} /></div>
+                                        </div>
+                                    </div>
+                                    <hr className='text-gray' />
+                                    <div className='p-4 flex flex-col'>
+                                        <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
+                                            <div>
+                                                <SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
+                                            <div className=' rounded-xl border border-gray p-2 w-[70%]'>
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"30%"} />
+                                            </div>
 
-                    <ToastContainer />
-                </>
-            </div>
+                                        </div>
+                                        <div className=' self-end rounded-xl border border-gray p-2 w-[70%] mt-2'>
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"100%"} />
+                                            <SkeletonLoader count={1} height={10} width={"30%"} />
+                                        </div>
+                                        <div className='grid grid-cols-[10%,90%] items-center m-2 gap-4 '>
+                                            <div>
+                                                <SkeletonLoader circle={true} count={1} height={50} width={50} /></div>
+                                            <div className=' rounded-xl border border-gray p-2 w-[70%]'>
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"100%"} />
+                                                <SkeletonLoader count={1} height={10} width={"30%"} />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <hr className='text-gray' />
+                                    <div className='w-[95%] mx-auto py-2'>
+                                        <SkeletonLoader count={1} height={30} width={"100%"} />
+                                    </div>
+                                </div>
+
+                            </div>
+                            :
+                            <>
+                                {tab == 0 && (
+                                    <Customize form={false} basicFormData={basicFormData} setBasicFormData={setBasicFormData} buttonLoading={loading} DisablingButton={DisablingButton} SubmitForm={SubmitForm} />
+                                )}
+
+                            </>
+
+                        }
+
+
+                    </>
+                </div>
+            )}
+            {tab == 1 && (
+                <EmailHandle />
+            )}
+            <ToastContainer />
         </div>
     )
 }

@@ -20,6 +20,7 @@ import Swal from "sweetalert2";
 import { ToastContainer } from "react-toastify";
 import { successMessage } from "@/app/components/Messages/Messages";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+import TopBar from "@/app/components/Common/Card/TopBar";
 const Page = () => {
   const parseAddress = (address) => {
     let returned = {};
@@ -44,20 +45,24 @@ const Page = () => {
   useEffect(() => {
     if (state.data) {
       let address = parseAddress(state?.data?.enterprise?.address);
-      setBasicFormData({
-        business_name: state?.data?.enterprise?.name,
-        country: "US",
-        business_address: state?.data?.enterprise?.address,
-        business_industry: state?.data?.enterprise?.industry,
-        business_company_size: state?.data?.enterprise?.company_size,
-        ecommerce_platform: state?.data?.enterprise?.ecommerce_platform,
-        business_street: address.addrline,
-        business_city: address.city,
-        business_state: returnStateName(address.state ?? ""),
-        business_zipcode: address.zipcode,
+      setBasicFormData((prev) => {
+        return {
+          ...prev,
+          business_name: state?.data?.enterprise?.name,
+          country: "US",
+          business_address: state?.data?.enterprise?.address,
+          business_industry: state?.data?.enterprise?.industry,
+          business_company_size: state?.data?.enterprise?.company_size,
+          ecommerce_platform: state?.data?.enterprise?.ecommerce_platform,
+          business_street: address.addrline,
+          business_city: address.city,
+          business_state: returnStateName(address.state ?? ""),
+          business_zipcode: address.zipcode,
+        }
+
       });
-      
-    setUserData({
+
+      setUserData({
         business_name: state?.data?.enterprise?.name,
         country: "US",
         business_address: state?.data?.enterprise?.address,
@@ -173,25 +178,15 @@ const Page = () => {
       }
       return true;
     }
-    
+
     return false;
   }
-
+  console.log("basicFormData", basicFormData)
 
   return (
     <div style={{ whiteSpace: "normal" }}>
-      <div className="border-b border-border flex items-center justify-between sticky top-0 bg-[#fff] z-40">
-        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
-          <li className="mr-2">
-            <span
-              className={`flex justify-start gap-2 items-center  py-2 text-primary font-bold border-b-2 border-primary rounded-t-lg active dark:text-blue-500 dark:border-blue-500 group`}
-              aria-current="page"
-            >
-              <WrenchScrewdriverIcon className="h-5 w-5 text-primary" /> Billing
-              Settings
-            </span>
-          </li>
-        </ul>
+      <div className="flex justify-between gap-2 items-center">
+        <TopBar title={'Billing Settings'} />
         {isEdit == true ? (
           <>
             <p
@@ -216,6 +211,7 @@ const Page = () => {
           </>
         )}
       </div>
+
       <>
         {isEdit == true ? (
           <>
