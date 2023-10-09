@@ -25,7 +25,7 @@ const Source = () => {
         })
         const response = await getFaqQuestions(queryParam)
         if (response) {
-            const botDataArray = response?.results.map(entry => {
+            const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
                 } else {

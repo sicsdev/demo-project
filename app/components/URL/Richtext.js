@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
 
   const [editorState, setEditorState] = useState(() => {
-    if (oldContent) {
+    if (oldContent && oldContent !== 'undefined') {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       return EditorState.createWithContent(state);
@@ -24,7 +24,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
   useEffect(() => {
-    if (externalContent !== oldContent) {
+    if (externalContent && externalContent !== oldContent) {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       setEditorState(EditorState.createWithContent(state));
@@ -79,7 +79,6 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
   // }
 
   function restoreLinks(html) {
-    console.log(html, 'html')
     let pattern = /\[([^:]+):([^]+)\]/g;
     let matches = html?.match(pattern);
 
@@ -114,7 +113,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
         customStyleMap={customStyleMap}
 
         toolbar={{
-          options: ['link'],
+          options: ['link', 'image'],
           inline: {
             options: ['bold', 'italic', 'underline'],
           },
@@ -127,7 +126,14 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
           link: {
             options: ['link'],
           },
+          image: {
+            styles: {
+              maxWidth: '350px',
+              margin: 'auto', 
+            },
+          }
         }}
+
         placeholder="Start writing your content..."
       />
 
