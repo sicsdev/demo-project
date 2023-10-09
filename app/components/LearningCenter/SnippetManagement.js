@@ -13,7 +13,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
-
+    const [showError, setShowError] = useState(false)
 
     // Modals for text editor.
     const [showHyperlinkModal, setShowHyperlinkModal] = useState(false)
@@ -83,6 +83,16 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
         );
     }
 
+    const handleMouseEnter = () => {
+        if (DisablingButton()) {
+            setShowError(true);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setShowError(false);
+    };
+
 
     return (
         <>
@@ -98,9 +108,18 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 <XCircleIcon className='h-4 w-4' />
                                 Close
                             </button>
-                            <button onClick={(e) => handleSubmit({ type: 'SNIPPET' })} type="button" className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none" disabled={DisablingButton() || loading === true}>
-                                {loading ? "Loading..." : "Save and close"}
-                            </button>
+
+                            <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                                <button
+                                    onClick={() => handleSubmit({ type: 'SNIPPET' })}
+                                    type="button"
+                                    className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                    disabled={DisablingButton() || loading === true}
+
+                                >
+                                    {loading ? "Loading..." : "Save and close"}
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -174,7 +193,9 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
 
 
-
+                            {showError && <div className='flex justify-center w-100'>
+                                <small className='text-red'>Please fill content and title to save.</small>
+                            </div>}
 
                         </div>
                     </div>
