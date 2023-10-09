@@ -52,7 +52,7 @@ const GetStarted = () => {
     description: [],
     logo: null,
     policy_name: null,
-    question: "deflection",
+    question: "Deflection",
     policy_description: null,
     policy_exceptions: null,
     bots: [],
@@ -601,7 +601,7 @@ const GetStarted = () => {
     setWorkFlowFormData((prev) => {
       return {
         ...prev,
-        question: '',
+        question: 'Deflection',
         transformer: '',
         subject:"Subject",
         recipient_email:"test@test.com"
