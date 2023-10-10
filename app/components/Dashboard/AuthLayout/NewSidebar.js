@@ -275,12 +275,12 @@ const NewSidebar = ({ children }) => {
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                {
-                    href: "/dashboard/verify-email",
-                    name: "DNS Settings",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
+                // {
+                //     href: "/dashboard/verify-email",
+                //     name: "DNS Settings",
+                //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
                 {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
@@ -440,12 +440,12 @@ const NewSidebar = ({ children }) => {
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                {
-                    href: "/dashboard/verify-email",
-                    name: "DNS Settings",
-                    icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
+                // {
+                //     href: "/dashboard/verify-email",
+                //     name: "DNS Settings",
+                //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
                 {
                     href: "https://docs.usetempo.ai/reference",
                     name: "API References",
