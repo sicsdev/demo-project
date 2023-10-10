@@ -655,6 +655,21 @@ const Logs = () => {
     }
   };
 
+
+
+  const conditionalRowStyles = [
+    {
+      when: row => row.id === idOfOpenConversation,
+      style: {
+        backgroundColor: '#3498db2f',
+        color: 'black',
+        '&:hover': {
+          cursor: 'pointer',
+        },
+      },
+    },
+  ];
+
   return (
     <>
       <div>
@@ -674,44 +689,44 @@ const Logs = () => {
           />
         )}
 
-     
-          <>
-            {loading === true || state.isLoading === true ? (
-              <div className="grid grid-cols-[74%,10%,1%,15%] my-2">
-                <div></div>
-                <SkeletonLoader count={1} height={30} width={"100%"} />
-                <div></div>
-                <SkeletonLoader height={30} width={"100%"} />
-              </div>
-            ) : (
-              <div className='block  sm:flex justify-end items-center mt-2 pt-2'>
-                <div>
-                  <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                  <div className="relative w-full sm:w-[unset]">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                      </svg>
-                    </div>
-                    <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+
+        <>
+          {loading === true || state.isLoading === true ? (
+            <div className="grid grid-cols-[74%,10%,1%,15%] my-2">
+              <div></div>
+              <SkeletonLoader count={1} height={30} width={"100%"} />
+              <div></div>
+              <SkeletonLoader height={30} width={"100%"} />
+            </div>
+          ) : (
+            <div className='block  sm:flex justify-end items-center mt-2 pt-2'>
+              <div>
+                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div className="relative w-full sm:w-[unset]">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                      <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
                   </div>
+                  <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
-                {
-                  exportLoader === true ?
-                    <LoaderButton name={"Exporting"} className={`inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
-                    <Button
-                      type={"button"}
-                      className="inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                      disabled={selectedBot === 'Select'}
-                      onClick={(e) => exportCsvHandler(e)}
-                    >
-                      Export CSV
-                    </Button>
-                }
               </div>
-            )}
-          </>
-        
+              {
+                exportLoader === true ?
+                  <LoaderButton name={"Exporting"} className={`inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                  <Button
+                    type={"button"}
+                    className="inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    disabled={selectedBot === 'Select'}
+                    onClick={(e) => exportCsvHandler(e)}
+                  >
+                    Export CSV
+                  </Button>
+              }
+            </div>
+          )}
+        </>
+
         {searchLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
@@ -758,13 +773,13 @@ const Logs = () => {
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
                 <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
-                <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
-                  <PlusSmallIcon className="h-3 w-3 text-black" />
-                  <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18"   fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                    <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                  </svg>
-                </span>
-              </p>
+                  <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                    <PlusSmallIcon className="h-3 w-3 text-black" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                      <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                    </svg>
+                  </span>
+                </p>
               ) : (
                 <>
                   {additionalData.conversations_avg > 0 && isFinite(additionalData.conversations_avg) && (
@@ -794,7 +809,7 @@ const Logs = () => {
               }
 
               {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
-              <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
+                <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                     <PlusSmallIcon className="h-3 w-3 text-black" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
@@ -835,14 +850,14 @@ const Logs = () => {
                     + N/A
                   </span>
                 </p> :
-                   <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
-                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
-                     <PlusSmallIcon className="h-3 w-3 text-black" />
-                     <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
-                       <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
-                     </svg>
-                   </span>
-                 </p> 
+                  <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
+                    <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
+                      <PlusSmallIcon className="h-3 w-3 text-black" />
+                      <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
+                        <path d="M5.68 5.792 7.345 7.75 5.681 9.708a2.75 2.75 0 1 1 0-3.916ZM8 6.978 6.416 5.113l-.014-.015a3.75 3.75 0 1 0 0 5.304l.014-.015L8 8.522l1.584 1.865.014.015a3.75 3.75 0 1 0 0-5.304l-.014.015L8 6.978Zm.656.772 1.663-1.958a2.75 2.75 0 1 1 0 3.916L8.656 7.75Z" />
+                      </svg>
+                    </span>
+                  </p>
               ) : (
                 <>
                   {additionalData.average > 0 && isFinite(additionalData.average) && (
@@ -1101,6 +1116,8 @@ const Logs = () => {
                 }
                 columns={columns}
                 data={conversationData}
+                conditionalRowStyles={conditionalRowStyles}
+
               />
             )}
           </>
@@ -1110,7 +1127,7 @@ const Logs = () => {
           <>
             <div
               className="rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
-              onClick={() => setShowChat(false)}
+              onClick={() => { setShowChat(false); setIdOfOpenConversation('') }}
             >
               {" "}
             </div>
@@ -1261,7 +1278,7 @@ const Logs = () => {
 
 
 
-      </div>
+      </div >
       <ToastContainer />
     </>
   );

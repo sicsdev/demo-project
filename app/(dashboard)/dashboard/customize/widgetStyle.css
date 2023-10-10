@@ -83,7 +83,7 @@
   align-items: center;
 }
 
-#chatbot_preview .chat_content {
+#chatbot_preview .chat_content-logs {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
