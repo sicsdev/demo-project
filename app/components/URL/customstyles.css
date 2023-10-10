@@ -14,3 +14,48 @@
 .rdw-editor-main {
     min-height: 200px !important;
 }
+
+.public-DraftEditorPlaceholder-root {
+    font-size: 12px;
+    color: gray;
+}
+
+
+
+
+
+.rdw-editor-toolbar {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.rdw-option-wrapper {
+    margin-right: 8px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+
+.rdw-option-wrapper:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+
+.rdw-option-active {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+
+.rdw-link-modal {
+    border-radius: 4px;
+}
+
+.rdw-editor-main {
+    font-size: 14px;
+    color: #495057;
+}
