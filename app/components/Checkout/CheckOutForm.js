@@ -103,7 +103,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             "chat_title": 'Tempo Agent',
             "payment_platform": "Order",
             "ticketing_platform": "Other",
-            "cancellation_tolerance": 0,
             "refund_tolerance": 0,
             "ecommerce_platform": 'Other',  
           }
