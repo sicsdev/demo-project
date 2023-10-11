@@ -243,7 +243,6 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         if (!result.destination) {
             return;
         }
-
         reorder(
             stepData,
             result.source.index,

@@ -260,265 +260,268 @@ const QuickStart = () => {
     }, [user])
     return (
 
-        <>
-            {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
+        <>      
+            {integrations && workflow && (
+                <>
+                    {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
 
-                <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                    <div
-                        className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""
-                            }`}
-                    >
-                        <div className="flex items-center  gap-2">
-                            {skeltonLoading ?
-                                <SkeletonLoader className="mr-2" count={1} height={35} width={120} />
+                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div
+                                className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""
+                                    }`}
+                            >
+                                <div className="flex items-center  gap-2">
+                                    {skeltonLoading ?
+                                        <SkeletonLoader className="mr-2" count={1} height={35} width={120} />
+                                        :
+                                        <BoltIcon className="text-[#FF822D] w-5" />
+                                    }
+                                    <p className="text-base font-medium text-[#151D23]">
+                                        {skeltonLoading ?
+                                            <SkeletonLoader count={1} height={20} width="80%" />
+                                            :
+                                            "Quick Start"
+                                        }
+                                    </p>
+                                </div>
+
+                                <div className="flex items-center gap-4 ">
+                                    {skeltonLoading ?
+                                        <SkeletonLoader count={1} height={35} width={100} />
+                                        :
+                                        <button
+
+                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
+
+                                            onClick={(e) => ExpandChange()}
+
+                                        >
+
+                                            {isExpand === true ? (
+
+                                                <>
+
+                                                    <p className="hidden sm:block "> Collapse</p>
+
+                                                    <ChevronUpIcon className="w-5 h-5" />
+
+                                                </>
+
+                                            ) : (
+
+                                                <>
+
+                                                    <p className="hidden sm:block"> Expand</p>
+
+
+
+                                                    <ChevronDownIcon className="w-5 h-5" />
+
+                                                </>
+
+                                            )}
+
+                                        </button>
+                                    }
+
+                                </div>
+
+                            </div>
+                            {user && user?.enterprise?.slug_domain === "" ?
+                                <div
+
+                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
+
+                                        }`}
+
+                                    style={{ transition: `all 0.2s ease-out 0s` }}
+
+                                >
+                                    {user?.enterprise?.country === '' && (
+                                        <p className="px-6 text-[#151D23] text-sm pb-5">
+
+                                            Please enter your address first in business profile.
+
+                                        </p>
+                                    )}
+
+                                    {quickStartData1?.map((ele, key) => (
+
+                                        <div key={key}>
+                                            {user?.enterprise?.country === '' && key === 3 ? null :
+                                                <div key={key}>
+
+                                                    {setHideShow(key, ele) === true && (
+
+                                                        ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                            <div
+
+                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+
+                                                                key={key}
+
+                                                            >
+
+                                                                <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+
+                                                                    <div className="flex gap-2  items-start">
+
+                                                                        <span>{ele?.icon}</span>
+
+                                                                        <div className="">
+
+                                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                                {ele?.title}
+
+                                                                            </h3>
+
+                                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+
+                                                                                {ele?.content}
+
+                                                                            </p>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+
+                                                                        <Link
+
+                                                                            href={ele?.link}
+
+                                                                            className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                        >
+                                                                            {ele?.buttonName}
+
+                                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                        </Link>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        )
+
+
+                                                    )}
+
+                                                </div>
+                                            }
+                                        </div>))}
+
+                                </div>
                                 :
-                                <BoltIcon className="text-[#FF822D] w-5" />
-                            }
-                            <p className="text-base font-medium text-[#151D23]">
-                                {skeltonLoading ?
-                                    <SkeletonLoader count={1} height={20} width="80%" />
-                                    :
-                                    "Quick Start"
-                                }
-                            </p>
-                        </div>
 
-                        <div className="flex items-center gap-4 ">
-                            {skeltonLoading ?
-                                <SkeletonLoader count={1} height={35} width={100} />
-                                :
-                                <button
+                                <div
 
-                                    className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60"
+                                    className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
 
-                                    onClick={(e) => ExpandChange()}
+                                        }`}
+
+                                    style={{ transition: `all 0.2s ease-out 0s` }}
 
                                 >
 
-                                    {isExpand === true ? (
+                                    <p className="px-6 text-[#151D23] text-sm pb-5">
+                                        {skeltonLoading ?
+                                            <SkeletonLoader count={1} height={20} width={100} />
+                                            :
+                                            "A few essential steps to get you up and running with Tempo immediately."
+                                        }
 
-                                        <>
+                                    </p>
 
-                                            <p className="hidden sm:block "> Collapse</p>
+                                    {quickStartData?.map((ele, key) => (
 
-                                            <ChevronUpIcon className="w-5 h-5" />
-
-                                        </>
-
-                                    ) : (
-
-                                        <>
-
-                                            <p className="hidden sm:block"> Expand</p>
-
-
-
-                                            <ChevronDownIcon className="w-5 h-5" />
-
-                                        </>
-
-                                    )}
-
-                                </button>
-                            }
-
-                        </div>
-
-                    </div>
-                    {user && user?.enterprise?.slug_domain === "" ?
-                        <div
-
-                            className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
-
-                                }`}
-
-                            style={{ transition: `all 0.2s ease-out 0s` }}
-
-                        >
-                            {user?.enterprise?.country === '' && (
-                                <p className="px-6 text-[#151D23] text-sm pb-5">
-
-                                    Please enter your address first in business profile.
-
-                                </p>
-                            )}
-
-                            {quickStartData1?.map((ele, key) => (
-
-                                <div key={key}>
-                                    {user?.enterprise?.country === '' && key === 3 ? null :
-                                        <div key={key}>
+                                        <div key={ele}>
 
                                             {setHideShow(key, ele) === true && (
-
                                                 ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                     <div
-
                                                         className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
-
                                                         key={key}
-
                                                     >
 
-                                                        <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                        <div className="px-6 sm:flex justify-between items-center sm:gap-0">
 
-                                                            <div className="flex gap-2  items-start">
+                                                            <div className="sm:w-[70%] flex gap-2  items-start">
 
-                                                                <span>{ele?.icon}</span>
+                                                                <span>
+                                                                    {skeltonLoading ?
+                                                                        <SkeletonLoader count={1} height={30} width={30} />
+                                                                        : <>
+                                                                            {ele?.icon}
+                                                                        </>
+                                                                    }
+                                                                </span>
 
                                                                 <div className="">
 
                                                                     <h3 className="text-[#151D23] text-xs !font-[500]">
-
-                                                                        {ele?.title}
-
+                                                                        {skeltonLoading ?
+                                                                            <SkeletonLoader count={1} height={30} width={220} />
+                                                                            : <>
+                                                                                {ele?.title}
+                                                                            </>
+                                                                        }
                                                                     </h3>
 
                                                                     <p className=" text-xs pt-1 text-[#151d23cc]">
-
-                                                                        {ele?.content}
-
+                                                                        {skeltonLoading ?
+                                                                            <SkeletonLoader count={2} height={20} width={440} />
+                                                                            :
+                                                                            <>
+                                                                                {ele?.content}
+                                                                            </>
+                                                                        }
                                                                     </p>
 
                                                                 </div>
 
                                                             </div>
 
-                                                            <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+                                                            <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
+                                                                {skeltonLoading ?
+                                                                    <SkeletonLoader count={1} height={30} width={80} />
+                                                                    : <>
+                                                                        <Link
 
-                                                                <Link
+                                                                            href={ele?.link}
 
-                                                                    href={ele?.link}
+                                                                            className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
-                                                                    className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                        >
+                                                                            {ele?.buttonName}
 
-                                                                >
-                                                                    {ele?.buttonName}
+                                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
 
-                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                </Link>
-
+                                                                        </Link>
+                                                                    </>
+                                                                }
                                                             </div>
 
                                                         </div>
 
                                                     </div>
                                                 )
-
-
                                             )}
 
                                         </div>
-                                    }
-                                </div>))}
 
-                        </div>
-                        :
-
-                        <div
-
-                            className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
-
-                                }`}
-
-                            style={{ transition: `all 0.2s ease-out 0s` }}
-
-                        >
-
-                            <p className="px-6 text-[#151D23] text-sm pb-5">
-                                {skeltonLoading ?
-                                    <SkeletonLoader count={1} height={20} width={100} />
-                                    :
-                                    "A few essential steps to get you up and running with Tempo immediately."
-                                }
-
-                            </p>
-
-                            {quickStartData?.map((ele, key) => (
-
-                                <div key={ele}>
-
-                                    {setHideShow(key, ele) === true && (
-                                        ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
-                                            <div
-                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
-                                                key={key}
-                                            >
-
-                                                <div className="px-6 sm:flex justify-between items-center sm:gap-0">
-
-                                                    <div className="sm:w-[70%] flex gap-2  items-start">
-
-                                                        <span>
-                                                            {skeltonLoading ?
-                                                                <SkeletonLoader count={1} height={30} width={30} />
-                                                                : <>
-                                                                    {ele?.icon}
-                                                                </>
-                                                            }
-                                                        </span>
-
-                                                        <div className="">
-
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                {skeltonLoading ?
-                                                                    <SkeletonLoader count={1} height={30} width={220} />
-                                                                    : <>
-                                                                        {ele?.title}
-                                                                    </>
-                                                                }
-                                                            </h3>
-
-                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                {skeltonLoading ?
-                                                                    <SkeletonLoader count={2} height={20} width={440} />
-                                                                    :
-                                                                    <>
-                                                                        {ele?.content}
-                                                                    </>
-                                                                }
-                                                            </p>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
-                                                        {skeltonLoading ?
-                                                            <SkeletonLoader count={1} height={30} width={80} />
-                                                            : <>
-                                                                <Link
-
-                                                                    href={ele?.link}
-
-                                                                    className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                >
-                                                                    {ele?.buttonName}
-
-                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                </Link>
-                                                            </>
-                                                        }
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        )
-                                    )}
+                                    ))}
 
                                 </div>
-
-                            ))}
-
+                            }
                         </div>
                     }
-                </div>
-            }
-
+                </>
+            )}
             {recentlyView && (
                 <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                     <div className='py-4 px-6'>
