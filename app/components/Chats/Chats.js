@@ -8,10 +8,11 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
+import ApiCallInfo from './ApiCallInfo';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -251,18 +252,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         </button>
                                                                     </div>
                                                                 </div>
-                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                    <small><b>Sources</b></small><br />
-                                                                    {
-                                                                        element?.knowledge?.length ? element?.knowledge?.map(item => (
+                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                    <div>
+                                                                        <small><b>Sources</b></small><br />
+                                                                        {
+                                                                            element?.knowledge?.length ? element?.knowledge?.map(item => (
 
-                                                                            <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
-                                                                        ))
+                                                                                <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                            ))
 
-                                                                            :
-                                                                            <small>LLM</small>
-                                                                    }
+                                                                                :
+                                                                                <small>LLM</small>
+                                                                        }
+                                                                    </div>
+                                                                    <div>
+                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                    </div>
                                                                 </div>
+                                                                {<div>
+
+                                                                </div>}
                                                             </>
                                                         }
 
@@ -281,12 +290,17 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
                                                                 <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
                                                             </div>
-                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                    <small>
-                                                                        <b>Sources</b>
-                                                                        <br />
-                                                                        Custom
-                                                                    </small>
+                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                    <div>
+                                                                        <small>
+                                                                            <b>Sources</b>
+                                                                            <br />
+                                                                            Custom
+                                                                        </small>
+                                                                    </div>
+                                                                    <div>
+                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                    </div>
                                                                 </div>
                                                             </>
                                                         }
@@ -301,14 +315,18 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         </button>
                                                                     )}
                                                                 </div>
-                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                    <div>
+                                                                        <small><b>Sources</b><br /></small>
+                                                                        {/* {element?.workflows[0]?.information?.name} */}
 
-                                                                    <small><b>Sources</b><br /></small>
-                                                                    {/* {element?.workflows[0]?.information?.name} */}
-
-                                                                    {element?.workflows?.map(workflow => (
-                                                                        <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
-                                                                    ))}
+                                                                        {element?.workflows?.map(workflow => (
+                                                                            <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                        ))}
+                                                                    </div>
+                                                                    <div>
+                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                    </div>
                                                                 </div>
                                                             </>
                                                         }
@@ -390,12 +408,18 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                     })}
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                    <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                        <small><b>Sources</b><br /></small>
-                                                                        {/* {element?.workflows[0]?.information?.name} */}
-                                                                        {element?.workflows?.map(workflow => (
-                                                                            <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
-                                                                        ))}
+                                                                    <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                        <div>
+                                                                            <small><b>Sources</b><br /></small>
+                                                                            {/* {element?.workflows[0]?.information?.name} */}
+                                                                            {element?.workflows?.map(workflow => (
+                                                                                <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                            ))}
+                                                                        </div>
+                                                                        <div>
+                                                                            {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                        </div>
+
                                                                     </div>
                                                                 </div>
 
