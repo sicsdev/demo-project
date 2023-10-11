@@ -43,6 +43,13 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
     });
   };
 
+  const sendObjects = (obj) => {
+    if (obj?.updatedSchedule) {
+      delete obj.updatedSchedule
+    }
+    return obj
+  }
+
   const handleDeleteHour = (day, index) => {
     const dayArray = [...schedule[day]];
     dayArray.splice(index, 1);
@@ -72,7 +79,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
       };
     });
   };
-
+  console.log("schedule", schedule)
   const handleCheckbox = (day) => {
     if (schedule[day].length === 0) {
       const dayArray = [...schedule[day]];
@@ -183,7 +190,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
           <div className=" p-3  ">
             <h3 class="text-sm font-semibold my-3">Set your weekly hours</h3>
             <div>
-              {Object.keys(schedule).map((day) => (
+              {Object.keys(sendObjects(schedule)).map((day) => (
                 <>
                   <div
                     key={day}

@@ -139,8 +139,8 @@ const Embed = ({ form = true, setTotalRecords }) => {
       ) : (
         <>
           {state.botData.isLoading === true ? (
-            <Loading />
-          ) : (
+            null
+          ) : (               
             <>
               <div className="grid grid-cols-1 sm:pb-3 md:grid-cols-2 lg:grid-cols-2">
                 {detailsData &&
@@ -158,7 +158,7 @@ const Embed = ({ form = true, setTotalRecords }) => {
 
               {state.botData.error && (
                 <span className="sm text-danger fixed left-[50%] top-[50%] font-semibold text-center">
-                  {state.botData.error}
+                  {state.botData.error}   
                 </span>
               )}
             </>
