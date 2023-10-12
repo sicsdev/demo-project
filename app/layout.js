@@ -12,7 +12,6 @@ import dynamic from 'next/dynamic';
 
 const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider'), {
   ssr: false,
-  loading: () => <p>Loading...</p>
 });
 
 const inter = Inter({ subsets: ["latin"] });
