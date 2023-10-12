@@ -1686,8 +1686,3 @@ body .invite-email input[type="email"]:focus,
     font-size: 16px !important;
 }
 }
-
-
-.sidebar-wrapper-scroller ul.pt-1.rounded-lg li, ul.pt-1.rounded-lg li a {
-  background: transparent !important;
-}

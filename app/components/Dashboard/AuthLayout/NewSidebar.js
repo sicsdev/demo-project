@@ -544,7 +544,7 @@ const NewSidebar = ({ children }) => {
                                             {pathname.includes(ele.href) && (
                                                 <div className={`${!collaps && ("p-2")} bg-[#232D32]`}>
                                                     {ele.list.map((item, indexItem) =>
-                                                        <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                                        <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc] bg-transparent'
                                                             } mt-2`} >
                                                             <>
 
@@ -581,7 +581,7 @@ const NewSidebar = ({ children }) => {
 
 
                                         :
-                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc] bg-transparent'
                                             }`}>
                                             <>
 
@@ -634,7 +634,7 @@ const NewSidebar = ({ children }) => {
             );
         }
         return (
-            <li key={key} className={`p-2 hover:bg-sidebar-hover w-full rounded-lg ${pathname === element.href && "bg-sidebar-hover"
+            <li key={key} className={`p-2 hover:bg-sidebar-hover w-full rounded-lg ${pathname === element.href ? "bg-sidebar-hover" : 'bg-transparent'
                 }`}>
                 <Link
                     onClick={() => {
