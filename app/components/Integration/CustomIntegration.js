@@ -16,10 +16,11 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     const [customFields, setCustomFields] = useState(formData ?? {});
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
+    console.log("integrationFormData",integrationFormData)
     const [payloadData, setPayloadData] = useState({
         name: integrationFormData?.name,
         type: integrationFormData?.type,
-        id: integrationFormData?.integration_data?.id || null,
+        id: integrationFormData?.id || null,
         http_base: integrationFormData?.http_base,
         http_auth_scheme: integrationFormData?.http_auth_scheme,
         data: integrationFormData?.data,
