@@ -127,7 +127,13 @@ const Page = () => {
             <>
                 {state?.data?.enterprise && (
                     <>
-                        <h1 className='pl-2 text-xl font-semibold'>Your Workflows</h1>
+                        <h1 className='pl-2 text-xl font-semibold'>
+                            {skeletonloading ?
+                                <SkeletonLoader count={1} height={30} width={150} />
+                                :
+                                "Your Workflows"
+                            }
+                        </h1>
                         <div className={skeletonloading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
