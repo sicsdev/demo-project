@@ -551,7 +551,7 @@ const NewSidebar = ({ children }) => {
                                                                 <Link
                                                                     href={item.href}
                                                                     onClick={() => handlerclosemenu(item.href)}
-                                                                    className={`p-2 flex items-center justify-center`}
+                                                                    className={`p-2 flex items-center justify-center !bg-transparent`}
                                                                 >
                                                                     <div class="relative">
                                                                         {item.icon}
@@ -589,7 +589,7 @@ const NewSidebar = ({ children }) => {
                                                     ? <Link
                                                         href={ele.href}
                                                         onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center`}
+                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
                                                         target="_blank"
                                                     >
                                                         {ele.icon}
@@ -603,7 +603,7 @@ const NewSidebar = ({ children }) => {
                                                     <Link
                                                         href={ele.href}
                                                         onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center`}
+                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
                                                     >
                                                         <div class="relative">
                                                             {ele.icon}
@@ -642,7 +642,7 @@ const NewSidebar = ({ children }) => {
                         handlerclosemenu(element.href);
                     }}
                     href={element.href}
-                    className={`flex items-center  text-gray-900 rounded-lg `}
+                    className={`flex items-center  text-gray-900 rounded-lg !bg-transparent`}
                 >
                     <div className="relative">
                         {element.icon}
