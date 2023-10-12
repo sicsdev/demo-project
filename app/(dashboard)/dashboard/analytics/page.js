@@ -192,7 +192,7 @@ const Logs = () => {
     const { totalConversations, humanHandoffs } = state;
     const deflectionRate = (totalConversations - humanHandoffs) / totalConversations;
     return (deflectionRate * 100).toFixed(1); // You can format the result as needed
-};
+  };
 
 
   const firstTimeAnalytics = async (bot) => {
@@ -664,15 +664,12 @@ const Logs = () => {
   return (
     <>
       <div>
-          <TopBar
-            title={` Logs`}
-            icon={<QueueListIcon className="h-5 w-5 text-primary" />}
-            isBackButton={false}
-            backButtonUrl={`/dashboard`}
-          />
-        
-
-
+        <TopBar
+          title={` Logs`}
+          icon={<QueueListIcon className="h-5 w-5 text-primary" />}
+          isBackButton={false}
+          backButtonUrl={`/dashboard`}
+        />
         <>
           {loading === true || state.isLoading === true ? (
             <div className="grid grid-cols-[74%,10%,1%,15%] my-2">
@@ -1110,7 +1107,9 @@ const Logs = () => {
           <>
             <div
               className="rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
-              onClick={() => { setShowChat(false); setIdOfOpenConversation('') }}
+              onClick={() => {
+                router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('')
+              }}
             >
               {" "}
             </div>
@@ -1126,7 +1125,10 @@ const Logs = () => {
                 <div className="flex justify-between gap-2 items-center">
 
                   <div className="flex justify-end gap-2">
-                    <div className="cursor-pointer" onClick={(e) => setShowChat(false)}>
+                    <div className="cursor-pointer" onClick={(e) => {
+                      router.push('/dashboard/analytics')
+                      setShowChat(false)
+                    }}>
                       <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
                     </div>
                   </div>
