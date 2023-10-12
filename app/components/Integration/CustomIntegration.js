@@ -125,7 +125,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                 setIntegrationform(false);
                 successMessage(message);
             } else {
-                errorMessage(configureIntegration.response.data.error);
+                errorMessage('Please enter valid credentials');
             }
         } catch (error) {
             setLoading(false);
