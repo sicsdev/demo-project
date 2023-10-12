@@ -249,8 +249,8 @@ const page = () => {
                             <SkeletonLoader
                                 className="mr-2"
                                 count={1}
-                                height={30}
-                                width={60}
+                                height={20}
+                                width={100}
                             />
                         ) : (
                             <span
@@ -273,8 +273,8 @@ const page = () => {
                             <SkeletonLoader
                                 className="mr-2"
                                 count={1}
-                                height={30}
-                                width={60}
+                                height={20}
+                                width={100}
                             />
                         ) : (
                             <span
