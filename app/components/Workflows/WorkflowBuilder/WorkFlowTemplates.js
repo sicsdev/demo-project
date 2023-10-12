@@ -13,6 +13,7 @@ import Button from '../../Common/Button/Button';
 
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow }) => {
     const [data, setData] = useState([]);
+    const [originalData, setOriginalData] = useState([]);
     const [search, setSearch] = useState("")
     const router = useRouter();
     const [urls, setUrls] = useState([])
@@ -190,6 +191,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
         setUrls(array_of_urls)
         setData(result);
+        setOriginalData(result)
     }
 
     const customStyles = {
@@ -203,7 +205,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const handleChange = (e) => {
         setSearch(e.target.value)
-        const workflowOptionsfilter = data?.filter(
+        const workflowOptionsfilter = originalData?.filter(
             (item) =>
                 item?.name?.toLowerCase().includes(e.target.value.toLowerCase())
         );
@@ -368,7 +370,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     <SkeletonLoader count={1} height={30} width="70%" />
                                                     :
                                                     <>
-                                                        {makeCapital(item.name)}
+                                                      {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
                                                     </>
                                                 }</h2>
                                             <p className='text-xs text-[#151d23cc] mt-1'>

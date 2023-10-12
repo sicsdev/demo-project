@@ -78,6 +78,7 @@ const page = () => {
                 name: title
             };
         });
+        mergedArray.sort((a, b) => a.name.localeCompare(b.name));
         setBotValue(mergedArray);
         setSelectedBot(mergedArray[0].value)
         getBotInfo(mergedArray[0].value);
