@@ -35,7 +35,13 @@ const Page = () => {
         dispatch(fetchWorkflows());
     }
     useEffect(() => {
-        if (!workflowState?.data?.results?.some(e => e.active === true)) { setTab(1) } else { setTab(0) } // If there is no active workflows, setTab to draft section.
+        if (tab === 0) {
+            if (!workflowState?.data?.results?.some(e => e.active === true)) {
+                setTab(1)
+            } else {
+                setTab(0)
+            } // If there is no active workflows, setTab to draft section.
+        }
     }, [workflowState?.data])
 
     useEffect(() => {
