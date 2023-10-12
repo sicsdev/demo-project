@@ -664,21 +664,13 @@ const Logs = () => {
   return (
     <>
       <div>
-        {showChat === true ? (
-          <TopBar
-            title={`Chats Chat Logs`}
-            icon={<QueueListIcon className="h-5 w-5 text-primary" />}
-            isBackButton={true}
-            backButtonUrl={`/dashboard`}
-          />
-        ) : (
           <TopBar
             title={` Logs`}
             icon={<QueueListIcon className="h-5 w-5 text-primary" />}
             isBackButton={false}
             backButtonUrl={`/dashboard`}
           />
-        )}
+        
 
 
         <>
@@ -1019,7 +1011,7 @@ const Logs = () => {
                       type="date"
                       id="created__gte"
                       name="created__gte"
-                      className="w-full border rounded-[4px] p-[7px] mt-2 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                     />
                     <div onClick={() => handleCleanDates("created__gte")}>
                       {selectedFilters?.created__gte !== "all" && (
@@ -1045,7 +1037,7 @@ const Logs = () => {
                       type="date"
                       id="created__lte"
                       name="created__lte"
-                      className="w-full p-[7px] border rounded-[4px] mt-2 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                     />
                     <div onClick={() => handleCleanDates("created__lte")}>
                       {selectedFilters?.created__lte !== "all" && (
