@@ -4,10 +4,11 @@ import { DocumentTextIcon, LinkIcon, PaperClipIcon } from '@heroicons/react/24/o
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
-import { createNewKnowledge } from '@/app/API/pages/Knowledge'
+import { createNewKnowledge, getFaqQuestions } from '@/app/API/pages/Knowledge'
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+import { fetchBot } from '../store/slices/botIdSlice'
 
-const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, setBasicFormData,getDataWithFilters }) => {
+const UpperBasicKnowledge = ({ questions,setCheck, basicFormData, search, handleChange, setBasicFormData,getDataWithFilters ,getQuestionsData}) => {
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createModal, setCreateModal] = useState(false)
     const [formData, setFormData] = useState({})
@@ -89,6 +90,7 @@ const UpperBasicKnowledge = ({ questions, basicFormData, search, handleChange, s
                 updatedFormData.data.total.external = basicFormData.external + 1;
                 setBasicFormData(updatedFormData);
             }
+            getQuestionsData()
             setCreateModal(false)
             setLoading(false)
             setCreateOptions(null)
