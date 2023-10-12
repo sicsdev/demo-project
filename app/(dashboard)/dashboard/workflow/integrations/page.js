@@ -31,6 +31,7 @@ const Page = () => {
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([]);
   const [integrationTiles, setIntegrationsTiles] = useState([]);
+  const [originalData, setOriginalData] = useState([])
   const [dataLoader, setDataLoader] = useState(true);
   const [suggestModal, setSuggestModal] = useState(false);
   const [integrationModal, setIntegrationModal] = useState(false);
@@ -179,6 +180,20 @@ const Page = () => {
               grayscale: false,
               tiles: updateArray
             }, ...sortedData]);
+          setOriginalData([
+            {
+              key: "CUSTOM",
+              title: "Custom",
+              grayscale: false,
+              tiles: updateArrayCustom
+            }
+            , {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray
+            }, ...sortedData]);
+            setFixeData(sortedData);  
         } else {
 
 
@@ -188,9 +203,17 @@ const Page = () => {
             grayscale: false,
             tiles: updateArray
           }, ...sortedData]);
+          setOriginalData([{
+            key: "POPULAR",
+            title: "Popular",
+            grayscale: false,
+            tiles: updateArray
+          }, ...sortedData]);
           setFixeData(sortedData);
         }
+        console.log(sortedData)
       }
+
       setDataLoader(false);
     } catch (error) {
       setDataLoader(false);
@@ -238,30 +261,21 @@ const Page = () => {
 
 
   const handleInput = (e) => {
-    const { value } = e.target;
-    let filteredTiles = [];
+    const inputValue = e.target.value.toLowerCase();
     const filteredData = fixData
       .map((category) => {
-        if (value !== "") {
-          if (!filteredTiles.length) {
-            filteredTiles = category.tiles.filter((tile) =>
-              tile.name.toLowerCase().includes(value)
-            );
-            return filteredTiles.length > 0
-              ? { ...category, tiles: filteredTiles }
-              : null;
-          }
-        } else {
-          filteredTiles = category.tiles.filter((tile) =>
-            tile.name.toLowerCase().includes(value)
-          );
-          return filteredTiles.length > 0
-            ? { ...category, tiles: filteredTiles }
-            : null;
-        }
+        const filteredTiles = category.tiles.filter((tile) =>
+          tile.name.toLowerCase().includes(inputValue)
+        );
+        return filteredTiles.length > 0
+          ? { ...category, tiles: filteredTiles }
+          : null;
       })
-      .filter(Boolean);
-    setIntegrationsTiles(filteredData);
+      .filter(item => item !== null); // More explicit than .filter(Boolean)
+
+    setIntegrationsTiles(filteredData); 
+
+      
   };
 
   return (
@@ -414,13 +428,13 @@ const Page = () => {
 
         <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
           <div className="my-2">
-          <ConfigureIntegration
-            fetchIntegrations={fetchIntegrations}
-            setShow={setIntegrationModal}
-            mode={"add"}
-            integrationRecord={{}}
-            type={"custom"}
-          />
+            <ConfigureIntegration
+              fetchIntegrations={fetchIntegrations}
+              setShow={setIntegrationModal}
+              mode={"add"}
+              integrationRecord={{}}
+              type={"custom"}
+            />
           </div>
         </SideModal>
       ) : (
