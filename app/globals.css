@@ -520,6 +520,7 @@ select.custom-select::-ms-expand {
 select.custom-select {
   /* height: 45px !important; */
   background-color: #fff;
+  margin-top: -7px;
 }
 
 .trytempo a {
@@ -1477,10 +1478,18 @@ div[data-column-id="Action"] {
     display: none;
   }
 
-  .wrap-table100 table tbody tr {
+  /* .wrap-table100 table tbody tr {
     height: auto;
-    padding: 37px 0;
+    padding-top: 37px;
     display: block;
+  } */
+  .wrap-table100 table tbody tr {
+    height: 183px;
+    padding-top: 30px;
+    display: block;
+    padding-bottom: 1px;
+    margin-bottom: 12px;
+    border-radius: 10px;
   }
 
   .wrap-table100 table tbody tr td::before {
