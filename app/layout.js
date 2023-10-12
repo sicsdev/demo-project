@@ -1,12 +1,19 @@
 // import ChatBot from '../components/Chatbot/ChatBot'
 // 'use client'
 // import { useEffect, useState } from "react";
-import ProviderWrapper from "./components/store/Provider";
+// import ProviderWrapper from "./components/store/Provider";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import Script from "next/script";
 import Swal from "sweetalert2";
 // import { useRouter } from 'next/navigation';
+import dynamic from 'next/dynamic';
+
+
+const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider'), {
+  ssr: false,
+  loading: () => <p>Loading...</p>
+});
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -219,9 +226,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
       <body suppressHydrationWarning={true} className={inter.className}>
-        <ProviderWrapper>
+        <NoSSRProviderWrapper>
           <div className="tempo_container">{children}</div>
-        </ProviderWrapper>
+        </NoSSRProviderWrapper>
 
         <Script
           dangerouslySetInnerHTML={{
