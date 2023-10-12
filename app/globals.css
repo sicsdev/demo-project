@@ -1704,9 +1704,10 @@ body .invite-email input[type="email"]:focus,
 }
 
 
-.sidebar-wrapper-scroller ul li,
-.sidebar-wrapper-scroller ul li a {
+.sidebar-wrapper-scroller ul li, .sidebar-wrapper-scroller ul li:focus, .sidebar-wrapper-scroller ul li:focus-visible,
+.sidebar-wrapper-scroller ul li a, .sidebar-wrapper-scroller ul li a:focus-visible, .sidebar-wrapper-scroller ul li a:focus {
   background: transparent !important;
+  background-color: transparent !important;
 }
 
 body .sidebar-wrapper-scroller .bg-sidebar-hover {
