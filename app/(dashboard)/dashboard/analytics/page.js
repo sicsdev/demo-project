@@ -187,21 +187,12 @@ const Logs = () => {
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
   };
-  // const calculateDeflectionRate = state => {
-  //   const { totalConversations, humanHandoffs } = state;
-  //   console.log('total', totalConversations, 'humanhandofftotal: ', humanHandoffs)
-  //   const deflectionRate = 1 - humanHandoffs / totalConversations;
-  //   console.log(deflectionRate)
-  //   const resultTotal = (deflectionRate * 100).toFixed(1)
-  //   console.log(resultTotal)
-  //   return resultTotal; // You can format the result as needed
-  // };
 
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
-    const deflectionRate = 1 - humanHandoffs / totalConversations;
-    return ((1 - deflectionRate.toFixed(1)) * 100).toFixed(1); // You can format the result as needed
-  };
+    const deflectionRate = (totalConversations - humanHandoffs) / totalConversations;
+    return (deflectionRate * 100).toFixed(1); // You can format the result as needed
+};
 
 
   const firstTimeAnalytics = async (bot) => {
