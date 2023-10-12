@@ -110,7 +110,6 @@ const page = () => {
 
     const tab0Keys = [
       "chat_title",
-      "description",
       "customer_service_email",
       "chat_default_message",
     ];
@@ -129,6 +128,7 @@ const page = () => {
     delete payload.cancellation_tolerance;
 
     !payload.logo && delete payload.logo;
+    !payload.description && delete payload.description;
     if (payload["category"] === "") {
       payload["category"] = "standard";
     }
