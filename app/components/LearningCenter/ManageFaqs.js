@@ -64,7 +64,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         setUpdateLoader(true)
         const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
         if (response.status === 200 || response.status === 201) {
-            dispatch(fetchFaqQuestions('page=1&page_size=10'));
+            // dispatch(fetchFaqQuestions('page=1&page_size=10'));
+            getQuestionsData()
             setUpdateLoader(false)
             setSelected(null)
         } else {
@@ -168,7 +169,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
     const handlePerRowsChange = async (newPerPage, page) => {
         setPerPage(newPerPage)
         const queryParam = `page=${page}&page_size=${newPerPage}`;
-        dispatch(fetchFaqQuestions(queryParam));
+        // dispatch(fetchFaqQuestions(queryParam));
+        getQuestionsData(queryParam)
     }
 
     const onPageChange = async (page) => {
@@ -179,7 +181,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
     const deleteRecord = async (id) => {
         await deleteFaqQuestions(id)
         const queryParam = `page=1&page_size=${10}`;
-        dispatch(fetchFaqQuestions(queryParam));
+        // dispatch(fetchFaqQuestions(queryParam));
+        getQuestionsData(queryParam)
         setUpdateLoader(false)
         setSelected(null)
     }
@@ -273,7 +276,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                 onChangeRowsPerPage={handlePerRowsChange}
                 onChangePage={(page) => {
                     onPageChange(page)
-                }}
+                }}  
                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
                 customStyles={customStyles}
             />

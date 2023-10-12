@@ -14,6 +14,7 @@ const Source = () => {
     const [bots, setBots] = useState([])
     const [typingTimeout, setTypingTimeout] = useState(null)
     const [search, setSearch] = useState('')
+    const [check, setCheck] = useState(false)
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const getQuestionsData = async (queryParam = 'page=1&page_size=10') => {
@@ -125,7 +126,7 @@ const Source = () => {
                 {basicFormData?.data && (
                     <>
 
-                        <UpperBasicKnowledge questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} />
+                        <UpperBasicKnowledge setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
                         <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData}  />
                     </>
                 )}
