@@ -8,7 +8,7 @@ import { createNewKnowledge, getFaqQuestions } from '@/app/API/pages/Knowledge'
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
 
-const UpperBasicKnowledge = ({ questions,setCheck, basicFormData, search, handleChange, setBasicFormData,getDataWithFilters ,getQuestionsData}) => {
+const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData }) => {
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createModal, setCreateModal] = useState(false)
     const [formData, setFormData] = useState({})
@@ -117,7 +117,7 @@ const UpperBasicKnowledge = ({ questions,setCheck, basicFormData, search, handle
     useEffect(() => {
         setTimeout(() => {
             setSkeletonLoading(false);
-        }, 1200);
+        }, 500);
     }, [])
     const dropdown = useRef(null);
     useEffect(() => {
@@ -136,9 +136,11 @@ const UpperBasicKnowledge = ({ questions,setCheck, basicFormData, search, handle
     return (
         <>  <div className='flex justify-end items-center gap-2 w-full mt-2'>
             <div className='mr-[18px]'>
-                <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                    Create
-                </button>
+                {skeletonloading ? <SkeletonLoader count={1} height={30} width={100} /> :
+                    <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                        Create
+                    </button>
+                }
             </div>
         </div>
             <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
@@ -262,28 +264,28 @@ const UpperBasicKnowledge = ({ questions,setCheck, basicFormData, search, handle
                                     <div id="dropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
                                         style={{ border: "1px solid #C7C6C7" }}>
                                         <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                            <li className='hover:bg-gray cursor-pointer' onClick={(e)=>{
+                                            <li className='hover:bg-gray cursor-pointer' onClick={(e) => {
                                                 getDataWithFilters('ALL')
                                                 setFilterhead("all")
                                                 setShowSourceFilter(false)
                                             }}>
                                                 <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
                                             </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e)=>{
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
                                                 getDataWithFilters('EXTERNAL')
                                                 setFilterhead("External")
                                                 setShowSourceFilter(false)
                                             }}>
                                                 <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
                                             </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e)=>{
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
                                                 getDataWithFilters('SNIPPET')
                                                 setFilterhead("Snippet")
                                                 setShowSourceFilter(false)
                                             }}>
                                                 <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
                                             </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e)=>{
+                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
                                                 getDataWithFilters('FILE')
                                                 setFilterhead("File")
                                                 setShowSourceFilter(false)
