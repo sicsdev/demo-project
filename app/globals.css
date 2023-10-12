@@ -1659,6 +1659,7 @@ body .invite-email input[type="email"]:focus,
 .invite-email textarea:focus {
   font-size: 0.875rem !important;
 }
+
 .boredractive {
   position: relative;
   border-bottom: 2px solid #0057ff;
@@ -1666,6 +1667,7 @@ body .invite-email input[type="email"]:focus,
   color: #0057ff;
   padding-bottom: 3px;
 }
+
 .boredrinactive {
   position: relative;
   border-bottom: 2px solid transparent;
@@ -1674,15 +1676,30 @@ body .invite-email input[type="email"]:focus,
   padding-bottom: 3px;
 }
 
-.bi-infinity{font-size: 20px;} 
+.bi-infinity {
+  font-size: 20px;
+}
 
 
-.public-DraftEditorPlaceholder-inner,.DraftEditor-editorContainer span {
+.public-DraftEditorPlaceholder-inner,
+.DraftEditor-editorContainer span {
   font-size: 12px;
 }
 
-@media  (max-width:991px) {
-  .public-DraftEditorPlaceholder-inner,.DraftEditor-editorContainer span {
+@media (max-width:991px) {
+
+  .public-DraftEditorPlaceholder-inner,
+  .DraftEditor-editorContainer span {
     font-size: 16px !important;
+  }
 }
+
+
+.sidebar-wrapper-scroller ul li,
+.sidebar-wrapper-scroller ul li a {
+  background: transparent !important;
+}
+
+body .sidebar-wrapper-scroller .bg-sidebar-hover {
+  background: radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%) !important;
 }

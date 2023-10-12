@@ -544,14 +544,14 @@ const NewSidebar = ({ children }) => {
                                             {pathname.includes(ele.href) && (
                                                 <div className={`${!collaps && ("p-2")} bg-[#232D32]`}>
                                                     {ele.list.map((item, indexItem) =>
-                                                        <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                                        <li key={indexItem} className={`mb-1 px-2 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === item.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc] !bg-transparent'
                                                             } mt-2`} >
                                                             <>
 
                                                                 <Link
                                                                     href={item.href}
                                                                     onClick={() => handlerclosemenu(item.href)}
-                                                                    className={`p-2 flex items-center justify-center`}
+                                                                    className={`p-2 flex items-center justify-center !bg-transparent`}
                                                                 >
                                                                     <div class="relative">
                                                                         {item.icon}
@@ -581,7 +581,7 @@ const NewSidebar = ({ children }) => {
 
 
                                         :
-                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc]'
+                                        <li key={key} className={`mb-1 hover:bg-sidebar-hover hover:text-white w-full rounded-lg ${pathname === ele.href ? "bg-sidebar-hover text-white" : 'text-[#cfdae2cc] !bg-transparent'
                                             }`}>
                                             <>
 
@@ -589,7 +589,7 @@ const NewSidebar = ({ children }) => {
                                                     ? <Link
                                                         href={ele.href}
                                                         onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center`}
+                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
                                                         target="_blank"
                                                     >
                                                         {ele.icon}
@@ -603,7 +603,7 @@ const NewSidebar = ({ children }) => {
                                                     <Link
                                                         href={ele.href}
                                                         onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center`}
+                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
                                                     >
                                                         <div class="relative">
                                                             {ele.icon}
@@ -634,7 +634,7 @@ const NewSidebar = ({ children }) => {
             );
         }
         return (
-            <li key={key} className={`p-2 hover:bg-sidebar-hover w-full rounded-lg ${pathname === element.href && "bg-sidebar-hover"
+            <li key={key} className={`p-2 hover:bg-sidebar-hover w-full rounded-lg ${pathname === element.href ? "bg-sidebar-hover" : '!bg-transparent'
                 }`}>
                 <Link
                     onClick={() => {
@@ -642,7 +642,7 @@ const NewSidebar = ({ children }) => {
                         handlerclosemenu(element.href);
                     }}
                     href={element.href}
-                    className={`flex items-center  text-gray-900 rounded-lg `}
+                    className={`flex items-center  text-gray-900 rounded-lg !bg-transparent`}
                 >
                     <div className="relative">
                         {element.icon}
@@ -856,7 +856,7 @@ const NewSidebar = ({ children }) => {
                                 </ul>
                             ) : (
                                 <>
-                                    <ul>
+                                    <ul className="hidden">
                                         <li className="p-2 group hover:bg-sidebarsubroute mb-2 items-center rounded-lg cursor-pointer">
                                             <Link
                                                 onClick={() => {
