@@ -728,38 +728,38 @@ const Logs = () => {
         </>
 
         {searchLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-              <SkeletonLoader height={25} width={"30%"} />
+          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 my-4">
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6">
+              <SkeletonLoader height={25} width={"90%"} />
               <div className="my-2">
-                <SkeletonLoader height={32} width={"22%"} />
+                <SkeletonLoader height={32} width={"50%"} />
               </div>
               <div className="mt-2">
-                <SkeletonLoader height={17} width={"20%"} />
+                <SkeletonLoader height={17} width={"30%"} />
               </div>
               <div className="mt-1">
                 <SkeletonLoader height={20} width={"30%"} />
               </div>
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-              <SkeletonLoader height={25} width={"30%"} />
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6">
+              <SkeletonLoader height={25} width={"90%"} />
               <div className="my-2">
-                <SkeletonLoader height={32} width={"22%"} />
+                <SkeletonLoader height={32} width={"50%"} />
               </div>
               <div className="mt-2">
-                <SkeletonLoader height={17} width={"20%"} />
+                <SkeletonLoader height={17} width={"30%"} />
               </div>
               <div className="mt-1">
                 <SkeletonLoader height={20} width={"30%"} />
               </div>
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6">
-              <SkeletonLoader height={25} width={"30%"} />
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6">
+              <SkeletonLoader height={25} width={"90%"} />
               <div className="my-2">
-                <SkeletonLoader height={32} width={"22%"} />
+                <SkeletonLoader height={32} width={"50%"} />
               </div>
               <div className="mt-2">
-                <SkeletonLoader height={17} width={"20%"} />
+                <SkeletonLoader height={17} width={"30%"} />
               </div>
               <div className="mt-1">
                 <SkeletonLoader height={20} width={"30%"} />
@@ -767,12 +767,12 @@ const Logs = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-4 my-4">
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
-              <h1 className="text-sm text-heading font-semibold">Conversations</h1>
+          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
+              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
-                <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
+                <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                     <PlusSmallIcon className="h-3 w-3 text-black" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
@@ -791,16 +791,16 @@ const Logs = () => {
                 </>
               )}
               {additionalData.deflection_data.date === null ? (
-                <p className="bg-[#f1f1f1] text-black w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
+                <p className="bg-[#f1f1f1] text-black w-[40%] sm:w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
               ) : (
                 <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
-              <h1 className="text-sm text-heading font-semibold">Deflection Rate</h1>
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
+              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Deflection Rate</h1>
               {additionalData.deflection_data.dflection === null || !isFinite(additionalData.deflection_data.dflection) ?
-                <p className="text-2xl w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
+                <p className="text-2xl w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
                     N/A
                   </span>
@@ -809,7 +809,7 @@ const Logs = () => {
               }
 
               {additionalData.deflection_data.precent === null || !isFinite(additionalData.deflection_data.precent) || additionalData.deflection_data.precent === '0.0' ? (
-                <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
+                <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                     <PlusSmallIcon className="h-3 w-3 text-black" />
                     <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
@@ -828,16 +828,16 @@ const Logs = () => {
                 </>
               )}
               {additionalData.deflection_data.date === null ? (
-                <p className="bg-[#f1f1f1] text-black w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
+                <p className="bg-[#f1f1f1] text-black w-[40%] sm:w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
               ) : (
                 <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md  p-6 h-[171px]">
-              <h1 className="text-sm text-heading font-semibold">Avg. CSAT</h1>
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
+              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Avg. CSAT</h1>
               {additionalData.csat === null ?
-                <p className="text-2xl w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
+                <p className="text-2xl w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
                     N/A
                   </span>
@@ -845,12 +845,12 @@ const Logs = () => {
                 :
                 <p className="text-2xl text-heading font-bold my-2">{additionalData.csat.toFixed(1)}</p>}
               {additionalData.average === null || !isFinite(additionalData.average) || additionalData.average === 0 || additionalData.average === '0.0' ? (
-                additionalData.csat === null ? <p className="text-xs w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
+                additionalData.csat === null ? <p className="text-xs w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                     + N/A
                   </span>
                 </p> :
-                  <p className="w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
+                  <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
                     <span className="flex items-center justify-center text-xs text-black font-bold mx-auto text-center">
                       <PlusSmallIcon className="h-3 w-3 text-black" />
                       <svg xmlns="http://www.w3.org/2000/svg" width="60%" height="18" fill="currentColor" className="bi bi-infinity font-bold" viewBox="0 0 16 16">
@@ -869,7 +869,7 @@ const Logs = () => {
                 </>
               )}
               {additionalData.deflection_data.date === null ? (
-                <p className="bg-[#f1f1f1] text-black w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
+                <p className="bg-[#f1f1f1] text-black w-[40%] sm:w-[20%] text-center  text-xs font-medium mr-2 px-2.5 py-0.5 rounded ">.v N/A</p>
               ) : (
                 <p className="mt-2 text-[#A29EB3] text-xs font-semibold">.v {additionalData.deflection_data.date}</p>
               )

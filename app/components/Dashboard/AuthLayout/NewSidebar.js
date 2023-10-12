@@ -856,7 +856,7 @@ const NewSidebar = ({ children }) => {
                                 </ul>
                             ) : (
                                 <>
-                                    <ul>
+                                    <ul className="hidden">
                                         <li className="p-2 group hover:bg-sidebarsubroute mb-2 items-center rounded-lg cursor-pointer">
                                             <Link
                                                 onClick={() => {
