@@ -179,9 +179,9 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
                     <button >
                         {rated ?
-                            <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                            <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
                             :
-                            <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
+                            <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
                         }                    </button>
                 </div>
             }
