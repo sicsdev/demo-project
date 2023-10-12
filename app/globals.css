@@ -520,6 +520,7 @@ select.custom-select::-ms-expand {
 select.custom-select {
   /* height: 45px !important; */
   background-color: #fff;
+  margin-top: -7px;
 }
 
 .trytempo a {
@@ -1477,10 +1478,18 @@ div[data-column-id="Action"] {
     display: none;
   }
 
-  .wrap-table100 table tbody tr {
+  /* .wrap-table100 table tbody tr {
     height: auto;
-    padding: 37px 0;
+    padding-top: 37px;
     display: block;
+  } */
+  .wrap-table100 table tbody tr {
+    height: 183px;
+    padding-top: 30px;
+    display: block;
+    padding-bottom: 1px;
+    margin-bottom: 12px;
+    border-radius: 10px;
   }
 
   .wrap-table100 table tbody tr td::before {
@@ -1659,6 +1668,7 @@ body .invite-email input[type="email"]:focus,
 .invite-email textarea:focus {
   font-size: 0.875rem !important;
 }
+
 .boredractive {
   position: relative;
   border-bottom: 2px solid #0057ff;
@@ -1666,6 +1676,7 @@ body .invite-email input[type="email"]:focus,
   color: #0057ff;
   padding-bottom: 3px;
 }
+
 .boredrinactive {
   position: relative;
   border-bottom: 2px solid transparent;
@@ -1674,15 +1685,31 @@ body .invite-email input[type="email"]:focus,
   padding-bottom: 3px;
 }
 
-.bi-infinity{font-size: 20px;} 
+.bi-infinity {
+  font-size: 20px;
+}
 
 
-.public-DraftEditorPlaceholder-inner,.DraftEditor-editorContainer span {
+.public-DraftEditorPlaceholder-inner,
+.DraftEditor-editorContainer span {
   font-size: 12px;
 }
 
-@media  (max-width:991px) {
-  .public-DraftEditorPlaceholder-inner,.DraftEditor-editorContainer span {
+@media (max-width:991px) {
+
+  .public-DraftEditorPlaceholder-inner,
+  .DraftEditor-editorContainer span {
     font-size: 16px !important;
+  }
 }
+
+
+.sidebar-wrapper-scroller ul li, .sidebar-wrapper-scroller ul li:focus, .sidebar-wrapper-scroller ul li:focus-visible,
+.sidebar-wrapper-scroller ul li a, .sidebar-wrapper-scroller ul li a:focus-visible, .sidebar-wrapper-scroller ul li a:focus {
+  background: transparent !important;
+  background-color: transparent !important;
 }
+
+body .sidebar-wrapper-scroller .bg-sidebar-hover {
+  background: radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%) !important;
+}  
