@@ -690,7 +690,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Show Suggestions</span>
-                  </div>
+                  </div>    
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
@@ -698,7 +698,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                         value=""
                         id="chat_suggestions_show"
                         name="chat_suggestions_show"
-                        onChange={handleCheckBoxChange1}
+                        onChange={handleCheckBoxChange1}      
                         className="sr-only peer"
                         checked={preferences.chat_suggestions_show === true}
                       />
