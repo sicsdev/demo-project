@@ -1118,7 +1118,7 @@ const Logs = () => {
             >
               <>
                 {/* <Card> */}
-                <div className="flex justify-center">
+                <div className="flex justify-center"> 
                   <h1 className="text-heading text-sm font-semibold">Chat</h1>
                 </div>
 
