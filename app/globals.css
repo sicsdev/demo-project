@@ -1744,7 +1744,7 @@ body  input[type="date"] {
     -moz-appearance: textfield !important;
     min-height: 1.2em !important; 
     appearance: textfield;
-    width: 100% !important;
+    width: auto !important;
     box-sizing: border-box;
     padding: 8px !important;
     border-radius: 4px;
