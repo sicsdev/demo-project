@@ -1739,6 +1739,9 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
 
 
   input[type="date"] {
-    width: 100%;  /* This will make the input field take the full width of its container */
-    box-sizing: border-box;  /* This ensures that padding and borders do not increase the total width */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    box-sizing: border-box;
 }
