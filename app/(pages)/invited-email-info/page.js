@@ -110,8 +110,7 @@ const page = () => {
                 <div className='mb-5 pb-5  w-3/4 m-auto'>
                     <h2 className="text-2xl font-bold mb-4">Complete Your Profile</h2>
                     <p className="text-gray-700">
-                        Welcome to your <b>Tempo</b> Team! To make the most of your Tempo experience, please provide the following details to complete your profile,
-                        and enter a new password in the form below.
+                    Welcome to your Tempo Team! To make the most of your experience, please provide the following details to complete your profile, and enter a new password in the form below.z
                     </p>
                 </div>
                 <div className="border border-border bg-white rounded-lg w-1/2 mt-5 m-auto">

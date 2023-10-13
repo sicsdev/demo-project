@@ -708,13 +708,13 @@ const Logs = () => {
         </>
 
         {searchLoading ? (
-          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 my-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6">
               <SkeletonLoader height={25} width={"90%"} />
               <div className="my-2">
                 <SkeletonLoader height={32} width={"50%"} />
               </div>
-              <div className="mt-2">
+              <div className="mt-2">  
                 <SkeletonLoader height={17} width={"30%"} />
               </div>
               <div className="mt-1">
@@ -747,7 +747,7 @@ const Logs = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
               <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
