@@ -128,7 +128,7 @@ const page = () => {
     delete payload.cancellation_tolerance;
 
     !payload.logo && delete payload.logo;
-    !payload.description && delete payload.description;
+    // !payload.description && delete payload.description;
     if (payload["category"] === "") {
       payload["category"] = "standard";
     }
