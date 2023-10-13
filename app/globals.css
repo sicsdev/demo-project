@@ -1735,16 +1735,10 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
     top: auto !important;
   }
 
-
-input[type="date"] {
-    -webkit-appearance: textfield;
-    -moz-appearance: textfield;
-    appearance: textfield;
-}
-
   input[type="date"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
     width: 100%;
     box-sizing: border-box;
-    padding: 8px;
-    border-radius: 4px;
 }
