@@ -153,7 +153,7 @@ const page = () => {
                                     <button
                                         onClick={(e) => selectBotHandler(element.value)}
                                         key={key}
-                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  hover:opacity-60 mr-1 w-[120px] text-center`}
+                                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                     > {element?.name}
                                     </button>
                                 ))}
@@ -195,7 +195,7 @@ const page = () => {
                     ) : (
                         <>
 
-                            <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
+                            <Schzedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
                             <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
