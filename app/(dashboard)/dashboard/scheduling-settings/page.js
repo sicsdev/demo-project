@@ -195,7 +195,7 @@ const page = () => {
                     ) : (
                         <>
 
-                            <Schzedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
+                            <Schedule basicFormData={scheduleData} setBasicFormData={setScheduleData} />
                             <div className='flex justify-end items-center px-6 py-4'>
                                 {
                                     loading ? (
