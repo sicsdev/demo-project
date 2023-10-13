@@ -1736,9 +1736,11 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
   }
 
   input[type="date"] {
+    display: table;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 100%;
     box-sizing: border-box;
+    min-height: 1.5rem !important;
 }
