@@ -202,6 +202,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               onChange={handleInputValues}
               value={formValues.business_state}
               name="business_state"
+              selectdiv="selectdiv mt-3"
               values={provideStateNames()}
               title={""}
               id={"business_state"}
@@ -252,6 +253,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
             <SelectField
               labelClassName={"w-full sm:w-1/2"}
               onChange={handleInputValues}
+              selectdiv="selectdiv mt-3"
               value={formValues.business_company_size}
               name="business_company_size"
               values={business_company_size_data}
@@ -270,6 +272,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               value={formValues.business_industry}
               name="business_industry"
               values={business_industry_data}
+              selectdiv="selectdiv mt-3"
               title={""}
               id={"business_industry"}
               className="py-3"
