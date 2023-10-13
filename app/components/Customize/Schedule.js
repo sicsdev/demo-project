@@ -189,7 +189,7 @@ const Schedule = ({ basicFormData, setBasicFormData }) => {
         <div className="">
           <div className=" p-3  ">
             <h3 class="text-sm font-semibold my-3">Set your weekly hours</h3>
-            <div>
+            <div className="forCheckbox">
               {Object.keys(sendObjects(schedule)).map((day) => (
                 <>
                   <div
