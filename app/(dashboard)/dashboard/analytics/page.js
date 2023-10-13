@@ -1035,6 +1035,7 @@ const Logs = () => {
                       id="created__lte"
                       name="created__lte"
                       className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      placeholder="End Date"
                     />
                     <div onClick={() => handleCleanDates("created__lte")}>
                       {selectedFilters?.created__lte !== "all" && (
