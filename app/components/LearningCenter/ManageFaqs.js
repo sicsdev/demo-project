@@ -256,7 +256,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         })
     }
     return (
-        <div className="w-full px-2 pt-2">
+        <div className="knowledgebase_table w-full px-2 pt-2">
             <DataTable
                 title={''}
                 fixedHeader

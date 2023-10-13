@@ -708,7 +708,7 @@ const Logs = () => {
         </>
 
         {searchLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 my-4">
+          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 my-4">
             <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6">
               <SkeletonLoader height={25} width={"90%"} />
               <div className="my-2">
@@ -747,9 +747,9 @@ const Logs = () => {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
-            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
-              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Conversations</h1>
+          <div className="grid grid-cols-3 sm:grid-cols-3 items-center gap-2 sm:gap-4 my-4">
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[180px] sm:h-[171px]">
+              <h1 className="text-[11px] sm:text-sm text-heading font-semibold break-all">Conversations</h1>
               <p className="text-2xl text-heading font-bold my-2">{additionalData.conversations}</p>
               {additionalData.conversations_avg === null || !isFinite(additionalData.conversations_avg) || additionalData.conversations_avg === 0 || additionalData.conversations_avg === '0.0' ? (
                 <p className="w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#DEF7EC]">
@@ -777,8 +777,8 @@ const Logs = () => {
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
-              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Deflection Rate</h1>
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[180px] sm:h-[171px]">
+              <h1 className="text-[11px] sm:text-sm text-heading font-semibold break-all">Deflection Rate</h1>
               {additionalData.deflection_data.dflection === null || !isFinite(additionalData.deflection_data.dflection) ?
                 <p className="text-2xl w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
@@ -814,8 +814,8 @@ const Logs = () => {
               )
               }
             </div>
-            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[190px] sm:h-[171px]">
-              <h1 className="text-sm text-heading font-semibold break-all	min-h-[40px] sm:min-h-[0px]">Avg. CSAT</h1>
+            <div className="border-4 border-[#F3F3F7] rounded-md p-2 sm:p-6 h-[180px] sm:h-[171px]">
+              <h1 className="text-[11px] sm:text-sm text-heading font-semibold break-all">Avg. CSAT</h1>
               {additionalData.csat === null ?
                 <p className="text-2xl w-[40%] sm:w-[15%] rounded-md text-heading font-bold my-2 p-1 bg-[#f1f1f1]">
                   <span className="flex items-center justify-center text-sm text-black font-bold mx-auto text-center">
@@ -1114,11 +1114,15 @@ const Logs = () => {
               {" "}
             </div>
             <div
+<<<<<<< HEAD
               className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+=======
+              className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-2 sm:p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+>>>>>>> 30ef8c02eb96015631f6f895a2c2c7a57d5fcb65
             >
               <>
                 {/* <Card> */}
-                <div className="flex justify-center"> 
+                <div className="hidden sm:flex justify-center"> 
                   <h1 className="text-heading text-sm font-semibold">Chat</h1>
                 </div>
 

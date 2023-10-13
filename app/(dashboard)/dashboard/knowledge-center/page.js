@@ -738,7 +738,7 @@ const Page = () => {
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                                 <li className="mr-2" onClick={() => { setTab(0) }}>
                                     <span
-                                        className={`flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                        className={`border-b-2 border-transparent flex justify-start text-sm gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("text-primary !border-primary")}  font-bold  rounded-t-lg active  group`}
                                         aria-current="page"
                                     >
                                         <AcademicCapIcon className="h-5 w-5 text-gray-500" /> Add to Knowledge Base
@@ -746,7 +746,7 @@ const Page = () => {
                                 </li>
                                 <li className="mr-2" onClick={() => { setTab(1) }}>
                                     <span
-                                        className={`flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active ml-2 group`}
+                                        className={`border-b-2 border-transparent  flex justify-start gap-2 text-sm  cursor-pointer items-center py-2   ${tab === 1 && ("text-primary !border-primary")}  font-bold rounded-t-lg active ml-2 group`}
                                         aria-current="page"
                                     >
                                         <BriefcaseIcon className="h-5 w-5 text-gray-500" /> Trigger Workflow

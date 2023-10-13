@@ -19,6 +19,7 @@
 
 
 #chatbot_preview .widget_container {
+  z-index: -999;
   /* position: fixed; */
   /* top: var(--top-distance); */
   bottom: var(--bottom-distance);

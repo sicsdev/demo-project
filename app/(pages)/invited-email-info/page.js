@@ -113,7 +113,7 @@ const page = () => {
                     Welcome to your Tempo Team! To make the most of your experience, please provide the following details to complete your profile, and enter a new password in the form below.z
                     </p>
                 </div>
-                <div className="border border-border bg-white rounded-lg w-1/2 mt-5 m-auto">
+                <div className="border border-border bg-white rounded-lg w-full sm:w-1/2 mt-5 m-auto">
 
                     <div className="flex justify-start gap-4 items-center border border-t-0 border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
                         <span className="text-start text-sm font-normal w-[100px] text-black">
