@@ -32,7 +32,6 @@ const Page = () => {
       dispatch(fetchMembers());
     }
   }, [state.data]);
-
   const handleRemoveMember = (email) => {
     dispatch(removeMember({ email }));
   }
