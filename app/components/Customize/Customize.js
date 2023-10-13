@@ -636,7 +636,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
                             <div
-                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[16px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
+                              className="[word-wrap: break-word]   flex h-[40px] cursor-pointer items-center justify-between rounded-[30px] key  px-[10px] py-10px text-[12px] sm:text-[12px] font-semibold normal-case leading-[15px] text-heading shadow-none transition-[opacity] duration-300 ease-linear hover:!shadow-none active:bg-[#cacfd1]  border border-[#C7C6C7]"
                               key={key}
                             >
                               {element}
