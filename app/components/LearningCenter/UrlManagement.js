@@ -78,8 +78,8 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
 
     return (
         <>
-            <div onClick={() => hideComponent()} className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
-            <div className={` z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+            <div onClick={() => hideComponent()} className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'>    </div >
+            <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-auto fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                 <div className={`shadow-lg w-full sm:w-[700px] relative flex flex-col pl-8 pr-8 ${knowledgeData.length < 2 && "h-[100%]"}`}>
                     <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                         <div className='flex flex-1'>

@@ -1062,7 +1062,7 @@ const Page = () => {
                                                                 </div>
                                                             </li>
                                                         )}
-
+    
                                                     </ul>
                                                 </div>
                                             </>
@@ -1085,7 +1085,7 @@ const Page = () => {
                                                                 }
                                                             })
                                                         }}>
-                                                            <button type='button' className="block px-4 py-2  text-xs">{makeCapital(ele.name)}</button>
+                                                            <button type='button' className="block px-4 py-2  text-xs">{            (ele.name)}</button>
                                                         </li>
                                                     }
                                                 </>
