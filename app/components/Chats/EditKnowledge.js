@@ -49,6 +49,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     }
 
     const toggleDropdown = () => {
+        if (rated) { return }
         isDropdownOpen(!dropdownOpen)
     }
 
@@ -108,27 +109,34 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
         <>
             {thisKnowledge &&
                 <div className='flex items-center w-full align-middle'>
-                    <div key={item.information?.knowledge?.id} className='mt-1 border p-2 rounded-md border-gray shadow-md hover:text-primary w-full'>
+                    <div key={item.information?.knowledge?.id} className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
 
                         <div className="relative">
 
-                            <div className="flex pointer" onClick={toggleDropdown}>
+                            <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
                                 <span className="w-full flex items-center" >
                                     <small id={item?.information?.knowledge?.id}>
                                         {item?.information?.question}
                                     </small>
                                 </span>
 
-
-                                {!dropdownOpen ?
+                                {!rated && !dropdownOpen &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
-                                    :
+                                    </svg>}
+                                {!rated && dropdownOpen &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
                                 }
+
+                                {/* {rated &&
+                                    <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                } */}
+
+
                             </div>
                             {dropdownOpen &&
 
@@ -137,12 +145,13 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                                     <div className="flex flex-row flex-1">
                                         <input
                                             type="text"
-                                            className="border border-border my-2 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
+                                            className="mb-1 border !text-xs border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white"
                                             placeholder="Question"
                                             id="title"
                                             name="title"
                                             value={info.question}
                                             onChange={handleInputQuestion}
+                                            style={{ fontSize: '12px' }}
                                         />
                                     </div>
 
@@ -150,20 +159,20 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
                                         <textarea
                                             type="text"
-                                            className="border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]"
+                                            className="p-2 border !text-xs border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white"
                                             placeholder="Answer"
                                             id="title"
                                             name="title"
                                             value={info.answer}
                                             onChange={handleInputAnswer}
-                                            style={{ minHeight: '100px' }}
+                                            style={{ minHeight: '100px', fontSize: '12px' }}
                                         />
 
                                     </div>
                                     <button
                                         type="button"
                                         onClick={handlePatchFaq}
-                                        className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-sm py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                        className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                     >
                                         {loading ? "Saving.." : "Save"}
                                     </button>
@@ -182,9 +191,16 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                             <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
                             :
                             <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
-                        }                    </button>
+                        }
+                    </button>
+
+
                 </div>
+
             }
+
+            {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>}
+
         </>
     )
 }
