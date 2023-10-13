@@ -29,6 +29,7 @@ import Homeintegration from "../components/LayoutNew/Homeintegration";
 import Homeinte from "../components/LayoutNew/Homeinte";
 import Whyhome from "../components/LayoutNew/Whyhome";
 import Reach from "../components/LayoutNew/Reach";
+import Communication from "../components/LayoutNew/Communication";
 
 export default function Home() {
  
@@ -62,7 +63,8 @@ export default function Home() {
         <Whyhome />
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
-        <Info />
+        {/* <Info /> */}
+        <Communication/> 
         <Reach/>
         <Middlebar />
         <Panelcardnew />
