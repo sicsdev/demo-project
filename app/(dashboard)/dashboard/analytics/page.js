@@ -192,7 +192,7 @@ const Logs = () => {
     const { totalConversations, humanHandoffs } = state;
     const deflectionRate = (totalConversations - humanHandoffs) / totalConversations;
     return (deflectionRate * 100).toFixed(1); // You can format the result as needed
-  };
+  };  
 
 
   const firstTimeAnalytics = async (bot) => {
@@ -210,11 +210,11 @@ const Logs = () => {
           csat: human_handoff.data.surveys.average,
           deflection_data: {
             ...additionalData.deflection_data,
-            dflection: calculateDeflectionRate({
+            dflection: calculateDeflectionRate({          
               totalConversations: totalConvos?.data.count,
               humanHandoffs: human_handoff.data.count
             }),
-          },
+          },          
         }
       })
     }
@@ -1106,7 +1106,7 @@ const Logs = () => {
         {showChat && (
           <>
             <div
-              className="rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
+              className="rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
               onClick={() => {
                 router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('')
               }}
