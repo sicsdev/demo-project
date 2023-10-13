@@ -1193,7 +1193,7 @@ const NewSidebar = ({ children }) => {
                 </aside>
 
                 <div className={`${collaps ? 'pt-2 sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
-                    <div className="bg-white p-4 rounded-tl-lg">
+                    <div className="bg-white p-4 rounded-tl-lg relative z-10">
 
                         {children}
                     </div>
