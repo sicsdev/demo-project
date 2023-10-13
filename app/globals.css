@@ -1743,11 +1743,22 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
 }
 
   input[type="date"] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    display:block !important;
+     -webkit-appearance: textfield !important;
+    -moz-appearance: textfield !important;
+    min-height: 1.2em !important; 
     appearance: none;
     width: 100%;
     box-sizing: border-box;
     padding: 8px;
     border-radius: 4px;
+}
+
+.forCheckbox input[type=checkbox] {
+  width: 1rem !important;
+  height: 1rem !important;
+}
+
+.forCheckbox .gap-3 .gap-3 {
+  gap: 0.4rem !important;
 }
