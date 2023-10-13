@@ -72,7 +72,15 @@ select {
   select {
     font-size: 16px !important;
   }
-
+  body input[type="date"] {
+    display: table;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 1.3rem !important;
+}
   body input[type="text"],
   body input[type="number"],
   body input[type="email"],
@@ -1735,12 +1743,4 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
     top: auto !important;
   }
 
-  input[type="date"] {
-    display: table;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 1.5rem !important;
-}
+ 
