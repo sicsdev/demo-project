@@ -1744,4 +1744,6 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
     appearance: none;
     width: 100%;
     box-sizing: border-box;
+    padding: 8px;
+    border-radius: 4px;
 }
