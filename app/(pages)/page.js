@@ -24,6 +24,11 @@ import Panelcardnew from "../components/PanelCardNew/PanelCardNew";
 import Middlebar from "../components/Info-Screen/Middlebar";
 import { useEffect } from "react";
 import { Router, useRouter } from "next/router";
+import NewAbovepage from "../components/LayoutNew/NewAbovepage";
+import Homeintegration from "../components/LayoutNew/Homeintegration";
+import Homeinte from "../components/LayoutNew/Homeinte";
+import Whyhome from "../components/LayoutNew/Whyhome";
+import Reach from "../components/LayoutNew/Reach";
 
 export default function Home() {
  
@@ -45,15 +50,20 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        <Homefold />
+        <NewAbovepage />
+        {/* <Homefold /> */}
         {/* <Start /> */}
 
       {/* -------new-------- */}
 
-        <DTC />
+        {/* <DTC /> */}
+        <Homeinte />
+        <Homeintegration />
+        <Whyhome />
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         <Info />
+        <Reach/>
         <Middlebar />
         <Panelcardnew />
 

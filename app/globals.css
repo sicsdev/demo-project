@@ -1727,3 +1727,13 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
   }
 }
 
+.see:before {
+  background: #ff5722;
+  width: 0;
+  height: 2px;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  transition: .2s;
+}
