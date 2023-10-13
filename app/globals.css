@@ -1736,7 +1736,11 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
   }
 
 
-
+  input[type="date"] {
+    -webkit-appearance: textfield;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
 
   input[type="date"] {
     -webkit-appearance: none;
