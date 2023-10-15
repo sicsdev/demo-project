@@ -128,69 +128,55 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
     const divideAnswer = (element) => {
+
         console.log('ekleen', element)
         const content = element.content;
         const maxChars = 150;
+        let startIndex = 0;
+        let endIndex = 0;
         const contentParts = [];
-      
-        if (content.length <= maxChars) {
-          contentParts.push(content);
-        } else {
-          let startIndex = 0;
-          let endIndex = 0;
-      
-          while (endIndex < content.length) {
+
+        while (startIndex < content.length) {
             endIndex = startIndex + maxChars;
-      
-            // Verificar si se puede encontrar ". " dentro del límite
-            const nextPeriodIndex = content.indexOf('. ', endIndex);
-      
-            if (nextPeriodIndex !== -1 && nextPeriodIndex >= startIndex) {
-              endIndex = nextPeriodIndex + 2; // Se agregan 2 para incluir el punto y el espacio
+            if (endIndex < content.length) {
+                const nextPeriodIndex = content.indexOf('. ', endIndex);
+                endIndex = nextPeriodIndex !== -1 ? nextPeriodIndex + 1 : content.length;
             } else {
-              // Si no se encuentra ". ", dividir en el límite máximo
-              endIndex = startIndex + maxChars;
+                endIndex = content.length;
             }
-      
-            contentParts.push(content.substring(startIndex, endIndex));
-            startIndex = endIndex;
-          }
+
+            contentParts.push(content.substring(startIndex, endIndex + 1));
+            startIndex = endIndex + 1;
         }
-      
+
         return (
-          <>
-            {contentParts.map((part, index) => (
-              <div className='flex mb-2' key={index}>
-                <img className="profile-photo_ChatBot_back"
-                  src={`${botUnique?.enterprise?.logo ||
-                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `}
-                  alt="Profile Photo" style={{ width: "35px" }} />
-                <div className="answer_text_div">
-                  <div className='flex items-center justify-between gap-1'>
-                    <div className="answer_text_with_thumbs  !text-sm !font-[400]"
-                      style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}
-                      title="Copy answer to clipboard"
-                      onClick={(e) => copyMessageText(part)}>
-                      {part}
-                    </div>
-                    <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
-                      <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"
-                          strokeWidth="2" stroke="grey" className="w-[13px] h-[13px] opacity-80">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </>
+            <>
+                {contentParts.map((part, index) => (
+                    <>
+                        <div className='flex mb-2'>
+                            <img className="profile-photo_ChatBot_back"
+                                src={`${botUnique?.enterprise?.logo ||
+                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                            <div className="answer_text_div">
+                                <div key={index} className='flex items-center justify-between gap-1'>
+                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(part)}>
+                                        {part}
+                                    </div>
+                                    <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
+                                        <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth="2" stroke="grey" className="w-[13px] h-[13px] opacity-80">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                ))}
+            </>
         );
-      }
-      
-
-
+    }
 
 
     return (
@@ -274,7 +260,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             src={`${botUnique?.enterprise?.logo ||
                                                                 `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                         <div className="answer_text_div"> */}
-                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}> */}
+                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}> */}
                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
 
                                                         {
@@ -285,7 +271,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                         I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
                                                                     </div>
                                                                 </div>
@@ -301,7 +287,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                         Could you please clarify how I can best help you?
                                                                     </div>
                                                                 </div>
@@ -318,7 +304,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                         No problem, I can help you with that! Could you please provide the following information:
                                                                     </div>
                                                                 </div>
@@ -334,7 +320,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 {divideAnswer(element)}
 
                                                                 {/* <div className='flex items-center justify-between gap-1'>
-                                                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
                                                                             {element.content}
                                                                         </div>
                                                                         <div className="chatBotWidgetThumbs">
@@ -505,7 +491,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                     <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                        <div className='w-100' style={{ width: '100%' }}>
+                                                                    <div className='w-100' style={{width: '100%'}}>
                                                                             <small><b>Sources</b><br /></small>
                                                                             {/* {element?.workflows[0]?.information?.name} */}
                                                                             {element?.workflows?.map(workflow => (
