@@ -7,32 +7,27 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useEffect } from 'react';
 
 const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
-  // console.log("oldContent", oldContent)
-  const getOldContent = () => {
+
+  const [editorState, setEditorState] = useState(() => {
     if (oldContent && oldContent !== 'undefined') {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       return EditorState.createWithContent(state);
     }
     return EditorState.createEmpty();
-
-  }
-  const [editorState, setEditorState] = useState(getOldContent());
+  });
 
   const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
 
 
-  useEffect(() => {
-    if (!editorState) {
-      setEditorState(getOldContent())
-    }
-  }, [oldContent])
+
 
   useEffect(() => {
     if (externalContent && externalContent !== oldContent) {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
+      onEditorStateChange(EditorState.createWithContent(state))
       setEditorState(EditorState.createWithContent(state));
     }
   }, [externalContent, oldContent]);
@@ -116,8 +111,9 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
+        
         customStyleMap={customStyleMap}
-
+        id={"answering"}
         toolbar={{
           options: ['link', 'image'],
           inline: {
@@ -135,11 +131,11 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
           image: {
             styles: {
               maxWidth: '350px',
-              margin: 'auto',
+              margin: 'auto', 
             },
           }
         }}
-
+wrapperId={"SDSDDSF"}
         placeholder="Start writing your content..."
       />
 

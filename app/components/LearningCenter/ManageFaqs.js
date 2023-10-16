@@ -179,7 +179,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             ),
-        }, 
+        },
         {
             name: "Bots",
             selector: (row) => row.bots,
@@ -208,8 +208,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         },
         {
             name: "Negative Search Terms",
-            minWidth: "100px",  
-            id:"term",
+            minWidth: "100px",
+            id: "term",
             center: true,
             cell: (row, index) => (
                 <div className="flex justify-center items-center gap-4" onClick={() => { setSelected(row) }} >
@@ -368,28 +368,38 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     setTab(0)
                     setSelected(null)
                 }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
-                    <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
-                        <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
-                            <li className="mr-2" onClick={() => { setTab(0) }}>
+
+                    <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                        <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+
+                            <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
+
                                 <span
-                                    className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                     aria-current="page"
                                 >
-                                    <AcademicCapIcon className="h-5 w-5 text-gray-500" /> Answer
+                                    Answer
                                 </span>
+
                             </li>
-                            <li className="mr-2" onClick={() => {
+                            <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                                 setNagetive(true)
                                 getNagetiveQuestions(selected.id)
                                 setTab(1)
                             }}>
+
                                 <span
-                                    className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                     aria-current="page"
                                 >
-                                    <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Search Terms
+                                    Negative Search Terms
                                 </span>
+
                             </li>
+
+
                         </ul>
                     </div>
                     {tab === 0 && (
@@ -414,7 +424,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                             <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
 
-                            <button
+                            <button 
                                 onClick={(e) => updateFaq()}
                                 type="button"
                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
