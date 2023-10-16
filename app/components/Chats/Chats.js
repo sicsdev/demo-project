@@ -102,15 +102,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         try {
             setDisputeLoader(true);
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
-            console.log("disputeResult", disputeResult);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
-                disputeResult();
                 successMessage("Dispute Created Successfully!");
             } else {
                 errorMessage("Unable to create dispute!");
             }
             setDisputeLoader(false);
         } catch (error) {
+            console.log(error)
             errorMessage("Unable to create dispute!");
             setDisputeLoader(false)
         }
@@ -129,7 +128,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     const divideAnswer = (element) => {
 
-        console.log('ekleen', element)
         const content = element.content;
         const maxChars = 150;
         let startIndex = 0;
@@ -421,7 +419,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 <div className="component_answer" style={{ width: '300px' }}></div>
                                                                 <div className="tempo-widget-custom-form">
                                                                     {Object.keys(element.actions).map(key => {
-                                                                        console.log(key, 'elem')
                                                                         const elementData = element.actions[key];
                                                                         const elementId = `tempo-widget-custom-form-${key}`;
 
@@ -491,7 +488,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                     <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                    <div className='w-100' style={{width: '100%'}}>
+                                                                        <div className='w-100' style={{ width: '100%' }}>
                                                                             <small><b>Sources</b><br /></small>
                                                                             {/* {element?.workflows[0]?.information?.name} */}
                                                                             {element?.workflows?.map(workflow => (
