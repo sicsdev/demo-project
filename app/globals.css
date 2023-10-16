@@ -1742,3 +1742,6 @@ body video {
   position: absolute  !important;
   top: 25% !important;
 }
+.modal-open{
+  overflow: hidden;
+}

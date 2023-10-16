@@ -21,7 +21,9 @@ const NewAbovepage = () => {
           <div
             className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer"
             onClick={() => {
-              setShowvideo(!showVideo);
+              document.body.classList.add("modal-open");
+
+              setShowvideo(true);
             }}
           >
             <p>
@@ -44,9 +46,14 @@ const NewAbovepage = () => {
             <p className="font-semibold ml-3 see">See how it works</p>
           </div>
           {showVideo ? (
-            <div className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-0 z-[999999]"       onClick={() => {
-              setShowvideo(false);
-            }}>
+            <div
+              className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-0 z-[999999] overflow-hidden"
+              onClick={() => {
+                document.body.classList.remove("modal-open");
+
+                setShowvideo(false);
+              }}
+            >
               <video width="800" height="400" autoPlay={true} controls>
                 <source
                   src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
