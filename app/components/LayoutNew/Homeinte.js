@@ -66,7 +66,7 @@ const Homeinte = () => {
                         "Integrate with Ease"
                     }
                 </h1> */}
-                     <h1 className='text-center text-base sm:text-para md:text-para lg:text-[32px] sm:leading-8 my-2 sm:my-6 font-base text-[#252C47]' >
+                     <h1 className='text-center text-base sm:text-para md:text-para lg:text-[32px] sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]' >
                 {loading ? <SkeletonLoader count={1} height={30} width={"60%"} /> :
                     "Trusted by over 3 million business users                    "
                 }
@@ -85,7 +85,7 @@ const Homeinte = () => {
                                 <SkeletonLoader count={1} height={80} width={60} /> :
                                 <Image
                                     fill={"true"}
-                                    className={` mx-auto rounded-lg !static !w-[80px] !h-auto`}
+                                    className={` mx-auto rounded-lg !static !w-[50px] sm:!w-[80px] !h-auto`}
                                     alt="logo.png"
                                     src={element.logo}
                                 />}

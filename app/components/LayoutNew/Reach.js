@@ -63,7 +63,7 @@ const Reach = () => {
                       {ele.para}
                     </div>
                     <div className="p-0 py-2 sm:p-8 md:py-7 md:px-0 font-semibold cursor-pointer">
-               Learn more →
+                    Schedule Demo →
 
                     </div>
                   </div>

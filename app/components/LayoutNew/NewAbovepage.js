@@ -6,7 +6,7 @@ const NewAbovepage = () => {
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 sm:grid-cols-2 relative">
         <div>
-          <h2 className="block !font-[700] sm:ml-[40px]  text-2xl px-3 sm:px-6 sm:!leading-[50px] text-left md:text-h2 lg:text-h2 sm:text-h2  my-[1rem] sm:my-8 relative text-heading">
+          <h2 className="block !font-[700] sm:ml-[40px]  text-[33px] leading-[40px] px-3 sm:px-6 sm:!leading-[50px] text-left md:text-h2 lg:text-h2 sm:text-h2  my-[1rem] sm:my-8 relative text-[black">
             Communications for the Customer Obsessed
           </h2>
           <p className=" hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
@@ -14,7 +14,7 @@ const NewAbovepage = () => {
             to keep customers happy, agents engaged, and
             <br /> employees connected.
           </p>
-          <p className=" block sm:hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col  justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          <p className=" block sm:hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
             Your contact center and communications solution to keep customers
             happy, agents engaged, and employees connected.
           </p>
@@ -28,8 +28,8 @@ const NewAbovepage = () => {
           >
             <p>
               <svg
-                width="40"
-                height="40"
+                width="30"
+                height="30"
                 viewBox="0 0 42 42"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const NewAbovepage = () => {
             <div className="mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
               <Image
                 src="/XCaaS_8x8_Website_Hero_v1a.webp"
-                className="w-full bg-contain mx-auto "
+                className="w-full bg-contain object-contain mx-auto "
                 fill={true}
               />
             </div>

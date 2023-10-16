@@ -79,8 +79,8 @@ const Communication = () => {
             <SkeletonLoader height={30} width={"20%"} />
           </div>
         ) : (
-          <button className="text-primary !mt-3 communi w-full sm:mt-4 sm:flex justify-center hover:text-heading my-3 text-center sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg sm:mb-10">
-            <Link href="/checkout"> Learn more </Link>
+          <button className="text-[black] !mt-3 communi w-full sm:mt-4 sm:flex justify-center hover:text-heading my-3 text-center sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg sm:mb-10">
+            <Link href="/checkout"> Learn more →  </Link>
           </button>
         )}
       </div>
@@ -95,11 +95,11 @@ const Communication = () => {
                   <SkeletonLoader height={30} width={200} />
                 </div>
               ) : (
-                <div className={` ${key == activeTab ? "border-b-[1px] border-[#fe9327]" : ""} flex flex-row`}>
+                <div className={` ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[red]" : ""} flex flex-row`}>
                   <p>  {ele.logo} </p>
 
                   <p
-                    className={`font-semi-bold h-[65px] text-[17px] flex items-center relative justify-start sm:justify-start sm:pl-[40px] gap-1 w-100 text-center my-2 py-2 cursor-pointer px-3 sm:px-6 start-rainbow   `}
+                    className={`${key == activeTab ?"":""} font-semibold h-[65px] text-[17px] flex items-center relative justify-start sm:justify-start sm:pl-[40px] gap-1 w-100 text-center my-2 py-2 cursor-pointer px-3 sm:px-6 start-rainbow   `}
                     key={key}
                     onClick={() => handleTabChange(key)}
                   >

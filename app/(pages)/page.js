@@ -51,7 +51,10 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
+        
         <NewAbovepage />
+        <Communication/> 
+
         {/* <Homefold /> */}
         {/* <Start /> */}
 
@@ -64,7 +67,6 @@ export default function Home() {
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         {/* <Info /> */}
-        <Communication/> 
         <Reach/>
         <Middlebar />
         <Panelcardnew />
