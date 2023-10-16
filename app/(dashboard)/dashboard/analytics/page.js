@@ -1001,7 +1001,7 @@ const Logs = () => {
                       From
                       <p style={{ fontSize: "10px" }}></p>
                     </label>
-                    <div className={`flex gap-2 items-center `}>
+                    <div className={`flex  items-center `}>
                       <input
                         onChange={(e) => filterDataHandler(e)}
                         value={selectedFilters.created__gte || ""}
@@ -1027,7 +1027,7 @@ const Logs = () => {
                       To
                       <p style={{ fontSize: "10px" }}></p>
                     </label>
-                    <div className={`flex gap-2 items-center`}>
+                    <div className={`flex items-center`}>
                       <input
                         onChange={(e) => filterDataHandler(e)}
                         value={selectedFilters.created__lte || ""}
