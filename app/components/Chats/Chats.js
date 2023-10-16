@@ -104,6 +104,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
                 successMessage("Dispute Created Successfully!");
+                setConversationDetails({...conversationDetails, charge_status: 'REFUNDED'})
             } else {
                 errorMessage("Unable to create dispute!");
             }
