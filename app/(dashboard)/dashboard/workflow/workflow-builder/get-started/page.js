@@ -57,7 +57,9 @@ const GetStarted = () => {
     policy_exceptions: null,
     bots: [],
     recipient_email: "test@test.com",
-    subject: "Subject"
+    subject: "Subject",
+    channels:[{"value":"chat",name:"chat"}],
+    workflow_types:"text"
 
   })
 
@@ -115,6 +117,7 @@ const GetStarted = () => {
   const getWorkflowData = async (id) => {
     const response = await getSingleWorkflow(id)
     if (response) {
+      debugger
       setSingleData(response)
       setWorkFlowFormData((prev) => {
         return {
@@ -126,12 +129,19 @@ const GetStarted = () => {
           policy_name: response?.policy_name === "default" ? "" : response?.policy_name,
           policy_description: response?.policy_description === "default" ? "" : response?.policy_description,
           policy_exceptions: response?.policy_exceptions === "default" ? "" : response?.policy_exceptions,
+          workflow_types: response?.type === "" ? "Text" : makeCapital(response?.type),    
           bots: response?.bots?.length > 0 ? response?.bots.map((ele) => {
             return {
               value: ele.id,
               name: ele.chat_title
             }
-          }) : []
+          }) : []     ,
+          channels: response?.channels?.length > 0 ? response?.channels.map((ele) => {
+            return {
+              value: ele,
+              name: makeCapital(ele)
+            }
+          }) : []     
         }
       })
       if (response?.automations?.length > 0) {
@@ -333,7 +343,9 @@ const GetStarted = () => {
           policy_name: workflowFormData.policy_name,
           policy_description: workflowFormData.policy_description,
           policy_exceptions: workflowFormData.policy_exceptions,
-          bots: workflowFormData?.bots ? workflowFormData?.bots.map((ele) => ele.value) : []
+          type: workflowFormData.workflow_types.toLowerCase(),
+          bots: workflowFormData?.bots ? workflowFormData?.bots.map((ele) => ele.value) : [],
+          channels: workflowFormData?.channels ? workflowFormData?.channels.map((ele) => ele.value) : ['text']
         }
       } else if (type === "DISABLE") {
         payload = { active: false }
