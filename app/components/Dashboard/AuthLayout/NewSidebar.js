@@ -929,7 +929,7 @@ const NewSidebar = ({ children }) => {
                                         </li>
 
                                         <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer" onClick={() => setShow(false)}>
-                                            <Link
+                                            <a
                                                 href={"mailto:team@usetempo.ai"}
                                                 className={`flex items-center gap-2 text-gray-900 rounded-lg `}
                                             >
@@ -939,7 +939,7 @@ const NewSidebar = ({ children }) => {
                                                         Get Support
                                                     </span>
                                                 )}
-                                            </Link>
+                                            </a>
                                         </li>
                                     </ul>
                                 )}
@@ -1162,7 +1162,7 @@ const NewSidebar = ({ children }) => {
                                         )}
                                     </li>
                                     <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
-                                        <Link
+                                        <a
                                             href={"mailto:team@usetempo.ai"}
                                             className={`flex items-center gap-2 text-gray-900 rounded-lg `}
                                         >
@@ -1172,7 +1172,7 @@ const NewSidebar = ({ children }) => {
                                                     Get Support
                                                 </span>
                                             )}
-                                        </Link>
+                                        </a>
                                     </li>
                                 </ul>
                             )}

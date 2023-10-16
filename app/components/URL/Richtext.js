@@ -7,21 +7,27 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useEffect } from 'react';
 
 const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
-
-  const [editorState, setEditorState] = useState(() => {
+  console.log("oldContent", oldContent)
+  const getOldContent = () => {
     if (oldContent && oldContent !== 'undefined') {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       return EditorState.createWithContent(state);
     }
     return EditorState.createEmpty();
-  });
 
+  }
+  const [editorState, setEditorState] = useState(getOldContent());
+  
   const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
 
 
-
+  useEffect(() => {
+    if (!editorState) {
+      setEditorState(getOldContent())
+    }
+  }, [oldContent])
 
   useEffect(() => {
     if (externalContent && externalContent !== oldContent) {
@@ -129,7 +135,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
           image: {
             styles: {
               maxWidth: '350px',
-              margin: 'auto', 
+              margin: 'auto',
             },
           }
         }}

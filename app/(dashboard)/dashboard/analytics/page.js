@@ -260,8 +260,8 @@ const Logs = () => {
     if (results && Array.isArray(results) && results.length > 0) {
       const values = [
         { name: "Select", value: "all" },
-        ...results.map((item) => ({
-          name: item.name.concat(item.active ? "" : " (draft)"),
+        ...results.map((item) => ({ 
+          name: item.name,
           value: item.id,
         })),
       ];
