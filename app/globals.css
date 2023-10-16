@@ -395,9 +395,10 @@ body .chip {
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
-  word-wrap: break-word;
+  word-wrap: break-word;  
   display: flex;
   justify-content: space-between;
+  width: 96%;
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
