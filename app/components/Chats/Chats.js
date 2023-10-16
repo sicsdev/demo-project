@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -554,17 +554,23 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             </div >
             <div className="flex items-center space-x-2 mt-4 justify-start">
 
-                <span
-                    className="text-xs text-border font-[500] cursor-pointer"
-                    onClick={(e) => {
-                        raiseDisputHandler(e)
 
-                    }
-                    }
-                >
-                    {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
-                </span>
+                {
+                    conversationDetails.charge_status === "REFUNDED" ?
+                        <div className='flex gap-2 text-grey text-xs items-center'>REFUNDED<CheckCircleIcon className='w-4 h-4'></CheckCircleIcon></div>
+                        :
+                        <span
+                            className="text-xs text-border font-[500] cursor-pointer"
+                            onClick={(e) => {
+                                raiseDisputHandler(e)
 
+                            }
+                            }
+                        >
+                            {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
+                        </span>
+
+                }
 
             </div>
 
