@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 const NewAbovepage = () => {
+  const [showVideo, setShowvideo] = useState(false);
   return (
     <div className=" relative py-8 sm:py-14">
-      <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 relative">
         <div>
           <h2 className="block !font-[700] sm:ml-[40px]  text-2xl px-3 sm:px-6 sm:!leading-[50px] text-left md:text-h2 lg:text-h2 sm:text-h2  my-[1rem] sm:my-8 relative text-heading">
             Communications for the Customer Obsessed
@@ -14,11 +15,15 @@ const NewAbovepage = () => {
             <br /> employees connected.
           </p>
           <p className=" block sm:hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col  justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
-            Your contact center and communications solution 
-            to keep customers happy, agents engaged, and
-             employees connected.
+            Your contact center and communications solution to keep customers
+            happy, agents engaged, and employees connected.
           </p>
-          <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px]">
+          <div
+            className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer"
+            onClick={() => {
+              setShowvideo(!showVideo);
+            }}
+          >
             <p>
               <svg
                 width="40"
@@ -38,6 +43,20 @@ const NewAbovepage = () => {
             </p>
             <p className="font-semibold ml-3 see">See how it works</p>
           </div>
+          {showVideo ? (
+            <div className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-0 z-[999999]"       onClick={() => {
+              setShowvideo(false);
+            }}>
+              <video width="800" height="400" autoPlay={true} controls>
+                <source
+                  src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <div>
           <div className=" block">

@@ -1737,3 +1737,8 @@ body .sidebar-wrapper-scroller .bg-sidebar-hover {
   left: 0;
   transition: .2s;
 }
+body video {
+  height: fit-content !important;
+  position: absolute  !important;
+  top: 25% !important;
+}
