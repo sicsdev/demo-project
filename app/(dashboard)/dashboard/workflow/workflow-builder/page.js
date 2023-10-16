@@ -156,7 +156,7 @@ const Page = () => {
                                         </span>
                                     }
                                 </li>
-                                <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                                <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
@@ -169,6 +169,7 @@ const Page = () => {
                                         </span>
                                     }
                                 </li>
+                              
                                 {
                                     template?.length > 0 &&
                                     <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => { setTab(2) }}>
