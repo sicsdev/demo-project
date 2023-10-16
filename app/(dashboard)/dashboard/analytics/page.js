@@ -992,7 +992,7 @@ const Logs = () => {
                   showOption={false}
                 />
               </div> */}
-              <div className="flex justify-between items-center gap-2">
+              <div className="flex justify-between items-center gap-2 mb-[15px]">
                 <div className="w-full mt-4">
                   <div className={`inline`}>
                     <label
