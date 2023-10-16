@@ -248,7 +248,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             setLoading(false);
         }, 2000);
     }, [])
-    console.log("data", data)
     return (
         <div>
             <div className='mt-4'>
@@ -329,9 +328,9 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                 </div>
                                             )}
                                             {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
-                                                (element?.automation == null) && (
-                                                    <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                                        {element.condition && (
+                                                (element?.automation === null) && (
+                                                    <div key={index} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                        {element.condition && element.condition !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
@@ -341,17 +340,18 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                             </>
                                                         )}
 
-                                                        {element.question && (
+                                                        {element?.question && element?.question !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
                                                                     :
                                                                     <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
                                                                 }
+
                                                             </>
                                                         )}
 
-                                                        {element?.transformer && (
+                                                        {element?.transformer && element?.transformer !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
@@ -370,7 +370,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     <SkeletonLoader count={1} height={30} width="70%" />
                                                     :
                                                     <>
-                                                      {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
+                                                        {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
                                                     </>
                                                 }</h2>
                                             <p className='text-xs text-[#151d23cc] mt-1'>
