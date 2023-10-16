@@ -992,7 +992,7 @@ const Logs = () => {
                   showOption={false}
                 />
               </div> */}
-              <div className="flex justify-between items-center gap-2">
+              <div className="flex justify-between items-center gap-2 mb-[15px]">
                 <div className="w-full mt-4">
                   <div className={`inline`}>
                     <label
@@ -1001,7 +1001,7 @@ const Logs = () => {
                       From
                       <p style={{ fontSize: "10px" }}></p>
                     </label>
-                    <div className={`flex gap-2 items-center `}>
+                    <div className={`flex  items-center `}>
                       <input
                         onChange={(e) => filterDataHandler(e)}
                         value={selectedFilters.created__gte || ""}
@@ -1027,7 +1027,7 @@ const Logs = () => {
                       To
                       <p style={{ fontSize: "10px" }}></p>
                     </label>
-                    <div className={`flex gap-2 items-center`}>
+                    <div className={`flex items-center`}>
                       <input
                         onChange={(e) => filterDataHandler(e)}
                         value={selectedFilters.created__lte || ""}
