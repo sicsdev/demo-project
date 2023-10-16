@@ -929,7 +929,7 @@ const Page = () => {
                                                 }}
                                                 value={answer} /> */}
 
-                                            <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor}></TextEditor>
+                                            <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
                                             {/* <button
                                                 onClick={(e) => setModal(true)}
                                                 type="button"

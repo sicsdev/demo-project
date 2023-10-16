@@ -16,6 +16,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
 import CopyToClipboard from "react-copy-to-clipboard";
+import './widgetStyle.css'
 
 const Page = () => {
   const dispatch = useDispatch()
@@ -115,7 +116,7 @@ const Page = () => {
     const checkFormData = (keys) => {
       return keys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
     };
-  
+
     switch (tab) {
       case 1:
         const tab1Keys = [
@@ -134,7 +135,7 @@ const Page = () => {
           'customer_service_phone'
         ];
         return checkFormData(tab0Keys) || (!basicFormData['chat_suggestions'] || basicFormData['chat_suggestions'].length === 0);
-  
+
       default:
         return false;
     }
