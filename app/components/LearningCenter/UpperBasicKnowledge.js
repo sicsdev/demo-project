@@ -17,7 +17,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     const fileTypes = ["JPG", "PNG", "GIF"];
     const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
     const [loading, setLoading] = useState(false)
-    const [filterhead, setFilterhead] = useState('All');
+    const [filterhead, setFilterhead] = useState('all');
     const [currentIndex, setCurrentIndex] = useState(0);
     const handleCreateOptions = (option) => {
         if (option === 'pdf') {
@@ -32,7 +32,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
         switch (type) {
             case "FILE":
                 return data.filter((x) => x.source === 'file')
-            case "EXTERNAL":
+            case "EXTERNAL":    
                 return data.filter((x) => x.source === 'external')
             case "SNIPPET":
                 return data.filter((x) => x.source === 'snippet')
@@ -134,182 +134,215 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     }, []);
 
     return (
-        <>  <div className='flex justify-end items-center gap-2 w-full mt-2'>
-            <div className='mr-[18px]'>
-                {skeletonloading ? <SkeletonLoader count={1} height={30} width={100} /> :
-                    <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                        Create
-                    </button>
-                }
-            </div>
-        </div>
-            <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
+        <>
 
-                <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
-                    <p className="text-xs mb-5 font-semibold">
+            <div className={skeletonloading ? " my-2        " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2"}>
+                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+
+                    <li className={` ${skeletonloading ? "" : filterhead === "all" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        getDataWithFilters('ALL')
+                        setFilterhead("all")
+                        setShowSourceFilter(false)
+                    }}>
                         {skeletonloading ?
-                            <SkeletonLoader count={1} height={20} width={150} />
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                             :
-                            "To answer customer questions, Tempo is using:"
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`} z
+                                aria-current="page"
+                            >
+                                All
+                            </span>
                         }
-                    </p>
-                    <div className="flex gap-4 sm:gap-10 justify-start align-top">
-                        <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={30} />
-                                    :
-                                    <>
-                                        {basicFormData?.external}
-                                    </>
-                                }
-                            </h2>
-                            <p className="text-xs font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={140} />
-                                    :
-                                    <>
-                                        {basicFormData?.external === 1 ? "External page" : "External pages"}
-                                    </>
-                                }
-                            </p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={100} />
-                                    :
-                                    <>
-                                        out of {basicFormData?.external}
-                                    </>
-                                }
-                            </p>
-                        </div>
-                        <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={30} />
-                                    :
-                                    <>
-                                        {basicFormData?.snippet}
-                                    </>
-                                }
-                            </h2>
-                            <p className="text-xs font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={140} />
-                                    :
-                                    <>
-                                        {basicFormData?.snippet === 1 ? 'Snippet' : "Snippets"}
-                                    </>
-                                }
-                            </p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={100} />
-                                    :
-                                    <>
-                                        out of {basicFormData?.snippet}
-                                    </>
-                                }</p>
-                        </div>
-                        <div className='w-[25%]'>
-                            <h2 className="text-sm font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={30} />
-                                    :
-                                    <>
-                                        {basicFormData?.file}
-                                    </>
-                                }
-                            </h2>
-                            <p className="text-xs font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={140} />
-                                    :
-                                    <>
-                                        {basicFormData?.file === 1 ? 'File' : "Files"}
-                                    </>
-                                }</p>
-                            <p className="text-xs text-[#9CA3AF] font-semibold">
-                                {skeletonloading ?
-                                    <SkeletonLoader count={1} height={20} width={100} />
-                                    :
-                                    <>
-                                        out of {basicFormData?.file}
-                                    </>
-                                }
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    </li>
+                    <li className={`  ${filterhead === "External" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        getDataWithFilters('EXTERNAL')
+                        setFilterhead("External")
+                        setShowSourceFilter(false)
+                    }}>
+                        {skeletonloading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                External
+                            </span>
+                        }
+                    </li>
 
-                <div className="block sm:flex gap-10 justify-between items-center">
-                    {skeletonloading ?
+                    <li className={`  ${filterhead === "File" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        getDataWithFilters('FILE')
+                        setFilterhead("File")
+                        setShowSourceFilter(false)
+                    }}>
+                        {skeletonloading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                File
+                            </span>
+                        }
+                    </li>
+                    <li className={`  ${filterhead === "Snippet" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        getDataWithFilters('SNIPPET')
+                        setFilterhead("Snippet")
+                        setShowSourceFilter(false)
+                    }}>
+                        {skeletonloading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                Snippet
+                            </span>
+                        }
+                    </li>
+
+
+                </ul>
+            </div>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
+                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    {loading ?
                         <SkeletonLoader count={1} height={35} width={200} />
                         :
-                        <>
-                            <div className='mt-0 sm:mt-0 relative' ref={dropdown}>
-                                <div className="text-sm bg-[#FFF] rounded-md inline-block"
-                                    style={{ border: "1px solid #C7C6C7" }}>
-                                    <button
-                                        type="button"
-                                        className="border-none m-0 p-1 px-[0px] flex gap-1 items-center text-lg font-semibold w-full"
-                                        onClick={() => { setShowSourceFilter(prev => !prev) }}
-                                    >
-                                        <small className="flex gap-2 justify-between w-full font-normal items-center text-xs p-2">{filterhead}
-                                            <i style={{ fontSize: "15px" }} className="fa">&#xf0d7;</i>
-                                        </small>
-                                    </button>
-                                </div>
-                                {showSourceFilter && (
-                                    <div id="dropdown" className="z-10 absolute bg-white divide-y divide-gray-100 rounded-md shadow w-44 dark:bg-gray-700"
-                                        style={{ border: "1px solid #C7C6C7" }}>
-                                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                            <li className='hover:bg-gray cursor-pointer' onClick={(e) => {
-                                                getDataWithFilters('ALL')
-                                                setFilterhead("all")
-                                                setShowSourceFilter(false)
-                                            }}>
-                                                <p className="block px-2 text-xs py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >All</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
-                                                getDataWithFilters('EXTERNAL')
-                                                setFilterhead("External")
-                                                setShowSourceFilter(false)
-                                            }}>
-                                                <p className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" >External</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
-                                                getDataWithFilters('SNIPPET')
-                                                setFilterhead("Snippet")
-                                                setShowSourceFilter(false)
-                                            }}>
-                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Snippet</p>
-                                            </li>
-                                            <li className='hover:bg-gray cursor-pointer ' onClick={(e) => {
-                                                getDataWithFilters('FILE')
-                                                setFilterhead("File")
-                                                setShowSourceFilter(false)
-                                            }}>
-                                                <p href="#" className="block text-xs px-2 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                )}
+                        <div className="relative">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
                             </div>
-                            <div className="relative mt-2 sm:mt-0">
-                                <input
-                                    placeholder="Search"
-                                    className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10"
-                                    type="text"
-                                    value={search}
-                                    onChange={handleChange}
-                                />
-                                <img className="w-5 top-[10px] left-[14px] absolute" src="/search.png" />
-                            </div>
-                        </>
+                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search"
+                                value={search}
+                                onChange={handleChange} />
+                        </div>
                     }
                 </div>
+                <div>
+                    {loading ?
+                        <SkeletonLoader count={1} height={30} width={80} />
+                        :
+                        <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                        Create
+                    </button>
+                    }
+                </div>
+
             </div>
+
+                    {/* <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
+
+                        <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
+                            <p className="text-xs mb-5 font-semibold">
+                                {skeletonloading ?
+                                    <SkeletonLoader count={1} height={20} width={150} />
+                                    :
+                                    "To answer customer questions, Tempo is using:"
+                                }
+                            </p>
+                            <div className="flex gap-4 sm:gap-10 justify-start align-top">
+                                <div className='w-[25%]'>
+                                    <h2 className="text-sm font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={30} />
+                                            :
+                                            <>
+                                                {basicFormData?.external}
+                                            </>
+                                        }
+                                    </h2>
+                                    <p className="text-xs font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={140} />
+                                            :
+                                            <>
+                                                {basicFormData?.external === 1 ? "External page" : "External pages"}
+                                            </>
+                                        }
+                                    </p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={100} />
+                                            :
+                                            <>
+                                                out of {basicFormData?.external}
+                                            </>
+                                        }
+                                    </p>
+                                </div>
+                                <div className='w-[25%]'>
+                                    <h2 className="text-sm font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={30} />
+                                            :
+                                            <>
+                                                {basicFormData?.snippet}
+                                            </>
+                                        }
+                                    </h2>
+                                    <p className="text-xs font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={140} />
+                                            :
+                                            <>
+                                                {basicFormData?.snippet === 1 ? 'Snippet' : "Snippets"}
+                                            </>
+                                        }
+                                    </p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={100} />
+                                            :
+                                            <>
+                                                out of {basicFormData?.snippet}
+                                            </>
+                                        }</p>
+                                </div>
+                                <div className='w-[25%]'>
+                                    <h2 className="text-sm font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={30} />
+                                            :
+                                            <>
+                                                {basicFormData?.file}
+                                            </>
+                                        }
+                                    </h2>
+                                    <p className="text-xs font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={140} />
+                                            :
+                                            <>
+                                                {basicFormData?.file === 1 ? 'File' : "Files"}
+                                            </>
+                                        }</p>
+                                    <p className="text-xs text-[#9CA3AF] font-semibold">
+                                        {skeletonloading ?
+                                            <SkeletonLoader count={1} height={20} width={100} />
+                                            :
+                                            <>
+                                                out of {basicFormData?.file}
+                                            </>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div> */}
 
             {createModal === true && (
                 <SideModal heading={'Add New Content'} setShow={setCreateModal}>
