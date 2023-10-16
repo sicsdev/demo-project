@@ -542,7 +542,7 @@ const PhoneHandle = () => {
                                                                 value={element?.sales ?? ''}
                                                                 name="sales"
                                                                 className="!py-2"
-                                                                title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
+                                                                title={<h3 className='font-bold mt-2 text-sm text-heading'>Field Name</h3>}
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 placeholder={"Press key for {field name}"}
                                                                 type={"text"}

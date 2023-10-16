@@ -1366,6 +1366,11 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
+div[data-column-id="term"] {  
+  width: 67px;
+  white-space: break-spaces;
+  text-align: center;
+}
 
 div[data-column-id="Action"] {
   display: flex;
@@ -1745,4 +1750,7 @@ body .invite-email input[type="email"]:focus,
 
 #chatbot_widget .containerChatBot_entire {
   top: auto !important;
+}
+body .custome_table{
+  overflow-x: hidden !important;
 }

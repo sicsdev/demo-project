@@ -7,7 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useEffect } from 'react';
 
 const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
-  console.log("oldContent", oldContent)
+  // console.log("oldContent", oldContent)
   const getOldContent = () => {
     if (oldContent && oldContent !== 'undefined') {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${oldContent}</p>`));
@@ -18,7 +18,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
   }
   const [editorState, setEditorState] = useState(getOldContent());
-  
+
   const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
 

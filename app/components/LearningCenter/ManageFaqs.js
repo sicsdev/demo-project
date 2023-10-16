@@ -82,7 +82,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             padding: "12px",
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
-            )
+            ),
         }, {
             name: "State",
             selector: (row) => row.active,
@@ -92,7 +92,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                 <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
                     {row.active ? "Active" : "Disabled"}
                 </span>
-            )
+            ),
+
+            hide: "sm",
         },
         {
             name: "Content Source",
@@ -150,7 +152,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         {
             name: "Negative Search Terms",
             center: true,
-            width: "200px",
             cell: (row, index) => (
                 <div className="flex justify-center items-center gap-4 w-[200px]" onClick={() => { setSelected(row) }} >
                     <p>{row.negatives}</p>
@@ -163,6 +164,58 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             sortable: false,
             // width: "10%",
             reorder: false,
+
+            hide: "sm",
+        },
+    ];
+    const columns1 = [
+        {
+            name: "Question",
+            selector: (row, index) => row.question,
+            sortable: false,
+            reorder: false,
+            minWidth: "100px",
+            padding: "12px",
+            cell: (row) => (
+                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+            ),
+        }, 
+        {
+            name: "Bots",
+            selector: (row) => row.bots,
+            sortable: false,
+            minWidth: "70px",
+            reorder: false,
+            cell: (row, index) =>
+                <div className="py-2">
+                    <Multiselect
+                        className=''
+                        options={bots ?? []}
+                        selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
+                        onSelect={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        onRemove={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        placeholder={questions?.selectedBot && questions?.selectedBot[index]?.length === questions?.bots?.length ? '' : "Select Bots"}
+                        displayValue="name"
+                        closeOnSelect={true}
+                        showArrow={false}
+                    /></div>,
+        },
+        {
+            name: "Negative Search Terms",
+            minWidth: "100px",  
+            id:"term",
+            center: true,
+            cell: (row, index) => (
+                <div className="flex justify-center items-center gap-4" onClick={() => { setSelected(row) }} >
+                    <p>{row.negatives}</p>
+                </div>
+            ),
         },
     ];
 
@@ -257,29 +310,58 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
     }
     return (
         <div className="knowledgebase_table w-full px-2 pt-2">
-            <DataTable
-                title={''}
-                fixedHeader
-                highlightOnHover
-                pointerOnHover
-                pagination
-                columns={columns}
-                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                data={questions?.data?.results}
-                progressPending={questions?.isLoading}
-                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
-                paginationTotalRows={questions?.data?.count}
-                paginationDefaultPage={questions?.data?.page}
-                onRowClicked={(rowData) => { setSelected(rowData) }}
-                paginationPerPage={perPage}
-                paginationServer
-                onChangeRowsPerPage={handlePerRowsChange}
-                onChangePage={(page) => {
-                    onPageChange(page)
-                }}
-                paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                customStyles={customStyles}
-            />
+            <div className=' hidden sm:block md:block lg:block'>
+                <DataTable
+                    title={''}
+                    fixedHeader
+                    highlightOnHover
+                    pointerOnHover
+                    pagination
+                    columns={columns}
+                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                    data={questions?.data?.results}
+                    progressPending={questions?.isLoading}
+                    progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                    paginationTotalRows={questions?.data?.count}
+                    paginationDefaultPage={questions?.data?.page}
+                    onRowClicked={(rowData) => { setSelected(rowData) }}
+                    paginationPerPage={perPage}
+                    paginationServer
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={(page) => {
+                        onPageChange(page)
+                    }}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                    customStyles={customStyles}
+                />
+            </div>
+            <div className=' block sm:hidden md:hidden lg:hidden'>
+                <DataTable
+                    title={''}
+                    fixedHeader
+                    highlightOnHover
+                    className='custome_table'
+                    pointerOnHover
+                    pagination
+                    columns={columns1}
+                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                    data={questions?.data?.results}
+                    progressPending={questions?.isLoading}
+                    progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                    paginationTotalRows={questions?.data?.count}
+                    paginationDefaultPage={questions?.data?.page}
+                    onRowClicked={(rowData) => { setSelected(rowData) }}
+                    paginationPerPage={perPage}
+                    paginationServer
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={(page) => {
+                        onPageChange(page)
+                    }}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                    customStyles={customStyles}
+                />
+            </div>
+
             {selected && (
                 <SideModal heading={selected.question} setShow={(text) => {
                     setIsEdit(false)
