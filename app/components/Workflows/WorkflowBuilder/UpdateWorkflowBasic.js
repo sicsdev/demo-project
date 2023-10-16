@@ -6,6 +6,8 @@ import Button from '../../Common/Button/Button'
 import SelectOption from '../../Common/Input/SelectOption'
 import TextArea from '../../Common/Input/TextArea'
 import Multiselect from 'multiselect-react-dropdown'
+import { business_company_size_data } from '../../Forms/data/FormData'
+import SelectField from '../../Common/Input/SelectField'
 
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData, setWorkFlowFormData }) => {
     const [description, setDescription] = useState(workflowFormData?.description.join('\n') ?? '')
@@ -24,17 +26,34 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
             }
         })
     }
-    
+    const handleInputValue2 = (e) => {
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                workflow_types: e.target.value
+            }
+        })
+    }
+    const onSelectChannelData = (selectedList, selectedItem) => {
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                channels: selectedList
+
+            }
+        })
+    }
+
     useEffect(() => {
         const textarea = document.querySelector('.resizable-textarea');
         textarea?.setAttribute('rows', '3'); // Set the 'rows' attribute
         const rows = Math.min(
-          Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
-          8// Limit to a maximum of 6 rows
+            Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+            8// Limit to a maximum of 6 rows
         );
-    
+
         textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
-      }, [description]);
+    }, [description]);
     return (
         <div>
             <div className='mt-2'>
@@ -47,22 +66,22 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={"Something short and descriptive"}
                     type={'text'}
                     id={"name"}
-                    
+
                 />
             </div>
             <div className='mt-2 '>
                 {/* <TextArea name='description' className={'resizable-textarea'} placeholder={"What is this workflow for?"} id={"description"} onChange={handleInputValue1} title={"Description"} rows={'1'}>{description}</TextArea> */}
                 <textarea
-                      onChange={handleInputValue1}
-                      name="description"
-                      type="text"
-                      id='description'
-                      className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                      placeholder="What is this workflow for?"
-                      rows={'3'}
-                    >
-                      {description}
-                    </textarea>
+                    onChange={handleInputValue1}
+                    name="description"
+                    type="text"
+                    id='description'
+                    className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                    placeholder="What is this workflow for?"
+                    rows={'3'}
+                >
+                    {description}
+                </textarea>
             </div>
 
             <div className="my-2">
@@ -82,6 +101,39 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={botValue.length === workflowFormData?.bots.length ? '' : "Select Bots"}
                     displayValue="name"
                     closeOnSelect={true}
+                />
+            </div>
+            <div className="my-2">
+                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                    <div className='flex items-center gap-2'><span>Channels</span>  </div>
+                </label>
+                <Multiselect
+                    className='searchWrapper-live'
+                    options={[{ name: "Phone", value: "phone" }, { name: "Email", value: "email" }, { name: "Chat", value: "chat" }]}
+                    selectedValues={workflowFormData?.channels ?? []}
+                    onSelect={(selectedList, selectedItem) => {
+                        onSelectChannelData(selectedList, selectedItem);
+                    }}
+                    onRemove={(selectedList, selectedItem) => {
+                        onSelectChannelData(selectedList, selectedItem);
+                    }}
+                    placeholder={workflowFormData?.channels.length === 2 ? '' : "Select Channel"}
+                    displayValue="name"
+                    closeOnSelect={true}
+                />
+            </div>
+            <div className="">
+                <SelectField    
+                    labelClassName={"w-full sm:w-1/2"}
+                    onChange={handleInputValue2}
+                    selectdiv="selectdiv mt-3"
+                    value={workflowFormData?.workflow_types}
+                    name="workflow_types"
+                    values={["Image","Text"]}
+                    title={"Types"}
+                    id={"workflow_types"}
+                    className="py-3"
+                    error={''}
                 />
             </div>
             <div

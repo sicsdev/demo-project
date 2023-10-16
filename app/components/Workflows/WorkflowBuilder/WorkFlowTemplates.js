@@ -252,8 +252,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
     return (
         <div>
             <div className='mt-4'>
-                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  items-center p-2 bg-white'>
-                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
+                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         {loading ?
                             <SkeletonLoader count={1} height={35} width={200} />
@@ -264,7 +264,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                             </div>
                         }
                     </div>
