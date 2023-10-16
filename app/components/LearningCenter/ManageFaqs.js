@@ -82,7 +82,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             padding: "12px",
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
-            )
+            ),
         }, {
             name: "State",
             selector: (row) => row.active,
@@ -92,7 +92,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                 <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
                     {row.active ? "Active" : "Disabled"}
                 </span>
-            )
+            ),
+
+            hide: "sm",
         },
         {
             name: "Content Source",
@@ -150,7 +152,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         {
             name: "Negative Search Terms",
             center: true,
-            width: "200px",
             cell: (row, index) => (
                 <div className="flex justify-center items-center gap-4 w-[200px]" onClick={() => { setSelected(row) }} >
                     <p>{row.negatives}</p>
@@ -163,6 +164,58 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             sortable: false,
             // width: "10%",
             reorder: false,
+
+            hide: "sm",
+        },
+    ];
+    const columns1 = [
+        {
+            name: "Question",
+            selector: (row, index) => row.question,
+            sortable: false,
+            reorder: false,
+            minWidth: "100px",
+            padding: "12px",
+            cell: (row) => (
+                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+            ),
+        },
+        {
+            name: "Bots",
+            selector: (row) => row.bots,
+            sortable: false,
+            minWidth: "70px",
+            reorder: false,
+            cell: (row, index) =>
+                <div className="py-2">
+                    <Multiselect
+                        className=''
+                        options={bots ?? []}
+                        selectedValues={questions.selectedBot ? questions?.selectedBot[index] : []}
+                        onSelect={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        onRemove={(selectedList, selectedItem) => {
+                            onSelectData(selectedList, selectedItem, index);
+                            updateBotSelection(index, selectedList); // Call API when selection changes
+                        }}
+                        placeholder={questions?.selectedBot && questions?.selectedBot[index]?.length === questions?.bots?.length ? '' : "Select Bots"}
+                        displayValue="name"
+                        closeOnSelect={true}
+                        showArrow={false}
+                    /></div>,
+        },
+        {
+            name: "Negative Search Terms",
+            minWidth: "100px",
+            id: "term",
+            center: true,
+            cell: (row, index) => (
+                <div className="flex justify-center items-center gap-4" onClick={() => { setSelected(row) }} >
+                    <p>{row.negatives}</p>
+                </div>
+            ),
         },
     ];
 
@@ -257,57 +310,96 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
     }
     return (
         <div className="knowledgebase_table w-full px-2 pt-2">
-            <DataTable
-                title={''}
-                fixedHeader
-                highlightOnHover
-                pointerOnHover
-                pagination
-                columns={columns}
-                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                data={questions?.data?.results}
-                progressPending={questions?.isLoading}
-                progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
-                paginationTotalRows={questions?.data?.count}
-                paginationDefaultPage={questions?.data?.page}
-                onRowClicked={(rowData) => { setSelected(rowData) }}
-                paginationPerPage={perPage}
-                paginationServer
-                onChangeRowsPerPage={handlePerRowsChange}
-                onChangePage={(page) => {
-                    onPageChange(page)
-                }}  
-                paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                customStyles={customStyles}
-            />
+            <div className=' hidden sm:block md:block lg:block'>
+                <DataTable
+                    title={''}
+                    fixedHeader
+                    highlightOnHover
+                    pointerOnHover
+                    pagination
+                    columns={columns}
+                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                    data={questions?.data?.results}
+                    progressPending={questions?.isLoading}
+                    progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                    paginationTotalRows={questions?.data?.count}
+                    paginationDefaultPage={questions?.data?.page}
+                    onRowClicked={(rowData) => { setSelected(rowData) }}
+                    paginationPerPage={perPage}
+                    paginationServer
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={(page) => {
+                        onPageChange(page)
+                    }}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                    customStyles={customStyles}
+                />
+            </div>
+            <div className=' block sm:hidden md:hidden lg:hidden'>
+                <DataTable
+                    title={''}
+                    fixedHeader
+                    highlightOnHover
+                    className='custome_table'
+                    pointerOnHover
+                    pagination
+                    columns={columns1}
+                    noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                    data={questions?.data?.results}
+                    progressPending={questions?.isLoading}
+                    progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
+                    paginationTotalRows={questions?.data?.count}
+                    paginationDefaultPage={questions?.data?.page}
+                    onRowClicked={(rowData) => { setSelected(rowData) }}
+                    paginationPerPage={perPage}
+                    paginationServer
+                    onChangeRowsPerPage={handlePerRowsChange}
+                    onChangePage={(page) => {
+                        onPageChange(page)
+                    }}
+                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                    customStyles={customStyles}
+                />
+            </div>
+
             {selected && (
                 <SideModal heading={selected.question} setShow={(text) => {
                     setIsEdit(false)
                     setTab(0)
                     setSelected(null)
                 }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
-                    <div className="border-b border-border dark:border-gray-700 flex items-center justify-between mt-5">
-                        <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-medium text-center text-gray-500">
-                            <li className="mr-2" onClick={() => { setTab(0) }}>
+
+                    <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
+                        <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+
+                            <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
+
                                 <span
-                                    className={`flex justify-start text-xs gap-2 cursor-pointer items-center py-2  ${tab === 0 && ("border-b-2 text-primary border-primary")}  font-bold  rounded-t-lg active  group`}
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                     aria-current="page"
                                 >
-                                    <AcademicCapIcon className="h-5 w-5 text-gray-500" /> Answer
+                                    Answer
                                 </span>
+
                             </li>
-                            <li className="mr-2" onClick={() => {
+                            <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                                 setNagetive(true)
                                 getNagetiveQuestions(selected.id)
                                 setTab(1)
                             }}>
+
                                 <span
-                                    className={`flex justify-start gap-2 text-xs  cursor-pointer items-center py-2   ${tab === 1 && (" border-b-2  text-primary border-primary")}  font-bold rounded-t-lg active pl-2 group`}
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
                                     aria-current="page"
                                 >
-                                    <MinusCircleIcon className="h-5 w-5 text-gray-500" /> Negative Search Terms
+                                    Negative Search Terms
                                 </span>
+
                             </li>
+
+
                         </ul>
                     </div>
                     {tab === 0 && (
@@ -332,15 +424,16 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                             <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
 
-                            <button
+                            <button 
                                 onClick={(e) => updateFaq()}
                                 type="button"
                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
-                                {updateLoader ? <><svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
-                                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
-                                                </svg>
-                                                    <span>Loading...</span> </>  : "Submit"}
+                                {updateLoader ? <>
+                                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
+                                        <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
+                                    </svg>
+                                    <span>Loading...</span> </> : "Submit"}
                             </button>
                         </>)}
                     {tab === 1 && (

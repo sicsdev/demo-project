@@ -73,6 +73,16 @@ select {
     font-size: 16px !important;
   }
 
+  body input[type="date"] {
+    display: table;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 1.3rem !important;
+  }
+
   body input[type="text"],
   body input[type="number"],
   body input[type="email"],
@@ -104,10 +114,10 @@ select {
   body input[type="email"]::placeholder,
   body input[type="password"]::placeholder,
   body input[type="date"]::placeholder,
-  body input[type="search "]::placeholder,
-  body textarea::placeholder {
+  body input[type="search "]::placeholder {
     font-size: 16px !important;
   }
+
 }
 
 body .hide-focus {
@@ -385,9 +395,10 @@ body .chip {
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
-  word-wrap: break-word;
+  word-wrap: break-word;  
   display: flex;
   justify-content: space-between;
+  width: 96%;
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
@@ -1355,6 +1366,11 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
+div[data-column-id="term"] {  
+  width: 67px;
+  white-space: break-spaces;
+  text-align: center;
+}
 
 div[data-column-id="Action"] {
   display: flex;
@@ -1594,7 +1610,8 @@ body .rdt_Pagination {
     top: 0px;
     left: 0px;
   }
-  .knowledgebase_table .sc-feUZmu.bSqufN{
+
+  .knowledgebase_table .sc-feUZmu.bSqufN {
     max-height: 60vh !important;
   }
 }
@@ -1700,8 +1717,12 @@ body .invite-email input[type="email"]:focus,
 
 @media (max-width:991px) {
 
-  .public-DraftEditorPlaceholder-inner,
+  body .public-DraftEditorPlaceholder-inner,
   .DraftEditor-editorContainer span {
+    font-size: 16px !important;
+  }
+
+  body .DraftEditor-root {
     font-size: 16px !important;
   }
 }
@@ -1711,19 +1732,18 @@ body .invite-email input[type="email"]:focus,
     height: 70vh !important;
   }
 
-.sidebar-wrapper-scroller ul li, .sidebar-wrapper-scroller ul li:focus, .sidebar-wrapper-scroller ul li:focus-visible,
-.sidebar-wrapper-scroller ul li a, .sidebar-wrapper-scroller ul li a:focus-visible, .sidebar-wrapper-scroller ul li a:focus {
-  background: transparent !important;
-  background-color: transparent !important;
-}
+  .sidebar-wrapper-scroller ul li,
+  .sidebar-wrapper-scroller ul li:focus,
+  .sidebar-wrapper-scroller ul li:focus-visible,
+  .sidebar-wrapper-scroller ul li a,
+  .sidebar-wrapper-scroller ul li a:focus-visible,
+  .sidebar-wrapper-scroller ul li a:focus {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
 
-body .sidebar-wrapper-scroller .bg-sidebar-hover {
-  background: radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%) !important;
-}  
-
-
-  #chatbot_widget .containerChatBot_entire {
-    top: auto !important;
+  body .sidebar-wrapper-scroller .bg-sidebar-hover {
+    background: radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%) !important;
   }
 }
 
@@ -1744,4 +1764,10 @@ body video {
 }
 .modal-open{
   overflow: hidden;
+}
+#chatbot_widget .containerChatBot_entire {
+  top: auto !important;
+}
+body .custome_table{
+  overflow-x: hidden !important;
 }

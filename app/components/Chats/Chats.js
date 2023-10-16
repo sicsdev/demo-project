@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -102,15 +102,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         try {
             setDisputeLoader(true);
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
-            console.log("disputeResult", disputeResult);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
-                disputeResult();
                 successMessage("Dispute Created Successfully!");
+                setConversationDetails({...conversationDetails, charge_status: 'REFUNDED'})
             } else {
                 errorMessage("Unable to create dispute!");
             }
             setDisputeLoader(false);
         } catch (error) {
+            console.log(error)
             errorMessage("Unable to create dispute!");
             setDisputeLoader(false)
         }
@@ -129,7 +129,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     const divideAnswer = (element) => {
 
-        console.log('ekleen', element)
         const content = element.content;
         const maxChars = 150;
         let startIndex = 0;
@@ -146,7 +145,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             }
 
             contentParts.push(content.substring(startIndex, endIndex + 1));
-            startIndex = endIndex + 2;
+            startIndex = endIndex + 1;
         }
 
         return (
@@ -159,7 +158,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                             <div className="answer_text_div">
                                 <div key={index} className='flex items-center justify-between gap-1'>
-                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(part)}>
+                                    <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(part)}>
                                         {part}
                                     </div>
                                     <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
@@ -260,7 +259,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             src={`${botUnique?.enterprise?.logo ||
                                                                 `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                         <div className="answer_text_div"> */}
-                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}> */}
+                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}> */}
                                                         <div className="title-element-right" style={{ display: "none" }}>14:11</div>
 
                                                         {
@@ -271,7 +270,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
                                                                     </div>
                                                                 </div>
@@ -287,7 +286,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         Could you please clarify how I can best help you?
                                                                     </div>
                                                                 </div>
@@ -304,7 +303,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         No problem, I can help you with that! Could you please provide the following information:
                                                                     </div>
                                                                 </div>
@@ -320,7 +319,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 {divideAnswer(element)}
 
                                                                 {/* <div className='flex items-center justify-between gap-1'>
-                                                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} title="Copy answer to clipboard" onClick={(e) => copyMessageText(element.content)}>
+                                                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                             {element.content}
                                                                         </div>
                                                                         <div className="chatBotWidgetThumbs">
@@ -421,7 +420,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 <div className="component_answer" style={{ width: '300px' }}></div>
                                                                 <div className="tempo-widget-custom-form">
                                                                     {Object.keys(element.actions).map(key => {
-                                                                        console.log(key, 'elem')
                                                                         const elementData = element.actions[key];
                                                                         const elementId = `tempo-widget-custom-form-${key}`;
 
@@ -491,7 +489,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                     <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                    <div className='w-100' style={{width: '100%'}}>
+                                                                        <div className='w-100' style={{ width: '100%' }}>
                                                                             <small><b>Sources</b><br /></small>
                                                                             {/* {element?.workflows[0]?.information?.name} */}
                                                                             {element?.workflows?.map(workflow => (
@@ -557,17 +555,23 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             </div >
             <div className="flex items-center space-x-2 mt-4 justify-start">
 
-                <span
-                    className="text-xs text-border font-[500] cursor-pointer"
-                    onClick={(e) => {
-                        raiseDisputHandler(e)
 
-                    }
-                    }
-                >
-                    {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
-                </span>
+                {
+                    conversationDetails.charge_status === "REFUNDED" ?
+                        <div className='flex gap-2 text-grey text-xs items-center'>REFUNDED<CheckCircleIcon className='w-4 h-4'></CheckCircleIcon></div>
+                        :
+                        <span
+                            className="text-xs text-border font-[500] cursor-pointer"
+                            onClick={(e) => {
+                                raiseDisputHandler(e)
 
+                            }
+                            }
+                        >
+                            {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
+                        </span>
+
+                }
 
             </div>
 

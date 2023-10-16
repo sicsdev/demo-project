@@ -27,6 +27,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     if (externalContent && externalContent !== oldContent) {
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
+      onEditorStateChange(EditorState.createWithContent(state))
       setEditorState(EditorState.createWithContent(state));
     }
   }, [externalContent, oldContent]);
@@ -110,8 +111,9 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
+        
         customStyleMap={customStyleMap}
-
+        id={"answering"}
         toolbar={{
           options: ['link', 'image'],
           inline: {
@@ -133,7 +135,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
             },
           }
         }}
-
+wrapperId={"SDSDDSF"}
         placeholder="Start writing your content..."
       />
 

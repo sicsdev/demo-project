@@ -248,12 +248,11 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             setLoading(false);
         }, 2000);
     }, [])
-    console.log("data", data)
     return (
         <div>
             <div className='mt-4'>
-                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  items-center p-2 bg-white'>
-                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center p-2 bg-white'>
+                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         {loading ?
                             <SkeletonLoader count={1} height={35} width={200} />
@@ -264,7 +263,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input type="search" id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-gray-900 border border-border !rounded-md" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                             </div>
                         }
                     </div>
@@ -329,9 +328,9 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                 </div>
                                             )}
                                             {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
-                                                (element?.automation == null) && (
-                                                    <div key={key} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                                        {element.condition && (
+                                                (element?.automation === null) && (
+                                                    <div key={index} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
+                                                        {element.condition && element.condition !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
@@ -341,17 +340,18 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                             </>
                                                         )}
 
-                                                        {element.question && (
+                                                        {element?.question && element?.question !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
                                                                     :
                                                                     <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
                                                                 }
+
                                                             </>
                                                         )}
 
-                                                        {element?.transformer && (
+                                                        {element?.transformer && element?.transformer !== "" && (
                                                             <>
                                                                 {loading ?
                                                                     <SkeletonLoader count={1} height={30} width={40} />
@@ -370,7 +370,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     <SkeletonLoader count={1} height={30} width="70%" />
                                                     :
                                                     <>
-                                                      {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
+                                                        {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
                                                     </>
                                                 }</h2>
                                             <p className='text-xs text-[#151d23cc] mt-1'>

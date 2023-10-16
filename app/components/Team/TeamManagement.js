@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import Button from "../Common/Button/Button";
 import { useSelector } from "react-redux";
 import { makeCapital } from "../helper/capitalName";
@@ -6,9 +6,13 @@ import SelectOption from "../Common/Input/SelectOption";
 import DataTable from "react-data-table-component";
 import { useState } from "react";
 import { isMobile, mobileModel } from "react-device-detect";
+import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/router";
+
 const TeamManagement = ({ state, removeMember, changeRole }) => {
   const stateM = useSelector((state) => state.user);
   const [teams, setTeams] = useState(state?.data ?? []);
+  console.log("teams", teams)
   const [perPage, setPerPage] = useState(10);
   useEffect(() => {
     if (state?.data) {
@@ -96,68 +100,23 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       width: "200px",
       hide: "sm",
     },
-    // {
-    //     name: "Role",
-    //     id: "Role",
-    //     selector: row => row?.role,
-    //     cell: (element) => (
-    //         <div className='flex justify-between gap-2 items-center'>
-    //             <span className="inline-block whitespace-nowrap rounded-full text-white bg-primary px-4 py-1 text-center align-baseline text-xs font-[500] leading-none ">{makeCapital(element?.role)}</span>
-
-    //         </div>
-    //     ),
-    //     reorder: true,
-    //     width: "150px",
-    //     hide: "sm"
-    // },
+    {
+      name: "Role",
+      id: "Role",
+      selector: row => row?.role,
+      cell: (element) => (
+        <p className="whitespace-normal text-xs flex items-center" >  {element.role == "MEMBER" ? "Collaborator" : "Admin"}</p>
+      ),
+      reorder: true,
+      width: "150px",
+    },
     {
       name: "Action",
       id: "Action",
       selector: (row) => row?.action,
-      cell: (element) => (
-        <div className="gird grid-cols-1  sm:flex  justify-between gap-2 items-center w-full">
-          {stateM?.data?.role === "ADMINISTRATOR" &&
-            stateM?.data?.email !== element.email && (
-              <div className=" w-[50%] sm:w-full ">
-                <SelectOption
-                  onChange={(e) => changeRole(element.email, e.target.value)}
-                  value={element?.role}
-                  name="role"
-                  values={[
-                    { name: "Admin", value: "ADMINISTRATOR" },
-                    { name: "Collaborator", value: "MEMBER" },
-                  ]}
-                  title={""}
-                  id={"role"}
-                  disabled={
-                    stateM?.data?.email === element.email ||
-                    stateM?.data?.role !== "ADMINISTRATOR"
-                  }
-                  className={
-                    stateM?.data?.email === element.email ||
-                    stateM?.data?.role !== "ADMINISTRATOR"
-                      ? "py-3 bg-none w-full"
-                      : "py-3 w-full !text-[13px] gap-[2rem] "
-                  }
-                  // error={returnErrorMessage("business_state")}
-                />
-              </div>
-            )}
-
-          {stateM?.data?.role === "ADMINISTRATOR" &&
-          stateM?.data?.email !== element.email ? (
-            <div className=" w-[50%] sm:w-full my-3 sm:my-0">
-              <Button
-                type="button"
-                disabled=""
-                className="focus:outline-none font-normal rounded-md text-xs py-[9px] px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black "
-                onClick={() => removeMember(element.email)}
-              >
-                Remove
-              </Button>
-            </div>
-          ) : null}
-        </div>
+      cell: (ele) => (
+        ele.role == "MEMBER" ?
+        <ButtonComponent ele={ele} show={show} setShow={setShow} removeMember={removeMember} changeRole={changeRole} />:null  
       ),
       reorder: true,
       width: "300px",
@@ -166,11 +125,12 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
 
 
 
-console.log("teams", teams)
-
+  console.log("teams", teams)
+  const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
+  const [show, setShow] = useState(null)
   return (
     <div className="mt-5">
-      <div className="w-full sm:block hidden">
+      <div className="w-full ">
         <DataTable
           title={""}
           fixedHeader
@@ -178,7 +138,7 @@ console.log("teams", teams)
           pointerOnHover
           defaultSortFieldId="number_of_messages"
           pagination
-          className=""
+          className="h-[500px]"
           columns={columns2}
           noDataComponent={
             <>
@@ -190,108 +150,67 @@ console.log("teams", teams)
         />
       </div>
 
-      <div className="block sm:hidden limiter">
-        <div className="container-table100 aaaaaaa">
-          <div className="wrap-table100">
-            <div className="table100">
-              <table>
-                <thead>
-                  <tr className="table100-head">
-                    {columns2.map((item) => (
-                      <th className="column1  text-xs">{item.name}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {teams.map((ele) => (
-                    <>
-                      <tr>
-                        {/* <td className="column1 text-sm">
-                                                    {ele?.logo ?
-                                                        <img
-                                                            className="w-9 h-9 rounded-lg border border-border"
-                                                            src={ele?.logo}
-                                                            alt="user photo"
-                                                        /> :
-                                                        <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                            <span className="font-medium text-white normal-case"> {ele?.name.charAt(0)}</span>
-                                                        </div >}
-                                                </td> */}
-                        <td className="column2 text-sm">
-                          <p className="whitespace-normal text-xs">
-                            {ele.email}
-                          </p>
-                        </td>
-                        {/* <td className="column2 text-sm">
-                                                    <p className='whitespace-normal text-xs'>{ele.name}</p>
-                                                </td>
-                                                <td className="column2 text-sm">
-                                                    <p className='whitespace-normal text-xs'>{ele.contact}</p>
-                                                </td> */}
-                        {/* <td className="column2 text-sm">
-
-                                                    <div className='flex justify-between gap-2 items-center'>
-                                                        <span className="inline-block whitespace-nowrap rounded-full text-white bg-primary px-4 py-1 text-center align-baseline text-xs font-[500] leading-none ">{makeCapital(ele?.role)}</span>
-                                                    </div>
-                                                </td> */}
-                        <td>
-                          <div className="gird grid-cols-1  sm:flex  justify-between gap-2 items-center w-full">
-                            {stateM?.data?.role === "ADMINISTRATOR" &&
-                              stateM?.data?.email !== ele.email && (
-                                <div className=" w-[50%] sm:w-full ">
-                                  <SelectOption
-                                    onChange={(e) =>
-                                      changeRole(ele.email, e.target.value)
-                                    }
-                                    value={ele?.role}
-                                    name="role"
-                                    values={[
-                                      { name: "Admin", value: "ADMINISTRATOR" },
-                                      { name: "Collaborator", value: "MEMBER" },
-                                    ]}
-                                    title={""}
-                                    id={"role"}
-                                    disabled={
-                                      stateM?.data?.email === ele.email ||
-                                      stateM?.data?.role !== "ADMINISTRATOR"
-                                    }
-                                    className={
-                                      stateM?.data?.email === ele.email ||
-                                      stateM?.data?.role !== "ADMINISTRATOR"
-                                        ? "py-3 bg-none w-full"
-                                        : "py-3 w-full !text-[13px] gap-[2rem] "
-                                    }
-                                    // error={returnErrorMessage("business_state")}
-                                  />
-                                </div>
-                              )}
-
-                            {stateM?.data?.role === "ADMINISTRATOR" &&
-                            stateM?.data?.email !== ele.email ? (
-                              <div className=" w-[50%] sm:w-full my-3 sm:my-0">
-                                <Button
-                                  type="button"
-                                  disabled=""
-                                  className="focus:outline-none font-normal rounded-md text-xs py-[9px] px-2 w-full focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black "
-                                  onClick={() => removeMember(ele.email)}
-                                >
-                                  Remove
-                                </Button>
-                              </div>
-                            ) : null}
-                          </div>
-                        </td>
-                      </tr>
-                    </>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
 
 export default TeamManagement;
+
+
+
+export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole }) => {
+  const data = [
+    { name: "Admin", value: "ADMINISTRATOR" },
+    { name: "Collaborator", value: "MEMBER" },
+  ]
+  const divRef = useRef(null);
+  useEffect(() => {
+    // Function to handle clicks outside the div and dropdown
+    function handleClickOutside(event) {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        // Clicked outside of the div, close the dropdown
+        setShow(null);
+      }
+    }
+
+    // Attach the event listener to the document body
+    document.body.addEventListener('click', handleClickOutside);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.body.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <div className='cursor-pointer relative' ref={divRef} onClick={(e) => {
+      setShow(prev => { if (prev === ele?.email) { return null } else { return ele?.email } })
+    }}>
+      <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
+      {show === ele?.email && (
+        <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
+          <ul className="py-2 text-xs text-gray-700 ">
+            {data.map((element, key) =>
+              <li className={`hover:bg-primary  hover:text-white text-heading my-1`} key={key}>
+                <button type='button' className="block px-4 py-2 " onClick={() => {
+                  changeRole(ele.email, element.value)
+                  setShow(null)
+                }}>{element.value}</button>
+              </li>
+            )}
+            <li className={`hover:bg-danger  hover:text-white text-heading my-1`}>
+              <button type='button' className="block px-4 py-2 " onClick={() => {
+                removeMember(ele.email)
+                setShow(null)
+              }
+              } >Remove</button>
+            </li>
+
+          </ul>
+        </div>
+      )
+      }
+    </div >
+  )
+
+}

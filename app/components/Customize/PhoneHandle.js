@@ -542,7 +542,7 @@ const PhoneHandle = () => {
                                                                 value={element?.sales ?? ''}
                                                                 name="sales"
                                                                 className="!py-2"
-                                                                title={<h3 className='font-bold my-2 text-sm text-heading'>Field Name</h3>}
+                                                                title={<h3 className='font-bold mt-2 text-sm text-heading'>Field Name</h3>}
                                                                 onChange={(e) => handleInputValues(key, e.target.name, e.target.value)}
                                                                 placeholder={"Press key for {field name}"}
                                                                 type={"text"}
@@ -704,11 +704,11 @@ const PhoneHandle = () => {
 
             {audioModal === true && (
                 <>
-                    <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
+                    <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
                         setAudioModal(false)
                     }
                     }></div>
-                    <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                    <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
                                 <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>
@@ -808,12 +808,12 @@ const PhoneHandle = () => {
             )}
             {modal === true && (
                 <>
-                    <div className='rightSlideAnimations bg-[#222023A6] fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
+                    <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
 
                         setModal(false)
                     }
                     }></div>
-                    <div className={` z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                    <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-[700px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                         <div className='flex flex-row gap-2 items-center py-4 border-b border-border dark:bg-gray-800'>
                             <div className='flex flex-1'>
                                 <h1 className='text-heading text-sm font-semibold'>Greeting message</h1>

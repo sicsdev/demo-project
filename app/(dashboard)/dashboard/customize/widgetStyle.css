@@ -205,7 +205,7 @@
 #chatbot_preview .input_question::placeholder {
   font-family: Helvetica;
   padding-bottom: 1vh;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 #chatbot_preview .send_button {
@@ -321,8 +321,8 @@
 
 
 
-#chatbot_preview .tempoWidget-suggestedQuestions-div {
-  /* position: absolute; */
+#chatbot_preview .tempoWidget-suggestedQuestions-div_logs {
+  position: absolute;
   width: 100%;
   bottom: 0;
   right: 0;
