@@ -83,19 +83,20 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             ),
-        }, {
-            name: "State",
-            selector: (row) => row.active,
-            sortable: false,
-            reorder: false,
-            cell: (row) => (
-                <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
-                    {row.active ? "Active" : "Disabled"}
-                </span>
-            ),
+        }, 
+        // {
+        //     name: "State",
+        //     selector: (row) => row.active,
+        //     sortable: false,
+        //     reorder: false,
+        //     cell: (row) => (
+        //         <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
+        //             {row.active ? "Active" : "Disabled"}
+        //         </span>
+        //     ),
 
-            hide: "sm",
-        },
+        //     hide: "sm",
+        // },
         {
             name: "Content Source",
             selector: (row) => row?.knowledge?.source,
