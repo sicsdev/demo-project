@@ -18,10 +18,10 @@ const Homeintegration = (props) => {
       <div className="w-full m-auto flex justify-center sm:my-[50px]">
 
       </div>
-      <h1 className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-3xl font-bold sm:mb-7">
+      <h1 className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
         8x8 Technology Partner Ecosystem
       </h1>
-      <p className="sm:w-[885px] m-auto p-10 sm:p-0  text-left sm:text-center">
+      <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
         Create customized, customer-centric solutions that cater to your unique
         business needs. Meet and exceed your CX goals with integrations that
         leverage persistent data and seamlessly blend into the 8x8 XCaaS

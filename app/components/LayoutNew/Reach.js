@@ -31,13 +31,12 @@ const Reach = () => {
   ];
   return (
     <div className="bg-white p-0 sm:p-[0px] ">
-      <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  sm:text-center text-2xl sm:text-3xl font-bold sm:mb-7">
+      <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  sm:text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
       Global presence and reach
       </h1>
 
 
       <div className="sm:pt-[0px] bg-white">
-        <div className="pt-8 sm:pt-3 pb-8 sm:pb-4">
           <div className="max-w-[90%] sm:max-w-[100%]">
             {data.length === 0 ? (
               <p className=" text-xl align-bottom font-semibold italic text-center">
@@ -47,7 +46,7 @@ const Reach = () => {
               ""
             )}
             <div className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-3 lg:px-4 relative group">
-              <div className="grid grid-cols-1  sm:grid-cols-4 gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4      gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
                 {data?.map((ele, key) => (
                   <div
                     className="bg-white flex flex-col justify-between cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
@@ -71,7 +70,6 @@ const Reach = () => {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   );

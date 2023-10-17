@@ -47,7 +47,7 @@ export default function PageLayout({ children }) {
 
   const hideComponent = pathname === "/checkout";
   return (
-    <div className="scroll-smooth lg:max-w-[1400px] m-auto App w-full h-full">
+    <div className="scroll-smooth lg:max-w-full m-auto App w-full h-full">
       {!hideComponent && <Nav />}
       {/* <Header /> */}
       {children}

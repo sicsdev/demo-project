@@ -16,11 +16,11 @@ const Panelcardnew = () => {
     first: false,
   });
   return (
-    <div className="bg-white p-[64px]">
-      <h2 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
-        Choose your plan
+    <div className="bg-white p-[64px]"> 
+      <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
+      AI Customer Service Solutions
       </h2>
-      <div className="w-full w-[90%] md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
+      <div className="w-full  shadow-2xl md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
             className={`flex flex-col justify-between ${
@@ -94,7 +94,7 @@ const Panelcardnew = () => {
                 </p>
               )}
 
-              <h3 className="font-bold text-heading my-6"> Plan includes:</h3>
+              <h3 className="font-bold text-heading my-6"> Inclusions :</h3>
               <ul>
                 {ele.feature_list.map((element, key) => (
                   <li
