@@ -23,7 +23,7 @@ const Panelcard = (props) => {
   });
   
   return (
-    <div className="bg-white p-[64px] ">
+    <div className="bg-white p-[64px]">
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
         Choose your plan
       </h1>

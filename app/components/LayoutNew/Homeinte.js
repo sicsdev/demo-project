@@ -59,7 +59,7 @@ const Homeinte = () => {
         }, 3000);
     }, []);
     return (
-        <div className="bot-page-shadow  icons bg-[#ffffff] pt-[1px] sm:pt-4 pb-4 sm:pb-0 w-full sm:w-[1440px] mx-auto">
+        <div className="bot-page-shadow  icons bg-[#ffffff] pt-[1px] sm:pt-4 pb-4 sm:pb-0 w-full sm:max-w-[1440px] mx-auto">
             <div className='main-wrapper-integrate  mx-auto max-w-[90%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[90%]  sm:py-10 w-full sm:w-[1440px] '>
                 {/* <h1 className='text-center text-base sm:text-para md:text-para lg:text-[32px] sm:leading-8 my-2 sm:my-6 font-base text-[#252C47]' >
                     {loading ? <SkeletonLoader count={1} height={30} width={"60%"} /> :
