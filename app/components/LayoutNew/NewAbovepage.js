@@ -4,17 +4,17 @@ const NewAbovepage = () => {
   const [showVideo, setShowvideo] = useState(false);
   return (
     <div className=" relative py-8 sm:py-14">
-      <div className="grid grid-cols-1 sm:grid-cols-2 relative">
+      <div className="grid grid-cols-1 md:grid-cols-2 relative">
         <div>
-          <h2 className="block !font-[700] sm:ml-[40px]  text-[33px] leading-[40px] px-3 sm:px-6 sm:!leading-[50px] text-left md:text-h2 lg:text-h2 sm:text-h2  my-[1rem] sm:my-8 relative text-[black">
+          <h2 className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black">
             Communications for the Customer Obsessed
           </h2>
-          <p className=" hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          {/* <p className=" hidden text-blue-400 text-left font-[400]  px-3 w-full text-heading xs:flex-row xs:flex-col md:flex justify-center text-[16px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Your contact center and communications solution <br />
             to keep customers happy, agents engaged, and
             <br /> employees connected.
-          </p>
-          <p className=" block sm:hidden text-blue-400 w-[339px] text-left font-[400]  px-3 sm:w-full text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          </p> */}
+          <p className="w-full md:ml-[56px] w-full xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Your contact center and communications solution to keep customers
             happy, agents engaged, and employees connected.
           </p>
@@ -54,20 +54,29 @@ const NewAbovepage = () => {
                 setShowvideo(false);
               }}
             >
-              <video width="800" height="400" autoPlay={true} controls>
+              <div className="video_popup">
+              <video className="!static" width="800" height="400" autoPlay={true} controls>
                 <source
                   src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
                   type="video/mp4"
                 />
               </video>
+              <div className="video_popup_cross">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" class="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+              </div>
+
             </div>
+            </div>
+
+
+
           ) : (
             ""
           )}
         </div>
         <div>
           <div className=" block">
-            <div className="mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+            <div className="!m-auto mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
               <Image
                 src="/XCaaS_8x8_Website_Hero_v1a.webp"
                 className="w-full bg-contain object-contain mx-auto "

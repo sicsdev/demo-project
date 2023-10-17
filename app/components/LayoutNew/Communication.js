@@ -60,7 +60,7 @@ const Communication = () => {
             <SkeletonLoader height={30} width={"70%"} />
           </div>
         ) : (
-          <h2 class="block !font-[700] text-2xl md:text-h2 lg:text-h2 sm:text-h2 text-center my-[1rem] sm:my-8 relative text-heading">
+          <h2 class="block !font-[700] text-2xl md:text-h2 lg:text-h2 md:text-h2 text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
             Tempo AI-Powered Customer Service Platform
           </h2>
         )}
@@ -69,7 +69,7 @@ const Communication = () => {
             <SkeletonLoader height={30} width={"50%"} />
           </div>
         ) : (
-          <p className="text-blue-400 w-[339px] text-center font-[400]  sm:w-full text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
             Unify and automate customer engagement across your organization with
             our intelligent, AI-driven solutions.
           </p>
@@ -84,7 +84,7 @@ const Communication = () => {
           </button>
         )}
       </div>
-      <div className="low-section block sm:hidden mb-5">
+      <div className="md:mx-0 mx-4 low-section block md:hidden mb-5">
         <div className="flex flex-col justify-center">
           {tabs.map((ele, key) => (
             <div
@@ -115,11 +115,11 @@ const Communication = () => {
               ) : (
                 <>
                   {key == activeTab ? (
-                    <div className=" flex flex-col  self-center	sm:w-[420px] px-[41px] pt-[27px]">
-                      <p className="text-blue-400 w-full   text-left  sm:w-full text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] md:text-para lg:text-para sm:text-para sm:leading-8 gap-2">
+                    <div className=" flex flex-col  self-center	md:w-[420px] px-[41px] pt-[27px]">
+                      <p className="text-blue-400 w-full   text-left  md:w-full text-heading xs:flex-row xs:flex-col md:flex justify-center text-[16px] leading-[22px] md:text-para lg:text-para md:text-para md:leading-8 gap-2">
                         {tabs[0].p}
                       </p>
-                      <button className="text-white text-left pt-[20px]  w-full sm:mt-4 sm:flex justify-start hover:text-heading my-3  sm:my-0  text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
+                      <button className="text-white text-left pt-[20px]  w-full md:mt-4 md:flex justify-start hover:text-heading my-3  md:my-0  text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
                         <Link
                           href="/checkout"
                           className=" px-[20px] py-[8px] rounded-[25px] bg-[#fe9327] hover:bg-black hover:text-white"
@@ -138,8 +138,8 @@ const Communication = () => {
           ))}
         </div>
       </div>
-      <div className="low-section hidden sm:block px-[88px]">
-        <div className="grid grid-cols-1 sm:grid-cols-[30%,70%] ">
+      <div className="low-section hidden md:block px-[88px]">
+        <div className="grid grid-cols-1 md:grid-cols-[30%,70%] ">
           <div className="flex flex-col justify-center">
             {loading ? (
               <div className="m-auto text-center text-base py-8 sm:mt-2  px-1 rounded-full">
@@ -159,7 +159,7 @@ const Communication = () => {
                   >
                     {/* <img src={ele.logo} className={`h-[65px]  w-10  `} /> */}
                     <div
-                    className={`flex   ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[#cb2233]" : ""
+                    className={`flex   ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[#fe9327]" : ""
                       } `}
                   >
                     <p>
@@ -192,10 +192,10 @@ const Communication = () => {
                 />
               </div>
             ) : (
-              <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] sm:w-[300px] sm:h-[300px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
+              <div className="ml-auto mr-auto sm:mr-2  rounded-md relative w-[343px] md:w-[300px] md:h-[300px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
                 <img
                   src={tabs[activeTab].content_video}
-                  className="w-full absolute bg-contain mx-auto sm:ml-[-120px]"
+                  className="w-full absolute bg-contain mx-auto xl:ml-[-120px]"
                   fill={true}
                 />
               </div>
