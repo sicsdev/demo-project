@@ -30,7 +30,16 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
       onEditorStateChange(EditorState.createWithContent(state))
       setEditorState(EditorState.createWithContent(state));
     }
+
+    // For some reason the component does not refresh until you interact with it in case external content arrives. We will use this trick to click it and force to refresh.
+    const elements = document.getElementsByClassName('DraftEditor-root');
+    if (elements.length > 0) {
+      elements[0].click();
+    }
+
   }, [externalContent, oldContent]);
+
+
 
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
@@ -111,7 +120,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
-        
+
         customStyleMap={customStyleMap}
         id={"answering"}
         toolbar={{
@@ -131,11 +140,11 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
           image: {
             styles: {
               maxWidth: '350px',
-              margin: 'auto', 
+              margin: 'auto',
             },
           }
         }}
-wrapperId={"SDSDDSF"}
+        wrapperId={"SDSDDSF"}
         placeholder="Start writing your content..."
       />
 
