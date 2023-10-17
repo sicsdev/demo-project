@@ -1772,33 +1772,10 @@ body .custome_table{
   overflow-x: hidden !important;
 }
 
-/* .video_popup {
-	width: 100%;
-	position: relative;
-}
-.video_popup svg {
-	position: absolute;
-	right: 161px;
-	top: 200px;
-	background: transparent;
-	padding: 4px;
-} */
-
-/* .video_popup::after {
-  content: "";
-  width: 30px;
-  height: 30px;
-  background: url("http://www.gentleface.com/i/free_toolbar_icons_16x16_black.png") no-repeat -30px -50px no-scroll;
-  background-color: red;
-  top: 10px;
-  right: 5px;
-  position: absolute;
-  display: inline-block;
-} */
 .video_popup{
   width: 801px;
   margin: auto;
-  height: 397px;
+  height: auto;
   position: relative;
 }
 .video_popup_cross{
@@ -1810,4 +1787,5 @@ body .custome_table{
 .video_popup_cross svg{
 	background: transparent;
 	padding: 4px;
+  color: #fff;
 }
