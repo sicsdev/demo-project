@@ -821,9 +821,7 @@ const Page = () => {
                                                                                     </button>
                                                                                 </div>
                                                                                 <div onClick={() => {
-                                                                                    setAnswer(element.data.answer)
-                                                                                    setMode('normal')
-                                                                                }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                                  SubmitTheAnswerForm(element.data.answer)    }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                                                                                     <button
                                                                                         type={"submit"}
                                                                                         className="border-none p-0 m-0 flex gap-1 items-center text-sm"
