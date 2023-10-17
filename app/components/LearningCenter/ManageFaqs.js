@@ -159,15 +159,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                 </div>
             ),
         },
-        {
-            name: "Last Edited",
-            selector: (row) => <span data-tag="allowRowEvents" onClick={() => { setSelected(row) }} className="text-xs">{moment(row.created).fromNow()}</span>,
-            sortable: false,
-            // width: "10%",
-            reorder: false,
-
-            hide: "sm",
-        },
     ];
     const columns1 = [
         {
