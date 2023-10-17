@@ -95,7 +95,7 @@ const Communication = () => {
                   <SkeletonLoader height={30} width={200} />
                 </div>
               ) : (
-                <div className={` ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[red]" : ""} flex flex-row`}>
+                <div className={` ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[#fe9327]" : ""} flex flex-row`}>
                   <p>  {ele.logo} </p>
 
                   <p
