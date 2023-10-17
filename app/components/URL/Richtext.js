@@ -20,11 +20,13 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
   const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
 
+  const [lastExternalContent, setLastExternalContent] = useState('')
 
 
 
   useEffect(() => {
-    if (externalContent && externalContent !== oldContent) {
+    if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
+      setLastExternalContent(externalContent)
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       onEditorStateChange(EditorState.createWithContent(state))
@@ -36,6 +38,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     if (elements.length > 0) {
       elements[0].click();
     }
+
 
   }, [externalContent, oldContent]);
 
