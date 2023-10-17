@@ -733,6 +733,7 @@ const Page = () => {
                         setUpdateLoader(false);
                         setUpdateLoader1(false);
                         setShow(false)
+                        setExternalContentForTextEditor('')
                     }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
