@@ -50,7 +50,10 @@ export default function PageLayout({ children }) {
     <div className="scroll-smooth lg:max-w-full m-auto App w-full h-full">
       {!hideComponent && <Nav />}
       {/* <Header /> */}
+    <div className="scroll-smooth lg:max-w-[1450px] m-auto App w-full h-full">
+
       {children}
+      </div>
       {!hideComponent && (
         <div id="footer">
           {" "}
