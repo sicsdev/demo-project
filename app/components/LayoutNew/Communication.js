@@ -60,7 +60,7 @@ const Communication = () => {
             <SkeletonLoader height={30} width={"70%"} />
           </div>
         ) : (
-          <h2 class="block !font-[700] text-2xl md:text-h2 lg:text-h2 md:text-h2 text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
+          <h2 class="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
             Tempo AI-Powered Customer Service Platform
           </h2>
         )}
