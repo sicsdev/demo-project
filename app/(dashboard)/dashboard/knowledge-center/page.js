@@ -758,7 +758,7 @@ const Page = () => {
                   rounded-lg active  group`}
                                         aria-current="page"
                                     >
-                                         Trigger Workflow
+                                        Trigger Workflow
                                     </span>
 
                                 </li>
@@ -821,7 +821,10 @@ const Page = () => {
                                                                                     </button>
                                                                                 </div>
                                                                                 <div onClick={() => {
-                                                                                  SubmitTheAnswerForm(element.data.answer)    }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
+                                                                                    if (!updateLoader1) {
+                                                                                        SubmitTheAnswerForm(element.data.answer)
+                                                                                    }
+                                                                                }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                                                                                     <button
                                                                                         type={"submit"}
                                                                                         className="border-none p-0 m-0 flex gap-1 items-center text-sm"
@@ -939,7 +942,7 @@ const Page = () => {
                                                 }}
                                                 value={answer} /> */}
 
-                                            <TextEditor  handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
+                                            <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
                                             {/* <button
                                                 onClick={(e) => setModal(true)}
                                                 type="button"
