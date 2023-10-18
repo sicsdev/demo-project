@@ -211,7 +211,7 @@ const Page = () => {
           }, ...sortedData]);
           setFixeData(sortedData);
         }
-        console.log(sortedData)
+        console.log("sortedData",sortedData)
       }
 
       setDataLoader(false);
