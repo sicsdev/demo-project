@@ -4,36 +4,29 @@ const Reach = () => {
   const data = [
     {
       reach: "99.999%        ",
-      name: "Uptime SLA      ",
-      para: "Our network is backed by the first platform-wide uptime SLA across UCaaS and CCaaS.      ",
+      name: "Higher CSATs   ",
+      para: "Companies using our platform can anticipate higher customer satisfaction scores, contributing to overall customer loyalty.   ",
       link_title: "Leverage your data",
     },
     {
       reach: "99.999%        ",
-      name: "Uptime SLA      ",
-      para: "Our network is backed by the first platform-wide uptime SLA across UCaaS and CCaaS.      ",
+      name: "More Deflections ",
+      para: "Experience a significant reduction in the number of tickets that require human intervention, optimizing your operations.    ",
       link_title: "Leverage your data",
     },
     {
       reach: "55++",
 
-      name: "Intelligence everywhere        ",
-      para: "Make every decision smarter with unified journey analytics across every customer and employee interaction.        ",
+      name: "24/7/365 Uptime ",
+      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.  ",
       link_title: "Leverage your data",
-    },
-    {
-      reach: "55++",
+    }
 
-      name: "Intelligence everywhere        ",
-      para: "Make every decision smarter with unified journey analytics across every customer and employee interaction.        ",
-      link_title: "Leverage your data",
-    },
   ];
   return (
     <div className="bg-white p-0 sm:p-[0px] sm:mb-12  shadow-box">
       <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  sm:text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
-      Global presence and reach
-      </h1>
+      Exceptional Performance      </h1>
 
 
       <div className="sm:pt-[0px] bg-white">
@@ -46,15 +39,15 @@ const Reach = () => {
               ""
             )}
             <div className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-3 lg:px-4 relative group">
-              <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4      gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
+              <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3      gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
                 {data?.map((ele, key) => (
                   <div
                     className="bg-white flex flex-col justify-between cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
                     key={key}
                   >
-                    <div className="p-0 text-[50px] font-bold leading-[60px] py-2 sm:p-8 md:py-7 md:px-0 text-[#fe9327] ">
+                    {/* <div className="p-0 text-[50px] font-bold leading-[60px] py-2 sm:p-8 md:py-7 md:px-0 text-[#fe9327] ">
                       {ele.reach}
-                    </div>
+                    </div> */}
                     <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-semibold ">
                       {ele.name}
                     </div>

@@ -46,26 +46,12 @@
       "text": "Cloud communications platform providing APIs for SMS, MMS, voice, and video calls."
     },
     {
-      "id": 6,
-      "logo": "/asaa.png",
-      "title": "Asana",
-      "text": "Work management platform for orchestrating daily tasks and strategic initiatives.",
-      "tag": "New"
-    },
-    {
       "id": 7,
       "logo": "/monday_logo_icon_168967_1.png",
       "title": "Monday",
       "text": "Flexible platform for collaborative work management with customizable workflows."
     },
 
-  {
-    "id": 3,
-    "logo": "/salesforce-logo.png",
-    "title": "SalesForce",
-    "text": "CRM platform for managing campaigns, opportunities, and prospects.",
-    "tag": "New"
-  },
 
 
 
@@ -107,14 +93,6 @@
       "tag": "New"
     }
 ,
-
-    {
-      "id": 1,
-      "logo": "/menu_logo.png",
-      "title": "NMI",
-      "text": "Payment gateway for billing, refunds, payments, and subscription management.",
-      "tag": "New"
-    },
     {
       "id": 2,
       "logo": "/integrations/square.svg",

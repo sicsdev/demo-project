@@ -76,6 +76,7 @@ const card1 = [
     name: "SalesForce",
     subheading: "Sales",
   },
+  
 
 ];
 const card2 = [
@@ -87,19 +88,19 @@ const card2 = [
     subheading: "Productivity",
   },
   {
-    id: "3",
-    img: "/Jira.png",
-    name: "Jira",
-    subheading: "Productivity",
+    id: "4",
+    img: "/geo.png",
+    name: "Gorgias",
+    subheading: "Helpdesk",
   },
 
 
   {
-    id: "8",
-    img: "/menu_logo.png",
-    name: "NMI",
-    subheading: "Billing",
-  },
+    id: "7",
+    img: "/salesforce-logo.png",
+    name: "SalesForce",
+    subheading: "Sales",
+  }
 ];
 const Motioncards = () => {
   const [loading, setLoading] = useState(true);

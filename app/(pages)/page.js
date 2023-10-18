@@ -30,6 +30,7 @@ import Homeinte from "../components/LayoutNew/Homeinte";
 import Whyhome from "../components/LayoutNew/Whyhome";
 import Reach from "../components/LayoutNew/Reach";
 import Communication from "../components/LayoutNew/Communication";
+import Bottombutton from "../components/LayoutNew/Bottombutton";
 
 export default function Home() {
  
@@ -63,7 +64,7 @@ export default function Home() {
         {/* <DTC /> */}
         <Homeinte />
         <Homeintegration />
-        <Whyhome />
+        {/* <Whyhome /> */}
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         {/* <Info /> */}
@@ -82,7 +83,7 @@ export default function Home() {
         {/* <Iconanimation /> */}
         <Motioncards />
         <Testimonial />
-
+<Bottombutton/>
         {/* dummy section */}
         {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">

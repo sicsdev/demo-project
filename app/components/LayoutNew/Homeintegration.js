@@ -19,13 +19,9 @@ const Homeintegration = (props) => {
 
       </div>
       <h1 className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-        8x8 Technology Partner Ecosystem
-      </h1>
+      Tempo Integration Ecosystem      </h1>
       <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
-        Create customized, customer-centric solutions that cater to your unique
-        business needs. Meet and exceed your CX goals with integrations that
-        leverage persistent data and seamlessly blend into the 8x8 XCaaS
-        platform.
+      Enhance your setup with APIs that integrate effortlessly into the Tempo platform, meeting your unique business needs.
       </p>
 
       <div className="sm:pt-[10px] bg-white">
@@ -53,7 +49,7 @@ const Homeintegration = (props) => {
                     key={key}
                   >
                     <div className="p-2 sm:p-8 md:py-7 md:px-4 ">
-                    <Link href={`${item.link}`} >
+                    {/* <Link href={`${item.link}`} > */}
 
                       <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto mb-5">
                         <Image
@@ -63,7 +59,7 @@ const Homeintegration = (props) => {
                           src={item.logo}
                         />
                       </div>
-                      </Link>
+                      {/* </Link> */}
             
                     </div>
                 
