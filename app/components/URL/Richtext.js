@@ -33,12 +33,6 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
       setEditorState(EditorState.createWithContent(state));
     }
 
-    // For some reason the component does not refresh until you interact with it in case external content arrives. We will use this trick to click it and force to refresh.
-    const elements = document.getElementsByClassName('DraftEditor-root');
-    if (elements.length > 0) {
-      elements[0].click();
-    }
-
 
   }, [externalContent, oldContent]);
 

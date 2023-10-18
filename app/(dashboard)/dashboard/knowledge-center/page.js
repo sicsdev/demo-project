@@ -972,7 +972,7 @@ const Page = () => {
                                                 value={answer} /> */}
 
                                             <div>
-                                                <h1 className="text-xs font-semibold mx-1 mb-2 mt-5">Or type a New Answer:</h1>
+                                                <h1 className="text-xs font-semibold mx-1 mb-2 mt-5">Or, Type a New Answer:</h1>
                                             </div>
 
                                             <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
