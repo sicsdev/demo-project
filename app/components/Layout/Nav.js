@@ -112,7 +112,7 @@ const Nav = () => {
             }
             <div className="hidden md:flex flex-row gap-10 items-center ml-auto">
             
-            {pathname == "/ip/chat-bot" || pathname == "/ip/contact-center" ?"":
+            {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ?"":
               profile.email ? (
                 <>
                   {" "}
