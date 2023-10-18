@@ -30,7 +30,7 @@ const Reach = () => {
     },
   ];
   return (
-    <div className="bg-white p-0 sm:p-[0px] ">
+    <div className="bg-white p-0 sm:p-[0px] sm:mb-12  shadow-box">
       <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  sm:text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
       Global presence and reach
       </h1>
