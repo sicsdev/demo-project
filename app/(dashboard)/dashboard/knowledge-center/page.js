@@ -733,6 +733,7 @@ const Page = () => {
                         setUpdateLoader(false);
                         setUpdateLoader1(false);
                         setShow(false)
+                        setExternalContentForTextEditor('')
                     }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
@@ -757,7 +758,7 @@ const Page = () => {
                   rounded-lg active  group`}
                                         aria-current="page"
                                     >
-                                         Trigger Workflow
+                                        Trigger Workflow
                                     </span>
 
                                 </li>
@@ -820,8 +821,9 @@ const Page = () => {
                                                                                     </button>
                                                                                 </div>
                                                                                 <div onClick={() => {
-                                                                                    setAnswer(element.data.answer)
-                                                                                    setMode('normal')
+                                                                                    if (!updateLoader1) {
+                                                                                        SubmitTheAnswerForm(element.data.answer)
+                                                                                    }
                                                                                 }} className='text-sm bg-skyblue rounded-xl inline-block p-1 px-2 hover:bg-sky hover:text-white text-sky'>
                                                                                     <button
                                                                                         type={"submit"}
@@ -940,7 +942,7 @@ const Page = () => {
                                                 }}
                                                 value={answer} /> */}
 
-                                            <TextEditor  handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
+                                            <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
                                             {/* <button
                                                 onClick={(e) => setModal(true)}
                                                 type="button"

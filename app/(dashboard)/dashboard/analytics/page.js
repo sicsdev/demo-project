@@ -192,7 +192,7 @@ const Logs = () => {
     const { totalConversations, humanHandoffs } = state;
     const deflectionRate = (totalConversations - humanHandoffs) / totalConversations;
     return (deflectionRate * 100).toFixed(1); // You can format the result as needed
-  };  
+  };
 
 
   const firstTimeAnalytics = async (bot) => {
@@ -210,11 +210,11 @@ const Logs = () => {
           csat: human_handoff.data.surveys.average,
           deflection_data: {
             ...additionalData.deflection_data,
-            dflection: calculateDeflectionRate({          
+            dflection: calculateDeflectionRate({
               totalConversations: totalConvos?.data.count,
               humanHandoffs: human_handoff.data.count
             }),
-          },          
+          },
         }
       })
     }
@@ -260,7 +260,7 @@ const Logs = () => {
     if (results && Array.isArray(results) && results.length > 0) {
       const values = [
         { name: "Select", value: "all" },
-        ...results.map((item) => ({ 
+        ...results.map((item) => ({
           name: item.name,
           value: item.id,
         })),
@@ -679,7 +679,7 @@ const Logs = () => {
               <SkeletonLoader height={30} width={"100%"} />
             </div>
           ) : (
-            <div className='block  sm:flex justify-end items-center mt-2 pt-2'>
+            <div className='flex justify-between sm:justify-end gap-4 items-center mt-2 pt-2'>
               <div>
                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div className="relative w-full sm:w-[unset]">
@@ -693,10 +693,10 @@ const Logs = () => {
               </div>
               {
                 exportLoader === true ?
-                  <LoaderButton name={"Exporting"} className={`inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                  <LoaderButton name={"Exporting"} className={`inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
                   <Button
                     type={"button"}
-                    className="inline-block mt-2 sm:mt-0 sm:ml-5 rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    className="inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                     disabled={selectedBot === 'Select'}
                     onClick={(e) => exportCsvHandler(e)}
                   >
@@ -714,7 +714,7 @@ const Logs = () => {
               <div className="my-2">
                 <SkeletonLoader height={32} width={"50%"} />
               </div>
-              <div className="mt-2">  
+              <div className="mt-2">
                 <SkeletonLoader height={17} width={"30%"} />
               </div>
               <div className="mt-1">
@@ -992,57 +992,58 @@ const Logs = () => {
                   showOption={false}
                 />
               </div> */}
-
-              <div className="w-full mt-4">
-                <div className={`inline`}>
-                  <label
-                    className={`block text-sm text-heading font-medium pb-2 pt-0`}
-                  >
-                    From
-                    <p style={{ fontSize: "10px" }}></p>
-                  </label>
-                  <div className={`flex gap-2 items-center `}>
-                    <input
-                      onChange={(e) => filterDataHandler(e)}
-                      value={selectedFilters.created__gte || ""}
-                      type="date"
-                      id="created__gte"
-                      name="created__gte"
-                      className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                    />
-                    <div onClick={() => handleCleanDates("created__gte")}>
-                      {selectedFilters?.created__gte !== "all" && (
-                        <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>
-                      )}
+              <div className="flex justify-between items-center gap-2 mb-[15px]">
+                <div className="w-full mt-4">
+                  <div className={`inline`}>
+                    <label
+                      className={`block text-sm text-heading font-medium pb-2 pt-0`}
+                    >
+                      From
+                      <p style={{ fontSize: "10px" }}></p>
+                    </label>
+                    <div className={`flex  items-center `}>
+                      <input
+                        onChange={(e) => filterDataHandler(e)}
+                        value={selectedFilters.created__gte || ""}
+                        type="date"
+                        id="created__gte"
+                        name="created__gte"
+                        className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      />
+                      <div onClick={() => handleCleanDates("created__gte")}>
+                        {selectedFilters?.created__gte !== "all" && (
+                          <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="w-full mt-4">
-                <div className={`inline`}>
-                  <label
-                    className={`block text-sm text-heading font-medium pb-2 pt-0`}
-                  >
-                    To
-                    <p style={{ fontSize: "10px" }}></p>
-                  </label>
-                  <div className={`flex gap-2 items-center`}>
-                    <input
-                      onChange={(e) => filterDataHandler(e)}
-                      value={selectedFilters.created__lte || ""}
-                      type="date"
-                      id="created__lte"
-                      name="created__lte"
-                      className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                    />
-                    <div onClick={() => handleCleanDates("created__lte")}>
-                      {selectedFilters?.created__lte !== "all" && (
-                        <XMarkIcon
-                          className="w-4 h-4 mt-1"
-                          style={{ cursor: "pointer" }}
-                        ></XMarkIcon>
-                      )}
+                <div className="w-full mt-4">
+                  <div className={`inline`}>
+                    <label
+                      className={`block text-sm text-heading font-medium pb-2 pt-0`}
+                    >
+                      To
+                      <p style={{ fontSize: "10px" }}></p>
+                    </label>
+                    <div className={`flex items-center`}>
+                      <input
+                        onChange={(e) => filterDataHandler(e)}
+                        value={selectedFilters.created__lte || ""}
+                        type="date"
+                        id="created__lte"
+                        name="created__lte"
+                        className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                      />
+                      <div onClick={() => handleCleanDates("created__lte")}>
+                        {selectedFilters?.created__lte !== "all" && (
+                          <XMarkIcon
+                            className="w-4 h-4 mt-1"
+                            style={{ cursor: "pointer" }}
+                          ></XMarkIcon>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1118,7 +1119,7 @@ const Logs = () => {
             >
               <>
                 {/* <Card> */}
-                <div className="hidden sm:flex justify-center"> 
+                <div className="hidden sm:flex justify-center">
                   <h1 className="text-heading text-sm font-semibold">Chat</h1>
                 </div>
 

@@ -245,7 +245,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_unit_no"}
               error={returnErrorMessage("business_unit_no")}
               onBlur={handleBlur}
-            />
+            />    
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
@@ -258,7 +258,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               name="business_company_size"
               values={business_company_size_data}
               title={""}
-              id={"business_company_size"}
+              id={"business_company_size"}    
               className="py-3"
               error={returnErrorMessage("business_company_size")}
             />
