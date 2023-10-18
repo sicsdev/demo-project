@@ -46,13 +46,6 @@
       "text": "Cloud communications platform providing APIs for SMS, MMS, voice, and video calls."
     },
     {
-      "id": 5,
-      "logo": "/integrations/github.svg",
-      "title": "Github",
-      "text": "Web-based hosting service for version control and collaborative software development.",
-      "tag": "New"
-    },
-    {
       "id": 6,
       "logo": "/asaa.png",
       "title": "Asana",
@@ -65,48 +58,7 @@
       "title": "Monday",
       "text": "Flexible platform for collaborative work management with customizable workflows."
     },
-    {
-      "id": 8,
-      "logo": "/Jira.png",
-      "title": "Jira",
-      "text": "Agile project management tool with boards, backlogs, and roadmaps."
-    },
-    {
-      "id": 9,
-      "logo": "/linear-logos-id-IUp6ZRH.png",
-      "title": "Linear",
-      "text": "Streamlined project management tool supporting agile methodologies like scrum and kanban.",
-      "tag": "New"
-    },
-    {
-      "id": 10,
-      "logo": "/pngwing.png",
-      "title": "CircleCI",
-      "text": "Automated continuous integration and delivery platform empowering software development teams.",
-      "tag": "New"
-    },
-    {
-      "id": 11,
-      "logo": "/datadog-logo-purple.png",
-      "title": "DataDog",
-      "text": "Comprehensive observability platform providing end-to-end visibility across applications and infrastructure."
-    }
-,
 
-  {
-    "id": 1,
-    "logo": "/fresh.png",
-    "title": "FreshSales",
-    "text": "CRM platform for contact, account, and deal management.",
-    "tag": "New"
-  },
-  {
-    "id": 2,
-    "logo": "/58482ec0cef1014c0b5e4a70.png",
-    "title": "Shopify",
-    "text": "E-commerce platform empowering businesses to sell products online.",
-    "tag": "New"
-  },
   {
     "id": 3,
     "logo": "/salesforce-logo.png",
@@ -114,14 +66,8 @@
     "text": "CRM platform for managing campaigns, opportunities, and prospects.",
     "tag": "New"
   },
-  {
-    "id": 4,
-    "logo": "/HUBS-3bd277ce.png",
-    "title": "HubSpot",
-    "text": "All-in-one CRM platform for managing contacts, deals, and email campaigns.",
-    "tag": "New"
-  }
-,
+
+
 
     {
       "id": 1,
@@ -137,13 +83,7 @@
       "text": "Unified communication and collaboration platform with chat, video meetings, and application integration.",
       "tag": "New"
     },
-    {
-      "id": 3,
-      "logo": "/integrations/front.svg",
-      "title": "Front",
-      "text": "Customer communication platform centralizing emails, SMS, and social media.",
-      "tag": "New"
-    },
+
     {
       "id": 4,
       "logo": "/zenenew.png",
@@ -159,13 +99,6 @@
       "tag": "New"
     },
 
-    {
-      "id": 6,
-      "logo": "/integrations/intercom.svg",
-      "title": "Intercom",
-      "text": "Customer communication platform with support and interaction management.",
-      "tag": "New"
-    },
     {
       "id": 7,
       "logo": "/slack-logo-icon.png",

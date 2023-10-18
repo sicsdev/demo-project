@@ -4,12 +4,7 @@ import React, { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 import SkeletonLoader from "../Skeleton/Skeleton";
 const cards = [
-  {
-    id: "1",
-    img: "/integrations/github.svg",
-    name: "Github",
-    subheading: "Productivity",
-  },
+
   {
     id: "2",
     img: "/twilio-logo-png-transparent.png",
@@ -60,12 +55,7 @@ const card1 = [
     name: "Microsoft Teams",
     subheading: "Communication",
   },
-  {
-    id: "2",
-    img: "/integrations/front.svg",
-    name: "Front",
-    subheading: "Helpdesk",
-  },
+
   {
     id: "3",
     img: "/zenenew.png",
@@ -78,38 +68,18 @@ const card1 = [
     name: "Gorgias",
     subheading: "Helpdesk",
   },
-  {
-    id: "5",
-    img: "/integrations/intercom.svg",
-    name: "Intercom",
-    subheading: "Helpdesk",
-  },
-  {
-    id: "6",
-    img: "/58482ec0cef1014c0b5e4a70.png",
-    name: "Shopify",
-    subheading: "Billing",
-  },
+
+
   {
     id: "7",
     img: "/salesforce-logo.png",
     name: "SalesForce",
     subheading: "Sales",
   },
-  {
-    id: "8",
-    img: "/HUBS-3bd277ce.png",
-    name: "HubSpot",
-    subheading: "Sales",
-  },
+
 ];
 const card2 = [
-  {
-    id: "1",
-    img: "/asaa.png",
-    name: "Asana",
-    subheading: "Productivity",
-  },
+
   {
     id: "2",
     img: "/monday_logo_icon_168967_1.png",
@@ -122,30 +92,8 @@ const card2 = [
     name: "Jira",
     subheading: "Productivity",
   },
-  {
-    id: "4",
-    img: "/linear-logos-id-IUp6ZRH.png",
-    name: "Linear",
-    subheading: "Productivity",
-  },
-  {
-    id: "5",
-    img: "/pngwing.png",
-    name: "CircleCI",
-    subheading: "Tools",
-  },
-  {
-    id: "6",
-    img: "/datadog-logo-purple.png",
-    name: "DataDog",
-    subheading: "Tools",
-  },
-  {
-    id: "7",
-    img: "/SendGrid-Logomark.png",
-    name: "SendGrid",
-    subheading: "Tools",
-  },
+
+
   {
     id: "8",
     img: "/menu_logo.png",

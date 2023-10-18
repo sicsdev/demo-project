@@ -10,9 +10,10 @@ const price_data = [
       feature_title: "PRO KEY FEATURES, PLUS",
       feature_list: [
         { title: "Email, Chat, Phone Channels", alert_icon: "" },
+        { title: "Workflow Builder", alert_icon: "" },
         { title: "Learning Center", alert_icon: "" },
-        { title: "Workflow Builder", alert_icon: "" },
-        { title: "Workflow Builder", alert_icon: "" },
+
+        { title: "24/7 Support", alert_icon: "" },
       ],
     },
     {
@@ -29,7 +30,7 @@ const price_data = [
         { title: "Everything in Starter, plus", alert_icon: "" },
         { title: "White Glove Onboarding", alert_icon: "" },
         { title: "Custom Workflows", alert_icon: "" },
-        { title: "API Access", alert_icon: "" },
+        { title: "Tempo API Access", alert_icon: "" },
       ],
     },
   ];
