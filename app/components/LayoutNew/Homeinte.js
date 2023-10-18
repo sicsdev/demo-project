@@ -19,11 +19,11 @@ const tiles_icons = [
     },
 
     {
-        name: "HubSpot",
-        logo: "/integrations/hubspot.svg",
+        name: "Square",
+        logo: "/integrations/square.svg",
         grayscale: true,
-        link: "/article/hubspot-integration",
-        ele: "HubSpot Integration",
+        link: "/article/square-integration",
+        ele: "Square Integration",
     },
 
     {

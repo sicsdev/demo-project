@@ -17,7 +17,6 @@ const Chatbot = () => {
 
     return (
         <>
-            <Newnavbar />
       
             <Contact />
             <ContactBanner2 />
@@ -31,7 +30,6 @@ const Chatbot = () => {
             <ContactFeatures />
             {/* <ContactCarousel/> */}
             {/* <ContactBlog/> */}
-            <Newfooter />
     
         </>
     )
