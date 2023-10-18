@@ -4,7 +4,6 @@ import Image from 'next/image';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { createContactInFreshsales, updateContactInHubspot } from '@/app/API/components/Demo';
-import validator from "validator";
 
 // import { cookies } from 'next/dist/client/components/headers';
 import Cookies from 'js-cookie';
@@ -87,6 +86,34 @@ const Contact = () => {
   };
   const [hubID, setHubid] = useState(null);
 
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
+
   const handleBlur = async () => {
     const payload = {
       firstname: fullname.data?.split(" ")[0] || null,
@@ -110,6 +137,42 @@ const Contact = () => {
     }
 
   };
+
+
+  const handleBlurGTM=(business)=>{
+ 
+    hj("identify", userId, {
+      Email: business,
+    });
+    let payload = {
+      event: "Blur-Email",
+    };
+    window.dataLayer?.push(payload);
+    if (blacklist.includes(business.split("@")[1])) {
+      console.log("generic");
+      let payload = {
+        event: "lead-generic",
+      };
+      window.dataLayer?.push(payload);
+    } else {
+      console.log("business");
+
+      let payload = {
+        event: "lead-business",
+      };
+      window.dataLayer?.push(payload);
+    }
+    if (business?.includes("@")) {
+      window._learnq.push([
+        "track",
+        "$email",
+        {
+          $email: business,
+        },
+      ]);
+    
+  }
+};
 
 
   return (
@@ -184,13 +247,14 @@ const Contact = () => {
                             <>
 
                               <input
-                                type={"text"}
+                                type={"email"}
                                 placeholder={"Business Email"}
                                 value={business.data}
                                 onChange={(e) => setBusinnes({ data: e.target.value })}
                                 className={
                                   "mb-3 border border-input_color w-full block  px-2 py-3 sm:px-3 sm:py-4 bg-white  rounded-2xl text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                                 }
+                                onBlur={(e) => handleBlurGTM(business.data)}
 
                               />
 

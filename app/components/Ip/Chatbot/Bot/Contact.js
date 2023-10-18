@@ -3,8 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { createContactInFreshsales, updateContactInHubspot } from '@/app/API/components/Demo';
 import validator from "validator";
+import { createContactInFreshsales, updateContactInHubspot } from '@/app/API/components/Demo';
 
 // import { cookies } from 'next/dist/client/components/headers';
 import Cookies from 'js-cookie';
@@ -45,7 +45,6 @@ const Contact = () => {
     if (state.data == null) {
       setState({ error: true })
     }
-
     else {
       Cookies.set("firstname", fullname.data)
       Cookies.set("phone", phone.data)
@@ -56,8 +55,7 @@ const Contact = () => {
       Cookies.set("state", state.data)
       setShow(true)
     }
-
-  } 
+  }
   const [show, setShow] = useState(false)
   useEffect(() => {
     setFullName({ data: Cookies.get('firstname') })
@@ -91,7 +89,7 @@ const Contact = () => {
       email: business.data,
       state: state.data,
       country: country.data,
-      company_size:employe.data
+      company_size: employe.data
     }
     console.log("pay", payload);
     if (hubID) {
@@ -106,6 +104,71 @@ const Contact = () => {
 
   };
 
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
+
+
+
+
+  const handleBlurGTM = (business) => {
+    hj("identify", userId, {
+      Email: business,
+    });
+    let payload = {
+      event: "Blur-Email",
+    };
+    window.dataLayer?.push(payload);
+    if (blacklist.includes(business.split("@")[1])) {
+      console.log("generic");
+      let payload = {
+        event: "lead-generic",
+      };
+      window.dataLayer?.push(payload);
+    } else {
+      console.log("business");
+
+      let payload = {
+        event: "lead-business",
+      };
+      window.dataLayer?.push(payload);
+    }
+    if (business?.includes("@")) {
+      window._learnq.push([
+        "track",
+        "$email",
+        {
+          $email: business,
+        },
+      ]);
+
+    }
+  };
+  console.log("businessss", business);
 
   return (
     <>
@@ -177,13 +240,15 @@ const Contact = () => {
                             <>
 
                               <input
-                                type={"text"}
+                                type={"email"}
                                 placeholder={"Business Email"}
                                 value={business.data}
-                                onChange={(e) => setBusinnes({ data: e.target.value })}
+                                onChange={(e) => { setBusinnes({ data: e.target.value }) }
+                                }
                                 className={
                                   "mb-3 border border-input_color w-full block  px-2 py-3 sm:px-3 sm:py-4 bg-white  rounded-2xl text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                                 }
+                                onBlur={(e) => handleBlurGTM(business.data)}
 
                               />
 
@@ -316,7 +381,8 @@ const Contact = () => {
                               "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#FF5721] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
                             }
                             style={{ margin: "0px auto" }}
-                            onClick={()=>{handleSubmit()
+                            onClick={() => {
+                              handleSubmit()
                               handleBlur()
                             }}
                           >
