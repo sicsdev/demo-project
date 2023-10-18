@@ -99,7 +99,7 @@ export const ButtonComponent = ({ data, deleteRecord }) => {
           >
             <button
               type="button"
-              className="text-heading font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-2 px-2 py-2 "
+              className="text-heading text-xs font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-1 px-2 py-2 "
               onClick={() => deleteRecord(data.id)}
             >
               <XCircleIcon className="w-4 h-4" />

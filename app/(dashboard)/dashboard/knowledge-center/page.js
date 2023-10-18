@@ -677,6 +677,7 @@ const Page = () => {
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
+                <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
                 <>
 
 
