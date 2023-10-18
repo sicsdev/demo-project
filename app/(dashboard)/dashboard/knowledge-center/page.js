@@ -4,7 +4,7 @@ import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIco
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
-import { GetAllRecommendations, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { GetAllRecommendations, acceptInKnowledge, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { successMessage, errorMessage } from "@/app/components/Messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
@@ -171,7 +171,15 @@ const Page = () => {
             }
             setUpdateLoader(true);
             setUpdateLoader1(true);
-            const updateRecord = await updateRecommendationRecord(payload, id);
+
+            let updateRecord;
+
+            if (new_answer) {
+                updateRecord = await acceptInKnowledge(workflowView.id, subQuestions[0].data.id)
+            } else {
+                updateRecord = await updateRecommendationRecord(payload, id);
+            }
+
             if (updateRecord?.status === 201 || updateRecord?.status === 200) {
                 setWorkflowView(null)
                 setKnowledgeId(null)
@@ -433,6 +441,7 @@ const Page = () => {
     }
     const SubmitTheForm = () => {
         setUpdateLoader(true)
+
         if (knowledgeId) {
             updateFaq()
         } else {
@@ -459,6 +468,7 @@ const Page = () => {
     }
 
     const SubmitTheAnswerForm = (new_answer) => {
+
         setUpdateLoader1(true)
         if (knowledgeId) {
             updateFaq(new_answer)
@@ -669,7 +679,10 @@ const Page = () => {
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
                 <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
                 <>
+
+
                     <div className="w-full sm:relative sm:mt-[20px]">
+
                         <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
                             <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                             {loading ? "" :
@@ -728,29 +741,42 @@ const Page = () => {
                     </div>
                 </>
                 {workflowView && show && (
-                    <SideModal
-                        deleteButton={true}
-                        data={workflowView}
-                        deleteRecord={(id) => {
-                            deleteButtonHandler(workflowView?.id)
-                            setTimeout(() => {
-                            setWorkflowView(null)
-                            setKnowledgeId(null)
-                            setUpdateLoader(false);
-                            setUpdateLoader1(false);
-                            setShow(false)
-                            setExternalContentForTextEditor('')
-                            }, 2000);
-                        }}
-                        setShow={(t) => {
-                            setWorkflowView(null)
-                            setKnowledgeId(null)
-                            setUpdateLoader(false);
-                            setUpdateLoader1(false);
-                            setShow(false)
-                            setExternalContentForTextEditor('')
+                    <SideModal setShow={(t) => {
+                        setWorkflowView(null)
+                        setKnowledgeId(null)
+                        setUpdateLoader(false);
+                        setUpdateLoader1(false);
+                        setShow(false)
+                        setExternalContentForTextEditor('')
+                    }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
 
-                        }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
+                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <div className="relative mt-3">
+                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                </svg>
+                            </div>
+                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                        </div>
+
+                        {!knowledgeId && questionData.length > 0 && (
+                            <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
+                                <ul className="py-2 text-sm text-gray-700 ">
+                                    {questionData.map((element, key) =>
+                                        <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
+                                            setAnswer(element.answer)
+                                            setKnowledgeId(element)
+
+                                        }}>
+                                            <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
+                                        </li>
+                                    )}
+
+                                </ul>
+                            </div>
+                        )}
+
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
@@ -821,8 +847,8 @@ const Page = () => {
 
                                                                         <p className="text-xs  mt-2">{element.data.answer}</p>
                                                                         <div className='mt-6'>
-                                                                            <div className="flex justify-between items-center gap-2">
-                                                                                <div onClick={() => {
+                                                                            <div className="flex justify-end items-center gap-2">
+                                                                                {/* <div onClick={() => {
                                                                                     setAnswer(element.data.answer)
                                                                                     setMode('normal')
                                                                                     setExternalContentForTextEditor(element.data.answer)
@@ -835,7 +861,7 @@ const Page = () => {
                                                                                     >
                                                                                         <small className=''>Edit</small>
                                                                                     </button>
-                                                                                </div>
+                                                                                </div> */}
                                                                                 <div onClick={() => {
                                                                                     if (!updateLoader1) {
                                                                                         SubmitTheAnswerForm(element.data.answer)
@@ -867,33 +893,8 @@ const Page = () => {
                                                 )}
                                             </>}
 
-                                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                                </svg>
-                                            </div>
-                                            <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
-                                        </div>
+
                                     </div>
-
-                                    {!knowledgeId && questionData.length > 0 && (
-                                        <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
-                                            <ul className="py-2 text-sm text-gray-700 ">
-                                                {questionData.map((element, key) =>
-                                                    <li className='hover:bg-primary hover:text-white text-heading my-2 cursor-pointer' key={key} onClick={(e) => {
-                                                        setAnswer(element.answer)
-                                                        setKnowledgeId(element)
-
-                                                    }}>
-                                                        <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
-                                                    </li>
-                                                )}
-
-                                            </ul>
-                                        </div>
-                                    )}
 
                                     <div>
 
