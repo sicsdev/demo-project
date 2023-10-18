@@ -667,6 +667,7 @@ const Page = () => {
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
+                <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
                 <>
                     <div className="w-full sm:relative sm:mt-[20px]">
                         <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
@@ -727,14 +728,29 @@ const Page = () => {
                     </div>
                 </>
                 {workflowView && show && (
-                    <SideModal setShow={(t) => {
-                        setWorkflowView(null)
-                        setKnowledgeId(null)
-                        setUpdateLoader(false);
-                        setUpdateLoader1(false);
-                        setShow(false)
-                        setExternalContentForTextEditor('')
-                    }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
+                    <SideModal
+                        deleteButton={true}
+                        data={workflowView}
+                        deleteRecord={(id) => {
+                            deleteButtonHandler(workflowView?.id)
+                            setTimeout(() => {
+                            setWorkflowView(null)
+                            setKnowledgeId(null)
+                            setUpdateLoader(false);
+                            setUpdateLoader1(false);
+                            setShow(false)
+                            setExternalContentForTextEditor('')
+                            }, 2000);
+                        }}
+                        setShow={(t) => {
+                            setWorkflowView(null)
+                            setKnowledgeId(null)
+                            setUpdateLoader(false);
+                            setUpdateLoader1(false);
+                            setShow(false)
+                            setExternalContentForTextEditor('')
+
+                        }} heading={<p className="w-full sm:w-[500px]">{workflowView?.question}</p>}>
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
