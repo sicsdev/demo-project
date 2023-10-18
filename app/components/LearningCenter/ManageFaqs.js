@@ -14,6 +14,7 @@ import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
+import TextField from '../Common/Input/TextField';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
     console.log("questions", questions)
@@ -452,7 +453,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                                 <>
                                     {showAdd && (
                                         <div className='my-8'>
-                                            <TextArea name="negative_answer"
+                                            <TextField name="negative_answer"
                                                 className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"negative_answer"}
