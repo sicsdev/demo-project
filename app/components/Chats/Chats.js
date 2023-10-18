@@ -104,7 +104,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
                 successMessage("Dispute Created Successfully!");
-                setConversationDetails({...conversationDetails, charge_status: 'REFUNDED'})
+                setConversationDetails({ ...conversationDetails, charge_status: 'REFUNDED' })
             } else {
                 errorMessage("Unable to create dispute!");
             }
@@ -250,6 +250,17 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                     </div>
                                 </div>
                                 <div className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
+
+                                    <div className="answer_with_thumbs_logs">
+                                        <img className="profile-photo_ChatBot_back"
+                                            src={`${botUnique?.enterprise?.logo ||
+                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                        <div className="answer_text_div"></div>
+                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                            {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
+                                        </div>
+                                    </div>
+
                                     {messages.map((element, key) =>
                                         <>
                                             {element.sender === 'bot' &&
