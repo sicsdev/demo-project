@@ -174,11 +174,8 @@ const Page = () => {
 
             let updateRecord;
 
-            console.log(subQuestions.data, 'sub data')
             if (new_answer) {
-                updateRecord = await acceptInKnowledge(subQuestions[0].data.id, workflowView.id)
-                console.log(subQuestions[0].data.id, 'subq')
-                console.log(workflowView.id, 'know id')
+                updateRecord = await acceptInKnowledge(workflowView.id, subQuestions[0].data.id)
             } else {
                 updateRecord = await updateRecommendationRecord(payload, id);
             }
@@ -724,7 +721,6 @@ const Page = () => {
                                 handleRecomodationValue(page)
                             }}
                             onRowClicked={(rowData) => {
-                                console.log(rowData, 'rowdata')
                                 setWorkflowView(rowData)
                                 setShow(true)
                                 setAnswer('')
