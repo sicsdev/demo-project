@@ -5,6 +5,7 @@ import Footer from "../components/Layout/Footer";
 import Nav from "../components/Layout/Nav";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
+import UpdatedFooter from "../components/Layout/UpdatedFooter";
 
 
 export default function PageLayout({ children }) {
@@ -54,7 +55,8 @@ export default function PageLayout({ children }) {
       {!hideComponent && (
         <div id="footer">
           {" "}
-          <Footer />{" "}
+          {/* <Footer />{" "} */}
+          <UpdatedFooter />
         </div>
       )}
     </div>
