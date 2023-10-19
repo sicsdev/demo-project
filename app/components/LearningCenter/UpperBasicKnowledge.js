@@ -7,8 +7,10 @@ import FileManagement from './FileManagement'
 import { createNewKnowledge, getFaqQuestions } from '@/app/API/pages/Knowledge'
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
+import { useSearchParams } from 'next/navigation'
 
 const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData }) => {
+    const params = useSearchParams()
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createModal, setCreateModal] = useState(false)
     const [formData, setFormData] = useState({})
@@ -19,6 +21,8 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     const [loading, setLoading] = useState(false)
     const [filterhead, setFilterhead] = useState('all');
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('')
+
     const handleCreateOptions = (option) => {
         if (option === 'pdf') {
             setCreatePdfModal(true);
@@ -32,7 +36,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
         switch (type) {
             case "FILE":
                 return data.filter((x) => x.source === 'file')
-            case "EXTERNAL":    
+            case "EXTERNAL":
                 return data.filter((x) => x.source === 'external')
             case "SNIPPET":
                 return data.filter((x) => x.source === 'snippet')
@@ -128,6 +132,13 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             }
         };
         document.addEventListener("click", handleOutsideClick);
+
+
+        const externalSnippet = params.get('createExternalSnippet')
+        const externalContent = params.get('externalContent')
+        if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
+
+
         return () => {
             document.removeEventListener("click", handleOutsideClick);
         };
@@ -235,14 +246,14 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         <SkeletonLoader count={1} height={30} width={80} />
                         :
                         <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                        Create
-                    </button>
+                            Create
+                        </button>
                     }
                 </div>
 
             </div>
 
-                    {/* <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
+            {/* <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
 
                         <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
                             <p className="text-xs mb-5 font-semibold">
@@ -367,7 +378,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             )}
 
             {createOptions === 'snippet' && (
-                <SnippetManagement hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} />
+                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} />
             )}
             {createOptions === 'url' && (
                 <UrlManagement
