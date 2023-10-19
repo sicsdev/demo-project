@@ -66,7 +66,7 @@ const Reach = () => {
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-semibold ">
+                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#fe9831] ">
                       {ele.name}
                     </div>
                   )}
@@ -79,7 +79,7 @@ const Reach = () => {
                       {ele.para}
                     </div>
                   )}
-                  {loading ? (
+                  {/* {loading ? (
                     <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-semibold">
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
@@ -87,7 +87,7 @@ const Reach = () => {
                     <div className="p-0 py-2 sm:p-8 md:py-7 md:px-0 font-semibold cursor-pointer">
                       Schedule Demo →
                     </div>
-                  )}
+                  )} */}
                 </div>
               ))}
             </div>

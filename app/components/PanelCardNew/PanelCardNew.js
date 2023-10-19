@@ -20,7 +20,7 @@ const Panelcardnew = () => {
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
       AI Customer Service Solutions
       </h2>
-      <div className="w-full  shadow-2xl md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
+      <div className="w-full  shadow-2xl md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4   sm:gap-0 mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
             className={`flex flex-col justify-between ${

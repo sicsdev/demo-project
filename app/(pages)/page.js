@@ -31,6 +31,7 @@ import Whyhome from "../components/LayoutNew/Whyhome";
 import Reach from "../components/LayoutNew/Reach";
 import Communication from "../components/LayoutNew/Communication";
 import Bottombutton from "../components/LayoutNew/Bottombutton";
+import { Homeform } from "../components/LayoutNew/Homeform";
 
 export default function Home() {
  
@@ -69,21 +70,18 @@ export default function Home() {
         {/* <SecondBan /> */}
         {/* <Info /> */}
         <Reach/>
-        <Middlebar />
-        <Panelcardnew />
-
-        <Newstandard />
-        {/* <Trial /> */}
-        {/* <Social /> */}
-        {/* <Marketing/> */}
-
-        {/* <Launch /> */}
-        {/* <Benifits />         */}
-        {/* <Faq />   */}
-        {/* <Iconanimation /> */}
-        <Motioncards />
-        <Testimonial />
+       
 <Bottombutton/>
+       
+        <Middlebar />
+
+
+        <Panelcardnew />
+<Homeform/>
+        {/* <Newstandard />
+      
+        <Motioncards />
+        <Testimonial /> */}
         {/* dummy section */}
         {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">
