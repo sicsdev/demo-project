@@ -378,7 +378,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             )}
 
             {createOptions === 'snippet' && (
-                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} />
+                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading}  getQuestionsData={getQuestionsData}
+                setCreateModal={setCreateModal}
+                setLoading={setLoading}
+                setCreatePdfModal={setCreatePdfModal} />
             )}
             {createOptions === 'url' && (
                 <UrlManagement
