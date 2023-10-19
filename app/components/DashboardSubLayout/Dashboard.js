@@ -21,17 +21,22 @@ import { getTestBot } from '@/app/API/components/Minibot'
 const Dashboard = ({ children }) => {
     useEffect(() => {
 
-        document.addEventListener('focus', function (event) {
-            if (
-                
-                event?.target?.tagName === 'INPUT' ||
-                event?.target?.tagName === 'TEXTAREA' ||
-                event?.target?.tagName === 'SELECT'
-            ) {
-                debugger
-                document.body.style.zoom = 1;
+        useEffect(() => {
+            const inputs = document.querySelectorAll('input, select, textarea');
+            if (inputs) {
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function () {
+                        const viewportMeta = document.querySelector('meta[name="viewport"]');
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=2.0';
+                    });
+
+                    input.addEventListener('blur', function () {
+                        const viewportMeta = document.querySelector('meta[name="viewport"]');
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                    });
+                });
             }
-        }, true);
+        }, []);
     }, [])
     const dispatch = useDispatch()
     const pathname = usePathname()
