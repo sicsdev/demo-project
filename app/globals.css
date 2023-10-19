@@ -64,7 +64,7 @@ select {
   opacity: 0;
 }
 
-@media (max-width: 990px) {
+/* @media (max-width: 990px) {
   body select:focus {
     font-size: 16px !important;
   }
@@ -109,16 +109,8 @@ select {
     font-size: 16px !important;
   }
 
-  body input[type="text"]::placeholder,
-  body input[type="number"]::placeholder,
-  body input[type="email"]::placeholder,
-  body input[type="password"]::placeholder,
-  body input[type="date"]::placeholder,
-  body input[type="search "]::placeholder {
-    font-size: 16px !important;
-  }
 
-}
+} */
 
 body .hide-focus {
   outline: unset !important;
