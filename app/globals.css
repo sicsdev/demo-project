@@ -57,7 +57,29 @@ input[type="search"]:focus,
 textarea:focus {
   font-size: 12px !important;
 }
+@media screen and (max-device-width: 768px) {
+  body {
+      -webkit-text-size-adjust: 100% !important; /* Prevent font scaling in landscape while allowing user zoom */
+  }
+}
 
+/* For mobile devices */
+@media (max-width: 768px) { 
+  body  input, select {
+      font-size: 12px;
+  }
+}
+
+/* For Safari and other WebKit browsers */
+/* Using the placeholder pseudo-element as a "hack" to target WebKit browsers */
+body input::-webkit-input-placeholder, select::-webkit-input-placeholder {
+  font-size: 12px;
+  visibility: hidden; /* Hide the placeholder as we're only using it for browser-specific styling */
+}
+
+body input, select {
+  font-size: 12px; /* This will apply to all WebKit browsers, including Safari */
+}
 body input[type="text"]::placeholder,
 body input[type="email"]::placeholder,
 body input[type="date"]::placeholder,
