@@ -47,6 +47,7 @@ const Homeintegration = (props) => {
                 No data found!
               </p>
             ) : (
+              
               ""
             )}
             <div className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-0 lg:px-4 relative group">
