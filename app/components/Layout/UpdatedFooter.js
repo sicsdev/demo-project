@@ -77,31 +77,31 @@ const UpdatedFooter = () => {
                 </span>
                 <div>
                   <div className=" sm:flex justify-between gap-3  items-start">
-                    <div className="flex flex-wrap sm:justify-between gap-3 items-start">
+                    <div className="flex flex-wrap sm:justify-between gap-1 items-start">
                       {/* <h6 className="text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/login">Login</Link>
                       </h6> */}
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-3  h-[17px] sm:flex sm:items-center ">
                         <Link href="/careers">Careers</Link>
                       </h6>
                       {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
                         <Link href="/terms-of-service">Terms of Service</Link>
                       </h6> */}
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-3  h-[17px]  sm:flex sm:items-center ">
                         <Link href="/article/pricing-overview">Pricing</Link>
                       </h6>
-                      <h6 className="  text-white   font-[200] cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2 border-white    px-2  h-[17px] flex align-center">
+                      <h6 className="  text-white   font-[200] cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2 border-white    px-3  h-[17px]  sm:flex sm:items-center">
                         <Link href="/article/security-overview">Security</Link>
                       </h6>
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-3  h-[17px]  sm:flex sm:items-center ">
                         <Link href="/list-of-subprocessors">
                           Subprocessors{" "}
                         </Link>
                       </h6>
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2 border-white    px-3  h-[17px]  sm:flex sm:items-center ">
                         <Link href="/data-processing-agreement">DPA</Link>
                       </h6>
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2 border-white    px-2  h-[17px] flex align-center">
+                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   px-3  h-[17px]  sm:flex sm:items-center">
                         <Link href="/privacy-policy">Privacy Policy</Link>
                       </h6>
                     </div>
