@@ -26,23 +26,52 @@ select {
   font-family: "Roboto", sans-serif;
 }
 
-body input, select, textarea {
+body input[type="text"],
+body input[type="email"],
+input[type="number"],
+input[type="date"],
+input[type="password"],
+input[type="search"],
+textarea {
   font-size: 12px !important;
-  -webkit-text-size-adjust: 100%;
 }
-body input::placeholder, select::placeholder, textarea::placeholder {
+
+body input[type="text"]:focus,
+body input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="search"]:focus,
+textarea:focus {
   font-size: 12px !important;
-  -webkit-text-size-adjust: 100%;
 }
-body input:focus, select:focus, textarea:focus {
+
+body input[type="text"]::placeholder,
+body input[type="email"]::placeholder,
+body input[type="date"]::placeholder,
+input[type="number"]::placeholder,
+input[type="password"]::placeholder,
+input[type="search"]::placeholder,
+textarea::placeholder {
   font-size: 12px !important;
-  -webkit-text-size-adjust: 100%;
 }
+
+select {
+  font-size: 12px !important;
+}
+
 .multiselect-container input.searchBox {
   opacity: 0;
 }
 
 @media (max-width: 990px) {
+  body select:focus {
+    font-size: 16px !important;
+  }
+
+  select {
+    font-size: 16px !important;
+  }
 
   body input[type="date"] {
     display: table;
@@ -53,6 +82,58 @@ body input:focus, select:focus, textarea:focus {
     box-sizing: border-box;
     min-height: 1.3rem !important;
   }
+
+  body input[type="text"],
+  body input[type="number"],
+  body input[type="email"],
+  body input[type="date"],
+  body input[type="search"],
+  body input[type="password"],
+  body textarea {
+    font-size: 16px !important;
+  }
+
+  body select,
+  body textarea,
+  body input {
+    font-size: 16px !important;
+  }
+
+  body input[type="text"]:focus,
+  body input[type="number"]:focus,
+  body input[type="date"]:focus,
+  body input[type="email"]:focus,
+  body input[type="password"]:focus,
+  body input[type="search"]:focus,
+  body textarea:focus {
+    font-size: 16px !important;
+  }
+
+  body input[type="text"]::placeholder,
+  body input[type="number"]::placeholder,
+  body input[type="email"]::placeholder,
+  body input[type="password"]::placeholder,
+  body input[type="date"]::placeholder,
+  body input[type="search "]::placeholder {
+    font-size: 16px !important;
+  }
+
+}
+
+body .hide-focus {
+  outline: unset !important;
+  border: white !important;
+}
+
+body input[type="text"]:focus,
+body input[type="number"]:focus,
+body input[type="date"]:focus,
+body input[type="email"]:focus,
+body input[type="password"]:focus,
+body select:focus,
+body textarea:focus {
+  outline: 1px solid transparent;
+  border: 1px solid rgb(19 95 194);
 }
 
 h2,
@@ -1662,4 +1743,9 @@ body .invite-email input[type="email"]:focus,
 }
 body .custome_table{
   overflow-x: hidden !important;
+}
+
+body input, select, textarea {
+  font-size: 12px;
+  -webkit-appearance: none !important; /* sometimes helps with unwanted styles in Safari */
 }

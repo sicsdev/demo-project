@@ -12,7 +12,7 @@ export const Input = ({ id, placeholder, onkeydown, className, onChange, value, 
                 onKeyDown={onkeydown}
                 placeholder={placeholder || ""}
                 value={value}
-                className={`border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]${className || ''}`}
+                className={`block !text-[16px] sm:text-[12px]   px-3 py-3 bg-white focus:bg-white focus:text-sm rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 ${className || ''}`}
                 onChange={(e) => handleChange(e)}
                 {...rest}
                 disabled={disabled || false} />
