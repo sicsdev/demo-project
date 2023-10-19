@@ -1746,6 +1746,6 @@ body .custome_table{
 }
 
 body input, select, textarea {
-  font-size: 12px;
+  font-size: 12px !important;
   -webkit-appearance: none !important; /* sometimes helps with unwanted styles in Safari */
 }
