@@ -1738,12 +1738,47 @@ body .invite-email input[type="email"]:focus,
   }
 }
 
-
+.see:before {
+  background: #ff5722;
+  width: 0;
+  height: 2px;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  transition: .2s;
+}
+body video {
+  height: fit-content !important;
+  position: absolute  !important;
+  top: 25% !important;
+}
+.modal-open{
+  overflow: hidden;
+}
 #chatbot_widget .containerChatBot_entire {
   top: auto !important;
 }
 body .custome_table{
   overflow-x: hidden !important;
+}
+
+.video_popup{
+  width: 801px;
+  margin: auto;
+  height: auto;
+  position: relative;
+}
+.video_popup_cross{
+  position: absolute;
+	right: 5px;
+	top: 5px;
+  cursor: pointer;
+}
+.video_popup_cross svg{
+	background: transparent;
+	padding: 4px;
+  color: #fff;
 }
 .drag{
   
