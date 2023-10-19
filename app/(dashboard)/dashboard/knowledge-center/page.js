@@ -27,6 +27,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Modal from "@/app/components/Common/Modal/Modal";
 import TextEditor from "@/app/components/URL/Richtext";
 import AnswersEditor from "./AnswersEditor";
+import { useSearchParams } from "next/navigation";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -35,6 +36,7 @@ const pusher = new Pusher("1fc282a0eb5e42789c23", {
 
 const Page = () => {
 
+    const params = useSearchParams()
 
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
@@ -132,6 +134,39 @@ const Page = () => {
         let newUUID = uuidv4()
         setNewUUI(newUUID)
 
+        // let originalObject = {
+        //     "id": "8bc8d832-f1bd-4258-865a-f06c5462bfd4",
+        //     "bot": {
+        //         "id": "0975dbcc-d2a5-4aaf-8e46-c020ae625652",
+        //         "category": "standard",
+        //         "description": "",
+        //         "chat_title": "NextMed"
+        //     },
+        //     "question": "How does the program work?",
+        //     "answer": "",
+        //     "number_of_messages": 2,
+        //     "accepted": false,
+        //     "created": "2023-10-16T13:14:24.158378-04:00"
+        // }
+
+        // sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(originalObject));
+
+        const externalQuestionFromLogs = sessionStorage.getItem('externalQuestionFromLogs');
+        const parsedItem = JSON.parse(externalQuestionFromLogs)
+
+        if (externalQuestionFromLogs) {
+            setWorkflowView(parsedItem)
+            setShow(true)
+            setAnswer('')
+            setQuestionData([])
+            setSearchKnowledge('')
+            setKnowledgeId(null)
+            getWorkFlowReccomodation(parsedItem.question)
+            searchMatched({ question: parsedItem.question }, false)
+            sessionStorage.removeItem('externalQuestionFromLogs');
+        }
+
+        // if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
 
         let timeoutId;
         const channel = pusher.subscribe(`recommendation-${newUUID}`);
@@ -399,7 +434,6 @@ const Page = () => {
     const searchQuestionFaq = async (value) => {
         const response = await getFaqQuestions(`page=1&page_size=10&search=${value}`)
         if (response && response.results) {
-            console.log(response, 'response of serach')
             setQuestionData(response.results ?? [])
         }
     }
@@ -681,6 +715,8 @@ const Page = () => {
         }]);
         setDefaultTitle('Selected')
     }
+
+
 
 
     return (

@@ -15,6 +15,7 @@ import { errorMessage, successMessage } from '../Messages/Messages';
 import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
+import { createRecommendation } from '@/app/API/pages/LearningCenter';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -179,20 +180,54 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     }
 
 
-
-    const handleAddSource = (key) => {
+    const [loadingRedirect, setLoadingRedirect] = useState(false)
+    const handleAddSource = async (key) => {
+        if (loadingRedirect) return;
 
         let userMessage = messages[key - 1]
 
+        setLoadingRedirect(true)
+
         if (userMessage.content == "WORKFLOW") {
             userMessage = messages[key - 2]
-            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.actions.options.WORKFLOW}`)
+            let payload = {
+                question: userMessage.actions.options.WORKFLOW,
+                bot: botUnique.id
+            }
+
+            let postRecommendation = await createRecommendation(payload)
+            if (postRecommendation?.data) {
+                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
+                router.push(`/dashboard/knowledge-center`)
+            }
+
         } else if (userMessage.content == "INFORMATION") {
             userMessage = messages[key - 2]
-            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.actions.options.INFORMATION}`)
+            let payload = {
+                question: userMessage.actions.options.INFORMATION,
+                bot: botUnique.id
+            }
+            let postRecommendation = await createRecommendation(payload)
+            if (postRecommendation?.data) {
+                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
+                router.push(`/dashboard/knowledge-center`)
+            }
+
         } else {
-            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.content}`)
+
+            let payload = {
+                question: userMessage.content,
+                bot: botUnique.id
+            }
+            let postRecommendation = await createRecommendation(payload)
+            if (postRecommendation?.data) {
+                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
+                router.push(`/dashboard/knowledge-center`)
+            }
         }
+
+
+        setLoadingRedirect(false)
 
     }
 
@@ -559,14 +594,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         {
                                                             element.content === 'WORKFLOW' &&
                                                             <>
-                                                                User selected: {messages[key - 1].actions.options.WORKFLOW}
+                                                                User selected: {messages[key - 1]?.actions?.options?.WORKFLOW || 'WORKFLOW'}
                                                             </>
                                                         }
 
                                                         {
                                                             element.content === 'INFORMATION' &&
                                                             <>
-                                                                User selected: {messages[key - 1].actions.options.INFORMATION}
+                                                                User selected: {messages[key - 1]?.actions?.options?.INFORMATION || 'INFORMATION'}
                                                             </>
                                                         }
 
