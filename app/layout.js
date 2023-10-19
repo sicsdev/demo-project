@@ -149,7 +149,8 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
-        <meta name="viewport" content="user-scalable=no,initial-scale=1.0001,maximum-scale=1.0001,viewport-fit=cover"></meta>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
         {/* <link
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
