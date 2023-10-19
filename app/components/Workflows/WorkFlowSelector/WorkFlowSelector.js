@@ -16,6 +16,8 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
     console.log("stepData", stepData)
     const [showButtonStates, setShowButtonStates] = useState(null);
     const [modal, setModal] = useState(false);
+    const [mainClass, setMainClass] = useState(null)
+    const [mainDragEndClass, setMainDragEndClass] = useState(null)
     const [automationDragHandle, setAutomationDragHandle] = useState({
         automation: null,
         arr: [],
@@ -248,11 +250,18 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
             result.source.index,
             result.destination.index
         );
+        setMainClass(null);
 
     }
+    function handleDragStart(start) {
+        
+        setMainClass(start.draggableId);
+
+    }
+
     return (
         <>
-            <DragDropContext onDragEnd={onDragEnd}>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={handleDragStart}>
                 <Droppable droppableId="droppable" direction={'vertical'}>
                     {(provided, snapshot) => (
                         <div
@@ -333,7 +342,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                             </div>
 
                                                         )}
-                                                        <div
+                                                        <div className={`${mainClass === ele.id && ("drag")}`}
                                                             onMouseEnter={() => updateShowButtonState(key, 'show')}
                                                             onMouseLeave={() => updateShowButtonState(key, 'hide')}
                                                         >

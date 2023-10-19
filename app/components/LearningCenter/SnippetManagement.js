@@ -8,7 +8,7 @@ import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic'
 const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 
-const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent }) => {
+const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle }) => {
 
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
@@ -32,6 +32,16 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
         };
         let wyg = searchParams.get('debugTextEditor')
         if (wyg) setDebugMode(true)
+
+
+        if (externalTitle) {
+            setBasicFormData((prev) => {
+                return {
+                    ...prev,
+                    title: externalTitle,
+                }
+            })
+        }
 
         // Add the event listener when the component mounts
         document.addEventListener('keydown', handleEscapeKeyPress);
@@ -101,7 +111,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
                     <div className='flex gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
                         <div className='flex flex-row flex-1'>
-                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title' onChange={handleInputChange} />
+                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title' onChange={handleInputChange} value={basicFormData.title} />
                         </div>
                         <div className='flex flex-row justify-end gap-2'>
                             <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">

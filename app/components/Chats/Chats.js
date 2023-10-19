@@ -14,10 +14,11 @@ import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
 import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
+import { useRouter } from 'next/navigation';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const CDN_URL = "https://widget-dev.usetempo.ai";
-
+    const router = useRouter()
 
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
@@ -178,6 +179,23 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     }
 
 
+
+    const handleAddSource = (key) => {
+
+        let userMessage = messages[key - 1]
+
+        if (userMessage.content == "WORKFLOW") {
+            userMessage = messages[key - 2]
+            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.actions.options.WORKFLOW}`)
+        } else if (userMessage.content == "INFORMATION") {
+            userMessage = messages[key - 2]
+            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.actions.options.INFORMATION}`)
+        } else {
+            router.push(`/dashboard/basic-knowledge/source?createExternalSnippet=true&externalContent=${userMessage.content}`)
+        }
+
+    }
+
     return (
         <>
             <div className='flex justify-content-center'>
@@ -256,7 +274,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                             src={`${botUnique?.enterprise?.logo ||
                                                 `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                         <div className="answer_text_div"></div>
-                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
                                             {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
                                         </div>
                                     </div>
@@ -354,12 +372,21 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                             ))
 
                                                                                 :
-                                                                                <small>LLM</small>
+                                                                                <div className='flex gap-4 items-center mt-2'>
+                                                                                    <small>LLM</small>
+                                                                                    <small
+                                                                                        onClick={() => handleAddSource(key)}
+                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                        Add Source
+                                                                                    </small>
+                                                                                </div>
+
                                                                         }
                                                                     </div>
                                                                     <div>
                                                                         {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
                                                                     </div>
+
                                                                 </div>
                                                                 {<div>
 
@@ -403,7 +430,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 <div className="tempo-widget-options-container">
                                                                     {Object.keys(element.actions.options).map((key, index) =>
                                                                         <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
-                                                                            ({index + 1}) {element.actions.options[key]}
+                                                                            {element.actions.options[key]}
                                                                         </button>
                                                                     )}
                                                                 </div>
@@ -532,14 +559,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         {
                                                             element.content === 'WORKFLOW' &&
                                                             <>
-                                                                User selected 1
+                                                                User selected: {messages[key - 1].actions.options.WORKFLOW}
                                                             </>
                                                         }
 
                                                         {
                                                             element.content === 'INFORMATION' &&
                                                             <>
-                                                                User selected 2
+                                                                User selected: {messages[key - 1].actions.options.INFORMATION}
                                                             </>
                                                         }
 
