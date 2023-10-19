@@ -51,7 +51,7 @@ const Page = () => {
         <form>
           <label className="block my-5" htmlFor='email'>
             <span className="block text-start text-sm font-normal text-heading">Email Address</span>
-            <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto !text-[16px] sm:text-sm mt-4 ${error ? 'border border-red' : ''}`} value={email} id={"email"} onChange={handleInputValue} />
+            <Input type={"email"} placeholder={"name@company.com"} className={`w-full border mx-auto  sm:text-sm mt-4 ${error ? 'border border-red' : ''}`} value={email} id={"email"} onChange={handleInputValue} />
           </label>
           <p className="text-red-500 text-sm text-center text-red">{error}</p>
           <Button
