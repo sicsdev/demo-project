@@ -57,7 +57,7 @@ export default function Home() {
         
         <NewAbovepage />
         <Homeinte />
-        <ContactBanner2 />
+        {/* <ContactBanner2 /> */}
 
         <Communication/> 
 
