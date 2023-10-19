@@ -53,7 +53,6 @@ const Page = () => {
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch()
     const state = useSelector((state) => state.recommendation);
-    const [tab, setTab] = useState(0);
     const [tabLoader, setTabLoader] = useState(true);
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
@@ -791,6 +790,7 @@ const Page = () => {
                         setSearchKnowledge={setSearchKnowledge}
                         mode={mode}
                         setMode={setMode}
+                        searchFaqs={searchFaqs}
                     >
 
                     </AnswersEditor>

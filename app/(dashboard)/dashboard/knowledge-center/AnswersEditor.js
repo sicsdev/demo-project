@@ -44,18 +44,16 @@ const AnswersEditor = ({
     mode,
     setMode,
     modal,
+    searchFaqs
 }) => {
 
 
-    useEffect(() => {
-      console.log(workflowView)
-    
-    }, [])
+    // useEffect(() => {    
+    // }, [])
 
 
     const [tab, setTab] = useState(0);
 
-    
 
     return (
         <SideModal setShow={(t) => {
