@@ -178,6 +178,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
+              
               Integrate Now
             </p>
             )}
