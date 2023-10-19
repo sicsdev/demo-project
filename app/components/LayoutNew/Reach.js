@@ -17,8 +17,8 @@ const Reach = () => {
     {
       reach: "55++",
 
-      name: "24/7/365 Uptime ",
-      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.  ",
+      name: "24/7/365 Uptime",
+      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.   ",
       link_title: "Leverage your data",
     },
   ];
@@ -31,7 +31,7 @@ const Reach = () => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="bg-white p-0 sm:p-[0px] sm:mb-12  shadow-box">
+    <div className="bg-white p-0 sm:p-[0px] sm:mb-[40px]  shadow-box">
         {loading ? (
         <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
           <SkeletonLoader height={60} width={"50%"} />
@@ -55,7 +55,7 @@ const Reach = () => {
             <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3      gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
               {data?.map((ele, key) => (
                 <div
-                  className="bg-white flex flex-col justify-between cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
+                  className="bg-white flex flex-col justify-start cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
                   key={key}
                 >
                   {/* <div className="p-0 text-[50px] font-bold leading-[60px] py-2 sm:p-8 md:py-7 md:px-0 text-[#fe9327] ">
@@ -66,7 +66,7 @@ const Reach = () => {
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-semibold ">
+                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#fe9831] ">
                       {ele.name}
                     </div>
                   )}
@@ -75,25 +75,61 @@ const Reach = () => {
                       <SkeletonLoader height={60}className="w-[100%] sm:w-[50%]"/>
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 ">
+                    <div className="p-0 py-2 sm:p-3  md:px-0 ">
                       {ele.para}
                     </div>
                   )}
-                  {loading ? (
+                  {/* {loading ? (
                     <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-semibold">
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-8 md:py-7 md:px-0 font-semibold cursor-pointer">
+                    <div className="p-0 py-2 sm:p-8 md:py-7 md:px-0 font-semiEbold cursor-pointer">
                       Schedule Demo →
                     </div>
-                  )}
+                  )} */}
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
+      <div className="grid grid-cols-1 w-[100%] sm:flex p-8 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] mb-[2rem] sm:pb-[30px] justify-center">
+      {loading ? (
+        <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+          <SkeletonLoader height={60} width={300} />
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-xl sm:text-[20px]  leading-normal bg-[white] hover:bg-[#FF5721] text-[#FF5721] font-semibold hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+        >
+          <p>Get a Quote </p>
+        </button>
+      )}
+      {loading ? (
+        <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+          <SkeletonLoader height={60} width={300} />
+        </div>
+      ) : (
+        <button
+          type="button"
+          className="inline-block   px-6 pb-2 pt-2.5 text-xs sm:text-[20px] rounded-xl  leading-normal bg-[#FF5721] hover:bg-[white] text-white font-semibold hover:text-[#FF5721]  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+        >
+          <div
+            className=""
+            dangerouslySetInnerHTML={{
+              __html: `
+   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+   <span className="underline cursor-pointer text-white ">Get Started
+   </span>
+   </a>
+  `,
+            }}
+          />
+        </button>
+      )}
+    </div>
     </div>
   );
 };

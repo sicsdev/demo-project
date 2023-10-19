@@ -14,6 +14,7 @@ import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
+import TextField from '../Common/Input/TextField';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
     console.log("questions", questions)
@@ -84,19 +85,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             ),
         }, 
-        // {
-        //     name: "State",
-        //     selector: (row) => row.active,
-        //     sortable: false,
-        //     reorder: false,
-        //     cell: (row) => (
-        //         <span data-tag="allowRowEvents" className={`inline-block text-center whitespace-nowrap rounded ${row.active === true ? "bg-[#d8efdc] text-[#107235]" : "bg-border text-white"}  px-4 py-2 align-baseline text-xs font-bold leading-none w-[80px]`}>
-        //             {row.active ? "Active" : "Disabled"}
-        //         </span>
-        //     ),
-
-        //     hide: "sm",
-        // },
         {
             name: "Content Source",
             selector: (row) => row?.knowledge?.source,
@@ -150,15 +138,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                         showArrow={false}
                     /></div>,
         },
-        {
-            name: "Negative Search Terms",
-            center: true,
-            cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[200px]" onClick={() => { setSelected(row) }} >
-                    <p>{row.negatives}</p>
-                </div>
-            ),
-        },
     ];
     const columns1 = [
         {
@@ -197,18 +176,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                         closeOnSelect={true}
                         showArrow={false}
                     /></div>,
-        },
-        {
-            name: "Negative Search Terms",
-            minWidth: "100px",
-            id: "term",
-            center: true,
-            cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4" onClick={() => { setSelected(row) }} >
-                    <p>{row.negatives}</p>
-                </div>
-            ),
-        },
+        }
     ];
 
     const handlePerRowsChange = async (newPerPage, page) => {
@@ -359,7 +327,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     setIsEdit(false)
                     setTab(0)
                     setSelected(null)
-                }} deleteButton={true} data={selected} deleteRecord={(id) => deleteRecord(id)}>
+                }} 
+                deleteButton={true} 
+                data={selected} 
+                deleteRecord={(id) => deleteRecord(id)}>
 
                     <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                         <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
@@ -452,7 +423,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                                 <>
                                     {showAdd && (
                                         <div className='my-8'>
-                                            <TextArea name="negative_answer"
+                                            <TextField name="negative_answer"
                                                 className="py-2 !p-[10px]"
                                                 type={"text"}
                                                 id={"negative_answer"}

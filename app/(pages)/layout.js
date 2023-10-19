@@ -59,7 +59,7 @@ export default function PageLayout({ children }) {
         <div id="footer">
           {" "}
           {/* <Footer />{" "} */}
-        <UpdatedFooter/>
+          <UpdatedFooter />
         </div>
       )}
     </div>

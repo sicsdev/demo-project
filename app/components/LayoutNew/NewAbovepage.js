@@ -33,7 +33,27 @@ const NewAbovepage = () => {
               AI-driven solutions.
             </p>
           )}
-          {loading ? (
+
+{loading ? (
+            <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer">
+              <SkeletonLoader height={60} width={200} />
+            </div>
+          ) : (
+            <div
+              className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer"
+          
+            >
+              
+              <button
+                      className={
+                        "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+                      }
+                    >
+                      Schedule Demo
+                    </button>            </div>
+          )}
+
+          {/* {loading ? (
             <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer">
               <SkeletonLoader height={60} width={200} />
             </div>
@@ -63,10 +83,10 @@ const NewAbovepage = () => {
                   ></path>
                 </svg>
               </p>
-              <p className="font-semibold ml-3 see">See Tempo in action </p>
+              <p className="font-semibold ml-3 see">Schedule Demo today </p>
             </div>
-          )}
-          {showVideo ? (
+          )} */}
+          {/* {showVideo ? (
             <div
               className="fixed flex justify-center right-0 left-0  top-0 bg-[#ffffffd9] bottom-0 z-[999999] overflow-hidden"
               onClick={() => {
@@ -109,18 +129,18 @@ const NewAbovepage = () => {
             </div>
           ) : (
             ""
-          )}
+          )} */}
         </div>
         <div>
           {loading ? (
-            <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center rounded-full leading-normal">
-              <SkeletonLoader className="w-[360px] sm:w-[477px] sm:h-[383px]  h-[286px] " />
+            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center rounded-full leading-normal">
+              <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />
             </div>
           ) : (
             <div className=" block">
               <div className="!m-auto mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                 <Image
-                  src="/XCaaS_8x8_Website_Hero_v1a.webp"
+                  src="/MicrosoftTeams-image.png"
                   className="w-full bg-contain object-contain mx-auto "
                   fill={true}
                 />

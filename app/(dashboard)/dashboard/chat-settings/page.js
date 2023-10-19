@@ -18,7 +18,7 @@ import {
   ChatBubbleLeftIcon,
   QrCodeIcon,
 } from "@heroicons/react/24/outline";
-import { useParams, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -34,6 +34,7 @@ const page = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const search = searchParams.get("id");
+  const router = useRouter()
   useEffect(() => {
     if (state.botData.data === null) {
       dispatch(fetchBot());
@@ -97,6 +98,7 @@ const page = () => {
   const selectBotHandler = (id) => {
     setSelectedBot(id);
     // setSubLoading(true);
+    router.push(`/dashboard/chat-settings?id=${id}`)
     setPageLoading(true);
     getBotInfo(id);
   };
