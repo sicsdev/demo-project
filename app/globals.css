@@ -65,13 +65,13 @@ select {
 }
 
 @media (max-width: 990px) {
-  body select:focus {
+  /* body select:focus {
     font-size: 16px !important;
   }
 
   select {
     font-size: 16px !important;
-  }
+  } */
 
   body input[type="date"] {
     display: table;
@@ -83,7 +83,7 @@ select {
     min-height: 1.3rem !important;
   }
 
-  body input[type="text"],
+  /* body input[type="text"],
   body input[type="number"],
   body input[type="email"],
   body input[type="date"],
@@ -116,7 +116,7 @@ select {
   body input[type="date"]::placeholder,
   body input[type="search "]::placeholder {
     font-size: 16px !important;
-  }
+  } */
 
 }
 
@@ -1745,7 +1745,3 @@ body .custome_table{
   overflow-x: hidden !important;
 }
 
-body input, select, textarea {
-  font-size: 12px !important;
-  -webkit-appearance: none !important; /* sometimes helps with unwanted styles in Safari */
-}
