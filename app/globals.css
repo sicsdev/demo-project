@@ -25,14 +25,18 @@
 select {
   font-family: "Roboto", sans-serif;
 }
+
 body input, select, textarea {
   font-size: 12px !important;
+  -webkit-text-size-adjust: 100%;
 }
 body input::placeholder, select::placeholder, textarea::placeholder {
   font-size: 12px !important;
+  -webkit-text-size-adjust: 100%;
 }
 body input:focus, select:focus, textarea:focus {
   font-size: 12px !important;
+  -webkit-text-size-adjust: 100%;
 }
 .multiselect-container input.searchBox {
   opacity: 0;
