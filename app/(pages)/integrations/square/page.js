@@ -227,7 +227,7 @@ const page = () => {
         
 
               <div className="text-left">
-                <p className="flex gap-[1rem] text-[20px] font-semibold text-[white]"><span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span>Integration Guide</p>
+                <p className="flex gap-[1rem] text-[20px] font-semibold text-[white]"><span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/square-integration">Integration Guide</a></p>
               </div>
             </div>
           </div>
