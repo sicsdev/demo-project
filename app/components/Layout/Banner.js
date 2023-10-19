@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 const Banner = () => {
-  return (
+  const pathname = usePathname()
+
+  if(pathname == "/")
+    return (
 <div class=" md:block">
     <div className="z-40 text-center p-3 bg-[#142543]">
 

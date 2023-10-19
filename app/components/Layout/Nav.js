@@ -75,38 +75,45 @@ const Nav = () => {
                 />
               </Link>
             </div>
-            <ul className="hidden relative md:flex text-black gap-8 flex-row">
-              {nav_links.map((element, key) => (
-                <li
-                  key={key}
-                  className="menus_desk py-[15px] h-[60px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
-                  onMouseEnter={(e) => {
-                    setShowmenu(false);
-                  }}
-                >
-                  <a
-                    href={element.link}
-                    className="sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 "
+            {pathname == "/ip/chat-bot" || pathname == "/ip/contact-center" ? "" :
+
+
+
+              <ul className="hidden relative md:flex text-black gap-8 flex-row">
+                {nav_links.map((element, key) => (
+                  <li
+                    key={key}
+                    className="menus_desk py-[15px] h-[60px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                    onMouseEnter={(e) => {
+                      setShowmenu(false);
+                    }}
                   >
-                    {element.name}
-                  </a>
-                  {element.card.links.length > 0 && (
-                    <Card
-                      className={`animate-fadeIn w-[500px] hidden group-hover:block absolute top-[61px] bg-white ${showmenu ? "desk_headermenupopup" : ""
-                        }`}
+                    <a
+                      href={element.link}
+                      className="sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 "
                     >
-                      <List
-                        className={"grid grid-cols-1 gap-8"}
-                        nav_links={element.card.links}
-                        setShow={setShowmenu}
-                      />
-                    </Card>
-                  )}
-                </li>
-              ))}
-            </ul>
+                      {element.name}
+                    </a>
+                    {element.card.links.length > 0 && (
+                      <Card
+                        className={`animate-fadeIn w-[500px] hidden group-hover:block absolute top-[61px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                          }`}
+                      >
+                        <List
+                          className={"grid grid-cols-1 gap-8"}
+                          nav_links={element.card.links}
+                          setShow={setShowmenu}
+                        />
+                      </Card>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            }
             <div className="hidden md:flex flex-row gap-10 items-center ml-auto">
-              {profile.email ? (
+            
+            {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ?"":
+              profile.email ? (
                 <>
                   {" "}
                   <p className="text-black">{profile.email}</p>
@@ -119,7 +126,7 @@ const Nav = () => {
                   </p>
                 </Link>
               )}
-
+              
               {profile.email ? (
                 <Link href={"/dashboard"}>
                   {" "}

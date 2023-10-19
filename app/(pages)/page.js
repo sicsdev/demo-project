@@ -24,6 +24,15 @@ import Panelcardnew from "../components/PanelCardNew/PanelCardNew";
 import Middlebar from "../components/Info-Screen/Middlebar";
 import { useEffect } from "react";
 import { Router, useRouter } from "next/router";
+import NewAbovepage from "../components/LayoutNew/NewAbovepage";
+import Homeintegration from "../components/LayoutNew/Homeintegration";
+import Homeinte from "../components/LayoutNew/Homeinte";
+import Whyhome from "../components/LayoutNew/Whyhome";
+import Reach from "../components/LayoutNew/Reach";
+import Communication from "../components/LayoutNew/Communication";
+import Bottombutton from "../components/LayoutNew/Bottombutton";
+import { Homeform } from "../components/LayoutNew/Homeform";
+import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 
 export default function Home() {
  
@@ -45,30 +54,38 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        <Homefold />
+        
+        <NewAbovepage />
+        <Homeinte />
+        {/* <ContactBanner2 /> */}
+
+        <Communication/> 
+
+        {/* <Homefold /> */}
         {/* <Start /> */}
 
       {/* -------new-------- */}
 
-        <DTC />
+        {/* <DTC /> */}
+        <Homeintegration />
+        {/* <Whyhome /> */}
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
-        <Info />
-        <Middlebar />
+        {/* <Info /> */}
+        <Reach/>
+       
+{/* <Bottombutton/> */}
+       
+
+
         <Panelcardnew />
+        <Middlebar />
 
-        <Newstandard />
-        {/* <Trial /> */}
-        {/* <Social /> */}
-        {/* <Marketing/> */}
-
-        {/* <Launch /> */}
-        {/* <Benifits />         */}
-        {/* <Faq />   */}
-        {/* <Iconanimation /> */}
+<Homeform/>
+        {/* <Newstandard />
+      
         <Motioncards />
-        <Testimonial />
-
+        <Testimonial /> */}
         {/* dummy section */}
         {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">

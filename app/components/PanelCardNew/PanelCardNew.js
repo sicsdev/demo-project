@@ -16,16 +16,16 @@ const Panelcardnew = () => {
     first: false,
   });
   return (
-    <div className="bg-white p-[64px] ">
-      <h2 className="text-center text-2xl tracking-wide sm:text-h2 sm:mt-[-28px] sm:mb-[50px] font-bold text-heading">
-        Choose your plan
+    <div className="bg-white p-[64px]"> 
+      <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+      AI Customer Service Solutions
       </h2>
-      <div className="w-full sm:w-[60%]  md:w-[60%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4 mx-auto js-show-on-scroll">
+      <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
-            className={`flex flex-col justify-between ${
+            className={`flex flex-col justify-between  ${
               ele.title == "Starter"
-                ? "cursor-pointer bg-type-section hover:bg-card_bg border border-border"
+                ? "cursor-pointer bg-type-section  hover:bg-card_bg border border-border"
                 : "cursor-pointer  bg-white   border border-border"
             }`}
           >
@@ -94,7 +94,7 @@ const Panelcardnew = () => {
                 </p>
               )}
 
-              <h3 className="font-bold text-heading my-6"> Plan includes:</h3>
+              <h3 className="font-bold text-heading my-6"> Inclusions :</h3>
               <ul>
                 {ele.feature_list.map((element, key) => (
                   <li
@@ -120,7 +120,7 @@ const Panelcardnew = () => {
             </div>
             {ele.title == "Starter" ? (
               <button
-                className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm"
+                className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm mt-7"
                 disabled={false}
                 id={key}
                 onClick={handleGetFreeTrial}

@@ -16,6 +16,8 @@ import Link from "next/link";
 import { Helmet } from "react-helmet";
 import Panelcard from "@/app/components/PanelCard/PanelCard";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
+import Newstandard from "@/app/components/Newstandardpage/Newstandard";
+import Motioncards from "@/app/components/Motioncards/page";
 
 const Pricing = () => {
   const router = useRouter();
@@ -220,6 +222,8 @@ const Pricing = () => {
             items={questions}
           />
         </Container>
+        <Newstandard />
+        <Motioncards/>
         <Testimonial />
       </div>
     </div>
