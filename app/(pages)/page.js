@@ -55,6 +55,8 @@ export default function Home() {
         <Head></Head>
         
         <NewAbovepage />
+        <Homeinte />
+
         <Communication/> 
 
         {/* <Homefold /> */}
@@ -63,7 +65,6 @@ export default function Home() {
       {/* -------new-------- */}
 
         {/* <DTC /> */}
-        <Homeinte />
         <Homeintegration />
         {/* <Whyhome /> */}
         {/* <Brandpercentage/>   */}

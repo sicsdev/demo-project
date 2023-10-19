@@ -17,7 +17,7 @@ const Panelcardnew = () => {
   });
   return (
     <div className="bg-white p-[64px]"> 
-      <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
+      <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
       AI Customer Service Solutions
       </h2>
       <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
@@ -120,7 +120,7 @@ const Panelcardnew = () => {
             </div>
             {ele.title == "Starter" ? (
               <button
-                className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm"
+                className="flex w-full mx-auto  justify-center px-4 py-2 text-white hover:border   bg-[#fe9327] hover:text-white hover:bg-black rounded-md shadow-sm mt-7"
                 disabled={false}
                 id={key}
                 onClick={handleGetFreeTrial}

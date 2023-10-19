@@ -74,7 +74,7 @@ const Communication = () => {
             our intelligent, AI-driven solutions.
           </p>
         )}
-        {loading ? (
+        {/* {loading ? (
           <div className="m-auto text-center text-base py-1 sm:mt-8  px-1 rounded-full">
             <SkeletonLoader height={30} width={"20%"} />
           </div>
@@ -82,7 +82,7 @@ const Communication = () => {
           <button className="text-[black] !mt-3 communi w-full sm:mt-4 sm:flex justify-center hover:text-heading my-3 text-center sm:my-0 text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg sm:mb-10">
             <Link href="/checkout"> Learn more →  </Link>
           </button>
-        )}
+        )} */}
       </div>
       <div className="md:mx-0 mx-4 low-section block md:hidden mb-5">
         <div className="flex flex-col justify-center">

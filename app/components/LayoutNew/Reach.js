@@ -17,8 +17,8 @@ const Reach = () => {
     {
       reach: "55++",
 
-      name: "24/7/365 Uptime ",
-      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.  ",
+      name: "24/7/365 Uptime",
+      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.   ",
       link_title: "Leverage your data",
     },
   ];
@@ -55,7 +55,7 @@ const Reach = () => {
             <div className="grid grid-cols-1 md:grid-cols-2  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3      gap-5 sm:gap-12  w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
               {data?.map((ele, key) => (
                 <div
-                  className="bg-white flex flex-col justify-between cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
+                  className="bg-white flex flex-col justify-start cursor-pointer sm:p-[0px] hover:outline-[1px] hover:outline-[black]  transition-transform duration-300 "
                   key={key}
                 >
                   {/* <div className="p-0 text-[50px] font-bold leading-[60px] py-2 sm:p-8 md:py-7 md:px-0 text-[#fe9327] ">
@@ -75,7 +75,7 @@ const Reach = () => {
                       <SkeletonLoader height={60}className="w-[100%] sm:w-[50%]"/>
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 ">
+                    <div className="p-0 py-2 sm:p-3  md:px-0 ">
                       {ele.para}
                     </div>
                   )}
@@ -121,7 +121,7 @@ const Reach = () => {
             dangerouslySetInnerHTML={{
               __html: `
    <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-   <span className="underline cursor-pointer text-white ">Chat with Sales
+   <span className="underline cursor-pointer text-white ">Get Started
    </span>
    </a>
   `,

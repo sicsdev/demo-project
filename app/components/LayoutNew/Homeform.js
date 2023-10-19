@@ -169,7 +169,11 @@ export const Homeform = () => {
     <>
     {show == false ?
         <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[180px] mb-4 p-5 sm:p-0">
+
           <div className="relative w-[100%] sm:w-[550px] sm:h-[530px]">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+  Request quote
+      </h2>
             <div className="w-full mt-4 sm:mt-0">
               <div className="mx-auto sm:w-[85%] mt-8">
                 <div className=" mx-auto text-center">
