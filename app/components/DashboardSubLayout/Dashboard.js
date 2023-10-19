@@ -21,7 +21,6 @@ import { getTestBot } from '@/app/API/components/Minibot'
 const Dashboard = ({ children }) => {
     useEffect(() => {
 
-        useEffect(() => {
             const inputs = document.querySelectorAll('input, select, textarea');
             if (inputs) {
                 inputs.forEach(input => {
@@ -36,7 +35,6 @@ const Dashboard = ({ children }) => {
                     });
                 });
             }
-        }, []);
     }, [])
     const dispatch = useDispatch()
     const pathname = usePathname()
