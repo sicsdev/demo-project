@@ -143,7 +143,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                             <>
                                 <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
 
-                                {allData.map((ele, key) =>
+                                {allData.filter(ele => ele.name !== "QuickEmailVerification").map((ele, key) =>
                                     <li className='my-4 cursor-pointer ' key={key} onClick={(e) => {
                                         findAutomations(ele)
                                     }} >

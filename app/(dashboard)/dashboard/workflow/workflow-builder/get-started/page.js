@@ -535,12 +535,14 @@ const GetStarted = () => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailRegex.test(email);
   };
-
   const DisablingButton1 = () => {
-    if (!workflowFormData.recipient_email || workflowFormData.recipient_email === 'test@test.com' || !validateEmail(workflowFormData.recipient_email) || !workflowFormData.subject || workflowFormData.subject === "Subject") {
-      return true
-    }
-    return false
+    const isEmailEmpty = !workflowFormData.recipient_email;
+    const isTestEmail = workflowFormData.recipient_email === 'test@test.com';
+    const isInvalidEmail = !validateEmail(workflowFormData.recipient_email);
+    const isSubjectEmpty = !workflowFormData.subject;
+    const isDefaultSubject = workflowFormData.subject === "Subject";
+  
+    return isEmailEmpty || isTestEmail || isInvalidEmail || isSubjectEmpty || isDefaultSubject;
   };
 
   const addConditionalStepHandler = async (type = { value: "RULE" }) => {
@@ -836,7 +838,7 @@ const GetStarted = () => {
                       </div>
                     </div>
                     <div className='flex justify-between gap-2 items-center'>
-                      <div><small className='text-xs text-border'>{singleData?.active ? 'Active' : 'Draft'}</small></div>
+                      <div><small className='text-xs text-border font-semibold'>{singleData?.active ? 'Active' : 'Draft'}</small></div>
                       <div>
                         <Button
                           type={"button"}
@@ -1222,7 +1224,7 @@ const GetStarted = () => {
               }}
               labelClassName={"w-full"}
               title={
-                <div className="flex items-center gap-2 w-[150px]">
+                <div className="flex items-center gap-2 mt-2 w-[150px]">
                   <span>Subject</span>{" "}
                 </div>
               }

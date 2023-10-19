@@ -149,7 +149,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
-
+        <meta name="viewport" content="user-scalable=no,initial-scale=1.0001,maximum-scale=1.0001,viewport-fit=cover"></meta>
         {/* <link
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
@@ -159,12 +159,6 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/optionsbuttons.css"
         />
-        {/* <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"
-        ></meta> */}
-
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
