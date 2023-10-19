@@ -55,7 +55,12 @@
     border-radius: 4px;
 }
 
-.rdw-editor-main {
-    font-size: 12px;
+body .rdw-editor-main {
+    font-size: 12px !important;
+    color: #495057;
+}
+
+body .rdw-editor-main:focus {
+    font-size: 12px !important;
     color: #495057;
 }

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import Loading from '../../Loading/Loading'
 import SidebarCards from '../../Workflows/WorkflowBuilder/SidebarCards'
 
-const RightSidebar = ({ addConditionalStepHandler,children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss, singleData, openRulesHandler }) => {
+const RightSidebar = ({ addConditionalStepHandler,children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss, singleData, openRulesHandler,setTab,tab , botValue, alignment='items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData,setSelected , selected , negativeQuestions , addNewNagetiveFaq , isEdit , setIsEdit , setShowAdd , deleteNegativeFaq,showAdd,nLoading}) => {
     const state = useSelector(state => state.integration)
 
     return (
@@ -19,7 +19,7 @@ const RightSidebar = ({ addConditionalStepHandler,children, inputRef, shake, set
                         data-te-sidenav-hidden="false"
                         data-te-sidenav-right="true">
                         <div className={`w-full sm:w-72 sm:pr-4 md:pr-4 lg:pr-4`}>
-                            <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} addConditionalStepHandler={addConditionalStepHandler}/>
+                            <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} addConditionalStepHandler={addConditionalStepHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={alignment} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setShow} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected}  selected={selected}  negativeQuestions={negativeQuestions}  addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit}  setIsEdit={setIsEdit}  setShowAdd={setShowAdd}  deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading}/>
                         </div>
                     </nav>
                     <div className='w-[auto] sm:w-[75%] md:w-[75%] lg:w-[75%]'>
