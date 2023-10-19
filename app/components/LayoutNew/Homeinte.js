@@ -18,13 +18,11 @@ const Homeinte = () => {
     return (
       <div className=" my-8 icons pt-[1px] sm:pt-8 pb-4 sm:pb-12 w-full sm:w-[1440px] mx-auto shadow-box">
         <div className="sm:mb-8 mx-auto max-w-[90%]">
-          <h1 className="text-center text-base sm:text-para md:text-para lg:text-[32px] sm:leading-8 my-2 sm:my-6 font-base text-[#252C47]">
-          {loading ? (
-            <SkeletonLoader count={2} height={20} width="60%" />
-          ) : (
-            "You'll be in good company."
-          )}
-          </h1>
+        <h1 className='text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]' >
+                {loading ? <SkeletonLoader count={1} height={30} width={"60%"} /> :
+                    "You'll be in good company.                    "
+                }
+            </h1>
           <div className="grid sm:flex sm:justify-center grid-cols-2 sm:grid-cols-7 text-center gap-2 sm:gap-0">
             {images.map((element, key) => (
               <div
