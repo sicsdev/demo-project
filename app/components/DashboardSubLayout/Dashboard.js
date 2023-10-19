@@ -19,7 +19,20 @@ import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
 
 const Dashboard = ({ children }) => {
+    useEffect(() => {
 
+        document.addEventListener('focus', function (event) {
+            if (
+                
+                event?.target?.tagName === 'INPUT' ||
+                event?.target?.tagName === 'TEXTAREA' ||
+                event?.target?.tagName === 'SELECT'
+            ) {
+                debugger
+                document.body.style.zoom = 1;
+            }
+        }, true);
+    }, [])
     const dispatch = useDispatch()
     const pathname = usePathname()
     const SideBarRoutes = [
