@@ -1115,7 +1115,7 @@ const Logs = () => {
               {" "}
             </div>
             <div
-              className={` z-50 overflow-y-scroll w-full sm:w-[550px] p-2 sm:p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+               className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
             >
               <>
                 {/* <Card> */}

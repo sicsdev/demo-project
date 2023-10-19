@@ -19,7 +19,23 @@ import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
 
 const Dashboard = ({ children }) => {
+    useEffect(() => {
 
+            const inputs = document.querySelectorAll('input, select, textarea');
+            if (inputs) {
+                inputs.forEach(input => {
+                    input.addEventListener('focus', function () {
+                        const viewportMeta = document.querySelector('meta[name="viewport"]');
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=2.0';
+                    });
+
+                    input.addEventListener('blur', function () {
+                        const viewportMeta = document.querySelector('meta[name="viewport"]');
+                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                    });
+                });
+            }
+    }, [])
     const dispatch = useDispatch()
     const pathname = usePathname()
     const SideBarRoutes = [
@@ -45,20 +61,20 @@ const Dashboard = ({ children }) => {
         },
 
         {
-            href: "/dashboard/basic-knowledge",
+            href: "/dashboard/basic-knowledge/source",
             name: "Knowledge Base",
             subheading: "Learning Center",
             icon: "BookOpenIcon",
         },
 
         {
-            href: "/dashboard/chat-bots",
+            href: "/dashboard/chat-settings",
             name: "Agents",
             subheading: "Tempo Chat",
             icon: "AdjustmentsHorizontalIcon",
         },
         {
-            href: "/dashboard/smart-inbox/email-settings",
+            href: "/dashboard/email-settings",
             name: "Email Settings",
             icon: "InboxIcon",
             subheading: "Smart Inbox"
@@ -94,8 +110,8 @@ const Dashboard = ({ children }) => {
         },
     ];
     let state = useSelector((state) => state.botId.showModal)
-    const userState = useSelector((state) => state.user_profile);
-
+    const userState = useSelector((state) => state.user);
+    console.log("userState", userState)
     useEffect(() => {
         if (!state) {
             dispatch(fetchBot())
@@ -145,15 +161,15 @@ const Dashboard = ({ children }) => {
                 if (!findData) {
                     let newdata = []
                     if (data.length === 3) {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }, data[0]]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading, email: state?.data?.email }, data[0]]
                     } else {
-                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }, ...data,]
+                        newdata = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading, email: state?.data?.email }, ...data,]
                     }
                     Cookies.set("visit", JSON.stringify(newdata), { expires: 30 })
                 }
             } else {
                 if (findRoute) {
-                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading }]
+                    let data = [{ route: pathname, name: findRoute.name, icon: findRoute.icon, subheading: findRoute.subheading, email: state?.data?.email }]
                     Cookies.set('visit', JSON.stringify(data), { expires: 30 })
                 }
             }

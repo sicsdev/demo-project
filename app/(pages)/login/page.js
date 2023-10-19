@@ -29,7 +29,7 @@ const Login = () => {
   const search = searchParams.get("password");
   const as = searchParams.has("dashboard");
   const code = searchParams.get("code");
-
+  const visitData = Cookies.get("visit")
   useEffect(() => {
     const isLogged = Cookies.get("Token")
     if (search) {
@@ -96,6 +96,17 @@ const Login = () => {
         if (checkProperties?.is_first_login && checkProperties?.was_invited) {
           router.push("/invited-email-info");
         } else {
+          if (visitData) {
+            const data = JSON.parse(visitData)
+            const allHaveEmailAttribute = data.every(item => item.hasOwnProperty("email"));
+            if (allHaveEmailAttribute) {
+              if (formValues.email !== allHaveEmailAttribute[0].email) {
+                Cookies.remove("visit")
+              }
+            } else {
+              Cookies.remove("visit")
+            }
+          }
           router.push("/dashboard");
         }
         ////
