@@ -71,12 +71,13 @@ export default function Home() {
         {/* <Info /> */}
         <Reach/>
        
-<Bottombutton/>
+{/* <Bottombutton/> */}
        
-        <Middlebar />
 
 
         <Panelcardnew />
+        <Middlebar />
+
 <Homeform/>
         {/* <Newstandard />
       

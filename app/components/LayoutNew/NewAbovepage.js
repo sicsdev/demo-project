@@ -33,6 +33,26 @@ const NewAbovepage = () => {
               AI-driven solutions.
             </p>
           )}
+
+{loading ? (
+            <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer">
+              <SkeletonLoader height={60} width={200} />
+            </div>
+          ) : (
+            <div
+              className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer"
+          
+            >
+              
+              <button
+                      className={
+                        "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+                      }
+                    >
+                      Schedule Demo
+                    </button>            </div>
+          )}
+
           {/* {loading ? (
             <div className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer">
               <SkeletonLoader height={60} width={200} />
