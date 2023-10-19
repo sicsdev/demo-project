@@ -32,6 +32,7 @@ import Reach from "../components/LayoutNew/Reach";
 import Communication from "../components/LayoutNew/Communication";
 import Bottombutton from "../components/LayoutNew/Bottombutton";
 import { Homeform } from "../components/LayoutNew/Homeform";
+import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 
 export default function Home() {
  
@@ -56,6 +57,7 @@ export default function Home() {
         
         <NewAbovepage />
         <Homeinte />
+        <ContactBanner2 />
 
         <Communication/> 
 
