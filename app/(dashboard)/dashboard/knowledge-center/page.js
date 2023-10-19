@@ -761,7 +761,6 @@ const Page = () => {
                         setUpdateLoader1={setUpdateLoader1}
                         setExternalContentForTextEditor={setExternalContentForTextEditor}
                         workflowView={workflowView}
-                        tab={tab}
                         knowledgeId={knowledgeId}
                         questionData={questionData}
                         setAnswer={setAnswer}
