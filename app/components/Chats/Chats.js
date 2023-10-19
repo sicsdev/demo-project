@@ -606,11 +606,20 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                         }
 
                                                         {
-                                                            element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' &&
+                                                            element.content === 'HUMAN-HANDOFF' &&
+                                                            <>
+                                                                User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
+                                                            </>
+                                                        }
+
+
+                                                        {
+                                                            element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" &&
                                                             <>
                                                                 {element.content}
                                                             </>
                                                         }
+
 
 
                                                         <div className="title-element-left" style={{ display: "none" }}>14:11</div>
