@@ -18,7 +18,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   // output: 'export',
-  reactStrictMode: true,
+  reactStrictMode: false,
   sentry: {}
 }
 
