@@ -21,7 +21,7 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
     const [integrationFormData, setIntegrationFormData] = useState({
         type: "CUSTOM",
         baseUrl: integrationRecord?.route || "",
-        provider: integrationRecord?.provider || "",
+        provider: integrationRecord?.provider || "custom",
         authType: integrationRecord?.auth_type || "",
         username: integrationRecord?.data?.username || "",
         password: integrationRecord?.data?.password || "" || "",
@@ -244,18 +244,6 @@ export const ConfigureIntegration = ({ fetchIntegrations, setShow, integrationRe
                 </p>
             </div>
 
-            <div className="mb-4">
-                <SelectField
-                    onChange={(e) => handleIntegrationInputChange(e)}
-                    value={integrationFormData.provider}
-                    name="provider"
-                    values={['stripe', 'shopify', 'custom']}
-                    title={'Provider'}
-                    id={"provider"}
-                    className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                    labelClass={"block text-gray-700 text-sm font-bold mb-2"}
-                />
-            </div>
 
             <div className="mb-4">
                 <label

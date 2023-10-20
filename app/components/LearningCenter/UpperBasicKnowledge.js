@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import SideModal from '../SideModal/SideModal'
-import { DocumentTextIcon, LinkIcon, PaperClipIcon } from '@heroicons/react/24/outline'
+import { DocumentTextIcon, LinkIcon, PaperClipIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline'
 import SnippetManagement from './SnippetManagement'
 import UrlManagement from './UrlManagement'
 import FileManagement from './FileManagement'
@@ -356,9 +356,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                     </div> */}
 
             {createModal === true && (
-                <SideModal heading={'Add New Content'} setShow={setCreateModal}>
+                <SideModal heading={'Add New Content'} setShow={setCreateModal} width={'sm:w-[1000px]'}>
                     <div className='block sm:flex justify-center items-center gap-4 my-8'>
-                        <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
+                       
+                    <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
                             <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
@@ -372,6 +373,11 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             <LinkIcon className='h-10 w-10 text-white bg-btn_y_hover rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
                             <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
+                        </div>
+                        <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
+                            <PuzzlePieceIcon  className='h-10 w-10 text-white bg-[#C01A59] rounded-lg p-2' />
+                            <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Product</h3>
+                            <p className='text-xs font-normal'>A product or service that users can purchase directly from Tempo.</p>
                         </div>
                     </div>
                 </SideModal>

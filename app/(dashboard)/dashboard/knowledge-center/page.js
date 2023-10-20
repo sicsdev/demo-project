@@ -671,14 +671,14 @@ const Page = () => {
         let answerBackup = answer
         setAnswer('')
 
-        await expandRecommendationRecord({
+    const response =     await expandRecommendationRecord({
             question: workflowView?.question,
             answer: answerBackup,
             streaming: true,
             id: `recommendation-${newUUI}`
         })
 
-
+debugger
         // let newUUID = uuidv4()
         // setNewUUI(newUUID)
 
@@ -800,6 +800,7 @@ const Page = () => {
                         knowledgeId={knowledgeId}
                         questionData={questionData}
                         setAnswer={setAnswer}
+                        setSubQuestions={setSubQuestions}
                         handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
                         subQuestions={subQuestions}
                         subQuestionLoading={subQuestionLoading}
