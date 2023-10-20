@@ -204,7 +204,7 @@ const UpdatedFooter = () => {
 
                       </h6>
 
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2 border-white    px-2  h-[17px] flex align-center">
+                      <h6 className="privacy_link_footer  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2 border-white    px-2  h-[17px] flex align-center">
 
                         <Link href="/privacy-policy">Privacy Policy</Link>
 

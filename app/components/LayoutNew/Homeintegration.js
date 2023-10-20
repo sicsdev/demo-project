@@ -28,15 +28,15 @@ const Homeintegration = (props) => {
           Tempo Integration Ecosystem{" "}
         </h1>
       )}
-          {loading ? (
+      {loading ? (
         <div className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading  justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
           <SkeletonLoader height={60} width={"100%"} />
         </div>
       ) : (
-      <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
-        Enhance your setup with APIs that integrate effortlessly into the Tempo
-        platform, meeting your unique business needs.
-      </p>
+        <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          Enhance your setup with APIs that integrate effortlessly into the Tempo
+          platform, meeting your unique business needs.
+        </p>
       )}
 
       <div className="sm:pt-[10px] bg-white">
@@ -47,11 +47,11 @@ const Homeintegration = (props) => {
                 No data found!
               </p>
             ) : (
-              
+
               ""
             )}
             <div className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-0 lg:px-4 relative group">
-              <div className="grid grid-cols-4 lg:grid-cols-7 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
+              <div className="flex justify-center flex-wrap sm:grid grid-cols-4 lg:grid-cols-7 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
                 {data?.map((item, key) => (
                   <div
                     className="bg-white flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
@@ -61,22 +61,22 @@ const Homeintegration = (props) => {
                     }}
                     key={key}
                   >
-                    <div className="p-2 sm:p-8 md:py-7 md:px-4 ">
+                    <div className="p-[20px] sm:p-2 sm:p-8 md:py-7 md:px-4 ">
                       {/* <Link href={`${item.link}`} > */}
                       {loading ? (
-        <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto mb-5">
-          <SkeletonLoader className=" w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] " />
-        </div>
-      ) : (
-                      <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto mb-5">
-                        <Image
-                          fill={"true"}
-                          className="bg-contain mx-auto w-full rounded-lg"
-                          alt="logo.png"
-                          src={item.logo}
-                        />
-                      </div>
-      )}
+                        <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto sm:mb-5">
+                          <SkeletonLoader className=" w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] " />
+                        </div>
+                      ) : (
+                        <div className="relative mx-auto w-[30px] h-[30px] sm:w-[60px] sm:h-[60px] gap-2 rounded-lg sm:m-auto sm:mb-5">
+                          <Image
+                            fill={"true"}
+                            className="bg-contain mx-auto w-full rounded-lg"
+                            alt="logo.png"
+                            src={item.logo}
+                          />
+                        </div>
+                      )}
                       {/* </Link> */}
                     </div>
                   </div>

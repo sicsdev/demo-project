@@ -77,3 +77,20 @@ export const acceptInKnowledge = async (recommendationId, faqId) => {
         return error
     }
 };
+
+
+export const createRecommendation = async (body) => {
+
+    // Example payload:
+    // bot=ID-BOT \
+    // question="how to get ozempic" \
+    let config = returnConfig()
+
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/recommendations/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
