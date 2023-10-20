@@ -101,6 +101,7 @@ export const searchMatchesFaqQuestions = async (queryParam) => {
         return error
     }
 };
+
 export const deleteFaqQuestions = async (id) => {
     let config = returnConfig()
     try {
