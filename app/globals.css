@@ -1785,3 +1785,6 @@ body .custome_table{
   display: flex;
   flex-direction: column-reverse;
 }
+.privacy_link_footer{
+  border-right: 0px !important;
+}

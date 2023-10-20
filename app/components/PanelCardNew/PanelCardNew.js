@@ -16,7 +16,7 @@ const Panelcardnew = () => {
     first: false,
   });
   return (
-    <div className="bg-white p-[64px]"> 
+    <div className="bg-white px-[64px] sm:py-[64px] py-[34px]"> 
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
       AI Customer Service Solutions
       </h2>
@@ -94,7 +94,7 @@ const Panelcardnew = () => {
                 </p>
               )}
 
-              <h3 className="font-bold text-heading my-6"> Inclusions :</h3>
+              <h3 className="font-bold text-heading my-6"> Includes:</h3>
               <ul>
                 {ele.feature_list.map((element, key) => (
                   <li

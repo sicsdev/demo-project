@@ -40,7 +40,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <div
-              className="flex  px-3 sm:px-0 items-center my-8 sm:ml-[62px] cursor-pointer"
+              className="flex  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer"
           
             >
               
