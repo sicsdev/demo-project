@@ -17,16 +17,33 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     return EditorState.createEmpty();
   });
 
-  const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
+  // const [postContentWithOutReplace, setPostContentWithOutReplace] = useState('')
   const [postContent, setPostContent] = useState('')
 
   const [lastExternalContent, setLastExternalContent] = useState('')
 
 
 
+  // useEffect(() => {
+  //   // if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
+  //   if (externalContent && externalContent !== oldContent) {
+
+  //     setLastExternalContent(externalContent)
+  //     const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
+  //     const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
+  //     onEditorStateChange(EditorState.createWithContent(state))
+  //     setEditorState(EditorState.createWithContent(state));
+  //   }
+
+
+  // }, [externalContent, oldContent]);
+
+
   useEffect(() => {
-    if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
-      setLastExternalContent(externalContent)
+    // if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
+    if (externalContent && externalContent !== lastExternalContent) {
+
+      // setLastExternalContent(externalContent)
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       onEditorStateChange(EditorState.createWithContent(state))
@@ -38,9 +55,10 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
 
+
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
-    setPostContentWithOutReplace(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    // setPostContentWithOutReplace(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     setPostContent(replaceLink(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
     handleTextEditorChange(replaceLink(draftToHtml(convertToRaw(editorState.getCurrentContent()))));
   };
