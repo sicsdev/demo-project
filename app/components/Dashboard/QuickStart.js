@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -135,13 +135,20 @@ const QuickStart = () => {
         },
         {
             href: "/dashboard/basic-knowledge/source",
-            name: "Learning Center",
-            icon: <DocumentMagnifyingGlassIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
-        },
-        , {
-            href: "/dashboard/chat-bots",
-            name: "Agents",
+            name: "Knowledge Base",
             icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+        },
+        ,  {
+            href: "/dashboard/chat-settings",
+            name: "Chat",
+            icon: <ChatBubbleLeftIcon className="mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover " />,
+            isLink: false,
+        },
+        {
+            href: "/dashboard/email-settings",
+            name: "Email",
+            icon: <EnvelopeIcon className="mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover " />,
+            isLink: false,
         },
         {
             href: "/dashboard/manage-phones",
@@ -156,11 +163,11 @@ const QuickStart = () => {
         {
             href: "/dashboard/billing/usage",
             name: "Billing",
-            icon: <BanknotesIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            icon: <CurrencyDollarIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         }, {
             href: "/dashboard/billing/usage",
             name: "Usage",
-            icon: <CurrencyDollarIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            icon: <BanknotesIcon  className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/billing/settings",
@@ -227,7 +234,7 @@ const QuickStart = () => {
     }
 
     const findIcon = (route) => {
-        const findData = SideBarRoutes.find((x) => x.href === route)
+        const findData = SideBarRoutes.find((x) => x?.href === route)
         if (findData) {
             return findData.icon
         }
