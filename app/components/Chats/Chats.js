@@ -1,7 +1,7 @@
 
 import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
@@ -18,9 +18,15 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
+
+    // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
     const router = useRouter()
+    const chatLogsRef = useRef(null);
 
+
+
+    // Local states
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
@@ -39,6 +45,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
         getDetails()
         handleResize()
+
+        // Scroll chat content to end.
+        if (chatLogsRef.current) {
+            const element = chatLogsRef.current;
+            element.scrollTop = element.scrollHeight;
+        }
+
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
@@ -47,6 +60,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
     }, [bot, idOfOpenConversation])
+
+
+
+
 
     // Handlers 
 
@@ -119,16 +136,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     };
 
 
-
-    // const [allNegativeWorkflows, setAllNegativeWorkflows] = useState([])
-    // const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
-
-    // async function getAllNegativesRates() {
-    //     await getNegativeWorkflows().then(res => {setAllNegativeWorkflows(res.results); console.log('negt', res.results)})
-    //     await getFaqNegative().then(res => setAllNegativeFAQS(res.results))
-    // }
-
-
     const divideAnswer = (element) => {
 
         const content = element.content;
@@ -149,6 +156,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             contentParts.push(content.substring(startIndex, endIndex + 1));
             startIndex = endIndex + 1;
         }
+
+
+
 
         return (
             <>
@@ -302,7 +312,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
+                                <div ref={chatLogsRef} className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
                                     <div className="answer_with_thumbs_logs">
                                         <img className="profile-photo_ChatBot_back"
@@ -644,11 +654,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         :
                         <span
                             className="text-xs text-border font-[500] cursor-pointer"
-                            onClick={(e) => {
-                                raiseDisputHandler(e)
-
-                            }
-                            }
+                            onClick={(e) => { raiseDisputHandler(e) }}
                         >
                             {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
                         </span>
