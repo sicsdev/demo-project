@@ -39,6 +39,8 @@ const INITIAL_DATA = {
   email: "",
   password: "",
 };
+import Newstandard from "@/app/components/Newstandardpage/Newstandard";
+import Motioncards from "@/app/components/Motioncards/page";
 
 const Pricing = () => {
   const [data, setData] = useState(INITIAL_DATA);
@@ -283,6 +285,8 @@ const Pricing = () => {
             items={questions}
           />
         </Container>
+        <Newstandard />
+        <Motioncards/>
         <Testimonial />
       </div>
     </div>

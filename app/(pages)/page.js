@@ -22,7 +22,7 @@ import Homefold from "../components/Get-Start/Homefold";
 import Panelcard from "../components/PanelCard/PanelCard";
 import Panelcardnew from "../components/PanelCardNew/PanelCardNew";
 import Middlebar from "../components/Info-Screen/Middlebar";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Router, useRouter } from "next/router";
 import NewAbovepage from "../components/LayoutNew/NewAbovepage";
 import Homeintegration from "../components/LayoutNew/Homeintegration";
@@ -31,10 +31,16 @@ import Whyhome from "../components/LayoutNew/Whyhome";
 import Reach from "../components/LayoutNew/Reach";
 import Communication from "../components/LayoutNew/Communication";
 import Bottombutton from "../components/LayoutNew/Bottombutton";
+import { Homeform } from "../components/LayoutNew/Homeform";
+import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 
 export default function Home() {
- 
-  
+
+  const ref = useRef(null);
+  const handleClickscroll = () => {
+    console.log("clicked")
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <>
       {/* <pre lang="js">
@@ -52,38 +58,38 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        
+
         <NewAbovepage />
-        <Communication/> 
+        <Homeinte />
+        {/* <ContactBanner2 /> */}
+
+        <Communication />
 
         {/* <Homefold /> */}
         {/* <Start /> */}
 
-      {/* -------new-------- */}
+        {/* -------new-------- */}
 
         {/* <DTC /> */}
-        <Homeinte />
         <Homeintegration />
         {/* <Whyhome /> */}
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         {/* <Info /> */}
-        <Reach/>
+        <Reach handleClickscroll={handleClickscroll} />
+
+        {/* <Bottombutton/> */}
+
+
+
+        <Panelcardnew/>
         <Middlebar />
-        <Panelcardnew />
 
-        <Newstandard />
-        {/* <Trial /> */}
-        {/* <Social /> */}
-        {/* <Marketing/> */}
-
-        {/* <Launch /> */}
-        {/* <Benifits />         */}
-        {/* <Faq />   */}
-        {/* <Iconanimation /> */}
+        <Homeform reff={ref} />
+        {/* <Newstandard />
+      
         <Motioncards />
-        <Testimonial />
-<Bottombutton/>
+        <Testimonial /> */}
         {/* dummy section */}
         {/* <div className="bg-[#142543] p-6">
         <div className="flex flex-wrap shadow-sm">

@@ -114,7 +114,8 @@ select {
   body input[type="email"]::placeholder,
   body input[type="password"]::placeholder,
   body input[type="date"]::placeholder,
-  body input[type="search "]::placeholder {
+  body input[type="search "]::placeholder ,
+  textarea::placeholder{
     font-size: 16px !important;
   }
 
@@ -1710,21 +1711,11 @@ body .invite-email input[type="email"]:focus,
 }
 
 
-.public-DraftEditorPlaceholder-inner,
-.DraftEditor-editorContainer span {
-  font-size: 12px;
-}
 
 @media (max-width:991px) {
 
-  body .public-DraftEditorPlaceholder-inner,
-  .DraftEditor-editorContainer span {
-    font-size: 16px !important;
-  }
 
-  body .DraftEditor-root {
-    font-size: 16px !important;
-  }
+ 
 }
 
 @media screen and (max-width: 600px) {
@@ -1788,4 +1779,12 @@ body .custome_table{
 	background: transparent;
 	padding: 4px;
   color: #fff;
+}
+.drag{
+  
+  display: flex;
+  flex-direction: column-reverse;
+}
+.privacy_link_footer{
+  border-right: 0px !important;
 }
