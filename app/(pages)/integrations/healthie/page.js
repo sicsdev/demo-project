@@ -29,6 +29,13 @@ const page = () => {
               ) : (
                 "Healthie"
               )}</h2>
+               <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px] text-left">
+            {loading ? (
+              <SkeletonLoader count={2} height={20} width="100%" />
+            ) : (
+            "Empower Your Healthcare Practice with Seamless Patient and Workflow Management"
+            )}
+            </p>
             </div>
           <div className="flex  justify-center gap-[1rem] items-center flex-col sm:flex-row sm:gap-[80px]  sm:justify-between my-[21px] sm:my-0">
 
@@ -46,15 +53,9 @@ const page = () => {
       <div className="grid grid-cols-1  sm:grid-cols-[75%_25%] ">
       <div className="bg-[#f8f9fa!important]  sm:px-[120px] sm:px-12">
           <div className="text-left sm:mt-7 p-[24px] sm:p-0">
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
-            {loading ? (
-              <SkeletonLoader count={2} height={20} width="100%" />
-            ) : (
-            "Empower Your Healthcare Practice with Seamless Patient and Workflow Management"
-            )}
-            </p>
+           
        
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
@@ -65,24 +66,24 @@ const page = () => {
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Unmatched Flexibility:</b>Combine Healthie's comprehensive healthcare management features with Tempo's Workflow Builder for a tailored healthcare experience.
+               <span className="font-semibold">Unmatched Flexibility:</span>Combine Healthie's comprehensive healthcare management features with Tempo's Workflow Builder for a tailored healthcare experience.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Unified Dashboard:</b> Manage all your Healthie patients, appointments, and tasks directly from Tempo's centralized interface.
+               <span className="font-semibold">Unified Dashboard:</span> Manage all your Healthie patients, appointments, and tasks directly from Tempo's centralized interface.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Data-Driven Insights:</b>Leverage Tempo's analytics to analyze metrics from your Healthie data for informed healthcare decision-making.
+              <span className="font-semibold">Data-Driven Insights:</span>Leverage Tempo's analytics to analyze metrics from your Healthie data for informed healthcare decision-making.
             </p>
             )}
-            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
@@ -93,21 +94,21 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Connect Healthie to Tempo's Workflow Builder:</b> Integrate your Healthie account with Tempo in just a few clicks.
+               <span className="font-semibold">Connect Healthie to Tempo's Workflow Builder:</span> Integrate your Healthie account with Tempo in just a few clicks.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Customize Your Workflow with Healthie Endpoints:</b> Add Healthie API endpoints to your Tempo workflow for a fully personalized healthcare management solution.
+               <span className="font-semibold">Customize Your Workflow with Healthie Endpoints:</span> Add Healthie API endpoints to your Tempo workflow for a fully personalized healthcare management solution.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Analyze and Optimize:</b>Use Tempo’s analytics to gain actionable insights into your Healthie data and optimize healthcare delivery based on real-time data.
+               <span className="font-semibold">Analyze and Optimize:</span>Use Tempo’s analytics to gain actionable insights into your Healthie data and optimize healthcare delivery based on real-time data.
             </p>
             )}
             <div>
@@ -198,12 +199,43 @@ const page = () => {
         </div>
         <div className="p-12 bg-[#363744]">
         <div class="stick-right ">
-        
 
-        <div className="text-left">
-          <p className="flex gap-[1rem] text-[20px] font-semibold text-[white]"><span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/healthie-integration">Integration Guide</a></p>
-        </div>
+
+<div className="text-left">
+  {loading ? (
+    <SkeletonLoader count={1} height={20} width="100%" />
+  ) : (
+    <p className="flex gap-[1rem] text-[20px] font-semibold text-[white] justify-center">
+
+      <span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/healthie-integration">Integration Guide</a></p>)}
+</div>
+<div className="rounded-[20px] bg-white  shadow-2xl w-full sm:w-[100%] sm:py-[56px] sm:py-[30px] mt-[2rem]">
+  <p className="text-[20px] text-[#363866] sm:mb-3 font-semibold">
+    {loading ? (
+      <SkeletonLoader count={1} height={20} width="100%" />
+    ) : (
+      "See how it works with Tempo AI"
+    )}
+  </p>
+  <div className="block text-center  ">
+    <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8 sm:mt-0">
+      <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+        {loading ? (
+          <SkeletonLoader count={1} height={40} width={100} />
+        ) : (
+          <button
+            className={
+              "mb-4 sm:mb-0 uppercase py-[18px] px-2  font-bold w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+            }
+          >
+            Get A demo
+          </button>
+        )}
       </div>
+    </div>
+  </div>
+</div>
+</div>
         
         </div>
       </div>

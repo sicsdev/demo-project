@@ -31,6 +31,13 @@ const page = () => {
               "Paypal"
               )}
               </h2>
+              <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px] text-left">
+            {loading ? (
+              <SkeletonLoader count={2} height={20} width="100%" />
+            ) : (
+              "Automate Your Payment and Billing Operations with Unmatched Flexibility"
+            )}
+            </p>
             </div>
           <div className="flex  justify-center gap-[1rem] items-center flex-col sm:flex-row sm:gap-[80px]  my-[21px] sm:my-0">
 
@@ -48,15 +55,9 @@ const page = () => {
       <div className="grid grid-cols-1  sm:grid-cols-[75%_25%] ">
       <div className="bg-[#f8f9fa!important]  sm:px-[120px] sm:px-12">
           <div className="text-left sm:mt-7 p-[24px] sm:p-0">
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
-            {loading ? (
-              <SkeletonLoader count={2} height={20} width="100%" />
-            ) : (
-              "Automate Your Payment and Billing Operations with Unmatched Flexibility"
-            )}
-            </p>
+           
          
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
@@ -91,55 +92,55 @@ const page = () => {
               "Utilize Tempo's Learning Center to optimize your payment workflows based on real-time analytics and recommendations."
             )}
             </p>
-            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="40%" />
             ) : (
               "How It Works"
             )}
             </p>
-            <p className="text-[#363866] !font-semibold  sm:mt-[20px] text-xl">
+            <p className="text-[#363866]   sm:mt-[20px] text-xl mb-[1rem]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
-            ) : (
-    "1. Connect PayPal to Tempo's Workflow Builder"
+            ) : (<>
+              <span className="font-semibold">Connect PayPal to Tempo's Workflow Builder:</span>Seamlessly link your PayPal account to Tempo's Workflow Builder.</>
             )}
             </p>
-            <p className="text-heading text-xl sm:mb-3">
+            {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
               "Seamlessly link your PayPal account to Tempo's Workflow Builder."
             )}
-            </p>
-            <p className="text-[#363866] !font-semibold   text-xl">
+            </p> */}
+            <p className="text-[#363866]  text-xl mb-[1rem]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
-            ) : (
-              "2. Select and Add PayPal Endpoints"
+            ) : (<>
+              <span className="font-semibold">Select and Add PayPal Endpoints:</span>Choose from a range of PayPal endpoints to create custom payment and billing workflows.</>
             )}
             </p>
-            <p className="text-heading text-xl sm:mb-3">
+            {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
               "Choose from a range of PayPal endpoints to create custom payment and billing workflows."
             )}
-            </p>
-            <p className="text-[#363866] !font-semibold  text-xl">
+            </p> */}
+            <p className="text-[#363866]   text-xl">
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
-            ) : (
-              "3. Leverage the Learning Center"
+            ) : (<>
+              <span className="font-semibold"> Leverage the Learning Center:</span>Use insights from Tempo's Learning Center to continually improve your payment operations.</>
             )}
             </p>
-            <p className="text-heading text-xl sm:mb-3">
+            {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
            "   Use insights from Tempo's Learning Center to continually improve your payment operations."
             )}
-            </p>
+            </p> */}
             <div>
             {loading ? (
               <SkeletonLoader count={2} height={150} width="100%" />
@@ -221,13 +222,44 @@ const page = () => {
           </div>
         </div>
         <div className="p-12 bg-[#363744]">
-            <div class="stick-right ">
-        
+        <div class="stick-right ">
 
-              <div className="text-left">
-                <p className="flex gap-[1rem] text-[20px] font-semibold text-[white]"><span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/paypal-integration">Integration Guide</a></p>
-              </div>
-            </div>
+
+<div className="text-left">
+  {loading ? (
+    <SkeletonLoader count={1} height={20} width="100%" />
+  ) : (
+    <p className="flex gap-[1rem] text-[20px] font-semibold text-[white] justify-center">
+
+      <span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/paypal-integration">Integration Guide</a></p>)}
+</div>
+<div className="rounded-[20px] bg-white  shadow-2xl w-full sm:w-[100%] sm:py-[56px] sm:py-[30px] mt-[2rem]">
+  <p className="text-[20px] text-[#363866] sm:mb-3 font-semibold">
+    {loading ? (
+      <SkeletonLoader count={1} height={20} width="100%" />
+    ) : (
+      "See how it works with Tempo AI"
+    )}
+  </p>
+  <div className="block text-center  ">
+    <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8 sm:mt-0">
+      <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+        {loading ? (
+          <SkeletonLoader count={1} height={40} width={100} />
+        ) : (
+          <button
+            className={
+              "mb-4 sm:mb-0 uppercase py-[18px] px-2  font-bold w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+            }
+          >
+            Get A demo
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
           </div>
       </div>
     </div>

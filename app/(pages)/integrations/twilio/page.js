@@ -35,6 +35,12 @@ const page = () => {
                 ) : (
                   "Twilio"
                 )}</h2>
+                  <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px] text-left">
+              {loading ? (
+                <SkeletonLoader count={2} height={20} width="100%" />
+              ) : (
+                "Elevate Your Communication Capabilities with Unmatched Versatility"
+                )}              </p>
               </div>
               <div className="flex  justify-center gap-[1rem] items-center flex-col sm:flex-row sm:gap-[80px] my-[21px] sm:my-0">
 
@@ -55,13 +61,8 @@ const page = () => {
       <div className="grid grid-cols-1  sm:grid-cols-[75%_25%] ">
       <div className="bg-[#f8f9fa!important]  sm:px-[120px] sm:px-12">
             <div className="text-left sm:mt-7 p-[24px] sm:p-0">
-              <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
-              {loading ? (
-                <SkeletonLoader count={2} height={20} width="100%" />
-              ) : (
-                "Elevate Your Communication Capabilities with Unmatched Versatility"
-                )}              </p>
-              <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
+            
+              <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="50%" />
               ) : (
@@ -93,7 +94,7 @@ const page = () => {
                 evaluate the effectiveness of your communication strategies.
               </p>
               )}
-              <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
+              <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="50%" />
               ) : (
@@ -101,52 +102,52 @@ const page = () => {
               )}
               </p>
               <p>
-                <span className="text-[#363866] !font-semibold  sm:mt-[20px] text-xl">
+                <span className="text-[#363866] mb-[1rem]  sm:mt-[20px] text-xl">
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="50%" />
-                ) : (
-                  "1. Connect Twilio to Tempo:"
+                ) : (<>
+                  <span className="font-semibold"> Connect Twilio to Tempo:</span>Seamlessly link your PayPal account to Tempo's Workflow Builder.</>
                 )}
                 </span>
-                <span className="text-heading text-xl sm:mb-3">
+                {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
                   "Seamlessly link your PayPal account to Tempo's Workflow Builder."
                 )}
-                </span>
+                </span> */}
               </p>
               <p>
-                <span className="text-[#363866] !font-semibold text-xl">
+                <span className="text-[#363866] mb-[1rem] text-xl">
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
-                ) : (
-                  "2. Customize Your Workflow with Twilio Endpoints"
+                ) : (<>
+                  <span className="font-semibold"> Customize Your Workflow with Twilio Endpoints:</span>Add Twilio API endpoints to your Tempo workflow for a fully personalized communication solution.</>
                 )}
                 </span>
-                <span className="text-heading text-xl sm:mb-3">
+                {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
                   "Add Twilio API endpoints to your Tempo workflow for a fully personalized communication solution."
                 )}
-                </span>
+                </span> */}
               </p>
               <p>
-                <span className="text-[#363866] !font-semibold  text-xl">
+                <span className="text-[#363866] mb-1  text-xl">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="50%" />
-                ) : (
-                  "3. Analyze and Optimize"
+                ) : (<>
+                  <span className="font-semibold"> Analyze and Optimize:</span>Use Tempo's analytics to gain actionable insights into your Twilio communication data.</>
                 )}
                 </span>
-                <span className="text-heading text-xl sm:mb-3">
+                {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
                   "Use Tempo's analytics to gain actionable insights into your Twilio communication data."
                 )}
-                </span>
+                </span> */}
               </p>
               <div>
               {loading ? (
@@ -223,13 +224,44 @@ const page = () => {
 </div>
 
 <div className="p-12 bg-[#363744]">
-            <div class="stick-right ">
-        
+<div class="stick-right ">
 
-              <div className="text-left">
-                <p className="flex gap-[1rem] text-[20px] font-semibold text-[white]"><span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/twilio-integration">Integration Guide</a></p>
-              </div>
-            </div>
+
+<div className="text-left">
+  {loading ? (
+    <SkeletonLoader count={1} height={20} width="100%" />
+  ) : (
+    <p className="flex gap-[1rem] text-[20px] font-semibold text-[white] justify-center">
+
+      <span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/twilio-integration">Integration Guide</a></p>)}
+</div>
+<div className="rounded-[20px] bg-white  shadow-2xl w-full sm:w-[100%] sm:py-[56px] sm:py-[30px] mt-[2rem]">
+  <p className="text-[20px] text-[#363866] sm:mb-3 font-semibold">
+    {loading ? (
+      <SkeletonLoader count={1} height={20} width="100%" />
+    ) : (
+      "See how it works with Tempo AI"
+    )}
+  </p>
+  <div className="block text-center  ">
+    <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8 sm:mt-0">
+      <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+        {loading ? (
+          <SkeletonLoader count={1} height={40} width={100} />
+        ) : (
+          <button
+            className={
+              "mb-4 sm:mb-0 uppercase py-[18px] px-2  font-bold w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+            }
+          >
+            Get A demo
+          </button>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+</div>
           </div>
         </div>
       </div>

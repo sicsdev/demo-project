@@ -314,21 +314,21 @@ export const Homeform = ({ reff }) => {
                         <input
                           id="link-checkbox"
                           type="checkbox"
-                          className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          className="w-7 h-7 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                         // onChange={(e) => Abc(e)}
 
                         />
                       )}
                       <label
                         htmlFor="link-checkbox"
-                        className="ml-2 text-justify text-xs font-medium text-border mt-[16px] "
+                        className="ml-2 text-justify font-medium text-border mt-[16px] text-[14px]"
                       >
                         {loading ? (
                           <SkeletonLoader count={1} height={20} width="100%" />
                         ) : (
                           <>
                             By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                            <Link href="/privacy-policy">Tempo Privacy Policy</Link>.
+                            <Link href="/privacy-policy"><u>Tempo Privacy Policy</u></Link>.
                           </>
                         )}
                       </label>
@@ -340,7 +340,7 @@ export const Homeform = ({ reff }) => {
                   ) : (
                     <button
                       className={
-                        "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#fe9327] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
+                        "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-white !text-[#fe9327] border !border-[#fe9327] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-semibold focus:ring-yellow-300 text-white rounded-2xl "
                       }
                       style={{ margin: "0px auto" }}
                       onClick={() => {
