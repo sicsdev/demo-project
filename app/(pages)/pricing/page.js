@@ -16,34 +16,56 @@ import Link from "next/link";
 import { Helmet } from "react-helmet";
 import Panelcard from "@/app/components/PanelCard/PanelCard";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
+import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
+import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
+import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
+import { ThirdStep } from "@/app/components/MutliStepForm/ThirdStep";
+import "./style.css";
+// import {
+//   First,
+//   SecondStep,
+//   ThirdStep,
+// } from "@/app/components/MutliStepForm";
+// import { First } from "@/app/components/MutliStepForm/FirstStep";
+
+const INITIAL_DATA = {
+  companyName: "",
+  totalNumbersOfEmployees: "",
+  age: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+  email: "",
+  password: "",
+};
 
 const Pricing = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const emailQuery = searchParams.get("email");
-  const handleGetFreeTrial = (select) => {
-    router.push(`/checkout?plan=${select}`);
-  };
-  const [hide, setHide] = useState({
-    first: false,
-  });
-  useEffect(() => {
-    const callback = function (entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fadeIn");
-        } else {
-          entry.target.classList.remove("animate-fadeIn");
-        }
-      });
-    };
-    const observer = new IntersectionObserver(callback);
-    const targets = document.querySelectorAll(".js-show-on-scroll");
-    targets.forEach(function (target) {
-      target.classList.add("opacity-0");
-      observer.observe(target);
+  const [data, setData] = useState(INITIAL_DATA);
+  console.log(data);
+  function updateFields(fields) {
+    setData((prev) => {
+      return { ...prev, ...fields };
     });
-  }, []);
+  }
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultiStepFrom([
+      <FirstStep {...data} updateFields={updateFields} />,
+      <SecondStep {...data} updateFields={updateFields} />,
+      <ThirdStep {...data} updateFields={updateFields} />,
+    ]);
+
+  function onSubmit(e) {
+    e.preventDefault();
+    if (!isLastStep) return next();
+    alert("Successful Account Creation");
+  }
+
+  const stepsTab = [
+    { title: "Step 1" },
+    { title: "Step 2" },
+    { title: "Step 3" },
+  ];
 
   return (
     <div className="bg-white">
@@ -61,10 +83,51 @@ const Pricing = () => {
       </Helmet>
 
       {/* <Panelcard  /> */}
+      <div
+        style={{
+          // position: "relative",
+          // background: "white",
+          border: "1px solid black",
+          // padding: "2rem",
+          // margin: "1rem",
+          // borderRadius: ".5rem",
+          // fontFamily: "Arial",
+          // maxWidth: "max-content",
+        }}
+        className="p-4"
+      >
+        <form onSubmit={onSubmit}>
+          <div className=" forbottomBDR ">
+            <div className="flex mx-3">
+              {stepsTab.map((ele) => (
+                <div className="border border-b-0 p-5  px-20">{ele.title}</div>
+              ))}
+            </div>
+            {/* Step {currentStepIndex + 1}  */}
+          </div>
 
-      <Panelcardnew/>
+          {step}
+          <div
+            style={{
+              marginTop: "1rem",
+              display: "flex",
+              gap: ".5rem",
+              justifyContent: "flex-end",
+            }}
+          >
+            {!isFirstStep && (
+              <button type="button" onClick={back}>
+                Back
+              </button>
+            )}
+            <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+          </div>
+        </form>
+      </div>
+      <Panelcardnew />        
 
       <DTC />
+
       {/* <Iconanimation /> */}
       {/* <Trial /> */}
       {/* <Resource /> */}
