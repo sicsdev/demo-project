@@ -832,7 +832,7 @@ const GetStarted = () => {
                     </div>
                     <div className='cursor-pointer relative' ref={divRef} onClick={() => { setShowHelp(prev => !prev) }}><EllipsisVerticalIcon className="h-6 w-6 text-gray-500" />
                       {showHelp && (
-                        <div className="absolute left-[-280px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[300px] border border-border rounded-lg shadow w-44 ">
+                        <div className="absolute left-[-185px] top-[40px] z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-44 ">
                           <ul className="py-2 text-sm text-gray-700 ">
                             {/* {singleData?.active && (
                             <li className='hover:bg-primary hover:text-white text-heading my-2' onClick={(e) => saveWorkFlowHandler('DISABLE')}>
@@ -840,7 +840,7 @@ const GetStarted = () => {
                             </li>
                           )} */}
                             <li className='hover:bg-danger hover:text-white text-danger my-2' onClick={() => { setDeleteWorkflowModal(true) }}>
-                              <a className="block px-4 py-2 ">Delete</a>
+                              <a className="block px-4 py-2 text-xs ">Delete</a>
                             </li>
                           </ul>
                         </div>

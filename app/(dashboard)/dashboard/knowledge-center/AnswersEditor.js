@@ -44,7 +44,8 @@ const AnswersEditor = ({
     mode,
     setMode,
     modal,
-    searchFaqs
+    searchFaqs,
+    setSubQuestions
 }) => {
 
 

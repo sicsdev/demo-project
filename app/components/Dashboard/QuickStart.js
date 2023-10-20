@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -119,11 +119,6 @@ const QuickStart = () => {
 
     const SideBarRoutes = [
         {
-            href: '/dashboard/workflow/integrations',
-            name: "Workflow Builder",
-            icon: <CodeBracketSquareIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
-        },
-        {
             href: "/dashboard/workflow/integrations",
             name: "Integrations",
             icon: <ShareIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
@@ -136,21 +131,17 @@ const QuickStart = () => {
         {
             href: "/dashboard/knowledge-center",
             name: "Learning Center",
-            icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
-        },
-        {
-            href: "/dashboard/knowledge-center",
-            name: "Learning Center",
             icon: <AcademicCapIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
-            href: "/dashboard/basic-knowledge",
-            name: "Knowledge Base",
-            icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
-        }, {
+            href: "/dashboard/basic-knowledge/source",
+            name: "Learning Center",
+            icon: <DocumentMagnifyingGlassIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+        },
+        , {
             href: "/dashboard/chat-bots",
             name: "Agents",
-            icon: <AdjustmentsHorizontalIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/manage-phones",
@@ -158,13 +149,9 @@ const QuickStart = () => {
             icon: <DevicePhoneMobileIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
-            href: "/",
+            href: "/dashboard/analytics",
             name: "Logs",
             icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
-        }, {
-            href: "/dashboard/analytics",
-            name: "Chat Logs",
-            icon: <ChartBarIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/billing/usage",
@@ -181,9 +168,9 @@ const QuickStart = () => {
             icon: <WrenchScrewdriverIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
-            href: "/dashboard/knowledge-center",
-            name: "Organization Settings",
-            icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            href: "/dashboard/scheduling-settings",
+            name: "Scheduling",
+            icon: <CalendarDaysIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/members",

@@ -193,7 +193,19 @@ const Page = () => {
               grayscale: false,
               tiles: updateArray
             }, ...sortedData]);
-            setFixeData(sortedData);  
+            setFixeData([
+              {
+                key: "CUSTOM",
+                title: "Custom",
+                grayscale: false,
+                tiles: updateArrayCustom
+              }
+              , {
+                key: "POPULAR",
+                title: "Popular",
+                grayscale: false,
+                tiles: updateArray
+              }, ...sortedData]);  
         } else {
 
 
@@ -209,9 +221,19 @@ const Page = () => {
             grayscale: false,
             tiles: updateArray
           }, ...sortedData]);
-          setFixeData(sortedData);
+          setFixeData([{
+            key: "POPULAR",
+            title: "Popular",
+            grayscale: false,
+            tiles: updateArray
+          }, ...sortedData]);
+          setOriginalData([{
+            key: "POPULAR",
+            title: "Popular",
+            grayscale: false,
+            tiles: updateArray
+          }, ...sortedData]);
         }
-        console.log("sortedData",sortedData)
       }
 
       setDataLoader(false);
