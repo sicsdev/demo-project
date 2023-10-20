@@ -1,7 +1,7 @@
 import { EllipsisHorizontalIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
 
-const SideModal = ({ setShow, children, heading, border = true, deleteButton = false ,data,deleteRecord}) => {
+const SideModal = ({ setShow, children, heading, border = true, deleteButton = false ,data,deleteRecord,width='sm:w-[800px]'}) => {
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -26,7 +26,7 @@ const SideModal = ({ setShow, children, heading, border = true, deleteButton = f
         {" "}
       </div>  
       <div
-        className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[800px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+        className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full ${width} p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
       >
         <div
           className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border"

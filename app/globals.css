@@ -114,8 +114,8 @@ select {
   body input[type="email"]::placeholder,
   body input[type="password"]::placeholder,
   body input[type="date"]::placeholder,
-  body input[type="search "]::placeholder ,
-  textarea::placeholder{
+  body input[type="search "]::placeholder,
+  textarea::placeholder {
     font-size: 16px !important;
   }
 
@@ -396,10 +396,10 @@ body .chip {
   font-weight: 700;
   margin-right: 0;
   background-color: #0057ff;
-  word-wrap: break-word;  
+  word-wrap: break-word;
   display: flex;
   justify-content: space-between;
-  width: 96%;
+  width: 88%;
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
@@ -1367,7 +1367,8 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
-div[data-column-id="term"] {  
+
+div[data-column-id="term"] {
   width: 67px;
   white-space: break-spaces;
   text-align: center;
@@ -1712,11 +1713,7 @@ body .invite-email input[type="email"]:focus,
 
 
 
-@media (max-width:991px) {
-
-
- 
-}
+@media (max-width:991px) {}
 
 @media screen and (max-width: 600px) {
   #chatbot_widget .chat_content {
@@ -1748,43 +1745,51 @@ body .invite-email input[type="email"]:focus,
   left: 0;
   transition: .2s;
 }
+
 body video {
   height: fit-content !important;
-  position: absolute  !important;
+  position: absolute !important;
   top: 25% !important;
 }
-.modal-open{
+
+.modal-open {
   overflow: hidden;
 }
+
 #chatbot_widget .containerChatBot_entire {
   top: auto !important;
 }
-body .custome_table{
+
+body .custome_table {
   overflow-x: hidden !important;
 }
 
-.video_popup{
+.video_popup {
   width: 801px;
   margin: auto;
   height: auto;
   position: relative;
 }
-.video_popup_cross{
+
+.video_popup_cross {
   position: absolute;
-	right: 5px;
-	top: 5px;
+  right: 5px;
+  top: 5px;
   cursor: pointer;
 }
-.video_popup_cross svg{
-	background: transparent;
-	padding: 4px;
+
+.video_popup_cross svg {
+  background: transparent;
+  padding: 4px;
   color: #fff;
 }
-.drag{
-  
+
+.drag {
+
   display: flex;
   flex-direction: column-reverse;
 }
-.privacy_link_footer{
+
+.privacy_link_footer {
   border-right: 0px !important;
 }

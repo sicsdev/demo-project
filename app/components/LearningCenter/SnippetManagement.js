@@ -8,9 +8,10 @@ import { useSearchParams } from 'next/navigation';
 import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic'
 import { expandRecommendationRecord } from '@/app/API/pages/LearningCenter';
+import TextField from '../Common/Input/TextField';
 const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 
-const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle,getQuestionsData,
+const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle, getQuestionsData,
     setCreateModal,
     setLoading,
     setCreatePdfModal }) => {
@@ -33,7 +34,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const [debugMode, setDebugMode] = useState(false)
 
     useEffect(() => {
-        
+
         let newUUID = uuidv4()
         setNewUUI(newUUID)
         const handleEscapeKeyPress = (event) => {
@@ -140,33 +141,32 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
             <div onClick={() => hideComponent()} className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50'></div >
             <div className='mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  w-full sm:w-auto z-50 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white'>
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
-                    <div className='flex gap-2 items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
-                        <div className='flex flex-row flex-1'>
-                            <input type='text' className='border-0 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Enter a Title' id='title' name='title' onChange={handleInputChange} value={basicFormData.title} />
+                    <div className='flex gap-2 justify-end items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
+                        <div className="flex flex-1">
+                            <h2 className="text-black-color text-sm !font-semibold">Add Snippet</h2>
                         </div>
-                        <div className='flex flex-row justify-end gap-2'>
-                            <button onClick={(e) => setCreateOptions(null)} type="button" className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-black bg-[#ececf1] hover:text-white hover:bg-black disabled:bg-input_color disabled:text-white">
-                                <XCircleIcon className='h-4 w-4' />
-                                Close
+                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                            <button
+                                onClick={() => handleSubmit({ type: 'SNIPPET' })}
+                                type="button"
+                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                disabled={DisablingButton() || loading === true}
+
+                            >
+                                {loading ? "Loading..." : "Save and close"}
                             </button>
-
-                            <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                                <button
-                                    onClick={() => handleSubmit({ type: 'SNIPPET' })}
-                                    type="button"
-                                    className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                                    disabled={DisablingButton() || loading === true}
-
-                                >
-                                    {loading ? "Loading..." : "Save and close"}
-                                </button>
+                        </div>
+                        <div className="flex justify-end gap-2">
+                            <div className="cursor-pointer" onClick={(e) => setCreateOptions(null)}>
+                                <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa]  p-2" />
                             </div>
                         </div>
+
                     </div>
 
                     <div className='my-8'>
                         <div className='flex flex-col gap-6'>
-                            <div className='flex flex-row items-center'>
+                        <div className='flex flex-row items-center'>
                                 <span className='pr-5 text-xs'>State</span>
                                 <div className='flex flex-row items-center gap-2 col-span-4'>
                                     <div>
@@ -180,40 +180,53 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                     </p>
                                 </div>
                             </div>
+                            <TextField
+                                onChange={handleInputChange}
+                                value={basicFormData.title}
+                                className="py-3 mt-1 w-full"
+                                placeholder='Enter a Title'
+                                id='title'
+                                name='title'
+                                title={""}
+                                type={"text"}
+                                error={''}
+                            />
+                         
 
 
                             <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode}></TextEditor>
-
-                            {basicFormData && basicFormData?.content && basicFormData?.title && (
-                                <button
-                                    // onClick={(e) => SubmitTheFormExpand()}
-                                    onClick={getExpandedAnswer}
-                                    type="button"
-                                    className="my-6 flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={pusherStreaming}>
+                            <div className='flex justify-end'>
+                                {basicFormData && basicFormData?.content && basicFormData?.title && (
+                                    <button
+                                        // onClick={(e) => SubmitTheFormExpand()}
+                                        onClick={getExpandedAnswer}
+                                        type="button"
+                                        className="my-6 flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={pusherStreaming}>
                                         {pusherStreaming ? (
-                                        <>
-                                            <span className="text-black">Generating</span>
-                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
-                                                <path opacity="0.4" fill="#00000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+                                            <>
+                                                <span className="text-black">Generating</span>
+                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                    width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
+                                                    <path opacity="0.4" fill="#00000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
 s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
 c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-                                                <path fill="#00000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                                                    <path fill="#00000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
 C22.32,8.481,24.301,9.057,26.013,10.047z">
-                                                    <animateTransform attributeType="xml"
-                                                        attributeName="transform"
-                                                        type="rotate"
-                                                        from="0 20 20"
-                                                        to="360 20 20"
-                                                        dur="0.5s"
-                                                        repeatCount="indefinite" />
-                                                </path>
-                                            </svg>
-                                        </>
-                                    ) : "Expand Answer"}
-                                </button>
+                                                        <animateTransform attributeType="xml"
+                                                            attributeName="transform"
+                                                            type="rotate"
+                                                            from="0 20 20"
+                                                            to="360 20 20"
+                                                            dur="0.5s"
+                                                            repeatCount="indefinite" />
+                                                    </path>
+                                                </svg>
+                                            </>
+                                        ) : "Expand Answer"}
+                                    </button>
 
-                            )}
+                                )}
+                            </div>
                             {/* TEXT EDITOR */}
 
                             {/* <Modal title={'Add hyperlink'} show={showHyperlinkModal} setShow={setShowHyperlinkModal} className={'w-[30%] rounded-lg'} showCancel={true} >
