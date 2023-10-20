@@ -195,7 +195,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
 
                             <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode}></TextEditor>
-                            <div className='flex justify-end'>
+                            {/* <div className='flex justify-end'>
                                 {basicFormData && basicFormData?.content && basicFormData?.title && (
                                     <button
                                         // onClick={(e) => SubmitTheFormExpand()}
@@ -226,7 +226,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                                     </button>
 
                                 )}
-                            </div>
+                            </div> */}
                             {/* TEXT EDITOR */}
 
                             {/* <Modal title={'Add hyperlink'} show={showHyperlinkModal} setShow={setShowHyperlinkModal} className={'w-[30%] rounded-lg'} showCancel={true} >

@@ -198,7 +198,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                   rounded-lg active  group`}
                                 aria-current="page"
                             >
-                                File
+                                Files
                             </span>
                         }
                     </li>
@@ -215,7 +215,24 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                   rounded-lg active  group`}
                                 aria-current="page"
                             >
-                                Snippet
+                                Snippets
+                            </span>
+                        }
+                    </li>
+                    <li className={`  ${filterhead === "Products" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                        getDataWithFilters('SNIPPET')
+                        setFilterhead("Products")
+                        setShowSourceFilter(false)
+                    }}>
+                        {skeletonloading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                aria-current="page"
+                            >
+                                Products
                             </span>
                         }
                     </li>
