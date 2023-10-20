@@ -22,7 +22,7 @@ import Homefold from "../components/Get-Start/Homefold";
 import Panelcard from "../components/PanelCard/PanelCard";
 import Panelcardnew from "../components/PanelCardNew/PanelCardNew";
 import Middlebar from "../components/Info-Screen/Middlebar";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Router, useRouter } from "next/router";
 import NewAbovepage from "../components/LayoutNew/NewAbovepage";
 import Homeintegration from "../components/LayoutNew/Homeintegration";
@@ -35,8 +35,12 @@ import { Homeform } from "../components/LayoutNew/Homeform";
 import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 
 export default function Home() {
- 
-  
+
+  const ref = useRef(null);
+  const handleClickscroll = () => {
+    console.log("clicked")
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <>
       {/* <pre lang="js">
@@ -54,17 +58,17 @@ export default function Home() {
 
       <main className="">
         <Head></Head>
-        
+
         <NewAbovepage />
         <Homeinte />
         {/* <ContactBanner2 /> */}
 
-        <Communication/> 
+        <Communication />
 
         {/* <Homefold /> */}
         {/* <Start /> */}
 
-      {/* -------new-------- */}
+        {/* -------new-------- */}
 
         {/* <DTC /> */}
         <Homeintegration />
@@ -72,16 +76,16 @@ export default function Home() {
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         {/* <Info /> */}
-        <Reach/>
-       
-{/* <Bottombutton/> */}
-       
+        <Reach handleClickscroll={handleClickscroll} />
+
+        {/* <Bottombutton/> */}
 
 
-        <Panelcardnew />
+
+        <Panelcardnew/>
         <Middlebar />
 
-<Homeform/>
+        <Homeform reff={ref} />
         {/* <Newstandard />
       
         <Motioncards />
