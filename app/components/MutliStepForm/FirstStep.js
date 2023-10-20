@@ -24,7 +24,7 @@ export function FirstStep({
             <label className="block">Company Name</label>
             <Input
               className="w-full border-gray rounded-none"
-              value={totalNumbersOfEmployees}
+              value={companyName}
               onChange={(e) => updateFields({ companyName: e.target.value })}
               required={true}
             />
