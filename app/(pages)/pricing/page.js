@@ -31,28 +31,35 @@ import "./style.css";
 const INITIAL_DATA = {
   companyName: "",
   totalNumbersOfEmployees: "",
-  age: "",
-  street: "",
-  city: "",
-  state: "",
-  zip: "",
-  email: "",
-  password: "",
+  yourFunctionalAreas: [],
 };
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
 
 const Pricing = () => {
   const [data, setData] = useState(INITIAL_DATA);
-  console.log(data);
+  console.log("=>",data);
+
+  
   function updateFields(fields) {
+    const { name, value } = fields;
     setData((prev) => {
-      return { ...prev, ...fields };
+      switch (name) {
+        case "yourFunctionalAreas":
+          const { yourFunctionalAreas } = prev;
+          if (yourFunctionalAreas.includes(value)) {
+            yourFunctionalAreas.splice(yourFunctionalAreas.indexOf(value), 1);
+          } else yourFunctionalAreas.push(value);
+          return {...prev};
+        default:
+          return { ...prev, ...fields };
+      }
     });
   }
+
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiStepFrom([
-      <FirstStep {...data} updateFields={updateFields} />,
+      <FirstStep {...data} updateFields={updateFields}/>,
       <SecondStep {...data} updateFields={updateFields} />,
       <ThirdStep {...data} updateFields={updateFields} />,
     ]);
@@ -85,26 +92,22 @@ const Pricing = () => {
       </Helmet>
 
       {/* <Panelcard  /> */}
-      <div
-        style={{
-          // position: "relative",
-          // background: "white",
-          border: "1px solid black",
-          // padding: "2rem",
-          // margin: "1rem",
-          // borderRadius: ".5rem",
-          // fontFamily: "Arial",
-          // maxWidth: "max-content",
-        }}
-        className="p-4"
-      >
+      <div className="p-4">
         <form onSubmit={onSubmit}>
-          <div className=" forbottomBDR ">
-            <div className="flex mx-3">
-              {stepsTab.map((ele) => (
-                <div className="border border-b-0 p-5  px-20">{ele.title}</div>
+          <div className="">
+            <div className="flex flex-wrap mx-3">
+              <div></div>
+              {stepsTab.map((ele, index) => (
+                <div
+                  className={`p-5 px-15 min-h-[56px] text-[#93949a]  font-bold text-base text-center min-w-[250px]  bg-[#f0f0f0] ${
+                    currentStepIndex === index && "active"
+                  }`}
+                >
+                  {ele?.title}
+                </div>
               ))}
             </div>
+            <div></div>
             {/* Step {currentStepIndex + 1}  */}
           </div>
 
@@ -114,19 +117,27 @@ const Pricing = () => {
               marginTop: "1rem",
               display: "flex",
               gap: ".5rem",
-              justifyContent: "flex-end",
             }}
           >
             {!isFirstStep && (
-              <button type="button" onClick={back}>
+              <button
+                className="bg-[#142543] text-white px-4  min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"
+                type="button"
+                onClick={back}
+              >
                 Back
               </button>
             )}
-            <button type="submit">{isLastStep ? "Finish" : "Next"}</button>
+            <button
+              className="bg-[#142543] text-white px-4 min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"
+              type="submit"
+            >
+              {isLastStep ? "Finish" : "Next"}
+            </button>
           </div>
         </form>
       </div>
-      <Panelcardnew />        
+      <Panelcardnew />
 
       <DTC />
 
@@ -286,7 +297,7 @@ const Pricing = () => {
           />
         </Container>
         <Newstandard />
-        <Motioncards/>
+        <Motioncards />
         <Testimonial />
       </div>
     </div>

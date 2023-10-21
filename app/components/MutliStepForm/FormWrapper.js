@@ -5,11 +5,12 @@ import { ReactNode } from "react"
 export function FormWrapper({ title, children }) {
   return (
     <>
-      <h2 
+      <h1 
       // style={{ textAlign: "center", margin: 0, marginBottom: "2rem" }}
+      className="font-bold text-3xl mt-16"
       >
         {title}
-      </h2>
+      </h1>
       <div
         // style={{
         //   display: "grid",

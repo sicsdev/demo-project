@@ -9,3 +9,14 @@
 .forbottomBDR {
   position: relative;
 }
+
+.active{
+  color: #151515;
+  opacity: 1;
+  border-top: #ee0000 2px solid;
+  background-color: #ffffff;
+  border-bottom: none;
+  border-left: solid 1.5px #b8bbbe;
+  border-right: solid 1.5px #b8bbbe;
+
+}
