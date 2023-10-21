@@ -209,6 +209,23 @@ const UpdatedFooter = () => {
                         <Link href="/privacy-policy">Privacy Policy</Link>
 
                       </h6>
+                      <h6 className="  text-[#142543]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    px-2  h-[17px] flex items-center">
+
+                      {profile.email ? (
+                    <>
+                      {" "}
+                      <p className="text-[#142543]">{profile.email}</p>
+                    </>
+                  ) : (
+                    <Link href={"/login"}>
+                      {" "}
+                      <p className=" text-[#142543]  sm:py-[6px] sm:px-[12px] font-semibold ">
+                        Sign In
+                      </p>
+                    </Link>
+                  )}
+
+</h6>
 
                     </div>
 
@@ -233,29 +250,7 @@ const UpdatedFooter = () => {
 
  
 
-            {/* <span className="text-4xl">
-
-              <Link href="/">
-
-                <img
-
-                  src="/logo.png"
-
-                  alt="logo"
-
-                  className="w-24 h-15 object-contain"
-
-                />
-
-              </Link>
-
-            </span> */}
-
-            {/* <p className="font-thin text-neutral-600  ">
-
-              © Tempo AI Ventures, Inc{" "}
-
-            </p> */}
+           
 
         </div>
 
