@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { ArrowLongLeftIcon } from "@heroicons/react/24/outline";
+import { ArrowLongLeftIcon, BookOpenIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 
@@ -13,66 +13,12 @@ const page = () => {
     }, 3000);
   }, []);
   return (
-    <div className="bg-white sm:p-[120px] sm:p-12 p-2 text-center">
-      <div className="grid grid-cols-1  sm:grid-cols-[20%_60%_20%] ">
-      <div className="mt-4">
-      <div class="stick-right">
-        <div className="check-in-action hidetablet relative cursor-pointer">
-        {loading ? (
-          <SkeletonLoader count={1} height={40} width="70%" />
-        ) : (
-          <div>
-          <Link href="/integrations">
-            <ArrowLongLeftIcon className="h-6 w-6 text-gray-500 absolute" />
-            <h3 className="check-text text-xl sm:mr-[80px]">Back to all</h3>
-          </Link>
-          </div>
-        )}
-        </div>
-        <div className="text-start mt-[9rem]  hidden  sm:block">
-          <p className="text-[#363866]  sm:mb-1 text-l">
-          {loading ? (
-            <SkeletonLoader count={1} height={20} width="50%" />
-          ) : (
-            "Website:"
-          )}</p>
-          <p className="text-[#ff5721] !font-semibold sm:mb-3 text-l">
-          {loading ? (
-            <SkeletonLoader count={2} height={20} width="80%" />
-          ) : (
-            " www.ada.cx"
-          )}
-          </p>
-          {loading ? (
-            <SkeletonLoader count={1} height={20} width="80%" />
-          ) : (
-          <p className="text-[#363866] !font-semibold sm:mb-1 text-[15px]">
-            <span className="text-[#ff5721]">
-              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </span>{" "}
-            &nbsp; 
-              Watch the demo
-          </p>
-          )}
+<div className="w-full sm:w-[1440px] mx-auto" >
 
-          {loading ? (
-            <SkeletonLoader count={1} height={20} width="80%" />
-          ) : (
-          <p className="text-[#363866] !font-semibold sm:mb-1 text-[15px]">
-            <span className="text-[#ff5721]">
-              <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
-            </span>{" "}
-            &nbsp;
-              Read the brochure
-          </p>
-          )}
-        </div>
-      </div>
-    </div>
-        <div>
-          <div className="flex  justify-center gap-[1rem] items-center flex-col sm:flex-row sm:gap-[80px]  sm:justify-between my-[21px] sm:my-0">
-            <div className=" flex flex-col justify-evenly">
-              <p className="text-[#ff5721] font-bold">
+    <div className="bg-white sm:p-[120px] sm:p-12 p-2 text-center">
+    <div className="grid grid-cols-1  sm:grid-cols-[75%_25%]">
+            <div className=" flex flex-col">
+              <p className="text-[#ff5721] font-bold text-left">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
@@ -85,7 +31,16 @@ const page = () => {
               ) : (
                 "Freshdesk"
               )}</h2>
+                <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px] text-left">
+            {loading ? (
+              <SkeletonLoader count={2} height={20} width="100%" />
+            ) : (
+           " Elevate Your Customer Support Experience with Real-Time Ticketing and Conversational Data"
+            )}
+            </p>
             </div>
+          <div className="flex  justify-center gap-[1rem] items-center flex-col sm:flex-row sm:gap-[80px]  sm:justify-between my-[21px] sm:my-0">
+
             <div className="">
             {loading ? (
               <SkeletonLoader count={1} height={60} width={140} />
@@ -94,14 +49,13 @@ const page = () => {
             )}
             </div>
           </div>
+          </div>
+          </div>
+          <div className="bg-white sm:py-[120px] sm:py-12 p-2 sm:pt-0 text-center">
+      <div className="grid grid-cols-1  sm:grid-cols-[75%_25%] ">
+      <div className="bg-[#f8f9fa!important]  sm:px-[120px] sm:px-12">
           <div className="text-left sm:mt-7 p-[24px] sm:p-0">
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
-            {loading ? (
-              <SkeletonLoader count={2} height={20} width="100%" />
-            ) : (
-           " Elevate Your Customer Support Experience with Real-Time Ticketing and Conversational Data"
-            )}
-            </p>
+          
             {/* <p className="text-heading text-xl">
               Add our Chrome extension so you can book meetings in one click
               from Gmail, Outlook, Salesforce, FrontSpin and more.
@@ -112,7 +66,7 @@ const page = () => {
               className="w-[full] sm:[465px] sm:h-[465px]"
             />
           </div> */}
-            <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
@@ -123,24 +77,24 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Streamlined Support:</b>Manage Freshdesk tickets, contacts, agents, and groups directly from Tempo's dashboard.
+              <span className="font-semibold">Streamlined Support:</span>Manage Freshdesk tickets, contacts, agents, and groups directly from Tempo's dashboard.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Enhanced Customer Interactions:</b> Utilize Tempo's analytics to gain insights into customer interactions and agent performance.
+              <span className="font-semibold">Enhanced Customer Interactions:</span> Utilize Tempo's analytics to gain insights into customer interactions and agent performance.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Automated Workflows:</b>Create automated workflows for ticketing and customer support operations.
+               <span className="font-semibold">Automated Workflows:</span>Create automated workflows for ticketing and customer support operations.
             </p>
             )}
             
-            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
+            <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
@@ -151,20 +105,20 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Connect Freshdesk to Tempo:</b> Integrate your Freshdesk account with Tempo in a few simple steps.
+              <span className="font-semibold">Connect Freshdesk to Tempo:</span> Integrate your Freshdesk account with Tempo in a few simple steps.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Customize Your Support Workflow:</b> Use Freshdesk's API endpoints to tailor your customer support experience.
+              <span className="font-semibold">Customize Your Support Workflow:</span> Use Freshdesk's API endpoints to tailor your customer support experience.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Analyze and Optimize:</b>Leverage Tempo's analytics to improve your customer support operations.
+               <span className="font-semibold">Analyze and Optimize:</span>Leverage Tempo's analytics to improve your customer support operations.
             </p>
             )}
             <div>
@@ -189,28 +143,28 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Ticket Management:</b>List, view, create, update, and delete tickets.
+               <span className="font-semibold">Ticket Management:</span>List, view, create, update, and delete tickets.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Contact Operations:</b>Manage all your contacts, including creating, updating, and deleting.
+               <span className="font-semibold">Contact Operations:</span>Manage all your contacts, including creating, updating, and deleting.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Agent and Group Management:</b> Handle agents and groups for a more organized customer support experience.
+               <span className="font-semibold">Agent and Group Management:</span> Handle agents and groups for a more organized customer support experience.
             </p> 
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
               <p className="text-heading text-xl sm:mb-3">
-              <b>Conversational Data:</b> Retrieve and manage conversations associated with tickets for better context and support.
+              <span className="font-semibold">Conversational Data:</span> Retrieve and manage conversations associated with tickets for better context and support.
             </p>
             )}
             <div>
@@ -245,85 +199,52 @@ const page = () => {
             )}
             </p>
           </div>
-          {/* <div className="sm:mt-5">
-            <img
-              src="https://assets-global.website-files.com/61c9fe00acd90d5e82f7014d/61c9fe00acd90d16e3f70364_tonik-images-transparent-suggested-times.png"
-              className="w-[full] sm:[465px] sm:h-[465px]"
-            />
-          </div>     */}
-        </div>
-        
-        <div className="p-12">
-        <div class="stick-right ">
-          <div className="rounded-[20px] bg-white  shadow-2xl w-full sm:w-[286px] sm:p-[56px]">
-            <p className="text-[20px] text-[#363866] sm:mb-3 font-semibold">
-            {loading ? (
-              <SkeletonLoader count={2} height={20} width="100%" />
-            ) : (
-              "See how it works with Tempo Chat"
-            )}
-            </p>
-            <div className="block text-center  ">
-              <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8 sm:mt-0">
-                <div className="block sm:flex justify-center w-[100%] items-center gap-8">
-                {loading ? (
-                  <SkeletonLoader count={2} height={80} width={100} />
-                ) : (
-                  <button
-                    className={
-                      "mb-4 sm:mb-0 uppercase py-[18px] px-2  font-bold w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
-                    }
-                  >
-                    Get A demo
-                  </button>
-                )}
-                </div>
-              </div>
-            </div>
-          </div>
      
-          <div className="grid  sm:ml-[7rem] gap-[20px] mt-[28px]">
-            <a href="https://www.linkedin.com/company/temposcoail">
-              {" "}
-              {loading ? (
-                <SkeletonLoader count={1} height={20} width="100%" />
-              ) : (
-              <img
-                className="h-[42px] !w-[39px] max-w-none cursor-pointer"
-                src="/linkedin_faded.svg"
-                alt=""
-              />
-              )}
-            </a>
-            <a href="https://twitter.com/usetempo">
-              {" "}
-              {loading ? (
-                <SkeletonLoader count={1} height={20} width="100%" />
-              ) : (
-              <img
-                className="h-[42px] !w-[39px] max-w-none cursor-pointer"
-                src="/twitter_faded.svg"
-                alt=""
-              />
-              )}
-            </a>
-            <a href="https://www.facebook.com/usetempo">
-              {" "}
-              {loading ? (
-                <SkeletonLoader count={1} height={20} width="100%" />
-              ) : (
-              <img
-                className="h-[42px] !w-[39px] cursor-pointer"
-                src="/facebook_faded.svg"
-                alt=""
-              />
-              )}
-            </a>
           </div>
-        </div>
-      </div>
+        
+          <div className="p-12 bg-[#363744]">
+          <div class="stick-right ">
+
+
+<div className="text-left">
+  {loading ? (
+    <SkeletonLoader count={1} height={20} width="100%" />
+  ) : (
+    <p className="flex gap-[1rem] text-[20px] font-semibold text-[white] justify-center">
+
+      <span className="mt-[3px]"><BookOpenIcon class="h-6 w-6 text-gray-500" /></span><a href="/article/freshdesk-integration">Integration Guide</a></p>)}
+</div>
+<div className="rounded-[20px] bg-white  shadow-2xl w-full sm:w-[100%] sm:py-[56px] sm:py-[30px] mt-[2rem]">
+  <p className="text-[20px] text-[#363866] sm:mb-3 font-semibold">
+    {loading ? (
+      <SkeletonLoader count={1} height={20} width="100%" />
+    ) : (
+      "See how it works with Tempo AI"
+    )}
+  </p>
+  <div className="block text-center  ">
+    <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8 sm:mt-0">
+      <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+        {loading ? (
+          <SkeletonLoader count={1} height={40} width={100} />
+        ) : (
+          <button
+            className={
+              "mb-4 sm:mb-0 uppercase py-[18px] px-2  font-bold w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+            }
+          >
+            Get A demo
+          </button>
+        )}
       </div>
     </div>
+  </div>
+</div>
+</div>
+          </div>
+      </div>
+      </div>
+      </div>
   );
 };
 

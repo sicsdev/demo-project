@@ -33,6 +33,7 @@ import Communication from "../components/LayoutNew/Communication";
 import Bottombutton from "../components/LayoutNew/Bottombutton";
 import { Homeform } from "../components/LayoutNew/Homeform";
 import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
+import HomeComponent from "../components/Home/HomeComponent";
 
 export default function Home() {
 
@@ -86,6 +87,7 @@ export default function Home() {
         <Middlebar />
 
         <Homeform reff={ref} />
+        <HomeComponent/>
         {/* <Newstandard />
       
         <Motioncards />
