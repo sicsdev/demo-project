@@ -96,7 +96,7 @@ const UpdatedFooter = () => {
 
     <>
 
-      <footer className=" bg-[#142543] shadow text-center text-white relative">
+      <footer className=" bg-[white] shadow text-center text-white relative">
 
         <div className="mx-auto lg:max-w-[90%]">
 
@@ -134,13 +134,13 @@ const UpdatedFooter = () => {
 
                 </div> */}
 
-                <span className="text-4xl mb-4 ">
+                <span className="text-4xl mb-4 text-[#142543] ">
 
                   <Link href="/">
 
                     <img
 
-                      src="/logo.png"
+                      src="/TempoBlue.png"
 
                       alt="logo"
 
@@ -154,7 +154,7 @@ const UpdatedFooter = () => {
 
                 <div>
 
-                  <div className=" sm:flex justify-between gap-3  items-start">
+                  <div className=" sm:flex justify-between gap-1  items-start">
 
                     <div className="flex flex-wrap sm:justify-between gap-3 items-start">
 
@@ -164,7 +164,7 @@ const UpdatedFooter = () => {
 
                       </h6> */}
 
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-[#142543] !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
 
                         <Link href="/careers">Careers</Link>
 
@@ -176,19 +176,19 @@ const UpdatedFooter = () => {
 
                       </h6> */}
 
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-[#142543]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
 
                         <Link href="/article/pricing-overview">Pricing</Link>
 
                       </h6>
 
-                      <h6 className="  text-white   font-[200] cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2 border-white    px-2  h-[17px] flex align-center">
+                      <h6 className="  text-[#142543]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2 border-[#142543]    px-2  h-[17px] flex items-center">
 
                         <Link href="/article/security-overview">Security</Link>
 
                       </h6>
 
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-[#142543]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
 
                         <Link href="/list-of-subprocessors">
 
@@ -198,13 +198,13 @@ const UpdatedFooter = () => {
 
                       </h6>
 
-                      <h6 className="  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2 border-white    px-2  h-[17px] flex align-center ">
+                      <h6 className="  text-[#142543]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
 
                         <Link href="/data-processing-agreement">DPA</Link>
 
                       </h6>
 
-                      <h6 className="privacy_link_footer  text-white   font-[200]  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2 border-white    px-2  h-[17px] flex align-center">
+                      <h6 className="  text-[#142543]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2    px-2  h-[17px] flex items-center">
 
                         <Link href="/privacy-policy">Privacy Policy</Link>
 
@@ -214,197 +214,14 @@ const UpdatedFooter = () => {
 
                   </div>
 
-                  {/* <div className="grid grid-cols-2  sm:hidden justify-between gap-3  items-start">
-
-                    <div className="flex justify-between gap-3 flex-col items-start">
-
-                      <div>
-
-                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                          <Link href="/login">Login</Link>
-
-                        </h6>
-
-                      </div>
-
-                      <div>
-
-                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                          <Link href="/careers">Careers</Link>
-
-                        </h6>
-
-                      </div>
-
-                      <div>
-
-                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                          <Link href="/terms-of-service">Terms of Service</Link>
-
-                        </h6>
-
-                      </div>
-
-                      <div>
-
-                        <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                          <Link href="/data-processing-agreement">DPA</Link>
-
-                        </h6>
-
-                      </div>
-
-                    </div>
-
-                    <div>
-
-                      <div className="flex justify-between gap-3 flex-col items-start">
-
-                        <div>
-
-                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                            <Link href="/article/pricing-overview">
-
-                              Pricing
-
-                            </Link>
-
-                          </h6>
-
-                        </div>
-
-                        <div>
-
-                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                            <Link href="/article/security-overview">
-
-                              Security
-
-                            </Link>
-
-                          </h6>
-
-                        </div>
-
-                        <div>
-
-                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                            <Link href="/list-of-subprocessors">
-
-                              Subprocessors{" "}
-
-                            </Link>
-
-                          </h6>
-
-                        </div>
-
-                        <div>
-
-                          <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer text-[12px] bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
-
-                            <Link href="/privacy-policy">Privacy Policy</Link>
-
-                          </h6>
-
-                        </div>{" "}
-
-                      </div>
-
-                    </div>
-
-                  </div> */}
 
                 </div>
 
               </div>
 
-              {/* <div className="flex mt-4 sm:mt-0">
+            
 
-                <div className="justify-between w-full sm:w-auto flex flex-row sm:gap-10 items-center ml-[9px] sm:ml-auto">
-
-                  {profile.email ? (
-
-                    <>
-
-                      {" "}
-
-                      <p className="text-white">{profile.email}</p>
-
-                    </>
-
-                  ) : (
-
-                    <Link href={"/login"}>
-
-                      {" "}
-
-                      <p className="text-white sm:py-[6px] sm:px-[12px] font-[200]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px] hover:outline  hover:outline-offset-2 ">
-
-                        Sign In
-
-                      </p>
-
-                    </Link>
-
-                  )}
-
- 
-
-                  {profile.email ? (
-
-                    <Link href={"/dashboard"}>
-
-                      {" "}
-
-                      <button
-
-                        type="button"
-
-                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white border-0  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-
-                      >
-
-                        Dashboard
-
-                      </button>{" "}
-
-                    </Link>
-
-                  ) : (
-
-                    <Link href={"/free-trial"}>
-
-                      {" "}
-
-                      <button
-
-                        type="button"
-
-                        className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white border-0  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-white focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:outline-none focus:ring-0 active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
-
-                      >
-
-                        Get Started
-
-                      </button>{" "}
-
-                    </Link>
-
-                  )}
-
-                </div>
-
-              </div> */}
-
-                  <p className="font-thin text-neutral-600 text-[18px] mt-[3rem] ">
+                  <p className="text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
 
               © Tempo AI Ventures, Inc{" "}
 
