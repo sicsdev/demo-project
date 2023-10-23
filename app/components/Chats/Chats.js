@@ -329,7 +329,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                             src={`${botUnique?.enterprise?.logo ||
                                                 `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                         <div className="answer_text_div"></div>
-                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
+                                        <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
                                             {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
                                         </div>
                                     </div>
@@ -350,7 +350,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
                                                                     </div>
                                                                 </div>
@@ -366,7 +366,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         Could you please clarify how I can best help you?
                                                                     </div>
                                                                 </div>
@@ -383,7 +383,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         src={`${botUnique?.enterprise?.logo ||
                                                                             `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                     <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                    <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
                                                                         No problem, I can help you with that! Could you please provide the following information:
                                                                     </div>
                                                                 </div>
@@ -405,7 +405,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
                                                                 {divideAnswer(element)}
 
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                <div className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
                                                                     <div className='w-100' style={{ width: '100%' }}>
                                                                         <small className='flex gap-3 items-center'>
                                                                             <b>Sources</b>
@@ -446,7 +446,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
                                                                 <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
                                                             </div>
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                     <div>
                                                                         <small className='flex gap-3 items-center'>
                                                                             <b>Sources</b>
@@ -472,10 +472,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                     {Object.keys(element.actions.options).map((key, index) =>
                                                                         <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
                                                                             {element.actions.options[key]}
+                                                                            {`     `}
+                                                                            <small>
+                                                                                {key == 'WORKFLOW' && Math.round(element.workflows[0].score * 100) + '%'}
+                                                                                {key == 'INFORMATION' && Math.round(element.knowledge[0].score * 100) + '%'}
+                                                                            </small>
                                                                         </button>
                                                                     )}
                                                                 </div>
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                     <div className='w-100' style={{ width: '100%' }}>
                                                                         <small className='flex gap-3 items-center'>
                                                                             <b>Sources</b>
@@ -575,7 +580,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 </div>
 
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                    <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
+                                                                    <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                         <div className='w-100' style={{ width: '100%' }}>
                                                                             <small className='flex gap-3 items-center'>
                                                                                 <b>Sources</b>
