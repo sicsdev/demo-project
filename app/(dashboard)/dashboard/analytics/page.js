@@ -880,9 +880,6 @@ const Logs = () => {
             </div>
           ) : (
 
-
-
-
             <div className="block sm:flex justify-center gap-5">
               <div className="mb-4 w-full">
                 <SelectOption
@@ -1058,7 +1055,7 @@ const Logs = () => {
                 fixedHeader
                 highlightOnHover
                 pointerOnHover
-                className="centered-table"
+                className="centered-table !h-[35vh]"
                 defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                   // router.push(rowData.url);
