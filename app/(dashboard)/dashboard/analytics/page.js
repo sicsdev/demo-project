@@ -34,6 +34,7 @@ import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import Button from "@/app/components/Common/Button/Button";
 import { ToastContainer } from "react-toastify";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
+import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowlwdge";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -131,6 +132,7 @@ const Logs = () => {
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
   const [messages, setMessages] = useState([]);
+  const [externalQuestionFromLogs, setExternalQuestionFromLogs] = useState(null);
   const [manageMessages, setManageMessages] = useState([]);
   const [indexVal, setIndexVal] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
@@ -1127,7 +1129,7 @@ const Logs = () => {
               {" "}
             </div>
             <div
-               className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
             >
               <>
                 {/* <Card> */}
@@ -1205,6 +1207,7 @@ const Logs = () => {
                     idOfOpenConversation={idOfOpenConversation}
                     messages={messages}
                     selectedBot={selectedBot}
+                    setExternalQuestionFromLogs={setExternalQuestionFromLogs} 
                   />
                 </>
 
@@ -1214,7 +1217,10 @@ const Logs = () => {
           </>
         )}
 
-
+        {externalQuestionFromLogs && (
+          <Answerknowledge externalQuestionFromLogs={externalQuestionFromLogs} 
+          setExternalQuestionFromLogs={setExternalQuestionFromLogs} />
+        )}
 
 
 

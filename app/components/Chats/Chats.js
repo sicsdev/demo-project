@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowlwdge';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionFromLogs }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -31,7 +31,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
-    const [externalQuestionFromLogs, setExternalQuestionFromLogs] = useState(null)
     const [conversationDetails, setConversationDetails] = useState({})
     const [disputeLoader, setDisputeLoader] = useState(false);
     const bot = useSelector(state => state.botId.botData.data)
@@ -688,9 +687,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         }
 
                     </div>
-                    {externalQuestionFromLogs && (
-                        <Answerknowledge externalQuestionFromLogs={externalQuestionFromLogs} />
-                    )}
+                  
                 </>
 
             }
