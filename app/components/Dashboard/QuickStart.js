@@ -172,7 +172,7 @@ const QuickStart = () => {
         {
             href: "/dashboard/billing/settings",
             name: "Billing",
-            icon: <WrenchScrewdriverIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            icon: <BanknotesIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/scheduling-settings",

@@ -778,7 +778,7 @@ debugger
                                 searchMatched({ question: rowData.question }, false)
                             }}
                             paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                            className=''
+                            className='sm:!h-[75vh] !h-[65vh]'
                             sortServer
                             onSort={handleSort}
                             customStyles={customStyles}
@@ -788,7 +788,6 @@ debugger
                 </>
 
                 {workflowView && show && (
-
                     <AnswersEditor
                         setShow={setShow}
                         setWorkflowView={setWorkflowView}
@@ -829,7 +828,6 @@ debugger
                     >
 
                     </AnswersEditor>
-
                 )}
             </div >
             <ToastContainer />

@@ -9,12 +9,14 @@ import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic'
 import { expandRecommendationRecord } from '@/app/API/pages/LearningCenter';
 import TextField from '../Common/Input/TextField';
+import { FileUploader } from 'react-drag-drop-files';
+import FileField from '../Common/Input/FileField';
 const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 
 const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle, getQuestionsData,
     setCreateModal,
     setLoading,
-    setCreatePdfModal }) => {
+    setCreatePdfModal, creationMode }) => {
 
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
@@ -32,6 +34,23 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const searchParams = useSearchParams()
 
     const [debugMode, setDebugMode] = useState(false)
+    const [base64, setBase64] = useState(null);
+
+    const handleFileChange = (e) => {
+      const file = e.target.files[0];
+  
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onloadend = () => {
+            const base64String = reader.result
+            setBase64(base64String)
+            setBasicFormData({ ...basicFormData, product_file: base64String, product_file_title: file.name })
+        };
+  
+        reader.readAsDataURL(file);
+      }
+    };
 
     useEffect(() => {
 
@@ -143,11 +162,11 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                 <div className='shadow-lg w-full sm:w-[700px] h-[100%] relative flex flex-col pl-8 pr-8'>
                     <div className='flex gap-2 justify-end items-center py-4 border-b border-border dark:bg-gray-800 dark:border-gray-700'>
                         <div className="flex flex-1">
-                            <h2 className="text-black-color text-sm !font-semibold">Add Snippet</h2>
+                            <h2 className="text-black-color text-sm !font-semibold">Add {creationMode === "snippet" ? "Snippet" : "Product"}</h2>
                         </div>
                         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                             <button
-                                onClick={() => handleSubmit({ type: 'SNIPPET' })}
+                                onClick={() => handleSubmit({ type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })}
                                 type="button"
                                 className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                 disabled={DisablingButton() || loading === true}
@@ -166,7 +185,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
                     <div className='my-8'>
                         <div className='flex flex-col gap-6'>
-                        <div className='flex flex-row items-center'>
+                            <div className='flex flex-row items-center'>
                                 <span className='pr-5 text-xs'>State</span>
                                 <div className='flex flex-row items-center gap-2 col-span-4'>
                                     <div>
@@ -191,88 +210,46 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 type={"text"}
                                 error={''}
                             />
-                         
 
+                            {creationMode === 'product' && (
+                                <>
+                                    <TextField
+                                        onChange={handleInputChange}
+                                        value={basicFormData.price}
+                                        className="py-3 mt-1 w-full"
+                                        placeholder='Price'
+                                        id='product_price'
+                                        name='product_price'
+                                        title={""}
+                                        type={"number"}
+                                        error={''}
+                                    />
+                                    <TextField
+                                        onChange={handleInputChange}
+                                        value={basicFormData.url}
+                                        className="py-3 mt-1 w-full"
+                                        placeholder='Url'
+                                        id='product_url'
+                                        name='product_url'
+                                        title={""}
+                                        type={"text"}
+                                        error={''}
+                                    />
+                                    <FileField
+                                        onChange={handleFileChange}
+                                        value={basicFormData.product_file}
+                                        className="py-3 mt-1 w-full"
+                                        placeholder='Image'
+                                        id='product_file'
+                                        name='product_file'
+                                        title={""}
+                                        type={"file"}
+                                        error={''}
+                                    />
+                                </>
+                            )}
 
                             <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode}></TextEditor>
-                            {/* <div className='flex justify-end'>
-                                {basicFormData && basicFormData?.content && basicFormData?.title && (
-                                    <button
-                                        // onClick={(e) => SubmitTheFormExpand()}
-                                        onClick={getExpandedAnswer}
-                                        type="button"
-                                        className="my-6 flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={pusherStreaming}>
-                                        {pusherStreaming ? (
-                                            <>
-                                                <span className="text-black">Generating</span>
-                                                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                                                    width="20px" height="20px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" space="preserve">
-                                                    <path opacity="0.4" fill="#00000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
-s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-                                                    <path fill="#00000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-C22.32,8.481,24.301,9.057,26.013,10.047z">
-                                                        <animateTransform attributeType="xml"
-                                                            attributeName="transform"
-                                                            type="rotate"
-                                                            from="0 20 20"
-                                                            to="360 20 20"
-                                                            dur="0.5s"
-                                                            repeatCount="indefinite" />
-                                                    </path>
-                                                </svg>
-                                            </>
-                                        ) : "Expand Answer"}
-                                    </button>
-
-                                )}
-                            </div> */}
-                            {/* TEXT EDITOR */}
-
-                            {/* <Modal title={'Add hyperlink'} show={showHyperlinkModal} setShow={setShowHyperlinkModal} className={'w-[30%] rounded-lg'} showCancel={true} >
-
-                                <div className='gap-2 w-100 mb-3'>
-                                    <small>Text to display:</small>
-                                    <Input
-                                        type={"text"}
-                                        placeholder={"Enter text..."}
-                                        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                        name="texttodisplayhyperlink"
-                                        id={"texttodisplayhyperlink"}
-                                    // onChange={handleHyperlinkLabel}
-                                    />
-                                </div>
-                                <div>
-                                    <small>Link to:</small>
-                                    <Input
-                                        type={"text"}
-                                        placeholder={"Enter text..."}
-                                        className={`w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-700 leading-tight`}
-                                        name="linkurlhyperlink"
-                                        id={"linkurlhyperlink"}
-                                    />
-                                </div>
-                                <div className='flex justify-end mt-3 mb-2'>
-                                    <Button
-                                        type={"button"}
-                                        className="my-3 sm:my-0 md:my-0 lg:my-0 inline-block font-bold rounded bg-primary px-8 pb-2 pt-2 text-xs   leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                    >
-                                        Create
-                                    </Button>
-                                </div>
-                            </Modal> */}
-
-
-                            {/* <div>
-
-                                <img onClick={() => setShowHyperlinkModal(true)} className="h-4 w-4 cursor-pointer" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUiIGhlaWdodD0iMTUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEzLjk2Ny45NUEzLjIyNiAzLjIyNiAwIDAgMCAxMS42Ny4wMDJjLS44NyAwLTEuNjg2LjMzNy0yLjI5Ny45NDhMNy4xMDUgMy4yMThBMy4yNDcgMy4yNDcgMCAwIDAgNi4yNCA2LjI0YTMuMjI1IDMuMjI1IDAgMCAwLTMuMDIyLjg2NUwuOTUgOS4zNzNhMy4yNTMgMy4yNTMgMCAwIDAgMCA0LjU5NCAzLjIyNiAzLjIyNiAwIDAgMCAyLjI5Ny45NDhjLjg3IDAgMS42ODYtLjMzNiAyLjI5OC0uOTQ4TDcuODEyIDExLjdhMy4yNDcgMy4yNDcgMCAwIDAgLjg2NS0zLjAyMyAzLjIyNSAzLjIyNSAwIDAgMCAzLjAyMi0uODY1bDIuMjY4LTIuMjY3YTMuMjUyIDMuMjUyIDAgMCAwIDAtNC41OTV6TTcuMTA1IDEwLjk5M0w0LjgzNyAxMy4yNmEyLjIzMyAyLjIzMyAwIDAgMS0xLjU5LjY1NSAyLjIzMyAyLjIzMyAwIDAgMS0xLjU5LS42NTUgMi4yNTIgMi4yNTIgMCAwIDEgMC0zLjE4bDIuMjY4LTIuMjY4YTIuMjMyIDIuMjMyIDAgMCAxIDEuNTktLjY1NWMuNDMgMCAuODQxLjEyIDEuMTk1LjM0M0w0Ljc3MiA5LjQzOGEuNS41IDAgMSAwIC43MDcuNzA3bDEuOTM5LTEuOTM4Yy41NDUuODY4LjQ0MiAyLjAzLS4zMTMgMi43ODV6bTYuMTU1LTYuMTU1bC0yLjI2OCAyLjI2N2EyLjIzMyAyLjIzMyAwIDAgMS0xLjU5LjY1NWMtLjQzMSAwLS44NDEtLjEyLTEuMTk1LS4zNDNsMS45MzgtMS45MzhhLjUuNSAwIDEgMC0uNzA3LS43MDdMNy40OTkgNi43MWEyLjI1MiAyLjI1MiAwIDAgMSAuMzEzLTIuNzg1bDIuMjY3LTIuMjY4YTIuMjMzIDIuMjMzIDAgMCAxIDEuNTktLjY1NSAyLjIzMyAyLjIzMyAwIDAgMSAyLjI0NiAyLjI0NWMwIC42MDMtLjIzMiAxLjE2OC0uNjU1IDEuNTl6IiBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=" alt="" />
-
-                            </div> */}
-
-                            {/* <div className='relative pb-6'>
-                                <textarea rows="10" cols="30" className='border border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px]' placeholder='Start writing your content...' content={content} name='content' id='content' onChange={handleTextEditorChange}></textarea>
-                            </div> */}
-
 
 
 

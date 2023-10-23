@@ -84,6 +84,9 @@ const Source = () => {
             case 'EXTERNAL':
                 query = `page=1&page_size=10&knowledge__source=external`
                 break;
+            case 'PRODUCT':
+                query = `page=1&page_size=10&knowledge__source=product`
+                break;
 
             default:
                 break;

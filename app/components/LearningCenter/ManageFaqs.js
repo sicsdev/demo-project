@@ -277,6 +277,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     highlightOnHover
                     pointerOnHover
                     pagination
+                    className='!h-[69vh]'
                     columns={columns}
                     noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
                     data={questions?.data?.results}
