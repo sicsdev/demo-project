@@ -1,5 +1,5 @@
 
-import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
+import { addBotConversationMessagesReaction, disputeCharge, getBotAllData } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
@@ -38,10 +38,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     useEffect(() => {
         getKnowledge()
 
-        if (bot) {
-            const filterBot = bot.bots.find((x) => x.id === selectedBot)
-            if (filterBot) { setBotUnique(filterBot) }
-        }
+        // if (bot) {
+        //     const filterBot = bot.bots.find((x) => x.id === selectedBot)
+        //     if (filterBot) { setBotUnique(filterBot) }
+        // }
+        getAllBots()
 
         getDetails()
         handleResize()
@@ -66,6 +67,12 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
     // Handlers 
+
+    async function getAllBots() {
+        let bots = await getBotAllData()
+        const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+        if (filterBot) { setBotUnique(filterBot) }
+    }
 
     async function getDetails() {
         if (idOfOpenConversation) {
