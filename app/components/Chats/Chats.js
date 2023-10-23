@@ -122,7 +122,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             setDisputeLoader(true);
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
-                successMessage("Dispute Created Successfully!");
+                // successMessage("Dispute Created Successfully!");
                 setConversationDetails({ ...conversationDetails, charge_status: 'REFUNDED' })
             } else {
                 errorMessage("Unable to create dispute!");
@@ -138,7 +138,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     const divideAnswer = (element) => {
 
-        const content = element.content;
+
+        function formatLinks(text) {
+            const linkRegex = /\[([^\]:]+):([^\]]+)\]/g;
+            return text.replace(linkRegex, `<a style='font-weight: 600' target='_blank' href="$2">$1</a>`);
+        }
+
+        const content = element.content
+
         const maxChars = 150;
         let startIndex = 0;
         let endIndex = 0;
@@ -161,7 +168,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
         return (
-            <>
+            <div>
                 {contentParts.map((part, index) => (
                     <>
                         <div className='flex mb-2'>
@@ -171,7 +178,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                             <div className="answer_text_div">
                                 <div key={index} className='flex items-center justify-between gap-1'>
                                     <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(part)}>
-                                        {part}
+                                        <div dangerouslySetInnerHTML={{ __html: formatLinks(part) }} />
                                     </div>
                                     <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
                                         <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
@@ -185,7 +192,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         </div>
                     </>
                 ))}
-            </>
+            </div>
         );
     }
 
