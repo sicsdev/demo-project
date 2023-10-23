@@ -164,9 +164,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         }
 
 
-        await getAllBotData([selectedBot]).then((res) => {
-            setBotUnique(res[0].data)
-        })
+        // await getAllBotData([selectedBot]).then((res) => {
+        //     setBotUnique(res[0].data)
+        // })
 
         return (
             <>
