@@ -1,8 +1,9 @@
-import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative } from '@/app/API/pages/Knowledge'
+import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative, deleteFaqQuestions } from '@/app/API/pages/Knowledge'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import Swal from 'sweetalert2'
 
 const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
@@ -16,7 +17,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
     const [faqObject, setFAQObject] = useState({})
 
-
+    const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
     const [thisKnowledge, setThisKnowledge] = useState({})
     const [dropdownOpen, isDropdownOpen] = useState(false)
@@ -29,13 +30,14 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     // Handlers
 
     const getAllNegativeFaqs = async () => {
-        await getFaqNegative().then(res => {
-            setAllNegativeFAQS(res.results);
-            console.log(res.results, 'results faqs')
-            let faqFinder = res.results.find(faq => faq?.faq?.id == item.information.id)
+        await getFaqNegative().then(results => {
+            setAllNegativeFAQS(results);
+            let faqFinder = results.find(faq => faq?.faq?.id == item.information.id)
             if (faqFinder) {
                 setRated(true); setFAQObject(faqFinder)
-            } else { setRated(false) }
+            } else {
+                setRated(false)
+            }
 
         })
     }
@@ -81,10 +83,10 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
         if (previousMessage.content === 'WORKFLOW') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.WORKFLOW
+            contentToSend = finder?.actions?.options?.WORKFLOW || 'WORKFLOW'
         } else if (previousMessage.content === 'INFORMATION') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.INFORMATION
+            contentToSend = finder?.actions?.options?.INFORMATION || 'INFORMATION'
         } else {
             contentToSend = previousMessage.content
         }
@@ -104,10 +106,26 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     }
 
 
+    const handleDeleteFaq = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: `Do you want to delete this FAQ? You won't be able to recover it and you'll have to create it again.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it.',
+            cancelButtonText: 'Cancel'
+        });
+
+        if (result.isConfirmed) { await deleteFaqQuestions(item.information.id); setDeleted(true) }
+    }
+
+
 
     return (
         <>
-            {thisKnowledge &&
+            {thisKnowledge && !deleted &&
                 <div className='flex items-center w-full align-middle'>
                     <div key={item.information?.knowledge?.id} className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
 
@@ -145,7 +163,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                                     <div className="flex flex-row flex-1">
                                         <input
                                             type="text"
-                                            className="mb-1 border !text-xs border-border shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white"
+                                            className="mb-1 border !text-xs border-border shadow-none block px-3 bg-white rounded-xs text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white"
                                             placeholder="Question"
                                             id="title"
                                             name="title"
@@ -169,13 +187,22 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                                         />
 
                                     </div>
-                                    <button
-                                        type="button"
-                                        onClick={handlePatchFaq}
-                                        className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                                    >
-                                        {loading ? "Saving.." : "Save"}
-                                    </button>
+                                    <div className='flex justify-between'>
+                                        <button
+                                            type="button"
+                                            onClick={handlePatchFaq}
+                                            className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                        >
+                                            {loading ? "Saving.." : "Save"}
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={handleDeleteFaq}
+                                            className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                        >
+                                            {loading ? "Deleting.." : "Delete"}
+                                        </button>
+                                    </div>
                                 </div>
 
                             }

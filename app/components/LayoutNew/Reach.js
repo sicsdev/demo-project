@@ -33,7 +33,7 @@ const Reach = ({handleClickscroll}) => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="bg-white p-0 sm:p-[0px] sm:mb-[40px]  shadow-box">
+    <div className="bg-white p-0 sm:p-[0px] sm:mb-[40px]  shadow-box p-[15px]">
       {loading ? (
         <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
           <SkeletonLoader height={60} width={"50%"} />
@@ -68,7 +68,7 @@ const Reach = ({handleClickscroll}) => {
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#fe9831] ">
+                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff] ">
                       {ele.name}
                     </div>
                   )}

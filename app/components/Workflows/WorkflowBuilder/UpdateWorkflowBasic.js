@@ -19,12 +19,14 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
     };
     const handleInputValue1 = (e) => {
         setDescription(e.target.value)
+        let splitConditions = /[.,\n]/;
         setWorkFlowFormData((prev) => {
             return {
                 ...prev,
-                description: e.target.value.split('\n')
+                description: e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)
             }
         })
+        console.log( 'e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)', e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean))
     }
     const handleInputValue2 = (e) => {
         setWorkFlowFormData((prev) => {
@@ -130,7 +132,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     value={workflowFormData?.workflow_types}
                     name="workflow_types"
                     values={["Image","Text"]}
-                    title={"Types"}
+                    title={"Type"}
                     id={"workflow_types"}
                     className="py-3"
                     error={''}

@@ -1,7 +1,7 @@
 
 import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
-import React from 'react';
+import React, { useRef } from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
@@ -18,9 +18,15 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
+
+    // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
     const router = useRouter()
+    const chatLogsRef = useRef(null);
 
+
+
+    // Local states
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
@@ -39,6 +45,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
         getDetails()
         handleResize()
+
+        // Scroll chat content to end.
+        if (chatLogsRef.current) {
+            const element = chatLogsRef.current;
+            element.scrollTop = element.scrollHeight;
+        }
+
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
@@ -47,6 +60,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
     }, [bot, idOfOpenConversation])
+
+
+
+
 
     // Handlers 
 
@@ -119,16 +136,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     };
 
 
-
-    // const [allNegativeWorkflows, setAllNegativeWorkflows] = useState([])
-    // const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
-
-    // async function getAllNegativesRates() {
-    //     await getNegativeWorkflows().then(res => {setAllNegativeWorkflows(res.results); console.log('negt', res.results)})
-    //     await getFaqNegative().then(res => setAllNegativeFAQS(res.results))
-    // }
-
-
     const divideAnswer = (element) => {
 
         const content = element.content;
@@ -149,6 +156,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             contentParts.push(content.substring(startIndex, endIndex + 1));
             startIndex = endIndex + 1;
         }
+
+
+
 
         return (
             <>
@@ -213,6 +223,18 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 router.push(`/dashboard/knowledge-center`)
             }
 
+        } else if (userMessage.content == "HUMAN-HANDOFF") {
+            userMessage = messages[key - 2]
+            let payload = {
+                question: userMessage.actions.options["HUMAN-HANDOFF"],
+                bot: botUnique.id
+            }
+            let postRecommendation = await createRecommendation(payload)
+            if (postRecommendation?.data) {
+                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
+                router.push(`/dashboard/knowledge-center`)
+            }
+
         } else {
 
             let payload = {
@@ -239,9 +261,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
 
             <div className='mt-5'>
-                {/* <div className='flex justify-center'>
-                    <small>Channel</small>
-                </div> */}
+
                 <div className='flex justify-start rounded-md' style={{ fontSize: '12px' }}>
 
                     {conversationDetails.type == 'chat' &&
@@ -302,7 +322,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
+                                <div ref={chatLogsRef} className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
                                     <div className="answer_with_thumbs_logs">
                                         <img className="profile-photo_ChatBot_back"
@@ -318,14 +338,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                         <>
                                             {element.sender === 'bot' &&
                                                 (
-                                                    <div style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
-                                                        {/* <img className="profile-photo_ChatBot_back"
-                                                            src={`${botUnique?.enterprise?.logo ||
-                                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                        <div className="answer_text_div"> */}
-                                                        {/* <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}> */}
-                                                        <div className="title-element-right" style={{ display: "none" }}>14:11</div>
+                                                    <div className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
 
+
+                                                        <div className="title-element-right" style={{ display: "none" }}>14:11</div>
                                                         {
                                                             element.content === 'HUMAN-HANDOFF' &&
                                                             <>
@@ -375,6 +391,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             </>
                                                         }
 
+
+
+
+
+
+
+                                                        {/*************  SOURCES & INFORMATION ******************/}
                                                         {
                                                             element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
                                                             <>
@@ -382,38 +405,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
                                                                 {divideAnswer(element)}
 
-                                                                {/* <div className='flex items-center justify-between gap-1'>
-                                                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                            {element.content}
-                                                                        </div>
-                                                                        <div className="chatBotWidgetThumbs">
-                                                                            <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
-                                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-[13px] h-[13px] opacity-80">
-                                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
-                                                                                </svg>
-                                                                            </button>
-                                                                        </div>
-                                                                    </div> */}
-
-
-
                                                                 <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                     <div className='w-100' style={{ width: '100%' }}>
-                                                                        <small><b>Sources</b></small><br />
+                                                                        <small className='flex gap-3 items-center'>
+                                                                            <b>Sources</b>
+                                                                            <small
+                                                                                onClick={() => handleAddSource(key)}
+                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                Add Source
+                                                                            </small>
+                                                                        </small>
                                                                         {
-                                                                            element?.knowledge?.length ? element?.knowledge?.map(item => (
-
-                                                                                <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
-                                                                            ))
+                                                                            element?.knowledge?.length ?
+                                                                                element?.knowledge?.map(item => (
+                                                                                    <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                ))
 
                                                                                 :
+
                                                                                 <div className='flex gap-4 items-center mt-2'>
                                                                                     <small>LLM</small>
-                                                                                    <small
-                                                                                        onClick={() => handleAddSource(key)}
-                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                        Add Source
-                                                                                    </small>
                                                                                 </div>
 
                                                                         }
@@ -429,15 +440,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             </>
                                                         }
 
-
-
-
-                                                        {/* </div> */}
-
-
-
-                                                        {/* BUTTONS AND HELPERS FOR WORKFLOWS BELOW TEXT */}
-
                                                         {
                                                             element.content === 'HUMAN-HANDOFF' &&
                                                             <><div className="attention_required_answer">
@@ -446,11 +448,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             </div>
                                                                 <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                     <div>
-                                                                        <small>
+                                                                        <small className='flex gap-3 items-center'>
                                                                             <b>Sources</b>
-                                                                            <br />
-                                                                            Custom
+                                                                            <small
+                                                                                onClick={() => handleAddSource(key)}
+                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                Add Source
+                                                                            </small>
                                                                         </small>
+                                                                        Custom
                                                                     </div>
                                                                     <div>
                                                                         {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
@@ -471,7 +477,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                 </div>
                                                                 <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                     <div className='w-100' style={{ width: '100%' }}>
-                                                                        <small><b>Sources</b><br /></small>
+                                                                        <small className='flex gap-3 items-center'>
+                                                                            <b>Sources</b>
+                                                                            <small
+                                                                                onClick={() => handleAddSource(key)}
+                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                Add Source
+                                                                            </small>
+                                                                        </small>
                                                                         {/* {element?.workflows[0]?.information?.name} */}
 
                                                                         {element?.workflows?.map(workflow => (
@@ -560,11 +573,19 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                         );
                                                                     })}
                                                                 </div>
+
                                                                 <div className='mx-2 my-1' style={{ color: '#828282' }}>
                                                                     <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
                                                                         <div className='w-100' style={{ width: '100%' }}>
-                                                                            <small><b>Sources</b><br /></small>
-                                                                            {/* {element?.workflows[0]?.information?.name} */}
+                                                                            <small className='flex gap-3 items-center'>
+                                                                                <b>Sources</b>
+                                                                                <small
+                                                                                    onClick={() => handleAddSource(key)}
+                                                                                    className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                    Add Source
+                                                                                </small>
+                                                                            </small>
+
                                                                             {element?.workflows?.map(workflow => (
                                                                                 <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
                                                                             ))}
@@ -579,13 +600,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                             </>
                                                         }
 
-
-
-                                                        {/* SOURCES */}
-
                                                     </div>
-
-                                                    // </div >
                                                 )}
                                             {element.sender === 'user' &&
                                                 (
@@ -644,11 +659,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         :
                         <span
                             className="text-xs text-border font-[500] cursor-pointer"
-                            onClick={(e) => {
-                                raiseDisputHandler(e)
-
-                            }
-                            }
+                            onClick={(e) => { raiseDisputHandler(e) }}
                         >
                             {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
                         </span>

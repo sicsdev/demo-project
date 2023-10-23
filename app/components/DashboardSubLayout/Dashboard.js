@@ -108,6 +108,7 @@ const Dashboard = ({ children }) => {
             icon: "UserGroupIcon",
             subheading: "Organization Settings"
         },
+        
     ];
     let state = useSelector((state) => state.botId.showModal)
     const userState = useSelector((state) => state.user);
