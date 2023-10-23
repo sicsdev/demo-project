@@ -16,6 +16,7 @@ import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
+import Answerknowledge from '../KnowledgeAnswer/AnswerKnowlwdge';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
@@ -30,6 +31,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
+    const [externalQuestionFromLogs, setExternalQuestionFromLogs] = useState(null)
     const [conversationDetails, setConversationDetails] = useState({})
     const [disputeLoader, setDisputeLoader] = useState(false);
     const bot = useSelector(state => state.botId.botData.data)
@@ -222,8 +224,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             let postRecommendation = await createRecommendation(payload)
 
             if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
+                setExternalQuestionFromLogs(postRecommendation?.data)
             }
 
         } else if (userMessage.content == "INFORMATION") {
@@ -235,8 +236,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             let postRecommendation = await createRecommendation(payload)
 
             if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
+                setExternalQuestionFromLogs(postRecommendation?.data)
             }
 
         } else if (userMessage.content == "HUMAN-HANDOFF") {
@@ -247,8 +247,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             }
             let postRecommendation = await createRecommendation(payload)
             if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
+                setExternalQuestionFromLogs(postRecommendation?.data)
             }
 
         } else {
@@ -260,8 +259,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             let postRecommendation = await createRecommendation(payload)
 
             if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
+                setExternalQuestionFromLogs(postRecommendation?.data)
             }
         }
 
@@ -690,6 +688,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         }
 
                     </div>
+                    {externalQuestionFromLogs && (
+                        <Answerknowledge externalQuestionFromLogs={externalQuestionFromLogs} />
+                    )}
                 </>
 
             }
