@@ -16,6 +16,7 @@ import {
   exportCsvFile,
   getBotConversationMessages,
   getPaginateBotConversation,
+  getBotAllData,
 } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
@@ -130,6 +131,7 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
+  const [selectedBotObject, setSelectedBotObject] = useState('')
   const [messages, setMessages] = useState([]);
   const [manageMessages, setManageMessages] = useState([]);
   const [indexVal, setIndexVal] = useState(0);
@@ -282,7 +284,7 @@ const Logs = () => {
     }
   }, [state.botData.data]);
 
-  const handleInputValues = (e) => {
+  const handleInputValues = async (e) => {
     const { value } = e.target;
     dispatch(updateLogState({ ...logState.data, bot: value }));
     setSelectedFilters({
@@ -296,6 +298,9 @@ const Logs = () => {
       search: ''
     });
     setSelectedBot(value);
+    let bots = await getBotAllData()
+    const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+    if (filterBot) { setSelectedBotObject(filterBot) }
     setIndexVal(0);
     handlePageChange(value, 1, "", '10', 'mm');
   };
@@ -1127,7 +1132,7 @@ const Logs = () => {
               {" "}
             </div>
             <div
-               className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
             >
               <>
                 {/* <Card> */}
@@ -1205,6 +1210,7 @@ const Logs = () => {
                     idOfOpenConversation={idOfOpenConversation}
                     messages={messages}
                     selectedBot={selectedBot}
+                    selectedBotObject={selectedBotObject}
                   />
                 </>
 
