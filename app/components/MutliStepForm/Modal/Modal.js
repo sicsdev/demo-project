@@ -19,11 +19,11 @@ export function Modal({ isOpen, onClose }) {
   return (
     <div className={`overlay ${isOpen ? "active" : ""}`}>
       <div className="modal">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border p-5">
+        <div class="grid grid-cols-1 sm:grid-cols-2 ">
           <div className="bg-[#dcdfea] p-14 hidden sm:block">
             <img  src="https://8x8.valuestoryapp.com/8x8/resources-2022-08-12_16-05/dist/app1/images/reportCover.png" />
           </div>
-          <div>
+          <div className="p-5">
             <div className="font-bold text-2xl sm:mt-8">
               See your results and get your report
             </div>

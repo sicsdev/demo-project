@@ -32,24 +32,17 @@ export function FirstStep({
         <div className="block sm:flex  justify-between  items-stretch gap-4">
           <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">Company Name</label>
-            {/* <input
-              className="w-full border-gray rounded-none px-[10px] bg-stone-400"
-              value={companyName}
-              onChange={(e) => updateFields({ companyName: e.target.value })}
-              required={true}
-            /> */}
             <Input
               autoFocus
               required
               type="text"
-              className=""
               value={companyName}
               onChange={(e) => updateFields({ companyName: e.target.value })}
             />
           </div>
           <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">Industry</label>
-            <Select className="" data={[1, 2, 3, 4]} />
+            <Select className="" data={["Select one", "Banking/Finance", "Construction", "Eduction","Energy & Utilities","Government","Healthcare","Insurance","Legal","Manufacturing"]} />
           </div>
 
           <div className="w-full mb-3 sm:mb-0">

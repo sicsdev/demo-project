@@ -65,9 +65,9 @@ const Pricing = () => {
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiStepFrom([
-      <FirstStep {...data} updateFields={updateFields} />,
-      <SecondStep {...data} updateFields={updateFields} />,
-      <ThirdStep {...data} updateFields={updateFields} />,
+      <FirstStep  key={0} {...data} updateFields={updateFields} />,
+      <SecondStep  key={1} {...data} updateFields={updateFields} />,
+      <ThirdStep key={2} {...data} updateFields={updateFields} />,
     ]);
 
   function onSubmit(e) {
