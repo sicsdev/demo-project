@@ -1,5 +1,5 @@
 
-import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
+import { addBotConversationMessagesReaction, disputeCharge, getAllBotData } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
@@ -38,10 +38,16 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     useEffect(() => {
         getKnowledge()
 
-        if (bot) {
-            const filterBot = bot.bots.find((x) => x.id === selectedBot)
-            if (filterBot) { setBotUnique(filterBot) }
-        }
+        // if (bot) {
+        //     const filterBot = bot.bots.find((x) => x.id === selectedBot)
+
+        //     if (filterBot) { setBotUnique(filterBot) }
+        // }
+
+        getAllBotData([selectedBot]).then((res) => {
+            setBotUnique(res[0].data)
+        })
+        
 
         getDetails()
         handleResize()
@@ -206,6 +212,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             }
 
             let postRecommendation = await createRecommendation(payload)
+            console.log(postRecommendation.data)
+
             if (postRecommendation?.data) {
                 sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
                 router.push(`/dashboard/knowledge-center`)
@@ -218,6 +226,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 bot: botUnique.id
             }
             let postRecommendation = await createRecommendation(payload)
+            console.log(postRecommendation.data)
+
             if (postRecommendation?.data) {
                 sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
                 router.push(`/dashboard/knowledge-center`)
@@ -230,6 +240,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 bot: botUnique.id
             }
             let postRecommendation = await createRecommendation(payload)
+            console.log(postRecommendation.data)
             if (postRecommendation?.data) {
                 sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
                 router.push(`/dashboard/knowledge-center`)
@@ -242,6 +253,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                 bot: botUnique.id
             }
             let postRecommendation = await createRecommendation(payload)
+            console.log(postRecommendation.data)
+
             if (postRecommendation?.data) {
                 sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
                 router.push(`/dashboard/knowledge-center`)
@@ -490,7 +503,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                                                                                 Add Source
                                                                             </small>
                                                                         </small>
-                                                                        {/* {element?.workflows[0]?.information?.name} */}
 
                                                                         {element?.workflows?.map(workflow => (
                                                                             <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
