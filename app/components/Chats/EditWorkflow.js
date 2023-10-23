@@ -30,9 +30,9 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
     // Handlers
 
     const getAllNegativeWorkflows = async () => {
-        await getNegativeWorkflows().then(res => {
-            setAllNegativeWorkflows(res.results);
-            let workflowFinder = res.results.find(wkf => wkf.workflow.id == item.information.id)
+        await getNegativeWorkflows().then(results => {
+            setAllNegativeWorkflows(results);
+            let workflowFinder = results.find(wkf => wkf.workflow.id == item.information.id)
             if (workflowFinder) {
                 setRated(true); setWorflowObject(workflowFinder)
             } else { setRated(false) }
