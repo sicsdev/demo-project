@@ -47,7 +47,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         getAllBotData([selectedBot]).then((res) => {
             setBotUnique(res[0].data)
         })
-        
+
 
         getDetails()
         handleResize()
@@ -142,7 +142,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
     };
 
 
-    const divideAnswer = (element) => {
+    const divideAnswer = async (element) => {
 
         const content = element.content;
         const maxChars = 150;
@@ -164,7 +164,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
         }
 
 
-
+        await getAllBotData([selectedBot]).then((res) => {
+            setBotUnique(res[0].data)
+        })
 
         return (
             <>
