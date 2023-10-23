@@ -75,7 +75,6 @@ const NewSidebar = ({ children }) => {
     useEffect(() => {
         if (!state) {
             dispatch(fetchProfile());
-            dispatch(fetchRecommendation());
             dispatch(fetchIntegrations());
             dispatch(fetchWorkflows());
             dispatch(fetchBot());
