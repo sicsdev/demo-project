@@ -7,7 +7,7 @@ export function FormWrapper({ title, children }) {
     <>
       <h1 
       // style={{ textAlign: "center", margin: 0, marginBottom: "2rem" }}
-      className="font-bold text-3xl mt-16"
+      className="font-bold text-3xl mt-10 sm:mt-16"
       >
         {title}
       </h1>

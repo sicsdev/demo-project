@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useMultiStepFrom(steps) {
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(2);
 
 
   function next() {
@@ -27,6 +27,8 @@ export function useMultiStepFrom(steps) {
     currentStepIndex,
     step:steps[currentStepIndex],
     steps,
+    isFirstStep:currentStepIndex === 0,
+    isLastStep:currentStepIndex === steps.length - 1,
     goTo,
     next,
     back,

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@codemirror/lang-html": "^6.4.4",
+    "@faker-js/faker": "^8.2.0",
     "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "^3.1.0",
     "@lexical/react": "^0.12.2",
@@ -29,6 +30,7 @@
     "draftjs-to-html": "^0.9.1",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "faker": "^6.6.6",
     "highlight.js": "^11.8.0",
     "is-hotkey": "^0.2.0",
     "js-cookie": "^3.0.5",

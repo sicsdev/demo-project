@@ -5,7 +5,6 @@ import "./secondStep.css";
 const AccordionItem = (props) => {
   const contentEl = useRef();
   const { handleToggle, active, faq } = props;
-  console.log(props);
   const { header, id, text, inputFields } = faq;
 
   return (
@@ -31,10 +30,10 @@ const AccordionItem = (props) => {
         <div className="rc-accordion-body">
           {/* <p className="mb-0">{text}</p> */}
           {inputFields.map((inputField) => (
-            <div className=" my-2">
+            <div className="my-2">
               {inputField.map((ele) => (
-                <div className="flex border-b justify-between my-2 p-4">
-                  <span className="text-base font-normal inline-block">
+                <div className="block  sm:flex border-b justify-between my-2 p-4">
+                  <span className="text-base mb-3 sm:mb-0 font-normal inline-block">
                     {ele.text}
                   </span>{" "}
                   <input
@@ -84,7 +83,6 @@ export function SecondStep({ street, city, state, zip, updateFields }) {
   const [active, setActive] = useState(1);
 
   const handleToggle = (index) => {
-    console.log(index);
     if (active === index) {
       setActive(null);
     } else {

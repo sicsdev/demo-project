@@ -20,6 +20,7 @@ import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
 import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
 import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
 import { ThirdStep } from "@/app/components/MutliStepForm/ThirdStep";
+
 import "./style.css";
 // import {
 //   First,
@@ -35,12 +36,17 @@ const INITIAL_DATA = {
 };
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
+import { Modal } from "@/app/components/MutliStepForm/Modal/Modal";
 
 const Pricing = () => {
   const [data, setData] = useState(INITIAL_DATA);
-  console.log("=>",data);
+  const [isModalOpen, setModalOpen] = useState(false);
+  console.log("=>", data);
 
-  
+  function toggleModal() {
+    setModalOpen(!isModalOpen);
+  }
+
   function updateFields(fields) {
     const { name, value } = fields;
     setData((prev) => {
@@ -50,7 +56,7 @@ const Pricing = () => {
           if (yourFunctionalAreas.includes(value)) {
             yourFunctionalAreas.splice(yourFunctionalAreas.indexOf(value), 1);
           } else yourFunctionalAreas.push(value);
-          return {...prev};
+          return { ...prev };
         default:
           return { ...prev, ...fields };
       }
@@ -59,7 +65,7 @@ const Pricing = () => {
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiStepFrom([
-      <FirstStep {...data} updateFields={updateFields}/>,
+      <FirstStep {...data} updateFields={updateFields} />,
       <SecondStep {...data} updateFields={updateFields} />,
       <ThirdStep {...data} updateFields={updateFields} />,
     ]);
@@ -67,7 +73,8 @@ const Pricing = () => {
   function onSubmit(e) {
     e.preventDefault();
     if (!isLastStep) return next();
-    alert("Successful Account Creation");
+    // alert("Successful Account Creation");
+    toggleModal();
   }
 
   const stepsTab = [
@@ -110,15 +117,9 @@ const Pricing = () => {
             <div></div>
             {/* Step {currentStepIndex + 1}  */}
           </div>
-
+          <Modal isOpen={isModalOpen} onClose={toggleModal} />
           {step}
-          <div
-            style={{
-              marginTop: "1rem",
-              display: "flex",
-              gap: ".5rem",
-            }}
-          >
+          <div className="mt-4 flex justify-center  sm:justify-start gap-2">
             {!isFirstStep && (
               <button
                 className="bg-[#142543] text-white px-4  min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"

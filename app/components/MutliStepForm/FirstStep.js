@@ -28,9 +28,9 @@ export function FirstStep({
   return (
     <>
       <FormWrapper title="Tell us about your organistion">
-        <div className="mb-4">Enter the following information</div>
-        <div className="flex  justify-between  items-stretch gap-4">
-          <div className="w-full">
+        <div className="mb-4 mt-3 sm:mt-0">Enter the following information</div>
+        <div className="block sm:flex  justify-between  items-stretch gap-4">
+          <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">Company Name</label>
             {/* <input
               className="w-full border-gray rounded-none px-[10px] bg-stone-400"
@@ -47,12 +47,12 @@ export function FirstStep({
               onChange={(e) => updateFields({ companyName: e.target.value })}
             />
           </div>
-          <div className="w-full ">
+          <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">Industry</label>
             <Select className="" data={[1, 2, 3, 4]} />
           </div>
 
-          <div className="w-full">
+          <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">
               Total numbers of employees
             </label>
@@ -74,14 +74,14 @@ export function FirstStep({
               required={true}
             />
           </div>
-          <div className="w-full">
+          <div className="w-full mb-3 sm:mb-0">
             <label className="block text-[#595b89]">Location</label>
             <Select className="" placeholder="ddds" data={[1, 2, 3, 4]} />
           </div>
         </div>
         <div className=" mt-10">
           <span className="block font-bold mb-7">Your functional area(s)</span>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {functionalAreas.map((ele, index) => (
               <div
                 key={index}
@@ -97,8 +97,8 @@ export function FirstStep({
             ))}
           </div>
         </div>
-        <div className="mt-10 mb-5 grid grid-cols-2 ">
-          <div className="">
+        <div className="mt-10 mb-5 grid  grid-cols-1 sm:grid-cols-2 ">
+          <div className="mb-3 sm:mb-0">
             <span className="font-bold ">
               Solution(s) to be included in the analysis
             </span>
