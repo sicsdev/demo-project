@@ -64,10 +64,10 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
         if (previousMessage.content === 'WORKFLOW') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.WORKFLOW
+            contentToSend = finder?.actions?.options?.WORKFLOW  || 'WORKFLOW'
         } else if (previousMessage.content === 'INFORMATION') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.INFORMATION
+            contentToSend = finder?.actions?.options?.INFORMATION  || 'INFORMATION'
         } else {
             contentToSend = previousMessage.content
         }
