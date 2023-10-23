@@ -37,38 +37,35 @@ const ApiCallInfo = ({ calls }) => {
                                     <span style={{ minWidth: '100px' }} className={`text-white text-xs p-1 px-2 border border-gray rounded-md mb-1 ${call.status == 400 || call.status == 404 ? "bg-red" : "bg-success"}`}>
                                         {call.request_method}
                                     </span>
-                                    <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    {/* <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                                    </svg>
+                                    </svg> */}
                                 </div>
-                                {activeCallIndex === key &&
-                                    <>
-                                        <ul className="list-none space-y-2 text-gray-700" style={{ fontSize: '12px' }}>
-                                            <li>
-                                                <span className='text-sky'><small style={{ fontSize: '10px' }}>{call.request_url}</small></span>
-                                            </li>
-                                            <li className="bg-gray-100 rounded mt-2 bg-grey">
-                                                <strong className="text-gray-900">Status:{' '}</strong><br />
-                                                <code className='text-[#937293]'>{JSON.stringify(call.request_data, null, 2)}</code>
-                                            </li>
-                                            <li className="bg-gray-100 rounded mt-2 bg-grey">
-                                                <strong className="text-gray-900">Status:{' '}</strong>
-                                                <span className='text-green'>{call.response_status}</span>
-                                                <br></br>
-                                                <strong className="text-gray-900">Response:{' '}</strong><br />
-                                                <code
-                                                    style={{
-                                                        color: "#937293",
-                                                        whiteSpace: "pre-wrap",
-                                                        fontFamily: "'Courier New', Courier, monospace"
-                                                    }}
-                                                >
-                                                    {JSON.stringify(JSON.parse(call.response_text), null, 2)}
-                                                </code>
-                                            </li>
-                                        </ul>
-                                    </>
-                                }
+                                {/* {activeCallIndex === key && */}
+                                <>
+                                    <ul className="list-none space-y-2 text-gray-700" style={{ fontSize: '12px' }}>
+                                        <li>
+                                            <span className='text-sky'><small style={{ fontSize: '10px' }}>{call.request_url}</small></span>
+                                        </li>
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
+                                            <strong className="text-gray-900">Status:{' '}</strong>
+                                            <span className='text-green'>{call.response_status}</span>
+                                        </li>
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
+                                            <strong className="text-gray-900">Payload:{' '}</strong><br />
+                                            <code className='text-[#937293]'>{JSON.stringify(call.request_data, null, 2)}</code>
+
+                                        </li>
+                                        <li className="bg-gray-100 rounded mt-2 bg-grey">
+
+                                            <strong className="text-gray-900">Response:{' '}</strong><br />
+                                            <code>
+                                                {JSON.stringify(JSON.parse(call.response_text), null, 2)}
+                                            </code>
+                                        </li>
+                                    </ul>
+                                </>
+                                {/* } */}
                             </div>
                         ))}
                     </div>

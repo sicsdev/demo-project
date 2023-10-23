@@ -421,6 +421,21 @@ const Logs = () => {
       setShowChat(false);
     }
   };
+  useEffect(() => {
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        setShowChat(false);
+      }
+    };
+
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleEscapeKeyPress);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
   const getCoversationMessagesbyID = async (id) => {
     setMessagesLoading(true);
     const response = await getBotConversationMessages(id);

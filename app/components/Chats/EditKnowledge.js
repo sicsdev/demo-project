@@ -30,9 +30,9 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     // Handlers
 
     const getAllNegativeFaqs = async () => {
-        await getFaqNegative().then(res => {
-            setAllNegativeFAQS(res.results);
-            let faqFinder = res.results.find(faq => faq?.faq?.id == item.information.id)
+        await getFaqNegative().then(results => {
+            setAllNegativeFAQS(results);
+            let faqFinder = results.find(faq => faq?.faq?.id == item.information.id)
             if (faqFinder) {
                 setRated(true); setFAQObject(faqFinder)
             } else {
@@ -83,10 +83,10 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
         if (previousMessage.content === 'WORKFLOW') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.WORKFLOW
+            contentToSend = finder?.actions?.options?.WORKFLOW || 'WORKFLOW'
         } else if (previousMessage.content === 'INFORMATION') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder.actions.options.INFORMATION
+            contentToSend = finder?.actions?.options?.INFORMATION || 'INFORMATION'
         } else {
             contentToSend = previousMessage.content
         }
