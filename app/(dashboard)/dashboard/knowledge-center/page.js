@@ -670,15 +670,15 @@ const Page = () => {
     const getExpandedAnswer = async () => {
         let answerBackup = answer
         setAnswer('')
+        setExternalContentForTextEditor('')
 
-    const response =     await expandRecommendationRecord({
+        const response = await expandRecommendationRecord({
             question: workflowView?.question,
             answer: answerBackup,
             streaming: true,
             id: `recommendation-${newUUI}`
         })
 
-debugger
         // let newUUID = uuidv4()
         // setNewUUI(newUUID)
 

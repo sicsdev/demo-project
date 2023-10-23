@@ -6,7 +6,7 @@ import './customstyles.css'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useEffect } from 'react';
 
-const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent }) => {
+const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, externalContent, setAnswer, setExternalContentForTextEditor }) => {
 
   const [editorState, setEditorState] = useState(() => {
     if (oldContent && oldContent !== 'undefined') {
@@ -43,7 +43,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     // if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
     if (externalContent && externalContent !== lastExternalContent) {
 
-      // setLastExternalContent(externalContent)
+      setLastExternalContent(externalContent)
       const blocksFromHtml = convertFromHTML(restoreLinks(`<p>${externalContent}</p>`));
       const state = ContentState.createFromBlockArray(blocksFromHtml.contentBlocks);
       onEditorStateChange(EditorState.createWithContent(state))
@@ -51,12 +51,13 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     }
 
 
-  }, [externalContent, oldContent]);
+  }, [oldContent]);
 
 
 
 
   const onEditorStateChange = (editorState) => {
+    // setExternalContentForTextEditor('')
     setEditorState(editorState);
     // setPostContentWithOutReplace(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     setPostContent(replaceLink(draftToHtml(convertToRaw(editorState.getCurrentContent()))));

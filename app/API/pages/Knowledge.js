@@ -140,13 +140,32 @@ export const uploadAttachment = async (body) => {
 };
 
 export const getFaqNegative = async () => {
-    let config = returnConfig()
-    try {
-        const response = await axios.get(`${API_URL}/api/v1/main/faqs-negative/`, config);
-        return response?.data;
-    } catch (error) {
-        return error
+    let config = returnConfig();
+    let currentPage = 1;
+    let hasNextPage = true;
+    let allResults = [];
+
+    while (hasNextPage) {
+        try {
+            const response = await axios.get(`${API_URL}/api/v1/main/faqs-negative?page=${currentPage}`, config);
+            const data = response?.data;
+            if (data) {
+                allResults = [...allResults, ...data.results];
+
+                hasNextPage = data.next !== null;
+                if (hasNextPage) {
+                    currentPage++;
+                }
+            } else {
+                hasNextPage = false;
+            }
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
     }
+
+    return allResults;
 };
 
 
