@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowlwdge';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionFromLogs }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionFromLogs, selectedBotObject }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -38,13 +38,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
     useEffect(() => {
         getKnowledge()
-
-        // if (bot) {
-        //     const filterBot = bot.bots.find((x) => x.id === selectedBot)
-        //     if (filterBot) { setBotUnique(filterBot) }
-        // }
-        getAllBots()
-
         getDetails()
         handleResize()
 
@@ -53,17 +46,22 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
             const element = chatLogsRef.current;
             element.scrollTop = element.scrollHeight;
         }
-
+        
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
 
-
     }, [bot, idOfOpenConversation])
 
 
+    useEffect(() => {
+        getBotAllData().then(res => {
+            const filterBot = res?.results?.find((x) => x.id === selectedBot)
+            if (filterBot) { setBotUnique(filterBot) }
+        })
+    }, [botUnique, selectedBot, selectedBotObject])
 
 
 
@@ -72,6 +70,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
     async function getAllBots() {
         let bots = await getBotAllData()
         const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+        console.log(filterBot, 'filterbot')
         if (filterBot) { setBotUnique(filterBot) }
     }
 

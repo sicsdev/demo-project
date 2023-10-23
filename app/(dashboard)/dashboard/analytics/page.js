@@ -16,6 +16,7 @@ import {
   exportCsvFile,
   getBotConversationMessages,
   getPaginateBotConversation,
+  getBotAllData,
 } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
@@ -131,6 +132,7 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
+  const [selectedBotObject, setSelectedBotObject] = useState('')
   const [messages, setMessages] = useState([]);
   const [externalQuestionFromLogs, setExternalQuestionFromLogs] = useState(null);
   const [manageMessages, setManageMessages] = useState([]);
@@ -284,7 +286,7 @@ const Logs = () => {
     }
   }, [state.botData.data]);
 
-  const handleInputValues = (e) => {
+  const handleInputValues = async (e) => {
     const { value } = e.target;
     dispatch(updateLogState({ ...logState.data, bot: value }));
     setSelectedFilters({
@@ -298,6 +300,9 @@ const Logs = () => {
       search: ''
     });
     setSelectedBot(value);
+    let bots = await getBotAllData()
+    const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+    if (filterBot) { setSelectedBotObject(filterBot) }
     setIndexVal(0);
     handlePageChange(value, 1, "", '10', 'mm');
   };
@@ -1207,6 +1212,7 @@ const Logs = () => {
                     idOfOpenConversation={idOfOpenConversation}
                     messages={messages}
                     selectedBot={selectedBot}
+                    selectedBotObject={selectedBotObject}
                     setExternalQuestionFromLogs={setExternalQuestionFromLogs} 
                   />
                 </>
