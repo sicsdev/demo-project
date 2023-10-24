@@ -339,7 +339,50 @@ const Answerknowledge = ({ externalQuestionFromLogs,
     }
 
 
+    const handleWorkflow = async (workflow_data) => {
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                accepted_loader: true
+            }
+        })
+        let descriptions = workflow_data.answer.split('\n')
+        let Payload = {
+            description: descriptions.filter((x) => x !== ''),
+        }
+        const response = await updateWorkFlowStatus(Payload, workflow_data.workflowValue.id)
+        if (response.status === 200 || response.status === 201) {
+            const excludeRecord = await excludeRecommendationRecord(workflowView.id);
+            if (excludeRecord?.status === 204) {
+                dispatch(fetchRecommendation());
+                setWorkflowView(null)
+                setKnowledgeId(null)
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        name: "",
+                        id: "",
+                        name: "",
+                        submit_loader: false,
+                        accepted_loader: false,
+                        showInput: false,
+                        answer: '',
+                        target: "workflow",
+                        workflowValue: null,
+                    }
+                })
+            } else {
+                errorMessage(response.response.data.description)
+                setWorkFlowData((prev) => {
+                    return {
+                        ...prev,
+                        accepted_loader: false
+                    }
+                })
+            }
+        }
 
+    }
 
     return (
         <>
@@ -384,6 +427,7 @@ const Answerknowledge = ({ externalQuestionFromLogs,
                     mode={mode}
                     setMode={setMode}
                     searchFaqs={searchFaqs}
+                    handleWorkflow={handleWorkflow}
                 >
 
                 </AnswersEditor>

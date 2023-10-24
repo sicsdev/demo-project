@@ -104,7 +104,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             "payment_platform": "Order",
             "ticketing_platform": "Other",
             "refund_tolerance": 0,
-            "ecommerce_platform": 'Other',  
+            "ecommerce_platform": 'Other',
           }
           const bot = await createCheckoutBot(payload, result.token);
           if (bot.status === 200 || bot.status === 201) {
@@ -128,8 +128,11 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
     setLoading(false);
   };
 
-
-
+  const validateEmail = (email) => {
+    // Simple email regex validation
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -157,7 +160,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
         {loading && <p className="message">Processing Payment...</p>}
         <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-primary border border-gray-300 rounded-md shadow-sm checkout"
-          disabled={loading || !stripe || !elements}
+          disabled={loading || !stripe || !elements || !validateEmail(checkoutForm?.email)}
         >
           Start Now
         </Button>

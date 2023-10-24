@@ -799,6 +799,7 @@ const Page = () => {
                         mode={mode}
                         setMode={setMode}
                         searchFaqs={searchFaqs}
+                        handleWorkflow={handleWorkflow}
                     >
 
                     </AnswersEditor>
