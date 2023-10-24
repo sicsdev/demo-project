@@ -15,6 +15,9 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
         // getThisKnowledge()
         // console.log(allNegativeWorkflows.some(wkf => wkf.id === item.information.id), item.information.name)
         getAllNegativeWorkflows()
+        setInputValue(item?.information?.description[item.index])
+        console.log(item, 'item')
+        console.log(indexOfMessage, 'indexofMsg')
     }, [])
 
 
@@ -64,10 +67,10 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
         if (previousMessage.content === 'WORKFLOW') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder?.actions?.options?.WORKFLOW  || 'WORKFLOW'
+            contentToSend = finder?.actions?.options?.WORKFLOW || 'WORKFLOW'
         } else if (previousMessage.content === 'INFORMATION') {
             let finder = allMessages[indexOfMessage - 2]
-            contentToSend = finder?.actions?.options?.INFORMATION  || 'INFORMATION'
+            contentToSend = finder?.actions?.options?.INFORMATION || 'INFORMATION'
         } else {
             contentToSend = previousMessage.content
         }
@@ -100,14 +103,14 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
         <>
             {!deleted &&
                 <>
-                    <div className='flex items-center w-full align-middle'>
-                        <div key={item.information?.id} className={`mt-1 border p-2 rounded-sm border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs '} w-full`}>
+                    <div key={item.information?.id + indexOfMessage} id={item.information?.id + indexOfMessage} className='flex items-center w-full align-middle'>
+                        <div className={`mt-1 border p-2 rounded-sm border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs '} w-full`}>
 
                             <div className="relative">
 
                                 <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
                                     <span className="w-full flex items-center" >
-                                        <small id={item?.information?.id}>
+                                        <small id={item.information.id + 'text' + indexOfMessage}>
                                             {item?.information?.name}
                                         </small>
                                     </span>
@@ -140,7 +143,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
                                             <input
                                                 type="text"
                                                 className="border !text-xs border-border my-2 shadow-none block px-3 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-0 placeholder:text-[20px] text-[20px] disabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white"
-                                                placeholder="Question"
+                                                placeholder="Write a new answer"
                                                 id={descriptionLine}
                                                 name={descriptionLine}
                                                 value={inputValue}

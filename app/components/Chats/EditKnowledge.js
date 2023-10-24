@@ -126,14 +126,14 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     return (
         <>
             {thisKnowledge && !deleted &&
-                <div className='flex items-center w-full align-middle'>
-                    <div key={item.information?.knowledge?.id} className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
+                <div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
+                    <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
 
                         <div className="relative">
 
                             <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
                                 <span className="w-full flex items-center" >
-                                    <small id={item?.information?.knowledge?.id}>
+                                    <small id={item.information?.knowledge?.id + item.information.id + 'text'}>
                                         {item?.information?.question}
                                     </small>
                                 </span>

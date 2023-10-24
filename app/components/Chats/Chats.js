@@ -18,7 +18,7 @@ import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowlwdge';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionFromLogs, selectedBotObject }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -46,21 +46,23 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
             const element = chatLogsRef.current;
             element.scrollTop = element.scrollHeight;
         }
-        
+
         // responsive
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
 
-    }, [bot, idOfOpenConversation])
+    }, [idOfOpenConversation])
 
 
     useEffect(() => {
-        getBotAllData().then(res => {
-            const filterBot = res?.results?.find((x) => x.id === selectedBot)
-            if (filterBot) { setBotUnique(filterBot) }
-        })
+        if (!botUnique?.id) {
+            getBotAllData().then(res => {
+                const filterBot = res?.results?.find((x) => x.id === selectedBot)
+                if (filterBot) { setBotUnique(filterBot) }
+            })
+        }
     }, [botUnique, selectedBot, selectedBotObject])
 
 
@@ -351,9 +353,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
                                             {messages.map((element, key) =>
                                                 <>
+                                                    {console.log(element, '239823')}
                                                     {element.sender === 'bot' &&
                                                         (
-                                                            <div className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
+                                                            <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
 
 
                                                                 <div className="title-element-right" style={{ display: "none" }}>14:11</div>
@@ -420,7 +423,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
                                                                         {divideAnswer(element)}
 
-                                                                        <div className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
+                                                                        <div key={'a' + key} id={'a' + key} className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
                                                                             <div className='w-100' style={{ width: '100%' }}>
                                                                                 <small className='flex gap-3 items-center'>
                                                                                     <b>Sources</b>
@@ -457,10 +460,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
                                                                 {
                                                                     element.content === 'HUMAN-HANDOFF' &&
-                                                                    <><div className="attention_required_answer">
-                                                                        <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
-                                                                        <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
-                                                                    </div>
+                                                                    <>
+                                                                        <div key={'b' + key} id={'b' + key} className="attention_required_answer">
+                                                                            <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
+                                                                            <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
+                                                                        </div>
                                                                         <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                             <div>
                                                                                 <small className='flex gap-3 items-center'>
@@ -483,7 +487,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                                                                 {
                                                                     element.content === 'OPTIONS' && element?.actions?.options &&
                                                                     <>
-                                                                        <div className="tempo-widget-options-container">
+                                                                        <div key={'c' + key} id={'c' + key} className="tempo-widget-options-container">
                                                                             {Object.keys(element.actions.options).map((key, index) =>
                                                                                 <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
                                                                                     {element.actions.options[key]}
@@ -495,7 +499,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                                                                                 </button>
                                                                             )}
                                                                         </div>
-                                                                        <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                        <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
                                                                             <div className='w-100' style={{ width: '100%' }}>
                                                                                 <small className='flex gap-3 items-center'>
                                                                                     <b>Sources</b>
@@ -509,6 +513,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                                                                                 {element?.workflows?.map(workflow => (
                                                                                     <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
                                                                                 ))}
+
+                                                                                {element && element?.knowledge.length > 0 && (
+                                                                                    <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                )}
+
                                                                             </div>
                                                                             <div>
                                                                                 {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
@@ -519,78 +528,98 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
 
                                                                 {
-                                                                    element.type == "action" && !element.actions.options && element?.actions && (!element.content === 'HUMAN-HANDOFF') && (!element.content === 'OPTIONS') &&
+                                                                    element.type == "action" && (!element.content || element.content == 'FORM') &&
 
                                                                     <>
-                                                                        <div className="component_answer" style={{ width: '300px' }}></div>
-                                                                        <div className="tempo-widget-custom-form">
-                                                                            {Object.keys(element.actions).map(key => {
-                                                                                const elementData = element.actions[key];
-                                                                                const elementId = `tempo-widget-custom-form-${key}`;
+                                                                        <div className="answer_with_thumbs">
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                No problem, I can help you with that! Could you please provide the following information:
+                                                                            </div>
+                                                                        </div>
 
-                                                                                return (
-                                                                                    <div key={key}>
-                                                                                        <label className="tempo-widget-custom-form-label">
-                                                                                            {capitalizeFirstLetter(elementData.name)}
-                                                                                        </label>
+                                                                        <div key={'d' + key} id={'d' + key} className="component_answer" style={{ width: '300px' }}></div>
 
-                                                                                        {elementData.type === "select" && (
-                                                                                            <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                                <button
-                                                                                                    className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                                    data-value="Yes"
-                                                                                                    id={`custom-form-yes-button-${key}`}
-                                                                                                >
-                                                                                                    Yes
-                                                                                                </button>
-                                                                                                <button
-                                                                                                    className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                                    data-value="No"
-                                                                                                    id={`custom-form-no-button-${key}`}
-                                                                                                >
-                                                                                                    No
-                                                                                                </button>
+                                                                        <div className="answer_with_thumbs">
+
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+
+                                                                            <div className="tempo-widget-custom-form">
+                                                                                {Object.keys(element.actions).map(key => {
+                                                                                    const elementData = element.actions[key];
+                                                                                    const elementId = `tempo-widget-custom-form-${key}`;
+
+                                                                                    return (
+                                                                                        <>
+                                                                                            <div key={key}>
+                                                                                                <label className="tempo-widget-custom-form-label text-black">
+                                                                                                    {capitalizeFirstLetter(elementData.name)}
+                                                                                                </label>
+
+                                                                                                {elementData.type === "select" && (
+                                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                        <button
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            data-value="Yes"
+                                                                                                            id={`custom-form-yes-button-${key}`}
+                                                                                                        >
+                                                                                                            Yes
+                                                                                                        </button>
+                                                                                                        <button
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            data-value="No"
+                                                                                                            id={`custom-form-no-button-${key}`}
+                                                                                                        >
+                                                                                                            No
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                )}
+
+                                                                                                {elementData.type === "multiselect" && (
+                                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                        {elementData.options.map(option => (
+                                                                                                            <button
+                                                                                                                key={`${key}_${elementData.name}_${option}`}
+                                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                                data-value={option}
+                                                                                                                id={`${key}_${elementData.name}_${option}`}
+                                                                                                            >
+                                                                                                                {option}
+                                                                                                            </button>
+                                                                                                        ))}
+                                                                                                    </div>
+                                                                                                )}
+
+                                                                                                {elementData.type === "str" && (
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        id={elementId}
+                                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
+                                                                                                        placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
+                                                                                                        disabled
+                                                                                                    />
+                                                                                                )}
+
+                                                                                                {elementData.type === "date" && (
+                                                                                                    <input
+                                                                                                        type="date"
+                                                                                                        id={elementId}
+                                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
+                                                                                                        placeholder={elementData.default || ""}
+                                                                                                        name={elementData.name}
+                                                                                                        disabled
+                                                                                                    />
+                                                                                                )}
                                                                                             </div>
-                                                                                        )}
-
-                                                                                        {elementData.type === "multiselect" && (
-                                                                                            <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                                {elementData.options.map(option => (
-                                                                                                    <button
-                                                                                                        key={`${key}_${elementData.name}_${option}`}
-                                                                                                        className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                                        data-value={option}
-                                                                                                        id={`${key}_${elementData.name}_${option}`}
-                                                                                                    >
-                                                                                                        {option}
-                                                                                                    </button>
-                                                                                                ))}
-                                                                                            </div>
-                                                                                        )}
-
-                                                                                        {elementData.type === "str" && (
-                                                                                            <input
-                                                                                                type="text"
-                                                                                                id={elementId}
-                                                                                                className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
-                                                                                                placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
-                                                                                                disabled
-                                                                                            />
-                                                                                        )}
-
-                                                                                        {elementData.type === "date" && (
-                                                                                            <input
-                                                                                                type="date"
-                                                                                                id={elementId}
-                                                                                                className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
-                                                                                                placeholder={elementData.default || ""}
-                                                                                                name={elementData.name}
-                                                                                                disabled
-                                                                                            />
-                                                                                        )}
-                                                                                    </div>
-                                                                                );
-                                                                            })}
+                                                                                        </>
+                                                                                    );
+                                                                                })}
+                                                                            </div>
                                                                         </div>
 
                                                                         <div className='mx-2 my-1' style={{ color: '#828282' }}>
@@ -608,6 +637,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                                                                                     {element?.workflows?.map(workflow => (
                                                                                         <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
                                                                                     ))}
+
+                                                                                    {element && element?.knowledge.length > 0 && (
+                                                                                        <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                    )}
+
                                                                                 </div>
                                                                                 <div>
                                                                                     {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
@@ -615,7 +649,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
 
                                                                             </div>
                                                                         </div>
-
                                                                     </>
                                                                 }
 
@@ -623,7 +656,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                                                         )}
                                                     {element.sender === 'user' &&
                                                         (
-                                                            <div className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                            <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
 
                                                                 {
                                                                     element.content === 'WORKFLOW' &&
@@ -686,7 +719,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation,setExternalQuestionF
                         }
 
                     </div>
-                  
+
                 </>
 
             }
