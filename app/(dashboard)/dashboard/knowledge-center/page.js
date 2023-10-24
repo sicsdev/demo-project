@@ -299,23 +299,26 @@ const Page = () => {
                                         <PlusCircleIcon className="h-6 w-6 text-success " />
                                     </button>
                                 </div>
+                                <>
+                                    {deleteLoader === row.id ?
+                                        <ColorRing
+                                            height="30"
+                                            width="30"
+                                            color="#4fa94d"
+                                            ariaLabel="tail-spin-loading"
+                                            radius="1"
+                                            wrapperClass="text-center"
+                                            visible={true}
+                                        /> :
+                                        <div>
+                                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                                                <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                                        </div>
+                                    }
 
-                                {deleteLoader === row.id ?
-                                    <ColorRing
-                                        height="30"
-                                        width="30"
-                                        color="#4fa94d"
-                                        ariaLabel="tail-spin-loading"
-                                        radius="1"
-                                        wrapperClass="text-center"
-                                        visible={true}
-                                    /> :
-                                    <div>
-                                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
-                                    </div>
-                                }
 
+
+                                </>
                             </>
                         )}
 

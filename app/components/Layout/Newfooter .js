@@ -166,8 +166,9 @@ const Newfooter = () => {
                 <div className="justify-between w-full sm:w-auto flex flex-row sm:gap-10 items-center ml-[9px] sm:ml-auto">
                   {profile.email ? (
                     <>
-                      {" "}
-                      <p className="text-white">{profile.email}</p>
+                      <Link href={"/dashboard"}>
+                        <p className="text-white">{profile.email}</p>
+                      </Link>
                     </>
                   ) : (
                     <Link href={"/login"}>
@@ -219,7 +220,7 @@ const Newfooter = () => {
             </p>
           </div>
         </div>
-      </footer>
+      </footer >
     </>
   );
 };

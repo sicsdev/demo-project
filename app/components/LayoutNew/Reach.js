@@ -105,9 +105,9 @@ const Reach = ({handleClickscroll}) => {
           <button
           onClick={handleClickscroll}
             type="button"
-            className="inline-block px-6 pb-2 pt-2.5 text-xs rounded-xl sm:text-[20px]  leading-normal bg-[white] hover:bg-[#fe9327] text-[#fe9327] font-semibold hover:text-white  border active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+            className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >
-            <p>Get a Quote</p>
+            Get a Quote
           </button>
         )}
         {loading ? (
@@ -117,7 +117,7 @@ const Reach = ({handleClickscroll}) => {
         ) : (
           <button
             type="button"
-            className="inline-block px-6 pb-2 pt-2.5 text-xs sm:text-[20px] rounded-xl  leading-normal bg-[#fe9327] hover:bg-[white] text-white font-semibold hover:text-[#fe9327]  border  active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+            className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
           >
             <div
               className=""

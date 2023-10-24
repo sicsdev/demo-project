@@ -134,11 +134,11 @@ const ContactFeatures = () => {
 
           <button
             type="button"
-            className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-xl font-medium  leading-normal bg-[white] hover:bg-[#FF5721] text-[#FF5721] font-bold hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+            className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >
             <p>Get a Quote </p>
           </button>
-        )}
+        )}By checking this box, you agree
         {loading ? (
           <SkeletonLoader count={1} height={50} width={180} />
         ) : (
