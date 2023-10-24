@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 
 
 const AnswersEditor = ({
+    handleWorkflow,
     setShow,
     setWorkflowView,
     setKnowledgeId,

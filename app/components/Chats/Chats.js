@@ -16,7 +16,6 @@ import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
-import Answerknowledge from '../KnowledgeAnswer/AnswerKnowlwdge';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 

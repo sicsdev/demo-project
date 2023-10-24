@@ -3,6 +3,7 @@ import SkeletonLoader from '../Skeleton/Skeleton'
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import { createContactInFreshsales } from '@/app/API/components/Demo';
 export const Homeform = ({ reff }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {

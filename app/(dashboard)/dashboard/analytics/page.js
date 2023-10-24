@@ -35,7 +35,7 @@ import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import Button from "@/app/components/Common/Button/Button";
 import { ToastContainer } from "react-toastify";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
-import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowlwdge";
+import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowledge";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -1077,7 +1077,7 @@ const Logs = () => {
                 fixedHeader
                 highlightOnHover
                 pointerOnHover
-                className="centered-table !h-[35vh]"
+                className="centered-table !h-[60vh]"
                 defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                   // router.push(rowData.url);
