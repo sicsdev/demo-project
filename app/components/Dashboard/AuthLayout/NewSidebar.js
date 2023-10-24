@@ -247,18 +247,12 @@ const NewSidebar = ({ children }) => {
                     icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                {
-                    href: "/dashboard/billing/settings",
-                    name: "Billing",
-                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/scheduling-settings",
-                    name: "Scheduling",
-                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
+                // {
+                //     href: "/dashboard/billing/settings",
+                //     name: "Billing",
+                //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
             ],
         },
         {
@@ -274,18 +268,24 @@ const NewSidebar = ({ children }) => {
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
+                {
+                    href: "/dashboard/scheduling-settings",
+                    name: "Scheduling",
+                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
                 // {
                 //     href: "/dashboard/verify-email",
                 //     name: "DNS Settings",
                 //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
                 //     isLink: false,
                 // },
-                {
-                    href: "https://docs.usetempo.ai/reference",
-                    name: "API References",
-                    icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                }
+                // {
+                //     href: "https://docs.usetempo.ai/reference",
+                //     name: "API References",
+                //     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // }
             ],
         }
     ];

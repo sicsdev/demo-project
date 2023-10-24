@@ -321,7 +321,7 @@ export const Homeform = ({ reff }) => {
                       )}
                       <label
                         htmlFor="link-checkbox"
-                        className="ml-2 text-justify font-medium text-border mt-[16px] text-[14px]"
+                        className="ml-2 text-justify font-medium text-border text-[14px]"
                       >
                         {loading ? (
                           <SkeletonLoader count={1} height={20} width="100%" />
@@ -340,7 +340,7 @@ export const Homeform = ({ reff }) => {
                   ) : (
                     <button
                       className={
-                        "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-white !text-[#fe9327] border !border-[#fe9327] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-semibold focus:ring-yellow-300 text-white rounded-2xl "
+                        "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
                       }
                       style={{ margin: "0px auto" }}
                       onClick={() => {

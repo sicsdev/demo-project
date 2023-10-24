@@ -181,7 +181,6 @@ const Page = () => {
 
     return false;
   }
-  console.log("basicFormData", basicFormData)
 
   return (
     <div style={{ whiteSpace: "normal" }}>
