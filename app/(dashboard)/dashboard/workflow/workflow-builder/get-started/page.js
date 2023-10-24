@@ -361,6 +361,7 @@ const GetStarted = () => {
 
         if (type === "PUBLISH") {
           dispatch(editAutomationValue(null))
+          router.back()
           // successMessage("Workflow is now active!");
         } else if (type === "DISABLE") {
           // successMessage("Workflow Disabled Successfully");
@@ -590,7 +591,6 @@ const GetStarted = () => {
     }
 
     const workflowId = params.get('flow');
-    debugger
     if (!singleData.active) {
       const update = await updateWorkFlowStatus({ automations: newArray }, workflowId);
       getWorkflowData(workflowId)

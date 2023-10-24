@@ -218,7 +218,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             userMessage = messages[key - 2]
             let payload = {
                 question: userMessage.actions.options.WORKFLOW,
-                bot: botUnique.id
+                bot: botUnique.id,
+                answer: userMessage.actions.options.WORKFLOW,
             }
 
             let postRecommendation = await createRecommendation(payload)
@@ -231,7 +232,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             userMessage = messages[key - 2]
             let payload = {
                 question: userMessage.actions.options.INFORMATION,
-                bot: botUnique.id
+                bot: botUnique.id,
+                answer: userMessage.actions.options.INFORMATION,
             }
             let postRecommendation = await createRecommendation(payload)
 
@@ -243,7 +245,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             userMessage = messages[key - 2]
             let payload = {
                 question: userMessage.actions.options["HUMAN-HANDOFF"],
-                bot: botUnique.id
+                bot: botUnique.id,
+                answer: userMessage.actions.options["HUMAN-HANDOFF"],
             }
             let postRecommendation = await createRecommendation(payload)
             if (postRecommendation?.data) {
@@ -254,7 +257,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
             let payload = {
                 question: userMessage.content,
-                bot: botUnique.id
+                bot: botUnique.id,
+                answer: userMessage.content,
             }
             let postRecommendation = await createRecommendation(payload)
 
