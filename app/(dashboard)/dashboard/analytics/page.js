@@ -1140,6 +1140,7 @@ const Logs = () => {
                 {/* <Card> */}
                 <div className="hidden sm:flex justify-center">
                   <h1 className="text-heading text-sm font-semibold">Chat</h1>
+
                 </div>
 
                 <div className="flex justify-between gap-2 items-center">
@@ -1213,7 +1214,7 @@ const Logs = () => {
                     messages={messages}
                     selectedBot={selectedBot}
                     selectedBotObject={selectedBotObject}
-                    setExternalQuestionFromLogs={setExternalQuestionFromLogs} 
+                    setExternalQuestionFromLogs={setExternalQuestionFromLogs}
                   />
                 </>
 
@@ -1222,15 +1223,12 @@ const Logs = () => {
             </div>
           </>
         )}
-
         {externalQuestionFromLogs && (
-          <Answerknowledge externalQuestionFromLogs={externalQuestionFromLogs} 
-          setExternalQuestionFromLogs={setExternalQuestionFromLogs} />
+          <Answerknowledge
+            externalQuestionFromLogs={externalQuestionFromLogs}
+            setExternalQuestionFromLogs={setExternalQuestionFromLogs}
+            selectedBot={selectedBot} />
         )}
-
-
-
-
 
 
         <div className="hidden limiter">

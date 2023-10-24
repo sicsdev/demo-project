@@ -16,6 +16,7 @@ import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
+import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
@@ -146,7 +147,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     const divideAnswer = (element) => {
 
-
         function formatLinks(text) {
             const linkRegex = /\[([^\]:]+):([^\]]+)\]/g;
             return text.replace(linkRegex, `<a style='font-weight: 600' target='_blank' href="$2">$1</a>`);
@@ -171,9 +171,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             contentParts.push(content.substring(startIndex, endIndex + 1));
             startIndex = endIndex + 1;
         }
-
-
-
 
         return (
             <div>
@@ -213,57 +210,92 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
         setLoadingRedirect(true)
 
+
+        let mockedObject = {
+            id: "538f9221-0c03-483c-9948-77ba6cf6cc81",
+            bot: {
+                id: "0975dbcc-d2a5-4aaf-8e46-c020ae625652",
+                category: "standard",
+                description: "NextMed Labs",
+                chat_title: "NextMed"
+            },
+            question: "{\"email\":\"Sharonmanthony@gmail.com\"}",
+            answer: "",
+            number_of_messages: 0,
+            accepted: true,
+            created: "2023-10-23T15:42:46.612946-04:00"
+        }
+
         if (userMessage.content == "WORKFLOW") {
             userMessage = messages[key - 2]
-            let payload = {
+
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.actions.options.WORKFLOW,
-                bot: botUnique.id,
-                answer: userMessage.actions.options.WORKFLOW,
             }
 
-            let postRecommendation = await createRecommendation(payload)
+            setExternalQuestionFromLogs(objectToMock)
 
-            if (postRecommendation?.data) {
-                setExternalQuestionFromLogs(postRecommendation?.data)
-            }
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else if (userMessage.content == "INFORMATION") {
             userMessage = messages[key - 2]
-            let payload = {
-                question: userMessage.actions.options.INFORMATION,
-                bot: botUnique.id,
-                answer: userMessage.actions.options.INFORMATION,
-            }
-            let postRecommendation = await createRecommendation(payload)
 
-            if (postRecommendation?.data) {
-                setExternalQuestionFromLogs(postRecommendation?.data)
+            let objectToMock = {
+                ...mockedObject,
+                question: userMessage.actions.options.INFORMATION,
             }
+
+            setExternalQuestionFromLogs(objectToMock)
+
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else if (userMessage.content == "HUMAN-HANDOFF") {
             userMessage = messages[key - 2]
-            let payload = {
+            // let payload = {
+            //     question: userMessage.actions.options["HUMAN-HANDOFF"],
+            //     bot: botUnique.id,
+            //     answer: userMessage.actions.options["HUMAN-HANDOFF"],
+            // }
+
+
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.actions.options["HUMAN-HANDOFF"],
-                bot: botUnique.id,
-                answer: userMessage.actions.options["HUMAN-HANDOFF"],
             }
-            let postRecommendation = await createRecommendation(payload)
-            if (postRecommendation?.data) {
-                setExternalQuestionFromLogs(postRecommendation?.data)
-            }
+
+            setExternalQuestionFromLogs(objectToMock)
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else {
 
-            let payload = {
+            // let payload = {
+            //     question: userMessage.content,
+            //     bot: botUnique.id,
+            //     answer: userMessage.content,
+            // }
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.content,
-                bot: botUnique.id,
-                answer: userMessage.content,
             }
-            let postRecommendation = await createRecommendation(payload)
 
-            if (postRecommendation?.data) {
-                setExternalQuestionFromLogs(postRecommendation?.data)
-            }
+            setExternalQuestionFromLogs(objectToMock)
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
         }
 
 
@@ -356,7 +388,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                             {messages.map((element, key) =>
                                                 <>
-                                                    {console.log(element, '239823')}
                                                     {element.sender === 'bot' &&
                                                         (
                                                             <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>

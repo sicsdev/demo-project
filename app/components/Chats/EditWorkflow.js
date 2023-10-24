@@ -16,8 +16,6 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
         // console.log(allNegativeWorkflows.some(wkf => wkf.id === item.information.id), item.information.name)
         getAllNegativeWorkflows()
         setInputValue(item?.information?.description[item.index])
-        console.log(item, 'item')
-        console.log(indexOfMessage, 'indexofMsg')
     }, [])
 
 
@@ -104,7 +102,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
             {!deleted &&
                 <>
                     <div key={item.information?.id + indexOfMessage} id={item.information?.id + indexOfMessage} className='flex items-center w-full align-middle'>
-                        <div className={`mt-1 border p-2 rounded-sm border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs '} w-full`}>
+                        <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs '} w-full`}>
 
                             <div className="relative">
 

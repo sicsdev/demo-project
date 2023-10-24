@@ -134,9 +134,11 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
                             <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
                                 <span className="w-full flex items-center" >
                                     <small id={item.information?.knowledge?.id + item.information.id + 'text'}>
-                                        {item?.information?.question}
+                                        {!dropdownOpen ?
+                                            item?.information?.question : ''}
                                     </small>
                                 </span>
+
 
                                 {!rated && !dropdownOpen &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
