@@ -34,8 +34,10 @@ const Checkout = () => {
   const searchParams = useSearchParams();
   const [planQuery, setPlanQuery] = useState("");
   const [emailQuery, setEmailQuery] = useState("");
-  const [showSummary, setShowSummary] = useState(false);
   const [boxValid, setBoxValid] = useState(true);
+  const [showSummary, setShowSummary] = useState(false);
+  const [grayColor, setGrayColor] = useState(false);
+  const [grayColor1, setGrayColor1] = useState(false);
 
   const [clientSecret, setClientSecret] = useState("");
   const [paymentId, setPaymentId] = useState("");
@@ -286,10 +288,19 @@ const Checkout = () => {
                 </span>
                 <select onChange={handleFormValues}
                   name="business_company_size"
+                  onClick={(e) => {
+                    setGrayColor(true)
+                  }}
+                  
+                  onBlur={() => {
+                    if (!checkoutForm?.business_industry) {
+                      setGrayColor(false)
+                    }
+                  }}
 
                   value={checkoutForm?.business_company_size ?? ''}
                   id={"business_company_size"} className={
-                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
+                    `${grayColor ? "" : "text-[#A2A3B7]"} hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown`
                   }>
                   <option value={''} disabled>Select</option>
                   {business_company_size_data.map((ele, key) =>
@@ -303,11 +314,18 @@ const Checkout = () => {
                 </span>
                 <select onChange={handleFormValues}
                   name="business_industry"
-
+                  onClick={(e) => {
+                    setGrayColor1(true)
+                  }}
+                  onBlur={() => {
+                    if (!checkoutForm?.business_industry) {
+                      setGrayColor1(false)
+                    }
+                  }}
                   value={checkoutForm?.business_industry ?? ''}
                   id={"business_industry"}
                   className={
-                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown"
+                    `${grayColor1 ? "" : "text-[#A2A3B7]"} hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown`
                   }>
                   <option value={''} disabled>Select</option>
                   {business_industry_data.map((ele, key) =>
@@ -456,10 +474,11 @@ const Checkout = () => {
                   </tbody>
                   <tfoot>
                     <tr className="text-base xs-gray-900 bg-white text-black text-black">
-                      <th scope="row" className="px-6 pl-0 py-3 text-xs">
+                      <th scope="row" className="px-6 pl-0 py-4 font-lg text-xs text-gray-900 whitespace-nowrap text-black">
                         Total Today
                       </th>
-                      <td className="px-6 py-3">$0</td>
+
+                      <td className="px-6 py-4 text-xs">$0</td>
                     </tr>
                   </tfoot>
                 </table>
