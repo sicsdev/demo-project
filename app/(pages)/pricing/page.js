@@ -18,8 +18,8 @@ import Panelcard from "@/app/components/PanelCard/PanelCard";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
 import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
 import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
+// import { SecondStep } from "@/app/components/MutliStepForm/SecondStepdeleteit";
 import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
-import { ThirdStep } from "@/app/components/MutliStepForm/ThirdStep";
 
 import "./style.css";
 // import {
@@ -31,7 +31,9 @@ import "./style.css";
 
 const INITIAL_DATA = {
   companyName: "",
+  industry: "",
   totalNumbersOfEmployees: "",
+  // location: "United States",
   yourFunctionalAreas: [],
 };
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
@@ -48,26 +50,21 @@ const Pricing = () => {
   }
 
   function updateFields(fields) {
-    const { name, value } = fields;
     setData((prev) => {
-      switch (name) {
-        case "yourFunctionalAreas":
-          const { yourFunctionalAreas } = prev;
-          if (yourFunctionalAreas.includes(value)) {
-            yourFunctionalAreas.splice(yourFunctionalAreas.indexOf(value), 1);
-          } else yourFunctionalAreas.push(value);
-          return { ...prev };
-        default:
-          return { ...prev, ...fields };
-      }
+      return { ...prev, ...fields };
     });
   }
 
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiStepFrom([
-      <FirstStep  key={0} {...data} updateFields={updateFields} />,
-      <SecondStep  key={1} {...data} updateFields={updateFields} />,
-      <ThirdStep key={2} {...data} updateFields={updateFields} />,
+      <FirstStep
+        key={0}
+        {...data}
+        updateFields={updateFields}
+        setData={setData}
+      />,
+      // <SecondStep key={1} {...data} updateFields={updateFields} />,
+      <SecondStep key={1} {...data} updateFields={updateFields} />,
     ]);
 
   function onSubmit(e) {
@@ -99,10 +96,10 @@ const Pricing = () => {
       </Helmet>
 
       {/* <Panelcard  /> */}
-      <div className="p-4">
+      <div className="p-4 sm:p-8  sm:px-40 ">
         <form onSubmit={onSubmit}>
           <div className="">
-            <div className="flex flex-wrap mx-3">
+            {/* <div className="flex flex-wrap mx-3">
               <div></div>
               {stepsTab.map((ele, index) => (
                 <div
@@ -113,7 +110,7 @@ const Pricing = () => {
                   {ele?.title}
                 </div>
               ))}
-            </div>
+            </div> */}
             <div></div>
             {/* Step {currentStepIndex + 1}  */}
           </div>
@@ -131,7 +128,7 @@ const Pricing = () => {
             )}
             <button
               className="bg-[#142543] text-white px-4 min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"
-              type="submit"
+              // type="submit"
             >
               {isLastStep ? "Finish" : "Next"}
             </button>

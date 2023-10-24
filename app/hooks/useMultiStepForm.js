@@ -5,6 +5,7 @@ export function useMultiStepFrom(steps) {
 
 
   function next() {
+    console.log("next")
     setCurrentStepIndex(i => {
       if (i >= steps.length - 1) return i
       return i + 1
