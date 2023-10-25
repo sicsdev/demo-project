@@ -6,7 +6,7 @@ import { useState } from "react";
 
 import { getUserProfile } from "@/app/API/components/Sidebar";
 
- 
+
 
 const UpdatedFooter = () => {
 
@@ -68,7 +68,7 @@ const UpdatedFooter = () => {
 
   const [showmenu, setShowmenu] = useState(false);
 
- 
+
 
   const [profile, setProfile] = useState({});
 
@@ -211,21 +211,23 @@ const UpdatedFooter = () => {
                       </h6>
                       <h6 className="  text-[#142543]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    px-2  h-[17px] flex items-center">
 
-                      {profile.email ? (
-                    <>
-                      {" "}
-                      <p className="text-[#142543]">{profile.email}</p>
-                    </>
-                  ) : (
-                    <Link href={"/login"}>
-                      {" "}
-                      <p className=" text-[#142543]  sm:py-[6px] sm:px-[12px] font-semibold ">
-                        Sign In
-                      </p>
-                    </Link>
-                  )}
+                        {profile.email ? (
+                          <>
+                            {" "}
+                            <Link href={"/dashboard"}>
+                              <p className="text-[#142543]">{profile.email}</p>
+                            </Link>
+                          </>
+                        ) : (
+                          <Link href={"/login"}>
+                            {" "}
+                            <p className=" text-[#142543]  sm:py-[6px] sm:px-[12px] font-semibold ">
+                              Sign In
+                            </p>
+                          </Link>
+                        )}
 
-</h6>
+                      </h6>
 
                     </div>
 
@@ -236,21 +238,21 @@ const UpdatedFooter = () => {
 
               </div>
 
-            
 
-                  <p className="text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
 
-              © Tempo AI Ventures, Inc{" "}
+              <p className="text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
 
-            </p>
+                © Tempo AI Ventures, Inc{" "}
+
+              </p>
 
             </div>
 
           </div>
 
- 
 
-           
+
+
 
         </div>
 
@@ -262,6 +264,6 @@ const UpdatedFooter = () => {
 
 };
 
- 
+
 
 export default UpdatedFooter;

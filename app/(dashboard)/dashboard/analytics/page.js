@@ -16,6 +16,7 @@ import {
   exportCsvFile,
   getBotConversationMessages,
   getPaginateBotConversation,
+  getBotAllData,
 } from "@/app/API/pages/Bot";
 import moment from "moment";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
@@ -34,6 +35,7 @@ import { PlusSmallIcon } from "@heroicons/react/24/solid";
 import Button from "@/app/components/Common/Button/Button";
 import { ToastContainer } from "react-toastify";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
+import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowledge";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -130,7 +132,9 @@ const Logs = () => {
   const [conversationData, setConversationData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedBot, setSelectedBot] = useState("Select");
+  const [selectedBotObject, setSelectedBotObject] = useState('')
   const [messages, setMessages] = useState([]);
+  const [externalQuestionFromLogs, setExternalQuestionFromLogs] = useState(null);
   const [manageMessages, setManageMessages] = useState([]);
   const [indexVal, setIndexVal] = useState(0);
   const [totalRows, setTotalRows] = useState(0);
@@ -282,7 +286,7 @@ const Logs = () => {
     }
   }, [state.botData.data]);
 
-  const handleInputValues = (e) => {
+  const handleInputValues = async (e) => {
     const { value } = e.target;
     dispatch(updateLogState({ ...logState.data, bot: value }));
     setSelectedFilters({
@@ -296,6 +300,9 @@ const Logs = () => {
       search: ''
     });
     setSelectedBot(value);
+    let bots = await getBotAllData()
+    const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+    if (filterBot) { setSelectedBotObject(filterBot) }
     setIndexVal(0);
     handlePageChange(value, 1, "", '10', 'mm');
   };
@@ -421,6 +428,21 @@ const Logs = () => {
       setShowChat(false);
     }
   };
+  useEffect(() => {
+    const handleEscapeKeyPress = (event) => {
+      if (event.key === 'Escape') {
+        setShowChat(false);
+      }
+    };
+
+    // Add the event listener when the component mounts
+    document.addEventListener('keydown', handleEscapeKeyPress);
+
+    // Remove the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+    };
+  }, []);
   const getCoversationMessagesbyID = async (id) => {
     setMessagesLoading(true);
     const response = await getBotConversationMessages(id);
@@ -880,9 +902,6 @@ const Logs = () => {
             </div>
           ) : (
 
-
-
-
             <div className="block sm:flex justify-center gap-5">
               <div className="mb-4 w-full">
                 <SelectOption
@@ -1058,7 +1077,7 @@ const Logs = () => {
                 fixedHeader
                 highlightOnHover
                 pointerOnHover
-                className="centered-table"
+                className="centered-table !h-[60vh]"
                 defaultSortFieldId="year"
                 onRowClicked={(rowData) => {
                   // router.push(rowData.url);
@@ -1115,12 +1134,13 @@ const Logs = () => {
               {" "}
             </div>
             <div
-               className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+              className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full sm:w-[550px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
             >
               <>
                 {/* <Card> */}
                 <div className="hidden sm:flex justify-center">
                   <h1 className="text-heading text-sm font-semibold">Chat</h1>
+
                 </div>
 
                 <div className="flex justify-between gap-2 items-center">
@@ -1193,6 +1213,8 @@ const Logs = () => {
                     idOfOpenConversation={idOfOpenConversation}
                     messages={messages}
                     selectedBot={selectedBot}
+                    selectedBotObject={selectedBotObject}
+                    setExternalQuestionFromLogs={setExternalQuestionFromLogs}
                   />
                 </>
 
@@ -1201,12 +1223,12 @@ const Logs = () => {
             </div>
           </>
         )}
-
-
-
-
-
-
+        {externalQuestionFromLogs && (
+          <Answerknowledge
+            externalQuestionFromLogs={externalQuestionFromLogs}
+            setExternalQuestionFromLogs={setExternalQuestionFromLogs}
+            selectedBot={selectedBot} />
+        )}
 
 
         <div className="hidden limiter">

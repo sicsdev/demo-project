@@ -21,7 +21,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
         name: "Rule",
         functionName: "RULE",
         icon:
-            <EnvelopeIcon className="h-6 w-6 text-gray-500" />
+            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
     },
     {
         name: "Deflection",
@@ -34,8 +34,8 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
         name: "Email",
 
         functionName: "EMAIL",
-        icon:
-            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+        icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />
+
     }
     ] ?? [])
     const [allFinalData, setAllFinalData] = useState([...state?.data?.results, {
@@ -297,15 +297,15 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                     </svg>
                                 </div>
-                                <input autoComplete="off" type="search" ref={inputRef} value={search} onChange={(e) => { 
-                                    if(innerSide.value){
+                                <input autoComplete="off" type="search" ref={inputRef} value={search} onChange={(e) => {
+                                    if (innerSide.value) {
                                         handleSearchAutomation(e)
-                                    }else{
-                                        handleSearch(e) 
+                                    } else {
+                                        handleSearch(e)
                                     }
-                                    
-                                    
-                                    }} id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border !rounded-md" placeholder="Search" required />
+
+
+                                }} id="search" className="block w-full p-2 focus:outline-none focus:border-sky focus:ring-2 pl-10 text-sm text-gray-900 border border-border !rounded-md" placeholder="Search" required />
                                 <button type="submit" className="text-white hidden absolute right-2.5 bottom-2.5 bg-blue-700   font-medium rounded-lg  px-4 py-2 ">Search</button>
                             </div>
                         </form>
@@ -378,7 +378,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                                 <>
                                     <div className='flex justify-start items-center my-8 gap-2'>
                                         <span className='cursor-pointer' onClick={(e) => {
-                                            
+
                                             setSearch('')
                                             setIntegrationAutomationData(integrationAutomationFinalData)
                                             setInnerSide(prev => {

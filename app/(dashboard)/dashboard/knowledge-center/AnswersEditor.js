@@ -10,6 +10,7 @@ import { useEffect } from 'react'
 
 
 const AnswersEditor = ({
+    handleWorkflow,
     setShow,
     setWorkflowView,
     setKnowledgeId,
@@ -45,7 +46,7 @@ const AnswersEditor = ({
     setMode,
     modal,
     searchFaqs,
-    setSubQuestions
+    setSubQuestions,
 }) => {
 
 
@@ -281,7 +282,15 @@ const AnswersEditor = ({
                                     <h1 className="text-xs font-semibold mx-1 mb-2 mt-5">Or, Type a New Answer:</h1>
                                 </div>
 
-                                <TextEditor handleTextEditorChange={handleTextEditorChange} externalContent={externalContentForTextEditor} oldContent={answer}></TextEditor>
+                                <TextEditor
+                                    handleTextEditorChange={handleTextEditorChange}
+                                    externalContent={externalContentForTextEditor}
+                                    oldContent={answer}
+                                    setExternalContentForTextEditor={setExternalContentForTextEditor}
+                                    setAnswer={setAnswer}
+                                >
+
+                                </TextEditor>
                                 {/* <button
                                     onClick={(e) => setModal(true)}
                                     type="button"

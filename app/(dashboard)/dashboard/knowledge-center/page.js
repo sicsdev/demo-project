@@ -39,6 +39,7 @@ const Page = () => {
     const params = useSearchParams()
 
     const workflowState = useSelector(state => state.workflow);
+    const [pageVal1, setPageVal1] = useState(1)
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
     const [modal, setModal] = useState(false);
@@ -59,7 +60,7 @@ const Page = () => {
     const [knowledge, setKnowledge] = useState([])
     const [basicFormData, setBasicFormData] = useState({})
     const [workflow, setWorkflow] = useState([])
-    const [recommendationOrderBy, setRecommendationOrderBy] = useState('&ordering=number_of_messages');
+    const [recommendationOrderBy, setRecommendationOrderBy] = useState('&ordering=-number_of_messages');
     const [search, setSearch] = useState('');
     const [searchKnowledge, setSearchKnowledge] = useState('');
     const [typingTimeout, setTypingTimeout] = useState(null);
@@ -89,32 +90,7 @@ const Page = () => {
     const [pusherStreaming, setPusherStreaming] = useState(false)
     const [externalContentForTextEditor, setExternalContentForTextEditor] = useState('')
     const [defaultTitle, setDefaultTitle] = useState('Recommended')
-
-    const getData = async () => {
-        setTabLoader(true);
-        const response = await getKnowledgeData()
-        if (response?.data?.results.length > 0) {
-            setKnowledge(response?.data?.results)
-            setBasicFormData((prev) => {
-                return {
-                    ...prev,
-                    knowledge: response?.data?.results
-                }
-            })
-            setTabLoader(false);
-        } else {
-            setBasicFormData(prev => {
-                return {
-                    ...prev,
-                    knowledgeData: []
-                }
-            })
-            setTabLoader(false);
-        }
-    }
-    useEffect(() => {
-        getData()
-    }, [])
+    const firstRender = useRef(true);
     const checkValue = (str) => {
         if (str.length < 2) {
             return false
@@ -154,17 +130,6 @@ const Page = () => {
         const externalQuestionFromLogs = sessionStorage.getItem('externalQuestionFromLogs');
         const parsedItem = JSON.parse(externalQuestionFromLogs)
 
-        if (externalQuestionFromLogs) {
-            setWorkflowView(parsedItem)
-            setShow(true)
-            setAnswer('')
-            setQuestionData([])
-            setSearchKnowledge('')
-            setKnowledgeId(null)
-            getWorkFlowReccomodation(parsedItem.question)
-            searchMatched({ question: parsedItem.question }, false)
-            sessionStorage.removeItem('externalQuestionFromLogs');
-        }
 
         // if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
 
@@ -237,8 +202,11 @@ const Page = () => {
         try {
             const excludeRecord = await excludeRecommendationRecord(id);
             if (excludeRecord?.status === 204) {
-                dispatch(fetchRecommendation());
-                // successMessage("Question Deleted Successfully");
+                const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}`
+                const response = await GetAllRecommendations(query)
+                if (response) {
+                    dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+                }
                 setDeleteLoader(null)
             } else {
                 errorMessage("Unable to Delete!");
@@ -331,23 +299,26 @@ const Page = () => {
                                         <PlusCircleIcon className="h-6 w-6 text-success " />
                                     </button>
                                 </div>
+                                <>
+                                    {deleteLoader === row.id ?
+                                        <ColorRing
+                                            height="30"
+                                            width="30"
+                                            color="#4fa94d"
+                                            ariaLabel="tail-spin-loading"
+                                            radius="1"
+                                            wrapperClass="text-center"
+                                            visible={true}
+                                        /> :
+                                        <div>
+                                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
+                                                <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                                        </div>
+                                    }
 
-                                {deleteLoader === row.id ?
-                                    <ColorRing
-                                        height="30"
-                                        width="30"
-                                        color="#4fa94d"
-                                        ariaLabel="tail-spin-loading"
-                                        radius="1"
-                                        wrapperClass="text-center"
-                                        visible={true}
-                                    /> :
-                                    <div>
-                                        <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                            <XCircleIcon className="h-6 w-6 text-danger " /></button>
-                                    </div>
-                                }
 
+
+                                </>
                             </>
                         )}
 
@@ -362,7 +333,8 @@ const Page = () => {
     const handleRecomodationValue = async (page) => {
         setLoading(true)
         setPageVal(page)
-        const response = await GetAllRecommendations(page, recommendationOrderBy, perPage)
+        const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}`
+        const response = await GetAllRecommendations(query)
         if (response) {
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
             setLoading(false)
@@ -372,28 +344,29 @@ const Page = () => {
     }
 
     const handleSort = async (column, sortDirection) => {
+        if (firstRender.current) {
+            firstRender.current = false;
+            return;
+        }
+        if (column && column?.name === 'Count') {
+            setLoading(true)
+            const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
+            setRecommendationOrderBy(queryParam);
 
-        setTimeout(async () => {
-            if (column?.name === 'Count') {
-                setLoading(true)
-                try {
-                    const queryParam = sortDirection === 'asc' ? '&ordering=number_of_messages' : '&ordering=-number_of_messages';
-                    setRecommendationOrderBy(queryParam);
-                    const response = await GetAllRecommendations(1, queryParam, perPage)
-                    if (response) {
-                        dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
-                        setLoading(false)
-                    }
-                } catch (error) {
-                    console.log("Error", error)
-                    setLoading(false)
-                }
+            const query = `&page=${pageVal}&page_size=${perPage}${queryParam}`
+            const response = await GetAllRecommendations(query)
+            debugger
+            if (response) {
+                dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
+                setLoading(false)
             }
-        }, 100);
+        }
     };
     const handlePerRowsChange = async (newPerPage, page) => {
         setLoading(true)
-        const response = await GetAllRecommendations(page, recommendationOrderBy, newPerPage)
+        setPageVal(page)
+        const query = `&page=${page}&page_size=10${recommendationOrderBy}`
+        const response = await GetAllRecommendations(query)
         setPerPage(newPerPage)
         if (response) {
             setLoading(false)
@@ -423,7 +396,9 @@ const Page = () => {
     const performSearch = async (text) => {
         setLoading(true)
         const queryParam = `&search=` + text;
-        const response = await GetAllRecommendations(1, queryParam, perPage)
+
+        const query = `&page=${pageVal}&page_size=${perPage}&ordering=${recommendationOrderBy}${queryParam}`
+        const response = await GetAllRecommendations(query)
         if (response) {
             setLoading(false)
             dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
@@ -670,15 +645,15 @@ const Page = () => {
     const getExpandedAnswer = async () => {
         let answerBackup = answer
         setAnswer('')
+        setExternalContentForTextEditor('')
 
-    const response =     await expandRecommendationRecord({
+        const response = await expandRecommendationRecord({
             question: workflowView?.question,
             answer: answerBackup,
             streaming: true,
             id: `recommendation-${newUUI}`
         })
 
-debugger
         // let newUUID = uuidv4()
         // setNewUUI(newUUID)
 
@@ -749,7 +724,6 @@ debugger
                             fixedHeader
                             highlightOnHover
                             pointerOnHover
-                            defaultSortFieldId="number_of_messages"
                             pagination
                             columns={columns}
                             noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
@@ -778,7 +752,7 @@ debugger
                                 searchMatched({ question: rowData.question }, false)
                             }}
                             paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                            className=''
+                            className='sm:!h-[75vh] !h-[65vh]'
                             sortServer
                             onSort={handleSort}
                             customStyles={customStyles}
@@ -788,7 +762,6 @@ debugger
                 </>
 
                 {workflowView && show && (
-
                     <AnswersEditor
                         setShow={setShow}
                         setWorkflowView={setWorkflowView}
@@ -826,10 +799,10 @@ debugger
                         mode={mode}
                         setMode={setMode}
                         searchFaqs={searchFaqs}
+                        handleWorkflow={handleWorkflow}
                     >
 
                     </AnswersEditor>
-
                 )}
             </div >
             <ToastContainer />

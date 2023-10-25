@@ -1,5 +1,5 @@
 
-import { addBotConversationMessagesReaction, disputeCharge } from '@/app/API/pages/Bot';
+import { addBotConversationMessagesReaction, disputeCharge, getBotAllData } from '@/app/API/pages/Bot';
 import { getFaqNegative, getKnowledgeData } from '@/app/API/pages/Knowledge';
 import React, { useRef } from 'react';
 import { useEffect } from 'react';
@@ -16,8 +16,9 @@ import ApiCallInfo from './ApiCallInfo';
 import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
+import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
 
-const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
+const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
     // Helpers
     const CDN_URL = "https://widget-dev.usetempo.ai";
@@ -37,12 +38,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     useEffect(() => {
         getKnowledge()
-
-        if (bot) {
-            const filterBot = bot.bots.find((x) => x.id === selectedBot)
-            if (filterBot) { setBotUnique(filterBot) }
-        }
-
         getDetails()
         handleResize()
 
@@ -58,14 +53,28 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             window.removeEventListener('resize', handleResize);
         };
 
+    }, [idOfOpenConversation])
 
-    }, [bot, idOfOpenConversation])
 
-
+    useEffect(() => {
+        if (!botUnique?.id) {
+            getBotAllData().then(res => {
+                const filterBot = res?.results?.find((x) => x.id === selectedBot)
+                if (filterBot) { setBotUnique(filterBot) }
+            })
+        }
+    }, [botUnique, selectedBot, selectedBotObject])
 
 
 
     // Handlers 
+
+    async function getAllBots() {
+        let bots = await getBotAllData()
+        const filterBot = bots?.results?.find((x) => x.id === selectedBot)
+        console.log(filterBot, 'filterbot')
+        if (filterBot) { setBotUnique(filterBot) }
+    }
 
     async function getDetails() {
         if (idOfOpenConversation) {
@@ -122,7 +131,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             setDisputeLoader(true);
             const disputeResult = await disputeCharge({}, idOfOpenConversation);
             if (disputeResult?.status === 200 || disputeResult?.status === 201) {
-                successMessage("Dispute Created Successfully!");
+                // successMessage("Dispute Created Successfully!");
                 setConversationDetails({ ...conversationDetails, charge_status: 'REFUNDED' })
             } else {
                 errorMessage("Unable to create dispute!");
@@ -138,7 +147,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     const divideAnswer = (element) => {
 
-        const content = element.content;
+        function formatLinks(text) {
+            const linkRegex = /\[([^\]:]+):([^\]]+)\]/g;
+            return text.replace(linkRegex, `<a style='font-weight: 600' target='_blank' href="$2">$1</a>`);
+        }
+
+        const content = element.content
+
         const maxChars = 150;
         let startIndex = 0;
         let endIndex = 0;
@@ -157,11 +172,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
             startIndex = endIndex + 1;
         }
 
-
-
-
         return (
-            <>
+            <div>
                 {contentParts.map((part, index) => (
                     <>
                         <div className='flex mb-2'>
@@ -171,7 +183,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                             <div className="answer_text_div">
                                 <div key={index} className='flex items-center justify-between gap-1'>
                                     <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(part)}>
-                                        {part}
+                                        <div dangerouslySetInnerHTML={{ __html: formatLinks(part) }} />
                                     </div>
                                     <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
                                         <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
@@ -185,7 +197,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
                         </div>
                     </>
                 ))}
-            </>
+            </div>
         );
     }
 
@@ -198,54 +210,92 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
         setLoadingRedirect(true)
 
+
+        let mockedObject = {
+            id: "538f9221-0c03-483c-9948-77ba6cf6cc81",
+            bot: {
+                id: "0975dbcc-d2a5-4aaf-8e46-c020ae625652",
+                category: "standard",
+                description: "NextMed Labs",
+                chat_title: "NextMed"
+            },
+            question: "{\"email\":\"Sharonmanthony@gmail.com\"}",
+            answer: "",
+            number_of_messages: 0,
+            accepted: true,
+            created: "2023-10-23T15:42:46.612946-04:00"
+        }
+
         if (userMessage.content == "WORKFLOW") {
             userMessage = messages[key - 2]
-            let payload = {
+
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.actions.options.WORKFLOW,
-                bot: botUnique.id
             }
 
-            let postRecommendation = await createRecommendation(payload)
-            if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
-            }
+            setExternalQuestionFromLogs(objectToMock)
+
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else if (userMessage.content == "INFORMATION") {
             userMessage = messages[key - 2]
-            let payload = {
+
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.actions.options.INFORMATION,
-                bot: botUnique.id
             }
-            let postRecommendation = await createRecommendation(payload)
-            if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
-            }
+
+            setExternalQuestionFromLogs(objectToMock)
+
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else if (userMessage.content == "HUMAN-HANDOFF") {
             userMessage = messages[key - 2]
-            let payload = {
+            // let payload = {
+            //     question: userMessage.actions.options["HUMAN-HANDOFF"],
+            //     bot: botUnique.id,
+            //     answer: userMessage.actions.options["HUMAN-HANDOFF"],
+            // }
+
+
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.actions.options["HUMAN-HANDOFF"],
-                bot: botUnique.id
             }
-            let postRecommendation = await createRecommendation(payload)
-            if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
-            }
+
+            setExternalQuestionFromLogs(objectToMock)
+
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
 
         } else {
 
-            let payload = {
+            // let payload = {
+            //     question: userMessage.content,
+            //     bot: botUnique.id,
+            //     answer: userMessage.content,
+            // }
+            let objectToMock = {
+                ...mockedObject,
                 question: userMessage.content,
-                bot: botUnique.id
             }
-            let postRecommendation = await createRecommendation(payload)
-            if (postRecommendation?.data) {
-                sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(postRecommendation.data));
-                router.push(`/dashboard/knowledge-center`)
-            }
+
+            setExternalQuestionFromLogs(objectToMock)
+            // let postRecommendation = await createRecommendation(payload)
+            // if (postRecommendation?.data) {
+            //     setExternalQuestionFromLogs(postRecommendation?.data)
+            // }
         }
 
 
@@ -255,419 +305,458 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation }) => {
 
     return (
         <>
-            <div className='flex justify-content-center'>
-                <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
-            </div>
+            {botUnique?.id &&
+                <>
+                    <div className='flex justify-content-center'>
+                        <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
+                    </div>
 
 
-            <div className='mt-5'>
+                    <div className='mt-5'>
 
-                <div className='flex justify-start rounded-md' style={{ fontSize: '12px' }}>
+                        <div className='flex justify-start rounded-md' style={{ fontSize: '12px' }}>
 
-                    {conversationDetails.type == 'chat' &&
-                        <div className=''>
-                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
-                                <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4" />
-                                Chat
-                            </div>
-                        </div>
-
-                    }
-                    {conversationDetails.type == 'email' &&
-                        <div className=''>
-                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
-                                <AtSymbolIcon className="w-4 h-4" />
-                                Email
-                            </div>
-                        </div>
-                    }
-
-                    {conversationDetails.type == 'phone' &&
-
-                        <div className=''>
-                            <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
-                                <DevicePhoneMobileIcon className="w-4 h-4" /> Phone
-                            </div>
-                        </div>
-                    }
-
-                </div>
-
-            </div>
-            <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
-                <div className='relative h-[80vh] sm:h-auto'>
-                    <div className="chatbot_widget_logs" id="chatbot_widget_logs">
-                        <div className="containerChatBot_entire !bg-transparent !block">
-                            <div className={``}>
-                                <div className="" id="widget_headerContainer">
-                                    <div className="header_ChatBotWidget">
-                                        <div className="profile_photo_container">
-                                            <img width="45px" src={`${botUnique?.enterprise?.logo ||
-                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} />
-                                        </div>
-                                        <div className="header_ChatBotWidget-middlebox">
-                                            <div>
-                                                <div>
-                                                    <b>{botUnique?.enterprise?.name}</b>
-                                                </div>
-                                                <div className="subtitle_div">
-                                                    <span className="subtitle_ChatBotWidget">
-                                                        <span className="ai_icon">AI</span>{" "}
-                                                        {botUnique?.enterprise?.description || "Powered by Tempo"}
-                                                    </span>
-                                                </div>
-
-                                            </div>
-                                            <div className="widgetchatbot_betatag">Beta </div>
-                                        </div>
+                            {conversationDetails.type == 'chat' &&
+                                <div className=''>
+                                    <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                        <ChatBubbleOvalLeftEllipsisIcon className="w-4 h-4" />
+                                        Chat
                                     </div>
                                 </div>
-                                <div ref={chatLogsRef} className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
-                                    <div className="answer_with_thumbs_logs">
-                                        <img className="profile-photo_ChatBot_back"
-                                            src={`${botUnique?.enterprise?.logo ||
-                                                `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                        <div className="answer_text_div"></div>
-                                        <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
-                                            {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
-                                        </div>
+                            }
+                            {conversationDetails.type == 'email' &&
+                                <div className=''>
+                                    <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                        <AtSymbolIcon className="w-4 h-4" />
+                                        Email
                                     </div>
+                                </div>
+                            }
 
-                                    {messages.map((element, key) =>
-                                        <>
-                                            {element.sender === 'bot' &&
-                                                (
-                                                    <div className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
+                            {conversationDetails.type == 'phone' &&
 
+                                <div className=''>
+                                    <div className={`flex justify-center bg-gray items-center p-1 text-primary rounded-md gap-2`}>
+                                        <DevicePhoneMobileIcon className="w-4 h-4" /> Phone
+                                    </div>
+                                </div>
+                            }
 
-                                                        <div className="title-element-right" style={{ display: "none" }}>14:11</div>
-                                                        {
-                                                            element.content === 'HUMAN-HANDOFF' &&
-                                                            <>
-                                                                <div className="answer_with_thumbs">
-                                                                    <img className="profile-photo_ChatBot_back"
-                                                                        src={`${botUnique?.enterprise?.logo ||
-                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                    <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                        I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        }
+                        </div>
 
-                                                        {
-                                                            element.content === 'OPTIONS' &&
-                                                            <>
-                                                                <div className="answer_with_thumbs">
+                    </div>
+                    <div className='z-[50] mt-4 shadow-lg border border-gray rounded-lg'>
+                        <div className='relative h-[80vh] sm:h-auto'>
+                            <div className="chatbot_widget_logs" id="chatbot_widget_logs">
+                                <div className="containerChatBot_entire !bg-transparent !block">
+                                    <div className={``}>
+                                        <div className="" id="widget_headerContainer">
+                                            <div className="header_ChatBotWidget">
+                                                <div className="profile_photo_container">
+                                                    <img width="45px" src={`${botUnique?.enterprise?.logo ||
+                                                        `${CDN_URL}/v1/assets/img/profileDefault.png`} `} />
+                                                </div>
+                                                <div className="header_ChatBotWidget-middlebox">
+                                                    <div>
+                                                        <div>
+                                                            <b>{botUnique?.enterprise?.name}</b>
+                                                        </div>
+                                                        <div className="subtitle_div">
+                                                            <span className="subtitle_ChatBotWidget">
+                                                                <span className="ai_icon">AI</span>{" "}
+                                                                {botUnique?.enterprise?.description || "Powered by Tempo"}
+                                                            </span>
+                                                        </div>
 
-                                                                    <img className="profile-photo_ChatBot_back"
-                                                                        src={`${botUnique?.enterprise?.logo ||
-                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                    <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                        Could you please clarify how I can best help you?
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        }
+                                                    </div>
+                                                    <div className="widgetchatbot_betatag">Beta </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ref={chatLogsRef} className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
+                                            <div className="answer_with_thumbs_logs">
+                                                <img className="profile-photo_ChatBot_back"
+                                                    src={`${botUnique?.enterprise?.logo ||
+                                                        `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                <div className="answer_text_div"></div>
+                                                <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }}>
+                                                    {botUnique.chat_default_message ? botUnique.chat_default_message : "How can I help you today?"}
+                                                </div>
+                                            </div>
 
-                                                        {
-                                                            element.content === 'FORM' &&
-                                                            <>
-                                                                <div className="answer_with_thumbs">
-
-                                                                    <img className="profile-photo_ChatBot_back"
-                                                                        src={`${botUnique?.enterprise?.logo ||
-                                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                    <div className="answer_text_div"></div>
-                                                                    <div className="answer_text_with_thumbs pointer  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                        No problem, I can help you with that! Could you please provide the following information:
-                                                                    </div>
-                                                                </div>
-
-                                                            </>
-                                                        }
-
-
-
-
-
+                                            {messages.map((element, key) =>
+                                                <>
+                                                    {element.sender === 'bot' &&
+                                                        (
+                                                            <div id={key} key={key} className='mb-2' style={{ opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.8" }}>
 
 
-                                                        {/*************  SOURCES & INFORMATION ******************/}
-                                                        {
-                                                            element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
-                                                            <>
+                                                                <div className="title-element-right" style={{ display: "none" }}>14:11</div>
+                                                                {
+                                                                    element.content === 'HUMAN-HANDOFF' &&
+                                                                    <>
+                                                                        <div className="answer_with_thumbs">
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                I'm sorry but this question may require a supervisor to take a look. Would you like to speak to a human agent?
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                }
+
+                                                                {
+                                                                    element.content === 'OPTIONS' &&
+                                                                    <>
+                                                                        <div className="answer_with_thumbs">
+
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                Could you please clarify how I can best help you?
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                }
 
 
-                                                                {divideAnswer(element)}
+                                                                {
+                                                                    element.content === 'FORM' &&
+                                                                    <>
+                                                                        <div className="answer_with_thumbs">
 
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                    <div className='w-100' style={{ width: '100%' }}>
-                                                                        <small className='flex gap-3 items-center'>
-                                                                            <b>Sources</b>
-                                                                            <small
-                                                                                onClick={() => handleAddSource(key)}
-                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                Add Source
-                                                                            </small>
-                                                                        </small>
-                                                                        {
-                                                                            element?.knowledge?.length ?
-                                                                                element?.knowledge?.map(item => (
-                                                                                    <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
-                                                                                ))
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                No problem, I can help you with that! Could you please provide the following information:
+                                                                            </div>
+                                                                        </div>
 
-                                                                                :
+                                                                    </>
+                                                                }
 
-                                                                                <div className='flex gap-4 items-center mt-2'>
-                                                                                    <small>LLM</small>
+
+
+
+
+
+
+                                                                {/*************  SOURCES & INFORMATION ******************/}
+                                                                {
+                                                                    element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
+                                                                    <>
+
+
+                                                                        {divideAnswer(element)}
+
+                                                                        <div key={'a' + key} id={'a' + key} className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
+                                                                            <div className='w-100' style={{ width: '100%' }}>
+                                                                                <small className='flex gap-3 items-center'>
+                                                                                    <b>Sources</b>
+                                                                                    <small
+                                                                                        onClick={() => handleAddSource(key)}
+                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                        Add Source
+                                                                                    </small>
+                                                                                </small>
+                                                                                {
+                                                                                    element?.knowledge?.length ?
+                                                                                        element?.knowledge?.map(item => (
+                                                                                            <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                        ))
+
+                                                                                        :
+
+                                                                                        <div className='flex gap-4 items-center mt-2'>
+                                                                                            <small>LLM</small>
+                                                                                        </div>
+
+                                                                                }
+                                                                            </div>
+                                                                            <div>
+                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                            </div>
+
+                                                                        </div>
+                                                                        {<div>
+
+                                                                        </div>}
+                                                                    </>
+                                                                }
+
+                                                                {
+                                                                    element.content === 'HUMAN-HANDOFF' &&
+                                                                    <>
+                                                                        <div key={'b' + key} id={'b' + key} className="attention_required_answer">
+                                                                            <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
+                                                                            <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
+                                                                        </div>
+                                                                        <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                            <div>
+                                                                                <small className='flex gap-3 items-center'>
+                                                                                    <b>Sources</b>
+                                                                                    <small
+                                                                                        onClick={() => handleAddSource(key)}
+                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                        Add Source
+                                                                                    </small>
+                                                                                </small>
+                                                                                Custom
+                                                                            </div>
+                                                                            <div>
+                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                }
+
+                                                                {
+                                                                    element.content === 'OPTIONS' && element?.actions?.options &&
+                                                                    <>
+                                                                        <div key={'c' + key} id={'c' + key} className="tempo-widget-options-container">
+                                                                            {Object.keys(element.actions.options).map((key, index) =>
+                                                                                <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
+                                                                                    {element.actions.options[key]}
+                                                                                    {`     `}
+                                                                                    <small>
+                                                                                        {key == 'WORKFLOW' && Math.round(element.workflows[0].score * 100) + '%'}
+                                                                                        {key == 'INFORMATION' && Math.round(element.knowledge[0].score * 100) + '%'}
+                                                                                    </small>
+                                                                                </button>
+                                                                            )}
+                                                                        </div>
+                                                                        <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                            <div className='w-100' style={{ width: '100%' }}>
+                                                                                <small className='flex gap-3 items-center'>
+                                                                                    <b>Sources</b>
+                                                                                    <small
+                                                                                        onClick={() => handleAddSource(key)}
+                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                        Add Source
+                                                                                    </small>
+                                                                                </small>
+
+                                                                                {element?.workflows?.map(workflow => (
+                                                                                    <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                                ))}
+
+                                                                                {element && element?.knowledge.length > 0 && (
+                                                                                    <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                )}
+
+                                                                            </div>
+                                                                            <div>
+                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                            </div>
+                                                                        </div>
+                                                                    </>
+                                                                }
+
+
+                                                                {
+                                                                    element.type == "action" && (!element.content || element.content == 'FORM') &&
+
+                                                                    <>
+                                                                        <div className="answer_with_thumbs">
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
+                                                                                No problem, I can help you with that! Could you please provide the following information:
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div key={'d' + key} id={'d' + key} className="component_answer" style={{ width: '300px' }}></div>
+
+                                                                        <div className="answer_with_thumbs">
+
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+
+                                                                            <div className="tempo-widget-custom-form">
+                                                                                {Object.keys(element.actions).map(key => {
+                                                                                    const elementData = element.actions[key];
+                                                                                    const elementId = `tempo-widget-custom-form-${key}`;
+
+                                                                                    return (
+                                                                                        <>
+                                                                                            <div key={key}>
+                                                                                                <label className="tempo-widget-custom-form-label text-black">
+                                                                                                    {capitalizeFirstLetter(elementData.name)}
+                                                                                                </label>
+
+                                                                                                {elementData.type === "select" && (
+                                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                        <button
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            data-value="Yes"
+                                                                                                            id={`custom-form-yes-button-${key}`}
+                                                                                                        >
+                                                                                                            Yes
+                                                                                                        </button>
+                                                                                                        <button
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            data-value="No"
+                                                                                                            id={`custom-form-no-button-${key}`}
+                                                                                                        >
+                                                                                                            No
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                )}
+
+                                                                                                {elementData.type === "multiselect" && (
+                                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
+                                                                                                        {elementData.options.map(option => (
+                                                                                                            <button
+                                                                                                                key={`${key}_${elementData.name}_${option}`}
+                                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                                data-value={option}
+                                                                                                                id={`${key}_${elementData.name}_${option}`}
+                                                                                                            >
+                                                                                                                {option}
+                                                                                                            </button>
+                                                                                                        ))}
+                                                                                                    </div>
+                                                                                                )}
+
+                                                                                                {elementData.type === "str" && (
+                                                                                                    <input
+                                                                                                        type="text"
+                                                                                                        id={elementId}
+                                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
+                                                                                                        placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
+                                                                                                        disabled
+                                                                                                    />
+                                                                                                )}
+
+                                                                                                {elementData.type === "date" && (
+                                                                                                    <input
+                                                                                                        type="date"
+                                                                                                        id={elementId}
+                                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
+                                                                                                        placeholder={elementData.default || ""}
+                                                                                                        name={elementData.name}
+                                                                                                        disabled
+                                                                                                    />
+                                                                                                )}
+                                                                                            </div>
+                                                                                        </>
+                                                                                    );
+                                                                                })}
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div className='mx-2 my-1' style={{ color: '#828282' }}>
+                                                                            <div className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>
+                                                                                <div className='w-100' style={{ width: '100%' }}>
+                                                                                    <small className='flex gap-3 items-center'>
+                                                                                        <b>Sources</b>
+                                                                                        <small
+                                                                                            onClick={() => handleAddSource(key)}
+                                                                                            className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                            Add Source
+                                                                                        </small>
+                                                                                    </small>
+
+                                                                                    {element?.workflows?.map(workflow => (
+                                                                                        <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                                    ))}
+
+                                                                                    {element && element?.knowledge.length > 0 && (
+                                                                                        <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                    )}
+
+                                                                                </div>
+                                                                                <div>
+                                                                                    {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
                                                                                 </div>
 
-                                                                        }
-                                                                    </div>
-                                                                    <div>
-                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                    </div>
-
-                                                                </div>
-                                                                {<div>
-
-                                                                </div>}
-                                                            </>
-                                                        }
-
-                                                        {
-                                                            element.content === 'HUMAN-HANDOFF' &&
-                                                            <><div className="attention_required_answer">
-                                                                <button id="tempoWidget-acceptButton" onclick="acceptContact()">Yes</button>
-                                                                <button id="tempoWidget-rejectButton" onclick="rejectContact()">No</button>
-                                                            </div>
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                    <div>
-                                                                        <small className='flex gap-3 items-center'>
-                                                                            <b>Sources</b>
-                                                                            <small
-                                                                                onClick={() => handleAddSource(key)}
-                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                Add Source
-                                                                            </small>
-                                                                        </small>
-                                                                        Custom
-                                                                    </div>
-                                                                    <div>
-                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        }
-
-                                                        {
-                                                            element.content === 'OPTIONS' && element?.actions?.options &&
-                                                            <>
-                                                                <div className="tempo-widget-options-container">
-                                                                    {Object.keys(element.actions.options).map((key, index) =>
-                                                                        <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
-                                                                            {element.actions.options[key]}
-                                                                        </button>
-                                                                    )}
-                                                                </div>
-                                                                <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                    <div className='w-100' style={{ width: '100%' }}>
-                                                                        <small className='flex gap-3 items-center'>
-                                                                            <b>Sources</b>
-                                                                            <small
-                                                                                onClick={() => handleAddSource(key)}
-                                                                                className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                Add Source
-                                                                            </small>
-                                                                        </small>
-                                                                        {/* {element?.workflows[0]?.information?.name} */}
-
-                                                                        {element?.workflows?.map(workflow => (
-                                                                            <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
-                                                                        ))}
-                                                                    </div>
-                                                                    <div>
-                                                                        {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        }
-
-
-                                                        {
-                                                            element.type == "action" && !element.actions.options && element?.actions && (!element.content === 'HUMAN-HANDOFF') && (!element.content === 'OPTIONS') &&
-
-                                                            <>
-                                                                <div className="component_answer" style={{ width: '300px' }}></div>
-                                                                <div className="tempo-widget-custom-form">
-                                                                    {Object.keys(element.actions).map(key => {
-                                                                        const elementData = element.actions[key];
-                                                                        const elementId = `tempo-widget-custom-form-${key}`;
-
-                                                                        return (
-                                                                            <div key={key}>
-                                                                                <label className="tempo-widget-custom-form-label">
-                                                                                    {capitalizeFirstLetter(elementData.name)}
-                                                                                </label>
-
-                                                                                {elementData.type === "select" && (
-                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                        <button
-                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                            data-value="Yes"
-                                                                                            id={`custom-form-yes-button-${key}`}
-                                                                                        >
-                                                                                            Yes
-                                                                                        </button>
-                                                                                        <button
-                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                            data-value="No"
-                                                                                            id={`custom-form-no-button-${key}`}
-                                                                                        >
-                                                                                            No
-                                                                                        </button>
-                                                                                    </div>
-                                                                                )}
-
-                                                                                {elementData.type === "multiselect" && (
-                                                                                    <div id={elementId} className="tempo-widget-custom-form-buttons">
-                                                                                        {elementData.options.map(option => (
-                                                                                            <button
-                                                                                                key={`${key}_${elementData.name}_${option}`}
-                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
-                                                                                                data-value={option}
-                                                                                                id={`${key}_${elementData.name}_${option}`}
-                                                                                            >
-                                                                                                {option}
-                                                                                            </button>
-                                                                                        ))}
-                                                                                    </div>
-                                                                                )}
-
-                                                                                {elementData.type === "str" && (
-                                                                                    <input
-                                                                                        type="text"
-                                                                                        id={elementId}
-                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
-                                                                                        placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
-                                                                                        disabled
-                                                                                    />
-                                                                                )}
-
-                                                                                {elementData.type === "date" && (
-                                                                                    <input
-                                                                                        type="date"
-                                                                                        id={elementId}
-                                                                                        className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}`}
-                                                                                        placeholder={elementData.default || ""}
-                                                                                        name={elementData.name}
-                                                                                        disabled
-                                                                                    />
-                                                                                )}
                                                                             </div>
-                                                                        );
-                                                                    })}
-                                                                </div>
-
-                                                                <div className='mx-2 my-1' style={{ color: '#828282' }}>
-                                                                    <div className='mx-2 my-1 flex justify-between w-100' style={{ color: '#828282' }}>
-                                                                        <div className='w-100' style={{ width: '100%' }}>
-                                                                            <small className='flex gap-3 items-center'>
-                                                                                <b>Sources</b>
-                                                                                <small
-                                                                                    onClick={() => handleAddSource(key)}
-                                                                                    className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
-                                                                                    Add Source
-                                                                                </small>
-                                                                            </small>
-
-                                                                            {element?.workflows?.map(workflow => (
-                                                                                <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
-                                                                            ))}
                                                                         </div>
-                                                                        <div>
-                                                                            {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
-                                                                        </div>
+                                                                    </>
+                                                                }
 
-                                                                    </div>
-                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    {element.sender === 'user' &&
+                                                        (
+                                                            <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
 
-                                                            </>
-                                                        }
+                                                                {
+                                                                    element.content === 'WORKFLOW' &&
+                                                                    <>
+                                                                        User selected: {messages[key - 1]?.actions?.options?.WORKFLOW || 'WORKFLOW'}
+                                                                    </>
+                                                                }
 
-                                                    </div>
-                                                )}
-                                            {element.sender === 'user' &&
-                                                (
-                                                    <div className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
+                                                                {
+                                                                    element.content === 'INFORMATION' &&
+                                                                    <>
+                                                                        User selected: {messages[key - 1]?.actions?.options?.INFORMATION || 'INFORMATION'}
+                                                                    </>
+                                                                }
 
-                                                        {
-                                                            element.content === 'WORKFLOW' &&
-                                                            <>
-                                                                User selected: {messages[key - 1]?.actions?.options?.WORKFLOW || 'WORKFLOW'}
-                                                            </>
-                                                        }
-
-                                                        {
-                                                            element.content === 'INFORMATION' &&
-                                                            <>
-                                                                User selected: {messages[key - 1]?.actions?.options?.INFORMATION || 'INFORMATION'}
-                                                            </>
-                                                        }
-
-                                                        {
-                                                            element.content === 'HUMAN-HANDOFF' &&
-                                                            <>
-                                                                User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
-                                                            </>
-                                                        }
+                                                                {
+                                                                    element.content === 'HUMAN-HANDOFF' &&
+                                                                    <>
+                                                                        User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
+                                                                    </>
+                                                                }
 
 
-                                                        {
-                                                            element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" &&
-                                                            <>
-                                                                {element.content}
-                                                            </>
-                                                        }
+                                                                {
+                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" &&
+                                                                    <>
+                                                                        {element.content}
+                                                                    </>
+                                                                }
 
 
 
-                                                        <div className="title-element-left" style={{ display: "none" }}>14:11</div>
-                                                    </div>
-                                                )}
+                                                                <div className="title-element-left" style={{ display: "none" }}>14:11</div>
+                                                            </div>
+                                                        )}
 
-                                        </>
-                                    )}
-                                </div >
+                                                </>
+                                            )}
+                                        </div >
 
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                    </div >
+                    <div className="flex items-center space-x-2 mt-4 justify-start">
+
+
+                        {
+                            conversationDetails.charge_status === "REFUNDED" ?
+                                <div className='flex gap-2 text-grey text-xs items-center'>REFUNDED<CheckCircleIcon className='w-4 h-4'></CheckCircleIcon></div>
+                                :
+                                <span
+                                    className="text-xs text-border font-[500] cursor-pointer"
+                                    onClick={(e) => { raiseDisputHandler(e) }}
+                                >
+                                    {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
+                                </span>
+
+                        }
+
                     </div>
-                </div>
-            </div >
-            <div className="flex items-center space-x-2 mt-4 justify-start">
 
+                </>
 
-                {
-                    conversationDetails.charge_status === "REFUNDED" ?
-                        <div className='flex gap-2 text-grey text-xs items-center'>REFUNDED<CheckCircleIcon className='w-4 h-4'></CheckCircleIcon></div>
-                        :
-                        <span
-                            className="text-xs text-border font-[500] cursor-pointer"
-                            onClick={(e) => { raiseDisputHandler(e) }}
-                        >
-                            {disputeLoader === true ? 'Loading...' : 'Dispute Charge'}
-                        </span>
-
-                }
-
-            </div>
-
+            }
         </>
     )
 }

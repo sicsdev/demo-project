@@ -44,7 +44,6 @@ const Sidebar = ({ children }) => {
   useEffect(() => {
     if (!state) {
       dispatch(fetchProfile());
-      dispatch(fetchRecommendation());
       dispatch(fetchIntegrations());
       dispatch(fetchWorkflows());
     }

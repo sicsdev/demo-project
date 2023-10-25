@@ -10,10 +10,17 @@ import { makeCapital } from '../../helper/capitalName';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import DeleteWorkflow from './DeleteWorkflow';
 import Button from '../../Common/Button/Button';
-
+import EmojiPicker, { Emoji } from 'emoji-picker-react';
+import Modal from '../../Common/Modal/Modal';
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow }) => {
     const [data, setData] = useState([]);
+    const [suggestModal, setSuggestModal] = useState(false);
     const [originalData, setOriginalData] = useState([]);
+    const [emojiData, setEmojiData] = useState({
+        id: null,
+        emoji: null,
+        unified: null
+    })
     const [search, setSearch] = useState("")
     const router = useRouter();
     const [urls, setUrls] = useState([])
@@ -22,7 +29,23 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         copied: false,
         loading: false
     })
-
+    const updateEmoji = async (id, emoji) => {
+        const update = await updateWorkFlowStatus({ icon: emoji }, id)
+        setEmojiData({
+            id: null,
+            emoji: null,
+            unified: null
+        })
+        setSuggestModal(false)
+        updateDataById(id, emoji)
+    }
+    const updateDataById = (id, newData) => {
+        const index = data.findIndex(item => item.id === id);
+        if (index === -1) return;
+        const updatedData = [...data];
+        updatedData[index].icon = newData
+        setData(updatedData);
+    };
     const getUrl = async (id) => {
         setIsCopied(prev => {
             return {
@@ -301,15 +324,24 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                     }}
                                     key={key}
                                     className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
-                                    onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}
                                 >
 
                                     <div className='relative h-full'>
+                                        {/* <EmojiPicker /> */}
+
                                         <div className='flex items-center justify-start gap-2'>
                                             {item.icon && (
                                                 loading ?
                                                     <SkeletonLoader className="mr-2" count={1} height={30} width={40} /> :
-                                                    <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
+                                                    <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" onClick={(e) => {
+                                                        setSuggestModal(true)
+                                                        setEmojiData(prev => {
+                                                            return {
+                                                                ...prev,
+                                                                id: item?.id
+                                                            }
+                                                        })
+                                                    }}x>
                                                         {item.icon}
                                                     </div>
                                             )}
@@ -363,8 +395,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     </div>
                                                 )
                                             )}
+                                         
                                         </div>
-                                        <div className=''>
+                                        <div className=''
+                                            onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}>
                                             <h2 className='text-[#151D23] !font-bold mt-2 text-base'>
                                                 {loading ?
                                                     <SkeletonLoader count={1} height={30} width="70%" />
@@ -432,6 +466,58 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                     noDataComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>}
                 />
             </div> */}
+            {suggestModal && (
+                <Modal
+                    title={
+                        <h3 className="text-base !font-bold">Select Emoji</h3>
+                    }
+                    className={"sm:w-[30%] w-[100%]"}
+                    show={suggestModal}
+                    setShow={setSuggestModal}
+                    showCancel={true}
+                    customHideButton={false}
+                    showTopCancleButton={false}
+                    hr={false}
+                >{emojiData.unified ?
+                    <div className="show-emoji text-center my-2">
+                        <h3 className='text-sm'>Your selected Emoji is:</h3>
+                        <div className='flex justify-center'>
+                            <Emoji unified={emojiData.unified} size={40} />
+                        </div>
+                    </div> : null}
+                    <EmojiPicker width={'100%'} onEmojiClick={(e) => {
+                        setEmojiData((prev) => {
+                            return {
+                                ...prev,
+                                emoji: e.emoji,
+                                unified: e.unified
+                            }
+                        })
+                    }} previewConfig={{
+                        showPreview: true
+                    }} />
+                    <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+                        {" "}
+                        <Button
+                            className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+                            onClick={() => {
+                                setSuggestModal((prev) => !prev);
+                            }}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                            disabled={emojiData.emoji === null}
+                            onClick={() => {
+                                updateEmoji(emojiData.id, emojiData.emoji)
+                            }}
+                        >
+                            Ok
+                        </Button>
+                    </div>
+                </Modal>
+            )}
         </div >
     )
 }
@@ -513,6 +599,7 @@ export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setS
                     </div>
                 )}
             </div>
+
         </>
     )
 

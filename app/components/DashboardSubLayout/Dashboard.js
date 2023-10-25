@@ -112,7 +112,6 @@ const Dashboard = ({ children }) => {
     ];
     let state = useSelector((state) => state.botId.showModal)
     const userState = useSelector((state) => state.user);
-    console.log("userState", userState)
     useEffect(() => {
         if (!state) {
             dispatch(fetchBot())

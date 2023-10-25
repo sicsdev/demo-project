@@ -12,6 +12,7 @@ import { useSearchParams } from 'next/navigation'
 const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData }) => {
     const params = useSearchParams()
     const [showSourceFilter, setShowSourceFilter] = useState(false)
+    const [createMode, setCreateMode] = useState('snippet')
     const [createModal, setCreateModal] = useState(false)
     const [formData, setFormData] = useState({})
     const [createPdfModal, setCreatePdfModal] = useState(false);
@@ -26,6 +27,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     const handleCreateOptions = (option) => {
         if (option === 'pdf') {
             setCreatePdfModal(true);
+
         } else {
             setCreateOptions(option)
         }
@@ -57,6 +59,24 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                     source: "snippet",
                     active: formData?.snippet_active === true ? true : false,
                     title: formData?.title
+                }
+                break;
+            case "PRODUCT":
+                payload = {
+                    description: formData?.content,
+                    source: "product",
+                    active: formData?.snippet_active === true ? true : false,
+                    title: formData?.title
+                }
+
+                if (formData?.product_price) {
+                    payload['price'] = formData.product_price
+                }
+                if (formData?.product_url) {
+                    payload['url'] = formData.product_url
+                }
+                if (formData?.product_file) {
+                    payload['image'] = formData.product_file
                 }
                 break;
             case "FILE":
@@ -92,6 +112,11 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             } else if (value.type === 'URL') {
                 const updatedFormData = { ...questions };
                 updatedFormData.data.total.external = basicFormData.external + 1;
+                setBasicFormData(updatedFormData);
+
+            } else if (value.type === 'PRODUCT') {
+                const updatedFormData = { ...questions };
+                updatedFormData.data.total.produc = basicFormData.product + 1;
                 setBasicFormData(updatedFormData);
             }
             getQuestionsData()
@@ -220,7 +245,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }
                     </li>
                     <li className={`  ${filterhead === "Products" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('SNIPPET')
+                        getDataWithFilters('PRODUCT')
                         setFilterhead("Products")
                         setShowSourceFilter(false)
                     }}>
@@ -228,16 +253,13 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                             :
                             <span
-                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
-                  rounded-lg active  group`}
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2 rounded-lg active  group`}
                                 aria-current="page"
                             >
                                 Products
                             </span>
                         }
                     </li>
-
-
                 </ul>
             </div>
             <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
@@ -375,8 +397,12 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             {createModal === true && (
                 <SideModal heading={'Add New Content'} setShow={setCreateModal} width={'sm:w-[1000px]'}>
                     <div className='block sm:flex justify-center items-center gap-4 my-8'>
-                       
-                    <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
+
+                        <div onClick={() => {
+                            handleCreateOptions('snippet')
+                            setCreateMode("snippet")
+                        }
+                        } className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
                             <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
@@ -391,8 +417,11 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
                             <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
                         </div>
-                        <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
-                            <PuzzlePieceIcon  className='h-10 w-10 text-white bg-[#C01A59] rounded-lg p-2' />
+                        <div onClick={() => {
+                            handleCreateOptions('snippet')
+                            setCreateMode("product")
+                        }} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
+                            <PuzzlePieceIcon className='h-10 w-10 text-white bg-[#C01A59] rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Product</h3>
                             <p className='text-xs font-normal'>A product or service that users can purchase directly from Tempo.</p>
                         </div>
@@ -401,10 +430,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
             )}
 
             {createOptions === 'snippet' && (
-                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading}  getQuestionsData={getQuestionsData}
-                setCreateModal={setCreateModal}
-                setLoading={setLoading}
-                setCreatePdfModal={setCreatePdfModal} />
+                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getQuestionsData={getQuestionsData}
+                    setCreateModal={setCreateModal}
+                    setLoading={setLoading}
+                    setCreatePdfModal={setCreatePdfModal} creationMode={createMode} />
             )}
             {createOptions === 'url' && (
                 <UrlManagement
