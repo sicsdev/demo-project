@@ -77,9 +77,9 @@ export function SecondStep({ formData, setFormData }) {
     ],
   };
   return (
-    <FormWrapper title="Simplify and save with 8X8">
+    <FormWrapper title="Save with Tempo">
       <div className="mb-4 mt-3 sm:mt-0 text-sm sm:text-base">
-        8x8 can help you to advance your Unified Communications solutions, delivering significant savings inclding:
+      Tempo enables you to elevate your customer experience capabilities while achieving substantial cost savings, including:
       </div>
 
 
@@ -90,13 +90,13 @@ export function SecondStep({ formData, setFormData }) {
 
               ${formData?.AgentNumberAvg.toFixed(2) ?? 0}
             </span>
-            <span className="text-[#7275a6]">Number of Agents</span>
+            <span className="text-[#7275a6]">Monthly Recurring Savings</span>
           </div>
           <div className="shadow-md p-5 sm:p-0 flex flex-col w-[300px] h-[110px] mx-auto my-3 justify-center items-center">
             <span className="font-bold text-2xl  text-[#142543]">
               ${formData?.dailyTicketVolumeAvg.toFixed(2) ?? 0}
             </span>
-            <span className="text-[#7275a6]">Daily Ticket Volume</span>
+            <span className="text-[#7275a6]">Annual Recurring Savings</span>
           </div>
         </div>
         <div>  <div className="sm:w-[630px] sm:h-[291px] text-center m-auto shadow-md">

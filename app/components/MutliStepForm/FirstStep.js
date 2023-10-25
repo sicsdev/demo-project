@@ -16,13 +16,12 @@ export function FirstStep({
 }) {
   console.log("data", data)
   const functionalAreas = [
-    "Information Technology",
-    "Operations",
-    "HR",
-    "Call/Cotact Center",
-    "Finance/Procurement",
-    "Executive Leadership/Management",
-    "Other",
+    "Customer Experience",
+    "Operations/Fulfillment",
+    "Human Resources",
+    "Sales and Marketing",
+    "Finance/Accounting",
+    "Executive/Leadership"
   ];
 
   const analysis = ["Unified Communications ", "Contact Center", "Both"];
@@ -85,8 +84,8 @@ export function FirstStep({
 
   return (
     <>
-      <FormWrapper title="Tell us about your organistion">
-        <div className="mb-4 mt-3 sm:mt-0">Enter the following information</div>
+      <FormWrapper title="ROI Calculator">
+        <div className="mb-4 mt-3 sm:mt-0">Enter the following to project your savings with Tempo</div>
         <div className="block sm:flex  justify-between  items-stretch gap-4">
           <div className="w-full mb-3 sm:mb-0">
             <TextField

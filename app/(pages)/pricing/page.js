@@ -56,15 +56,41 @@ const Pricing = () => {
       };
     });
   }
-  const handleInputValues = (event) => {
-    const { value, name } = event.target
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value
-      }
-    })
+  const hasSpecialCharacter = (str) => {
+    const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return regex.test(str);
   }
+  const handleInputValues = (event) => {
+    const { value, name, type } = event.target;
+
+    if (type === 'number') {
+      if (hasSpecialCharacter(value)) {
+        setData((prev) => {
+          return {
+            ...prev,
+            [name]: ''
+          }
+        });
+      }
+      const processedValue = value.replace(/[^0-9]/g, '');
+      setData((prev) => {
+        return {
+          ...prev,
+          [name]: processedValue
+        }
+      });
+    } else {
+      setData((prev) => {
+        return {
+          ...prev,
+          [name]: value
+        }
+      });
+    }
+  }
+
+
+
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
 
@@ -92,15 +118,15 @@ const Pricing = () => {
   const formulaValues = (type) => {
     let values = null
     if (type === 'FIRST') {
-      values = (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+      values = (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)
     } else if (type === 'SECOND') {
-      values = 12 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+      values = 12 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)
     } else if (type === 'MONTH1') {
-      values = .2 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+      values = (20 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4) / 100)
     } else if (type === 'MONTH2') {
-      values = .5 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+      values = (50 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)) / 100
     } else if (type === 'MONTH3') {
-      values = 8 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+      values = (80 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)) / 100
     }
     return values
   }
@@ -164,24 +190,25 @@ const Pricing = () => {
       "lastName",
       "companyEmail",
     ];
-  
+
     const validateEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
-  
-  
+
+
+
     const isRequiredFieldsEmpty = requiredKeys.some(
       (key) => !data[key] || data[key].trim() === ""
     );
-  
+
     const isCompanyEmailValid = validateEmail(data.companyEmail);
-  
+
     // Assuming you want to check that isSubscribed is true
     const isSubscribed = data?.isSubscribed;
-  
+
     const isFormInvalid = isRequiredFieldsEmpty || !isCompanyEmailValid || !isSubscribed;
-  
+
     return isFormInvalid;
   }
   return (
@@ -399,7 +426,7 @@ const Pricing = () => {
               See your results and get your report
             </div>
             <div className="text-[#868794]  text-sm my-4 leading-5">
-              Please send me details of 8x8 products and services that may be of interest to me, newsletters and details of events which are held or attended by 8x8. Before clicking submit, PLEASE CLICK HERE for full information about how your data will be processed.
+              Please confirm your information below to see your results. Your full analysis and report will be send to the email inbox provided below
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:mr-3">
               <div className="w-full">
@@ -488,11 +515,7 @@ const Pricing = () => {
                   id="helper-checkbox-text"
                   className="text-xs font-normal tracking-tight leading-4 text-left text-gray-500 dark:text-gray-300"
                 >
-                  Please send me details of 8x8 products and services that may
-                  be of interest to me, newsletters and details of events which
-                  are held or attended by 8x8. Before clicking submit,{" "}
-                  <a>PLEASE CLICK HERE</a> for full information about how your
-                  data will be processed.
+                  I'd like to receive marketing emails from Tempo. Please click here to view our Privacy Policy.
                 </p>
               </div>
             </div>
