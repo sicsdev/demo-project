@@ -8,6 +8,7 @@ const Select = ({
   value,
   disabled,
   data,
+  ...rest
 }) => {
   return (
     <>
@@ -18,10 +19,14 @@ const Select = ({
           "w-full  px-3 min-h-[35px] bg-[#F2F2F2] border border-[#595b89] mt-[7px]"
         }
         value={value || ""}
+        {...rest}
         placeholder={placeholder || ""}
         disabled={disabled || false}
         onChange={(e) => onChange(e.target.value)}
       >
+        <option value={''} disabled>
+          Select
+        </option>
         {data.length > 0 && (
           <>
             {data.map((item, index) => {

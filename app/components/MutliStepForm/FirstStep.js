@@ -2,70 +2,19 @@ import { useState } from "react";
 import { Input } from "../Common/Input/MultiStepFormInput";
 import Select from "../Common/Select/MultiStepFormSelect";
 import { FormWrapper } from "./FormWrapper";
-import { useRef } from "react";
+import { business_company_size_data } from "../Forms/data/FormData";
+import TextField from "../Common/Input/TextField";
+import SelectField from "../Common/Input/SelectField";
 
-const AccordionItem = (props) => {
-  const contentEl = useRef();
-  const { handleToggle, active, faq } = props;
-  const { header, id, text, inputFields } = faq;
-
-  return (
-    <div className="rc-accordion-card">
-      <div className="rc-accordion-header">
-        <div
-          className={`rc-accordion-toggle p-3 ${active === id ? 'accordion_active' : ''}`}
-          onClick={() => handleToggle(id)}
-        >
-          <h5 className="rc-accordion-title text-xl font-bold">{header}</h5>
-          <i className="fa fa-chevron-down rc-accordion-icon"></i>
-        </div>
-      </div>
-      <div
-        ref={contentEl}
-        className={`rc-collapse ${active === id ? "show" : ""}`}
-        style={
-          active === id
-            ? { height: contentEl?.current?.scrollHeight }
-            : { height: "0px" }
-        }
-      >
-        <div className="rc-accordion-body">
-          {/* <p className="mb-0">{text}</p> */}
-          {inputFields.map((inputField) => (
-            <div className="my-2">
-              {inputField.map((ele) => (
-                <div className="block  sm:flex border-b justify-between my-2 p-4">
-                  <span className="text-base mb-3 sm:mb-0 font-normal inline-block">
-                    {ele.text}
-                  </span>{" "}
-                  <input
-                    name={ele.text.replace(" ", "").toLowerCase()}
-                    className="border border-[#d4d4d4] font-medium px-3 min-h-[35px] bg-[#0000000d]"
-                    placeholder={ele.text.replace(/\s+/g, "").toLowerCase()}
-                    value={""}
-                  // onChange={}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 
 
 export function FirstStep({
-  companyName,
-  industry,
-  totalNumbersOfEmployees,
-  location,
-  yourFunctionalAreas,
-  updateFields,
+  data,
   setData,
+  handleInputValues
 }) {
+  console.log("data", data)
   const functionalAreas = [
     "Information Technology",
     "Operations",
@@ -119,6 +68,20 @@ export function FirstStep({
       setActive(index);
     }
   };
+ 
+  const handleAreaClick = (area) => {
+    setData((prev) => {
+      const isAreaSelected = prev.yourFunctionalAreas?.includes(area);
+      const updatedAreas = isAreaSelected
+        ? prev.yourFunctionalAreas.filter(selected => selected !== area) // Remove the area
+        : [...(prev.yourFunctionalAreas || []), area]; // Add the area
+
+      return {
+        ...prev,
+        yourFunctionalAreas: updatedAreas
+      }
+    });
+  };
 
   return (
     <>
@@ -126,20 +89,29 @@ export function FirstStep({
         <div className="mb-4 mt-3 sm:mt-0">Enter the following information</div>
         <div className="block sm:flex  justify-between  items-stretch gap-4">
           <div className="w-full mb-3 sm:mb-0">
-            <label className="block text-[#595b89]">Company Name</label>
-            <Input
-              autoFocus
-              required
+            <TextField
               type="text"
-              value={companyName}
-              onChange={(e) => updateFields({ companyName: e.target.value })}
+              id="companyName"
+              name="companyName"
+              value={data.companyName ?? ''}
+              onChange={handleInputValues}
+              className="py-3 mt-1"
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Company Name</span>{" "}
+                </div>
+              }
+              placeholder={"Company Name"}
+              error={''}
             />
           </div>
           <div className="w-full mb-3 sm:mb-0">
-            <label className="block text-[#595b89]">Industry</label>
-            <Select
-              value={industry}
-              data={[
+            <SelectField
+              id="industry"
+              name="industry"
+              value={data.industry ?? ''}
+              onChange={handleInputValues}
+              values={[
                 "Select one",
                 "Banking/Finance",
                 "Construction",
@@ -153,70 +125,85 @@ export function FirstStep({
                 "Media & Entertainment",
                 "Real Estate and Rental Leasing",
               ]}
-              onChange={(value) => updateFields({ industry: value })}
-            />
+              title={
+                <div className="flex items-center gap-2 w-[150px]  mb-3">
+                  <span> Industry</span>{" "}
+                </div>
+              }
+              className="py-3"
+            />{" "}
           </div>
 
           <div className="w-full mb-3 sm:mb-0">
-            <label className="block text-[#595b89]">
-              Total numbers of employees
-            </label>
-            {/* <input
-              required
+
+            <SelectField
+              id="totalNumbersOfEmployees"
+              name="totalNumbersOfEmployees"
+              value={data.totalNumbersOfEmployees ?? ''}
+              onChange={handleInputValues}
+              values={business_company_size_data}
+              title={
+                <div className="flex items-center gap-2 w-[300px]  mb-3">
+                  <span> Total numbers of employees</span>{" "}
+                </div>
+              }
+              className="py-3"
+            />{" "}
+          </div>
+        </div>
+        <div className="block sm:flex  justify-between  items-stretch gap-4 my-4">
+          <div className="w-full mb-3 sm:mb-0">
+            <TextField
+              id="AgentNumber"
+              name="AgentNumber"
               type="number"
-              value={totalNumbersOfEmployees}
-              onChange={(e) =>
-                updateFields({ totalNumbersOfEmployees: e.target.value })
+              value={data.AgentNumber ?? ''}
+              onChange={handleInputValues}
+              className="py-3 mt-1"
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Number of Agents</span>{" "}
+                </div>
               }
-            /> */}
-
-            {/* <Input
-              value={totalNumbersOfEmployees}
-              onChange={(e) =>
-                updateFields({ totalNumbersOfEmployees: e.target.value })
-              }
-              required={true}
-            /> */}
-            <Select
-              value={industry}
-              data={[
-                {
-                  key: "Employees",
-                  value: "",
-                },
-
-                {
-                  key: "21 - 200 employees",
-                  value: "21-200",
-                },
-                {
-                  key: "201 - 10,000 employees",
-                  value: "201-10000",
-                },
-                {
-                  key: "10,001 +employees",
-                  value: "10001",
-                },
-              ]}
-              onChange={(value) => updateFields({ industry: value })}
+              placeholder={"Number of Agents"}
+              error={''}
             />
           </div>
-          {/* <div className="w-full mb-3 sm:mb-0">
-            <label className="block text-[#595b89]">Location</label>
-            <Select
-              value={location}
-              data={[
-                "United States",
-                "Australia",
-                "Asia",
-                "Canada",
-                "Central/South America",
-                "Europe",
-                "United Kingdom",
-              ]}
-              onChange={(value) => updateFields({ location: value })}
+          <div className="w-full mb-3 sm:mb-0">
+
+            <TextField
+              id="dailyTicketVolume"
+              name="dailyTicketVolume"
+              type="number"
+              value={data.dailyTicketVolume ?? ''}
+              onChange={handleInputValues}
+              className="py-3 mt-1"
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Daily Ticket Volume</span>{" "}
+                </div>
+              }
+              placeholder={"Daily Ticket Volume"}
+              error={''}
             />
-          </div> */}
+          </div>
+          <div className="w-full mb-3 sm:mb-0">
+            <TextField
+              id={'avgAgentHourlyWage'}
+              name={'avgAgentHourlyWage'}
+              type="number"
+              value={data?.avgAgentHourlyWage ?? ''}
+              onChange={handleInputValues}
+              className="py-3 mt-1"
+              title={
+                <div className="flex items-center gap-2 w-[150px]">
+                  <span>Avg. Agent Hourly Wage</span>{" "}
+                </div>
+              }
+              placeholder={"Avg. Agent Hourly Wage"}
+              error={''}
+            />
+          </div>
         </div>
         <div className=" mt-10">
           <span className="block font-bold mb-7">Your functional area(s)</span>
@@ -224,25 +211,17 @@ export function FirstStep({
             {functionalAreas.map((ele, index) => (
               <div
                 key={index}
-                onClick={() => {
-                  updateFields({
-                    yourFunctionalAreas: yourFunctionalAreas.filter(
-                      (area) => area.toLowerCase() !== ele.toLocaleLowerCase()
-                    ),
-                  });
-                  // updateFields({
-                  //   name: "yourFunctionalAreas",
-                  //   value: ele.replace(/\s/g, ""),
-                  // });
-                }}
-                className=" grid place-items-center shadow-md  rounded-[4px]  py-[7px] px-[15px] min-h-[50px] text-[#755b85] cursor-pointer hover:bg-[#142543] hover:text-white "
+                onClick={() =>
+                  handleAreaClick(ele)
+                }
+                className={`grid  place-items-center shadow-md  rounded-[4px]  py-[7px] px-[15px] min-h-[50px]  ${data?.yourFunctionalAreas && data?.yourFunctionalAreas.includes(ele) ? 'bg-[#142543] text-white' : "text-heading"} cursor-pointer hover:bg-[#142543] hover:text-white`}
               >
-                {ele}
+                <p className="new_input_label1 block text-sm ">    {ele}</p>
               </div>
             ))}
           </div>
         </div>
-        <div className="mt-10 mb-5 grid  grid-cols-1 sm:grid-cols-2 ">
+        {/* <div className="mt-10 mb-5 grid  grid-cols-1 sm:grid-cols-2 ">
           <div className="mb-3 sm:mb-0">
             <span className="font-bold ">
               Solution(s) to be included in the analysis
@@ -267,34 +246,9 @@ export function FirstStep({
               ))}
             </div>
           </div>
-        </div>
+        </div> */}
       </FormWrapper>
-      <FormWrapper title="Customize assumptions">
-      <div className="mb-4">
-        Tell us about current phone, video and team messaging costs.
-      </div>
 
-      <div className="container-fluid mt-5 mb-5">
-        <div className="row justify-content-center">
-          <div className="col-md-8 mt-2">
-            <div className="shadow-lg bg-[#fff] rounded-md text-sm  font-semibold text-[#475f7b] ">
-              <div className="card-body">
-                {faqs.map((faq, index) => {
-                  return (
-                    <AccordionItem
-                      key={index}
-                      active={active}
-                      handleToggle={handleToggle}
-                      faq={faq}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </FormWrapper>
     </>
   );
 }

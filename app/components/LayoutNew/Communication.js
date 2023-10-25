@@ -95,7 +95,7 @@ const Communication = () => {
                   <SkeletonLoader height={30} width={200} />
                 </div>
               ) : (
-                <div className={` ${key == activeTab ? "border-b-[1px] border-[#fe9327] text-[#fe9327]" : ""} flex flex-row`}>
+                <div className={` ${key == activeTab ? "border-b-[1px] border-primary text-primary" : ""} flex flex-row`}>
                   <p>  {ele.logo} </p>
 
                   <p
@@ -122,7 +122,7 @@ const Communication = () => {
                       <button className="text-white text-left pt-[20px]  w-full md:mt-4 md:flex justify-start hover:text-heading my-3  md:my-0  text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">
                         <Link
                           href="/checkout"
-                          className=" px-[20px] py-[8px] rounded-[25px] bg-[#fe9327] hover:bg-black hover:text-white"
+                          className=" px-[20px] py-[8px] rounded-[25px] bg-primary hover:bg-black hover:text-white"
                         >
                           {" "}
                           Learn more

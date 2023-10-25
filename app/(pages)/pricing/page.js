@@ -18,16 +18,9 @@ import Panelcard from "@/app/components/PanelCard/PanelCard";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
 import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
 import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
-// import { SecondStep } from "@/app/components/MutliStepForm/SecondStepdeleteit";
 import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
 
 import "./style.css";
-// import {
-//   First,
-//   SecondStep,
-//   ThirdStep,
-// } from "@/app/components/MutliStepForm";
-// import { First } from "@/app/components/MutliStepForm/FirstStep";
 
 const INITIAL_DATA = {
   companyName: "",
@@ -35,51 +28,162 @@ const INITIAL_DATA = {
   totalNumbersOfEmployees: "",
   // location: "United States",
   yourFunctionalAreas: [],
+  AgentNumber: 0,
+  dailyTicketVolume: 0,
+  avgAgentHourlyWage: 0,
+
 };
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
-import { Modal } from "@/app/components/MutliStepForm/Modal/Modal";
+import Modal from "@/app/components/Common/Modal/Modal";
+import TextField from "@/app/components/Common/Input/TextField";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 
 const Pricing = () => {
-  const [data, setData] = useState(INITIAL_DATA);
+  const [data, setData] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
-  console.log("=>", data);
 
   function toggleModal() {
     setModalOpen(!isModalOpen);
   }
 
-  function updateFields(fields) {
+  function updateFields(event) {
+    const { value, name } = event.target
     setData((prev) => {
-      return { ...prev, ...fields };
+      return {
+        ...prev,
+        [name]: value
+      };
     });
   }
+  const handleInputValues = (event) => {
+    const { value, name } = event.target
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      }
+    })
+  }
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
 
+    setData((prev) => ({
+      ...prev,
+      [name]: checked
+    }));
+  }
   const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
     useMultiStepFrom([
       <FirstStep
         key={0}
-        {...data}
+        data={data}
         updateFields={updateFields}
         setData={setData}
+        handleInputValues={handleInputValues}
       />,
       // <SecondStep key={1} {...data} updateFields={updateFields} />,
-      <SecondStep key={1} {...data} updateFields={updateFields} />,
+      <SecondStep key={1}
+        formData={data}
+        updateFields={updateFields}
+        setFormData={setData} />,
     ]);
 
+  const formulaValues = (type) => {
+    let values = null
+    if (type === 'FIRST') {
+      values = (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+    } else if (type === 'SECOND') {
+      values = 12 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+    } else if (type === 'MONTH1') {
+      values = .2 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+    } else if (type === 'MONTH2') {
+      values = .5 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+    } else if (type === 'MONTH3') {
+      values = 8 * (parseInt(data?.dailyTicketVolume) * 30.4) - (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7)
+    }
+    return values
+  }
   function onSubmit(e) {
     e.preventDefault();
-    if (!isLastStep) return next();
     // alert("Successful Account Creation");
     toggleModal();
   }
+  const submitModal = async () => {
+    const payload = {
+      firstname: data?.firstName,
+      lastname: data?.lastName,
+      email: data?.companyEmail,
 
+    }
+    if (data?.phoneNumber) {
+      payload['phone'] = data?.phoneNumber
+    }
+    const response = createContactInFreshsales(payload)
+    if (response) {
+      setData(prev => {
+        return {
+          ...prev,
+          AgentNumberAvg: formulaValues('FIRST'),
+          dailyTicketVolumeAvg: formulaValues('SECOND'),
+          chartValues: [formulaValues('MONTH1').toFixed(2), formulaValues('MONTH2').toFixed(2), formulaValues('MONTH3').toFixed(2)],
+        }
+      })
+      toggleModal()
+      return next();
+    }
+
+  }
   const stepsTab = [
     { title: "Step 1" },
     { title: "Step 2" },
     { title: "Step 3" },
   ];
+  const DisablingButton = () => {
+    if (currentStepIndex === 0) {
+      const requiredKeys = [
+        "AgentNumber",
+        "avgAgentHourlyWage",
+        "companyName",
+        "dailyTicketVolume",
+        "industry",
+      ];
+      const isRequiredFieldsEmpty = requiredKeys.some(
+        (key) => !data[key] || data[key].trim() === ""
+      );
+      const isFunctionalAreasValid = Array.isArray(data.yourFunctionalAreas) && data.yourFunctionalAreas.length > 0;
 
+      return isRequiredFieldsEmpty || !isFunctionalAreasValid;
+    }
+  }
+
+  const DisablingButtonModal = () => {
+
+    const requiredKeys = [
+      "firstName",
+      "lastName",
+      "companyEmail",
+    ];
+  
+    const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+  
+  
+    const isRequiredFieldsEmpty = requiredKeys.some(
+      (key) => !data[key] || data[key].trim() === ""
+    );
+  
+    const isCompanyEmailValid = validateEmail(data.companyEmail);
+  
+    // Assuming you want to check that isSubscribed is true
+    const isSubscribed = data?.isSubscribed;
+  
+    const isFormInvalid = isRequiredFieldsEmpty || !isCompanyEmailValid || !isSubscribed;
+  
+    return isFormInvalid;
+  }
   return (
     <div className="bg-white">
       <Helmet>
@@ -97,43 +201,23 @@ const Pricing = () => {
 
       {/* <Panelcard  /> */}
       <div className="p-4 sm:p-8  sm:px-40 ">
-        <form onSubmit={onSubmit}>
-          <div className="">
-            {/* <div className="flex flex-wrap mx-3">
-              <div></div>
-              {stepsTab.map((ele, index) => (
-                <div
-                  className={`p-5 px-15 min-h-[56px] text-[#93949a]  font-bold text-base text-center min-w-[250px]  bg-[#f0f0f0] ${
-                    currentStepIndex === index && "active"
-                  }`}
-                >
-                  {ele?.title}
-                </div>
-              ))}
-            </div> */}
-            <div></div>
-            {/* Step {currentStepIndex + 1}  */}
-          </div>
-          <Modal isOpen={isModalOpen} onClose={toggleModal} />
-          {step}
-          <div className="mt-4 flex justify-center  sm:justify-start gap-2">
-            {!isFirstStep && (
-              <button
-                className="bg-[#142543] text-white px-4  min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"
-                type="button"
-                onClick={back}
-              >
-                Back
-              </button>
-            )}
+        {/* <form onSubmit={onSubmit}> */}
+        {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
+
+        {step}
+        <div className="mt-4 flex justify-center  sm:justify-start gap-2">
+          {isFirstStep && (
             <button
-              className="bg-[#142543] text-white px-4 min-h-[30px] rounded-3xl  text-base  h-9 w-24 font-bold"
-              // type="submit"
+              className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white disabled:border-input_color  hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+              type="button"
+              onClick={onSubmit}
+              disabled={DisablingButton()}
             >
-              {isLastStep ? "Finish" : "Next"}
+              View Savings
             </button>
-          </div>
-        </form>
+          )}
+        </div>
+        {/* </form> */}
       </div>
       <Panelcardnew />
 
@@ -298,6 +382,140 @@ const Pricing = () => {
         <Motioncards />
         <Testimonial />
       </div>
+      {isModalOpen && (
+        <Modal
+
+          title={''}
+          className={"sm:w-[50%] w-[100%]"}
+          show={isModalOpen}
+          setShow={setModalOpen}
+          showCancel={true}
+          customHideButton={false}
+          showTopCancleButton={false}
+          hr={false}
+        >
+          <div className="p-5">
+            <div className="text-center font-bold text-2xl sm:mt-8">
+              See your results and get your report
+            </div>
+            <div className="text-[#868794]  text-sm my-4 leading-5">
+              Please send me details of 8x8 products and services that may be of interest to me, newsletters and details of events which are held or attended by 8x8. Before clicking submit, PLEASE CLICK HERE for full information about how your data will be processed.
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:mr-3">
+              <div className="w-full">
+
+
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={data.firstName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>First Name</span>{" "}
+                    </div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={data.lastName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Last Name</span>{" "}
+                    </div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="companyEmail"
+                  name="companyEmail"
+                  type="email"
+                  value={data.companyEmail ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Company Email</span>{" "}
+                    </div>
+                  }
+                  placeholder={"Company Email"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="number"
+                  value={data.phoneNumber ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Phone number (Optional)</span>{" "}
+                    </div>
+                  }
+                  placeholder={"Phone number (Optional)"}
+                  error={''}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5">
+              <div className="flex items-center h-5">
+                <input
+                  type="checkbox"
+                  name="isSubscribed"
+                  checked={data.isSubscribed || false}
+                  onChange={handleCheckboxChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="ml-2 text-sm">
+                <p
+                  id="helper-checkbox-text"
+                  className="text-xs font-normal tracking-tight leading-4 text-left text-gray-500 dark:text-gray-300"
+                >
+                  Please send me details of 8x8 products and services that may
+                  be of interest to me, newsletters and details of events which
+                  are held or attended by 8x8. Before clicking submit,{" "}
+                  <a>PLEASE CLICK HERE</a> for full information about how your
+                  data will be processed.
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 mx-auto flex justify-center gap-4 items-center">
+              <button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-white  text-primary hover:text-white hover:bg-primary hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={toggleModal}
+              >
+                Cancel
+              </button>
+              <button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-input_color disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={submitModal}
+                disabled={DisablingButtonModal()}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
