@@ -5,7 +5,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 
-const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
+const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId }) => {
 
     let descriptions = item?.information?.description[0].split(', ') || ['Add new line']
 
@@ -42,8 +42,13 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
     }
 
     const toggleDropdown = () => {
+
+        setInputValue(item?.information?.description[item.index])
+
         if (rated) { return }
         isDropdownOpen(!dropdownOpen)
+        if (dropdownOpenId == item.information.id) { setDropdownOpenId(''); return }
+        setDropdownOpenId(item.information.id)
     }
 
 
@@ -132,7 +137,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage }) => {
 
 
                                 </div>
-                                {dropdownOpen &&
+                                {dropdownOpenId == item.information.id &&
 
                                     <div className="my-2">
                                         {/* {descriptions?.map(w => ( */}
