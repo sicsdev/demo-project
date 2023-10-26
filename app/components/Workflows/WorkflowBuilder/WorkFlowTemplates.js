@@ -324,6 +324,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                     }}
                                     key={key}
                                     className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
+                                    }}
                                 >
 
                                     <div className='relative h-full'>
@@ -334,6 +338,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                 loading ?
                                                     <SkeletonLoader className="mr-2" count={1} height={30} width={40} /> :
                                                     <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" onClick={(e) => {
+
+                                                        e.stopPropagation();
                                                         setSuggestModal(true)
                                                         setEmojiData(prev => {
                                                             return {
@@ -341,7 +347,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                                 id: item?.id
                                                             }
                                                         })
-                                                    }}x>
+                                                    }} x>
                                                         {item.icon}
                                                     </div>
                                             )}
@@ -395,10 +401,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     </div>
                                                 )
                                             )}
-                                         
+
                                         </div>
                                         <div className=''
-                                            onClick={(e) => router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)}>
+                                        >
                                             <h2 className='text-[#151D23] !font-bold mt-2 text-base'>
                                                 {loading ?
                                                     <SkeletonLoader count={1} height={30} width="70%" />
@@ -428,7 +434,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                         </>
                                                     }
                                                 </p>
-                                                <p className='text-danger text-xs' onClick={(e) => deleteWorkflowHandler(e, item)}>
+                                                <p className='text-danger text-xs' onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    deleteWorkflowHandler(e, item)
+                                                }}>
                                                     {loading ?
                                                         <SkeletonLoader count={1} height={30} width={50} />
                                                         : <>

@@ -161,7 +161,7 @@ const NewSidebar = ({ children }) => {
             ],
         },
         {
-            href: "/dashboard/basic-knowledge/source",
+            href: "/dashboard/knowledge-center",
             name: "Learning Center",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
