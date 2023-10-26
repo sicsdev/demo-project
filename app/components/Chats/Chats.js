@@ -33,6 +33,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
     const [disputeLoader, setDisputeLoader] = useState(false);
+
+    // Dropdown of sources
+    const [dropdownOpenId, setDropdownOpenId] = useState('')
+
     const bot = useSelector(state => state.botId.botData.data)
 
 
@@ -173,7 +177,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         }
 
         return (
-            <div>
+            <div style={{ marginRight: '25px' }}>
                 {contentParts.map((part, index) => (
                     <>
                         <div className='flex mb-2'>
@@ -185,13 +189,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                     <div className="answer_text_with_thumbs !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(part)}>
                                         <div dangerouslySetInnerHTML={{ __html: formatLinks(part) }} />
                                     </div>
-                                    <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
+                                    {/* <div className="chatBotWidgetThumbs" title='Rate this answer as NEGATIVE'>
                                         <button className='cursor-pointer' onClick={(e) => { createFlag(element) }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" strokeWidth="2" stroke="grey" className="w-[13px] h-[13px] opacity-80">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0l2.77-.693a9 9 0 016.208.682l.108.054a9 9 0 006.086.71l3.114-.732a48.524 48.524 0 01-.005-10.499l-3.11.732a9 9 0 01-6.085-.711l-.108-.054a9 9 0 00-6.208-.682L3 4.5M3 15V4.5" />
                                             </svg>
                                         </button>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -470,7 +474,14 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 {
                                                                                     element?.knowledge?.length ?
                                                                                         element?.knowledge?.map(item => (
-                                                                                            <EditKnowledge allMessages={messages} indexOfMessage={key} item={item} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                            <EditKnowledge
+                                                                                                setDropdownOpenId={setDropdownOpenId}
+                                                                                                dropdownOpenId={dropdownOpenId}
+                                                                                                allMessages={messages}
+                                                                                                indexOfMessage={key}
+                                                                                                item={item}
+                                                                                                allKnowledge={allKnowledge}>
+                                                                                            </EditKnowledge>
                                                                                         ))
 
                                                                                         :
@@ -545,11 +556,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 </small>
 
                                                                                 {element?.workflows?.map(workflow => (
-                                                                                    <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                                    <EditWorkflow
+                                                                                        allMessages={messages}
+                                                                                        indexOfMessage={key}
+                                                                                        item={workflow}
+                                                                                        setDropdownOpenId={setDropdownOpenId}
+                                                                                        dropdownOpenId={dropdownOpenId}
+                                                                                    >
+                                                                                    </EditWorkflow>
                                                                                 ))}
 
                                                                                 {element && element?.knowledge.length > 0 && (
-                                                                                    <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                    <EditKnowledge
+                                                                                        allMessages={messages}
+                                                                                        indexOfMessage={key}
+                                                                                        item={element?.knowledge[0]}
+                                                                                        allKnowledge={allKnowledge}
+                                                                                        setDropdownOpenId={setDropdownOpenId}
+                                                                                        dropdownOpenId={dropdownOpenId}
+                                                                                    >
+                                                                                    </EditKnowledge>
                                                                                 )}
 
                                                                             </div>
@@ -669,11 +695,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                     </small>
 
                                                                                     {element?.workflows?.map(workflow => (
-                                                                                        <EditWorkflow allMessages={messages} indexOfMessage={key} item={workflow}></EditWorkflow>
+                                                                                        <EditWorkflow
+                                                                                            allMessages={messages}
+                                                                                            indexOfMessage={key}
+                                                                                            item={workflow}
+                                                                                            setDropdownOpenId={setDropdownOpenId}
+                                                                                            dropdownOpenId={dropdownOpenId}
+                                                                                        >
+                                                                                        </EditWorkflow>
                                                                                     ))}
 
                                                                                     {element && element?.knowledge.length > 0 && (
-                                                                                        <EditKnowledge allMessages={messages} indexOfMessage={key} item={element?.knowledge[0]} allKnowledge={allKnowledge}></EditKnowledge>
+                                                                                        <EditKnowledge
+                                                                                            allMessages={messages}
+                                                                                            indexOfMessage={key}
+                                                                                            item={element?.knowledge[0]}
+                                                                                            allKnowledge={allKnowledge}
+                                                                                            setDropdownOpenId={setDropdownOpenId}
+                                                                                            dropdownOpenId={dropdownOpenId}
+                                                                                        >
+                                                                                        </EditKnowledge>
                                                                                     )}
 
                                                                                 </div>
