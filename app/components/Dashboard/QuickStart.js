@@ -77,6 +77,13 @@ const QuickStart = () => {
             icon: <CodeBracketSquareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/manage-phones',
         },
+        {
+            title: 'Upload Email or Ticket History',
+            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+            buttonName: "Upload",
+            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+            link: "/dashboard/basic-knowledge",
+        },
     ];
     const quickStartData = [
         {
@@ -93,13 +100,6 @@ const QuickStart = () => {
             icon: <ShareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/integrations',
         },
-        // {
-        //     title: 'Upload Email or Ticket History',
-        //     content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
-        //     buttonName: "Upload",
-        //     icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
-        //     link: "/dashboard/basic-knowledge",
-        // },
         {
             title: 'Create Your First Workflow',
             content: "Combine automations to create your initial workflow, making your operations more efficient from day one.",
@@ -113,7 +113,14 @@ const QuickStart = () => {
             buttonName: "Invite",
             icon: <UserGroupIcon className='w-5 h-5 ' />,
             link: '/dashboard/members',
-        }
+        },
+        {
+            title: 'Upload Email or Ticket History',
+            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+            buttonName: "Upload",
+            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+            link: "/dashboard/basic-knowledge",
+        },
     ];
 
 
@@ -138,7 +145,7 @@ const QuickStart = () => {
             name: "Knowledge Base",
             icon: <BookOpenIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
-        ,  {
+        , {
             href: "/dashboard/chat-settings",
             name: "Chat",
             icon: <ChatBubbleLeftIcon className="mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover " />,
@@ -167,7 +174,7 @@ const QuickStart = () => {
         }, {
             href: "/dashboard/billing/usage",
             name: "Usage",
-            icon: <BanknotesIcon  className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
+            icon: <BanknotesIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
             href: "/dashboard/billing/settings",
@@ -208,29 +215,27 @@ const QuickStart = () => {
         }
     }, [members.data]);
 
-    const setHideShow = (value, ele) => {
+    const setHideShow = (value) => {
         if (value === 0) {
             if (integrations?.data?.results?.length > 0) {
                 return false
             }
-
-        }
-        if (value === 2) {
-            if (workflow?.data?.results?.length > 0) {
-                return false
-            }
-        }
-        if (value === 1) {
+        } else if (value === 1) {
             if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
                 return false
             }
-        }
-        if (value === 3) {
+        } else if (value === 2) {
+            if (workflow?.data?.results?.length > 0) {
+                return false
+            }
+        } else if (value === 3) {
             if (members?.data?.length > 1) {
                 return false
             }
+        } else {
+            return true
         }
-        return true
+
     }
 
     const findIcon = (route) => {
@@ -254,7 +259,7 @@ const QuickStart = () => {
     }, [user])
     return (
 
-        <>      
+        <>
             {integrations && workflow && (
                 <>
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
@@ -321,7 +326,7 @@ const QuickStart = () => {
                                 </div>
 
                             </div>
-                            {user && user?.enterprise?.slug_domain === "" ?
+                            {user && user?.enterprise?.domain === "" ?
                                 <div
 
                                     className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
@@ -345,7 +350,7 @@ const QuickStart = () => {
                                             {user?.enterprise?.country === '' && key === 3 ? null :
                                                 <div key={key}>
 
-                                                    {setHideShow(key, ele) === true && (
+                                                    {setHideShow(key) === true && (
 
                                                         ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                             <div
@@ -431,84 +436,83 @@ const QuickStart = () => {
 
                                     </p>
 
-                                    {quickStartData?.map((ele, key) => (
+                                    {quickStartData?.map((ele, key) => {
+                                        const shouldHide = setHideShow(key);
+                                        if (shouldHide === false) return null;
+                                        return <div key={key}>
+                                            {ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                <div
+                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                    key={key}
+                                                >
 
-                                        <div key={ele}>
+                                                    <div className="px-6 sm:flex justify-between items-center sm:gap-0">
 
-                                            {setHideShow(key, ele) === true && (
-                                                ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
-                                                    <div
-                                                        className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
-                                                        key={key}
-                                                    >
+                                                        <div className="sm:w-[70%] flex gap-2  items-start">
 
-                                                        <div className="px-6 sm:flex justify-between items-center sm:gap-0">
-
-                                                            <div className="sm:w-[70%] flex gap-2  items-start">
-
-                                                                <span>
-                                                                    {skeltonLoading ?
-                                                                        <SkeletonLoader count={1} height={30} width={30} />
-                                                                        : <>
-                                                                            {ele?.icon}
-                                                                        </>
-                                                                    }
-                                                                </span>
-
-                                                                <div className="">
-
-                                                                    <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                        {skeltonLoading ?
-                                                                            <SkeletonLoader count={1} height={30} width={220} />
-                                                                            : <>
-                                                                                {ele?.title}
-                                                                            </>
-                                                                        }
-                                                                    </h3>
-
-                                                                    <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                        {skeltonLoading ?
-                                                                            <SkeletonLoader count={2} height={20} width={440} />
-                                                                            :
-                                                                            <>
-                                                                                {ele?.content}
-                                                                            </>
-                                                                        }
-                                                                    </p>
-
-                                                                </div>
-
-                                                            </div>
-
-                                                            <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
+                                                            <span>
                                                                 {skeltonLoading ?
-                                                                    <SkeletonLoader count={1} height={30} width={80} />
+                                                                    <SkeletonLoader count={1} height={30} width={30} />
                                                                     : <>
-                                                                        <Link
-
-                                                                            href={ele?.link}
-
-                                                                            className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                        >
-                                                                            {ele?.buttonName}
-
-                                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                        </Link>
+                                                                        {ele?.icon}
                                                                     </>
                                                                 }
+                                                            </span>
+
+                                                            <div className="">
+
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    {skeltonLoading ?
+                                                                        <SkeletonLoader count={1} height={30} width={220} />
+                                                                        : <>
+                                                                            {ele?.title}
+                                                                        </>
+                                                                    }
+                                                                </h3>
+
+                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    {skeltonLoading ?
+                                                                        <SkeletonLoader count={2} height={20} width={440} />
+                                                                        :
+                                                                        <>
+                                                                            {ele?.content}
+                                                                        </>
+                                                                    }
+                                                                </p>
+
                                                             </div>
 
                                                         </div>
 
+                                                        <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
+                                                            {skeltonLoading ?
+                                                                <SkeletonLoader count={1} height={30} width={80} />
+                                                                : <>
+                                                                    <Link
+
+                                                                        href={ele?.link}
+
+                                                                        className="text-[#007c8f] flex items-center justify-start sm:justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                    >
+                                                                        {ele?.buttonName}
+
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                    </Link>
+                                                                </>
+                                                            }
+                                                        </div>
+
                                                     </div>
-                                                )
+
+                                                </div>
+
                                             )}
 
                                         </div>
-
-                                    ))}
+                                    }
+                                    )}
 
                                 </div>
                             }

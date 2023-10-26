@@ -243,8 +243,8 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/billing/usage",
-                    name: "Usage",
-                    icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+                    name: "Billing",
+                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 // {
@@ -408,8 +408,8 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/billing/usage",
-                    name: "Usage",
-                    icon: <CurrencyDollarIcon className="h-6 w-6 text-gray-500" />,
+                    name: "Billing",
+                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
