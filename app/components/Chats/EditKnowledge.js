@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 
-const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
+const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId }) => {
 
     useEffect(() => {
         getThisKnowledge()
@@ -51,8 +51,17 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     }
 
     const toggleDropdown = () => {
+
+        setInfo({
+            question: item?.information?.question || '',
+            answer: item?.information?.answer || ''
+        })
+
         if (rated) { return }
         isDropdownOpen(!dropdownOpen)
+
+        if (dropdownOpenId == item.information.id) { setDropdownOpenId(''); return }
+        setDropdownOpenId(item.information.id)
     }
 
 
@@ -126,23 +135,25 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
     return (
         <>
             {thisKnowledge && !deleted &&
-                <div className='flex items-center w-full align-middle'>
-                    <div key={item.information?.knowledge?.id} className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
+                <div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
+                    <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
 
                         <div className="relative">
 
                             <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
                                 <span className="w-full flex items-center" >
-                                    <small id={item?.information?.knowledge?.id}>
-                                        {item?.information?.question}
+                                    <small id={item.information?.knowledge?.id + item.information.id + 'text'}>
+                                        {!(dropdownOpenId == item.information.id) ?
+                                            item?.information?.question : ''}
                                     </small>
                                 </span>
 
-                                {!rated && !dropdownOpen &&
+
+                                {!rated && !(dropdownOpenId == item.information.id) &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>}
-                                {!rated && dropdownOpen &&
+                                {!rated && dropdownOpenId == item.information.id &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -156,9 +167,9 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages }) => {
 
 
                             </div>
-                            {dropdownOpen &&
+                            {dropdownOpenId == item.information.id &&
 
-                                <div className="my-2">
+                                <div id={indexOfMessage + item.information?.knowledge?.id + item.information.id} key={indexOfMessage + item.information?.knowledge?.id + item.information.id} className="my-2">
 
                                     <div className="flex flex-row flex-1">
                                         <input

@@ -262,7 +262,18 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p data-tag="allowRowEvents" className='whitespace-normal'>{row.question}</p>
+                <p data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                    setWorkflowView(row)
+                    setShow(true)
+                    setAnswer('')
+                    setQuestionData([])
+                    setSearchKnowledge('')
+                    setKnowledgeId(null)
+                    getWorkFlowReccomodation(row.question)
+                    searchMatched({
+                        question: row.question
+                    }, false)
+                }}> {row.question}</p >
             )
         },
         {

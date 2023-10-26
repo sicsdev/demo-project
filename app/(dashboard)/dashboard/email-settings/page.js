@@ -226,40 +226,40 @@ const page = () => {
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
             <div className={pageLoading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
-                            <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
+                <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
-                                <li className={` ${pageLoading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
-                                    {pageLoading ?
-                                        <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                                        :
-                                        <span
-                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                    <li className={` ${pageLoading ? "" : tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
+                        {pageLoading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
-                                            aria-current="page"
-                                        >
-                                            Email Settings
-                                        </span>
-                                    }
-                                </li>
-                                <li className={` ${pageLoading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
-                                    {pageLoading ?
-                                        <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                                        :
-                                        <span
-                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                aria-current="page"
+                            >
+                                Email Settings
+                            </span>
+                        }
+                    </li>
+                    <li className={` ${pageLoading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                        {pageLoading ?
+                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                            :
+                            <span
+                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
                   rounded-lg active  group`}
-                                            aria-current="page"
-                                        >
-                                              DNS Settings
-                                        </span>
-                                    }
-                                </li>
-                              
-                             
-                                        
-                            </ul>
-                        </div>
-          
+                                aria-current="page"
+                            >
+                                DNS Settings
+                            </span>
+                        }
+                    </li>
+
+
+
+                </ul>
+            </div>
+
             {tab === 0 && (
                 <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:max-w-[750px]">
                     {

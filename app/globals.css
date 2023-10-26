@@ -868,6 +868,10 @@ transition: all .4s ease;
   color: #555;
   font-weight: 500;
 }
+.new_input_label1   {
+  font-size: 12px;
+  font-weight: 500;
+}
 
 .marque_section {
   -webkit-mask-image: linear-gradient(90deg, #0000, #fff 5%, #fff 95%, #0000);

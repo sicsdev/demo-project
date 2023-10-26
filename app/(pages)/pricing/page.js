@@ -16,37 +16,201 @@ import Link from "next/link";
 import { Helmet } from "react-helmet";
 import Panelcard from "@/app/components/PanelCard/PanelCard";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
+import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
+import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
+import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
+
+import "./style.css";
+
+const INITIAL_DATA = {
+  companyName: "",
+  industry: "",
+  totalNumbersOfEmployees: "",
+  // location: "United States",
+  yourFunctionalAreas: [],
+  AgentNumber: 0,
+  dailyTicketVolume: 0,
+  avgAgentHourlyWage: 0,
+
+};
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
+import Modal from "@/app/components/Common/Modal/Modal";
+import TextField from "@/app/components/Common/Input/TextField";
+import { createContactInFreshsales } from "@/app/API/components/Demo";
 
 const Pricing = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const emailQuery = searchParams.get("email");
-  const handleGetFreeTrial = (select) => {
-    router.push(`/checkout?plan=${select}`);
-  };
-  const [hide, setHide] = useState({
-    first: false,
-  });
-  useEffect(() => {
-    const callback = function (entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-fadeIn");
-        } else {
-          entry.target.classList.remove("animate-fadeIn");
+  const [data, setData] = useState({});
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  function toggleModal() {
+    setModalOpen(!isModalOpen);
+  }
+
+  function updateFields(event) {
+    const { value, name } = event.target
+    setData((prev) => {
+      return {
+        ...prev,
+        [name]: value
+      };
+    });
+  }
+  const hasSpecialCharacter = (str) => {
+    const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+    return regex.test(str);
+  }
+  const handleInputValues = (event) => {
+    const { value, name, type } = event.target;
+
+    if (type === 'number') {
+      if (hasSpecialCharacter(value)) {
+        setData((prev) => {
+          return {
+            ...prev,
+            [name]: ''
+          }
+        });
+      }
+      const processedValue = value.replace(/[^0-9]/g, '');
+      setData((prev) => {
+        return {
+          ...prev,
+          [name]: processedValue
         }
       });
-    };
-    const observer = new IntersectionObserver(callback);
-    const targets = document.querySelectorAll(".js-show-on-scroll");
-    targets.forEach(function (target) {
-      target.classList.add("opacity-0");
-      observer.observe(target);
-    });
-  }, []);
+    } else {
+      setData((prev) => {
+        return {
+          ...prev,
+          [name]: value
+        }
+      });
+    }
+  }
 
+
+
+  const handleCheckboxChange = (event) => {
+    const { name, checked } = event.target;
+
+    setData((prev) => ({
+      ...prev,
+      [name]: checked
+    }));
+  }
+  const { steps, currentStepIndex, step, isFirstStep, isLastStep, back, next } =
+    useMultiStepFrom([
+      <FirstStep
+        key={0}
+        data={data}
+        updateFields={updateFields}
+        setData={setData}
+        handleInputValues={handleInputValues}
+      />,
+      // <SecondStep key={1} {...data} updateFields={updateFields} />,
+      <SecondStep key={1}
+        formData={data}
+        updateFields={updateFields}
+        setFormData={setData} />,
+    ]);
+
+  const formulaValues = (type) => {
+    let values = null
+    if (type === 'FIRST') {
+      values = (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)
+    } else if (type === 'SECOND') {
+      values = 12 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)
+    } else if (type === 'MONTH1') {
+      values = (20 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4) / 100)
+    } else if (type === 'MONTH2') {
+      values = (50 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)) / 100
+    } else if (type === 'MONTH3') {
+      values = (80 * (parseInt(data?.AgentNumber) * parseInt(data?.avgAgentHourlyWage) * 173.7) - (parseInt(data?.dailyTicketVolume) * 30.4)) / 100
+    }
+    return values
+  }
+  function onSubmit(e) {
+    e.preventDefault();
+    // alert("Successful Account Creation");
+    toggleModal();
+  }
+  const submitModal = async () => {
+    const payload = {
+      firstname: data?.firstName,
+      lastname: data?.lastName,
+      email: data?.companyEmail,
+
+    }
+    if (data?.phoneNumber) {
+      payload['phone'] = data?.phoneNumber
+    }
+    const response = createContactInFreshsales(payload)
+    if (response) {
+      setData(prev => {
+        return {
+          ...prev,
+          AgentNumberAvg: formulaValues('FIRST'),
+          dailyTicketVolumeAvg: formulaValues('SECOND'),
+          chartValues: [formulaValues('MONTH1').toFixed(2), formulaValues('MONTH2').toFixed(2), formulaValues('MONTH3').toFixed(2)],
+        }
+      })
+      toggleModal()
+      return next();
+    }
+
+  }
+  const stepsTab = [
+    { title: "Step 1" },
+    { title: "Step 2" },
+    { title: "Step 3" },
+  ];
+  const DisablingButton = () => {
+    if (currentStepIndex === 0) {
+      const requiredKeys = [
+        "AgentNumber",
+        "avgAgentHourlyWage",
+        "companyName",
+        "dailyTicketVolume",
+        "industry",
+      ];
+      const isRequiredFieldsEmpty = requiredKeys.some(
+        (key) => !data[key] || data[key].trim() === ""
+      );
+      const isFunctionalAreasValid = Array.isArray(data.yourFunctionalAreas) && data.yourFunctionalAreas.length > 0;
+
+      return isRequiredFieldsEmpty || !isFunctionalAreasValid;
+    }
+  }
+
+  const DisablingButtonModal = () => {
+
+    const requiredKeys = [
+      "firstName",
+      "lastName",
+      "companyEmail",
+    ];
+
+    const validateEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+
+
+    const isRequiredFieldsEmpty = requiredKeys.some(
+      (key) => !data[key] || data[key].trim() === ""
+    );
+
+    const isCompanyEmailValid = validateEmail(data.companyEmail);
+
+    // Assuming you want to check that isSubscribed is true
+    const isSubscribed = data?.isSubscribed;
+
+    const isFormInvalid = isRequiredFieldsEmpty || !isCompanyEmailValid || !isSubscribed;
+
+    return isFormInvalid;
+  }
   return (
     <div className="bg-white">
       <Helmet>
@@ -63,10 +227,29 @@ const Pricing = () => {
       </Helmet>
 
       {/* <Panelcard  /> */}
+      <div className="p-4 sm:p-8  sm:px-40 ">
+        {/* <form onSubmit={onSubmit}> */}
+        {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
 
-      <Panelcardnew/>
+        {step}
+        <div className="mt-4 flex justify-center  sm:justify-start gap-2">
+          {isFirstStep && (
+            <button
+              className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white disabled:border-input_color  hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+              type="button"
+              onClick={onSubmit}
+              disabled={DisablingButton()}
+            >
+              View Savings
+            </button>
+          )}
+        </div>
+        {/* </form> */}
+      </div>
+      <Panelcardnew />
 
       <DTC />
+
       {/* <Iconanimation /> */}
       {/* <Trial /> */}
       {/* <Resource /> */}
@@ -223,9 +406,139 @@ const Pricing = () => {
           />
         </Container>
         <Newstandard />
-        <Motioncards/>
+        <Motioncards />
         <Testimonial />
       </div>
+      {isModalOpen && (
+        <Modal
+
+          title={''}
+          className={"sm:w-[50%] w-[100%]"}
+          show={isModalOpen}
+          setShow={setModalOpen}
+          showCancel={true}
+          customHideButton={false}
+          showTopCancleButton={false}
+          hr={false}
+        >
+          <div className="p-5">
+            <div className="text-center font-bold text-2xl sm:mt-8">
+              See your results and get your report
+            </div>
+            <div className="text-[#868794]  text-sm my-4 leading-5">
+              Please confirm your information below to see your results. Your full analysis and report will be send to the email inbox provided below
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:mr-3">
+              <div className="w-full">
+
+
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={data.firstName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>First Name</span>{" "}
+                    </div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={data.lastName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Last Name</span>{" "}
+                    </div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="companyEmail"
+                  name="companyEmail"
+                  type="email"
+                  value={data.companyEmail ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Company Email</span>{" "}
+                    </div>
+                  }
+                  placeholder={"Company Email"}
+                  error={''}
+                />
+              </div>
+              <div className="w-full">
+                <TextField
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="number"
+                  value={data.phoneNumber ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px]">
+                      <span>Phone number (Optional)</span>{" "}
+                    </div>
+                  }
+                  placeholder={"Phone number (Optional)"}
+                  error={''}
+                />
+              </div>
+            </div>
+            <div className="flex mt-5">
+              <div className="flex items-center h-5">
+                <input
+                  type="checkbox"
+                  name="isSubscribed"
+                  checked={data.isSubscribed || false}
+                  onChange={handleCheckboxChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+              </div>
+              <div className="ml-2 text-sm">
+                <p
+                  id="helper-checkbox-text"
+                  className="text-xs font-normal tracking-tight leading-4 text-left text-gray-500 dark:text-gray-300"
+                >
+                  I'd like to receive marketing emails from Tempo. Please click here to view our Privacy Policy.
+                </p>
+              </div>
+            </div>
+            <div className="mt-4 mx-auto flex justify-center gap-4 items-center">
+              <button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-white  text-primary hover:text-white hover:bg-primary hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={toggleModal}
+              >
+                Cancel
+              </button>
+              <button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-input_color disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={submitModal}
+                disabled={DisablingButtonModal()}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

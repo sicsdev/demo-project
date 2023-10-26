@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { acceptInKnowledge, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
+import { acceptInKnowledge, createRecommendation, excludeRecommendationRecord, expandRecommendationRecord, updateRecommendationRecord } from "@/app/API/pages/LearningCenter";
 import { ToastContainer } from 'react-toastify';
 import { errorMessage } from "@/app/components/Messages/Messages";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ const pusher = new Pusher("1fc282a0eb5e42789c23", {
 
 
 const Answerknowledge = ({ externalQuestionFromLogs,
-    setExternalQuestionFromLogs }) => {
+    setExternalQuestionFromLogs, selectedBot }) => {
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
@@ -102,8 +102,9 @@ const Answerknowledge = ({ externalQuestionFromLogs,
 
             let updateRecord;
 
+
             if (new_answer) {
-                updateRecord = await acceptInKnowledge(workflowView.id, subQuestions[0].data.id)
+                updateRecord = await acceptInKnowledge(id, subQuestions[0].data.id)
             } else {
                 updateRecord = await updateRecommendationRecord(payload, id);
             }
@@ -176,7 +177,18 @@ const Answerknowledge = ({ externalQuestionFromLogs,
 
 
     const updateFaq = async (new_answer = null) => {
-        const response = await patchKnowledgeQuestion({ answer: answer ? answer : new_answer }, knowledgeId.id)
+
+        let payload = {
+            question: externalQuestionFromLogs.question,
+            bot: selectedBot,
+            answer: answer || subQuestions[0].data.answer,
+            accepted: true,
+        }
+
+        let newRecommendation = await createRecommendation(payload)
+        let id = newRecommendation.data.id || workflowView.id
+
+        const response = await patchKnowledgeQuestion({ answer: answer ? answer : new_answer }, id)
         if (response.status === 200 || response.status === 201) {
             setUpdateLoader(false)
             setUpdateLoader1(false)
@@ -187,27 +199,46 @@ const Answerknowledge = ({ externalQuestionFromLogs,
             setUpdateLoadesetUpdateLoader1(false)
         }
     }
-    const SubmitTheForm = () => {
-        setUpdateLoader(true)
 
+    const SubmitTheForm = async () => {
+        setUpdateLoader(true)
         if (knowledgeId) {
             updateFaq()
         } else {
-            updateButtonHandler(workflowView.id)
+
+            let payload = {
+                question: externalQuestionFromLogs.question,
+                bot: selectedBot,
+                answer: answer || subQuestions[0].data.answer,
+                accepted: true,
+            }
+
+            let newRecommendation = await createRecommendation(payload)
+            let id = newRecommendation.data.id || workflowView.id
+            updateButtonHandler(id, null)
         }
     }
 
 
-    const SubmitTheAnswerForm = (new_answer) => {
-
+    const SubmitTheAnswerForm = async (new_answer) => {
         setUpdateLoader1(true)
+
+        let payload = {
+            question: externalQuestionFromLogs.question,
+            bot: selectedBot,
+            answer: answer || subQuestions[0].data.answer,
+            accepted: true,
+        }
+
+        let newRecommendation = await createRecommendation(payload)
+        let id = newRecommendation.data.id || workflowView.id
+
         if (knowledgeId) {
             updateFaq(new_answer)
         } else {
-            updateButtonHandler(workflowView.id, new_answer)
+            updateButtonHandler(id, new_answer)
         }
     }
-
 
     const [subQuestionLoading, setSubQuestionLoading] = useState(false)
     const searchMatched = async (element, showknowledge = true) => {
@@ -386,54 +417,55 @@ const Answerknowledge = ({ externalQuestionFromLogs,
 
     return (
         <>
-            {workflowView && show && (
-                <AnswersEditor
-                    setShow={setShow}
-                    setWorkflowView={(val)=>{
-                        setWorkflowView(val)
-                        setExternalQuestionFromLogs(val)
-                    }}
-                    setKnowledgeId={setUpdateLoader}
-                    setUpdateLoader={setUpdateLoader}
-                    setUpdateLoader1={setUpdateLoader1}
-                    setExternalContentForTextEditor={setExternalContentForTextEditor}
-                    workflowView={workflowView}
-                    knowledgeId={knowledgeId}
-                    questionData={questionData}
-                    setAnswer={setAnswer}
-                    setSubQuestions={setSubQuestions}
-                    handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
-                    subQuestions={subQuestions}
-                    subQuestionLoading={subQuestionLoading}
-                    defaultTitle={defaultTitle}
-                    updateLoader1={updateLoader1}
-                    updateLoader={updateLoader}
-                    SubmitTheAnswerForm={SubmitTheAnswerForm}
-                    link={link}
-                    setLink={setLink}
-                    setModal={setModal}
-                    modal={modal}
-                    handleTextEditorChange={handleTextEditorChange}
-                    externalContentForTextEditor={externalContentForTextEditor}
-                    answer={answer}
-                    SubmitTheForm={SubmitTheForm}
-                    getExpandedAnswer={getExpandedAnswer}
-                    pusherStreaming={pusherStreaming}
-                    setWorkFlowData={setWorkFlowData}
-                    workFlowData={workFlowData}
-                    submitWorkflowTrigger={submitWorkflowTrigger}
-                    searchKnowledge={searchKnowledge}
-                    setSearchKnowledge={setSearchKnowledge}
-                    mode={mode}
-                    setMode={setMode}
-                    searchFaqs={searchFaqs}
-                    handleWorkflow={handleWorkflow}
-                >
 
-                </AnswersEditor>
+            {workflowView && show && (
+                <>
+                    <AnswersEditor
+                        setShow={setShow}
+                        setWorkflowView={(val) => {
+                            setWorkflowView(val)
+                            setExternalQuestionFromLogs(val)
+                        }}
+                        setKnowledgeId={setUpdateLoader}
+                        setUpdateLoader={setUpdateLoader}
+                        setUpdateLoader1={setUpdateLoader1}
+                        setExternalContentForTextEditor={setExternalContentForTextEditor}
+                        workflowView={workflowView}
+                        knowledgeId={knowledgeId}
+                        questionData={questionData}
+                        setAnswer={setAnswer}
+                        setSubQuestions={setSubQuestions}
+                        handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
+                        subQuestions={subQuestions}
+                        subQuestionLoading={subQuestionLoading}
+                        defaultTitle={defaultTitle}
+                        updateLoader1={updateLoader1}
+                        updateLoader={updateLoader}
+                        SubmitTheAnswerForm={SubmitTheAnswerForm}
+                        link={link}
+                        setLink={setLink}
+                        setModal={setModal}
+                        modal={modal}
+                        handleTextEditorChange={handleTextEditorChange}
+                        externalContentForTextEditor={externalContentForTextEditor}
+                        answer={answer}
+                        SubmitTheForm={SubmitTheForm}
+                        getExpandedAnswer={getExpandedAnswer}
+                        pusherStreaming={pusherStreaming}
+                        setWorkFlowData={setWorkFlowData}
+                        workFlowData={workFlowData}
+                        submitWorkflowTrigger={submitWorkflowTrigger}
+                        searchKnowledge={searchKnowledge}
+                        setSearchKnowledge={setSearchKnowledge}
+                        mode={mode}
+                        setMode={setMode}
+                        searchFaqs={searchFaqs}
+                        handleWorkflow={handleWorkflow}
+                    >
+                    </AnswersEditor>
+                </>
             )}
             <ToastContainer />
-
 
         </>
     );
