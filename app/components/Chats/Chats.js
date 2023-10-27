@@ -503,6 +503,65 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     </>
                                                                 }
 
+
+
+
+
+
+
+                                                                {/* THIS CODE IS PROVISIONAL SINCE WE HAVE A BACKEND BUG THAT SEND MESSAGES WITH TYPE "ACTION" WHEN IT SHOULD BE MESSAGE. 
+                                                                THIS BELOW CODE WILL PATCH THIS, UNTIL ITS FIXED. */}
+
+                                                                {
+                                                                    element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
+                                                                    element.knowledge.length == 0 && element.workflows.length == 0 && element.action == null && element.type == 'action' &&
+                                                                    <>
+
+
+                                                                        {divideAnswer(element)}
+
+                                                                        <div key={'a' + key} id={'a' + key} className='mx-2 my-1 flex justify-between w-100 mt-4' style={{ color: '#828282' }}>
+                                                                            <div className='w-100' style={{ width: '100%' }}>
+                                                                                <small className='flex gap-3 items-center'>
+                                                                                    <b>Sources</b>
+                                                                                    <small
+                                                                                        onClick={() => handleAddSource(key)}
+                                                                                        className='px-1 border border-gray rounded-md cursor-pointer bg-[#cbf5d3] focus:shadow-[0_8px_9px_-4px_#0000ff8a]'>
+                                                                                        Add Source
+                                                                                    </small>
+                                                                                </small>
+                                                                                {
+                                                                                    element?.knowledge?.length ?
+                                                                                        element?.knowledge?.map(item => (
+                                                                                            <EditKnowledge
+                                                                                                setDropdownOpenId={setDropdownOpenId}
+                                                                                                dropdownOpenId={dropdownOpenId}
+                                                                                                allMessages={messages}
+                                                                                                indexOfMessage={key}
+                                                                                                item={item}
+                                                                                                allKnowledge={allKnowledge}>
+                                                                                            </EditKnowledge>
+                                                                                        ))
+
+                                                                                        :
+
+                                                                                        <div className='flex gap-4 items-center mt-2'>
+                                                                                            <small>LLM</small>
+                                                                                        </div>
+
+                                                                                }
+                                                                            </div>
+                                                                            <div>
+                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                            </div>
+
+                                                                        </div>
+                                                                        {<div>
+
+                                                                        </div>}
+                                                                    </>
+                                                                }
+
                                                                 {
                                                                     element.content === 'HUMAN-HANDOFF' &&
                                                                     <>
@@ -585,6 +644,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                         </div>
                                                                     </>
                                                                 }
+
+
 
 
                                                                 {
