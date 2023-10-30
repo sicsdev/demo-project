@@ -56,6 +56,15 @@ const AnswersEditor = ({
 
     const [tab, setTab] = useState(0);
 
+    const filterWorkflowArray = (workflows) => {
+        if (workflows.length > 0) {
+            const updatedWorkflows = [...workflows, { name: "Human Handoff", id: "human_handoff" }];
+            const sortedWorkflows = updatedWorkflows.sort((a, b) => a.name.localeCompare(b.name));
+            return sortedWorkflows
+        }
+        return [];
+    };
+
 
     return (
         <SideModal setShow={(t) => {
@@ -98,17 +107,19 @@ const AnswersEditor = ({
 
                 </ul>
             </div>
-
-            <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-            <div className="relative mt-3">
-                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
-            </div>
-
+            {tab === 0 && (
+                <>
+                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div className="relative mt-3">
+                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={searchKnowledge} onChange={(e) => { searchFaqs(e) }} />
+                    </div>
+                </>
+            )}
             {!knowledgeId && questionData.length > 0 && (
                 <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
                     <ul className="py-2 text-sm text-gray-700 ">
@@ -117,8 +128,6 @@ const AnswersEditor = ({
                                 setAnswer(element.answer)
                                 setKnowledgeId(element)
                                 handleSwapRecommendedXSearch(element)
-                                console.log(element, 'element')
-                                console.log(subQuestions)
                             }}>
                                 <button type='button' className="block px-4 py-2 text-xs">{element.question}</button>
                             </li>
@@ -432,27 +441,40 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                         </div>
                         <div className={` bg-[#F8F8F8] my-4`}>
                             <ul className="py-2 text-sm text-gray-700 ">
-                                {workFlowData.workflow.length > 0 && workFlowData.workflow.map((ele, key) =>
-                                    <>
-                                        {workFlowData.reccomodation.find((x) => x.data.name === ele.name) ? null :
-                                            <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
-                                                setWorkFlowData((prev) => {
-                                                    return {
-                                                        ...prev,
-                                                        workflowValue: ele,
-                                                        showInput: false,
-                                                        target: 'workflow',
-                                                        answer: ele.description.join('\n')
+                                {
+                                    filterWorkflowArray(workFlowData.workflow).map((ele, key) =>
+                                        <>
+                                            {workFlowData.reccomodation.find((x) => x.data.name === ele.name) ? null :
+                                                <li className={`${ele.name === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} key={key} onClick={() => {
+                                                    if (ele.id === "human_handoff") {
+                                                        setWorkFlowData((prev) => {
+                                                            return {
+                                                                ...prev,
+                                                                workflowValue: { "name": "Human Handoff", id: "human_handoff" },
+                                                                showInput: true,
+                                                                answer: '',
+                                                                target: 'human_handoff'
+                                                            }
+                                                        })
+                                                    } else {
+                                                        setWorkFlowData((prev) => {
+                                                            return {
+                                                                ...prev,
+                                                                workflowValue: ele,
+                                                                showInput: false,
+                                                                target: 'workflow',
+                                                                answer: ele.description.join('\n')
+                                                            }
+                                                        })
                                                     }
-                                                })
-                                            }}>
-                                                <button type='button' className="block px-4 py-2  text-xs">{(ele.name)}</button>
-                                            </li>
-                                        }
-                                    </>
-                                )}
+                                                }}>
+                                                    <button type='button' className="block px-4 py-2  text-xs">{(ele.name)}</button>
+                                                </li>
+                                            }
+                                        </>
+                                    )}
 
-                                <li className={`${"Human Handoff" === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} onClick={() => {
+                                {/* <li className={`${"Human Handoff" === workFlowData.workflowValue?.name ? "bg-primary text-white" : "hover:bg-primary hover:text-white"}  text-heading my-2 cursor-pointer`} onClick={() => {
                                     setWorkFlowData((prev) => {
                                         return {
                                             ...prev,
@@ -465,7 +487,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
 
                                 }}>
                                     <button type='button' className="block px-4 py-2  text-xs">Human Handoff</button>
-                                </li>
+                                </li> */}
                             </ul>
 
                         </div>
