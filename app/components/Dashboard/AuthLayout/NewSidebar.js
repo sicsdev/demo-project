@@ -951,7 +951,7 @@ const NewSidebar = ({ children }) => {
                 </nav>
                 <aside
                     id="logo-sidebar"
-                    className={`hidden sm:block fixed py-5 bg-sidebarbg  text-white top-0 left-0 z-40 ${collaps ? "w-20 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"} h-[100vh]`}
+                    className={`popup_z_index hidden sm:block fixed py-5 bg-sidebarbg  text-white top-0 left-0 z-40 ${collaps ? "w-20 transition-all duration-300 ease-in-out" : "w-64 transition-all duration-300 ease-in-out"} h-[100vh]`}
                     aria-label="Sidebar"
                 >
                     <div className="h-full px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">

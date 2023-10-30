@@ -1797,3 +1797,10 @@ body .custome_table {
 .privacy_link_footer {
   border-right: 0px !important;
 }
+
+@media screen and (max-width:1065px) {
+  .popup_z_index{
+    z-index: 10 !important;
+  }
+  
+}
