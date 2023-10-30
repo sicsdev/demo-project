@@ -316,18 +316,19 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
                 {
                     data?.length > 0 ? (
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2'>
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2' >
                             {data?.map((item, key) =>
                                 <div
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
+                                    }}
                                     style={{
                                         boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                                     }}
                                     key={key}
                                     className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
-                                    }}
+
                                 >
 
                                     <div className='relative h-full'>
