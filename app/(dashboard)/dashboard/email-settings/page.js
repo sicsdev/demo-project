@@ -49,8 +49,9 @@ const page = () => {
                 email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
                 customer_service_email: bot_res?.customer_service_email,
                 agent_email_value: bot_res?.email ? true : false,
-
+                email_prefix: bot_res.email.split('@')[0]
             }
+            debugger
             let data = res[0].data;
             setBasicFormData((prev) => {
                 return {
@@ -133,7 +134,7 @@ const page = () => {
             email_agent_title: basicFormData.agent_title,
             email_greeting: basicFormData.email_introduction,
             email_farewell: basicFormData.email_signOff,
-            email: basicFormData.email_prefix +
+            email: basicFormData.email_prefix || 'support' +
                 "@" +
                 basicFormData.company_name +
                 ".gettempo.ai",
@@ -190,7 +191,7 @@ const page = () => {
             email_agent_title: basicFormData.agent_title,
             email_greeting: basicFormData.email_introduction,
             email_farewell: basicFormData.email_signOff,
-            email: basicFormData.email_prefix +
+            email: basicFormData.email_prefix || 'support' +
                 "@" +
                 basicFormData.company_name +
                 ".gettempo.ai",
