@@ -325,6 +325,7 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                         id={"subDomain"}
                                         className="py-3"
                                         error={""}
+                                        labelClass={'new_input_label mb-3'}
                                     />
                                 }
                                 <div className='pt-2'>
