@@ -12,7 +12,7 @@ const ContactFeatures = () => {
   }, []);
 
   const data = [{
-    img: <ChatBubbleLeftIcon className="h-12 w-12 text-red" />,
+    img: <ChatBubbleLeftIcon className="h-12 w-12 text-[#0057ff]" />,
     heading: "AI Chatbot",
     description: "Automate customer interactions for efficiency and satisfaction.",
     list: [
@@ -22,7 +22,7 @@ const ContactFeatures = () => {
     ]
   },
   {
-    img: <EnvelopeIcon className="h-12 w-12 text-red" />,
+    img: <EnvelopeIcon className="h-12 w-12 text-[#0057ff]" />,
 
     heading: "Email Automation    ",
     description: "Automate email support without drowning in tickets.",
@@ -33,7 +33,7 @@ const ContactFeatures = () => {
     ]
   },
   {
-    img: <DevicePhoneMobileIcon className="h-12 w-12 text-red" />,
+    img: <DevicePhoneMobileIcon className="h-12 w-12 text-[#0057ff]" />,
 
     heading: "Phone IVR    ",
     description: "Optimize phone support with real-time interactions.",
@@ -45,7 +45,7 @@ const ContactFeatures = () => {
     ]
   },
   {
-    img: <BookOpenIcon className="h-12 w-12 text-red" />,
+    img: <BookOpenIcon className="h-12 w-12 text-[#0057ff]" />,
 
     heading: "Knowledge Base",
     description: "Empower customers with a dynamic knowledge base.",
@@ -56,7 +56,7 @@ const ContactFeatures = () => {
     ]
   },
   {
-    img: <BriefcaseIcon className="h-12 w-12 text-red" />,
+    img: <BriefcaseIcon className="h-12 w-12 text-[#0057ff]" />,
 
     heading: "Workflow Builder",
     description: "Design custom workflows with our low-code builder.",
@@ -67,7 +67,7 @@ const ContactFeatures = () => {
     ]
   },
   {
-    img: <AcademicCapIcon className="h-12 w-12 text-red" />,
+    img: <AcademicCapIcon className="h-12 w-12 text-[#0057ff]" />,
     heading: "Learning Center",
     description: "Improve service through data-driven insights.",
     list: [
@@ -82,7 +82,7 @@ const ContactFeatures = () => {
 
   return (
     <div className='w-full sm:w-[1440px] mx-auto'>
-      <div className='text-[24px] text-center font-semibold mt-[5rem] text-[#363744] '>
+      <div className='text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]'>
         {loading ? (
           <SkeletonLoader count={1} height={30} width={120} />
         ) : (
@@ -100,7 +100,7 @@ const ContactFeatures = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={35} width="100%" />
               ) : (
-                <div className=" font-bold mt-4 mb-4 sm:mb-4 sm:mt-4 " >
+                <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff]" >
                   {ele.heading}
                 </div>
               )}</p>
@@ -108,7 +108,7 @@ const ContactFeatures = () => {
               {loading ? (
                 <SkeletonLoader count={5} height={30} width="100%" />
               ) : (
-                <div className="">
+                <div className="p-0 py-2 sm:p-3  md:px-0 ">
                   {ele.description}
                 </div>
               )}</p>
@@ -119,7 +119,7 @@ const ContactFeatures = () => {
                     {loading ? (
                       <SkeletonLoader count={2} height={30} width="80%" />
                     ) : (
-                      <>{elem}</>
+                      <p>{elem}</p>
 
                     )}</li>
                 )}
@@ -127,35 +127,38 @@ const ContactFeatures = () => {
           </div>
         )}
       </div>
-      <div className="grid grid-cols-1 w-[100%] sm:flex p-8 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[50px] mb-[2rem] justify-center">
+      <div className="grid grid-cols-1 sm:mt-[40px] w-[100%] sm:flex p-8 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] mb-[2rem] sm:pb-[30px] justify-center">
         {loading ? (
-          <SkeletonLoader count={1} height={50} width={180} />
+          <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+            <SkeletonLoader height={60} width={300} />
+          </div>
         ) : (
-
           <button
+          // onClick={handleClickscroll}
             type="button"
-            className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-xl font-medium  leading-normal bg-[white] hover:bg-[#FF5721] text-[#FF5721] font-bold hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+            className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >
-            <p>Get a Quote </p>
+            Get a Quote
           </button>
         )}
         {loading ? (
-          <SkeletonLoader count={1} height={50} width={180} />
+          <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+            <SkeletonLoader height={60} width={300} />
+          </div>
         ) : (
-
           <button
             type="button"
-            className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-xl font-medium  leading-normal bg-[#FF5721] hover:bg-[white] text-white font-bold hover:text-[#FF5721]  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+            className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
           >
             <div
               className=""
               dangerouslySetInnerHTML={{
                 __html: `
-       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-       <span className="underline cursor-pointer text-white ">Chat with Sales
-       </span>
-       </a>
-      `,
+   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+   <span className="underline cursor-pointer text-white ">Get Started
+   </span>
+   </a>
+  `,
               }}
             />
           </button>
