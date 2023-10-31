@@ -150,10 +150,14 @@ const page = () => {
         const response_companyname = await createEnterpriseAccount({
             domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
         });
-        const domains = await enterpriseDomainInitialize({
-            domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
-        });
-        if (response_companyname.status === 200 && domains.status === 200) {
+        if (user && user?.enterprise?.domain === '') {
+            const domains = await enterpriseDomainInitialize({
+                domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
+            });
+        }
+
+
+        if (response_companyname.status === 200) {
             modifyBot(selectedBot, payload)
                 .then(async (res) => {
                     if (res?.status === 200 || res?.status === 201) {
