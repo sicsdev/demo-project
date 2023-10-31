@@ -34,12 +34,12 @@ const ContactSection3 = () => {
           <div>
             <div className="">
 
-              <h2 className=" font-bold text-left  text-2xl text-[#252C47] sm:w-[34rem]  md:text-h2 lg:text-[32px] sm:text-h2 sm:leading-none ">
+            <p className=" font-bold  text-2xl text-left  sm:w-[34rem] sm:mt-0 mt-4 sm:text-[38px] text-black sm:leading-none ">
                 {loading ? (
                   <SkeletonLoader count={2} height={35} width="100%" />
                 ) : (
                   "Easily improve customer satisfaction and agent efficiency."
-                )} </h2>
+                )} </p>
               <p className="sm:my-12 text-left my-3 sm:text-xl text-sm sm:w-[580px]">
                 {loading ? (
                   <SkeletonLoader count={4} height={30} width="100%" />
@@ -74,17 +74,28 @@ const ContactSection3 = () => {
               <div className="block">
               <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8">
                 <div className="block sm:flex w-[100%] items-center gap-8">
-                  {loading ? (
-                    <SkeletonLoader count={1} height={50} width={180} />
-                  ) : (
-                    <button
-                      className={
-                        "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
-                      }
-                    >
-                      Schedule Demo
-                    </button>
-                  )}
+                {loading ? (
+          <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+            <SkeletonLoader height={60} width={300} />
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+          >
+            <div
+              className=""
+              dangerouslySetInnerHTML={{
+                __html: `
+   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+   <span className="underline cursor-pointer text-white ">Get Started
+   </span>
+   </a>
+  `,
+              }}
+            />
+          </button>
+        )}
                 </div>
                 <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]"></div>
               </div>

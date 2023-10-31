@@ -13,7 +13,7 @@ import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
 
 
-const Chatbot = () => {
+const Phone = () => {
 
     return (
         <>
@@ -39,4 +39,4 @@ const Chatbot = () => {
 
 };
 
-export default Chatbot;
+export default Phone;

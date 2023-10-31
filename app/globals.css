@@ -1804,3 +1804,10 @@ body .custome_table {
   }
   
 }
+.for-bg:before {
+  content: "";
+  background: linear-gradient(0deg,currentColor,hsla(0,0%,100%,0));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
