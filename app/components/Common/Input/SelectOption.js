@@ -5,7 +5,7 @@ const SelectOption = ({
     labelClassName,
     title,
     selectdiv,
-    sublabel,
+    sublabel = ``,
     labelClass,
     values,
     id,
@@ -23,7 +23,9 @@ const SelectOption = ({
         <div className={`inline ${labelClassName || ""}`}>
             <label className={`block text-sm text-heading ${labelClass || "font-medium"}`}>
                 {title}
-                <p style={{ fontSize: "10px" }}>{sublabel}</p>
+                {sublabel !== '' &&
+                    <p style={{ fontSize: "10px" }}>{sublabel}</p>
+                }
             </label>
             <div className={`selectdiv`}>
                 <select

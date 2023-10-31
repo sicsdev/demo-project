@@ -412,12 +412,12 @@ const NewSidebar = ({ children }) => {
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                {
-                    href: "/dashboard/billing/settings",
-                    name: "Billing",
-                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
+                // {
+                //     href: "/dashboard/billing/settings",
+                //     name: "Billing",
+                //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
                 {
                     href: "/dashboard/scheduling-settings",
                     name: "Scheduling",
