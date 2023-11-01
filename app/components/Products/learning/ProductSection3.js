@@ -31,13 +31,13 @@ const ProductSection3 = () => {
               {loading ? (
                 <SkeletonLoader count={1}    className="w-[120px] sm:w-[455px] h-[220px] mb-9 sm:h-[325px] "/>
                 ) : (
-                  "More than a chatbot"
+                  "Empower Your Team with Actionable Data"
                 )} </p>
               <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={4} height={30} width="100%" />
                 ) : (
-                  "Tempo Chat integrates with your backend APIs, offering a robust solution that goes beyond mere chat functionalities."
+                  "Equip your team with the knowledge they need to excel, thanks to comprehensive data reporting."
                 )}
               </p>
               <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
@@ -112,13 +112,13 @@ const ProductSection3 = () => {
               {loading ? (
                 <SkeletonLoader count={1}    className="w-[120px] sm:w-[455px] h-[220px] mb-9 sm:h-[325px] "/>
                 ) : (
-                  "Improves every day, just like your business"
+                  "Conversational Retention Flows"
                 )} </p>
               <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={4} height={30} width="100%" />
                 ) : (
-                  "Tempo Chat evolves with each interaction. Upload your ticket histories and use our learning center's recommendations for a bot that gets smarter every day."
+                  "Workflows feed information back to the customer over time, creating conversational retention flows that enhance customer engagement."
                 )}
               </p>
               <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">

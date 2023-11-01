@@ -1,30 +1,30 @@
-import React from 'react';
-import Banner from '@/app/components/KnowledgeBase/Banner';
-import Homeinte from '@/app/components/LayoutNew/Homeinte';
-import KnowledgeSection2 from '../../../components/KnowledgeBase/KnowledgeSection2';
-import KnowledgeSection3 from '@/app/components/KnowledgeBase/KnowledgeSection3';
-import KnowlwdgeSection4 from '@/app/components/KnowledgeBase/KnowlwdgeSection4';
-import ProductForm from '@/app/components/Products/ProductForm';
-import KnowledgeSection5 from '@/app/components/KnowledgeBase/KnowledgeSection5';
-import KnowledgeSection6 from '@/app/components/KnowledgeBase/KnowledgeSection6';
-import Home from '../../page';
 import HomeComponent from '@/app/components/Home/HomeComponent';
 import Panelcardnew from '@/app/components/PanelCardNew/PanelCardNew';
+import Concierge from '@/app/components/Products/learning/Concierge';
+import Banner from '@/app/components/Products/learning/Banner';
+import ProductForm from '@/app/components/Products/learning/ProductForm';
+import ProductSection2 from '@/app/components/Products/learning/ProductSection2';
+import ProductSection3 from '@/app/components/Products/learning/ProductSection3';
+import ProductSection4 from '@/app/components/Products/learning/ProductSection4';
+import ProductSection5 from '@/app/components/Products/learning/ProductSection5';
+import ProductSection6 from '@/app/components/Products/learning/ProductSection6';
+import ProductSection7 from '@/app/components/Products/ProductSection7';
+import React from 'react'
 
 const page = () => {
   return (
     <div className='bg-white'>
-<Banner/>
-<KnowledgeSection2/>
-
-<Homeinte/>
-<KnowledgeSection3/>
-{/* <KnowlwdgeSection4/> */}
-{/* <KnowledgeSection5/> */}
-{/* <KnowledgeSection6/> */}
-<Panelcardnew/>
-<ProductForm/>
-<HomeComponent />
+      <Banner />
+      <ProductSection2 />
+      <ProductSection3 />
+      {/* <ProductSection4 /> */}
+      {/* <ProductSection5 /> */}
+      {/* <ProductSection6 /> */}
+      <Concierge/>
+      <Panelcardnew/>
+      <ProductSection7 />
+      <ProductForm />
+      <HomeComponent />
     </div>
   )
 }

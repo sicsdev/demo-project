@@ -1,6 +1,7 @@
 import HomeComponent from '@/app/components/Home/HomeComponent';
 import Panelcardnew from '@/app/components/PanelCardNew/PanelCardNew';
 import Banner from '@/app/components/Products/Banner';
+import Concierge from '@/app/components/Products/Concierge';
 import ProductForm from '@/app/components/Products/ProductForm';
 import ProductSection2 from '@/app/components/Products/ProductSection2';
 import ProductSection3 from '@/app/components/Products/ProductSection3';
@@ -17,8 +18,9 @@ const page = () => {
       <ProductSection2 />
       <ProductSection3 />
       {/* <ProductSection4 /> */}
-      <ProductSection5 />
+      {/* <ProductSection5 /> */}
       {/* <ProductSection6 /> */}
+      <Concierge/>
       <Panelcardnew/>
       <ProductSection7 />
       <ProductForm />

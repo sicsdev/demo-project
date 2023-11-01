@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
-import Homeinte from '../LayoutNew/Homeinte';
+import Homeinte from '../../LayoutNew/Homeinte';
 
 const ProductSection2 = () => {
 
@@ -38,13 +38,13 @@ const ProductSection2 = () => {
                 {loading ? (
                   <SkeletonLoader className="my-1" count={1} height={45} width="100%" />
                 ) : (
-                  "Instant responses, instant actions"
+                  "Instant voice responses, real-time actions"
                 )} </p>
               <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={1} height={150} width="100%" />
                 ) : (
-                  "Go beyond the industry norms with Tempo Chat. Resolve queries and trigger workflows in seconds, not hours."
+                  "Elevate your voice support with Smart IVR. Resolve voice queries and initiate workflows in real-time, setting a new standard in customer service."
                 )}
               </p>
 
@@ -70,37 +70,10 @@ const ProductSection2 = () => {
                 {loading ? (
                   <SkeletonLoader className="mb-1" count={1} height={30} width="100%" />
                 ) : (
-                  "When Tempo Chat encounters a query it can't resolve, it smoothly transitions the interaction to a human agent, ensuring customer satisfaction."
+                  "Enhance your email management with our smart responding. Automatically respond to incoming emails in real-time, allowing you team to concentrate on core tasks that truly matter."
                 )}
               </p>
-              {/* <p className="   mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
-                {loading ? (
-                  <SkeletonLoader className="my-1" count={1} height={45} width="100%" />
-                ) : (
-                  "Keep customers in the loop"
-                )} </p>
-              <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-                {loading ? (
-                  <SkeletonLoader className="mb-1" count={1} height={30} width="100%" />
-                ) : (
-                  "Our customer portal, 8x8 Connect, lets you send notifications, authentications, and one-time passwords instantly."
-                )}
-              </p>  
-              <p className="   mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
-                {loading ? (
-                  <SkeletonLoader className="my-1" count={1} height={45} width="100%" />
-
-                ) : (
-                  "Send as many as you need"
-                )} </p>
-              <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-                {loading ? (
-                  <SkeletonLoader className="mb-1" count={1} height={30} width="100%" />
-                ) : (
-                  "With no limits, you can send thousands — or even millions — of messages at a single time."
-                )}
-              </p> */}
-
+     
             </div></div>
           <div>  <div className="block">
             {loading ? (
