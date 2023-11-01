@@ -8,9 +8,9 @@ import ContactComplaint from "@/app/components/Ip/Chatbot/Contact/ContactComplai
 import ContactFeatures from "@/app/components/Ip/Chatbot/Contact/ContactFeatures";
 import ContactBanner2 from "@/app/components/Ip/Chatbot/Contact/ContactBanner2";
 
-import Integrate from "../../../components/Ip/components/Integrate";
 import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
+import Integrate from "@/app/components/Ip/components/Integrate";
 
 
 const Email = () => {
