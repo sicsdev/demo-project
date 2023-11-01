@@ -55,6 +55,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
+            setDropdownOpenId('')
         };
 
     }, [idOfOpenConversation])
@@ -76,7 +77,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getAllBots() {
         let bots = await getBotAllData()
         const filterBot = bots?.results?.find((x) => x.id === selectedBot)
-        console.log(filterBot, 'filterbot')
         if (filterBot) { setBotUnique(filterBot) }
     }
 
@@ -237,69 +237,32 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                 ...mockedObject,
                 question: userMessage.actions.options.WORKFLOW,
             }
-
             setExternalQuestionFromLogs(objectToMock)
 
 
-            // let postRecommendation = await createRecommendation(payload)
-            // if (postRecommendation?.data) {
-            //     setExternalQuestionFromLogs(postRecommendation?.data)
-            // }
-
         } else if (userMessage.content == "INFORMATION") {
             userMessage = messages[key - 2]
-
             let objectToMock = {
                 ...mockedObject,
                 question: userMessage.actions.options.INFORMATION,
             }
-
             setExternalQuestionFromLogs(objectToMock)
-
-
-            // let postRecommendation = await createRecommendation(payload)
-            // if (postRecommendation?.data) {
-            //     setExternalQuestionFromLogs(postRecommendation?.data)
-            // }
 
         } else if (userMessage.content == "HUMAN-HANDOFF") {
             userMessage = messages[key - 2]
-            // let payload = {
-            //     question: userMessage.actions.options["HUMAN-HANDOFF"],
-            //     bot: botUnique.id,
-            //     answer: userMessage.actions.options["HUMAN-HANDOFF"],
-            // }
-
-
             let objectToMock = {
                 ...mockedObject,
                 question: userMessage.actions.options["HUMAN-HANDOFF"],
             }
-
             setExternalQuestionFromLogs(objectToMock)
 
-            // let postRecommendation = await createRecommendation(payload)
-            // if (postRecommendation?.data) {
-            //     setExternalQuestionFromLogs(postRecommendation?.data)
-            // }
-
         } else {
-
-            // let payload = {
-            //     question: userMessage.content,
-            //     bot: botUnique.id,
-            //     answer: userMessage.content,
-            // }
             let objectToMock = {
                 ...mockedObject,
                 question: userMessage.content,
             }
 
             setExternalQuestionFromLogs(objectToMock)
-            // let postRecommendation = await createRecommendation(payload)
-            // if (postRecommendation?.data) {
-            //     setExternalQuestionFromLogs(postRecommendation?.data)
-            // }
         }
 
 
@@ -428,28 +391,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                         </div>
                                                                     </>
                                                                 }
-
-
-                                                                {
-                                                                    element.content === 'FORM' &&
-                                                                    <>
-                                                                        <div className="answer_with_thumbs">
-
-                                                                            <img className="profile-photo_ChatBot_back"
-                                                                                src={`${botUnique?.enterprise?.logo ||
-                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
-                                                                            <div className="answer_text_div"></div>
-                                                                            <div className="answer_text_with_thumbs  !text-sm !font-[400]" style={{ backgroundColor: botUnique?.secondary_color, color: botUnique?.secondary_text_color }} onClick={(e) => copyMessageText(element.content)}>
-                                                                                No problem, I can help you with that! Could you please provide the following information:
-                                                                            </div>
-                                                                        </div>
-
-                                                                    </>
-                                                                }
-
-
-
-
 
 
 
