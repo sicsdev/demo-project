@@ -26,13 +26,15 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const chatLogsRef = useRef(null);
 
 
-
     // Local states
     const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 600);
     const [botUnique, setBotUnique] = useState({})
     const [allKnowledge, setAllKnowledge] = useState([])
     const [conversationDetails, setConversationDetails] = useState({})
+
+    // Loaders
     const [disputeLoader, setDisputeLoader] = useState(false);
+    const [loadingRedirect, setLoadingRedirect] = useState(false)
 
     // Dropdown of sources
     const [dropdownOpenId, setDropdownOpenId] = useState('')
@@ -58,7 +60,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             setDropdownOpenId('')
         };
 
-    }, [idOfOpenConversation])
+    }, [idOfOpenConversation, messages])
 
 
     useEffect(() => {
@@ -69,7 +71,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
             })
         }
     }, [botUnique, selectedBot, selectedBotObject])
-
 
 
     // Handlers 
@@ -205,8 +206,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         );
     }
 
-
-    const [loadingRedirect, setLoadingRedirect] = useState(false)
     const handleAddSource = async (key) => {
         if (loadingRedirect) return;
 
@@ -341,7 +340,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                 </div>
                                             </div>
                                         </div>
-                                        <div ref={chatLogsRef} className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
+                                        <div ref={chatLogsRef} id='chatcontentRef' className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
                                             <div className="answer_with_thumbs_logs">
                                                 <img className="profile-photo_ChatBot_back"
