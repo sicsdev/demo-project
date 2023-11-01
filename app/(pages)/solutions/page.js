@@ -5,7 +5,6 @@ import KnowledgeSection3 from '@/app/components/KnowledgeBase/KnowledgeSection3'
 import KnowlwdgeSection4 from '@/app/components/KnowledgeBase/KnowlwdgeSection4';
 import ProductForm from '@/app/components/Products/ProductForm';
 
-import Home from '../../page';
 import HomeComponent from '@/app/components/Home/HomeComponent';
 import Panelcardnew from '@/app/components/PanelCardNew/PanelCardNew';
 import KnowledgeSection2 from '@/app/components/KnowledgeBase/KnowledgeSection2';
