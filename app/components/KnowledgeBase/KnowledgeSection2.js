@@ -51,7 +51,7 @@ const KnowledgeSection2 = () => {
   return (
     <div className="sm:p-[0px] p-[2rem]">
       <div className="sm:p-[3rem]">
-        <p className="sm:text-[25px] text-[21px] font-medium mb-[20px]">
+        <p className=" text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]">
           {loading ? (
             <SkeletonLoader count={1} height={45} width="70%" />
           ) : (
@@ -62,7 +62,7 @@ const KnowledgeSection2 = () => {
         {data.map((ele, key) => (
           <>
             <p
-              className="text-[18px] font-semibold  border-[1px] p-[10px] border-[#80808059] bg-[white] cursor-pointer"
+              className=" py-2 sm:p-3 md:py-2 md:px-3 font-bold text-[20px] sm:text-[24px] text-[black]    border-[1px] p-[10px] border-[#80808059] bg-[white] cursor-pointer"
               key={key}
               onClick={(e) => showPara(key)}
             >
@@ -77,9 +77,33 @@ const KnowledgeSection2 = () => {
                         {loading ? (
                 <SkeletonLoader count={1}    className=""/>
                 ) : (
-                            <p className="px-2 sm:px-0">{ele.description}</p>
+                            <p className="sm:my-3 text-left my-3 sm:text-[18px] text-sm sm:w-[650px] font-light sm:mb-[40px] leading-7 tracking-[0.5px]">{ele.description}</p>
                           )}
                         </p>
+                        <div className=''>
+                                {loading ? (
+          <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+            <SkeletonLoader height={60} width={300} />
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+          >
+            <div
+              className=""
+              dangerouslySetInnerHTML={{
+                __html: `
+   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+   <span className="underline cursor-pointer text-white ">Start Now
+   </span>
+   </a>
+  `,
+              }}
+            />
+          </button>
+        )}
+                                </div>
                     </div>
                       {" "}
                       <div className="block">

@@ -15,8 +15,9 @@ const page = () => {
   return (
     <div className='bg-white'>
 <Banner/>
-<Homeinte/>
 <KnowledgeSection2/>
+
+<Homeinte/>
 <KnowledgeSection3/>
 {/* <KnowlwdgeSection4/> */}
 {/* <KnowledgeSection5/> */}

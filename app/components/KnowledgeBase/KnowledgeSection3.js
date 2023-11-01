@@ -14,7 +14,7 @@ const KnowledgeSection3 = () => {
         }, 1000);
     }, []);
     return (
-        <div className='sm:p-[3rem] p-[2rem]'>
+        <div className='sm:p-[3rem] p-[2rem] shadow-box'>
             <div className='sm:mt-[3rem]'>
             <p className="   mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
                     {loading ? (

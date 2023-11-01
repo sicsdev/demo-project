@@ -45,10 +45,13 @@ export default function PageLayout({ children }) {
     const cookieValue = Cookies.get(key);
     return cookieValue ? JSON.parse(cookieValue) : {};
   }
+  console.log("pathname", pathname)
 
-  const hideComponent = pathname === "/checkout";
+  const hideComponent = pathname === "/checkout" || pathname === "/lp/chat-bot" || pathname === "/lp/contact-center";
+  
   return (
     <div className="scroll-smooth lg:max-w-full m-auto App w-full h-full">
+      
       {!hideComponent && <Nav />}
       {/* <Header /> */}
     <div className="scroll-smooth lg:max-w-[1450px] m-auto App w-full h-full">

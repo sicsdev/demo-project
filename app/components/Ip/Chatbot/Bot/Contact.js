@@ -212,7 +212,7 @@ const Contact = () => {
             </div>
             {show == false ?
               <div className="block">
-                <div className="relative w-[100%] sm:w-[550px] sm:h-[530px]">
+                <div className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
                   <div className="w-full mt-4 sm:mt-0">
                     <div className="mx-auto sm:w-[85%] mt-8">
                       <div className=" mx-auto text-center">

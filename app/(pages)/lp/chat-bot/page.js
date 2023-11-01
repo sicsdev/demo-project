@@ -11,13 +11,15 @@ import ContactBanner2 from "@/app/components/Ip/Chatbot/Contact/ContactBanner2";
 import Integrate from "../../../components/Ip/components/Integrate";
 import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
+import Newnavbar from "@/app/components/Ip/Chatbot/Newnavbar";
+import Newfooter from "@/app/components/Layout/Newfooter ";
 
 
 const Chatbot = () => {
 
     return (
         <>
-            {/* <Newnavbar /> */}
+            <Newnavbar />
       
             <Contact />
             <Homeinte />
@@ -32,7 +34,7 @@ const Chatbot = () => {
             <ContactFeatures />
             {/* <ContactCarousel/> */}
             {/* <ContactBlog/> */}
-            {/* <Newfooter />    */}
+            <Newfooter />   
     
         </>
     )

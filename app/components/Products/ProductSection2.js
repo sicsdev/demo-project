@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
+import Homeinte from '../LayoutNew/Homeinte';
 
 const ProductSection2 = () => {
 
@@ -31,7 +32,6 @@ const ProductSection2 = () => {
                 </div>
               )}
             </div>
-          <div>
             <div className="">
 
               <p className=" mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
@@ -49,11 +49,13 @@ const ProductSection2 = () => {
               </p>
 
 
-            </div></div>
+            
+            </div>
 
         </div>
 
       </div>
+      <Homeinte/>
       <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[5rem] ">
         <div className='block sm:grid sm:grid-cols-2 justify-between items-center gap-4'>
           <div>
@@ -99,15 +101,6 @@ const ProductSection2 = () => {
                 )}
               </p>
 
-              <div className="block">
-                <div className="grid grid-cols-1 sm:grid-cols-1  gap-1 mt-8">
-                  <div className="block sm:flex w-[100%] items-center gap-8">
-
-                  </div>
-                  <div className="inline mt-5  sm:max-w-[30%] sm:mt-[20px]"></div>
-                </div>
-              </div>
-
             </div></div>
           <div>  <div className="block">
             {loading ? (
@@ -126,7 +119,6 @@ const ProductSection2 = () => {
         </div>
 
       </div>
-      <hr />
     </div>
   )
 }
