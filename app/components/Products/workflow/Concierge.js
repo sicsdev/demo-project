@@ -56,7 +56,7 @@ setTimeout(() => {
               <SkeletonLoader count={2} height={60} width="100%" />
             ) : (
           <div>
-              <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+              <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-center sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
             Use Cases Across Industries
             </h1>
             <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  mb-8 sm:mb-0 px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">

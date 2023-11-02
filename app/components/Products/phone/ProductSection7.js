@@ -15,9 +15,9 @@ const data = [
     link: "/channels/smart-inbox",
   },
   {
-    name: "Smart IVR: Voice Support, Upgraded",
-    para: "Take your voice support to the next level with Smart IVR. Convert speech to text, trigger workflows, and if needed, hand off to a human—all in real-time.",
-    link: "/channels/smart-ivr",
+    name: "Learning Center: Your Bot's Brain Trust",
+    para: "The Learning Center is where your bot becomes an expert. Upload ticket histories and leverage real-time recommendations to make your bot smarter with each interaction.",
+    link: "/new/features/learning-center",
   },
   {
     name: "Workflow Builder: Streamline Operations Like Never Before",
@@ -35,9 +35,9 @@ const ProductSection7 = () => {
     }, []);
   
   return (
-    <div className='sm:p-[0rem] px-[2rem] shadow-box'>
-          <div className=' sm:mt-[0rem]  sm:p-[3rem]'>
-          <p className=" mb-5  sm:p-0 text-center sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+    <div className='sm:p-[0rem] px-[2rem] shadow-box mb-[30px]'>
+          <div className='pb-[6px] sm:mt-[0rem]  sm:!p-[3rem]'>
+          <p className=" mb-5  sm:p-0 text-center sm:mt-0 mt-5  text-[#0057ff] sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
                 {loading ? (
                   <SkeletonLoader count={1} height={45} width="80%" />
                 ) : (

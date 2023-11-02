@@ -16,7 +16,7 @@ setTimeout(() => {
     {
       name: "Intelligent Scheduling and Reservations",
       para: "Leverage the Learning Center to understand customer preferences and the Workflow Builder to automate bookings and appointments, enhancing the customer experience.",
-      buttons: [{ buttonText: "Travel & Hospitality Leaders" },
+      buttons: [{ buttonText: "Travel & Hospitality" },
       { buttonText: "Healthcare" }],
     },
     {
@@ -37,7 +37,7 @@ setTimeout(() => {
       name: "Real-Time Inventory and Order Management",
       para: "Employ the Learning Center to monitor inventory levels and customer preferences, and the Workflow Builder to automate order processing and room allocations, reducing errors and improving customer satisfaction.",
       buttons: [{ buttonText: "Retail Chains" },
-      { buttonText: "Travel & Hospitality" }],
+      { buttonText: "Healthcare" }],
     },
     {
       name: "Proactive Customer Support and Issue Resolution",
@@ -56,92 +56,16 @@ setTimeout(() => {
               <SkeletonLoader count={2} height={60} width="100%" />
             ) : (
           <div>
-              <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+              <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-center sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
               Use Cases Across Industries
           </h1>
       
-          <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  mb-8 sm:mb-0 px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+          <p className="w-full md:ml-[px]   text-blue-400 text-center font-[400] sm:mt-3  mb-8 sm:mb-0 px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Unlock Intelligent Customer Service and Operational Efficiency
             </p>
           </div>
             )}
-          <div className="flex gap-2">
-            <div
-              className="p-[1px] rounded-full bg-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(270deg, #6b54fb, #aa2bbe 36%, #ff5721 75%)",
-              }}
-            >
-              <div className="bg-[#fff] rounded-full">
-              {loading ? (
-              <SkeletonLoader count={2} height={60} width="100%" />
-            ) : (
-                <div
-                  className=" px-4 py-2"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #ff5721 20%, #e569f9 59%, #8673ff)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Sales Leaders
-                </div>
-            )}
-              </div>
-            </div>
-            <div
-              className=" p-[1px] rounded-full bg-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(270deg, #6b54fb, #aa2bbe 36%, #ff5721 75%)",
-              }}
-            >
-              <div className="bg-[#fff] rounded-full">
-              {loading ? (
-              <SkeletonLoader count={2} height={60} width="100%" />
-            ) : (
-                <div
-                   className=" px-4 py-2"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #ff5721 20%, #e569f9 59%, #8673ff)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Marketing leaders
-                </div>
-            )}
-              </div>
-            </div>
-            <div
-              className=" p-[1px] rounded-full bg-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(270deg, #6b54fb, #aa2bbe 36%, #ff5721 75%)",
-              }}
-            >
-              <div className="bg-[#fff] rounded-full">
-              {loading ? (
-              <SkeletonLoader count={2} height={60} width="100%" />
-            ) : (
-                <div
-              className=" px-4 py-2"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, #ff5721 20%, #e569f9 59%, #8673ff)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  Rev&Sales Ops
-                </div>
-            )}
-              </div>
-            </div>
-          </div>
+ 
         </div>
         {loading ? (
               <SkeletonLoader count={2} height={60} width="100%" />
@@ -154,7 +78,7 @@ setTimeout(() => {
             <div className="shadow-lg p-9 rounded-[20px] relative sm:pb-[80px] ">
               <p className="sm:text-h3 text-2xl   font-bold"> {ele.name}</p>
               <p className="text-[#474F70] text-sm mt-8 sm:mt-3">{ele.para}</p>
-              <div className="flex items-center gap-3 w-auto  sm:w-auto mt-[3rem] sm:mt-[2rem] sm:absolute sm:bottom-[20px] ">
+              <div className="flex items-center gap-[1.75rem] w-auto  sm:w-auto mt-[3rem] sm:mt-[2rem] sm:absolute sm:bottom-[20px] ">
                 {ele.buttons.map((button) => (
                   <div
                     className=" p-[1px] rounded-full bg-transparent "
@@ -165,7 +89,7 @@ setTimeout(() => {
                   >
                     <div className="bg-[#fff] rounded-full ">
                       <div
-                        className="px-2 py-2 "
+                        className="px-2 py-2 text-[15px] sm:text-[16px] "
                         style={{
                           backgroundImage:
                             "linear-gradient(to right, #ff5721 20%, #e569f9 59%, #8673ff)",

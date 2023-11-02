@@ -37,9 +37,9 @@ const ProductSection7 = () => {
     }, []);
   
   return (
-    <div className='sm:p-[0rem] px-[2rem] shadow-box'>
-          <div className=' sm:mt-[0rem]  sm:p-[3rem]'>
-          <p className=" mb-5 text-center  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+    <div className='sm:p-[0rem] px-[2rem] shadow-box mb-[30px]'>
+          <div className='pb-[6px] sm:mt-[0rem]  sm:!p-[3rem]'>
+          <p className=" mb-5 text-center  sm:p-0 sm:mt-0 mt-5 text-[#0057ff] sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
                 {loading ? (
                   <SkeletonLoader count={1} height={45} width="80%" />
                 ) : (

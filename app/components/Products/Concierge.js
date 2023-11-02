@@ -18,7 +18,7 @@ const data = [
     {
       name: "Optimize Task Management & Scheduling   ",
       para: "Enhance your team's efficiency in task management, project tracking, and scheduling.   ",
-      img: ["/integrations/1.svg", "/linear-logos-id-IUp6ZRH.png"],
+      img: ["/monday_logo_icon_168967_1.png", "/integrations/1.svg"],
 
     },
     {
@@ -27,9 +27,9 @@ const data = [
       img: ["/integrations/3.svg", "/twilio-logo-png-transparent.png"],
     },
     {
-      name: "Elevate Your Sales Game   ",
-      para: "Automate lead qualification, routing, and follow-ups to drive revenue growth.  ",
-      img: ["/HUBS-3bd277ce.png", "/salesforce-logo.png"],
+      name: "Revolutionize Your Retail Billing",
+      para: "Streamline checkout processes and enhance transaction efficiency to boost sales performance.",
+      img: ["/pay.png", "/integrations/square.svg"],
     },
     {
       name: "Unify Your Communication Channels  ",
@@ -39,7 +39,7 @@ const data = [
     {
       name: "Simplify Billing and Payments   ",
       para: "Automate invoicing, payments, and subscription management within Tempo Chat.   ",
-      img: ["/pay.png", "/stripee.png"],
+      img: [ "/stripee.png", "/brain.png"],
     },
   ];
   return (
@@ -48,10 +48,10 @@ const data = [
         <div>
      
             <>
-          <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+          <h1 className="   mb-5 text-center  sm:p-0 sm:mt-0 mt-0 text-black  sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
             Integrate Across Your Tech Stack and seamlessly connect
           </h1>
-          <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+          <p className="w-full md:ml-[px]  sm:mt-4 text-blue-400 text-center  font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Seamlessly connect with a wide range of APIs to supercharge your
             customer service.{" "}
           </p>
@@ -62,7 +62,7 @@ const data = [
         <div className="grid grid-cols-1 sm:grid-cols-2 sm:mt-12 gap-[30px] ">
           {data.map((ele) => (
             
-            <div className="shadow-lg p-9 pb-[90px] rounded-[20px] relative sm:h-[300px] ">
+            <div className="shadow-lg p-9 pb-[90px] rounded-[20px] relative sm:h-[250px] ">
               <div>
          
             <>
@@ -104,7 +104,7 @@ const data = [
               solution
             </p>
 
-            <div className="block sm:flex w-[100%] items-center gap-8 mt-[3rem] sm:mt-[5rem]">
+            <div className="block sm:flex w-[100%] items-center gap-8 mt-[3rem] sm:mt-[40px]">
        
                 <button
                   type="button"

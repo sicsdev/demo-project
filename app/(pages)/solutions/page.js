@@ -1,27 +1,26 @@
-import React from 'react';
-import Banner from '@/app/components/KnowledgeBase/Banner';
-import Homeinte from '@/app/components/LayoutNew/Homeinte';
-import KnowledgeSection3 from '@/app/components/KnowledgeBase/KnowledgeSection3';
-import KnowlwdgeSection4 from '@/app/components/KnowledgeBase/KnowlwdgeSection4';
-import ProductForm from '@/app/components/Products/ProductForm';
-
 import HomeComponent from '@/app/components/Home/HomeComponent';
-import Panelcardnew from '@/app/components/PanelCardNew/PanelCardNew';
-import KnowledgeSection2 from '@/app/components/KnowledgeBase/KnowledgeSection2';
+import Banner from '@/app/components/Products/Banner';
+import ProductForm from '@/app/components/Products/ProductForm';
+import ProductSection2 from '@/app/components/Products/ProductSection2';
+import ProductSection3 from '@/app/components/Products/ProductSection3';
+import ProductSection4 from '@/app/components/Products/ProductSection4';
+import ProductSection5 from '@/app/components/Products/ProductSection5';
+import ProductSection6 from '@/app/components/Products/ProductSection6';
+import ProductSection7 from '@/app/components/Products/ProductSection7';
+import React from 'react'
 
 const page = () => {
   return (
     <div className='bg-white'>
-<Banner/>
-<Homeinte/>
-<KnowledgeSection2/>
-<KnowledgeSection3/>
-{/* <KnowlwdgeSection4/> */}
-{/* <KnowledgeSection5/> */}
-{/* <KnowledgeSection6/> */}
-<Panelcardnew/>
-<ProductForm/>
-<HomeComponent />
+      <Banner />
+      <ProductSection2 />
+      <ProductSection3 />
+      {/* <ProductSection4 /> */}
+      <ProductSection5 />
+      {/* <ProductSection6 /> */}
+      <ProductSection7 />
+      <ProductForm />
+      <HomeComponent />
     </div>
   )
 }
