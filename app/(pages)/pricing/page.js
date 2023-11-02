@@ -1,7 +1,7 @@
 "use client";
 import Card from "@/app/components/Common/Card/Card";
 import Container from "@/app/components/Container/Container";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FaqAccordian from "@/app/components/FaqAccordian/Faq";
 import { price_data, questions } from "./data";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -38,11 +38,18 @@ import Motioncards from "@/app/components/Motioncards/page";
 import Modal from "@/app/components/Common/Modal/Modal";
 import TextField from "@/app/components/Common/Input/TextField";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
+import { Homeform } from "@/app/components/LayoutNew/Homeform";
+import Homeinte from "@/app/components/LayoutNew/Homeinte";
+import Reach from "@/app/components/LayoutNew/Reach";
 
 const Pricing = () => {
   const [data, setData] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
-
+  const ref = useRef(null);
+  const handleClickscroll = () => {
+    console.log("clicked")
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   function toggleModal() {
     setModalOpen(!isModalOpen);
   }
@@ -89,7 +96,27 @@ const Pricing = () => {
     }
   }
 
+  const reachData = [
+    {
+      reach: "99.999%        ",
+      name: "Clear-Cut Expenses",
+      para: "With our straightforward pay-as-you-go approach, you're always in the know about what you're paying for. $1 per resolved ticket -- that's it.",
+      link_title: "Leverage your data",
+    },
+    {
+      reach: "99.999%        ",
+      name: "Free Credits",
+      para: "Incentive Jumpstart your journey with Tempo by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
+      link_title: "Leverage your data",
+    },
+    {
+      reach: "55++",
 
+      name: "No Hidden Charges",
+      para: "Enjoy a comprehensive support package that includes 24/7 assistance, rapid response times, and support in over 100 languages, all with no additional fees.",
+      link_title: "Leverage your data",
+    },
+  ];
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -177,9 +204,8 @@ const Pricing = () => {
       const isRequiredFieldsEmpty = requiredKeys.some(
         (key) => !data[key] || data[key].trim() === ""
       );
-      const isFunctionalAreasValid = Array.isArray(data.yourFunctionalAreas) && data.yourFunctionalAreas.length > 0;
 
-      return isRequiredFieldsEmpty || !isFunctionalAreasValid;
+      return isRequiredFieldsEmpty;
     }
   }
 
@@ -227,34 +253,9 @@ const Pricing = () => {
       </Helmet>
 
       {/* <Panelcard  /> */}
-      <div className="p-4 sm:p-8  sm:px-40 ">
-        {/* <form onSubmit={onSubmit}> */}
-        {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
 
-        {step}
-        <div className="mt-4 flex justify-center  sm:justify-start gap-2">
-          {isFirstStep && (
-            <button
-              className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white disabled:border-input_color  hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-              type="button"
-              onClick={onSubmit}
-              disabled={DisablingButton()}
-            >
-              View Savings
-            </button>
-          )}
-        </div>
-        {/* </form> */}
-      </div>
       <Panelcardnew />
-
-      <DTC />
-
-      {/* <Iconanimation /> */}
-      {/* <Trial /> */}
-      {/* <Resource /> */}
-
-      {/* Pricing section */}
+      <Homeinte />
       <div className="bg-white pt-4">
         <div className="pb-4 sm:pb-16 mx-auto max-w-[90%] py-10">
           <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6>
@@ -396,8 +397,27 @@ const Pricing = () => {
           </div>
         </div>
       </div>
+      <div className="p-4 sm:p-8  sm:px-40 ">
+        {/* <form onSubmit={onSubmit}> */}
+        {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
 
-      {/* Pricing section */}
+        {step}
+        <div className="mt-4 flex justify-center  sm:justify-start gap-2">
+          {isFirstStep && (
+            <button
+              className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white disabled:border-input_color  hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+              type="button"
+              onClick={onSubmit}
+              disabled={DisablingButton()}
+            >
+              View Savings
+            </button>
+          )}
+        </div>
+        {/* </form> */}
+      </div>
+
+      <Reach handleClickscroll={handleClickscroll} data={reachData} heading={"Transparent Pricing"}/>
       <div className="bg-white">
         <Container>
           <FaqAccordian
@@ -405,9 +425,8 @@ const Pricing = () => {
             items={questions}
           />
         </Container>
-        <Newstandard />
-        <Motioncards />
-        <Testimonial />
+
+        <Homeform reff={ref} />
       </div>
       {isModalOpen && (
         <Modal

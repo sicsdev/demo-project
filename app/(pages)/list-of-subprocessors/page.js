@@ -1,8 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import Subprocessor from "@/app/components/Get-Start/Subprocessor";
+import { Homeform } from "@/app/components/LayoutNew/Homeform";
+import { useRef } from "react";
 
 const page = () => {
+  const ref = useRef()
   return (
     <div className="bg-white">
       <div className=" block sm:flex md:flex lg:flex  items-center gap-10 sm:pt-8">
@@ -32,6 +35,7 @@ const page = () => {
         
         </p>
       </div>
+      <Homeform reff={ref} />
     </div>
   );
 };
