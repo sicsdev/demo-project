@@ -85,7 +85,7 @@ const ProductSection3 = ({handleClickScroll}) => {
           </div>
         </div>
       </div>
-      <div className="sm:px-[0px] px-[2rem]">
+      <div className="sm:px-[0px] px-[2rem] shadow-box mb-6">
         <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[3rem] ">
           <div className="block sm:grid sm:grid-cols-2 justify-between items-center gap-4">
             <div className="sm:block hidden">
