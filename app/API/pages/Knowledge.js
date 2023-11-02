@@ -178,3 +178,14 @@ export const deleteNegativeFaq = async (faqid) => {
         return error
     }
 };
+
+
+export const getFaqHistory = async (faqId) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs/${faqId}/history/`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
