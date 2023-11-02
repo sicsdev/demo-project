@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TextField from '../../Common/Input/TextField'
 import FileField from '../../Common/Input/FileField'
 import Image from 'next/image'
@@ -8,43 +8,36 @@ import TextArea from '../../Common/Input/TextArea'
 import Multiselect from 'multiselect-react-dropdown'
 import { business_company_size_data } from '../../Forms/data/FormData'
 import SelectField from '../../Common/Input/SelectField'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+import { InformationCircleIcon } from '@heroicons/react/24/outline'
+import './customStyles.css'
+import { v4 as uuidv4 } from 'uuid';
+import Pusher from 'pusher-js';
+import { expandDescriptionByStreaming } from '@/app/API/pages/Workflow'
+
+// Local helpers
+const pusher = new Pusher("1fc282a0eb5e42789c23", {
+    cluster: "mt1",
+});
+
 
 const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileChange, publishLoader, saveWorkFlowHandler, setShow, botValue, onSelectData, setWorkFlowFormData }) => {
-    const [description, setDescription] = useState(workflowFormData?.description.join('\n') ?? '')
-    const DisablingButton = () => {
-        const requiredKeys = ["name"];
-        return requiredKeys.some(
-            (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
-        );
-    };
-    const handleInputValue1 = (e) => {
-        setDescription(e.target.value)
-        let splitConditions = /[.,\n]/;
-        setWorkFlowFormData((prev) => {
-            return {
-                ...prev,
-                description: e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)
-            }
-        })
-        console.log( 'e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)', e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean))
-    }
-    const handleInputValue2 = (e) => {
-        setWorkFlowFormData((prev) => {
-            return {
-                ...prev,
-                workflow_types: e.target.value
-            }
-        })
-    }
-    const onSelectChannelData = (selectedList, selectedItem) => {
-        setWorkFlowFormData((prev) => {
-            return {
-                ...prev,
-                channels: selectedList
 
-            }
-        })
-    }
+    const textareaRef = useRef(null);
+
+    // Local states
+    const [description, setDescription] = useState(workflowFormData?.description.join('\n') ?? '')
+    const [newUUI, setNewUUI] = useState('')
+    const [pusherStreaming, setPusherStreaming] = useState(false)
+
+
+    // Loaders
+    const [loadingStreaming, setLoadingStreaming] = useState(false)
+
+    useEffect(() => {
+        fitTextareaDescriptionHeight();
+    }, [description]);
 
     useEffect(() => {
         const textarea = document.querySelector('.resizable-textarea');
@@ -55,43 +48,160 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
         );
 
         textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+
+
+        // Related code to streaming recommended description using GPT.
+        let newUUID = uuidv4()
+        setNewUUI(newUUID)
+        let timeoutId;
+        const channel = pusher.subscribe(`recommendation-${newUUID}`);
+        channel.bind('messages', data => {
+            clearTimeout(timeoutId);
+            setPusherStreaming(true)
+            setDescription(prev => prev + data.message);
+            setExternalContentForTextEditor(prev => prev + data.message)
+            timeoutId = setTimeout(() => {
+                setPusherStreaming(false)
+            }, 2000);
+        })
+
     }, [description]);
+
+
+
+    // Handlers
+
+
+    const fitTextareaDescriptionHeight = () => {
+        if (textareaRef.current) {
+            textareaRef.current.style.height = 'auto';
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+        }
+    };
+
+    const DisablingButton = () => {
+        const requiredKeys = ["name"];
+        return requiredKeys.some(
+            (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
+        );
+    };
+
+    const handleInputValue1 = (e) => {
+        setDescription(e.target.value)
+        let splitConditions = /[.,\n]/;
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                description: e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)
+            }
+        })
+        console.log('e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)', e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean))
+    }
+
+    const handleInputValue2 = (e) => {
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                workflow_types: e.target.value
+            }
+        })
+    }
+
+    const onSelectChannelData = (selectedList, selectedItem) => {
+        setWorkFlowFormData((prev) => {
+            return {
+                ...prev,
+                channels: selectedList
+
+            }
+        })
+    }
+
+    const handleExpandDescription = async () => {
+        setDescription('')
+
+        const response = await expandDescriptionByStreaming({
+            question: workflowFormData.name,
+            answer: description,
+            streaming: true,
+            id: `recommendation-${newUUI}`,
+            workflow: "d88685d3-3dfa-4a8a-b00a-aa2d5ffbd557"
+        })
+
+    }
+
+
+
     return (
-        <div>
-            <div className='mt-2'>
-                <TextField
-                    name='name'
-                    onChange={handleInputValue}
-                    value={workflowFormData.name}
-                    className="py-3 w-full mt-1"
-                    title={<div className='flex items-center gap-2'><span>Name</span>  </div>}
-                    placeholder={"Something short and descriptive"}
-                    type={'text'}
-                    id={"name"}
+        <div className=''>
+            <div>
+                <div className=''>
+                    <TextField
+                        name='name'
+                        onChange={handleInputValue}
+                        value={workflowFormData.name}
+                        className="py-3 w-full mt-1"
+                        title={<div className='flex items-center gap-2'><span>Name</span>  </div>}
+                        placeholder={"Something short and descriptive"}
+                        type={'text'}
+                        id={"name"}
 
-                />
-            </div>
-            <div className='mt-2 '>
-                {/* <TextArea name='description' className={'resizable-textarea'} placeholder={"What is this workflow for?"} id={"description"} onChange={handleInputValue1} title={"Description"} rows={'1'}>{description}</TextArea> */}
-                <textarea
-                    onChange={handleInputValue1}
-                    name="description"
-                    type="text"
-                    id='description'
-                    className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                    placeholder="What is this workflow for?"
-                    rows={'3'}
-                >
-                    {description}
-                </textarea>
-            </div>
+                    />
+                </div>
+                <div className='mt-5'>
+                    {/* <TextArea name='description' className={'resizable-textarea'} placeholder={"What is this workflow for?"} id={"description"} onChange={handleInputValue1} title={"Description"} rows={'1'}>{description}</TextArea> */}
+                    <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
+                        <div className='flex items-center gap-2'>
+                            <span>Description</span>
+                            <a data-tooltip-id="Description" data-tooltip-content="Write phrases that could trigger this workflow.">
+                                <InformationCircleIcon className='w-4 h-4 mx-2'></InformationCircleIcon>
+                            </a>
 
-            <div className="my-2">
-                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                    <div className='flex items-center gap-2'><span>Bot Selector</span>  </div>
+                            <Tooltip id='Description' place="top" type="dark" effect="solid" />
+                        </div>
+
+                        <small style={{ fontSize: '10px' }}>
+                            <span>*Separe them with a line break.</span>
+                        </small>
+
+                    </label>
+
+                    <textarea
+                        onChange={handleInputValue1}
+                        name="description"
+                        type="text"
+                        id='description'
+                        className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                        placeholder="What is this workflow for?"
+                        rows={'3'}
+                        value={description}
+                        ref={textareaRef}
+                    >
+                        {/* {description} */}
+                    </textarea>
+                </div>
+                <div className='flex justify-end'>
+                    <button
+                        onClick={handleExpandDescription}
+                        type="button"
+                        className="flex items-center justify-center text-xs gap-1 text-primary font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-whitedisabled:bg-input_color disabled:shadow-none disabled:text-white">
+                        Expand description
+                    </button>
+                </div>
+            </div>
+            <div className="pt-5 mt-3">
+                <label className="my-2 block text-sm text-gray-700">
+                    <div className="my-2 new_input_label block text-sm text-heading border-b border-gray flex items-center">
+                        <span>Bot Selector</span>
+                        <a data-tooltip-id="bot-selector" data-tooltip-content="Choose the bots in which this workflow will be active">
+                            <InformationCircleIcon className='w-4 h-4 mx-2'></InformationCircleIcon>
+                        </a>
+
+                        <Tooltip id='bot-selector' place="top" type="dark" effect="solid" />
+                    </div>
                 </label>
                 <Multiselect
-                    className='searchWrapper-live'
+                    className="searchWrapper-live rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
                     options={botValue}
                     selectedValues={workflowFormData?.bots ?? []}
                     onSelect={(selectedList, selectedItem) => {
@@ -103,14 +213,28 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={botValue.length === workflowFormData?.bots.length ? '' : "Select Bots"}
                     displayValue="name"
                     closeOnSelect={true}
+                    showSearchFilter={false}
+                    style={{
+                        chips: {
+                            maxWidth: 'fit-content',
+                            minWidth: '75px'
+                        },
+                    }}
                 />
             </div>
             <div className="my-2">
-                <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
-                    <div className='flex items-center gap-2'><span>Channels</span>  </div>
+                <label className="my-2 block text-sm text-gray-700 font-medium">
+                    <div className="my-2 new_input_label block text-sm text-heading font-medium border-b border-gray flex items-center">
+                        <span>Channels</span>
+                        <a data-tooltip-id="Channels-selector" data-tooltip-content="Choose the chanells in which this workflow will be active">
+                            <InformationCircleIcon className='w-4 h-4 mx-2'></InformationCircleIcon>
+                        </a>
+
+                        <Tooltip id='Channels-selector' place="top" type="dark" effect="solid" />
+                    </div>
                 </label>
                 <Multiselect
-                    className='searchWrapper-live'
+                    className="searchWrapper-live rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer pb-0 searchBox:hidden"
                     options={[{ name: "Phone", value: "phone" }, { name: "Email", value: "email" }, { name: "Chat", value: "chat" }]}
                     selectedValues={workflowFormData?.channels ?? []}
                     onSelect={(selectedList, selectedItem) => {
@@ -122,40 +246,40 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                     placeholder={workflowFormData?.channels.length === 2 ? '' : "Select Channel"}
                     displayValue="name"
                     closeOnSelect={true}
+                    style={{
+                        chips: {
+                            maxWidth: 'fit-content',
+                            minWidth: '75px'
+                        },
+                    }}
+                    showSearchFilter={false}
                 />
             </div>
-            <div className="">
-                <SelectField    
-                    labelClassName={"w-full sm:w-1/2"}
+            <div className="my-2">
+                <SelectField
+                    labelClassName="w-full sm:w-1/2"
                     onChange={handleInputValue2}
-                    selectdiv="selectdiv mt-3"
+                    selectdiv="mt-3 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 flex gap-5"
                     value={workflowFormData?.workflow_types}
                     name="workflow_types"
-                    values={["Image","Text"]}
-                    title={"Type"}
-                    id={"workflow_types"}
+                    values={["Image", "Text"]}
+                    title="Type"
+                    id="workflow_types"
                     className="py-3"
-                    error={''}
+                    error=""
                 />
             </div>
-            <div
-                className={`flex   rounded-b mt-3 justify-end gap-4`}
-            >
-                {/* <Button
-                    className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-heading border border-border "
-                    onClick={() => { setShow(false) }}
-                >
-                    Back
-                </Button> */}
+            <div className="flex mt-3 space-x-4 rounded-b justify-end">
                 <Button
-                    type={"button"}
-                    className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    type="button"
+                    className="inline-block rounded bg-primary px-6 py-2 text-xs font-medium text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-700 transition duration-150 ease-in-out"
                     onClick={() => { saveWorkFlowHandler("EDIT") }}
                     disabled={DisablingButton()}
                 >
                     {publishLoader === true ? 'Loading...' : 'Save'}
                 </Button>
-            </div >
+            </div>
+
         </div>
     )
 }
