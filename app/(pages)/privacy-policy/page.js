@@ -1,6 +1,10 @@
+'use client'
+import { Homeform } from "@/app/components/LayoutNew/Homeform";
 import React from "react";
+import { useRef } from "react";
 
 const Page = () => {
+  const ref = useRef()
   return (
     <div className="privacypolicy_page">
       <div className=" bg-white py-4 ">
@@ -1010,6 +1014,7 @@ const Page = () => {
             Notice, please contact us at [privacy@usetempo.ai].
           </p>
         </div>
+        <Homeform reff={ref} />
       </div>
     </div>
   );

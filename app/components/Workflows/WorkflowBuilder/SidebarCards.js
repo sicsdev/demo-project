@@ -171,7 +171,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                     Back
                 </p>
             </div>
-            <div className={`w-full   border-b-2 border-border dark:border-gray-700 flex items-center justify-between mt-2 mb-5`}>
+            <div className={`w-full  border-b-2 border-border dark:border-gray-700 flex items-center justify-between mt-2 mb-5`}>
                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-[500] text-center  text-[#5b5e69]">
                     <li className={` ${tab === 0 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(0) }}>
                         <span

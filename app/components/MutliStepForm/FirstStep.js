@@ -204,7 +204,7 @@ export function FirstStep({
             />
           </div>
         </div>
-        <div className=" mt-10">
+        {/* <div className=" mt-10">
           <span className="block font-bold mb-7">Your functional area(s)</span>
           <div className="flex flex-wrap gap-3">
             {functionalAreas.map((ele, index) => (
@@ -218,32 +218,6 @@ export function FirstStep({
                 <p className="new_input_label1 block text-sm ">    {ele}</p>
               </div>
             ))}
-          </div>
-        </div>
-        {/* <div className="mt-10 mb-5 grid  grid-cols-1 sm:grid-cols-2 ">
-          <div className="mb-3 sm:mb-0">
-            <span className="font-bold ">
-              Solution(s) to be included in the analysis
-            </span>
-            &nbsp; (select one)
-            <div className="flex gap-3 mt-5">
-              {analysis.map((ele) => (
-                <div className="grid place-items-center shadow-md border-[1px] border-[#CCCCCC] rounded-[4px]  py-[7px] px-[15px] min-h-[50px] cursor-pointer text-[#755b85] hover:bg-[#142543] hover:text-white">
-                  {ele}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="">
-            <span className="font-bold">Compare 8x8 to</span>
-            &nbsp;(select one)
-            <div className="flex gap-3 mt-5">
-              {compare8X8.map((ele) => (
-                <div className="grid place-items-center shadow-md  border-[1px] border-[#CCCCCC] rounded-[4px]  py-[7px] px-[15px] min-h-[50px] cursor-pointer text-[#755b85] hover:bg-[#142543] hover:text-white">
-                  {ele}
-                </div>
-              ))}
-            </div>
           </div>
         </div> */}
       </FormWrapper>
