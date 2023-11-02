@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../../Skeleton/Skeleton";
-const banner = () => {
+import Link from "next/link";
+const banner = ({handleClickScroll}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -15,7 +16,7 @@ const banner = () => {
   };
   return (
     <div
-      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col for-bg relative"
+      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
       <div className=" w-auto sm:p-14 relative p-4">
@@ -25,9 +26,9 @@ const banner = () => {
           </div>
         ) : (
           <div className="sm:text-5xl text-[22px] text-white sm:font-bold font-bold pt-5 sm:p-0">
-            Reach Your Customers
-            <br />
-            Anywhere, Anytime with SMS
+          Optimize your email 
+          <br/>
+          management workflow
           </div>
         )}
             {loading ? (
@@ -37,8 +38,7 @@ const banner = () => {
         ) : (
         <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
       
-            Efficiently reach your customers anywhere, anytime by automating notifications, one-time passwords, reminders, and alerts.
-        </div>
+      Let Smart Inbox streamline your email processes—automatically respond to emails while connecting to your backend APIs seamlessly.        </div>
         )}
         <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
       
@@ -48,35 +48,28 @@ const banner = () => {
           </div>
         ) : (
           <button
-          // onClick={handleClickscroll}
+          onClick={handleClickScroll}
             type="button"
             className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >
             Get a Quote
           </button>
         )}
-        {loading ? (
-          <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-            <SkeletonLoader height={60} width={300} />
-          </div>
-        ) : (
-          <button
-            type="button"
-            className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
-          >
-            <div
-              className=""
-              dangerouslySetInnerHTML={{
-                __html: `
-   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-   <span className="underline cursor-pointer text-white ">Get Started
-   </span>
-   </a>
-  `,
-              }}
-            />
-          </button>
-        )}
+  {loading ? (
+            <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+              <SkeletonLoader height={60} width={300} />
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+            >
+              <Link href={"/checkout"}>
+              Start Now
+              </Link>
+       
+            </button>
+          )}
     
         </div>
       </div>

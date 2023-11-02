@@ -38,7 +38,7 @@ import HomeComponent from "../components/Home/HomeComponent";
 export default function Home() {
 
   const ref = useRef(null);
-  const handleClickscroll = () => {
+  const handleClickScroll = () => {
     console.log("clicked")
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -77,7 +77,7 @@ export default function Home() {
         {/* <Brandpercentage/>   */}
         {/* <SecondBan /> */}
         {/* <Info /> */}
-        <Reach handleClickscroll={handleClickscroll} />
+        <Reach handleClickScroll={handleClickScroll} />
 
         {/* <Bottombutton/> */}
 

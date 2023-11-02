@@ -2,6 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 // import SkeletonLoader from "../../Skeleton/Skeleton";
 import SkeletonLoader from "../../Skeleton/Skeleton";
 const Concierge = () => {
@@ -55,10 +56,10 @@ setTimeout(() => {
               <SkeletonLoader count={2} height={60} width="100%" />
             ) : (
           <div>
-          <h1 className=" text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]">
+              <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
             Use Cases Across Industries
             </h1>
-            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  mb-8 sm:mb-0 px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Unlock Intelligent Customer Service and Operational Efficiency
             </p>
           </div>
@@ -182,7 +183,7 @@ setTimeout(() => {
               </div>
             </div>
           ))}
-          <div className="shadow-lg sm:p-9 p-5 rounded-[20px] bg-type-section flex justify-evenly gap-2">
+          <div className="shadow-lg sm:p-9 p-5 rounded-[20px] bg-type-section  justify-evenly gap-2">
             <div className="">
               
             <h1 className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[black]">
@@ -194,13 +195,12 @@ setTimeout(() => {
               </p>
             </div>
             <div className="block sm:flex  m-auto items-center gap-8 mt-[3rem] sm:mt-[5rem]">
-              <button
-                className={
-                  "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
-                }
-              >
-                Get Demo{" "}
-              </button>
+            <button
+                  type="button"
+                  className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+                >
+                  <Link href={"/checkout"}>Start Now</Link>
+                </button>
             </div>
           </div>
         </div>

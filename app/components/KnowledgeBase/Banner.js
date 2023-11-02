@@ -15,7 +15,7 @@ const banner = () => {
   };
   return (
     <div
-      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col for-bg relative"
+      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
       <div className=" w-auto sm:p-14 relative p-4">

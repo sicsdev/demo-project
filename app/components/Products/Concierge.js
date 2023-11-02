@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
+import Link from "next/link";
 const Concierge = () => {
   
 const [loading, setLoading]=useState(true)
@@ -47,8 +48,8 @@ const data = [
         <div>
      
             <>
-          <h1 className="text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]">
-            Integrate Across Your Tech Stack
+          <h1 className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+            Integrate Across Your Tech Stack and seamlessly connect
           </h1>
           <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
             Seamlessly connect with a wide range of APIs to supercharge your
@@ -104,13 +105,13 @@ const data = [
             </p>
 
             <div className="block sm:flex w-[100%] items-center gap-8 mt-[3rem] sm:mt-[5rem]">
-              <button
-                className={
-                  "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#FF5721] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
-                }
-              >
-                Get Demo{" "}
-              </button>
+       
+                <button
+                  type="button"
+                  className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+                >
+                  <Link href={"/checkout"}>Start Now</Link>
+                </button>
             </div>
             </>
           

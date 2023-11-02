@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../../Skeleton/Skeleton";
-const banner = () => {
+const banner = ({handleClickScroll}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -15,7 +15,7 @@ const banner = () => {
   };
   return (
     <div
-      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col for-bg relative"
+      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
       <div className=" w-auto sm:p-14 relative p-4">
@@ -48,7 +48,7 @@ const banner = () => {
           </div>
         ) : (
           <button
-          // onClick={handleClickscroll}
+          onClick={handleClickScroll}
             type="button"
             className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >

@@ -4,7 +4,7 @@ import SkeletonLoader from '../Skeleton/Skeleton';
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Cookies from 'js-cookie';
 import Link from 'next/link';
-const ProductForm = () => {
+const ProductForm = ({reference}) => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
       setTimeout(() => {
@@ -87,7 +87,6 @@ const ProductForm = () => {
         country: country.data,
         company_size: employe.data
       }
-      console.log("pay", payload);
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {
@@ -140,13 +139,11 @@ const ProductForm = () => {
       };
       window.dataLayer?.push(payload);
       if (blacklist.includes(business.split("@")[1])) {
-        console.log("generic");
         let payload = {
           event: "lead-generic",
         };
         window.dataLayer?.push(payload);
       } else {
-        console.log("business");
   
         let payload = {
           event: "lead-business",
@@ -164,12 +161,11 @@ const ProductForm = () => {
   
       }
     };
-    console.log("businessss", business);
   
     return (
         <>
         {show == false ?
-          <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[18px] mb-4 p-5 sm:p-0">
+          <div ref={reference}  className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[18px] mb-4 p-5 sm:p-0">
   
             <div className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
               <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">

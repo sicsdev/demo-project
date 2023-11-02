@@ -4,16 +4,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 
 const data = [
-  {
-    name: "Workflow Builder: Streamline Operations Like Never Before",
-    para: "Unify your customer service processes with our intuitive Workflow Builder. Chain together steps from multiple platforms, apply conditional logic, and automate your way to efficiency.",
-    link: "/new/features/workflow-builder",
-  },
-  {
-    name: "Learning Center: Your Bot's Brain Trust",
-    para: "The Learning Center is where your bot becomes an expert. Upload ticket histories and leverage real-time recommendations to make your bot smarter with each interaction.",
-    link: "/new/features/learning-center",
-  },
+ 
   {
     name: "Smart Inbox: Your Email, But Better",
     para: "Manage your email support effortlessly with Smart Inbox. Automatically sort, prioritize, and respond to emails, freeing your team to focus on what really matters.",
@@ -25,9 +16,14 @@ const data = [
     link: "/channels/smart-ivr",
   },
   {
-    name: "Tempo Chat: Instant, Intelligent, Integrated",
-    para: "Why settle for a basic chatbot when you can have Tempo Chat? Seamlessly handle customer queries and connect to your backend APIs for a comprehensive customer service solution.",
-    link: "/channels/tempo-chat",
+    name: "Workflow Builder: Streamline Operations Like Never Before",
+    para: "Unify your customer service processes with our intuitive Workflow Builder. Chain together steps from multiple platforms, apply conditional logic, and automate your way to efficiency.",
+    link: "/new/features/workflow-builder",
+  },
+  {
+    name: "Learning Center: Your Bot's Brain Trust",
+    para: "The Learning Center is where your bot becomes an expert. Upload ticket histories and leverage real-time recommendations to make your bot smarter with each interaction.",
+    link: "/new/features/learning-center",
   }
 ];
 
@@ -42,7 +38,7 @@ const ProductSection7 = () => {
   return (
     <div className='sm:p-[0rem] px-[2rem] shadow-box'>
           <div className=' sm:mt-[0rem]  sm:p-[3rem]'>
-          <p className=" mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
+          <p className=" mb-5  sm:p-0 text-center sm:mt-0 mt-5 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
                 {loading ? (
                   <SkeletonLoader count={1} height={45} width="80%" />
                 ) : (
