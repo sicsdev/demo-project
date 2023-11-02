@@ -151,3 +151,15 @@ export const deleteNegativeWorkflow = async (id) => {
         return error
     }
 };
+
+
+export const expandDescriptionByStreaming = async (payload) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/recommendations/expand-answer/`, payload, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+
+}
