@@ -13,6 +13,7 @@ import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
 import Newnavbar from "@/app/components/Ip/Chatbot/Newnavbar";
 import Newfooter from "@/app/components/Layout/Newfooter ";
+import UpdatedFooter from "@/app/components/Layout/UpdatedFooter";
 
 
 const Chatbot = () => {
@@ -34,7 +35,7 @@ const Chatbot = () => {
             <ContactFeatures />
             {/* <ContactCarousel/> */}
             {/* <ContactBlog/> */}
-            <Newfooter />   
+            <UpdatedFooter />   
     
         </>
     )
