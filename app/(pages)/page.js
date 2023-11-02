@@ -36,7 +36,27 @@ import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 import HomeComponent from "../components/Home/HomeComponent";
 
 export default function Home() {
+  const reachData = [
+    {
+      reach: "99.999%        ",
+      name: "Higher CSATs   ",
+      para: "Companies using our platform can anticipate higher customer satisfaction scores, contributing to overall customer loyalty.   ",
+      link_title: "Leverage your data",
+    },
+    {
+      reach: "99.999%        ",
+      name: "More Deflections ",
+      para: "Experience a significant reduction in the number of tickets that require human intervention, optimizing your operations.    ",
+      link_title: "Leverage your data",
+    },
+    {
+      reach: "55++",
 
+      name: "24/7/365 Uptime",
+      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.   ",
+      link_title: "Leverage your data",
+    },
+  ];
   const ref = useRef(null);
   const handleClickscroll = () => {
     console.log("clicked")
@@ -44,161 +64,17 @@ export default function Home() {
   };
   return (
     <>
-      {/* <pre lang="js">
-        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              ChatBot.Widget({
-                id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
-              });
-            `,
-          }}
-        />
-      </pre> */}
-
       <main className="">
         <Head></Head>
-
         <NewAbovepage />
         <Homeinte />
-        {/* <ContactBanner2 /> */}
-
         <Communication />
-
-        {/* <Homefold /> */}
-        {/* <Start /> */}
-
-        {/* -------new-------- */}
-
-        {/* <DTC /> */}
         <Homeintegration />
-        {/* <Whyhome /> */}
-        {/* <Brandpercentage/>   */}
-        {/* <SecondBan /> */}
-        {/* <Info /> */}
-        <Reach handleClickscroll={handleClickscroll} />
-
-        {/* <Bottombutton/> */}
-
-
-
-        <Panelcardnew/>
-        <Middlebar />
-
+        <Reach handleClickscroll={handleClickscroll} data={reachData}/>
+        <Panelcardnew />
+        <Middlebar />\
         <Homeform reff={ref} />
-        <HomeComponent/>
-        {/* <Newstandard />
-      
-        <Motioncards />
-        <Testimonial /> */}
-        {/* dummy section */}
-        {/* <div className="bg-[#142543] p-6">
-        <div className="flex flex-wrap shadow-sm">
-          <div
-            className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
-            style={{ borderLeft: "1px solid rgb(220 222 225 / 20%)" }}
-          >
-            <div className="py-6">
-              <div className="relative w-[40px] h-[40px] mb-5 mx-4">
-                <Image
-                  fill={true}
-                  src="bot.png"
-                  className="rounded-full mx-auto object-contain"
-                  alt="img"
-                />
-              </div>
-              <p className="font-bold text-white border-l-2 border-[#7EC1EC] px-4">
-                Use Stripe with your stack.
-              </p>
-              <p className="font-normal text-gray px-4 mt-2">
-                We offer client and server libraries in everything from React
-                and PHP to .NET and iOS.
-              </p>
-              <h6 className="font-bold cursor-pointer black py-1 text-[#7EC1EC] mt-2 px-4">
-                See libraries {">"}
-              </h6>
-            </div>
-          </div>
-          <div
-            className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
-            style={{ borderLeft: "1px dotted rgb(220 222 225 / 20%)" }}
-          >
-            <div className="py-6">
-              <div className="relative w-[40px] h-[40px] mb-5 mx-4">
-                <Image
-                  fill={true}
-                  src="bot.png"
-                  className="rounded-full mx-auto object-contain"
-                  alt="img"
-                />
-              </div>
-              <p className="font-bold text-white border-l-2 border-[#7EC1EC] px-4">
-                Try no-code options
-              </p>
-              <p className="font-normal text-gray px-4 mt-2">
-                Customize and deploy payments interfaces directly from the
-                Stripe Dashboard.
-              </p>
-              <h6 className="font-bold cursor-pointer black py-1 text-[#7EC1EC] mt-2 px-4">
-                Explore no-code {">"}
-              </h6>
-            </div>
-          </div>
-          <div
-            className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
-            style={{ borderLeft: "1px solid rgb(220 222 225 / 20%)" }}
-          >
-            <div className="py-6">
-              <div className="relative w-[40px] h-[40px] mb-5 mx-4">
-                <Image
-                  fill={true}
-                  src="bot.png"
-                  className="rounded-full mx-auto object-contain"
-                  alt="img"
-                />
-              </div>
-              <p className="font-bold text-white border-l-2 border-[#7EC1EC] px-4">
-                Use Stripe with your stack.
-              </p>
-              <p className="font-normal text-gray px-4 mt-2">
-                We offer client and server libraries in everything from React
-                and PHP to .NET and iOS.
-              </p>
-              <h6 className="font-bold cursor-pointer black py-1 text-[#7EC1EC] mt-2 px-4">
-                See libraries {">"}
-              </h6>
-            </div>
-          </div>
-          <div
-            className="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 pt-8"
-            style={{ borderLeft: "1px dotted rgb(220 222 225 / 20%)" }}
-          >
-            <div className="py-6">
-              <div className="relative w-[40px] h-[40px] mb-5 mx-4">
-                <Image
-                  fill={true}
-                  src="bot.png"
-                  className="rounded-full mx-auto object-contain"
-                  alt="img"
-                />
-              </div>
-              <p className="font-bold text-white border-l-2 border-[#7EC1EC] px-4">
-                Try no-code options
-              </p>
-              <p className="font-normal text-gray px-4 mt-2">
-                Customize and deploy payments interfaces directly from the
-                Stripe Dashboard.
-              </p>
-              <h6 className="font-bold cursor-pointer black py-1 text-[#7EC1EC] mt-2 px-4">
-                Explore no-code {">"}
-              </h6>
-            </div>
-          </div>
-        </div>
-      </div> */}
-
-        {/* dummy section */}
+        <HomeComponent />
       </main>
     </>
   );
