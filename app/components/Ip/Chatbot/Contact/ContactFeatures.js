@@ -82,7 +82,7 @@ const ContactFeatures = () => {
 
   return (
     <div className='w-full sm:w-[1440px] mx-auto'>
-      <div className='text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]'>
+      <div className='mb-5 mt-5 sm:mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0'>
         {loading ? (
           <SkeletonLoader count={1} height={30} width={120} />
         ) : (
@@ -90,21 +90,21 @@ const ContactFeatures = () => {
         )}</div>
       <div className=' sm:grid block grid-cols-3 justify-center gap-4'>
         {data.map((ele, key) =>
-          <div className='sm:pl-[7rem] sm:pr-[7rem] ml-[45px] sm:ml-[0px]'>
+          <div className='mx-[20px] sm:mx-[0px] sm:pr-[3.3rem] sm:pl-[3.3rem] sm:ml-[45px] sm:ml-[0px]'>
             {loading ? (
               <SkeletonLoader count={1} height={50} width={70} />
             ) : (
-              <div className="my-8 flex sm:justify-start"> {ele.img}</div>
+              <div className="mb-0 sm:mb-8 my-8 flex justify-center sm:justify-start"> {ele.img}</div>
             )}
             <p className=''>
               {loading ? (
                 <SkeletonLoader count={2} height={35} width="100%" />
               ) : (
-                <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff]" >
+                <div className="text-center sm:text-left p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[25px] text-[#0057ff]" >
                   {ele.heading}
                 </div>
               )}</p>
-            <p className=''>
+            <p className='text-center sm:text-left text-[17px]'>
               {loading ? (
                 <SkeletonLoader count={5} height={30} width="100%" />
               ) : (
@@ -112,14 +112,14 @@ const ContactFeatures = () => {
                   {ele.description}
                 </div>
               )}</p>
-            <ul className='chatbot list-disc mt-[20px]  text-sm  ml-[15px]'>
+            <ul className='tempofeature_dot chatbot list-disc mt-[20px]  text-sm  ml-[15px]'>
               {ele.list.map
                 ((elem, key) =>
                   <li>
                     {loading ? (
                       <SkeletonLoader count={2} height={30} width="80%" />
                     ) : (
-                      <p>{elem}</p>
+                      <p className="text-[16px] text-center sm:text-left">{elem}</p>
 
                     )}</li>
                 )}

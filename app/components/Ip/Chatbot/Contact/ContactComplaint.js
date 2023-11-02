@@ -19,7 +19,7 @@ const ContactComplaint = () => {
   return (
     <div className="bot-page-shadow  icons bg-[#ffffff] pt-[1px] sm:pt-4 pb-4 sm:pb-12 w-full sm:w-[1440px] mx-auto">
       <div className=" sm:mb-8 mx-auto max-w-[90%] ">
-      <h1 className='text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]' >
+      <h1 className='mb-5  sm:mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0' >
           {loading ? (
             <SkeletonLoader count={2} height={20} width="60%" />
           ) : (
@@ -55,7 +55,7 @@ const ContactComplaint = () => {
                   src={element.url}
                   fill={true}
                   alt="Picture of the author"
-                  className={`m-auto object-contain`}
+                  className={`m-auto object-contain h-[55px]`}
                 />
               )}
             </div>
