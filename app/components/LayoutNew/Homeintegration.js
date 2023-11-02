@@ -33,7 +33,7 @@ const Homeintegration = (props) => {
           <SkeletonLoader height={60} width={"100%"} />
         </div>
       ) : (
-        <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+        <p className="text-blue-400 w-full m-auto sm:w-[80%] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
           Enhance your setup with APIs that integrate effortlessly into the Tempo
           platform, meeting your unique business needs.
         </p>

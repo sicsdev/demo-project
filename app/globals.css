@@ -65,6 +65,16 @@ select {
 }
 
 @media (max-width: 990px) {
+
+  .tempofeature_dot {
+    list-style: none;
+  }
+
+  .tempofeature_dot li p::before {
+    content: "•";
+    margin-right: 6px;
+  }
+
   body select:focus {
     font-size: 16px !important;
   }
@@ -1811,3 +1821,4 @@ body .custome_table {
   width: 100%;
   height: 100%;
 }
+

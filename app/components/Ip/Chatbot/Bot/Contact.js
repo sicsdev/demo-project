@@ -366,7 +366,7 @@ const Contact = () => {
                               ) : (
                                 <>
                                   By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                                  <Link href="/privacy-policy">Tempo Privacy Policy</Link>.
+                                  <Link className='underline' href="/privacy-policy">Tempo Privacy Policy</Link>.
                                 </>
                               )}
                             </label>
@@ -378,7 +378,7 @@ const Contact = () => {
                         ) : (
                           <button
                             className={
-                              "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#FF5721] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
+                              "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#fe9327] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
                             }
                             style={{ margin: "0px auto" }}
                             onClick={() => {
