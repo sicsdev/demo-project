@@ -7,7 +7,7 @@ import ProductForm from '@/app/components/Products/ProductForm';
 import ProductSection2 from '@/app/components/Products/workflow/ProductSection2';
 import ProductSection3 from '@/app/components/Products/workflow/ProductSection3';
 import ProductSection7 from '@/app/components/Products/workflow/ProductSection7';
-import React ,{useRef} from 'react'
+import React, { useRef } from 'react'
 import Middlebar from '@/app/components/Info-Screen/Middlebar';
 
 const page = () => {
@@ -18,17 +18,19 @@ const page = () => {
   };
   return (
     <div className="bg-white">
-    <Banner handleClickScroll={handleClickScroll} />
-    <ProductSection2 handleClickScroll={handleClickScroll} />
-    <ProductSection3 handleClickScroll={handleClickScroll} />
+      <Banner handleClickScroll={handleClickScroll} />
+      <div className="sm:mt-[75vh]">
+        <ProductSection2 handleClickScroll={handleClickScroll} />
+      </div>
+      <ProductSection3 handleClickScroll={handleClickScroll} />
 
-    <Concierge />
-    <ProductSection7 />
-    <Panelcardnew />
-    <Middlebar />
-    <ProductForm reference={ref} />
-    <HomeComponent />
-  </div>
+      <Concierge />
+      <ProductSection7 />
+      <Panelcardnew />
+      <Middlebar />
+      <ProductForm reference={ref} />
+      <HomeComponent />
+    </div>
   )
 }
 

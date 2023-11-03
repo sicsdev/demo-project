@@ -9,7 +9,7 @@ import ProductForm from "@/app/components/Products/ProductForm";
 import ProductSection2 from "@/app/components/Products/email/ProductSection2";
 import ProductSection3 from "@/app/components/Products/email/ProductSection3";
 import ProductSection7 from "@/app/components/Products/email/ProductSection7";
-import React,{useRef} from "react";
+import React, { useRef } from "react";
 
 const page = () => {
   const ref = useRef(null);
@@ -20,7 +20,9 @@ const page = () => {
   return (
     <div className="bg-white">
       <Banner handleClickScroll={handleClickScroll} />
-      <ProductSection2 handleClickScroll={handleClickScroll} />
+      <div className="sm:mt-[75vh]">
+        <ProductSection2 handleClickScroll={handleClickScroll} />
+      </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
 
       <Concierge />
