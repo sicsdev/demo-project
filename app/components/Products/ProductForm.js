@@ -171,7 +171,7 @@ const ProductForm = ({ reference }) => {
       {show == false ? (
         <div
           ref={reference}
-          className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[18px] mb-4 p-5 sm:p-0"
+          className="mt-2 sm:mt-10 block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[18px] mb-4 p-5 sm:p-0"
         >
           <div className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
             <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
