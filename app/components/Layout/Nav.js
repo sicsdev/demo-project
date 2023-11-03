@@ -63,8 +63,8 @@ const Nav = () => {
       >
         {!profile.email && <Banner />}
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
-        <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[60px]">
-          <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[60px]">
+        <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[57px]">
+          <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
             <div className="relative w-28 h-8 mr-24">
               <Link href="/">
                 <Image
@@ -83,7 +83,7 @@ const Nav = () => {
                 {nav_links.map((element, key) => (
                   <li
                     key={key}
-                    className="menus_desk py-[15px] h-[60px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                    className="menus_desk py-[15px] h-[60px] sm:h-[52px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
                     onMouseEnter={(e) => {
                       setShowmenu(false);
                     }}
