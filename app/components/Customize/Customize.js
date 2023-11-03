@@ -18,6 +18,7 @@ import Button from "../Common/Button/Button";
 import TextField from "../Common/Input/TextField";
 import LoaderButton from "../Common/Button/Loaderbutton";
 import SideModal from "../SideModal/SideModal";
+import { getActiveIntegrations } from "@/app/API/pages/Integration";
 const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoading, DisablingButton, SubmitForm }) => {
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
@@ -38,10 +39,11 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
 
     }
 
-
+    getInfoIntegrations()
   }, [basicFormData]);
 
   const [showManageHideUrls, setShowManageHideUrls] = useState(false);
+  const [availableIntegrations, setAvailableIntegrations] = useState([])
 
   const [preferences, setPreferences] = useState({
     id: "",
@@ -56,6 +58,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     secondary_color: "#f5f5f5",
     logo: "",
     thumbnail: "",
+    human_handoff_platform: "",
     chat_title: basicFormData?.business_name ?? "Tempo AI Chatbot",
     chat_message_business_hours: "How can we help?",
     chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
@@ -96,6 +99,21 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
   ];
 
   // Primary functions
+  const getInfoIntegrations = async () => {
+
+    let info = await getActiveIntegrations()
+    const searchTerms = ['zendesk', 'freshdesk', 'zohodesk', 'gorgias'];
+
+    if (info?.results) {
+      const foundIntegrations = info.results
+        .map(item => item.name.toLowerCase())
+        .filter(name => searchTerms.includes(name));
+
+      setAvailableIntegrations(foundIntegrations);
+    }
+
+
+  }
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
       console.log('getallbotdata', res);
@@ -106,8 +124,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
           email: bot_res.email,
           agent_name: bot_res.agent_name,
           agent_title: bot_res.email_agent_title,
-          email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
-          email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+          email_introduction: bot_res.email_greeting?.replace(/\\/g, '').replace(/"/g, '') || "",
+          email_signOff: bot_res.email_farewell?.replace(/\\/g, '').replace(/"/g, '') || "",
 
         }
       })
@@ -600,6 +618,26 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     />
                   </div>
                 </div>
+
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation platform</span>
+                  </div>
+                  <div className="flex justify-start w-1/2 items-center">
+                    <select
+                      value={preferences.human_handoff_platform}
+                      name="human_handoff_platform"
+                      onChange={handleInputChange}
+                      className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                    >
+                      <option value="">No platform active</option>
+                      {availableIntegrations.map((name) =>
+                        <option value={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</option>
+                      )}
+                    </select>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
                     <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
