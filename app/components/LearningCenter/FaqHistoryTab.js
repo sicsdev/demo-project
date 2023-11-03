@@ -1,60 +1,66 @@
-import { getFaqHistory } from '@/app/API/pages/Knowledge'
+import { getAllFaqHistory, getFaqHistory, rollBackToVersion } from '@/app/API/pages/Knowledge'
 import React, { useEffect, useState } from 'react'
-import { ClockIcon } from '@heroicons/react/24/outline';
-import Tooltip from 'react-tooltip';
+import SkeletonLoader from '../Skeleton/Skeleton';
+import HistoryRecord from './HistoryRecord';
 
 const FaqHistoryTab = ({ selectedWorkflow }) => {
 
     // Local states
-    const [workflowHistory, setWorkflowHistory] = useState([])
+    const [history, setHistory] = useState([])
+    const [skeletonloading, setSkeletonLoading] = useState(true)
 
-
-
+    let testId = "75150f2a-cea1-4008-a5cc-a3aeffabdc53"
     // Effects.
     useEffect(() => {
-        if (selectedWorkflow?.id) { getWorkflowInfo() }
+        if (selectedWorkflow?.id) {
+            getWorkflowInfo()
+        } else {
+            getAllHistoryFaqs()
+        }
     }, [selectedWorkflow])
-
 
 
     // Handlers
 
-    const getWorkflowInfo = async () => {
-        let history = await getFaqHistory(selectedWorkflow.id)
-        if (history?.results) setWorkflowHistory(history.results)
+    const getAllHistoryFaqs = async () => {
+        let allHistory = await getAllFaqHistory()
+        if (allHistory?.results) setHistory(allHistory.results)
+        setSkeletonLoading(false);
     }
 
-    const formatDateTime = (dateString) => {
-        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', timeZoneName: 'short' };
-        return new Date(dateString).toLocaleDateString(undefined, options);
-    };
-
-    const handleRollback = (versionId) => {
-        console.log(`Rolling back to version ${versionId}`);
-    };
+    const getWorkflowInfo = async () => {
+        let historyLogs = await getFaqHistory(selectedWorkflow.id)
+        if (historyLogs?.results) setHistory(historyLogs.results)
+        setSkeletonLoading(false);
+        console.log(historyLogs.results)
+    }
 
     return (
         <>
-            <div id={selectedWorkflow?.id} className="p-2 rounded-md shadow-md" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
-                {workflowHistory.map((item) => (
-                    <div key={item.id} className="mb-3 p-4 bg-white rounded-md shadow-sm">
-                        <div className="flex items-center justify-between mb-5">
-                            <div className="flex items-center">
-                                <ClockIcon className="w-5 h-5 mr-2 text-primary" />
-                                <span className="text-sm text-black" style={{opacity: '0.6'}}>{formatDateTime(item.updated)}</span>
-                            </div>
-                            <button
-                                onClick={() => handleRollback(item.id)}
-                                className="px-3 py-1 text-sm bg-primary text-white rounded-md"
-                            >
-                                Rollback to this answer
-                            </button>
-                        </div>
-                        <p className="text-gray-800">{item.answer}</p>
-                    </div>
-                ))}
-            </div>
+
+            {skeletonloading ? (
+
+                <div className="flex justify-center items-center">
+                    <SkeletonLoader count={5} height={80} width='80vw' className={"mt-4 mx-5"} />
+                </div>
+
+
+            ) : history.length === 0 ? (
+                <div className="flex justify-center items-center mt-5 pt-5">
+                    <p>You haven't taken any actions in the Learning Center yet, so there's no history to show. As soon as you start making changes, you'll see a record of all your activity right here.</p>
+                </div>
+
+
+            ) : (
+                <div id={selectedWorkflow?.id} className="p-2 rounded-md shadow-md mx-5 xs:mx-0" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
+                    {history.map((item) => (
+                        <HistoryRecord item={item}></HistoryRecord>
+                    ))}
+                </div>
+            )}
         </>
+
+
     )
 }
 

@@ -15,10 +15,8 @@ import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, P
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
 import TextField from '../Common/Input/TextField';
-import FaqHistoryTab from './FaqHistoryTab';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
-    console.log("questions", questions)
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -367,18 +365,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                             </li>
 
-                            <li className={` ${tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
-
-                                <span
-                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
-                  rounded-lg active  group`}
-                                    aria-current="page"
-                                >
-                                    History
-                                </span>
-
-                            </li>
-
                         </ul>
                     </div>
                     {tab === 0 && (
@@ -494,13 +480,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                     )}
 
-
-
-                    {tab === 3 && (
-                        <>
-                            <FaqHistoryTab selectedWorkflow={selected}></FaqHistoryTab>
-                        </>
-                    )}
                 </SideModal>
             )}
         </div>

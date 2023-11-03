@@ -180,12 +180,49 @@ export const deleteNegativeFaq = async (faqid) => {
 };
 
 
+// export const getFaqHistory = async (faqId) => {
+//     let config = returnConfig()
+//     try {
+//         const response = await axios.get(`${API_URL}/api/v1/main/faqs/${faqId}/history/`, config);
+//         return response?.data;
+//     } catch (error) {
+//         return error
+//     }
+// };
+
+
 export const getFaqHistory = async (faqId) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/faqs/${faqId}/history/`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/knowledge-faq-history/${faqId}`, config);
         return response?.data;
     } catch (error) {
         return error
     }
 };
+
+
+export const getAllFaqHistory = async () => {
+
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/knowledge-faq-history/`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+
+}
+
+
+export const rollBackToVersion = async (faqId, faqHistoryId) => {
+    let config = returnConfig()
+    let body = {}
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/faqs/${faqId}/rollback_to_version/${faqHistoryId}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
