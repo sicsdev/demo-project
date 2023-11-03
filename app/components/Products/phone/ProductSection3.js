@@ -73,10 +73,10 @@ const ProductSection3 = ({handleClickScroll}) => {
                     className="w-[120px] sm:w-[455px] h-[220px] mb-9 sm:h-[325px] "
                   />
                 ) : (
-                  <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
+                  <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                     <Image
-                      src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt55f54263f3f85ca3/63374103eb84042358356821/delivery-person-sms-4x3-2060703047.png?cache=31300e7b4a96f3c1924839ef2de23459&tr=fo-auto,noWrapper-true,w-800"
-                      className="w-full mx-auto bg-contain object-cover sm:object-contain"
+                  src="/solutions_/Phone/More than an IVR system.png"
+                  className="w-full mx-auto bg-contain object-cover sm:object-contain"
                       fill={true}
                     />
                   </div>
@@ -95,10 +95,10 @@ const ProductSection3 = ({handleClickScroll}) => {
                   className="w-[120px] sm:w-[455px] h-[220px] mb-9 sm:h-[325px] "
                 />
               ) : (
-                <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
+                <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                   <Image
-                    src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt55f54263f3f85ca3/63374103eb84042358356821/delivery-person-sms-4x3-2060703047.png?cache=31300e7b4a96f3c1924839ef2de23459&tr=fo-auto,noWrapper-true,w-800"
-                    className="w-full mx-auto bg-contain object-cover sm:object-contain"
+                  src="/solutions_/Phone/Improves every day, just like our Business.png"
+                  className="w-full mx-auto bg-contain object-cover sm:object-contain"
                     fill={true}
                   />
                 </div>
@@ -153,17 +153,17 @@ const ProductSection3 = ({handleClickScroll}) => {
           )}
               </div>
             </div>
-            <div className="block sm:hidden">
+            <div className="block sm:hidden pb-[33px]">
               {loading ? (
                 <SkeletonLoader
                   count={1}
                   className="w-[120px] sm:w-[455px] h-[220px] mb-9 sm:h-[325px] "
                 />
               ) : (
-                <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
+                <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                   <Image
-                    src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt55f54263f3f85ca3/63374103eb84042358356821/delivery-person-sms-4x3-2060703047.png?cache=31300e7b4a96f3c1924839ef2de23459&tr=fo-auto,noWrapper-true,w-800"
-                    className="w-full mx-auto bg-contain object-cover sm:object-contain"
+                  src="/solutions_/Phone/Improves every day, just like our Business.png"
+                  className="w-full mx-auto bg-contain object-cover sm:object-contain"
                     fill={true}
                   />
                 </div>
