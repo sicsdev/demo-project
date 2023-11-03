@@ -15,7 +15,7 @@ const ProductSection3 = ({handleClickScroll}) => {
   return (
     <>
       <div className="sm:px-[0px] px-[2rem] ">
-        <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[3rem] ">
+        <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[0rem] ">
           <div className="block sm:grid sm:grid-cols-2 justify-between items-center gap-4">
               <div className="sm:ml-[3rem]">
                 <p className="   mb-5  sm:p-0 sm:mt-0 mt-0 text-black text-left sm:leading-[45px] text-[1.5rem] sm:text-[38px] font-bold sm:mb-1 ">
@@ -86,7 +86,7 @@ const ProductSection3 = ({handleClickScroll}) => {
         </div>
       </div>
       <div className="sm:px-[0px] px-[2rem] shadow-box mb-6">
-        <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[3rem] ">
+        <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%]  sm:py-10 w-full sm:w-[1440px] sm:mt-[0rem] ">
           <div className="block sm:grid sm:grid-cols-2 justify-between items-center gap-4">
             <div className="sm:block hidden">
               {loading ? (

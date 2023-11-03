@@ -89,7 +89,7 @@ const ProductSection2 = ({handleClickScroll}) => {
           </div>
         </div>
       </div>
-      <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%] mt-[30px]  sm:py-10 w-full sm:w-[1440px] sm:mt-[5rem] ">
+      <div className=" mx-auto max-w-[100%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[100%] mt-[30px]  sm:py-10 w-full sm:w-[1440px] sm:mt-[0rem] ">
         <div className="block sm:grid sm:grid-cols-2 justify-between items-center gap-4">
           {" "}
           <div className="hidden  sm:block">
