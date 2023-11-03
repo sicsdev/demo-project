@@ -1822,3 +1822,20 @@ body .custome_table {
   height: 100%;
 }
 
+
+.menu_link_main:hover .menu_link_arrow {
+  opacity: 1;
+  right: 0;
+}
+
+.menu_link_arrow {
+  width: 23px;
+  opacity: 0;
+  transition: all .2s;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  right: 6px;
+  transform: translateY(-50%);
+}
