@@ -19,7 +19,9 @@ const page = () => {
   return (
     <div className="bg-white">
       <Banner handleClickScroll={handleClickScroll} />
-      <ProductSection2 handleClickScroll={handleClickScroll} />
+      <div className="sm:mt-[75vh]">
+        <ProductSection2 handleClickScroll={handleClickScroll} />
+      </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
 
       <Concierge />

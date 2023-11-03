@@ -11,15 +11,19 @@ const banner = ({handleClickScroll}) => {
   }, []);
   const customStyles = {
     backgroundImage: `url('https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt7502941e41c99672/5ee7a43e8aa85c4a23eb61a6/xl-bnr-callstats.io-monitoring-data3.png?cache=59d90bb98e7585b9a89b84ef9e319161&tr=ar-16-9,fo-auto,w-1200')`,
+    backgroundImage: `url('../solutions_/phone.png')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
+    left: 0,
+    right: 0,
+    zIndex: 9,
   };
   return (
     <div
-      className="sm:h-[500px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
+      className="sm:top-[58px] sm:absolute sm:h-[70vh] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
-      <div className=" w-auto sm:p-14 relative p-4">
+      <div className="w-auto sm:p-14 relative p-4 sm:w-[1450px] mx-auto App w-full">
         {loading ? (
           <div className="block !font-[700] w-[100%] sm:w-[50%]  pt-5 sm:pt-0  text-[33px] leading-[40px]  relative text-[black]">
             <SkeletonLoader height={60} />
