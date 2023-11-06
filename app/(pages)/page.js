@@ -72,7 +72,7 @@ export default function Home() {
         <Homeintegration />
         <Reach handleClickScroll={handleClickScroll} data={reachData}/>
         <Panelcardnew />
-        <Middlebar />\
+        <Middlebar />
         <Homeform reff={ref} />
         <HomeComponent />
       </main>
