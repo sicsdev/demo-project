@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 
-const Reach = ({handleClickscroll ,data,heading  =' Exceptional Performance' }) => {
+
+const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) => {
 
  
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const Reach = ({handleClickscroll ,data,heading  =' Exceptional Performance' }) 
       )}
 
       <div className="sm:pt-[0px] bg-white">
-        <div className="max-w-[90%] sm:max-w-[100%]">
+        <div className="max-w-[90%] sm:max-w-[100%] m-auto">
           {data.length === 0 ? (
             <p className=" text-xl align-bottom font-semibold italic text-center">
               No data found!
@@ -45,7 +46,7 @@ const Reach = ({handleClickscroll ,data,heading  =' Exceptional Performance' }) 
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff] ">
+                    <div className="text-center sm:text-left p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff] ">
                       {ele.name}
                     </div>
                   )}
@@ -54,7 +55,7 @@ const Reach = ({handleClickscroll ,data,heading  =' Exceptional Performance' }) 
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="p-0 py-2 sm:p-3  md:px-0 ">
+                    <div className="text-center sm:text-left p-0 py-2 sm:p-3  md:px-0 ">
                       {ele.para}
                     </div>
                   )}
@@ -64,14 +65,14 @@ const Reach = ({handleClickscroll ,data,heading  =' Exceptional Performance' }) 
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-1 w-[100%] sm:flex p-8 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] mb-[2rem] sm:pb-[30px] justify-center">
+      <div className="grid grid-cols-1 w-[100%] sm:flex pt-8 pb-0 sm:pt-0 sm:pb-0 gap-4 sm:w-auto items-center mx-auto mt-[0px] mb-[2rem] sm:pb-[30px] justify-center">
         {loading ? (
           <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
             <SkeletonLoader height={60} width={300} />
           </div>
         ) : (
           <button
-          onClick={handleClickscroll}
+          onClick={handleClickScroll}
             type="button"
             className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >

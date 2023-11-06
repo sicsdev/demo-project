@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import DataTable from "react-data-table-component";
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
-import { ArrowUturnLeftIcon, CheckIcon, ClipboardDocumentListIcon, ClipboardIcon, EllipsisHorizontalIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon, CheckBadgeIcon, CheckIcon, ClipboardDocumentListIcon, ClipboardIcon, EllipsisHorizontalIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import { getWorkflowByStatus, getWorkflowEmbed, removeWorkFlow, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import { successMessage } from '../../Messages/Messages';
 import copy from 'copy-to-clipboard';
@@ -12,6 +12,10 @@ import DeleteWorkflow from './DeleteWorkflow';
 import Button from '../../Common/Button/Button';
 import EmojiPicker, { Emoji } from 'emoji-picker-react';
 import Modal from '../../Common/Modal/Modal';
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+
+
 const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow }) => {
     const [data, setData] = useState([]);
     const [suggestModal, setSuggestModal] = useState(false);
@@ -333,6 +337,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
                                     <div className='relative h-full'>
                                         {/* <EmojiPicker /> */}
+                                        {!loading &&
+                                            <div className='absolute top-0 right-0' title={`Used ${item.workflow_usage_last_24_hours} times last 24hs.`}>
+                                                <span className='text-[#808080]'> {item.workflow_usage_last_24_hours}</span>
+                                            </div>}
 
                                         <div className='flex items-center justify-start gap-2'>
                                             {item.icon && (
