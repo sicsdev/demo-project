@@ -15,21 +15,21 @@ export const nav_links = [
                 
                             "heading": "Chat Bot",
                             label: "",
-                            link: "solutions/tempo-chat",
+                            link: "/solutions/chat-bot",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Email",
                             label: "",
-                            link: "/solutions/smart-inbox",
+                            link: "/solutions/email",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Phone",
                             label: "",
-                            link: "/solutions/smart-inbox",
+                            link: "/solutions/phone",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
                         }
                   
@@ -44,14 +44,14 @@ export const nav_links = [
                             icon: "/menu/7.png",
                             "heading": "Learning Center",
                             label: "",
-                            link: "solutions/tempo-chat",
+                            link: "/features/learning-center",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Workflow Builder",
                             label: "",
-                            link: "/solutions/smart-inbox",
+                            link: "/features/workflow-builder",
                             "para": "Link Tempo into your email support to automatically handle more complex email tickets."
                         },
                       

@@ -164,11 +164,11 @@ const UpdatedFooter = () => {
 
                       </h6> */}
 
-                      <h6 className="  text-[#142543] !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
+                      {/* <h6 className="  text-[#142543] !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
 
                         <Link href="/careers">Careers</Link>
 
-                      </h6>
+                      </h6> */}
 
                       {/* <h6 className="  text-white   font-[200] sm:font-bold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    py-1 px-2 ">
 

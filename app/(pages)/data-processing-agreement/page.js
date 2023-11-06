@@ -1,6 +1,10 @@
+'use client'
+import { Homeform } from "@/app/components/LayoutNew/Homeform";
 import React from "react";
+import { useRef } from "react";
 
 const page = () => {
+  const ref = useRef(null);
   return (
     <div className="privacypolicy_page">
       <div className=" bg-white py-4 ">
@@ -528,6 +532,8 @@ const page = () => {
           </table>
         </div>
       </div>
+      
+      <Homeform reff={ref} />
     </div>
   );
 };
