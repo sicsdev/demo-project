@@ -28,6 +28,7 @@ import Modal from "@/app/components/Common/Modal/Modal";
 import TextEditor from "@/app/components/URL/Richtext";
 import AnswersEditor from "./AnswersEditor";
 import { useSearchParams } from "next/navigation";
+import FaqHistoryTab from "@/app/components/LearningCenter/FaqHistoryTab";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -91,6 +92,8 @@ const Page = () => {
     const [externalContentForTextEditor, setExternalContentForTextEditor] = useState('')
     const [defaultTitle, setDefaultTitle] = useState('Recommended')
     const firstRender = useRef(true);
+    const [tab, setTab] = useState(1)
+
     const checkValue = (str) => {
         if (str.length < 2) {
             return false
@@ -709,112 +712,172 @@ const Page = () => {
         <>
             <div style={{ whiteSpace: "normal" }}>
                 <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
-                <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
-                <>
 
+                <div className={false ? " my-2 mb-5        " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2 mb-5"}>
 
-                    <div className="w-full sm:relative sm:mt-[20px]">
+                    <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
-                        <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
-                            <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            {loading ? "" :
-                                <div className="relative w-full sm:w-[unset]">
-                                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                            <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                        </svg>
-                                    </div>
-
-                                    <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
-                                </div>
+                        <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+                            setTab(1)
+                        }}>
+                            {false ?
+                                <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                :
+                                <span
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                                rounded-lg active  group`}
+                                    aria-current="page"
+                                >
+                                    FAQs
+                                </span>
                             }
+                        </li>
+
+                        {/* <li className={`  ${filterhead === "External" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { */}
+                        <li className={`  ${tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+
+                            setTab(2)
+                        }}>
+                            {false ?
+                                <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                :
+                                <span
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                                                rounded-lg active  group`}
+                                    aria-current="page"
+                                >
+                                    History
+                                </span>
+                            }
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+
+                {tab == 2 &&
+                    <>
+                        <FaqHistoryTab></FaqHistoryTab>
+                    </>
+                }
+
+
+
+
+                {tab == 1 &&
+                    <>
+                        <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
+
+
+                        <div className="w-full sm:relative sm:mt-[20px]">
+
+                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2]'>
+                                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                                {loading ? "" :
+                                    <div className="relative w-full sm:w-[unset]">
+                                        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                            </svg>
+                                        </div>
+
+                                        <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
+                                    </div>
+                                }
+                            </div>
+
+                            <DataTable
+                                title={''}
+                                fixedHeader
+                                highlightOnHover
+                                pointerOnHover
+                                pagination
+                                columns={columns}
+                                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                data={state?.data?.results}
+                                progressPending={loading}
+                                progressComponent={
+                                    <div className="w-full mt-3 relative">
+                                        <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
+                                    </div>}
+                                paginationDefaultPage={pageVal}
+                                paginationPerPage={perPage}
+                                paginationTotalRows={state?.data?.count}
+                                paginationServer
+                                onChangeRowsPerPage={handlePerRowsChange}
+                                onChangePage={(page) => {
+                                    handleRecomodationValue(page)
+                                }}
+                                onRowClicked={(rowData) => {
+                                    setWorkflowView(rowData)
+                                    setShow(true)
+                                    setAnswer('')
+                                    setQuestionData([])
+                                    setSearchKnowledge('')
+                                    setKnowledgeId(null)
+                                    getWorkFlowReccomodation(rowData.question)
+                                    searchMatched({ question: rowData.question }, false)
+                                }}
+                                paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                                className='sm:!h-[75vh] !h-[65vh]'
+                                sortServer
+                                onSort={handleSort}
+                                customStyles={customStyles}
+                                defaultSortAsc={false}
+                            />
                         </div>
 
-                        <DataTable
-                            title={''}
-                            fixedHeader
-                            highlightOnHover
-                            pointerOnHover
-                            pagination
-                            columns={columns}
-                            noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
-                            data={state?.data?.results}
-                            progressPending={loading}
-                            progressComponent={
-                                <div className="w-full mt-3 relative">
-                                    <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
-                                </div>}
-                            paginationDefaultPage={pageVal}
-                            paginationPerPage={perPage}
-                            paginationTotalRows={state?.data?.count}
-                            paginationServer
-                            onChangeRowsPerPage={handlePerRowsChange}
-                            onChangePage={(page) => {
-                                handleRecomodationValue(page)
-                            }}
-                            onRowClicked={(rowData) => {
-                                setWorkflowView(rowData)
-                                setShow(true)
-                                setAnswer('')
-                                setQuestionData([])
-                                setSearchKnowledge('')
-                                setKnowledgeId(null)
-                                getWorkFlowReccomodation(rowData.question)
-                                searchMatched({ question: rowData.question }, false)
-                            }}
-                            paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                            className='sm:!h-[75vh] !h-[65vh]'
-                            sortServer
-                            onSort={handleSort}
-                            customStyles={customStyles}
-                            defaultSortAsc={false}
-                        />
-                    </div>
-                </>
+                        {workflowView && show && (
+                            <AnswersEditor
+                                setShow={setShow}
+                                setWorkflowView={setWorkflowView}
+                                setKnowledgeId={setUpdateLoader}
+                                setUpdateLoader={setUpdateLoader}
+                                setUpdateLoader1={setUpdateLoader1}
+                                setExternalContentForTextEditor={setExternalContentForTextEditor}
+                                workflowView={workflowView}
+                                knowledgeId={knowledgeId}
+                                questionData={questionData}
+                                setAnswer={setAnswer}
+                                setSubQuestions={setSubQuestions}
+                                handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
+                                subQuestions={subQuestions}
+                                subQuestionLoading={subQuestionLoading}
+                                defaultTitle={defaultTitle}
+                                updateLoader1={updateLoader1}
+                                updateLoader={updateLoader}
+                                SubmitTheAnswerForm={SubmitTheAnswerForm}
+                                link={link}
+                                setLink={setLink}
+                                setModal={setModal}
+                                modal={modal}
+                                handleTextEditorChange={handleTextEditorChange}
+                                externalContentForTextEditor={externalContentForTextEditor}
+                                answer={answer}
+                                SubmitTheForm={SubmitTheForm}
+                                getExpandedAnswer={getExpandedAnswer}
+                                pusherStreaming={pusherStreaming}
+                                setWorkFlowData={setWorkFlowData}
+                                workFlowData={workFlowData}
+                                submitWorkflowTrigger={submitWorkflowTrigger}
+                                searchKnowledge={searchKnowledge}
+                                setSearchKnowledge={setSearchKnowledge}
+                                mode={mode}
+                                setMode={setMode}
+                                searchFaqs={searchFaqs}
+                                handleWorkflow={handleWorkflow}
+                            >
 
-                {workflowView && show && (
-                    <AnswersEditor
-                        setShow={setShow}
-                        setWorkflowView={setWorkflowView}
-                        setKnowledgeId={setUpdateLoader}
-                        setUpdateLoader={setUpdateLoader}
-                        setUpdateLoader1={setUpdateLoader1}
-                        setExternalContentForTextEditor={setExternalContentForTextEditor}
-                        workflowView={workflowView}
-                        knowledgeId={knowledgeId}
-                        questionData={questionData}
-                        setAnswer={setAnswer}
-                        setSubQuestions={setSubQuestions}
-                        handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
-                        subQuestions={subQuestions}
-                        subQuestionLoading={subQuestionLoading}
-                        defaultTitle={defaultTitle}
-                        updateLoader1={updateLoader1}
-                        updateLoader={updateLoader}
-                        SubmitTheAnswerForm={SubmitTheAnswerForm}
-                        link={link}
-                        setLink={setLink}
-                        setModal={setModal}
-                        modal={modal}
-                        handleTextEditorChange={handleTextEditorChange}
-                        externalContentForTextEditor={externalContentForTextEditor}
-                        answer={answer}
-                        SubmitTheForm={SubmitTheForm}
-                        getExpandedAnswer={getExpandedAnswer}
-                        pusherStreaming={pusherStreaming}
-                        setWorkFlowData={setWorkFlowData}
-                        workFlowData={workFlowData}
-                        submitWorkflowTrigger={submitWorkflowTrigger}
-                        searchKnowledge={searchKnowledge}
-                        setSearchKnowledge={setSearchKnowledge}
-                        mode={mode}
-                        setMode={setMode}
-                        searchFaqs={searchFaqs}
-                        handleWorkflow={handleWorkflow}
-                    >
+                            </AnswersEditor>
+                        )}
+                    </>}
 
-                    </AnswersEditor>
-                )}
+
+
+
+
             </div >
             <ToastContainer />
 

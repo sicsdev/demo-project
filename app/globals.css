@@ -1581,11 +1581,9 @@ body .rdt_Pagination select:focus {
 
 body .rdt_Pagination select {
   border: 1px solid transparent !important;
+  font-size: 12px !important;
 }
 
-body .rdt_Pagination select {
-  border: 1px solid transparent !important;
-}
 
 body .rdt_Pagination {
   font-size: 12px !important;

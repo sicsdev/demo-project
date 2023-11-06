@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { deleteFaqQuestions, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
+import { deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -17,7 +17,6 @@ import TextEditor from '../URL/Richtext';
 import TextField from '../Common/Input/TextField';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
-    console.log("questions", questions)
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -84,7 +83,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             cell: (row) => (
                 <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
             ),
-        }, 
+        },
         {
             name: "Content Source",
             selector: (row) => row?.knowledge?.source,
@@ -268,6 +267,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
             }
         })
     }
+
+
+
     return (
         <div className="knowledgebase_table w-full px-2 pt-2">
             <div className=' hidden sm:block md:block lg:block'>
@@ -328,10 +330,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     setIsEdit(false)
                     setTab(0)
                     setSelected(null)
-                }} 
-                deleteButton={true} 
-                data={selected} 
-                deleteRecord={(id) => deleteRecord(id)}>
+                }}
+                    deleteButton={true}
+                    data={selected}
+                    deleteRecord={(id) => deleteRecord(id)}>
 
                     <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                         <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
@@ -363,7 +365,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                             </li>
 
-
                         </ul>
                     </div>
                     {tab === 0 && (
@@ -388,7 +389,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
                             <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
 
-                            <button 
+                            <button
                                 onClick={(e) => updateFaq()}
                                 type="button"
                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white" disabled={selected.answer == '' || updateLoader}>
@@ -445,6 +446,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                                                 className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
                                                 {nLoading ? 'Loading...' : isEdit ? "Edit" : "Submit"}
                                             </button>
+
                                         </div>
                                     )}
                                     {negativeQuestions.length > 0 && (
@@ -477,6 +479,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
 
 
                     )}
+
                 </SideModal>
             )}
         </div>
