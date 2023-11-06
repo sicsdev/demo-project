@@ -15,7 +15,7 @@ const client = createClient({
 });
 
 
-export const page = () => {
+ const Page = () => {
     const params = useSearchParams()
     const route = useRouter();
     const [blog, setBlog] = useState(null);
@@ -190,4 +190,4 @@ export const page = () => {
 
 };
 
-export default page;
+export default Page;

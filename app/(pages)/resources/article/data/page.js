@@ -16,7 +16,7 @@ const client = createClient({
 });
 
 
-const page = () => {
+const Page = () => {
 
   const params = useSearchParams()
   const route = useRouter();
@@ -259,4 +259,4 @@ const page = () => {
   )
 };
 
-export default page;
+export default Page;
