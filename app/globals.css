@@ -65,6 +65,16 @@ select {
 }
 
 @media (max-width: 990px) {
+
+  .tempofeature_dot {
+    list-style: none;
+  }
+
+  .tempofeature_dot li p::before {
+    content: "•";
+    margin-right: 6px;
+  }
+
   body select:focus {
     font-size: 16px !important;
   }
@@ -1801,4 +1811,29 @@ body .custome_table {
     z-index: 10 !important;
   }
   
+}
+.for-bg:before {
+  content: "";
+  background: linear-gradient(0deg,currentColor,hsla(0,0%,100%,0));
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+
+.menu_link_main:hover .menu_link_arrow {
+  opacity: 1;
+  right: 0;
+}
+
+.menu_link_arrow {
+  width: 23px;
+  opacity: 0;
+  transition: all .2s;
+  position: absolute;
+  top: 50%;
+  bottom: auto;
+  left: auto;
+  right: 6px;
+  transform: translateY(-50%);
 }

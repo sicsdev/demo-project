@@ -66,26 +66,26 @@ const Integrate = () => {
                         "Integrate with Ease"
                     }
                 </h1> */}
-                     <h1 className='text-center text-base sm:text-para md:text-para lg:text-[32px] sm:leading-8 my-2 sm:my-6 font-base text-[#252C47]' >
+        <h1 className='sm:text-center my-2 font-bold text-2xl text-left sm:mt-0 mt-4 sm:mb-6 mb-2 sm:text-[38px] text-black sm:leading-none' >
                 {loading ? <SkeletonLoader count={1} height={30} width={"60%"} /> :
                     "Integrate with Ease"
                 }
             </h1>
-                <p className='text-center'>
+                <p className='sm:text-center '>
                     {loading ? <SkeletonLoader count={1} height={30} width={"80%"} /> :
                         "Automated API Connections • Dynamic Learning Center • Drag-and-Drop Workflow Builder"
                     }
 
 
                 </p>
-                <div className='mt-12 grid grid-cols-3 sm:flex justify-center gap-16 items-center'>
+                <div className='mt-12 grid grid-cols-3 sm:flex justify-center gap-6 sm:gap-16 items-center'>
                     {tiles_icons.map((element, key) =>
                         <div className=" relative rounded-lg " key={key}>
                             {loading ?
                                 <SkeletonLoader count={1} height={80} width={60} /> :
                                 <Image
                                     fill={"true"}
-                                    className={` mx-auto rounded-lg !static !w-[80px] !h-auto`}
+                                    className={` mx-auto rounded-lg !static !w-[50px] sm:!w-[62px] !h-auto`}
                                     alt="logo.png"
                                     src={element.logo}
                                 />}

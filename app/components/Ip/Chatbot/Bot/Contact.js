@@ -178,13 +178,13 @@ const Contact = () => {
             <div className="text-center sm:text-left">
               <p className="uppercase sm:mb-10 text-[#FF5721] font-semibold">
               </p>
-              <h2 className=" font-bold  text-2xl text-[#252C47] sm:w-[34rem] sm:mt-0 mt-4 md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
+              <h2 className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black">
                 {loading ? (
                   <SkeletonLoader count={2} height={40} width="100%" />
                 ) : (
                   "Revolutionize Customer Service with Tempo's Chatbot."
                 )}</h2>
-              <p className="sm:my-12 my-3 sm:text-xl text-sm sm:w-[580px]">
+            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={2} height={30} width="80%" />
                 ) : (
@@ -212,7 +212,7 @@ const Contact = () => {
             </div>
             {show == false ?
               <div className="block">
-                <div className="relative w-[100%] sm:w-[550px] sm:h-[530px]">
+                <div className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
                   <div className="w-full mt-4 sm:mt-0">
                     <div className="mx-auto sm:w-[85%] mt-8">
                       <div className=" mx-auto text-center">
@@ -359,14 +359,14 @@ const Contact = () => {
                             )}
                             <label
                               htmlFor="link-checkbox"
-                              className="ml-2 text-justify text-xs font-medium text-border"
+                              className="ml-2 text-justify text-xs font-medium text-border mt-[16px] "
                             >
                               {loading ? (
                                 <SkeletonLoader count={1} height={20} width="100%" />
                               ) : (
                                 <>
                                   By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                                  <Link href="/privacy-policy">Tempo Privacy Policy</Link>.
+                                  <Link className='underline' href="/privacy-policy">Tempo Privacy Policy</Link>.
                                 </>
                               )}
                             </label>
@@ -378,7 +378,7 @@ const Contact = () => {
                         ) : (
                           <button
                             className={
-                              "inline-block font-semibold rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+                              "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#fe9327] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
                             }
                             style={{ margin: "0px auto" }}
                             onClick={() => {

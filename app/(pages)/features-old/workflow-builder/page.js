@@ -4,16 +4,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import Testimonial from "@/app/components/Testimonial/Testimonial";
 import Smartsection from "@/app/components/solutions/Smartsection";
-import SmartAlert from "@/app/components/ChatBots/SmartAlert";
-import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
-import Smarteconomy from "@/app/components/solutions/Smarteconomy";
 import Aipowered from "@/app/components/solutions/Aipowered";
 import Intcomp from "@/app/components/solutions/Intcomp";
-import Smartlevel from "@/app/components/solutions/Smartlevel";
 import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
-import Smartinbocacc from "@/app/components/Accordiontabs/Smartinbocacc";
-import Integrationstrans from "@/app/components/solutions/Integrationstrans";
-import Exploretempoai from "@/app/components/Exploretempoai/Exploretempoai";
+import Featurescards from "@/app/components/featurescards/page";
+import Workflowslider from "@/app/components/workflow slider/page";
+
 const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,22 +45,24 @@ const page = () => {
 
   return (
     <div>
-      <Smartsection />
-      {/* <Accordiontabs />
-       */}
-<Smartinbocacc />
-      {/* <SmartAlert /> */}
-      <Testimonial />
-      <SolutionStandard />
+      <Workflowslider/>
 
+      <Smartsection />
+      <Accordiontabs />
+      {/* <SolutionStandard /> */}
+      {/* <SmartAlert /> */}
+      
+      <Testimonial />
+
+     
       {/* <Smartlevel/> */}
 
       {/* <Requestdemo/> */}
       {/* <Smarteconomy /> */}
-      {/* <Aipowered /> */}
-      {/* <Intcomp /> */}
-    {/* <Exploretempoai />   */}
-      <Integrationstrans/>
+      <Aipowered />
+      <Intcomp />
+      <Featurescards/>
+
     </div>
   );
 };

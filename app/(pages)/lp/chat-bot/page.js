@@ -7,32 +7,35 @@ import ContactSection4 from "@/app/components/Ip/Chatbot/Contact/ContactSection4
 import ContactComplaint from "@/app/components/Ip/Chatbot/Contact/ContactComplaint";
 import ContactFeatures from "@/app/components/Ip/Chatbot/Contact/ContactFeatures";
 import ContactBanner2 from "@/app/components/Ip/Chatbot/Contact/ContactBanner2";
-    
-import Newnavbar from "@/app/components/Ip/Chatbot/Newnavbar";
-import Newfooter from "@/app/components/Layout/Newfooter ";
 
 import Integrate from "../../../components/Ip/components/Integrate";
+import Homeinte from "@/app/components/LayoutNew/Homeinte";
+import Reach from "@/app/components/LayoutNew/Reach";
+import Newnavbar from "@/app/components/Ip/Chatbot/Newnavbar";
+import Newfooter from "@/app/components/Layout/Newfooter ";
+import UpdatedFooter from "@/app/components/Layout/UpdatedFooter";
 
 
 const Chatbot = () => {
 
     return (
         <>
-            {/* <Newnavbar /> */}
+            <Newnavbar />
       
             <Contact />
-            <ContactBanner2 />
+            <Homeinte />
             <ContactSection2 />
             <ContactSection3 />
             
             <Integrate />
             {/* <BannerSub /> */}
-            <ContactSection4 />
+            {/* <ContactSection4 /> */}
+ <Reach />
             <ContactComplaint />
             <ContactFeatures />
             {/* <ContactCarousel/> */}
             {/* <ContactBlog/> */}
-            {/* <Newfooter />    */}
+            <UpdatedFooter />   
     
         </>
     )
