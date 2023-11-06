@@ -16,7 +16,7 @@ const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle, getQuestionsData,
     setCreateModal,
     setLoading,
-    setCreatePdfModal, creationMode, currentOpenedProduct }) => {
+    setCreatePdfModal, creationMode, currentOpenedProduct, handleDeleteFaq }) => {
 
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
@@ -166,7 +166,10 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                         <div className="flex flex-1">
                             <h2 className="text-black-color text-sm !font-semibold">Add {creationMode === "snippet" ? "Snippet" : "Product"}</h2>
                         </div>
-                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='flex gap-2'>
+
+                            {basicFormData?.id && <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
+
                             <button
                                 onClick={() => handleSubmit({ type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })}
                                 type="button"
@@ -176,6 +179,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             >
                                 {loading ? "Loading..." : "Save and close"}
                             </button>
+
                         </div>
                         <div className="flex justify-end gap-2">
                             <div className="cursor-pointer" onClick={(e) => setCreateOptions(null)}>

@@ -16,6 +16,7 @@ import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
 import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
+import Swal from 'sweetalert2';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
     const [perPage, setPerPage] = useState(10);
@@ -220,6 +221,26 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         setCurrentOpenedProduct(null)
     }
 
+    const handleDeleteFaq = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You are about to delete this product, this action cannot be undone. Do you want to continue?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it.',
+            cancelButtonText: 'Cancel',
+        });
+
+        if (result.isConfirmed) {
+            await deleteFaqQuestions(formData.id);
+            setCreateOptions(null)
+            setCreatePdfModal(false)
+            setCurrentOpenedProduct(null)
+            getQuestionsData('page=1&page_size=10&knowledge__source=product')
+        }
+    }
 
 
     // ************ TABLES FORMAT AND COLUMNS GUIDE ************
@@ -416,6 +437,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     setCreatePdfModal={setCreatePdfModal}
                     creationMode={createMode}
                     currentOpenedProduct={currentOpenedProduct}
+                    handleDeleteFaq={handleDeleteFaq}
                 />
             )}
 
