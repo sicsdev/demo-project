@@ -1,65 +1,38 @@
-"use client";
-import React, { useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import Cookies from "js-cookie";
-import Testimonial from "@/app/components/Testimonial/Testimonial";
-import Smartsection from "@/app/components/solutions/Smartsection";
-import SmartAlert from "@/app/components/ChatBots/SmartAlert";
-import SolutionStandard from "@/app/components/Newstandardpage/SolutionStandard";
-import Smarteconomy from "@/app/components/solutions/Smarteconomy";
-import Aipowered from "@/app/components/solutions/Aipowered";
-import Intcomp from "@/app/components/solutions/Intcomp";
-import Smartlevel from "@/app/components/solutions/Smartlevel";
-import Accordiontabs from "@/app/components/Accordiontabs/Accordiontabs";
+"use client"
+import HomeComponent from '@/app/components/Home/HomeComponent';
+import Panelcardnew from '@/app/components/PanelCardNew/PanelCardNew';
+import Concierge from '@/app/components/Products/learning/Concierge';
+import Banner from '@/app/components/Products/learning/Banner';
+import ProductForm from '@/app/components/Products/ProductForm';
+import ProductSection2 from '@/app/components/Products/learning/ProductSection2';
+import ProductSection3 from '@/app/components/Products/learning/ProductSection3';
+
+import ProductSection7 from '@/app/components/Products/learning/ProductSection7';
+import React ,{useRef} from 'react'
+import Middlebar from '@/app/components/Info-Screen/Middlebar';
+
 const page = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const gclid = searchParams.get("gclid");
-    const utm_source = searchParams.get("utm_source");
-    const utm_medium = searchParams.get("utm_medium");
-    const utm_term = searchParams.get("utm_term");
-    const matchtype = searchParams.get("matchtype");
-    const utm_campaign = searchParams.get("utm_campaign");
-    const utm_content = searchParams.get("utm_content");
-    const msclkid = searchParams.get("msclkid");
-
-    console.log("gclid", gclid);
-    console.log("utm_source", utm_source);
-    console.log("utm_medium", utm_medium);
-    console.log("utm_content", utm_content);
-    console.log("utm_term", utm_term);
-    console.log("matchtype", matchtype);
-    console.log("msclkid", msclkid);
-    console.log("utm_campaign", utm_campaign);
-
-    Cookies.set("gclid", gclid, { expires: 90 });
-    Cookies.set("msclkid", msclkid, { expires: 90 });
-    Cookies.set("utm_source", utm_source, { expires: 90 });
-    Cookies.set("utm_campaign", utm_campaign, { expires: 90 });
-    Cookies.set("utm_medium", utm_medium, { expires: 90 });
-    Cookies.set("utm_term", utm_term, { expires: 90 });
-    Cookies.set("utm_content", utm_content, { expires: 90 });
-    Cookies.set("matchtype", matchtype, { expires: 90 });
-  }, []);
-
+  const ref = useRef(null);
+  const handleClickScroll = () => {
+    console.log("clicked");
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
   return (
-    <div>
-      <Smartsection />
-      <SolutionStandard />
-      {/* <SmartAlert /> */}
-      <Testimonial />
+    <div className="bg-white">
+      <Banner handleClickScroll={handleClickScroll} />
+      <div className="sm:mt-[75vh]">
+      <ProductSection2 handleClickScroll={handleClickScroll} />
+      </div>
+      <ProductSection3 handleClickScroll={handleClickScroll} />
 
-      <Accordiontabs />
-      {/* <Smartlevel/> */}
-
-      {/* <Requestdemo/> */}
-      <Smarteconomy />
-      <Aipowered />
-      <Intcomp />
+      <Concierge />
+      <ProductSection7 />
+      <Panelcardnew />
+      <Middlebar />
+      <ProductForm reference={ref} />
+      <HomeComponent />
     </div>
-  );
-};
+  )
+}
 
 export default page;

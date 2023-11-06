@@ -58,7 +58,7 @@ export default function Home() {
     },
   ];
   const ref = useRef(null);
-  const handleClickscroll = () => {
+  const handleClickScroll = () => {
     console.log("clicked")
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -70,9 +70,9 @@ export default function Home() {
         <Homeinte />
         <Communication />
         <Homeintegration />
-        <Reach handleClickscroll={handleClickscroll} data={reachData}/>
+        <Reach handleClickScroll={handleClickScroll} data={reachData}/>
         <Panelcardnew />
-        <Middlebar />\
+        <Middlebar />
         <Homeform reff={ref} />
         <HomeComponent />
       </main>

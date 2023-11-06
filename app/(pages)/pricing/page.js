@@ -46,7 +46,7 @@ const Pricing = () => {
   const [data, setData] = useState({});
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
-  const handleClickscroll = () => {
+  const handleClickScroll = () => {
     console.log("clicked")
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -417,7 +417,7 @@ const Pricing = () => {
         {/* </form> */}
       </div>
 
-      <Reach handleClickscroll={handleClickscroll} data={reachData} heading={"Transparent Pricing"}/>
+      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"}/>
       <div className="bg-white">
         <Container>
           <FaqAccordian

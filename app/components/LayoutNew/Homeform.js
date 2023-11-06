@@ -171,7 +171,7 @@ export const Homeform = ({ reff }) => {
       {show == false ?
         <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[180px] mb-4 p-5 sm:p-0">
 
-          <div ref={reff} className="relative w-[100%] sm:w-[550px] sm:h-[530px]">
+          <div ref={reff} className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
             <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
               Request Quote
             </h2>
@@ -341,7 +341,7 @@ export const Homeform = ({ reff }) => {
                   ) : (
                     <button
                       className={
-                        "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+                        "inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327] hover:border-[#000] leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-[#000] text-[16px]"
                       }
                       style={{ margin: "0px auto" }}
                       onClick={() => {
