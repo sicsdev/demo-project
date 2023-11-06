@@ -1,0 +1,58 @@
+[{
+    "slug":"braintree-integration",
+    "id":"4fxqici76y5o45klySUYeF"
+},{
+    "slug":"calendly-integration",
+    "id":"1iiml6bSZdAPDVFo3wNfxD"
+},{
+    "slug":"freshdesk-integration",
+    "id":"7xRXeg2iHqVvVGzHX5lsn6"
+},{
+    "slug":"gorgias-integration",
+    "id":"76DoduPY3UJ9vj44E5kESq"
+},{
+    "slug":"healthie-integration",
+    "id":"5sN9q6rK2o7RHkTofrFRke"
+},{
+    "slug":"monday-integration",
+    "id":"vJF60e8lgZKjVz68ZED63"
+},{
+    "slug":"paypal-integration",
+    "id":"4nHJjLc2o1DiBzNsONnGbH"
+},{
+    "slug":"sendgrid-integration",
+    "id":"7boa17LLfHoJbqgsmigEFF"
+},{
+    "slug":"slack-integration",
+    "id":"70ChEvxq7yK9Bac5VCp0BO"
+},{
+    "slug":"square-integration",
+    "id":"4ePh8FVo62AP33huUNWFOd"
+},{
+    "slug":"twilio-integration",
+    "id":"1HcWerrqojC2CR33KsYwor"
+},{
+    "slug":"zendesk-integration",
+    "id":"1031D9FDI3zd52nVImXuZX"
+},{
+    "slug":"connecting-your-help-center",
+    "id":"6cIUkBzYjXjqMR2S5jfzGZ"
+},{
+    "slug":"customize-tempo-bot",
+    "id":"1GXphsgxgsaL7alZbi5Mk0"
+},{
+    "slug":"email-agent-settings",
+    "id":"6i8j6fG9lofrI7aZFOsnE0"
+},{
+    "slug":"pricing-overview",
+    "id":"5S6snNxeZrYVUzVW0mIK9J"
+},{
+    "slug":"security-overview",
+    "id":"1BRtB8t2XETcq4GhzfDHag"
+},{
+    "slug":"microsoft-teams-integration",
+    "id":"5dhHFc3LcVC5T2MthtjZBt"
+},{
+    "slug":"stripe-integration",
+    "id":"N6swCBh7kk6gZAUNlfWTW"
+}]

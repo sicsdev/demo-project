@@ -8,13 +8,15 @@ import { BookOpenIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-
+import '@/app/components/Workflows/WorkflowBuilder\/customStyles.css'
 const Source = () => {
     const [basicFormData, setBasicFormData] = useState({})
     const [bots, setBots] = useState([])
     const [typingTimeout, setTypingTimeout] = useState(null)
     const [search, setSearch] = useState('')
     const [check, setCheck] = useState(false)
+    const [currentTab, setCurrentTab] = useState('')
+
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const getQuestionsData = async (queryParam = 'page=1&page_size=10') => {
@@ -26,6 +28,7 @@ const Source = () => {
         })
         const response = await getFaqQuestions(queryParam)
         if (response) {
+            console.log('prub', response)
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
@@ -129,8 +132,8 @@ const Source = () => {
                 {basicFormData?.data && (
                     <>
 
-                        <UpperBasicKnowledge setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
-                        <ManageFaqs questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData}  />
+                        <UpperBasicKnowledge setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
+                        <ManageFaqs currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                     </>
                 )}
             </>

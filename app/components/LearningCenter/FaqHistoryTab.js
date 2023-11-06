@@ -8,6 +8,9 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
     // Local states
     const [history, setHistory] = useState([])
     const [skeletonloading, setSkeletonLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
 
     let testId = "75150f2a-cea1-4008-a5cc-a3aeffabdc53"
     // Effects.
@@ -17,14 +20,17 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
         } else {
             getAllHistoryFaqs()
         }
-    }, [selectedWorkflow])
+    }, [selectedWorkflow, currentPage])
 
 
     // Handlers
 
     const getAllHistoryFaqs = async () => {
-        let allHistory = await getAllFaqHistory()
-        if (allHistory?.results) setHistory(allHistory.results)
+        let allHistory = await getAllFaqHistory(currentPage);
+        if (allHistory?.results) {
+            setHistory(allHistory.results);
+            setTotalPages(allHistory.num_pages);
+        }
         setSkeletonLoading(false);
     }
 
@@ -33,6 +39,11 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
         if (historyLogs?.results) setHistory(historyLogs.results)
         setSkeletonLoading(false);
         console.log(historyLogs.results)
+    }
+
+    const changePage = (newPage) => {
+        setSkeletonLoading(true)
+        setCurrentPage(newPage);
     }
 
     return (
@@ -52,12 +63,50 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
 
 
             ) : (
-                <div id={selectedWorkflow?.id} className="p-2 rounded-md shadow-md mx-5 xs:mx-0" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
-                    {history.map((item) => (
-                        <HistoryRecord item={item}></HistoryRecord>
-                    ))}
-                </div>
+                <>
+                    <div className='my-5 py-5 flex justify-center'>
+                        {history.length > 0 && (
+                            <div className="pagination flex space-x-1">
+                                {Array.from({ length: totalPages }, (_, index) => (
+                                    <button
+                                        key={index + 1}
+                                        onClick={() => changePage(index + 1)}
+                                        disabled={currentPage === index + 1}
+                                        className={`px-4 py-2 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-black border-primary' : 'bg-white text-black border-gray hover:bg-gray'}`}
+                                    >
+                                        {index + 1}
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+                    <div id={selectedWorkflow?.id} className="p-2 rounded-md shadow-md mx-5 xs:mx-0" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
+                        {history.map((item) => (
+                            <HistoryRecord item={item}></HistoryRecord>
+                        ))}
+                    </div>
+                </>
             )}
+
+            <div className='my-5 py-5 flex justify-center'>
+                {history.length > 0 && (
+                    <div className="pagination flex space-x-1">
+                        {Array.from({ length: totalPages }, (_, index) => (
+                            <button
+                                key={index + 1}
+                                onClick={() => changePage(index + 1)}
+                                disabled={currentPage === index + 1}
+                                className={`px-4 py-2 border rounded ${currentPage === index + 1 ? 'bg-blue-500 text-black border-primary' : 'bg-white text-black border-gray hover:bg-gray'}`}
+                            >
+                                {index + 1}
+                            </button>
+                        ))}
+                    </div>
+                )}
+            </div>
+
+
         </>
 
 
