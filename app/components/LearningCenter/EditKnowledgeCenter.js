@@ -195,6 +195,7 @@ const EditKnowledgeCenter = ({
                   {singleKnowledgeData.source === "file" && "File"}
                   {singleKnowledgeData.source === "external" && "URL"}
                   {singleKnowledgeData.source === "snippet" && "Title"}
+                  {singleKnowledgeData.source === "product" && "Product"}
                 </p>
               </div>
               <div>
