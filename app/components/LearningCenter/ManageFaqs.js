@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -38,6 +38,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [createOptions, setCreateOptions] = useState(null)
     const [loading, setLoading] = useState(false)
     const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('Products')
+    const [currentOpenedProduct, setCurrentOpenedProduct] = useState(null)
+
     // **
 
 
@@ -180,7 +182,9 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     }
 
 
-    const handleOpenEditProduct = () => {
+    const handleOpenEditProduct = (product) => {
+        console.log(product, 'handle open edit product')
+        setCurrentOpenedProduct(product)
         setCreateOptions('snippet')
         setCreateMode("product")
     }
@@ -188,10 +192,32 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const hideComponent = () => {
         setCreateOptions(null)
         setCreatePdfModal(false)
+        setCurrentOpenedProduct(null)
     }
 
-    const handleSubmitProductEdition = () => {
-        setCreateMode('product')
+    const handleSubmitProductEdition = async () => {
+
+        let payload = {
+            description: formData?.content,
+            source: "product",
+            active: formData?.snippet_active === true ? true : false,
+            title: formData?.title
+        }
+
+        if (formData?.product_price) {
+            payload['price'] = formData.product_price
+        }
+        if (formData?.product_url) {
+            payload['url'] = formData.product_url
+        }
+        if (formData?.product_file) {
+            payload['image'] = formData.product_file
+        }
+
+        const patchProduct = await patchKnowledgeQuestion(payload, formData.id)
+        setCreateOptions(null)
+        setCreatePdfModal(false)
+        setCurrentOpenedProduct(null)
     }
 
 
@@ -319,7 +345,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "50px",
             padding: "12px",
             cell: (row) => (
-                <img src={row.image} width='50px' height='50px' onClick={handleOpenEditProduct}></img>
+                <img src={row.image} width='50px' height='50px' onClick={() => handleOpenEditProduct(row)}></img>
             ),
         },
         {
@@ -330,7 +356,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "200px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={handleOpenEditProduct}>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => handleOpenEditProduct(row)}>{row.question}</p>
             ),
         },
         {
@@ -341,7 +367,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "200px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={handleOpenEditProduct}>{row.description}</p>
+                <p className='whitespace-normal p-2' onClick={() => handleOpenEditProduct(row)}>{row.description}</p>
             ),
         },
         {
@@ -388,7 +414,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     setCreateModal={setCreateModal}
                     setLoading={setLoading}
                     setCreatePdfModal={setCreatePdfModal}
-                    creationMode={createMode} />)}
+                    creationMode={createMode}
+                    currentOpenedProduct={currentOpenedProduct}
+                />
+            )}
 
             <div className="knowledgebase_table w-full px-2 pt-2">
                 <div className=' hidden sm:block md:block lg:block'>
@@ -406,7 +435,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct() : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
@@ -432,7 +461,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct() : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
