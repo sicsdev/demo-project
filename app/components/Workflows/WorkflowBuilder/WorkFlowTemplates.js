@@ -337,9 +337,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
                                     <div className='relative h-full'>
                                         {/* <EmojiPicker /> */}
-                                        <div className='absolute top-0 right-0' title={`Used ${item.workflow_usage_last_24_hours} times last 24hs.`}>
-                                            <span className='text-primary'> {item.workflow_usage_last_24_hours}</span>
-                                        </div>
+                                        {!loading &&
+                                            <div className='absolute top-0 right-0' title={`Used ${item.workflow_usage_last_24_hours} times last 24hs.`}>
+                                                <span className='text-[#808080]'> {item.workflow_usage_last_24_hours}</span>
+                                            </div>}
 
                                         <div className='flex items-center justify-start gap-2'>
                                             {item.icon && (
