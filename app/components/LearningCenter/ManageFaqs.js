@@ -8,20 +8,15 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion, updateKnowledgeRecord } from '@/app/API/pages/Knowledge';
+import { deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
 import TextEditor from '../URL/Richtext';
 import TextField from '../Common/Input/TextField';
-import EditProduct from './EditProduct';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => {
-    const [productFormData, setProductFormData] = useState({})
-    const [productLoading, setProductLoading] = useState(false)
-    const [editModal, setEditModal] = useState(false)
-
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -273,24 +268,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
         })
     }
 
-    const EditKnowledgeProduct = async () => {
-        setProductLoading(true)
-            let payload = {
-              content: productFormData?.content,
-              title: productFormData.title,
-              active: productFormData.active,
-            };
-            const response = await updateKnowledgeRecord(
-              payload,
-              productFormData.productId
-            );
-            if (response.status === 201 || response.status === 200) {
-                setProductLoading(false);
-            } else {
-            //   errorMessage(extractErrorMessage(response));
-            setProductLoading(false);
-            }
-    }
+
 
     return (
         <div className="knowledgebase_table w-full px-2 pt-2">
@@ -309,27 +287,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                     paginationTotalRows={questions?.data?.count}
                     paginationDefaultPage={questions?.data?.page}
-                    onRowClicked={(rowData) => {
-                        if (rowData?.knowledge?.source.toLowerCase() === "product") {
-                            setEditModal(true)
-                            
-                            debugger
-                            setProductFormData(prev => {
-                                return {
-                                    ...prev,
-                                    productId: rowData.id,
-                                    snippet_active: rowData?.active,
-                                    title: rowData?.knowledge?.title,
-                                    price: rowData?.price,
-                                    url: rowData?.url,
-                                    product_file: rowData.image,
-                                    content: rowData?.description
-                                }
-                            })
-                        } else {
-                            setSelected(rowData)
-                        }
-                    }}
+                    onRowClicked={(rowData) => { setSelected(rowData) }}
                     paginationPerPage={perPage}
                     paginationServer
                     onChangeRowsPerPage={handlePerRowsChange}
@@ -523,9 +481,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData }) => 
                     )}
 
                 </SideModal>
-            )}
-            {editModal && productFormData && (
-                <EditProduct basicFormData={productFormData} setBasicFormData={setProductFormData} handleSubmit={EditKnowledgeProduct} loading={productLoading} setCreateModal={setEditModal} />
             )}
         </div>
     )
