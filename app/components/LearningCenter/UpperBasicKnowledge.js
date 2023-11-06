@@ -9,7 +9,7 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
 
-const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData }) => {
+const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
     const params = useSearchParams()
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
@@ -179,6 +179,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         getDataWithFilters('ALL')
                         setFilterhead("all")
                         setShowSourceFilter(false)
+                        setCurrentTab('all')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -196,6 +197,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         getDataWithFilters('EXTERNAL')
                         setFilterhead("External")
                         setShowSourceFilter(false)
+                        setCurrentTab('external')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -214,6 +216,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         getDataWithFilters('FILE')
                         setFilterhead("File")
                         setShowSourceFilter(false)
+                        setCurrentTab('file')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -231,6 +234,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         getDataWithFilters('SNIPPET')
                         setFilterhead("Snippet")
                         setShowSourceFilter(false)
+                        setCurrentTab('snippet')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -248,6 +252,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         getDataWithFilters('PRODUCT')
                         setFilterhead("Products")
                         setShowSourceFilter(false)
+                        setCurrentTab('products')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />

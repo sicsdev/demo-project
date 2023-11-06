@@ -773,7 +773,7 @@ const Page = () => {
 
                         <div className="w-full sm:relative sm:mt-[20px]">
 
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2 sm:absolute sm:right-[0] sm:top-[-15px] sm:z-[2]'>
+                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2]'>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">

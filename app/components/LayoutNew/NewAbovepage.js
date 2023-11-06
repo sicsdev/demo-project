@@ -152,7 +152,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <div className=" block">
-              <div className="!m-auto mr-2 ml-[10px] border-solid  rounded-md relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+              <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
                 <Image
                   src="/MicrosoftTeams-image.png"
                   className="w-full bg-contain object-contain mx-auto "

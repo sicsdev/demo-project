@@ -43,6 +43,7 @@ const ProductSection2 = ({handleClickScroll}) => {
                 "When Tempo Chat encounters a query it can't resolve, it smoothly transitions the interaction to a human agent, ensuring customer satisfaction."
               )}
             </p>
+            
             <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
               {loading ? (
                 <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">

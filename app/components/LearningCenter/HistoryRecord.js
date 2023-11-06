@@ -34,7 +34,7 @@ const HistoryRecord = ({ item }) => {
                     disabled={markedAsCurrent}
                     onClick={handleRollback}
                     className={`${!markedAsCurrent && 'border-primary'} flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white`}>
-                    {markedAsCurrent ? "Current answer" : "Rollback to this answer"}
+                    {markedAsCurrent ? "Current answer" : "Rollback"}
                 </button>
             </div>
             <p className="text-black font-bold">{item.question}</p>

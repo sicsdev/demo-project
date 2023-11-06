@@ -79,7 +79,7 @@ const Nav = () => {
 
 
 
-              <ul className="hidden relative md:flex text-black gap-8 flex-row">
+              <ul className="hidden  sm:hidden md:hidden lg:flex relative text-black gap-8 flex-row">
                 {nav_links.map((element, key) => (
                   <li
                     key={key}
@@ -110,7 +110,7 @@ const Nav = () => {
                 ))}
               </ul>
             }
-            <div className="hidden md:flex flex-row gap-10 items-center ml-auto">
+            <div className="hidden  sm:hidden md:hidden lg:flex flex-row gap-10 items-center ml-auto">
             
             {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ?"":
               profile.email ? (
@@ -149,7 +149,7 @@ const Nav = () => {
                 </Link>
               )}
             </div>
-            <div className="flex md:hidden flex-row relative ml-auto cursor-pointer">
+            <div className="flex sm:flex md:flex lg:hidden flex-row relative ml-auto cursor-pointer">
               {show === false ? (
                 <Bars4Icon
                   className="animate-fadeIn h-8 w-8 text-black"
@@ -170,7 +170,7 @@ const Nav = () => {
         </div>
 
         {show === true && (
-          <div className="block md:hidden lg:hidden sm:hidden w-full ">
+          <div className=" block sm:block md:block lg:hidden  w-full ">
             <Accordian setShow={setShow} nav_links={nav_links} />
           </div>
         )}
