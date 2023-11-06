@@ -51,10 +51,10 @@ const Homeintegration = (props) => {
               ""
             )}
             <div className="max-w-[1400px] w-full m-auto sm:py-4 sm:px-4 px-0 lg:px-4 relative group">
-              <div className="flex justify-center flex-wrap sm:grid grid-cols-4 lg:grid-cols-7 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4">
+              <div className=" flex justify-center items-center flex-wrap gap-4 ">
                 {data?.map((item, key) => (
                   <div
-                    className="bg-white flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
+                    className="bg-white w-[150px] flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
                     style={{
                       border: "1px solid rgb(237, 237, 237)",
                       borderRadius: "8px",
@@ -81,6 +81,7 @@ const Homeintegration = (props) => {
                     </div>
                   </div>
                 ))}
+
               </div>
             </div>
           </div>

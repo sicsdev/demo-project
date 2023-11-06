@@ -437,7 +437,16 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   <span className="new_input_label block text-sm text-heading">URL Containing:</span>
                 </div>
                 <TextField
-                  onChange={(e) => setNewBlockedUrl(e.target.value)}
+                  onChange={(e) => {
+                    if (e.target.value && !e.target.value.startsWith('/')) {
+                      setNewBlockedUrl('/' + e.target.value);
+                    } else if (!e.target.value) {
+                      setNewBlockedUrl('');
+                    } else {
+                      setNewBlockedUrl(e.target.value)
+                    }
+                   
+                  }}
                   value={newBlockedUrl}
                   name="blockUrls"
                   className="py-3 !pl-[23px]"
