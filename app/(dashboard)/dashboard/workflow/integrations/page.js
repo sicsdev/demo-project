@@ -428,7 +428,7 @@ const Page = () => {
                     setIntegrationform(false)
                   }
                   }></div>
-                  <div className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll w-full sm:w-[1000px] p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                     <CustomIntegration
                       help={help}
                       fetchData={fetchIntegrations}
