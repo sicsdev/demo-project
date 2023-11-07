@@ -24,6 +24,7 @@ const Reports = () => {
                     <p className='font-normal text-[13px]'>Due today</p>
                     <p className='text-primary font-semibold text-md'>17</p>
                 </div>
+                
             </div>
             </div>
             <div className='bg-white rounded-sm shadow-card'>
