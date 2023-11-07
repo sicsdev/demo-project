@@ -16,15 +16,17 @@ const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle, getQuestionsData,
     setCreateModal,
     setLoading,
-    setCreatePdfModal, creationMode }) => {
+    setCreatePdfModal, creationMode, currentOpenedProduct, handleDeleteFaq }) => {
 
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
+
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
     const [showError, setShowError] = useState(false)
     const [pusherStreaming, setPusherStreaming] = useState(false)
+    const [externalContentForTextEditor, setExternalContentForTextEditor] = useState('')
 
     // Modals for text editor.
     const [showHyperlinkModal, setShowHyperlinkModal] = useState(false)
@@ -37,19 +39,20 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const [base64, setBase64] = useState(null);
 
     const handleFileChange = (e) => {
-      const file = e.target.files[0];
-  
-      if (file) {
-        const reader = new FileReader();
-  
-        reader.onloadend = () => {
-            const base64String = reader.result
-            setBase64(base64String)
-            setBasicFormData({ ...basicFormData, product_file: base64String, product_file_title: file.name })
-        };
-  
-        reader.readAsDataURL(file);
-      }
+        const file = e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onloadend = () => {
+                const base64String = reader.result
+                setBase64(base64String)
+                setBasicFormData({ ...basicFormData, product_file: base64String, product_file_title: file.name })
+            };
+
+            reader.readAsDataURL(file);
+        }
+
     };
 
     useEffect(() => {
@@ -73,6 +76,21 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                 }
             })
         }
+
+
+        if (currentOpenedProduct?.id) {
+            setBasicFormData({
+                ...currentOpenedProduct,
+                title: currentOpenedProduct.question,
+                content: currentOpenedProduct.description,
+                snippet_active: currentOpenedProduct.active,
+                product_price: currentOpenedProduct.price,
+                product_url: currentOpenedProduct.url
+            })
+
+            setExternalContentForTextEditor(currentOpenedProduct.description)
+        }
+
 
         // Add the event listener when the component mounts
         document.addEventListener('keydown', handleEscapeKeyPress);
@@ -148,7 +166,10 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                         <div className="flex flex-1">
                             <h2 className="text-black-color text-sm !font-semibold">Add {creationMode === "snippet" ? "Snippet" : "Product"}</h2>
                         </div>
-                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                        <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='flex gap-2'>
+
+                            {basicFormData?.id && <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
+
                             <button
                                 onClick={() => handleSubmit({ type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })}
                                 type="button"
@@ -158,6 +179,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                             >
                                 {loading ? "Loading..." : "Save and close"}
                             </button>
+
                         </div>
                         <div className="flex justify-end gap-2">
                             <div className="cursor-pointer" onClick={(e) => setCreateOptions(null)}>
@@ -174,7 +196,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 <div className='flex flex-row items-center gap-2 col-span-4'>
                                     <div>
                                         <label className="switch" style={{ height: "unset" }}>
-                                            <input type="checkbox" name="snippet_active" onChange={handleToggleChange} />
+                                            <input type="checkbox" name="snippet_active" onChange={handleToggleChange} checked={basicFormData?.snippet_active === true} />
                                             <span className="slider round h-[21px] w-[40px]"></span>
                                         </label>
                                     </div>
@@ -199,7 +221,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 <>
                                     <TextField
                                         onChange={handleInputChange}
-                                        value={basicFormData.price}
+                                        value={basicFormData.product_price}
                                         className="py-3 mt-1 w-full"
                                         placeholder='Price'
                                         id='product_price'
@@ -210,7 +232,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                     />
                                     <TextField
                                         onChange={handleInputChange}
-                                        value={basicFormData.url}
+                                        value={basicFormData.product_url}
                                         className="py-3 mt-1 w-full"
                                         placeholder='Url'
                                         id='product_url'
@@ -219,21 +241,34 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                         type={"text"}
                                         error={''}
                                     />
-                                    <FileField
-                                        onChange={handleFileChange}
-                                        value={basicFormData.product_file}
-                                        className="py-3 mt-1 w-full"
-                                        placeholder='Image'
-                                        id='product_file'
-                                        name='product_file'
-                                        title={""}
-                                        type={"file"}
-                                        error={''}
-                                    />
+
+                                    {basicFormData.image ?
+                                        <div className='flex justify-center'>
+                                            <div>
+                                                <img src={basicFormData.image} width='200px'></img>
+                                                <small className='flex justify-end'>
+                                                    <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null })}>Remove</button>
+                                                </small>
+                                            </div>
+                                        </div>
+                                        :
+                                        <FileField
+                                            onChange={handleFileChange}
+                                            value={basicFormData.product_file}
+                                            className="py-3 mt-1 w-full"
+                                            placeholder='Image'
+                                            id='product_file'
+                                            name='product_file'
+                                            title={""}
+                                            type={"file"}
+                                            error={''}
+                                        />
+                                    }
+
                                 </>
                             )}
 
-                            <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode}></TextEditor>
+                            <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode} externalContent={externalContentForTextEditor}></TextEditor>
 
 
 

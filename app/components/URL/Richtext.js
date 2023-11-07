@@ -40,6 +40,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
   useEffect(() => {
+    
     // if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
     if (externalContent && externalContent !== lastExternalContent) {
 
@@ -51,7 +52,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
     }
 
 
-  }, [oldContent]);
+  }, [externalContent]);
 
 
 

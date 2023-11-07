@@ -102,7 +102,7 @@ const UpdatedFooter = () => {
 
           <div className="mx-6 sm:py-10 py-8 text-center md:text-left  border-b-2 border-neutral-200 ">
 
-            <div className="block sm:flex items-start justify-between">
+            <div className="block lg:flex items-start justify-between">
 
               <div className="flex justify-between gap-3 flex-col items-start">
 
@@ -240,7 +240,7 @@ const UpdatedFooter = () => {
 
 
 
-              <p className="text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
+              <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
 
                 © Tempo AI Ventures, Inc{" "}
 
