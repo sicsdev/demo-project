@@ -269,6 +269,20 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     }
 
+
+    const getAddition = (key) => {
+        // If last message of user (we found it using the key in message array) ends with "?" we will add 5% to this probability.
+        let userMessage = messages[key - 1]
+        let lastChar;
+        let content = userMessage?.content
+
+        if (content) { lastChar = content[content.length - 1] }
+        if (lastChar && lastChar == '?') { return 5 }
+
+        return 0;
+    }
+
+
     return (
         <>
             {botUnique?.id &&
@@ -545,15 +559,17 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     element.content === 'OPTIONS' && element?.actions?.options &&
                                                                     <>
                                                                         <div key={'c' + key} id={'c' + key} className="tempo-widget-options-container">
-                                                                            {Object.keys(element.actions.options).map((key, index) =>
-                                                                                <button className="tempo-widget-options-button" data-options-id="${optionsId}" name="${key}">
-                                                                                    {element.actions.options[key]}
-                                                                                    {`     `}
-                                                                                    <small>
-                                                                                        {key == 'WORKFLOW' && Math.round(element.workflows[0].score * 100) + '%'}
-                                                                                        {key == 'INFORMATION' && Math.round(element.knowledge[0].score * 100) + '%'}
-                                                                                    </small>
-                                                                                </button>
+                                                                            {Object.keys(element.actions.options).map((indx, index) =>
+                                                                                <>
+                                                                                    <button className="tempo-widget-options-button" data-options-id="${optionsId}" name={indx}>
+                                                                                        {element.actions.options[indx]}
+                                                                                        {`     `}
+                                                                                        <small>
+                                                                                            {indx == 'WORKFLOW' && Math.round((element.workflows[0].score * 100)) + '%'}
+                                                                                            {indx == 'INFORMATION' && Math.round((element.knowledge[0].score * 100) + getAddition(key)) + '%'}
+                                                                                        </small>
+                                                                                    </button>
+                                                                                </>
                                                                             )}
                                                                         </div>
                                                                         <div key={'d' + key} id={'d' + key} className='mx-2 my-1 flex justify-between w-100 mt-3' style={{ color: '#828282' }}>

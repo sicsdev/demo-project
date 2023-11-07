@@ -212,7 +212,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 placeholder='Enter a Title'
                                 id='title'
                                 name='title'
-                                title={""}
+                                title={"Title"}
                                 type={"text"}
                                 error={''}
                             />
@@ -221,26 +221,32 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                 <>
                                     <TextField
                                         onChange={handleInputChange}
-                                        value={basicFormData.product_price}
-                                        className="py-3 mt-1 w-full"
-                                        placeholder='Price'
-                                        id='product_price'
-                                        name='product_price'
-                                        title={""}
-                                        type={"number"}
-                                        error={''}
-                                    />
-                                    <TextField
-                                        onChange={handleInputChange}
                                         value={basicFormData.product_url}
-                                        className="py-3 mt-1 w-full"
+                                        className="w-full"
                                         placeholder='Url'
                                         id='product_url'
                                         name='product_url'
-                                        title={""}
+                                        title={"Link to product"}
                                         type={"text"}
                                         error={''}
                                     />
+
+                                    <div className="relative flex">
+                                        <span className="m-auto opacity-80 absolute inset-y-0 left-0 mt-5 flex items-center pointer-events-none">
+                                            $
+                                        </span>
+                                        <TextField
+                                            onChange={handleInputChange}
+                                            value={basicFormData.product_price}
+                                            className="mx-4 w-25"
+                                            placeholder='Price'
+                                            id='product_price'
+                                            name='product_price'
+                                            title={"Price"}
+                                            type={"number"}
+                                            error={''}
+                                        />
+                                    </div>
 
                                     {basicFormData.image ?
                                         <div className='flex justify-center'>
@@ -259,7 +265,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                             placeholder='Image'
                                             id='product_file'
                                             name='product_file'
-                                            title={""}
+                                            title={"Image"}
                                             type={"file"}
                                             error={''}
                                         />
