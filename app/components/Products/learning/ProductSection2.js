@@ -80,7 +80,7 @@ const ProductSection2 = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt9307f9bf529bd42f/5ea2369f3e818760fab31c4b/sms_api_1.png?cache=8b27c467b96d923f65d89f90e635bb84&tr=fo-auto,noWrapper-true,w-800"
+                  src="/solutions_/learning/Real-Time Analytics and Insights.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
@@ -101,7 +101,7 @@ const ProductSection2 = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt9307f9bf529bd42f/5ea2369f3e818760fab31c4b/sms_api_1.png?cache=8b27c467b96d923f65d89f90e635bb84&tr=fo-auto,noWrapper-true,w-800"
+                  src="/solutions_/learning/Optimized Workflows and Recommendations.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
@@ -171,7 +171,7 @@ const ProductSection2 = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt9307f9bf529bd42f/5ea2369f3e818760fab31c4b/sms_api_1.png?cache=8b27c467b96d923f65d89f90e635bb84&tr=fo-auto,noWrapper-true,w-800"
+                  src="/solutions_/learning/Optimized Workflows and Recommendations.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
