@@ -23,7 +23,7 @@ const RightSidebar = ({ addConditionalStepHandler, children, inputRef, shake, se
                             <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} addConditionalStepHandler={addConditionalStepHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={alignment} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setShow} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading} />
                         </div>
                     </nav>
-                    <div className='w-[auto] sm:w-[75%] md:w-[75%] lg:w-[75%]'>
+                    <div className='rightsidebar_width'>
                         {children}
                     </div>
                 </>}
