@@ -53,7 +53,7 @@ const Communication = () => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:pb-14 py-0 sm:py-8 ">
+    <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:pb-4 py-0 sm:py-8 ">
       <div>
         {loading ? (
           <div className="m-auto text-center text-base py-1 sm:mt-8  px-1 rounded-full">

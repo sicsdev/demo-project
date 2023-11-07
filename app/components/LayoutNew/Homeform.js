@@ -169,9 +169,9 @@ export const Homeform = ({ reff }) => {
   return (
     <>
       {show == false ?
-        <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[180px] mb-4 p-5 sm:p-0">
+        <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[80px] mb-4 p-5 sm:p-0">
 
-          <div ref={reff} className="relative w-[100%] sm:w-[550px] sm:h-[auto]">
+          <div ref={reff} className="mt-4 sm:mt-10 relative w-[100%] sm:w-[550px] sm:h-[auto]">
             <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
               Request Quote
             </h2>
