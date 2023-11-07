@@ -97,8 +97,8 @@ const ProductSection3 = ({handleClickScroll}) => {
               ) : (
                 <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
                   <Image
-                    src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt55f54263f3f85ca3/63374103eb84042358356821/delivery-person-sms-4x3-2060703047.png?cache=31300e7b4a96f3c1924839ef2de23459&tr=fo-auto,noWrapper-true,w-800"
-                    className="w-full mx-auto bg-contain object-cover sm:object-contain"
+                  src="/solutions_/Workflow_Builder/Dynamic Workflow Recommendations.png"
+                  className="w-full mx-auto bg-contain object-cover sm:object-contain"
                     fill={true}
                   />
                 </div>
@@ -162,8 +162,8 @@ const ProductSection3 = ({handleClickScroll}) => {
               ) : (
                 <div className="relative w-[100%] h-[250px] sm:w-[703px] sm:h-[400px]">
                   <Image
-                    src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt55f54263f3f85ca3/63374103eb84042358356821/delivery-person-sms-4x3-2060703047.png?cache=31300e7b4a96f3c1924839ef2de23459&tr=fo-auto,noWrapper-true,w-800"
-                    className="w-full mx-auto bg-contain object-cover sm:object-contain"
+                  src="/solutions_/Workflow_Builder/Dynamic Workflow Recommendations.png"
+                  className="w-full mx-auto bg-contain object-cover sm:object-contain"
                     fill={true}
                   />
                 </div>
