@@ -14,13 +14,13 @@ const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) 
     return () => clearTimeout(timer);
   }, []);
   return (
-    <div className="bg-white p-0 sm:p-[0px] sm:mb-[40px]  shadow-box p-[15px]">
+    <div className="sm:mt-20 bg-white p-0 sm:p-[0px] sm:mb-[40px]  shadow-box p-[15px]">
       {loading ? (
         <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
           <SkeletonLoader height={60} width={"50%"} />
         </div>
       ) : (
-        <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  sm:text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
+        <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
          {heading}{" "}
         </h1>
       )}
