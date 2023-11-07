@@ -426,9 +426,22 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                         :
 
-                                                                                        <div className='flex gap-4 items-center mt-2'>
-                                                                                            <small>LLM</small>
-                                                                                        </div>
+                                                                                        element?.workflows?.length ?
+                                                                                            element?.workflows?.map(workflow => (
+                                                                                                <EditWorkflow
+                                                                                                    allMessages={messages}
+                                                                                                    indexOfMessage={key}
+                                                                                                    item={workflow}
+                                                                                                    setDropdownOpenId={setDropdownOpenId}
+                                                                                                    dropdownOpenId={dropdownOpenId}
+                                                                                                >
+                                                                                                </EditWorkflow>
+                                                                                            ))
+
+                                                                                            :
+                                                                                            <div className='flex gap-4 items-center mt-2'>
+                                                                                                <small>LLM</small>
+                                                                                            </div>
 
                                                                                 }
                                                                             </div>
@@ -482,8 +495,8 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                 allKnowledge={allKnowledge}>
                                                                                             </EditKnowledge>
                                                                                         ))
-
                                                                                         :
+
 
                                                                                         <div className='flex gap-4 items-center mt-2'>
                                                                                             <small>LLM</small>
