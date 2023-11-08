@@ -28,6 +28,7 @@ const page = () => {
             <HomeComponent />
 
 
+
         </div>
     )
 }
