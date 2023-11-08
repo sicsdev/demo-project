@@ -169,7 +169,21 @@ const Page = () => {
                                         </span>
                                     }
                                 </li>
-                              
+
+                                {/* <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
+                                    {skeletonloading ?
+                                        <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                        :
+                                        <span
+                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                            aria-current="page"
+                                        >
+                                            History
+                                        </span>
+                                    }
+                                </li> */}
+
                                 {
                                     template?.length > 0 &&
                                     <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => { setTab(2) }}>
@@ -185,7 +199,7 @@ const Page = () => {
                                             </span>
                                         }
                                     </li>}
-                                        
+
                             </ul>
                         </div>
 
@@ -199,6 +213,8 @@ const Page = () => {
                         {tab === 2 && (
                             <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                         )}
+                        {tab === 3 && (
+                            <div>history</div>)}
                     </>
                 )}
             </>

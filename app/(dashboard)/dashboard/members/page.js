@@ -8,6 +8,7 @@ import {
   UserGroupIcon,
   ClockIcon,
   Cog6ToothIcon,
+  UsersIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { changeRole, fetchMembers, removeMember } from "@/app/components/store/slices/memberSlice";
@@ -43,7 +44,7 @@ const Page = () => {
 
   return (
     <div style={{ whiteSpace: "normal" }}>
-      <TopBar title={`Team`} icon={<UserGroupIcon className="h-5 w-5 text-primary" />} />
+      {/* <TopBar title={`Team`} icon={<UserGroupIcon className="h-6 w-6 text-primary" />} /> */}
       {state?.isLoading === true ? <div className='my-4'>
         <div className='block sm:flex md:flex lg:flex justify-between items-center my-2'>
           <div>
@@ -55,10 +56,14 @@ const Page = () => {
           </div>
         </div>
       </div> :
-        <div className="block sm:flex md:flex lg:flex justify-between items-center my-2">
-          <div>
-            <h3 className="font-bold text-heading text-sm">Manage Team</h3>
-            <p className="text-heading font-normal text-xs">
+        <div className="block flex sm:flex md:flex lg:flex justify-between items-center mt-5 pt-5 mx-0 lg:mx-3 md:mx-3">
+          <div className=''>
+            {/* <h3 className="font-bold text-heading text-md flex gap-2 items-center"><UserGroupIcon className='w-5 h-5'></UserGroupIcon> Manage Team</h3> */}
+            <div className='flex gap-2 items-center'>
+              <UserGroupIcon className='w-5 h-5'></UserGroupIcon><TopBar title={`Manage Team`} />
+              </div>
+
+            <p className="text-heading font-normal text-xs mt-2">
               Invite and manage team members to your account.
             </p>
           </div>
@@ -68,7 +73,7 @@ const Page = () => {
               onClick={(e) => {
                 setTeamModal(true);
               }}
-              className="my-3 sm:my-0 md:my-0 lg:my-0 inline-block font-bold rounded bg-primary px-8 pb-2 pt-2 text-xs   leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+              className="my-3 sm:my-0 md:my-0 lg:my-0 inline-block font-bold rounded bg-primary lg:px-8 pb-2 px-2 pt-2 text-xs leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
             >
               Invite Team Member
             </Button>
@@ -76,10 +81,14 @@ const Page = () => {
         </div>
       }
 
+      <div className='lg:mt-5 pt-1'></div>
+
       {state?.isLoading === true ? (
         <SkeletonLoader count={9} height={30} className={"mt-2"} />
       ) : (
-        <TeamManagement state={state} removeMember={handleRemoveMember} changeRole={handleChangeRole} />
+        <div className='mx-0 lg:mx-3 md:mx-1'>
+          <TeamManagement state={state} removeMember={handleRemoveMember} changeRole={handleChangeRole} />
+        </div>
       )}
 
       {teamModal ? (
@@ -92,15 +101,6 @@ const Page = () => {
           </span>Invite Team Member</p>} border={false}>
             <Invite setTeamModal={setTeamModal} />
           </SideModal>
-
-          {/* // <Modal
-        //   title={"Invite Team Member"}
-        //   show={teamModal}
-        //   setShow={setTeamModal}
-        //   className={"text-center w-[80%] rounded-lg"}
-        //   showCancel={true}
-        // > */}
-          {/* // </Modal> */}
         </>
       ) : (
         ""
