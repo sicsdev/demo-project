@@ -279,8 +279,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const redirectToLogs = (e) => {
         router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`)
-        router.reload();
-
     }
 
     return (

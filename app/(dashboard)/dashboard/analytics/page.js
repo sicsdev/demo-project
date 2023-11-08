@@ -69,6 +69,7 @@ const Logs = () => {
       getCoversationMessagesbyID(id_param)
     }
   }, [])
+
   const columns = [
     {
       name: (
@@ -182,24 +183,25 @@ const Logs = () => {
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
     setBotValue(mergedArray);
     // getAdditionalData(mergedArray)
+
+    const selectedWorkflowParam = params.get('selectedWorkflow')
+
+
     if (mergedArray?.length > 0) {
       setSelectedBot(mergedArray[0].value);
       firstTimeAnalytics(mergedArray[0].value)
       setIndexVal(0);
-      handlePageChange(mergedArray[0].value, 1,
-        "&ordering=-number_of_messages&ordering=-created");
+
+      let queryParam = selectedWorkflowParam ? `&workflows=${selectedWorkflowParam}` : "&ordering=-number_of_messages&ordering=-created"
+
+      handlePageChange(mergedArray[0].value, 1, queryParam);
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
 
 
-    const selectedWorkflowParam = params.get('selectedWorkflow')
     if (selectedWorkflowParam && mergedArray?.length > 0) {
       let e = { target: { value: selectedWorkflowParam, name: "workflows" } }
-      let response = await getPaginateBotConversation(mergedArray[0].value, 1, `&workflows=${selectedWorkflowParam}`)
-      if (response?.data?.results) {
-        setConversationData(response.data.results)
-        filterDataHandler(e)
-      }
+      filterDataHandler(e)
     }
 
   };
