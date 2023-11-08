@@ -202,6 +202,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
+        router.reload();
     };
 
     const manageData = async () => {
@@ -278,7 +279,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
 
     const redirectToLogs = (e) => {
-        router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`)
+        router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`, null, { forceRefresh: true });
     }
 
     return (

@@ -252,13 +252,13 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                                 <label className={`new_input_label block text-sm text-heading font-medium`}>
                                                     Price
                                                 </label>
-                                                <InformationCircleIcon
+                                                {/* <InformationCircleIcon
                                                     data-tooltip-id="price_information"
                                                     data-tooltip-content="Unit price of your product."
                                                     className='w-4 h-4 mx-2'>
                                                 </InformationCircleIcon>
 
-                                                <Tooltip id='price_information' place="top" type="dark" effect="solid" />
+                                                <Tooltip id='price_information' place="top" type="dark" effect="solid" /> */}
                                             </div>
                                             <div className="relative flex items-center mt-1">
                                                 <small className="z-50 m-auto opacity-80 absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2">
