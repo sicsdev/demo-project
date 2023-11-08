@@ -23,10 +23,10 @@ const HistoryRecord = ({ item }) => {
 
     return (
         <div key={item.id} className="mb-5 p-4 bg-white rounded-md shadow-sm">
-            <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center">
                     <ClockIcon className="w-5 h-5 mr-2 text-primary" />
-                    <span className="text-sm text-black" style={{ opacity: '0.6' }}>
+                    <span className="text-xs text-black" style={{ opacity: '0.6' }}>
                         {formatDateTime(item.updated)}
                     </span>
                 </div>
@@ -37,8 +37,10 @@ const HistoryRecord = ({ item }) => {
                     {markedAsCurrent ? "Current answer" : "Rollback"}
                 </button>
             </div>
-            <p className="text-black font-bold">{item.question}</p>
-            <p className="text-gray-800">{item.answer}</p>
+            <div style={{fontSize: '12px'}}>
+                <p className="text-black font-bold font-sm">{item.question}</p>
+                <p className="text-gray-800 font-sm">{item.answer}</p>
+            </div>
         </div >
     )
 }

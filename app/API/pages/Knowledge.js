@@ -202,11 +202,11 @@ export const getFaqHistory = async (faqId) => {
 };
 
 
-export const getAllFaqHistory = async (page = 1) => {
+export const getAllFaqHistory = async (page = 1, perPage = 10) => {
 
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/knowledge-faq-history?page=${page}`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/knowledge-faq-history?page=${page}&page_size=${perPage}`, config);
         return response?.data;
     } catch (error) {
         return error
