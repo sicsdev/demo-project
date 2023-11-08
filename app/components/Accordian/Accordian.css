@@ -2,6 +2,7 @@
 .nav-accordian .accordion {
     border: none !important;
     border-radius: 2px;
+    padding: 0px 20px !important;
 }
 
 .nav-accordian .accordion__panel,
@@ -12,12 +13,14 @@
 
 .nav-accordian .accordion__button {
     position: relative !important;
+    padding: 16px 0px !important;
 }
 
 .nav-accordian .accordion__button:before {
     position: absolute !important;
-    right: 0 !important;
+    right: 70% !important;
     top: 23px !important;
+    color: #e3e3e3 !important;
 }
 
 .nav-accordian {

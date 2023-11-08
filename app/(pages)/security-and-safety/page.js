@@ -1,4 +1,5 @@
-import React from 'react';
+"use client"
+import React, {useRef} from 'react';
 import Securesteps from '@/app/components/Security/Securesteps';
 import Certification from '@/app/components/Security/Certification';
 import Reliability from '@/app/components/Security/Reliability';
@@ -8,19 +9,22 @@ import HomeComponent from '@/app/components/Home/HomeComponent';
 import ProductForm from '@/app/components/Products/ProductForm';
 import ContactComplaint from '@/app/components/Ip/Chatbot/Contact/ContactComplaint';
 const page = () => {
+    const ref = useRef(null);
+    const handleClickScroll = () => {
+      console.log("clicked");
+      ref.current?.scrollIntoView({ behavior: "smooth" });
+    };
     return (
         <div className='bg-white'>
-            <Banner />
+            <Banner handleClickScroll={handleClickScroll} />
             <div className="sm:mt-[75vh]">
-                <Securesteps />
+                <Securesteps  handleClickScroll={handleClickScroll} />
             </div>
-            <Certification />
-            <Reliability />
             {/* <Secureform /> */}
             <ContactComplaint />
             <div className='border-b-4 border-orange absolute right-0 left-0'>
             </div>
-            <ProductForm />
+            <ProductForm  ref={ref}/>
             <HomeComponent />
 
 

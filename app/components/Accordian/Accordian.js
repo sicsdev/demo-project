@@ -10,6 +10,7 @@ import {
 import "react-accessible-accordion/dist/fancy-example.css";
 import List from "../Layout/components/List";
 import Link from "next/link";
+import MobileList from "../Layout/components/MobileList";
 const Accordian = ({ setShow, nav_links }) => {
   return (
     <div className="nav-accordian h-[100vh] overflow-y-scroll">
@@ -38,7 +39,7 @@ const Accordian = ({ setShow, nav_links }) => {
             </AccordionItemHeading>
             {element.card.links.length > 0 && (
               <AccordionItemPanel>
-                <List
+                <MobileList
                   className={"grid grid-cols-1 gap-8"}
                   nav_links={element.card.links}
                   setShow={setShow}

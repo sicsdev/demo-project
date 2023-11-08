@@ -80,16 +80,9 @@ export const questions = [
       </p>
     ),
   },
+ 
   {
-    question: "What is included in the Starter Plan?",
-    answer: (
-      <p className="tracking-wide text-sm text-text-dark-color">
-        The Starter Plan includes essential features to get you started with Tempo. It is not a free plan but serves as an entry-level option.
-      </p>
-    ),
-  },
-  {
-    question: "What is the Billing Threshold?",
+    question: "What is the billing threshold?",
     answer: (
       <p className="tracking-wide text-sm text-text-dark-color">
         The billing threshold is the set amount at which your payment method will be automatically charged. This threshold is adjustable within your Tempo portal.
@@ -112,22 +105,7 @@ export const questions = [
       </p>
     ),
   },
-  {
-    question: "How do I pay for Tempo?",
-    answer: (
-      <p className="tracking-wide text-sm text-text-dark-color">
-        For our Starter Plans, payments are made via major credit cards. Enterprise contracts have the option to operate on an invoice model.
-      </p>
-    ),
-  },
-  {
-    question: "How do I cancel my Tempo subscription?",
-    answer: (
-      <p className="tracking-wide text-sm text-text-dark-color">
-        To cancel your subscription, please reach out to our support team. Note that you are still responsible for any remaining usage.
-      </p>
-    ),
-  },
+
   {
     question: "Are there any discounts available?",
     answer: (
