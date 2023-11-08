@@ -1,18 +1,10 @@
 import { ArrowDownCircleIcon, InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
-import Modal from '../Common/Modal/Modal';
-import { Input } from '../Common/Input/Input';
-import Button from '../Common/Button/Button';
 import { useSearchParams } from 'next/navigation';
-
 import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic'
-import { expandRecommendationRecord } from '@/app/API/pages/LearningCenter';
 import TextField from '../Common/Input/TextField';
-import { FileUploader } from 'react-drag-drop-files';
-import FileField from '../Common/Input/FileField';
 import { Tooltip } from 'react-tooltip'
-import TextArea from '../Common/Input/TextArea';
 
 const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 
@@ -312,6 +304,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                         error={''}
                                     />
                                 } */}
+                                
                                 <div className='lg:mx-5 mt-2 m-auto'>
                                     <div className='flex items-center'>
                                         <label className={`new_input_label block text-sm text-heading font-medium`}>

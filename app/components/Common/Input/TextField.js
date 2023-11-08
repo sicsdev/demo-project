@@ -1,6 +1,5 @@
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import React from "react";
-import { Tooltip } from 'react-tooltip'
 
 const TextField = ({
   labelClassName,
@@ -27,14 +26,14 @@ const TextField = ({
         <label className={`new_input_label block text-sm text-heading ${labelClass || "font-medium"}`}>
           {title}
         </label>
-
+{/* 
         {tooltipInfo && <InformationCircleIcon
           data-tooltip-id={title}
           data-tooltip-content={tooltipInfo}
           className='w-4 h-4 mx-2'>
-        </InformationCircleIcon>}
+        </InformationCircleIcon>} */}
       </div>
-      <Tooltip id={title} place="top" type="dark" effect="solid" />
+      {/* <Tooltip id={title} place="top" type="dark" effect="solid" /> */}
 
       {subtitle && <small className="text-border text-xs">{subtitle}</small>}
       <input

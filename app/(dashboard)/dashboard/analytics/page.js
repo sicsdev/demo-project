@@ -195,10 +195,10 @@ const Logs = () => {
     const selectedWorkflowParam = params.get('selectedWorkflow')
     if (selectedWorkflowParam && mergedArray?.length > 0) {
       let e = { target: { value: selectedWorkflowParam, name: "workflows" } }
-      filterDataHandler(e)
       let response = await getPaginateBotConversation(mergedArray[0].value, 1, `&workflows=${selectedWorkflowParam}`)
       if (response?.data?.results) {
         setConversationData(response.data.results)
+        filterDataHandler(e)
       }
     }
 
@@ -323,6 +323,8 @@ const Logs = () => {
 
   const filterDataHandler = (e) => {
     const { value, name } = e?.target;
+
+    console.log(value, name, '192392139123921932193')
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
