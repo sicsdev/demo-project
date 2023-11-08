@@ -166,7 +166,7 @@ const Logs = () => {
     }
 
   })
-  const getAllBots = () => {
+  const getAllBots = async () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
@@ -190,7 +190,20 @@ const Logs = () => {
         "&ordering=-number_of_messages&ordering=-created");
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
+
+
+    const selectedWorkflowParam = params.get('selectedWorkflow')
+    if (selectedWorkflowParam && mergedArray?.length > 0) {
+      let e = { target: { value: selectedWorkflowParam, name: "workflows" } }
+      filterDataHandler(e)
+      let response = await getPaginateBotConversation(mergedArray[0].value, 1, `&workflows=${selectedWorkflowParam}`)
+      if (response?.data?.results) {
+        setConversationData(response.data.results)
+      }
+    }
+
   };
+
 
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
@@ -328,6 +341,7 @@ const Logs = () => {
       setIndexVal(0);
       handlePageChange(selectedBot, 1, queryParam, '10', 'mm');
     }
+
   };
 
   const buildQueryParam = (filters) => {
@@ -409,9 +423,9 @@ const Logs = () => {
     }
   };
 
-  useEffect(() => {
-    setConversationData(conversationData);
-  }, [conversationData.length]);
+  // useEffect(() => {
+  //   setConversationData(conversationData);
+  // }, [conversationData.length]);
 
   const [messageLoading, setMessagesLoading] = useState(false);
   const getCoversationMessages = async (id) => {
@@ -590,12 +604,14 @@ const Logs = () => {
   const handleConversationDetail = async (id) => {
     setIdOfOpenConversation(id);
   };
+
   function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Zero-padding the month
     const day = String(date.getDate()).padStart(2, '0'); // Zero-padding the day
     return `${year}-${month}-${day}`;
   }
+
   function formatDateMonths(date) {
     const day = date.getDate();
     const monthNames = [
@@ -626,6 +642,9 @@ const Logs = () => {
     getAdditionalData(selectedBot, query, query1, selectedDate1, selectedDate2)
   }
 
+
+
+
   function downloadBlob(blob, fileName) {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -642,6 +661,8 @@ const Logs = () => {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
+
+
 
   const exportCsvHandler = async (event) => {
     try {

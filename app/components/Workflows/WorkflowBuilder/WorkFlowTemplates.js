@@ -275,6 +275,12 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             setLoading(false);
         }, 2000);
     }, [])
+
+
+    const redirectToLogs = (e) => {
+        router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`)
+    }
+
     return (
         <div>
             <div className='mt-4'>
@@ -341,9 +347,9 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                             <div className='relative'>
                                                 <div className='absolute top-0 right-0'>
 
-                                                    <a className='text-[#808080]' data-tooltip-id="last24hs" data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}>
+                                                    <span onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }} className='text-[#808080]' data-tooltip-id="last24hs" data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}>
                                                         {item.workflow_usage_last_24_hours}
-                                                    </a>
+                                                    </span>
 
                                                     <Tooltip id='last24hs' place="top" type="dark" effect="solid" />
 
