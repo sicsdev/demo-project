@@ -8,12 +8,14 @@ import { useState } from "react";
 import { isMobile, mobileModel } from "react-device-detect";
 import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import { Tooltip } from 'react-tooltip'
 
 const TeamManagement = ({ state, removeMember, changeRole }) => {
   const stateM = useSelector((state) => state.user);
   const [teams, setTeams] = useState(state?.data ?? []);
-  console.log("teams", teams)
   const [perPage, setPerPage] = useState(10);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
   useEffect(() => {
     if (state?.data) {
       const mapData = state?.data.map((ele) => {
@@ -27,6 +29,14 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       });
       setTeams(mapData);
     }
+
+
+
+    const handleResize = () => { setIsMobile(window.innerWidth <= 768); };
+    window.addEventListener("resize", handleResize);
+    return () => { window.removeEventListener("resize", handleResize); };
+
+
   }, [state?.data]);
 
   function formatPhoneNumber(phoneNumber) {
@@ -40,40 +50,42 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   }
 
   const columns2 = [
-    {
-      name: "Logo",
-      id: "logo",
-      selector: (row) => row?.logo,
-      reorder: true,
-      cell: (row) => (
-        <>
-          {row?.logo ? (
-            <img
-              className="w-9 h-9 rounded-lg border border-border"
-              src={row?.logo}
-              alt="user photo"
-            />
-          ) : (
-            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-              <span className="font-medium text-white normal-case">
-                {" "}
-                {row?.name.charAt(0)}
-              </span>
-            </div>
-          )}
-        </>
-      ),
-      width: "80px",
-      hide: "sm",
-    },
+
+    // This logo column will be used for profile photo of the member in future.
+    // {
+    //   name: "Logo",
+    //   id: "logo",
+    //   selector: (row) => row?.logo,
+    //   reorder: true,
+    //   cell: (row) => (
+    //     <>
+    //       {row?.logo ? (
+    //         <img
+    //           className="w-9 h-9 rounded-lg border border-border"
+    //           src={row?.logo}
+    //           alt="user photo"
+    //         />
+    //       ) : (
+    //         <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+    //           <span className="font-medium text-white normal-case">
+    //             {" "}
+    //             {row?.name.charAt(0)}
+    //           </span>
+    //         </div>
+    //       )}
+    //     </>
+    //   ),
+    //   width: "80px",
+    //   hide: "sm",
+    // },
     {
       name: "Email",
       id: "Email",
       selector: (row) => row?.email,
-      cell: (row) => <p className="whitespace-normal text-xs">{row.email}</p>,
+      cell: (row) =>
+        <p className={`whitespace-normal text-xs truncate font-semibold my-1`}>{row.email}</p>,
       reorder: true,
-
-      width: "200px",
+      width: isMobile ? '220px' : '300px',
     },
     {
       name: "Name",
@@ -100,32 +112,32 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       width: "200px",
       hide: "sm",
     },
+
     {
       name: "Role",
-      id: "Role",
+      id: " Role",
       selector: row => row?.role,
       cell: (element) => (
-        <p className="whitespace-normal text-xs flex items-center" >  {element.role == "MEMBER" ? "Collaborator" : "Admin"}</p>
+        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : "Admin"}</p>
       ),
-      reorder: true,
-      width: "150px",
+      // reorder: true,
+      width: isMobile ? "120px" : "200px",
+      hide: "",
     },
+
     {
       name: "Action",
       id: "Action",
       selector: (row) => row?.action,
       cell: (ele) => (
-        ele.role == "MEMBER" ?
-        <ButtonComponent ele={ele} show={show} setShow={setShow} removeMember={removeMember} changeRole={changeRole} />:null  
+        <ButtonComponent ele={ele} show={show} setShow={setShow} removeMember={removeMember} changeRole={changeRole} role={ele.role} />
       ),
       reorder: true,
-      width: "300px",
+      width: "100px",
     },
   ];
 
 
-
-  console.log("teams", teams)
   const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
   const [show, setShow] = useState(null)
   return (
@@ -158,10 +170,11 @@ export default TeamManagement;
 
 
 
-export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole }) => {
+export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, role }) => {
   const data = [
-    { name: "Admin", value: "ADMINISTRATOR" },
-    { name: "Collaborator", value: "MEMBER" },
+    { name: "Set as Admin", value: "ADMINISTRATOR" },
+    { name: "Set as Member", value: "MEMBER" }
+
   ]
   const divRef = useRef(null);
   useEffect(() => {
@@ -188,14 +201,17 @@ export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole }
     }}>
       <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
       {show === ele?.email && (
-        <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
+        // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
+        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[130px] border border-border rounded-lg shadow w-auto`}>
+
           <ul className="py-2 text-xs text-gray-700 ">
             {data.map((element, key) =>
+              element.value !== role &&
               <li className={`hover:bg-primary  hover:text-white text-heading my-1`} key={key}>
                 <button type='button' className="block px-4 py-2 " onClick={() => {
                   changeRole(ele.email, element.value)
                   setShow(null)
-                }}>{element.value}</button>
+                }}>{element.name}</button>
               </li>
             )}
             <li className={`hover:bg-danger  hover:text-white text-heading my-1`}>

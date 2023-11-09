@@ -69,6 +69,7 @@ const Logs = () => {
       getCoversationMessagesbyID(id_param)
     }
   }, [])
+
   const columns = [
     {
       name: (
@@ -166,7 +167,7 @@ const Logs = () => {
     }
 
   })
-  const getAllBots = () => {
+  const getAllBots = async () => {
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
@@ -182,15 +183,29 @@ const Logs = () => {
     mergedArray.sort((a, b) => a.name.localeCompare(b.name))
     setBotValue(mergedArray);
     // getAdditionalData(mergedArray)
+
+    const selectedWorkflowParam = params.get('selectedWorkflow')
+
+
     if (mergedArray?.length > 0) {
       setSelectedBot(mergedArray[0].value);
       firstTimeAnalytics(mergedArray[0].value)
       setIndexVal(0);
-      handlePageChange(mergedArray[0].value, 1,
-        "&ordering=-number_of_messages&ordering=-created");
+
+      let queryParam = selectedWorkflowParam ? `&workflows=${selectedWorkflowParam}` : "&ordering=-number_of_messages&ordering=-created"
+
+      handlePageChange(mergedArray[0].value, 1, queryParam);
       dispatch(updateLogState({ ...logState.data, bot: mergedArray[0].value }));
     }
+
+
+    if (selectedWorkflowParam && mergedArray?.length > 0) {
+      let e = { target: { value: selectedWorkflowParam, name: "workflows" } }
+      filterDataHandler(e)
+    }
+
   };
+
 
   const calculateDeflectionRate = state => {
     const { totalConversations, humanHandoffs } = state;
@@ -310,6 +325,8 @@ const Logs = () => {
 
   const filterDataHandler = (e) => {
     const { value, name } = e?.target;
+
+    console.log(value, name, '192392139123921932193')
     setSelectedFilters((prevFilters) => ({
       ...prevFilters,
       [name]: value,
@@ -328,6 +345,7 @@ const Logs = () => {
       setIndexVal(0);
       handlePageChange(selectedBot, 1, queryParam, '10', 'mm');
     }
+
   };
 
   const buildQueryParam = (filters) => {
@@ -409,9 +427,9 @@ const Logs = () => {
     }
   };
 
-  useEffect(() => {
-    setConversationData(conversationData);
-  }, [conversationData.length]);
+  // useEffect(() => {
+  //   setConversationData(conversationData);
+  // }, [conversationData.length]);
 
   const [messageLoading, setMessagesLoading] = useState(false);
   const getCoversationMessages = async (id) => {
@@ -590,12 +608,14 @@ const Logs = () => {
   const handleConversationDetail = async (id) => {
     setIdOfOpenConversation(id);
   };
+
   function formatDate(date) {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // Zero-padding the month
     const day = String(date.getDate()).padStart(2, '0'); // Zero-padding the day
     return `${year}-${month}-${day}`;
   }
+
   function formatDateMonths(date) {
     const day = date.getDate();
     const monthNames = [
@@ -626,6 +646,9 @@ const Logs = () => {
     getAdditionalData(selectedBot, query, query1, selectedDate1, selectedDate2)
   }
 
+
+
+
   function downloadBlob(blob, fileName) {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -642,6 +665,8 @@ const Logs = () => {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
+
+
 
   const exportCsvHandler = async (event) => {
     try {

@@ -1,16 +1,11 @@
-import { InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { ArrowDownCircleIcon, InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
-import Modal from '../Common/Modal/Modal';
-import { Input } from '../Common/Input/Input';
-import Button from '../Common/Button/Button';
 import { useSearchParams } from 'next/navigation';
-
 import { v4 as uuidv4 } from 'uuid';
 import dynamic from 'next/dynamic'
-import { expandRecommendationRecord } from '@/app/API/pages/LearningCenter';
 import TextField from '../Common/Input/TextField';
-import { FileUploader } from 'react-drag-drop-files';
-import FileField from '../Common/Input/FileField';
+import { Tooltip } from 'react-tooltip'
+
 const TextEditor = dynamic(() => import('../URL/Richtext'), { ssr: false })
 
 const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, handleSubmit, loading, hideComponent, externalTitle, getQuestionsData,
@@ -203,79 +198,178 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                     <p className={`inline-block whitespace-nowrap rounded ${basicFormData?.snippet_active === true ? `bg-[#d8efdc] text-[#107235]` : 'text-black bg-[#ececf1]'} px-4 py-2 align-baseline text-xs font-medium  leading-none`}>
                                         {basicFormData?.snippet_active === true ? `Active` : `Disabled`}
                                     </p>
+                                    <InformationCircleIcon
+                                        data-tooltip-id="active_information"
+                                        data-tooltip-content="Activating or deactivating this product will make it sensitive to being sent via chat if the user asks about it."
+                                        className='w-4 h-4'>
+                                    </InformationCircleIcon>
+
+                                    <Tooltip id='active_information' place="top" type="dark" effect="solid" />
                                 </div>
                             </div>
-                            <TextField
-                                onChange={handleInputChange}
-                                value={basicFormData.title}
-                                className="py-3 mt-1 w-full"
-                                placeholder='Enter a Title'
-                                id='title'
-                                name='title'
-                                title={"Title"}
-                                type={"text"}
-                                error={''}
-                            />
 
-                            {creationMode === 'product' && (
-                                <>
+
+                            <div className='flex gap-5 w-100'>
+                                <div className='w-1/2 mt-2'>
                                     <TextField
                                         onChange={handleInputChange}
-                                        value={basicFormData.product_url}
-                                        className="w-full"
-                                        placeholder='Url'
-                                        id='product_url'
-                                        name='product_url'
-                                        title={"Link to product"}
+                                        value={basicFormData.title}
+                                        className="py-3 mt-1 w-full"
+                                        placeholder='Enter a Title'
+                                        id='title'
+                                        name='title'
+                                        title={"Title"}
                                         type={"text"}
                                         error={''}
+                                        tooltipInfo={"The name of the product"}
+
                                     />
 
-                                    <div className="relative flex">
-                                        <span className="m-auto opacity-80 absolute inset-y-0 left-0 mt-5 flex items-center pointer-events-none">
-                                            $
-                                        </span>
-                                        <TextField
-                                            onChange={handleInputChange}
-                                            value={basicFormData.product_price}
-                                            className="mx-4 w-25"
-                                            placeholder='Price'
-                                            id='product_price'
-                                            name='product_price'
-                                            title={"Price"}
-                                            type={"number"}
-                                            error={''}
-                                        />
+                                    {creationMode === 'product' && (
+                                        <>
+
+
+
+                                            <div className='mt-5'>
+                                                <TextField
+                                                    onChange={handleInputChange}
+                                                    value={basicFormData.product_url}
+                                                    className="w-full"
+                                                    placeholder='Url'
+                                                    id='product_url'
+                                                    name='product_url'
+                                                    title={"Link to product"}
+                                                    type={"text"}
+                                                    error={''}
+                                                    tooltipInfo={"Link of the product where more details are given about it or allow its purchase."}
+                                                />
+                                            </div>
+
+
+
+
+                                            <div className='mt-5 flex items-center'>
+                                                <label className={`new_input_label block text-sm text-heading font-medium`}>
+                                                    Price
+                                                </label>
+                                                {/* <InformationCircleIcon
+                                                    data-tooltip-id="price_information"
+                                                    data-tooltip-content="Unit price of your product."
+                                                    className='w-4 h-4 mx-2'>
+                                                </InformationCircleIcon>
+
+                                                <Tooltip id='price_information' place="top" type="dark" effect="solid" /> */}
+                                            </div>
+                                            <div className="relative flex items-center mt-1">
+                                                <small className="z-50 m-auto opacity-80 absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2">
+                                                    $
+                                                </small>
+                                                <input
+                                                    style={{ paddingLeft: '25px' }}
+                                                    onChange={handleInputChange}
+                                                    value={basicFormData.product_price}
+                                                    className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger focus:ring-danger z-10"
+                                                    placeholder='Price'
+                                                    id='product_price'
+                                                    name='product_price'
+                                                    title={"Price"}
+                                                    type={"number"}
+                                                >
+                                                </input>
+                                            </div>
+
+                                        </>
+                                    )}
+                                </div>
+
+                                {/* {basicFormData.image ?
+                                    <div className='flex justify-center'>
+                                        <div>
+                                            <img src={basicFormData.image} width='200px'></img>
+                                            <small className='flex justify-end'>
+                                                <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null })}>Remove</button>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    :
+                                    <FileField
+                                        onChange={handleFileChange}
+                                        value={basicFormData.product_file}
+                                        className="py-3 mt-0 w-full"
+                                        placeholder='Image'
+                                        id='product_file'
+                                        name='product_file'
+                                        title={"Image"}
+                                        type={"file"}
+                                        error={''}
+                                    />
+                                } */}
+                                
+                                <div className='lg:mx-5 mt-2 m-auto'>
+                                    <div className='flex items-center'>
+                                        <label className={`new_input_label block text-sm text-heading font-medium`}>
+                                            Image
+                                        </label>
+                                        <InformationCircleIcon
+                                            data-tooltip-id="image_information"
+                                            data-tooltip-content="Upload a image of your product."
+                                            className='w-4 h-4 mx-2'>
+                                        </InformationCircleIcon>
+                                        <Tooltip id='image_information' place="top" type="dark" effect="solid" />
                                     </div>
 
-                                    {basicFormData.image ?
-                                        <div className='flex justify-center'>
+                                    {basicFormData.image || basicFormData.product_file ?
+
+                                        <div className='flex justify-center my-4 m-auto'>
                                             <div>
-                                                <img src={basicFormData.image} width='200px'></img>
+                                                <img className='rounded-md' src={basicFormData.image || basicFormData.product_file} width='200px'></img>
                                                 <small className='flex justify-end'>
-                                                    <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null })}>Remove</button>
+                                                    <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null, product_file: null })}>Remove</button>
                                                 </small>
                                             </div>
                                         </div>
                                         :
-                                        <FileField
-                                            onChange={handleFileChange}
-                                            value={basicFormData.product_file}
-                                            className="py-3 mt-1 w-full"
-                                            placeholder='Image'
-                                            id='product_file'
-                                            name='product_file'
-                                            title={"Image"}
-                                            type={"file"}
-                                            error={''}
-                                        />
+                                        <div className='flex items-center m-auto my-4'>
+                                            <div className='border rounded-md flex items-center cursor-pointer'
+                                                style={{ padding: '35px', paddingTop: '50px', paddingBottom: '50px', borderStyle: 'dashed' }}
+                                                onClick={() => document.getElementById('file-image-input-tempo-id').click()}>
+                                                <input id="file-image-input-tempo-id" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
+                                                <div className='pt-0 mt-0 text-grey flex items-center justify-center gap-2 text-xs opacity-70'>
+                                                    <ArrowDownCircleIcon className='w-4 h-4'></ArrowDownCircleIcon>
+                                                    Upload
+                                                </div>
+                                            </div>
+                                        </div>
                                     }
 
-                                </>
-                            )}
 
-                            <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode} externalContent={externalContentForTextEditor}></TextEditor>
+                                </div>
 
+
+
+                            </div>
+
+
+
+
+
+
+                            <div>
+                                <div className='mt-3 flex items-center mb-1'>
+                                    <label className={`new_input_label block text-sm text-heading font-medium`}>
+                                        Description
+                                    </label>
+                                    <InformationCircleIcon
+                                        data-tooltip-id="description_information"
+                                        data-tooltip-content="Make a brief and clear description of the product, based on it the bot will determine if it is what the user is looking for."
+                                        className='w-4 h-4 mx-2'>
+                                    </InformationCircleIcon>
+
+                                    <Tooltip id='description_information' place="top" type="dark" effect="solid" />
+                                </div>
+
+                                <TextEditor handleTextEditorChange={handleTextEditorChange} debugMode={debugMode} externalContent={externalContentForTextEditor}></TextEditor>
+                            </div>
 
 
                             {showError && <div className='flex justify-center w-100'>
@@ -286,7 +380,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                     </div>
 
                 </div>
-            </div>
+            </div >
         </>
     )
 }
