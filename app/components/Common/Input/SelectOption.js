@@ -47,7 +47,7 @@ const SelectOption = ({
                     )}
                     {values?.map((element, key) => (
                         <>
-                            <option key={key} value={element.value}>
+                            <option key={key} value={element.value} name={element.name}>
                                 {makeCapital(element.name)}
                             </option>
                         </>
