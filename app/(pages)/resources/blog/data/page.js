@@ -29,6 +29,8 @@ const client = createClient({
   const[currentImage, setCurrentimage] = useState("")
 
   const [loading, setLoading] = useState(true);
+  let slug = params.get("blog")
+
 
   const findFilters =async()=>{
     let slug = params.get("article")
@@ -36,7 +38,7 @@ const client = createClient({
         const findData = data.find((x) => x.slug === slug)
         console.log("findData",findData)
         console.log("slug", slug)
-        const entry = await client.getEntry(findData.id);
+        const entry = await client.getEntry(findData?.id);
         console.log("entry.items", entry)
         setBlog(entry?.fields?.blogBody);
         setHeading(entry?.fields?.heading)
@@ -73,7 +75,7 @@ const client = createClient({
 
     useEffect( () => {
       findFilters()
-    }, []);
+    }, [slug]);
 
     const options = {
         renderNode: {
@@ -228,13 +230,12 @@ const client = createClient({
             }}
             className=" mt-[30px]"
           >
-          <p className="p-[8px] text-[14px]">TABLE OF CONTENTS</p>
-            <div className="font-medium SideOptions"    style={{
-              borderLeft: "solid 1px"}}>
+          <p className="pl-[13px] text-[13px]">TABLE OF CONTENTS</p>
+            <div className="font-medium SideOptions"    >
               
               {value?.map((ele, key) =>
                     <div className="btn cursor-pointer" key={key} >
-                        <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-[13px] text-[#696a85] w-[14rem]" onClick={(e) => scroll(e)}>{ele?.props?.children[0]}</p>
+                        <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-[13px] hover:font-bold text-[#696a85] w-[14rem]" onClick={(e) => scroll(e)}>{ele?.props?.children[0]}</p>
                     </div>
                 )}
             </div>
@@ -259,7 +260,7 @@ const client = createClient({
                   <SkeletonLoader className="sm:h-[50px] sm:w-[80px] " />
                 </div>
                 : <div className=" shadow-lg rounded-lg  p-5 sm:p-3" key={key}>
-                  <Link href={`/resources/article/data?article=${removeSpacesAndHyphens(ele.fields.heading.toLowerCase())}`}>
+                  <Link href={`/resources/blog/data?article=${removeSpacesAndHyphens(ele.fields.heading.toLowerCase())}`}>
                     <div className="flex flex-co relative h-[200px] w-[100%] justify-start items-center js-show-on-scroll">
                       <Image
                         fill={true}
