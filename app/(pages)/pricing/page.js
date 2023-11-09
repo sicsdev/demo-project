@@ -257,8 +257,10 @@ const Pricing = () => {
       <Pricingbanner handleClickScroll={handleClickScroll} />
 
       {/* <Panelcard  /> */}
+      <div className="sm:mt-[70vh]">
 
-      <Panelcardnew />
+      <Panelcardnew  />
+      </div>
       <Homeinte />
     
       <div className="p-4 sm:p-8  sm:px-40 ">
