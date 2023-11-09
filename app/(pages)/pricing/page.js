@@ -43,6 +43,7 @@ import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
 import Middlebar from "@/app/components/Info-Screen/Middlebar";
 import HomeComponent from "@/app/components/Home/HomeComponent";
+import Pricingbanner from "@/app/components/Security/Pricingbanner";
 
 const Pricing = () => {
   const [data, setData] = useState({});
@@ -253,6 +254,7 @@ const Pricing = () => {
           content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
+      <Pricingbanner handleClickScroll={handleClickScroll} />
 
       {/* <Panelcard  /> */}
 

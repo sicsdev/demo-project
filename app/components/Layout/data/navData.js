@@ -72,5 +72,5 @@ export const nav_links = [
         name: "Pricing",
         link: "/pricing",
         card: { links: [] }
-    },
+    }
 ] 

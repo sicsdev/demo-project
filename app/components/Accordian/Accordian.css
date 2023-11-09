@@ -43,6 +43,9 @@
 
 }
 .nav-accordian .accordion__item {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.139);
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.139); */
+}
+.nav-accordian .accordion__item + .accordion__item{
+    border-top: 0px  !important;
 }
 .accordion__item .mobile_arrow  .accordion__button:before{display: none;}

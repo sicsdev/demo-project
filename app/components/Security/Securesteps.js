@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 
-const Securesteps = ({handleClickScroll}) => {
+const Securesteps = ({ handleClickScroll }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -29,7 +29,7 @@ const Securesteps = ({handleClickScroll}) => {
                 "Advanced Security Compliance and Protocols            "
               )}{" "}
             </p>
-            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -42,7 +42,7 @@ const Securesteps = ({handleClickScroll}) => {
               )}
             </p>
 
-            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -50,13 +50,16 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> Base API Moderation : </b>Our AI-driven platform enforces
-                strict content standards, blacklisting sensitive categories
-                such as violence and hate speech to ensure a safe user
-                environment.</p>           )}
+              ) : (
+                <p>
+                  <b> Base API Moderation: </b>Our AI-driven platform enforces
+                  strict content standards, blacklisting sensitive categories
+                  such as violence and hate speech to ensure a safe user
+                  environment.
+                </p>
+              )}
             </p>
-            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -64,9 +67,13 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> SSL and TLS Certificates
-: </b>All client-server interactions are shielded with HTTPS protocols, establishing a secure line of communication to preserve data privacy.</p>           )}
+              ) : (
+                <p>
+                  <b> SSL and TLS Certificates: </b>All client-server
+                  interactions are shielded with HTTPS protocols, establishing a
+                  secure line of communication to preserve data privacy.
+                </p>
+              )}
             </p>
             <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
               {loading ? (
@@ -105,7 +112,7 @@ const Securesteps = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/bltc02bb0e77fa1098d/5ea76e572229b2251db004d6/securing-data-at-every-step2.png?cache=48f963a3cfaf2f677ea8fc38c26dd27b&tr=ar-1-1"
+                  src="/security/Advanced Security Compliance and Protocols.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
@@ -126,7 +133,7 @@ const Securesteps = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/bltc02bb0e77fa1098d/5ea76e572229b2251db004d6/securing-data-at-every-step2.png?cache=48f963a3cfaf2f677ea8fc38c26dd27b&tr=ar-1-1"
+                  src="/security/Infrastructure and Data Integrity.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
@@ -146,7 +153,7 @@ const Securesteps = ({handleClickScroll}) => {
                 "Infrastructure and Data Integrity       "
               )}{" "}
             </p>
-            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -159,7 +166,7 @@ const Securesteps = ({handleClickScroll}) => {
               )}
             </p>
 
-            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -167,12 +174,15 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                
-
-                <b> AWS Server Hosting : </b> By utilizing Amazon's highly secure and robust data centers, we offer leading-edge protection for data integrity and confidentiality.</p>           )}
+              ) : (
+                <p>
+                  <b> AWS Server Hosting: </b> By utilizing Amazon's highly
+                  secure and robust data centers, we offer leading-edge
+                  protection for data integrity and confidentiality.
+                </p>
+              )}
             </p>
-            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -180,8 +190,14 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> Prompt Injection Protection: </b>Employing sophisticated heuristics and a dedicated language model, we meticulously scrutinize incoming data for enhanced defense against security threats.</p>           )}
+              ) : (
+                <p>
+                  <b> Prompt Injection Protection: </b>Employing sophisticated
+                  heuristics and a dedicated language model, we meticulously
+                  scrutinize incoming data for enhanced defense against security
+                  threats.
+                </p>
+              )}
             </p>
             <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
               {loading ? (
@@ -220,7 +236,7 @@ const Securesteps = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/bltc02bb0e77fa1098d/5ea76e572229b2251db004d6/securing-data-at-every-step2.png?cache=48f963a3cfaf2f677ea8fc38c26dd27b&tr=ar-1-1"
+                  src="/security/Infrastructure and Data Integrity.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />
@@ -244,7 +260,7 @@ const Securesteps = ({handleClickScroll}) => {
                 " Enhanced Quality Controls "
               )}{" "}
             </p>
-            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -257,7 +273,7 @@ const Securesteps = ({handleClickScroll}) => {
               )}
             </p>
 
-            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3   xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -265,10 +281,15 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> Smart workflows for your common tickets : </b>From day one Tempo will start to analyze and interpret common responses and resolutions.</p>           )}
+              ) : (
+                <p>
+                  <b> Smart workflows for your common tickets: </b>From day one
+                  Tempo will start to analyze and interpret common responses and
+                  resolutions.
+                </p>
+              )}
             </p>
-            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -276,11 +297,16 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> Train on your own FAQ and Help Center
-: </b>Have an extensive knowledge base? Tempo will utilize your company’s policies to ensure responses and resolutions are relevant and appropriate.</p>           )}
+              ) : (
+                <p>
+                  <b> Train on your own FAQ and Help Center: </b>Have an
+                  extensive knowledge base? Tempo will utilize your company’s
+                  policies to ensure responses and resolutions are relevant and
+                  appropriate.
+                </p>
+              )}
             </p>
-            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+            <p className="w-full md:ml-[px] mt-3  xl:w-[597px] text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[20px] md:leading-8 gap-2">
               {loading ? (
                 <SkeletonLoader
                   className="mb-1"
@@ -288,8 +314,14 @@ const Securesteps = ({handleClickScroll}) => {
                   height={30}
                   width="100%"
                 />
-              ) : (<p>
-                <b> Dynamic Keyword Filtering : </b>Control the scope of user interactions by specifying keywords that restrict workflows or access to certain knowledge, ensuring discussions remain focused and relevant.</p>           )}
+              ) : (
+                <p>
+                  <b> Dynamic Keyword Filtering: </b>Control the scope of user
+                  interactions by specifying keywords that restrict workflows or
+                  access to certain knowledge, ensuring discussions remain
+                  focused and relevant.
+                </p>
+              )}
             </p>
             <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
               {loading ? (
@@ -328,7 +360,7 @@ const Securesteps = ({handleClickScroll}) => {
             ) : (
               <div className="relative w-[100%] h-[319px] sm:w-[703px] sm:h-[400px]">
                 <Image
-                  src="https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/bltc02bb0e77fa1098d/5ea76e572229b2251db004d6/securing-data-at-every-step2.png?cache=48f963a3cfaf2f677ea8fc38c26dd27b&tr=ar-1-1"
+                  src="/security/Dynamic Keyword Filtering.png"
                   className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   fill={true}
                 />

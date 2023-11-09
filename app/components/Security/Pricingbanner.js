@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import Link from "next/link";
-const banner = ({ handleClickScroll }) => {
+const Pricingbanner = ({ handleClickScroll }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -11,7 +11,7 @@ const banner = ({ handleClickScroll }) => {
   }, []);
   const customStyles = {
     // backgroundImage: `url('https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt7502941e41c99672/5ee7a43e8aa85c4a23eb61a6/xl-bnr-callstats.io-monitoring-data3.png?cache=59d90bb98e7585b9a89b84ef9e319161&tr=ar-16-9,fo-auto,w-1200')`,
-    backgroundImage: `url('/Security V2 1.png')`,
+    backgroundImage: `url('/Pricing V2 1.png')`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     left: 0,
@@ -30,8 +30,7 @@ const banner = ({ handleClickScroll }) => {
           </div>
         ) : (
           <div className="sm:text-5xl text-[22px] text-white sm:font-bold font-bold pt-5 sm:p-0">
-           Fortified Communications
-          </div>
+Enhanced Security Framework          </div>
         )}
         {loading ? (
           <div className="block !font-[700] w-[100%] sm:w-[50%]  pt-5 sm:pt-0 sm:mt-7 text-[33px] leading-[40px]  relative text-[black]">
@@ -39,8 +38,7 @@ const banner = ({ handleClickScroll }) => {
           </div>
         ) : (
           <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
-           Our platform prioritizes comprehensive security measures for every facet of your business communications. We safeguard data whether it's stored on our systems or transmitted to and from your devices.
-          </div>
+Tempo's security approach is designed to protect and manage your data with the utmost care. From stringent moderation to robust encryption, we ensure your business communications are secure at every touchpoint, providing peace of mind in every interaction.          </div>
         )}
         <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
           {loading ? (
@@ -74,4 +72,4 @@ const banner = ({ handleClickScroll }) => {
   );
 };
 
-export default banner;
+export default Pricingbanner;
