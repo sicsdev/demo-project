@@ -23,6 +23,9 @@ const client = createClient({
     const [heading, setHeading] = useState(null);
     const [date, setDate] = useState('');
     const [lastUpdate, setLastUpdate] = useState('');
+  const [tag, setTag] = useState([]);
+  const [related, setRelated] = useState([])
+
   const[currentImage, setCurrentimage] = useState("")
 
   const [loading, setLoading] = useState(true);
@@ -41,9 +44,32 @@ const client = createClient({
 
         setDate(entry?.fields?.dateAndTimeTest)
         setLastUpdate(entry?.sys?.updatedAt)
+      getRelatedBlogs(entry?.fields?.tag, entry?.fields?.heading)
+
         sekeletonData()
     }
   }
+
+  const getRelatedBlogs = async (tag, heading) => {
+    const entry = await client.getEntries({
+      content_type: "blogs",
+      order: "sys.id",
+    });
+    setRelated(entry.items)
+    findTag(entry.items, tag, heading)
+  }
+
+  const findTag = (blogs, tag, heading) => {
+    if (blog != "") {
+      const findRelated = blogs.filter((x) => x.fields.tag == tag);
+      const findAllRelated = findRelated.filter((x) => x.fields.heading !== heading );
+      console.log("find", findAllRelated)
+      setTag(findAllRelated);
+    }
+  }
+
+
+
 
     useEffect( () => {
       findFilters()
@@ -101,6 +127,11 @@ const client = createClient({
         }
     };
 
+    const removeSpacesAndHyphens = (slug) => {
+      if (slug) {
+        return slug?.replace(/\s+/g, "-");
+      }
+    };
     return (
         <>
    <div className="bg-white  px-[20px] sm:px-0   ">
@@ -110,7 +141,7 @@ const client = createClient({
           <p className=" flex sm:text-[40px] text-[20px] pt-2 m-[auto] font-bold justify-center text-center">
            {heading}
           </p>
-          <p className="flex justify-center pb-4 m-[0] font-semibold text-[15px] text-[#80808091] mb-[20px] ">August 14,2023 . 6 min to read</p>
+          <p className="flex justify-center pb-4 m-[0] font-semibold text-[15px] text-[#80808091] mb-[20px] ">August 14,2023 6 min to read</p>
           <div className="flex justify-center sm:w-[60%] m-[auto] sm:h-[21rem] p-[2rem]">
         <Image
         fill={""}
@@ -140,34 +171,43 @@ const client = createClient({
               )}
               </p>
               <div className="block text-center">
-                <div className="grid grid-cols-1 sm:grid-cols-1  gap-[14px] mt-8 sm:mt-0">
-                  <div className="block sm:flex justify-center w-[100%] items-center gap-8">
-                  {loading ? (
-                    <SkeletonLoader count={1} height={30} width={100} />
-                  ) : (
-                    <button
-                      className={
-                        "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]" 
-                      }
-                    >
-                      Get demo
-                    </button>
-                  )}
+              <div className="grid grid-cols-1 sm:grid-cols-1  gap-[14px] mt-8 sm:mt-0">
+                    <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+                      {loading ? (
+                        <SkeletonLoader count={1} height={30} width={100} />
+                      ) : (
+                        <button
+                        onClick={""}
+                          type="button"
+                          className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+                        >
+                          Get a Quote
+                        </button>
+                      )}
+                    </div>
+                    <div className="block sm:flex justify-center w-[100%] items-center gap-8">
+                      {loading ? (
+                        <SkeletonLoader count={1} height={30} width={100} />
+                      ) : (
+                        <button
+                        type="button"
+                        className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+                      >
+                        <div
+                          className=""
+                          dangerouslySetInnerHTML={{
+                            __html: `
+               <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+               <span className="underline cursor-pointer text-white ">Get Started
+               </span>
+               </a>
+              `,
+                          }}
+                        />
+                      </button>
+                      )}
+                    </div>
                   </div>
-                  <div className="block sm:flex justify-center w-[100%] items-center gap-8">
-                  {loading ? (
-                    <SkeletonLoader count={1} height={30} width={100} />
-                  ) : (
-                    <button
-                      className={
-                        "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2   leading-normal text-[#FF5721] hover:text-white hover:bg-[#FF5721]  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#ff57215e] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]" 
-                      }
-                    >
-                      Get Started
-                    </button>
-                  )}
-                  </div>
-                </div>
               </div>
             </div>)}
             
@@ -175,7 +215,7 @@ const client = createClient({
           </div>
           </div>
         </div>
-        <div className="sm:w-[60%] px-28">
+        <div className="sm:w-[60%] sm:px-28 p-[2rem]">
             
         <div className="contentful-wrapper">{image}</div>
         </div>
@@ -200,6 +240,52 @@ const client = createClient({
             </div>
           </div>
         </div>
+      
+      </div>
+      <div className="sm:mt-[60px]">
+        {loading ? <SkeletonLoader className="sm:h-[50px] sm:w-[20px]" /> : <h1
+          className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h3 sm:text-h4 sm:leading-none flex justify-center"
+        >
+          Related Articles
+        </h1>}
+
+        <div className=" mb-[25px] sm:grid grid-cols-3 gap-[3rem] sm:p-[5rem] p-[2rem]">
+
+          {tag?.slice(0, 3)?.map((ele, key) => (
+            <>
+              {" "}
+              {loading ?
+                <div className="contents">
+                  <SkeletonLoader className="sm:h-[50px] sm:w-[80px] " />
+                </div>
+                : <div className=" shadow-lg rounded-lg  p-5 sm:p-3" key={key}>
+                  <Link href={`/resources/article/data?article=${removeSpacesAndHyphens(ele.fields.heading.toLowerCase())}`}>
+                    <div className="flex flex-co relative h-[200px] w-[100%] justify-start items-center js-show-on-scroll">
+                      <Image
+                        fill={true}
+                        src=
+                        {ele?.fields?.previewImage?.fields?.file?.url == undefined ? "/tempo-preview.png" : ele?.fields?.previewImage?.fields?.file?.url}
+               
+                        alt="img"
+                        className="w-full h-full bg-contain"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                    <div className="py-45 px-35">
+                      <div>
+                        <p className="flex justify-center font-semibold text-base sm:text-para my-4 opacity-80 js-show-on-scroll">
+                          {ele.fields.heading}
+                        </p>
+
+                      </div>
+                    </div>
+                  </Link>
+                </div>}
+
+            </>
+          ))}
+        </div>
+
       </div>
     </div>
         </>
