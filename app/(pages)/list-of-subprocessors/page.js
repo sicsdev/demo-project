@@ -10,9 +10,8 @@ const page = () => {
     <div className="bg-white">
       <div className=" block sm:flex md:flex lg:flex  items-center gap-10 sm:pt-8">
         <div className="">
-          <h1 className="font-bold p-5 text-3xl text-heading md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none">
-            List of subprocessors
-          </h1>
+        <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+        List of subprocessors      </h2>
         </div>
         <div className="max-w-[90%] sm:max-w-[30%] pl-6 pr-6 sm:pl-0 sm:pr-0 ">
           {/* <hr class="h-px mt-0 sm:my-8 bg-black border-0 dark:bg-gray-700" /> */}
@@ -23,14 +22,14 @@ const page = () => {
       </div>
       <hr class="h-px my-8 bg-black border-0 dark:bg-gray-700" />
       <div className="pl-4 pr-4 sm:pl-0 sm:pr-0">
-        <p className="text-heading font-normal text-para  pt-0 sm:pt-3 mb-4">
+        <p className="text-blue-400 w-full sm:mb-5 sm:w-[80%] font-[400] text-heading xs:flex-row xs:flex-col sm:flex  text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
           Below is a list of subprocessors we work with and the purpose for why
           we use their services.
         </p>
       </div>
       <Subprocessor />
-      <div className=" pl-4 pr-4 sm:pl-0 sm:pr-0">
-        <p className="text-heading font-normal text-para pt-3 pb-5 mt-3 sm:mt-9">
+      <div className=" pl-4 pr-4 sm:pl-0 sm:pr-0 sm:mt-6">
+      <p className="text-blue-400 w-full sm:mb-5 sm:w-[100%] font-[400] text-heading xs:flex-row xs:flex-col sm:flex  text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
         If you have any questions, please email <span className="text-[blue] cursor-pointer">security@usetempo.ai.</span> Please read our Privacy Policy for more information.
         
         </p>

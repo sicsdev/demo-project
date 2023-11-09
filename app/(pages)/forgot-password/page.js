@@ -9,6 +9,8 @@ import Swal from 'sweetalert2'
 import { useRouter } from 'next/navigation'
 import { successMessage } from '@/app/components/Messages/Messages'
 import { ToastContainer } from 'react-toastify'
+import LoginFooter from '@/app/components/Layout/LoginFooter'
+import LoginNav from '@/app/components/Layout/LoginNav'
 
 const Page = () => {
   const router = useRouter()
@@ -44,8 +46,10 @@ const Page = () => {
   }
 
   return (
+    <>
+    <LoginNav />
     <Container>
-      <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center'>
+      <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center sm:mt-14'>
         <h1 className='text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>Reset password</h1>
 
         <form>
@@ -55,7 +59,7 @@ const Page = () => {
           </label>
           <p className="text-red-500 text-sm text-center text-red">{error}</p>
           <Button
-            className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
+            className="flex w-full mx-auto mt-4 sm:mt-6 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm"
             disabled={false}
             onClick={handleForgotPassword}
           > Send Reset Instructions</Button>
@@ -63,6 +67,8 @@ const Page = () => {
       </div>
       <ToastContainer />
     </Container>
+   <LoginFooter/>
+    </>
   )
 }
 

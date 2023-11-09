@@ -21,7 +21,8 @@ import { editUserValue } from "@/app/components/store/slices/userSlice";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import Cookies from "js-cookie";
-
+import LoginNav from "@/app/components/Layout/LoginNav";
+import LoginFooter from "@/app/components/Layout/LoginFooter";
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -177,8 +178,12 @@ const Login = () => {
   };
 
   return (
+    <>
+    <LoginNav />
+    
     <Container>
-      {show && (
+      {show &&
+       (
         <div
           className="mb-3 hidden w-full items-center rounded-lg bg-[#86efac] mt-5 px-6 py-5 text-thin text-white data-[te-alert-show]:inline-flex"
           role="alert"
@@ -202,7 +207,7 @@ const Login = () => {
           </button>
         </div>
       )}
-      <div className="w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center">
+      <div className="w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center sm:mt-14 login-page">
         <h1 className="text-center text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
           Welcome.
         </h1>
@@ -297,6 +302,8 @@ const Login = () => {
         </form>
       </div>
     </Container>
+    <LoginFooter />
+    </>
   );
 };
 

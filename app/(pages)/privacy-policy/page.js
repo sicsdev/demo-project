@@ -9,9 +9,9 @@ const Page = () => {
     <div className="privacypolicy_page">
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+        <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
             Tempo AI Ventures Inc.Company Privacy Notice{" "}
-          </h1>
+          </h2>
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date:{" "}
           </h2>

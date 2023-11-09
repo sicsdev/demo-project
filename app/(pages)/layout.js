@@ -47,14 +47,14 @@ export default function PageLayout({ children }) {
   }
   console.log("pathname", pathname)
 
-  const hideComponent = pathname === "/checkout" || pathname === "/lp/chat-bot" || pathname === "/lp/contact-center";
+  const hideComponent = pathname === "/checkout" || pathname === "/lp/chat-bot" || pathname === "/lp/contact-center" ||  pathname === "/login" || pathname == "/forgot-password";
   
   return (
     <div className="scroll-smooth lg:max-w-full m-auto App w-full h-full">
       
       {!hideComponent && <Nav />}
       {/* <Header /> */}
-    <div className="scroll-smooth lg:max-w-[1450px] m-auto App w-full h-full">
+    <div className={`scroll-smooth ${pathname == "/login" || pathname == "/forgot-password" ? "lg:max-w-[full]" :"lg:max-w-[1450px]"} m-auto App w-full h-full`}>
 
       {children}
       </div>
