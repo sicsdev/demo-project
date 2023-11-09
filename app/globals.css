@@ -1865,3 +1865,18 @@ body .custome_table {
   right: 6px;
   transform: translateY(-50%);
 }
+@media(max-width:991px)
+{
+  .tdline p{  width: auto;
+    max-width: 170px;
+    white-space: break-spaces;
+    font-size: 13px;
+    display: inline-block;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: normal;
+    line-break: strict;
+    hyphens: none;
+    -webkit-hyphens: none;
+    -moz-hyphens: none;}
+}

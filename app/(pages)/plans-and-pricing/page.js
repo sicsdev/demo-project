@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 const page = () => {
   const [data, setData] = useState(integration);
-
+  
   return (
     <>
       <Newpanel />
@@ -57,8 +57,6 @@ const page = () => {
         </div>
       </div>
       </div>
-
-
     </>
   );
 };

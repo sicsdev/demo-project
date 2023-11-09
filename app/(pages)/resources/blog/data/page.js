@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Link from "next/link";
+import Image from "next/image";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { elements } from "chart.js";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
@@ -22,6 +23,8 @@ const client = createClient({
     const [heading, setHeading] = useState(null);
     const [date, setDate] = useState('');
     const [lastUpdate, setLastUpdate] = useState('');
+  const[currentImage, setCurrentimage] = useState("")
+
   const [loading, setLoading] = useState(true);
 
   const findFilters =async()=>{
@@ -34,6 +37,8 @@ const client = createClient({
         console.log("entry.items", entry)
         setBlog(entry?.fields?.blogBody);
         setHeading(entry?.fields?.heading)
+      setCurrentimage(entry?.fields?.previewImage?.fields?.file?.url)
+
         setDate(entry?.fields?.dateAndTimeTest)
         setLastUpdate(entry?.sys?.updatedAt)
         sekeletonData()
@@ -54,10 +59,10 @@ const client = createClient({
             },
             'heading-2': (node, children) => {
                 const id = node.content[0].value.replace(/\s+/g, '-').toLowerCase();
-                return <h2 id={id}>{children}</h2>;
+                return <h2 id={id} className="sm:text-[23px]">{children}</h2>;
             },
             'paragraph': (node, children) => {
-                return <p>{children}</p>;
+                return <p className="mt-[20px] mb-[20px]">{children}</p>;
             },
             'table': (node, children) => {
                 return <table className="border border-2 border-md rounded w-1/2 divide-y divide-gray-200 mt-4 mb-4">{children}</table>;
@@ -106,6 +111,18 @@ const client = createClient({
            {heading}
           </p>
           <p className="flex justify-center pb-4 m-[0] font-semibold text-[15px] text-[#80808091] mb-[20px] ">August 14,2023 . 6 min to read</p>
+          <div className="flex justify-center sm:w-[60%] m-[auto] sm:h-[21rem] p-[2rem]">
+        <Image
+        fill={""}
+        src=
+        {currentImage}
+        alt="img"
+        className="bg-contain"
+        style={{ objectFit: "cover" }}
+        height={200}
+        width={800}
+        />
+        </div>
         </div>
       </div>
       <div className="block sm:flex md:flex lg:flex justify-between items-start gap-10 lg:max-w-[1450px] m-auto">
