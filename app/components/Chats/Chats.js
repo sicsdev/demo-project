@@ -17,6 +17,7 @@ import './LogsStyle.css'
 import { useRouter } from 'next/navigation';
 import { createRecommendation } from '@/app/API/pages/LearningCenter';
 import Answerknowledge from '../KnowledgeAnswer/AnswerKnowledge';
+import ProductComponent from './ProductComponent/ProductComponent';
 
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
@@ -406,6 +407,21 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 }
 
 
+                                                                {
+                                                                    element.content === 'PRODUCTS' &&
+                                                                    <>
+                                                                        <div className="answer_with_thumbs">
+                                                                            <img className="profile-photo_ChatBot_back"
+                                                                                src={`${botUnique?.enterprise?.logo ||
+                                                                                    `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
+                                                                            <div className="answer_text_div"></div>
+                                                                            <ProductComponent />
+                                                                        </div>
+                                                                    </>
+                                                                }
+
+
+
 
                                                                 {/*************  SOURCES & INFORMATION ******************/}
                                                                 {
@@ -460,7 +476,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 }
                                                                             </div>
                                                                             <div>
-                                                                                {element.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
+                                                                                {element?.calls?.length > 0 && <ApiCallInfo calls={element.calls}></ApiCallInfo>}
                                                                             </div>
 
                                                                         </div>
@@ -469,10 +485,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                         </div>}
                                                                     </>
                                                                 }
-
-
-
-
 
 
 
