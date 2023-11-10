@@ -42,14 +42,14 @@ const List = ({ nav_links, className, setShow }) => {
           </div>
         ))}
       </div>
-      <div
+      {/* <div
             style={{borderColor:"#e3e3e3"}}
       
       className="p-1 md:border lg:border sm:border-r-0 lg:border-r-0   md:border-b-0 lg:border-l-0 lg:border-b-0  border-[#59f9f9] ">
         <h3 className="text-heading sm:mt-[12px] text-semibold flex items-center gap-4 sm:gap-0 justify-between">
           <Link href="/integrations">Integrations</Link>
         </h3>{" "}
-      </div>
+      </div> */}
     </>
   );
 };

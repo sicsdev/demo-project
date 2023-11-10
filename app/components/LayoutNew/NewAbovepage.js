@@ -1,5 +1,7 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { getCalApi } from "@calcom/embed-react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 const NewAbovepage = () => {
   const [showVideo, setShowvideo] = useState(false);
@@ -9,6 +11,17 @@ const NewAbovepage = () => {
       setLoading(false);
     }, 1000);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        styles: { branding: { brandColor: "#000000" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
   }, []);
   return (
     <div className=" relative py-8 sm:py-14">
@@ -39,32 +52,17 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={200} />
             </div>
           ) : (
-            <div
-              className="flex  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer"
-
-            >
-
+            <div className="flex  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
               <button
                 className={
                   "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
                 }
+                data-cal-link="tempoai/sales-call"
+                data-cal-config='{"layout":"month_view"}'
               >
-
-
-                <div
-                  className=""
-                  dangerouslySetInnerHTML={{
-                    __html: `
-   <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-   <span className="underline cursor-pointer text-white ">Schedule Demo
-   </span>
-   </a>
-  `,
-                  }}
-                />
-
-
-              </button>            </div>
+                Schedule Demo
+              </button>{" "}
+            </div>
           )}
 
           {/* {loading ? (

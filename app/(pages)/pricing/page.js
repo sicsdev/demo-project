@@ -254,13 +254,11 @@ const Pricing = () => {
           content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
-      <Pricingbanner handleClickScroll={handleClickScroll} />
+      {/* <Pricingbanner handleClickScroll={handleClickScroll} /> */}
 
       {/* <Panelcard  /> */}
-      <div className="sm:mt-[550px]">
 
       <Panelcardnew  />
-      </div>
       <Homeinte />
     
       <div className="p-4 sm:p-8  sm:px-40 ">

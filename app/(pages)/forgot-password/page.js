@@ -49,7 +49,7 @@ const Page = () => {
     <>
     <LoginNav />
     <Container>
-      <div className='w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center sm:mt-14'>
+      <div className='w-full sm:max-w-[40%] mx-auto text-center sm:mt-14'>
         <h1 className='text-left text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading'>Reset password</h1>
         <p className=" text-sm sm:text-[24px] font-normal text-left my-3 sm:my-5">
        

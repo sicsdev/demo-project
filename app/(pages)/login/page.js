@@ -207,7 +207,7 @@ const Login = () => {
             </button>
           </div>
         )}
-        <div className="w-full sm:w-[40%] md:w-[70%] lg:w-[40%] mx-auto text-center sm:mt-14 login-page">
+        <div className="w-full sm:max-w-[40%] mx-auto text-center sm:mt-14 login-page">
           <h1 className="text-left text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
             Welcome.
           </h1>

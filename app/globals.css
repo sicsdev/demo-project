@@ -139,9 +139,19 @@ body .hide-focus {
 
 
 h2,
-h3 {
+h3
+
+{
   /* font-family: 'Cairo', sans-serif; */
+  font-family: 'Sohne', sans-serif;
+
   font-weight: 450 !important;
+}
+div,
+p,
+h1{
+  font-family: 'Sohne', sans-serif;
+
 }
 
 .img-div-1:hover {
