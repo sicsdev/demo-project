@@ -136,16 +136,7 @@ body .hide-focus {
   border: white !important;
 }
 
-body input[type="text"]:focus,
-body input[type="number"]:focus,
-body input[type="date"]:focus,
-body input[type="email"]:focus,
-body input[type="password"]:focus,
-body select:focus,
-body textarea:focus {
-  outline: 1px solid transparent;
-  border: 1px solid rgb(19 95 194);
-}
+
 
 h2,
 h3 {
@@ -1868,4 +1859,5 @@ body .custome_table {
 body input[type="text"]:focus, body input[type="number"]:focus, body input[type="date"]:focus, body input[type="email"]:focus, body input[type="password"]:focus, body select:focus, body textarea:focus{
   border: none !important;
   outline: none !important;
+  line-height: unset !important;
 }

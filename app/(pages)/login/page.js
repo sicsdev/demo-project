@@ -215,47 +215,7 @@ const Login = () => {
             Sign in to your Tempo account.
           </p>
 
-          <div style={{backgroundColor: "#F1F8FE", color: "#113C5C", padding: "8px 12px", border: "1px solid #0000001A", display: "flex", flexDirection: "row", borderRadius: "8px", alignItems: "center"}}>
-            <span style={{marginRight: "8px"}}>
-              <svg
-                width="17"
-                height="17"
-                viewBox="0 0 17 17"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fill-rule="evenodd"
-                  clip-rule="evenodd"
-                  d="M8.5 16.5C12.9183 16.5 16.5 12.9183 16.5 8.5C16.5 4.08172 12.9183 0.5 8.5 0.5C4.08172 0.5 0.5 4.08172 0.5 8.5C0.5 12.9183 4.08172 16.5 8.5 16.5ZM9.5 5.5C9.5 6.05229 9.05229 6.5 8.5 6.5C7.94772 6.5 7.5 6.05229 7.5 5.5C7.5 4.94772 7.94772 4.5 8.5 4.5C9.05229 4.5 9.5 4.94772 9.5 5.5ZM9.16667 7.16667V11.1667H10.5V12.5H6.5V11.1667H7.83333V8.5H6.5V7.16667H9.16667Z"
-                  fill="#113C5C"
-                ></path>
-              </svg>
-            </span>
-            <p style={{color: "#113C5C", fontWeight: "500", textAlign:"left"}}>
-              Reminder: Brex requires{" "}
-              <a
-                style={{textDecoration: "underline", color: "#113C5C", fontWeight: 500, cursor: "pointer"}}
-                target="blank noreferrer noopener"
-                href="https://www.brex.com/support/how-do-i-use-two-factor-authentication-to-log-in"
-              >
-                two-factor authentication (2FA)
-              </a>{" "} 
-              for secure login. Brex will{" "}
-              <strong style={{fontWeight: 700}}>never</strong> ask you to bypass
-              2FA or require you to install a browser extension to log in. If
-              you're having{" "}
-              <a
-                style={{textDecoration: "underline", color: "#113C5C", fontWeight: 500, cursor: "pointer", fontStyle: "italic"}}
-                target="blank noreferrer noopener"
-                href="https://www.brex.com/support/i-m-having-trouble-logging-into-my-account"
-              >
-                trouble logging into your account
-              </a>
-              , please visit our Help Center. If you have questions, contact
-              Brex Support.
-            </p>
-          </div>
+  
           <form>
             <label className="block my-5" htmlFor="email">
               <span className="block text-start text-sm font-normal text-border">
