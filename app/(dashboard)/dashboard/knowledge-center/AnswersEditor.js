@@ -53,10 +53,10 @@ const AnswersEditor = ({
 }) => {
 
 
-    useEffect(() => {
-        console.log(workflowView?.question)
+    // useEffect(() => {
+    //     console.log(workflowView?.question)
 
-    }, [])
+    // }, [])
 
     const [copying, setCopying] = useState(false)
     const [tab, setTab] = useState(0);

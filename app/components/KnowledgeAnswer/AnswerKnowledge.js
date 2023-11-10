@@ -114,10 +114,9 @@ const Answerknowledge = ({ externalQuestionFromLogs,
 
         document.addEventListener("click", handleOutsideClick);
 
-        if (workflowState) {
+        if (workflowState && workflowView) {
             manageData()
         }
-
         return () => {
             document.removeEventListener("click", handleOutsideClick);
         };
@@ -447,7 +446,6 @@ const Answerknowledge = ({ externalQuestionFromLogs,
         const result = workflowState?.data?.results?.filter((x) => x.active === true);
         const response = await searchReccomodationWorkflow('search=' + workflowView?.question)
 
-        console.log('resp', response)
         setWorkFlowData((prev) => {
             return {
                 ...prev,
@@ -455,6 +453,7 @@ const Answerknowledge = ({ externalQuestionFromLogs,
                 workflow: result ?? []
             }
         })
+
 
     }
 
