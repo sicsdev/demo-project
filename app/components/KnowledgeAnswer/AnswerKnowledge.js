@@ -12,6 +12,7 @@ import { addHumanHandoffWorkflowData } from "@/app/API/pages/HumanHandoff";
 import Pusher from 'pusher-js';
 import { v4 as uuidv4 } from 'uuid';
 import AnswersEditor from "@/app/(dashboard)/dashboard/knowledge-center/AnswersEditor";
+import { fetchWorkflows } from "../store/slices/workflowSlice";
 
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
@@ -20,6 +21,8 @@ const pusher = new Pusher("1fc282a0eb5e42789c23", {
 
 const Answerknowledge = ({ externalQuestionFromLogs,
     setExternalQuestionFromLogs, selectedBot }) => {
+
+    // Local states
     const workflowState = useSelector(state => state.workflow);
     const [updateLoader, setUpdateLoader] = useState(false);
     const [updateLoader1, setUpdateLoader1] = useState(false);
@@ -58,12 +61,18 @@ const Answerknowledge = ({ externalQuestionFromLogs,
     const [pusherStreaming, setPusherStreaming] = useState(false)
     const [externalContentForTextEditor, setExternalContentForTextEditor] = useState('')
     const [defaultTitle, setDefaultTitle] = useState('Recommended')
+    const [subQuestionLoading, setSubQuestionLoading] = useState(false)
 
 
+
+    // Effects
     useEffect(() => {
+        getAllWorkflowData();
+
         let newUUID = uuidv4()
         setNewUUI(newUUID)
         let timeoutId;
+
         const channel = pusher.subscribe(`recommendation-${newUUID}`);
         channel.bind('messages', data => {
             clearTimeout(timeoutId);
@@ -74,8 +83,14 @@ const Answerknowledge = ({ externalQuestionFromLogs,
                 setPusherStreaming(false)
             }, 2000);
         })
-    }, [workflowState])
+
+
+
+
+    }, [])
+
     useEffect(() => {
+
         if (externalQuestionFromLogs) {
             setWorkflowView(externalQuestionFromLogs)
             setShow(true)
@@ -86,6 +101,34 @@ const Answerknowledge = ({ externalQuestionFromLogs,
             searchMatched({ question: externalQuestionFromLogs.question }, false)
         }
     }, [externalQuestionFromLogs])
+
+
+    const divRef = useRef(null);
+    useEffect(() => {
+
+        const handleOutsideClick = (event) => {
+            if (divRef.current && !divRef.current.contains(event.target)) {
+                setOpenWorkflow(null);
+            }
+        };
+
+        document.addEventListener("click", handleOutsideClick);
+
+        if (workflowState) {
+            manageData()
+        }
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, [workflowView, workflowState]);
+
+
+    // Handlers
+
+    const getAllWorkflowData = async () => {
+        dispatch(fetchWorkflows)
+    }
 
     const updateButtonHandler = async (id, new_answer = null) => {
         try {
@@ -125,22 +168,6 @@ const Answerknowledge = ({ externalQuestionFromLogs,
         }
     };
 
-
-
-    const divRef = useRef(null);
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (divRef.current && !divRef.current.contains(event.target)) {
-                setOpenWorkflow(null);
-            }
-        };
-
-        document.addEventListener("click", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("click", handleOutsideClick);
-        };
-    }, []);
 
 
 
@@ -240,7 +267,6 @@ const Answerknowledge = ({ externalQuestionFromLogs,
         }
     }
 
-    const [subQuestionLoading, setSubQuestionLoading] = useState(false)
     const searchMatched = async (element, showknowledge = true) => {
 
         setSubQuestionLoading(true)
@@ -415,9 +441,27 @@ const Answerknowledge = ({ externalQuestionFromLogs,
 
     }
 
+
+
+    const manageData = async () => {
+        const result = workflowState?.data?.results?.filter((x) => x.active === true);
+        const response = await searchReccomodationWorkflow('search=' + workflowView?.question)
+
+        console.log('resp', response)
+        setWorkFlowData((prev) => {
+            return {
+                ...prev,
+                reccomodation: response,
+                workflow: result ?? []
+            }
+        })
+
+    }
+
+
+
     return (
         <>
-
             {workflowView && show && (
                 <>
                     <AnswersEditor
@@ -433,6 +477,7 @@ const Answerknowledge = ({ externalQuestionFromLogs,
                         workflowView={workflowView}
                         knowledgeId={knowledgeId}
                         questionData={questionData}
+                        setQuestionData={setQuestionData}
                         setAnswer={setAnswer}
                         setSubQuestions={setSubQuestions}
                         handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}

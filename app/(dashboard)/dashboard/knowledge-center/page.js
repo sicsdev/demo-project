@@ -840,6 +840,7 @@ const Page = () => {
                                 workflowView={workflowView}
                                 knowledgeId={knowledgeId}
                                 questionData={questionData}
+                                setQuestionData={setQuestionData}
                                 setAnswer={setAnswer}
                                 setSubQuestions={setSubQuestions}
                                 handleSwapRecommendedXSearch={handleSwapRecommendedXSearch}
