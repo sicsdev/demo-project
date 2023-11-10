@@ -22,7 +22,7 @@ const FaqAccordian = ({ items, title }) => {
             >
               <AccordionItemHeading>
                 <AccordionItemButton>
-                  <h3 className="text-heading tracking-wider text-lg sm:text-xl md:text-xl lg:text-xl font-semibold">
+                  <h3 className="text-heading tracking-wider text-lg sm:text-[2rem] font-semibold">
                     {" "}
                     {element.question}
                   </h3>

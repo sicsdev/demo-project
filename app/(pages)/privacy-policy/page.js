@@ -12,10 +12,10 @@ const Page = () => {
         <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
             Tempo AI Ventures Inc.Company Privacy Notice{" "}
           </h2>
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <p className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date:{" "}
-          </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          </p>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3  ">
             {" "}
             Tempo AI Ventures, Inc.(“
             <span className="font-semibold">Tempo</span>”,“
@@ -28,7 +28,7 @@ const Page = () => {
             (collectively, the “Site”). It also describes rights you may have
             under applicable laws.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base  sm:text-[24px]  sm:leading-8 mb-3 ">
             This Notice does not apply to Personal Information (defined below)
             that we process on behalf of enterprise customersthat integrate our
             chat-bot services or other business offerings (“Services”). When you
@@ -36,21 +36,21 @@ const Page = () => {
             Information is collected, used, and processed according to their
             privacy policy.
           </p>
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px]  sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             1. Personal Information We Collect{" "}
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px]  sm:leading-8 mb-3 ">
             We may collect a range of Personal Information. “Personal
             Information” means information that uniquely identifies, relates to,
             describes, or is reasonably capable of being associated with or
             linked to you.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px]  sm:leading-8 mb-3 ">
             {" "}
             The types of Personal Information we collect may include:
           </p>
           <ul>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Contact Information</span> – If you
                 submit an inquiry, register for an account, request a free demo,
@@ -59,7 +59,7 @@ const Page = () => {
                 demographic information, and phone number.
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Commercial information</span> –This
                 includes information about purchases, information about
@@ -68,7 +68,7 @@ const Page = () => {
                 information.
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Usage Information</span> –When you
                 use our Site, our servers may automatically record information,
@@ -79,7 +79,7 @@ const Page = () => {
                 information regarding your interaction with the Site.
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Communication Information</span> –
                 We may collect the contents of your communications with us,
@@ -93,19 +93,19 @@ const Page = () => {
             </li>
           </ul>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px]  sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             2. How We Collect Your Personal Information
           </h2>
 
           <ul>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Directly From You</span> – For
                 example, if you choose to contact us or request information from
                 us.
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">From Third Parties</span> – For
                 example, we may work with business partners, subcontractors,
@@ -115,7 +115,7 @@ const Page = () => {
               </p>
             </li>
 
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">Online Tracking Technologies</span>{" "}
                 – We may use cookies and similar technologies such as pixels,
@@ -126,65 +126,65 @@ const Page = () => {
             </li>
           </ul>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px]  sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             3. How We Use Personal Information
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px]  sm:leading-8 mb-3 ">
             {" "}
             To the extent permitted by applicable law, we may use Personal
             Information to:
           </p>
           <ul>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>
                 • operate the Site and provide support to our business
                 functions;{" "}
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• fulfill customer requests or provide customer support; </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• protect against criminal activity; </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• protect or enforce our legal rights;</p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• send you information about our company;</p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>
                 • respond to reviews, comments, or other feedback provided to
                 us;
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>
                 • enhance, support, and personalize the Site and our advertising
                 or marketing efforts;
               </p>
             </li>
 
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• protect the security and integrity of the Site;</p>
             </li>
-            <li className="text-base">
-              <p>• develop new products or services;</p>
+            <li className="text-base sm:text-[24px]  sm:leading-8">
+              <p>• develop new products or services;</p> 
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• engage in benchmarking, data analysis, or audits; </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>• meet our contractual requirements; </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>
                 • comply with applicable legal or regulatory requirements and
                 our policies; and
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px]  sm:leading-8">
               <p>
                 • the extent necessary for any other lawful purpose for which
                 the Personal Information is collected;
@@ -192,23 +192,23 @@ const Page = () => {
             </li>
           </ul>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px]  sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             4. Sharing of Personal Information
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px]  sm:leading-8 mb-3 ">
             {" "}
             We may share your Personal Information in the following
             circumstances:
           </p>
           <ul>
-            <li className="text-base mb-3">
+            <li className="text-base sm:text-[24px]  sm:leading-8 mb-3">
               <p>
                 <span className="font-bold">Business Partners</span> – We may
                 share Personal Information with trusted business partners or
                 corporate affiliates.{" "}
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px]  sm:leading-8">
               <p>
                 <span className="font-bold">
                   Legal Obligation or Safety Reasons
@@ -226,7 +226,7 @@ const Page = () => {
               </p>
             </li>
 
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px] sm:leading-8">
               <p>
                 <span className="font-bold">Merger or Change of Control</span> –
                 If we are involved in a merger, acquisition, or any other
@@ -237,7 +237,7 @@ const Page = () => {
                 such a transfer.
               </p>
             </li>
-            <li className="text-base mb-3">
+            <li className="text-base mb-3 sm:text-[24px] sm:leading-8">
               <p>
                 <span className="font-bold">Service Providers</span> – We share
                 your Personal Information with third party service providers as
@@ -247,23 +247,23 @@ const Page = () => {
             </li>
           </ul>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             5. Cookies and Other Tracking Technologies
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We collect Personal Information and other data from cookies, pixel
             tags, and tracking technologies. We allow or enable third parties to
             collect Personal Information to provide their interest-based
             advertising services.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We use analytics services, including Google Analytics, to assist us
             with analyzing our website traffic. These services utilize cookies
             and other technologies that collect your Personal Information.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             To learn more about how Google uses data, visit{" "}
             <span className="text-[blue] cursor-pointer">
               {" "}
@@ -305,7 +305,7 @@ const Page = () => {
               </a>{" "}
             </span>
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             In order to manage your preferences with respect to these
             technologies, please visit our preferences page. In addition, most
             browsers provide you with the ability to block, delete, or disable
@@ -319,10 +319,10 @@ const Page = () => {
             time.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             6. How Long Do We Keep Your Personal Information
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             We will retain your Personal Information for as long as necessary to
             fulfill the purposes for which it has been collected, as outlined in
             this Privacy Notice, or any longer retention period required by
@@ -331,10 +331,10 @@ const Page = () => {
             about how long we retain your Personal Information.{" "}
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             7. How We Protect Your Personal Information.
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We use commercially reasonable efforts to protect the
             confidentiality and security of Personal Information we collect and
@@ -344,37 +344,37 @@ const Page = () => {
             parties from accessing or acquiring Personal Information we collect.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             8. Your Rights
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             Depending on where you live in the United States, you may have the
             following rights with respect to your Personal Information:
           </p>
           <ul>
-            <li className="text-base mb-2">
+            <li className="text-base sm:text-[24px] sm:leading-8 mb-2">
               <p>
                 <span className="font-bold">Access:</span> – You may have the
                 right to know what Personal Information we have collected about
                 you and to access such data.{" "}
               </p>
             </li>
-            <li className="text-base mb-2">
+            <li className="text-base sm:text-[24px] sm:leading-8 mb-2">
               <p>
                 <span className="font-bold">Data portability:</span> – You may
                 have the right to receive a copy of your information in a
                 portable and readily usable format.{" "}
               </p>
             </li>
-            <li className="text-base mb-2">
+            <li className="text-base sm:text-[24px] sm:leading-8 mb-2">
               <p>
                 <span className="font-bold">Deletion:</span> –You may have the
                 right to delete your Personal Information that we have obtained,
                 subject to certain exceptions.{" "}
               </p>
             </li>
-            <li className="text-base mb-2">
+            <li className="text-base sm:text-[24px] sm:leading-8 mb-2">
               <p>
                 <span className="font-bold">Correction:</span> –: You may have
                 the right to opt out of the processing of your information for
@@ -384,7 +384,7 @@ const Page = () => {
                 concerning you.
               </p>
             </li>
-            <li className="text-base mb-2">
+            <li className="text-base mb-2 sm:text-[24px] sm:leading-8">
               <p>
                 <span className="font-bold">
                   Opt out of certain processing:
@@ -397,16 +397,16 @@ const Page = () => {
               </p>
             </li>
           </ul>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             To exercise any of the privacy rights afforded to you, please submit
             a request to us by emailing us at [privacy@usetempo.ai].
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             9. Marketing Emails
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             To opt out of marketing emails, please email us
             at[privacy@usetempo.ai].. Please note that, even if you unsubscribe
             from certain correspondence, we may still need to contact you with
@@ -418,10 +418,10 @@ const Page = () => {
             of the Site may not function properly.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             10. International Use of the Site
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             This Site is hosted in the United States. As a result, the Personal
             Information that we collect and generate about you as you use the
             Site may be transferred, stored, or accessed in a destination
@@ -429,10 +429,10 @@ const Page = () => {
             protection laws, when compared to the laws in your country.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             11. Children’s Privacy
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             We do not knowingly collect or solicit any Personal Information from
             children under the age of sixteen. If we learn that we have
             collected Personal Information from a child, we will promptly take
@@ -440,10 +440,10 @@ const Page = () => {
             Personal Information of children under the age of sixteen.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             12. Links to Third-Party Websites
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             We are not responsible for the practices employed by any websites or
             services linked to or from the Site, including the information or
             content contained within them. We encourage you to investigate and
@@ -452,22 +452,22 @@ const Page = () => {
             the applicable third party’s privacy policy.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             13. Notice to California Residents
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             If you are a California resident, California law provides you with
             specific rights regarding your Personal Information. Any capitalized
             terms not defined in this Privacy Policy have the meanings set forth
             in the California Consumer Privacy Act of 2018 (the “CCPA”) as
             amended by the California Privacy Rights Act (the “CPRA”).
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             This Privacy Policy does not apply to workforce-related Personal
             Information collected from California-based employees, job
             applicants, contractors, or similar individuals.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             Within the last twelve (12) months, we have collected the categories
             of Personal Information listed in the table below. The table also
             lists, for each category: (1) the categories of third parties (if
@@ -684,7 +684,7 @@ const Page = () => {
               </tbody>
             </table>
           </div>
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             California residents may have the following rights:{" "}
           </h2>
           <div className="overflow-x-auto  sm:rounded-lg mt-4 sm:mt-0">
@@ -879,7 +879,7 @@ const Page = () => {
             </table>
           </div>
 
-          <p className="text-base sm:text-base mb-3 mt-12">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 mt-12">
             Only you, or an authorized agent that you authorize to act on your
             behalf, may make a request related to your Personal Information. You
             may also make a request on behalf of your minor child.We must verify
@@ -893,21 +893,21 @@ const Page = () => {
             of attorney.
           </p>
 
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             You may only make a request for access or data portability twice
             within a 12-month period. The request must:
           </p>
 
           <ul>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px] sm:leading-8">
               <p>
                 • Provide sufficient information that allows us to reasonably
                 verify you are the person about whom we collected Personal
                 Information or an authorized representative.
               </p>
             </li>
-            <li className="text-base">
+            <li className="text-base sm:text-[24px] sm:leading-8">
               <p>
                 • Describe your request with sufficient detail that allows us to
                 properly understand, evaluate, and respond to it.
@@ -915,7 +915,7 @@ const Page = () => {
             </li>
           </ul>
 
-          <p className="text-base sm:text-base mb-3 mt-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 mt-3 ">
             {" "}
             When we receive your request to exercise your rights described in
             this Privacy Policy, we will (a) acknowledge receipt of your
@@ -927,7 +927,7 @@ const Page = () => {
             sensitivity and value of the data, the risk of harm, the likelihood
             of fraud, etc.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We will only use personal data we collect during the verification
             process for the purpose of verifying your identity. If you maintain
@@ -937,7 +937,7 @@ const Page = () => {
             decline to comply with your request, and let you know why.
           </p>
 
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We endeavor to respond to requests within the time period required
             by applicable law. If we require more time, we will inform you of
@@ -947,7 +947,7 @@ const Page = () => {
             request warrants a fee, we will tell you why we made that decision
             and provide you with a cost estimate before completing your request.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We may deny certain requests, or only fulfill some in part, as
             permitted or required by law. For example, if you request to delete
@@ -957,19 +957,19 @@ const Page = () => {
             such decision, you will be notified of our appeal process in our
             response to your request.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             To exercise any of the privacy rights afforded to you, please submit
             a request to us by emailing us at privacy@usetempo.ai.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             We will not deny access to our services, provide different prices or
             rates for our services, or provide a different level or quality of
             services to you based solely on your decision to exercise your
             rights listed in this Notice.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             <span className="italic	">California Shine the Light Act:</span>{" "}
             Under California Civil Code Section 1798.83, individual customers
@@ -984,10 +984,10 @@ const Page = () => {
             This request may be made no more than once per calendar year.
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             14. Changes and Accessibility
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             Please note that we may modify or update this Privacy Notice from
             time to time, so please review it periodically. We will provide you
@@ -995,7 +995,7 @@ const Page = () => {
             made. Unless otherwise indicated, any changes to this Privacy Notice
             will apply immediately upon posting to the Site.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             This Privacy Notice is available to consumers with disabilities. To
             access this Privacy Notice in an alternative downloadable format,
             please
@@ -1006,10 +1006,10 @@ const Page = () => {
             </span>
           </p>
 
-          <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             15. Contact Us
           </h2>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             If you have any questions about our practices or this Privacy
             Notice, please contact us at [privacy@usetempo.ai].
           </p>
