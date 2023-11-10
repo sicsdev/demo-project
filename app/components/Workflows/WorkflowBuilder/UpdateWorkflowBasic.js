@@ -133,7 +133,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
 
 
     return (
-        <div className=''>
+        <div className='mb-8'>
             <div>
                 <div className=''>
                     <TextField
@@ -275,7 +275,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                     showSearchFilter={false}
                 />
             </div>
-            <div className="my-2">
+            {/* <div className="my-2">
                 <SelectField
                     labelClassName="w-full sm:w-1/2"
                     onChange={handleInputValue2}
@@ -288,7 +288,7 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                     className="py-3"
                     error=""
                 />
-            </div>
+            </div> */}
             <div className="flex mt-3 space-x-4 rounded-b justify-end">
                 <Button
                     type="button"
