@@ -163,3 +163,38 @@ export const expandDescriptionByStreaming = async (payload) => {
     }
 
 }
+
+
+export const getWorkflowUsageLogs = async (page = 1, perPage = 10, queryParams) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage?page=${page}&page_size=${perPage}${queryParams && queryParams}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+export const getWorkflowUsageByUsageId = async (usageId) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/${usageId}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+
+
+export const getWorkflowUsageByWorkflowId = async (workflow_id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/workflow/${workflow_id}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}

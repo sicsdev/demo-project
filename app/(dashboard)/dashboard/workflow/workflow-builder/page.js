@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 import TopBar from '@/app/components/Common/Card/TopBar';
+import WorkflowUsageLogs from './logs/WorkflowUsageLogs';
 
 
 const Page = () => {
@@ -170,7 +171,7 @@ const Page = () => {
                                     }
                                 </li>
 
-                                {/* <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
+                                <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
@@ -179,10 +180,10 @@ const Page = () => {
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            History
+                                            Logs
                                         </span>
                                     }
-                                </li> */}
+                                </li>
 
                                 {
                                     template?.length > 0 &&
@@ -214,7 +215,8 @@ const Page = () => {
                             <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                         )}
                         {tab === 3 && (
-                            <div>history</div>)}
+                            <WorkflowUsageLogs></WorkflowUsageLogs>
+                        )}
                     </>
                 )}
             </>
