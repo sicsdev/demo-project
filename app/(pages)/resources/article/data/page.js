@@ -24,6 +24,7 @@ const Page = () => {
   const [heading, setHeading] = useState(null);
   const [date, setDate] = useState('');
   const [loading, setLoading] = useState(true);
+  const[currentImage, setCurrentimage] = useState("")
   const [tag, setTag] = useState([]);
   const [lastUpdate, setLastUpdate] = useState('');
   const [related, setRelated] = useState([])
@@ -37,6 +38,7 @@ const Page = () => {
       console.log("object, entry", entry);
       setArticle(entry?.fields?.articleBody);
       setHeading(entry?.fields?.heading)
+      setCurrentimage(entry?.fields?.previewImage?.fields?.file?.url)
       setDate(entry?.fields?.dateAndTimeTest)
       setLastUpdate(entry?.sys?.updatedAt)
       getRelatedArticles(entry?.fields?.tag, entry?.fields?.heading)
@@ -77,7 +79,7 @@ const Page = () => {
       },
       'heading-2': (node, children) => {
         const id = node.content[0].value.replace(/\s+/g, '-').toLowerCase();
-        return <h2 id={id}>{children}</h2>;
+        return <h2 id={id} className="text-[18px] mb-[10px] mt-[20px] font-semibold">{children}</h2>;
       },
       'paragraph': (node, children) => {
         return <p>{children}</p>;
@@ -92,7 +94,7 @@ const Page = () => {
         return <th class="sm:px-6 py-1 bg-[#09162A] text-white rounded-tl-lg text-center sm:pr-16 ">{children}</th>;
       },
       'table-cell': (node, children) => {
-        return <td class="px-4 sm:px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16">{children}</td>;
+        return <td class="px-4 sm:px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white sm:pr-16 tdline">{children}</td>;
       }
     },
   };
@@ -129,8 +131,21 @@ const Page = () => {
           <p className=" flex sm:text-[40px] text-[20px] pt-2 m-[auto] font-bold justify-center text-center">
             {heading}
           </p>
-          <p className="flex justify-center pb-4 m-[0] font-semibold text-[15px] text-[#80808091] mb-[20px] ">August 14,2023 . 6 min to read</p>
+          <p className="flex justify-center  m-[0] font-semibold text-[15px] text-[#80808091] ">August 14,2023 . 6 min to read</p>
+          <div className="flex justify-center sm:h-[14rem] p-[2rem]">
+        <Image
+        fill={""}
+        src=
+        {currentImage}
+        alt="img"
+        className=" bg-contain"
+        style={{ objectFit: "cover" }}
+        height={200}
+        width={800}
+        />
+        </div>
         </div>}
+     
       </div>
       <div className="block sm:flex md:flex lg:flex justify-between items-start gap-10 lg:max-w-[1450px] m-auto">
         <div className="hidden sm:block w-[15%] sticky top-0">
@@ -153,11 +168,11 @@ const Page = () => {
                         <SkeletonLoader count={1} height={30} width={100} />
                       ) : (
                         <button
-                          className={
-                            "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
-                          }
+                        onClick={""}
+                          type="button"
+                          className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
                         >
-                          Get demo
+                          Get a Quote
                         </button>
                       )}
                     </div>
@@ -166,12 +181,21 @@ const Page = () => {
                         <SkeletonLoader count={1} height={30} width={100} />
                       ) : (
                         <button
-                          className={
-                            "inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2   leading-normal text-[#FF5721] hover:text-white hover:bg-[#FF5721]  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#ff57215e] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
-                          }
-                        >
-                          Get Started
-                        </button>
+                        type="button"
+                        className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+                      >
+                        <div
+                          className=""
+                          dangerouslySetInnerHTML={{
+                            __html: `
+               <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
+               <span className="underline cursor-pointer text-white ">Get Started
+               </span>
+               </a>
+              `,
+                          }}
+                        />
+                      </button>
                       )}
                     </div>
                   </div>
@@ -182,8 +206,9 @@ const Page = () => {
             </div>
           </div>
         </div>
-        <div className="sm:w-[60%] px-28">
-          {loading ? <SkeletonLoader className="sm:h-[500px] sm:w-[600px]" /> : <div className="contentful-wrapper">{image}</div>}
+        <div className="sm:w-[60%] sm:px-28 p-[2rem]">
+          {loading ? <SkeletonLoader className="sm:h-[500px] sm:w-[600px]" /> :  <>
+            <div className="contentful-wrapper">{image}</div></>}
         </div>
         <div className="hidden sm:block w-[25%] sticky top-0">
           {loading ? <SkeletonLoader className="sm:h-[200px] sm:w-[80px]" /> : <div
@@ -207,14 +232,14 @@ const Page = () => {
 
         </div>
       </div>
-      <div className="mt-[60px]">
+      <div className="sm:mt-[60px]">
         {loading ? <SkeletonLoader className="sm:h-[50px] sm:w-[20px]" /> : <h1
           className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h3 sm:text-h4 sm:leading-none flex justify-center"
         >
           Related Articles
         </h1>}
 
-        <div className=" mb-[25px] grid grid-cols-3 gap-[3rem] p-[5rem]">
+        <div className=" mb-[25px] sm:grid grid-cols-3 gap-[3rem] sm:p-[5rem] p-[2rem]">
 
           {tag?.slice(0, 3)?.map((ele, key) => (
             <>
