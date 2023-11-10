@@ -195,6 +195,15 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     ]
 
+
+    // Gradient style for usage # style.
+    const gradientStyle = {
+        background: 'linear-gradient(to top, green 25%, red 75%)',
+        WebkitBackgroundClip: 'text',
+        color: 'transparent'
+    };
+
+
     useEffect(() => {
         manageData()
     }, [workflowData])
@@ -220,15 +229,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         setData(result);
         setOriginalData(result)
     }
-
-    const customStyles = {
-        rows: {
-            style: {
-                padding: "10px 0",
-                cursor: 'pointer',
-            },
-        }
-    };
 
     const handleChange = (e) => {
         setSearch(e.target.value)
