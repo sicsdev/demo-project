@@ -20,7 +20,7 @@ const Pricingbanner = ({ handleClickScroll }) => {
   };
   return (
     <div
-      className="sm:top-[58px] sm:absolute sm:h-[70vh] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
+      className="sm:top-[58px] sm:absolute sm:h-[550px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
       <div className="w-auto sm:p-14 relative p-4 sm:w-[1450px] mx-auto App w-full">
