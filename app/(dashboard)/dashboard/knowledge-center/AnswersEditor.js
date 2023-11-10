@@ -125,6 +125,8 @@ const AnswersEditor = ({
                     </div>
                 </>
             )}
+
+
             {!knowledgeId && questionData.length > 0 && tab === 0 && (
                 <div className={` bg-[#F8F8F8] my-4 rounded-md`}>
                     <ul className="py-2 text-sm text-gray-700 ">
@@ -442,7 +444,12 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                             )}
 
                         </div>
+                        <div>
+                            <h1 className="text-xs font-semibold mx-1 mb-2 mt-5">Or, Select an Existing Workflow:</h1>
+                        </div>
+
                         <div className={` bg-[#F8F8F8] my-4`}>
+
                             <ul className="py-2 text-sm text-gray-700 ">
                                 {
                                     filterWorkflowArray(workFlowData.workflow).map((ele, key) =>
