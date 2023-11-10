@@ -113,28 +113,8 @@ const Page = () => {
         let newUUID = uuidv4()
         setNewUUI(newUUID)
 
-        // let originalObject = {
-        //     "id": "8bc8d832-f1bd-4258-865a-f06c5462bfd4",
-        //     "bot": {
-        //         "id": "0975dbcc-d2a5-4aaf-8e46-c020ae625652",
-        //         "category": "standard",
-        //         "description": "",
-        //         "chat_title": "NextMed"
-        //     },
-        //     "question": "How does the program work?",
-        //     "answer": "",
-        //     "number_of_messages": 2,
-        //     "accepted": false,
-        //     "created": "2023-10-16T13:14:24.158378-04:00"
-        // }
-
-        // sessionStorage.setItem('externalQuestionFromLogs', JSON.stringify(originalObject));
-
         const externalQuestionFromLogs = sessionStorage.getItem('externalQuestionFromLogs');
         const parsedItem = JSON.parse(externalQuestionFromLogs)
-
-
-        // if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
 
         let timeoutId;
         const channel = pusher.subscribe(`recommendation-${newUUID}`);
@@ -249,8 +229,8 @@ const Page = () => {
             style: {
                 minHeight: 'auto', // override the row height
                 // maxHeight: '100%', // override the row height
-                paddingTop: "10px",
-                paddingBottom: "10px",
+                // paddingTop: "10px",
+                // paddingBottom: "10px",
                 height: "auto"
             },
         }
@@ -265,7 +245,7 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -286,30 +266,29 @@ const Page = () => {
             reorder: true,
             width: "100px",
             center: true,
-            hide: "sm"
+            hide: "sm",
         },
         {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" >
+                <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                    setWorkflowView(row)
+                    searchMatched({ question: row.question }, false)
+                    getWorkFlowReccomodation(row.question)
+                    setShow(true)
+                    setAnswer('')
+                    setQuestionData([])
+                    setSearchKnowledge('')
+                    setKnowledgeId(null)
+                }}>
                     {
                         row?.accepted === false && (
                             <>
 
 
                                 <div>
-                                    <button type="button" onClick={(e) => {
-                                        setWorkflowView(row)
-                                        searchMatched({ question: row.question }, false)
-
-                                        getWorkFlowReccomodation(row.question)
-                                        setShow(true)
-                                        setAnswer('')
-                                        setQuestionData([])
-                                        setSearchKnowledge('')
-                                        setKnowledgeId(null)
-                                    }}>
+                                    <button type="button">
                                         <PlusCircleIcon className="h-6 w-6 text-success " />
                                     </button>
                                 </div>
