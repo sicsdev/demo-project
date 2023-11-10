@@ -9,7 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const getAllWorkflow = async () => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflows?ordering=workflow_usage_count`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?ordering=-workflow_usage_count`, config);
         return response.data;
     } catch (error) {
         return error
@@ -20,7 +20,7 @@ export const getAllWorkflow = async () => {
 export const getWorkflowByStatus = async (status) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}&ordering=workflow_usage_count`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}&ordering=-workflow_usage_count`, config);
         return response.data;
     } catch (error) {
         return error
