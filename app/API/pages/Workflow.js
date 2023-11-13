@@ -9,7 +9,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const getAllWorkflow = async () => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflows/`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?ordering=-workflow_usage_count`, config);
         return response.data;
     } catch (error) {
         return error
@@ -20,7 +20,7 @@ export const getAllWorkflow = async () => {
 export const getWorkflowByStatus = async (status) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}&ordering=-workflow_usage_count`, config);
         return response.data;
     } catch (error) {
         return error
@@ -162,4 +162,39 @@ export const expandDescriptionByStreaming = async (payload) => {
         return error
     }
 
+}
+
+
+export const getWorkflowUsageLogs = async (page = 1, perPage = 10, queryParams) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage?page=${page}&page_size=${perPage}${queryParams && queryParams}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+export const getWorkflowUsageByUsageId = async (usageId) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/${usageId}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
+
+
+
+export const getWorkflowUsageByWorkflowId = async (workflow_id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/workflow/${workflow_id}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
 }

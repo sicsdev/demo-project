@@ -195,9 +195,36 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     ]
 
+
+
     useEffect(() => {
         manageData()
     }, [workflowData])
+
+    // Gradient style for usage # style.
+    const getGradientStyle = (number) => {
+        let currentValue = number;
+        let maxValue = data[0].workflow_usage_last_24_hours * 1;
+
+        if (currentValue != null && maxValue > 0) {
+            let percentage = (currentValue / maxValue) * 100;
+            percentage = Math.min(percentage, 100);
+
+            const gradientStyle = {
+                background: `linear-gradient(to top, red ${percentage}%, green ${percentage}%)`,
+                WebkitBackgroundClip: 'text',
+                color: 'transparent',
+            };
+
+            return gradientStyle;
+        } else {
+            return {
+                background: 'linear-gradient(to top, green, red)',
+                WebkitBackgroundClip: 'text',
+                color: 'transparent'
+            };
+        }
+    }
 
 
     const editWorkFlowHandler = (ele) => {
@@ -215,20 +242,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                 array_of_urls.push({ id: el.id, url: url.url })
             })
         })
-
         setUrls(array_of_urls)
         setData(result);
         setOriginalData(result)
     }
-
-    const customStyles = {
-        rows: {
-            style: {
-                padding: "10px 0",
-                cursor: 'pointer',
-            },
-        }
-    };
 
     const handleChange = (e) => {
         setSearch(e.target.value)
@@ -347,7 +364,13 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                             <div className='relative'>
                                                 <div className='absolute top-0 right-0'>
 
-                                                    <span onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }} className='text-[#808080]' data-tooltip-id="last24hs" data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}>
+                                                    <span
+                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }} 
+                                                        className='text-[#808080] font-semibold'
+                                                        data-tooltip-id="last24hs"
+                                                        data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}
+                                                        style={getGradientStyle(item.workflow_usage_last_24_hours)}>
+
                                                         {item.workflow_usage_last_24_hours}
                                                     </span>
 
