@@ -36,6 +36,7 @@ import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 import HomeComponent from "../components/Home/HomeComponent";
 import HomeContent from "../components/Home/HomeContent";
 
+
 export default function Home() {
   const reachData = [
     {

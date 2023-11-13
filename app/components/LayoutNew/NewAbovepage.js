@@ -26,6 +26,8 @@ const NewAbovepage = () => {
   return (
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
+
+        
         <div>
           {loading ? (
             <div className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black]">
@@ -76,6 +78,7 @@ const NewAbovepage = () => {
                 document.body.classList.add("modal-open");
 
                 setShowvideo(true);
+
               }}
             >
               <p>

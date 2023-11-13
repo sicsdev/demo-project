@@ -50,10 +50,12 @@ import Loading from "../../Loading/Loading";
 import { makeCapital } from "../../helper/capitalName";
 import SkeletonLoader from "../../Skeleton/Skeleton";
 import { fetchBot } from "../../store/slices/botIdSlice";
+import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
 
 const NewSidebar = ({ children }) => {
     const state = useSelector((state) => state.user.data);
     const recommedState = useSelector((state) => state.recommendation);
+    const [learningItemsCount, setLearningItemsCount] = useState('')
     const workflowState = useSelector((state) => state.workflow);
     const stateBots = useSelector((state) => state.botId);
     const [collaps, setCollaps] = useState(false)
@@ -67,6 +69,7 @@ const NewSidebar = ({ children }) => {
 
     const [skeltonLoading, setSkeltonLoading] = useState(true);
     useEffect(() => {
+        getLearningCenterCount()
         setTimeout(() => {
             setSkeltonLoading(false);
         }, 2500);
@@ -92,6 +95,13 @@ const NewSidebar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [show, setShow] = useState(false);
 
+    const getLearningCenterCount = async () => {
+        let result = await GetAllRecommendations()
+        if (result?.count) {
+            setLearningItemsCount(result.count)
+        }
+    }
+
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
@@ -106,7 +116,7 @@ const NewSidebar = ({ children }) => {
         const cookies = Cookies.get();
         if (cookies.hasOwnProperty("visit")) {
             delete cookies.visit;
-          }
+        }
         Object.keys(cookies).forEach((cookieName) => {
             Cookies.remove(cookieName);
         });
@@ -189,7 +199,7 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/knowledge-center",
                     name: "Learning Center",
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                    notification: recommedState?.data?.count,
+                    notification: learningItemsCount,
                     isLink: false,
                 },
             ],
@@ -354,7 +364,7 @@ const NewSidebar = ({ children }) => {
                     href: "/dashboard/knowledge-center",
                     name: "Learning Center",
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                    notification: recommedState?.data?.count,
+                    notification: learningItemsCount,
                     isLink: false,
                 },
             ],
@@ -668,7 +678,7 @@ const NewSidebar = ({ children }) => {
         if (name === "Workflows") return "Workflows";
         if (name === "Organization Settings") return "Organization";
         if (name === "") return "Home";
-       
+
         return name;
     };
 
@@ -762,7 +772,7 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id=== "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             element?.name !== "Channels" && (
@@ -884,7 +894,7 @@ const NewSidebar = ({ children }) => {
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai'|| state?.enterprise?.id=== "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
                                                     sendSideBarDetails(element, key)
@@ -1028,7 +1038,7 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai'|| state?.enterprise?.id=== "2a712219-7060-49e0-83a5-41cdde333b0d")  ?
+                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                         <>
                                             {SideBarRoutes.map((element, key) =>
                                                 sendSideBarDetails(element, key)
@@ -1079,7 +1089,7 @@ const NewSidebar = ({ children }) => {
 
                                                         <hr className="text-border border-gray" />
 
-                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' ||state?.email?.toLowerCase() === 'knowledge@usetempo.ai'|| state?.enterprise?.id=== "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
                                                                     element?.name !== "Channels" && (

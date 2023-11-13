@@ -34,7 +34,7 @@ const page = () => {
   const dispatch = useDispatch();
   const searchParams = useSearchParams();
   const search = searchParams.get("id");
-  const router = useRouter()
+  const router = useRouter();
   useEffect(() => {
     if (state.botData.data === null) {
       dispatch(fetchBot());
@@ -98,7 +98,7 @@ const page = () => {
   const selectBotHandler = (id) => {
     setSelectedBot(id);
     // setSubLoading(true);
-    router.push(`/dashboard/chat-settings?id=${id}`)
+    router.push(`/dashboard/chat-settings?id=${id}`);
     setPageLoading(true);
     getBotInfo(id);
   };
@@ -316,7 +316,7 @@ const page = () => {
           </>
         </div>
       )}
-    
+
       <ToastContainer />
     </div>
   );
