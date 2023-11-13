@@ -69,7 +69,7 @@ const Communication = () => {
             <SkeletonLoader height={30} width={"50%"} />
           </div>
         ) : (
-          <p className="text-blue-400 w-full md-w-[339px] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+          <p className="text-blue-400 w-full md-w-[339px] sm:mb-[3rem] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
             Unify and automate customer engagement across your organization with
             our intelligent, AI-driven solutions.
           </p>

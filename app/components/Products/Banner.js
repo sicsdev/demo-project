@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import Link from "next/link";
+import { getCalApi } from "@calcom/embed-react";
 const banner = ({ handleClickScroll }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -18,9 +19,19 @@ const banner = ({ handleClickScroll }) => {
     right: 0,
     zIndex: 9,
   };
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        styles: { branding: { brandColor: "#000000" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
   return (
     <div
-      className="sm:top-[58px] sm:absolute sm:h-[70vh] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
+      className="sm:top-[58px] sm:absolute sm:h-[550px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
       style={customStyles}
     >
       <div className="w-auto sm:p-14 relative p-4 sm:w-[1450px] mx-auto App w-full">
@@ -44,33 +55,37 @@ const banner = ({ handleClickScroll }) => {
             connect to your backend APIs in real-time.{" "}
           </div>
         )}
-        <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
-          {loading ? (
-            <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-              <SkeletonLoader height={60} width={300} />
-            </div>
-          ) : (
-            <button
-              onClick={handleClickScroll}
+     <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
+    {loading ? (
+      <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+        <SkeletonLoader height={60} width={300} />
+      </div>
+    ) : (
+      <button
+      data-cal-link="tempoai/sales-call"
+      data-cal-config='{"layout":"month_view"}'
               type="button"
-              className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#2563eb] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
-            >
-              Get a Quote{" "}
-            </button>
-          )}
-          {loading ? (
-            <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-              <SkeletonLoader height={60} width={300} />
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
-            >
-              <Link href={"/checkout"}>Start Now</Link>
-            </button>
-          )}
-        </div>
+        className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#2563eb] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+      >
+      Schedule Demo  
+          </button>
+    )}
+    {loading ? (
+      <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
+        <SkeletonLoader height={60} width={300} />
+      </div>
+    ) : (
+  
+<button
+
+        type="button"
+        className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+      >
+      <Link href={"/checkout"}>
+       Get Started
+        </Link>           </button>
+    )}
+  </div>
       </div>
     </div>
   );

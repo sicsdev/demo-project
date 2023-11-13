@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { Homeform } from "@/app/components/LayoutNew/Homeform";
 import React from "react";
 import { useRef } from "react";
@@ -9,11 +9,11 @@ const page = () => {
     <div className="privacypolicy_page">
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             DATA PROCESSING ADDENDUM{" "}
-          </h1>
+          </h2>
 
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             This Data Processing Addendum (“DPA”) is incorporated by reference
             into and made a part of the Terms of Service entered into between
@@ -30,7 +30,7 @@ const page = () => {
             have the meanings given to them in the Agreement. Tempo and Customer
             are each a “Party” and together the “Parties”.
           </p>
-          <p className="text-base sm:text-base mb-3 ">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             In the course of providing the Services to Customer pursuant to the
             Agreement, Tempo may Process certain Personal Data provided or made
@@ -44,45 +44,45 @@ const page = () => {
           <h2 className="text-lg sm:text-lg md:text-lg lg:text-lg sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             1. DEFINITIONS{" "}
           </h2>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">1.1 “CCPA”</span> means
             the California Consumer Privacy Act of 2018, Cal. Civ. Code §§
             1798.100 et seq., and its implementing regulations as amended by the
             California Privacy Rights Act.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">1.2 “Controller”</span>
             means the natural or legal person, public authority, agency, or
             entity that determines the purposes and means of the Processing of
             Customer Data.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.3 “Customer Data”
             </span>
             is defined in the Agreement as “Customer Data”.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.4 “Data Protection Laws and Regulations”
             </span>
             means all applicable data privacy and security laws and regulations,
             including (a) the CCPA, and (b) anyother applicable national rule
             and legislation on the protection of Personal Data in the United
-            States thatisalready in force or that will come into force during the
-            term of this DPA.
+            States thatisalready in force or that will come into force during
+            the term of this DPA.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.5 “Data Subject”
             </span>
             the identified or identifiable person to whom Personal Data relates.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">1.6 “EEA”</span> means
             the European Economic Area.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.7 “Personal Data”{" "}
             </span>{" "}
@@ -92,7 +92,7 @@ const page = () => {
             household contained in Customer Data that is uploaded or submitted
             to the Services by Customer.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.8 “Process” or “Processing”
             </span>{" "}
@@ -106,12 +106,12 @@ const page = () => {
             meant to include any different but similar term used in the Data
             Protection Laws and Regulations.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">1.9 “Processor”</span>{" "}
             means a natural or legal person, public authority, agency, or entity
             that Processes Customer Data on behalf of the Controller.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.10 “Security Documentation”
             </span>{" "}
@@ -120,7 +120,7 @@ const page = () => {
               https://usetempo.ai/article/security-overview
             </span>
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.11 "Sensitive Data{" "}
             </span>{" "}
@@ -136,21 +136,21 @@ const page = () => {
             categories of data" or “sensitive data” under Data Protection Laws
             and Regulations.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               1.12 “Sub-processor”
             </span>{" "}
             means any Processor engaged by Tempo.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             2. PROCESSING OF PERSONAL DATA{" "}
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">2.1 Roles. </span>{" "}
             Customer is the Controller and Tempo is the Processor with regard to
             the Processing of Personal Data under the Agreement.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               2.2 Customer’s Processing of Personal Data
             </span>{" "}
@@ -168,7 +168,7 @@ const page = () => {
             otherwise Process Personal Data that would impact Tempo’s ability to
             comply with the Agreement, or Data Protection Laws and Regulations.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               2.3 Tempo’s Processing of Personal Data{" "}
             </span>{" "}
@@ -199,7 +199,7 @@ const page = () => {
             Personal Data Processed, and categories of Data Subjects for which
             data is Processed under this DPA.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">2.4 Personnel</span>{" "}
             Tempo shall ensure that its personnel engaged in the Processing of
             Personal Data are informed of the confidential nature of the
@@ -209,7 +209,7 @@ const page = () => {
             is limited to those personnel performing Services in accordance with
             the Agreement.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               2.5 Sensitive Data.{" "}
             </span>{" "}
@@ -219,17 +219,17 @@ const page = () => {
             in connection with a Personal Data Incident or otherwise. For the
             avoidance of doubt, this DPA will not apply to Sensitive Data.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               2.6 Third Party Materials
             </span>{" "}
             This DPA will not apply to the Customer Data collected through Third
             Party Materials.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-          3. RIGHTS OF DATA SUBJECTS{" "}
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
+            3. RIGHTS OF DATA SUBJECTS{" "}
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             Tempo shall, to the extent legally permitted, promptly notify
             Customer if Tempo receives a request from a Data Subject to exercise
             the Data Subject’s rights under Data Protection Laws and Regulations
@@ -248,10 +248,10 @@ const page = () => {
             responsible for any costs arising from Tempo’s provision of such
             assistance.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             4. SUB-PROCESSORS{" "}
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               4.1 Appointment of Sub-processors{" "}
             </span>{" "}
@@ -263,7 +263,7 @@ const page = () => {
             the extent applicable to the nature of the Services provided by such
             Sub-processor.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               4.2 List of Current Sub-processors.
             </span>{" "}
@@ -283,7 +283,7 @@ const page = () => {
             responsible for periodically checking the Sub-processor List to
             remain informed of Tempo’s current list of Sub-processors.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">
               4.3 Objection Right for New Sub-processors.{" "}
             </span>{" "}
@@ -304,7 +304,7 @@ const page = () => {
             either Party may terminate the by providing written notice to the
             other Party.
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             <span className="font-semibold text-heading">4.4 Liability</span> .
             Customer may object to Tempo’s use of a new Sub-processor by
             notifying Tempo promptly in writing within ten (10) business days
@@ -323,10 +323,10 @@ const page = () => {
             either Party may terminate the by providing written notice to the
             other Party.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             5. SECURITY
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             Tempo shall maintain, during the term of the Agreement,appropriate
             technical and organizational security measures to protect the
             Personal Data against accidental or unlawful destruction or
@@ -339,10 +339,10 @@ const page = () => {
               </a>
             </span>
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             6. CUSTOMER DATA INCIDENT MANAGEMENT AND NOTIFICATION.
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             Tempo maintains security incident management policies and procedures
             specified in the Security Documentation and shall notify Customer
             without undue delay, after becoming aware of the accidental or
@@ -356,10 +356,10 @@ const page = () => {
             control. The obligations herein shall not apply to a Personal Data
             Incident that is caused by Customer or Customer’s Users.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             7. RELEVANT RECORDS AND AUDIT RIGHTS
-          </h1>
-          <p className="text-base sm:text-base mb-3">
+          </h2>
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             Customer may audit Tempo’s compliance with its obligations under
             this DPA up to once per year and on such other occasions as may be
             required by Data Protection Laws and Regulations.Tempo will
@@ -379,7 +379,7 @@ const page = () => {
             for information that could compromise Tempo security, privacy,
             employment or other relevant policies).{" "}
           </p>
-          <p className="text-base sm:text-base mb-3">
+          <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
             Tempo will work cooperatively with Customer to agree on a final
             audit plan. Nothing in this Section 8 shall require Tempo to breach
             any duties of confidentiality.If the controls or measures to be
@@ -401,46 +401,16 @@ const page = () => {
             any fees charged by any auditor appointed by Customer to execute any
             such audit.
           </p>
-          <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             Exhibit A
-          </h1>
-          <h1 className=" text-left text-h3 sm:text-[20px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
+          </h2>
+          <h2 className="block !font-[700] text-2xl md:text-[38px]   text-left my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
             A. DETAILS OF PROCESSING{" "}
-          </h1>
+          </h2>
         </div>
-        <div className="overflow-x-auto shadow-md sm:rounded-lg mt-4 sm:mt-0">
-          <table className="ml-auto mr-auto w-[80%] mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto shadow-lg">
-            {/* <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
-                <tr>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white rounded-tl-lg text-center"
-                  >
-                    Categories of CA Personal Information We Collect
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
-                  >
-                    Categories of Third Parties to Which We Disclose Personal
-                    Information for a Business or Commercial Purpose
-                  </th>
-
-                  <th
-                    scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white  text-center"
-                  >
-                    Categories of Third Parties to Which We May Sell or Share
-                    Personal Information
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 bg-[#09162A] text-white text-center"
-                  >
-                    Retention Period
-                  </th>
-                </tr>
-              </thead> */}
+        <div className="overflow-x-auto  sm:rounded-lg mt-4 sm:mt-0">
+          <table className="ml-auto mr-auto w-[80%] mt-5 sm:mt-0 text-sm text-left text-gray-500 dark:text-gray-400  mx-6 sm:mx-auto m-auto ">
+         
             <tbody>
               <tr
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
@@ -448,12 +418,12 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium text-left text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium sm:text-[18px] sm:leading-8  text-left text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Description of Services
                 </th>
 
-                <td className="px-6 py-4 text-justify">
+                <td className="px-6 py-4 text-justify sm:text-[18px] sm:leading-8 ">
                   Tempo provides automated communication technology services
                   utilizing artificial intelligence and machine learning in the
                   form of ChatBots and related tools and services to assist
@@ -466,22 +436,22 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6  text-left py-4 font-medium sm:text-[18px] sm:leading-8  text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Categories of Data Subjects whose Personal Data is transferred{" "}
                 </th>
 
-                <td className="px-6 py-4 text-justify">
+                <td className="px-6 py-4 text-justify sm:text-[18px] sm:leading-8 ">
                   Customer may submit Personal Data to the Services, the extent
                   of which is determined and controlled by Customer in its sole
                   discretion,and which may include, but is not limited to
                   Personal Data relating to the following categories of Data
                   Subjects:
                   <ul className="text-left mt-3 ">
-                    <li>•	Prospective Customers</li>
-                    <li>•	Existing Customers </li>
-                    <li>•	Employees</li>
-                    <li>•	Contractors </li>
+                    <li>• Prospective Customers</li>
+                    <li>• Existing Customers </li>
+                    <li>• Employees</li>
+                    <li>• Contractors </li>
                   </ul>
                 </td>
               </tr>
@@ -491,48 +461,56 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 sm:text-[18px] sm:leading-8  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   Categories of Personal Data transferred{" "}
                 </th>
 
-                <td className="px-6 py-4 text-justify">
+                <td className="px-6 py-4 text-justify sm:text-[18px] sm:leading-8 ">
                   Customer may submit Personal Data to the Services, the extent
                   of which is determined and controlled by Customer in its sole
                   discretion, and which may include, but is not limited to the
                   following categories of Personal Data:{" "}
-                  <ul className="text-left mt-3 ">
-                    <li>• Communication from prospective or actual Customers</li>
-                    <li>•	Customer account information </li>
-                    <li>•	Customer contact  information </li>
+                  <ul className="text-left mt-3 sm:text-[18px] sm:leading-8  ">
+                    <li>
+                      • Communication from prospective or actual Customers
+                    </li>
+                    <li>• Customer account information </li>
+                    <li>• Customer contact information </li>
                   </ul>
                 </td>
               </tr>
               <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
+                className="bg-white border-b  dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-center"
                 style={{ borderBottom: "1px solid rgb(220 222 225 / 55%)" }}
               >
                 <th
                   scope="row"
-                  className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 text-left py-4 sm:text-[18px] sm:leading-8  font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
-                  Sensitive data transferred (if applicable) and applied<br/>
-                  restrictions or safeguards that fully take into consideration<br/>
-                  the nature of the data and the risks involved, such as for<br/>
-                  instance strict purpose limitation, access restrictions<br/>
-                  (including access only for staff having followed specialized<br/>
-                  training), keeping a record of access to the data,<br/>
+                  Sensitive data transferred (if applicable) and applied
+                  <br />
+                  restrictions or safeguards that fully take into consideration
+                  <br />
+                  the nature of the data and the risks involved, such as for
+                  <br />
+                  instance strict purpose limitation, access restrictions
+                  <br />
+                  (including access only for staff having followed specialized
+                  <br />
+                  training), keeping a record of access to the data,
+                  <br />
                   restrictions for onward transfers or additional security
                   measures.{" "}
                 </th>
 
-                <td className="px-6 py-4">N/A</td>
+                <td className="px-6 py-4 sm:text-[18px] sm:leading-8 ">N/A</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
-      
+
       <Homeform reff={ref} />
     </div>
   );
