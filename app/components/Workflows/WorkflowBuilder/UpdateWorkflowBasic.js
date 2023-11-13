@@ -27,7 +27,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
     const textareaRef = useRef(null);
 
     // Local states
-    const [description, setDescription] = useState(workflowFormData?.description.join('\n') ?? '')
+    const [description, setDescription] = useState(workflowFormData?.description?.join('\n') ?? '')
     const [newUUI, setNewUUI] = useState('')
     const [pusherStreaming, setPusherStreaming] = useState(false)
 
@@ -160,7 +160,7 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                         </div>
 
                         <small style={{ fontSize: '10px' }}>
-                            <span>*Separe them with a line break.</span>
+                            <span>*Separate them with a line break.</span>
                         </small>
 
                     </label>

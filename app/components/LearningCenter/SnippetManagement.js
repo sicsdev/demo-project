@@ -280,70 +280,50 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
                                         </>
                                     )}
+
                                 </div>
 
-                                {/* {basicFormData.image ?
-                                    <div className='flex justify-center'>
-                                        <div>
-                                            <img src={basicFormData.image} width='200px'></img>
-                                            <small className='flex justify-end'>
-                                                <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null })}>Remove</button>
-                                            </small>
-                                        </div>
-                                    </div>
-                                    :
-                                    <FileField
-                                        onChange={handleFileChange}
-                                        value={basicFormData.product_file}
-                                        className="py-3 mt-0 w-full"
-                                        placeholder='Image'
-                                        id='product_file'
-                                        name='product_file'
-                                        title={"Image"}
-                                        type={"file"}
-                                        error={''}
-                                    />
-                                } */}
-                                
-                                <div className='lg:mx-5 mt-2 m-auto'>
-                                    <div className='flex items-center'>
-                                        <label className={`new_input_label block text-sm text-heading font-medium`}>
-                                            Image
-                                        </label>
-                                        <InformationCircleIcon
-                                            data-tooltip-id="image_information"
-                                            data-tooltip-content="Upload a image of your product."
-                                            className='w-4 h-4 mx-2'>
-                                        </InformationCircleIcon>
-                                        <Tooltip id='image_information' place="top" type="dark" effect="solid" />
-                                    </div>
+                                {creationMode === 'product' && (
 
-                                    {basicFormData.image || basicFormData.product_file ?
-
-                                        <div className='flex justify-center my-4 m-auto'>
-                                            <div>
-                                                <img className='rounded-md' src={basicFormData.image || basicFormData.product_file} width='200px'></img>
-                                                <small className='flex justify-end'>
-                                                    <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null, product_file: null })}>Remove</button>
-                                                </small>
-                                            </div>
+                                    <div className='lg:mx-5 mt-2 m-auto'>
+                                        <div className='flex items-center'>
+                                            <label className={`new_input_label block text-sm text-heading font-medium`}>
+                                                Image
+                                            </label>
+                                            <InformationCircleIcon
+                                                data-tooltip-id="image_information"
+                                                data-tooltip-content="Upload a image of your product."
+                                                className='w-4 h-4 mx-2'>
+                                            </InformationCircleIcon>
+                                            <Tooltip id='image_information' place="top" type="dark" effect="solid" />
                                         </div>
-                                        :
-                                        <div className='flex items-center m-auto my-4'>
-                                            <div className='border rounded-md flex items-center cursor-pointer'
-                                                style={{ padding: '35px', paddingTop: '50px', paddingBottom: '50px', borderStyle: 'dashed' }}
-                                                onClick={() => document.getElementById('file-image-input-tempo-id').click()}>
-                                                <input id="file-image-input-tempo-id" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
-                                                <div className='pt-0 mt-0 text-grey flex items-center justify-center gap-2 text-xs opacity-70'>
-                                                    <ArrowDownCircleIcon className='w-4 h-4'></ArrowDownCircleIcon>
-                                                    Upload
+
+                                        {basicFormData.image || basicFormData.product_file ?
+
+                                            <div className='flex justify-center my-4 m-auto'>
+                                                <div>
+                                                    <img className='rounded-md' src={basicFormData.image || basicFormData.product_file} width='200px'></img>
+                                                    <small className='flex justify-end'>
+                                                        <button className='rounded-md opacity-70' onClick={() => setBasicFormData({ ...basicFormData, image: null, product_file: null })}>Remove</button>
+                                                    </small>
                                                 </div>
                                             </div>
-                                        </div>
-                                    }
+                                            :
+                                            <div className='flex items-center m-auto my-4'>
+                                                <div className='border rounded-md flex items-center cursor-pointer'
+                                                    style={{ padding: '35px', paddingTop: '50px', paddingBottom: '50px', borderStyle: 'dashed' }}
+                                                    onClick={() => document.getElementById('file-image-input-tempo-id').click()}>
+                                                    <input id="file-image-input-tempo-id" type="file" accept="image/*" style={{ display: 'none' }} onChange={handleFileChange} />
+                                                    <div className='pt-0 mt-0 text-grey flex items-center justify-center gap-2 text-xs opacity-70'>
+                                                        <ArrowDownCircleIcon className='w-4 h-4'></ArrowDownCircleIcon>
+                                                        Upload
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
 
-
-                                </div>
+                                    </div>)
+                                }
 
 
 

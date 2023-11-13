@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -38,6 +38,9 @@ import {
 import ChatBots from './ChatBots';
 import { ManageExpand } from '@/app/API/pages/EnterpriseService';
 import { fetchMembers } from '../store/slices/memberSlice';
+import Modal from '../Common/Modal/Modal';
+import MetaDataInfo from './MetaDataInfo';
+
 const QuickStart = () => {
     const dispatch = useDispatch();
     const [recentlyView, setRecntlyView] = useState(null)
@@ -46,6 +49,7 @@ const QuickStart = () => {
     const workflow = useSelector(state => state.workflow)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
+    const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
     const quickStartData1 = [
@@ -583,6 +587,25 @@ const QuickStart = () => {
             )}
 
             <ChatBots />
+
+
+            
+            <Modal title={`How to pass user's data to your widget`}
+                show={metaDataInfoModal}
+                setShow={setMetaDataInfoModal}
+                showCancel={true}
+                className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%] pt-5 "} >
+                <MetaDataInfo></MetaDataInfo>
+            </Modal >
+            <div className='w-100 flex justify-center mt-5'>
+                <button onClick={() => setMetaDataInfoModal(true)} className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs flex gap-1 items-center'}>
+                    <InformationCircleIcon className='text-white w-5 h-5'></InformationCircleIcon>
+
+                    Learn how to pass user's data to your widget
+                </button>
+            </div>
+
+
         </>
 
 
