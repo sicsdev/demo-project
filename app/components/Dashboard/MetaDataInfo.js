@@ -2,7 +2,7 @@ import React from 'react'
 
 const MetaDataInfo = () => {
     return (
-        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] my-6 mb-5'>
+        <div className='bg-[#F8F8F8] w-full m-auto border rounded-lg border-[#F0F0F1] my-6 mb-5'>
 
             <div className='px-4'>
 
@@ -24,7 +24,7 @@ const MetaDataInfo = () => {
                         First, you need to obtain user information from your database. You can do this through an API call or any other method you prefer.
                     </p>
 
-                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}>
+                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ fontFamily: 'monospace' }}>
                         {`let user_info = getInfoFromUser();`}<span className='opacity-50'> // Your API call to retrieve user information.</span>
                     </div>
                 </div>
@@ -38,7 +38,7 @@ const MetaDataInfo = () => {
                         Next, format the data into an object that contains the information you want to pass to the widget. In this example, we are including the email, name, and phone number of the user in the object.
                     </p>
 
-                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}>
+                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ fontFamily: 'monospace' }}>
                         {`let formattedObject = {
     email: user_info.email,
     name: user_info.name,
@@ -54,7 +54,7 @@ const MetaDataInfo = () => {
                     <p className="text-gray-600">
                         Finally, store the data in the browser's so that the widget can access it.
                     </p>
-                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ whiteSpace: 'pre', fontFamily: 'monospace' }}>
+                    <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ fontFamily: 'monospace' }}>
                         {`window.sessionStorage.setItem('tempoWidgetTemporalData', formatedObject);`}<span className='opacity-50'></span>
                     </div>
 
