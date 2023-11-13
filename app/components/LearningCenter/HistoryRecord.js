@@ -19,6 +19,11 @@ const HistoryRecord = ({ item }) => {
         }
     };
 
+    const returnClassOfType = () => {
+        if (item.event_type == 'update') { return 'bg-[#F4BB44]' }
+        if (item.event_type == 'create') { return 'bg-primary' }
+        if (item.event_type == 'delete') { return 'bg-danger' }
+    }
 
     return (
         <div key={item.id} className="mb-5 p-4 bg-white rounded-md shadow-sm">
@@ -27,6 +32,9 @@ const HistoryRecord = ({ item }) => {
                     <ClockIcon className="w-5 h-5 mr-2 text-primary" />
                     <span className="text-xs text-black" style={{ opacity: '0.6' }}>
                         {formatDateTime(item.updated)}
+                        <span className={`mx-3 text-white px-2 rounded-md ${returnClassOfType()}`}>
+                            {item.event_type}
+                        </span>
                     </span>
                 </div>
                 <button
@@ -36,9 +44,12 @@ const HistoryRecord = ({ item }) => {
                     {markedAsCurrent ? "Current" : "Rollback"}
                 </button>
             </div>
-            <div style={{fontSize: '12px'}}>
-                <p className="text-black font-bold font-sm">{item.question}</p>
-                <p className="text-gray-800 font-sm">{item.answer}</p>
+            <div style={{ fontSize: '12px' }}>
+                <p className="text-black font-bold font-sm flex items-center">
+                    <span className='flex items-center'>{item.icon}</span>
+                    <span className='mx-2'>{item.question}</span>
+                </p>
+                <p className="text-gray-800 font-sm mt-1">{item.answer}</p>
             </div>
         </div >
     )
