@@ -1,11 +1,12 @@
 "use client";
-import React from "react";
+import React,{useEffect} from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import price_data from "./price_data";
 import { useState } from "react";
+import { getCalApi } from "@calcom/embed-react";
 const Panelcardnew = () => {
   const router = useRouter();
 
@@ -15,6 +16,16 @@ const Panelcardnew = () => {
   const [hide, setHide] = useState({
     first: false,
   });
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal("ui", {
+        styles: { branding: { brandColor: "#000000" } },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
   return (
     <div className="bg-white px-[64px] sm:py-[64px] py-[34px]"> 
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
@@ -128,18 +139,12 @@ const Panelcardnew = () => {
                 Get Started{" "}
               </button>
             ) : (
-              <button className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
-                <div
-                  className="    "
-                  dangerouslySetInnerHTML={{
-                    __html: `
-       <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-       <span className="underline cursor-pointer text-white ">Schedule Demo
-       </span>
-       </a>
-      `,
-                  }}
-                />{" "}
+              <button
+              data-cal-link="tempoai/sales-call"
+              data-cal-config='{"layout":"month_view"}'
+              className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
+              
+                Schedule Demo
               </button>
             )}
           </Card>

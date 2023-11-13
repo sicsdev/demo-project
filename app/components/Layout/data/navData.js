@@ -8,14 +8,14 @@ export const nav_links = [
         card: {
             links: [
                 {
-                    list_heading: "Platform",
+                    list_heading: "Channels",
                     icon: <ComputerDesktopIcon class="h-6 w-6 text-gray-500" />,      
                                   data: [
                         {
                 
                             "heading": "Chat Bot",
                             label: "",
-                            link: "/solutions/chat-bot",
+                            link: "/solutions/chatbot",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
@@ -72,5 +72,5 @@ export const nav_links = [
         name: "Pricing",
         link: "/pricing",
         card: { links: [] }
-    },
+    }
 ] 

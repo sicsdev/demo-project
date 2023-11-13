@@ -41,6 +41,9 @@ import { createContactInFreshsales } from "@/app/API/components/Demo";
 import { Homeform } from "@/app/components/LayoutNew/Homeform";
 import Homeinte from "@/app/components/LayoutNew/Homeinte";
 import Reach from "@/app/components/LayoutNew/Reach";
+import Middlebar from "@/app/components/Info-Screen/Middlebar";
+import HomeComponent from "@/app/components/Home/HomeComponent";
+import Pricingbanner from "@/app/components/Security/Pricingbanner";
 
 const Pricing = () => {
   const [data, setData] = useState({});
@@ -106,14 +109,14 @@ const Pricing = () => {
     {
       reach: "99.999%        ",
       name: "Free Credits",
-      para: "Incentive Jumpstart your journey with Tempo by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
+      para: "Jumpstart your journey with Tempo by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
       link_title: "Leverage your data",
     },
     {
       reach: "55++",
 
       name: "No Hidden Charges",
-      para: "Enjoy a comprehensive support package that includes 24/7 assistance, rapid response times, and support in over 100 languages, all with no additional fees.",
+      para: "Enjoy a comprehensive support package that includes 24/7 assistance and rapid response times, all with no additional fees.",
       link_title: "Leverage your data",
     },
   ];
@@ -251,152 +254,13 @@ const Pricing = () => {
           content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
+      {/* <Pricingbanner handleClickScroll={handleClickScroll} /> */}
 
       {/* <Panelcard  /> */}
 
-      <Panelcardnew />
+      <Panelcardnew  />
       <Homeinte />
-      <div className="bg-white pt-4">
-        <div className="pb-4 sm:pb-16 mx-auto max-w-[90%] py-10">
-          <h6 class="font-bold text-xl black py-1 text-primary">Pricing</h6>
-          <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl my-2 font-bold ">
-            Know what you'll pay
-          </h1>
-
-          <div class="flex flex-wrap mt-8 shadow-sm">
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="font-bold text-heading  text:xs sm:text-2xl  border-l-2 border-[#2563EB] px-4">
-                  Pay-as-you-go
-                </p>
-                <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
-                  <Link href="/article/pricing-overview">
-                    {" "}
-                    Pricing details {">"}
-                  </Link>
-                </h6>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="text-sm font-normal text-heading px-4">
-                  Create a Tempo account instantly and automate your customer
-                  service. Pay only for the tickets we answer. We can work with
-                  companies of all sizes, from start-ups to large enterprises.
-                  You can also contact us to design a custom package for your
-                  business.
-                </p>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="border-l-2 border-[#2563EB] h-[100%]">
-                <div className="py-6">
-                  <p class="text-md font-bold text-heading px-4">$1</p>
-                  <p class="text-sm font-normal text-heading px-4">
-                    per chat response
-                  </p>
-
-                  <p class="text-md font-bold text-heading px-4 mt-4">$1</p>
-                  <p class="text-sm font-normal text-heading px-4">
-                    per email response
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-wrap mt-6 shadow-sm">
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="font-bold text:xs sm:text-2xl text-heading border-l-2 border-[#2563EB] px-4">
-                  Free signup bonus
-                </p>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="text-sm font-normal text-heading px-4">
-                  All new Tempo customers receive $200 in free Tempo credits to
-                  get up and running instantly. The best part? No contracts or
-                  commitment necessary.
-                </p>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="border-l-2 border-[#2563EB] h-[100%]">
-                <div className="py-6">
-                  <p class="text-md font-bold text-heading px-4">$200</p>
-                  <p class="text-sm font-normal text-heading px-4">credits</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-wrap mt-8 shadow-sm">
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="font-bold text:xs sm:text-2xl text-heading border-l-2 border-[#2563EB] px-4">
-                  No added fees
-                </p>
-                <h6 class="font-bold cursor-pointer text-xs black py-1 text-primary mt-1 px-4">
-                  {/* Learn more {">"} */}
-                </h6>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="py-6">
-                <p class="text-sm font-normal text-heading px-4">
-                  24/7 service, &lt;1 minute response times, and multilingual
-                  support are all currently included with the Tempo base
-                  package. Get up and running with enterprise-grade service with
-                  Tempo now.{" "}
-                </p>
-              </div>
-            </div>
-            <div
-              class="w-[100%] sm:w-1/4 md:w-1/4 lg:w-1/4 xl:w-1/4"
-              style={{ border: "1px solid rgb(220 222 225 / 55%)" }}
-            >
-              <div className="border-l-2 border-[#2563EB] h-[100%]">
-                <div className="py-6">
-                  <p class="text-md font-bold text-heading px-4">$0</p>
-                  <p class="text-sm font-normal text-heading px-4">
-                    24/7 support
-                  </p>
-                  <p class="text-sm font-normal text-heading px-4">
-                    &lt;1 min SLA's
-                  </p>
-                  <p class="text-sm font-normal text-heading px-4">
-                    100+ languages
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    
       <div className="p-4 sm:p-8  sm:px-40 ">
         {/* <form onSubmit={onSubmit}> */}
         {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
@@ -412,6 +276,7 @@ const Pricing = () => {
             >
               View Savings
             </button>
+            
           )}
         </div>
         {/* </form> */}
@@ -426,138 +291,9 @@ const Pricing = () => {
           />
         </Container>
 
+        <Middlebar />
         <Homeform reff={ref} />
-      </div>
-      {isModalOpen && (
-        <Modal
-
-          title={''}
-          className={"sm:w-[50%] w-[100%]"}
-          show={isModalOpen}
-          setShow={setModalOpen}
-          showCancel={true}
-          customHideButton={false}
-          showTopCancleButton={false}
-          hr={false}
-        >
-          <div className="p-5">
-            <div className="text-center font-bold text-2xl sm:mt-8">
-              See your results and get your report
-            </div>
-            <div className="text-[#868794]  text-sm my-4 leading-5">
-              Please confirm your information below to see your results. Your full analysis and report will be send to the email inbox provided below
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:mr-3">
-              <div className="w-full">
-
-
-                <TextField
-                  id="firstName"
-                  name="firstName"
-                  type="text"
-                  value={data.firstName ?? ''}
-                  onChange={handleInputValues}
-                  className="py-3 mt-1"
-                  title={
-                    <div className="flex items-center gap-2 w-[150px]">
-                      <span>First Name</span>{" "}
-                    </div>
-                  }
-                  placeholder={"First Name"}
-                  error={''}
-                />
-              </div>
-              <div className="w-full">
-                <TextField
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  value={data.lastName ?? ''}
-                  onChange={handleInputValues}
-                  className="py-3 mt-1"
-                  title={
-                    <div className="flex items-center gap-2 w-[150px]">
-                      <span>Last Name</span>{" "}
-                    </div>
-                  }
-                  placeholder={"First Name"}
-                  error={''}
-                />
-              </div>
-              <div className="w-full">
-                <TextField
-                  id="companyEmail"
-                  name="companyEmail"
-                  type="email"
-                  value={data.companyEmail ?? ''}
-                  onChange={handleInputValues}
-                  className="py-3 mt-1"
-                  title={
-                    <div className="flex items-center gap-2 w-[150px]">
-                      <span>Company Email</span>{" "}
-                    </div>
-                  }
-                  placeholder={"Company Email"}
-                  error={''}
-                />
-              </div>
-              <div className="w-full">
-                <TextField
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  type="number"
-                  value={data.phoneNumber ?? ''}
-                  onChange={handleInputValues}
-                  className="py-3 mt-1"
-                  title={
-                    <div className="flex items-center gap-2 w-[150px]">
-                      <span>Phone number (Optional)</span>{" "}
-                    </div>
-                  }
-                  placeholder={"Phone number (Optional)"}
-                  error={''}
-                />
-              </div>
-            </div>
-            <div className="flex mt-5">
-              <div className="flex items-center h-5">
-                <input
-                  type="checkbox"
-                  name="isSubscribed"
-                  checked={data.isSubscribed || false}
-                  onChange={handleCheckboxChange}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-              </div>
-              <div className="ml-2 text-sm">
-                <p
-                  id="helper-checkbox-text"
-                  className="text-xs font-normal tracking-tight leading-4 text-left text-gray-500 dark:text-gray-300"
-                >
-                  I'd like to receive marketing emails from Tempo. Please click here to view our Privacy Policy.
-                </p>
-              </div>
-            </div>
-            <div className="mt-4 mx-auto flex justify-center gap-4 items-center">
-              <button
-                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-white  text-primary hover:text-white hover:bg-primary hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-                type="button"
-                onClick={toggleModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-input_color disabled:bg-input_color disabled:shadow-none disabled:text-white"
-                type="button"
-                onClick={submitModal}
-                disabled={DisablingButtonModal()}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </Modal>
-      )}
+        <HomeComponent />      </div>
     </div>
   );
 };

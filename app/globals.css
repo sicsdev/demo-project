@@ -136,21 +136,22 @@ body .hide-focus {
   border: white !important;
 }
 
-body input[type="text"]:focus,
-body input[type="number"]:focus,
-body input[type="date"]:focus,
-body input[type="email"]:focus,
-body input[type="password"]:focus,
-body select:focus,
-body textarea:focus {
-  outline: 1px solid transparent;
-  border: 1px solid rgb(19 95 194);
-}
+
 
 h2,
-h3 {
+h3
+
+{
   /* font-family: 'Cairo', sans-serif; */
+  font-family: 'Sohne', sans-serif;
+
   font-weight: 450 !important;
+}
+div,
+p,
+h1{
+  font-family: 'Sohne', sans-serif;
+
 }
 
 .img-div-1:hover {
@@ -1879,4 +1880,9 @@ body .custome_table {
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;}
+body input[type="text"]:focus, body input[type="number"]:focus, body input[type="date"]:focus, body input[type="email"]:focus, body input[type="password"]:focus, body select:focus, body textarea:focus{
+  border: none !important;
+  outline: none !important;
+  line-height: unset !important;
+}
 }
