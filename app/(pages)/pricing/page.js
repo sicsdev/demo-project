@@ -19,7 +19,7 @@ import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
 import { useMultiStepFrom } from "@/app/hooks/useMultiStepForm";
 import { FirstStep } from "@/app/components/MutliStepForm/FirstStep";
 import { SecondStep } from "@/app/components/MutliStepForm/SecondStep";
-
+import Newfaq from "@/app/components/Faq/Newfaq";
 import "./style.css";
 
 const INITIAL_DATA = {
@@ -43,7 +43,6 @@ import Reach from "@/app/components/LayoutNew/Reach";
 import Middlebar from "@/app/components/Info-Screen/Middlebar";
 import HomeComponent from "@/app/components/Home/HomeComponent";
 import Pricingbanner from "@/app/components/Security/Pricingbanner";
-import Newfaq from "@/app/components/Faq/Newfaq";
 
 const Pricing = () => {
   const [data, setData] = useState({});
