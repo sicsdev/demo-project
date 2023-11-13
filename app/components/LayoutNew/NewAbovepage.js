@@ -76,6 +76,7 @@ const NewAbovepage = () => {
                 document.body.classList.add("modal-open");
 
                 setShowvideo(true);
+                
               }}
             >
               <p>
