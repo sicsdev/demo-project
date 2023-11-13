@@ -56,6 +56,9 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
     const isFirstPage = currentPage === 1;
     const isLastPage = currentPage === totalPages;
 
+
+
+
     return (
         <>
             {skeletonloading ? (
@@ -77,6 +80,7 @@ const FaqHistoryTab = ({ selectedWorkflow }) => {
             )}
 
             <div className="mt-3 mb-5 py-5 flex justify-end mx-5">
+
                 {history.length > 0 && (
                     <div className="pagination flex space-x-1 mb-5 items-center">
 

@@ -5,6 +5,7 @@ import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import Button from "@/app/components/Common/Button/Button";
 import Link from "next/link";
 
+
 const page = () => {
   const[blog, setBlog]= useState([])
   const [single, setSingle] = useState("");

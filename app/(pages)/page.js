@@ -70,8 +70,9 @@ export default function Home() {
         <NewAbovepage />
         <Homeinte />
         <Communication />
-        <Homeintegration />
         
+        {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
+        <Homeintegration />
 
         <Reach handleClickScroll={handleClickScroll} data={reachData}/>
         <Panelcardnew />

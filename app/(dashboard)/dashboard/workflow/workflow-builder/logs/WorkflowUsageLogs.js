@@ -41,7 +41,9 @@ const WorkflowUsageLogs = () => {
     // Main functions
     const getAllWorkflowsName = async () => {
         let all = await getAllWorkflow()
-        setWorkflowsNames(all.results.map(e => ({ name: e.name, value: e.id })))
+        if (all?.results) {
+            setWorkflowsNames(all.results.map(e => ({ name: e.name, value: e.id })))
+        }
     }
 
 
@@ -115,7 +117,7 @@ const WorkflowUsageLogs = () => {
 
     const applyWorkflowFilter = async (e) => {
         const workflowName = workflowsNames.find(element => element.value === e.target.value).name;
-        
+
         setSelectedFilters({
             created__gte: 'all',
             created__lte: 'all',

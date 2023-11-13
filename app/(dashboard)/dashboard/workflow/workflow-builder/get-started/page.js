@@ -117,7 +117,7 @@ const GetStarted = () => {
   const getWorkflowData = async (id) => {
     const response = await getSingleWorkflow(id)
     if (response) {
-  
+
       setSingleData(response)
       setWorkFlowFormData((prev) => {
         return {
@@ -795,7 +795,7 @@ const GetStarted = () => {
           <RightSidebar addConditionalStepHandler={addConditionalStepHandler} stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading}>
             {singleData && (
               <>
-                <div className='block sm:hidden'    onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
+                <div className='block sm:hidden' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
                   <p className='font-bold text-sm'>Open Menu</p>
                 </div>
                 <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
@@ -970,8 +970,8 @@ const GetStarted = () => {
                     }
                   </div>
 
-                  <div className='block sm:flex justify-between items-baseline pt-4 '>
-                    <div className='flex items-baseline justify-center gap-2 font-bold'>
+                  <div className='block sm:flex justify-between pt-5 '>
+                    <div className='flex justify-center gap-2 font-bold items-center'>
                       <SelectOption
                         value={item?.availables}
                         onChange={(e) => handleFilterChange(key, e, 'availables')}
@@ -996,12 +996,11 @@ const GetStarted = () => {
                         value={item?.filter_text}
                         onChange={(e) => handleFilterChange(key, e, 'text')}
                         name="filter_text"
-                        className="py-3"
+                        className="mb-3"
                         title={""}
                         placeholder={""}
                         type={"text"}
                         id={"filter_text"}
-                        paddingleft={"pl-6"}
                       />
                     </div>
                     {conditionFilter.length - 1 !== key && (

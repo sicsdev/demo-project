@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-const List = ({ nav_links, className, setShow }) => {
+const MobileList = ({ nav_links, className, setShow }) => {
   return (
     <>
       <div className={className}>
@@ -14,7 +14,10 @@ const List = ({ nav_links, className, setShow }) => {
             }`}
             style={{borderColor:"#e3e3e3"}}
           >
-            <div className=" flex gap-4">
+            <div className=" flex gap-4 pb-4  border-b"
+            style={{borderColor:"#e3e3e3"}}
+            
+            >
               <p>{element.icon}</p>
               <h3 className="text-heading uppercase text-sm font-semibold">
                 {element.list_heading}
@@ -45,7 +48,7 @@ const List = ({ nav_links, className, setShow }) => {
       {/* <div
             style={{borderColor:"#e3e3e3"}}
       
-      className="p-1 md:border lg:border sm:border-r-0 lg:border-r-0   md:border-b-0 lg:border-l-0 lg:border-b-0  border-[#59f9f9] ">
+      className=" md:border lg:border pt-4  border-t mt-[2rem] sm:border-r-0 lg:border-r-0   md:border-b-0 lg:border-l-0 lg:border-b-0  border-[#59f9f9] ">
         <h3 className="text-heading sm:mt-[12px] text-semibold flex items-center gap-4 sm:gap-0 justify-between">
           <Link href="/integrations">Integrations</Link>
         </h3>{" "}
@@ -54,4 +57,4 @@ const List = ({ nav_links, className, setShow }) => {
   );
 };
 
-export default List;
+export default MobileList;

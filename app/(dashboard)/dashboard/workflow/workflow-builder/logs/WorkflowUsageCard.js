@@ -1,5 +1,5 @@
 import { getWorkflowUsageByUsageId } from '@/app/API/pages/Workflow';
-import { ArrowRightCircleIcon, ArrowRightIcon, ChatBubbleOvalLeftEllipsisIcon, CheckCircleIcon, ClockIcon, LinkIcon, PaperAirplaneIcon } from '@heroicons/react/24/outline'
+import { ArrowRightCircleIcon, ArrowRightIcon, XCircleIcon, ChatBubbleOvalLeftEllipsisIcon, CheckCircleIcon, ClockIcon, LinkIcon, PaperAirplaneIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -61,7 +61,12 @@ const WorkflowUsageCard = ({ log }) => {
 
                             <small className="mt-2">
                                 <small className='flex items-center  text-primary'>
-                                    <CheckCircleIcon className='w-4 h-4 mx-1'></CheckCircleIcon><b> Status:</b>
+                                    {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' ?
+                                        <XCircleIcon className='w-4 h-4 mx-1 text-danger'></XCircleIcon>
+                                        :
+                                        <CheckCircleIcon className='w-4 h-4 mx-1'></CheckCircleIcon>
+                                    }
+                                    <b> Status:</b>
                                 </small>
                                 <span className='mx-2'>{log.automation_usages[0].response_log.response_status}</span>
                             </small>
