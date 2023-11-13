@@ -26,6 +26,7 @@ const NewAbovepage = () => {
   return (
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
+
         
         <div>
           {loading ? (
