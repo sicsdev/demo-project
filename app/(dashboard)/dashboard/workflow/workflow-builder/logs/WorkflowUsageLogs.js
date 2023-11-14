@@ -51,11 +51,14 @@ const WorkflowUsageLogs = () => {
         // Extracting selected filters
         let gte = selectedFilters.created__gte === 'all' ? '' : `&created__gte=${selectedFilters.created__gte}`;
         let lte = selectedFilters.created__lte === 'all' ? '' : `&created__lte=${selectedFilters.created__lte}`;
+        let workflowId = selectedFilters.workflows === 'all' ? '' : `&created__lte=${selectedFilters.workflows}`
 
         // Constructing the query parameters string
         let queryParams = `${gte}${lte}`;
 
+
         let logs = await getWorkflowUsageLogs(currentPage, elementsPerPage, queryParams.trim())
+
         setAllLogs(logs.results)
         setTotalPages(logs.num_pages);
         setTotalRecordsNumber(logs.count);
@@ -138,9 +141,9 @@ const WorkflowUsageLogs = () => {
 
                 <div className="flex justify-end items-center gap-2 mb-[15px] w-1/2">
 
-                    {/* {workflowsNames?.length > 0 && (
+                    {workflowsNames?.length > 0 && (
                         <div className="w-1/4">
-                            <SelectOption
+                            {/* <SelectOption
                                 // onChange={(e) => filterDataHandler(e)}
                                 onChange={(e) => applyWorkflowFilter(e)}
                                 value={selectedFilters.workflows}
@@ -153,9 +156,21 @@ const WorkflowUsageLogs = () => {
                                 className="py-3"
                                 error={""}
                                 showOption={false}
-                            />
+                            /> */}
+                            {/* <label for="workflows" class="text-sm my-4 font-semibold">Workflows</label>
+                            <select
+                                id="workflows"
+                                name="workflows"
+                                class="py-3"
+                                onChange={(e) => applyWorkflowFilter(e)}
+                                value={selectedFilters.workflows}>
+
+                                {workflowsNames.map(workflow => (
+                                    <option value={workflow.id}>{workflow.name}</option>
+                                ))}
+                            </select> */}
                         </div>
-                    )} */}
+                    )}
 
 
                     <div className="w-100 mt-4">
