@@ -216,7 +216,7 @@ const Demo = () => {
                     }, 5000)
                   }
                 >
-                  * Tempo may have temporary maintenance and upgrade periods.
+                  * Deflection AI may have temporary maintenance and upgrade periods.
                   24/7 uptime is approximate.
                 </p>
               </Card>
@@ -256,7 +256,7 @@ const Demo = () => {
                     }, 5000)
                   }
                 >
-                  *Setup for base Tempo product is no-code. API implementations
+                  *Setup for base Deflection AI product is no-code. API implementations
                   may involve your developer resources.
                 </p>
               </Card>

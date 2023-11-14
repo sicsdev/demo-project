@@ -23,7 +23,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-              "Zendesk Integration with Tempo"
+              "Zendesk Integration with Deflection AI"
               )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -62,27 +62,27 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
-            "Why Integrate Zendesk with Tempo?"
+            "Why Integrate Zendesk with Deflection AI?"
             )}
             </p>
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Centralized Ticket Management:</b>Manage all your Zendesk tickets, users, and organizations directly from Tempo's unified dashboard.
+              <b>Centralized Ticket Management:</b>Manage all your Zendesk tickets, users, and organizations directly from Deflection AI's unified dashboard.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Workflow Automation:</b> Utilize Tempo's powerful workflow features to automate your Zendesk ticketing and user management operations.
+              <b>Workflow Automation:</b> Utilize Deflection AI's powerful workflow features to automate your Zendesk ticketing and user management operations.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Data-Driven Support:</b> Leverage Tempo's analytics to gain actionable insights from your Zendesk data, enabling smarter customer support strategies.
+              <b>Data-Driven Support:</b> Leverage Deflection AI's analytics to gain actionable insights from your Zendesk data, enabling smarter customer support strategies.
             </p>
             )}
             {loading ? (
@@ -96,19 +96,19 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Connect Zendesk to Tempo:</span> Seamlessly integrate Zendesk with Tempo in just a few clicks.
+               <span className="font-semibold">Connect Zendesk to Deflection AI:</span> Seamlessly integrate Zendesk with Deflection AI in just a few clicks.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Customize Your Support Workflow with Zendesk Endpoints:</span> Incorporate Zendesk's diverse endpoints into your Tempo workflows for a tailored customer support management experience.
+               <span className="font-semibold">Customize Your Support Workflow with Zendesk Endpoints:</span> Incorporate Zendesk's diverse endpoints into your Deflection AI workflows for a tailored customer support management experience.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Analyze and Optimize:</span>Use Tempo's analytics to derive valuable insights from your Zendesk data, driving continuous improvement.
+               <span className="font-semibold">Analyze and Optimize:</span>Use Deflection AI's analytics to derive valuable insights from your Zendesk data, driving continuous improvement.
             </p>
             )}
             <div>
@@ -170,7 +170,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-           " Ready to take your customer support operations to the next level? Integrate Zendesk with Tempo today.")}
+           " Ready to take your customer support operations to the next level? Integrate Zendesk with Deflection AI today.")}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
             {loading ? (
@@ -199,7 +199,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

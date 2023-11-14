@@ -17,8 +17,8 @@ const slides = [
   {
     background: `bg-orange`,
     title:
-      "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
-    name: "We supercharged our business with Tempo.",
+      "The ability to scale up customer-facing staffing and back office operations, coupled with Deflection AI's ChatGPT-powered automations, has really powered our business's fulfillment.      ",
+    name: "We supercharged our business with Deflection AI.",
 
     editor: "Frank P",
     position: "Vice President",
@@ -29,7 +29,7 @@ const slides = [
   {
     background: `bg-neon`,
     title:
-      "Instead of wasting my time hiring freelancers and trying to figure out new software platforms, I plugged into Tempo and was able to focus on what matters: growing my business.      ",
+      "Instead of wasting my time hiring freelancers and trying to figure out new software platforms, I plugged into Deflection AI and was able to focus on what matters: growing my business.      ",
     name: "I can finally focus on what matters.",
     editor: "Matthew E",
     brand: "Simple Senti",
@@ -44,7 +44,7 @@ const Benifits = () => {
       <div className="bg-white pt-2 sm:pt-5 pb-6 sm:pb-6">
         <div className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8 px-0 sm:px-4 lg:px-4 relative group">
           <h2 className="font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 text-center mt-0 sm:mt-8 mb-8 text-heading">
-            Why customers love Tempo
+            Why customers love Deflection AI
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 px-4 lg:px-4 mb-6">
             {slides.map((item, key) => (

@@ -92,7 +92,7 @@ const LoginNav = () => {
                     </>
                   ) : (
                     <p className="text-black sm:py-[6px] sm:px-[12px]  ">
-                      New to Tempo?
+                      New to Deflection AI?
                     </p>
                   )}
 

@@ -42,7 +42,7 @@ const Homefold = () => {
                   class="connect-heading-line  sm:mt-8 mt-4"
                 ></div>
                 <h1 className=" font-bold  m-auto text-center sm:mt-8 mt-4 sm:text-[50px] text-h2 text-white  sm:leading-none  ">
-                  {/* Tempo */}
+                  {/* Deflection AI */}
                   {loading ? (
                     <>
                    <div className="hidden sm:block"> <SkeletonLoader height={80} width={240} baseColor="#230A5C"/></div>

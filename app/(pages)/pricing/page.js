@@ -109,7 +109,7 @@ const Pricing = () => {
     {
       reach: "99.999%        ",
       name: "Free Credits",
-      para: "Jumpstart your journey with Tempo by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
+      para: "Jumpstart your journey with Deflection AI by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
       link_title: "Leverage your data",
     },
     {
@@ -246,12 +246,12 @@ const Pricing = () => {
         <meta charSet="utf-8" />
         <meta
           name="title"
-          content="Flexible Pricing Plans for Tempo.ai's Customer Support Solutions"
+          content="Flexible Pricing Plans for Deflection AI.ai's Customer Support Solutions"
         />
 
         <meta
           name="description"
-          content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
+          content="Discover Deflection AI.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
       {/* <Pricingbanner handleClickScroll={handleClickScroll} /> */}

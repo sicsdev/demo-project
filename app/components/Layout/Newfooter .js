@@ -216,7 +216,7 @@ const Newfooter = () => {
               </Link>
             </span> */}
             <p className="font-thin text-neutral-600  ">
-              © Tempo AI Ventures, Inc{" "}
+              © Deflection AI Ventures, Inc{" "}
             </p>
           </div>
         </div>

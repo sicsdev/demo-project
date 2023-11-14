@@ -108,7 +108,7 @@ const Logs = () => {
           }}
           pagination
            className='data-table-class'
-          noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+          noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
           paginationPerPage={7}
           columns={columns}
           data={conversationData}

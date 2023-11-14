@@ -23,14 +23,14 @@ export const nav_links = [
                             "heading": "Email",
                             label: "",
                             link: "/solutions/email",
-                            "para": "Link Tempo into your email support to automatically handle more complex email tickets."
+                            "para": "Link Deflection AI into your email support to automatically handle more complex email tickets."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Phone",
                             label: "",
                             link: "/solutions/phone",
-                            "para": "Link Tempo into your email support to automatically handle more complex email tickets."
+                            "para": "Link Deflection AI into your email support to automatically handle more complex email tickets."
                         }
                   
                     ]
@@ -52,7 +52,7 @@ export const nav_links = [
                             "heading": "Workflow Builder",
                             label: "",
                             link: "/features/workflow-builder",
-                            "para": "Link Tempo into your email support to automatically handle more complex email tickets."
+                            "para": "Link Deflection AI into your email support to automatically handle more complex email tickets."
                         },
                       
                     ]

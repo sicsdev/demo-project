@@ -451,7 +451,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         pagination
                         className='!h-[69vh]'
                         columns={currentTab == 'products' ? productColumnsInfo : columns}
-                        noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                        noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                         data={questions?.data?.results}
                         progressPending={questions?.isLoading}
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
@@ -477,7 +477,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         pointerOnHover
                         pagination
                         columns={currentTab == 'products' ? productColumnsInfo : columns1}
-                        noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                        noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                         data={questions?.data?.results}
                         progressPending={questions?.isLoading}
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}

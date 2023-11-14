@@ -25,7 +25,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="70%" />
                 ) : (
-                  "Twilio Integration with Tempo"
+                  "Twilio Integration with Deflection AI"
                 )}
                 </p>
 
@@ -66,7 +66,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="50%" />
               ) : (
-                "Why Integrate Twilio with Tempo?"
+                "Why Integrate Twilio with Deflection AI?"
               )}
               </p>
               {loading ? (
@@ -74,7 +74,7 @@ const page = () => {
               ) : (
               <p className="text-heading text-xl sm:mb-3">
                 <b>Multi-Channel Communication:</b> Leverage Twilio's API to
-                send SMS, MMS, and make voice calls directly from Tempo's
+                send SMS, MMS, and make voice calls directly from Deflection AI's
                 interface.
               </p>
               )}
@@ -83,14 +83,14 @@ const page = () => {
               ) : (
               <p className="text-heading text-xl sm:mb-3">
                 <b> Unified Dashboard:</b> Manage all your Twilio messages,
-                conversations, and call logs in one centralized Tempo dashboard.
+                conversations, and call logs in one centralized Deflection AI dashboard.
               </p>
               )}
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-                <b> Data-Driven Insights:</b> Utilize Tempo's analytics to
+                <b> Data-Driven Insights:</b> Utilize Deflection AI's analytics to
                 evaluate the effectiveness of your communication strategies.
               </p>
               )}
@@ -106,14 +106,14 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="50%" />
                 ) : (<>
-                  <span className="font-semibold"> Connect Twilio to Tempo:</span>Seamlessly link your PayPal account to Tempo's Workflow Builder.</>
+                  <span className="font-semibold"> Connect Twilio to Deflection AI:</span>Seamlessly link your PayPal account to Deflection AI's Workflow Builder.</>
                 )}
                 </span>
                 {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
-                  "Seamlessly link your PayPal account to Tempo's Workflow Builder."
+                  "Seamlessly link your PayPal account to Deflection AI's Workflow Builder."
                 )}
                 </span> */}
               </p>
@@ -122,14 +122,14 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (<>
-                  <span className="font-semibold"> Customize Your Workflow with Twilio Endpoints:</span>Add Twilio API endpoints to your Tempo workflow for a fully personalized communication solution.</>
+                  <span className="font-semibold"> Customize Your Workflow with Twilio Endpoints:</span>Add Twilio API endpoints to your Deflection AI workflow for a fully personalized communication solution.</>
                 )}
                 </span>
                 {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
-                  "Add Twilio API endpoints to your Tempo workflow for a fully personalized communication solution."
+                  "Add Twilio API endpoints to your Deflection AI workflow for a fully personalized communication solution."
                 )}
                 </span> */}
               </p>
@@ -138,14 +138,14 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="50%" />
                 ) : (<>
-                  <span className="font-semibold"> Analyze and Optimize:</span>Use Tempo's analytics to gain actionable insights into your Twilio communication data.</>
+                  <span className="font-semibold"> Analyze and Optimize:</span>Use Deflection AI's analytics to gain actionable insights into your Twilio communication data.</>
                 )}
                 </span>
                 {/* <span className="text-heading text-xl sm:mb-3">
                 {loading ? (
                   <SkeletonLoader count={2} height={20} width="100%" />
                 ) : (
-                  "Use Tempo's analytics to gain actionable insights into your Twilio communication data."
+                  "Use Deflection AI's analytics to gain actionable insights into your Twilio communication data."
                 )}
                 </span> */}
               </p>
@@ -210,7 +210,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
-                "Ready to take your communication to the next level? Integrate Twilio with Tempo today."
+                "Ready to take your communication to the next level? Integrate Twilio with Deflection AI today."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -240,7 +240,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

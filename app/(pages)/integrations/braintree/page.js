@@ -27,7 +27,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-                "Braintree Integration with Tempo "
+                "Braintree Integration with Deflection AI "
               )}   </p>
 
             <h2 className="!font-bold text-h3 text-left">
@@ -68,7 +68,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Why Integrate Braintree with Tempo?"
+                  "Why Integrate Braintree with Deflection AI?"
                 )} </p>
 
               <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
@@ -82,7 +82,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Integrate Braintree's payment processing features with Tempo's robust workflow capabilities for a comprehensive financial solution."
+                  "Integrate Braintree's payment processing features with Deflection AI's robust workflow capabilities for a comprehensive financial solution."
                 )}
               </p>
 
@@ -97,7 +97,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Handle transactions, refunds, and subscriptions directly within Tempo's interface."
+                  "Handle transactions, refunds, and subscriptions directly within Deflection AI's interface."
                 )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -111,7 +111,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Utilize Tempo's analytics to make informed financial decisions based on your Braintree data."
+                  "Utilize Deflection AI's analytics to make informed financial decisions based on your Braintree data."
                 )}
               </p>
 
@@ -127,7 +127,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : <>
-                  <span className="font-semibold">Connect Braintree to Tempo:</span>&nbsp; Seamlessly integrate your Braintree account with Tempo in a matter of clicks.
+                  <span className="font-semibold">Connect Braintree to Deflection AI:</span>&nbsp; Seamlessly integrate your Braintree account with Deflection AI in a matter of clicks.
                 </>}
               </p>
 
@@ -135,14 +135,14 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-             " Seamlessly integrate your Braintree account with Tempo in a matter of clicks.   "
+             " Seamlessly integrate your Braintree account with Deflection AI in a matter of clicks.   "
                    )}       </p> */}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-[#363866]   text-xl mb-[1rem]">
 
-                  <span className="font-semibold">Customize Your Workflow with Braintree Endpoints: </span>&nbsp;    Incorporate Braintree's versatile endpoints into your Tempo workflows.
+                  <span className="font-semibold">Customize Your Workflow with Braintree Endpoints: </span>&nbsp;    Incorporate Braintree's versatile endpoints into your Deflection AI workflows.
 
                 </p>
               )}
@@ -151,14 +151,14 @@ const page = () => {
                   ) : (
             <p className="text-heading text-xl sm:mb-3">
 
-              Incorporate Braintree's versatile endpoints into your Tempo workflows.            </p>
+              Incorporate Braintree's versatile endpoints into your Deflection AI workflows.            </p>
                   )} */}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-[#363866]  text-xl mb-[1rem]">
 
-                  <span className="font-semibold"> Analyze and Optimize:</span>&nbsp; Leverage Tempo's analytics to gain actionable insights from your Braintree data, enabling continuous financial management improvement.
+                  <span className="font-semibold"> Analyze and Optimize:</span>&nbsp; Leverage Deflection AI's analytics to gain actionable insights from your Braintree data, enabling continuous financial management improvement.
 
                 </p>
               )}
@@ -166,7 +166,7 @@ const page = () => {
                     <SkeletonLoader count={1} height={20} width="100%" />
                   ) : (
             <p className="text-heading text-xl sm:mb-3">
-              Leverage Tempo's analytics to gain actionable insights from your Braintree data, enabling continuous financial management improvement.
+              Leverage Deflection AI's analytics to gain actionable insights from your Braintree data, enabling continuous financial management improvement.
             </p>
                   )} */}
               <div>
@@ -235,7 +235,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Ready to streamline your financial management? Integrate Braintree with Tempo today.  ")}
+                  "Ready to streamline your financial management? Integrate Braintree with Deflection AI today.  ")}
               </p>
 
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -265,7 +265,7 @@ const page = () => {
                   {loading ? (
                     <SkeletonLoader count={1} height={20} width="100%" />
                   ) : (
-                    "See how it works with Tempo AI"
+                    "See how it works with Deflection AI"
                   )}
                 </p>
                 <div className="block text-center  ">

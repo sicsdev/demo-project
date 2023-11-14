@@ -7,8 +7,8 @@ export const testimonialsArray =
             Photo: "/images/checkout-testimonial-1.png"
         },
         {
-            Title: "'We supercharged our business with Tempo.",
-            Text: "The ability to scale up customer-facing staffing and back office operations, coupled with Tempo's ChatGPT-powered automations, has really powered our business's fulfillment.",
+            Title: "'We supercharged our business with Deflection AI.",
+            Text: "The ability to scale up customer-facing staffing and back office operations, coupled with Deflection AI's ChatGPT-powered automations, has really powered our business's fulfillment.",
             Name: "Frank Patrick, LabPass",
             Photo: "/images/checkout-testimonial-2.png"
         },

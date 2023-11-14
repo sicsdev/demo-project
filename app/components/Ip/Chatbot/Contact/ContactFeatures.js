@@ -86,7 +86,7 @@ const ContactFeatures = () => {
         {loading ? (
           <SkeletonLoader count={1} height={30} width={120} />
         ) : (
-          "Tempo Features"
+          "Deflection AI Features"
         )}</div>
       <div className=' sm:grid block grid-cols-3 justify-center gap-4'>
         {data.map((ele, key) =>

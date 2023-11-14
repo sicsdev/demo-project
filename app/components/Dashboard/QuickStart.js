@@ -55,7 +55,7 @@ const QuickStart = () => {
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
-            content: "Finalize your setup by filling out your business information in your Tempo profile.",
+            content: "Finalize your setup by filling out your business information in your Deflection AI profile.",
             buttonName: "Complete",
             icon: <ShareIcon className='w-5 h-5 ' />,
             link: '/dashboard/billing/settings',
@@ -76,7 +76,7 @@ const QuickStart = () => {
         },
         {
             title: 'Configure Phone Settings',
-            content: "Select a Tempo phone number to get started with Smart IVR.",
+            content: "Select a Deflection AI phone number to get started with Smart IVR.",
             buttonName: "Configure",
             icon: <CodeBracketSquareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/manage-phones',
@@ -92,7 +92,7 @@ const QuickStart = () => {
     const quickStartData = [
         {
             title: 'Upload FAQ to Knowledge Base',
-            content: "Enhance your customer service by uploading frequently asked questions to Tempo's Knowledge Base.",
+            content: "Enhance your customer service by uploading frequently asked questions to Deflection AI's Knowledge Base.",
             buttonName: "Upload",
             icon: <BookOpenIcon className='w-5 h-5 ' />,
             link: "/dashboard/basic-knowledge",
@@ -112,8 +112,8 @@ const QuickStart = () => {
             link: '/dashboard/workflow/workflow-builder',
         },
         {
-            title: 'Invite Team Members to Tempo',
-            content: "Get your team onboard with Tempo to maximize the benefits of automated workflows.",
+            title: 'Invite Team Members to Deflection AI',
+            content: "Get your team onboard with Deflection AI to maximize the benefits of automated workflows.",
             buttonName: "Invite",
             icon: <UserGroupIcon className='w-5 h-5 ' />,
             link: '/dashboard/members',
@@ -435,7 +435,7 @@ const QuickStart = () => {
                                         {skeltonLoading ?
                                             <SkeletonLoader count={1} height={20} width={100} />
                                             :
-                                            "A few essential steps to get you up and running with Tempo immediately."
+                                            "A few essential steps to get you up and running with Deflection AI immediately."
                                         }
 
                                     </p>

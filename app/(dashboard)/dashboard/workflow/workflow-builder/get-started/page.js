@@ -888,7 +888,7 @@ const GetStarted = () => {
                       <ChatBubbleOvalLeftIcon className="h-7 w-7 font-semibold" />
                       <div>
                         <h4 className='font-bold'>Send a Message</h4>
-                        <p>Tempo</p>
+                        <p>Deflection AI</p>
                       </div>
                     </div>
                     <div className=''>
@@ -904,7 +904,7 @@ const GetStarted = () => {
                       <FolderOpenIcon className="h-7 w-7 font-semibold" />
                       <div>
                         <h4 className='font-bold'>Send a Form</h4>
-                        <p>Tempo</p>
+                        <p>Deflection AI</p>
                       </div>
                     </div>
                     <div className=''>

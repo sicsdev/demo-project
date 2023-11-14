@@ -61,7 +61,7 @@ const Communication = () => {
           </div>
         ) : (
           <h2 class="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
-            Tempo AI-Powered Customer Service Platform
+            Deflection AI-Powered Customer Service Platform
           </h2>
         )}
         {loading ? (

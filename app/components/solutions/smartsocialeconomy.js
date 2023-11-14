@@ -85,7 +85,7 @@ const Smartsocialeconomy = () => {
               Transparent Billing{" "}
             </h6>
             <p className="sm:mt-4 text-justify">
-              Experience clear and fair billing. At Tempo Chat, you're charged
+              Experience clear and fair billing. At Deflection AI Chat, you're charged
               only 25 cents per chat response. It's the simplicity of paying for
               exactly what you use.
             </p>

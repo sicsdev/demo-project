@@ -308,7 +308,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                                 {skeletonloading ?
                                     <SkeletonLoader count={1} height={20} width={150} />
                                     :
-                                    "To answer customer questions, Tempo is using:"
+                                    "To answer customer questions, Deflection AI is using:"
                                 }
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
@@ -414,7 +414,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         } className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
-                            <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
+                            <p className='text-xs font-normal'>Plain text content specific for Deflection AI.</p>
                         </div>
                         <div onClick={() => handleCreateOptions('pdf')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
                             <PaperClipIcon className='h-10 w-10 text-white bg-primary rounded-lg p-2' />
@@ -432,7 +432,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <PuzzlePieceIcon className='h-10 w-10 text-white bg-[#C01A59] rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Product</h3>
-                            <p className='text-xs font-normal'>A product or service that users can purchase directly from Tempo.</p>
+                            <p className='text-xs font-normal'>A product or service that users can purchase directly from Deflection AI.</p>
                         </div>
                     </div> */}
                     <div className='block items-center my-3'>
@@ -452,7 +452,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                                         <h3 className="text-sm font-bold">
                                             <b>Snippet</b>
                                         </h3>
-                                        <p className="text-xs font-normal">Plain text content specific for Tempo.</p>
+                                        <p className="text-xs font-normal">Plain text content specific for Deflection AI.</p>
                                     </div>
                                 </div>
                             </li>
@@ -486,7 +486,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                                             <b>Product</b>
                                         </h3>
                                         <p className="text-xs font-normal">
-                                            A product or service that users can purchase directly from Tempo.
+                                            A product or service that users can purchase directly from Deflection AI.
                                         </p>
                                     </div>
                                 </div>

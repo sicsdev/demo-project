@@ -395,7 +395,7 @@ const CheckEmail = ({ data, user, loader, getData, verifyDomainHnadler, verifyLo
                                     <div>
                                         <h3 className='text-sm font-semibold mb-1'>Propagation Delay</h3>
                                         <p className='text-xs'>
-                                            Be aware that after setting the correct DNS records, there may be a propagation delay lasting several hours. Once the records are fully authenticated, Tempo will have the capability to dispatch emails using this domain.
+                                            Be aware that after setting the correct DNS records, there may be a propagation delay lasting several hours. Once the records are fully authenticated, Deflection AI will have the capability to dispatch emails using this domain.
                                         </p>
                                     </div>
                                 </div>

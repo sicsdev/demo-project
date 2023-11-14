@@ -122,7 +122,7 @@ const Checkout = () => {
   };
 
   const handleDownload = () => {
-    // const pdfPath = "Tempo.docx.pdf";
+    // const pdfPath = "Deflection AI.docx.pdf";
     // const link = document.createElement("a");
     // link.href = pdfPath;
     // link.target = "_blank";
@@ -440,7 +440,7 @@ const Checkout = () => {
             </div>
             <div className="mt-5 ">
               <p className="text-justify text-xs ">
-                By entering your information, you authorize Tempo AI to
+                By entering your information, you authorize Deflection AI to
                 automatically charge your card for your usage once your credits
                 according to our{" "}
                 <span className="text-[blue]">
@@ -522,7 +522,7 @@ const Checkout = () => {
         <p className="mt-2 text-xs ">
           {" "}
           All rights reserved 2023 ©{" "}
-          <span className="text-[blue]">Tempo AI Ventures, Inc.</span>
+          <span className="text-[blue]">Deflection AI Ventures, Inc.</span>
         </p>
       </Container>
     </div>

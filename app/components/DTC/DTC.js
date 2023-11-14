@@ -55,7 +55,7 @@ const DTC = () => {
       {loading ? (
               <SkeletonLoader count={1} height={20} width={"40%"} />
             ) : (
-       " Brands listed have material preexisting relationships to Tempo management."
+       " Brands listed have material preexisting relationships to Deflection AI management."
             )}
         </p>
             

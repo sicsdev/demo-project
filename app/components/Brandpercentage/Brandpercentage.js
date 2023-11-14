@@ -247,7 +247,7 @@ const Brandpercentage = () => {
                       }, 5000)
                     }
                   >
-                    15 minute onboarding for typical users of Tempo. Enterprise
+                    15 minute onboarding for typical users of Deflection AI. Enterprise
                     clients may have a longer onboarding timeline.
                   </p>
                 </Card>

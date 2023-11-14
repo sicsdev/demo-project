@@ -52,7 +52,7 @@ export const questions = [
     question: "How does the free trial work?",
     answer: (
       <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color">
-        When you sign up for Tempo, you will have complete access to the Tempo suite of products. $200 in free credits are granted at sign up, and only after you exceed those will you be charged. There is no obligation, monthly fee, or any kind of recurring subscription.
+        When you sign up for Deflection AI, you will have complete access to the Deflection AI suite of products. $200 in free credits are granted at sign up, and only after you exceed those will you be charged. There is no obligation, monthly fee, or any kind of recurring subscription.
       </p>
     ),
   },
@@ -73,10 +73,10 @@ export const questions = [
     ),
   },
   {
-    question: "How does Tempo's pricing work?",
+    question: "How does Deflection AI's pricing work?",
     answer: (
       <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color">
-        Tempo's pricing is based on resolutions, not on a per-user basis. We offer a Starter Plan as well as custom pricing for enterprise-level needs.
+        Deflection AI's pricing is based on resolutions, not on a per-user basis. We offer a Starter Plan as well as custom pricing for enterprise-level needs.
       </p>
     ),
   },
@@ -85,7 +85,7 @@ export const questions = [
     question: "What is the billing threshold?",
     answer: (
       <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color">
-        The billing threshold is the set amount at which your payment method will be automatically charged. This threshold is adjustable within your Tempo portal.
+        The billing threshold is the set amount at which your payment method will be automatically charged. This threshold is adjustable within your Deflection AI portal.
       </p>
     ),
   },
@@ -93,7 +93,7 @@ export const questions = [
     question: "How is my total usage calculated?",
     answer: (
       <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color">
-        Your total usage is calculated based on resolutions made through Tempo. The total may include usage covered by free trials or other credits, affecting your monthly bill.
+        Your total usage is calculated based on resolutions made through Deflection AI. The total may include usage covered by free trials or other credits, affecting your monthly bill.
       </p>
     ),
   },

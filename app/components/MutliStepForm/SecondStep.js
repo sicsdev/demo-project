@@ -77,9 +77,9 @@ export function SecondStep({ formData, setFormData }) {
     ],
   };
   return (
-    <FormWrapper title="Save with Tempo">
+    <FormWrapper title="Save with Deflection AI">
       <div className="mb-4 mt-3 sm:mt-0 text-sm sm:text-base">
-      Tempo enables you to elevate your customer experience capabilities while achieving substantial cost savings, including:
+      Deflection AI enables you to elevate your customer experience capabilities while achieving substantial cost savings, including:
       </div>
 
 

@@ -11,7 +11,7 @@ const slides = [
   {
     logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
     background: `bg-sky`,
-    name: "Tempo Overview",
+    name: "Deflection AI Overview",
     slug: "collections/tempo-overview",
     title:
       "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
@@ -92,7 +92,7 @@ const Help = () => {
     {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
-      name: "Tempo Overview",
+      name: "Deflection AI Overview",
       slug: "help/tempo-overview",
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
@@ -125,7 +125,7 @@ const Help = () => {
     {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
-      name: "Tempo Overview",
+      name: "Deflection AI Overview",
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",
       authors: "13 authors",
@@ -159,7 +159,7 @@ const Help = () => {
       logo: "https://downloads.intercomcdn.com/i/o/413548/68ab50b2f4f155cc5e3af208/2bbe53ee6af29a766d79344e1ea19c97.png",
       background: `bg-sky`,
       slug: "help/tempo-overview",
-      name: "Tempo Overview",
+      name: "Deflection AI Overview",
 
       title:
         "Everything you need to know to get started with Intercom you need to know to get started with Intercom See how your customer service solution works.",

@@ -20,7 +20,7 @@ const HomeComponent = () => {
 
 
                     <div className="sm:p-[5rem] p-[2rem]">
-                        <p className="sm:text-[29px] text-[22px] font-semibold ">Integrate with Tempo
+                        <p className="sm:text-[29px] text-[22px] font-semibold ">Integrate with Deflection AI
                         </p>
                         <p className=" text-[16px] my-4">Discover the advantages of seamless integration with our platform</p>
                         <button className="text-white   w-full sm:mt-4 sm:flex sm:mx-auto justify-center hover:text-heading my-5 text-center sm:my-0  text-lg font-semibold dark:focus:ring-yellow-900 rounded-lg">

@@ -51,7 +51,7 @@ const banner = ({ handleClickScroll }) => {
           </div>
         ) : (
           <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
-            Let Tempo Chat do the heavy lifting—effortlessly handle queries and
+            Let Deflection AI Chat do the heavy lifting—effortlessly handle queries and
             connect to your backend APIs in real-time.{" "}
           </div>
         )}

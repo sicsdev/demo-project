@@ -169,7 +169,7 @@ const Page = () => {
                     {loading ? (
                       <SkeletonLoader count={1} height={30} width="100%" />
                     ) : (
-                      "See how it works with Tempo Chat"
+                      "See how it works with Deflection AI Chat"
                     )}
                   </p>
                   <div className="block text-center">

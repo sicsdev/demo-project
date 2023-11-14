@@ -749,7 +749,7 @@ const Page = () => {
                     <>
                         <div className='flex w-full m-auto justify-center'>
                             <p className="text-sm p-2 font-semibold m-auto opacity-80" style={{ fontFamily: 'sans-serif' }}>
-                                Questions your customers have asked that Tempo does not know how to answer
+                                Questions your customers have asked that Deflection AI does not know how to answer
                             </p>
                         </div>
 
@@ -777,7 +777,7 @@ const Page = () => {
                                 pointerOnHover
                                 pagination
                                 columns={columns}
-                                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
                                 progressPending={loading}
                                 progressComponent={
