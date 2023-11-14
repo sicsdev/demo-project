@@ -193,7 +193,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             </span>
                         }
                     </li>
-                    <li className={`  ${filterhead === "External" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
+
+
+                    {/* EXTERNAL TAB DEPRECATED 14/11/23 */}
+                    {/* <li className={`  ${filterhead === "External" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                         getDataWithFilters('EXTERNAL')
                         setFilterhead("External")
                         setShowSourceFilter(false)
@@ -210,7 +213,8 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                                 External
                             </span>
                         }
-                    </li>
+                    </li> */}
+
 
                     <li className={`  ${filterhead === "File" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                         getDataWithFilters('FILE')
@@ -267,7 +271,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                     </li>
                 </ul>
             </div>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                 <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                     <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                     {loading ?
@@ -400,8 +404,8 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                     </div> */}
 
             {createModal === true && (
-                <SideModal heading={'Add New Content'} setShow={setCreateModal} width={'sm:w-[1000px]'}>
-                    <div className='block sm:flex justify-center items-center gap-4 my-8'>
+                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'} titleStyles={'text-primary'}>
+                    {/* <div className='block sm:flex justify-center items-center gap-4 my-8'>
 
                         <div onClick={() => {
                             handleCreateOptions('snippet')
@@ -430,25 +434,89 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Product</h3>
                             <p className='text-xs font-normal'>A product or service that users can purchase directly from Tempo.</p>
                         </div>
+                    </div> */}
+                    <div className='block items-center my-3'>
+                        <ul className="list-none p-0 m-0 w-100">
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div
+                                    onClick={() => {
+                                        handleCreateOptions('snippet');
+                                        setCreateMode('snippet');
+                                    }}
+                                    className="flex items-center"
+                                >
+                                    <div className="flex-shrink-0 h-10 w-10 bg-red rounded-lg p-2">
+                                        <DocumentTextIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>Snippet</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">Plain text content specific for Tempo.</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div onClick={() => handleCreateOptions('pdf')} className="flex items-center">
+                                    <div className="flex-shrink-0 h-10 w-10 bg-primary rounded-lg p-2">
+                                        <PaperClipIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>File Upload</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">Txt or PDF FAQ or support file.</p>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">
+                                <div
+                                    onClick={() => {
+                                        handleCreateOptions('snippet');
+                                        setCreateMode('product');
+                                    }}
+                                    className="flex items-center"
+                                >
+                                    <div className="flex-shrink-0 h-10 w-10 bg-[#C01A59] rounded-lg p-2">
+                                        <PuzzlePieceIcon className="h-full w-full text-white" />
+                                    </div>
+                                    <div className="ml-4">
+                                        <h3 className="text-sm font-bold">
+                                            <b>Product</b>
+                                        </h3>
+                                        <p className="text-xs font-normal">
+                                            A product or service that users can purchase directly from Tempo.
+                                        </p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </SideModal>
+                </SideModal >
             )}
 
-            {createOptions === 'snippet' && (
-                <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getQuestionsData={getQuestionsData}
-                    setCreateModal={setCreateModal}
-                    setLoading={setLoading}
-                    setCreatePdfModal={setCreatePdfModal} creationMode={createMode} />
-            )}
-            {createOptions === 'url' && (
-                <UrlManagement
-                    hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
-            )}
-            {createPdfModal === true && (
-                <SideModal heading={'File Upload'} setShow={setCreatePdfModal}>
-                    <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChangeFile} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} />
-                </SideModal>
-            )}
+            {
+                createOptions === 'snippet' && (
+                    <SnippetManagement externalTitle={externalTitleForSnippet} hideComponent={hideComponent} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getQuestionsData={getQuestionsData}
+                        setCreateModal={setCreateModal}
+                        setLoading={setLoading}
+                        setCreatePdfModal={setCreatePdfModal} creationMode={createMode} />
+                )
+            }
+            {
+                createOptions === 'url' && (
+                    <UrlManagement
+                        hideComponent={hideComponent} currentStatusSteps={currentStatusSteps} currentIndex={currentIndex} setCreateOptions={setCreateOptions} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} getCount={getCount} deleteRecord={deleteKnowledgeCenterHandler} />
+                )
+            }
+            {
+                createPdfModal === true && (
+                    <SideModal heading={'File Upload'} setShow={setCreatePdfModal}>
+                        <FileManagement hideComponent={hideComponent} createPdfModal={createPdfModal} setCreatePdfModal={setCreatePdfModal} handleChange={handleChangeFile} fileTypes={fileTypes} setCreateModal={setCreateModal} basicFormData={formData} setBasicFormData={setFormData} handleSubmit={handleSubmit} loading={loading} />
+                    </SideModal>
+                )
+            }
         </>
     )
 }
