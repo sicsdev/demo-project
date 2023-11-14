@@ -78,7 +78,7 @@ export default function Home() {
 
         <Reach handleClickScroll={handleClickScroll} data={reachData} />
         <Panelcardnew />
-        <HomeContent handleClickScroll={handleClickScroll} />
+        {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
         <Middlebar />
         <Homeform reff={ref} />
