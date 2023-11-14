@@ -187,12 +187,10 @@ export const getWorkflowUsageByUsageId = async (usageId) => {
 };
 
 
-
-
-export const getWorkflowUsageByWorkflowId = async (workflow_id) => {
+export const getWorkflowUsageByWorkflowId = async (workflow_id, page = 1, perPage = 10, queryParams) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/workflow/${workflow_id}`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-usage/workflow/${workflow_id}?page=${page}&page_size=${perPage}${queryParams && queryParams}`, config);
         return response.data;
     } catch (error) {
         return error

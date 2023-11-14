@@ -201,7 +201,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         manageData()
     }, [workflowData])
 
-    // Gradient style for usage # style.
     const getGradientStyle = (number) => {
         let currentValue = number;
         let maxValue = data[0].workflow_usage_last_24_hours * 1;
@@ -210,21 +209,29 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             let percentage = (currentValue / maxValue) * 100;
             percentage = Math.min(percentage, 100);
 
-            const gradientStyle = {
-                background: `linear-gradient(to top, red ${percentage}%, green ${percentage}%)`,
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-            };
+            let color;
+            if (percentage >= 75) {
+                color = '#48CD2B';
+            } else if (percentage >= 40) {
+                color = '#0A7204';
+            } else if (percentage >= 15) {
+                color = '#D93F06';
+            } else {
+                color = '#F14932';
+            }
 
-            return gradientStyle;
+            return {
+                color: color,
+            };
         } else {
             return {
-                background: 'linear-gradient(to top, green, red)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent'
+                color: '#808080',
             };
         }
     }
+
+
+
 
 
     const editWorkFlowHandler = (ele) => {
@@ -365,7 +372,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                 <div className='absolute top-0 right-0'>
 
                                                     <span
-                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }} 
+                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
                                                         className='text-[#808080] font-semibold'
                                                         data-tooltip-id="last24hs"
                                                         data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}
