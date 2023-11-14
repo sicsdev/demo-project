@@ -31,7 +31,7 @@ const ServicePlatform = () => {
             content_video: "/EmailAutomation.png",
             h3: "Elevate your customer service with Smart IVR.",
             p: "Automate email interactions with intelligent workflows, ensuring timely and relevant responses to customer queries.",
-            className: "bg-[#f8fcfa]"
+            className: "bg-[#D9FFFFFF]"
         },
         {
             id: "3",
