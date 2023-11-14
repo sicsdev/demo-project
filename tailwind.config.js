@@ -96,12 +96,15 @@ module.exports = {
       gray: "#e4e4e7",
       graywhite: "#F3F3F3",
       skyblue: "#d8e4fa",
+      aliceblue: "#f5f8fa",
       red: "#dc2626",
       label: "#59f2f6",
       fade_text: "#000000db",
       sidebarbg:"#151D23",
       sidebarroute:"#1C252B",
-      sidebarsubroute:"#232D32"
+      sidebarsubroute:"#232D32",
+      lowgray: "#f3f3f2",
+      stronggray: "#787978"
     },
     extend: {
       gridTemplateColumns: {
