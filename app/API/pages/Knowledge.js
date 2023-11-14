@@ -215,11 +215,11 @@ export const getAllFaqHistory = async (page = 1, perPage = 10) => {
 }
 
 
-export const rollBackToVersion = async (faqId, faqHistoryId) => {
+export const rollBackToVersion = async (faqHistoryId) => {
     let config = returnConfig()
     let body = {}
     try {
-        const response = await axios.post(`${API_URL}/api/v1/main/faqs/${faqId}/rollback_to_version/${faqHistoryId}/`, body, config);
+        const response = await axios.post(`${API_URL}/api/v1/main/knowledge-faq-history/${faqHistoryId}/rollback_to_version/`, body, config);
         return response;
     } catch (error) {
         return error
