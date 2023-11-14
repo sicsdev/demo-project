@@ -1,9 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  XMarkIcon,
-  PlusSmallIcon,
-} from "@heroicons/react/24/outline";
+import { XMarkIcon, PlusSmallIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, useRouter } from "next/navigation";
 import "../../(dashboard)/dashboard/customize/widgetStyle.css";
 import {
@@ -19,7 +16,14 @@ import TextField from "../Common/Input/TextField";
 import LoaderButton from "../Common/Button/Loaderbutton";
 import SideModal from "../SideModal/SideModal";
 import { getActiveIntegrations } from "@/app/API/pages/Integration";
-const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoading, DisablingButton, SubmitForm }) => {
+const Customize = ({
+  form = false,
+  basicFormData,
+  setBasicFormData,
+  buttonLoading,
+  DisablingButton,
+  SubmitForm,
+}) => {
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
@@ -29,21 +33,19 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
       getBotInfo(id);
       setBot_id(id);
     }
-
   }, [id]);
   useEffect(() => {
     if (form === false && basicFormData) {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
       setBlockedUrls(basicFormData.origins_blocked ?? []);
-
     }
 
-    getInfoIntegrations()
+    getInfoIntegrations();
   }, [basicFormData]);
 
   const [showManageHideUrls, setShowManageHideUrls] = useState(false);
-  const [availableIntegrations, setAvailableIntegrations] = useState([])
+  const [availableIntegrations, setAvailableIntegrations] = useState([]);
 
   const [preferences, setPreferences] = useState({
     id: "",
@@ -76,8 +78,8 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     chat_default_message: "How can I help you today?",
     chat_suggestions: [],
     chat_suggestions_show: false,
-    chat_suggestions_secondary_color: '#CED9F195',
-    chat_suggestions_primary_color: '#3042CCFF'
+    chat_suggestions_secondary_color: "#CED9F195",
+    chat_suggestions_primary_color: "#3042CCFF",
   });
 
   const colorCodes = [
@@ -100,37 +102,35 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
 
   // Primary functions
   const getInfoIntegrations = async () => {
-
-    let info = await getActiveIntegrations()
-    const searchTerms = ['zendesk', 'freshdesk', 'zohodesk', 'gorgias'];
+    let info = await getActiveIntegrations();
+    const searchTerms = ["zendesk", "freshdesk", "zohodesk", "gorgias"];
 
     if (info?.results) {
       const foundIntegrations = info.results
-        .map(item => item.name.toLowerCase())
-        .filter(name => searchTerms.includes(name));
+        .map((item) => item.name.toLowerCase())
+        .filter((name) => searchTerms.includes(name));
 
       setAvailableIntegrations(foundIntegrations);
     }
-
-
-  }
+  };
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
-      console.log('getallbotdata', res);
-      let bot_res = res[0].data
-      setBasicFormData(prev => {
+      console.log("getallbotdata", res);
+      let bot_res = res[0].data;
+      setBasicFormData((prev) => {
         return {
           ...prev,
           email: bot_res.email,
           agent_name: bot_res.agent_name,
           agent_title: bot_res.email_agent_title,
-          email_introduction: bot_res.email_greeting?.replace(/\\/g, '').replace(/"/g, '') || "",
-          email_signOff: bot_res.email_farewell?.replace(/\\/g, '').replace(/"/g, '') || "",
-
-        }
-      })
+          email_introduction:
+            bot_res.email_greeting?.replace(/\\/g, "").replace(/"/g, "") || "",
+          email_signOff:
+            bot_res.email_farewell?.replace(/\\/g, "").replace(/"/g, "") || "",
+        };
+      });
       setBotDetails(res[0].data);
-      debugger
+      debugger;
       setPreferences(res[0].data);
       setBlockedUrls(res[0].data.origins_blocked ?? []);
       let data = res[0].data;
@@ -156,7 +156,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         primary_text_color: color.text_color,
       };
     });
-
   };
 
   const handleSecondaryColorChange = (color) => {
@@ -172,7 +171,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         secondary_text_color: color.text_color,
       };
     });
-
   };
 
   const handleInputChange = (e) => {
@@ -181,7 +179,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     setBasicFormData((prev) => {
       return { ...prev, [name]: value };
     });
-
   };
   const handleCheckBoxChange = (e) => {
     const { name } = e.target;
@@ -192,7 +189,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     setBasicFormData((prev) => {
       return { ...prev, [name]: preferences.active === false ? true : false };
     });
-
   };
   const handleCheckBoxChange1 = (e) => {
     const { name } = e.target;
@@ -201,9 +197,11 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
       [name]: preferences.chat_suggestions_show === false ? true : false,
     });
     setBasicFormData((prev) => {
-      return { ...prev, [name]: preferences.chat_suggestions_show === false ? true : false };
+      return {
+        ...prev,
+        [name]: preferences.chat_suggestions_show === false ? true : false,
+      };
     });
-
   };
 
   // Logo & thumbnail upload + base64 conversion
@@ -234,14 +232,12 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         setBasicFormData((prev) => {
           return { ...prev, logo: result, logo_file_name: file.name };
         });
-
       })
 
       .catch((err) => {
         console.log(err);
       });
   };
-
 
   // **** Manage hide urls modal handlers ***
   const [blockedUrls, setBlockedUrls] = useState([]);
@@ -258,9 +254,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         setBasicFormData((prev) => {
           return {
             ...prev,
-            origins_blocked: res?.data?.origins_blocked
-          }
-        })
+            origins_blocked: res?.data?.origins_blocked,
+          };
+        });
       }
     });
   };
@@ -276,9 +272,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
         setBasicFormData((prev) => {
           return {
             ...prev,
-            origins_blocked: res?.data?.origins_blocked
-          }
-        })
+            origins_blocked: res?.data?.origins_blocked,
+          };
+        });
       }
     }),
   ];
@@ -292,7 +288,6 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
       setTileAgentName(basicFormData?.chat_suggestions ?? []);
     }
   }, [basicFormData]);
-
 
   const handleAgentNameValue = (e) => {
     const { value } = e.target;
@@ -371,11 +366,13 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
     });
   };
   const makeCapital = (str) => {
-    console.log(str)
+    console.log(str);
     if (str.includes(" ")) {
       return str
         .split(" ")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join(" ");
     } else {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -383,24 +380,30 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
   };
 
   useEffect(() => {
-    const textarea = document.querySelector('.resizable-textarea');
-    textarea?.setAttribute('rows', '1'); // Set the 'rows' attribute
+    const textarea = document.querySelector(".resizable-textarea");
+    textarea?.setAttribute("rows", "1"); // Set the 'rows' attribute
     const rows = Math.min(
       Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
       6 // Limit to a maximum of 6 rows
     );
 
-    textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+    textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [preferences.chat_default_message]);
 
+  console.log("human", preferences.human_handoff_platform);
   return (
     <>
       {/* Modal to manage hide urls */}
-      {showManageHideUrls === true &&
-        <SideModal setShow={setShowManageHideUrls} heading={'Hide widget on Certain URLs'} >
+      {showManageHideUrls === true && (
+        <SideModal
+          setShow={setShowManageHideUrls}
+          heading={"Hide widget on Certain URLs"}
+        >
           <>
             <div>
-              <h3 className="my-2 font-normal new_input_label text-sm text-heading">Block paths you don't want the widget to appear on.</h3>
+              <h3 className="my-2 font-normal new_input_label text-sm text-heading">
+                Block paths you don't want the widget to appear on.
+              </h3>
             </div>
             <div>
               {blockedUrls.map((item, index) => (
@@ -409,8 +412,12 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   className="flex items-center w-full mt-3 gap-2 xl:w-1/2"
                 >
                   <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                    <span className="new_input_label block text-sm text-heading
-                    ">URL Containing:</span>
+                    <span
+                      className="new_input_label block text-sm text-heading
+                    "
+                    >
+                      URL Containing:
+                    </span>
                   </div>
                   <TextField
                     value={item}
@@ -434,18 +441,19 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
               ))}
               <div className="flex items-center w-full mt-3 gap-2 xl:w-1/2">
                 <div className="flex justify-start w-1/2 items-center rounded border-gray">
-                  <span className="new_input_label block text-sm text-heading">URL Containing:</span>
+                  <span className="new_input_label block text-sm text-heading">
+                    URL Containing:
+                  </span>
                 </div>
                 <TextField
                   onChange={(e) => {
-                    if (e.target.value && !e.target.value.startsWith('/')) {
-                      setNewBlockedUrl('/' + e.target.value);
+                    if (e.target.value && !e.target.value.startsWith("/")) {
+                      setNewBlockedUrl("/" + e.target.value);
                     } else if (!e.target.value) {
-                      setNewBlockedUrl('');
+                      setNewBlockedUrl("");
                     } else {
-                      setNewBlockedUrl(e.target.value)
+                      setNewBlockedUrl(e.target.value);
                     }
-                   
                   }}
                   value={newBlockedUrl}
                   name="blockUrls"
@@ -465,8 +473,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                 />
               </div>
 
-              <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
-
+              <div
+                className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}
+              >
                 <Button
                   type={"button"}
                   className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
@@ -478,22 +487,20 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
             </div>
           </>
         </SideModal>
-      }
+      )}
       {/* End of modal to manage hide urls */}
 
       <div className="w-full">
-
-
         {botDetails.id && (
           <>
             <br></br>
             <div className="block sm:flex md:flex lg:flex justify-center items-stretch gap-4">
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
-
-
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start  w-1/2 items-center ">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Bot Title</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Bot Title
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -510,7 +517,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Description</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Description
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -540,7 +549,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Widget Location</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Widget Location
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2 items-center">
                     <select
@@ -561,7 +572,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                     <span className="text-gray-700 new_input_label block text-sm text-heading font-medium">
                       {preferences.logo && !preferences.logo_file_name ? (
                         <a
-                          className="text-heading"
+                          className="text-heading new_input_label"
                           target="_blank"
                           href={preferences.logo}
                         >
@@ -614,7 +625,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation Email</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Escalation Email
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <input
@@ -628,28 +641,37 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
-                  <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Escalation platform</span>
+                {preferences.human_handoff_platform == null ? (
+                  ""
+                ) : (
+                  <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                    <div className="flex justify-start w-1/2 items-center">
+                      <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                        Escalation platform
+                      </span>
+                    </div>
+                    <div className="flex justify-start w-1/2 items-center">
+                      <select
+                        value={preferences.human_handoff_platform}
+                        name="human_handoff_platform"
+                        onChange={handleInputChange}
+                        className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                      >
+                        <option value="">No platform active</option>
+                        {availableIntegrations.map((name) => (
+                          <option value={name}>
+                            {name.charAt(0).toUpperCase() + name.slice(1)}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
                   </div>
-                  <div className="flex justify-start w-1/2 items-center">
-                    <select
-                      value={preferences.human_handoff_platform}
-                      name="human_handoff_platform"
-                      onChange={handleInputChange}
-                      className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                    >
-                      <option value="">No platform active</option>
-                      {availableIntegrations.map((name) =>
-                        <option value={name}>{name.charAt(0).toUpperCase() + name.slice(1)}</option>
-                      )}
-                    </select>
-                  </div>
-                </div>
-
+                )}
                 <div className="flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Message</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Default Message
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2">
                     <textarea
@@ -658,7 +680,7 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                       type="text"
                       className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat default message"
-                      rows={'1'}
+                      rows={"1"}
                     >
                       {preferences.chat_default_message}
                     </textarea>
@@ -673,12 +695,22 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   </div>
                 </div>
 
-                <div className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${tileAgentName.length > 0 ? 'items-start' : 'items-center'}`}>
+                <div
+                  className={`flex  justify-between w-full mt-2 gap-2 px-2 sm:px-0 ${
+                    tileAgentName.length > 0 ? "items-start" : "items-center"
+                  }`}
+                >
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Default Prompts</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Default Prompts
+                    </span>
                   </div>
                   <div className="flex justify-start w-1/2">
-                    <div className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${tileAgentName.length > 0 && ("p-2")}`}>
+                    <div
+                      className={`flex flex-wrap justify-start items-center border  border-[#C7C6C7]  w-full rounded-md ${
+                        tileAgentName.length > 0 && "p-2"
+                      }`}
+                    >
                       <div className="flex flex-wrap items-center justify-start gap-1">
                         {tileAgentName.length > 0 &&
                           tileAgentName.map((element, key) => (
@@ -712,7 +744,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Show Chat Bot</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Show Chat Bot
+                    </span>
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -726,17 +760,20 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                         checked={preferences.active === true}
                       />
                       <div
-                        className={`w-11 h-6 ${preferences.active === false
-                          ? "bg-border"
-                          : "bg-primary"
-                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                        className={`w-11 h-6 ${
+                          preferences.active === false
+                            ? "bg-border"
+                            : "bg-primary"
+                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                       ></div>
                     </label>
                   </div>
                 </div>
                 <div className="flex items-center justify-between w-full mt-2 gap-2 n px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Show Suggestions</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Show Suggestions
+                    </span>
                   </div>
                   <div className="flex justify-start h-[37.5px] w-1/2 items-center">
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -750,10 +787,11 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                         checked={preferences.chat_suggestions_show === true}
                       />
                       <div
-                        className={`w-11 h-6 ${preferences.chat_suggestions_show === false
-                          ? "bg-border"
-                          : "bg-primary"
-                          } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
+                        className={`w-11 h-6 ${
+                          preferences.chat_suggestions_show === false
+                            ? "bg-border"
+                            : "bg-primary"
+                        } peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-sky  rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600`}
                       ></div>
                     </label>
                   </div>
@@ -761,7 +799,9 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
 
                 <div className="sm:hidden flex items-center justify-between w-full mt-2 gap-2  px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Hide on Certain URLs
+                    </span>
                   </div>
                   <Button
                     type={"button"}
@@ -770,31 +810,31 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                   >
                     Manage URLs
                   </Button>
-
                 </div>
-                <div className='flex sm:hidden justify-end items-center px-2 py-4'>
-                  {
-                    buttonLoading ? (
-                      <LoaderButton className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`} />
-                    ) : (
-                      <>
-                        <Button type={"button"}
-                          className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                          disabled={DisablingButton()} onClick={(e) => SubmitForm()}
-                        >
-                          Save
-                        </Button>
-                      </>
-                    )}
+                <div className="flex sm:hidden justify-end items-center px-2 py-4">
+                  {buttonLoading ? (
+                    <LoaderButton
+                      className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`}
+                    />
+                  ) : (
+                    <>
+                      <Button
+                        type={"button"}
+                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        disabled={DisablingButton()}
+                        onClick={(e) => SubmitForm()}
+                      >
+                        Save
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
-
 
               <div
                 id="chatbot_preview"
                 className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0"
               >
-
                 <div className="containerChatBot_entire justify-center flex">
                   <div className="widget_container active w-[90%]">
                     <div className="header_ChatBotWidget">
@@ -848,37 +888,75 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
                       >
                         What is the price of the product?
                       </div>
-                      {preferences.chat_suggestions && preferences.chat_suggestions_show &&
-                        <div className="tempoWidget-suggestedQuestions-div_logs">
-                          {preferences.chat_suggestions.map(el => (
-                            <div className="tempoWidget-suggestedQuestions-option">
-                              {el}
-                            </div>
-                          ))}
-                        </div>
-                      }
-
+                      {preferences.chat_suggestions &&
+                        preferences.chat_suggestions_show && (
+                          <div className="tempoWidget-suggestedQuestions-div_logs">
+                            {preferences.chat_suggestions.map((el) => (
+                              <div className="tempoWidget-suggestedQuestions-option">
+                                {el}
+                              </div>
+                            ))}
+                          </div>
+                        )}
                     </div>
 
                     <div class="chatbotwidget_footer">
                       <div className="reply_container">
-                        <textarea id="inputtext_chatwidget" className="input_question" type="text" maxlength="180" placeholder="Write a reply..." />
+                        <textarea
+                          id="inputtext_chatwidget"
+                          className="input_question"
+                          type="text"
+                          maxlength="180"
+                          placeholder="Write a reply..."
+                        />
 
-
-                        <div className="send_audio_button" onclick="handleAudioButton()" id="audioButton">
-                          <svg fill={preferences.primary_color} width="25px" viewBox="0 0 24.00 24.00" xmlns="http://www.w3.org/2000/svg" stroke="${preferences.primary_color}"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M19 10V12C19 15.866 15.866 19 12 19M5 10V12C5 15.866 8.13401 19 12 19M12 19V22M8 22H16M12 15C10.3431 15 9 13.6569 9 12V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V12C15 13.6569 13.6569 15 12 15Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                        </div>
-
-                        <div className="send_button" onclick="handleSubmitQuestion()" id="sendButton">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="25px" viewBox="0 0 24 24" className=""
-                            fill={preferences.primary_color}>
-                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+                        <div
+                          className="send_audio_button"
+                          onclick="handleAudioButton()"
+                          id="audioButton"
+                        >
+                          <svg
+                            fill={preferences.primary_color}
+                            width="25px"
+                            viewBox="0 0 24.00 24.00"
+                            xmlns="http://www.w3.org/2000/svg"
+                            stroke="${preferences.primary_color}"
+                          >
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                            <g
+                              id="SVGRepo_tracerCarrier"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            ></g>
+                            <g id="SVGRepo_iconCarrier">
+                              {" "}
+                              <path
+                                d="M19 10V12C19 15.866 15.866 19 12 19M5 10V12C5 15.866 8.13401 19 12 19M12 19V22M8 22H16M12 15C10.3431 15 9 13.6569 9 12V5C9 3.34315 10.3431 2 12 2C13.6569 2 15 3.34315 15 5V12C15 13.6569 13.6569 15 12 15Z"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                              ></path>{" "}
+                            </g>
                           </svg>
                         </div>
 
+                        <div
+                          className="send_button"
+                          onclick="handleSubmitQuestion()"
+                          id="sendButton"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25px"
+                            viewBox="0 0 24 24"
+                            className=""
+                            fill={preferences.primary_color}
+                          >
+                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"></path>
+                          </svg>
+                        </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -888,40 +966,43 @@ const Customize = ({ form = false, basicFormData, setBasicFormData, buttonLoadin
               <div className="w-full sm:w-[48%] md:w-[48%] lg:w-[48%]">
                 <div className="items-center w-full mt-2 gap-2 flex">
                   <div className="flex justify-start w-1/2 items-center">
-                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">Hide on Certain URLs</span>
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Hide on Certain URLs
+                    </span>
                   </div>
-                  <Button type={"button"}
+                  <Button
+                    type={"button"}
                     className="inline-block mt-0 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                     onClick={() => setShowManageHideUrls(true)}
                   >
                     Manage URLs
                   </Button>
-
                 </div>
               </div>
               <div className="w-full sm:w-[42%] md:w-[42%] lg:w-[42%] mt-6 sm:mt-0">
-                <div className='flex justify-end items-center px-6 py-4'>
-                  {
-                    buttonLoading ? (
-                      <LoaderButton className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`} />
-                    ) : (
-                      <>
-                        <Button type={"button"}
-                          className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                          disabled={DisablingButton()} onClick={(e) => SubmitForm()}
-                        >
-                          Save
-                        </Button>
-                      </>
-                    )}
+                <div className="flex justify-end items-center px-6 py-4">
+                  {buttonLoading ? (
+                    <LoaderButton
+                      className={`mt-2 px-6 pb-2 pt-2 text-xs font-medium`}
+                    />
+                  ) : (
+                    <>
+                      <Button
+                        type={"button"}
+                        className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        disabled={DisablingButton()}
+                        onClick={(e) => SubmitForm()}
+                      >
+                        Save
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-
           </>
-        )
-        }
-      </div >
+        )}
+      </div>
     </>
   );
 };

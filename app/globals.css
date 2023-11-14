@@ -1880,9 +1880,11 @@ body .custome_table {
     hyphens: none;
     -webkit-hyphens: none;
     -moz-hyphens: none;}
+
+}
+
 body input[type="text"]:focus, body input[type="number"]:focus, body input[type="date"]:focus, body input[type="email"]:focus, body input[type="password"]:focus, body select:focus, body textarea:focus{
   border: none !important;
   outline: none !important;
   line-height: unset !important;
-}
 }
