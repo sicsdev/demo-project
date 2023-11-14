@@ -415,7 +415,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                 src={`${botUnique?.enterprise?.logo ||
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
                                                                             <div className="answer_text_div"></div>
-                                                                            <ProductComponent />
+                                                                            <ProductComponent product={element?.actions[0]} />
                                                                         </div>
                                                                     </>
                                                                 }
@@ -425,7 +425,11 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                 {/*************  SOURCES & INFORMATION ******************/}
                                                                 {
-                                                                    element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.type !== 'action' &&
+                                                                    element.content !== 'OPTIONS'
+                                                                    && element.content !== 'HUMAN-HANDOFF'
+                                                                    && element.content !== 'FORM'
+                                                                    && element.type !== 'action'
+                                                                    &&
                                                                     <>
 
 
@@ -492,7 +496,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 THIS BELOW CODE WILL PATCH THIS, UNTIL ITS FIXED. */}
 
                                                                 {
-                                                                    element.content !== 'OPTIONS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
+                                                                    element.content !== 'OPTIONS' && element.content !== 'PRODUCTS' && element.content !== 'HUMAN-HANDOFF' && element.content !== 'FORM' && element.content.length > 5 &&
                                                                     element.knowledge.length == 0 && element.workflows.length == 0 && element.action == null && element.type == 'action' &&
                                                                     <>
 
@@ -771,6 +775,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                             </div>
                                                         )}
+
+
+
                                                     {element.sender === 'user' &&
                                                         (
                                                             <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
@@ -798,7 +805,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
                                                                 {
-                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" &&
+                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' &&
                                                                     <>
                                                                         {element.content}
                                                                     </>
