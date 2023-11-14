@@ -102,7 +102,7 @@ const ServicePlatform = () => {
                                     <Link href={`/checkout`} className='text-sm text-[#fe9327] lg:ml-[24px]'><strong>Get started</strong> -- <span>it's free</span></Link>
                                 </div>
                             </div>
-                            <div className='relative lg:w-1/2 mt-[20px] lg:mt-[0px] max-w-none w-full'>
+                            <div className='relative lg:w-1/2  mt-[20px] lg:mt-[0px] max-w-none w-full'>
                                 <img sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 97vw, 800px" loading="lazy" src={element.content_video} alt="" className=" w-full lg:min-w-[800px] transform preserve-3d lg:translate-y-[-74px] lg:translate-x-[31px] lg:translate-z-[1px]" />
                             </div>
                         </div>

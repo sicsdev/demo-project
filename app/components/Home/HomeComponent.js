@@ -2,19 +2,26 @@ import Link from "next/link";
 
 import React from "react";
 
-
-
-
-
 const HomeComponent = () => {
+  return (
+    <>
+      <div className="bg-black text-white py-20">
+        <div className="sm:px-20 px-5 mx-auto ">
+          <p className="sm:text-3xl text-lg">Tempo AI</p>
+          <p className="sm:text-[55px] text-[25px] sm:font-normal font-light sm:w-[70%] w-[100%] leading-snug mt-3 sm:mt-5">
+          The
+<span className=" font-semibold  text-[#fe9327]"> AI-driven </span>
+platform for enterprises seeking fast and effective customer service solutions.         </p>
+          <button
+            className="text-white bg-[#fe9327] sm:px-[55px] px-[60px] font-semibold py-[8px] rounded-[8px] my-0 mt-16 sm:mt-20 sm:my-5"
+            type="button"
+          >
+            <Link href="/checkout">Get Started</Link>
+          </button>
+        </div>
+      </div>
 
-
-
-    return (
-
-        <>
-
-            <footer className=" bg-[#142543] shadow text-center text-white relative">
+      {/* <footer className=" bg-[#142543] shadow text-center text-white relative">
 
                 <div className="mx-auto lg:max-w-[100%]">
 
@@ -37,14 +44,9 @@ const HomeComponent = () => {
 
                 </div>
 
-            </footer>
-
-        </>
-
-    );
-
+            </footer> */}
+    </>
+  );
 };
-
-
 
 export default HomeComponent;
