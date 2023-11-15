@@ -9,8 +9,9 @@ const HeadText = () => {
         }, 1000);
         return () => clearTimeout(timer);
     }, []);
+    // bg-[#F8FCFA]
     return (
-        <div className='bg-[#F8FCFA] shadow-md '>
+        <div className='shadow-md bg-white'>
             <div className='py-[30px] lg:py-[50px]'>
                 {loading ? (
                     <div className="m-auto text-center text-base py-1 sm:mt-8  px-1 rounded-full">

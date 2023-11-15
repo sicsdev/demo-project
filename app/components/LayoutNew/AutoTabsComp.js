@@ -9,9 +9,9 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             id: 1,
             name: "Stefan Teubner",
             content: "Save More with Every Resolution",
-            title: "*Cost-Efficient*",
+            title: "Cost-Efficient",
             description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand.",
-            side_heading: "*Pay Per Resolution*",
+            side_heading: "Pay Per Resolution",
             "points": ["Transparent, per-resolution pricing", "Significant cost savings", ""]
 
         },
@@ -19,27 +19,27 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             id: 2,
             name: "Niki Papazoglakis",
             content: "Tailored Onboarding Experience",
-            title: "*Personalized Setup*",
+            title: "Personalized Setup",
             description: "Our dedicated sales and implementation teams ensure your setup is seamless, efficient, and tailored to your business needs.",
-            side_heading: "*White-Glove Onboarding*",
+            side_heading: "White-Glove Onboarding",
             "points": ['Expert implementation support', 'Customized setup and integration', 'Dedicated team for seamless transition']
         },
         {
             id: 3,
             name: "Oliver Jägle",
             content: "Speak To Your Customers, Anywhere",
-            title: "*Universal Communication*",
+            title: "Universal Communication",
             description: "Our platform offers support in all languages across every channel, ensuring your business is always connected and responsive.",
-            side_heading: "*Every Language, Every Channel, 24/7*",
+            side_heading: "Every Language, Every Channel, 24/7",
             "points": ['Multilingual support', '24/7 availability across all channels', 'Global reach for seamless communication']
         },
         {
             id: 4,
-            title: "*Trustworthy and Secure*",
+            title: "Trustworthy and Secure",
             name: "Niki Papazoglakis",
             content: "Upholding the Highest Standards",
             description: "With robust compliance measures and advanced security protocols, we provide a safe and secure environment for all your interactions.",
-            side_heading: "*Compliance and Security*",
+            side_heading: "Compliance and Security",
             "points": ['Adherence to strict compliance standards', 'Advanced security measures', 'Safe and secure data handling',]
         }
     ];
@@ -60,7 +60,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
     }, []);
 
     return (
-        <div className='relative'>
+        <div className='relative sm:mb-6'>
             <div className='bg-black w-full mx-auto py-[40px] lg:py-[96px] px-[16px]'>
                 <div className='max-w-[1090px] mx-auto'>
                     <div className='py-0 relative'>
@@ -85,11 +85,11 @@ const AutoTabsComp = ({ handleClickScroll }) => {
                             <div className='w-full max-w-[550px]'>
                                 <div className='text-white'>
                                     <div className=''>
-                                        <h4 className='text-[34px] font-semibold mb-[16px]'>{tabData[activeTab]?.side_heading}</h4>
-                                        <p className='text-lg'>{tabData[activeTab]?.description}</p>
+                                        <h4 className='text-[34px] sm:text-[45px] font-semibold mb-[16px]'>{tabData[activeTab]?.side_heading}</h4>
+                                        <p className='text-lg sm:text-xl'>{tabData[activeTab]?.description}</p>
                                         <ul>
                                             {tabData[activeTab].points.map((ele,key) =>
-                                                <li key={key}><p className='text-sm mt-3 text-[#6C727A]'>{ele}</p></li>
+                                                <li key={key}><p className='text-sm sm:text-lg mt-3 text-[#6C727A]'>{ele}</p></li>
                                             )}
                                         </ul>
                                     </div>
