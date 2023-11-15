@@ -203,7 +203,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const getGradientStyle = (number) => {
         let currentValue = number;
-        let maxValue = data[0].workflow_usage_last_24_hours * 1;
+        let maxValue = data[0].successful_automation_usage_last_24_hours_count * 1;
 
         if (currentValue != null && maxValue > 0) {
             let percentage = (currentValue / maxValue) * 100;
@@ -375,10 +375,10 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                         onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
                                                         className='text-[#808080] font-semibold'
                                                         data-tooltip-id="last24hs"
-                                                        data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}
-                                                        style={getGradientStyle(item.workflow_usage_last_24_hours)}>
+                                                        data-tooltip-content={`Successfully used ${item.successful_automation_usage_last_24_hours_count} times last 24hrs.`}
+                                                        style={getGradientStyle(item.successful_automation_usage_last_24_hours_count)}>
 
-                                                        {item.workflow_usage_last_24_hours}
+                                                        {item.successful_automation_usage_last_24_hours_count}
                                                     </span>
 
                                                     <Tooltip id='last24hs' place="top" type="dark" effect="solid" />
