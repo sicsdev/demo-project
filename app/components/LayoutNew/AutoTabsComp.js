@@ -60,7 +60,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
     }, []);
 
     return (
-        <div className='relative sm:mb-6'>
+        <div className='relative mb-6'>
             <div className='bg-black w-full mx-auto py-[40px] lg:py-[96px] px-[16px]'>
                 <div className='max-w-[1090px] mx-auto'>
                     <div className='py-0 relative'>

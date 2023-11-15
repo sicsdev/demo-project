@@ -8,10 +8,10 @@ const Testimonial = () => {
       <div className="pt-2 sm:pt-8 pb-4 sm:pb-16 cursor-pointer mx-auto max-w-[90%]">
         <div
           className={
-            "js-show-on-scroll bg-type-section block sm:flex sm:flex-wrap md:flex md:flex-row lg:flex lg:flex-row justify-between shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
+            "js-show-on-scroll bg-type-section block sm:grid grid-cols-2 gap-[190px] shadow-2xl rounded-lg py-8 px-8 sm:py-20 md:py-20 lg:py-20  sm:px-12 lg:px-12 md:px-12   items-center relative"
           }
         >
-          <div className=" sm:w-[100%] md:w-[50%] lg:w-[50%]">
+          <div className=" ">
             {" "}
             <h2 className="mb-5 md:mb-0 font-bold  text-2xl  md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none text-heading  ">
               Demo Fin now with your own support content
@@ -23,7 +23,7 @@ const Testimonial = () => {
             </p>
           </div>
 
-          <div className="block sm:grid md:grid lg:grid grid-cols-1 gap-4  sm:w-[100%] md:w-[50%] lg:w-[50%]">
+          <div className="block sm:grid md:grid lg:grid grid-cols-1 gap-4  ">
             <input
               id="1"
               type="text"
@@ -39,7 +39,7 @@ const Testimonial = () => {
             <button
               type={"submit"}
               className={
-                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 mb-4 sm:mb-0 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-lg"
+                "py-2 px-8 focus:ring-yellow-300 text-white w-full  mt-2 mb-4 sm:mb-0 sm:m-0 md:m-0 lg:m-0 text-lg font-semibold bg-[#f5455c] hover:bg-black dark:focus:ring-yellow-900 "
               }
             >
               <div className="trytempo">
