@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 
 
-const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) => {
+const Reach = ({ handleClickScroll, data, heading = ' Exceptional Performance' }) => {
 
- 
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -20,8 +20,8 @@ const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) 
           <SkeletonLoader height={60} width={"50%"} />
         </div>
       ) : (
-        <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
-         {heading}{" "}
+        <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[42px] font-bold sm:mb-0">
+          {heading}{" "}
         </h1>
       )}
 
@@ -46,7 +46,7 @@ const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) 
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="text-center sm:text-left p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[24px] text-[#0057ff] ">
+                    <div className="text-center sm:text-left p-0 py-2 sm:p-3 md:py-2 md:px-0 font-bold text-[20px] sm:text-[28px] text-[#0057ff] ">
                       {ele.name}
                     </div>
                   )}
@@ -55,7 +55,7 @@ const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) 
                       <SkeletonLoader height={60} className="w-[100%] sm:w-[50%]" />
                     </div>
                   ) : (
-                    <div className="text-center sm:text-left p-0 py-2 sm:p-3  md:px-0 ">
+                    <div className="text-center sm:text-left p-0 py-2 sm:p-3  md:px-0 sm:text-[16px]">
                       {ele.para}
                     </div>
                   )}
@@ -72,7 +72,7 @@ const Reach = ({handleClickScroll ,data,heading  =' Exceptional Performance' }) 
           </div>
         ) : (
           <button
-          onClick={handleClickScroll}
+            onClick={handleClickScroll}
             type="button"
             className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
           >

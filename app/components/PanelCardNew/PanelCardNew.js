@@ -1,5 +1,5 @@
 "use client";
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import Button from "../Common/Button/Button";
 import Card from "../Common/Card/Card";
 import Image from "next/image";
@@ -27,18 +27,17 @@ const Panelcardnew = () => {
     })();
   }, []);
   return (
-    <div className="bg-white px-[64px] sm:py-[64px] py-[34px]"> 
-      <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-      AI Customer Service Solutions
+    <div className="bg-white px-[64px] sm:py-[64px] py-[34px]">
+      <h2 className="block !font-[600] text-2xl md:text-[42px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+        AI Customer Service Solutions
       </h2>
       <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
         {price_data.map((ele, key) => (
           <Card
-            className={`flex flex-col justify-between  ${
-              ele.title == "Starter"
-                ? "cursor-pointer bg-type-section  hover:bg-card_bg border border-border"
-                : "cursor-pointer  bg-white   border border-border"
-            }`}
+            className={`flex flex-col justify-between  ${ele.title == "Starter"
+              ? "cursor-pointer bg-type-section  hover:bg-card_bg border border-border"
+              : "cursor-pointer  bg-white   border border-border"
+              }`}
           >
             <div key={key}>
               <div className="flex items-center mr-4">
@@ -50,7 +49,7 @@ const Panelcardnew = () => {
                     alt="img"
                   />
                 </div>{" "}
-                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
+                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300 sm:text-[25px]">
                   {ele.title}
                 </p>
               </div>
@@ -140,10 +139,10 @@ const Panelcardnew = () => {
               </button>
             ) : (
               <button
-              data-cal-link="tempoai/sales-call"
-              data-cal-config='{"layout":"month_view"}'
-              className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
-              
+                data-cal-link="tempoai/sales-call"
+                data-cal-config='{"layout":"month_view"}'
+                className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
+
                 Schedule Demo
               </button>
             )}
