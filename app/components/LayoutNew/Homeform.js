@@ -172,7 +172,7 @@ export const Homeform = ({ reff }) => {
         <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[80px] mb-4 p-5 sm:p-0">
 
           <div ref={reff} className="mt-4 sm:mt-10 relative w-[100%] sm:w-[550px] sm:h-[auto]">
-            <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+            <h2 className="block !font-[600] text-2xl md:text-[42px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
               Request Quote
             </h2>
             <div className="w-full mt-4 sm:mt-0">

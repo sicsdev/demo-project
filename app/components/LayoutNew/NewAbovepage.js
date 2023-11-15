@@ -22,9 +22,9 @@ const NewAbovepage = () => {
         layout: "month_view",
       });
     })();
-  }, []); 
+  }, []);
   return (
-    <div className=" relative py-8">
+    <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
 
 
@@ -34,8 +34,8 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={"90%"} />
             </div>
           ) : (
-            <h2 className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black">
-              Every Channel. Every Language. 24/7.{" "}
+            <h2 className="block !font-[500] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[56px] my-[1rem] md:my-8 relative text-[black]">
+              Intelligent Automation for Exceptional Customer Service{" "}
             </h2>
           )}
           {loading ? (
@@ -43,8 +43,9 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={"90%"} />
             </div>
           ) : (
-            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-              Experience the power of Deflection AI in enhancing customer interactions across every channel. Our platform, designed for efficiency and reliability, ensures seamless communication in any language, around the clock.
+            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[17px] md:leading-8 gap-2">
+              Elevate customer satisfaction and agent efficiency with Deflection AI's
+              AI-driven solutions.
             </p>
           )}
 

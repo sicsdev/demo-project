@@ -71,7 +71,7 @@ const ServicePlatform = () => {
                         <SkeletonLoader height={30} width={"70%"} />
                     </div>
                 ) : (
-                    <h2 class="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
+                    <h2 class="block !font-[600] text-2xl md:text-[42px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
                         Deflection AI-Powered Customer Service Platform
                     </h2>
                 )}
@@ -80,7 +80,7 @@ const ServicePlatform = () => {
                         <SkeletonLoader height={30} width={"50%"} />
                     </div>
                 ) : (
-                    <p className="text-blue-400 w-full md-w-[339px] sm:mb-[3rem] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
+                    <p className="text-blue-400 w-full md-w-[339px] sm:mb-[3rem] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[16px] sm:leading-8 gap-2">
                         Unify and automate customer engagement across your organization with
                         our intelligent, AI-driven solutions.
                     </p>

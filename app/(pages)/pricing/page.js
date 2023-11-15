@@ -32,6 +32,7 @@ const INITIAL_DATA = {
   dailyTicketVolume: 0,
   avgAgentHourlyWage: 0,
 };
+
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
 import Modal from "@/app/components/Common/Modal/Modal";
@@ -304,11 +305,8 @@ const Pricing = () => {
         {/* </form> */}
       </div>
 
-      <Reach
-        handleClickScroll={handleClickScroll}
-        data={reachData}
-        heading={"Transparent Pricing"}
-      />
+      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} />
+
       <div className="bg-white">
         <Newfaq />
         {/* <Container>

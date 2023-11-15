@@ -29,6 +29,7 @@ const Panelcardnew = () => {
   return (
     <div className="bg-white px-[16px] sm:py-[64px] py-[34px]">
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+
         AI Customer Service Solutions
       </h2>
       <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
@@ -165,7 +166,7 @@ const Panelcardnew = () => {
                     alt="img"
                   />
                 </div>{" "}
-                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300">
+                <p className="ml-2 text-lg font-semibold text-gray-900 dark:text-gray-300 sm:text-[25px]">
                   {ele.title}
                 </p>
               </div>
