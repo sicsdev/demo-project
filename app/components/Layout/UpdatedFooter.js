@@ -76,7 +76,7 @@ const UpdatedFooter = () => {
 
   return (
     <>
-      <footer className=" bg-[white] shadow text-center text-white relative">
+      <footer className=" bg-[black] shadow text-center text-white relative">
         <div className="mx-auto lg:max-w-[90%]">
           <div className="mx-6 sm:py-10 py-8 text-center md:text-left  border-b-2 border-neutral-200 ">
             <div className="block lg:flex items-start justify-between">
@@ -115,7 +115,7 @@ const UpdatedFooter = () => {
                       width='150px'
                       className="opacity-90"
                       alt="logo.png"
-                      src="/logo-b.png"
+                      src="/logo-w.png"
                     />
                   </Link>
                 </div>
@@ -129,7 +129,7 @@ const UpdatedFooter = () => {
 
                       </h6> */}
 
-                      {/* <h6 className="  text-[#142543] !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
+                      {/* <h6 className="  text-[white] !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2    px-2  h-[17px] flex items-center ">
 
                         <Link href="/careers">Careers</Link>
 
@@ -141,28 +141,28 @@ const UpdatedFooter = () => {
 
                       </h6> */}
 
-                      <h6 className="  text-[#142543]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
+                      <h6 className="  text-[white]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2    px-2  h-[17px] flex items-center ">
                         <Link href="/pricing">Pricing</Link>
                       </h6>
 
-                      <h6 className="  text-[#142543]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2 border-[#142543]    px-2  h-[17px] flex items-center">
+                      <h6 className="  text-[white]  !font-semibold cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    border-r-2    px-2  h-[17px] flex items-center">
                         <Link href="/security">Security</Link>
                       </h6>
 
-                      <h6 className="  text-[#142543]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
+                      <h6 className="  text-[white]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black   border-r-2    px-2  h-[17px] flex items-center ">
                         <Link href="/list-of-subprocessors">
                           Subprocessors{" "}
                         </Link>
                       </h6>
 
-                      <h6 className="  text-[#142543]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2 border-[#142543]    px-2  h-[17px] flex items-center ">
+                      <h6 className="  text-[white]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2    px-2  h-[17px] flex items-center ">
                         <Link href="/data-processing-agreement">DPA</Link>
                       </h6>
 
-                      <h6 className="  text-[#142543]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2    px-2  h-[17px] flex items-center">
+                      <h6 className="  text-[white]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black border-r-2    px-2  h-[17px] flex items-center">
                         <Link href="/privacy-policy">Privacy Policy</Link>
                       </h6>
-                      <h6 className="  text-[#142543]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    px-2  h-[17px] flex items-center">
+                      <h6 className="  text-[white]   !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black    px-2  h-[17px] flex items-center">
                         {profile.email ? (
                           <>
                             {" "}
@@ -173,7 +173,7 @@ const UpdatedFooter = () => {
                         ) : (
                           <Link href={"/login"}>
                             {" "}
-                            <p className=" text-[#142543]  sm:py-[6px] s font-semibold ">
+                            <p className=" text-[white]  sm:py-[6px] s font-semibold ">
                               Sign In
                             </p>
                           </Link>
@@ -184,7 +184,7 @@ const UpdatedFooter = () => {
                 </div>
               </div>
 
-              <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
+              <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[white] !font-semibold">
                 © Deflection AI Ventures, Inc{" "}
               </p>
             </div>

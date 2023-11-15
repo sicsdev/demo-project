@@ -80,16 +80,17 @@ export default function Home() {
         <ServicePlatform />
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
-        <Homeintegration handleClickScroll={handleClickScroll} />
+        <Panelcardnew />
 
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
-        <Panelcardnew />
         {/* <Help /> */}
         {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
+        <Homeintegration handleClickScroll={handleClickScroll} />
+
         <AutoTabsComp handleClickScroll={handleClickScroll} />
-        <Middlebar />
-        <Homeform reff={ref} />
+        {/* <Middlebar />
+        <Homeform reff={ref} /> */}
         {/* <HomeComponent /> */}
       </main>
     </>
