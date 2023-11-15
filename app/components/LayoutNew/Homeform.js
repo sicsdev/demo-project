@@ -172,7 +172,7 @@ export const Homeform = ({ reff }) => {
         <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[80px] mb-4 p-5 sm:p-0">
 
           <div ref={reff} className="mt-4 sm:mt-10 relative w-[100%] sm:w-[550px] sm:h-[auto]">
-            <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
+            <h2 className="block !font-[600] text-2xl md:text-[42px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
               Request Quote
             </h2>
             <div className="w-full mt-4 sm:mt-0">
@@ -328,8 +328,8 @@ export const Homeform = ({ reff }) => {
                           <SkeletonLoader count={1} height={20} width="100%" />
                         ) : (
                           <>
-                            By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                            <Link href="/privacy-policy"><u>Tempo Privacy Policy</u></Link>.
+                            By checking this box, you agree to the are opting in to receive future communications from Deflection AI.{" "}
+                            <Link href="/privacy-policy"><u>Deflection AI Privacy Policy</u></Link>.
                           </>
                         )}
                       </label>
@@ -366,7 +366,7 @@ export const Homeform = ({ reff }) => {
           </p>
 
           <p className='text-center text-[20px]'>
-            A Tempo specialist will reach out shortly to provide <br /> your personalized quote.
+            A Deflection AI specialist will reach out shortly to provide <br /> your personalized quote.
           </p>
         </div>
 

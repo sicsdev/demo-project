@@ -30,7 +30,7 @@ const price_data = [
         { title: "Everything in Starter Etc", alert_icon: "" },
         { title: "White Glove Onboarding", alert_icon: "" },
         { title: "Custom Workflows", alert_icon: "" },
-        { title: "Tempo API Access", alert_icon: "" },
+        { title: "Deflection AI API Access", alert_icon: "" },
       ],
     },
   ];

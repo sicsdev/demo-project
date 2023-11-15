@@ -109,15 +109,16 @@ const UpdatedFooter = () => {
 
                 </div> */}
 
-                <span className="text-4xl mb-4 text-[#142543] ">
+                <div className="relative h-8 mr-24 items-center mb-2 mx-1">
                   <Link href="/">
                     <img
-                      src="/TempoBlue.png"
-                      alt="logo"
-                      className="w-[130px] h-15 object-contain"
+                      width='150px'
+                      className="opacity-90"
+                      alt="logo.png"
+                      src="/logo-b.png"
                     />
                   </Link>
-                </span>
+                </div>
 
                 <div>
                   <div className=" sm:flex justify-between gap-1  items-start">
@@ -184,7 +185,7 @@ const UpdatedFooter = () => {
               </div>
 
               <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
-                © Tempo AI Ventures, Inc{" "}
+                © Deflection AI Ventures, Inc{" "}
               </p>
             </div>
           </div>

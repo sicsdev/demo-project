@@ -17,9 +17,9 @@ const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider')
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title:
-    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Tempo.ai",
+    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI.ai",
   description:
-    "Elevate your customer support with Tempo.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+    "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
     icon: "favicon.ico",
   },
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   let schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Tempo AI Ventures",
+    name: "Deflection AI Ventures",
     image: "https://usetempo.ai/logo.png",
     url: "https://usetempo.ai/",
     telephone: "8553083676",

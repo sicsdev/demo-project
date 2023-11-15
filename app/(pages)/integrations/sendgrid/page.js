@@ -24,7 +24,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-              "SendGrid Integration with Tempo"
+              "SendGrid Integration with Deflection AI"
               )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -62,28 +62,28 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
-            "Why Integrate SendGrid with Tempo?"
+            "Why Integrate SendGrid with Deflection AI?"
             )}
             </p>
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Automated Email Solutions:</b>Seamlessly manage all your email campaigns, transactional emails, and more directly from Tempo's unified dashboard.
+              <b>Automated Email Solutions:</b>Seamlessly manage all your email campaigns, transactional emails, and more directly from Deflection AI's unified dashboard.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Enhanced Deliverability:</b> Leverage Tempo's robust infrastructure and SendGrid's expertise to ensure high email deliverability rates.
+              <b>Enhanced Deliverability:</b> Leverage Deflection AI's robust infrastructure and SendGrid's expertise to ensure high email deliverability rates.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Data-Driven Insights:</b>Utilize Tempo's analytics to gain actionable insights from your SendGrid data, enabling smarter business decisions.
+              <b>Data-Driven Insights:</b>Utilize Deflection AI's analytics to gain actionable insights from your SendGrid data, enabling smarter business decisions.
             </p>
             )}
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -97,21 +97,21 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-1">
-               <span className="font-semibold">Connect SendGrid to Tempo:</span> Integrate your SendGrid account with Tempo in a few simple steps.
+               <span className="font-semibold">Connect SendGrid to Deflection AI:</span> Integrate your SendGrid account with Deflection AI in a few simple steps.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-1">
-                <span className="font-semibold">Customize Your Email Workflow with SendGrid Endpoints:</span> Incorporate SendGrid's diverse API endpoints into your Tempo workflows for a tailored email marketing experience.
+                <span className="font-semibold">Customize Your Email Workflow with SendGrid Endpoints:</span> Incorporate SendGrid's diverse API endpoints into your Deflection AI workflows for a tailored email marketing experience.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-1">
-                <span className="font-semibold">Analyze and Optimize:</span>Use Tempo's analytics to derive valuable insights from your SendGrid data, driving continuous improvement.
+                <span className="font-semibold">Analyze and Optimize:</span>Use Deflection AI's analytics to derive valuable insights from your SendGrid data, driving continuous improvement.
             </p>
             )}
             <div>
@@ -142,7 +142,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b> Transactional Emails:</b>Send transactional emails directly from Tempo.
+              <b> Transactional Emails:</b>Send transactional emails directly from Deflection AI.
             </p>
             )}
             {loading ? (
@@ -179,7 +179,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
-            "Ready to optimize your email marketing and customer engagement? Integrate SendGrid with Tempo today."
+            "Ready to optimize your email marketing and customer engagement? Integrate SendGrid with Deflection AI today."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -209,7 +209,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

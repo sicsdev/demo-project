@@ -33,6 +33,7 @@ const INITIAL_DATA = {
   avgAgentHourlyWage: 0,
 
 };
+
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
 import Modal from "@/app/components/Common/Modal/Modal";
@@ -109,7 +110,7 @@ const Pricing = () => {
     {
       reach: "99.999%        ",
       name: "Free Credits",
-      para: "Jumpstart your journey with Tempo by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
+      para: "Jumpstart your journey with Deflection AI by receiving $200 in free credits upon sign up, allowing you to experience our premier service with no upfront investment.",
       link_title: "Leverage your data",
     },
     {
@@ -246,21 +247,21 @@ const Pricing = () => {
         <meta charSet="utf-8" />
         <meta
           name="title"
-          content="Flexible Pricing Plans for Tempo.ai's Customer Support Solutions"
+          content="Flexible Pricing Plans for Deflection AI.ai's Customer Support Solutions"
         />
 
         <meta
           name="description"
-          content="Discover Tempo.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
+          content="Discover Deflection AI.ai's flexible pricing plans for advanced customer support solutions. Choose the package that fits your business needs and budget. Get started today"
         />
       </Helmet>
       {/* <Pricingbanner handleClickScroll={handleClickScroll} /> */}
 
       {/* <Panelcard  /> */}
 
-      <Panelcardnew  />
+      <Panelcardnew />
       <Homeinte />
-    
+
       <div className="p-4 sm:p-8  sm:px-40 ">
         {/* <form onSubmit={onSubmit}> */}
         {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
@@ -276,13 +277,13 @@ const Pricing = () => {
             >
               View Savings
             </button>
-            
+
           )}
         </div>
         {/* </form> */}
       </div>
 
-      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"}/>
+      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} />
       <div className="bg-white">
         <Container>
           <FaqAccordian

@@ -346,7 +346,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                         <div className="subtitle_div">
                                                             <span className="subtitle_ChatBotWidget">
                                                                 <span className="ai_icon">AI</span>{" "}
-                                                                {botUnique?.enterprise?.description || "Powered by Tempo"}
+                                                                {botUnique?.enterprise?.description || "Powered by Deflection AI"}
                                                             </span>
                                                         </div>
 

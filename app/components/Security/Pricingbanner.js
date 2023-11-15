@@ -38,7 +38,7 @@ Enhanced Security Framework          </div>
           </div>
         ) : (
           <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
-Tempo's security approach is designed to protect and manage your data with the utmost care. From stringent moderation to robust encryption, we ensure your business communications are secure at every touchpoint, providing peace of mind in every interaction.          </div>
+Deflection AI's security approach is designed to protect and manage your data with the utmost care. From stringent moderation to robust encryption, we ensure your business communications are secure at every touchpoint, providing peace of mind in every interaction.          </div>
         )}
         <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
           {loading ? (

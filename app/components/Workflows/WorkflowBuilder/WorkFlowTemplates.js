@@ -473,7 +473,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     <SkeletonLoader count={1} height={20} width="50%" />
                                                     :
                                                     <>
-                                                        By Tempo
+                                                        By Deflection AI
                                                     </>
                                                 }
                                             </p>

@@ -67,7 +67,7 @@ export function FirstStep({
       setActive(index);
     }
   };
- 
+
   const handleAreaClick = (area) => {
     setData((prev) => {
       const isAreaSelected = prev.yourFunctionalAreas?.includes(area);
@@ -85,7 +85,7 @@ export function FirstStep({
   return (
     <>
       <FormWrapper title="ROI Calculator">
-        <div className="mb-4 mt-3 sm:mt-0">Enter the following to project your savings with Tempo</div>
+        <div className="mb-4 mt-3 sm:mt-0 text-lg sm:text-[16px]">Enter the following to project your savings with Deflection AI</div>
         <div className="block sm:flex  justify-between  items-stretch gap-4">
           <div className="w-full mb-3 sm:mb-0">
             <TextField
@@ -94,9 +94,9 @@ export function FirstStep({
               name="companyName"
               value={data.companyName ?? ''}
               onChange={handleInputValues}
-              className="py-3 mt-1"
+              className="py-3 mt-1 "
               title={
-                <div className="flex items-center gap-2 w-[150px]">
+                <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
                   <span>Company Name</span>{" "}
                 </div>
               }
@@ -125,7 +125,7 @@ export function FirstStep({
                 "Real Estate and Rental Leasing",
               ]}
               title={
-                <div className="flex items-center gap-2 w-[150px]  mb-3">
+                <div className="flex items-center gap-2 w-[150px]  mb-3 text-lg sm:text-[14px]">
                   <span> Industry</span>{" "}
                 </div>
               }
@@ -142,7 +142,7 @@ export function FirstStep({
               onChange={handleInputValues}
               values={business_company_size_data}
               title={
-                <div className="flex items-center gap-2 w-[300px]  mb-3">
+                <div className="flex items-center gap-2 w-[300px]  mb-3 text-lg sm:text-[14px]">
                   <span> Total numbers of employees</span>{" "}
                 </div>
               }
@@ -160,7 +160,7 @@ export function FirstStep({
               onChange={handleInputValues}
               className="py-3 mt-1"
               title={
-                <div className="flex items-center gap-2 w-[150px]">
+                <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
                   <span>Number of Agents</span>{" "}
                 </div>
               }
@@ -178,7 +178,7 @@ export function FirstStep({
               onChange={handleInputValues}
               className="py-3 mt-1"
               title={
-                <div className="flex items-center gap-2 w-[150px]">
+                <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
                   <span>Daily Ticket Volume</span>{" "}
                 </div>
               }
@@ -195,7 +195,7 @@ export function FirstStep({
               onChange={handleInputValues}
               className="py-3 mt-1"
               title={
-                <div className="flex items-center gap-2 w-[150px]">
+                <div className="flex items-center gap-2 w-[200px] text-lg sm:text-[14px]">
                   <span>Avg. Agent Hourly Wage</span>{" "}
                 </div>
               }

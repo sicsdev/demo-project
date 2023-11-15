@@ -284,7 +284,9 @@ const Logs = () => {
           value: item.id,
         })),
       ];
-      setUserWorkflows(values);
+
+      let filterDefaultNames = values.filter(val => val.name !== 'Default_name')
+      setUserWorkflows(filterDefaultNames);
     }
   };
 

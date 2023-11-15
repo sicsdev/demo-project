@@ -32,13 +32,13 @@ const Tempoeconomy = () => {
       id: "3",
       title: "Seamless Integration",
       content_video: "/tabs/three.gif",
-      p: "Enjoy the ease of plug-and-play with Tempo Chat. Integrate your payments, CRM, inventory management, and backend in as little as one click.",
+      p: "Enjoy the ease of plug-and-play with Deflection AI Chat. Integrate your payments, CRM, inventory management, and backend in as little as one click.",
     },
     {
       id: "4",
       title: "Transparent Billing",
       content_video: "/tabs/Billing-GIF.gif",
-      p: "Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.      ",
+      p: "Experience clear and fair billing. At Deflection AI Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.      ",
     },
   ];
 
@@ -59,10 +59,10 @@ const Tempoeconomy = () => {
       >
         <div className="sm:max-w-[50%] w-full">
           <h1 class="text-left text-2xl tracking-wide text-heading sm:text-3xl md:text-4xl lg:text-4xl mb-2 font-bold ">
-            Optimize Your Customer Support with Tempo Chat{" "}
+            Optimize Your Customer Support with Deflection AI Chat{" "}
           </h1>
           <p className="sm:mt-4 sm:mb-3 mb-3 text-justify">
-            Empower your platform with an AI that never sleeps. Tempo Chat helps
+            Empower your platform with an AI that never sleeps. Deflection AI Chat helps
             you efficiently tackle complex support tickets, allowing you to
             focus on improving your customer journey. Cut your customer service
             costs and pay only for what you use.

@@ -65,13 +65,13 @@ const Nav = () => {
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[57px]">
           <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
-            <div className="relative w-28 h-8 mr-24">
+            <div className="relative h-8 mr-24 items-center flex">
               <Link href="/">
-                <Image
-                  fill={"true"}
-                  className="bg-contain mx-auto w-full"
+                <img
+                  width='140px'
+                  className="opacity-100 mt-0.5"
                   alt="logo.png"
-                  src={"/logo-b.png"}
+                  src="/logo-b.png"
                 />
               </Link>
             </div>
@@ -111,22 +111,22 @@ const Nav = () => {
               </ul>
             }
             <div className="hidden  sm:hidden md:hidden lg:flex flex-row gap-10 items-center ml-auto">
-            
-            {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ?"":
-              profile.email ? (
-                <>
-                  {" "}
-                  <p className="text-black">{profile.email}</p>
-                </>
-              ) : (
-                <Link href={"/login"}>
-                  {" "}
-                  <p className="text-black sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
-                    Sign In
-                  </p>
-                </Link>
-              )}
-              
+
+              {pathname == "/lp/chat-bot" || pathname == "/lp/contact-center" ? "" :
+                profile.email ? (
+                  <>
+                    {" "}
+                    <p className="text-black">{profile.email}</p>
+                  </>
+                ) : (
+                  <Link href={"/login"}>
+                    {" "}
+                    <p className="text-black sm:py-[6px] sm:px-[12px]  hover:outline-[#2563eb] hover:outline-1 hover:rounded-[2px]	hover:outline  hover:outline-offset-2 ">
+                      Sign In
+                    </p>
+                  </Link>
+                )}
+
               {profile.email ? (
                 <Link href={"/dashboard"}>
                   {" "}

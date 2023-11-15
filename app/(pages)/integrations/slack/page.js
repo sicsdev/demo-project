@@ -22,7 +22,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-                "Slack Integration with Tempo"
+                "Slack Integration with Deflection AI"
               )}
             </p>
             <h2 className="!font-bold text-h3 text-left">
@@ -61,28 +61,28 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="100%" />
                 ) : (
-                  "Why Integrate Slack with Tempo?"
+                  "Why Integrate Slack with Deflection AI?"
                 )}
               </p>
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-heading text-xl sm:mb-3">
-                  <b>Enhanced Team Collaboration:</b> Merge Slack's robust messaging and communication features with Tempo's workflow capabilities for a seamless team collaboration experience.
+                  <b>Enhanced Team Collaboration:</b> Merge Slack's robust messaging and communication features with Deflection AI's workflow capabilities for a seamless team collaboration experience.
                 </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-heading text-xl sm:mb-3">
-                  <b> Unified Communication Hub:</b> Manage Slack channels, messages, and users directly from Tempo's centralized dashboard, making team interactions more efficient.
+                  <b> Unified Communication Hub:</b> Manage Slack channels, messages, and users directly from Deflection AI's centralized dashboard, making team interactions more efficient.
                 </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-heading text-xl sm:mb-3">
-                  <b>Data-Driven Collaboration:</b> Utilize Tempo's analytics to gain insights from your Slack data, empowering your team to collaborate more effectively.
+                  <b>Data-Driven Collaboration:</b> Utilize Deflection AI's analytics to gain insights from your Slack data, empowering your team to collaborate more effectively.
                 </p>
               )}
               {loading ? (
@@ -96,21 +96,21 @@ const page = () => {
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-[#363866] text-xl  sm:mb-1">
-                    <span className="font-semibold">Connect Slack to Tempo:</span> Integrate your Slack workspace with Tempo in just a few simple steps.
+                    <span className="font-semibold">Connect Slack to Deflection AI:</span> Integrate your Slack workspace with Deflection AI in just a few simple steps.
                 </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-[#363866]  text-xl  sm:mb-1">
-                 <span className="font-semibold"> Customize Your Workflow with Slack Endpoints:</span> Incorporate Slack's diverse API methods into your Tempo workflows for a tailored team collaboration experience.
+                 <span className="font-semibold"> Customize Your Workflow with Slack Endpoints:</span> Incorporate Slack's diverse API methods into your Deflection AI workflows for a tailored team collaboration experience.
                 </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-[#363866] text-xl   sm:mb-1">
-                <span className="font-semibold">Analyze and Optimize:</span> Leverage Tempo's analytics to derive actionable insights from your Slack data, enabling continuous improvement in team collaboration.
+                <span className="font-semibold">Analyze and Optimize:</span> Leverage Deflection AI's analytics to derive actionable insights from your Slack data, enabling continuous improvement in team collaboration.
                 </p>
               )}
               <div>
@@ -172,7 +172,7 @@ const page = () => {
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
                 <p className="text-heading text-xl sm:mb-3">
-                  Ready to revolutionize your team's collaboration? Integrate Slack with Tempo today.
+                  Ready to revolutionize your team's collaboration? Integrate Slack with Deflection AI today.
                 </p>
               )}
               {loading ? (
@@ -203,7 +203,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

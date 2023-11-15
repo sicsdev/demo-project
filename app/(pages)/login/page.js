@@ -212,7 +212,7 @@ const Login = () => {
             Welcome.
           </h1>
           <p className=" text-sm sm:text-[24px] font-normal text-left my-3 sm:my-5">
-            Sign in to your Tempo account.
+            Sign in to your Deflection AI account.
           </p>
 
   

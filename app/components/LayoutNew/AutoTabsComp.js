@@ -10,7 +10,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             name: "Stefan Teubner",
             content: "Streamlined pricing for every use case",
             title: "Pay Per Resolution, Not Per Seat or Per Hour",
-            description: "Tempo's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand."
+            description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand."
         },
         {
             id: 2,
@@ -24,14 +24,14 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             name: "Oliver Jägle",
             content: "AI-driven savings for your business",
             title: "Efficiency-Driven Cost Savings",
-            description: "Embrace the power of AI with Tempo to streamline your support needs. Businesses can reduce the number of agents and save significantly, thanks to the efficiencies gained from our advanced platform."
+            description: "Embrace the power of AI with Deflection AI to streamline your support needs. Businesses can reduce the number of agents and save significantly, thanks to the efficiencies gained from our advanced platform."
         },
         {
             id: 4,
             title: "Zero Hidden Fees",
             name: "Niki Papazoglakis",
             content: "Straightforward and predictable pricing",
-            description: "Transparent pricing is at the core of Tempo's philosophy. Enjoy a clear, predictable billing cycle with zero hidden costs, giving you the financial clarity your business deserves."
+            description: "Transparent pricing is at the core of Deflection AI's philosophy. Enjoy a clear, predictable billing cycle with zero hidden costs, giving you the financial clarity your business deserves."
         }
     ];
 

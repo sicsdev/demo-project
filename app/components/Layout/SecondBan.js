@@ -10,7 +10,7 @@ const SecondBan = () => {
     <>
       <div className="z-40 text-center p-3 bg-[#142543] hidden sm:block" >
       <h6 className="text-blue-700 text-white text-para  " >
-      Our Guarantee: Reduce CS costs by 50% with Tempo AI or your money back!
+      Our Guarantee: Reduce CS costs by 50% with Deflection AI or your money back!
       </h6>
     </div>
       <div className="z-40 text-center p-3 bg-[#142543] block sm:hidden" onClick={() =>
@@ -37,7 +37,7 @@ const SecondBan = () => {
                   className="text-heading"
                   onMouseLeave={() => setHide({ first: false })}
                 >
-                  Reduce CS costs by 50% with Tempo AI or your money back!
+                  Reduce CS costs by 50% with Deflection AI or your money back!
                 </p>
               </Card>
             ) : (

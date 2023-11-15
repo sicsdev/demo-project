@@ -124,7 +124,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
   // uses example
-  // let originalHtml = '<p><a href="www.usetempo.ai" target="_self">Use Tempo</a>&nbsp;</p>';
+  // let originalHtml = '<p><a href="www.usetempo.ai" target="_self">Use Deflection AI</a>&nbsp;</p>';
   // let modifiedHtml = replaceLink(originalHtml);
   // console.log(modifiedHtml);
 

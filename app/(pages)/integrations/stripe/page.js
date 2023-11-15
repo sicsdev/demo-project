@@ -24,7 +24,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="70%" />
                 ) : (
-                "Stripe Integration with Tempo"
+                "Stripe Integration with Deflection AI"
                 )}
                 </p>
 
@@ -63,7 +63,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Why Integrate Stripe with Tempo?"
+              "Why Integrate Stripe with Deflection AI?"
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
@@ -77,7 +77,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
-              "Combine Stripe's robust payment processing with Tempo's Workflow Builder to automate your entire payment cycle."
+              "Combine Stripe's robust payment processing with Deflection AI's Workflow Builder to automate your entire payment cycle."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -91,7 +91,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
-              "Both Tempo and Stripe adhere to stringent data security protocols, ensuring that your financial transactions are secure."
+              "Both Deflection AI and Stripe adhere to stringent data security protocols, ensuring that your financial transactions are secure."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -105,14 +105,14 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (<>
-                <span className="font-semibold"> Connect Stripe to Tempo's Workflow Builder:</span>Easily link your Stripe account to Tempo's Workflow Builder.</>
+                <span className="font-semibold"> Connect Stripe to Deflection AI's Workflow Builder:</span>Easily link your Stripe account to Deflection AI's Workflow Builder.</>
               )}
               </p>
               {/* <p className="text-heading text-xl sm:mb-3">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Easily link your Stripe account to Tempo's Workflow Builder."
+              "Easily link your Stripe account to Deflection AI's Workflow Builder."
               )}
               </p> */}
               <p className="text-[#363866] mb-1  text-xl">
@@ -133,14 +133,14 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (<>
-                <span className="font-semibold">Leverage the Learning Center: </span> Utilize recommendations from Tempo's Learning Center to optimize your payment workflows.</>
+                <span className="font-semibold">Leverage the Learning Center: </span> Utilize recommendations from Deflection AI's Learning Center to optimize your payment workflows.</>
               )}
               </p>
               {/* <p className="text-heading text-xl sm:mb-3">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Utilize recommendations from Tempo's Learning Center to optimize your payment workflows."
+              "Utilize recommendations from Deflection AI's Learning Center to optimize your payment workflows."
   )}
               </p> */}
               <div>
@@ -209,7 +209,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Ready to optimize your payment and billing processes? Integrate Stripe with Tempo today."
+              "Ready to optimize your payment and billing processes? Integrate Stripe with Deflection AI today."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -238,7 +238,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

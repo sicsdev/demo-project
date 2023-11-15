@@ -21,7 +21,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-                "PayPal Integration with Tempo"
+                "PayPal Integration with Deflection AI"
               )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -61,7 +61,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-              "Why Integrate PayPal with Tempo?"
+              "Why Integrate PayPal with Deflection AI?"
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
@@ -75,7 +75,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
-              "Combine PayPal's versatile payment options with Tempo's Workflow Builder to automate your payment and billing processes."
+              "Combine PayPal's versatile payment options with Deflection AI's Workflow Builder to automate your payment and billing processes."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -89,7 +89,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
-              "Utilize Tempo's Learning Center to optimize your payment workflows based on real-time analytics and recommendations."
+              "Utilize Deflection AI's Learning Center to optimize your payment workflows based on real-time analytics and recommendations."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -103,14 +103,14 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (<>
-              <span className="font-semibold">Connect PayPal to Tempo's Workflow Builder:</span>Seamlessly link your PayPal account to Tempo's Workflow Builder.</>
+              <span className="font-semibold">Connect PayPal to Deflection AI's Workflow Builder:</span>Seamlessly link your PayPal account to Deflection AI's Workflow Builder.</>
             )}
             </p>
             {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-              "Seamlessly link your PayPal account to Tempo's Workflow Builder."
+              "Seamlessly link your PayPal account to Deflection AI's Workflow Builder."
             )}
             </p> */}
             <p className="text-[#363866]  text-xl mb-[1rem]">
@@ -131,14 +131,14 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (<>
-              <span className="font-semibold"> Leverage the Learning Center:</span>Use insights from Tempo's Learning Center to continually improve your payment operations.</>
+              <span className="font-semibold"> Leverage the Learning Center:</span>Use insights from Deflection AI's Learning Center to continually improve your payment operations.</>
             )}
             </p>
             {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
-           "   Use insights from Tempo's Learning Center to continually improve your payment operations."
+           "   Use insights from Deflection AI's Learning Center to continually improve your payment operations."
             )}
             </p> */}
             <div>
@@ -209,7 +209,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
-              "Ready to take your payment and billing operations to the next level? Integrate PayPal with Tempo today."
+              "Ready to take your payment and billing operations to the next level? Integrate PayPal with Deflection AI today."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -238,7 +238,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

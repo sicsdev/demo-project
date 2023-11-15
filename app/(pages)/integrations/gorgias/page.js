@@ -153,7 +153,7 @@ const page = () => {
             <SkeletonLoader count={1} height={20} width="100%" />
           ) : (
             <p className="text-[#363866]  text-xl">
-             <span className="font-semibold">Data Utilization:</span>&nbsp; Leverage Tempo's analytics to gain valuable insights from your
+             <span className="font-semibold">Data Utilization:</span>&nbsp; Leverage Deflection AI's analytics to gain valuable insights from your
               Shopify data, enabling continuous business improvement.
             </p>
           )}
@@ -161,7 +161,7 @@ const page = () => {
             <SkeletonLoader count={1} height={20} width="100%" />
           ) : (
             <p className="text-heading text-xl sm:mb-3">
-              Leverage Tempo's analytics to gain valuable insights from your
+              Leverage Deflection AI's analytics to gain valuable insights from your
               Shopify data, enabling continuous business improvement.{" "}
             </p>
           )}
@@ -256,7 +256,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

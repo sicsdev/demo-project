@@ -126,7 +126,7 @@ const Motioncards = () => {
             {loading ? (
               <SkeletonLoader count={4} height={30} width={"90%"} />
             ) : (
-              "Integrate your most important API's and databases to empower Tempo to control your CS experience."
+              "Integrate your most important API's and databases to empower Deflection AI to control your CS experience."
             )}
           </p>
           {loading ? (

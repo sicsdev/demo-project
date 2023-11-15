@@ -26,10 +26,10 @@ const Career = () => {
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[90%]">
         <h3 className="text-h4 font-semibold">
-          Discovering New Possibilities Through Disruption: Join the Tempo Team{" "}
+          Discovering New Possibilities Through Disruption: Join the Deflection AI Team{" "}
         </h3>
         <p class="text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
-          Tempo is a cutting-edge company that is leading the way in the field
+          Deflection AI is a cutting-edge company that is leading the way in the field
           of generalizable AI. Our team of skilled developers specialize in
           LLMs, AI, and machine learning, allowing us to provide clients with
           groundbreaking solutions for their customer experience needs. We have
