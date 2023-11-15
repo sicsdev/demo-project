@@ -153,6 +153,7 @@ const UpdatedFooter = () => {
                         <Link href="/list-of-subprocessors">
                           Subprocessors{" "}
                         </Link>
+                        
                       </h6>
 
                       <h6 className="  text-[white]  !font-semibold  cursor-pointer btext-xl bg-transparent  hover:bg-white hover:text-black hover:border-black     border-r-2    px-2  h-[17px] flex items-center ">
