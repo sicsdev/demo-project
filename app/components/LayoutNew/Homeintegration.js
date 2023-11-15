@@ -19,7 +19,7 @@ const Homeintegration = (props) => {
   return (
     <div className="bg-white  sm:p-[0px] ">
       <div className="w-full m-auto flex justify-center sm:my-[50px]"></div>
-      {/* {loading ? (
+      {loading ? (
         <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
           <SkeletonLoader height={60} width={"50%"} />
         </div>
@@ -37,7 +37,7 @@ const Homeintegration = (props) => {
           Enhance your setup with APIs that integrate effortlessly into the Deflection AI
           platform, meeting your unique business needs.
         </p>
-      )} */}
+      )}
 
       <div className="sm:pt-[10px] bg-white">
         <div className="pt-8 pb-8 sm:pb-4">

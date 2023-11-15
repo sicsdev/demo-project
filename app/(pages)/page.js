@@ -75,7 +75,7 @@ export default function Home() {
         <NewAbovepage />
         <Homeinte />
         <HeadText />
-        <Testimonial />
+        {/* <Testimonial /> */}
         {/* <Communication /> */}
         <ServicePlatform />
 
