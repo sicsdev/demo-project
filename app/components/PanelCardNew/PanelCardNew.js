@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import price_data from "./price_data";
 import { useState } from "react";
 import { getCalApi } from "@calcom/embed-react";
+import { CheckIcon } from "@heroicons/react/24/outline";
 const Panelcardnew = () => {
   const router = useRouter();
 
@@ -29,7 +30,6 @@ const Panelcardnew = () => {
   return (
     <div className="bg-white px-[16px] sm:py-[64px] py-[34px]">
       <h2 className="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-
         AI Customer Service Solutions
       </h2>
       <div className="w-full   md:w-[80%] lg:w-[60%]  grid grid-cols-1 align sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 my-4 gap-4    mx-auto js-show-on-scroll">
@@ -99,7 +99,7 @@ const Panelcardnew = () => {
                   Custom pricing. Schedule demo for proposal.
                 </p>
               )}
-               <div className=" mt-12 mb-12">
+              <div className=" mt-12 mb-12">
                 {ele.title == "Starter" ? (
                   <button
                     className="my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
@@ -113,8 +113,8 @@ const Panelcardnew = () => {
                   <button
                     data-cal-link="tempoai/sales-call"
                     data-cal-config='{"layout":"month_view"}'
-                    className="my-6 flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 w-full focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-
+                    className="my-6 flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 w-full focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                  >
                     Schedule Demo
                   </button>
                 )}
@@ -126,24 +126,13 @@ const Panelcardnew = () => {
                     key={key}
                     className="text-sm text-[#6C727A] flex gap-3 items-center my-2"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill=""
-                      className="w-5 h-5 text-voilet"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                    <CheckIcon class="h-[15px] w-[18px] text-[#53c08f]" />
+
+                   
                     {element.title}
                   </li>
                 ))}
               </ul>
-
-             
             </div>
           </div>
         ))}
