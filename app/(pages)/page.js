@@ -39,6 +39,7 @@ import ServicePlatform from "../components/LayoutNew/ServicePlatform";
 import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
 import Exceptions from "../components/LayoutNew/Exceptions";
 import HeadText from "../components/HeadText/HeadText";
+import Help from "../components/Help/Help";
 
 
 export default function Home() {
@@ -80,9 +81,10 @@ export default function Home() {
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Homeintegration handleClickScroll={handleClickScroll} />
 
-<Exceptions />
+        <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         <Panelcardnew />
+        <Help />
         {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
         <Middlebar />
