@@ -8,30 +8,39 @@ const AutoTabsComp = ({ handleClickScroll }) => {
         {
             id: 1,
             name: "Stefan Teubner",
-            content: "Streamlined pricing for every use case",
-            title: "Pay Per Resolution, Not Per Seat or Per Hour",
-            description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand."
+            content: "Save More with Every Resolution",
+            title: "*Cost-Efficient*",
+            description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand.",
+            side_heading: "*Pay Per Resolution*",
+            "points": ["Transparent, per-resolution pricing", "Significant cost savings", ""]
+
         },
         {
             id: 2,
             name: "Niki Papazoglakis",
-            content: "Pay-as-you-go billing and comprehensive support",
-            title: "Tailored Plans with White-Glove Onboarding",
-            description: "Choose the flexibility of pay-as-you-go pricing or the dedicated support of our enterprise plans, each including white-glove onboarding to ensure seamless integration into your operations."
+            content: "Tailored Onboarding Experience",
+            title: "*Personalized Setup*",
+            description: "Our dedicated sales and implementation teams ensure your setup is seamless, efficient, and tailored to your business needs.",
+            side_heading: "*White-Glove Onboarding*",
+            "points": ['Expert implementation support', 'Customized setup and integration', 'Dedicated team for seamless transition']
         },
         {
             id: 3,
             name: "Oliver Jägle",
-            content: "AI-driven savings for your business",
-            title: "Efficiency-Driven Cost Savings",
-            description: "Embrace the power of AI with Deflection AI to streamline your support needs. Businesses can reduce the number of agents and save significantly, thanks to the efficiencies gained from our advanced platform."
+            content: "Speak To Your Customers, Anywhere",
+            title: "*Universal Communication*",
+            description: "Our platform offers support in all languages across every channel, ensuring your business is always connected and responsive.",
+            side_heading: "*Every Language, Every Channel, 24/7*",
+            "points": ['Multilingual support', '24/7 availability across all channels', 'Global reach for seamless communication']
         },
         {
             id: 4,
-            title: "Zero Hidden Fees",
+            title: "*Trustworthy and Secure*",
             name: "Niki Papazoglakis",
-            content: "Straightforward and predictable pricing",
-            description: "Transparent pricing is at the core of Deflection AI's philosophy. Enjoy a clear, predictable billing cycle with zero hidden costs, giving you the financial clarity your business deserves."
+            content: "Upholding the Highest Standards",
+            description: "With robust compliance measures and advanced security protocols, we provide a safe and secure environment for all your interactions.",
+            side_heading: "*Compliance and Security*",
+            "points": ['Adherence to strict compliance standards', 'Advanced security measures', 'Safe and secure data handling',]
         }
     ];
 
@@ -76,8 +85,13 @@ const AutoTabsComp = ({ handleClickScroll }) => {
                             <div className='w-full max-w-[550px]'>
                                 <div className='text-white'>
                                     <div className=''>
-                                        <h4 className='text-[24px] mb-[16px]'>{tabData[activeTab]?.title}</h4>
-                                        <p className='text-sm'>{tabData[activeTab]?.description}</p>
+                                        <h4 className='text-[34px] font-semibold mb-[16px]'>{tabData[activeTab]?.side_heading}</h4>
+                                        <p className='text-lg'>{tabData[activeTab]?.description}</p>
+                                        <ul>
+                                            {tabData[activeTab].points.map((ele,key) =>
+                                                <li key={key}><p className='text-sm mt-3 text-[#6C727A]'>{ele}</p></li>
+                                            )}
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

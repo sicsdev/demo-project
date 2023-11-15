@@ -37,6 +37,9 @@ import HomeComponent from "../components/Home/HomeComponent";
 import HomeContent from "../components/Home/HomeContent";
 import ServicePlatform from "../components/LayoutNew/ServicePlatform";
 import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
+import Exceptions from "../components/LayoutNew/Exceptions";
+import HeadText from "../components/HeadText/HeadText";
+import Help from "../components/Help/Help";
 
 
 export default function Home() {
@@ -71,14 +74,17 @@ export default function Home() {
         <Head></Head>
         <NewAbovepage />
         <Homeinte />
+        <HeadText />
         {/* <Communication /> */}
         <ServicePlatform />
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Homeintegration handleClickScroll={handleClickScroll} />
 
-        <Reach handleClickScroll={handleClickScroll} data={reachData} />
+        <Exceptions />
+        {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         <Panelcardnew />
+        <Help />
         {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
         <Middlebar />

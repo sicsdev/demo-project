@@ -16,7 +16,7 @@ const Homeinte = () => {
       }, 1000);
     }, []);
     return (
-      <div className=" my-8 icons pt-[1px] sm:pt-8 pb-12 w-full mx-auto shadow-box">
+      <div className="icons pt-[1px] sm:pt-4 pb-12 w-full mx-auto shadow-box">
         <div className="sm:mb-8 mx-auto max-w-[90%]">
         <h1 className='text-center text-base sm:text-[38px]  sm:leading-8 my-2 font-bold sm:my-6 font-base text-[black]' >
                 {loading ? <SkeletonLoader count={1} height={30} width={"60%"} /> :

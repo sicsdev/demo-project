@@ -16,7 +16,7 @@ const List = ({ nav_links, className, setShow }) => {
           >
             <div className=" flex gap-4">
               <p>{element.icon}</p>
-              <h3 className="text-heading uppercase text-sm font-semibold">
+              <h3 className="text-heading uppercase text-sm font-semibold sm:pt-[4px]">
                 {element.list_heading}
               </h3>
             </div>
@@ -28,7 +28,7 @@ const List = ({ nav_links, className, setShow }) => {
                   onClick={(e) => setShow(false)}
                 >
                   <Link href={element.link}>
-                    <div className="hover:bg-gray p-2 rounded-lg flex gap-4 justify-between  items-start">
+                    <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
                       <div className="w-[100%]">
                         <h3 className="text-heading text-semibold flex items-center gap-4 sm:gap-0 justify-between">
                           {element.heading}
