@@ -14,7 +14,7 @@ import Loading from '../Loading/Loading';
 import { ToastContainer } from 'react-toastify';
 import Modal from '../Common/Modal/Modal';
 import TextArea from '../Common/Input/TextArea';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { AdjustmentsHorizontalIcon, ChatBubbleOvalLeftIcon, HomeIcon, HomeModernIcon, PhoneArrowDownLeftIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import SkeletonLoader from '../Skeleton/Skeleton';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
@@ -318,21 +318,22 @@ const PhoneHandle = () => {
             <div className="bg-white w-full m-auto border rounded-lg border-[#F0F0F1] mt-5">
                 {showPhoneView ?
                     <div>
-                        <div className='grid grid-cols-1 sm:grid-cols-2  gap-4 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-4 border-[#F0F0F1] justify-between items-center'>
-                            <div className=''>
-                                {
-                                    pageLoading ?
-                                        <div>
-                                            <SkeletonLoader count={1} height={20} width={"20%"} />
-                                            <SkeletonLoader count={1} height={10} width={"60%"} />
-                                        </div> :
-                                        <div>
-                                            <h3 className='text-sm font-semibold text-heading'>Phone Number</h3>
-                                            <p className='text-xs text-border font-normal'>Configure a custom IVR that callers can speak to</p>
-                                        </div>
-                                }
+                        <div className=' flex gap-8 sm:grid-cols-2 rounded-t-lg border border-t-0 border-r-0 border-l-0 px-6 py-5 border-[#F0F0F1] items-center'>
+                            {
+                                pageLoading ?
+                                    <div>
+                                        <SkeletonLoader count={1} height={20} width={"20%"} />
+                                        <SkeletonLoader count={1} height={10} width={"60%"} />
+                                    </div> :
+                                    <div>
+                                        <h3 className='text-sm font-semibold text-heading flex gap-4'>
+                                            <PhoneArrowDownLeftIcon className='w-4 h-4'></PhoneArrowDownLeftIcon>
+                                            <b> Phone Number</b>
+                                        </h3>
+                                        <p className='text-xs text-border font-normal mt-2'>Configure a custom IVR that callers can speak to</p>
+                                    </div>
+                            }
 
-                            </div>
                             <div className='sm:text-end'>
                                 {
                                     pageLoading ?
@@ -349,7 +350,7 @@ const PhoneHandle = () => {
                                                     <input type="checkbox" name="billingEnabled" onChange={() => handleChange()} checked={basicField?.checked === true} />
                                                     <span className="slider round h-[21px] w-[40px]"></span>
                                                 </label>
-                                                <p className='text-sm  text-heading font-normal'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
+                                                <p className='text-sm  text-heading font-normal bg-lowgray rounded-md px-3 py-1'>{basicField?.phone.replace(/^(\+?1)?(\d{3})(\d{3})(\d{4})$/, "+1 ($2) $3-$4")}</p>
                                             </div>
                                         </>
                                 }
@@ -357,23 +358,29 @@ const PhoneHandle = () => {
                             </div>
                         </div>
 
-                        <div className='px-6 py-4 grid grid-cols-1 sm:grid-cols-3  justify-between items-center border-b border-[#F0F0F1]'>
-                            {pageLoading ?
-                                <SkeletonLoader count={1} height={20} width={"20%"} /> :
-                                <h3 className='text-sm font-semibold text-heading'>Greeting message</h3>}
-                            {basicField?.audioName && (
-                                <div className=''>
-                                    <AudioPlayer
-                                        customVolumeControls={[]}
-                                        customAdditionalControls={[]}
-                                        src={basicField.audio}
-                                        showSkipControls={false}
-                                        showJumpControls={false} />
-                                </div>
-                            )}
-                            <div className={`${!basicField?.audioName && ("col-span-2")} mt-2 sm:m-0 md:m-0 lg:m-0 sm:text-end`}>
+                        <div className='px-6 py-5 sm:grid-cols-3 justify-between items-center border-b border-[#F0F0F1]'>
+                            <div className=''>
+                                {pageLoading ?
+                                    <SkeletonLoader count={1} height={20} width={"20%"} /> :
+                                    <h3 className='text-sm font-semibold text-heading flex items-center gap-4'>
+                                        <HomeIcon className='w-4 h-4' ></HomeIcon>
+                                        <b>Greeting message</b>
+                                    </h3>}
+                                {basicField?.audioName && (
+                                    <div className='w-1/2 flex border border-gray rounded-xl p-1 mt-2 shadow-sm mt-3'>
+                                        <AudioPlayer
+                                            customVolumeControls={[]}
+                                            customAdditionalControls={[]}
+                                            src={basicField.audio}
+                                            showSkipControls={false}
+                                            showJumpControls={false}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <div className={`${!basicField?.audioName && ("col-span-2")} mt-2 sm:m-0 md:m-0 lg:m-0 sm:text-start`}>
                                 {!pageLoading ?
-                                    <div className="inline-flex rounded-md w-full sm:w-auto" role="group">
+                                    <div className="inline-flex rounded-md w-full sm:w-auto mt-4" role="group">
                                         {/* <button onClick={() => {
                                             setAudioModal(true)
                                             setModal(false)
@@ -395,6 +402,7 @@ const PhoneHandle = () => {
                             </div>
 
                         </div>
+
 
                         {/* <div className='px-6 py-4 grid-cols-2  justify-between items-center border-b border-[#F0F0F1]'>
                             {
@@ -450,8 +458,11 @@ const PhoneHandle = () => {
                                                 <SkeletonLoader count={1} height={10} width={"80%"} />
                                             </div> :
                                             <div className=''>
-                                                <h3 className='text-sm font-semibold text-heading'>Menu Options</h3>
-                                                <p className='text-xs font-normal text-border'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
+                                                <h3 className='text-sm font-semibold text-heading flex items-center gap-4 '>
+                                                    <AdjustmentsHorizontalIcon className='w-4 h-4'></AdjustmentsHorizontalIcon>
+                                                    <b>Menu Options</b>
+                                                </h3>
+                                                <p className='text-xs font-normal text-borderm mt-2'>Options are triggered by keypad and voice commands, and route to whichever bot you want to respond to the customer.</p>
                                             </div>
                                         }
                                         <div>

@@ -85,7 +85,7 @@ export function FirstStep({
   return (
     <>
       <FormWrapper title="ROI Calculator">
-        <div className="mb-4 mt-3 sm:mt-0">Enter the following to project your savings with Tempo</div>
+        <div className="mb-4 mt-3 sm:mt-0">Enter the following to project your savings with Deflection AI</div>
         <div className="block sm:flex  justify-between  items-stretch gap-4">
           <div className="w-full mb-3 sm:mb-0">
             <TextField

@@ -28,7 +28,7 @@ const Blog = () => {
         <div className="bg-white  p-0" key={key}>
           <div className="ml-4 mt-5 ">
             <h1 className=" font-bold  text-2xl   md:text-h2 lg:text-h2 sm:text-h2 sm:leading-none ">
-              The Tempo Blog
+              The Deflection AI Blog
             </h1>
             <p className=" text-base sm:text-para md:text-para lg:text-para sm:leading-8 my-2 sm:my-6 font-base text-heading">
             </p>

@@ -70,7 +70,7 @@ const Dashboard = ({ children }) => {
         {
             href: "/dashboard/chat-settings",
             name: "Agents",
-            subheading: "Tempo Chat",
+            subheading: "Deflection AI Chat",
             icon: "AdjustmentsHorizontalIcon",
         },
         {

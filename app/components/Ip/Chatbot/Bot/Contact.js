@@ -182,13 +182,13 @@ const Contact = () => {
                 {loading ? (
                   <SkeletonLoader count={2} height={40} width="100%" />
                 ) : (
-                  "Revolutionize Customer Service with Tempo's Chatbot."
+                  "Revolutionize Customer Service with Deflection AI's Chatbot."
                 )}</h2>
             <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={2} height={30} width="80%" />
                 ) : (
-                  "Automate support and elevate customer satisfaction with Tempo's AI-driven chatbot, designed for efficiency and reliability."
+                  "Automate support and elevate customer satisfaction with Deflection AI's AI-driven chatbot, designed for efficiency and reliability."
                 )}
               </p>
               <div className="block">
@@ -365,8 +365,8 @@ const Contact = () => {
                                 <SkeletonLoader count={1} height={20} width="100%" />
                               ) : (
                                 <>
-                                  By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                                  <Link className='underline' href="/privacy-policy">Tempo Privacy Policy</Link>.
+                                  By checking this box, you agree to the are opting in to receive future communications from Deflection AI.{" "}
+                                  <Link className='underline' href="/privacy-policy">Deflection AI Privacy Policy</Link>.
                                 </>
                               )}
                             </label>
@@ -403,7 +403,7 @@ const Contact = () => {
                 </p>
 
                 <p className='text-center text-[20px]'>
-                  A Tempo specialist will reach out shortly to provide <br /> your personalized quote.
+                  A Deflection AI specialist will reach out shortly to provide <br /> your personalized quote.
                 </p>
               </div>
 

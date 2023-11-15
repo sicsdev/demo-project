@@ -55,23 +55,22 @@ const LoginNav = () => {
     <>
       <nav
         id="header"
-        className={` ${
-          shouldHideHeader && pathname !== "/login"
+        className={` ${shouldHideHeader && pathname !== "/login"
             ? "hidden"
             : "sticky top-0 start-0 z-[999999] sm:z-50 w-full  sm:mt-[25px] bg-white border-gray-200"
-        }`}
+          }`}
       >
         {!profile.email && <Banner />}
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[57px]">
           <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
-            <div className="relative w-28 h-8 mr-24">
+            <div className="relative h-8 mr-24">
               <Link href="/">
-                <Image
-                  fill={"true"}
-                  className="bg-contain mx-auto w-full"
+                <img
+                  width='170px'
+                  className="opacity-100 mt-0.5"
                   alt="logo.png"
-                  src={"/logo-b.png"}
+                  src="/logo-b.png"
                 />
               </Link>
             </div>
@@ -83,7 +82,7 @@ const LoginNav = () => {
                   className={`hidden  sm:hidden md:hidden lg:flex flex-row gap-10 sm:gap-0 items-center ml-auto`}
                 >
                   {pathname == "/lp/chat-bot" ||
-                  pathname == "/lp/contact-center" ? (
+                    pathname == "/lp/contact-center" ? (
                     ""
                   ) : profile.email ? (
                     <>
@@ -92,7 +91,7 @@ const LoginNav = () => {
                     </>
                   ) : (
                     <p className="text-black sm:py-[6px] sm:px-[12px]  ">
-                      New to Tempo?
+                      New to Deflection AI?
                     </p>
                   )}
 

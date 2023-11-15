@@ -10,15 +10,15 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
         <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-            Tempo AI Ventures Inc.Company Privacy Notice{" "}
+            Deflection AI Ventures Inc.Company Privacy Notice{" "}
           </h2>
           <p className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date:{" "}
           </p>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3  ">
             {" "}
-            Tempo AI Ventures, Inc.(“
-            <span className="font-semibold">Tempo</span>”,“
+            Deflection AI Ventures, Inc.(“
+            <span className="font-semibold">Deflection AI</span>”,“
             <span className="font-semibold">we</span>”,“
             <span className="font-semibold">us</span>” or “
             <span className="font-semibold">our</span>”) respects your privacy.

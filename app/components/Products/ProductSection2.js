@@ -40,7 +40,7 @@ const ProductSection2 = ({handleClickScroll}) => {
                   width="100%"
                 />
               ) : (
-                "When Tempo Chat encounters a query it can't resolve, it smoothly transitions the interaction to a human agent, ensuring customer satisfaction."
+                "When Deflection AI Chat encounters a query it can't resolve, it smoothly transitions the interaction to a human agent, ensuring customer satisfaction."
               )}
             </p>
             
@@ -132,7 +132,7 @@ className="w-full mx-auto bg-contain object-cover sm:object-contain"
                   width="100%"
                 />
               ) : (
-                "Go beyond the industry norms with Tempo Chat. Resolve queries and trigger workflows in seconds, not hours."
+                "Go beyond the industry norms with Deflection AI Chat. Resolve queries and trigger workflows in seconds, not hours."
               )}
             </p>
 

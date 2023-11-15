@@ -159,7 +159,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                   <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
-                      How you want Tempo to address customers in your emails.
+                      How you want Deflection AI to address customers in your emails.
                       You can choose between a variety of greetings.
                     </span>
                   </Card>
@@ -185,7 +185,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                   <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
-                      How you want Tempo to end conversations to customers in
+                      How you want Deflection AI to end conversations to customers in
                       your emails. You can choose between a variety of
                       sign-offs.
                     </span>

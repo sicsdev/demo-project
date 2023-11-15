@@ -187,13 +187,13 @@ const Contact = () => {
                 {loading ? (
                   <SkeletonLoader count={2} height={40} width="100%" />
                 ) : (
-                  "Revolutionize Customer Service with Tempo's Chatbot."
+                  "Revolutionize Customer Service with Deflection AI's Chatbot."
                 )}</h2>
               <p className="sm:my-12 my-3 sm:text-xl text-sm sm:w-[580px]">
                 {loading ? (
                   <SkeletonLoader count={2} height={30} width="80%" />
                 ) : (
-                  "Automate support and elevate customer satisfaction with Tempo's AI-driven chatbot, designed for efficiency and reliability."
+                  "Automate support and elevate customer satisfaction with Deflection AI's AI-driven chatbot, designed for efficiency and reliability."
                 )}
               </p>
               <div className="block">
@@ -371,8 +371,8 @@ const Contact = () => {
                                 <SkeletonLoader count={1} height={20} width="100%" />
                               ) : (
                                 <>
-                                  By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                                  <Link href="/privacy-policy">Tempo Privacy Policy</Link>.
+                                  By checking this box, you agree to the are opting in to receive future communications from Deflection AI.{" "}
+                                  <Link href="/privacy-policy">Deflection AI Privacy Policy</Link>.
                                 </>
                               )}
                             </label>
@@ -408,7 +408,7 @@ const Contact = () => {
                 </p>
 
                 <p className='text-center text-[20px]'>
-                  A Tempo specialist will reach out shortly to provide <br /> your personalized quote.
+                  A Deflection AI specialist will reach out shortly to provide <br /> your personalized quote.
                 </p>
               </div>
 

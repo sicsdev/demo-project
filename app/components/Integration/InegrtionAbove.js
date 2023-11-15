@@ -26,7 +26,7 @@ export const InegrtionAbove = () => {
             {loading ? (
               <SkeletonLoader count={2} height={80} width="80%" />
             ) : (
-            "Integrate Tempo With Your Revenue Ops Tech Stack"
+            "Integrate Deflection AI With Your Revenue Ops Tech Stack"
             )}
           </h2>
           <p className="text-[#474F70] text-xl text-center  mt-3 sm:my-[3rem] sm:w-[600px] m-auto">

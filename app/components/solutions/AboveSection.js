@@ -114,7 +114,7 @@ const AboveSection = () => {
 
           <div className="block sm:hidden">
             <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-            Actively solving, not just resolving: With Tempo Chat, tackle
+            Actively solving, not just resolving: With Deflection AI Chat, tackle
                 complicated support tickets head-on. Navigate shipping and
                 fulfillment hurdles to keep your customer journey smooth and
                 satisfying.{" "}handleBlurform_start
@@ -167,7 +167,7 @@ const AboveSection = () => {
 
           <div className="hidden sm:block">
             <p className="text-white mt-4 text-[14px] sm:text-[16px]">
-            Actively solving, not just resolving: With Tempo Chat, tackle
+            Actively solving, not just resolving: With Deflection AI Chat, tackle
                 complicated support tickets head-on. Navigate shipping and
                 fulfillment hurdles to keep your customer journey smooth and
                 satisfying.{" "}

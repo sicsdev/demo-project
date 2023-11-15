@@ -139,17 +139,16 @@ body .hide-focus {
 
 
 h2,
-h3
-
-{
+h3 {
   /* font-family: 'Cairo', sans-serif; */
   font-family: 'Sohne', sans-serif;
 
   font-weight: 450 !important;
 }
+
 div,
 p,
-h1{
+h1 {
   font-family: 'Sohne', sans-serif;
 
 }
@@ -546,6 +545,10 @@ select.custom-select {
   margin-top: -7px;
 }
 
+select.custom-select:focus {
+  border: 1px solid grey !important;
+}
+
 .trytempo a {
   padding: 2rem;
 }
@@ -857,8 +860,7 @@ transition: all .4s ease;
   padding: 8px;
   outline: none;
   font-weight: 500;
-  border: 1px solid #C7C6C7 !important;
-
+  border: 1px solid #C7C6C7;
   box-sizing: border-box;
   width: 100%;
   position: relative;
@@ -871,7 +873,15 @@ transition: all .4s ease;
 }
 
 .new_input:focus {
-  box-shadow: none !important;
+  /* box-shadow: none !important; */
+  border: 1px solid rgb(103, 124, 157) !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+  outline: none !important;
+  font-weight: 500 !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  position: relative !important;
 }
 
 .new_input_label {
@@ -1299,11 +1309,13 @@ body .cursor-pointer {
     width: 1000px;
   }
 }
+
 @media (max-width:640px) {
   .integrationspopup {
     width: 100%;
   }
 }
+
 @media (max-width: 990px) {
 
   .rightsidebar_width {
@@ -1866,9 +1878,10 @@ body .custome_table {
   right: 6px;
   transform: translateY(-50%);
 }
-@media(max-width:991px)
-{
-  .tdline p{  width: auto;
+
+@media(max-width:991px) {
+  .tdline p {
+    width: auto;
     max-width: 170px;
     white-space: break-spaces;
     font-size: 13px;
@@ -1879,10 +1892,19 @@ body .custome_table {
     line-break: strict;
     hyphens: none;
     -webkit-hyphens: none;
-    -moz-hyphens: none;}
-body input[type="text"]:focus, body input[type="number"]:focus, body input[type="date"]:focus, body input[type="email"]:focus, body input[type="password"]:focus, body select:focus, body textarea:focus{
+    -moz-hyphens: none;
+  }
+
+}
+
+body input[type="text"]:focus,
+body input[type="number"]:focus,
+body input[type="date"]:focus,
+body input[type="email"]:focus,
+body input[type="password"]:focus,
+body select:focus,
+body textarea:focus {
   border: none !important;
   outline: none !important;
   line-height: unset !important;
-}
 }

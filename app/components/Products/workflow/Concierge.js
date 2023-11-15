@@ -191,7 +191,7 @@ setTimeout(() => {
                 And many more...
               </h1>
               <p className="w-full md:ml-[px]   text-blue-400 text-left font-[400]  px-0 sm:px-0 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-              See how Tempo will transform your customer service and operations across industries.
+              See how Deflection AI will transform your customer service and operations across industries.
               </p>
             </div>
             <div className="block sm:flex  m-auto items-center gap-8 mt-[3rem] sm:mt-[5rem]">

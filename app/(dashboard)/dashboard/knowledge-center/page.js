@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, LinkIcon, PencilSquareIcon, PlusCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { AcademicCapIcon, BookOpenIcon, BriefcaseIcon, CheckCircleIcon, CheckIcon, ClipboardIcon, InformationCircleIcon, LinkIcon, PencilSquareIcon, PlusCircleIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import DataTable from "react-data-table-component";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TextField from "@/app/components/Common/Input/TextField";
@@ -747,8 +747,11 @@ const Page = () => {
 
                 {tab == 1 &&
                     <>
-                        <p className="text-sm p-2">Questions your customers have asked that Tempo does not know how to answer</p>
-
+                        <div className='flex w-full m-auto justify-center'>
+                            <p className="text-sm p-2 font-semibold m-auto opacity-80" style={{ fontFamily: 'sans-serif' }}>
+                                Questions your customers have asked that Deflection AI does not know how to answer
+                            </p>
+                        </div>
 
                         <div className="w-full sm:relative sm:mt-[20px]">
 
@@ -774,7 +777,7 @@ const Page = () => {
                                 pointerOnHover
                                 pagination
                                 columns={columns}
-                                noDataComponent={<><p className="text-center text-xs p-3">Questions Tempo needs your help answering will show here when they're ready!</p></>}
+                                noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
                                 progressPending={loading}
                                 progressComponent={

@@ -38,7 +38,7 @@ const Securesteps = ({ handleClickScroll }) => {
                   width="100%"
                 />
               ) : (
-                "Experience unmatched data protection with Tempo's stringent security measures."
+                "Experience unmatched data protection with Deflection AI's stringent security measures."
               )}
             </p>
 
@@ -162,7 +162,7 @@ const Securesteps = ({ handleClickScroll }) => {
                   width="100%"
                 />
               ) : (
-                "Tempo utilizes state-of-the-art hosting and data management to safeguard your communications."
+                "Deflection AI utilizes state-of-the-art hosting and data management to safeguard your communications."
               )}
             </p>
 
@@ -269,7 +269,7 @@ const Securesteps = ({ handleClickScroll }) => {
                   width="100%"
                 />
               ) : (
-                "Optimize your operations with Tempo’s customizable quality management features."
+                "Optimize your operations with Deflection AI’s customizable quality management features."
               )}
             </p>
 
@@ -284,7 +284,7 @@ const Securesteps = ({ handleClickScroll }) => {
               ) : (
                 <p>
                   <b> Smart workflows for your common tickets: </b>From day one
-                  Tempo will start to analyze and interpret common responses and
+                  Deflection AI will start to analyze and interpret common responses and
                   resolutions.
                 </p>
               )}
@@ -300,7 +300,7 @@ const Securesteps = ({ handleClickScroll }) => {
               ) : (
                 <p>
                   <b> Train on your own FAQ and Help Center: </b>Have an
-                  extensive knowledge base? Tempo will utilize your company’s
+                  extensive knowledge base? Deflection AI will utilize your company’s
                   policies to ensure responses and resolutions are relevant and
                   appropriate.
                 </p>

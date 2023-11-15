@@ -100,7 +100,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             "description": "",
             "automation_tolerance": 0,
             "logo": "",
-            "chat_title": 'Tempo Agent',
+            "chat_title": 'Deflection AI Agent',
             "payment_platform": "Order",
             "ticketing_platform": "Other",
             "refund_tolerance": 0,

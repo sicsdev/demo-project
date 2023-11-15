@@ -200,7 +200,7 @@ const LoginFooter = () => {
 
               <p className="text-center  text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
 
-                © Tempo AI Ventures, Inc{" "}
+                © Deflection AI Ventures, Inc{" "}
 
               </p>
               <p className="text-center  text-neutral-600 text-[18px] mt-[3rem] text-[#142543] !font-semibold">
