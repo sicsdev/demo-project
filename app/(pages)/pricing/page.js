@@ -316,8 +316,8 @@ const Pricing = () => {
             items={questions}
           />
         </Container> */}
-        <Middlebar />
-        <Homeform reff={ref} />
+        {/* <Middlebar /> */}
+        {/* <Homeform reff={ref} /> */}
         {/* <HomeComponent />{" "} */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
       </div>

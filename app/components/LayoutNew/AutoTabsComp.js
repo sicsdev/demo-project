@@ -60,7 +60,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
     }, []);
 
     return (
-        <div className='relative sm:mb-6'>
+        <div className='relative mb-6'>
             <div className='bg-black w-full mx-auto py-[40px] lg:py-[96px] px-[16px]'>
                 <div className='max-w-[1090px] mx-auto'>
                     <div className='py-0 relative'>
@@ -100,7 +100,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
                     <div className="flex justify-start items-center cursor-pointer pt-[20px]">
                         <button
                             onClick={handleClickScroll}
-                            className="inline-block font-semibold  rounded-lg px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-white hover:text-white bg-primary hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+                            className="inline-block font-semibold   px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-white hover:text-white bg-primary hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
                         >
                             Get a Quote
                         </button>
