@@ -57,7 +57,7 @@ const Exceptions = () => {
                   key={key}
                 >
                   <div className="flex flex-row sm:gap-[2rem] gap-4">
-                    <p className="text-[#f78f26]   text-sm mt-8 sm:mt-3">
+                    <p className="text-[#2563eb]   text-sm mt-8 sm:mt-3">
                       {" "}
                       0{key + 1}{" "}
                     </p>
