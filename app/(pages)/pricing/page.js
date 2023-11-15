@@ -33,6 +33,7 @@ const INITIAL_DATA = {
   avgAgentHourlyWage: 0,
 
 };
+
 import Newstandard from "@/app/components/Newstandardpage/Newstandard";
 import Motioncards from "@/app/components/Motioncards/page";
 import Modal from "@/app/components/Common/Modal/Modal";
