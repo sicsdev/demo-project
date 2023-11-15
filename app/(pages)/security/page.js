@@ -17,7 +17,7 @@ const page = () => {
     return (
         <div className='bg-white'>
             <Banner handleClickScroll={handleClickScroll} />
-            <div className="sm:mt-[75vh]">
+            <div className="sm:mt-[86vh]">
                 <Securesteps  handleClickScroll={handleClickScroll} />
             </div>
             {/* <Secureform /> */}
