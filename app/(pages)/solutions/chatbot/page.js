@@ -1,6 +1,7 @@
 "use client";
 import HomeComponent from "@/app/components/Home/HomeComponent";
 import Middlebar from "@/app/components/Info-Screen/Middlebar";
+import CommunicateScrollComp from "@/app/components/LayoutNew/CommunicateScrollComp";
 import Panelcardnew from "@/app/components/PanelCardNew/PanelCardNew";
 import Banner from "@/app/components/Products/Banner";
 import Concierge from "@/app/components/Products/Concierge";
@@ -27,6 +28,7 @@ const page = () => {
       <Concierge />
       <ProductSection7 />
       <Panelcardnew />
+      <CommunicateScrollComp />
       <Middlebar />
       <ProductForm reference={ref} />
       <HomeComponent />
