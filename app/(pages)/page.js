@@ -38,6 +38,7 @@ import HomeContent from "../components/Home/HomeContent";
 import ServicePlatform from "../components/LayoutNew/ServicePlatform";
 import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
 import Exceptions from "../components/LayoutNew/Exceptions";
+import HeadText from "../components/HeadText/HeadText";
 
 
 export default function Home() {
@@ -72,6 +73,7 @@ export default function Home() {
         <Head></Head>
         <NewAbovepage />
         <Homeinte />
+        <HeadText />
         {/* <Communication /> */}
         <ServicePlatform />
 

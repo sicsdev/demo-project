@@ -21,32 +21,32 @@ const ServicePlatform = () => {
             logo: <ChatBubbleLeftIcon className="h-[84px] w-10 text-gray-500" />,
             content_video: "/ChatAutomation.png",
             h3: "Enhance your service capabilities",
-            p: "Leverage Tempo's chatbot to integrate seamlessly with your existing systems, offering real-time data synchronization and streamlined customer interactions.",
+            p: "Leverage Tempo's chatbot and email automations to integrate seamlessly with your existing systems, offering real-time data synchronization and streamlined customer interactions.",
             className: "bg-[#f6f9ff]",
             buttonColor: "",
-            link:"/solutions/chat-bot"
+            link: "/solutions/chat-bot"
 
         },
         {
             id: "2",
-            title: "Email Automation",
-            logo: <EnvelopeIcon className="h-[84px] w-10 text-gray-500" />,
-            content_video: "/EmailAutomation.png",
-            h3: "Transform your email communication",
-            p: "Supercharge your email interactions and handle email queries effortlessly. Connect in real-time to your backend APIs, ensuring a seamless and responsive email customer support experience",
-            className: "bg-[#D9FFFFFF]",
-            link:"/solutions/email"
-
-        },
-        {
-            id: "3",
             title: "Phone Automation",
             logo: <EnvelopeIcon className="h-[84px] w-10 text-gray-500" />,
             content_video: "https://usetempo.ai/solutions_/Phone/Instant%20voice%20responses.png",
             h3: "Revolutionize voice interactions",
             p: "Utilize Tempo's smart IVR features to offer superior automated voice support, connecting fluidly with your backend APIs for a comprehensive and efficient customer service experience.",
             className: "bg-[#fcf7fc]",
-            link:"/solutions/phone"
+            link: "/solutions/phone"
+
+        },
+        {
+            id: "3",
+            title: "Learning Center",
+            logo: <AcademicCapIcon className="h-[84px] w-10 text-gray-500" />,
+            content_video: "/LearningCenter.png",
+            h3: "Automate with intelligence",
+            p: "Deploy Learning Center to utilize AI-driven recommendations, automating customer interactions and linking workflows and knowledge bases for a more efficient service experience.",
+            className: "bg-[#fff8f8]",
+            link: "/features/learning-center"
 
         },
         {
@@ -55,22 +55,12 @@ const ServicePlatform = () => {
             logo: <ShareIcon className="h-[84px] w-10 text-gray-500" />,
             content_video: "https://usetempo.ai/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
             h3: "Streamline your business processes",
-            p: "Employ Workflow Builder to create and implement custom automated workflows, enhancing operational efficiency and reducing manual effort in your business activities." ,           className: "bg-[#fcf7fc]",
-            link:"/integrations"
+            p: "Employ Workflow Builder to create and implement custom automated workflows, enhancing operational efficiency and reducing manual effort in your business activities.",
+            className: "bg-[#fcf7fc]",
+            link: "/integrations"
 
         },
-        {
-            id: "5",
-            title: "Learning Center",
-            logo: <AcademicCapIcon className="h-[84px] w-10 text-gray-500" />,
-            content_video: "/LearningCenter.png",
-            h3: "Automate with intelligence",
-            p: "Deploy Learning Center to utilize AI-driven recommendations, automating customer interactions and linking workflows and knowledge bases for a more efficient service experience.",
-            className: "bg-[#fff8f8]",
-            link:"/features/learning-center"
 
-        }
-      
     ];
 
     return (

@@ -22,12 +22,12 @@ const NewAbovepage = () => {
         layout: "month_view",
       });
     })();
-  }, []);
+  }, []); 
   return (
-    <div className=" relative py-8 sm:py-14">
+    <div className=" relative py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
 
-        
+
         <div>
           {loading ? (
             <div className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black]">
@@ -35,7 +35,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <h2 className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black">
-              Intelligent Automation for Exceptional Customer Service{" "}
+              Every Channel. Every Language. 24/7.{" "}
             </h2>
           )}
           {loading ? (
@@ -44,8 +44,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-              Elevate customer satisfaction and agent efficiency with Deflection AI's
-              AI-driven solutions.
+              Experience the power of Deflection AI in enhancing customer interactions across every channel. Our platform, designed for efficiency and reliability, ensures seamless communication in any language, around the clock.
             </p>
           )}
 
