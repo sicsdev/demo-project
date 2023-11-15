@@ -113,6 +113,7 @@ module.exports = {
       boxShadow: {
         "3xl": "0 0.125rem 1.5625rem rgb(0 0 0/10%)",
         "card": 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
+        "hoverShadow":"0 2px 0 0 #f5455c",
         "box":"0 4.5px 3.6px rgba(0,0,0,.014), 0 12.5px 10px rgba(0,0,0,.02), 0 30.1px 24.1px rgba(0,0,0,.026), 0 100px 80px rgba(0,0,0,.04)"
       },
       backgroundImage: {
