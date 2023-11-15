@@ -44,6 +44,7 @@ import Reach from "@/app/components/LayoutNew/Reach";
 import Middlebar from "@/app/components/Info-Screen/Middlebar";
 import HomeComponent from "@/app/components/Home/HomeComponent";
 import Pricingbanner from "@/app/components/Security/Pricingbanner";
+import AutoTabsComp from "@/app/components/LayoutNew/AutoTabsComp";
 
 const Pricing = () => {
   const [data, setData] = useState({});
@@ -305,7 +306,7 @@ const Pricing = () => {
         {/* </form> */}
       </div>
 
-      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} />
+      {/* <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} /> */}
 
       <div className="bg-white">
         <Newfaq />
@@ -317,7 +318,8 @@ const Pricing = () => {
         </Container> */}
         <Middlebar />
         <Homeform reff={ref} />
-        <HomeComponent />{" "}
+        {/* <HomeComponent />{" "} */}
+        <AutoTabsComp handleClickScroll={handleClickScroll} />
       </div>
     </div>
   );
