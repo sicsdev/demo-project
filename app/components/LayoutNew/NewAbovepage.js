@@ -57,7 +57,7 @@ const NewAbovepage = () => {
             <div className="flex  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
               <button
                 className={
-                  "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+                  "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#f5455c] hover:bg-black dark:focus:ring-yellow-900 "
                 }
                 data-cal-link="tempoai/sales-call"
                 data-cal-config='{"layout":"month_view"}'
@@ -148,12 +148,12 @@ const NewAbovepage = () => {
         </div>
         <div>
           {loading ? (
-            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center rounded-full leading-normal">
+            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
               <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />
             </div>
           ) : (
             <div className=" block">
-              <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
+              <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
                 <Image
                   src="/MicrosoftTeams-image.png"
                   className="w-full bg-contain object-contain mx-auto "
