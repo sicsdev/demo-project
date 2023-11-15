@@ -259,9 +259,9 @@ const Pricing = () => {
 
       {/* <Panelcard  /> */}
 
-      <Panelcardnew  />
+      <Panelcardnew />
       <Homeinte />
-    
+
       <div className="p-4 sm:p-8  sm:px-40 ">
         {/* <form onSubmit={onSubmit}> */}
         {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
@@ -277,13 +277,13 @@ const Pricing = () => {
             >
               View Savings
             </button>
-            
+
           )}
         </div>
         {/* </form> */}
       </div>
 
-      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"}/>
+      <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} />
       <div className="bg-white">
         <Container>
           <FaqAccordian
