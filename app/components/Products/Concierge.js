@@ -38,7 +38,7 @@ const data = [
     },
     {
       name: "Simplify Billing and Payments   ",
-      para: "Automate invoicing, payments, and subscription management within Tempo Chat.   ",
+      para: "Automate invoicing, payments, and subscription management within Deflection AI Chat.   ",
       img: [ "/stripee.png", "/brain.png"],
     },
   ];
@@ -99,7 +99,7 @@ const data = [
          
             <>
             <p className="p-0 py-2 sm:p-3  md:px-0">
-              Tempo Chat's adaptability allows for deployment in virtually any
+              Deflection AI Chat's adaptability allows for deployment in virtually any
               customer interaction scenario. Whatever your use case, we've got a
               solution
             </p>

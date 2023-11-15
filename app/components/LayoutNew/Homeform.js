@@ -328,8 +328,8 @@ export const Homeform = ({ reff }) => {
                           <SkeletonLoader count={1} height={20} width="100%" />
                         ) : (
                           <>
-                            By checking this box, you agree to the are opting in to receive future communications from Tempo AI.{" "}
-                            <Link href="/privacy-policy"><u>Tempo Privacy Policy</u></Link>.
+                            By checking this box, you agree to the are opting in to receive future communications from Deflection AI.{" "}
+                            <Link href="/privacy-policy"><u>Deflection AI Privacy Policy</u></Link>.
                           </>
                         )}
                       </label>
@@ -366,7 +366,7 @@ export const Homeform = ({ reff }) => {
           </p>
 
           <p className='text-center text-[20px]'>
-            A Tempo specialist will reach out shortly to provide <br /> your personalized quote.
+            A Deflection AI specialist will reach out shortly to provide <br /> your personalized quote.
           </p>
         </div>
 

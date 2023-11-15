@@ -25,7 +25,7 @@ const Exploretempoai = () => {
         className="max-w-[1400px] w-full m-auto sm:py-8 md:py-8 lg:py-8  sm:px-4 px-4 lg:px-4 relative group"
       >
         <h2 className="text-center  text-2xl md:text-h2 lg:text-h2 sm:text-h2 sm:leading-8 my-2 font-bold text-heading">
-          Explore Tempo AI's other solutions
+          Explore Deflection AI's other solutions
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 w-full m-auto sm:py-8 md:py-8 lg:py-8 sm:px-4 lg:px-4 mt-10">
           {slides.map((item, key) => (

@@ -5,7 +5,7 @@ const Term = () => {
     <div className=" bg-white py-4 ">
       <div className="my-8 mx-auto max-w-[80%]">
         <h1 className="text-center text-h6 sm:text-h4 md:text-h3 lg:text-h4 sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
-          Tempo AI Ventures, Inc. <br />
+          Deflection AI Ventures, Inc. <br />
           Terms of Service <br />
           Last Updated: 03 July 2023
         </h1>
@@ -202,7 +202,7 @@ const Term = () => {
           SERVICES AND CUSTOMER’S OTHER SYSTEMS, SOFTWARE, AND APPLICATIONS. EXCEPT AS EXPRESSLY PROVIDED OTHERWISE IN THIS
           AGREEMENT, THE SERVICES ARE PROVIDED "AS IS" AND COMPANY MAKES NO REPRESENTATIONS OR WARRANTIES, ORAL OR WRITTEN,
           EXPRESS OR IMPLIED, ARISING FROM COURSE OF DEALING, COURSE OF PERFORMANCE, USAGE OF TRADE, OR OTHERWISE, INCLUDING
-          IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INTERFERENCE, ACCURACY, OR NON-Tempo Confidential
+          IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INTERFERENCE, ACCURACY, OR NON-Deflection AI Confidential
           INFRINGEMENT. THE SERVICES ARE NOT INTENDED OR DESIGNED FOR CRITICAL USE CASES OR FOR SITUATIONS POTENTIALLY INVOLVING
           EMERGENCIES, DANGER, OR LOSS TO PERSON OR PROPERTY.
         </p>

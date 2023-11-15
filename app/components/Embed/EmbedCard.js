@@ -222,7 +222,7 @@ export const EmbedCard = ({
               <div className='mt-5 relative'>
                 <hr className='opacity-10 my-2'></hr>
                 <div className='my-3'>
-                  <small>Add this code to the HTML where you want display the Tempo chat:</small>
+                  <small>Add this code to the HTML where you want display the Deflection AI chat:</small>
                 </div>
                 <CodeMirror
                   value={`<div id="chatbot_widget"></div>`}

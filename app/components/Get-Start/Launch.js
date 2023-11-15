@@ -14,7 +14,7 @@ const Launch = () => {
             </h2>
             <p className="text-gray sm:mb-7">
               Save engineering resources with seamless back-office
-              functionality. While API's are not required to use Tempo, our
+              functionality. While API's are not required to use Deflection AI, our
               machine learning team has built an intuitive, customizable, and
               powerful solution you can deploy to automate customer service and
               operations with just a few lines of code.

@@ -113,7 +113,7 @@ setTimeout(() => {
                 And many more...
               </p>
               <p className="text-[#474F70] text-sm mt-8 sm:mt-3">
-              See how Tempo will transform your customer service and operations across industries.
+              See how Deflection AI will transform your customer service and operations across industries.
               </p>
             </div>
             <div className="block sm:flex  m-auto items-center gap-8 mt-[3rem] sm:mt-[5rem]">

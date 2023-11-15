@@ -55,8 +55,8 @@ const Info = () => {
       icon: <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-500" />,
 
       content_video: "/Home1.gif",
-      h3: "Kickstart with Tempo Chat.",
-      p: "Integrate Tempo Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions in perfect english and excellent accuracy.",
+      h3: "Kickstart with Deflection AI Chat.",
+      p: "Integrate Deflection AI Chat into your system and allow its adaptive AI to mirror your brand, enhancing customer interactions in perfect english and excellent accuracy.",
     },
     {
       id: "2",
@@ -76,7 +76,7 @@ const Info = () => {
       content_video: "/Home3(AutomaticPayment).gif",
 
       h3: "Simplicity in Billing.",
-      p: "Experience transparent billing with Tempo, where you only pay after hitting predefined usage limits, ensuring affordability and no surprise costs.",
+      p: "Experience transparent billing with Deflection AI, where you only pay after hitting predefined usage limits, ensuring affordability and no surprise costs.",
     },
     {
       id: "4",
@@ -86,7 +86,7 @@ const Info = () => {
 
       icon: <ArrowTrendingUpIcon className="h-5 w-5 text-gray-500" />,
       h3: "Scalable, Fast Response Times.",
-      p: "Don't worry about staffing or SLA's. Tempo will automatically respond to your tickets within minutes, day or night, and on almost every channel.",
+      p: "Don't worry about staffing or SLA's. Deflection AI will automatically respond to your tickets within minutes, day or night, and on almost every channel.",
     },
     {
       id: "5",
@@ -165,11 +165,11 @@ const Info = () => {
                 className="text-sm font-normal"
                 onMouseLeave={() => setHide({ first: false })}
               >
-                Tempo learns as you and your customers use it. Over time, it
+                Deflection AI learns as you and your customers use it. Over time, it
                 will expand it's knowledge and be able to answer a higher
                 percentage of customer queries. We think 90% is a good target
                 after ~3 months of heavy usage, but a full CS team replacement
-                is not a guarantee or a likely outcome of using Tempo at this
+                is not a guarantee or a likely outcome of using Deflection AI at this
                 time.
               </p>
             </Card>

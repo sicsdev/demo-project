@@ -65,7 +65,7 @@ const Start = () => {
             
             <div data-line-position="left" class="connect-heading-line  sm:mt-8 mt-4"></div>
             <h1 className=" font-bold  m-auto text-center sm:mt-8 mt-4 sm:text-[50px] text-h2 text-white  sm:leading-none  ">
-              {/* Tempo */}
+              {/* Deflection AI */}
               <img src="/logo.png" className="w-[30rem] sm:w-[65rem]" />
             </h1>
             

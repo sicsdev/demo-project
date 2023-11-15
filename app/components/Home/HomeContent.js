@@ -12,7 +12,7 @@ const HomeContent = ({ handleClickScroll }) => {
             <div className="flex gap-2">
               <img className="w-[20px] h-[17px] mt-[4px]" src="/1.jpg" alt="" />
               <p className="text-left">
-                Tempo's straightforward pricing means you only pay for the
+                Deflection AI's straightforward pricing means you only pay for the
                 resolutions you need, allowing for complete scalability aligned
                 with your customer service demand.
               </p>
@@ -41,7 +41,7 @@ const HomeContent = ({ handleClickScroll }) => {
             <div className="flex gap-2">
               <img className="w-[20px] h-[17px] mt-[4px]" src="/1.jpg" alt="" />
               <p className="text-left">
-                Embrace the power of AI with Tempo to streamline your support
+                Embrace the power of AI with Deflection AI to streamline your support
                 needs. Businesses can reduce the number of agents and save
                 significantly, thanks to the efficiencies gained from our
                 advanced platform.
@@ -55,7 +55,7 @@ const HomeContent = ({ handleClickScroll }) => {
             <div className="flex gap-2">
               <img className="w-[20px] h-[17px] mt-[4px]" src="/1.jpg" alt="" />
               <p className="text-left">
-                Transparent pricing is at the core of Tempo's philosophy. Enjoy
+                Transparent pricing is at the core of Deflection AI's philosophy. Enjoy
                 a clear, predictable billing cycle with zero hidden costs,
                 giving you the financial clarity your business deserves.
               </p>

@@ -175,7 +175,7 @@ if(firstname.length ==0){
                   ) : ( 
                   <p className="font-xs mt-4">
 
-                  Tempo{" "}
+                  Deflection AI{" "}
                     <Link className="font-semibold underline" href="/privacy-policy">
                       Privacy-Policy
 

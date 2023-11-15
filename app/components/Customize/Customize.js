@@ -62,7 +62,7 @@ const Customize = ({
     logo: "",
     thumbnail: "",
     human_handoff_platform: "",
-    chat_title: basicFormData?.business_name ?? "Tempo AI Chatbot",
+    chat_title: basicFormData?.business_name ?? "Deflection AI Chatbot",
     chat_message_business_hours: "How can we help?",
     chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
     widget_location: "bottom_right",
@@ -849,7 +849,7 @@ const Customize = ({
                         <div className="subtitle_div">
                           <span className="subtitle_ChatBotWidget">
                             <span className="ai_icon">AI</span>{" "}
-                            {preferences.description || "Powered by Tempo"}
+                            {preferences.description || "Powered by Deflection AI"}
                           </span>
                         </div>
                       </div>

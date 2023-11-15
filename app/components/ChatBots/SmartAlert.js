@@ -74,7 +74,7 @@ const SmartAlert = () => {
                         *Extremely complicated requests can be responded to
                         within 5 minute SLAs, but resolution within that
                         timeframe may require successfully integrating your
-                        backend with Tempo.
+                        backend with Deflection AI.
                       </p>
                     </Card>
                   ) : (

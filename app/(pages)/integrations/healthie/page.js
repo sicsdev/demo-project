@@ -20,7 +20,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-              "Healthie Integration with Tempo"
+              "Healthie Integration with Deflection AI"
               )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -59,28 +59,28 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-            "Why Integrate Healthie with Tempo?"
+            "Why Integrate Healthie with Deflection AI?"
             )}
             </p>
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Unmatched Flexibility:</span>Combine Healthie's comprehensive healthcare management features with Tempo's Workflow Builder for a tailored healthcare experience.
+               <span className="font-semibold">Unmatched Flexibility:</span>Combine Healthie's comprehensive healthcare management features with Deflection AI's Workflow Builder for a tailored healthcare experience.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Unified Dashboard:</span> Manage all your Healthie patients, appointments, and tasks directly from Tempo's centralized interface.
+               <span className="font-semibold">Unified Dashboard:</span> Manage all your Healthie patients, appointments, and tasks directly from Deflection AI's centralized interface.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <span className="font-semibold">Data-Driven Insights:</span>Leverage Tempo's analytics to analyze metrics from your Healthie data for informed healthcare decision-making.
+              <span className="font-semibold">Data-Driven Insights:</span>Leverage Deflection AI's analytics to analyze metrics from your Healthie data for informed healthcare decision-making.
             </p>
             )}
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -94,21 +94,21 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Connect Healthie to Tempo's Workflow Builder:</span> Integrate your Healthie account with Tempo in just a few clicks.
+               <span className="font-semibold">Connect Healthie to Deflection AI's Workflow Builder:</span> Integrate your Healthie account with Deflection AI in just a few clicks.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Customize Your Workflow with Healthie Endpoints:</span> Add Healthie API endpoints to your Tempo workflow for a fully personalized healthcare management solution.
+               <span className="font-semibold">Customize Your Workflow with Healthie Endpoints:</span> Add Healthie API endpoints to your Deflection AI workflow for a fully personalized healthcare management solution.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Analyze and Optimize:</span>Use Tempo’s analytics to gain actionable insights into your Healthie data and optimize healthcare delivery based on real-time data.
+               <span className="font-semibold">Analyze and Optimize:</span>Use Deflection AI’s analytics to gain actionable insights into your Healthie data and optimize healthcare delivery based on real-time data.
             </p>
             )}
             <div>
@@ -184,7 +184,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
-            "Ready to take your healthcare management to the next level? Integrate Healthie with Tempo today."
+            "Ready to take your healthcare management to the next level? Integrate Healthie with Deflection AI today."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -214,7 +214,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

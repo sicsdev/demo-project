@@ -22,7 +22,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-              "Tempo Integrates with Freshdesk"
+              "Deflection AI Integrates with Freshdesk"
               )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -70,20 +70,20 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
-            "Why Integrate Freshdesk with Tempo?"
+            "Why Integrate Freshdesk with Deflection AI?"
             )}
             </p>
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <span className="font-semibold">Streamlined Support:</span>Manage Freshdesk tickets, contacts, agents, and groups directly from Tempo's dashboard.
+              <span className="font-semibold">Streamlined Support:</span>Manage Freshdesk tickets, contacts, agents, and groups directly from Deflection AI's dashboard.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <span className="font-semibold">Enhanced Customer Interactions:</span> Utilize Tempo's analytics to gain insights into customer interactions and agent performance.
+              <span className="font-semibold">Enhanced Customer Interactions:</span> Utilize Deflection AI's analytics to gain insights into customer interactions and agent performance.
             </p>
             )}
             {loading ? (
@@ -105,7 +105,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <span className="font-semibold">Connect Freshdesk to Tempo:</span> Integrate your Freshdesk account with Tempo in a few simple steps.
+              <span className="font-semibold">Connect Freshdesk to Deflection AI:</span> Integrate your Freshdesk account with Deflection AI in a few simple steps.
             </p>)}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
@@ -118,7 +118,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-               <span className="font-semibold">Analyze and Optimize:</span>Leverage Tempo's analytics to improve your customer support operations.
+               <span className="font-semibold">Analyze and Optimize:</span>Leverage Deflection AI's analytics to improve your customer support operations.
             </p>
             )}
             <div>
@@ -188,7 +188,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-            "Ready to revolutionize your customer support? Integrate Freshdesk with Tempo today."
+            "Ready to revolutionize your customer support? Integrate Freshdesk with Deflection AI today."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -219,7 +219,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

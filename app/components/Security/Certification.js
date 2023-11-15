@@ -38,7 +38,7 @@ const Certification = ({handleClickScroll}) => {
                   width="100%"
                 />
               ) : (
-                "Experience unmatched data protection with Tempo's stringent security measures."
+                "Experience unmatched data protection with Deflection AI's stringent security measures."
               )}
             </p>
 

@@ -325,7 +325,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                         <>
                             {innerSide.value === null ?
                                 <>
-                                    <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
+                                    <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Deflection AI how to handle your customer inquiries or outbound actions. </p>
 
                                     {allData.filter(ele => ele.name !== "QuickEmailVerification").map((ele, key) =>
                                         findNameCustom(ele.name) === true ?

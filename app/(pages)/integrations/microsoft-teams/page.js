@@ -20,7 +20,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="70%" />
               ) : (
-   "           Microsoft Teams Integration with Tempo     "    
+   "           Microsoft Teams Integration with Deflection AI     "    
                    )}     </p>
 
               <h2 className="!font-bold text-h3 text-left">
@@ -57,7 +57,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-          "  Why Integrate Microsoft Teams with Tempo? "          
+          "  Why Integrate Microsoft Teams with Deflection AI? "          
              )} </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
             {loading ? (
@@ -69,7 +69,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-           " Manage Teams' chats, channels, and users directly from Tempo's unified dashboard. "
+           " Manage Teams' chats, channels, and users directly from Deflection AI's unified dashboard. "
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -82,7 +82,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-            "Utilize Tempo's features to collaborate in real-time on Teams conversations, ensuring more effective teamwork."
+            "Utilize Deflection AI's features to collaborate in real-time on Teams conversations, ensuring more effective teamwork."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -95,7 +95,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-        "    Leverage Tempo's analytics to gain actionable insights from your Teams data, enabling smarter business decisions."
+        "    Leverage Deflection AI's analytics to gain actionable insights from your Teams data, enabling smarter business decisions."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -109,41 +109,41 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (<>
-              <span className="font-semibold"> Connect Microsoft Teams to Tempo:</span>Seamlessly integrate your Microsoft Teams account with Tempo in a few simple steps.  </>
+              <span className="font-semibold"> Connect Microsoft Teams to Deflection AI:</span>Seamlessly integrate your Microsoft Teams account with Deflection AI in a few simple steps.  </>
             )}
             </p>
             {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-"            Seamlessly integrate your Microsoft Teams account with Tempo in a few simple steps.  "
+"            Seamlessly integrate your Microsoft Teams account with Deflection AI in a few simple steps.  "
                       )}          </p> */}
             <p className="text-[#363866]   text-xl mb-[1rem]">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (<>
-              <span className="font-semibold"> Customize Your Collaboration Workflow with Teams Endpoints:</span>Incorporate Teams diverse API endpoints into your Tempo workflows for a tailored communication and collaboration experience.</>
+              <span className="font-semibold"> Customize Your Collaboration Workflow with Teams Endpoints:</span>Incorporate Teams diverse API endpoints into your Deflection AI workflows for a tailored communication and collaboration experience.</>
             )}
             </p>
             {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-           " Incorporate Teams' diverse API endpoints into your Tempo workflows for a tailored communication and collaboration experience."
+           " Incorporate Teams' diverse API endpoints into your Deflection AI workflows for a tailored communication and collaboration experience."
             )}
             </p> */}
             <p className="text-[#363866]  text-xl ">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (<>
-              <span className="font-semibold"> Analyze and Optimize:</span> Use Tempo's analytics to derive valuable insights from your Teams data, driving continuous improvement.</>
+              <span className="font-semibold"> Analyze and Optimize:</span> Use Deflection AI's analytics to derive valuable insights from your Teams data, driving continuous improvement.</>
             )}
             </p>
             {/* <p className="text-heading text-xl sm:mb-3">
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-            "Use Tempo's analytics to derive valuable insights from your Teams data, driving continuous improvement."
+            "Use Deflection AI's analytics to derive valuable insights from your Teams data, driving continuous improvement."
             )}
             </p> */}
             <div>
@@ -204,7 +204,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={2} height={150} width="100%" />
             ) : (
-           " Ready to take your communication and collaboration to the next level? Integrate Microsoft Teams with Tempo today.    "        
+           " Ready to take your communication and collaboration to the next level? Integrate Microsoft Teams with Deflection AI today.    "        
             )}</p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
             {loading ? (
@@ -234,7 +234,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

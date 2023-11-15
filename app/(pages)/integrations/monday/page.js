@@ -23,7 +23,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="70%" />
                 ) : (
-                "Monday Integration with Tempo"
+                "Monday Integration with Deflection AI"
                 )}
                 </p>
 
@@ -62,7 +62,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Why Integrate monday.com with Tempo?"
+              "Why Integrate monday.com with Deflection AI?"
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 text-xl">
@@ -76,7 +76,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
-              "Combine monday.com's customizable boards and items with Tempo's Workflow Builder for a tailored project management experience."
+              "Combine monday.com's customizable boards and items with Deflection AI's Workflow Builder for a tailored project management experience."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
@@ -90,7 +90,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Manage all your monday.com boards, items, and users directly from Tempo's centralized interface."
+              "Manage all your monday.com boards, items, and users directly from Deflection AI's centralized interface."
               )}</p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-xl">
               {loading ? (
@@ -103,7 +103,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Leverage Tempo's Learning Center to analyze metrics from your monday.com boards for informed decision-making."
+              "Leverage Deflection AI's Learning Center to analyze metrics from your monday.com boards for informed decision-making."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[30px] text-[26px]">
@@ -117,42 +117,42 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (<>
-                <span className="font-semibold">Connect monday.com to Tempo's Workflow Builder: </span>Integrate your monday.com account with Tempo in just a few clicks.</>
+                <span className="font-semibold">Connect monday.com to Deflection AI's Workflow Builder: </span>Integrate your monday.com account with Deflection AI in just a few clicks.</>
               )}
               </p>
               {/* <p className="text-heading text-xl sm:mb-3">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Integrate your monday.com account with Tempo in just a few clicks."
+              "Integrate your monday.com account with Deflection AI in just a few clicks."
               )}
               </p> */}
               <p className="text-[#363866]  text-xl mb-[1rem]">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (<>
-                <span className="font-semibold">Customize Your Workflow with monday.com Endpoints:</span>Add monday.com endpoints to your Tempo workflow for a fully personalized project management solution.</>
+                <span className="font-semibold">Customize Your Workflow with monday.com Endpoints:</span>Add monday.com endpoints to your Deflection AI workflow for a fully personalized project management solution.</>
               )}
               </p>
               {/* <p className="text-heading text-xl sm:mb-3">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-           "   Add monday.com endpoints to your Tempo workflow for a fully personalized project management solution."
+           "   Add monday.com endpoints to your Deflection AI workflow for a fully personalized project management solution."
               )}
               </p> */}
               <p className="text-[#363866]   text-xl">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (<>
-                <span className="font-semibold">Analyze and Optimize:</span>Use Tempo’s Learning Center to gain actionable insights into your monday.com boards and optimize them based on real-time data.</>
+                <span className="font-semibold">Analyze and Optimize:</span>Use Deflection AI’s Learning Center to gain actionable insights into your monday.com boards and optimize them based on real-time data.</>
               )}
               </p>
               {/* <p className="text-heading text-xl sm:mb-3">
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Use Tempo’s Learning Center to gain actionable insights into your monday.com boards and optimize them based on real-time data."
+              "Use Deflection AI’s Learning Center to gain actionable insights into your monday.com boards and optimize them based on real-time data."
               )}
               </p> */}
               <div>
@@ -222,7 +222,7 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={2} height={20} width="100%" />
               ) : (
-              "Ready to take your project management to the next level? Integrate monday.com with Tempo today."
+              "Ready to take your project management to the next level? Integrate monday.com with Deflection AI today."
               )}
               </p>
               <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -252,7 +252,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

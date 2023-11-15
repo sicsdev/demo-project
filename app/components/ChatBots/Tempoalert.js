@@ -41,9 +41,9 @@ const Tempoalert = () => {
                   Never Miss a Beat with 24/7 Support{" "}
                 </h3>
                 <p className="text-white">
-                  Stay ahead of the game with Tempo Chat. No need to hire around
+                  Stay ahead of the game with Deflection AI Chat. No need to hire around
                   the clock and overpay while missing your SLAs with subpar
-                  quality. Tempo Chat is always there when your customers need
+                  quality. Deflection AI Chat is always there when your customers need
                   support.
                 </p>
               </div>
@@ -62,7 +62,7 @@ const Tempoalert = () => {
                   Smooth Integration with Your Existing Systems{" "}
                 </h3>
                 <p className="text-white">
-                  We believe in making things easy. That's why Tempo Chat
+                  We believe in making things easy. That's why Deflection AI Chat
                   integrates seamlessly with your backend processes, providing a
                   smooth, hassle-free transition that amplifies your efficiency.
                 </p>
@@ -85,7 +85,7 @@ const Tempoalert = () => {
                   className="text-white relative"
                   onMouseLeave={() => setHide({ first: false })}
                 >
-                  At Tempo Chat, transparency is our mantra. Our straightforward
+                  At Deflection AI Chat, transparency is our mantra. Our straightforward
                   billing structure charges only 25 cents per chat response.
                   Enjoy the simplicity of paying only for what you truly use.{" "}
                   <span

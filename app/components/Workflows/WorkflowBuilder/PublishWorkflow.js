@@ -5,7 +5,7 @@ const PublishWorkflow = ({ publishLoader, saveWorkFlowHandler, name }) => {
 
     return (
         <div className=''>
-            <p className='text-sm'><b>{name}</b> will be pushed into production, allowing your Tempo agents to use it immediately. Please click confirm to continue.  </p>
+            <p className='text-sm'><b>{name}</b> will be pushed into production, allowing your Deflection AI agents to use it immediately. Please click confirm to continue.  </p>
             <div className='flex justify-between gap-2 items-center mt-5'>
                 <div></div>
 

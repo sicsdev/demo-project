@@ -32,7 +32,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         secondary_color: "#dcdcdc",
         logo: "https://usetempo.ai/bot.png",
         thumbnail: "",
-        chat_title: "Tempo AI Bot (Test Mode)",
+        chat_title: "Deflection AI Bot (Test Mode)",
         chat_message_business_hours: "How can we help?",
         chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
         widget_location: "bottom_right",
@@ -46,7 +46,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         active: true,
         origins_blocked: [],
         customer_service_email: "",
-        chat_default_message: "Welcome to Tempo Bot's Test Mode!",
+        chat_default_message: "Welcome to Deflection AI Bot's Test Mode!",
         chat_suggestions: []
     });
 
@@ -63,7 +63,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         secondary_color: "#dcdcdc",
         logo: "https://usetempo.ai/bot.png",
         thumbnail: "",
-        chat_title: "Tempo AI Bot (Test Mode)",
+        chat_title: "Deflection AI Bot (Test Mode)",
         chat_message_business_hours: "How can we help?",
         chat_message_after_hours: "We'll be back tomorrow at 9 am EST",
         widget_location: "bottom_right",
@@ -77,7 +77,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         active: true,
         origins_blocked: [],
         customer_service_email: "",
-        chat_default_message: "Welcome to Tempo Bot's Test Mode!",
+        chat_default_message: "Welcome to Deflection AI Bot's Test Mode!",
         chat_suggestions: []
     });
 
@@ -323,7 +323,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
                                     onChange={handleSwitchBot}
                                     value={currentBotId}
                                 >
-                                    <option className='text-xs' value={testBotId}>Tempo Test Bot</option>
+                                    <option className='text-xs' value={testBotId}>Deflection AI Test Bot</option>
                                     {allActiveBots?.map(bot => (
                                         <option className='text-xs' key={bot.id} value={bot.id}>
                                             {bot.chat_title}

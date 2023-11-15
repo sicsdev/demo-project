@@ -44,7 +44,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-              Elevate customer satisfaction and agent efficiency with Tempo's
+              Elevate customer satisfaction and agent efficiency with Deflection AI's
               AI-driven solutions.
             </p>
           )}

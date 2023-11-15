@@ -178,7 +178,7 @@ console.log("filterposts",filterPosts )
             >
               <Link href="/solutions/tempo-chat">
               <li>
-                <u>Solutions: Tempo Chat</u>
+                <u>Solutions: Deflection AI Chat</u>
               </li>
               </Link>
               <Link href="/solutions/smart-inbox">

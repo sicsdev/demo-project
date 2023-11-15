@@ -64,9 +64,9 @@ const Iconanimation = () => {
             onMouseLeave={() =>
               setHide({ first: false })}
             >
-              Tempo Chat, Smart Inbox, and Smart Social connect to your
+              Deflection AI Chat, Smart Inbox, and Smart Social connect to your
               ticketing system, payment processor, and CRM. Want to learn more
-              about how Tempo can work for your business? Chat with us today.
+              about how Deflection AI can work for your business? Chat with us today.
               <span
                 className="cursor-pointer"
                 onMouseEnter={(e) => {
@@ -86,7 +86,7 @@ const Iconanimation = () => {
                     className="text-heading"
                     onMouseLeave={() => setHide({ first: false })}
                   >
-                    Additional configuration needed. Tempo does not yet natively
+                    Additional configuration needed. Deflection AI does not yet natively
                     support all integrations shown on the site; users can add
                     any custom API configuration they choose.
                   </p>
@@ -120,7 +120,7 @@ const Iconanimation = () => {
                 }
               >
                 <div className="trytempo">
-                  <Link href="/checkout">Try Tempo &#8594; </Link>
+                  <Link href="/checkout">Try Deflection AI &#8594; </Link>
                 </div>
               </button>
             </div>

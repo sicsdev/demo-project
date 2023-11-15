@@ -461,7 +461,10 @@ const UsageLimit = () => {
                         automatically based on your usage. You can also edit it
                         here.
                       </p>
-                      <div className="relative ">
+
+
+                      {/* <div className="relative ">
+
                         <TextField
                           onChange={handleInputValues}
                           value={formData}
@@ -483,7 +486,57 @@ const UsageLimit = () => {
                         <span className="absolute top-[13px] sm:top-[9px] left-[14px] text-[12px] ">
                           $
                         </span>
+                      </div> */}
+
+
+
+                      <div className="relative flex items-center mt-1">
+                        <small className="z-50 m-auto opacity-80 absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2">
+                          $
+                        </small>
+                        <input
+                          style={{ paddingLeft: '25px' }}
+                          onChange={handleInputValues}
+                          value={formData}
+                          className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400 focus:border-sky disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white border-danger focus:invalid:border-danger z-10"
+                          placeholder=''
+                          id='billing_thresholds'
+                          name='billing_thresholds'
+                          title={""}
+                          type={"number"}
+                        >
+                        </input>
+
                       </div>
+
+                      {error ? (
+                        <span className="text-[#ff0000] text-xs">
+                          Please enter a whole number between 50 and $10,000.
+                        </span>
+                      ) : (
+                        ""
+                      )}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                       <div className="border-b border-[#F0F0F1]  py-4">
                         <Button

@@ -25,10 +25,10 @@ const slides = [
   },
   {
     title: "Self-learning AI model",
-    text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
+    text: "Deflection AI will drive real results from day one, and get even better as it learns from more of your data.",
     astrick: "*",
     astrickdata:
-      "Day one performance from Tempo is contingent on the files provided. If limited FAQ or Help Center text is provided, it may take longer for the model to learn your workflow.",
+      "Day one performance from Deflection AI is contingent on the files provided. If limited FAQ or Help Center text is provided, it may take longer for the model to learn your workflow.",
   },
 ];
 const Newstandard = () => {

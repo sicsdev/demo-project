@@ -180,12 +180,12 @@ const Integrationstrans = () => {
         </div>
         <div className="sm:w-[25%] stripe_cards cursor-pointer">
           <p className="text-base text-[#757575]">
-            Tempo is integrating with more APIs every day. Say goodbye to
+            Deflection AI is integrating with more APIs every day. Say goodbye to
             implementing your own endpoints, and embrace low-code automation
             with our prompt-initiated workflow builder.
           </p>
           <p className="text-base text-[#757575] mt-3">
-            Want to see how Tempo’s Workflow Builder can work for you? Let’s
+            Want to see how Deflection AI’s Workflow Builder can work for you? Let’s
             chat.
           </p>
           <button class="text-primary sm:hidden block hover:text-heading my-6 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">

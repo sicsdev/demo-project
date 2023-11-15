@@ -12,7 +12,7 @@ const GoogleAnalytics = () => {
 
     const triggerGA = () => {
         ReactGA.event({
-            action: "This is a test for Tempo! working!",
+            action: "This is a test for Deflection AI! working!",
             category: "Button",
             label: "Google Analytic event triggered",
         });
