@@ -24,7 +24,7 @@ const Help = () => {
                     </div>
                 ) : (
                     <h2 class="block !font-[700] text-2xl md:text-[38px]   text-center my-[1rem] md:my-8 relative text-heading md:leading-[3rem]" >
-                        **Ready to get started?**
+                    Ready to get started?
                     </h2>
                 )}
                 {loading ? (
