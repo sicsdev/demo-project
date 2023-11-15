@@ -75,6 +75,7 @@ export default function Home() {
         <NewAbovepage />
         <Homeinte />
         <HeadText />
+        {/* <Testimonial /> */}
         {/* <Communication /> */}
         <ServicePlatform />
 
@@ -84,12 +85,12 @@ export default function Home() {
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         <Panelcardnew />
-        <Help />
+        {/* <Help /> */}
         {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
         <Middlebar />
         <Homeform reff={ref} />
-        <HomeComponent />
+        {/* <HomeComponent /> */}
       </main>
     </>
   );
