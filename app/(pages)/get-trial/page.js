@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { editBillingType } from "@/app/components/store/slices/billingTypeSlice";
 import Link from "next/link";
+import { createHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
+import { updateHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 
 const Trial = () => {
   const router = useRouter();
@@ -18,6 +20,8 @@ const Trial = () => {
     checked: false,
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState([]);
+
   const validateEmail = (email) => {
     var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
@@ -50,6 +54,34 @@ const Trial = () => {
   };
   const SubmitTheForm = async () => {
     setLoading(true);
+
+    let payloadForHubspot = {
+      properties: {
+        firstname: formData.first_name,
+        lastname: formData.last_name,
+        email: formData.email,
+        phone: formData.phone,
+        company: formData.company_name,
+        website: formData.url,
+        lifecyclestage: "demo",
+        is_demo: "true",
+        demo_status: "pending",
+      },
+    };
+
+    // Create contact in hubspot, and patch it after get contact id.
+    let createContact = await createHubspotContact(payloadForHubspot);
+
+    // If there is a conflict, it means contact already exist, so we patch it.
+    if (createContact?.category == "CONFLICT") {
+      const regex = /Existing ID: (\d+)/;
+      const match = createContact.message.match(regex);
+      if (match) {
+        const id = match[1];
+        await updateHubspotContact(payloadForHubspot, id);
+      }
+    }
+
     let payload = {
       enterprise: {
         name: formData.company_name,
@@ -63,6 +95,7 @@ const Trial = () => {
       password: formData?.password,
       password_confirm: formData?.password,
     };
+
     let payload2 = {
       category: "standard",
       description: "",
@@ -74,6 +107,7 @@ const Trial = () => {
       refund_tolerance: 0,
       ecommerce_platform: "Other",
     };
+
     const response = await submitCheckout(payload);
     if (response?.token) {
       Cookies.set("Token", response.token);
@@ -87,13 +121,13 @@ const Trial = () => {
         setLoading(false);
       }
     } else {
+      setErrors(["A user with that email already exists."]);
       setLoading(false);
     }
   };
-  
   return (
     <div className="container my-12">
-      <div className="justify-center relative h-8  items-center  flex my-4">
+      <div className="justify-center relative h-8  items-center flex my-4">
         <Link href="/">
           <img
             width="300px"
@@ -103,17 +137,27 @@ const Trial = () => {
           />
         </Link>
       </div>
-      <div>
-        <h1 className="text-[26px] sm:text-[40px] md:text-[40px] lg:text-[40px] text-heading font-[500] text-center mx-auto sm:w-[35%]">
-          Demo <span className="text-[#F5455C]">Deflection AI</span> now
-          tailored to your brand
+      <div className="px-[25px] sm:px-0">
+        <h1 className="text-[26px] mt-8 sm:text-[40px] md:text-[40px] lg:text-[40px] text-heading font-[500] text-center mx-auto sm:w-[38%]">
+          Demo <span className="text-[#F5455C]">Deflection AI</span> now tailored{" "}
+        to your brand
         </h1>
-        <p className="sm:w-[65%] text-xl sm:my-2 text-center mx-auto">
+        <p className="sm:w-[40%] text-xl mt-8 text-center mx-auto">
           Deflection AI will configure a beautiful customized bot with your
           basic content within 24 hours. Completely free and no commitment
           required.
         </p>
         <TrialForm formData={formData} setFormData={setFormData} />
+        <div className="flex justify-content-center">
+          {errors.length > 0 &&
+            errors.map((error, index) => (
+              <div className="w-100 m-auto">
+                <small className="text-danger" key={index}>
+                  {error}
+                </small>
+              </div>
+            ))}
+        </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
           disabled={DisablingButton()}

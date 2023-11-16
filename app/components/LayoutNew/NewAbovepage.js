@@ -36,7 +36,7 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <h2 className="block !font-[500] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[56px] my-[1rem] md:my-8 relative text-[black]">
-              Intelligent Automation for Exceptional Customer Service{" "}
+              <span className="text-[#f5455c]">Intelligent Automation</span> for Exceptional Customer Service{" "}
             </h2>
           )}
           {loading ? (
@@ -68,7 +68,7 @@ const NewAbovepage = () => {
               <Link href={"/get-trial"}>
                 <button
                   className={
-                    "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[#f5455c] bg-black dark:focus:ring-yellow-900 "
+                    "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
                   }
                 >
                   Get started free
