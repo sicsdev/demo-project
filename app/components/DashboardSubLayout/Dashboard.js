@@ -17,24 +17,29 @@ import TestWidgetLayout from './TestWidgetLayout'
 import { getAllActiveBots } from '@/app/API/pages/Bot'
 import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
+import { editBillingType } from '../store/slices/billingTypeSlice'
+import Method from '../NewPaymentMethod/Method'
+import { useRouter } from 'next/navigation'
 
 const Dashboard = ({ children }) => {
+    const router = useRouter()
+    const routes = ["/dashboard/workflow/workflow-builder", "/dashboard/knowledge-center", "/dashboard/email-settings", "/dashboard/manage-phones", "/dashboard/analytics", "/dashboard/members", "/dashboard/scheduling-settings", "/dashboard/billing/usage"]
     useEffect(() => {
 
-            const inputs = document.querySelectorAll('input, select, textarea');
-            if (inputs) {
-                inputs.forEach(input => {
-                    input.addEventListener('focus', function () {
-                        const viewportMeta = document.querySelector('meta[name="viewport"]');
-                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=2.0';
-                    });
-
-                    input.addEventListener('blur', function () {
-                        const viewportMeta = document.querySelector('meta[name="viewport"]');
-                        viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-                    });
+        const inputs = document.querySelectorAll('input, select, textarea');
+        if (inputs) {
+            inputs.forEach(input => {
+                input.addEventListener('focus', function () {
+                    const viewportMeta = document.querySelector('meta[name="viewport"]');
+                    viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=2.0';
                 });
-            }
+
+                input.addEventListener('blur', function () {
+                    const viewportMeta = document.querySelector('meta[name="viewport"]');
+                    viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
+                });
+            });
+        }
     }, [])
     const dispatch = useDispatch()
     const pathname = usePathname()
@@ -108,10 +113,12 @@ const Dashboard = ({ children }) => {
             icon: "UserGroupIcon",
             subheading: "Organization Settings"
         },
-        
+
     ];
+    console.log("pathname", pathname)
     let state = useSelector((state) => state.botId.showModal)
     const userState = useSelector((state) => state.user);
+    const billingState = useSelector((state) => state.billing);
     useEffect(() => {
         if (!state) {
             dispatch(fetchBot())
@@ -127,8 +134,22 @@ const Dashboard = ({ children }) => {
         // return () => { localStorage.removeItem('inTempoPortal') }
     }, [state]);
 
+    const findValuesForRoute = (value) => {
+        const findValue = routes.find((x) => x === pathname)
+        if (findValue && value === "demo") {
+            if (pathname !== "/dashboard") {
+                router.push("/dashboard")
+            }
+        }
+        return
+    }
 
-
+    useEffect(() => {
+        if (!billingState && userState) {
+            findValuesForRoute(userState?.data?.enterprise?.billing_type)
+            dispatch(editBillingType(userState?.data?.enterprise?.billing_type))
+        }
+    }, [userState])
     const [activeBots, setActiveBots] = useState([])
 
     const getActiveBots = async () => {
@@ -223,9 +244,9 @@ const Dashboard = ({ children }) => {
                 </button> */}
 
                 {/* <TestWidgetLayout></TestWidgetLayout> */}
+                {(billingState === null || billingState === "demo" )&& pathname !== "/dashboard" ? null : children}
 
 
-                {children}
             </NewSidebar >
 
         </>
