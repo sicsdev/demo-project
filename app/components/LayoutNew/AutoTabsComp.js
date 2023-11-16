@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -12,7 +13,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             title: "Cost-Efficient",
             description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand.",
             side_heading: "Pay Per Resolution",
-            "points": ["Transparent, per-resolution pricing", "Significant cost savings", ""]
+            "points": ["Transparent, per-resolution pricing", "Significant cost savings", <Link href="/pricing">Learn more about pricing</Link>]
 
         },
         {
@@ -30,7 +31,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             content: "Speak To Your Customers, Anywhere",
             title: "Universal Communication",
             description: "Our platform offers support in all languages across every channel, ensuring your business is always connected and responsive.",
-            side_heading: "Every Language, Every Channel, 24/7",
+            side_heading: "Multi-Channel Synergy",
             "points": ['Multilingual support', '24/7 availability across all channels', 'Global reach for seamless communication']
         },
         {
