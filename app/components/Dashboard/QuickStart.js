@@ -40,6 +40,7 @@ import { ManageExpand } from '@/app/API/pages/EnterpriseService';
 import { fetchMembers } from '../store/slices/memberSlice';
 import Modal from '../Common/Modal/Modal';
 import MetaDataInfo from './MetaDataInfo';
+import Method from '../NewPaymentMethod/Method';
 
 const QuickStart = () => {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const QuickStart = () => {
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
+    const billingState = useSelector((state) => state.billing)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
@@ -261,9 +263,11 @@ const QuickStart = () => {
             setIsExpand(user?.show_quick_start)
         }
     }, [user])
+    console.log("budjfdf", billingState)
     return (
 
         <>
+
             {integrations && workflow && (
                 <>
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
@@ -340,14 +344,9 @@ const QuickStart = () => {
                                     style={{ transition: `all 0.2s ease-out 0s` }}
 
                                 >
-                                    {user?.enterprise?.country === '' && (
-                                        <p className="px-6 text-[#151D23] text-sm pb-5">
-
-                                            Please enter your address first in business profile.
-
-                                        </p>
+                                    {billingState === "demo" && (
+                                        <Method />
                                     )}
-
                                     {quickStartData1?.map((ele, key) => (
 
                                         <div key={key}>
@@ -589,7 +588,7 @@ const QuickStart = () => {
             <ChatBots />
 
 
-            
+
             <Modal title={`How to pass user's data to your widget`}
                 show={metaDataInfoModal}
                 setShow={setMetaDataInfoModal}

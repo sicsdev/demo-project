@@ -10,7 +10,7 @@ const ProductSection5 = () => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
   }, []);
   return (
     <div className="sm:p-[0rem] px-[2rem]">

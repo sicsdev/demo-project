@@ -9,7 +9,7 @@ import integrationReducer from './slices/integrationSlice';
 import workflowSlice from './slices/workflowSlice';
 import logSlice from './slices/logSlice';
 import integrationTemplateReducer from './slices/integrationTemplatesSlice';
-
+import billingTypeReducer from './slices/billingTypeSlice';
 const store = configureStore({
     reducer: {
         version: versionReducer,
@@ -18,10 +18,11 @@ const store = configureStore({
         members: memberReducer,
         recommendation: recommendationReducer,
         faqQuestions: faqQuestionsReducer,
-        integration:integrationReducer,
-        workflow:workflowSlice,
-        integrationTemplate:integrationTemplateReducer,
-        logs:logSlice,
+        integration: integrationReducer,
+        workflow: workflowSlice,
+        integrationTemplate: integrationTemplateReducer,
+        logs: logSlice,
+        billing: billingTypeReducer
     },
 });
 
