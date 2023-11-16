@@ -35,7 +35,6 @@ const TrialForm = ({ formData, setFormData }) => {
         if (name === "first_name" || name === "last_name" || name === 'company_name') {
             value = value.replace(/[0-9]/g, '');
         }
-        debugger
         setFormData((prev) => {
             return {
                 ...prev, [name]: value

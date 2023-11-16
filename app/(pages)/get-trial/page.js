@@ -8,6 +8,7 @@ import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
 import { editBillingType } from '@/app/components/store/slices/billingTypeSlice'
 import Link from 'next/link'
+import { createHubspotContact, updateHubspotContact } from '@/app/API/integrations/hubspot/hubspot'
 
 const Trial = () => {
     const router = useRouter()
@@ -31,7 +32,37 @@ const Trial = () => {
         return arr_values || formValues || isEmailValid || isUrlValid
     }
     const SubmitTheForm = async () => {
+
         setLoading(true)
+
+        let payloadForHubspot = {
+            properties: {
+                firstname: formData.first_name,
+                lastname: formData.last_name,
+                email: formData.email,
+                phone: formData.phone,
+                company: formData.company_name,
+                website: formData.url,
+                lifecyclestage: "demo",
+                is_demo: 'true',
+                demo_status: 'pending'
+            }
+
+        }
+
+        // Create contact in hubspot, and patch it after get contact id.
+        let createContact = await createHubspotContact(payloadForHubspot)
+
+        // If there is a conflict, it means contact already exist, so we patch it.
+        if (createContact?.category == 'CONFLICT') {
+            const regex = /Existing ID: (\d+)/;
+            const match = createContact.message.match(regex);
+            if (match) {
+                const id = match[1];
+                await updateHubspotContact(payloadForHubspot, id)
+            }
+        }
+
         let payload = {
             enterprise: {
                 name: formData.company_name,
@@ -45,6 +76,7 @@ const Trial = () => {
             "password": formData?.password,
             "password_confirm": formData?.password
         }
+
         let payload2 = {
             "category": "standard",
             "description": "",
@@ -56,6 +88,7 @@ const Trial = () => {
             "refund_tolerance": 0,
             "ecommerce_platform": 'Other',
         }
+
         const response = await submitCheckout(payload)
         if (response?.token) {
             Cookies.set("Token", response.token)
