@@ -114,6 +114,8 @@ select {
   body input[type="date"]:focus,
   body input[type="email"]:focus,
   body input[type="password"]:focus,
+
+
   body input[type="search"]:focus,
   body textarea:focus {
     font-size: 16px !important;
@@ -1997,4 +1999,11 @@ body textarea:focus {
     width: 77%;
     top: 25px;
   }
+}
+body
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
