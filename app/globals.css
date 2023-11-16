@@ -1908,3 +1908,76 @@ body textarea:focus {
   outline: none !important;
   line-height: unset !important;
 }
+
+/* slider */
+.chatfeature_slider {
+  position: relative;
+}
+
+.chatfeature_slider button.slick-arrow.slick-prev::before,
+.chatfeature_slider button.slick-arrow.slick-next::before {
+  display: none;
+}
+
+.chatfeature_slider button.slick-arrow.slick-prev {
+  background-image: url("https://assets-global.website-files.com/611a19b9853b7414a0f6b3f6/63d800c82bce52ba8fb494f8_keyboard_arrow_up-1.webp");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  left: unset;
+  right: 43px;
+  width: 50px;
+  top: 300px;
+}
+
+.chatfeature_slider button.slick-arrow.slick-next {
+  background-image: url("https://assets-global.website-files.com/611a19b9853b7414a0f6b3f6/63d800c8cd4fd111142e9a70_keyboard_arrow_up.webp");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  right: -10px;
+  width: 50px;
+  top: 300px;
+}
+
+.chatfeature_slider .slick-dots {
+  display: flex !important;
+  width: 87%;
+  position: relative;
+  top: 34px;
+}
+
+.chatfeature_slider .slick-dots li button {
+  width: 80%;
+}
+
+.chatfeature_slider .slick-dots li button {
+  background: transparent;
+  border-radius: 25px;
+  height: 4px;
+  padding: 0;
+  width: 100%;
+}
+
+.chatfeature_slider .slick-dots li {
+  width: 80%;
+}
+
+.chatfeature_slider .slick-dots li button::before,
+.hero_slider .slick-dots li.slick-active button::before {
+  color: transparent;
+  width: 100%;
+}
+
+.chatfeature_slider .slick-dots li.slick-active button {
+  background: #fff;
+}
+
+@media screen and (max-width:768px) {
+  .chatfeature_slider .slick-dots {
+    width: 77%;
+    top: 25px;
+  }
+}
