@@ -28,7 +28,7 @@ const ServicePlatform = () => {
       p: "Leverage Tempo's chatbot and email automations to integrate seamlessly with your existing systems, offering real-time data synchronization and streamlined customer interactions.",
       className: "bg-[#f6f9ff]",
       buttonColor: "bg-[#1d74f5]",
-      textColor:"text-[#1d74f5]",
+      textColor: "text-[#1d74f5]",
       link: "/solutions/chat-bot",
     },
     {
@@ -42,7 +42,7 @@ const ServicePlatform = () => {
       className: "bg-[#fcf7fc]",
       link: "/solutions/phone",
       buttonColor: "bg-[#4ebe8c]",
-      textColor:"text-[#4ebe8c]",
+      textColor: "text-[#4ebe8c]",
     },
     {
       id: "3",
@@ -54,8 +54,7 @@ const ServicePlatform = () => {
       className: "bg-[#fff8f8]",
       link: "/features/learning-center",
       buttonColor: "bg-[#f5455c]",
-      textColor:"text-[#f5455c]"
-
+      textColor: "text-[#f5455c]",
     },
     {
       id: "4",
@@ -68,8 +67,7 @@ const ServicePlatform = () => {
       className: "bg-[#fcf7fc]",
       link: "/integrations",
       buttonColor: "bg-[#9f22c7]",
-      textColor:"text-[#9f22c7]"
-
+      textColor: "text-[#9f22c7]",
     },
   ];
 
@@ -100,7 +98,7 @@ const ServicePlatform = () => {
                     Get started
                   </Link>
                   <Link
-                    href={'/get-trial'}
+                    href={"/get-trial"}
                     className={`text-sm ${element.textColor} lg:ml-[24px] cursor-pointer`}
                   >
                     <strong>Start for free</strong>
