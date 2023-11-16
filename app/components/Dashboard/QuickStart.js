@@ -207,7 +207,7 @@ const QuickStart = () => {
     useEffect(() => {
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 2500);
+        }, 300);
     }, []);
     useState(() => {
         if (Cookies.get('visit')) {

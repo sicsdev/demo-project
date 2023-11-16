@@ -87,11 +87,12 @@ const BillingNew = ({setBillingValueAfterSubmit}) => {
                                 color: "#495057",
                                 borderRadius: "9px",
                                 borderStyle: "solid",
+                                width: "100%"
                             },
                         },
                     }}
                 />
-                <div className="my-5">
+                <div className="my-5 flex justify-end">
                     {loading === true ? (
                         <LoaderButton />
                     ) : (
