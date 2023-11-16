@@ -26,9 +26,9 @@ const ServicePlatform = () => {
       content_video: "/ChatAutomation.png",
       h3: "Enhance your service capabilities",
       p: "Leverage Tempo's chatbot and email automations to integrate seamlessly with your existing systems, offering real-time data synchronization and streamlined customer interactions.",
-      className: "bg-[#f6f9ff]",
+      className: "bg-[#c6def1]",
       buttonColor: "bg-[#1d74f5]",
-      textColor: "text-[#1d74f5]",
+      textColor:"text-[#1d74f5]",
       link: "/solutions/chat-bot",
     },
     {
@@ -39,10 +39,10 @@ const ServicePlatform = () => {
         "https://usetempo.ai/solutions_/Phone/Instant%20voice%20responses.png",
       h3: "Revolutionize voice interactions",
       p: "Utilize Tempo's smart IVR features to offer superior automated voice support, connecting fluidly with your backend APIs for a comprehensive and efficient customer service experience.",
-      className: "bg-[#fcf7fc]",
+      className: "bg-[#c9e4de]",
       link: "/solutions/phone",
       buttonColor: "bg-[#4ebe8c]",
-      textColor: "text-[#4ebe8c]",
+      textColor:"text-[#4ebe8c]",
     },
     {
       id: "3",
@@ -51,10 +51,11 @@ const ServicePlatform = () => {
       content_video: "/LearningCenter.png",
       h3: "Automate with intelligence",
       p: "Deploy Learning Center to utilize AI-driven recommendations, automating customer interactions and linking workflows and knowledge bases for a more efficient service experience.",
-      className: "bg-[#fff8f8]",
+      className: "bg-[#f2c6de]",
       link: "/features/learning-center",
       buttonColor: "bg-[#f5455c]",
-      textColor: "text-[#f5455c]",
+      textColor:"text-[#f5455c]"
+
     },
     {
       id: "4",
@@ -64,10 +65,11 @@ const ServicePlatform = () => {
         "https://usetempo.ai/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
       h3: "Streamline your business processes",
       p: "Employ Workflow Builder to create and implement custom automated workflows, enhancing operational efficiency and reducing manual effort in your business activities.",
-      className: "bg-[#fcf7fc]",
+      className: "bg-[#d8cdf0]",
       link: "/integrations",
       buttonColor: "bg-[#9f22c7]",
-      textColor: "text-[#9f22c7]",
+      textColor:"text-[#9f22c7]"
+
     },
   ];
 
@@ -99,7 +101,7 @@ const ServicePlatform = () => {
                   </Link>
                   <Link
                     href={"/get-trial"}
-                    className={`text-sm ${element.textColor} lg:ml-[24px] cursor-pointer`}
+                    className={`text-sm ${element.textColor} text-center m-auto lg:ml-[24px] cursor-pointer`}
                   >
                     <strong>Start for free</strong>
                   </Link>

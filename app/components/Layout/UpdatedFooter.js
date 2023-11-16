@@ -168,7 +168,7 @@ const UpdatedFooter = () => {
                           <>
                             {" "}
                             <Link href={"/dashboard"}>
-                              <p className="text-[#142543]">{profile.email}</p>
+                              <p className="text-[white]">{profile.email}</p>
                             </Link>
                           </>
                         ) : (
@@ -185,9 +185,9 @@ const UpdatedFooter = () => {
                 </div>
               </div>
 
-              <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[white] !font-semibold">
+              {/* <p className="text-center text-neutral-600 text-[18px] mt-[3rem] text-[white] !font-semibold">
                 © Deflection AI Ventures, Inc{" "}
-              </p>
+              </p> */}
             </div>
           </div>
         </div>
