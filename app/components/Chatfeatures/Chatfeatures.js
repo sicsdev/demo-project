@@ -25,6 +25,9 @@ const Chatfeatures = () => {
             },
         ]
     };
+
+    const compData = {};
+
     return (
         <div className='bg-black '>
             <div className='relative w-full mx-auto py-[40px] lg:py-[96px] px-[16px]'>

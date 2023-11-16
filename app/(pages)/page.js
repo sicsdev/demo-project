@@ -40,7 +40,6 @@ import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
 import Exceptions from "../components/LayoutNew/Exceptions";
 import HeadText from "../components/HeadText/HeadText";
 import Help from "../components/Help/Help";
-import Chatfeatures from "../components/Chatfeatures/Chatfeatures";
 
 export default function Home() {
   const reachData = [
@@ -72,7 +71,6 @@ export default function Home() {
     <>
       <main className="">
         <Head></Head>
-
         <NewAbovepage />
         <Homeinte />
         <HeadText />
@@ -82,7 +80,7 @@ export default function Home() {
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Panelcardnew />
-        <Chatfeatures/>
+       
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         {/* <Help /> */}
