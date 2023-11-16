@@ -1975,7 +1975,24 @@ body textarea:focus {
   background: #fff;
 }
 
+.animate_lottie {
+  top: -26px;
+}
+
+.animate_lottie .wrap_player {
+  height: 600px;
+  width: 620px;
+}
+
 @media screen and (max-width:768px) {
+  .animate_lottie {
+    top: 0px;
+  }
+
+  .animate_lottie .wrap_player {
+    width: 100%;
+  }
+
   .chatfeature_slider .slick-dots {
     width: 77%;
     top: 25px;

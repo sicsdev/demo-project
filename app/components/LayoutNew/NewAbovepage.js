@@ -153,12 +153,13 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <>
-            <div className="absolute top-[-102px] right-0">
+            <div className="absolute animate_lottie right-0">
               <lottie-player
+              className="wrap_player"
                 id={'animation'}
                 loop
                 src="/lines-animation.json"
-                style={{ height: '650px', width: '620px' }}
+                // style={{ height: '650px', width: '620px' }}
                 direction={1}
                 autoplay={0}
                 renderer={'svg'}
