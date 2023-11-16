@@ -91,7 +91,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
                                     )}
                                 </div>
                             </div>
-                            <div className='w-full max-w-[550px]'>
+                            <div className='w-full max-w-[550px] h-[352px] sm:h-auto'>
                                 <div className='text-white'>
                                     <div className=''>
                                         <h4 className='hidden sm:block text-[34px] sm:text-[45px] font-semibold mb-[16px]'>{tabData[activeTab]?.side_heading}</h4>
