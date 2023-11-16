@@ -8,8 +8,10 @@ import ProductSection2 from '@/app/components/Products/learning/ProductSection2'
 import ProductSection3 from '@/app/components/Products/learning/ProductSection3';
 
 import ProductSection7 from '@/app/components/Products/learning/ProductSection7';
-import React ,{useRef} from 'react'
+import React, { useRef } from 'react'
 import Middlebar from '@/app/components/Info-Screen/Middlebar';
+import SliderNew from '@/app/components/LearningCenter/SliderNew';
+import { Slide } from 'react-toastify';
 
 const page = () => {
   const ref = useRef(null);
@@ -21,10 +23,10 @@ const page = () => {
     <div className="bg-white">
       <Banner handleClickScroll={handleClickScroll} />
       <div className="sm:mt-[75vh]">
-      <ProductSection2 handleClickScroll={handleClickScroll} />
+        <ProductSection2 handleClickScroll={handleClickScroll} />
       </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
-
+      <SliderNew />
       <Concierge />
       <ProductSection7 />
       <Panelcardnew />
