@@ -272,8 +272,9 @@ _learnq.push(['account', 'UVQx8p']);
           src="https://assets.calendly.com/assets/external/widget.js"
           type="text/javascript"
           async
-        />
-      </body>
+        />        
+     </body>
+     <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
     </html>
   );
 }

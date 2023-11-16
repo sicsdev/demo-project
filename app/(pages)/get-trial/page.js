@@ -90,6 +90,7 @@ const Trial = () => {
       setLoading(false);
     }
   };
+  
   return (
     <div className="container my-12">
       <div className="justify-center relative h-8  items-center  flex my-4">
