@@ -25,47 +25,29 @@ import { ToastContainer } from "react-toastify";
 
 const Billing = ({ basicFormData, setShowBilling, getBillingData }) => {
   const stripe = useStripe();
-
   const elements = useElements();
-
   const [errors, setError] = useState([]);
-
   const [loading, setLoading] = useState();
-
   const [cardFilled, setCardFilled] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-
     if (!stripe || !elements) {
       return;
     }
-
     const cardElement = elements.getElement(CardElement);
-
     let card_token = await stripe.createToken(cardElement);
-
     const payload = {
       token: card_token.token?.id,
     };
-
     const response = await createBillingUser(payload);
-
-    debugger;
-
     if (response?.data?.status === "failed") {
       errorMessage(response?.data?.message);
-
       setLoading(false);
     } else {
       successMessage(response?.data?.message);
-
       setLoading(false);
-
       getBillingData();
-
       setShowBilling(false);
     }
   };
