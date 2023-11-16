@@ -270,7 +270,7 @@ const TrialForm = ({ formData, setFormData }) => {
                 />
                 <label
                     htmlFor="link-checkbox"
-                    className="ml-2 text-xs font-medium text-border "
+                    className="ml-2 text-lg sm:text-[14px] font-medium text-border "
                 >
                     I agree with the{" "}
                     <a

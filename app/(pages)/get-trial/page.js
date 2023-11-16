@@ -8,28 +8,88 @@ import Cookies from 'js-cookie'
 import { useDispatch } from 'react-redux'
 import { editBillingType } from '@/app/components/store/slices/billingTypeSlice'
 import Link from 'next/link'
-import { createHubspotContact, updateHubspotContact } from '@/app/API/integrations/hubspot/hubspot'
+import { createHubspotContact } from '@/app/API/integrations/hubspot/Hubspot'
+import { updateHubspotContact } from '@/app/API/integrations/hubspot/Hubspot'
 
 const Trial = () => {
-    const router = useRouter()
-    const dispatch = useDispatch()
-    const [formData, setFormData] = useState({ urls: [], billing_type: "demo", checked: false })
-    const [loading, setLoading] = useState(false)
-    const validateEmail = (email) => {
-        var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        return regex.test(email);
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    urls: [],
+    billing_type: "demo",
+    checked: false,
+  });
+  const [loading, setLoading] = useState(false);
+  const validateEmail = (email) => {
+    var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return regex.test(email);
+  };
+  const validateUrl = (url) => {
+    var regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
+    return regex.test(url);
+  };
+  const DisablingButton = () => {
+    const requiredKeys = [
+      "first_name",
+      "last_name",
+      "email",
+      "company_name",
+      "phone",
+      "password",
+      "url",
+    ];
+    const formValues = requiredKeys.some(
+      (key) => !formData[key] || formData[key].trim() === ""
+    );
+    const arr_values = ["urls"].every(
+      (key) => !formData[key] || formData[key].length === 0
+    );
+    const isEmailValid = formData["email"]
+      ? !validateEmail(formData["email"])
+      : true;
+    const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
+    return arr_values || formValues || isEmailValid || isUrlValid;
+  };
+  const SubmitTheForm = async () => {
+    setLoading(true);
+    let payload = {
+      enterprise: {
+        name: formData.company_name,
+        billing_type: "demo",
+      },
+      email: formData?.email,
+      name: formData?.first_name + " " + formData?.last_name,
+      phone_prefix: "+1",
+      slug_domain: formData?.company_name,
+      phone: formData.phone,
+      password: formData?.password,
+      password_confirm: formData?.password,
     };
-    const validateUrl = (url) => {
-        var regex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$/;
-        return regex.test(url);
+    let payload2 = {
+      category: "standard",
+      description: "",
+      automation_tolerance: 0,
+      logo: "",
+      chat_title: "Deflection AI Agent",
+      payment_platform: "Order",
+      ticketing_platform: "Other",
+      refund_tolerance: 0,
+      ecommerce_platform: "Other",
     };
-    const DisablingButton = () => {
-        const requiredKeys = ['first_name', 'last_name', "email", 'company_name', "phone", "password", "url"];
-        const formValues = requiredKeys.some((key) => !formData[key] || formData[key].trim() === "");
-        const arr_values = ['urls'].every(key => !formData[key] || formData[key].length === 0);
-        const isEmailValid = formData['email'] ? !validateEmail(formData['email']) : true;
-        const isUrlValid = formData['url'] ? !validateUrl(formData['url']) : true;
-        return arr_values || formValues || isEmailValid || isUrlValid
+    const response = await submitCheckout(payload);
+    if (response?.token) {
+      Cookies.set("Token", response.token);
+      const bot = await createCheckoutBot(payload2, response.token);
+      if (bot.status === 200 || bot.status === 201) {
+        dispatch(editBillingType("demo"));
+        // await createBotKnowledge(bot.data.id, { urls: formData.urls });
+        router.push("/dashboard");
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    } else {
+      setLoading(false);
     }
     const SubmitTheForm = async () => {
 
@@ -133,4 +193,4 @@ const Trial = () => {
     )
 }
 
-export default Trial
+export default Trial;

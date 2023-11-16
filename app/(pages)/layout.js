@@ -6,6 +6,8 @@ import Nav from "../components/Layout/Nav";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import UpdatedFooter from "../components/Layout/UpdatedFooter";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 export default function PageLayout({ children }) {
