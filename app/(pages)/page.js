@@ -82,7 +82,7 @@ export default function Home() {
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Panelcardnew />
-
+        <Chatfeatures/>
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         {/* <Help /> */}
@@ -90,7 +90,6 @@ export default function Home() {
         <Homeintegration handleClickScroll={handleClickScroll} />
 
         <AutoTabsComp handleClickScroll={handleClickScroll} />
-        <Chatfeatures/>
 
         {/* <Middlebar />
         <Homeform reff={ref} /> */}
