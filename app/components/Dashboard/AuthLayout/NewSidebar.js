@@ -41,6 +41,7 @@ import {
     ChatBubbleLeftIcon,
     DocumentMagnifyingGlassIcon,
     EnvelopeIcon,
+    LockClosedIcon
 } from "@heroicons/react/24/outline";
 import { fetchRecommendation } from "../../store/slices/recommendation";
 import { fetchIntegrations } from "../../store/slices/integrationSlice";
@@ -53,6 +54,7 @@ import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
 
 const NewSidebar = ({ children }) => {
+    const billingState = useSelector((state) => state.billing)
     const state = useSelector((state) => state.user.data);
     const recommedState = useSelector((state) => state.recommendation);
     const [learningItemsCount, setLearningItemsCount] = useState('')
@@ -142,7 +144,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard",
-                    name: "Home",
+                    name: <div className="flex justify-between items-center w-full"><span>Home</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 }
@@ -164,7 +166,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/workflow/workflow-builder",
-                    name: "Workflows",
+                    name:<div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div> ,
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -197,7 +199,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/knowledge-center",
-                    name: "Learning Center",
+                    name: <div className="flex justify-between items-center w-full"><span>Learning Center</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                     notification: learningItemsCount,
                     isLink: false,
@@ -219,13 +221,13 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/email-settings",
-                    name: "Email",
+                    name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
                     href: "/dashboard/manage-phones",
-                    name: "Phone",
+                    name: <div className="flex justify-between items-center w-full"><span>Phone</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 }
@@ -239,7 +241,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/analytics",
-                    name: "Logs",
+                    name: <div className="flex justify-between items-center w-full"><span>Logs</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 }
@@ -253,7 +255,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/billing/usage",
-                    name: "Billing",
+                    name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -274,13 +276,13 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/members",
-                    name: "Team",
+                    name: <div className="flex justify-between items-center w-full"><span>Team</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
                 {
                     href: "/dashboard/scheduling-settings",
-                    name: "Scheduling",
+                    name:<div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -362,7 +364,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/knowledge-center",
-                    name: "Learning Center",
+                    name: <div className="flex justify-between items-center w-full"><span>Learning Center</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                     notification: learningItemsCount,
                     isLink: false,
@@ -384,7 +386,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/email-settings",
-                    name: "Email",
+                    name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -404,7 +406,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/analytics",
-                    name: "Logs",
+                    name: <div className="flex justify-between items-center w-full"><span>Logs</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 }
@@ -418,7 +420,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/billing/usage",
-                    name: "Billing",
+                    name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -430,7 +432,7 @@ const NewSidebar = ({ children }) => {
                 // },
                 {
                     href: "/dashboard/scheduling-settings",
-                    name: "Scheduling",
+                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -445,7 +447,7 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/members",
-                    name: "Team",
+                    name: <div className="flex justify-between items-center w-full"><span>Team</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },

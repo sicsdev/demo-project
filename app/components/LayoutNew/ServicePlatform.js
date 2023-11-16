@@ -100,10 +100,10 @@ const ServicePlatform = () => {
                     Get started
                   </Link>
                   <Link
-                    href={element.link}
+                    href={'/get-trial'}
                     className={`text-sm ${element.textColor} lg:ml-[24px] cursor-pointer`}
                   >
-                    <strong>learn more</strong>
+                    <strong>Start for free</strong>
                   </Link>
                 </div>
               </div>

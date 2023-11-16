@@ -283,8 +283,8 @@ const UsageLimit = () => {
 
   const getPaymentOldData = async () => {
     console.log(state)
-    setFormData(state.enterprise.billing_thresholds.amount_gte);
-    const response = await getPaymentHistory(state.stripe_data.stripe_id);
+    setFormData(state?.enterprise.billing_thresholds?.amount_gte);
+    const response = await getPaymentHistory(state?.stripe_data?.stripe_id);
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
