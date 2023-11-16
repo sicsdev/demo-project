@@ -32,7 +32,7 @@ const ProductSection7 = () => {
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 300);
     }, []);
   
   return (

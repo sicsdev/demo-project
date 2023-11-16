@@ -10,7 +10,7 @@ const Reach = ({ handleClickScroll, data, heading = ' Exceptional Performance' }
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
   return (
