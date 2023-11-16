@@ -79,27 +79,17 @@ const TrialForm = ({ formData, setFormData }) => {
     }
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
-            const { value } = e.target;
-            const url_values = value.split(' ');
-            setFormData((prev) => {
-                return {
-                    ...prev,
-                    faq_url: '',
-                };
-            });
-            url_values.forEach((name) => {
-                const trimmedUrl = name.trim();
-                if (trimmedUrl && !formData?.urls.includes(trimmedUrl)) {
-                    setFormData((prev_state) => {
-                        return {
-                            ...prev_state,
-                            urls: [...prev_state.urls, trimmedUrl]
-                        }
-                    })
-                }
-            });
+          const { value } = e.target;
+          const url_values = value.split(' ');
+      
+          setFormData((prev) => ({
+            ...prev,
+            faq_url: '',
+            urls: [...new Set([...prev.urls, ...url_values.map((name) => name.trim())])],
+          }));
         }
-    }
+      };
+      
     const handleDownload = () => {
         // const pdfPath = "Deflection AI.docx.pdf";
         // const link = document.createElement("a");
