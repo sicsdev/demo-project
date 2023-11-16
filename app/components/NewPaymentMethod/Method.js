@@ -17,8 +17,8 @@ const Method = () => {
         <div className='flex justify-center'>
             <div className='w-full mx-5'>
                 <StripeWrapper>
-                    <span className="px-2 text-xs sm:text-lg mb-4 text-center text-[#007c8f] !font-semibold bg-lowgray py-2 rounded-md flex gap-2 justify-center items-center">
-                        <CreditCardIcon className='h-5 w-5'></CreditCardIcon> 
+                    <span className="px-2 text-xs sm:text-lg mb-4 text-center !font-semibold bg-sidebar-hover text-white py-2 rounded-md flex gap-2 justify-center items-center">
+                        <CreditCardIcon className='h-5 w-5'></CreditCardIcon>
                         Enter payment Information to unlock all features
                     </span>
                     <BillingNew setBillingValueAfterSubmit={setBillingValueAfterSubmit} />

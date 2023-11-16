@@ -24,7 +24,7 @@ import { errorMessage, successMessage } from "../../Messages/Messages";
 import { ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
 
-const BillingNew = ({setBillingValueAfterSubmit}) => {
+const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [errors, setError] = useState([]);
@@ -87,7 +87,7 @@ const BillingNew = ({setBillingValueAfterSubmit}) => {
                                 color: "#495057",
                                 borderRadius: "9px",
                                 borderStyle: "solid",
-                                width: "100%"
+                                width: "100%",
                             },
                         },
                     }}
