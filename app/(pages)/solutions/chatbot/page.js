@@ -14,7 +14,6 @@ import { useRef } from "react";
 const page = () => {
   const ref = useRef(null);
   const handleClickScroll = () => {
-    console.log("clicked");
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (

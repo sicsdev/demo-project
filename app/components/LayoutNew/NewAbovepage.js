@@ -10,7 +10,7 @@ const NewAbovepage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -155,21 +155,43 @@ const NewAbovepage = () => {
             ""
           )} */}
         </div>
-        <div>
+        <div className="relative">
           {loading ? (
             <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
               <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />
             </div>
           ) : (
-            <div className=" block">
-              <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
-                <Image
-                  src="/MicrosoftTeams-image.png"
-                  className="w-full bg-contain object-contain mx-auto "
-                  fill={true}
-                />
+            <>
+            <div className="absolute animate_lottie right-0">
+              <lottie-player
+              className="wrap_player"
+                id={'animation'}
+                loop
+                src="/lines-animation.json"
+                // style={{ height: '650px', width: '620px' }}
+                direction={1}
+                autoplay={0}
+                renderer={'svg'}
+                delay={0}
+                easing={""}
+                duration={4000}
+                value={100}
+              // intermission={5000} 
+              // mode={'bounce'} 
+              // keepLastFrame={true} 
+              >
+              </lottie-player>
               </div>
-            </div>
+              <div className=" block">
+                <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
+                  <Image
+                    src="/MicrosoftTeams-image.png"
+                    className="w-full bg-contain object-contain mx-auto "
+                    fill={true}
+                  />
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

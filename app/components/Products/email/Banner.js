@@ -8,7 +8,7 @@ const banner = ({handleClickScroll}) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 200);
   }, []);
   const customStyles = {
     backgroundImage: `url('https://ik.imagekit.io/8x8/v3/assets/blte621f0a2bd0e9f69/blt7502941e41c99672/5ee7a43e8aa85c4a23eb61a6/xl-bnr-callstats.io-monitoring-data3.png?cache=59d90bb98e7585b9a89b84ef9e319161&tr=ar-16-9,fo-auto,w-1200')`,

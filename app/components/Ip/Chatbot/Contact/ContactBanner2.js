@@ -13,7 +13,7 @@ const ContactBanner2 = () => {
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 1000);
+      }, 300);
     }, []);
     return (
       <div className="bot-page-shadow icons pt-[1px] sm:pt-4 pb-4 sm:pb-12 w-full sm:w-[1440px] mx-auto">
