@@ -73,8 +73,6 @@ export default function Home() {
       <main className="">
         <Head></Head>
 
-        <Chatfeatures/>
-
         <NewAbovepage />
         <Homeinte />
         <HeadText />
@@ -92,6 +90,8 @@ export default function Home() {
         <Homeintegration handleClickScroll={handleClickScroll} />
 
         <AutoTabsComp handleClickScroll={handleClickScroll} />
+        <Chatfeatures/>
+
         {/* <Middlebar />
         <Homeform reff={ref} /> */}
         {/* <HomeComponent /> */}

@@ -26,7 +26,7 @@ const Chatfeatures = () => {
         ]
     };
     return (
-        <div className='bg-black my-6'>
+        <div className='bg-black '>
             <div className='relative w-full mx-auto py-[40px] lg:py-[96px] px-[16px]'>
                 <img className='absolute right-0 top-0' src="https://assets-global.website-files.com/611a19b9853b7414a0f6b3f6/63d80350b86888a25d8f154e_circles.svg" alt="" />
                 <div className='max-w-[1090px] mx-auto'>
@@ -66,7 +66,7 @@ const Chatfeatures = () => {
                     </div>
 
                     <div className="content">
-                        <p className="mt-8 sm:mt-4 w-full sm:w-[700px] text-[16px] text-white">Allow users to interact with another through chat, video, voice messaging, and file sharing. Monitor engagement data to learn how they communicate and moderate message content to keep the chat environment compliant with regulatory requirements.</p>
+                        <p className="mt-12 sm:mt-4 w-full sm:w-[700px] text-[16px] text-white">Allow users to interact with another through chat, video, voice messaging, and file sharing. Monitor engagement data to learn how they communicate and moderate message content to keep the chat environment compliant with regulatory requirements.</p>
                     </div>
                 </div>
 
