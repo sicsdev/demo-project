@@ -148,7 +148,9 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta property="og:image" content="https://usetempo.ai/logo-simple-negative.png" />
+        <link rel="icon" href="https://usetempo.ai/logo-simple-negative.png" />
 
         {/* <link
           rel="stylesheet"
@@ -272,9 +274,9 @@ _learnq.push(['account', 'UVQx8p']);
           src="https://assets.calendly.com/assets/external/widget.js"
           type="text/javascript"
           async
-        />        
-     </body>
-     <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
+        />
+      </body>
+      <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
     </html>
   );
 }
