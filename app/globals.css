@@ -1922,7 +1922,7 @@ body textarea:focus {
 }
 
 .chatfeature_slider button.slick-arrow.slick-prev {
-  background-image: url("https://assets-global.website-files.com/611a19b9853b7414a0f6b3f6/63d800c82bce52ba8fb494f8_keyboard_arrow_up-1.webp");
+  background-image: url("/feature-slider/arrow_down.webp");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1934,7 +1934,7 @@ body textarea:focus {
 }
 
 .chatfeature_slider button.slick-arrow.slick-next {
-  background-image: url("https://assets-global.website-files.com/611a19b9853b7414a0f6b3f6/63d800c8cd4fd111142e9a70_keyboard_arrow_up.webp");
+  background-image: url("/feature-slider/arrow_up.webp");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: cover;
