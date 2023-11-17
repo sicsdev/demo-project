@@ -8,6 +8,7 @@ import Script from "next/script";
 import Swal from "sweetalert2";
 // import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import Head from "next/head";
 
 
 const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider'), {
@@ -131,7 +132,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className="scroll-smooth ">
-      <head>
+      <Head>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -227,7 +228,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 
         {/* <!-- End Google Tag Manager --> */}{" "}
-      </head>
+      </Head>
 
 
 
