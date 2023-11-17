@@ -62,7 +62,7 @@ const banner = ({handleClickScroll}) => {
       </div>
     ) : (
       <button
-      data-cal-link="tempoai/sales-call"
+      data-cal-link="deflectionai/sales-call"
       data-cal-config='{"layout":"month_view"}'
               type="button"
         className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#2563eb] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"

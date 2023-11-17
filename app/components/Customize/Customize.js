@@ -131,7 +131,7 @@ const Customize = ({
         };
       });
       setBotDetails(res[0].data);
-      debugger;
+       ;
       setPreferences(res[0].data);
       setBlockedUrls(res[0].data.origins_blocked ?? []);
       let data = res[0].data;

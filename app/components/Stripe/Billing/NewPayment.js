@@ -45,7 +45,7 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
         setLoading(false)
         // return   
         const response = await subscribeCustomer(payload, Cookies.get("Token"));
-        debugger
+         
         if (response) {
             setLoading(false);
             setBillingValueAfterSubmit()
