@@ -22,7 +22,10 @@ export const metadata = {
   description:
     "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
-    icon: "favicon.ico",
+    icon: "https://usetempo.ai/favicon.ico",
+  },
+  openGraph: {
+    images: 'https://www.usetempo.ai/logo-basic-negative.png',
   },
 };
 
