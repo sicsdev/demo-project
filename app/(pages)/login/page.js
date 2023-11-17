@@ -290,7 +290,7 @@ const Login = () => {
                 </div>
               )}
               <div className="block sm:flex md:flex lg:flex justify-between items-center py-5">
-                <div className="block sm:flex md:flex lg:flex justify-start gap-2 items-center" >
+                <div className="block sm:flex md:flex lg:flex justify-start gap-2 items-center mb-5 sm:mb-0" >
                   <Button
                     className="inline-block  rounded-md  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]"
                     disabled={loading || DisablingButton()}
@@ -329,7 +329,7 @@ const Login = () => {
                     )}
                   </Button>
                   <span
-                    className="text-primary tracking-wide text-xs font-normal"
+                    className="text-primary tracking-wide text-xs font-normal sm:ml-0 ml-2"
 
                     onClick={() => setMode(mode === "link" ? "password" : "link")}
                   >
@@ -340,7 +340,7 @@ const Login = () => {
                   <Link
                     href="/forgot-password"
                     className={`${error && "text-sky underline"
-                      }  text-border text-sm font-normal`}
+                      }  text-border text-sm font-normal `}
                   >
                     Forgot your password?
                   </Link>
@@ -350,7 +350,7 @@ const Login = () => {
                 <p className="text-red text-sm text-center mb-4">{error}</p>
               )}
             </div>
-            <div className="text-center mt-5">
+            <div className="text-center mt-5 sm:mt-[40px]">
               <p className="text-border text-sm font-normal">New to Deflection AI?</p>
               <Link className="text-primary text-xs" href={'/get-trial'}>Get a free trial</Link>
             </div>
@@ -376,7 +376,7 @@ const Login = () => {
 
 
 
-      <LoginFooter />
+      {/* <LoginFooter /> */}
     </>
   );
 };

@@ -28,9 +28,6 @@ import {
 } from "@heroicons/react/24/solid";
 import SelectField from "@/app/components/Common/Input/SelectField";
 import { business_company_size_data, business_industry_data } from "@/app/components/Forms/data/FormData";
-import TextField from "@/app/components/Common/Input/TextField";
-import price_data from "@/app/components/PanelCard/price_data";
-import { CheckIcon } from "@heroicons/react/24/outline";
 
 const Checkout = () => {
   const router = useRouter();
@@ -142,16 +139,16 @@ const Checkout = () => {
   return (
     <div className="bg-white">
       <Container>
-        <div className="relative h-8 mr-24 items-center flex sm:mb-4">
-          <Link href="/">
-            <img
-              width='140px'
-              className="opacity-100 mt-0.5"
-              alt="logo.png"
-              src="/logo-b.png"
-            />
-          </Link>
-        </div>
+      <div className="relative h-8 mr-24 items-center flex sm:mb-4">
+              <Link href="/">
+                <img
+                  width='140px'
+                  className="opacity-100 mt-0.5"
+                  alt="logo.png"
+                  src="/logo-b.png"
+                />
+              </Link>
+            </div>
         <hr className=" sm:block md:block lg:block border-border" />
 
         <div
@@ -216,148 +213,164 @@ const Checkout = () => {
             <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               1. Enter Your Info
             </h1>
-            <div className="border bg-white rounded-lg border-border py-6 px-4">
-              <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-                <div>
-                  <TextField
+            <div className="border bg-white rounded-lg border-border">
+              {googleAuthInfo.googleLogin ? (
+                <div className="flex justify-start items-center py-4  bg-[#3c6df1]">
+                  <span className="text-start text-sm font-normal text-border flex items-center">
+                    <img
+                      width="25px"
+                      className="mx-5"
+                      src="/icons/google-g.svg"
+                    ></img>
+                    <div className="flex items-center text-white">
+                      Logged in with {checkoutForm.email}
+                    </div>
+                  </span>
+                </div>
+              ) : (
+                <div className="flex justify-start gap-4 items-center  pl-5 p-1">
+                  <span className="text-start text-xs font-normal w-[100px] text-black">
+                    Email
+                  </span>
+                  <input
                     type={"email"}
                     placeholder={"Email"}
-                    className="py-3 mt-1  "
+                    className={
+                      "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0    invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    }
                     name="email"
                     id={"email"}
                     onChange={handleFormValues}
                     onBlur={handleBlur}
                     value={checkoutForm?.email ?? ''}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                        <span>Email</span>{" "}
-                      </div>
-                    }
-                    error={""}
                   />
                 </div>
-                <div>
-                  <TextField
-                    type={"text"}
-                    placeholder={"Full Name"}
-                    className="py-3 mt-1  "
-                    name="name"
-                    id={"name"}
-                    onChange={handleFormValues}
-                    onBlur={handleBlur}
-                    value={checkoutForm?.name ?? ''}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                        <span>Full Name</span>{" "}
-                      </div>
-                    }
-                    error={""}
-                  />
-                </div>
-                <div>
-                  <TextField
-                    type={"text"}
-                    placeholder={"Business Name"}
-                    className="py-3 mt-1  "
-                    name="business_name"
-                    id={"business_name"}
-                    onChange={handleFormValues}
-                    onBlur={handleBlur}
-                    value={checkoutForm?.business_name ?? ''}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                        <span>Business Name</span>{" "}
-                      </div>
-                    }
-                    error={""}
-                  />
-                </div>
-                <div>
-                  <TextField
-                    type={"number"}
-                    placeholder={"Cell Phone"}
-                    className="py-3 mt-1  "
-                    name="phone"
-                    id={"phone"}
-                    onChange={handleFormValues}
-                    onBlur={handleBlur}
-                    value={checkoutForm?.phone ?? ''}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                        <span>Cell Phone</span>{" "}
-                      </div>
-                    }
-                    error={""}
-                  />
-                </div>
-                <div className="">
-                  <SelectField
-                    onChange={handleFormValues}
-                    onClick={(e) => {
-                      setGrayColor(true)
-                    }}
-                    onBlur={() => {
-                      if (!checkoutForm?.business_industry) {
-                        setGrayColor(false)
-                      }
-                    }}
-                    value={checkoutForm?.business_company_size ?? ''}
-                    name="business_company_size"
-                    id="business_company_size"
-                    values={business_company_size_data}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] mb-3">
-                        <span> Company size</span>{" "}
+              )}
 
-                      </div>
-                    }
-                    className="py-3"
-                  />{" "}
-                </div>
-                <div className="">
-                  <SelectField
-                    onChange={handleFormValues}
-                    onClick={(e) => {
-                      setGrayColor(true)
-                    }}
-                    onBlur={() => {
-                      if (!checkoutForm?.business_industry) {
-                        setGrayColor(false)
-                      }
-                    }}
-                    value={checkoutForm?.business_industry ?? ''}
-                    name="business_industry"
-                    id="business_industry"
-                    values={business_industry_data}
-                    title={
-                      <div className="flex items-center gap-2 w-[150px] mb-3">
-                        <span> Industry</span>{" "}
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Full Name
+                </span>
+                <input
+                  type={"text"}
+                  placeholder={"Full Name"}
+                  className={
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
 
-                      </div>
-                    }
-                    className="py-3"
-                  />{" "}
-                </div>
-                {!googleAuthInfo.googleLogin && (
-                  <div className=" col-span-2">
-                    <TextField
-                      type={"password"}
-                      placeholder={"Password"}
-                      className="py-3 mt-1  "
-                      name="password"
-                      id={"password"}
-                      onChange={handleFormValues}
-                      onBlur={handleBlur}
-                      value={checkoutForm?.password ?? ''}
-                      title={
-                        <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                          <span>Password</span>{" "}
-                        </div>
-                      }
-                      error={""}
-                    />
-                  </div>)}
+                  value={checkoutForm?.name ?? ''}
+                  name="name"
+                  id={"name"}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
               </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Business Name
+                </span>
+                <input
+                  type={"text"}
+                  placeholder={"Business Name"}
+                  className={
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:border-0 focus:invalid:ring-0 "
+                  }
+                  name="business_name"
+                  id={"business_name"}
+
+                  value={checkoutForm?.business_name ?? ''}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
+              </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Company size
+                </span>
+                <select onChange={handleFormValues}
+                  name="business_company_size"
+                  onClick={(e) => {
+                    setGrayColor(true)
+                  }}
+                  
+                  onBlur={() => {
+                    if (!checkoutForm?.business_industry) {
+                      setGrayColor(false)
+                    }
+                  }}
+
+                  value={checkoutForm?.business_company_size ?? ''}
+                  id={"business_company_size"} className={
+                    `${grayColor ? "" : "text-[#A2A3B7]"} hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown`
+                  }>
+                  <option value={''} disabled>Select</option>
+                  {business_company_size_data.map((ele, key) =>
+                    <option value={ele} key={key}>{ele}</option>
+                  )}
+                </select>
+              </div>
+              <div className="flex justify-start gap-4 items-center border  border-l-0 border-r-0  border-b-0  border-top-1 border-border pl-5 p-1">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Industry
+                </span>
+                <select onChange={handleFormValues}
+                  name="business_industry"
+                  onClick={(e) => {
+                    setGrayColor1(true)
+                  }}
+                  onBlur={() => {
+                    if (!checkoutForm?.business_industry) {
+                      setGrayColor1(false)
+                    }
+                  }}
+                  value={checkoutForm?.business_industry ?? ''}
+                  id={"business_industry"}
+                  className={
+                    `${grayColor1 ? "" : "text-[#A2A3B7]"} hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:ring-0 checkout-dropdown`
+                  }>
+                  <option value={''} disabled>Select</option>
+                  {business_industry_data.map((ele, key) =>
+                    <option value={ele} key={key}>{ele}</option>
+                  )}
+                </select>
+              </div>
+              <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-l-0 border-r-0 border-border">
+                <span className="text-start text-xs font-normal w-[100px] text-black">
+                  Cell Phone
+                </span>
+                <input
+                  type={"number"}
+
+                  value={checkoutForm?.phone ?? ''}
+                  placeholder={"Cell Phone"}
+                  className={
+                    "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                  }
+                  min={0}
+                  name="phone"
+                  id={"mobile"}
+                  onChange={handleFormValues}
+                  onBlur={handleBlur}
+                />
+              </div>
+              {!googleAuthInfo.googleLogin && (
+                <div className="flex justify-start gap-4 items-center  pl-5 p-1 border border-t-0   border-b-0  border-l-0 border-r-0 border-border">
+                  <span className="text-start text-xs font-normal w-[100px] text-black">
+                    Password
+                  </span>
+                  <input
+                    type={"password"}
+                    placeholder={"Password"}
+                    className={
+                      "hide-focus p-4 w-full  focus:outline-none focus:border-0 focus:ring-0   invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-0 focus:invalid:ring-0 "
+                    }
+                    name="password"
+                    id={"password"}
+                    value={checkoutForm?.password ?? ''}
+                    onChange={handleFormValues}
+                  />
+                </div>
+              )}
             </div>
             <div className="flex items-center my-6">
               <input
@@ -399,6 +412,7 @@ const Checkout = () => {
                   );
                 })}
             </div>
+
             <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               2. Select Payment Method
             </h1>
@@ -470,65 +484,7 @@ const Checkout = () => {
                   </tfoot>
                 </table>
               </Card>
-              <div className="border bg-[#F7F8FA]  border-input_color p-5 rounded-md my-4">
-                <div className="">
-                  <div >
-                    <div className="flex items-center mr-4">
-                      <div className="relative w-[22px] h-[22px]">
-                        <Image
-                          fill={true}
-                          src={price_data[0].icons_svg}
-                          className="bg-contain mx-auto"
-                          alt="img"
-                        />
-                      </div>{" "}
-                      <p className="ml-2 text-xl font-[600] text-gray-900 dark:text-gray-300">
-                        {price_data[0].title}
-                      </p>
-                    </div>
-                    {price_data[0].title == "Starter" ? (
-                      <>
-                        <p
-                          className="text-[#6C727A] font-normal text-sm mt-6"
-                          onMouseLeave={(e) => {
-                            e.stopPropagation();
-                          }}
-                        >
-                          $200 free, then just{" "}
-                          <span className="font-bold text-[#6C727A]"> $1 </span>per
-                          ticket resolution{" "}
-                          <span
-                            className="cursor-pointer"
-                            onMouseOver={(e) => {
-                              e.stopPropagation();
-                            }}
-                          >
-                            *
-                          </span>
-                        </p>
-                      </>
-                    ) : (
-                      <p className="text-[#6C727A] font-normal text-sm mt-6">
-                        Custom pricing. Schedule demo for proposal.
-                      </p>
-                    )}
-                    <h3 className="font-bold text-heading my-6"> Includes:</h3>
-                    <ul>
-                      {price_data[0].feature_list.map((element, key) => (
-                        <li
-                          key={key}
-                          className="text-sm text-[#6C727A] flex gap-3 items-center my-2"
-                        >
-                          <CheckIcon className="h-[15px] w-[18px] text-[#53c08f]" />
 
-
-                          {element.title}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
               {/* <div className="p-4 sm:p-8 md:p-8 lg:p-8">
               {testimonialsArray.map((item, index) => {
                 return (
