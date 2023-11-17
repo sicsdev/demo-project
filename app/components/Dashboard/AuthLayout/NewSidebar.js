@@ -166,7 +166,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/workflow/workflow-builder",
-                    name:<div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div> ,
+                    name: <div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -282,7 +282,7 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/scheduling-settings",
-                    name:<div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
@@ -368,6 +368,7 @@ const NewSidebar = ({ children }) => {
                     icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
                     notification: learningItemsCount,
                     isLink: false,
+                    locked: billingState === "demo"
                 },
             ],
 
@@ -389,6 +390,7 @@ const NewSidebar = ({ children }) => {
                     name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
                 },
                 // {
                 //     href: "/dashboard/manage-phones",
@@ -403,12 +405,15 @@ const NewSidebar = ({ children }) => {
             name: "Logs",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
+            locked: billingState === "demo",
             list: [
                 {
                     href: "/dashboard/analytics",
                     name: <div className="flex justify-between items-center w-full"><span>Logs</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
+
                 }
             ],
         },
@@ -417,12 +422,15 @@ const NewSidebar = ({ children }) => {
             name: "Billing",
             isLink: false,
             icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
+            locked: billingState === "demo",
             list: [
                 {
                     href: "/dashboard/billing/usage",
                     name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
+
                 },
                 // {
                 //     href: "/dashboard/billing/settings",
@@ -435,6 +443,8 @@ const NewSidebar = ({ children }) => {
                     name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
+
                 },
             ],
         },
@@ -444,12 +454,15 @@ const NewSidebar = ({ children }) => {
             navBarName: "Organization",
             icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
             isLink: false,
+            locked: billingState === "demo",
             list: [
                 {
                     href: "/dashboard/members",
                     name: <div className="flex justify-between items-center w-full"><span>Team</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
+
                 },
                 // {
                 //     href: "/dashboard/verify-email",
@@ -596,44 +609,68 @@ const NewSidebar = ({ children }) => {
                                             }`}>
                                             <>
 
-                                                {ele.name === 'API References'
-                                                    ? <Link
-                                                        href={ele.href}
-                                                        onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
-                                                        target="_blank"
-                                                    >
-                                                        {ele.icon}
-                                                        {!collaps && (
-                                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                {ele.name}
-                                                            </span>
-                                                        )}
-                                                    </Link>
-                                                    :
-                                                    <Link
-                                                        href={ele.href}
-                                                        onClick={() => handlerclosemenu(ele.href)}
-                                                        className={`p-2 flex items-center justify-center !bg-transparent`}
-                                                    >
-                                                        <div class="relative">
+                                                {
+                                                    ele.name === 'API References' ? (
+                                                        <Link
+                                                            href={ele.href}
+                                                            onClick={() => handlerclosemenu(ele.href)}
+                                                            className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                            target="_blank"
+                                                        >
                                                             {ele.icon}
-                                                            {ele.notification !== 0 && (
-                                                                <span
-                                                                    style={{ fontSize: "10px" }}
-                                                                    className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                >
-                                                                    {ele.notification}
+                                                            {!collaps && (
+                                                                <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                    {ele.name}
                                                                 </span>
                                                             )}
-                                                        </div>
-                                                        {!collaps && (
-                                                            <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                {ele.name}
-                                                            </span>
-                                                        )}
-                                                    </Link>
+                                                        </Link>
+                                                    ) : (
+                                                        ele.locked ? (
+                                                            <div className="p-2 flex items-center justify-center !bg-transparent cursor-not-allowed">
+                                                                <div className="relative">
+                                                                    {ele.icon}
+                                                                    {ele.notification !== 0 && (
+                                                                        <span
+                                                                            style={{ fontSize: "10px" }}
+                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                        >
+                                                                            {ele.notification}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                {!collaps && (
+                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                        {ele.name}
+                                                                    </span>
+                                                                )}
+                                                            </div>
+                                                        ) : (
+                                                            <Link
+                                                                href={ele.href}
+                                                                onClick={() => handlerclosemenu(ele.href)}
+                                                                className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                            >
+                                                                <div className="relative">
+                                                                    {ele.icon}
+                                                                    {ele.notification !== 0 && (
+                                                                        <span
+                                                                            style={{ fontSize: "10px" }}
+                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                        >
+                                                                            {ele.notification}
+                                                                        </span>
+                                                                    )}
+                                                                </div>
+                                                                {!collaps && (
+                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                        {ele.name}
+                                                                    </span>
+                                                                )}
+                                                            </Link>
+                                                        )
+                                                    )
                                                 }
+
                                             </>
                                         </li>
                                     }
@@ -903,6 +940,7 @@ const NewSidebar = ({ children }) => {
                                                 )}
                                             </> :
                                             <>
+
                                                 {SideBarRoutes2.map((element, key) =>
                                                     sendSideBarDetails(element, key)
                                                 )}
@@ -1047,6 +1085,7 @@ const NewSidebar = ({ children }) => {
                                             )}
                                         </> :
                                         <>
+
                                             {SideBarRoutes2.map((element, key) =>
                                                 sendSideBarDetails(element, key)
                                             )}
@@ -1112,7 +1151,7 @@ const NewSidebar = ({ children }) => {
                                                             </> :
                                                             <>
                                                                 {SideBarRoutes2.map((element, key) => (
-                                                                    element.name !== 'Channels' && (
+                                                                    element.name !== 'Channels' && !element.locked && (
                                                                         <li key={key}>
                                                                             <Link
                                                                                 href={element.href}
@@ -1188,6 +1227,7 @@ const NewSidebar = ({ children }) => {
                                 </ul>
                             )}
 
+
                             <div className={`cursor-pointer py-4 px-2 flex ${!collaps ? 'justify-start' : 'justify-center'}`} onClick={(e) => { setCollaps(prev => !prev) }}>
                                 {/* <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out"> */}
                                 {/* <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer"> */}
@@ -1198,6 +1238,7 @@ const NewSidebar = ({ children }) => {
                                 {/* </ul> */}
 
                             </div>
+
                         </div>
 
                     </div>

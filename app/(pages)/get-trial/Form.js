@@ -121,7 +121,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Email</span>{" "}
               </div>
             }
@@ -130,7 +130,7 @@ const TrialForm = ({ formData, setFormData }) => {
           />
         </div>
 
-        <div>
+        <div className='my-2 sm:my-0'>
           <TextField
             type="text"
             id="phone"
@@ -139,7 +139,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Phone</span>{" "}
               </div>
             }
@@ -148,7 +148,7 @@ const TrialForm = ({ formData, setFormData }) => {
           />
         </div>
       </div>
-      <div className="grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+      <div className="my-2 sm:my-0 grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
           <TextField
             type="text"
@@ -158,7 +158,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>First Name</span>{" "}
               </div>
             }
@@ -166,7 +166,7 @@ const TrialForm = ({ formData, setFormData }) => {
             error={""}
           />
         </div>
-        <div>
+        <div className='my-2 sm:my-0'>
           <TextField
             type="text"
             id="last_name"
@@ -175,7 +175,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Last Name</span>{" "}
               </div>
             }
@@ -185,7 +185,7 @@ const TrialForm = ({ formData, setFormData }) => {
         </div>
       </div>
       <div className="grid gap-2 sm:gap-[15px] grid-cols-1 sm:mt-[12px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
-        <div>
+        <div className=''>
           <TextField
             type="text"
             id="company_name"
@@ -194,15 +194,15 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Company Name</span>{" "}
               </div>
             }
-            placeholder={"Comapny Name"}
+            placeholder={"Company Name"}
             error={""}
           />
         </div>
-        <div>
+        <div className='my-2 sm:my-0'>
           <TextField
             type="text"
             id="url"
@@ -211,7 +211,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Website Url</span>{" "}
               </div>
             }
@@ -221,12 +221,12 @@ const TrialForm = ({ formData, setFormData }) => {
         </div>
       </div>
 
-      <div className=" col-span-2 inline">
-        <div className="flex items-center mb-1 sm:mt-[12px]">
+      <div className=" col-span-2 inline my-2 sm:my-0 ">
+        <div className="flex items-center mb-1 sm:mt-[12px] my-2 sm:my-0">
           <label
             className={`new_input_label block text-sm text-heading font-medium`}
           >
-            <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
               <span>Help Center Url</span>{" "}
             </div>
           </label>
@@ -276,7 +276,7 @@ const TrialForm = ({ formData, setFormData }) => {
             name={"faq_url"}
           />
         </div>
-        <div className=" col-span-2 sm:mt-[12px]">
+        <div className=" col-span-2 sm:mt-[12px] my-4 sm:my-0">
           <TextField
             type="password"
             id="password"
@@ -285,7 +285,7 @@ const TrialForm = ({ formData, setFormData }) => {
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
-              <div className="flex items-center gap-2 w-[150px] text-lg sm:text-[14px]">
+              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                 <span>Password</span>{" "}
               </div>
             }

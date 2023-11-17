@@ -207,7 +207,7 @@ const QuickStart = () => {
     useEffect(() => {
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 2500);
+        }, 300);
     }, []);
     useState(() => {
         if (Cookies.get('visit')) {
@@ -292,46 +292,48 @@ const QuickStart = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex items-center gap-4 ">
-                                    {skeltonLoading ?
-                                        <SkeletonLoader count={1} height={35} width={100} />
-                                        :
-                                        <button
+                                {billingState !== "demo" &&
+                                    (<div className="flex items-center gap-4 ">
+                                        {skeltonLoading ?
+                                            <SkeletonLoader count={1} height={35} width={100} />
+                                            :
+                                            <button
 
-                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+                                                className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
 
-                                            onClick={(e) => ExpandChange()}
+                                                onClick={(e) => ExpandChange()}
 
-                                        >
+                                            >
 
-                                            {isExpand === true ? (
+                                                {isExpand === true ? (
 
-                                                <>
+                                                    <>
 
-                                                    <p className="hidden sm:block "> Collapse</p>
+                                                        <p className="hidden sm:block "> Collapse</p>
 
-                                                    <ChevronUpIcon className="w-5 h-5" />
+                                                        <ChevronUpIcon className="w-5 h-5" />
 
-                                                </>
+                                                    </>
 
-                                            ) : (
+                                                ) : (
 
-                                                <>
+                                                    <>
 
-                                                    <p className="hidden sm:block"> Expand</p>
+                                                        <p className="hidden sm:block"> Expand</p>
 
 
 
-                                                    <ChevronDownIcon className="w-5 h-5" />
+                                                        <ChevronDownIcon className="w-5 h-5" />
 
-                                                </>
+                                                    </>
 
-                                            )}
+                                                )}
 
-                                        </button>
-                                    }
+                                            </button>
+                                        }
 
-                                </div>
+                                    </div>)
+                                }
 
                             </div>
                             {user && user?.enterprise?.domain === "" ?

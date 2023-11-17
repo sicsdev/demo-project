@@ -101,7 +101,7 @@ const Newfaq = () => {
     },
   ];
   return (
-    <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:ml-[40px] sm:pb-4 py-0 sm:py-8 ">
+    <div className="bg-white pt-5 px-5 sm:px-[200px] sm:pt-8 sm:ml-[40px] sm:pb-4 py-0 sm:py-8 ">
       <h2 class="block !font-[700] text-2xl md:text-[38px]   text-left my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
         Frequently Asked Questions{" "}
       </h2>

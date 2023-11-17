@@ -139,15 +139,16 @@ const Checkout = () => {
   return (
     <div className="bg-white">
       <Container>
-        <div className="relative w-28 h-8 mb-4">
-          <Image
-            fill={"true"}
-            className="bg-contain mx-auto w-full"
-            alt="logo.png"
-            src={"/dark-logo.png"}
-          />
-        </div>
-
+      <div className="relative h-8 mr-24 items-center flex sm:mb-4">
+              <Link href="/">
+                <img
+                  width='140px'
+                  className="opacity-100 mt-0.5"
+                  alt="logo.png"
+                  src="/logo-b.png"
+                />
+              </Link>
+            </div>
         <hr className=" sm:block md:block lg:block border-border" />
 
         <div
