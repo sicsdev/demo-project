@@ -191,11 +191,6 @@ const NewSidebar = ({ children }) => {
                             name: "Sources",
                             icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
-                        // {
-                        //     href: "/dashboard/basic-knowledge/questions",
-                        //     name: "Questions",   
-                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                        // },
                     ]
                 },
                 {
@@ -439,14 +434,7 @@ const NewSidebar = ({ children }) => {
                 //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                 //     isLink: false,
                 // },
-                {
-                    href: "/dashboard/scheduling-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                    locked: billingState === "demo"
 
-                },
             ],
         },
         {
@@ -465,6 +453,14 @@ const NewSidebar = ({ children }) => {
                     locked: billingState === "demo"
 
                 },
+                {
+                    href: "/dashboard/scheduling-settings",
+                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                    locked: billingState === "demo"
+
+                },
                 // {
                 //     href: "/dashboard/verify-email",
                 //     name: "DNS Settings",
@@ -476,7 +472,8 @@ const NewSidebar = ({ children }) => {
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
-                }
+                },
+
             ],
         }
     ];
@@ -773,9 +770,10 @@ const NewSidebar = ({ children }) => {
                                         </button>
                                         <Link href="/dashboard" className="flex ml-2 md:mr-24">
                                             <img
-                                                src="/logo.png"
+                                                width='130px'
+                                                src="/logo-w.png"
                                                 alt="logo"
-                                                className="w-24 h-15 object-contain"
+                                                className="object-contain"
                                             />
                                         </Link>
                                     </>
@@ -1303,7 +1301,7 @@ const NewSidebar = ({ children }) => {
                     {billingState == "demo" &&
                         <nav
                             id="header"
-                            className={`sticky top-0 top-0 start-0 z-[999999] sm:z-50 w-full bg-white border-gray-200`}
+                            className={`sticky top-0 top-0 start-0 z-[30] sm:z-30 w-full bg-white border-gray-200`}
                         >
                             <DemoAccountsBanner></DemoAccountsBanner>
                         </nav>
