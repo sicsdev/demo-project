@@ -1251,15 +1251,16 @@ const NewSidebar = ({ children }) => {
 
 
 
-                <div className={`${collaps ? 'pt-2 sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
-                    <nav
-                        id="header"
-                        className={`sticky top-0 start-0 z-[999999] sm:z-50 w-full bg-white border-gray-200`}
-                    >
-                        <DemoAccountsBanner></DemoAccountsBanner>
-                    </nav>
+                <div className={`${collaps ? 'sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
+                    {billingState == "demo" &&
+                        <nav
+                            id="header"
+                            className={`sticky top-0 top-0 start-0 z-[999999] sm:z-50 w-full bg-white border-gray-200`}
+                        >
+                            <DemoAccountsBanner></DemoAccountsBanner>
+                        </nav>
+                    }
                     <div className="bg-white p-4 rounded-tl-lg relative z-10">
-
                         {children}
                     </div>
                 </div>
