@@ -44,7 +44,7 @@ const Help = () => {
                         Jump into your Free Trial{" "}
                     </button>
                     <button
-                        data-cal-link="tempoai/sales-call"
+                        data-cal-link="deflectionai/sales-call"
                         data-cal-config='{"layout":"month_view"}'
                         className="my-6 flex items-center mx-auto sm:mx-0 justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 w-[300px] focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
 

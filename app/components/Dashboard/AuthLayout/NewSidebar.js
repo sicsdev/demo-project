@@ -52,6 +52,7 @@ import { makeCapital } from "../../helper/capitalName";
 import SkeletonLoader from "../../Skeleton/Skeleton";
 import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
+import DemoAccountsBanner from "../../Layout/DemoAccountsBanner";
 
 const NewSidebar = ({ children }) => {
     const billingState = useSelector((state) => state.billing)
@@ -733,7 +734,10 @@ const NewSidebar = ({ children }) => {
         <>
 
             <>
+
                 <nav className="sticky top-0 block  sm:hidden md:hidden lg:hiddenfixed z-50 w-full bg-sidebarbg" ref={divSideRef}>
+
+
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between text-white    ">
                             <div className="flex items-center justify-start">
@@ -896,6 +900,7 @@ const NewSidebar = ({ children }) => {
                     </div>
                     {show && (
                         <div className="h-screen px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
+
                             {skeltonLoading ? (
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
                                     <li className="w-full rounded-lg">
@@ -1244,7 +1249,15 @@ const NewSidebar = ({ children }) => {
                     </div>
                 </aside>
 
+
+
                 <div className={`${collaps ? 'pt-2 sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
+                    <nav
+                        id="header"
+                        className={`sticky top-0 start-0 z-[999999] sm:z-50 w-full bg-white border-gray-200`}
+                    >
+                        <DemoAccountsBanner></DemoAccountsBanner>
+                    </nav>
                     <div className="bg-white p-4 rounded-tl-lg relative z-10">
 
                         {children}

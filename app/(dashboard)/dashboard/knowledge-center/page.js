@@ -348,7 +348,7 @@ const Page = () => {
 
             const query = `&page=${pageVal}&page_size=${perPage}${queryParam}`
             const response = await GetAllRecommendations(query)
-            debugger
+             
             if (response) {
                 dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                 setLoading(false)

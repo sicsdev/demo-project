@@ -20,6 +20,7 @@ import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import Method from '../NewPaymentMethod/Method'
 import { useRouter } from 'next/navigation'
+import DemoAccountsBanner from '../Layout/DemoAccountsBanner'
 
 const Dashboard = ({ children }) => {
     const router = useRouter()
@@ -138,7 +139,7 @@ const Dashboard = ({ children }) => {
     ];
 
     const findValuesForRoute = (value) => {
-        debugger
+
         const findValue = routes.find((x) => x === pathname)
         if (findValue && value === "demo") {
             if (pathname !== "/dashboard") {
@@ -207,9 +208,9 @@ const Dashboard = ({ children }) => {
 
     return (
         <>
+
             <NewSidebar>
-
-
+  
                 {(
                     billingState && billingState === "demo" &&
 

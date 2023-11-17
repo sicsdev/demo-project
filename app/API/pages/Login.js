@@ -92,7 +92,7 @@ export const loginWithLink = async (body) => {
 };
 
 export const validateLinkLogin = async (body) => {
-    debugger
+     
     try {
         const response = await axios.post(`${API_URL}/api/v1/accounts/magic-link-auth/validate/`, body);
         return response;

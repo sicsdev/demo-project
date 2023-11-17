@@ -141,7 +141,7 @@ const Panelcardnew = () => {
                   <>
                     {loading ? <SkeletonLoader count={1} height={40} width={"98%"} /> :
                       <button
-                        data-cal-link="tempoai/sales-call"
+                        data-cal-link="deflectionai/sales-call"
                         data-cal-config='{"layout":"month_view"}'
                         className="my-6 flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 w-full focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
                       >
@@ -286,7 +286,7 @@ const Panelcardnew = () => {
               </button>
             ) : (
               <button
-                data-cal-link="tempoai/sales-call"
+                data-cal-link="deflectionai/sales-call"
                 data-cal-config='{"layout":"month_view"}'
                 className="flex w-full font-bold mx-auto mt-7 justify-center px-4 py-2 text-white hover:outline-1 hover:outline-black hover:outline hover:bg-white hover:text-black bg-black rounded-md shadow-sm">
 
