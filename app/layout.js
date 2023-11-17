@@ -17,12 +17,20 @@ const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider')
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
-  title:
-    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI.ai",
-  description:
-    "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+  other: {
+    pinterest: "nopin",
+    appleMobileWebAppTitle: "Deflection AI",
+    appleMobileWebAppStatusBarStyle: "black",
+    appleMobileWebAppCapable: "yes",
+    appleTouchFullscreen: "yes",
+    appleTouchIcon: "https://usetempo.ai/logo-simple-negative.png",
+    ogImage: "https://usetempo.ai/logo-simple-negative.png",
+    ogUrl: "https://usetempo.ai/",
+  },
+  title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
+  description: "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
-    icon: "https://usetempo.ai/favicon.ico",
+    icon: "https://usetempo.ai/icon-simple.ico",
   },
   openGraph: {
     images: 'https://www.usetempo.ai/logo-basic-negative.png',
