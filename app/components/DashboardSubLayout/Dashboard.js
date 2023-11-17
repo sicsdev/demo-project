@@ -210,13 +210,14 @@ const Dashboard = ({ children }) => {
         <>
 
             <NewSidebar>
-  
+
                 {(
                     billingState && billingState === "demo" &&
 
                     // AUTHORIZED PATHS IN DEMO ACCOUNTS
                     pathname !== "/dashboard" &&
                     pathname !== "/dashboard/workflow/integrations" &&
+                    pathname !== "/dashboard/workflow/workflow-builder" &&
                     pathname !== "/dashboard/basic-knowledge/source" &&
                     pathname !== "/dashboard/chat-settings" &&
                     pathname !== "/reference"

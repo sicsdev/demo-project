@@ -330,12 +330,12 @@ const NewSidebar = ({ children }) => {
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                // {
-                //     href: "/dashboard/workflow/workflow-builder",
-                //     name: "Workflows",
-                //     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
+                {
+                    href: "/dashboard/workflow/workflow-builder",
+                    name: "Workflows",
+                    icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
             ],
         },
         {
@@ -815,7 +815,27 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+
+                                                <>
+                                                    {SideBarRoutes2.map((element, key) => (
+                                                        element?.name !== "Channels" && (
+                                                            <li key={key}>
+                                                                <Link
+                                                                    href={element.href}
+                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                >
+                                                                    {/* {element.icon} */}
+                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                        {sendNames(element.name)}
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    ))}
+                                                </>
+
+                                                {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             element?.name !== "Channels" && (
@@ -825,7 +845,6 @@ const NewSidebar = ({ children }) => {
                                                                         className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                         onClick={() => setIsOpen(false)}
                                                                     >
-                                                                        {/* {element.icon} */}
                                                                         <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                             {sendNames(element.name)}
                                                                         </span>
@@ -843,7 +862,6 @@ const NewSidebar = ({ children }) => {
                                                                         className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                         onClick={() => setIsOpen(false)}
                                                                     >
-                                                                        {/* {element.icon} */}
                                                                         <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                             {sendNames(element.name)}
                                                                         </span>
@@ -852,7 +870,7 @@ const NewSidebar = ({ children }) => {
                                                             )
                                                         ))}
                                                     </>
-                                                }
+                                                } */}
                                                 {/* <li >
                                                     <Link
                                                         href={'/dashboard/api-keys'}
@@ -937,7 +955,7 @@ const NewSidebar = ({ children }) => {
                                         </li>
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
-
+                                        {/* 
                                         {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
@@ -950,7 +968,13 @@ const NewSidebar = ({ children }) => {
                                                     sendSideBarDetails(element, key)
                                                 )}
                                             </>
-                                        }
+                                        } */}
+                                        <>
+
+                                            {SideBarRoutes2.map((element, key) =>
+                                                sendSideBarDetails(element, key)
+                                            )}
+                                        </>
 
                                     </ul>
                                     <p className="mb-[40px]"></p>
@@ -1083,7 +1107,7 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                    {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                         <>
                                             {SideBarRoutes.map((element, key) =>
                                                 sendSideBarDetails(element, key)
@@ -1095,7 +1119,13 @@ const NewSidebar = ({ children }) => {
                                                 sendSideBarDetails(element, key)
                                             )}
                                         </>
-                                    }
+                                    } */}
+                                    <>
+
+                                        {SideBarRoutes2.map((element, key) =>
+                                            sendSideBarDetails(element, key)
+                                        )}
+                                    </>
                                 </ul>
                             </>
                         )}
@@ -1135,7 +1165,7 @@ const NewSidebar = ({ children }) => {
 
                                                         <hr className="text-border border-gray" />
 
-                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                                        {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
                                                                     element?.name !== "Channels" && (
@@ -1145,7 +1175,6 @@ const NewSidebar = ({ children }) => {
                                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                                 onClick={() => setIsOpen(false)}
                                                                             >
-                                                                                {/* {element.icon} */}
                                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                                     {sendNames(element.name)}
                                                                                 </span>
@@ -1163,7 +1192,6 @@ const NewSidebar = ({ children }) => {
                                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                                 onClick={() => setIsOpen(false)}
                                                                             >
-                                                                                {/* {element.icon} */}
                                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                                     {sendNames(element.name)}
                                                                                 </span>
@@ -1171,7 +1199,27 @@ const NewSidebar = ({ children }) => {
                                                                         </li>
                                                                     )
                                                                 ))}
-                                                            </>}
+                                                            </>
+                                                            } */}
+
+                                                        <>
+                                                            {SideBarRoutes2.map((element, key) => (
+                                                                element.name !== 'Channels' && !element.locked && (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                            ))}
+                                                        </>
 
                                                         {/* <li >
                                                             <Link
