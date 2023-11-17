@@ -16,6 +16,7 @@ import {
   exchangeGoogleToken,
   getUserInfoFromCognito,
   loginWithGoogle,
+  loginWithLink,
 } from "@/app/API/pages/Login";
 import { editUserValue } from "@/app/components/store/slices/userSlice";
 import { createContactInFreshsales } from "@/app/API/components/Demo";
@@ -23,6 +24,7 @@ import { getUserProfile } from "@/app/API/components/Sidebar";
 import Cookies from "js-cookie";
 import LoginNav from "@/app/components/Layout/LoginNav";
 import LoginFooter from "@/app/components/Layout/LoginFooter";
+import TextField from "@/app/components/Common/Input/TextField";
 const Login = () => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -47,7 +49,9 @@ const Login = () => {
     window.scrollTo(0, 0);
   }, []);
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState('link')
   const [show, setShow] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [formValues, setFormValues] = useState({
     email: "",
@@ -178,140 +182,200 @@ const Login = () => {
     );
   };
 
+  const DisablingButton = () => {
+    if (mode === "link") {
+      if (formValues.email === "") {
+        return true
+      }
+    }
+    if (mode === "password") {
+      if (formValues.email === "" || formValues.password === "") {
+        return true
+      }
+    }
+    return false
+  }
+  const handleLinkLogin = async () => {
+    setLoading(true)
+    const response = await loginWithLink({ email: formValues.email })
+    if (response.status === 202) {
+      setLoading(false)
+      setSuccess(true)
+    } else {
+      setLoading(false)
+    }
+  }
   return (
     <>
       <LoginNav />
-
-      <Container>
-        {show && (
-          <div
-            className="mb-3 hidden w-full items-center rounded-lg bg-[#86efac] mt-5 px-6 py-5 text-thin text-white data-[te-alert-show]:inline-flex"
-            role="alert"
-            data-te-alert-init
-            data-te-alert-show
-          >
-            You will receive an email with instructions on how to reset your
-            password in a few minutes.
-            <button
-              type="button"
-              className="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
-              data-te-alert-dismiss
-              aria-label="Close"
-              onClick={(e) => {
-                setShow(false);
-              }}
+      
+      {success === false && (
+        <Container>
+          {show && (
+            <div
+              className="mb-3 hidden w-full items-center rounded-lg bg-[#86efac] mt-5 px-6 py-5 text-thin text-white data-[te-alert-show]:inline-flex"
+              role="alert"
+              data-te-alert-init
+              data-te-alert-show
             >
-              <span className="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
-                <XMarkIcon className="h-6 w-6 text-gray-500" />
-              </span>
-            </button>
-          </div>
-        )}
-        <div className="w-full sm:max-w-[40%] mx-auto text-center sm:mt-14 login-page">
-          <h1 className="text-left text-2xl tracking-wide sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
-            Welcome.
-          </h1>
-          <p className=" text-sm sm:text-[24px] font-normal text-left my-3 sm:my-5">
-            Sign in to your Deflection AI account.
-          </p>
-
-  
-          <form>
-            <label className="block my-5" htmlFor="email">
-              <span className="block text-start text-sm font-normal text-border">
-                Email
-              </span>
-              <Input
-                type={"email"}
-                placeholder={"name@company.com"}
-                className={`w-full border mx-auto mt-4 ${
-                  error.includes("email") && "border-red"
-                }`}
-                name="email"
-                value={formValues.email}
-                id={"email"}
-                onChange={(value) => {
-                  handleFormValues(value);
+              You will receive an email with instructions on how to reset your
+              password in a few minutes.
+              <button
+                type="button"
+                className="ml-auto box-content rounded-none border-none p-1 text-warning-900 opacity-50 hover:text-warning-900 hover:no-underline hover:opacity-75 focus:opacity-100 focus:shadow-none focus:outline-none"
+                data-te-alert-dismiss
+                aria-label="Close"
+                onClick={(e) => {
+                  setShow(false);
                 }}
-              />
-            </label>
-            <label className="block my-5" htmlFor="email">
-              <span className="block text-start text-sm font-normal text-border">
-                Password
-              </span>
-              <Input
-                type={"password"}
-                placeholder={"password"}
-                className={`w-full border mx-auto mt-4 ${
-                  error && "border-red"
-                }`}
-                name="password"
-                value={formValues.password}
-                id={"password"}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter")
-                    // Perform action when Enter key is pressed
-                    handleLogin();
-                }}
-                onChange={(value) => {
-                  handleFormValues(value);
-                }}
-              />
-            </label>
-
-            {error && (
-              <p className="text-red text-sm text-center mb-4">{error}</p>
-            )}
-
-            <div className="flex justify-between">
-              {/* <div className="flex items-center mr-4">
-                                <Input id="inline-checkbox" type="checkbox" value="" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" onChange={(value) => { console.log(value) }} />
-                                <label htmlFor="inline-checkbox" className="ml-2 text-sm font-normal text-gray-900 dark:text-gray-300">Keep me signed in</label>
-                            </div> */}
-              <div>
-                <Link
-                  href="/forgot-password"
-                  className={`${
-                    error && "text-sky underline"
-                  }  text-border text-sm font-normal`}
-                >
-                  Forgot your password?
-                </Link>
-              </div>
+              >
+                <span className="w-[1em] focus:opacity-100 disabled:pointer-events-none disabled:select-none disabled:opacity-25 [&.disabled]:pointer-events-none [&.disabled]:select-none [&.disabled]:opacity-25">
+                  <XMarkIcon className="h-6 w-6 text-gray-500" />
+                </span>
+              </button>
             </div>
-            <Button
-              className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-black border border-gray-300 rounded-md shadow-sm items-center"
-              disabled={loading}
-              onClick={handleLogin}
-            >
-              {loading ? (
-                <>
-                  <svg
-                    aria-hidden="true"
-                    role="status"
-                    class="inline w-4 h-4 mr-3 text-white animate-spin"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                      fill="#E5E7EB"
-                    />
-                    <path
-                      d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                  <span>Loading...</span>{" "}
-                </>
-              ) : (
-                "Sign In"
+          )}
+          <div className="w-full sm:max-w-[40%] mx-auto">
+            <div className=" text-center sm:mt-14 border border-gray p-6 bg-white shadow-login-page rounded-sm">
+              <div className="text-start">
+                <p className="mb-2 text-xl tracking-wide leading-8 font-extrabold text-heading">
+                  Login
+                </p>
+                <p className="text-sm leading-4 tracking-normal text-[#9C9E9C]">Sign in to your Deflection AI account.</p>
+              </div>
+              <div className='mt-3 '>
+                <TextField
+                  type={"email"}
+                  placeholder={"name@company.com"}
+                  className={`w-full border mx-auto mt-4 ${error.includes("email") && "border-red"
+                    }`}
+                  name="email"
+                  title={
+                    <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
+                      <span>Email</span>{" "}
+                    </div>
+                  }
+                  value={formValues.email}
+                  id={"email"}
+                  onChange={(value) => {
+                    handleFormValues(value);
+                  }}
+                  error={""}
+                />
+              </div>
+              {mode === "password" && (
+                <div className='mt-3 '>
+                  <TextField
+                    title={
+                      <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
+                        <span>Password</span>{" "}
+                      </div>
+                    }
+                    type={"password"}
+                    placeholder={"password"}
+                    className={`w-full border mx-auto mt-4 ${error && "border-red"
+                      }`}
+                    name="password"
+                    value={formValues.password}
+                    id={"password"}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter")
+                        // Perform action when Enter key is pressed
+                        handleLogin();
+                    }}
+                    onChange={(value) => {
+                      handleFormValues(value);
+                    }}
+                  />
+                </div>
               )}
-            </Button>
-          </form>
-        </div>
-      </Container>
+              <div className="block sm:flex md:flex lg:flex justify-between items-center py-5">
+                <div className="block sm:flex md:flex lg:flex justify-start gap-2 items-center" >
+                  <Button
+                    className="inline-block  rounded-md  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]"
+                    disabled={loading || DisablingButton()}
+                    onClick={() => {
+                      if (mode === "password") {
+                        handleLogin()
+                      } else {
+                        handleLinkLogin()
+                      }
+                    }
+                    }
+                  >
+                    {loading ? (
+                      <>
+                        <svg
+                          aria-hidden="true"
+                          role="status"
+                          class="inline w-4 h-4 mr-3 text-white animate-spin"
+                          viewBox="0 0 100 101"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                            fill="#E5E7EB"
+                          />
+                          <path
+                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        <span>Loading...</span>{" "}
+                      </>
+                    ) : (
+                      mode === "link" ? "Send login link" : "Sign In"
+                    )}
+                  </Button>
+                  <span
+                    className="text-primary tracking-wide text-xs font-normal"
+
+                    onClick={() => setMode(mode === "link" ? "password" : "link")}
+                  >
+                    {mode === "link" ? "Enter password instead" : "Send login link"}
+                  </span>
+                </div>
+                {mode === "password" && (
+                  <Link
+                    href="/forgot-password"
+                    className={`${error && "text-sky underline"
+                      }  text-border text-sm font-normal`}
+                  >
+                    Forgot your password?
+                  </Link>
+                )}
+              </div>
+              {error && (
+                <p className="text-red text-sm text-center mb-4">{error}</p>
+              )}
+            </div>
+            <div className="text-center mt-5">
+              <p className="text-border text-sm font-normal">New to Deflection AI?</p>
+              <Link className="text-primary text-xs" href={'/get-trial'}>Get a free trial</Link>
+            </div>
+          </div>
+        </Container>
+      )}
+      {success === true && (
+        <Container>
+          <div className="text-center mt-24">
+            <h1 className="text-3xl text-heading font-bold text-center">We emailed you a login link</h1>
+            <p className="text-sm my-4">Click the link in the email we just sent you to sign in to your workspace. The link will expire in 5 minutes.</p>
+            <p>Didn’t receive email? <span className="text-primary cursor-pointer" onClick={() => {
+              setMode('link')
+              setSuccess(false)
+              setFormValues({
+                email: "",
+                password: ""
+              })
+            }}>Resend</span> </p>
+          </div>
+        </Container>
+      )}
+
+
+
       <LoginFooter />
     </>
   );
