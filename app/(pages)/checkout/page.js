@@ -96,7 +96,6 @@ const Checkout = () => {
     theme: 'stripe',
     variables: {
       fontSizeBase: '16px',
-      spacingUnit: '6px',
       colorPrimary: '#55555',    colorText: '#555555',
 
 
