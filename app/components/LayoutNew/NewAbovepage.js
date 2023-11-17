@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { getCalApi } from "@calcom/embed-react";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import Link from "next/link";
 const NewAbovepage = () => {
+  const ref = useRef(null);
   const [showVideo, setShowvideo] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -24,6 +25,26 @@ const NewAbovepage = () => {
       });
     })();
   }, []);
+
+  useEffect(() => {
+    const checkPlayer = () => {
+
+      const player = document.querySelector("lottie-player");
+      if (player) {
+        if (ref.current) {
+          ref.current.addEventListener('complete', () => {
+            player.seek(150);
+            player.play();
+          });
+        }
+      } else {
+        setTimeout(checkPlayer, 100);
+      }
+    };
+
+    checkPlayer();
+  }, []);
+
   return (
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
@@ -162,25 +183,21 @@ const NewAbovepage = () => {
             </div>
           ) : (
             <>
-            <div className="absolute animate_lottie right-0">
-              <lottie-player
-              className="wrap_player"
-                id={'animation'}
-                loop
-                src="/lines-animation.json"
-                // style={{ height: '650px', width: '620px' }}
-                direction={1}
-                autoplay={0}
-                renderer={'svg'}
-                delay={0}
-                easing={""}
-                duration={4000}
-                value={100}
-              // intermission={5000} 
-              // mode={'bounce'} 
-              // keepLastFrame={true} 
-              >
-              </lottie-player>
+              <div className="absolute animate_lottie right-0">
+                <lottie-player
+                  className="wrap_player"
+                  id={'linesLottieAnimation'}
+                  ref={ref}
+                  src="/lines-animation.json"
+                  direction={1}
+                  autoplay={0}
+                  renderer={'svg'}
+                  delay={0}
+                  easing={""}
+                  duration={4000}
+                  value={100}
+                >
+                </lottie-player>
               </div>
               <div className=" block">
                 <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
