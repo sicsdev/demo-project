@@ -13,7 +13,7 @@ const Homeinte = () => {
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 300);
+      }, 3000);
     }, []);
     return (
       <div className="icons pt-[1px] sm:pt-4 pb-12 w-full mx-auto shadow-box">

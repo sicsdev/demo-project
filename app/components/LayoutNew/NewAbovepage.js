@@ -10,7 +10,7 @@ const NewAbovepage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 300);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
