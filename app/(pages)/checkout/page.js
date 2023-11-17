@@ -91,8 +91,16 @@ const Checkout = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const appearance = {
-    theme: "stripe",
+    theme: 'stripe',
+    variables: {
+      fontSizeBase: '16px',
+      spacingUnit: '6px',
+      colorPrimary: '#55555',    colorText: '#555555',
+
+
+    }
   };
   const options = {
     clientSecret,
