@@ -149,9 +149,20 @@ export default function RootLayout({ children }) {
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <meta property="og:image" content="https://usetempo.ai/logo-simple-negative.png" />
         <link rel="icon" href="https://usetempo.ai/logo-simple-negative.png" />
 
+
+        <meta name="apple-mobile-web-app-title" content="Deflection AI" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-touch-icon" content="https://usetempo.ai/logo-simple-negative.png" />
+
+        <meta property="og:title" content="Deflection AI" />
+        <meta property="og:description" content="Intelligent Automation for Exceptional Customer Service" />
+        <meta property="og:image" content="https://usetempo.ai/logo-simple-negative.png" />
+        <meta property="og:url" content="https://usetempo.ai/logo-simple-negative.png" />
+        
         {/* <link
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
