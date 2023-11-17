@@ -216,7 +216,7 @@ const Checkout = () => {
             <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               1. Enter Your Info
             </h1>
-            <div className="border bg-white -lg border-border py-6 px-4">
+            <div className=" bg-white -lg r py-6 px-4">
               <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
                 <div>
                   <TextField
@@ -306,7 +306,7 @@ const Checkout = () => {
                     id="business_company_size"
                     values={business_company_size_data}
                     title={
-                      <div className="flex items-center gap-2 w-[150px] mb-3">
+                      <div className="flex items-center gap-2 w-[150px] mb-3 text-sm md:text-[14px] sm:text-[14px]">
                         <span> Company size</span>{" "}
 
                       </div>
@@ -330,7 +330,7 @@ const Checkout = () => {
                     id="business_industry"
                     values={business_industry_data}
                     title={
-                      <div className="flex items-center gap-2 w-[150px] mb-3">
+                      <div className="flex items-center gap-2 w-[150px] mb-3 text-sm md:text-[14px] sm:text-[14px]">
                         <span> Industry</span>{" "}
 
                       </div>
@@ -359,7 +359,7 @@ const Checkout = () => {
                   </div>)}
               </div>
             </div>
-            <div className="flex items-center my-6">
+            <div className="flex items-center my-6 sm:ml-[14px]">
               <input
                 id="link-checkbox"
                 type="checkbox"
@@ -368,7 +368,7 @@ const Checkout = () => {
               />
               <label
                 htmlFor="link-checkbox"
-                className="ml-2 text-xs font-medium text-border "
+                className="ml-2  text-sm md:text-[14px] sm:text-[14px] font-medium text-border "
               >
                 I agree with the{" "}
                 <a
@@ -402,10 +402,10 @@ const Checkout = () => {
             <h1 className="text-start text-sm tracking-wide  my-4 font-bold text-heading ">
               2. Select Payment Method
             </h1>
-            <div className="border border-border -lg p-4 bg-white">
+            <div className=" -lg p-4 bg-white">
               <div className="flex items-center justify-between">
                 <div className="payment-element-child">
-                  <h3 className="text-xs text-black">Credit or Debit Card</h3>
+                  <h3 className="text-sm md:text-[14px] sm:text-[14px] ">Credit or Debit Card</h3>
                   {/* <p className="text-sm text-black mt-1">HSA / FSA accepted</p> */}
                 </div>
                 <Logos />
@@ -470,7 +470,7 @@ const Checkout = () => {
                   </tfoot>
                 </table>
               </Card> */}
-              <div className="border bg-[#F7F8FA]  border-input_color p-5 -md my-4">
+              <div className=" bg-[#F7F8FA]  border-input_color p-5 -md my-4">
                 <div className="">
                   <div >
                     <div className="flex items-center mr-4">
@@ -489,7 +489,7 @@ const Checkout = () => {
                     {price_data[0].title == "Starter" ? (
                       <>
                         <p
-                          className="text-[#6C727A] font-normal text-sm mt-6"
+                          className="text-[#6C727A] font-normal text-sm md:text-[14px] sm:text-[14px] mt-6"
                           onMouseLeave={(e) => {
                             e.stopPropagation();
                           }}
@@ -508,7 +508,7 @@ const Checkout = () => {
                         </p>
                       </>
                     ) : (
-                      <p className="text-[#6C727A] font-normal text-sm mt-6">
+                      <p className="text-[#6C727A] font-normal text-sm md:text-[14px] sm:text-[14px] mt-6">
                         Custom pricing. Schedule demo for proposal.
                       </p>
                     )}
@@ -517,7 +517,7 @@ const Checkout = () => {
                       {price_data[0].feature_list.map((element, key) => (
                         <li
                           key={key}
-                          className="text-sm text-[#6C727A] flex gap-3 items-center my-2"
+                          className="text-sm md:text-[14px] sm:text-[14px] text-[#6C727A] flex gap-3 items-center my-2"
                         >
                           <CheckIcon className="h-[15px] w-[18px] text-[#53c08f]" />
 

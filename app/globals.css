@@ -2009,4 +2009,14 @@ input:-webkit-autofill:active{
 }
 .StripeElement{
   border-radius: 0px !important;
+  border: none !important;
+}
+.p-FieldLabel{
+   font-size: 14px !important;
+}
+.Label{
+  display: none !important;
+}
+.capitalize-first-line::first-letter {
+  text-transform: capitalize;
 }
