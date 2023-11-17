@@ -138,6 +138,7 @@ const Dashboard = ({ children }) => {
     ];
 
     const findValuesForRoute = (value) => {
+        debugger
         const findValue = routes.find((x) => x === pathname)
         if (findValue && value === "demo") {
             if (pathname !== "/dashboard") {
@@ -210,7 +211,7 @@ const Dashboard = ({ children }) => {
 
 
                 {(
-                    (billingState === null || billingState === "demo") &&
+                    billingState && billingState === "demo" &&
 
                     // AUTHORIZED PATHS IN DEMO ACCOUNTS
                     pathname !== "/dashboard" &&

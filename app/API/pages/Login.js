@@ -82,3 +82,21 @@ export const fillInvitedUserInfo = async (body) => {
     }
 }
 
+export const loginWithLink = async (body) => {
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/magic-link-auth/login/`, body);
+        return response;
+    } catch (error) {
+        throw new Error(error.response)
+    }
+};
+
+export const validateLinkLogin = async (body) => {
+    debugger
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/magic-link-auth/validate/`, body);
+        return response;
+    } catch (error) {
+        throw new Error(error.response)
+    }
+};

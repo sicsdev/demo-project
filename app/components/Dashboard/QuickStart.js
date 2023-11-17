@@ -220,26 +220,30 @@ const QuickStart = () => {
             dispatch(fetchMembers());
         }
     }, [members.data]);
-
     const setHideShow = (value) => {
-        if (value === 0) {
-            if (integrations?.data?.results?.length > 0) {
-                return false
+        if (integrations && workflow && members) {
+            if (value === 0) {
+                if (integrations?.data?.results?.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 1) {
-            if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
-                return false
+            if (value === 1) {
+                if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 2) {
-            if (workflow?.data?.results?.length > 0) {
-                return false
+            if (value === 2) {
+                if (workflow?.data?.results?.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 3) {
-            if (members?.data?.length > 1) {
-                return false
+            if (value === 3) {
+                if (members?.data?.length > 1) {
+                    return false
+                }
             }
-        } else {
             return true
+
         }
 
     }
