@@ -1899,7 +1899,7 @@ body .custome_table {
 
 }
 
-body input[type="text"]:focus,
+/* body input[type="text"]:focus,
 body input[type="number"]:focus,
 body input[type="date"]:focus,
 body input[type="email"]:focus,
@@ -1908,8 +1908,8 @@ body select:focus,
 body textarea:focus {
   border: none !important;
   outline: none !important;
-  line-height: unset !important;
-}
+line-height: initial;
+} */
 
 /* slider */
 .chatfeature_slider {
@@ -2006,4 +2006,17 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+.StripeElement{
+  border-radius: 0px !important;
+  border: none !important;
+}
+.p-FieldLabel{
+   font-size: 14px !important;
+}
+.Label{
+  display: none !important;
+}
+.capitalize-first-line::first-letter {
+  text-transform: capitalize;
 }

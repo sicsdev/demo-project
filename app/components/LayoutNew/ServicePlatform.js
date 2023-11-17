@@ -54,8 +54,7 @@ const ServicePlatform = () => {
       className: "bg-[#fff8f8]",
       link: "/features/learning-center",
       buttonColor: "bg-[#f5455c]",
-      textColor: "text-[#f5455c]"
-
+      textColor: "text-[#f5455c]",
     },
     {
       id: "4",
@@ -68,8 +67,7 @@ const ServicePlatform = () => {
       className: "bg-[#fcf7fc]",
       link: "/integrations",
       buttonColor: "bg-[#9f22c7]",
-      textColor: "text-[#9f22c7]"
-
+      textColor: "text-[#9f22c7]",
     },
   ];
 
@@ -82,59 +80,67 @@ const ServicePlatform = () => {
             key={key}
           >
             <div className="block bg-scroll lg:flex h-auto max-h-none lg:max-h-[376px] w-full">
-              <div className="flex items-start justify-between flex-col lg:w-1/2 max-w-none w-full lg:max-w-[420px]">
+              <div className="flex items-start sm:px-[50px] lg:px-0 justify-between flex-col lg:w-1/2 max-w-none w-full lg:max-w-[420px]">
                 <div className="w-full">
                   <div className="mb-[15px] lg:mb-[32px] text-sm leading-9 text-[#6c727a]">
-                    {loading ? <SkeletonLoader count={1} height={20} width={150} /> :
+                    {loading ? (
+                      <SkeletonLoader count={1} height={20} width={150} />
+                    ) : (
                       <>
                         <strong>0{element.id}</strong> — {element.title}
                       </>
-                    }
+                    )}
                   </div>
                   <h3 className="mb-[15px] lg:mb-[32px] block !font-[700] text-2xl md:text-[38px] my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
-                    {loading ? <SkeletonLoader count={2} height={35} width={"90%"} /> :
-                      <>
-                        {element.h3}
-                      </>
-                    }
+                    {loading ? (
+                      <SkeletonLoader count={2} height={35} width={"90%"} />
+                    ) : (
+                      <>{element.h3}</>
+                    )}
                   </h3>
                   <p className="max-w-[420px] my-0 text-sm">
-                    {loading ? <SkeletonLoader count={3} height={20} width={"90%"} /> :
-                      <>
-                        {element.p}
-                      </>
-                    }
+                    {loading ? (
+                      <SkeletonLoader count={3} height={20} width={"90%"} />
+                    ) : (
+                      <>{element.p}</>
+                    )}
                   </p>
                 </div>
                 <div className="mt-[20px] lg:mt-[40px] flex gap-5 lg:block flex-col items-start">
-                  {loading ? <SkeletonLoader count={1} height={35} width={180} /> :
+                  {loading ? (
+                    <SkeletonLoader count={1} height={35} width={180} />
+                  ) : (
                     <Link
                       href={`/checkout`}
                       className={`rounded-[4px] text-[14px] text-white ${element.buttonColor} hover:bg-black hover:text-white text-center px-6 py-2 text-lg font-semibold leading-7 no-underline transition duration-300`}
                     >
                       Get started
                     </Link>
-                  }
-                  {loading ? <SkeletonLoader count={1} height={35} width={180} /> :
+                  )}
+                  {loading ? (
+                    <SkeletonLoader count={1} height={35} width={180} />
+                  ) : (
                     <Link
                       href={"/get-trial"}
                       className={`text-sm ${element.textColor} text-center m-auto lg:ml-[24px] cursor-pointer`}
                     >
                       <strong>Start for free</strong>
                     </Link>
-                  }
+                  )}
                 </div>
               </div>
               <div className="relative lg:w-1/2 mt-[20px] lg:mt-[0px] max-w-none w-full">
-              {loading ? <SkeletonLoader count={1} height={400} width={"93%"} /> :
-                <img
-                  sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 97vw, 800px"
-                  loading="lazy"
-                  src={element.content_video}
-                  alt=""
-                  className=" w-[73%] m-auto  sm:min-w-[100%]  lg:min-w-[800px] transform preserve-3d lg:translate-y-[-74px] lg:translate-x-[31px] lg:translate-z-[1px]"
-                />
-                }
+                {loading ? (
+                  <SkeletonLoader count={1} height={400} width={"93%"} />
+                ) : (
+                  <img
+                    sizes="(max-width: 479px) 100vw, (max-width: 767px) 96vw, (max-width: 991px) 97vw, 800px"
+                    loading="lazy"
+                    src={element.content_video}
+                    alt=""
+                    className=" w-[73%] m-auto  sm:w-[68%]  lg:min-w-[800px] transform preserve-3d lg:translate-y-[-74px] lg:translate-x-[31px] lg:translate-z-[1px]"
+                  />
+                )}
               </div>
             </div>
           </div>
