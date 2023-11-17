@@ -130,10 +130,10 @@ const Trial = () => {
       <div className="justify-center relative h-8  items-center flex my-4">
         <Link href="/">
           <img
-            // width=""
+            // width="100px"
             className="opacity-100 mt-0.5 sm:w-[300px] w-[200px]"
             alt="logo.png"
-            src="/logo-b.png"
+            src="/deflection-logo.png"
           />
         </Link>
       </div>
