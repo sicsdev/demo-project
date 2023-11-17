@@ -12,7 +12,6 @@ import Banner from "./Banner";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import VerifyEmailBanner from "./VerifyEmailBanner";
 import { usePathname } from "next/navigation";
-import DemoAccountsBanner from "./DemoAccountsBanner";
 
 const LoginNav = () => {
   const pathname = usePathname();
@@ -24,10 +23,10 @@ const LoginNav = () => {
     getUserProfile()
       .then((res) => {
         if (res.email) setProfile(res);
-        console.log(res, 'profile');
+        console.log(res);
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   }, []);
 
@@ -54,26 +53,13 @@ const LoginNav = () => {
   }, []);
   return (
     <>
-      <nav
-        id="header"
-        className={`${shouldHideHeader && pathname !== "/login"
-            ? "hidden"
-            : "sticky top-0 start-0 z-[999999] sm:z-50 w-full sm:mt-[25px] bg-white border-gray-200"
-          }`}
-      >
-        {/* BANNERS */}
-        {!profile.email && <Banner />}
-        {profile?.enterprise?.billing_type === "demo" && (
-          <DemoAccountsBanner></DemoAccountsBanner>
-        )}
-
-        {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
-        <div className="flex-wrap flex md:flex sm:flex lg:flex items-center h-[57px]">
-          <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
-            <div className="relative h-8 mr-24">
+   
+        <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center mt-[60px] sm:mb-4 mb-[60px]  h-[57px]">
+          <div className="relative flex flex-row items-center justify-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
+            <div className="relative h-12 ">
               <Link href="/">
                 <img
-                  width="170px"
+                  width='170px'
                   className="opacity-100 mt-0.5 w-[237px] sm:w-[224px]"
                   alt="logo.png"
                   src="/logo-b.png"
@@ -82,8 +68,6 @@ const LoginNav = () => {
             </div>
           </div>
         </div>
-      </nav>
-
 
     </>
   );
