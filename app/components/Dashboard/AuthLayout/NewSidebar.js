@@ -1251,7 +1251,7 @@ const NewSidebar = ({ children }) => {
 
 
 
-                <div className={`${collaps ? 'sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
+                <div className={`${collaps ? 'sm:pl-20 transition-all duration-300 ease-in-out' : 'sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
                     {billingState == "demo" &&
                         <nav
                             id="header"
