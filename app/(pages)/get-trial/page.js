@@ -135,7 +135,7 @@ const Trial = () => {
       // Set demo knowledge. (basic knowledge about the customer)
       let payloadForDemoKnowledge = {
         main_webpage: addHttpsToUrl(formData.url),
-        faqs_webpage: addHttpsToUrl(formData.urls[0])
+        faqs_webpage: addHttpsToUrl(formData.faq_url)
       }
       await setDemoKnowledge(payloadForDemoKnowledge, response.token)
 
