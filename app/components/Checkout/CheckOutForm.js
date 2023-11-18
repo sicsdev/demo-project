@@ -15,6 +15,7 @@ import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
+import { setDemoKnowledge } from "@/app/API/pages/get-trial";
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
@@ -46,8 +47,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
       const { client_secret: clientSecret } = await createPaymentIntent({ amount: "500" })
 
-
-      console.log(clientSecret)
       const confirmStatus = await stripe.confirmPayment({
         elements,
         clientSecret,
@@ -86,12 +85,19 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
 
-      console.log('confirmStatus', confirmStatus)
       if (result.token) {
         let bodyForSubscribe = {
           token: confirmStatus.paymentIntent.payment_method,
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
+
+        // Set demo knowledge. (basic knowledge about the customer)
+        let domainFromEmail = checkoutForm.email.split('@')[1];
+        let urlFromEmail = "https://" + domainFromEmail;
+        let payloadForDemoKnowledge = { main_webpage: urlFromEmail,}
+        await setDemoKnowledge(payloadForDemoKnowledge, result.token)
+
+
         if (response) {
           // localStorage.setItem("Token", result.token);
           Cookies.set("Token", result.token)
