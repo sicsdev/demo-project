@@ -157,11 +157,22 @@ const WorkflowUsageLogs = () => {
             id: "icon",
             selector: 'icon',
             sortable: false,
-            width: "2%",
+            width: "4%",
             reorder: true,
             cell: (row) => (
-                <div onClick={() => { expandRecord(row) }} className='w-full text-xl'><h1>{row.workflow.icon}</h1></div>
-            )
+                <div onClick={() => { expandRecord(row) }} className='w-full text-xl flex items-start justify-center'>
+                    <h1 className="border border-gray rounded-md p-1 shadow-md" style={{ alignItems: 'start' }}>
+                        {row.workflow.icon}
+                    </h1>
+                </div>
+            ),
+            style: {
+                // Estilos personalizados para la columna
+                display: 'flex',
+                alignItems: 'start',
+                marginTop: '10px'
+                // Agrega cualquier estilo que desees para la columna completa
+            }
         },
 
         {

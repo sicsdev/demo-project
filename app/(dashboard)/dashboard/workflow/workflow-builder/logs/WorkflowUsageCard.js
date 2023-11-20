@@ -27,7 +27,7 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
         (<>
             {log &&
 
-                <div className="rounded p-3 my-1 w-full">
+                <div className="rounded py-3 my-1 w-full">
 
                     {/* <div className="flex items-center justify-end">
                         <ClockIcon className="w-4 h-4 mx-2 text-primary" />
