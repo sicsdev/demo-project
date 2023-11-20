@@ -178,7 +178,7 @@ const HealthCare = () => {
                     <img src='https://assets-global.website-files.com/611a19ba853b746b32f6b402/619fa9593162373c29321007_communications-platform-higer-education.png'></img>
                 </div>
             </div>
-            <div>
+            {/* <div>
                 <div className='bg-[#f7f8fa] py-10 sm:px-1 px-4'>
                     <div className='grid py-5'>
                         <div className='sm:grid sm:grid-cols-2 block transition-all duration-500'>
@@ -191,7 +191,7 @@ const HealthCare = () => {
                                     <img src={newData[selectedItemIndex].image} className='sm:h-[500px] h-auto sm:w-[500px] w-auto' alt={`Image ${selectedItemIndex + 1}`} />
                                 </div>
                             </div>
-                            <div>
+                            <div className='ml-0 sm:ml-28'>
                                 {newData.map((ele, key) => (
                                     <div className='sm:w-[70%] w-[95%]' key={key}>
                                         <div className='flex cursor-pointer text-2xl font-normal my-5' onClick={() => handleClick(key)}>
@@ -216,6 +216,79 @@ const HealthCare = () => {
 
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div> */}
+            <div>
+                <div className="bg-white special">
+                    <div className="mx-auto max-w-[90%] sm:max-w-[90%] md:max-w-[90%] lg:max-w-[90%] py-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-1 sm:mt-12 gap-[30px]  ">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[214px]">
+                                <div className="">
+                                    <div className="hidden sm:block sticky top-[230px]">
+                                        <div className='sm:w-[70%] w-[100%]'>
+                                            <div>
+                                                <p className='sm:text-[32px] text-[25px] my-5'>Helping universities drive and succeed in their digital transformation initiatives</p>
+                                                <p>DX in higher education makes learning more accessible to everyone. Technologies such as Rocket.Chat make education more interactive, customizable, efficient, and streamlined.</p>
+                                            </div>
+                                            <img src={newData[selectedItemIndex].image} className='sm:h-[500px] h-auto sm:w-[500px] w-auto' alt={`Image ${selectedItemIndex + 1}`} />
+                                        </div>
+                                    </div>
+                                    <div className=" sm:hidden block">
+                                        <div className='sm:w-[70%] w-[100%]'>
+                                            <div>
+                                                <p className='sm:text-[32px] text-[25px] my-5'>Helping universities drive and succeed in their digital transformation initiatives</p>
+                                                <p>DX in higher education makes learning more accessible to everyone. Technologies such as Rocket.Chat make education more interactive, customizable, efficient, and streamlined.</p>
+                                            </div>
+                                            <img src={newData[selectedItemIndex].image} className='sm:h-[500px] h-auto sm:w-[500px] w-auto' alt={`Image ${selectedItemIndex + 1}`} />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1">
+                                    {newData.map((ele, key) => (
+                                        <div
+                                            style={{ borderBottom: "1px solid rgba(203, 206, 209, .5)" }}
+                                            className={` scroll-child ${key == 0 ? "sm:pt-[0px]" : "sm:pt-[20px]"
+                                                }  sm:px-[40px]  `}
+                                            key={key}
+                                        >
+                                            <div className="flex flex-row sm:gap-[2rem] gap-4 h-auto">
+                                                <p className="text-[#2563eb]   text-sm mt-8 sm:mt-3">
+                                                    {" "}
+                                                    0{key + 1}{" "}
+                                                </p>
+                                                <div>
+                                                    <div className='flex cursor-pointer text-2xl font-normal' onClick={() => handleClick(key)}>
+                                                        <div className='flex justify-between w-[100%]'>
+                                                            <p className='ml-3 text-2xl font-medium'>{ele.title}</p>
+                                                            <PlusIcon className={`h-6 w-6 text-gray-500 transform `} />
+                                                        </div>
+                                                    </div>
+                                                    <div className={selectedItemIndex === key ? 'h-auto my-3 ml-4 text-text-dark-color' : 'h-[50px] overflow-hidden'}>
+                                                        {selectedItemIndex === key ? (
+                                                            <div>
+                                                                <p>{ele.text}</p>
+                                                            </div>
+                                                        ) : ""}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className='bg-black text-white m-5 sm:p-20 p-4 text-center'>
+                <div className='sm:w-[80%] w-[100%] m-auto'>
+                    <p className='sm:text-[32px] text-[25px] my-10'>"We{"'"}ve integrated GitLab and Active Directory automation into a channel in Deflection.ai"</p>
+                    <p>“From a software design aspect we{"'"}ve integrated GitLab and Active Directory automation into a channel in Deflection.ai. This allows those responsible to quickly get updates on changes in important repositories and status changes affected by automation. All without reading an email.”</p>
+                    <div className='flex sm:gap-10 gap-2 justify-center mt-10 sm:text-[20px] text-[12px]'>
+                        <p>Matthew Gill</p>
+                        <p>System Administrator at Southeastern Louisiana University</p>
                     </div>
                 </div>
             </div>
