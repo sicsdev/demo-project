@@ -54,7 +54,7 @@ const Homeintegration = (props) => {
               <div className=" flex justify-center items-center flex-wrap gap-4 ">
                 {data?.map((item, key) => (
                   <div
-                    className="bg-white w-[150px] flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
+                    className="bg-white w-[70px] sm:w-[150px] flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
                     style={{
                       border: "1px solid rgb(237, 237, 237)",
                       borderRadius: "8px",

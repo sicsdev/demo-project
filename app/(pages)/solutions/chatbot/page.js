@@ -29,7 +29,7 @@ const page = () => {
       <Panelcardnew />
       <CommunicateScrollComp />
       <Middlebar />
-      <ProductForm reference={ref} />
+      {/* <ProductForm reference={ref} /> */}
       <HomeComponent />
     </div>
   );

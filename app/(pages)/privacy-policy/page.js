@@ -10,14 +10,14 @@ const Page = () => {
       <div className=" bg-white py-4 ">
         <div className="my-8 mx-auto max-w-[80%]">
         <h2 className="block !font-[700] text-2xl md:text-[38px]    my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-            Deflection AI Ventures Inc.Company Privacy Notice{" "}
+            Deflection Labs Inc.Company Privacy Notice{" "}
           </h2>
           <p className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
             Last Updated/Effective Date:{" "}
           </p>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3  ">
             {" "}
-            Deflection AI Ventures, Inc.(“
+            Deflection Labs, Inc.(“
             <span className="font-semibold">Deflection AI</span>”,“
             <span className="font-semibold">we</span>”,“
             <span className="font-semibold">us</span>” or “
@@ -511,7 +511,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-left text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-left text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Identifiers
                   </th>
@@ -530,7 +530,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium  text-left text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium  text-left text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     <p> Personal Information, as defined in </p> the California
                     customer records law
@@ -551,7 +551,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Commercial Information{" "}
                   </th>
@@ -571,7 +571,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Internet or other similar network activity{" "}
                   </th>
@@ -600,7 +600,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4  text-left font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4  text-left font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     <p> Audio, electronic, visual, thermal,</p> olfactory, or
                     similar information{" "}
@@ -615,7 +615,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4  text-left font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4  text-left font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Inferences drawn from other Personal Information
                   </th>
@@ -634,7 +634,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Professional or employment-related information{" "}
                   </th>
@@ -653,7 +653,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6  text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     <p> Non-public education information</p>
                     <p> (per the Family Education Rights and Privacy Act </p>
@@ -669,7 +669,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Sensitive Personal Information{" "}
                   </th>
@@ -712,7 +712,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Notice
                   </th>
@@ -730,7 +730,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Access
                   </th>
@@ -755,7 +755,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Data Portability
                   </th>
@@ -771,7 +771,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Erasure{" "}
                   </th>
@@ -799,7 +799,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Correction{" "}
                   </th>
@@ -825,7 +825,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Automated Decision Making{" "}
                   </th>
@@ -844,7 +844,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     <p> To Opt Out of Sales or Sharing </p>of Personal
                     Information{" "}
@@ -862,7 +862,7 @@ const Page = () => {
                 >
                   <th
                     scope="row"
-                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    className="px-6 py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                   >
                     Limit Use of Sensitive Personal Information{" "}
                   </th>
@@ -1014,7 +1014,7 @@ const Page = () => {
             Notice, please contact us at [privacy@usetempo.ai].
           </p>
         </div>
-        <Homeform reff={ref} />
+        {/* <Homeform reff={ref} /> */}
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ const page = () => {
         
         </p>
       </div>
-      <Homeform reff={ref} />
+      {/* <Homeform reff={ref} /> */}
     </div>
   );
 };
