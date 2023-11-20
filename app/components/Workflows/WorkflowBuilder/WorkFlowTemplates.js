@@ -297,7 +297,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 2000);
+        }, 400);
     }, [])
 
 

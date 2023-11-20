@@ -90,7 +90,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setSkeetonLoading(false);
-        }, 2000);
+        }, 300);
     }, [])
 
     return (

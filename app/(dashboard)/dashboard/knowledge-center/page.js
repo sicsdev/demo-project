@@ -203,7 +203,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1200);
+        }, 300);
     }, [])
 
 

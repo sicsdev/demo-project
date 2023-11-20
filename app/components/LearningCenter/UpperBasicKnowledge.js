@@ -146,7 +146,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     useEffect(() => {
         setTimeout(() => {
             setSkeletonLoading(false);
-        }, 500);
+        }, 300);
     }, [])
     const dropdown = useRef(null);
     useEffect(() => {
