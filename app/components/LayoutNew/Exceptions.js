@@ -41,7 +41,7 @@ const Exceptions = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[214px]">
             <div className="">
               <div className="hidden sm:block sticky top-[230px]">
-                <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-justify text-2xl sm:text-[38px] font-bold sm:mb-0 sm:leading-[1.4em]">
+                <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  text-2xl sm:text-[26px] sm:w-[331px] md:w-[468px] lg:w-[500px] xl:w-[100%] md:text-[38px] font-bold sm:mb-0 sm:leading-[1.4em]">
                   {loading ? <SkeletonLoader count={2} height={35} width={"70%"} /> :
                     <>
                       Platform for intelligent,{" "}<br />
