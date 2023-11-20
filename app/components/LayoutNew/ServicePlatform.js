@@ -36,7 +36,7 @@ const ServicePlatform = () => {
       title: "Phone Automation",
       logo: <EnvelopeIcon className="h-[84px] w-10 text-gray-500" />,
       content_video:
-        "https://usetempo.ai/solutions_/Phone/Instant%20voice%20responses.png",
+        "/solutions_/Phone/Instant%20voice%20responses.png",
       h3: "Revolutionize voice interactions",
       p: "Utilize Tempo's smart IVR features to offer superior automated voice support, connecting fluidly with your backend APIs for a comprehensive and efficient customer service experience.",
       className: "bg-[#fcf7fc]",
@@ -61,7 +61,7 @@ const ServicePlatform = () => {
       title: "Workflow Builder",
       logo: <ShareIcon className="h-[84px] w-10 text-gray-500" />,
       content_video:
-        "https://usetempo.ai/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
+        "/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
       h3: "Streamline your business processes",
       p: "Employ Workflow Builder to create and implement custom automated workflows, enhancing operational efficiency and reducing manual effort in your business activities.",
       className: "bg-[#fcf7fc]",
