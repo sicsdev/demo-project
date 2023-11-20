@@ -272,7 +272,16 @@ const Page = () => {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" >
+                <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                    setWorkflowView(row)
+                    searchMatched({ question: row.question }, false)
+                    getWorkFlowReccomodation(row.question)
+                    setShow(true)
+                    setAnswer('')
+                    setQuestionData([])
+                    setSearchKnowledge('')
+                    setKnowledgeId(null)
+                }}>
                     {
                         row?.accepted === false && (
                             <>
@@ -295,8 +304,15 @@ const Page = () => {
                                             visible={true}
                                         /> :
                                         <div>
-                                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                                <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    deleteButtonHandler(row.id);
+                                                }}
+                                            >
+                                                <XCircleIcon className="h-6 w-6 text-danger " />
+                                            </button>
                                         </div>
                                     }
 
@@ -339,7 +355,7 @@ const Page = () => {
 
             const query = `&page=${pageVal}&page_size=${perPage}${queryParam}`
             const response = await GetAllRecommendations(query)
-             
+
             if (response) {
                 dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                 setLoading(false)
