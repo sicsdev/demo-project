@@ -27,7 +27,7 @@ const page = () => {
       <ProductSection7 />
       <Panelcardnew />
       <Middlebar />
-      <ProductForm reference={ref} />
+      {/* <ProductForm reference={ref} /> */}
       <HomeComponent />
     </div>
   );

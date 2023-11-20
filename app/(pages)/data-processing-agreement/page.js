@@ -17,7 +17,7 @@ const page = () => {
             {" "}
             This Data Processing Addendum (“DPA”) is incorporated by reference
             into and made a part of the Terms of Service entered into between
-            Deflection AI Ventures, Inc. (“Deflection AI”) and an individual or entity that
+            Deflection Labs, Inc. (“Deflection AI”) and an individual or entity that
             accepted the Terms of Service(“Customer”) (the “TOS” or
             “Agreement”). This DPA sets forth certain duties and obligations of
             the Parties with respect to the protection, security, processing,
@@ -418,7 +418,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium sm:text-[18px] sm:leading-8  text-left text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 py-4 font-medium sm:text-[18px] sm:leading-8  text-left text-gray-900 sm:whitespace-nowrap dark:text-white"
                 >
                   Description of Services
                 </th>
@@ -436,7 +436,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6  text-left py-4 font-medium sm:text-[18px] sm:leading-8  text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6  text-left py-4 font-medium sm:text-[18px] sm:leading-8  text-gray-900 sm:whitespace-nowrap dark:text-white"
                 >
                   Categories of Data Subjects whose Personal Data is transferred{" "}
                 </th>
@@ -461,7 +461,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 sm:text-[18px] sm:leading-8  text-left py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 sm:text-[18px] sm:leading-8  text-left py-4 font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                 >
                   Categories of Personal Data transferred{" "}
                 </th>
@@ -486,7 +486,7 @@ const page = () => {
               >
                 <th
                   scope="row"
-                  className="px-6 text-left py-4 sm:text-[18px] sm:leading-8  font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  className="px-6 text-left py-4 sm:text-[18px] sm:leading-8  font-medium text-gray-900 sm:whitespace-nowrap dark:text-white"
                 >
                   Sensitive data transferred (if applicable) and applied
                   <br />
@@ -511,7 +511,7 @@ const page = () => {
         </div>
       </div>
 
-      <Homeform reff={ref} />
+      {/* <Homeform reff={ref} /> */}
     </div>
   );
 };

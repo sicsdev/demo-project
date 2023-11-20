@@ -20,8 +20,8 @@ const banner = ({ handleClickScroll }) => {
   };
   return (
     <div
-    className="sm:top-[58px] sm:absolute sm:h-[550px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
-    style={customStyles}
+      className="sm:top-[58px] sm:absolute sm:h-[550px] sm:flex sm:justify-end sm:flex-col mb-[0px] sm:mb-[45px] for-bg relative"
+      style={customStyles}
     >
       <div className="w-auto sm:p-14 relative p-4 sm:w-[1450px] mx-auto App w-full">
         {loading ? (
@@ -30,7 +30,7 @@ const banner = ({ handleClickScroll }) => {
           </div>
         ) : (
           <div className="sm:text-5xl text-[22px] text-white sm:font-bold font-bold pt-5 sm:p-0">
-           Fortified Communications
+            Fortified Communications
           </div>
         )}
         {loading ? (
@@ -39,36 +39,35 @@ const banner = ({ handleClickScroll }) => {
           </div>
         ) : (
           <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
-           Our platform prioritizes comprehensive security measures for every facet of your business communications. We safeguard data whether it's stored on our systems or transmitted to and from your devices.
+            Our platform prioritizes comprehensive security measures for every facet of your business communications. We safeguard data whether it's stored on our systems or transmitted to and from your devices.
           </div>
         )}
-        <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
-          {loading ? (
-            <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-              <SkeletonLoader height={60} width={300} />
-            </div>
-          ) : (
-            <button
-              onClick={handleClickScroll}
-              type="button"
-              className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#2563eb] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
+       
+        {loading ? (
+          <div className="block sm:flex items-center my-8 cursor-pointer gap-3">
+            <SkeletonLoader height={60} width={200} />
+            <SkeletonLoader height={60} width={200} />
+          </div>
+        ) : (
+          <div className="block sm:flex md:flex lg:flex gap-4 items-center mt-8 sm:mb-8 cursor-pointer">
+            <Link
+              href={`/checkout`}
+              className={
+                "inline-block text-center mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[black] hover:bg-primary dark:focus:ring-yellow-900 "
+              }
             >
-              Get a Quote{" "}
-            </button>
-          )}
-          {loading ? (
-            <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-              <SkeletonLoader height={60} width={300} />
-            </div>
-          ) : (
-            <button
-              type="button"
-              className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
+              Get Started
+            </Link>{" "}
+            <Link href={"/get-trial"}
+
+              className={
+                " inline-block text-center mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
+              }
             >
-              <Link href={"/checkout"}>Start Now</Link>
-            </button>
-          )}
-        </div>
+              Start for Free
+            </Link>{" "}
+          </div>
+        )}
       </div>
     </div>
   );
