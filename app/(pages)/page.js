@@ -81,7 +81,6 @@ export default function Home() {
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Panelcardnew />
-
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         {/* <Help /> */}

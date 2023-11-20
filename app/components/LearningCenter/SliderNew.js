@@ -66,7 +66,6 @@ const SliderNew = () => {
                             <div>
                                 <img src={data[selectedItemIndex].image} className='h-[700px] w-[500px]' alt={`Image ${selectedItemIndex + 1}`} />
                             </div>
-
                         </div>
                         <div>
                             {data.map((ele, key) => (
