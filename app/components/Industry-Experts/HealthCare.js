@@ -5,6 +5,7 @@ import React from 'react'
 import Exceptions from '../LayoutNew/Exceptions'
 import SliderNew from '../LearningCenter/SliderNew';
 import AutoTabsComp from '../LayoutNew/AutoTabsComp';
+import HomeComponent from '../Home/HomeComponent';
 const HealthCare = () => {
     const [selectedItemIndex, setSelectedItemIndex] = useState(0);
 
@@ -339,7 +340,7 @@ const HealthCare = () => {
                 </div>
             </div>
             <div>
-                <AutoTabsComp />
+                <HomeComponent />
             </div>
         </>
     )
