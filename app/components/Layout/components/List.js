@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { ComputerDesktopIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ComputerDesktopIcon, XMarkIcon,BuildingOffice2Icon } from "@heroicons/react/24/outline";
 import { elements } from "chart.js";
 import { useRouter } from "next/navigation";
 
@@ -73,7 +73,7 @@ const List = ({ nav_links, className, setShow }) => {
               <ComputerDesktopIcon class="h-6 w-6 text-[#f5455c]" />
             </p>
             <h3 className=" uppercase text-sm text-[#6c727a] !font-semibold sm:pt-[4px]">
-              Conversations{" "}
+            Deflection AI Platform{" "}
             </h3>
           </div>
           <div className={`mt-5 `}>
