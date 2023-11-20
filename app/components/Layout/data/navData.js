@@ -1,5 +1,5 @@
 import { ComputerDesktopIcon } from "@heroicons/react/24/outline";
-import { Cog8ToothIcon } from "@heroicons/react/24/outline";
+import { Cog8ToothIcon,BuildingOffice2Icon  } from "@heroicons/react/24/outline";
 
 export const nav_links = [
     {
@@ -38,7 +38,7 @@ export const nav_links = [
                 },
                 {
                     list_heading: "Features",
-                    icon: <Cog8ToothIcon class="h-6 w-6 text-[#1d74f5] " />,      
+                    icon: <BuildingOffice2Icon class="h-6 w-6 text-[#1d74f5] " />,      
 
                     data: [
                         {
