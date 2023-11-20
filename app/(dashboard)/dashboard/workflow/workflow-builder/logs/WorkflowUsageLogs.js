@@ -10,7 +10,6 @@ import SelectOption from '@/app/components/Common/Input/SelectOption'
 import DataTable from 'react-data-table-component'
 
 
-
 const WorkflowUsageLogs = () => {
 
     const [allLogs, setAllLogs] = useState([])
@@ -145,10 +144,14 @@ const WorkflowUsageLogs = () => {
     const customStyles = {
         rows: {
             style: {
-                minHeight: '100%',
-                height: "100%",
+                minHeight: '100',
             },
-        }
+        },
+        table: {
+            style: {
+                maxHeight: '100vh',
+            },
+        },
     };
 
     const tableColumns = [
@@ -176,7 +179,7 @@ const WorkflowUsageLogs = () => {
         },
 
         {
-            name: "Record",
+            name: "",
             id: "record",
             selector: 'record',
             sortable: false,
@@ -189,7 +192,7 @@ const WorkflowUsageLogs = () => {
             )
         },
         {
-            name: "Used 24hrs",
+            name: <b>Used 24hrs</b>,
             id: "used",
             selector: 'used',
             sortable: false,
@@ -203,7 +206,7 @@ const WorkflowUsageLogs = () => {
             )
         },
         {
-            name: "Details",
+            name: <b>Details</b>,
             id: "details",
             selector: (row) => row?.details,
             cell: (row) => (
@@ -286,7 +289,7 @@ const WorkflowUsageLogs = () => {
                 </div>
             </div>
 
-            <div className=''>
+            <div className="table-container">
                 <DataTable
                     title={''}
                     fixedHeader
