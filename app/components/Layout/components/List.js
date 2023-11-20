@@ -1,35 +1,65 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { ComputerDesktopIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { elements } from "chart.js";
+import { useRouter } from "next/navigation";
+
 const List = ({ nav_links, className, setShow }) => {
+  const { push } = useRouter();
   const data = [
     {
-      name: "Team Collaboration",
-      para: "A single point for internal and cross-company communication and collaboration.",
+      name: "Chat Automation ",
+      para: "Enhance your service capabilities",
       bgColor: "#e8f1fe",
       borderColor: "#1d74f5",
+      slug: "#chat-automation",
     },
     {
-      name: "Omnichannel Customer Collaboration",
-      para: "Seamless interactions with your customers, regardless of how they connect with you.",
+      name: "Phone Automation ",
+      para: "Revolutionize voice interactions",
       bgColor: "#edf8f3",
       borderColor: "#4ebe8c",
+      slug: "#phone-automation",
     },
     {
-      name: "Chat Engine",
-      para: "Customized messaging experiences within your mobile or web app.",
+      name: "Learning Centre",
+      para: "Automate with intelligence",
       bgColor: "#feecee",
       borderColor: "#f5455c",
+      slug: "#learning-center",
     },
     {
-      name: "Marketplace",
-      para: "A wide range of apps and native integrations that help your business communicate more effectively.",
+      name: "Workflow Builder",
+      para: "Streamline your business processes      ",
       bgColor: "#f5e8f9",
+      slug: "#workflow-builder",
+
       borderColor: "#9f22c7",
     },
   ];
+
+  function scrollToIfNotVisible(element) {
+    const rect = element.getBoundingClientRect();
+    // Eventually an offset corresponding to the height of a fixed navbar for example.
+    const offset = 500;
+    let scroll = false;
+    if (rect.top < offset) {
+      scroll = true;
+    }
+    if (rect.top > window.innerHeight) {
+      scroll = true;
+    }
+    if (scroll) {
+      window.scrollTo({
+        top: window.scrollY + rect.top - offset,
+        behavior: "smooth",
+        // duration:500
+      });
+    }
+  }
+
   return (
     <>
       <div className={className}>
@@ -56,9 +86,18 @@ const List = ({ nav_links, className, setShow }) => {
                   padding: "20px 24px 24px",
                   borderTop: `4px solid ${element.borderColor}`,
                 }}
-                onClick={(e) => setShow(false)}
+                onClick={() => {
+                  setShow(true);
+                  // setTimeout(() => {
+                    // push(element.slug);
+                  // }, 100);
+                  scrollToIfNotVisible(document.querySelector(element.slug));
+                }}
               >
-                <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
+      
+
+               <a href={element.slug}>
+               <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
                   <div className="w-[100%]">
                     <h3 className="text-[#000000]  !font-semibold ] flex items-center gap-4 sm:gap-0 justify-between mb-3">
                       {element.name}
@@ -66,6 +105,7 @@ const List = ({ nav_links, className, setShow }) => {
                     <p className="">{element.para}</p>
                   </div>
                 </div>
+               </a>
               </div>
             ))}
           </div>
@@ -88,7 +128,10 @@ const List = ({ nav_links, className, setShow }) => {
                   <li
                     className="cursor-pointer"
                     key={key}
-                    onClick={(e) => setShow(false)}
+                    onClick={(e) => {
+                      setShow(false);
+                      console.log("ele");
+                    }}
                   >
                     <Link href={element.link}>
                       <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
@@ -107,26 +150,23 @@ const List = ({ nav_links, className, setShow }) => {
           <div
             className="mt-[] w-[100%] bg-[#f7f8fa] p-[48px]  col-span-2"
             style={{
-              backgroundImage:
-                "url(/bg-red.png)",
-                backgroundSize:"609px",
-                backgroundRepeat:"no-repeat",
-                backgroundPosition:"200% -350px"
+              backgroundImage: "url(/bg-red.png)",
+              backgroundSize: "609px",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "200% -350px",
             }}
           >
             <div className="max-w-[420px] w-[100%]">
-
-            <p className="text-[24px] leading-[2.5rem] sm:mb-6">
-              The communications platform you can fully control and trust
-            </p>
-            <Link
-              href={"/get-trial"}
-              className={`text-sm text-[red] text-center m-auto lg:ml-[24px] cursor-pointer`}
-            >
-              <strong>Get Started — it’s free</strong>
-            </Link>
+              <p className="text-[24px] leading-[2.5rem] sm:mb-6">
+                The communications platform you can fully control and trust
+              </p>
+              <Link
+                href={"/get-trial"}
+                className={`text-sm text-[red] text-center m-auto lg:ml-[24px] cursor-pointer`}
+              >
+                <strong>Get Started — it’s free</strong>
+              </Link>
             </div>
-
           </div>
         </div>
         <div className="ml-[-181px] ">

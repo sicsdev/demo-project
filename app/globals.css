@@ -4,6 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;900&display=swap");
 
+
 .sidebar-wrapper-scroller::-webkit-scrollbar-thumb {
   background-color: #ff5233;
   /* Change this to your desired scrollbar thumb color */
