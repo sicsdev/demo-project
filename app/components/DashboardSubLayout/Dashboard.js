@@ -20,6 +20,7 @@ import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import Method from '../NewPaymentMethod/Method'
 import { useRouter } from 'next/navigation'
+import DemoAccountsBanner from '../Layout/DemoAccountsBanner'
 
 const Dashboard = ({ children }) => {
     const router = useRouter()
@@ -138,7 +139,7 @@ const Dashboard = ({ children }) => {
     ];
 
     const findValuesForRoute = (value) => {
-        debugger
+
         const findValue = routes.find((x) => x === pathname)
         if (findValue && value === "demo") {
             if (pathname !== "/dashboard") {
@@ -207,8 +208,8 @@ const Dashboard = ({ children }) => {
 
     return (
         <>
-            <NewSidebar>
 
+            <NewSidebar>
 
                 {(
                     billingState && billingState === "demo" &&
@@ -216,6 +217,7 @@ const Dashboard = ({ children }) => {
                     // AUTHORIZED PATHS IN DEMO ACCOUNTS
                     pathname !== "/dashboard" &&
                     pathname !== "/dashboard/workflow/integrations" &&
+                    pathname !== "/dashboard/workflow/workflow-builder" &&
                     pathname !== "/dashboard/basic-knowledge/source" &&
                     pathname !== "/dashboard/chat-settings" &&
                     pathname !== "/reference"

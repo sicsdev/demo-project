@@ -13,7 +13,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             title: "Cost-Efficient",
             description: "Deflection AI's straightforward pricing means you only pay for the resolutions you need, allowing for complete scalability aligned with your customer service demand.",
             side_heading: "Pay Per Resolution",
-            side_heading_m: <p>  Pay Per  <br/>Resolution</p>,
+            side_heading_m: <p>  Pay Per  <br />Resolution</p>,
 
             "points": ["Transparent, per-resolution pricing", "Significant cost savings", <Link href="/pricing">Learn more about pricing</Link>]
 
@@ -25,7 +25,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             title: "Personalized Setup",
             description: "Our dedicated sales and implementation teams ensure your setup is seamless, efficient, and tailored to your business needs.",
             side_heading: "White-Glove Onboarding",
-            side_heading_m: <p> White-Glove   <br/>Onboarding</p>,
+            side_heading_m: <p> White-Glove   <br />Onboarding</p>,
 
             "points": ['Expert implementation support', 'Customized setup and integration', 'Dedicated team for seamless transition']
         },
@@ -36,7 +36,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             title: "Universal Communication",
             description: "Our platform offers support in all languages across every channel, ensuring your business is always connected and responsive.",
             side_heading: "Multi-Channel Synergy",
-            side_heading_m: <p>Multi-Channel <br/>Synergy</p>,
+            side_heading_m: <p>Multi-Channel <br />Synergy</p>,
 
             "points": ['Multilingual support', '24/7 availability across all channels', 'Global reach for seamless communication']
         },
@@ -47,7 +47,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
             content: "Upholding the Highest Standards",
             description: "With robust compliance measures and advanced security protocols, we provide a safe and secure environment for all your interactions.",
             side_heading: "Compliance and Security",
-            side_heading_m: <p>Compliance and <br/>Security</p>,
+            side_heading_m: <p>Compliance and <br />Security</p>,
 
             "points": ['Adherence to strict compliance standards', 'Advanced security measures', 'Safe and secure data handling',]
         }
@@ -99,7 +99,7 @@ const AutoTabsComp = ({ handleClickScroll }) => {
 
                                         <p className='text-lg sm:text-xl'>{tabData[activeTab]?.description}</p>
                                         <ul>
-                                            {tabData[activeTab].points.map((ele,key) =>
+                                            {tabData[activeTab].points.map((ele, key) =>
                                                 <li key={key}><p className='text-sm sm:text-lg mt-3 text-[#6C727A]'>{ele}</p></li>
                                             )}
                                         </ul>
@@ -109,12 +109,12 @@ const AutoTabsComp = ({ handleClickScroll }) => {
                         </div>
                     </div>
                     <div className="flex justify-start items-center cursor-pointer pt-[20px]">
-                        <button
-                            onClick={handleClickScroll}
+                        <Link
+                            href={`/get-trial`}
                             className="inline-block font-semibold   px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-white hover:text-white bg-primary hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
                         >
-                            Get a Quote
-                        </button>
+                            Get started free
+                        </Link>
                     </div>
                 </div>
             </div>

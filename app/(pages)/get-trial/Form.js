@@ -184,7 +184,8 @@ const TrialForm = ({ formData, setFormData }) => {
           />
         </div>
       </div>
-      <div className="grid gap-2 sm:gap-[15px] grid-cols-1 sm:mt-[12px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-2 sm:gap-[15px] grid-cols-1 sm:mt-[12px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mb-2">
+        
         <div className=''>
           <TextField
             type="text"
@@ -202,6 +203,7 @@ const TrialForm = ({ formData, setFormData }) => {
             error={""}
           />
         </div>
+
         <div className='my-2 sm:my-0'>
           <TextField
             type="text"
@@ -221,7 +223,7 @@ const TrialForm = ({ formData, setFormData }) => {
         </div>
       </div>
 
-      <div className=" col-span-2 inline my-2 sm:my-0 ">
+      {/* <div className=" col-span-2 inline my-2 sm:my-0 ">
         <div className="flex items-center mb-1 sm:mt-[12px] my-2 sm:my-0">
           <label
             className={`new_input_label block text-sm text-heading font-medium`}
@@ -276,24 +278,45 @@ const TrialForm = ({ formData, setFormData }) => {
             name={"faq_url"}
           />
         </div>
-        <div className=" col-span-2 sm:mt-[12px] my-4 sm:my-0">
-          <TextField
-            type="password"
-            id="password"
-            name="password"
-            value={formData?.password ?? ""}
-            onChange={handleInputValues}
-            className="py-3 mt-1 outline-none"
-            title={
-              <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-                <span>Password</span>{" "}
-              </div>
-            }
-            placeholder={"Password"}
-            error={""}
-          />
-        </div>
+
+      </div> */}
+
+      <div className='my-2 sm:my-0'>
+        <TextField
+          type="text"
+          id="faq_url"
+          name="faq_url"
+          value={formData?.faq_url ?? ""}
+          onChange={handleInputValues}
+          className="py-3 mt-1 outline-none"
+          title={
+            <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
+              <span>Website Url</span>{" "}
+            </div>
+          }
+          placeholder={"Add your Help Center or FAQ URL"}
+          error={""}
+        />
       </div>
+
+      <div className=" col-span-2 sm:mt-[12px] my-4 sm:my-0">
+        <TextField
+          type="password"
+          id="password"
+          name="password"
+          value={formData?.password ?? ""}
+          onChange={handleInputValues}
+          className="py-3 mt-1 outline-none"
+          title={
+            <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
+              <span>Password</span>{" "}
+            </div>
+          }
+          placeholder={"Password"}
+          error={""}
+        />
+      </div>
+
       <div className="flex items-center my-6">
         <input
           id="link-checkbox"

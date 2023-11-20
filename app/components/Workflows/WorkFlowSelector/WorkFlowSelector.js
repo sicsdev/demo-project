@@ -36,7 +36,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 
         if (automationStepsField[index].names_arr.length === 0 && automationStepsField[index].output === "") {
-            // debugger
+            //  
             return true
         }
         if (!jsonPattern.test(automationStepsField[index].output) && automationStepsField[index].output !== "") {

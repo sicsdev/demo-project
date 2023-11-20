@@ -52,6 +52,7 @@ import { makeCapital } from "../../helper/capitalName";
 import SkeletonLoader from "../../Skeleton/Skeleton";
 import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
+import DemoAccountsBanner from "../../Layout/DemoAccountsBanner";
 
 const NewSidebar = ({ children }) => {
     const billingState = useSelector((state) => state.billing)
@@ -190,11 +191,6 @@ const NewSidebar = ({ children }) => {
                             name: "Sources",
                             icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
                         },
-                        // {
-                        //     href: "/dashboard/basic-knowledge/questions",
-                        //     name: "Questions",   
-                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
-                        // },
                     ]
                 },
                 {
@@ -329,12 +325,12 @@ const NewSidebar = ({ children }) => {
                     icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
                 },
-                // {
-                //     href: "/dashboard/workflow/workflow-builder",
-                //     name: "Workflows",
-                //     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
+                {
+                    href: "/dashboard/workflow/workflow-builder",
+                    name: "Workflows",
+                    icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
             ],
         },
         {
@@ -438,14 +434,7 @@ const NewSidebar = ({ children }) => {
                 //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                 //     isLink: false,
                 // },
-                {
-                    href: "/dashboard/scheduling-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                    locked: billingState === "demo"
 
-                },
             ],
         },
         {
@@ -464,6 +453,14 @@ const NewSidebar = ({ children }) => {
                     locked: billingState === "demo"
 
                 },
+                {
+                    href: "/dashboard/scheduling-settings",
+                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                    locked: billingState === "demo"
+
+                },
                 // {
                 //     href: "/dashboard/verify-email",
                 //     name: "DNS Settings",
@@ -475,7 +472,8 @@ const NewSidebar = ({ children }) => {
                     name: "API References",
                     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
-                }
+                },
+
             ],
         }
     ];
@@ -733,7 +731,10 @@ const NewSidebar = ({ children }) => {
         <>
 
             <>
+
                 <nav className="sticky top-0 block  sm:hidden md:hidden lg:hiddenfixed z-50 w-full bg-sidebarbg" ref={divSideRef}>
+
+
                     <div className="px-3 py-3 lg:px-5 lg:pl-3">
                         <div className="flex items-center justify-between text-white    ">
                             <div className="flex items-center justify-start">
@@ -769,9 +770,10 @@ const NewSidebar = ({ children }) => {
                                         </button>
                                         <Link href="/dashboard" className="flex ml-2 md:mr-24">
                                             <img
-                                                src="/logo.png"
+                                                width='130px'
+                                                src="/logo-w.png"
                                                 alt="logo"
-                                                className="w-24 h-15 object-contain"
+                                                className="object-contain"
                                             />
                                         </Link>
                                     </>
@@ -811,7 +813,27 @@ const NewSidebar = ({ children }) => {
                                                 </li>
 
                                                 <hr className="text-border border-gray" />
-                                                {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+
+                                                <>
+                                                    {SideBarRoutes2.map((element, key) => (
+                                                        element?.name !== "Channels" && (
+                                                            <li key={key}>
+                                                                <Link
+                                                                    href={element.href}
+                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    onClick={() => setIsOpen(false)}
+                                                                >
+                                                                    {/* {element.icon} */}
+                                                                    <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                        {sendNames(element.name)}
+                                                                    </span>
+                                                                </Link>
+                                                            </li>
+                                                        )
+                                                    ))}
+                                                </>
+
+                                                {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                     <>
                                                         {SideBarRoutes.map((element, key) => (
                                                             element?.name !== "Channels" && (
@@ -821,7 +843,6 @@ const NewSidebar = ({ children }) => {
                                                                         className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                         onClick={() => setIsOpen(false)}
                                                                     >
-                                                                        {/* {element.icon} */}
                                                                         <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                             {sendNames(element.name)}
                                                                         </span>
@@ -839,7 +860,6 @@ const NewSidebar = ({ children }) => {
                                                                         className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                         onClick={() => setIsOpen(false)}
                                                                     >
-                                                                        {/* {element.icon} */}
                                                                         <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                             {sendNames(element.name)}
                                                                         </span>
@@ -848,7 +868,7 @@ const NewSidebar = ({ children }) => {
                                                             )
                                                         ))}
                                                     </>
-                                                }
+                                                } */}
                                                 {/* <li >
                                                     <Link
                                                         href={'/dashboard/api-keys'}
@@ -896,6 +916,7 @@ const NewSidebar = ({ children }) => {
                     </div>
                     {show && (
                         <div className="h-screen px-2 pb-4 overflow-y-auto bg-sidebarbg  text-white">
+
                             {skeltonLoading ? (
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
                                     <li className="w-full rounded-lg">
@@ -932,7 +953,7 @@ const NewSidebar = ({ children }) => {
                                         </li>
                                     </ul>
                                     <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
-
+                                        {/* 
                                         {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                             <>
                                                 {SideBarRoutes.map((element, key) =>
@@ -945,7 +966,13 @@ const NewSidebar = ({ children }) => {
                                                     sendSideBarDetails(element, key)
                                                 )}
                                             </>
-                                        }
+                                        } */}
+                                        <>
+
+                                            {SideBarRoutes2.map((element, key) =>
+                                                sendSideBarDetails(element, key)
+                                            )}
+                                        </>
 
                                     </ul>
                                     <p className="mb-[40px]"></p>
@@ -1078,7 +1105,7 @@ const NewSidebar = ({ children }) => {
                                 )}
                                 <ul className="sidebar-wrapper-scroller font-medium p-2 w-full relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out h-2/3 overflow-y-scroll scrollbar-thumb-blue-500 scrollbar-track-blue-300">
 
-                                    {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                    {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                         <>
                                             {SideBarRoutes.map((element, key) =>
                                                 sendSideBarDetails(element, key)
@@ -1090,7 +1117,13 @@ const NewSidebar = ({ children }) => {
                                                 sendSideBarDetails(element, key)
                                             )}
                                         </>
-                                    }
+                                    } */}
+                                    <>
+
+                                        {SideBarRoutes2.map((element, key) =>
+                                            sendSideBarDetails(element, key)
+                                        )}
+                                    </>
                                 </ul>
                             </>
                         )}
@@ -1130,7 +1163,7 @@ const NewSidebar = ({ children }) => {
 
                                                         <hr className="text-border border-gray" />
 
-                                                        {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
+                                                        {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                             <>
                                                                 {SideBarRoutes.map((element, key) => (
                                                                     element?.name !== "Channels" && (
@@ -1140,7 +1173,6 @@ const NewSidebar = ({ children }) => {
                                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                                 onClick={() => setIsOpen(false)}
                                                                             >
-                                                                                {/* {element.icon} */}
                                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                                     {sendNames(element.name)}
                                                                                 </span>
@@ -1158,7 +1190,6 @@ const NewSidebar = ({ children }) => {
                                                                                 className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
                                                                                 onClick={() => setIsOpen(false)}
                                                                             >
-                                                                                {/* {element.icon} */}
                                                                                 <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                                     {sendNames(element.name)}
                                                                                 </span>
@@ -1166,7 +1197,27 @@ const NewSidebar = ({ children }) => {
                                                                         </li>
                                                                     )
                                                                 ))}
-                                                            </>}
+                                                            </>
+                                                            } */}
+
+                                                        <>
+                                                            {SideBarRoutes2.map((element, key) => (
+                                                                element.name !== 'Channels' && !element.locked && (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                            ))}
+                                                        </>
 
                                                         {/* <li >
                                                             <Link
@@ -1244,9 +1295,18 @@ const NewSidebar = ({ children }) => {
                     </div>
                 </aside>
 
-                <div className={`${collaps ? 'pt-2 sm:pl-20 transition-all duration-300 ease-in-out' : 'pt-2 sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
-                    <div className="bg-white p-4 rounded-tl-lg relative z-10">
 
+
+                <div className={`${collaps ? 'sm:pl-20 transition-all duration-300 ease-in-out' : 'sm:pl-64 transition-all duration-300 ease-in-out'} bg-sidebarbg`}>
+                    {billingState == "demo" &&
+                        <nav
+                            id="header"
+                            className={`sticky top-0 top-0 start-0 z-[30] sm:z-30 w-full bg-white border-gray-200`}
+                        >
+                            <DemoAccountsBanner></DemoAccountsBanner>
+                        </nav>
+                    }
+                    <div className="bg-white p-4 rounded-tl-lg relative z-10">
                         {children}
                     </div>
                 </div>

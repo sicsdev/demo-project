@@ -81,7 +81,7 @@ const NewAbovepage = () => {
                 className={
                   "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[black] hover:bg-primary dark:focus:ring-yellow-900 "
                 }
-                data-cal-link="tempoai/sales-call"
+                data-cal-link="deflectionai/sales-call"
                 data-cal-config='{"layout":"month_view"}'
               >
                 Schedule Demo

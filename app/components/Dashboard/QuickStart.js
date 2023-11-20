@@ -354,53 +354,44 @@ const QuickStart = () => {
                                         <Method />
                                     )}
                                     {quickStartData1?.map((ele, key) => (
-
-                                        <div key={key}>
+                                        <>
                                             {user?.enterprise?.country === '' && key === 3 ? null :
-                                                <div key={key}>
+                                                <div key={key} className=''>
 
                                                     {setHideShow(key) === true && (
 
                                                         ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                             <div
 
-                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
 
                                                                 key={key}
 
                                                             >
 
-                                                                <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                                <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
 
-                                                                    <div className="flex gap-2  items-start">
-
+                                                                    <div className="flex gap-4 items-start items-center">
                                                                         <span>{ele?.icon}</span>
-
                                                                         <div className="">
-
                                                                             <h3 className="text-[#151D23] text-xs !font-[500]">
 
                                                                                 {ele?.title}
-
                                                                             </h3>
-
                                                                             <p className=" text-xs pt-1 text-[#151d23cc]">
-
                                                                                 {ele?.content}
-
                                                                             </p>
-
                                                                         </div>
 
                                                                     </div>
 
-                                                                    <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+                                                                    <div className="flex justify-end gap-2">
 
                                                                         <Link
 
                                                                             href={ele?.link}
 
-                                                                            className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                            className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                                         >
                                                                             {ele?.buttonName}
@@ -421,7 +412,7 @@ const QuickStart = () => {
 
                                                 </div>
                                             }
-                                        </div>))}
+                                        </>))}
 
                                 </div>
                                 :
