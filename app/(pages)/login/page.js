@@ -236,7 +236,7 @@ const Login = () => {
             </div>
           )}
           <div className="w-full sm:max-w-[70%] md:max-w-[53%%] lg:max-w-[40%] mx-auto">
-            <div className=" text-center sm:mt-14 border border-gray p-6 bg-white shadow-login-page rounded-sm">
+            <div className=" text-center sm:mt-14 border border-gray p-6 bg-white shadow-login-page rounded-sm float-left w-full clear-both mb-[25px]">
               <div className="text-start">
                 <p className="mb-2 text-xl tracking-wide leading-8 font-extrabold text-heading">
                   Login
