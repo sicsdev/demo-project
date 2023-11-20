@@ -7,9 +7,10 @@ export const nav_links = [
         link: "/",
         card: {
             links: [
+         
                 {
                     list_heading: "Channels",
-                    icon: <ComputerDesktopIcon class="h-6 w-6 text-gray-500" />,      
+                    icon: <ComputerDesktopIcon class="h-6 w-6  text-[#4ebe8c]" />,      
                                   data: [
                         {
                 
@@ -37,7 +38,7 @@ export const nav_links = [
                 },
                 {
                     list_heading: "Features",
-                    icon: <Cog8ToothIcon class="h-6 w-6 text-gray-500" />,      
+                    icon: <Cog8ToothIcon class="h-6 w-6 text-[#1d74f5] " />,      
 
                     data: [
                         {
