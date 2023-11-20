@@ -158,13 +158,12 @@ const List = ({ nav_links, className, setShow }) => {
           >
             <div className="max-w-[420px] w-[100%]">
               <p className="text-[24px] leading-[2.5rem] sm:mb-6">
-                The communications platform you can fully control and trust
-              </p>
+              Your All-In-One AI-Powered Customer Service Solution              </p>
               <Link
                 href={"/get-trial"}
                 className={`text-sm text-[red] text-center m-auto lg:ml-[24px] cursor-pointer`}
               >
-                <strong>Get Started — it’s free</strong>
+                <strong>Start for free</strong>
               </Link>
             </div>
           </div>
