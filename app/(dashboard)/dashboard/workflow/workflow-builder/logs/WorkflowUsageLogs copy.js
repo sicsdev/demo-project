@@ -5,9 +5,8 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import WorkflowUsageCard from './WorkflowUsageCard'
-import { ArrowDownCircleIcon, ArrowDownIcon, ArrowRightCircleIcon, ArrowRightIcon, ChartBarIcon, EllipsisHorizontalIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import SelectOption from '@/app/components/Common/Input/SelectOption'
-import DataTable from 'react-data-table-component'
 
 
 
@@ -16,14 +15,12 @@ const WorkflowUsageLogs = () => {
     const [allLogs, setAllLogs] = useState([])
     const [skeletonloading, setSkeletonLoading] = useState(true);
     const [workflowsNames, setWorkflowsNames] = useState([])
-    const [loading, setLoading] = useState(false)
-    const [currentExpanded, setCurrentExpanded] = useState('')
 
     // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalRecordsNumber, setTotalRecordsNumber] = useState('');
-    const [elementsPerPage, setElementsPerPage] = useState(10)
+    const [elementsPerPage, setElementsPerPage] = useState('10')
 
 
     // Filter states
@@ -68,28 +65,27 @@ const WorkflowUsageLogs = () => {
         setSkeletonLoading(false)
     }
 
-    const expandRecord = (row) => {
-        if (currentExpanded == row.id) {
-            setCurrentExpanded('')
-            return
-        }
-        setCurrentExpanded(row.id)
-    }
+
 
 
 
     // Pagination handlers.
-    const changePage = (newPage,) => {
+    const changePage = (newPage) => {
         setSkeletonLoading(true);
         setCurrentPage(newPage);
     };
 
-    const handlePerRowsChange = async (newPerPage, page) => {
+    const handlePageSize = async (e) => {
         setSkeletonLoading(true)
         setAllLogs([])
-        setCurrentPage(page)
-        setElementsPerPage(newPerPage)
+        setCurrentPage(1)
+        setElementsPerPage(e.target.value)
     }
+
+    const isFirstPage = currentPage === 1;
+    const isLastPage = currentPage === totalPages;
+
+
 
 
 
@@ -135,81 +131,6 @@ const WorkflowUsageLogs = () => {
         setAllLogs(result.results)
     }
 
-
-
-
-
-
-    // DATA TABLE STYLING AND DATA
-
-    const customStyles = {
-        rows: {
-            style: {
-                minHeight: '100%',
-                height: "100%",
-            },
-        }
-    };
-
-    const tableColumns = [
-        {
-            name: "",
-            id: "icon",
-            selector: 'icon',
-            sortable: false,
-            width: "2%",
-            reorder: true,
-            cell: (row) => (
-                <div onClick={() => { expandRecord(row) }} className='w-full text-xl'><h1>{row.workflow.icon}</h1></div>
-            )
-        },
-
-        {
-            name: "Record",
-            id: "record",
-            selector: 'record',
-            sortable: false,
-            // width: "100%",
-            reorder: true,
-            cell: (row) => (
-                <div className='w-full' onClick={() => { expandRecord(row) }}>
-                    <WorkflowUsageCard currentExpanded={currentExpanded} log={row}></WorkflowUsageCard>
-                </div>
-            )
-        },
-        {
-            name: "Used 24hrs",
-            id: "used",
-            selector: 'used',
-            sortable: false,
-            width: "10%",
-            reorder: true,
-            cell: (row) => (
-                <div onClick={() => console.log(row)} className='w-full text-sm flex gap-2 items-center justify-center'>
-                    <ChartBarIcon className='w-4 h-4 opacity-60'></ChartBarIcon>
-                    <b>{row.workflow.successful_automation_usage_last_24_hours_count}</b>
-                </div>
-            )
-        },
-        {
-            name: "Details",
-            id: "details",
-            selector: (row) => row?.details,
-            cell: (row) => (
-                <div className="cursor-pointer relative">
-                    {currentExpanded === row.id ?
-                        <ArrowDownIcon onClick={() => { expandRecord(row) }} className="h-4 w-4 font-bold text-heading cursor-pointer"></ArrowDownIcon>
-                        :
-                        <ArrowRightIcon onClick={() => { expandRecord(row) }} className="h-4 w-4 font-bold text-heading cursor-pointer" />
-                    }
-                </div>
-            ),
-            reorder: true,
-            width: "100px",
-        },
-    ];
-
-
     return (
         <>
 
@@ -223,7 +144,7 @@ const WorkflowUsageLogs = () => {
                             <label
                                 className={`block text-sm text-heading font-medium pb-2 pt-0`}
                             >
-                                <small> From</small>
+                                From
                                 <p style={{ fontSize: "10px" }}></p>
                             </label>
                             <div className="flex items-center">
@@ -244,12 +165,12 @@ const WorkflowUsageLogs = () => {
                         </div>
                     </div>
 
-                    <div className="w-100 mt-4 ">
+                    <div className="w-100 mt-4">
                         <div className={`inline`}>
                             <label
                                 className={`block text-sm text-heading font-medium pb-2 pt-0`}
                             >
-                                <small>To</small>
+                                To
                                 <p style={{ fontSize: "10px" }}></p>
                             </label>
                             <div className="flex items-center">
@@ -275,63 +196,121 @@ const WorkflowUsageLogs = () => {
                 </div>
             </div>
 
-            <div className=''>
-                <DataTable
-                    title={''}
-                    fixedHeader
-                    highlightOnHover
-                    pointerOnHover
-                    pagination
-                    columns={tableColumns}
-                    noDataComponent={<><p className="text-center text-xs p-3">No logs found.</p></>}
-                    data={allLogs}
-                    progressPending={loading}
-                    progressComponent={
-                        <div className="w-full mt-3 relative">
-                            <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
-                        </div>}
-                    paginationDefaultPage={currentPage}
-                    paginationPerPage={elementsPerPage}
-                    paginationTotalRows={totalRecordsNumber}
-                    paginationServer
-                    onChangeRowsPerPage={(perpage, page) => { handlePerRowsChange(perpage, page) }}
-                    onChangePage={(page) => { changePage(page) }}
-                    onRowClicked={(row) => { () => expandRecord(row) }}
-                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                    sortServer
-                    customStyles={customStyles}
-                    defaultSortAsc={false}
-                />
-            </div>
 
             {/* // *********** MAIN DATA *********** */}
 
-            {/* 
 
-            {
-                skeletonloading ? (
-                    <div className="flex justify-center items-center">
-                        <SkeletonLoader count={5} height={80} width="80vw" className={"mt-4 mx-5"} />
-                    </div>
-                ) : history.length === 0 ? (
-                    <div className="flex justify-center items-center mt-5 pt-5">
-                        <p>You haven't taken any actions in the Learning Center yet, so there's no history to show. As soon as you start making changes, you'll see a record of all your activity right here.</p>
-                    </div>
-                ) : (
-                    <>
-                        <div className="p-2 rounded-md shadow-md mx-5 xs:mx-0" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
-                            {allLogs?.map(log => (
-                                <>
-                                    <WorkflowUsageCard log={log}></WorkflowUsageCard>
-                                </>
-                            )
-                            )}
 
+            {skeletonloading ? (
+                <div className="flex justify-center items-center">
+                    <SkeletonLoader count={5} height={80} width="80vw" className={"mt-4 mx-5"} />
+                </div>
+            ) : history.length === 0 ? (
+                <div className="flex justify-center items-center mt-5 pt-5">
+                    <p>You haven't taken any actions in the Learning Center yet, so there's no history to show. As soon as you start making changes, you'll see a record of all your activity right here.</p>
+                </div>
+            ) : (
+                <>
+                    <div className="p-2 rounded-md shadow-md mx-5 xs:mx-0" style={{ backgroundColor: 'rgba(243, 244, 246, 0.5)' }}>
+                        {allLogs?.map(log => (
+                            <>
+                                <WorkflowUsageCard log={log}></WorkflowUsageCard>
+                            </>
+                        )
+                        )}
+
+                    </div>
+                </>
+            )}
+
+
+
+            {/* //***********  PAGINATION **************/}
+
+            <div className="mt-3 mb-5 py-5 flex justify-end mx-5">
+                {allLogs.length > 0 && (
+                    <div className="pagination flex space-x-1 mb-5 items-center">
+
+                        <div className='mx-3'>
+                            <span className='font-sm text-black opacity-30 mx-4' style={{ fontSize: '12px' }}>
+                                Rows per page:
+                                <select onChange={handlePageSize}>
+                                    <option value='10' selected={elementsPerPage == '10'}>10</option>
+                                    <option value='20' selected={elementsPerPage == '20'}>20</option>
+                                    <option value='30' selected={elementsPerPage == '30'}>30</option>
+                                </select>
+                            </span>
+
+                            <span className='font-sm text-black opacity-30 mx-4' style={{ fontSize: '12px' }}>
+                                {currentPage}-{totalPages} of {totalRecordsNumber}
+                            </span>
                         </div>
-                    </>
-                )
-            } */}
 
+
+                        <button
+                            id="pagination-first-page"
+                            type="button"
+                            aria-label="First Page"
+                            aria-disabled={isFirstPage}
+                            className={`sc - dtInlm hZIrqV ${isFirstPage ? 'text-gray' : ''} opacity - 50`}
+                            onClick={() => changePage(1)}
+                            disabled={isFirstPage}
+
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={isFirstPage ? 'gray' : ''} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                <path d="M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6h2v12H6z"></path>
+                                <path fill="none" d="M24 24H0V0h24v24z"></path>
+                            </svg>
+                        </button>
+
+                        <button
+                            id="pagination-previous-page"
+                            type="button"
+                            aria-label="Previous Page"
+                            aria-disabled={isFirstPage}
+                            className={`sc - dtInlm hZIrqV ${isFirstPage ? 'text-gray' : ''} opacity - 50`}
+                            onClick={() => changePage(currentPage - 1)}
+                            disabled={isFirstPage}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={isFirstPage ? 'gray' : ''} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+                        </button>
+
+                        <button
+                            id="pagination-next-page"
+                            type="button"
+                            aria-label="Next Page"
+                            aria-disabled={isLastPage}
+                            className={`sc - dtInlm hZIrqV ${isLastPage ? 'disabled' : ''} opacity - 50`}
+                            onClick={() => changePage(currentPage + 1)}
+                            disabled={isLastPage}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={isLastPage ? 'gray' : ''} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+                        </button>
+
+                        <button
+                            id="pagination-last-page"
+                            type="button"
+                            aria-label="Last Page"
+                            aria-disabled={isLastPage}
+                            className={`sc - dtInlm hZIrqV ${isLastPage ? 'disabled' : ''} opacity - 50`}
+                            onClick={() => changePage(totalPages)}
+                            disabled={isLastPage}
+
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill={isLastPage ? 'gray' : ''} width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" role="presentation">
+                                <path d="M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6h2v12h-2z"></path>
+                                <path fill="none" d="M0 0h24v24H0V0z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                )}
+            </div>
 
         </>
 
