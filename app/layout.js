@@ -23,17 +23,17 @@ export const metadata = {
     appleMobileWebAppStatusBarStyle: "black",
     appleMobileWebAppCapable: "yes",
     appleTouchFullscreen: "yes",
-    appleTouchIcon: "https://usetempo.ai/logo-simple-negative.png",
-    ogImage: "https://usetempo.ai/logo-simple-negative.png",
-    ogUrl: "https://usetempo.ai/",
+    appleTouchIcon: "https://deflection.ai/logo-simple-negative.png",
+    ogImage: "https://deflection.ai/logo-simple-negative.png",
+    ogUrl: "https://deflection.ai/",
   },
   title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
   description: "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
-    icon: "https://usetempo.ai/icon-simple.ico",
+    icon: "https://deflection.ai/icon-simple.ico",
   },
   openGraph: {
-    images: 'https://www.usetempo.ai/logo-basic-negative.png',
+    images: 'https://www.deflection.ai/logo-basic-negative.png',
   },
 };
 
@@ -43,8 +43,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Deflection AI Ventures",
-    image: "https://usetempo.ai/logo.png",
-    url: "https://usetempo.ai/",
+    image: "https://deflection.ai/logo.png",
+    url: "https://deflection.ai/",
     telephone: "8553083676",
     address: {
       "@type": "PostalAddress",
@@ -148,12 +148,12 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-touch-fullscreen" content="yes" />
-        <meta name="apple-touch-icon" content="https://usetempo.ai/logo-simple-negative.png" />
+        <meta name="apple-touch-icon" content="https://deflection.ai/logo-simple-negative.png" />
 
         <meta property="og:title" content="Deflection AI" />
         <meta property="og:description" content="Intelligent Automation for Exceptional Customer Service" />
-        <meta property="og:image" content="https://usetempo.ai/logo-simple-negative.png" />
-        <meta property="og:url" content="https://usetempo.ai/" />
+        <meta property="og:image" content="https://deflection.ai/logo-simple-negative.png" />
+        <meta property="og:url" content="https://deflection.ai/" />
       </Head>
       <head>
 
@@ -175,7 +175,7 @@ export default function RootLayout({ children }) {
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="icon" href="https://usetempo.ai/logo-simple-negative.png" />
+        <link rel="icon" href="https://deflection.ai/logo-simple-negative.png" />
 
 
 
