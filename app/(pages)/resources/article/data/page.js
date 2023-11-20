@@ -168,34 +168,28 @@ const Page = () => {
                         <SkeletonLoader count={1} height={30} width={100} />
                       ) : (
                         <button
-                        onClick={""}
-                          type="button"
-                          className="inline-block font-semibold  rounded-lg bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal text-primary hover:text-white hover:bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
-                        >
-                          Get a Quote
-                        </button>
+                        className={
+                          "mb-4 sm:mb-0 py-[8px] rounded-sm px-2 w-full font-bold sm:w-[170px] focus:ring-yellow-300 text-black bg-[white] hover:bg-primary dark:focus:ring-yellow-900 "
+                        }
+                        data-cal-link="deflectionai/sales-call"
+                        data-cal-config='{"layout":"month_view"}'
+                      >
+                        Schedule Demo
+                      </button>
                       )}
                     </div>
                     <div className="block sm:flex justify-center w-[100%] items-center gap-8">
                       {loading ? (
                         <SkeletonLoader count={1} height={30} width={100} />
                       ) : (
+                        <Link href={"/get-trial"}>
                         <button
-                        type="button"
-                        className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
-                      >
-                        <div
-                          className=""
-                          dangerouslySetInnerHTML={{
-                            __html: `
-               <a href="" onclick="Calendly.initPopupWidget({url: 'https://calendly.com/tempo-sales/30min'});return false;" >
-               <span className="underline cursor-pointer text-white ">Get Started
-               </span>
-               </a>
-              `,
-                          }}
-                        />
-                      </button>
+                          className={
+                            "mb-4 sm:mb-0 py-[8px] rounded-sm px-2 w-full font-bold sm:w-[170px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
+                          }
+                        >
+                          Get started free
+                        </button></Link>
                       )}
                     </div>
                   </div>
