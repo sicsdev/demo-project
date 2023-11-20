@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SkeletonLoader from "../../Skeleton/Skeleton";
 import Link from "next/link";
 import { getCalApi } from "@calcom/embed-react";
-const banner = ({handleClickScroll}) => {
+const banner = ({ handleClickScroll }) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setTimeout(() => {
@@ -41,49 +41,43 @@ const banner = ({handleClickScroll}) => {
           </div>
         ) : (
           <div className="sm:text-5xl text-[22px] text-white sm:font-bold font-bold pt-5 sm:p-0">
-Revolutionize your voice             <br />
-support          </div>
+            Revolutionize your voice             <br />
+            support          </div>
         )}
-            {loading ? (
+        {loading ? (
           <div className="block !font-[700] w-[100%] sm:w-[50%]  pt-5 sm:pt-0 sm:mt-7 text-[33px] leading-[40px]  relative text-[black]">
             <SkeletonLoader height={90} />
           </div>
         ) : (
-        <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
-      
-      Let Smart IVR take the lead—automatically handle voice queries and connect to your backend APIs for a seamless customer experience.        </div>
-        )}
-    <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 md:w-[55%]  xl:w-[30%] p-0 mt-10 sm:p-0 gap-4  items-center   sm:mt-10 mb-[2rem] sm:pb-[30px] ">
-    {loading ? (
-      <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-        <SkeletonLoader height={60} width={300} />
-      </div>
-    ) : (
-      <button
-      data-cal-link="deflectionai/sales-call"
-      data-cal-config='{"layout":"month_view"}'
-              type="button"
-        className="inline-block font-semibold  rounded-lg hover:bg-white px-6 pb-2 pt-2 border-2 border-primary  leading-normal hover:text-primary text-white bg-primary  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#2563eb] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a] text-[16px]"
-      >
-      Schedule Demo  
-          </button>
-    )}
-    {loading ? (
-      <div className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-        <SkeletonLoader height={60} width={300} />
-      </div>
-    ) : (
-  
-<button
+          <div className="text-white sm:mt-8 mt-2 sm:text-xl text-[15px] w-full sm:w-[600px]">
 
-        type="button"
-        className="inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327]  leading-normal text-white hover:text-[#fe9327] hover:bg-white  disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#fe9327] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#fe9327] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#fe9327] text-[16px]"
-      >
-      <Link href={"/checkout"}>
-       Get Started
-        </Link>           </button>
-    )}
-  </div>
+            Let Smart IVR take the lead—automatically handle voice queries and connect to your backend APIs for a seamless customer experience.        </div>
+        )}
+        {loading ? (
+          <div className="block sm:flex items-center my-8 cursor-pointer gap-3">
+            <SkeletonLoader height={60} width={200} />
+            <SkeletonLoader height={60} width={200} />
+          </div>
+        ) : (
+          <div className="block sm:flex md:flex lg:flex gap-4 items-center mt-8 sm:mb-8 cursor-pointer">
+            <Link
+              href={`/checkout`}
+              className={
+                "inline-block text-center mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[black] hover:bg-primary dark:focus:ring-yellow-900 "
+              }
+            >
+              Get Started
+            </Link>{" "}
+            <Link href={"/get-trial"}
+
+              className={
+                " inline-block text-center mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
+              }
+            >
+              Start for Free
+            </Link>{" "}
+          </div>
+        )}
       </div>
     </div>
   );
