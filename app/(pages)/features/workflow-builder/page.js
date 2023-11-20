@@ -9,6 +9,7 @@ import ProductSection3 from '@/app/components/Products/workflow/ProductSection3'
 import ProductSection7 from '@/app/components/Products/workflow/ProductSection7';
 import React, { useRef } from 'react'
 import Middlebar from '@/app/components/Info-Screen/Middlebar';
+import Chatfeatures from '@/app/components/Chatfeatures/Chatfeatures';
 
 const page = () => {
   const ref = useRef(null);
@@ -28,7 +29,8 @@ const page = () => {
       <ProductSection7 />
       <Panelcardnew />
       <Middlebar />
-      <ProductForm reference={ref} />
+      {/* <ProductForm reference={ref} /> */}
+      <Chatfeatures />
       <HomeComponent />
     </div>
   )

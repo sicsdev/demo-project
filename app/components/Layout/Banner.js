@@ -7,7 +7,7 @@ const Banner = () => {
   if(pathname == "/")
     return (
 <div class=" md:block">
-    <div className="z-40 text-center p-3 bg-[#142543]">
+    <div className="z-40 text-center p-3 bg-[black]">
 
       <h6 className="text-blue-400 text-white xs:flex-row xs:flex-col sm:flex justify-center text-[12px] md:text-para lg:text-para sm:text-para sm:leading-8 gap-2">
       Get $200 in free credits when you sign up today!

@@ -34,7 +34,7 @@ const ChatBot = () => {
     const [messages, setMessages] = useState([
         {
             from: 'bot',
-            text: 'Welcome to Tempo!'
+            text: 'Welcome to Deflection AI!'
         }
     ])
     // example messages 
@@ -89,7 +89,7 @@ const ChatBot = () => {
                         <Image src={'https://static.intercomassets.com/avatars/4448521/square_128/4448521-1665142820.jpg'} fill={true} alt='bot_img' className='rounded-full bg-contain mx-auto' />
                     </div>
                     <div>
-                        <h1 className='text-white font-bold'>Tempo</h1>
+                        <h1 className='text-white font-bold'>Deflection AI</h1>
                         <h3 className='flex items-center gap-1 text-xs font-semibold text-time-bot' ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg> Within a day

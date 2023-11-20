@@ -5,7 +5,7 @@ const Bottombutton = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
   return (

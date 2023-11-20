@@ -47,7 +47,7 @@ const tabs = [
     icon: <DevicePhoneMobileIcon class="h-5 w-5 text-gray-500" />,
     content_video: "/Transparent-Billing-GIF.gif",
     h3: "Elevate your customer service with Smart IVR.",
-    p: "Experience clear and fair billing. At Tempo Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.",
+    p: "Experience clear and fair billing. At Deflection AI Chat, you're charged only 25 cents per chat response. It's the simplicity of paying for exactly what you use.",
   },
 ];
 

@@ -201,9 +201,12 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         manageData()
     }, [workflowData])
 
-    const getGradientStyle = (number) => {
+    const getGradientStyle = (number, condition) => {
         let currentValue = number;
-        let maxValue = data[0].workflow_usage_last_24_hours * 1;
+
+        let maxValueTriggered = data[0].workflow_usage_last_24_hours * 1;
+        let maxValueUsed = data[0].successful_automation_usage_last_24_hours_count * 1;
+        let maxValue = condition == 'used' ? maxValueUsed : maxValueTriggered
 
         if (currentValue != null && maxValue > 0) {
             let percentage = (currentValue / maxValue) * 100;
@@ -229,9 +232,6 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
             };
         }
     }
-
-
-
 
 
     const editWorkFlowHandler = (ele) => {
@@ -369,21 +369,34 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                         {/* <EmojiPicker /> */}
                                         {!loading && (
                                             <div className='relative'>
-                                                <div className='absolute top-0 right-0'>
+                                                <div className='absolute top-0 right-0 flex gap-2'>
 
                                                     <span
                                                         onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
-                                                        className='text-[#808080] font-semibold'
+                                                        className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
                                                         data-tooltip-id="last24hs"
-                                                        data-tooltip-content={`Used ${item.workflow_usage_last_24_hours} times last 24hrs.`}
-                                                        style={getGradientStyle(item.workflow_usage_last_24_hours)}>
+                                                        data-tooltip-content={`Triggered ${item.workflow_usage_last_24_hours} times last 24hrs.`}
+                                                        style={getGradientStyle(item.workflow_usage_last_24_hours, 'triggered')}>
 
                                                         {item.workflow_usage_last_24_hours}
+                                                    </span>
+
+
+                                                    <span
+                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
+                                                        className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
+                                                        data-tooltip-id="last24hs_count"
+                                                        data-tooltip-content={`Successfully used ${item.successful_automation_usage_last_24_hours_count} times last 24hrs.`}
+                                                        style={getGradientStyle(item.successful_automation_usage_last_24_hours_count, 'used')}>
+
+                                                        {item.successful_automation_usage_last_24_hours_count}
                                                     </span>
 
                                                     <Tooltip id='last24hs' place="top" type="dark" effect="solid" />
 
                                                 </div>
+                                                <Tooltip id='last24hs_count' place="top" type="dark" effect="solid" />
+
                                             </div>
                                         )}
 
@@ -473,7 +486,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                                                     <SkeletonLoader count={1} height={20} width="50%" />
                                                     :
                                                     <>
-                                                        By Tempo
+                                                        By Deflection AI
                                                     </>
                                                 }
                                             </p>

@@ -22,7 +22,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="70%" />
                 ) : (
-                  "Calendly Integration with Tempo"
+                  "Calendly Integration with Deflection AI"
                 )}
               </p>
               <h2 className="!font-bold text-h3 text-left">
@@ -67,28 +67,28 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="50%" />
             ) : (
-              "Why Integrate Calendly with Tempo?"
+              "Why Integrate Calendly with Deflection AI?"
             )}
             </p>
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Automated Scheduling:</b>Eliminate the hassle of back-and-forth emails by integrating Calendly's powerful scheduling capabilities with Tempo.
+              <b>Automated Scheduling:</b>Eliminate the hassle of back-and-forth emails by integrating Calendly's powerful scheduling capabilities with Deflection AI.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Unified Dashboard:</b> Manage all your Calendly events, invitees, and availability directly from Tempo's centralized interface.
+              <b>Unified Dashboard:</b> Manage all your Calendly events, invitees, and availability directly from Deflection AI's centralized interface.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Data-Driven Decisions:</b>Utilize Tempo's analytics to gain insights into your Calendly scheduling data for optimized time management.
+              <b>Data-Driven Decisions:</b>Utilize Deflection AI's analytics to gain insights into your Calendly scheduling data for optimized time management.
             </p>
             )}
             {loading ? (
@@ -102,21 +102,21 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Connect Calendly to Tempo:</b>Seamlessly integrate your Calendly account with Tempo in a few simple steps.
+              <b>Connect Calendly to Deflection AI:</b>Seamlessly integrate your Calendly account with Deflection AI in a few simple steps.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={2} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Customize Your Workflow with Calendly Endpoints:</b> Add Calendly API endpoints to your Tempo workflow for a fully personalized scheduling solution.
+              <b>Customize Your Workflow with Calendly Endpoints:</b> Add Calendly API endpoints to your Deflection AI workflow for a fully personalized scheduling solution.
             </p>
             )}
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
             <p className="text-heading text-xl sm:mb-3">
-              <b>Analyze and Optimize:</b>Use Tempo's analytics to gain actionable insights into your Calendly scheduling data and make data-driven decisions.
+              <b>Analyze and Optimize:</b>Use Deflection AI's analytics to gain actionable insights into your Calendly scheduling data and make data-driven decisions.
             </p>
             )}
             <div>
@@ -184,7 +184,7 @@ const page = () => {
             {loading ? (
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
-              "Ready to revolutionize your scheduling process? Integrate Calendly with Tempo today."
+              "Ready to revolutionize your scheduling process? Integrate Calendly with Deflection AI today."
             )}
             </p>
             <p className="text-[#363866] !font-semibold sm:mb-3 sm:mt-[50px] text-xl">
@@ -214,7 +214,7 @@ const page = () => {
         {loading ? (
           <SkeletonLoader count={1} height={20} width="100%" />
         ) : (
-          "See how it works with Tempo AI"
+          "See how it works with Deflection AI"
         )}
         </p>
         <div className="block text-center  ">

@@ -1,7 +1,7 @@
 import { EllipsisHorizontalIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
 
-const SideModal = ({ setShow, children, heading, border = true, deleteButton = false ,data,deleteRecord,width='md:w-[800px]'}) => {
+const SideModal = ({ setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles }) => {
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -24,16 +24,16 @@ const SideModal = ({ setShow, children, heading, border = true, deleteButton = f
         onClick={() => setShow(false)}
       >
         {" "}
-      </div>  
+      </div>
       <div
         className={`mt-[63px] sm:mt-0 md:mt-0 lg:mt-0 z-50 overflow-y-scroll w-full ${width} p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
       >
         <div
-          className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border"
-            } dark:bg-gray-800`}    
+          className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border border-lowgray"
+            } dark:bg-gray-800 `}
         >
-          <div className="flex flex-1">
-            <h2 className="text-black-color text-sm !font-semibold">{heading}</h2>
+          <div className="flex flex-1 mx-2">
+            <h2 className={`text-black-color text-sm !font-semibold opacity-90 ${titleStyles && titleStyles}`} style={{ fontFamily: '' }}>{heading}</h2>
           </div>
           <div className="flex hover:cursor-pointer items-center justify-center gap-2">
             {deleteButton && (

@@ -27,10 +27,10 @@ const price_data = [
       btn_title: "Get a demo",
       feature_title: "STARTER KEY FEATURES, PLUS",
       feature_list: [
-        { title: "Everything in Starter Etc", alert_icon: "" },
+        { title: "Everything in Starter", alert_icon: "" },
         { title: "White Glove Onboarding", alert_icon: "" },
         { title: "Custom Workflows", alert_icon: "" },
-        { title: "Tempo API Access", alert_icon: "" },
+        { title: "Deflection AI API Access", alert_icon: "" },
       ],
     },
   ];

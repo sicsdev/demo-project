@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 const data = [
   {
-    name: "Tempo Chat: Instant, Intelligent, Integrated",
-    para: "Why settle for a basic chatbot when you can have Tempo Chat? Seamlessly handle customer queries and connect to your backend APIs for a comprehensive customer service solution.",
+    name: "Deflection AI Chat: Instant, Intelligent, Integrated",
+    para: "Why settle for a basic chatbot when you can have Deflection AI Chat? Seamlessly handle customer queries and connect to your backend APIs for a comprehensive customer service solution.",
     link: "/solutions/chatbot",
   },
   {
@@ -33,7 +33,7 @@ const ProductSection7 = () => {
     useEffect(() => {
       setTimeout(() => {
         setLoading(false);
-      }, 3000);
+      }, 300);
     }, []);
   
   return (

@@ -96,12 +96,15 @@ module.exports = {
       gray: "#e4e4e7",
       graywhite: "#F3F3F3",
       skyblue: "#d8e4fa",
+      aliceblue: "#f5f8fa",
       red: "#dc2626",
       label: "#59f2f6",
       fade_text: "#000000db",
       sidebarbg:"#151D23",
       sidebarroute:"#1C252B",
-      sidebarsubroute:"#232D32"
+      sidebarsubroute:"#232D32",
+      lowgray: "#f3f3f2",
+      stronggray: "#787978"
     },
     extend: {
       gridTemplateColumns: {
@@ -110,7 +113,9 @@ module.exports = {
       boxShadow: {
         "3xl": "0 0.125rem 1.5625rem rgb(0 0 0/10%)",
         "card": 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-        "box":"0 4.5px 3.6px rgba(0,0,0,.014), 0 12.5px 10px rgba(0,0,0,.02), 0 30.1px 24.1px rgba(0,0,0,.026), 0 100px 80px rgba(0,0,0,.04)"
+        "hoverShadow":"0 2px 0 0 #f5455c",
+        "box":"0 4.5px 3.6px rgba(0,0,0,.014), 0 12.5px 10px rgba(0,0,0,.02), 0 30.1px 24.1px rgba(0,0,0,.026), 0 100px 80px rgba(0,0,0,.04)",
+        "login-page":"rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

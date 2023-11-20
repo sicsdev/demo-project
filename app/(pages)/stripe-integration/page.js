@@ -201,7 +201,7 @@ const page = () => {
       </div>
 
       <h1 className="text-center text-2xl tracking-wide sm:text-h2 font-bold pt-2 pb-3 sm:pb-8 text-heading">
-        Stripe Connects with Tempo{" "}
+        Stripe Connects with Deflection AI{" "}
       </h1>
       <p className=" text-xl text-left px-4 sm:text-center m-auto md:text-xl sm:max-w-[600px] pb-6 text-heading">
         Our solution leverages your Stripe data to build AI-driven smart
@@ -211,7 +211,7 @@ const page = () => {
       <div className="flex  items-center flex-col-reverse sm:flex-row">
         <div className="w-full sm:w-[40%] p-4">
           <p className="text-black mb-3 sm:mb-5">
-            Connecting Tempo to Stripe is straightforward, allowing the creation
+            Connecting Deflection AI to Stripe is straightforward, allowing the creation
             of user interfaces to manage your payment data. This could enable
             systems to handle subscriptions, process refunds, or resolve
             chargebacks.
@@ -219,7 +219,7 @@ const page = () => {
           <p className="text-black sm:mb-5">
             Read the Refer to the&nbsp;
             <span className="text-primary font-semibold">
-              Tempo + Stripe integration&nbsp;
+              Deflection AI + Stripe integration&nbsp;
             </span>
             guide for further insights.
           </p>
@@ -302,12 +302,12 @@ const page = () => {
         </div>
         <div className="sm:w-[25%] stripe_cards cursor-pointer">
           <p className="text-base text-[#757575]">
-            Tempo is integrating with more APIs every day. Say goodbye to
+            Deflection AI is integrating with more APIs every day. Say goodbye to
             implementing your own endpoints, and embrace low-code automation
             with our prompt-initiated workflow builder.
           </p>
           <p className="text-base text-[#757575] mt-3">
-            Want to see how Tempo’s Workflow Builder can work for you? Let’s
+            Want to see how Deflection AI’s Workflow Builder can work for you? Let’s
             chat.
           </p>
           <button class="text-primary sm:hidden block hover:text-heading my-6 sm:my-0 text-md font-semibold dark:focus:ring-yellow-900 rounded-lg">

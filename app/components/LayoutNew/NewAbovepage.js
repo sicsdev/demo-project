@@ -1,15 +1,17 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { getCalApi } from "@calcom/embed-react";
 import SkeletonLoader from "../Skeleton/Skeleton";
+import Link from "next/link";
 const NewAbovepage = () => {
+  const ref = useRef(null);
   const [showVideo, setShowvideo] = useState(false);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -23,17 +25,39 @@ const NewAbovepage = () => {
       });
     })();
   }, []);
+
+  useEffect(() => {
+    const checkPlayer = () => {
+
+      const player = document.querySelector("lottie-player");
+      if (player) {
+        if (ref.current) {
+          ref.current.addEventListener('complete', () => {
+            player.seek(150);
+            player.play();
+          });
+        }
+      } else {
+        setTimeout(checkPlayer, 100);
+      }
+    };
+
+    checkPlayer();
+  }, []);
+
   return (
     <div className=" relative py-8 sm:py-14">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
+
+
         <div>
           {loading ? (
             <div className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black]">
               <SkeletonLoader height={60} width={"90%"} />
             </div>
           ) : (
-            <h2 className="block !font-[700] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[50px] my-[1rem] md:my-8 relative text-[black">
-              Intelligent Automation for Exceptional Customer Service{" "}
+            <h2 className="block !font-[500] md:ml-[40px] text-[33px] leading-[40px] px-3 md:px-6 md:!leading-[55px] text-left md:text-[56px] my-[1rem] md:my-8 relative text-[black]">
+              <span className="text-[#f5455c]">Intelligent Automation</span> for Exceptional Customer Service{" "}
             </h2>
           )}
           {loading ? (
@@ -41,8 +65,8 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={"90%"} />
             </div>
           ) : (
-            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
-              Elevate customer satisfaction and agent efficiency with Tempo's
+            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[17px] md:leading-8 gap-2">
+              Elevate customer satisfaction and agent efficiency with Deflection AI's
               AI-driven solutions.
             </p>
           )}
@@ -52,16 +76,24 @@ const NewAbovepage = () => {
               <SkeletonLoader height={60} width={200} />
             </div>
           ) : (
-            <div className="flex  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
+            <div className="block sm:flex md:flex lg:flex gap-4  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
               <button
                 className={
-                  "mb-4 sm:mb-0 py-[18px] px-2 w-full font-bold sm:w-[177px] focus:ring-yellow-300 text-white bg-[#fe9327] hover:bg-black dark:focus:ring-yellow-900 rounded-2xl"
+                  "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[black] hover:bg-primary dark:focus:ring-yellow-900 "
                 }
-                data-cal-link="tempoai/sales-call"
+                data-cal-link="deflectionai/sales-call"
                 data-cal-config='{"layout":"month_view"}'
               >
                 Schedule Demo
               </button>{" "}
+              <Link href={"/get-trial"}>
+                <button
+                  className={
+                    "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white hover:bg-[black] bg-primary dark:focus:ring-yellow-900 "
+                  }
+                >
+                  Get started free
+                </button></Link>{" "}
             </div>
           )}
 
@@ -76,6 +108,7 @@ const NewAbovepage = () => {
                 document.body.classList.add("modal-open");
 
                 setShowvideo(true);
+
               }}
             >
               <p>
@@ -143,21 +176,39 @@ const NewAbovepage = () => {
             ""
           )} */}
         </div>
-        <div>
+        <div className="relative">
           {loading ? (
-            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center rounded-full leading-normal">
+            <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
               <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />
             </div>
           ) : (
-            <div className=" block">
-              <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center rounded-full leading-normal">
-                <Image
-                  src="/MicrosoftTeams-image.png"
-                  className="w-full bg-contain object-contain mx-auto "
-                  fill={true}
-                />
+            <>
+              <div className="absolute animate_lottie right-0">
+                <lottie-player
+                  className="wrap_player"
+                  id={'linesLottieAnimation'}
+                  ref={ref}
+                  src="/lines-animation.json"
+                  direction={1}
+                  autoplay={0}
+                  renderer={'svg'}
+                  delay={0}
+                  easing={""}
+                  duration={4000}
+                  value={100}
+                >
+                </lottie-player>
               </div>
-            </div>
+              <div className=" block">
+                <div className="!m-auto mr-2 ml-[10px] border-solid  relative w-full sm:h-[383px] mt-5 sm:mt-0 h-[286px] flex shrink-0 items-center justify-center  leading-normal">
+                  <Image
+                    src="/MicrosoftTeams-image.png"
+                    className="w-full bg-contain object-contain mx-auto "
+                    fill={true}
+                  />
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

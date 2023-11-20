@@ -9,7 +9,7 @@ const ProductSection3 = ({handleClickScroll}) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 200);
   }, []);
 
   return (
@@ -32,7 +32,7 @@ const ProductSection3 = ({handleClickScroll}) => {
                   {loading ? (
                     <SkeletonLoader count={4} height={30} width="100%" />
                   ) : (
-                    "Tempo Chat integrates with your backend APIs, offering a robust solution that goes beyond mere chat functionalities."
+                    "Deflection AI Chat integrates with your backend APIs, offering a robust solution that goes beyond mere chat functionalities."
                   )}
                 </p>
                 <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">
@@ -119,7 +119,7 @@ const ProductSection3 = ({handleClickScroll}) => {
                 {loading ? (
                   <SkeletonLoader count={4} height={30} width="100%" />
                 ) : (
-                  "Tempo Chat evolves with each interaction. Upload your ticket histories and use our learning center's recommendations for a bot that gets smarter every day."
+                  "Deflection AI Chat evolves with each interaction. Upload your ticket histories and use our learning center's recommendations for a bot that gets smarter every day."
                 )}
               </p>
               <div className="grid grid-cols-1 w-[100%] sm:flex px-0 sm:px-0 sm:p-0 gap-4 sm:w-auto items-center mx-auto mt-[25px] sm:mt-10 mb-[2rem] sm:pb-[30px] ">

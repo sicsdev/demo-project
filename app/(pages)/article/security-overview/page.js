@@ -214,7 +214,7 @@ const page = () => {
                     {single?.acf?.article_para_copy == null ? (
                       <SkeletonLoader className="sm:h-[70px] sm:w-[800px]" />
                     ) : (
-                      <u>Solutions: Tempo Chat</u>
+                      <u>Solutions: Deflection AI Chat</u>
                     )}
                   </li>
                 </Link>

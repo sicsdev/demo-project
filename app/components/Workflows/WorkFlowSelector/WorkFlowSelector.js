@@ -36,7 +36,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
         const jsonPattern = /^\{(?:\s*".*?"\s*:\s*(?:"(?:\\.|[^"\\])*"\s*,\s*)*"(?:\\.|[^"\\])*"\s*)*\}$/;
 
         if (automationStepsField[index].names_arr.length === 0 && automationStepsField[index].output === "") {
-            // debugger
+            //  
             return true
         }
         if (!jsonPattern.test(automationStepsField[index].output) && automationStepsField[index].output !== "") {
@@ -398,16 +398,16 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                 </div>
                                                                             )}
                                                                             {ele?.automation && (
-                                                                                <p className='text-sm font-semibold '>{ele?.automation?.name}</p>
+                                                                                <p className='text-sm font-semibold capitalize-first-line'>{ele?.automation?.name}</p>
                                                                             )}
                                                                             {ele?.condition && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>Rule: {ele?.condition}</p>
+                                                                                    <p className='text-sm font-semibold capitalize-first-line'>Rule: {ele?.condition}</p>
                                                                                 </>
                                                                             )}
                                                                             {ele?.question && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>{makeCapital(ele?.question)}</p>
+                                                                                    <p className='text-sm font-semibold capitalize-first-line'>{makeCapital(ele?.question)}</p>
                                                                                 </>
                                                                             )}
 
@@ -418,7 +418,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             )}
                                                                             {ele?.notification && ele?.notification?.recipient && (
                                                                                 <>
-                                                                                    <p className='text-sm font-semibold '>{ele.notification.recipient}</p>
+                                                                                    <p className='text-sm font-semibold capitalize-first-line'>{ele.notification.recipient}</p>
                                                                                 </>
                                                                             )}
 

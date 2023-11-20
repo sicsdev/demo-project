@@ -133,7 +133,7 @@ export const ArticleSidebar = ({ children }) => {
                     flexDirection: "row-reverse",
                   }}
                 >
-                  Tempo Overview{" "}
+                  Deflection AI Overview{" "}
                 </AccordionItemButton>
               </AccordionItemHeading>
               <AccordionItemPanel>

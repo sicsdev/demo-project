@@ -3,7 +3,7 @@ import { updateWorkFlowStatus } from '@/app/API/pages/Workflow'
 import { tiles_icons } from '@/app/data/icon_data'
 import { ArrowUturnLeftIcon, BookmarkIcon, BriefcaseIcon, ChevronLeftIcon, ChevronRightIcon, ClipboardDocumentListIcon, Cog8ToothIcon, DocumentTextIcon, EnvelopeIcon, PencilSquareIcon, PuzzlePieceIcon, ShareIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { ColorRing } from 'react-loader-spinner'
 import { errorMessage } from '../../Messages/Messages'
@@ -13,16 +13,12 @@ import { editAutomationValue } from '../../store/slices/workflowSlice'
 import UpdateWorkflowBasic from './UpdateWorkflowBasic'
 
 const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler, setTab, tab,
-    botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading }) => {
+    botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters }) => {
+
     const dispatch = useDispatch()
     const [beatLoader, setBeatLoader] = useState(false)
     const [search, setSearch] = useState('')
-    const [allData, setAllData] = useState([...state?.data?.results, {
-        name: "Rule",
-        functionName: "RULE",
-        icon:
-            <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
-    },
+    const [allData, setAllData] = useState([...state?.data?.results,
     {
         name: "Deflection",
 
@@ -66,6 +62,23 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
         value: null
     })
 
+
+
+
+    useEffect(() => {
+        // Show "Rule" item only if there are available vars.
+        if (availableFilters.length > 0) {
+            setAllData([...allData, {
+                name: "Rule",
+                functionName: "RULE",
+                icon:
+                    <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
+            },])
+        }
+
+    }, [])
+
+
     const getLogo = (name) => {
         const findIcon = tiles_icons?.find((x) => x?.name.toLowerCase() === name?.toLowerCase())
         if (findIcon) {
@@ -95,7 +108,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
 
     const addStepHandler = async (ele) => {
         console.log(ele, "ele")
-        debugger
+         
         const get_ids = automationStepsData.map((element) => {
             let payload_automation = {}
             if (element?.automation) {
@@ -325,7 +338,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                         <>
                             {innerSide.value === null ?
                                 <>
-                                    <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Tempo how to handle your customer inquiries or outbound actions. </p>
+                                    <p className='text-xs text-heading  my-4'>Steps are actions you can add to a workflow. Choose steps to tell Deflection AI how to handle your customer inquiries or outbound actions. </p>
 
                                     {allData.filter(ele => ele.name !== "QuickEmailVerification").map((ele, key) =>
                                         findNameCustom(ele.name) === true ?
@@ -343,7 +356,6 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
                                                     <div className='flex justify-between items-center '>
                                                         <div className="flex justify-start items-center gap-2">
                                                             {ele.icon}
-
                                                             <p className='text-heading text-xs'>{ele.name}</p>
                                                             <p className='text-border text-[11px] font-light'></p>
                                                         </div>

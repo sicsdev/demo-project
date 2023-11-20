@@ -67,7 +67,7 @@ const Secureform = () => {
                                 }
                                 required>
                                 <option>Select Company</option>
-                                <option>Tempo AI</option>
+                                <option>Deflection AI</option>
                                 <option>Next Med</option>
                             </select>
                         </>}

@@ -17,7 +17,7 @@ const slides = [
   },
   {
     title: "Self-learning AI model    ",
-    text: "Tempo will drive real results from day one, and get even better as it learns from more of your data.",
+    text: "Deflection AI will drive real results from day one, and get even better as it learns from more of your data.",
   },
 ];
 const SolutionStandard = () => {

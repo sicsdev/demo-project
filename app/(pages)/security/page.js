@@ -17,14 +17,14 @@ const page = () => {
     return (
         <div className='bg-white'>
             <Banner handleClickScroll={handleClickScroll} />
-            <div className="sm:mt-[75vh]">
+            <div className="sm:mt-[86vh]">
                 <Securesteps  handleClickScroll={handleClickScroll} />
             </div>
             {/* <Secureform /> */}
             <ContactComplaint />
             <div className='border-b-4 border-orange absolute right-0 left-0'>
             </div>
-            <ProductForm  ref={ref}/>
+            {/* <ProductForm  ref={ref}/> */}
             <HomeComponent />
 
 

@@ -47,7 +47,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
         if (bot?.status === 201) {
             const enterprise = await createEnterpriseAccount({ slug_domain: state?.enterprise?.domain })
             if (enterprise?.status === 201 || enterprise?.status === 200) {
-                debugger
+                 
                 setBasicFormData((prev) => {
                     return {
                         ...prev,

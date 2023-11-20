@@ -40,6 +40,7 @@ import { ManageExpand } from '@/app/API/pages/EnterpriseService';
 import { fetchMembers } from '../store/slices/memberSlice';
 import Modal from '../Common/Modal/Modal';
 import MetaDataInfo from './MetaDataInfo';
+import Method from '../NewPaymentMethod/Method';
 
 const QuickStart = () => {
     const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const QuickStart = () => {
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
     const workflow = useSelector(state => state.workflow)
+    const billingState = useSelector((state) => state.billing)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
@@ -55,7 +57,7 @@ const QuickStart = () => {
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
-            content: "Finalize your setup by filling out your business information in your Tempo profile.",
+            content: "Finalize your setup by filling out your business information in your Deflection AI profile.",
             buttonName: "Complete",
             icon: <ShareIcon className='w-5 h-5 ' />,
             link: '/dashboard/billing/settings',
@@ -76,7 +78,7 @@ const QuickStart = () => {
         },
         {
             title: 'Configure Phone Settings',
-            content: "Select a Tempo phone number to get started with Smart IVR.",
+            content: "Select a Deflection AI phone number to get started with Smart IVR.",
             buttonName: "Configure",
             icon: <CodeBracketSquareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/manage-phones',
@@ -92,7 +94,7 @@ const QuickStart = () => {
     const quickStartData = [
         {
             title: 'Upload FAQ to Knowledge Base',
-            content: "Enhance your customer service by uploading frequently asked questions to Tempo's Knowledge Base.",
+            content: "Enhance your customer service by uploading frequently asked questions to Deflection AI's Knowledge Base.",
             buttonName: "Upload",
             icon: <BookOpenIcon className='w-5 h-5 ' />,
             link: "/dashboard/basic-knowledge",
@@ -112,8 +114,8 @@ const QuickStart = () => {
             link: '/dashboard/workflow/workflow-builder',
         },
         {
-            title: 'Invite Team Members to Tempo',
-            content: "Get your team onboard with Tempo to maximize the benefits of automated workflows.",
+            title: 'Invite Team Members to Deflection AI',
+            content: "Get your team onboard with Deflection AI to maximize the benefits of automated workflows.",
             buttonName: "Invite",
             icon: <UserGroupIcon className='w-5 h-5 ' />,
             link: '/dashboard/members',
@@ -205,7 +207,7 @@ const QuickStart = () => {
     useEffect(() => {
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 2500);
+        }, 300);
     }, []);
     useState(() => {
         if (Cookies.get('visit')) {
@@ -218,26 +220,30 @@ const QuickStart = () => {
             dispatch(fetchMembers());
         }
     }, [members.data]);
-
     const setHideShow = (value) => {
-        if (value === 0) {
-            if (integrations?.data?.results?.length > 0) {
-                return false
+        if (integrations && workflow && members) {
+            if (value === 0) {
+                if (integrations?.data?.results?.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 1) {
-            if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
-                return false
+            if (value === 1) {
+                if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 2) {
-            if (workflow?.data?.results?.length > 0) {
-                return false
+            if (value === 2) {
+                if (workflow?.data?.results?.length > 0) {
+                    return false
+                }
             }
-        } else if (value === 3) {
-            if (members?.data?.length > 1) {
-                return false
+            if (value === 3) {
+                if (members?.data?.length > 1) {
+                    return false
+                }
             }
-        } else {
             return true
+
         }
 
     }
@@ -261,9 +267,11 @@ const QuickStart = () => {
             setIsExpand(user?.show_quick_start)
         }
     }, [user])
+    console.log("budjfdf", billingState)
     return (
 
         <>
+
             {integrations && workflow && (
                 <>
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
@@ -288,46 +296,48 @@ const QuickStart = () => {
                                     </p>
                                 </div>
 
-                                <div className="flex items-center gap-4 ">
-                                    {skeltonLoading ?
-                                        <SkeletonLoader count={1} height={35} width={100} />
-                                        :
-                                        <button
+                                {billingState !== "demo" &&
+                                    (<div className="flex items-center gap-4 ">
+                                        {skeltonLoading ?
+                                            <SkeletonLoader count={1} height={35} width={100} />
+                                            :
+                                            <button
 
-                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+                                                className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
 
-                                            onClick={(e) => ExpandChange()}
+                                                onClick={(e) => ExpandChange()}
 
-                                        >
+                                            >
 
-                                            {isExpand === true ? (
+                                                {isExpand === true ? (
 
-                                                <>
+                                                    <>
 
-                                                    <p className="hidden sm:block "> Collapse</p>
+                                                        <p className="hidden sm:block "> Collapse</p>
 
-                                                    <ChevronUpIcon className="w-5 h-5" />
+                                                        <ChevronUpIcon className="w-5 h-5" />
 
-                                                </>
+                                                    </>
 
-                                            ) : (
+                                                ) : (
 
-                                                <>
+                                                    <>
 
-                                                    <p className="hidden sm:block"> Expand</p>
+                                                        <p className="hidden sm:block"> Expand</p>
 
 
 
-                                                    <ChevronDownIcon className="w-5 h-5" />
+                                                        <ChevronDownIcon className="w-5 h-5" />
 
-                                                </>
+                                                    </>
 
-                                            )}
+                                                )}
 
-                                        </button>
-                                    }
+                                            </button>
+                                        }
 
-                                </div>
+                                    </div>)
+                                }
 
                             </div>
                             {user && user?.enterprise?.domain === "" ?
@@ -340,62 +350,48 @@ const QuickStart = () => {
                                     style={{ transition: `all 0.2s ease-out 0s` }}
 
                                 >
-                                    {user?.enterprise?.country === '' && (
-                                        <p className="px-6 text-[#151D23] text-sm pb-5">
-
-                                            Please enter your address first in business profile.
-
-                                        </p>
+                                    {billingState === "demo" && (
+                                        <Method />
                                     )}
-
                                     {quickStartData1?.map((ele, key) => (
-
-                                        <div key={key}>
+                                        <>
                                             {user?.enterprise?.country === '' && key === 3 ? null :
-                                                <div key={key}>
+                                                <div key={key} className=''>
 
                                                     {setHideShow(key) === true && (
 
                                                         ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
                                                             <div
 
-                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3"
+                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
 
                                                                 key={key}
 
                                                             >
 
-                                                                <div className="px-6 sm:grid grid-cols-[70%,30%] items-center sm:gap-40">
+                                                                <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
 
-                                                                    <div className="flex gap-2  items-start">
-
+                                                                    <div className="flex gap-4 items-start items-center">
                                                                         <span>{ele?.icon}</span>
-
                                                                         <div className="">
-
                                                                             <h3 className="text-[#151D23] text-xs !font-[500]">
 
                                                                                 {ele?.title}
-
                                                                             </h3>
-
                                                                             <p className=" text-xs pt-1 text-[#151d23cc]">
-
                                                                                 {ele?.content}
-
                                                                             </p>
-
                                                                         </div>
 
                                                                     </div>
 
-                                                                    <div className="w-[26%] sm:w-[36%] sm:ml-0 ml-[28px] ">
+                                                                    <div className="flex justify-end gap-2">
 
                                                                         <Link
 
                                                                             href={ele?.link}
 
-                                                                            className="text-[#007c8f] flex items-center justify-between   gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                            className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                                         >
                                                                             {ele?.buttonName}
@@ -416,7 +412,7 @@ const QuickStart = () => {
 
                                                 </div>
                                             }
-                                        </div>))}
+                                        </>))}
 
                                 </div>
                                 :
@@ -435,7 +431,7 @@ const QuickStart = () => {
                                         {skeltonLoading ?
                                             <SkeletonLoader count={1} height={20} width={100} />
                                             :
-                                            "A few essential steps to get you up and running with Tempo immediately."
+                                            "A few essential steps to get you up and running with Deflection AI immediately."
                                         }
 
                                     </p>
@@ -589,7 +585,7 @@ const QuickStart = () => {
             <ChatBots />
 
 
-            
+
             <Modal title={`How to pass user's data to your widget`}
                 show={metaDataInfoModal}
                 setShow={setMetaDataInfoModal}

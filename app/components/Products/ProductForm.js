@@ -9,7 +9,7 @@ const ProductForm = ({ reference }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 300);
   }, []);
   const [fullname, setFullName] = useState({ data: "", error: false });
   const [business, setBusinnes] = useState({ data: "", error: false });
@@ -403,9 +403,9 @@ const ProductForm = ({ reference }) => {
                         ) : (
                           <>
                             By checking this box, you agree to the are opting in
-                            to receive future communications from Tempo AI.{" "}
+                            to receive future communications from Deflection AI.{" "}
                             <Link href="/privacy-policy">
-                              <u>Tempo Privacy Policy</u>
+                              <u>Deflection AI Privacy Policy</u>
                             </Link>
                             .
                           </>
@@ -448,7 +448,7 @@ const ProductForm = ({ reference }) => {
           </p>
 
           <p className="text-center text-[20px]">
-            A Tempo specialist will reach out shortly to provide <br /> your
+            A Deflection AI specialist will reach out shortly to provide <br /> your
             personalized quote.
           </p>
         </div>

@@ -35,26 +35,30 @@ import { Homeform } from "../components/LayoutNew/Homeform";
 import ContactBanner2 from "../components/Ip/Chatbot/Contact/ContactBanner2";
 import HomeComponent from "../components/Home/HomeComponent";
 import HomeContent from "../components/Home/HomeContent";
+import ServicePlatform from "../components/LayoutNew/ServicePlatform";
+import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
+import Exceptions from "../components/LayoutNew/Exceptions";
+import HeadText from "../components/HeadText/HeadText";
+import Help from "../components/Help/Help";
 
 export default function Home() {
   const reachData = [
     {
-      reach: "99.999%        ",
-      name: "Higher CSATs   ",
-      para: "Companies using our platform can anticipate higher customer satisfaction scores, contributing to overall customer loyalty.   ",
+      reach: "99.999%",
+      name: "Higher CSATs",
+      para: "Companies using our platform can anticipate higher customer satisfaction scores, contributing to overall customer loyalty.",
       link_title: "Leverage your data",
     },
     {
-      reach: "99.999%        ",
+      reach: "99.999%",
       name: "More Deflections ",
-      para: "Experience a significant reduction in the number of tickets that require human intervention, optimizing your operations.    ",
+      para: "Experience a significant reduction in the number of tickets that require human intervention, optimizing your operations.",
       link_title: "Leverage your data",
     },
     {
       reach: "55++",
-
       name: "24/7/365 Uptime",
-      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.   ",
+      para: "Benefit from round-the-clock system availability, ensuring uninterrupted service for your customers.",
       link_title: "Leverage your data",
     },
   ];
@@ -69,18 +73,25 @@ export default function Home() {
         <Head></Head>
         <NewAbovepage />
         <Homeinte />
-        <Communication />
-        
+        <HeadText />
+        {/* <Testimonial /> */}
+        {/* <Communication /> */}
+        <ServicePlatform />
+
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
-        <Homeintegration />
-
-        <Reach handleClickScroll={handleClickScroll} data={reachData}/>
         <Panelcardnew />
-        <HomeContent handleClickScroll={handleClickScroll}/>
+       
+        <Exceptions />
+        {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
+        {/* <Help /> */}
+        {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
+        <Homeintegration handleClickScroll={handleClickScroll} />
 
-        <Middlebar />
-        <Homeform reff={ref} />
-        <HomeComponent />
+        <AutoTabsComp handleClickScroll={handleClickScroll} />
+
+        {/* <Middlebar />
+        <Homeform reff={ref} /> */}
+        {/* <HomeComponent /> */}
       </main>
     </>
   );

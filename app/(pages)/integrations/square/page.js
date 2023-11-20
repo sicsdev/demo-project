@@ -23,7 +23,7 @@ const page = () => {
                 {loading ? (
                   <SkeletonLoader count={1} height={20} width="70%" />
                 ) : (
-             "   Square Integration with Tempo"
+             "   Square Integration with Deflection AI"
                 )}
                 </p>
 
@@ -64,28 +64,28 @@ const page = () => {
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
-              "Why Integrate Square with Tempo?"
+              "Why Integrate Square with Deflection AI?"
               )}
               </p>
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-                <b>Unified Business Dashboard:</b> Manage all aspects of your business, from inventory to payments, directly from Tempo's centralized interface.
+                <b>Unified Business Dashboard:</b> Manage all aspects of your business, from inventory to payments, directly from Deflection AI's centralized interface.
               </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-                <b> Automated Workflows:</b> Leverage Tempo's workflow automation to streamline your Square operations, including customer management, payment processing, and dispute resolution.
+                <b> Automated Workflows:</b> Leverage Deflection AI's workflow automation to streamline your Square operations, including customer management, payment processing, and dispute resolution.
               </p>
               )}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-                <b> Data-Driven Decisions:</b> Utilize Tempo's analytics to gain actionable insights from your Square data, enabling smarter business strategies.
+                <b> Data-Driven Decisions:</b> Utilize Deflection AI's analytics to gain actionable insights from your Square data, enabling smarter business strategies.
               </p>
               )}
               {loading ? (
@@ -99,8 +99,8 @@ const page = () => {
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-[#363866]   sm:mt-[20px] text-xl mb-1">
-                <span className="font-semibold"> Connect Square to Tempo:</span>
-              Seamlessly integrate Square with Tempo in just a few clicks.
+                <span className="font-semibold"> Connect Square to Deflection AI:</span>
+              Seamlessly integrate Square with Deflection AI in just a few clicks.
 
               </p>
               )}
@@ -108,28 +108,28 @@ const page = () => {
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-              Seamlessly integrate Square with Tempo in just a few clicks.
+              Seamlessly integrate Square with Deflection AI in just a few clicks.
               </p>
               )} */}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-[#363866]  text-xl mb-[1rem]">
-                <span className="font-semibold"> Customize Your Business Workflow with Square Endpoints:</span>Incorporate Square's diverse API endpoints into your Tempo workflows for a tailored business management experience.
+                <span className="font-semibold"> Customize Your Business Workflow with Square Endpoints:</span>Incorporate Square's diverse API endpoints into your Deflection AI workflows for a tailored business management experience.
               </p>
               )}
               {/* {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-heading text-xl sm:mb-3">
-              Incorporate Square's diverse API endpoints into your Tempo workflows for a tailored business management experience.
+              Incorporate Square's diverse API endpoints into your Deflection AI workflows for a tailored business management experience.
               </p>
               )} */}
               {loading ? (
                 <SkeletonLoader count={1} height={20} width="100%" />
               ) : (
               <p className="text-[#363866] mb-1  text-xl">
-                <span className="font-semibold"> Analyze and Optimize:</span>Use Tempo's analytics to derive valuable insights from your Square data, driving continuous improvement.
+                <span className="font-semibold"> Analyze and Optimize:</span>Use Deflection AI's analytics to derive valuable insights from your Square data, driving continuous improvement.
               </p>
               )}
               {/* {loading ? (
@@ -137,7 +137,7 @@ const page = () => {
               ) : (
 
               <p className="text-heading text-xl sm:mb-3">
-              Use Tempo's analytics to derive valuable insights from your Square data, driving continuous improvement.
+              Use Deflection AI's analytics to derive valuable insights from your Square data, driving continuous improvement.
               </p>
               )} */}
               <div>
@@ -175,7 +175,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
               <p className="text-heading text-xl sm:mb-3">
-                <b> Dispute Resolution:</b> Manage disputes and submit evidence directly from Tempo's interface.
+                <b> Dispute Resolution:</b> Manage disputes and submit evidence directly from Deflection AI's interface.
               </p>
             )}
             {loading ? (
@@ -213,7 +213,7 @@ const page = () => {
               <SkeletonLoader count={1} height={20} width="100%" />
             ) : (
               <p className="text-heading text-xl sm:mb-3">
-              Ready to take your business operations to the next level? Integrate Square with Tempo today.
+              Ready to take your business operations to the next level? Integrate Square with Deflection AI today.
               </p>
             )}
             {loading ? (
@@ -242,7 +242,7 @@ const page = () => {
     {loading ? (
       <SkeletonLoader count={1} height={20} width="100%" />
     ) : (
-      "See how it works with Tempo AI"
+      "See how it works with Deflection AI"
     )}
   </p>
   <div className="block text-center  ">

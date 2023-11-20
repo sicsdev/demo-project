@@ -6,19 +6,19 @@ const Ecommerce = () => {
   const card_data = [
     {
       img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/6391974fb726ba22baed8784_627e5a55b2b37eb239660d04_shopify.svg",
-      title: "Discover Tempo for Shopify",
+      title: "Discover Deflection AI for Shopify",
     },
     {
       img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/6391974f430461c497a6ef41_627e5a5f4b5a3c77f4c65455_shopify-plus.svg",
-      title: "Discover Tempo for Shopify",
+      title: "Discover Deflection AI for Shopify",
     },
     {
       img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/6391974c6a1cda997d5c31ab_627e5c0f8800137edf8249de_bigcommerce.svg",
-      title: "Discover Tempo for Shopify",
+      title: "Discover Deflection AI for Shopify",
     },
     {
       img: "https://assets-global.website-files.com/5e4ff204e7b6f80e402d407a/6391974f368c9d59d69789a3_627e5a6f4b3cfdd2865f183d_magento.svg",
-      title: "Discover Tempo for Shopify",
+      title: "Discover Deflection AI for Shopify",
     },
   ];
   const small_card_data = [
@@ -50,7 +50,7 @@ const Ecommerce = () => {
   return (
     <div className="mx-auto max-w-[90%] my-12">
       <h1 className="text-center w-full sm:w-[700px] md:w-[700px] lg:w-[700px] mx-auto text-2xl sm:text-3xl md:text-4xl lg:text-5xl my-2 font-bold text-heading">
-      Tempo Integrates and controls your
+      Deflection AI Integrates and controls your
         <span className="text-voilet"> entire stack</span>
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-4">

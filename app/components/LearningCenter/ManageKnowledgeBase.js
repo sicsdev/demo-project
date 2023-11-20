@@ -408,7 +408,7 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                     <div className="bg-white pt-4 sm:pt-0 sm:p-4 mt-2">
                         <div className="bg-[#f1f1f1] p-6 rounded-md mb-6">
                             <p className="text-xs mb-5 font-semibold">
-                                To answer customer questions, Tempo is using:
+                                To answer customer questions, Deflection AI is using:
                             </p>
                             <div className="flex gap-4 sm:gap-10 justify-start align-top">
                                 <div className='w-[25%]'>
@@ -528,18 +528,18 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                                             <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                                                 <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                                                 <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
-                                                <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
+                                                <p className='text-xs font-normal'>Plain text content specific for Deflection AI.</p>
                                             </div>
                                             <div onClick={() => handleCreateOptions('pdf')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
                                                 <PaperClipIcon className='h-10 w-10 text-white bg-primary rounded-lg p-2' />
                                                 <h3 className='text-sm text-black hover:text-primary font-bold py-4'>File Upload</h3>
                                                 <p className='text-xs font-normal'>Txt or PDF FAQ or support file.</p>
                                             </div>
-                                            <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
+                                            {/* <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
                                                 <LinkIcon className='h-10 w-10 text-white bg-btn_y_hover rounded-lg p-2' />
                                                 <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
                                                 <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
-                                            </div>
+                                            </div> */}
                                         </div></div>}
                                     data={knowledge}
                                 />
@@ -557,18 +557,18 @@ const ManageKnowledgeBase = ({ tabLoader, knowledge, setKnowledge, basicFormData
                         <div onClick={() => handleCreateOptions('snippet')} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
                             <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
-                            <p className='text-xs font-normal'>Plain text content specific for Tempo.</p>
+                            <p className='text-xs font-normal'>Plain text content specific for Deflection AI.</p>
                         </div>
                         <div onClick={() => handleCreateOptions('pdf')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
                             <PaperClipIcon className='h-10 w-10 text-white bg-primary rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>File Upload</h3>
                             <p className='text-xs font-normal'>Txt or PDF FAQ or support file.</p>
                         </div>
-                        <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
+                        {/* <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
                             <LinkIcon className='h-10 w-10 text-white bg-btn_y_hover rounded-lg p-2' />
                             <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
                             <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
-                        </div>
+                        </div> */}
                     </div>
                 </SideModal>
             )}

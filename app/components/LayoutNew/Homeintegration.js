@@ -12,7 +12,7 @@ const Homeintegration = (props) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -24,8 +24,8 @@ const Homeintegration = (props) => {
           <SkeletonLoader height={60} width={"50%"} />
         </div>
       ) : (
-        <h1 className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[38px] font-bold sm:mb-7">
-          Tempo Integration Ecosystem{" "}
+        <h1 className="mb-5  sm:p-0 sm:mt-0 mt-5 text-black text-center text-2xl sm:text-[42px] font-[600] sm:mb-7">
+          Deflection AI Integration Ecosystem{" "}
         </h1>
       )}
       {loading ? (
@@ -33,8 +33,8 @@ const Homeintegration = (props) => {
           <SkeletonLoader height={60} width={"100%"} />
         </div>
       ) : (
-        <p className="text-blue-400 w-full m-auto sm:w-[80%] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
-          Enhance your setup with APIs that integrate effortlessly into the Tempo
+        <p className="text-blue-400 w-full m-auto sm:w-[80%] text-center font-[400] text-heading xs:flex-row xs:flex-col sm:flex justify-center text-[16px] leading-[22px] sm:text-[16px] sm:leading-8 gap-2">
+          Enhance your setup with APIs that integrate effortlessly into the Deflection AI
           platform, meeting your unique business needs.
         </p>
       )}
@@ -54,7 +54,7 @@ const Homeintegration = (props) => {
               <div className=" flex justify-center items-center flex-wrap gap-4 ">
                 {data?.map((item, key) => (
                   <div
-                    className="bg-white w-[150px] flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
+                    className="bg-white w-[70px] sm:w-[150px] flex flex-col items-center  justify-between cursor-pointer shadow-lg hover:translate-y-[-4px] transition-transform duration-300 "
                     style={{
                       border: "1px solid rgb(237, 237, 237)",
                       borderRadius: "8px",

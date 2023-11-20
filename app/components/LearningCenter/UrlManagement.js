@@ -125,7 +125,7 @@ const UrlManagement = ({ setCreateOptions, currentStatusSteps, currentIndex, bas
                                     (<>
                                         <h3 className='font-bold text-black'>Synced external sources</h3>
                                         <p className="text font-normal text-xs">
-                                            Tempo will automatically generate responses using the following external sources:
+                                            Deflection AI will automatically generate responses using the following external sources:
                                         </p>
                                     </>)
                                 }
