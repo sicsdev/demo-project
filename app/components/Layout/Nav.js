@@ -81,11 +81,11 @@ const Nav = () => {
 
 
 
-              <ul className="hidden  sm:hidden md:hidden lg:flex relative text-black gap-8 flex-row">
+              <ul className="hidden  sm:hidden md:hidden lg:flex static text-black gap-8 flex-row ">
                 {nav_links.map((element, key) => (
                   <li
                     key={key}
-                    className="menus_desk py-[15px] h-[60px] sm:h-[55px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                    className="menus_desk static py-[15px] h-[60px] sm:h-[55px] group  cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
                     onMouseEnter={(e) => {
                       setShowmenu(false);
                     }}
@@ -96,13 +96,16 @@ const Nav = () => {
                     >
                       {element.name}
                     </a>
+
                     {element.card.links.length > 0 && (
+                      
                       <Card
-                        className={`animate-fadeIn w-[500px] hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                        className={`h-[590px] overflow-y-scroll left-0 w-[100%] !pt-[74px] !pl-[110px] animate-fadeIn  hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
                           }`}
                       >
+
                         <List
-                          className={"grid grid-cols-1 sm:grid-cols-2 gap-8"}
+                          className={"grid grid-cols-1 sm:grid-cols-[30%,60%,2%] gap-8"}
                           nav_links={element.card.links}
                           setShow={setShowmenu}
                         />
