@@ -272,16 +272,7 @@ const Page = () => {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-                    setWorkflowView(row)
-                    searchMatched({ question: row.question }, false)
-                    getWorkFlowReccomodation(row.question)
-                    setShow(true)
-                    setAnswer('')
-                    setQuestionData([])
-                    setSearchKnowledge('')
-                    setKnowledgeId(null)
-                }}>
+                <div className="flex justify-center items-center gap-4 w-[100%]" >
                     {
                         row?.accepted === false && (
                             <>
