@@ -79,7 +79,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
     useEffect(() => {
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 2500);
+        }, 300);
     }, []);
     const handleInputValues = (event) => {
         const { value, name } = event.target
