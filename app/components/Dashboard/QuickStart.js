@@ -41,8 +41,10 @@ import { fetchMembers } from '../store/slices/memberSlice';
 import Modal from '../Common/Modal/Modal';
 import MetaDataInfo from './MetaDataInfo';
 import Method from '../NewPaymentMethod/Method';
+import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
+import { updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
 
-const QuickStart = () => {
+const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
@@ -51,6 +53,9 @@ const QuickStart = () => {
     const billingState = useSelector((state) => state.billing)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
+    const progressScrappingKnowledge = useSelector((state) => state.knowledgeScrapper.loader);
+
+
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
@@ -205,10 +210,13 @@ const QuickStart = () => {
     ];
     const [skeltonLoading, setSkeltonLoading] = useState(true);
     useEffect(() => {
+
         setTimeout(() => {
             setSkeltonLoading(false);
         }, 300);
+
     }, []);
+
     useState(() => {
         if (Cookies.get('visit')) {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
@@ -220,6 +228,9 @@ const QuickStart = () => {
             dispatch(fetchMembers());
         }
     }, [members.data]);
+
+
+
     const setHideShow = (value) => {
         if (integrations && workflow && members) {
             if (value === 0) {
@@ -267,13 +278,28 @@ const QuickStart = () => {
             setIsExpand(user?.show_quick_start)
         }
     }, [user])
-    console.log("budjfdf", billingState)
+
     return (
 
         <>
 
             {integrations && workflow && (
                 <>
+
+                    {loadingScrapper &&
+                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
+                                <div className='w-full mx-5'>
+                                    <span className="flex justify-center text-sm mb-2">
+                                        Please wait while we configure your custom Deflection bot.
+                                    </span>
+                                    <ProgressBarComponent finishing={finishingScrapping} finished={finishedScrapper} />
+                                    <div className='border-b border-lowgray pt-5'></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
 
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
@@ -594,7 +620,7 @@ const QuickStart = () => {
                 <MetaDataInfo></MetaDataInfo>
             </Modal >
             <div className='w-100 flex justify-center mt-5'>
-                <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{fontSize: '10px'}}>
+                <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
                     <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
 
                     Learn how to pass user's data to your widget

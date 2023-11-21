@@ -11,6 +11,7 @@ import Link from "next/link";
 import { createHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { updateHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { updateScrapperKnowledgeState } from "@/app/components/store/slices/scrapperKnowledgeSlice";
 
 const Trial = () => {
   const router = useRouter();
@@ -140,8 +141,7 @@ const Trial = () => {
           main_webpage: addHttpsToUrl(formData.url),
           faqs_webpage: addHttpsToUrl(formData.faq_url)
         }
-        await setDemoKnowledge(payloadForDemoKnowledge, response.token)
-
+        dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
         dispatch(editBillingType("demo"));
         router.push("/dashboard");
         setLoading(false);
@@ -153,7 +153,6 @@ const Trial = () => {
       setLoading(false);
     }
   };
-
 
 
   return (
