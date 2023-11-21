@@ -422,7 +422,7 @@ const Logs = () => {
         setSearchLoading(false)
         setLoading(false);
 
-      }, 2000);
+      }, 300);
     } else {
       setLoading(false);
       setSearchLoading(false)

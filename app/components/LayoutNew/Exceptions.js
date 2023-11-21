@@ -29,7 +29,7 @@ const Exceptions = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
   const [loading, setLoading] = useState(true);

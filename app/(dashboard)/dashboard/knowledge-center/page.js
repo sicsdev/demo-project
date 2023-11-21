@@ -203,7 +203,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 1200);
+        }, 300);
     }, [])
 
 
@@ -304,8 +304,15 @@ const Page = () => {
                                             visible={true}
                                         /> :
                                         <div>
-                                            <button type="button" onClick={(e) => deleteButtonHandler(row.id)}>
-                                                <XCircleIcon className="h-6 w-6 text-danger " /></button>
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    deleteButtonHandler(row.id);
+                                                }}
+                                            >
+                                                <XCircleIcon className="h-6 w-6 text-danger " />
+                                            </button>
                                         </div>
                                     }
 
@@ -348,7 +355,7 @@ const Page = () => {
 
             const query = `&page=${pageVal}&page_size=${perPage}${queryParam}`
             const response = await GetAllRecommendations(query)
-             
+
             if (response) {
                 dispatch(editRecommendation({ ...response, totalCount: response?.result?.length }))
                 setLoading(false)

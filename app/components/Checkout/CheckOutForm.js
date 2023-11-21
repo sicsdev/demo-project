@@ -91,13 +91,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
 
-        // Set demo knowledge. (basic knowledge about the customer)
-        let domainFromEmail = checkoutForm.email.split('@')[1];
-        let urlFromEmail = "https://" + domainFromEmail;
-        let payloadForDemoKnowledge = { main_webpage: urlFromEmail,}
-        await setDemoKnowledge(payloadForDemoKnowledge, result.token)
-
-
         if (response) {
           // localStorage.setItem("Token", result.token);
           Cookies.set("Token", result.token)
@@ -114,6 +107,13 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
           }
           const bot = await createCheckoutBot(payload, result.token);
           if (bot.status === 200 || bot.status === 201) {
+
+            // Set demo knowledge. (basic knowledge about the customer)
+            let domainFromEmail = checkoutForm.email.split('@')[1];
+            let urlFromEmail = "https://" + domainFromEmail;
+            let payloadForDemoKnowledge = { main_webpage: urlFromEmail, }
+            await setDemoKnowledge(payloadForDemoKnowledge, result.token)
+
             router.push("/dashboard");
           } else {
             setLoading(false);

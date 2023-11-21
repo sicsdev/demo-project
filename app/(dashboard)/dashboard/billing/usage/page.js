@@ -307,7 +307,7 @@ const UsageLimit = () => {
 
       let monthData;
       const getTotalAmount = (data) => {
-        return data.reduce((accumulator, transaccion) => {
+        return data?.reduce((accumulator, transaccion) => {
           return accumulator + transaccion.amount;
         }, 0);
       };

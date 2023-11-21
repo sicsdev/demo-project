@@ -7,7 +7,7 @@ const TopBar = ({ title, icon, isBackButton = false, backButtonUrl = '/' }) => {
     useEffect(() => {
         setTimeout(() => {
             setSkeletonLoading(false);
-        }, 1200);
+        }, 300);
     }, [])
     return (
         <h1 className='pl-2 text-xl font-semibold'>

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { ComputerDesktopIcon, XMarkIcon,BuildingOffice2Icon } from "@heroicons/react/24/outline";
+import { ComputerDesktopIcon, XMarkIcon,BuildingOffice2Icon, ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import { elements } from "chart.js";
 import { useRouter } from "next/navigation";
 
@@ -24,7 +24,7 @@ const List = ({ nav_links, className, setShow }) => {
       slug: "#phone-automation",
     },
     {
-      name: "Learning Centre",
+      name: "Learning Center",
       para: "Automate with intelligence",
       bgColor: "#feecee",
       borderColor: "#f5455c",
@@ -163,7 +163,10 @@ const List = ({ nav_links, className, setShow }) => {
                 href={"/get-trial"}
                 className={`text-sm text-[red] text-center m-auto lg:ml-[24px] cursor-pointer`}
               >
-                <strong>Start for free</strong>
+                <p className="flex gap-2">
+                <strong>Start for free </strong>
+                <ArrowLongRightIcon class="h-6 w-6 text-[#FF5721]" />
+                </p>
               </Link>
             </div>
           </div>
