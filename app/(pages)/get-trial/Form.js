@@ -291,7 +291,7 @@ const TrialForm = ({ formData, setFormData }) => {
           className="py-3 mt-1 outline-none"
           title={
             <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
-              <span>Website Url</span>{" "}
+              <span>Your FAQ Url</span>{" "}
             </div>
           }
           placeholder={"Add your Help Center or FAQ URL"}

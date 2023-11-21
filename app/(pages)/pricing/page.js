@@ -153,22 +153,22 @@ const Pricing = () => {
     if (type === "FIRST") {
       values =
         parseInt(data?.AgentNumber) *
-          parseInt(data?.avgAgentHourlyWage) *
-          173.7 -
+        parseInt(data?.avgAgentHourlyWage) *
+        173.7 -
         parseInt(data?.dailyTicketVolume) * 30.4;
     } else if (type === "SECOND") {
       values =
         12 *
-          (parseInt(data?.AgentNumber) *
-            parseInt(data?.avgAgentHourlyWage) *
-            173.7) -
+        (parseInt(data?.AgentNumber) *
+          parseInt(data?.avgAgentHourlyWage) *
+          173.7) -
         parseInt(data?.dailyTicketVolume) * 30.4;
     } else if (type === "MONTH1") {
       values =
         20 *
-          (parseInt(data?.AgentNumber) *
-            parseInt(data?.avgAgentHourlyWage) *
-            173.7) -
+        (parseInt(data?.AgentNumber) *
+          parseInt(data?.avgAgentHourlyWage) *
+          173.7) -
         (parseInt(data?.dailyTicketVolume) * 30.4) / 100;
     } else if (type === "MONTH2") {
       values =
@@ -318,8 +318,8 @@ const Pricing = () => {
         </Container> */}
         {/* <Middlebar /> */}
         {/* <Homeform reff={ref} /> */}
-        {/* <HomeComponent />{" "} */}
         <AutoTabsComp handleClickScroll={handleClickScroll} />
+        <HomeComponent />{" "}
       </div>
     </div>
   );
