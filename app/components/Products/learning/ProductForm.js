@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import SkeletonLoader from '../../Skeleton/Skeleton';
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Cookies from 'js-cookie';
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from 'next/link';
 const ProductForm = () => {
     const [loading, setLoading] = useState(true);
@@ -75,6 +76,18 @@ const ProductForm = () => {
       }
     };
     const [hubID, setHubid] = useState(null);
+
+
+    const searchParams = useSearchParams();
+
+      const gclid = searchParams.get("gclid");
+
+      const msclkid = searchParams.get("msclkid");
+  
+      console.log("gclid", gclid);
+
+      console.log("msclkid", msclkid);
+  
   
     const handleBlur = async () => {
       const payload = {

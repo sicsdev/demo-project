@@ -4,6 +4,7 @@ import Container from "../../components/Container/Container";
 import { Input } from "../../components/Common/Input/Input";
 import Logos from "../../components/Checkout/Logos";
 import Button from "../../components/Common/Button/Button";
+
 import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
@@ -35,6 +36,28 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 const Checkout = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+
+    const gclid = searchParams.get("gclid");
+    const utm_source = searchParams.get("utm_source");
+    const utm_medium = searchParams.get("utm_medium");
+    const utm_term = searchParams.get("utm_term");
+    const matchtype = searchParams.get("matchtype");
+    const utm_campaign = searchParams.get("utm_campaign");
+    const utm_content = searchParams.get("utm_content");
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+    console.log("utm_source", utm_source);
+    console.log("utm_medium", utm_medium);
+    console.log("utm_content", utm_content);
+    console.log("utm_term", utm_term);
+    console.log("matchtype", matchtype);
+    console.log("msclkid", msclkid);
+    console.log("utm_campaign", utm_campaign);
+
+  
+
   const [planQuery, setPlanQuery] = useState("");
   const [emailQuery, setEmailQuery] = useState("");
   const [boxValid, setBoxValid] = useState(true);
@@ -115,6 +138,8 @@ const Checkout = () => {
       if (checkoutForm.phone) payload.phone = checkoutForm.phone;
       if (first_name) payload.firstname = first_name;
       if (last_name) payload.lastname = last_name;
+      if(gclid)payload.gclid = gclid;
+      if(msclkid)payload.msclkid = msclkid;
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {

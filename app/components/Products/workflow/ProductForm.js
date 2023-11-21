@@ -4,6 +4,7 @@ import SkeletonLoader from '../../Skeleton/Skeleton';
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import { useSearchParams, useRouter } from "next/navigation";
 const ProductForm = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -75,6 +76,28 @@ const ProductForm = () => {
       }
     };
     const [hubID, setHubid] = useState(null);
+
+    const searchParams = useSearchParams();
+
+    useEffect(() => {
+      const gclid = searchParams.get("gclid");
+      const utm_source = searchParams.get("utm_source");
+      const utm_medium = searchParams.get("utm_medium");
+      const utm_term = searchParams.get("utm_term");
+      const matchtype = searchParams.get("matchtype");
+      const utm_campaign = searchParams.get("utm_campaign");
+      const utm_content = searchParams.get("utm_content");
+      const msclkid = searchParams.get("msclkid");
+  
+      console.log("gclid", gclid);
+      console.log("utm_source", utm_source);
+      console.log("utm_medium", utm_medium);
+      console.log("utm_content", utm_content);
+      console.log("utm_term", utm_term);
+      console.log("matchtype", matchtype);
+      console.log("msclkid", msclkid);
+      console.log("utm_campaign", utm_campaign);
+    }, []);
   
     const handleBlur = async () => {
       const payload = {
@@ -85,7 +108,9 @@ const ProductForm = () => {
         email: business.data,
         state: state.data,
         country: country.data,
-        company_size: employe.data
+        company_size: employe.data,
+        gclid:gclid,
+        msclkid:msclkid
       }
       console.log("pay", payload);
       if (hubID) {

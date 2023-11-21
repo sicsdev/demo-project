@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams, useRouter } from "next/navigation";
+
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { createContactInFreshsales, updateContactInHubspot } from '@/app/API/components/Demo';
@@ -114,6 +116,19 @@ const Contact = () => {
     "earthlink.net",
   ];
 
+
+  const searchParams = useSearchParams();
+
+
+    const gclid = searchParams.get("gclid");
+
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+
+    console.log("msclkid", msclkid);
+
+
   const handleBlur = async () => {
     const payload = {
       firstname: fullname.data?.split(" ")[0] || null,
@@ -123,7 +138,9 @@ const Contact = () => {
       email: business.data,
       state: state.data,
       country: country.data,
-      company_size:employe.data
+      company_size:employe.data,
+      gclid:gclid,
+      msclkid:msclkid
     }
     console.log("pay", payload);
     if (hubID) {

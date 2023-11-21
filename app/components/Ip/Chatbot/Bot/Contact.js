@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams, useRouter } from "next/navigation";
+
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import validator from "validator";
@@ -78,6 +80,19 @@ const Contact = () => {
       setPhone({ data: e.target.value })
     }
   };
+
+  const searchParams = useSearchParams();
+
+
+    const gclid = searchParams.get("gclid");
+
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+
+    console.log("msclkid", msclkid);
+
+
   const [hubID, setHubid] = useState(null);
 
   const handleBlur = async () => {
@@ -89,7 +104,9 @@ const Contact = () => {
       email: business.data,
       state: state.data,
       country: country.data,
-      company_size: employe.data
+      company_size: employe.data,
+      gclid:gclid,
+      msclkid:msclkid
     }
     console.log("pay", payload);
     if (hubID) {
