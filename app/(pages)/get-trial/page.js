@@ -132,17 +132,17 @@ const Trial = () => {
     if (response?.token) {
       Cookies.set("Token", response.token);
 
-      // Set demo knowledge. (basic knowledge about the customer)
-      let payloadForDemoKnowledge = {
-        main_webpage: addHttpsToUrl(formData.url),
-        faqs_webpage: addHttpsToUrl(formData.faq_url)
-      }
-      await setDemoKnowledge(payloadForDemoKnowledge, response.token)
-
       const bot = await createCheckoutBot(payload2, response.token);
       if (bot.status === 200 || bot.status === 201) {
+
+        // Set demo knowledge. (basic knowledge about the customer)
+        let payloadForDemoKnowledge = {
+          main_webpage: addHttpsToUrl(formData.url),
+          faqs_webpage: addHttpsToUrl(formData.faq_url)
+        }
+        await setDemoKnowledge(payloadForDemoKnowledge, response.token)
+
         dispatch(editBillingType("demo"));
-        // await createBotKnowledge(bot.data.id, { urls: formData.urls });
         router.push("/dashboard");
         setLoading(false);
       } else {

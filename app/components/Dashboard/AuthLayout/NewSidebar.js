@@ -75,7 +75,7 @@ const NewSidebar = ({ children }) => {
         getLearningCenterCount()
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 2500);
+        }, 300);
     }, []);
 
     useEffect(() => {

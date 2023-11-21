@@ -9,7 +9,7 @@ const MetaDataInfo = () => {
                 <div>
                     <h1 className="text-lg font-semibold mb-4">How to Pass Data to the Widget</h1>
                     <p className="text-gray-600">
-                        To pass data to the widget via your app or browser, ensure to store the user's account information (email and name) in the 'tempoWidgetTemporalData' variable. This variable should be saved in sessionStorage, localStorage, or Cookies, matching the user session's duration. This allows the widget to keep the information synchronized with the user's active session.
+                        To pass data to the widget via your app or browser, ensure to store the user's account information (email and name) in the 'deflectionWidgetTemporalData' variable. This variable should be saved in sessionStorage, localStorage, or Cookies, matching the user session's duration. This allows the widget to keep the information synchronized with the user's active session.
                         <br />
                         <br></br>
                         To ensure that the widget has access to your user's information, follow these steps:
@@ -55,7 +55,7 @@ const MetaDataInfo = () => {
                         Finally, store the data in the browser's so that the widget can access it.
                     </p>
                     <div className="bg-[#efefef] rounded-md text-xs my-2 p-2" style={{ fontFamily: 'monospace' }}>
-                        {`window.sessionStorage.setItem('tempoWidgetTemporalData', formatedObject);`}<span className='opacity-50'></span>
+                        {`window.sessionStorage.setItem('deflectionWidgetTemporalData', formatedObject);`}<span className='opacity-50'></span>
                     </div>
 
 

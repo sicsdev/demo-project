@@ -63,7 +63,7 @@ const page = () => {
             setTimeout(() => {
                 setPageLoading(false);
                 setPageSubLoading(false);
-            }, 2000);
+            }, 300);
         });
     };
 
@@ -86,7 +86,7 @@ const page = () => {
         setTimeout(() => {
             setPageLoading(false);
             setPageSubLoading(false);
-        }, 2000);
+        }, 300);
     };
 
     const selectBotHandler = (id) => {

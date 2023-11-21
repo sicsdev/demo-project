@@ -71,7 +71,7 @@ const page = () => {
             setTimeout(() => {
                 setPageLoading(false);
                 setSubLoading(false);
-            }, 2000);
+            }, 300);
         });
     };
 

@@ -14,7 +14,7 @@ const ServicePlatform = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -22,6 +22,7 @@ const ServicePlatform = () => {
     {
       id: "1",
       title: "Chat Automation",
+      scroll:"chat-automation",
       logo: <ChatBubbleLeftIcon className="h-[84px] w-10 text-gray-500" />,
       content_video: "/ChatAutomation.png",
       h3: "Enhance your service capabilities",
@@ -35,6 +36,7 @@ const ServicePlatform = () => {
       id: "2",
       title: "Phone Automation",
       logo: <EnvelopeIcon className="h-[84px] w-10 text-gray-500" />,
+      scroll:"phone-automation",
       content_video:
         "/solutions_/Phone/Instant%20voice%20responses.png",
       h3: "Revolutionize voice interactions",
@@ -47,6 +49,8 @@ const ServicePlatform = () => {
     {
       id: "3",
       title: "Learning Center",
+      scroll:"learning-center",
+
       logo: <AcademicCapIcon className="h-[84px] w-10 text-gray-500" />,
       content_video: "/LearningCenter.png",
       h3: "Automate with intelligence",
@@ -59,6 +63,9 @@ const ServicePlatform = () => {
     {
       id: "4",
       title: "Workflow Builder",
+
+      scroll:"workflow-builder",
+
       logo: <ShareIcon className="h-[84px] w-10 text-gray-500" />,
       content_video:
         "/solutions_/Workflow_Builder/Seamless%20Integration%20and%20Customization.png",
@@ -78,6 +85,7 @@ const ServicePlatform = () => {
           <div
             className={`${element.className} max-h-none lg:max-h-[596px] min-h-auto lg:min-h-[596px] mb-12 ml-[-16px] mr-[-16px] p-8 px-4 lg:mb-24 lg:pt-32 lg:pb-32 lg:pl-36 flex static top-0 bottom-0 left-0 right-0 overflow-hidden`}
             key={key}
+            id={element.scroll}
           >
             <div className="block bg-scroll lg:flex h-auto max-h-none lg:max-h-[376px] w-full">
               <div className="flex items-start sm:px-[50px] lg:px-0 justify-between flex-col lg:w-1/2 max-w-none w-full lg:max-w-[420px]">

@@ -76,7 +76,7 @@ export const EmbedCard = ({
   useEffect(() => {
       setTimeout(() => {
           setSkeltonLoading(false);
-      }, 2500);
+      }, 300);
   }, []);
 
 
