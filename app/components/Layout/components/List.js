@@ -24,7 +24,7 @@ const List = ({ nav_links, className, setShow }) => {
       slug: "#phone-automation",
     },
     {
-      name: "Learning Centre",
+      name: "Learning Center",
       para: "Automate with intelligence",
       bgColor: "#feecee",
       borderColor: "#f5455c",
