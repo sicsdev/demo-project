@@ -4,8 +4,7 @@ import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
-const Exceptions = ({defaultLoaderTime = 1000}) => {
-  const [pageLoader, setPageLoader] = useState(true);
+const Exceptions = () => {
   const reachData = [
     {
       reach: "99.999%",
@@ -28,10 +27,12 @@ const Exceptions = ({defaultLoaderTime = 1000}) => {
   ];
 
   useEffect(() => {
-    setTimeout(() => {
-      setPageLoader(false);
-    }, defaultLoaderTime);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => clearTimeout(timer);
   }, []);
+  const [loading, setLoading] = useState(true);
 
   return (
     <div className="bg-white special">
@@ -39,15 +40,25 @@ const Exceptions = ({defaultLoaderTime = 1000}) => {
         <div className="grid grid-cols-1 sm:grid-cols-1 sm:mt-12 gap-[30px]  ">
           <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-[214px]">
             <div className="">
-              <div className="block sticky top-[230px]">
-                {pageLoader ? (
-                  <SkeletonLoader height={60} />
-                ) : (
-                  <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center sm:text-justify text-2xl sm:text-[38px] font-bold sm:mb-0 sm:leading-[1.4em]">
-                    Platform for intelligent,{" "}<br />
-                    <span className="text-[#2563eb]">high-growth</span> companies{" "}
-                  </h1>
-                )}
+              <div className="hidden sm:block sticky top-[230px]">
+                <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3  text-2xl sm:text-[26px] sm:w-[331px] md:w-[468px] lg:w-[500px] xl:w-[100%] md:text-[38px] font-bold sm:mb-0 sm:leading-[1.4em]">
+                  {loading ? <SkeletonLoader count={2} height={35} width={"70%"} /> :
+                    <>
+                      Platform for intelligent,{" "}<br />
+                      <span className="text-[#2563eb]">high-growth</span> companies{" "}
+                    </>
+                  }
+                </h1>
+              </div>
+              <div className=" sm:hidden block">
+                <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
+                {loading ? <SkeletonLoader count={2} height={35} width={"100%"} /> :
+                <>
+                  Platform for intelligent,{" "}
+                  <span className="text-[#2563eb]">high-growth</span> companies{" "}
+                </>
+                }
+                </h1>
               </div>
             </div>
 
@@ -60,35 +71,32 @@ const Exceptions = ({defaultLoaderTime = 1000}) => {
                     } sm:px-[40px]  `}
                   key={key}
                 >
-                  {pageLoader ? (
+                  <div className="flex flex-row sm:gap-[2rem] gap-4">
+                    <p className="text-[#2563eb]   text-sm mt-8 sm:mt-3">
+                    {loading ? <SkeletonLoader count={1} height={20} width={20} /> :
                     <>
-                      <div className="flex flex-row sm:gap-[2rem] gap-4 mt-8 sm:mt-0">
-                        <SkeletonLoader height={20} width={50} />
-                        <SkeletonLoader height={30} width={150} />
-                      </div>
-                      <div className="sm:pl-[49px] pt-[10px] sm:pt-[20px]">
-                        <SkeletonLoader height={50} />
-                      </div>
-                    </>
-                  ) : (
+                      {" "}
+                      0{key + 1}{" "}
+                      </>
+                     }
+                    </p>
+                    <p className="text-[heading] text-sm mt-8 sm:mt-3 sm:text-[24px]">
+                    {loading ? <SkeletonLoader count={1} height={30} width={150} /> :
                     <>
-                      <div className="flex flex-row sm:gap-[2rem] gap-4">
-                        <p className="text-[#2563eb]   text-sm mt-8 sm:mt-3">
-                          {" "}
-                          0{key + 1}{" "}
-                        </p>
-                        <p className="text-[heading] text-sm mt-8 sm:mt-3 sm:text-[24px]">
-                          {ele.name}
-                        </p>
-                      </div>
-                      <div className="sm:pl-[49px] pt-[10px] sm:pt-[20px]">
-                        <p className="text-[#474F70] text-sm sm:text-[16px]  mt-8 sm:mb-0 mb-3 sm:mt-3 sm:leading-[1.8em]">
-                          {ele.para}
-                        </p>
-                      </div>
-                    </>
-                  )}
-
+                      {ele.name}
+                      </>
+                    }
+                    </p>
+                  </div>
+                  <div className="sm:pl-[49px] pt-[10px] sm:pt-[20px]">
+                    <p className="text-[#474F70] text-sm sm:text-[16px]  mt-8 sm:mb-0 mb-3 sm:mt-3 sm:leading-[1.8em]">
+                    {loading ? <SkeletonLoader count={3} height={20} width={"100%"} /> :
+                    <>
+                      {ele.para}
+                      </>
+                  }
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

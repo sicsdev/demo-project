@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 
-const WorkflowUsageCard = ({ log }) => {
+const WorkflowUsageCard = ({ log, currentExpanded }) => {
 
     const [logDetails, setLogDetails] = useState({})
 
@@ -27,24 +27,45 @@ const WorkflowUsageCard = ({ log }) => {
         (<>
             {log &&
 
-                <div className="bg-white shadow-md rounded px-5 pt-6 pb-8 mb-4 flex flex-col my-2">
+                <div className="rounded py-3 my-1 w-full">
 
-                    <div className="flex items-center justify-end">
+                    {/* <div className="flex items-center justify-end">
                         <ClockIcon className="w-4 h-4 mx-2 text-primary" />
                         <span className="text-xs text-black" style={{ opacity: '0.6' }}>
                             {formatDateTime(log.created)}
                         </span>
-                    </div>
+                    </div> */}
 
-                    <div className="mb-4">
-                        <h1 className="text-lg font-bold text-gray-700 flex items-center">
-                            {log.workflow.icon} {log.workflow.name}
+                    <div className="">
+                        <h1 className="text-md font-bold text-gray-700 flex items-center mb-2">
+                            {log.workflow.name}
                         </h1>
-                        <small className='text-black opacity-50'>{log.workflow?.automations[0]?.automation?.description}</small>
+                        <div className='md:flex'>
+                            <div className='flex items-center'>
+                                {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' ?
+                                    <>
+                                        <XCircleIcon className='w-4 h-4 text-danger'></XCircleIcon>
+                                        <span className='mx-2 text-danger'><b>{log.automation_usages[0].response_log.response_status}</b></span>
+                                    </>
+                                    :
+                                    <>
+                                        <CheckCircleIcon className='w-4 h-4 text-success '></CheckCircleIcon>
+                                        <span className='mx-2 text-success'><b>{log.automation_usages[0].response_log.response_status}</b></span>
+
+                                    </>
+                                }
+                            </div>
+
+                            {/* <small className='text-black opacity-50'>{log.workflow?.automations[0]?.automation?.description}</small> */}
+                            <ClockIcon className="w-4 h-4 mx-2 opacity-60 hidden md:block" />
+                            <span className="text-xs text-black" style={{ opacity: '0.6' }}>
+                                {formatDateTime(log.created)}
+                            </span>
+                        </div>
                     </div>
 
-                    {log.automation_usages.length > 0 &&
-                        (<>
+                    {log.automation_usages.length > 0 && currentExpanded == log.id &&
+                        (<div className='py-3'>
                             <small className="">
                                 <small className='flex items-center text-primary'>
                                     <LinkIcon className='w-4 h-4 mx-1'></LinkIcon><b>Request URL:</b>
@@ -57,18 +78,6 @@ const WorkflowUsageCard = ({ log }) => {
                                     <ArrowRightCircleIcon className='w-4 h-4 mx-1'></ArrowRightCircleIcon><b>Method:</b>
                                 </small>
                                 <span className='mx-2'>{log.automation_usages[0].response_log.request_method}</span>
-                            </small>
-
-                            <small className="mt-2">
-                                <small className='flex items-center  text-primary'>
-                                    {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' ?
-                                        <XCircleIcon className='w-4 h-4 mx-1 text-danger'></XCircleIcon>
-                                        :
-                                        <CheckCircleIcon className='w-4 h-4 mx-1'></CheckCircleIcon>
-                                    }
-                                    <b> Status:</b>
-                                </small>
-                                <span className='mx-2'>{log.automation_usages[0].response_log.response_status}</span>
                             </small>
 
                             <small className="mt-2">
@@ -87,7 +96,7 @@ const WorkflowUsageCard = ({ log }) => {
                                 <span className='mx-2'> {log.automation_usages[0].response_log.response_text}</span>
                             </small>
 
-                        </>
+                        </div>
                         )
                     }
 

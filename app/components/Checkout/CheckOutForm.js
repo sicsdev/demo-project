@@ -15,6 +15,7 @@ import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
+import { setDemoKnowledge } from "@/app/API/pages/get-trial";
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
@@ -46,8 +47,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
       const { client_secret: clientSecret } = await createPaymentIntent({ amount: "500" })
 
-
-      console.log(clientSecret)
       const confirmStatus = await stripe.confirmPayment({
         elements,
         clientSecret,
@@ -86,12 +85,12 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
 
-      console.log('confirmStatus', confirmStatus)
       if (result.token) {
         let bodyForSubscribe = {
           token: confirmStatus.paymentIntent.payment_method,
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
+
         if (response) {
           // localStorage.setItem("Token", result.token);
           Cookies.set("Token", result.token)
@@ -108,6 +107,13 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
           }
           const bot = await createCheckoutBot(payload, result.token);
           if (bot.status === 200 || bot.status === 201) {
+
+            // Set demo knowledge. (basic knowledge about the customer)
+            let domainFromEmail = checkoutForm.email.split('@')[1];
+            let urlFromEmail = "https://" + domainFromEmail;
+            let payloadForDemoKnowledge = { main_webpage: urlFromEmail, }
+            await setDemoKnowledge(payloadForDemoKnowledge, result.token)
+
             router.push("/dashboard");
           } else {
             setLoading(false);
@@ -159,7 +165,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         </div> */}
 
         {loading && <p className="message">Processing Payment...</p>}
-        <Button type={"submit"} className="flex w-full mx-auto mt-4 justify-center px-4 py-2 text-white hover:border hover:bg-white hover:text-black bg-primary border border-gray-300 rounded-md shadow-sm checkout"
+        <Button type={"submit"} className="my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
           disabled={loading || !stripe || !elements || !validateEmail(checkoutForm?.email)}
         >
           Start Now

@@ -41,7 +41,6 @@ import Exceptions from "../components/LayoutNew/Exceptions";
 import HeadText from "../components/HeadText/HeadText";
 import Help from "../components/Help/Help";
 
-
 export default function Home() {
   const reachData = [
     {
@@ -81,6 +80,7 @@ export default function Home() {
 
         {/* <HomeContent handleClickScroll={handleClickScroll}/> */}
         <Panelcardnew />
+       
         <Exceptions />
         {/* <Reach handleClickScroll={handleClickScroll} data={reachData} /> */}
         {/* <Help /> */}
@@ -88,6 +88,7 @@ export default function Home() {
         <Homeintegration handleClickScroll={handleClickScroll} />
 
         <AutoTabsComp handleClickScroll={handleClickScroll} />
+
         {/* <Middlebar />
         <Homeform reff={ref} /> */}
         {/* <HomeComponent /> */}

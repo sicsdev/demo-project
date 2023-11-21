@@ -8,6 +8,7 @@ import Script from "next/script";
 import Swal from "sweetalert2";
 // import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import Head from "next/head";
 
 
 const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider'), {
@@ -16,12 +17,23 @@ const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider')
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
-  title:
-    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI.ai",
-  description:
-    "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+  other: {
+    pinterest: "nopin",
+    appleMobileWebAppTitle: "Deflection AI",
+    appleMobileWebAppStatusBarStyle: "black",
+    appleMobileWebAppCapable: "yes",
+    appleTouchFullscreen: "yes",
+    appleTouchIcon: "https://deflection.ai/logo-simple-negative.png",
+    ogImage: "https://deflection.ai/logo-simple-negative.png",
+    ogUrl: "https://deflection.ai/",
+  },
+  title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
+  description: "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
-    icon: "favicon.ico",
+    icon: "https://deflection.ai/icon-simple.ico",
+  },
+  openGraph: {
+    images: 'https://www.deflection.ai/logo-basic-negative.png',
   },
 };
 
@@ -31,8 +43,8 @@ export default function RootLayout({ children }) {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Deflection AI Ventures",
-    image: "https://usetempo.ai/logo.png",
-    url: "https://usetempo.ai/",
+    image: "https://deflection.ai/logo.png",
+    url: "https://deflection.ai/",
     telephone: "8553083676",
     address: {
       "@type": "PostalAddress",
@@ -131,7 +143,21 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en" className="scroll-smooth ">
+      <Head>
+        <meta name="apple-mobile-web-app-title" content="Deflection AI" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-touch-fullscreen" content="yes" />
+        <meta name="apple-touch-icon" content="https://deflection.ai/logo-simple-negative.png" />
+
+        <meta property="og:title" content="Deflection AI" />
+        <meta property="og:description" content="Intelligent Automation for Exceptional Customer Service" />
+        <meta property="og:image" content="https://deflection.ai/logo-simple-negative.png" />
+        <meta property="og:url" content="https://deflection.ai/" />
+      </Head>
       <head>
+
+
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -148,7 +174,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
         />
-       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <link rel="icon" href="https://deflection.ai/logo-simple-negative.png" />
+
+
 
         {/* <link
           rel="stylesheet"
@@ -274,6 +303,7 @@ _learnq.push(['account', 'UVQx8p']);
           async
         />
       </body>
+      <Script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" />
     </html>
   );
 }

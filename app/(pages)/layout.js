@@ -6,6 +6,8 @@ import Nav from "../components/Layout/Nav";
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import UpdatedFooter from "../components/Layout/UpdatedFooter";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 
 export default function PageLayout({ children }) {
@@ -47,7 +49,7 @@ export default function PageLayout({ children }) {
   }
   console.log("pathname", pathname)
 
-  const hideComponent = pathname === "/checkout" || pathname === "/lp/chat-bot" || pathname === "/lp/contact-center" ||  pathname === "/login" || pathname == "/forgot-password";
+  const hideComponent = pathname === "/checkout" || pathname === "/get-trial"|| pathname === "/lp/chat-bot" || pathname === "/lp/contact-center" ||  pathname === "/login" || pathname == "/forgot-password";
   
   return (
     <div className="scroll-smooth lg:max-w-full m-auto App w-full h-full">

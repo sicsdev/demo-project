@@ -108,7 +108,7 @@ const SidebarCards = ({ addConditionalStepHandler, inputRef, state, setAutomatio
 
     const addStepHandler = async (ele) => {
         console.log(ele, "ele")
-        debugger
+         
         const get_ids = automationStepsData.map((element) => {
             let payload_automation = {}
             if (element?.automation) {

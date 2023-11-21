@@ -51,7 +51,7 @@ const page = () => {
                 agent_email_value: bot_res?.email ? true : false,
                 email_prefix: bot_res.email.split('@')[0]
             }
-            debugger
+             
             let data = res[0].data;
             setBasicFormData((prev) => {
                 return {
@@ -63,7 +63,7 @@ const page = () => {
             setTimeout(() => {
                 setPageLoading(false);
                 setPageSubLoading(false);
-            }, 2000);
+            }, 300);
         });
     };
 
@@ -86,7 +86,7 @@ const page = () => {
         setTimeout(() => {
             setPageLoading(false);
             setPageSubLoading(false);
-        }, 2000);
+        }, 300);
     };
 
     const selectBotHandler = (id) => {

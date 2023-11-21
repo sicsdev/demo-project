@@ -6,7 +6,7 @@ const Newfaq = () => {
       question: "How does the free trial work?",
       answer: (
         <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color mt-4">
-          When you sign up for Tempo, you will have complete access to the Tempo
+          When you sign up for Deflection AI, you will have complete access to the Deflection AI
           suite of products. $200 in free credits are granted at sign up, and
           only after you exceed those will you be charged. There is no
           obligation, monthly fee, or any kind of recurring subscription.
@@ -35,16 +35,16 @@ const Newfaq = () => {
       answer: (
         <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color mt-4">
           For large clients, we're able to customize pricing and feature set to
-          your use case. Please reach out to enterprise@usetempo.ai to connect
+          your use case. Please reach out to enterprise@deflection.ai to connect
           with our enterprise sales team.
         </p>
       ),
     },
     {
-      question: "How does Tempo's pricing work?",
+      question: "How does Deflection AI's pricing work?",
       answer: (
         <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color mt-4">
-          Tempo's pricing is based on resolutions, not on a per-user basis. We
+          Deflection AI's pricing is based on resolutions, not on a per-user basis. We
           offer a Starter Plan as well as custom pricing for enterprise-level
           needs.
         </p>
@@ -57,7 +57,7 @@ const Newfaq = () => {
         <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color mt-4">
           The billing threshold is the set amount at which your payment method
           will be automatically charged. This threshold is adjustable within
-          your Tempo portal.
+          your Deflection AI portal.
         </p>
       ),
     },
@@ -66,7 +66,7 @@ const Newfaq = () => {
       answer: (
         <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color mt-4">
           Your total usage is calculated based on resolutions made through
-          Tempo. The total may include usage covered by free trials or other
+          Deflection AI. The total may include usage covered by free trials or other
           credits, affecting your monthly bill.
         </p>
       ),
@@ -101,7 +101,7 @@ const Newfaq = () => {
     },
   ];
   return (
-    <div className="bg-white pt-5 px-5 sm:px-0 sm:pt-8 sm:ml-[40px] sm:pb-4 py-0 sm:py-8 ">
+    <div className="bg-white pt-5 px-5 sm:px-[200px] sm:pt-8 sm:ml-[40px] sm:pb-4 py-0 sm:py-8 ">
       <h2 class="block !font-[700] text-2xl md:text-[38px]   text-left my-[1rem] md:my-8 relative text-heading md:leading-[3rem]">
         Frequently Asked Questions{" "}
       </h2>

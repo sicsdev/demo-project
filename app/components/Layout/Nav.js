@@ -12,6 +12,7 @@ import Banner from "./Banner";
 import { getUserProfile } from "@/app/API/components/Sidebar";
 import VerifyEmailBanner from "./VerifyEmailBanner";
 import { usePathname } from "next/navigation";
+import DemoAccountsBanner from "./DemoAccountsBanner";
 
 const Nav = () => {
   const pathname = usePathname();
@@ -26,7 +27,6 @@ const Nav = () => {
         console.log(res);
       })
       .catch((err) => {
-        console.log(err);
       });
   }, []);
 
@@ -62,6 +62,8 @@ const Nav = () => {
           }`}
       >
         {!profile.email && <Banner />}
+        {profile?.enterprise?.billing_type == "demo" && <DemoAccountsBanner></DemoAccountsBanner>}
+
         {/* {profile.email && !profile.verified && <VerifyEmailBanner userEmail={profile.email} />} */}
         <div className="flex-wrap flex md:flex sm:flex lg:flex  items-center  h-[57px]">
           <div className="relative flex flex-row items-center w-full px-6 sm:px-12 md:px-12 lg:px-12 h-[57px]">
@@ -79,11 +81,11 @@ const Nav = () => {
 
 
 
-              <ul className="hidden  sm:hidden md:hidden lg:flex relative text-black gap-8 flex-row">
+              <ul className="hidden  sm:hidden md:hidden lg:flex static text-black gap-8 flex-row ">
                 {nav_links.map((element, key) => (
                   <li
                     key={key}
-                    className="menus_desk py-[15px] h-[60px] sm:h-[55px] group relative cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
+                    className="menus_desk static py-[15px] h-[60px] sm:h-[55px] group  cursor-pointer hover:border hover:border-b-white hover:border-r-0 hover:border-l-0 hover:border-t-0 "
                     onMouseEnter={(e) => {
                       setShowmenu(false);
                     }}
@@ -94,13 +96,16 @@ const Nav = () => {
                     >
                       {element.name}
                     </a>
+
                     {element.card.links.length > 0 && (
+                      
                       <Card
-                        className={`animate-fadeIn w-[500px] hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                        className={`h-[590px] overflow-y-scroll left-0 w-[100%] !pt-[74px] !pl-[110px] animate-fadeIn  hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
                           }`}
                       >
+
                         <List
-                          className={"grid grid-cols-1 sm:grid-cols-2 gap-8"}
+                          className={"grid grid-cols-1 sm:grid-cols-[30%,60%,2%] gap-8"}
                           nav_links={element.card.links}
                           setShow={setShowmenu}
                         />
@@ -132,7 +137,7 @@ const Nav = () => {
                   {" "}
                   <button
                     type="button"
-                    className="inline-block   px-6 pb-2 pt-2.5 text-xs rounded-lg font-medium uppercase leading-normal bg-[#fe9327] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]  active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+                    className="inline-block rounded-sm  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
                   >
                     Dashboard
                   </button>{" "}
@@ -142,7 +147,7 @@ const Nav = () => {
                   {" "}
                   <button
                     type="button"
-                    className="inline-block   px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
+                    className="inline-block  rounded-sm  px-6 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[#F5455C] hover:bg-black text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] "
                   >
                     Get Started
                   </button>{" "}

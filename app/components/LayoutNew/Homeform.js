@@ -9,7 +9,7 @@ export const Homeform = ({ reff }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 300);
   }, []);
   const [fullname, setFullName] = useState({ data: "", error: false })
   const [business, setBusinnes] = useState({ data: "", error: false })

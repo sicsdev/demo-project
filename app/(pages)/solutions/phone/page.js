@@ -13,7 +13,6 @@ import React, { useRef } from "react";
 const page = () => {
   const ref = useRef(null);
   const handleClickScroll = () => {
-    console.log("clicked");
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
   return (
@@ -28,7 +27,7 @@ const page = () => {
       <ProductSection7 />
       <Panelcardnew />
       <Middlebar />
-      <ProductForm reference={ref} />
+      {/* <ProductForm reference={ref} /> */}
       <HomeComponent />
     </div>
   );

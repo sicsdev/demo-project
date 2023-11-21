@@ -127,7 +127,6 @@ const Source = () => {
         <>
             <TopBar title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
 
-
             <>
                 {basicFormData?.data && (
                     <>
