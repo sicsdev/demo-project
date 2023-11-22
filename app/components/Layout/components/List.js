@@ -128,10 +128,8 @@ const List = ({ nav_links, className, setShow }) => {
                   <li
                     className="cursor-pointer"
                     key={key}
-                    onClick={(e) => {
-                      setShow(false);
-                      console.log("ele");
-                    }}
+                    onClick={(e) =>
+                      setShow(true)}
                   >
                     <Link href={element.link}>
                       <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
