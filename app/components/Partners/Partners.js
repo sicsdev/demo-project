@@ -14,7 +14,7 @@ const Partners = () => {
                             Our partner program offers two options: Agency and Reseller. Grow your customer base, build new revenue streams, and increase profits in the model you choose.
                         </div>
                         <div className='py-2'>
-                            <button type={'button'} className={'bg-red text-white sm:w-auto w-[100%] mt-6 sm:mt-0 sm:text-lg text-base px-6 font-semibold h-10 m-auto rounded-3xl'}>Become a partner</button>
+                            <button type={'button'} className={'bg-red text-white sm:w-auto w-[100%] mt-6 sm:mt-4 sm:text-lg text-base px-6 font-semibold h-10 m-auto rounded-3xl'}>Become a partner</button>
                         </div>
                     </div>
                     <div>
