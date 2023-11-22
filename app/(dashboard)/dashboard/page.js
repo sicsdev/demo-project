@@ -29,7 +29,7 @@ const Page = () => {
 
     useEffect(() => {
         
-        if (knowledgeScrapperState.state?.loader?.toFixed() == 100) {
+        if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
             dispatch(updateScrapperKnowledgeState(null));
             setLoadingScrapper(false)
         }
