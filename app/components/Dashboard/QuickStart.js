@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, ShoppingCartIcon, SignalIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import SkeletonLoader from '../Skeleton/Skeleton';
 import Card from '../Common/Card/Card';
 import { useDispatch } from 'react-redux';
-
 import { ArrowSmallLeftIcon, ChartBarIcon, ChevronDoubleDownIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/outline";
 import {
     ArrowDownOnSquareIcon,
@@ -43,9 +42,11 @@ import MetaDataInfo from './MetaDataInfo';
 import Method from '../NewPaymentMethod/Method';
 import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
+import { useRouter } from 'next/navigation';
 
 const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
+    const router = useRouter();
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
@@ -54,6 +55,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
     const progressScrappingKnowledge = useSelector((state) => state.knowledgeScrapper.loader);
+    const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
 
 
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
@@ -286,6 +288,25 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             {integrations && workflow && (
                 <>
 
+                    {
+                        billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
+                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
+                                <div className='w-full mx-5'>
+                                    <span className="text-center text-sm flex justify-center">
+                                        <div>
+                                            Your automatic data retrieval attempt failed. Please set up manually at
+                                            <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
+                                                Learning Center
+                                            </span>
+                                        </div>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
                     {loadingScrapper &&
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
@@ -299,6 +320,8 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                             </div>
                         </div>
                     }
+
+
 
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
 

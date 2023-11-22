@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 const Page = () => {
 
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
-
+    const userData = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
     const [loadingScrapper, setLoadingScrapper] = useState(false)
@@ -22,20 +22,22 @@ const Page = () => {
 
     useEffect(() => {
         if (knowledgeScrapperState && knowledgeScrapperState.data && knowledgeScrapperState.loader == 0) {
-            console.log('Estado knowledgeScrapper actual:', knowledgeScrapperState);
             setKnowledgeFirstData(knowledgeScrapperState.data.main_webpage, knowledgeScrapperState.data.faqs_webpage)
-            console.log('started')
-
         }
     }, [])
 
 
     useEffect(() => {
+        
         if (knowledgeScrapperState.state?.loader?.toFixed() == 100) {
             dispatch(updateScrapperKnowledgeState(null));
             setLoadingScrapper(false)
-            console.log('finished')
         }
+
+        if (userData?.data?.enterprise?.information_filled) {
+            setLoadingScrapper(false)
+        }
+
     }, [])
 
 
