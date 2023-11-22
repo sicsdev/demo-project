@@ -18,6 +18,7 @@ import Cookies from "js-cookie";
 import { setDemoKnowledge } from "@/app/API/pages/get-trial";
 import { updateScrapperKnowledgeState } from "../store/slices/scrapperKnowledgeSlice";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId }) => {
@@ -33,6 +34,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
   const paymentElementOptions = {
     layout: "tabs"
   }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,9 +69,15 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         return
       }
 
+      let randomUUIDpassword = uuidv4()
+
+      let formatedPhone = '+1' + checkoutForm.phone
+      
       let checkoutForm2 = {
         ...checkoutForm,
-        password_confirm: checkoutForm.password,
+        phone: formatedPhone,
+        password: randomUUIDpassword,
+        password_confirm: randomUUIDpassword,
         enterprise: {
           name: checkoutForm.business_name,
           industry: checkoutForm.business_industry,
@@ -84,7 +92,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
       let googleAuthInfoPayload = {
         ...googleAuthInfo,
         name: checkoutForm.name,
-        phone: checkoutForm.phone,
+        phone: '1' + checkoutForm.phone,
       }
 
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
@@ -143,6 +151,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
   }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
