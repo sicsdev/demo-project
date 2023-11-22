@@ -52,12 +52,12 @@ const Exceptions = () => {
               </div>
               <div className=" sm:hidden block">
                 <h1 className="mb-5 sm:mt-0 mt-5 text-black px-3 text-center text-2xl sm:text-[38px] font-bold sm:mb-0">
-                {loading ? <SkeletonLoader count={2} height={35} width={"100%"} /> :
-                <>
-                  Platform for intelligent,{" "}
-                  <span className="text-[#2563eb]">high-growth</span> companies{" "}
-                </>
-                }
+                  {loading ? <SkeletonLoader count={2} height={35} width={"100%"} /> :
+                    <>
+                      Platform for intelligent,{" "}
+                      <span className="text-[#2563eb]">high-growth</span> companies{" "}
+                    </>
+                  }
                 </h1>
               </div>
             </div>
@@ -73,28 +73,28 @@ const Exceptions = () => {
                 >
                   <div className="flex flex-row sm:gap-[2rem] gap-4">
                     <p className="text-[#2563eb]   text-sm mt-8 sm:mt-3">
-                    {loading ? <SkeletonLoader count={1} height={20} width={20} /> :
-                    <>
-                      {" "}
-                      0{key + 1}{" "}
-                      </>
-                     }
+                      {loading ? <SkeletonLoader count={1} height={20} width={20} /> :
+                        <>
+                          {" "}
+                          0{key + 1}{" "}
+                        </>
+                      }
                     </p>
                     <p className="text-[heading] text-sm mt-8 sm:mt-3 sm:text-[24px]">
-                    {loading ? <SkeletonLoader count={1} height={30} width={150} /> :
-                    <>
-                      {ele.name}
-                      </>
-                    }
+                      {loading ? <SkeletonLoader count={1} height={30} width={150} /> :
+                        <>
+                          {ele.name}
+                        </>
+                      }
                     </p>
                   </div>
                   <div className="sm:pl-[49px] pt-[10px] sm:pt-[20px]">
                     <p className="text-[#474F70] text-sm sm:text-[16px]  mt-8 sm:mb-0 mb-3 sm:mt-3 sm:leading-[1.8em]">
-                    {loading ? <SkeletonLoader count={3} height={20} width={"100%"} /> :
-                    <>
-                      {ele.para}
-                      </>
-                  }
+                      {loading ? <SkeletonLoader count={3} height={20} width={"100%"} /> :
+                        <>
+                          {ele.para}
+                        </>
+                      }
                     </p>
                   </div>
                 </div>
