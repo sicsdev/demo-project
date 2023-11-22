@@ -10,6 +10,9 @@ import workflowSlice from './slices/workflowSlice';
 import logSlice from './slices/logSlice';
 import integrationTemplateReducer from './slices/integrationTemplatesSlice';
 import billingTypeReducer from './slices/billingTypeSlice';
+import { scrapperKnowledgeSlice } from './slices/scrapperKnowledgeSlice';
+
+
 const store = configureStore({
     reducer: {
         version: versionReducer,
@@ -22,7 +25,8 @@ const store = configureStore({
         workflow: workflowSlice,
         integrationTemplate: integrationTemplateReducer,
         logs: logSlice,
-        billing: billingTypeReducer
+        billing: billingTypeReducer,
+        knowledgeScrapper: scrapperKnowledgeSlice.reducer
     },
 });
 

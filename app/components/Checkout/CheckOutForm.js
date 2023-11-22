@@ -16,6 +16,8 @@ import { createNewGoogleUser } from "@/app/API/pages/Login";
 import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
 import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { updateScrapperKnowledgeState } from "../store/slices/scrapperKnowledgeSlice";
+import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -23,6 +25,8 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
   const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
+  const dispatch = useDispatch()
+  
   const [message, setMessage] = useState(null)
 
   const [errors, setError] = useState([]);
@@ -120,7 +124,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             let domainFromEmail = checkoutForm.email.split('@')[1];
             let urlFromEmail = "https://" + domainFromEmail;
             let payloadForDemoKnowledge = { main_webpage: urlFromEmail, }
-            await setDemoKnowledge(payloadForDemoKnowledge, result.token)
+            dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
 
             router.push("/dashboard");
           } else {
