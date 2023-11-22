@@ -44,10 +44,16 @@ const AboveSection = () => {
     if (validator.isEmail(email)) {
       let Freshsalespayload = {
         email: email,
+        lifecyclestage: "subscriber",
+        is_demo: "true",
+        demo_status: "pending",
+        gclid:gclid,
+        msclkid:msclkid
       };
       createContactInFreshsales(Freshsalespayload);
       hj("identify", userId, {
         Email: email,
+     
       });
       let payload = {
         event: "Blur-Email",

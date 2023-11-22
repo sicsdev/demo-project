@@ -88,7 +88,13 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
 
   const handleBlur = async (e) => {
     if (validator.isEmail(userProfile.email ?? '')) {
-      let payload = { email: userProfile.email }
+      let payload = {
+        email: userProfile.email, lifecyclestage: "subscriber",
+        is_demo: "true",
+        demo_status: "pending",
+        gclid: gclid,
+        msclkid: msclkid
+      }
       if (formValues.business_name) payload.company = formValues.business_name
       if (formValues.business_street) payload.address = formValues.business_street
       if (formValues.business_city) payload.city = formValues.business_city
@@ -246,7 +252,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               id={"business_unit_no"}
               error={returnErrorMessage("business_unit_no")}
               onBlur={handleBlur}
-            />    
+            />
           </div>
 
           <div className="block sm:flex items-center justify-start gap-4 w-full my-2">
@@ -259,7 +265,7 @@ export default function BasicDetails({ basicFormData, setBasicFormData }) {
               name="business_company_size"
               values={business_company_size_data}
               title={""}
-              id={"business_company_size"}    
+              id={"business_company_size"}
               className="py-3"
               error={returnErrorMessage("business_company_size")}
             />

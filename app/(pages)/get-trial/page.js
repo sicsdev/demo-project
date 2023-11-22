@@ -92,7 +92,7 @@ const Trial = () => {
         phone: formData.phone,
         company: formData.company_name,
         website: formData.url,
-        lifecyclestage: "demo",
+        lifecyclestage: "subscriber",
         is_demo: "true",
         demo_status: "pending",
         gclid:gclid,

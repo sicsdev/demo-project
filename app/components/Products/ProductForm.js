@@ -110,6 +110,9 @@ const ProductForm = ({ reference }) => {
       state: state.data,
       country: country.data,
       company_size: employe.data,
+      lifecyclestage: "subscriber",
+      is_demo: "true",
+      demo_status: "pending",
       gclid:gclid,
       msclkid:msclkid
     };

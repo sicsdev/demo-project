@@ -140,6 +140,10 @@ const Checkout = () => {
       if (last_name) payload.lastname = last_name;
       if(gclid)payload.gclid = gclid;
       if(msclkid)payload.msclkid = msclkid;
+      if(lifecyclestage)payload.lifecyclestage= "subscriber";
+      if(is_demo)payload.is_demo = "false";
+      if(demo_status)payload.demo_status = "pending";
+      
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {
