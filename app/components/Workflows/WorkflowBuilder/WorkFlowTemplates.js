@@ -208,6 +208,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         let maxValueUsed = data[0].successful_automation_usage_last_24_hours_count * 1;
         let maxValue = condition == 'used' ? maxValueUsed : maxValueTriggered
 
+        if (currentValue == 0) {return {color: 'gray'}}
         if (currentValue != null && maxValue > 0) {
             let percentage = (currentValue / maxValue) * 100;
             percentage = Math.min(percentage, 100);
