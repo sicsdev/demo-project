@@ -30,7 +30,7 @@ const page = () => {
       <Panelcardnew />
       <Middlebar />
       {/* <ProductForm reference={ref} /> */}
-      <Chatfeatures />
+      {/* <Chatfeatures /> */}
       <HomeComponent />
     </div>
   )

@@ -27,8 +27,8 @@ const page = () => {
       <Concierge />
       <ProductSection7 />
       <Panelcardnew />
-      <CommunicateScrollComp />
-      <Middlebar />
+      {/* <CommunicateScrollComp /> */}
+      {/* <Middlebar /> */}
       {/* <ProductForm reference={ref} /> */}
       <HomeComponent />
     </div>
