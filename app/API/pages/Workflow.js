@@ -196,3 +196,25 @@ export const getWorkflowUsageByWorkflowId = async (workflow_id, page = 1, perPag
         return error
     }
 }
+
+export const getAutomationTemplates = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-changer/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}
+
+
+
+export const getAutomationTemplateById = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-changer/${id}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}

@@ -164,7 +164,7 @@ const WorkflowUsageLogs = () => {
             reorder: true,
             cell: (row) => (
                 <div onClick={() => { expandRecord(row) }} className='w-full text-xl flex items-start justify-center'>
-                    <h1 className="border border-gray rounded-md p-1 shadow-md" style={{ alignItems: 'start' }}>
+                    <h1 className="border border-gray rounded-md p-1" style={{ alignItems: 'start' }}>
                         {row.workflow.icon}
                     </h1>
                 </div>
@@ -186,7 +186,7 @@ const WorkflowUsageLogs = () => {
             // width: "100%",
             reorder: true,
             cell: (row) => (
-                <div className='w-full' onClick={() => { expandRecord(row) }}>
+                <div className='w-ful' onClick={() => { expandRecord(row) }}>
                     <WorkflowUsageCard currentExpanded={currentExpanded} log={row}></WorkflowUsageCard>
                 </div>
             )
@@ -293,7 +293,7 @@ const WorkflowUsageLogs = () => {
                 <DataTable
                     title={''}
                     fixedHeader
-                    highlightOnHover
+                    // highlightOnHover
                     pointerOnHover
                     pagination
                     columns={tableColumns}
