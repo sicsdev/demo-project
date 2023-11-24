@@ -84,3 +84,13 @@ export const ManageExpand = async (body) => {
 };
 
 
+export const removeTrialFromSlack = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/integrations/slack/remove-trial/`, body, config);
+        console.log(response)
+        return response;
+    } catch (error) {
+        return error
+    }
+};
