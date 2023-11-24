@@ -106,7 +106,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
         // Create channel in Slack
         let payloadForSlack = {
           channel_name: checkoutForm2.enterprise.name,
-          members: [],
+          members: ["U05H5HSLS9X", "U05GSUCQ1PU"],
           account_type: "paid",
           external_emails: [checkoutForm2?.email]
         }

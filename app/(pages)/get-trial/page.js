@@ -96,8 +96,8 @@ const Trial = () => {
         lifecyclestage: "subscriber",
         is_demo: "true",
         demo_status: "pending",
-        gclid:gclid,
-        msclkid:msclkid
+        gclid: gclid,
+        msclkid: msclkid
       },
     };
 
@@ -150,7 +150,7 @@ const Trial = () => {
       //Payload for create slack channel
       let payloadForSlack = {
         channel_name: formData.company_name,
-        members: [],
+        members: ["U05H5HSLS9X", "U05GSUCQ1PU"],
         account_type: "trial",
         external_emails: [formData?.email]
       }
