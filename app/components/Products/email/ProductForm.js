@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import SkeletonLoader from '../../Skeleton/Skeleton';
 import Cookies from 'js-cookie';
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from 'next/link';
 const ProductForm = () => {
     const [loading, setLoading] = useState(true);
@@ -75,6 +76,17 @@ const ProductForm = () => {
       }
     };
     const [hubID, setHubid] = useState(null);
+
+    const searchParams = useSearchParams();
+
+    const gclid = searchParams.get("gclid");
+
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+
+    console.log("msclkid", msclkid);
+
   
     const handleBlur = async () => {
       const payload = {
@@ -85,7 +97,12 @@ const ProductForm = () => {
         email: business.data,
         state: state.data,
         country: country.data,
-        company_size: employe.data
+        company_size: employe.data,
+        lifecyclestage: "subscriber",
+        is_demo: "true",
+        demo_status: "pending",
+        gclid:gclid,
+        msclkid:msclkid
       }
       console.log("pay", payload);
       if (hubID) {
