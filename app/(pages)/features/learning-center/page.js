@@ -26,7 +26,7 @@ const page = () => {
         <ProductSection2 handleClickScroll={handleClickScroll} />
       </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
-      <SliderNew />
+      {/* <SliderNew /> */}
       <Concierge />
       <ProductSection7 />
       <Panelcardnew />

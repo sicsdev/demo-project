@@ -13,9 +13,9 @@ import DataTable from 'react-data-table-component'
 const WorkflowUsageLogs = () => {
 
     const [allLogs, setAllLogs] = useState([])
-    const [skeletonloading, setSkeletonLoading] = useState(true);
+    // const [skeletonloading, setSkeletonLoading] = useState(true);
     const [workflowsNames, setWorkflowsNames] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [currentExpanded, setCurrentExpanded] = useState('')
 
     // Pagination states
@@ -64,7 +64,7 @@ const WorkflowUsageLogs = () => {
         setAllLogs(logs.results)
         setTotalPages(logs.num_pages);
         setTotalRecordsNumber(logs.count);
-        setSkeletonLoading(false)
+        setLoading(false)
     }
 
     const expandRecord = (row) => {
@@ -79,12 +79,10 @@ const WorkflowUsageLogs = () => {
 
     // Pagination handlers.
     const changePage = (newPage,) => {
-        setSkeletonLoading(true);
         setCurrentPage(newPage);
     };
 
     const handlePerRowsChange = async (newPerPage, page) => {
-        setSkeletonLoading(true)
         setAllLogs([])
         setCurrentPage(page)
         setElementsPerPage(newPerPage)
@@ -289,34 +287,41 @@ const WorkflowUsageLogs = () => {
                 </div>
             </div>
 
-            <div className="table-container">
-                <DataTable
-                    title={''}
-                    fixedHeader
-                    // highlightOnHover
-                    pointerOnHover
-                    pagination
-                    columns={tableColumns}
-                    noDataComponent={<><p className="text-center text-xs p-3">No logs found.</p></>}
-                    data={allLogs}
-                    progressPending={loading}
-                    progressComponent={
-                        <div className="w-full mt-3 relative">
-                            <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
-                        </div>}
-                    paginationDefaultPage={currentPage}
-                    paginationPerPage={elementsPerPage}
-                    paginationTotalRows={totalRecordsNumber}
-                    paginationServer
-                    onChangeRowsPerPage={(perpage, page) => { handlePerRowsChange(perpage, page) }}
-                    onChangePage={(page) => { changePage(page) }}
-                    onRowClicked={(row) => { () => expandRecord(row) }}
-                    paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                    sortServer
-                    customStyles={customStyles}
-                    defaultSortAsc={false}
-                />
-            </div>
+            {loading ?
+                <div className="flex justify-center items-center mt-5">
+                    <SkeletonLoader count={5} height={80} width="80vw" className={"mt-1 mx-5"} />
+                </div>
+                :
+                <div className="table-container">
+                    <DataTable
+                        title={''}
+                        fixedHeader
+                        highlightOnHover
+                        pointerOnHover
+                        pagination
+                        columns={tableColumns}
+                        noDataComponent={<><p className="text-center text-xs p-3"></p></>}
+                        data={allLogs}
+                        progressPending={loading}
+                        progressComponent={
+                            <div className="w-full mt-3 relative">
+                                <SkeletonLoader count={11} height={30} width="100%" className={"mt-2"} />
+                            </div>}
+                        paginationDefaultPage={currentPage}
+                        paginationPerPage={elementsPerPage}
+                        paginationTotalRows={totalRecordsNumber}
+                        paginationServer
+                        onChangeRowsPerPage={(perpage, page) => { handlePerRowsChange(perpage, page) }}
+                        onChangePage={(page) => { changePage(page) }}
+                        onRowClicked={(row) => { () => expandRecord(row) }}
+                        paginationRowsPerPageOptions={[5, 10, 20, 30]}
+                        sortServer
+                        customStyles={customStyles}
+                        defaultSortAsc={false}
+                    />
+                </div>
+            }
+
 
             {/* // *********** MAIN DATA *********** */}
 
