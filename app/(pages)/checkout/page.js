@@ -105,13 +105,16 @@ const Checkout = () => {
     // return () => clearInterval(interval);
   }, []);
 
-  const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
+  const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1"}); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
   const [userformErrors, setUserformErrors] = useState([]);
-  console.log("checkoutForm", checkoutForm)
+
   const handleFormValues = (e) => {
+
+    let value = e.target.value
+
     setCheckoutForm({
       ...checkoutForm,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
 
@@ -119,7 +122,7 @@ const Checkout = () => {
     theme: 'stripe',
     variables: {
       fontSizeBase: '16px',
-      colorPrimary: '#55555',    colorText: '#555555',
+      colorPrimary: '#55555', colorText: '#555555',
 
 
     }
@@ -135,7 +138,7 @@ const Checkout = () => {
       let last_name = checkoutForm.name?.split(" ")[1] || null;
 
       let payload = { email: checkoutForm.email };
-      if (checkoutForm.phone) payload.phone = checkoutForm.phone;
+      if (checkoutForm.phone) payload.phone = '+1' + checkoutForm.phone;
       if (first_name) payload.firstname = first_name;
       if (last_name) payload.lastname = last_name;
       if(gclid)payload.gclid = gclid;
@@ -175,6 +178,39 @@ const Checkout = () => {
     setShowSummary(!showSummary);
   };
   const [showOrderSummary, setShowOrderSummary] = useState(false);
+
+
+
+
+  const formatPhoneNumber = (value) => {
+    // Remove all characters except digits
+    let numbersOnly = value.replace(/[^\d]/g, "");
+
+    // Add back the +1 country code
+    numbersOnly =
+      "1" + numbersOnly.substring(numbersOnly.startsWith("1") ? 1 : 0);
+
+    // Apply formatting to match the pattern +1 (XXX) XXX-XXXX
+    if (numbersOnly.length > 1) {
+      // Add parentheses and space after the area code (3 digits)
+      if (numbersOnly.length < 5) {
+        return `+1 (${numbersOnly.slice(1)}`;
+      }
+      // Add a space and hyphen after the next block of 3 digits
+      if (numbersOnly.length < 8) {
+        return `+1 (${numbersOnly.slice(1, 4)}) ${numbersOnly.slice(4)}`;
+      }
+      // Full format
+      return `+1 (${numbersOnly.slice(1, 4)}) ${numbersOnly.slice(
+        4,
+        7
+      )}-${numbersOnly.slice(7, 11)}`;
+    }
+
+    return "+1 ";
+  };
+
+
   return (
     <div className="bg-white">
       <Container>
@@ -308,24 +344,50 @@ const Checkout = () => {
                     error={""}
                   />
                 </div>
-                <div>
+                {/* <div className='my-2 sm:my-0'>
                   <TextField
-                    type={"number"}
-                    placeholder={"Cell Phone"}
-                    className="py-3 mt-1  "
+                    type="text"
+                    id="phone"
                     name="phone"
-                    id={"phone"}
+                    value={checkoutForm?.phone ?? "+1"}
                     onChange={handleFormValues}
-                    onBlur={handleBlur}
-                    value={checkoutForm?.phone ?? ''}
+                    className="py-3 mt-1 outline-none"
                     title={
                       <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                         <span>Cell Phone</span>{" "}
                       </div>
                     }
+                    placeholder={"Cell Phone"}
                     error={""}
                   />
+                </div> */}
+                <div className='my-2 sm:my-0'> 
+
+                  <div className='flex items-center inline'>
+                    <label className={`opacity-90 block text-sm text-heading text-lg`}>
+                      Cell Phone
+                    </label>
+                  </div>
+                  <div className="relative flex items-center mt-1">
+                    <small className="z-50 m-auto text-[#b5b5b5] absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2" style={{fontSize: '14px'}}>
+                      +1
+                    </small>
+                    <input
+                      style={{ paddingLeft: '27px' }}
+                      onChange={handleFormValues}
+                      value={checkoutForm.phone}
+                      className="w-1/2 new_input_phone block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400  disabled:bg-slate-50 disabled:text-slate-500 border-input_color border-danger invalid:border-danger invalid:text-danger"
+                      placeholder=''
+                      id='phone'
+                      name='phone'
+                      title={"Phone"}
+                      type="Number"
+                    >
+                    </input>
+                  </div>
                 </div>
+
+
                 <div className="">
                   <SelectField
                     onChange={handleFormValues}
@@ -374,7 +436,7 @@ const Checkout = () => {
                     className="py-3"
                   />{" "}
                 </div>
-                {!googleAuthInfo.googleLogin && (
+                {/* {!googleAuthInfo.googleLogin && (
                   <div className=" col-span-2">
                     <TextField
                       type={"password"}
@@ -392,7 +454,7 @@ const Checkout = () => {
                       }
                       error={""}
                     />
-                  </div>)}
+                  </div>)} */}
               </div>
             </div>
             <div className="flex items-center my-6 sm:ml-[14px]">

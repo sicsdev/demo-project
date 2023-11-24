@@ -443,16 +443,16 @@ const Pricing = () => {
       {/* <Reach handleClickScroll={handleClickScroll} data={reachData} heading={"Transparent Pricing"} /> */}
 
       <div className="bg-white">
-        <Newfaq />
-        {/* <Container>
+        {/* <Newfaq /> */}
+        <Container>
           <FaqAccordian
             title={"Frequently Asked Questions"}
             items={questions}
           />
-        </Container> */}
+        </Container>
         {/* <Middlebar /> */}
         {/* <Homeform reff={ref} /> */}
-        <AutoTabsComp handleClickScroll={handleClickScroll} />
+        {/* <AutoTabsComp handleClickScroll={handleClickScroll} /> */}
         <HomeComponent />{" "}
       </div>
     </div>

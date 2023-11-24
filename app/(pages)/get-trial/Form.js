@@ -32,9 +32,9 @@ const TrialForm = ({ formData, setFormData }) => {
   };
   const handleInputValues = (e) => {
     let { value, name } = e.target;
-    if (name === "phone") {
-      value = formatPhoneNumber(value);
-    }
+    // if (name === "phone") {
+    //   value = formatPhoneNumber(value);
+    // }
     if (
       name === "first_name" ||
       name === "last_name" ||
@@ -129,8 +129,8 @@ const TrialForm = ({ formData, setFormData }) => {
             error={""}
           />
         </div>
-
-        <div className='my-2 sm:my-0'>
+        {/* 
+        <div className='my-2 sm:my-0 relative'>
           <TextField
             type="text"
             id="phone"
@@ -146,7 +146,34 @@ const TrialForm = ({ formData, setFormData }) => {
             placeholder={"Phone"}
             error={""}
           />
+        </div> */}
+
+        <div className='my-2 sm:my-0'>
+
+          <div className='flex items-center inline'>
+            <label className={`opacity-90 block text-sm text-heading text-lg`}>
+              Cell Phone
+            </label>
+          </div>
+          <div className="relative flex items-center mt-1">
+            <small className="z-50 m-auto text-[#b5b5b5] absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2" style={{ fontSize: '15px' }}>
+              +1
+            </small>
+            <input
+              style={{ paddingLeft: '27px' }}
+              onChange={handleInputValues}
+              value={formData.phone}
+              className="w-1/2 new_input_phone block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400  disabled:bg-slate-50 disabled:text-slate-500 border-input_color border-danger invalid:border-danger invalid:text-danger"
+              placeholder=''
+              id='phone'
+              name='phone'
+              title={"Phone"}
+              type="Number"
+            >
+            </input>
+          </div>
         </div>
+
       </div>
       <div className="my-2 sm:my-0 grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
@@ -185,7 +212,7 @@ const TrialForm = ({ formData, setFormData }) => {
         </div>
       </div>
       <div className="grid gap-2 sm:gap-[15px] grid-cols-1 sm:mt-[12px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mb-2">
-        
+
         <div className=''>
           <TextField
             type="text"
@@ -298,7 +325,7 @@ const TrialForm = ({ formData, setFormData }) => {
           error={""}
         />
       </div>
-
+      {/* 
       <div className=" col-span-2 sm:mt-[12px] my-4 sm:my-0">
         <TextField
           type="password"
@@ -315,13 +342,14 @@ const TrialForm = ({ formData, setFormData }) => {
           placeholder={"Password"}
           error={""}
         />
-      </div>
+      </div> */}
 
       <div className="flex items-center my-6">
         <input
           id="link-checkbox"
           type="checkbox"
-          className="custom-checkbox w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          className="p-1 custom-checkbox w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          style={{width: '21px', height: '21px'}}
           onChange={(e) =>
             setFormData((prev) => {
               return {
