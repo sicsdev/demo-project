@@ -11,6 +11,8 @@ import Link from "next/link";
 import { createHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { updateHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { updateScrapperKnowledgeState } from "@/app/components/store/slices/scrapperKnowledgeSlice";
+import { v4 as uuidv4 } from 'uuid';
 
 const Trial = () => {
   const router = useRouter();
@@ -39,7 +41,6 @@ const Trial = () => {
       "email",
       "company_name",
       "phone",
-      "password",
       "url",
     ];
 
@@ -80,7 +81,7 @@ const Trial = () => {
         firstname: formData.first_name,
         lastname: formData.last_name,
         email: formData.email,
-        phone: formData.phone,
+        phone: '1' + formData.phone,
         company: formData.company_name,
         website: formData.url,
         lifecyclestage: "demo",
@@ -102,6 +103,8 @@ const Trial = () => {
       }
     }
 
+    let randomUUIDpassword = uuidv4()
+
     let payload = {
       enterprise: {
         name: formData.company_name,
@@ -111,9 +114,9 @@ const Trial = () => {
       name: formData?.first_name + " " + formData?.last_name,
       phone_prefix: "+1",
       slug_domain: formData?.company_name,
-      phone: formData.phone,
-      password: formData?.password,
-      password_confirm: formData?.password,
+      phone: '+1' + formData.phone,
+      password: randomUUIDpassword,
+      password_confirm: randomUUIDpassword,
     };
 
     let payload2 = {
@@ -140,8 +143,7 @@ const Trial = () => {
           main_webpage: addHttpsToUrl(formData.url),
           faqs_webpage: addHttpsToUrl(formData.faq_url)
         }
-        await setDemoKnowledge(payloadForDemoKnowledge, response.token)
-
+        dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
         dispatch(editBillingType("demo"));
         router.push("/dashboard");
         setLoading(false);
@@ -153,7 +155,6 @@ const Trial = () => {
       setLoading(false);
     }
   };
-
 
 
   return (
