@@ -10,7 +10,7 @@ import { editBillingType } from "@/app/components/store/slices/billingTypeSlice"
 import Link from "next/link";
 import { createHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { updateHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
-import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { createSlackChannel, setDemoKnowledge } from "@/app/API/pages/get-trial";
 import { updateScrapperKnowledgeState } from "@/app/components/store/slices/scrapperKnowledgeSlice";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -134,10 +134,20 @@ const Trial = () => {
     const response = await submitCheckout(payload);
     if (response?.token) {
       Cookies.set("Token", response.token);
-
       const bot = await createCheckoutBot(payload2, response.token);
-      if (bot.status === 200 || bot.status === 201) {
 
+      //Payload for create slack channel
+      let payloadForSlack = {
+        channel_name: formData.company_name,
+        members: [],
+        account_type: "trial",
+        external_emails: [formData?.email]
+      }
+      await createSlackChannel(payloadForSlack, response.token)
+
+
+
+      if (bot.status === 200 || bot.status === 201) {
         // Set demo knowledge. (basic knowledge about the customer)
         let payloadForDemoKnowledge = {
           main_webpage: addHttpsToUrl(formData.url),
