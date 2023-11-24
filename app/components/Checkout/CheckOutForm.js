@@ -111,7 +111,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
           external_emails: [checkoutForm2?.email]
         }
 
-        await createSlackChannel(payloadForSlack, result.token)
+        await createSlackChannel(payloadForSlack, result.token) 
 
 
         if (response) {
