@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TrialForm from "./Form";
+import { useSearchParams, useRouter } from "next/navigation";
 import { submitCheckout } from "@/app/API/pages/Checkout";
 import { createBotKnowledge, createCheckoutBot } from "@/app/API/pages/Bot";
-import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { editBillingType } from "@/app/components/store/slices/billingTypeSlice";
@@ -11,10 +11,20 @@ import Link from "next/link";
 import { createHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { updateHubspotContact } from "@/app/API/integrations/hubspot/Hubspot";
 import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { updateScrapperKnowledgeState } from "@/app/components/store/slices/scrapperKnowledgeSlice";
 import { v4 as uuidv4 } from 'uuid';
 
 const Trial = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+
+  const gclid = searchParams.get("gclid");
+
+  const msclkid = searchParams.get("msclkid");
+  console.log("gclid", gclid);
+
+  console.log("msclkid", msclkid);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     billing_type: "demo",
@@ -83,9 +93,11 @@ const Trial = () => {
         phone: '1' + formData.phone,
         company: formData.company_name,
         website: formData.url,
-        lifecyclestage: "demo",
+        lifecyclestage: "subscriber",
         is_demo: "true",
         demo_status: "pending",
+        gclid:gclid,
+        msclkid:msclkid
       },
     };
 
@@ -142,8 +154,7 @@ const Trial = () => {
           main_webpage: addHttpsToUrl(formData.url),
           faqs_webpage: addHttpsToUrl(formData.faq_url)
         }
-        await setDemoKnowledge(payloadForDemoKnowledge, response.token)
-
+        dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
         dispatch(editBillingType("demo"));
         router.push("/dashboard");
         setLoading(false);
@@ -155,7 +166,6 @@ const Trial = () => {
       setLoading(false);
     }
   };
-
 
 
   return (

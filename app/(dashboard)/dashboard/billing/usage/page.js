@@ -483,7 +483,7 @@ const UsageLimit = () => {
                         ) : (
                           ""
                         )}
-                        <span className="absolute top-[13px] sm:top-[9px] left-[14px] text-[12px] ">
+                        <span className="absolute top-[19px] sm:top-[17px] left-[14px] text-[14px] sm:text-[12px] ">
                           $
                         </span>
                       </div> */}
