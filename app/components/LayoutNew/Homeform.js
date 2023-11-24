@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import SkeletonLoader from '../Skeleton/Skeleton'
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import Cookies from 'js-cookie';
+import { useSearchParams, useRouter } from "next/navigation";
+
 import Link from 'next/link';
 import { createContactInFreshsales } from '@/app/API/components/Demo';
 export const Homeform = ({ reff }) => {
@@ -76,6 +78,20 @@ export const Homeform = ({ reff }) => {
   };
   const [hubID, setHubid] = useState(null);
 
+
+  const searchParams = useSearchParams();
+
+
+    const gclid = searchParams.get("gclid");
+
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+
+    console.log("msclkid", msclkid);
+
+
+
   const handleBlur = async () => {
     const payload = {
       firstname: fullname.data?.split(" ")[0] || null,
@@ -85,7 +101,12 @@ export const Homeform = ({ reff }) => {
       email: business.data,
       state: state.data,
       country: country.data,
-      company_size: employe.data
+      company_size: employe.data,
+      lifecyclestage: "subscriber",
+      is_demo: "true",
+      demo_status: "pending",
+      gclid:gclid,
+      msclkid:msclkid
     }
     console.log("pay", payload);
     if (hubID) {
