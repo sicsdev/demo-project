@@ -7,6 +7,7 @@ import { capitalizeFirstLetter } from '../../helper/firstLetterCapital';
 import { ArrowUturnLeftIcon, ClipboardDocumentListIcon, PuzzlePieceIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import SkeletonLoader from '../../Skeleton/Skeleton';
+import Image from 'next/image';
 
 const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser }) => {
     const router = useRouter()
