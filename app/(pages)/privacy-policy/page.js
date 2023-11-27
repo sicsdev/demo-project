@@ -1000,7 +1000,7 @@ const Page = () => {
             access this Privacy Notice in an alternative downloadable format,
             please
             <span className="text-[blue] cursor-pointer">
-              <a href="https://usetempo.ai/privacy-policy-pdf">
+              <a href="https://deflection.ai/privacy-policy-pdf">
                 &nbsp;click here.{" "}
               </a>
             </span>

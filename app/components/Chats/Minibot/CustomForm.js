@@ -178,7 +178,7 @@ const CustomForm = ({ payload, customFormId, preferences, conversation_id }) => 
         <div className="component_answer">
             <img
                 className="profile-photo_ChatBot"
-                src={preferences.logo || 'https://usetempo.ai/bot.png'}
+                src={preferences.logo || 'https://deflection.ai/bot.png'}
                 alt="Profile Photo"
                 width="35px"
             />

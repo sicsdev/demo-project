@@ -172,7 +172,7 @@ export default function RootLayout({ children }) {
         />
         <link
           rel="stylesheet"
-          href="https://widget-dev.usetempo.ai/v1/assets/css/app.css"
+          href="https://widget-dev.deflection.ai/v1/assets/css/app.css"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" href="https://deflection.ai/logo-simple-negative.png" />
@@ -181,12 +181,12 @@ export default function RootLayout({ children }) {
 
         {/* <link
           rel="stylesheet"
-          href="https://widget-dev.usetempo.ai/v1/assets/css/responsive.css"
+          href="https://widget-dev.deflection.ai/v1/assets/css/responsive.css"
         /> */}
 
         <link
           rel="stylesheet"
-          href="https://widget-dev.usetempo.ai/v1/assets/css/optionsbuttons.css"
+          href="https://widget-dev.deflection.ai/v1/assets/css/optionsbuttons.css"
         />
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -198,7 +198,7 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
-        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script src="https://widget-dev.deflection.ai/v1/main.js" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

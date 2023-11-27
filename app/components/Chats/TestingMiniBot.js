@@ -30,7 +30,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         secondary_text_color: "#000000",
         primary_color: "#0057ff",
         secondary_color: "#dcdcdc",
-        logo: "https://usetempo.ai/bot.png",
+        logo: "https://deflection.ai/bot.png",
         thumbnail: "",
         chat_title: "Deflection AI Bot (Test Mode)",
         chat_message_business_hours: "How can we help?",
@@ -61,7 +61,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         secondary_text_color: "#000000",
         primary_color: "#0057ff",
         secondary_color: "#dcdcdc",
-        logo: "https://usetempo.ai/bot.png",
+        logo: "https://deflection.ai/bot.png",
         thumbnail: "",
         chat_title: "Deflection AI Bot (Test Mode)",
         chat_message_business_hours: "How can we help?",
@@ -274,7 +274,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
         setChatContent([<div className="first_answer_testing ">
             <img
                 className="profile-photo_ChatBot_testing "
-                src={preferences?.logo || "https://usetempo.ai/bot.png"}
+                src={preferences?.logo || "https://deflection.ai/bot.png"}
                 alt="Profile Photo"
                 width="35px"
             />
@@ -312,7 +312,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
                         <div className="profile_photo_container_testing gap-2 mx-4">
                             <img
                                 width="45px"
-                                src={preferences?.logo || "https://usetempo.ai/bot.png"}
+                                src={preferences?.logo || "https://deflection.ai/bot.png"}
                             />
                             <div className="mx-5 w-3/4" style={{ minWidth: '200px' }}>
                                 <small className="block mx-1 my-1 "><b>Select an active bot</b></small>
@@ -364,7 +364,7 @@ const TestingMiniBot = ({ workflow, setGlobalPreferences, globalPreferences }) =
                             <img
                                 className="profile-photo_ChatBot"
                                 src={
-                                    preferences.logo || "https://usetempo.ai/bot.png"
+                                    preferences.logo || "https://deflection.ai/bot.png"
                                 }
                                 alt="Profile Photo"
                                 width="35px"

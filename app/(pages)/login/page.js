@@ -135,7 +135,7 @@ const Login = () => {
     let exchangePayload = {
       client_id: clientGoogleId,
       client_secret: clientGoogleSecret,
-      redirect_uri: "https://usetempo.ai/login",
+      redirect_uri: "https://deflection.ai/login",
       grant_type: "authorization_code",
       code: code,
     };
@@ -177,7 +177,7 @@ const Login = () => {
 
   const handleLoginWithGoogle = () => {
     window.open(
-      "https://tempouserpool.auth.eu-north-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=https://usetempo.ai/login&response_type=CODE&client_id=24um0utvb6qtum1u3beb6bafr&scope=email%20openid%20profile",
+      "https://tempouserpool.auth.eu-north-1.amazoncognito.com/oauth2/authorize?identity_provider=Google&redirect_uri=https://deflection.ai/login&response_type=CODE&client_id=24um0utvb6qtum1u3beb6bafr&scope=email%20openid%20profile",
       "_self"
     );
   };
