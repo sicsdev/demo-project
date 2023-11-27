@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { capitalizeFirstLetter } from '../../helper/firstLetterCapital';
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
+import SkeletonLoader from '../../Skeleton/Skeleton';
 
 const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser }) => {
     const router = useRouter()
