@@ -32,6 +32,7 @@ const Trial = () => {
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [pop, setPop] = useState(false);
 
   const validateEmail = (email) => {
     var regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -44,34 +45,39 @@ const Trial = () => {
   };
 
   const DisablingButton = () => {
-    const requiredKeys = [
-      "first_name",
-      "last_name",
-      "email",
-      "company_name",
-      "phone",
-      "url",
-    ];
+  
+      const requiredKeys = [
+        "first_name",
+        "last_name",
+        "email",
+        "company_name",
+        "phone",
+        "url"
+      ];
+  
+      const formValues = requiredKeys.some(
+        (key) => !formData[key] || formData[key].trim() === ""
+      );
+  
+      // const arr_values = ["urls"].every(
+      //   (key) => !formData[key] || formData[key].length === 0
+      // );
+  
+      const isEmailValid = formData["email"]
+        ? !validateEmail(formData["email"])
+        : true;
+  
+      const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
+  
+      const isFaqValid = !validateUrl(formData["faq_url"])
 
-    const formValues = requiredKeys.some(
-      (key) => !formData[key] || formData[key].trim() === ""
-    );
-
-    // const arr_values = ["urls"].every(
-    //   (key) => !formData[key] || formData[key].length === 0
-    // );
-
-    const isEmailValid = formData["email"]
-      ? !validateEmail(formData["email"])
-      : true;
-
-    const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
-
-    const isFaqValid = !validateUrl(formData["faq_url"])
-
-    return isFaqValid || formValues || isEmailValid || isUrlValid;
-
+      
+  
+      return isFaqValid || formValues || isEmailValid || isUrlValid;
+    
   };
+
+  console.log("popp", pop);
 
   function addHttpsToUrl(url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -81,8 +87,6 @@ const Trial = () => {
   }
 
   const SubmitTheForm = async () => {
-
-
     setLoading(true);
 
     let payloadForHubspot = {
@@ -200,7 +204,7 @@ const Trial = () => {
           basic content within 24 hours. Completely free and no commitment
           required.
         </p>
-        <TrialForm formData={formData} setFormData={setFormData} />
+        <TrialForm formData={formData} setFormData={setFormData} pop={pop} setPop={setPop} />
         <div className="flex justify-content-center">
           {errors.length > 0 &&
             errors.map((error, index) => (
@@ -213,7 +217,7 @@ const Trial = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton()}
+          disabled= {DisablingButton() || pop} 
           onClick={SubmitTheForm}
         >
           Submit
