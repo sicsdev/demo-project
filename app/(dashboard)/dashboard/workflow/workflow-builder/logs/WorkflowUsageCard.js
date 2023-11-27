@@ -22,7 +22,6 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-
     return (
         (<>
             {log &&
@@ -37,14 +36,14 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
                     </div> */}
 
                     <div className="">
-                        <h1 className="text-md font-bold text-gray-700 flex items-center mb-2">
+                        <h1 className={`text-md font-bold text-gray-700 flex items-center mb-2 ${log.automation_usages.length > 0 && currentExpanded == log.id && 'text-primary'}`}>
                             {log.workflow.name}
                         </h1>
                         <div className='md:flex'>
                             <div className='flex items-center'>
                                 {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' ?
                                     <>
-                                        <XCircleIcon className='w-4 h-4 text-danger'></XCircleIcon>
+                                        <XCircleIcon className='w-4 h-4'></XCircleIcon>
                                         <span className='mx-2 text-danger'><b>{log.automation_usages[0].response_log.response_status}</b></span>
                                     </>
                                     :

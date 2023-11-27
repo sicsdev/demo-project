@@ -14,25 +14,34 @@ import EmojiPicker, { Emoji } from 'emoji-picker-react';
 import Modal from '../../Common/Modal/Modal';
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
+import { capitalizeFirstLetter } from '../../helper/firstLetterCapital';
+import WorkflowCard from './WorkflowCard';
+import { useSelector } from 'react-redux';
 
 
-const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow }) => {
+const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow, source }) => {
     const [data, setData] = useState([]);
     const [suggestModal, setSuggestModal] = useState(false);
     const [originalData, setOriginalData] = useState([]);
-    const [emojiData, setEmojiData] = useState({
-        id: null,
-        emoji: null,
-        unified: null
-    })
     const [search, setSearch] = useState("")
     const router = useRouter();
     const [urls, setUrls] = useState([])
+
+    const [isAuthorizedUser, setIsAuthorizedUser] = useState(false)
+
+    const userData = useSelector((state) => state?.user?.data)
+
     const [isCopied, setIsCopied] = useState({
         id: null,
         copied: false,
         loading: false
     })
+    const [emojiData, setEmojiData] = useState({
+        id: null,
+        emoji: null,
+        unified: null
+    })
+
     const updateEmoji = async (id, emoji) => {
         const update = await updateWorkFlowStatus({ icon: emoji }, id)
         setEmojiData({
@@ -199,40 +208,8 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     useEffect(() => {
         manageData()
+        setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
     }, [workflowData])
-
-    const getGradientStyle = (number, condition) => {
-        let currentValue = number;
-
-        let maxValueTriggered = data[0].workflow_usage_last_24_hours * 1;
-        let maxValueUsed = data[0].successful_automation_usage_last_24_hours_count * 1;
-        let maxValue = condition == 'used' ? maxValueUsed : maxValueTriggered
-
-        if (currentValue == 0) {return {color: 'gray'}}
-        if (currentValue != null && maxValue > 0) {
-            let percentage = (currentValue / maxValue) * 100;
-            percentage = Math.min(percentage, 100);
-
-            let color;
-            if (percentage >= 75) {
-                color = '#48CD2B';
-            } else if (percentage >= 40) {
-                color = '#0A7204';
-            } else if (percentage >= 15) {
-                color = '#D93F06';
-            } else {
-                color = '#F14932';
-            }
-
-            return {
-                color: color,
-            };
-        } else {
-            return {
-                color: '#808080',
-            };
-        }
-    }
 
 
     const editWorkFlowHandler = (ele) => {
@@ -241,7 +218,7 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
     const manageData = async () => {
 
-        let workflows = await getWorkflowByStatus(status)
+        let workflows = await getWorkflowByStatus(status, source)
         let result = workflows.results
         let array_of_urls = []
 
@@ -275,36 +252,14 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
         }
     }
 
-    const getIntegrationIcon = (automations, name = "") => {
-        const getIcon = automations?.find((x) => x?.automation?.integration?.icon !== null && x?.automation?.integration?.icon !== "");
-
-        if (getIcon !== undefined && getIcon?.automation?.integration?.icon !== undefined) {
-            return getIcon?.automation?.integration?.icon;
-        }
-        return null;
-    };
-
     const [loading, setLoading] = useState(true);
-    const getInitials = (name) => {
-        const words = name.split(' ');
-        if (words.length === 1) {
-            // If there is only one word in the name, return the first character as initials
-            return words[0].charAt(0).toUpperCase();
-        } else {
-            // If there are multiple words, return the first character of each word as initials
-            return words.map(word => word.charAt(0)).join('').toUpperCase();
-        }
-    }
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
         }, 400);
     }, [])
 
-
-    const redirectToLogs = (e) => {
-        router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`)
-    }
 
     return (
         <div>
@@ -329,18 +284,22 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
                         {loading ?
                             <SkeletonLoader count={1} height={30} width={80} />
                             :
-                            <Button
-                                type={"button"}
-                                className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                disabled={workflowLoading === true}
-                                onClick={(e) => createNewWorkFlow()}
-                            >
-                                {workflowLoading ? <><svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
-                                    <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
-                                </svg>
-                                    <span>Loading...</span> </> : 'Create'}
-                            </Button>
+                            (isAuthorizedUser &&
+                                <>
+                                    <Button
+                                        type={"button"}
+                                        className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                        disabled={workflowLoading === true}
+                                        onClick={(e) => createNewWorkFlow()}
+                                    >
+                                        {workflowLoading ? <><svg aria-hidden="true" role="status" class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="#E5E7EB" />
+                                            <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentColor" />
+                                        </svg>
+                                            <span>Loading...</span> </> : 'Create'}
+                                    </Button>
+                                </>
+                            )
                         }
                     </div>
 
@@ -351,172 +310,12 @@ const WorkFlowTemplates = ({ workflowData, fetchData, status, setShowTestBot, se
 
                 {
                     data?.length > 0 ? (
-                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-2 mx-auto items-center my-2' >
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mx-auto items-center my-2' >
                             {data?.map((item, key) =>
-                                <div
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
-                                    }}
-                                    style={{
-                                        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                                    }}
-                                    key={key}
-                                    className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
 
-                                >
-
-                                    <div className='relative h-full'>
-                                        {/* <EmojiPicker /> */}
-                                        {!loading && (
-                                            <div className='relative'>
-                                                <div className='absolute top-0 right-0 flex gap-2'>
-
-                                                    <span
-                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
-                                                        className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
-                                                        data-tooltip-id="last24hs"
-                                                        data-tooltip-content={`Triggered ${item.workflow_usage_last_24_hours} times last 24hrs.`}
-                                                        style={getGradientStyle(item.workflow_usage_last_24_hours, 'triggered')}>
-
-                                                        {item.workflow_usage_last_24_hours}
-                                                    </span>
-
-
-                                                    <span
-                                                        onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
-                                                        className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
-                                                        data-tooltip-id="last24hs_count"
-                                                        data-tooltip-content={`Successfully used ${item.successful_automation_usage_last_24_hours_count} times last 24hrs.`}
-                                                        style={getGradientStyle(item.successful_automation_usage_last_24_hours_count, 'used')}>
-
-                                                        {item.successful_automation_usage_last_24_hours_count}
-                                                    </span>
-
-                                                    <Tooltip id='last24hs' place="top" type="dark" effect="solid" />
-
-                                                </div>
-                                                <Tooltip id='last24hs_count' place="top" type="dark" effect="solid" />
-
-                                            </div>
-                                        )}
-
-                                        <div className='flex items-center justify-start gap-2'>
-                                            {item.icon && (
-                                                loading ?
-                                                    <SkeletonLoader className="mr-2" count={1} height={30} width={40} /> :
-                                                    <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" onClick={(e) => {
-
-                                                        e.stopPropagation();
-                                                        setSuggestModal(true)
-                                                        setEmojiData(prev => {
-                                                            return {
-                                                                ...prev,
-                                                                id: item?.id
-                                                            }
-                                                        })
-                                                    }} x>
-                                                        {item.icon}
-                                                    </div>
-                                            )}
-                                            {getIntegrationIcon(item?.automations, item?.name) !== null && (
-                                                <div className="relative w-[25px] h-[25px] gap-2 rounded-lg" >
-                                                    {loading ?
-                                                        <SkeletonLoader className="mr-2" count={1} height={30} width={40} />
-                                                        :
-                                                        <Image
-                                                            fill={"true"}
-                                                            className="bg-contain mx-auto object-scale-down w-full rounded-lg"
-                                                            alt="logo.png"
-                                                            src={getIntegrationIcon(item?.automations, item?.name)}
-                                                        />
-                                                    }
-                                                </div>
-                                            )}
-                                            {item?.automations?.length > 0 && item?.automations?.map((element, index) =>
-                                                (element?.automation === null) && (
-                                                    <div key={index} className="relative w-[25px] h-[25px] gap-2 rounded-lg">
-                                                        {element.condition && element.condition !== "" && (
-                                                            <>
-                                                                {loading ?
-                                                                    <SkeletonLoader count={1} height={30} width={40} />
-                                                                    :
-                                                                    <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
-                                                                }
-                                                            </>
-                                                        )}
-
-                                                        {element?.question && element?.question !== "" && (
-                                                            <>
-                                                                {loading ?
-                                                                    <SkeletonLoader count={1} height={30} width={40} />
-                                                                    :
-                                                                    <ArrowUturnLeftIcon className="h-6 w-6 text-gray-500" />
-                                                                }
-
-                                                            </>
-                                                        )}
-
-                                                        {element?.transformer && element?.transformer !== "" && (
-                                                            <>
-                                                                {loading ?
-                                                                    <SkeletonLoader count={1} height={30} width={40} />
-                                                                    :
-                                                                    <PuzzlePieceIcon className="h-6 w-6 text-gray-500" />
-                                                                }
-                                                            </>
-                                                        )}
-                                                    </div>
-                                                )
-                                            )}
-
-                                        </div>
-                                        <div className=''
-                                        >
-                                            <h2 className='text-[#151D23] !font-bold mt-2 text-base'>
-                                                {loading ?
-                                                    <SkeletonLoader count={1} height={30} width="70%" />
-                                                    :
-                                                    <>
-                                                        {item.name === 'Default_name' ? "New Workflow 1" : makeCapital(item.name)}
-                                                    </>
-                                                }</h2>
-                                            <p className='text-xs text-[#151d23cc] mt-1'>
-
-                                                {loading ?
-                                                    <SkeletonLoader count={1} height={20} width="50%" />
-                                                    :
-                                                    <>
-                                                        By Deflection AI
-                                                    </>
-                                                }
-                                            </p>
-                                        </div>
-                                        <div className='absolute bottom-0 w-full'>
-                                            <div className='flex items-center justify-between '>
-                                                <p className='text-xs text-[#151d23cc]'>
-                                                    {loading ?
-                                                        <SkeletonLoader count={1} height={30} width={50} />
-                                                        : <>
-                                                            {item.active ? 'Active' : 'Draft'}
-                                                        </>
-                                                    }
-                                                </p>
-                                                <p className='text-danger text-xs' onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    deleteWorkflowHandler(e, item)
-                                                }}>
-                                                    {loading ?
-                                                        <SkeletonLoader count={1} height={30} width={50} />
-                                                        : <>
-                                                            Delete
-                                                        </>
-                                                    }</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                <>
+                                    <WorkflowCard data={data} loading={loading} item={item} key={key} manageData={manageData} isAuthorizedUser={isAuthorizedUser}></WorkflowCard>
+                                </>
                             )}
                         </div>
                     )
