@@ -7,7 +7,7 @@ import { capitalizeFirstLetter } from '../../helper/firstLetterCapital';
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 
-const WorkflowCard = ({ manageData, item, key, loading, data }) => {
+const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser }) => {
     const router = useRouter()
 
     const [updateStatusLoader, setUpdateStatusLoader] = useState(false)
@@ -67,15 +67,16 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
 
     return (
         <div
-            // onClick={(e) => {
-            //     e.stopPropagation();
-            //     router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
-            // }}
+            onClick={(e) => {
+                isAuthorizedUser &&
+                    e.stopPropagation();
+                router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
+            }}
             // style={{
             //     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
             // }}
             key={key}
-            className='relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-[#8d8d8d]'
+            className={`relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-[#8d8d8d] ${isAuthorizedUser && 'cursor-pointer'}`}
 
         >
 
@@ -230,7 +231,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
                             updateStatusLoader ?
                                 <>
                                     <p className='text-xs text-gray'>
-                                    Loading...
+                                        Loading...
                                     </p>
                                 </>
                                 :

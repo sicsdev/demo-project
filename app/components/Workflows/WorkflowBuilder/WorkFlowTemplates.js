@@ -27,6 +27,8 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     const router = useRouter();
     const [urls, setUrls] = useState([])
 
+    const [isAuthorizedUser, setIsAuthorizedUser] = useState(false)
+
     const userData = useSelector((state) => state?.user?.data)
 
     const [isCopied, setIsCopied] = useState({
@@ -206,7 +208,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
     useEffect(() => {
         manageData()
-        console.log(userData)
+        setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
     }, [workflowData])
 
 
@@ -282,7 +284,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                         {loading ?
                             <SkeletonLoader count={1} height={30} width={80} />
                             :
-                            ((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')) &&
+                            (isAuthorizedUser &&
                                 <>
                                     <Button
                                         type={"button"}
@@ -312,7 +314,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                             {data?.map((item, key) =>
 
                                 <>
-                                    <WorkflowCard data={data} loading={loading} item={item} key={key} manageData={manageData}></WorkflowCard>
+                                    <WorkflowCard data={data} loading={loading} item={item} key={key} manageData={manageData} isAuthorizedUser={isAuthorizedUser}></WorkflowCard>
                                 </>
                             )}
                         </div>
