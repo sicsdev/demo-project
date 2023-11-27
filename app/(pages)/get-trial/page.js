@@ -45,36 +45,36 @@ const Trial = () => {
   };
 
   const DisablingButton = () => {
-  
-      const requiredKeys = [
-        "first_name",
-        "last_name",
-        "email",
-        "company_name",
-        "phone",
-        "url"
-      ];
-  
-      const formValues = requiredKeys.some(
-        (key) => !formData[key] || formData[key].trim() === ""
-      );
-  
-      // const arr_values = ["urls"].every(
-      //   (key) => !formData[key] || formData[key].length === 0
-      // );
-  
-      const isEmailValid = formData["email"]
-        ? !validateEmail(formData["email"])
-        : true;
-  
-      const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
-  
-      const isFaqValid = !validateUrl(formData["faq_url"])
 
-      
-  
-      return isFaqValid || formValues || isEmailValid || isUrlValid;
-    
+    const requiredKeys = [
+      "first_name",
+      "last_name",
+      "email",
+      "company_name",
+      "phone",
+      "url"
+    ];
+
+    const formValues = requiredKeys.some(
+      (key) => !formData[key] || formData[key].trim() === ""
+    );
+
+    // const arr_values = ["urls"].every(
+    //   (key) => !formData[key] || formData[key].length === 0
+    // );
+
+    const isEmailValid = formData["email"]
+      ? !validateEmail(formData["email"])
+      : true;
+
+    const isUrlValid = formData["url"] ? !validateUrl(formData["url"]) : true;
+
+    const isFaqValid = !validateUrl(formData["faq_url"])
+
+
+
+    return isFaqValid || formValues || isEmailValid || isUrlValid;
+
   };
 
   console.log("popp", pop);
@@ -97,26 +97,25 @@ const Trial = () => {
         phone: '1' + formData.phone,
         company: formData.company_name,
         website: formData.url,
-        lifecyclestage: "subscriber",
-        is_demo: "true",
-        demo_status: "pending",
         gclid: gclid,
-        msclkid: msclkid
+        msclkid: msclkid,
+        lifecyclestage: "130399810"
       },
     };
 
-    // Create contact in hubspot, and patch it after get contact id.
-    let createContact = await createHubspotContact(payloadForHubspot);
 
-    // If there is a conflict, it means contact already exist, so we patch it.
-    if (createContact?.category == "CONFLICT") {
-      const regex = /Existing ID: (\d+)/;
-      const match = createContact.message.match(regex);
-      if (match) {
-        const id = match[1];
-        await updateHubspotContact(payloadForHubspot, id);
-      }
-    }
+    // // Create contact in hubspot, and patch it after get contact id.
+    // let createContact = await createHubspotContact(payloadForHubspot);
+
+    // // If there is a conflict, it means contact already exist, so we patch it.
+    // if (createContact?.category == "CONFLICT") {
+    //   const regex = /Existing ID: (\d+)/;
+    //   const match = createContact.message.match(regex);
+    //   if (match) {
+    //     const id = match[1];
+    //     await updateHubspotContact(payloadForHubspot, id);
+    //   }
+    // }
 
     let randomUUIDpassword = uuidv4()
 
@@ -156,8 +155,10 @@ const Trial = () => {
         channel_name: formData.company_name,
         members: ["U05H5HSLS9X", "U05GSUCQ1PU"],
         account_type: "trial",
-        external_emails: [formData?.email]
+        external_emails: [formData?.email],
+        hubspot_contact: payloadForHubspot
       }
+      
       await createSlackChannel(payloadForSlack, response.token)
 
 
@@ -217,7 +218,7 @@ const Trial = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled= {DisablingButton() || pop} 
+          disabled={DisablingButton() || pop}
           onClick={SubmitTheForm}
         >
           Submit

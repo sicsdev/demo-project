@@ -26,7 +26,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch()
-  
+
   const [message, setMessage] = useState(null)
 
   const [errors, setError] = useState([]);
@@ -71,7 +71,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
       let randomUUIDpassword = uuidv4()
       let formatedPhone = '+1' + checkoutForm.phone
-      
+
       let checkoutForm2 = {
         ...checkoutForm,
         phone: formatedPhone,
@@ -104,14 +104,30 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
 
         // Create channel in Slack
+        let payloadForHubspot = {
+          properties: {
+            firstname: checkoutForm.name,
+            lastname: checkoutForm.name,
+            email: checkoutForm.email,
+            phone: '1' + checkoutForm.phone,
+            company: checkoutForm2.enterprise.name,
+            website: extractDomainFromEmail(email),
+            gclid: gclid,
+            msclkid: msclkid,
+            lifecyclestage: "130379889"
+          },
+        };
+
+        // Create channel in Slack
         let payloadForSlack = {
           channel_name: checkoutForm2.enterprise.name,
           members: ["U05H5HSLS9X", "U05GSUCQ1PU"],
           account_type: "paid",
-          external_emails: [checkoutForm2?.email]
+          external_emails: [checkoutForm2?.email],
+          hubspot_contact: payloadForHubspot
         }
 
-        await createSlackChannel(payloadForSlack, result.token) 
+        await createSlackChannel(payloadForSlack, result.token)
 
 
         if (response) {
@@ -190,7 +206,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
 
         {loading && <p className="message">Processing Payment...</p>}
         <Button type={"submit"} className="my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={loading || !stripe || !elements || !validateEmail(checkoutForm?.email)  || pop}
+          disabled={loading || !stripe || !elements || !validateEmail(checkoutForm?.email) || pop}
         >
           Start Now
         </Button>
