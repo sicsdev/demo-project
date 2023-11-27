@@ -1006,7 +1006,7 @@ const NewSidebar = ({ children }) => {
 
                                         <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer" onClick={() => setShow(false)}>
                                             <a
-                                                href={"mailto:team@usetempo.ai"}
+                                                href={"mailto:team@deflection.ai"}
                                                 className={`flex items-center gap-2 text-gray-900 rounded-lg `}
                                             >
                                                 <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />
@@ -1264,7 +1264,7 @@ const NewSidebar = ({ children }) => {
                                     </li>
                                     <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer">
                                         <a
-                                            href={"mailto:team@usetempo.ai"}
+                                            href={"mailto:team@deflection.ai"}
                                             className={`flex items-center gap-2 text-gray-900 rounded-lg `}
                                         >
                                             <QuestionMarkCircleIcon className="w-8 h-6 text-gray-500" />

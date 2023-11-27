@@ -30,7 +30,7 @@ const page = () => {
       <Subprocessor />
       <div className=" pl-4 pr-4 sm:pl-0 sm:pr-0 sm:mt-6">
       <p className="text-blue-400 w-full sm:mb-5 sm:w-[100%] font-[400] text-heading xs:flex-row xs:flex-col sm:flex  text-[16px] leading-[22px] sm:text-[24px] sm:leading-8 gap-2">
-        If you have any questions, please email <span className="text-[blue] cursor-pointer">security@usetempo.ai.</span> Please read our Privacy Policy for more information.
+        If you have any questions, please email <span className="text-[blue] cursor-pointer">security@deflection.ai.</span> Please read our Privacy Policy for more information.
         
         </p>
       </div>
