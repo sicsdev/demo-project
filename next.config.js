@@ -1,3 +1,6 @@
+const { withSentryConfig } = require("@sentry/nextjs");
+
+
 const nextConfig = {
   images: {
     domains: [
@@ -16,7 +19,18 @@ const nextConfig = {
   },
   // output: 'export',
   reactStrictMode: true,
-  // Elimina la sección sentry
+  sentry: {}
 }
 
-module.exports = nextConfig;
+
+const sentryConfig = {
+  silent: true,
+  org: "tempo-ee56a7c44",
+  project: "tempo-ai",
+}
+
+
+module.exports = withSentryConfig(
+  nextConfig,
+  sentryConfig
+);
