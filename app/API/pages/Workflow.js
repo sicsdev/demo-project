@@ -17,10 +17,10 @@ export const getAllWorkflow = async () => {
 };
 
 
-export const getWorkflowByStatus = async (status) => {
+export const getWorkflowByStatus = async (status, source) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}&ordering=-annotated_successful_automation_usage_last_24_hours_count`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=${status}${source ? `&source=${source}` : ''}&ordering=-annotated_successful_automation_usage_last_24_hours_count`, config);
         return response.data;
     } catch (error) {
         return error
@@ -198,13 +198,13 @@ export const getWorkflowUsageByWorkflowId = async (workflow_id, page = 1, perPag
 }
 
 export const getAutomationTemplates = async () => {
-    let config = returnConfig()
-    try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflow-changer/`, config);
-        return response.data;
-    } catch (error) {
-        return error
-    }
+        let config = returnConfig()
+        try {
+            const response = await axios.get(`${API_URL}/api/v1/main/workflows?active=false&source=template&ordering=-annotated_successful_automation_usage_last_24_hours_count`, config);
+            return response.data;
+        } catch (error) {
+            return error
+        }
 }
 
 

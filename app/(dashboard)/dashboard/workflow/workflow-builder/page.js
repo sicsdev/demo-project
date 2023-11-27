@@ -167,11 +167,11 @@ const Page = () => {
                   rounded-lg active  group`}
                                             aria-current="page"
                                         >
-                                            Draft
+                                            Templates
                                         </span>
                                     }
                                 </li>
-
+{/* 
                                 <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -184,7 +184,7 @@ const Page = () => {
                                             Templates
                                         </span>
                                     }
-                                </li>
+                                </li> */}
 
                                 <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
                                     {skeletonloading ?
@@ -224,14 +224,16 @@ const Page = () => {
                             <WorkFlowTemplates setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                         )}
                         {tab === 5 && (
-                            <WorkFlowTemplates status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                            <WorkFlowTemplates setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                         )}
-                        {tab === 1 && (
-                            <AutomationTemplates></AutomationTemplates>
-                        )}
+                        {/* {tab === 1 && (
+                            // <AutomationTemplates></AutomationTemplates>
+                            <WorkFlowTemplates source={'template'} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+
+                        )} */}
 
                         {tab === 2 && (
-                            <ManageTemplates setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                            <ManageTemplates setTab={setTab} setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
                         )}
                         {tab === 3 && (
                             <WorkflowUsageLogs></WorkflowUsageLogs>

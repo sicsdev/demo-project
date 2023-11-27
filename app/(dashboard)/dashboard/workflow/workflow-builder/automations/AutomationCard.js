@@ -8,9 +8,16 @@ const AutomationCard = ({ item }) => {
             {item && <>
 
                 <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
+                    }}
+                    style={{
+                        boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+                    }}
                     key={item.id}
-                    className='relative  p-3 pb-5 rounded-md h-[200px] shadow-lg bg-gradiantgray border-lowgray border-b-0 border-2 border hover:shadow-xl hover:border-gray'
-                    style={{ minWidth: '200px' }}
+                    className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+
                 >
                     <div className='relative h-full'>
                         {/* <EmojiPicker /> */}
@@ -28,7 +35,7 @@ const AutomationCard = ({ item }) => {
                             </span> */}
 
                                 {/* 
-                            <span
+                            <span 
                                 onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
                                 className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
                                 data-tooltip-id="last24hs_count"
