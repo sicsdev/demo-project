@@ -15,7 +15,7 @@ import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
 import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
-import { setDemoKnowledge } from "@/app/API/pages/get-trial";
+import { createSlackChannel, setDemoKnowledge } from "@/app/API/pages/get-trial";
 import { updateScrapperKnowledgeState } from "../store/slices/scrapperKnowledgeSlice";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
@@ -70,7 +70,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
       }
 
       let randomUUIDpassword = uuidv4()
-
       let formatedPhone = '+1' + checkoutForm.phone
       
       let checkoutForm2 = {
@@ -102,6 +101,18 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
           token: confirmStatus.paymentIntent.payment_method,
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
+
+
+        // Create channel in Slack
+        let payloadForSlack = {
+          channel_name: checkoutForm2.enterprise.name,
+          members: ["U05H5HSLS9X", "U05GSUCQ1PU"],
+          account_type: "paid",
+          external_emails: [checkoutForm2?.email]
+        }
+
+        await createSlackChannel(payloadForSlack, result.token) 
+
 
         if (response) {
           // localStorage.setItem("Token", result.token);

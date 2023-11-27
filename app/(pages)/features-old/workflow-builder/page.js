@@ -14,7 +14,7 @@ const page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
+
     const gclid = searchParams.get("gclid");
     const utm_source = searchParams.get("utm_source");
     const utm_medium = searchParams.get("utm_medium");
@@ -33,15 +33,6 @@ const page = () => {
     console.log("msclkid", msclkid);
     console.log("utm_campaign", utm_campaign);
 
-    Cookies.set("gclid", gclid, { expires: 90 });
-    Cookies.set("msclkid", msclkid, { expires: 90 });
-    Cookies.set("utm_source", utm_source, { expires: 90 });
-    Cookies.set("utm_campaign", utm_campaign, { expires: 90 });
-    Cookies.set("utm_medium", utm_medium, { expires: 90 });
-    Cookies.set("utm_term", utm_term, { expires: 90 });
-    Cookies.set("utm_content", utm_content, { expires: 90 });
-    Cookies.set("matchtype", matchtype, { expires: 90 });
-  }, []);
 
   return (
     <div>

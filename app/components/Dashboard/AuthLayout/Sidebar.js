@@ -460,7 +460,7 @@ const Sidebar = ({ children }) => {
                 )}
                 <li>
                   <a
-                    href={"mailto:team@usetempo.ai"}
+                    href={"mailto:team@deflection.ai"}
                     className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
                   >
                     <span className="flex-1 ml-3 whitespace-nowrap text-sm font-normal">
@@ -493,7 +493,7 @@ const Sidebar = ({ children }) => {
                 <ul className="space-y-2 font-medium flex flex-col ">
                   <li>
                     <a
-                      href={"mailto:team@usetempo.ai"}
+                      href={"mailto:team@deflection.ai"}
                       className={` flex items-center p-2 text-gray-900 rounded-lg hover:bg-linkhover`}
                     >
                       <QuestionMarkCircleIcon className="h-6 w-6 text-gray-500" />

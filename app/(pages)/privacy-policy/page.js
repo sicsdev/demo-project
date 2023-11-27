@@ -400,7 +400,7 @@ const Page = () => {
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             To exercise any of the privacy rights afforded to you, please submit
-            a request to us by emailing us at [privacy@usetempo.ai].
+            a request to us by emailing us at [privacy@deflection.ai].
           </p>
 
           <h2 className="text-lg sm:text-[24px] sm:leading-8 my-2 sm:my-6 font-semibold text-heading">
@@ -408,7 +408,7 @@ const Page = () => {
           </h2>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             To opt out of marketing emails, please email us
-            at[privacy@usetempo.ai].. Please note that, even if you unsubscribe
+            at[privacy@deflection.ai].. Please note that, even if you unsubscribe
             from certain correspondence, we may still need to contact you with
             important transactional or administrative information, as permitted
             by law.Additionally, if you withdraw your consent or object to
@@ -960,7 +960,7 @@ const Page = () => {
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
             To exercise any of the privacy rights afforded to you, please submit
-            a request to us by emailing us at privacy@usetempo.ai.
+            a request to us by emailing us at privacy@deflection.ai.
           </p>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             {" "}
@@ -1000,7 +1000,7 @@ const Page = () => {
             access this Privacy Notice in an alternative downloadable format,
             please
             <span className="text-[blue] cursor-pointer">
-              <a href="https://usetempo.ai/privacy-policy-pdf">
+              <a href="https://deflection.ai/privacy-policy-pdf">
                 &nbsp;click here.{" "}
               </a>
             </span>
@@ -1011,7 +1011,7 @@ const Page = () => {
           </h2>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3 ">
             If you have any questions about our practices or this Privacy
-            Notice, please contact us at [privacy@usetempo.ai].
+            Notice, please contact us at [privacy@deflection.ai].
           </p>
         </div>
         {/* <Homeform reff={ref} /> */}

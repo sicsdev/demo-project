@@ -35,7 +35,7 @@ const ContactComplaint = () => {
               <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:top-[-59px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block top-0  right-[-341px] sm:right-0 sm:left-auto lg:left-auto md:left-auto ">
                 {" "}
                 <span className="text-xs font-light">
-                  PCI compliance through Deflection AI's payment processor Stripe. For more information, please read more about Deflection AI's <a href="https://usetempo.ai/article/security-overview" target="_blank" className="text-primary"> Security Features.</a>
+                  PCI compliance through Deflection AI's payment processor Stripe. For more information, please read more about Deflection AI's <a href="https://deflection.ai/article/security-overview" target="_blank" className="text-primary"> Security Features.</a>
                 </span>
               </Card>
             </span></p>

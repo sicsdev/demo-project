@@ -199,6 +199,11 @@ const Pricing = () => {
       firstname: data?.firstName,
       lastname: data?.lastName,
       email: data?.companyEmail,
+      lifecyclestage: "subscriber",
+      is_demo: "true",
+      demo_status: "pending",
+      gclid:gclid,
+      msclkid:msclkid
     };
     if (data?.phoneNumber) {
       payload["phone"] = data?.phoneNumber;
@@ -288,7 +293,136 @@ const Pricing = () => {
 
       <div className="p-4 sm:p-8  sm:px-40 ">
         {/* <form onSubmit={onSubmit}> */}
-        {/* <Modal isOpen={isModalOpen} onClose={toggleModal} data={data} handleInputValues={handleInputValues} handleCheckboxChange={handleCheckboxChange} submitModal={submitModal}/> */}
+        {isModalOpen && (
+<Modal
+ 
+          title={''}
+          className={"sm:w-[50%] w-[100%]"}
+          show={isModalOpen}
+          setShow={setModalOpen}
+          showCancel={true}
+          customHideButton={false}
+          showTopCancleButton={false}
+          hr={false}
+>
+<div className="p-5">
+<div className="text-center font-bold text-2xl sm:mt-8">
+              See your results and get your report
+</div>
+<div className="text-[#868794]  text-sm my-4 leading-5">
+              Please confirm your information below to see your results. Your full analysis and report will be send to the email inbox provided below
+</div>
+<div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:mr-3">
+<div className="w-full">
+ 
+ 
+                <TextField
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={data.firstName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+<div className="flex items-center gap-2 w-[150px]">
+<span>First Name</span>{" "}
+</div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+</div>
+<div className="w-full">
+<TextField
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={data.lastName ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+<div className="flex items-center gap-2 w-[150px]">
+<span>Last Name</span>{" "}
+</div>
+                  }
+                  placeholder={"First Name"}
+                  error={''}
+                />
+</div>
+<div className="w-full">
+<TextField
+                  id="companyEmail"
+                  name="companyEmail"
+                  type="email"
+                  value={data.companyEmail ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+<div className="flex items-center gap-2 w-[150px]">
+<span>Company Email</span>{" "}
+</div>
+                  }
+                  placeholder={"Company Email"}
+                  error={''}
+                />
+</div>
+<div className="w-full">
+<TextField
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="number"
+                  value={data.phoneNumber ?? ''}
+                  onChange={handleInputValues}
+                  className="py-3 mt-1"
+                  title={
+<div className="flex items-center gap-2 w-[150px]">
+<span>Phone number (Optional)</span>{" "}
+</div>
+                  }
+                  placeholder={"Phone number (Optional)"}
+                  error={''}
+                />
+</div>
+</div>
+<div className="flex mt-5">
+<div className="flex items-center h-5">
+<input
+                  type="checkbox"
+                  name="isSubscribed"
+                  checked={data.isSubscribed || false}
+                  onChange={handleCheckboxChange}
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                />
+</div>
+<div className="ml-2 text-sm">
+<p
+                  id="helper-checkbox-text"
+                  className="text-xs font-normal tracking-tight leading-4 text-left text-gray-500 dark:text-gray-300"
+>
+                  I'd like to receive marketing emails from Tempo. Please click here to view our Privacy Policy.
+</p>
+</div>
+</div>
+<div className="mt-4 mx-auto flex justify-center gap-4 items-center">
+<button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-white  text-primary hover:text-white hover:bg-primary hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={toggleModal}
+>
+                Cancel
+</button>
+<button
+                className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-input_color disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                type="button"
+                onClick={submitModal}
+                disabled={DisablingButtonModal()}
+>
+                Submit
+</button>
+</div>
+</div>
+</Modal>
+      )}
 
         {step}
         <div className="mt-4 flex justify-center  sm:justify-start gap-2">
