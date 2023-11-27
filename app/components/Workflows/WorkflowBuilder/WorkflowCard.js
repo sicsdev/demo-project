@@ -67,15 +67,15 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
 
     return (
         <div
-            onClick={(e) => {
-                e.stopPropagation();
-                router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
-            }}
-            style={{
-                boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-            }}
+            // onClick={(e) => {
+            //     e.stopPropagation();
+            //     router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
+            // }}
+            // style={{
+            //     boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+            // }}
             key={key}
-            className='relative border border-[#F0F0F1] p-3 rounded-md cursor-pointer bg-white h-[200px]'
+            className='relative border border-[#F0F0F1] p-3 rounded-md bg-white h-[200px] shadow-md hover:border-3 hover:border-[#8d8d8d]'
 
         >
 
@@ -83,11 +83,11 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
                 {/* <EmojiPicker /> */}
                 {!loading && (
                     <div className='relative'>
-                        <div className='absolute top-0 right-0 flex gap-2'>
+                        <div className='absolute top-0 right-0 flex gap-2 cursor-pointer'>
 
                             <span
                                 onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
-                                className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
+                                className='text-[#808080] font-semibold bg-lowgray rounded-md px-1'
                                 data-tooltip-id="last24hs"
                                 data-tooltip-content={`Triggered ${item.workflow_usage_last_24_hours} times last 24hrs.`}
                                 style={getGradientStyle(item.workflow_usage_last_24_hours, 'triggered')}>
@@ -98,7 +98,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
 
                             <span
                                 onClick={(e) => { e.stopPropagation(); redirectToLogs(item) }}
-                                className='text-[#808080] font-semibold bg-lowgray rounded-md px-2'
+                                className='text-[#808080] font-semibold bg-lowgray rounded-md px-1'
                                 data-tooltip-id="last24hs_count"
                                 data-tooltip-content={`Successfully used ${item.successful_automation_usage_last_24_hours_count} times last 24hrs.`}
                                 style={getGradientStyle(item.successful_automation_usage_last_24_hours_count, 'used')}>
@@ -215,8 +215,8 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
 
                     </p>
                 </div>
-                <div className='absolute bottom-0 w-full'>
-                    <div className='flex items-center justify-end '>
+                <div className='absolute w-full bottom-0 flex items-center justify-end'>
+                    <div className=' text-end'>
                         {/* <p className='text-xs text-[#151d23cc]'>
                                                     {loading ?
                                                         <SkeletonLoader count={1} height={30} width={50} />
@@ -225,17 +225,30 @@ const WorkflowCard = ({ manageData, item, key, loading, data }) => {
                                                         </>
                                                     }
                                                 </p> */}
-                        <p className={`${item.active ? 'text-danger' : 'text-success'} text-xs`} onClick={(e) => {
-                            e.stopPropagation();
-                            toggleWorkflowStatus(item.id, item.active)
-                            // deleteWorkflowHandler(e, item)
-                        }}>
-                            {loading ?
-                                <SkeletonLoader count={1} height={30} width={50} />
-                                : <>
-                                    {updateStatusLoader ? 'Loading..' : item.active ? 'Deactivate' : 'Activate'}
+
+                        {
+                            updateStatusLoader ?
+                                <>
+                                    <p className='text-xs text-gray'>
+                                    Loading...
+                                    </p>
                                 </>
-                            }</p>
+                                :
+                                <>
+                                    <p className={`${item.active ? 'text-danger' : 'text-success'}  cursor-pointer hover:font-semibold text-xs`} onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleWorkflowStatus(item.id, item.active)
+                                        // deleteWorkflowHandler(e, item)
+                                    }}>
+                                        {loading ?
+                                            <SkeletonLoader count={1} height={30} width={50} />
+                                            : <>
+                                                {item.active ? 'Deactivate' : 'Activate'}
+                                            </>
+                                        }</p>
+                                </>
+                        }
+
                     </div>
                 </div>
             </div>
