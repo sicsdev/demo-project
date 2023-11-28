@@ -14,8 +14,6 @@ const client = createClient({
   space: "i1xiyapirlpi",
   accessToken: "FgLM4I4Od3JmUNYOYds-_SamHUOpOZSDR9T-6x_R_uE",
 });
-
-
 const Page = () => {
   const params = useSearchParams()
   const route = useRouter();
@@ -25,15 +23,11 @@ const Page = () => {
   const [lastUpdate, setLastUpdate] = useState('');
   const [tag, setTag] = useState([]);
   const [related, setRelated] = useState([])
-
   const [currentImage, setCurrentimage] = useState("")
-
   const [loading, setLoading] = useState(true);
   let slug = params.get("blog")
-
-
   const findFilters = async () => {
-    let slug = params.get("article")
+    let slug = params.get("article");
     if (slug) {
       const findData = data.find((x) => x.slug === slug)
       console.log("findData", findData)
@@ -43,15 +37,12 @@ const Page = () => {
       setBlog(entry?.fields?.blogBody);
       setHeading(entry?.fields?.heading)
       setCurrentimage(entry?.fields?.previewImage?.fields?.file?.url)
-
       setDate(entry?.fields?.dateAndTimeTest)
       setLastUpdate(entry?.sys?.updatedAt)
       getRelatedBlogs(entry?.fields?.tag, entry?.fields?.heading)
-
       sekeletonData()
     }
   }
-
   const getRelatedBlogs = async (tag, heading) => {
     const entry = await client.getEntries({
       content_type: "blogs",
@@ -60,7 +51,6 @@ const Page = () => {
     setRelated(entry.items)
     findTag(entry.items, tag, heading)
   }
-
   const findTag = (blogs, tag, heading) => {
     if (blog != "") {
       const findRelated = blogs.filter((x) => x.fields.tag == tag);
@@ -69,14 +59,9 @@ const Page = () => {
       setTag(findAllRelated);
     }
   }
-
-
-
-
   useEffect(() => {
     findFilters()
   }, [slug]);
-
   const options = {
     renderNode: {
       'embedded-asset-block': (node) => {
@@ -106,8 +91,6 @@ const Page = () => {
       },
     },
   };
-
-
   const image = documentToReactComponents(blog, options);
   const value = image?.filter((x) => x.type === "h2")
 
@@ -116,7 +99,6 @@ const Page = () => {
       setLoading(false);
     }, 800);
   };
-
   const scroll = (e) => {
     console.log("scroll", e.target.innerText);
     const id = e.target.innerText.replace(/\s+/g, '-').toLowerCase();
@@ -128,7 +110,6 @@ const Page = () => {
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
   };
-
   const removeSpacesAndHyphens = (slug) => {
     if (slug) {
       return slug?.replace(/\s+/g, "-");
@@ -137,20 +118,20 @@ const Page = () => {
   return (
     <>
       <div className="bg-white  px-[20px] sm:px-0   ">
-        <div className=" sm:p-[1rem] pt-6 sm:pt-6 mx-auto max-w-[90%] sm:max-w-[90%]">
+        <div className=" sm:p-[1rem] pt-6 sm:pt-6 mx-auto max-w-[95%] sm:max-w-[95%]">
           <div className="shadow-lg rounded-2xl">
-            <p className="flex justify-center text-[20px]"> <span className="text-[#ff5721] font-semibold"> DEFLECTION AI  &nbsp; </span> <span className=""><i class="fa fa-angle-right" aria-hidden="true"></i></span> &nbsp; BLOG</p>
-            <p className=" flex sm:text-[40px] text-[20px] pt-2 m-[auto] font-bold justify-center text-center">
+            <p className="flex justify-center text-[16px] sm:text-[20px]"> <span className="text-[#ff5721] font-semibold"> DEFLECTION AI  &nbsp; </span> <span className=""><i class="fa fa-angle-right" aria-hidden="true"></i></span> &nbsp; BLOG</p>
+            <p className="sm:px-4 flex sm:text-[34px] sm:leading-[46px] text-[20px] pt-2 m-[auto] font-bold justify-center text-center">
               {heading}
             </p>
-            <p className="flex justify-center pb-4 m-[0] font-semibold text-[15px] text-[#80808091] mb-[20px] ">August 14,2023 6 min to read</p>
-            <div className="flex justify-center sm:w-[60%] m-[auto] sm:h-[21rem] p-[2rem]">
+            <p className="flex justify-center pt-2 m-[0] font-semibold text-[15px] text-[#80808091]">August 14,2023 6 min to read</p>
+            <div className="flex justify-center sm:w-[100%] m-[auto] sm:h-[21rem] p-4">
               <Image
                 fill={""}
                 src=
                 {currentImage}
                 alt="img"
-                className="bg-contain"
+                className="bg-contain w-full rounded-md"
                 style={{ objectFit: "cover" }}
                 height={200}
                 width={800}
@@ -160,7 +141,7 @@ const Page = () => {
         </div>
         <div className="block sm:flex md:flex lg:flex justify-between items-start gap-10 lg:max-w-[1450px] m-auto">
           <div className="hidden sm:block w-[15%] sticky top-0">
-            <div className="p-12 sm:mt-[5rem]">
+            <div className="p-12 sm:mt-[3rem]">
               <div class="stick-right">
                 {loading ? (
                   <SkeletonLoader count={1} height={200} width="100%" />
@@ -211,7 +192,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-          <div className="sm:w-[60%] sm:px-28 p-[2rem]">
+          <div className="sm:w-[60%] sm:pl-20">
 
             <div className="contentful-wrapper">{image}</div>
           </div>
@@ -219,17 +200,16 @@ const Page = () => {
             <div
               style={{
                 width: "18rem",
-                marginTop: "135px",
                 marginBottom: "50px",
               }}
-              className=" mt-[30px]"
+              className=" mt-[30px] sm:mt-[6rem]"
             >
-              <p className="pl-[13px] text-[13px]">TABLE OF CONTENTS</p>
+              <p className="pl-[13px] text-[16px] font-bold text-[#fe5721]">TABLE OF CONTENTS</p>
               <div className="font-medium SideOptions"    >
 
                 {value?.map((ele, key) =>
                   <div className="btn cursor-pointer" key={key} >
-                    <p className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-[13px] hover:font-bold text-[#696a85] w-[14rem]" onClick={(e) => scroll(e)}>{ele?.props?.children[0]}</p>
+                    <p className="block pl-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-[16px] hover:font-bold text-[#696a85] w-[14rem]" onClick={(e) => scroll(e)}>{ele?.props?.children[0]}</p>
                   </div>
                 )}
               </div>
@@ -237,14 +217,14 @@ const Page = () => {
           </div>
 
         </div>
-        <div className="sm:mt-[60px]">
+        <div className="sm:mt-[60px] pt-4 sm:pt-0">
           {loading ? <SkeletonLoader className="sm:h-[50px] sm:w-[20px]" /> : <h1
-            className="mt-2.5 mb-5 font-bold  text-2xl   md:text-h4 lg:text-h3 sm:text-h4 sm:leading-none flex justify-center"
+            className="mt-2.5 font-bold  text-2xl   md:text-h4 lg:text-h3 sm:text-h4 sm:leading-none flex justify-center"
           >
             Related Articles
           </h1>}
 
-          <div className=" mb-[25px] sm:grid grid-cols-3 gap-[3rem] sm:p-[5rem] p-[2rem]">
+          <div className=" mb-[25px] sm:grid grid-cols-3 gap-[3rem] sm:p-[2rem] p-[0rem]">
 
             {tag?.slice(0, 3)?.map((ele, key) => (
               <>
@@ -253,7 +233,7 @@ const Page = () => {
                   <div className="contents">
                     <SkeletonLoader className="sm:h-[50px] sm:w-[80px] " />
                   </div>
-                  : <div className=" shadow-lg rounded-lg  p-5 sm:p-3" key={key}>
+                  : <div className=" shadow-lg rounded-lg p-5" key={key}>
                     <Link href={`/resources/blog/data?article=${removeSpacesAndHyphens(ele.fields.heading.toLowerCase())}`}>
                       <div className="flex flex-co relative h-[200px] w-[100%] justify-start items-center js-show-on-scroll">
                         <Image
