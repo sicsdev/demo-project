@@ -3,9 +3,15 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Loading from '../../Loading/Loading'
 import SidebarCards from '../../Workflows/WorkflowBuilder/SidebarCards'
+import AlternativesSideBar from '../../Workflows/WorkflowBuilder/AlternativesAutomations'
+import { useEffect } from 'react'
 
-const RightSidebar = ({ addConditionalStepHandler, children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss, singleData, openRulesHandler, setTab, tab, botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters }) => {
+const RightSidebar = ({ showAlternatives, setShowAlternatives, addConditionalStepHandler, children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss, singleData, openRulesHandler, setTab, tab, botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters }) => {
     const state = useSelector(state => state.integration)
+
+    useEffect(() => {
+        console.log('asd', showAlternatives)
+    }, [])
 
     return (
         <>
@@ -20,7 +26,9 @@ const RightSidebar = ({ addConditionalStepHandler, children, inputRef, shake, se
                         data-te-sidenav-hidden="false"
                         data-te-sidenav-right="true">
                         <div className={`w-full sm:w-72 sm:pr-4 md:pr-4 lg:pr-4`} style={{ minWidth: '350px' }}>
-                            <SidebarCards stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} addConditionalStepHandler={addConditionalStepHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={alignment} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setShow} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading} availableFilters={availableFilters} />
+
+                            <SidebarCards setShowAlternatives={setShowAlternatives} showAlternatives={showAlternatives} stepIndex={stepIndex} getWorkflowData={getWorkflowData} setStepIndex={setStepIndex} setIndexSelector={setIndexSelector} inputRef={inputRef} state={state} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} workflowId={workflowId} setMobileCss={setMobileCss} singleData={singleData} openRulesHandler={openRulesHandler} addConditionalStepHandler={addConditionalStepHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={alignment} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setShow} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading} availableFilters={availableFilters} />
+
                         </div>
                     </nav>
                     <div className='rightsidebar_width'>
