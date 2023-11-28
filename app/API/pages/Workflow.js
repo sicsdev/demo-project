@@ -212,7 +212,7 @@ export const getWorkflowsTemplates = async () => {
 export const getAutomationTemplateById = async (id) => {
     let config = returnConfig()
     try {
-        const response = await axios.get(`${API_URL}/api/v1/main/workflow-changer/${id}`, config);
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-changer/alternative/${id}`, config);
         return response.data;
     } catch (error) {
         return error

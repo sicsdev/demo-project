@@ -472,7 +472,7 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
             {
                 showAlternatives?.id &&
                 <>
-                    <AlternativesAutomations showAlternatives={showAlternatives}></AlternativesAutomations>
+                    <AlternativesAutomations singleData={singleData} showAlternatives={showAlternatives} getWorkflowData={getWorkflowData}></AlternativesAutomations>
                 </>
             }
         </div >

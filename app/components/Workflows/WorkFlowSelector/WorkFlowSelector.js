@@ -257,16 +257,6 @@ const WorkFlowSelector = ({ handleShowAlternatives, openModal, stepData, setAuto
         setMainClass(start.draggableId);
     }
 
-    const handleShowAlternativesLabel = async (ele) => {
-        if (!ele?.automation?.id) { return false }
-        try {
-            let result = await getAutomationTemplateById(ele.automation.id)
-            if (result) return true
-        } catch (error) {
-            return false
-        }
-    }
-
     return (
         <>
             <DragDropContext onDragEnd={onDragEnd} onDragStart={handleDragStart}>
@@ -313,7 +303,7 @@ const WorkFlowSelector = ({ handleShowAlternatives, openModal, stepData, setAuto
                                 <>
 
                                     {stepData?.map((ele, key) =>
-                                        <Draggable key={ele.id} draggableId={ele.id} index={key}>
+                                        <Draggable isDragDisabled={!isAuthorizedUser} key={ele.id} draggableId={ele.id} index={key}>
                                             {(provided, snapshot) => (
                                                 <div
                                                     ref={provided.innerRef}
@@ -433,12 +423,12 @@ const WorkFlowSelector = ({ handleShowAlternatives, openModal, stepData, setAuto
                                                                         </div>
 
                                                                         {
-                                                                            handleShowAlternativesLabel(ele) == true &&
-                                                                            <div onClick={() => { console.log(ele); handleShowAlternatives(ele) }} className='cursor-pointer flex text-xs items-center mr-20 hover:text-primary'>
+                                                                            ele.automation?.have_alternative &&
+                                                                            <div onClick={() => { handleShowAlternatives(ele) }} className='cursor-pointer flex text-xs items-center mr-20 hover:text-primary'>
                                                                                 <span className='text-primary mx-2 hover:text-black'>Show alternatives</span>
                                                                             </div>
                                                                         }
-                                                                        {!isAuthorizedUser && <div className='absolute right-5 '>
+                                                                        {isAuthorizedUser && <div className='absolute right-5 '>
                                                                             <div className='h-[44px] '>
                                                                                 {showButtonStates == key && (
                                                                                     <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  group-hover:shadow] p-[2px]`}>

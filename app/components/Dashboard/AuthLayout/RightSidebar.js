@@ -8,11 +8,6 @@ import { useEffect } from 'react'
 
 const RightSidebar = ({ showAlternatives, setShowAlternatives, addConditionalStepHandler, children, inputRef, shake, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, mobileCss, setMobileCss, singleData, openRulesHandler, setTab, tab, botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters }) => {
     const state = useSelector(state => state.integration)
-
-    useEffect(() => {
-        console.log('asd', showAlternatives)
-    }, [])
-
     return (
         <>
             {state.isLoading === true ?
