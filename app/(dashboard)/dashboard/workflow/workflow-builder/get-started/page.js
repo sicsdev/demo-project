@@ -27,12 +27,15 @@ import TextArea from '@/app/components/Common/Input/TextArea'
 import SideModal from '@/app/components/SideModal/SideModal'
 import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getNagetiveWorkflowData, getSingleNagetiveWorkflowData, searchReccomodationWorkflow } from '@/app/API/pages/NagetiveWorkflow'
 import TopBar from '@/app/components/Common/Card/TopBar'
+import AlternativesSideBar from '@/app/components/Workflows/WorkflowBuilder/AlternativesAutomations'
 
 const GetStarted = () => {
   const [shake, setShake] = useState(null)
   const automationState = useSelector(state => state.workflow.automation)
   const state = useSelector((state) => state.botId);
+  const userData = useSelector((state) => state?.user?.data)
   const dispatch = useDispatch()
+
   const [indexSelector, setIndexSelector] = useState(null)
   const [singleData, setSingleData] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
@@ -80,6 +83,8 @@ const GetStarted = () => {
   const [ruleModal, setRuleModal] = useState(false);
   const [deflectionModal, setDeflectionModal] = useState(false);
   const [transformerModal, setTransformerModal] = useState(false);
+  const [isAuthorizedUser, setIsAuthorizedUser] = useState(false)
+  const [showAlternatives, setShowAlternatives] = useState({})
 
   const [conditionFilter, setConditionFilter] = useState([{
     availables: '',
@@ -88,8 +93,8 @@ const GetStarted = () => {
     type: 'OR',
     conditions: [{ name: 'contains', value: 'contains' }, { name: '>', value: '>' }, { name: '<', value: '<' }, { name: 'equals', value: 'equals' }]
   }]);
-  console.log("conditionFilter", conditionFilter)
-  console.log("availableFilters", availableFilters)
+
+
   const handleButtonClick = (shake = true) => {
     setMobileCss(`!block`);
     setShake('w-full sm:w-80 transform translate-x-[-1] translate-y-0 scale-100 scale-x-[1.00018] scale-y-100')
@@ -188,6 +193,11 @@ const GetStarted = () => {
     if (state.botData.data?.bots && state.botData.data?.widgets) {
       getAllBots();
     }
+    let isAuthorized = (userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai'))
+    setIsAuthorizedUser(isAuthorized)
+    if (!isAuthorized) setTab(1)
+
+
   }, [state.botData.data]);
 
   const getAllBots = () => {
@@ -771,6 +781,13 @@ const GetStarted = () => {
     textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [selected?.negative_answer]);
 
+
+
+  const handleShowAlternatives = (ele) => {
+    console.log('element', ele)
+    setShowAlternatives(ele)
+  }
+
   return (
     <>
       {isLoading === true ?
@@ -792,7 +809,9 @@ const GetStarted = () => {
             </ul>
           </div> */}
 
-          <RightSidebar addConditionalStepHandler={addConditionalStepHandler} stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading} availableFilters={availableFilters}>
+          <RightSidebar setShowAlternatives={setShowAlternatives} showAlternatives={showAlternatives} addConditionalStepHandler={addConditionalStepHandler} stepIndex={addStepIndex} mobileCss={mobileCss} setMobileCss={setMobileCss} shake={shake} setStepIndex={setAddStepIndex} setIndexSelector={setIndexSelector} workflowId={params.get('flow')} inputRef={inputRef} setAutomationStepsData={setAutomationStepsData} automationStepsData={automationStepsData} handleButtonClick={handleButtonClick} getWorkflowData={getWorkflowData} singleData={singleData} openRulesHandler={openRulesHandler} setTab={setTab} tab={tab} botValue={botValue} alignment={'items-start'} handleInputValue={handleInputValue} workflowFormData={workflowFormData} handleFileChange={handleFileChange} saveWorkFlowHandler={saveWorkFlowHandler} publishLoader={publishLoader} setPublishLoader={setPublishLoader} setShow={setWorkflowModal} onSelectData={onSelectData} setWorkFlowFormData={setWorkFlowFormData} setSelected={setSelected} selected={selected} negativeQuestions={negativeQuestions} addNewNagetiveFaq={addNewNagetiveFaq} isEdit={isEdit} setIsEdit={setIsEdit} setShowAdd={setShowAdd} deleteNegativeFaq={deleteNegativeFaq} showAdd={showAdd} nLoading={nLoading} availableFilters={availableFilters}>
+
+
             {singleData && (
               <>
                 <div className='block sm:hidden' onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
@@ -852,7 +871,7 @@ const GetStarted = () => {
                   </div>
                 </div>
 
-                <WorkFlowSelector openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData} singleData1={singleData} />
+                <WorkFlowSelector handleShowAlternatives={handleShowAlternatives} isAuthorizedUser={isAuthorizedUser} openModal={openModal} workflowId={params.get('flow')} stepData={automationStepsData} setAutomationStepsData={setAutomationStepsData} indexSelector={indexSelector} setIndexSelector={setIndexSelector} setAddStepIndex={setAddStepIndex} automationStepsField={automationStepsField} setAutomationStepsField={setAutomationStepsField} getWorkflowData={getWorkflowData} singleData1={singleData} />
               </>)}
 
             {/* Modals  */}
