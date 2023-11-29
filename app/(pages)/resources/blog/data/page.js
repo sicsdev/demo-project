@@ -14,6 +14,7 @@ const client = createClient({
   space: "i1xiyapirlpi",
   accessToken: "FgLM4I4Od3JmUNYOYds-_SamHUOpOZSDR9T-6x_R_uE",
 });
+
 const Page = () => {
   const params = useSearchParams()
   const route = useRouter();
@@ -25,6 +26,7 @@ const Page = () => {
   const [related, setRelated] = useState([])
   const [currentImage, setCurrentimage] = useState("")
   const [loading, setLoading] = useState(true);
+  const [pubDate, setPubdate] = useState("")
   let slug = params.get("blog")
   const findFilters = async () => {
     let slug = params.get("article");
@@ -34,6 +36,7 @@ const Page = () => {
       console.log("slug", slug)
       const entry = await client.getEntry(findData?.id);
       console.log("entry.items", entry)
+      setPubdate(findData?.publishDate);
       setBlog(entry?.fields?.blogBody);
       setHeading(entry?.fields?.heading)
       setCurrentimage(entry?.fields?.previewImage?.fields?.file?.url)
@@ -48,7 +51,9 @@ const Page = () => {
       content_type: "blogs",
       order: "sys.id",
     });
+    console.log("entry", entry.items);
     setRelated(entry.items)
+
     findTag(entry.items, tag, heading)
   }
   const findTag = (blogs, tag, heading) => {
@@ -60,7 +65,8 @@ const Page = () => {
     }
   }
   useEffect(() => {
-    findFilters()
+    findFilters();
+    publishDates();
   }, [slug]);
   const options = {
     renderNode: {
@@ -99,6 +105,7 @@ const Page = () => {
       setLoading(false);
     }, 800);
   };
+
   const scroll = (e) => {
     console.log("scroll", e.target.innerText);
     const id = e.target.innerText.replace(/\s+/g, '-').toLowerCase();
@@ -110,11 +117,37 @@ const Page = () => {
       window.scrollTo({ top: top, behavior: 'smooth' });
     }
   };
+  
   const removeSpacesAndHyphens = (slug) => {
     if (slug) {
       return slug?.replace(/\s+/g, "-");
     }
   };
+
+
+const publishDates =()=>{
+  function generateDateArray(startDate, endDate, step) {
+    const dateArray = [];
+    let currentDate = new Date(startDate);
+  
+    while (currentDate <= endDate) {
+      dateArray.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + step);
+    }
+  
+    return dateArray;
+  }
+  
+  const startDate = new Date('2023-06-01');
+  const endDate = new Date('2023-12-31');
+  const step = 4;
+  
+  const resultArray = generateDateArray(startDate, endDate, step);
+  
+  console.log(resultArray);
+}
+
+
   return (
     <>
       <div className="bg-white  px-[20px] sm:px-0   ">
@@ -124,7 +157,8 @@ const Page = () => {
             <p className="sm:px-4 flex sm:text-[34px] sm:leading-[46px] text-[20px] pt-2 m-[auto] font-bold justify-center text-center">
               {heading}
             </p>
-            <p className="flex justify-center pt-2 m-[0] font-semibold text-[15px] text-[#80808091]">August 14,2023 6 min to read</p>
+           
+            <p className="flex justify-center pt-2 m-[0] font-semibold text-[15px] text-[#80808091]">{pubDate}  </p>
             <div className="flex justify-center sm:w-[100%] m-[auto] sm:h-[21rem] p-4">
               <Image
                 fill={""}
