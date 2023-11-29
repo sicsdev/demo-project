@@ -52,10 +52,11 @@ const page = () => {
                 customer_service_email: bot_res?.customer_service_email,
                 agent_email_value: bot_res?.email ? true : false,
                 email_prefix: bot_res.email.split('@')[0],
-                email: bot_res.email || 'support@' + bot_res.enterprise.domain
+                email: bot_res.email || 'support@' + bot_res.enterprise.domain || 'support@' + bot_res.enterprise?.slug_domain 
             }
 
             let data = res[0].data;
+
             setBasicFormData((prev) => {
                 return {
                     ...prev,
