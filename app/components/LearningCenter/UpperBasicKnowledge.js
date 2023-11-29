@@ -43,7 +43,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (dropdown.current && !dropdown.current.contains(event.target)) {
-                console.log("Asdsd")
                 setShowSourceFilter(false);
             }
         };

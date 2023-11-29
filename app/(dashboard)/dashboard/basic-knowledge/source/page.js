@@ -33,7 +33,6 @@ const Source = () => {
         })
         const response = await getFaqQuestions(queryParam)
         if (response) {
-            console.log('prub', response)
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
                     return []; // Return an empty array for entries with no bots
@@ -87,32 +86,15 @@ const Source = () => {
         getDataWithFilters()
     }, [filters, currentTab])
 
+
+
+    
     const getDataWithFilters = (type) => {
-        // let query = 'page=1&page_size=10&'
-
-        // switch (type) {
-        //     case 'FILE':
-        //         query = `page=1&page_size=10&knowledge__source=file`
-        //         break;
-        //     case 'SNIPPET':
-        //         query = `page=1&page_size=10&knowledge__source=snippet`
-        //         break;
-        //     case 'EXTERNAL':
-        //         query = `page=1&page_size=10&knowledge__source=external`
-        //         break;
-        //     case 'PRODUCT':
-        //         query = `page=1&page_size=10&knowledge__source=product`
-        //         break;
-
-        //     default:
-        //         break;
-        // }
-
         let query = `page=1&page_size=10${currentTab ? `&knowledge__source=${currentTab}` : ''}${filters?.currentBot ? `&bot__id=${filters.currentBot}` : ''}`
-
         getQuestionsData(query)
-
     }
+
+
     const handleChange = (e) => {
         const searchText = e.target.value;
         setSearch(searchText);
