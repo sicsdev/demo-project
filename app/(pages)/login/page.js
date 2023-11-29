@@ -341,7 +341,7 @@ const Login = () => {
                   <Link
                     href="/forgot-password"
                     className={`${error && "text-sky underline"
-                      }  text-border text-sm font-normal `}
+                      }  text-border text-xs font-normal `}
                   >
                     Forgot your password?
                   </Link>
