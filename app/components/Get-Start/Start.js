@@ -14,7 +14,7 @@ const Start = () => {
     <>
 {/* 
       <pre lang="js">
-        <script src="https://widget-dev.usetempo.ai/v1/main.js" />
+        <script src="https://widget-dev.deflection.ai/v1/main.js" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -1,8 +1,10 @@
+"use client";
 import TextField from "@/app/components/Common/Input/TextField";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import Swal from "sweetalert2";
+import React, { useState, useEffect } from "react";
 
-const TrialForm = ({ formData, setFormData }) => {
+const TrialForm = ({ formData, setFormData, pop, setPop }) => {
   const formatPhoneNumber = (value) => {
     // Remove all characters except digits
     let numbersOnly = value.replace(/[^\d]/g, "");
@@ -30,7 +32,47 @@ const TrialForm = ({ formData, setFormData }) => {
 
     return "+1 ";
   };
+
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
+
+  const handleBlackList = () => {
+    if (blacklist.includes(formData?.email.split("@")[1])) {
+      setPop(true);
+    }
+    else{
+      setPop(false);
+    }
+  };
+
+
   const handleInputValues = (e) => {
+    setPop(false);
     let { value, name } = e.target;
     // if (name === "phone") {
     //   value = formatPhoneNumber(value);
@@ -59,6 +101,7 @@ const TrialForm = ({ formData, setFormData }) => {
       };
     });
   };
+  
   const handleUrlValue = (e) => {
     const { value } = e.target;
     if (value.includes(" ") || value.includes(".com")) {
@@ -113,11 +156,16 @@ const TrialForm = ({ formData, setFormData }) => {
     <div className="w-full sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-5">
       <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
+        {pop == true? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+           Please enter a valid work email
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div></> : ""}
           <TextField
             type="email"
             id="email"
             name="email"
             value={formData?.email ?? ""}
+            onBlur={handleBlackList}
             onChange={handleInputValues}
             className="py-3 mt-1 outline-none"
             title={
@@ -127,7 +175,13 @@ const TrialForm = ({ formData, setFormData }) => {
             }
             placeholder={"Email"}
             error={""}
+            data-tooltip-target="tooltip-bottom"
+            data-tooltip-placement="bottom"
           />
+         
+        
+
+
         </div>
         {/* 
         <div className='my-2 sm:my-0 relative'>
@@ -210,6 +264,7 @@ const TrialForm = ({ formData, setFormData }) => {
             error={""}
           />
         </div>
+
       </div>
       <div className="grid gap-2 sm:gap-[15px] grid-cols-1 sm:mt-[12px] sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 mb-2">
 
@@ -349,7 +404,7 @@ const TrialForm = ({ formData, setFormData }) => {
           id="link-checkbox"
           type="checkbox"
           className="p-1 custom-checkbox w-6 h-6 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-          style={{width: '21px', height: '21px'}}
+          style={{ width: '21px', height: '21px' }}
           onChange={(e) =>
             setFormData((prev) => {
               return {

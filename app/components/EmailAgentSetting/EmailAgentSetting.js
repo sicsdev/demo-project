@@ -91,7 +91,7 @@ const EmailAgentSetting = ({ basicFormData, setBasicFormData, form = true }) => 
                 </div>
 
                 {formValues.email_prefix && formValues.custom_email && (
-                    <p className='text-sm my-2 text-primary'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='font-semibold cursor-pointer' href='https://www.usetempo.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> for instructions. </p>
+                    <p className='text-sm my-2 text-primary'>Please enable mail forwarding to {email_Prefix}@{company_name}.gettempo.ai from your domain. <a className='font-semibold cursor-pointer' href='https://www.deflection.ai/help/help-details?articleName=enable-mail-forwarding' target='_blank'>Click here</a> for instructions. </p>
 
                 )}
                

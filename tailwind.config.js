@@ -100,9 +100,9 @@ module.exports = {
       red: "#dc2626",
       label: "#59f2f6",
       fade_text: "#000000db",
-      sidebarbg:"#151D23",
-      sidebarroute:"#1C252B",
-      sidebarsubroute:"#232D32",
+      sidebarbg: "#151D23",
+      sidebarroute: "#1C252B",
+      sidebarsubroute: "#232D32",
       lowgray: "#f3f3f2",
       stronggray: "#787978"
     },
@@ -113,9 +113,9 @@ module.exports = {
       boxShadow: {
         "3xl": "0 0.125rem 1.5625rem rgb(0 0 0/10%)",
         "card": 'rgba(149, 157, 165, 0.2) 0px 8px 24px',
-        "hoverShadow":"0 2px 0 0 #f5455c",
-        "box":"0 4.5px 3.6px rgba(0,0,0,.014), 0 12.5px 10px rgba(0,0,0,.02), 0 30.1px 24.1px rgba(0,0,0,.026), 0 100px 80px rgba(0,0,0,.04)",
-        "login-page":"rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
+        "hoverShadow": "0 2px 0 0 #f5455c",
+        "box": "0 4.5px 3.6px rgba(0,0,0,.014), 0 12.5px 10px rgba(0,0,0,.02), 0 30.1px 24.1px rgba(0,0,0,.026), 0 100px 80px rgba(0,0,0,.04)",
+        "login-page": "rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px"
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -128,6 +128,7 @@ module.exports = {
         "type-above": "linear-gradient(90deg,#09162A,#293445,white  )      ",
         "type-mobile": "linear-gradient(180deg,#09162A,#293445,white  )      ",
         "sidebar-hover": "radial-gradient(400% 240% at -170% 75%, rgb(153, 0, 102) 10%, rgb(255, 82, 51) 50%, rgb(255, 149, 0) 90%) !important",
+        "gradiantgray": "linear-gradient(45deg, rgb(229, 229, 229) 0%, rgb(229, 229, 229) 10%, rgb(255, 255, 255) 10%) !important",
         "home-above":
           "linear-gradient(340.76deg,#2250f4 40.7%,#230a5c 80.03%)",
       },

@@ -52,7 +52,6 @@ const Demo = () => {
     // if (email?.includes("@")) {
     //   window._learnq.push(["identify", { email: email }]);
     // }
-    
   }, [email]);
 
   const handleBlur = (email) => {

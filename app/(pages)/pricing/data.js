@@ -68,7 +68,7 @@ export const questions = [
     question: "How does enterprise pricing work?",
     answer: (
       <p className="tracking-wide text-sm sm:text-[1.25rem] sm:leading-[2rem] text-text-dark-color">
-        For large clients, we're able to customize pricing and feature set to your use case. Please reach out to enterprise@usetempo.ai to connect with our enterprise sales team.
+        For large clients, we're able to customize pricing and feature set to your use case. Please reach out to enterprise@deflection.ai to connect with our enterprise sales team.
       </p>
     ),
   },

@@ -203,7 +203,7 @@ const Security = () => {
             <div
               dangerouslySetInnerHTML={{
                 __html: `
-       <a href="mailto:security@usetempo.ai">
+       <a href="mailto:security@deflection.ai">
        <span className="underline cursor-pointer text-white">Contact our security team &#8594;
        </span>
        </a>

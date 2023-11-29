@@ -139,7 +139,7 @@
 //             <img
 //                 className="profile-photo_ChatBot"
 //                 src={
-//                     preferences.logo || "https://usetempo.ai/bot.png"
+//                     preferences.logo || "https://deflection.ai/bot.png"
 //                 }
 //                 alt="Profile Photo"
 //                 width="35px"

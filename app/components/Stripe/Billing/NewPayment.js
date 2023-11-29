@@ -30,6 +30,8 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const [errors, setError] = useState([]);
     const [loading, setLoading] = useState();
     const [cardFilled, setCardFilled] = useState(false);
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -37,7 +39,7 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
             return;
         }
         const cardElement = elements.getElement(CardElement);
-        
+
         let card_token = await stripe.createToken(cardElement);
         const payload = {
             token: card_token.token?.id,
@@ -69,6 +71,7 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
                 });
             }
         }
+
     }, [elements]);
 
     return (

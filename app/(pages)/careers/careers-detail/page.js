@@ -97,7 +97,7 @@ const Page = ({ params }) => {
               To apply, please send an email to{" "}
               <span className="text-[blue]">
                 {" "}
-                <a href="mailto:careers@usetempo.ai" target="_blank"> careers@usetempo.ai </a>
+                <a href="mailto:careers@deflection.ai" target="_blank"> careers@deflection.ai </a>
               </span>{" "}
               with the name of the position to which you’re applying in the
               title. Applications without a resume and cover letter will not be

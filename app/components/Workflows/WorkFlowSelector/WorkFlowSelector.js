@@ -1,10 +1,10 @@
-import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon, PuzzlePieceIcon, EnvelopeIcon } from '@heroicons/react/24/outline'
+import { ClipboardIcon, PlusIcon, PencilIcon, TrashIcon, PencilSquareIcon, XMarkIcon, InformationCircleIcon, ClipboardDocumentListIcon, BookmarkIcon, BriefcaseIcon, ArrowUturnLeftIcon, PuzzlePieceIcon, EnvelopeIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import Button from '../../Common/Button/Button'
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { tiles_icons } from '@/app/data/icon_data';
-import { updateWorkFlowStatus } from '@/app/API/pages/Workflow';
+import { getAutomationTemplateById, updateWorkFlowStatus } from '@/app/API/pages/Workflow';
 import Card from '../../Common/Card/Card';
 import { errorMessage, successMessage } from '../../Messages/Messages';
 import LoaderButton from '../../Common/Button/Loaderbutton';
@@ -12,8 +12,8 @@ import { useDispatch } from 'react-redux';
 import { editAutomationValue } from '../../store/slices/workflowSlice';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from '../../Common/Modal/Modal';
-const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField, getWorkflowData, singleData1 }) => {
-    console.log("stepData", stepData)
+const WorkFlowSelector = ({ handleShowAlternatives, openModal, stepData, setAutomationStepsData, workflowId, indexSelector, setIndexSelector, setAddStepIndex, automationStepsField, setAutomationStepsField, getWorkflowData, singleData1, isAuthorizedUser }) => {
+
     const [showButtonStates, setShowButtonStates] = useState(null);
     const [modal, setModal] = useState(false);
     const [mainClass, setMainClass] = useState(null)
@@ -254,9 +254,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
     }
     function handleDragStart(start) {
-        
         setMainClass(start.draggableId);
-
     }
 
     return (
@@ -291,7 +289,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                         </div>
                                     </div>
                                 } */}
-                                {stepData?.length === 0 &&
+                                {stepData?.length === 0 && !isAuthorizedUser &&
                                     <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                                         onClick={(e) => openModal({ key: "STEPS", open: true, addKey: 0 })} >
                                         <div className='flex justify-between gap-2 items-center'>
@@ -305,7 +303,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                 <>
 
                                     {stepData?.map((ele, key) =>
-                                        <Draggable key={ele.id} draggableId={ele.id} index={key}>
+                                        <Draggable isDragDisabled={!isAuthorizedUser} key={ele.id} draggableId={ele.id} index={key}>
                                             {(provided, snapshot) => (
                                                 <div
                                                     ref={provided.innerRef}
@@ -349,7 +347,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                             {key !== 0 && (
                                                                 <div class="stepper-main-wrapper w-full">
                                                                     <div class="stepper-container relative flex items-center justify-center w-full min-h-[24px]">
-                                                                        {indexSelector !== key && (
+                                                                        {indexSelector !== key && !isAuthorizedUser && (
                                                                             <>
                                                                                 <div class="stepper-dots rounded-full absolute z-10 bg-[#d9d9d9] h-[10px] w-[10px] border-2 border-[#d9d9d9]"></div>
                                                                                 <button class="stepper-plus-icon rounded-full absolute z-10" aria-label="Add Step" type="button" onClick={(e) => openModal({ key: "PLUS", open: true, addKey: key })}>
@@ -367,10 +365,10 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
 
 
                                                             <div className='border  border-border rounded-lg shadow bg-[#f8f8f8] asdasd'>
-                                                                <div className='  p-5 cursor-pointer group  rounded-lg' >
+                                                                <div className='  p-5 group  rounded-lg relative py-6' >
 
                                                                     <div className='flex justify-between gap-2 items-center'>
-                                                                        <div className='flex justify-start gap-4 items-center w-[90%]'>
+                                                                        <div className='flex justify-start gap-4 items-center w-100%]'>
                                                                             {ele.automation?.integration?.icon && (
                                                                                 <div className="relative w-[25px] h-[25px] gap-2 rounded-lg">
                                                                                     <Image
@@ -423,7 +421,14 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                             )}
 
                                                                         </div>
-                                                                        <div className=''>
+
+                                                                        {
+                                                                            ele.automation?.have_alternative &&
+                                                                            <div onClick={() => { handleShowAlternatives(ele) }} className='cursor-pointer flex text-xs items-center mr-20 hover:text-primary'>
+                                                                                <span className='text-primary mx-2 hover:text-black'>Show alternatives</span>
+                                                                            </div>
+                                                                        }
+                                                                        {isAuthorizedUser && <div className='absolute right-5 '>
                                                                             <div className='h-[44px] '>
                                                                                 {showButtonStates == key && (
                                                                                     <div className={`${showButtonStates == key ? 'bg-white' : ''} rounded-lg group-hover:border border-border  group-hover:shadow] p-[2px]`}>
@@ -442,7 +447,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                                                                     </div>
                                                                                 )}
                                                                             </div>
-                                                                        </div>
+                                                                        </div>}
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -454,7 +459,7 @@ const WorkFlowSelector = ({ openModal, stepData, setAutomationStepsData, workflo
                                             )}
                                         </Draggable>
                                     )}
-                                    {stepData?.length !== 0 &&
+                                    {stepData?.length !== 0 && isAuthorizedUser &&
                                         <div className={`mt-4 border-2 border-dashed  bg-[white] ${indexSelector === null ? ("border-primary") : "border-border"} rounded-lg shadow p-5 cursor-pointer group`}
                                             onClick={(e) => openModal({ key: "STEPS", open: true, addKey: null })} >
                                             <div className='flex justify-between gap-2 items-center'>
