@@ -928,82 +928,91 @@ const Logs = () => {
               </div>
             </div>
           ) : (
+            <>
+              <div className="w-full flex items-center sm:mt-0 justify-between sm:justify-end gap-4 my-4">
+                <div
+                  className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
+                  style={{ rowGap: "4px" }}
+                >
+                  {botValue?.length > 1 &&
+                    botValue?.map((element, key) => (
+                      <button
+                        onClick={(e) => handleInputValues({ target: { value: element.value } })}
+                        key={key}
+                        className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot
+                          ? "text-white bg-primary"
+                          : "bg-white text-[#151D23]"
+                          } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                      >
+                        {" "}
+                        {element?.name}
+                      </button>
+                    ))}
+                </div>
+              </div>
 
-            <div className="block sm:flex justify-center gap-5">
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={handleInputValues}
-                  value={selectedBot}
-                  name="bot"
-                  values={botValue}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">Chat Logs</h3>
-                  }
-                  id={"bots"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.type || ""}
-                  name="type"
-                  values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
-                    { name: "Select", value: "all" },
-                    { name: "Chat", value: "chat" },
-                    { name: "Email", value: "email" },
-                    { name: "Phone", value: "phone" }
-                  ] : [
-                    { name: "Select", value: "all" },
-                    { name: "Chat", value: "chat" },
-                    { name: "Email", value: "email" },
-                  ]}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">Channel</h3>
-                  }
-                  id={"type"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.conversations || ""}
-                  name="conversations"
-                  values={workflowValue}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">
-                      Conversations
-                    </h3>
-                  }
-                  id={"conversations"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
-              {userWorkFlows?.length > 0 && (
+
+              <div className="block sm:flex justify-center gap-5">
+
                 <div className="mb-4 w-full">
                   <SelectOption
                     onChange={(e) => filterDataHandler(e)}
-                    value={selectedFilters.workflows || ""}
-                    name="workflows"
-                    values={userWorkFlows}
+                    value={selectedFilters.type || ""}
+                    name="type"
+                    values={userState && userState?.email?.split("@")[1] === 'joinnextmed.com' ? [
+                      { name: "Select", value: "all" },
+                      { name: "Chat", value: "chat" },
+                      { name: "Email", value: "email" },
+                      { name: "Phone", value: "phone" }
+                    ] : [
+                      { name: "Select", value: "all" },
+                      { name: "Chat", value: "chat" },
+                      { name: "Email", value: "email" },
+                    ]}
                     title={
-                      <h3 className="text-sm my-4 font-semibold">Workflows</h3>
+                      <h3 className="text-sm my-4 font-semibold">Channel</h3>
                     }
-                    id={"workflows"}
+                    id={"type"}
                     className="py-3"
                     error={""}
                     showOption={false}
                   />
                 </div>
-              )}
-              {/* <div className="mb-4 w-full">
+                <div className="mb-4 w-full">
+                  <SelectOption
+                    onChange={(e) => filterDataHandler(e)}
+                    value={selectedFilters.conversations || ""}
+                    name="conversations"
+                    values={workflowValue}
+                    title={
+                      <h3 className="text-sm my-4 font-semibold">
+                        Conversations
+                      </h3>
+                    }
+                    id={"conversations"}
+                    className="py-3"
+                    error={""}
+                    showOption={false}
+                  />
+                </div>
+                {userWorkFlows?.length > 0 && (
+                  <div className="mb-4 w-full">
+                    <SelectOption
+                      onChange={(e) => filterDataHandler(e)}
+                      value={selectedFilters.workflows || ""}
+                      name="workflows"
+                      values={userWorkFlows}
+                      title={
+                        <h3 className="text-sm my-4 font-semibold">Workflows</h3>
+                      }
+                      id={"workflows"}
+                      className="py-3"
+                      error={""}
+                      showOption={false}
+                    />
+                  </div>
+                )}
+                {/* <div className="mb-4 w-full">
                 <SelectOption
                   onChange={(e) => filterDataHandler(e)}
                   value={selectedFilters.viewed || ""}
@@ -1038,63 +1047,64 @@ const Logs = () => {
                   showOption={false}
                 />
               </div> */}
-              <div className="flex justify-between items-center gap-2 mb-[15px]">
-                <div className="w-full mt-4">
-                  <div className={`inline`}>
-                    <label
-                      className={`block text-sm text-heading font-medium pb-2 pt-0`}
-                    >
-                      From
-                      <p style={{ fontSize: "10px" }}></p>
-                    </label>
-                    <div className={`flex  items-center `}>
-                      <input
-                        onChange={(e) => filterDataHandler(e)}
-                        value={selectedFilters.created__gte || ""}
-                        type="date"
-                        id="created__gte"
-                        name="created__gte"
-                        className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                      />
-                      <div onClick={() => handleCleanDates("created__gte")}>
-                        {selectedFilters?.created__gte !== "all" && (
-                          <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>
-                        )}
+                <div className="flex justify-between items-center gap-2 mb-[15px]">
+                  <div className="w-full mt-4">
+                    <div className={`inline`}>
+                      <label
+                        className={`block text-sm text-heading font-medium pb-2 pt-0`}
+                      >
+                        From
+                        <p style={{ fontSize: "10px" }}></p>
+                      </label>
+                      <div className={`flex  items-center `}>
+                        <input
+                          onChange={(e) => filterDataHandler(e)}
+                          value={selectedFilters.created__gte || ""}
+                          type="date"
+                          id="created__gte"
+                          name="created__gte"
+                          className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                        />
+                        <div onClick={() => handleCleanDates("created__gte")}>
+                          {selectedFilters?.created__gte !== "all" && (
+                            <XMarkIcon className="w-4 h-4 mt-1"></XMarkIcon>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="w-full mt-4">
-                  <div className={`inline`}>
-                    <label
-                      className={`block text-sm text-heading font-medium pb-2 pt-0`}
-                    >
-                      To
-                      <p style={{ fontSize: "10px" }}></p>
-                    </label>
-                    <div className={`flex items-center`}>
-                      <input
-                        onChange={(e) => filterDataHandler(e)}
-                        value={selectedFilters.created__lte || ""}
-                        type="date"
-                        id="created__lte"
-                        name="created__lte"
-                        className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                      />
-                      <div onClick={() => handleCleanDates("created__lte")}>
-                        {selectedFilters?.created__lte !== "all" && (
-                          <XMarkIcon
-                            className="w-4 h-4 mt-1"
-                            style={{ cursor: "pointer" }}
-                          ></XMarkIcon>
-                        )}
+                  <div className="w-full mt-4">
+                    <div className={`inline`}>
+                      <label
+                        className={`block text-sm text-heading font-medium pb-2 pt-0`}
+                      >
+                        To
+                        <p style={{ fontSize: "10px" }}></p>
+                      </label>
+                      <div className={`flex items-center`}>
+                        <input
+                          onChange={(e) => filterDataHandler(e)}
+                          value={selectedFilters.created__lte || ""}
+                          type="date"
+                          id="created__lte"
+                          name="created__lte"
+                          className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                        />
+                        <div onClick={() => handleCleanDates("created__lte")}>
+                          {selectedFilters?.created__lte !== "all" && (
+                            <XMarkIcon
+                              className="w-4 h-4 mt-1"
+                              style={{ cursor: "pointer" }}
+                            ></XMarkIcon>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
 
           <>

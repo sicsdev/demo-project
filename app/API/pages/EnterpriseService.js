@@ -49,7 +49,7 @@ export const updateThresholds = async (body) => {
 
 
 
-export const uploadImage = async (body,id) => {
+export const uploadImage = async (body, id) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/main/bots/${id}/customer-files/`, body, config);
@@ -94,3 +94,16 @@ export const removeTrialFromSlack = async (body) => {
         return error
     }
 };
+
+export const setDomainSlug = async () => {
+    let config = returnConfig()
+    // domain_slug="nextmed" \
+
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/accounts/enterprises/domains/basic/`, body, config);
+        console.log(response)
+        return response;
+    } catch (error) {
+        return error
+    }
+}
