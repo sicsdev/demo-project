@@ -247,8 +247,21 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 </div>
               </span>
             </label>
-            <div className={`flex flex-wrap justify-start items-center border h-auto w-auto ${returnErrorMessage("tileAgentName") ? "border-red" : "border-[#C7C6C7]"}   rounded-md mt-2 ${tileAgentName.length > 0 && ('px-1')}`}>
-              <div style={{rowGap: "5px"}} className={` ${tileAgentName?.length > 0 ? 'py-1' : ''} flex flex-wrap items-center justify-start gap-1`}>
+            <div className={`flex flex-wrap justify-start items-center h-auto w-auto ${returnErrorMessage("tileAgentName") ? "border-red" : "border-[#C7C6C7]"}   rounded-md mt-2 ${tileAgentName.length > 0 && ('px-1')}`}>
+
+              <input
+                value={formValues.agent_name}
+                onKeyDown={handleKeyDown}
+                required
+                onChange={handleAgentNameValue}
+                type={"text"}
+                placeholder={"Enter names separate by commas"}
+                className={`new_input block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
+                id={"agent_name"}
+                name={"agent_name"}
+              />
+
+              <div style={{ rowGap: "5px" }} className={` ${tileAgentName?.length > 0 ? 'py-1' : ''} flex flex-wrap items-center justify-start gap-1 my-2`}>
                 {tileAgentName.length > 0 &&
                   tileAgentName.map((element, key) => (
                     <div
@@ -265,18 +278,9 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                     </div>
                   ))}
               </div>
-              <input
-                value={formValues.agent_name}
-                onKeyDown={handleKeyDown}
-                required
-                onChange={handleAgentNameValue}
-                type={"text"}
-                placeholder={"Enter names separate by commas"}
-                className={`block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm    !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none w-full sm:w-[210px] border-none ring-0 focus-visible:border-none`}
-                id={"agent_name"}
-                name={"agent_name"}
-              />
+
             </div>
+
             {returnErrorMessage("tileAgentName") && (<small className="text-danger text-xs">{returnErrorMessage("tileAgentName")}</small>)}
           </div>
         </div>

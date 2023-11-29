@@ -304,7 +304,8 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
     }
 
     const handleDomainSlug = async () => {
-        await setDomainSlug({ domain_slug: domainFromEmail })
+        let fetch = await setDomainSlug({ domain_slug: domainFromEmail })
+        console.log(fetch, '1239')
         dispatch(fetchProfile());
 
     }

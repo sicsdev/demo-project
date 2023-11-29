@@ -18,6 +18,7 @@ import React, { useEffect, useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { useSelector, useDispatch } from 'react-redux'
 import { ToastContainer } from 'react-toastify'
+
 const page = () => {
     const [pageLoading, setPageLoading] = useState(true);
     const [pageSubLoading, setPageSubLoading] = useState(true);
@@ -37,6 +38,7 @@ const page = () => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
             getAllBots();
         }
+
     }, [state.botData.data]);
 
     const getBotInfo = (id) => {
@@ -49,9 +51,10 @@ const page = () => {
                 email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
                 customer_service_email: bot_res?.customer_service_email,
                 agent_email_value: bot_res?.email ? true : false,
-                email_prefix: bot_res.email.split('@')[0]
+                email_prefix: bot_res.email.split('@')[0],
+                email: bot_res.email || 'support@' + bot_res.enterprise.domain
             }
-             
+
             let data = res[0].data;
             setBasicFormData((prev) => {
                 return {
