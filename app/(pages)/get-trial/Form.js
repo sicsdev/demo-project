@@ -62,15 +62,12 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
   ];
 
   const handleBlackList = () => {
-
     if (blacklist.includes(formData?.email.split("@")[1])) {
-      console.log("got it")
       setPop(true);
     }
     else{
       setPop(false);
     }
-
   };
 
 
@@ -104,6 +101,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
       };
     });
   };
+  
   const handleUrlValue = (e) => {
     const { value } = e.target;
     if (value.includes(" ") || value.includes(".com")) {

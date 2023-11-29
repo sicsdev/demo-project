@@ -17,11 +17,10 @@ export const userInfoSlice = createSlice({
             state.userData = action.payload;
         });
     },
-})
+});
 
 export const { setUserInfo } = userInfoSlice.actions;
 export default userInfoSlice.reducer;
-
 export const userLogin = createAsyncThunk(
     "userInfo/userLogin",
     async (body) => {
