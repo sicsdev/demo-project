@@ -26,10 +26,32 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     const [search, setSearch] = useState("")
     const router = useRouter();
     const [urls, setUrls] = useState([])
+    const [loading, setLoading] = useState(true);
 
     const [isAuthorizedUser, setIsAuthorizedUser] = useState(false)
+    const [botValue, setBotValue] = useState([]);
 
+    // Filters
+    const [filters, setFilters] = useState({
+        currentBot: ''
+    })
+
+    // Helpers redux
+    const botsState = useSelector((state) => state.botId);
     const userData = useSelector((state) => state?.user?.data)
+
+
+    useEffect(() => {
+        manageData()
+        setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
+    }, [workflowData, filters])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 400);
+        getAllBots()
+    }, [])
 
     const [isCopied, setIsCopied] = useState({
         id: null,
@@ -105,120 +127,14 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         }
     }
 
-    const columns = [
-        {
-            name: "Name",
-            selector: (row, index) => row.name,
-            sortable: true,
-            reorder: true,
-            minWidth: '250px',
-            cell: (row, index) => (
-                <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center mr-2 !whitespace-pre-wrap w-[20px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
-
-                        {/* <Image fill="true" className="bg-contain mx-auto w-full rounded-lg" alt="logo.png" src={row?.icon ?? '/workflow/reactive-subscription.png'} /> */}
-                    </div>
-                    <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 ">{makeCapital(row.name)}</h3>
-                </div>
-            )
-        },
-        {
-            name: "Status",
-            selector: (row) => row.active ? 'Active' : 'Draft',
-            sortable: true,
-            reorder: true,
-
-        },
-        {
-            name: "Actions",
-            sortable: false,
-            cell: (row, index) => (
-                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} setShowTestBot={setShowTestBot} setWorkflowToTest={setWorkflowToTest} />
-            ),
-
-        }
-
-
-    ]
-
-    const columns1 = [
-        {
-            name: "Name",
-            selector: (row, index) => row.name,
-            sortable: true,
-            reorder: true,
-            minWidth: '250px',
-            cell: (row, index) => (
-                <div className="flex gap-2 items-center cursor-pointer" onClick={(e) => editWorkFlowHandler(row)}>
-                    <div className="relative inline-flex items-center justify-center mr-2 !whitespace-pre-wrap w-[20px] h-[40px] sm:h-10 overflow-hidden rounded-lg">
-                        {row.icon ? <p className='text-[18px]'>{row.icon}</p> : <span className='text-[18px]'>😊</span>}
-
-                    </div>
-                    <h3 className="text-heading font-semibold text-xs whitespace-break-spaces my-1 ">{makeCapital(row.name)}</h3>
-                </div>
-            )
-        },
-        {
-            name: "Status",
-            selector: (row) => row.active ? 'Active' : 'Draft',
-            sortable: true,
-            reorder: true,
-            hide: "sm"
-        },
-        {
-            name: "Actions",
-            sortable: false,
-            cell: (row, index) => (
-                <ButtonComponent data={row} index={index} alldata={data} setData={setData} workflowData={workflowData} fetchData={fetchData} setShowTestBot={setShowTestBot} setWorkflowToTest={setWorkflowToTest} />
-            ),
-
-        },
-        {
-            name: "Embed URL",
-            sortable: false,
-            cell: (row, index) => (
-                <>
-                    {row.id === isCopied.id && isCopied.copied === true ? (
-                        <button
-                            type={"button"}
-                            className="border-none p-0 m-0 flex gap-1 items-center"
-                        >
-                            <CheckIcon className="h-4 w-4 " /> Copied!
-                        </button>) :
-                        <button
-                            type={"button"}
-                            onClick={() => getUrl(row.id)}
-                            className="border-none p-0 m-0 flex gap-1 items-center"
-                        >
-                            <ClipboardIcon className=" h-5 w-5 text-black" /> Copy
-                        </button>}
-
-
-                </>
-            ),
-            hide: "sm"
-
-        },
-
-
-    ]
-
-
-
-    useEffect(() => {
-        manageData()
-        setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
-    }, [workflowData])
-
 
     const editWorkFlowHandler = (ele) => {
         router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${ele?.id}`);
     };
 
     const manageData = async () => {
-
-        let workflows = await getWorkflowByStatus(status, source)
+        let botFilter = filters.currentBot
+        let workflows = await getWorkflowByStatus(status, source, botFilter)
         let result = workflows.results
         let array_of_urls = []
 
@@ -230,6 +146,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         setUrls(array_of_urls)
         setData(result);
         setOriginalData(result)
+        setLoading(false)
     }
 
     const handleChange = (e) => {
@@ -252,19 +169,72 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         }
     }
 
-    const [loading, setLoading] = useState(true);
+    const getAllBots = async () => {
+        const getTitle = botsState.botData.data.bots.map(
+            (element) => element.chat_title
+        );
+        const widgetCode = botsState.botData.data.widgets;
+        const mergedArray = widgetCode.map((item, index) => {
+            const title = getTitle[index];
+            return {
+                value: item.id,
+                name: title,
+            };
+        });
 
-    useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 400);
-    }, [])
+        mergedArray.sort((a, b) => a.name.localeCompare(b.name))
+        setBotValue(mergedArray);
+
+    }
+
+    const handleFilters = (e) => {
+        setLoading(true)
+        setFilters({
+            ...filters,
+            currentBot: e.target.value
+        })
+    }
+
 
 
     return (
         <div>
             <div className='mt-4'>
                 <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+
+
+                    <div className='flex w-full justify-start items-center gap-2 my-2'>
+                        <div className="w-full flex items-center sm:mt-0 justify-start gap-4">
+                            <div
+                                className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
+                                style={{ rowGap: "4px" }}
+                            >
+                                <button
+                                    onClick={(e) => handleFilters({ target: { value: '', name: ''} })}
+                                    key={'allbotsfilter'}
+                                    className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                >
+                                    {" "}
+                                    All
+                                </button>
+
+                                {botValue?.length > 1 &&
+                                    botValue?.map((element, key) => (
+                                        <button
+                                            onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
+                                            key={key}
+                                            className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                        >
+                                            {" "}
+                                            {element?.name}
+                                        </button>
+                                    ))}
+
+
+                            </div>
+                        </div>
+                    </div>
+
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         {loading ?
@@ -281,6 +251,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                         }
                     </div>
                     <div>
+
                         {loading ?
                             <SkeletonLoader count={1} height={30} width={80} />
                             :
@@ -308,6 +279,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
             <div className='w-full'>
 
+
                 {
                     data?.length > 0 ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mx-auto items-center my-2' >
@@ -320,28 +292,16 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                         </div>
                     )
                         :
-                        ""
+                        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-4 gap-4 mx-auto items-center my-2' >
+                            <div className='flex w-full m-auto'><SkeletonLoader count={1} height={150} width={280} /></div>
+                            <div className='flex w-full m-auto'><SkeletonLoader count={1} height={150} width={280} /></div>
+                            <div className='flex w-full m-auto'><SkeletonLoader count={1} height={150} width={280} /></div>
+                            <div className='flex w-full m-auto'><SkeletonLoader count={1} height={150} width={280} /></div>
+                        </div>
                 }
 
             </div>
 
-            {/* <div className='data_table_wrapper w-full'>
-                <DataTable
-                    title=""
-                    fixedHeader
-                    highlightOnHover
-                    pagination
-                    paginationPerPage={10}
-                    onRowClicked={(rowData) => {
-                        router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${rowData?.id}`);
-                    }}
-                    columns={status === true ? columns1 : columns}
-                    className='data-table-class'
-                    data={data}
-                    customStyles={customStyles}
-                    noDataComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={40} width="100%" className={"mt-2"} /></div>}
-                />
-            </div> */}
             {suggestModal && (
                 <Modal
                     title={
@@ -399,6 +359,16 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 }
 
 export default WorkFlowTemplates
+
+
+
+
+
+
+
+
+// **************** BUTTON COMPONENT *******************
+
 
 export const ButtonComponent = ({ data, alldata, setData, fetchData, index, setShowTestBot, setWorkflowToTest }) => {
     const [showHelp, setShowHelp] = useState(null)
