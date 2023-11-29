@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -204,7 +205,7 @@ const Contact = () => {
                 ) : (
                   "Revolutionize Customer Service with Deflection AI's Chatbot."
                 )}</h2>
-            <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
+              <p className="w-full md:ml-[56px]  xl:w-[597px] text-blue-400 text-left font-[400]  px-3 text-heading xs:flex-row xs:flex-col  justify-center text-[15px] leading-[22px] md:text-[24px] md:leading-8 gap-2">
                 {loading ? (
                   <SkeletonLoader count={2} height={30} width="80%" />
                 ) : (

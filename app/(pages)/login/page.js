@@ -208,7 +208,7 @@ const Login = () => {
   return (
     <>
       <LoginNav />
-      
+
       {success === false && (
         <Container>
           {show && (
@@ -235,7 +235,7 @@ const Login = () => {
               </button>
             </div>
           )}
-          <div className="w-full sm:max-w-[70%] md:max-w-[53%%] lg:max-w-[40%] mx-auto">
+          <div className="w-full sm:max-w-[80%] md:max-w-[53%%] lg:max-w-[50%] xl:max-w-[40%] mx-auto">
             <div className=" text-center sm:mt-14 border border-gray p-6 bg-white shadow-login-page rounded-sm float-left w-full clear-both mb-[25px]">
               <div className="text-start">
                 <p className="mb-2 text-xl tracking-wide leading-8 font-extrabold text-heading">
@@ -290,10 +290,10 @@ const Login = () => {
                 </div>
               )}
               <div className="block sm:flex md:flex lg:flex justify-between items-center py-5">
-                <div className="block flex justify-start gap-2 items-center mb-5 sm:mb-0" >
+                <div className="flex justify-start gap-2 items-center mb-5 sm:mb-0" >
                   <Button
                     className="inline-block  rounded-md  px-2 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[black] hover:bg-primary text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] border-0"
-                    style={{width: '130px'}}
+                    style={{ width: '130px' }}
                     disabled={loading || DisablingButton()}
                     onClick={() => {
                       if (mode === "password") {
@@ -341,7 +341,7 @@ const Login = () => {
                   <Link
                     href="/forgot-password"
                     className={`${error && "text-sky underline"
-                      }  text-border text-sm font-normal `}
+                      }  text-border text-xs font-normal `}
                   >
                     Forgot your password?
                   </Link>
