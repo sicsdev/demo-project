@@ -155,7 +155,6 @@ const UpdateWorkflowBasic = ({ handleInputValue, workflowFormData, handleFileCha
                             <a data-tooltip-id="Description" data-tooltip-content="Write phrases that could trigger this workflow.">
                                 <InformationCircleIcon className='w-4 h-4 mx-2'></InformationCircleIcon>
                             </a>
-
                             <Tooltip id='Description' place="top" type="dark" effect="solid" />
                         </div>
 

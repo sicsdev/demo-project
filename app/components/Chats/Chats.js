@@ -22,7 +22,7 @@ import ProductComponent from './ProductComponent/ProductComponent';
 const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestionFromLogs, selectedBotObject }) => {
 
     // Helpers
-    const CDN_URL = "https://widget-dev.usetempo.ai";
+    const CDN_URL = "https://widget-dev.deflection.ai";
     const router = useRouter()
     const chatLogsRef = useRef(null);
 

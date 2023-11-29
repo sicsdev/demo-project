@@ -2,17 +2,28 @@ import React, { useState } from 'react'
 import StripeWrapper from '../Stripe/Wrapper/StripeWrapper'
 import { useDispatch } from 'react-redux'
 import { editBillingType } from '../store/slices/billingTypeSlice'
-import { createEnterpriseAccount } from '@/app/API/pages/EnterpriseService'
+import { createEnterpriseAccount, removeTrialFromSlack } from '@/app/API/pages/EnterpriseService'
 import BillingNew from '../Stripe/Billing/NewPayment'
 import { CreditCardIcon } from '@heroicons/react/24/outline'
+import { useSelector } from 'react-redux'
 
 const Method = () => {
     const dispatch = useDispatch()
+    const userData = useSelector((state) => state.user)
+
     const setBillingValueAfterSubmit = async () => {
+
         dispatch(editBillingType("normal"))
+        
+        // Update plan in Slack channel
+        let payloadForSlack = { channel_id: userData?.data?.enterprise?.slack_channel_id }
+        await removeTrialFromSlack(payloadForSlack)
+
+        // Change account type in db
         const response = await createEnterpriseAccount({ billing_type: "normal" })
         console.log(response)
     }
+
     return (
         <div className='flex justify-center'>
             <div className='w-full mx-5'>

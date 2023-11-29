@@ -117,7 +117,7 @@ const page = () => {
             </span>{" "}
             means Deflection AI’s Data Security Safeguards Policy which isavailable at{" "}
             <span className="text-[blue]">
-              https://usetempo.ai/article/security-overview
+              https://deflection.ai/article/security-overview
             </span>
           </p>
           <p className="text-base sm:text-[24px] sm:leading-8 mb-3">
@@ -270,8 +270,8 @@ const page = () => {
             Deflection AI’s current list of Sub-processors for the Services is available
             in the Customer dashboard at
             <span className="text-[blue] ">
-              <a href="https://usetempo.ai/list-of-subprocessors">
-                &nbsp;https://usetempo.ai/list-of-subprocessors
+              <a href="https://deflection.ai/list-of-subprocessors">
+                &nbsp;https://deflection.ai/list-of-subprocessors
               </a>{" "}
             </span>
             (“Sub-processor List”), which Customer hereby approves and
@@ -333,9 +333,9 @@ const page = () => {
             accidental loss, damage, alteration, unauthorized disclosure or
             access, as set forth inthe Security Documentation at
             <span className="text-[blue]">
-              <a href="https://usetempo.ai/article/security-overview">
+              <a href="https://deflection.ai/article/security-overview">
                 {" "}
-                https://usetempo.ai/article/security-overview.
+                https://deflection.ai/article/security-overview.
               </a>
             </span>
           </p>

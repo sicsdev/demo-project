@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSearchParams, useRouter } from "next/navigation";
+
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
 import { createContactInFreshsales, updateContactInHubspot } from '@/app/API/components/Demo';
@@ -114,6 +116,19 @@ const Contact = () => {
     "earthlink.net",
   ];
 
+
+  const searchParams = useSearchParams();
+
+
+  const gclid = searchParams.get("gclid");
+
+  const msclkid = searchParams.get("msclkid");
+
+  console.log("gclid", gclid);
+
+  console.log("msclkid", msclkid);
+
+
   const handleBlur = async () => {
     const payload = {
       firstname: fullname.data?.split(" ")[0] || null,
@@ -123,7 +138,12 @@ const Contact = () => {
       email: business.data,
       state: state.data,
       country: country.data,
-      company_size:employe.data
+      company_size: employe.data,
+      lifecyclestage: "subscriber",
+      is_demo: "true",
+      demo_status: "pending",
+      gclid: gclid,
+      msclkid: msclkid
     }
     console.log("pay", payload);
     if (hubID) {
@@ -139,8 +159,8 @@ const Contact = () => {
   };
 
 
-  const handleBlurGTM=(business)=>{
- 
+  const handleBlurGTM = (business) => {
+
     hj("identify", userId, {
       Email: business,
     });
@@ -170,9 +190,9 @@ const Contact = () => {
           $email: business,
         },
       ]);
-    
-  }
-};
+
+    }
+  };
 
 
   return (
@@ -387,7 +407,8 @@ const Contact = () => {
                               "flex items-center justify-center h-[62px] sm:h-[45px] cursor-pointer text-center getademo_animation bg-[#FF5721] w-full py-2 sm:py-[20px] px-3 sm:w-[150px] text-[20px] font-bold focus:ring-yellow-300 text-white rounded-2xl "
                             }
                             style={{ margin: "0px auto" }}
-                            onClick={()=>{handleSubmit()
+                            onClick={() => {
+                              handleSubmit()
                               handleBlur()
                             }}
                           >

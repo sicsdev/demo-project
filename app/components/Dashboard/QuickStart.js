@@ -35,7 +35,7 @@ import {
     ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 import ChatBots from './ChatBots';
-import { ManageExpand } from '@/app/API/pages/EnterpriseService';
+import { ManageExpand, setDomainSlug } from '@/app/API/pages/EnterpriseService';
 import { fetchMembers } from '../store/slices/memberSlice';
 import Modal from '../Common/Modal/Modal';
 import MetaDataInfo from './MetaDataInfo';
@@ -43,6 +43,7 @@ import Method from '../NewPaymentMethod/Method';
 import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
 import { useRouter } from 'next/navigation';
+import { fetchProfile } from '../store/slices/userSlice';
 
 const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
@@ -59,6 +60,8 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
 
 
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
+    const [openInputConfigDomain, setOpenInputConfigDomain] = useState(false)
+    const [domainFromEmail, setDomainFromEmail] = useState('')
 
     const [isExpand, setIsExpand] = useState(true);
     const quickStartData1 = [
@@ -76,13 +79,13 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             icon: <BookOpenIcon className='w-5 h-5 ' />,
             link: "/dashboard/chat-settings",
         },
-        {
-            title: 'Configure Email Settings',
-            content: "Enter a subdomain to fully begin using your Smart Inbox.",
-            buttonName: "Configure",
-            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
-            link: "/dashboard/email-settings",
-        },
+        // {
+        //     title: 'Configure Email Settings',
+        //     content: "Enter a subdomain to fully begin using your Smart Inbox.",
+        //     buttonName: "Configure",
+        //     icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+        //     link: "/dashboard/email-settings",
+        // },
         {
             title: 'Configure Phone Settings',
             content: "Select a Deflection AI phone number to get started with Smart IVR.",
@@ -94,9 +97,10 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             title: 'Upload Email or Ticket History',
             content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
             buttonName: "Upload",
-            icon: <EnvelopeOpenIcon className='w-5 h-5 ' />,
+            icon: <EnvelopeIcon className='w-5 h-5 ' />,
             link: "/dashboard/basic-knowledge",
         },
+
     ];
     const quickStartData = [
         {
@@ -281,6 +285,30 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
         }
     }, [user])
 
+    const handleInputDomainValue = (e) => {
+        const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+        const inputValue = e.target.value;
+
+        if (emailRegex.test(inputValue)) {
+            const parts = inputValue.split('@');
+            const domainPart = parts[1];
+
+            const domainParts = domainPart.split('.');
+            const mainDomain = domainParts[domainParts.length - 2];
+
+            setDomainFromEmail(mainDomain)
+        } else {
+            ''
+        }
+    }
+
+    const handleDomainSlug = async () => {
+        await setDomainSlug({ domain_slug: domainFromEmail })
+        dispatch(fetchProfile());
+
+    }
+
     return (
 
         <>
@@ -404,64 +432,129 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                     )}
                                     {quickStartData1?.map((ele, key) => (
                                         <>
-                                            {user?.enterprise?.country === '' && key === 3 ? null :
-                                                <div key={key} className=''>
+                                            {user?.enterprise?.country === '' &&
+                                                <>
+                                                    <div key={key} className=''>
 
-                                                    {setHideShow(key) === true && (
+                                                        {setHideShow(key) === true && (
 
-                                                        ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
-                                                            <div
+                                                            ele.title === "Create Your First Workflow" && user && user?.email?.split("@")[1] !== 'joinnextmed.com' ? "" : (
+                                                                <div
 
-                                                                className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
+                                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
 
-                                                                key={key}
+                                                                    key={key}
 
-                                                            >
+                                                                >
 
-                                                                <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
+                                                                    <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
 
-                                                                    <div className="flex gap-4 items-start items-center">
-                                                                        <span>{ele?.icon}</span>
-                                                                        <div className="">
-                                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                        <div className="flex gap-4 items-start items-center">
+                                                                            <span>{ele?.icon}</span>
+                                                                            <div className="">
+                                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
 
-                                                                                {ele?.title}
-                                                                            </h3>
-                                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                                {ele?.content}
-                                                                            </p>
+                                                                                    {ele?.title}
+                                                                                </h3>
+                                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                                    {ele?.content}
+                                                                                </p>
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div className="flex justify-end gap-2">
+
+                                                                            <Link
+
+                                                                                href={ele?.link}
+
+                                                                                className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                            >
+                                                                                {ele?.buttonName}
+
+                                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                            </Link>
+
                                                                         </div>
 
                                                                     </div>
 
-                                                                    <div className="flex justify-end gap-2">
-
-                                                                        <Link
-
-                                                                            href={ele?.link}
-
-                                                                            className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                        >
-                                                                            {ele?.buttonName}
-
-                                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-
-                                                                        </Link>
-
-                                                                    </div>
-
                                                                 </div>
-
-                                                            </div>
-                                                        )
+                                                            )
 
 
-                                                    )}
+                                                        )}
 
-                                                </div>
+                                                    </div>
+
+                                                </>
                                             }
                                         </>))}
+
+                                    <div key={'configDomainC'} className=''>
+
+                                        <div
+                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
+                                            key={'configDomain'}
+                                        >
+
+                                            <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
+                                                <div className="flex w-full gap-4 items-start items-center">
+                                                    <span><EnvelopeOpenIcon className='h-5 w-5'></EnvelopeOpenIcon></span>
+
+
+                                                    <div className="w-full">
+                                                        {!openInputConfigDomain ?
+                                                            <>
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                    Configure Email Settings
+                                                                </h3>
+                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                    Enter a subdomain to fully begin using your Smart Inbox.
+                                                                </p>
+                                                            </>
+                                                            :
+                                                            <input onChange={handleInputDomainValue} type="" id="inputDomain" className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                                                                placeholder="Enter full Email"
+                                                            />
+                                                        }
+
+
+                                                    </div>
+
+                                                </div>
+                                                <div className="flex justify-end gap-2">
+                                                    {openInputConfigDomain ?
+                                                        <>
+                                                            <button
+                                                                onClick={() => handleDomainSlug()}
+                                                                className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                disabled={!domainFromEmail}
+                                                            >
+                                                                Submit
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </button>
+                                                        </>
+                                                        :
+                                                        <button
+                                                            onClick={() => setOpenInputConfigDomain(true)}
+                                                            className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                        >
+                                                            Configure
+                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                        </button>
+                                                    }
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
 
                                 </div>
                                 :

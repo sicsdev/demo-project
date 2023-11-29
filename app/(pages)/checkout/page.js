@@ -4,6 +4,7 @@ import Container from "../../components/Container/Container";
 import { Input } from "../../components/Common/Input/Input";
 import Logos from "../../components/Checkout/Logos";
 import Button from "../../components/Common/Button/Button";
+
 import Card from "../../components/Common/Card/Card";
 import Image from "next/image";
 import CheckOutForm from "@/app/components/Checkout/CheckOutForm";
@@ -35,12 +36,36 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 const Checkout = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+
+
+    const gclid = searchParams.get("gclid");
+    const utm_source = searchParams.get("utm_source");
+    const utm_medium = searchParams.get("utm_medium");
+    const utm_term = searchParams.get("utm_term");
+    const matchtype = searchParams.get("matchtype");
+    const utm_campaign = searchParams.get("utm_campaign");
+    const utm_content = searchParams.get("utm_content");
+    const msclkid = searchParams.get("msclkid");
+
+    console.log("gclid", gclid);
+    console.log("utm_source", utm_source);
+    console.log("utm_medium", utm_medium);
+    console.log("utm_content", utm_content);
+    console.log("utm_term", utm_term);
+    console.log("matchtype", matchtype);
+    console.log("msclkid", msclkid);
+    console.log("utm_campaign", utm_campaign);
+
+  
+
   const [planQuery, setPlanQuery] = useState("");
   const [emailQuery, setEmailQuery] = useState("");
   const [boxValid, setBoxValid] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
   const [grayColor, setGrayColor] = useState(false);
   const [grayColor1, setGrayColor1] = useState(false);
+  const [pop, setPop] = useState(false);
+
 
   const [clientSecret, setClientSecret] = useState("");
   const [paymentId, setPaymentId] = useState("");
@@ -86,7 +111,7 @@ const Checkout = () => {
   const [userformErrors, setUserformErrors] = useState([]);
 
   const handleFormValues = (e) => {
-
+setPop(false);
     let value = e.target.value
 
     setCheckoutForm({
@@ -109,15 +134,62 @@ const Checkout = () => {
     appearance,
   };
   const [hubID, setHubid] = useState(null);
+
+
+  const blacklist = [
+    "gmail.com",
+    "yahoo.com",
+    "hotmail.com",
+    "icloud.com",
+    "aol.com",
+    "yopmail.com",
+    "outlook.com",
+    "me.com",
+    "comcast.net",
+    "msn.com",
+    "live.com",
+    "att.net",
+    "ymail.com",
+    "sbcglobal.net",
+    "mac.com",
+    "verizon.net",
+    "bellsouth.net",
+    "cox.net",
+    "rocketmail.com",
+    "protonmail.com",
+    "charter.net",
+    "mail.com",
+    "optonline.net",
+    "aim.com",
+    "earthlink.net",
+  ];
+
+
   const handleBlur = async (e) => {
+
+
     if (validator.isEmail(checkoutForm.email)) {
+
+      if (blacklist.includes(checkoutForm?.email.split("@")[1])) {
+        console.log("got it")
+        setPop(true);
+      }
+      else{
+        setPop(false);
+      }
+
       let first_name = checkoutForm.name?.split(" ")[0] || null;
       let last_name = checkoutForm.name?.split(" ")[1] || null;
-
       let payload = { email: checkoutForm.email };
       if (checkoutForm.phone) payload.phone = '+1' + checkoutForm.phone;
       if (first_name) payload.firstname = first_name;
       if (last_name) payload.lastname = last_name;
+      if(gclid)payload.gclid = gclid;
+      if(msclkid)payload.msclkid = msclkid;
+      if(lifecyclestage)payload.lifecyclestage= "subscriber";
+      if(is_demo)payload.is_demo = "false";
+      if(demo_status)payload.demo_status = "pending";
+      
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {
@@ -262,6 +334,10 @@ const Checkout = () => {
             <div className=" bg-white -lg r py-6 px-4">
               <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
                 <div>
+                {pop == true? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[14px]  text-red shadow-sm  tooltip ">
+           Please enter a valid work email
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div></> : ""}
                   <TextField
                     type={"email"}
                     placeholder={"Email"}
@@ -483,6 +559,7 @@ const Checkout = () => {
                 <div className="my-3 mb-0 p-3 pb-0">
                   <StripeWrapper options={options}>
                     <CheckOutForm
+                    pop={pop}
                       checkoutForm={checkoutForm}
                       paymentId={paymentId}
                       boxValid={boxValid}

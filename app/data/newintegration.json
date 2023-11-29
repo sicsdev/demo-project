@@ -1,276 +1,122 @@
 [
-    {
-      "id": 1,
-      "logo": "/pay.png",
-      "name": "Popular",
-  
-      "title": "Paypal",
-      "text": "A popular payment platform facilitating billing, refunds, payments, and subscription management.",
-      "tag": "New",
-      "link": "/integrations/paypal"
-    },
-    {
-      "id": 2,
-      "logo": "/stripee.png",
-      "name": "Popular",
-  
-      "title": "Stripe",
-      "text": "Amazon Athena is a fully managed service for querying your S3 data.",
-      "tag": "New",
-      "link": "/integrations/stripe"
-    },
-    {
-      "id": 1,
-      "name": "Productivity",
-  
-      "logo": "/integrations/1.svg",
-      "title": "Calendly",
-      "text": "Scheduling software for easy meeting coordination and calendar integration.",
-      "link": "/integrations/calendly",
-      
-      "tag": "New"
-      
-    },
-    {
-      "id": 2,
-      "logo": "/integrations/2.svg",
-      "title": "Healthie",
-      "text": "Comprehensive platform for remote healthcare practice management and virtual sessions.",
-      "tag": "New",
-      "link": "/integrations/healthie",
-  
-      "name": "Productivity"
-    },
-    {
-      "id": 3,
-      "name": "Productivity",
-      "link": "/integrations/sendgrid",
-  
-      "logo": "/integrations/3.svg",
-      "title": "SendGrid",
-      "text": "Cloud-based SMTP provider for easy email sending and management."
-    },
-    {
-      "id": 4,
-      "name": "Productivity",
-  
-      "logo": "/twilio-logo-png-transparent.png",
-      "title": "Twilio",
-      "link": "/integrations/twilio",
-  
-      "text": "Cloud communications platform providing APIs for SMS, MMS, voice, and video calls."
-    },
-    {
-      "id": 5,
-      "name": "Productivity",
-  
-      "logo": "/integrations/github.svg",
-      "title": "Github",
-      "link": "/integrations/github",
-  
-      "text": "Web-based hosting service for version control and collaborative software development.",
-      "tag": "New"
-    },
-    {
-      "id": 6,
-      "logo": "/asaa.png",
-      "name": "Productivity",
-  
-      "title": "Asana",
-      "link": "/integrations/asana",
-  
-      "text": "Work management platform for orchestrating daily tasks and strategic initiatives.",
-      "tag": "New"
-    },
-    {
-      "id": 7,
-      "logo": "/monday_logo_icon_168967_1.png",
-      "name": "Productivity",
-      "link": "/integrations/monday",
-  
-      "title": "Monday",
-      "text": "Flexible platform for collaborative work management with customizable workflows."
-    },
-    {
-      "id": 8,
-      "name": "Productivity",
-  
-      "logo": "/Jira.png",
-      "title": "Jira",
-      "link": "/integrations/jira",
-      
-      "text": "Agile project management tool with boards, backlogs, and roadmaps."
-    },
-    {
-      "id": 9,
-      "logo": "/linear-logos-id-IUp6ZRH.png",
-      "name": "Productivity",
-      "link": "/integrations/linear",
-  
-      "title": "Linear",
-      "text": "Streamlined project management tool supporting agile methodologies like scrum and kanban.",
-      "tag": "New"
-    },
-    {
-      "id": 10,
-      "logo": "/pngwing.png",
-      "name": "Productivity",
-      "link": "/integrations/circleci",
-  
-      "title": "CircleCI",
-      "text": "Automated continuous integration and delivery platform empowering software development teams.",
-      "tag": "New"
-    },
-    {
-      "id": 11,
-      "logo": "/datadog-logo-purple.png",
-      "name": "Productivity",
-      "link": "/integrations/datadog",
-  
-      "title": "DataDog",
-      "text": "Comprehensive observability platform providing end-to-end visibility across applications and infrastructure."
-    },
-    {
-      "id": 1,
-      "name": "Sales",
-  
-      "logo": "/fresh.png",
-      "title": "FreshSales",
-      "link": "/integrations/freshsales",
-  
-      "text": "CRM platform for contact, account, and deal management.",
-      "tag": "New"
-    },
-    {
-      "id": 2,
-      "name": "Sales",
-      "link": "/integrations/shopify",
-  
-      "logo": "/58482ec0cef1014c0b5e4a70.png",
-      "title": "Shopify",
-      "text": "E-commerce platform empowering businesses to sell products online.",
-      "tag": "New"
-    },
-    {
-      "id": 3,
-      "name": "Sales",
-  
-      "logo": "/salesforce-logo.png",
-      "title": "SalesForce",
-      "link": "/integrations/salesforce",
-  
-      "text": "CRM platform for managing campaigns, opportunities, and prospects.",
-      "tag": "New"
-    },
-    {
-      "id": 4,
-      "name": "Sales",
-      "link": "/integrations/hubspot",
-  
-      "logo": "/HUBS-3bd277ce.png",
-      "title": "HubSpot",
-      "text": "All-in-one CRM platform for managing contacts, deals, and email campaigns.",
-      "tag": "New"
-    },
-    {
-      "id": 1,
-      "logo": "/freshdesk.svg",
-      "name": "Communications",
-      "link": "/integrations/freshdesk",
-  
-      "title": "FreshDesk",
-      "text": "Customer support and ticketing platform for managing customer interactions.",
-      "tag": "New"
-    },
-    {
-      "id": 2,
-      "logo": "/teams.png",
-      "name": "Communications",
-      "link": "/integrations/microsoft-teams",
-  
-      "title": "Microsoft Teams",
-      "text": "Unified communication and collaboration platform with chat, video meetings, and application integration.",
-      "tag": "New"
-    },
-    {
-      "id": 3,
-      "logo": "/integrations/front.svg",
-      "name": "Communications",
-      "link": "/integrations/front",
-  
-      "title": "Front",
-      "text": "Customer communication platform centralizing emails, SMS, and social media.",
-      "tag": "New"
-    },
-    {
-      "id": 4,
-      "logo": "/zenenew.png",
-      "name": "Communications",
-      "link": "/integrations/zendesk",
-  
-      "title": "ZenDesk",
-      "text": "Customer service and engagement platform with support ticket management.",
-      "tag": "New"
-    },
-    {
-      "id": 5,
-      "logo": "/geo.png",
-      "name": "Communications",
-      "link": "/integrations/gorgias",
-  
-      "title": "Gorgias",
-      "text": "Help desk software offering streamlined customer support and ticketing solutions.",
-      "tag": "New"
-    },
-  
-    {
-      "id": 6,
-      "logo": "/integrations/intercom.svg",
-      "title": "Intercom",
-      "name": "Communications",
-      "link": "/integrations/intercom",
-  
-      "text": "Customer communication platform with support and interaction management.",
-      "tag": "New"
-    },
-    {
-      "id": 7,
-      "logo": "/slack-logo-icon.png",
-      "title": "Slack",
-      "name": "Communications",
-      "link": "/integrations/slack",
-  
-      "text": "Channel-based messaging platform for efficient team collaboration and integrations.",
-      "tag": "New"
-    },
-    {
-      "id": 1,
-      "logo": "/menu_logo.png",
-      "title": "NMI",
-      "name": "Billing",
-      "link": "/integrations/nmi",
-  
-      "text": "Payment gateway for billing, refunds, payments, and subscription management.",
-      "tag": "New"
-    },
-    {
-      "id": 2,
-      "logo": "/integrations/square.svg",
-      "title": "Square",
-      "name": "Billing",
-      "link": "/integrations/square",
-      "text": "Comprehensive suite of software solutions for point of sale, payments, and analytics.",
-      "tag": "New"
-    },
-    {
-      "id": 3,
-      "logo": "/brain.png",
-      "name": "Billing",
-      "link": "/integrations/braintree",
-  
-      "title": "Braintree",
-      "text": "Payment gateway for handling billing, refunds, payments, and subscriptions.",
-      "tag": "New"
-    }
-  
-  ]
+  {
+    "id": 1,
+    "logo": "/pay.png",
+    "title": "Paypal",
+    "text": "A popular payment platform facilitating billing, refunds, payments, and subscription management.",
+    "tag": "New",
+    "link":"/integrations/data?article=paypal"
+
+  },
+  {
+    "id": 2,
+    "logo": "/stripee.png",
+    "title": "Stripe",
+    "text": "Amazon Athena is a fully managed service for querying your S3 data.",
+    "tag": "New",
+    "link":"/integrations/data?article=stripe"
+
+  },
+  {
+    "id": 1,
+    "logo": "/integrations/1.svg",
+    "title": "Calendly",
+    "text": "Scheduling software for easy meeting coordination and calendar integration.",
+    "tag": "New",
+    "link":"/integrations/data?article=calendly"
+
+  },
+  {
+    "id": 2,
+    "logo": "/integrations/2.svg",
+    "title": "Healthie",
+    "text": "Comprehensive platform for remote healthcare practice management and virtual sessions.",
+    "tag": "New",
+    "link":"/integrations/data?article=healthie"
+
+  },
+  {
+    "id": 3,
+    "logo": "/integrations/3.svg",
+    "title": "SendGrid",
+    "text": "Cloud-based SMTP provider for easy email sending and management.",
+    "link":"/integrations/data?article=sendgrid"
+
+  },
+  {
+    "id": 4,
+    "logo": "/twilio-logo-png-transparent.png",
+    "title": "Twillio",
+    "text": "Cloud communications platform providing APIs for SMS, MMS, voice, and video calls.",
+    "link":"/integrations/data?article=twilio"
+
+  },
+  {
+    "id": 7,
+    "logo": "/monday_logo_icon_168967_1.png",
+    "title": "Monday",
+    "text": "Flexible platform for collaborative work management with customizable workflows.",
+    "link":"/integrations/data?article=monday"
+
+  },
+  {
+    "id": 1,
+    "logo": "/freshdesk.svg",
+    "title": "FreshDesk",
+    "text": "Customer support and ticketing platform for managing customer interactions.",
+    "tag": "New",
+    "link":"/integrations/data?article=freshdesk"
+
+  },
+  {
+    "id": 2,
+    "logo": "/teams.png",
+    "title": "Microsoft Teams",
+    "text": "Unified communication and collaboration platform with chat, video meetings, and application integration.",
+    "tag": "New",
+    "link":"/integrations/data?article=microsoft-teams"
+
+  },
+  {
+    "id": 4,
+    "logo": "/zenenew.png",
+    "title": "ZenDesk",
+    "text": "Customer service and engagement platform with support ticket management.",
+    "tag": "New",
+    "link":"/integrations/data?article=zendesk"
+
+  },
+  {
+    "id": 5,
+    "logo": "/geo.png",
+    "title": "Gorgias",
+    "text": "Help desk software offering streamlined customer support and ticketing solutions.",
+    "tag": "New",
+    "link":"/integrations/data?article=gorgias"
+
+  },
+  {
+    "id": 7,
+    "logo": "/slack-logo-icon.png",
+    "title": "Slack",
+    "text": "Channel-based messaging platform for efficient team collaboration and integrations.",
+    "tag": "New",
+    "link":"/integrations/data?article=slack"
+  },
+  {
+    "id": 2,
+    "logo": "/integrations/square.svg",
+    "title": "Square",
+    "text": "Comprehensive suite of software solutions for point of sale, payments, and analytics.",
+    "tag": "New",
+    "link":"/integrations/data?article=square"
+  },
+  {
+    "id": 3,
+    "logo": "/brain.png",
+    "title": "Braintree",
+    "text": "Payment gateway for handling billing, refunds, payments, and subscriptions.",
+    "tag": "New",
+    "link":"/integrations/data?article=braintree"
+  }
+]
