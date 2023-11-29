@@ -35,6 +35,12 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
     layout: "tabs"
   }
 
+  function extractDomainFromEmail(email) {
+    var parts = email.split('@');
+    var domain = parts[1];
+    return 'https://' + domain;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
