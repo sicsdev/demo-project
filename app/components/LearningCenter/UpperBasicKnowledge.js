@@ -10,7 +10,7 @@ import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
-const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
+const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
 
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
@@ -25,10 +25,6 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     const [skeletonloading, setSkeletonLoading] = useState(true)
     const [botValue, setBotValue] = useState([]);
 
-    // Filters
-    const [filters, setFilters] = useState({
-        currentBot: ''
-    })
 
     // Helpers
     const state = useSelector((state) => state.botId);
@@ -206,7 +202,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
     }
 
     const handleFilters = (e) => {
-        console.log(e.target.value, e.target.name)
+        setFilters({
+            ...filters,
+            currentBot: e.target.value
+        })
     }
 
 
@@ -258,7 +257,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
 
 
                     <li className={`  ${filterhead === "File" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('FILE')
+                        // getDataWithFilters('FILE')
                         setFilterhead("File")
                         setShowSourceFilter(false)
                         setCurrentTab('file')
@@ -276,7 +275,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }
                     </li>
                     <li className={`  ${filterhead === "Snippet" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('SNIPPET')
+                        // getDataWithFilters('SNIPPET')
                         setFilterhead("Snippet")
                         setShowSourceFilter(false)
                         setCurrentTab('snippet')
@@ -294,10 +293,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }
                     </li>
                     <li className={`  ${filterhead === "Products" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('PRODUCT')
+                        // getDataWithFilters('PRODUCT')
                         setFilterhead("Products")
                         setShowSourceFilter(false)
-                        setCurrentTab('products')
+                        setCurrentTab('product')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -321,9 +320,9 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                             style={{ rowGap: "4px" }}
                         >
                             <button
-                                onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
+                                onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
                                 key={'allbotsfilter'}
-                                className={`${!filters.selectedBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                             >
                                 {" "}
                                 All
@@ -334,7 +333,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                                     <button
                                         onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
                                         key={key}
-                                        className={`flex items-center gap-2 justify-center font-semibold bg-white text-[#151D23] text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                        className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                     >
                                         {" "}
                                         {element?.name}

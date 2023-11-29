@@ -17,6 +17,11 @@ const Source = () => {
     const [check, setCheck] = useState(false)
     const [currentTab, setCurrentTab] = useState('')
 
+    // Filters
+    const [filters, setFilters] = useState({
+        currentBot: ''
+    })
+
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
     const getQuestionsData = async (queryParam = 'page=1&page_size=10') => {
@@ -64,9 +69,11 @@ const Source = () => {
         });
         setBots(mergedArray.filter((x) => x.name !== ''))
     }
+
     useEffect(() => {
         getQuestionsData()
     }, [])
+
     useEffect(() => {
         if (state.botData.data?.bots && state.botData.data?.widgets) {
             getAllBots();
@@ -75,25 +82,34 @@ const Source = () => {
         }
     }, [state.botData.data]);
 
-    const getDataWithFilters = (type) => {
-        let query = 'page=1&page_size=10'
-        switch (type) {
-            case 'FILE':
-                query = `page=1&page_size=10&knowledge__source=file`
-                break;
-            case 'SNIPPET':
-                query = `page=1&page_size=10&knowledge__source=snippet`
-                break;
-            case 'EXTERNAL':
-                query = `page=1&page_size=10&knowledge__source=external`
-                break;
-            case 'PRODUCT':
-                query = `page=1&page_size=10&knowledge__source=product`
-                break;
 
-            default:
-                break;
-        }
+    useEffect(() => {
+        getDataWithFilters()
+    }, [filters, currentTab])
+
+    const getDataWithFilters = (type) => {
+        // let query = 'page=1&page_size=10&'
+
+        // switch (type) {
+        //     case 'FILE':
+        //         query = `page=1&page_size=10&knowledge__source=file`
+        //         break;
+        //     case 'SNIPPET':
+        //         query = `page=1&page_size=10&knowledge__source=snippet`
+        //         break;
+        //     case 'EXTERNAL':
+        //         query = `page=1&page_size=10&knowledge__source=external`
+        //         break;
+        //     case 'PRODUCT':
+        //         query = `page=1&page_size=10&knowledge__source=product`
+        //         break;
+
+        //     default:
+        //         break;
+        // }
+
+        let query = `page=1&page_size=10${currentTab ? `&knowledge__source=${currentTab}` : ''}${filters?.currentBot ? `&bot__id=${filters.currentBot}` : ''}`
+
         getQuestionsData(query)
 
     }
@@ -131,7 +147,7 @@ const Source = () => {
                 {basicFormData?.data && (
                     <>
 
-                        <UpperBasicKnowledge setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
+                        <UpperBasicKnowledge setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
                         <ManageFaqs currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                     </>
                 )}
