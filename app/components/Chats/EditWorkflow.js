@@ -82,6 +82,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
         }
 
         await rateWorkflowNegative({
+            score: score,
             search: contentToSend,
             workflow: item.information.id
         })
@@ -207,21 +208,18 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                         <div className='flex gap-4 mx-5 mb-4 mt-2'>
                             <button
                                 type="button"
-                                className="bg-gradiant-blue-button text-red border flex items-centerborder justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className=" text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                onClick={() => handleRateNegative('reduce')}
                             >
                                 Reduce
                             </button>
                             <button
                                 type="button"
-                                className="bg-gradiant-red-button text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className="text-black red-black border-black flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                onClick={() => handleRateNegative('block')}
+
                             >
-                                Blocked
-                            </button>
-                            <button
-                                type="button"
-                                className="bg-gradiant-black-button text-red  flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                            >
-                                Human Escal
+                                Block
                             </button>
                         </div>
                     }

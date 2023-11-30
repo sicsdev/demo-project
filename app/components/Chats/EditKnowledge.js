@@ -254,27 +254,30 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
 
             }
-
+            {/* //bg-gradiant-red-button */}
             {showingNegativeOptions &&
                 <div className='flex gap-4 mx-5 mb-4 mt-2'>
                     <button
                         type="button"
-                        className="bg-gradiant-blue-button bg-sky text-white border flex items-centerborder justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        className=" text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        onClick={() => handleRateNegative('reduce')}
                     >
-                        Reduced
+                        Reduce
                     </button>
                     <button
                         type="button"
-                        className="bg-gradiant-red-button text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        className="text-black red-black border-black flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        onClick={() => handleRateNegative('block')}
+
                     >
-                        Blocked
+                        Block
                     </button>
-                    <button
+                    {/* <button
                         type="button"
                         className="bg-black text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
                     >
-                        Human Escaled
-                    </button>
+                        Human Escale
+                    </button> */}
                 </div>
             }
 
