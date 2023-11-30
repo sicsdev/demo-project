@@ -154,7 +154,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
 
     const toggleShowNegativeOptions = () => {
-        setDropdownOpenId('')
         isDropdownOpen(false)
         setShowingNegativeOptions(!showingNegativeOptions)
     }

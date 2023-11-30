@@ -123,7 +123,6 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     }
 
     const toggleShowNegativeOptions = () => {
-        setDropdownOpenId('')
         isDropdownOpen(false)
         setShowingNegativeOptions(!showingNegativeOptions)
     }
@@ -187,14 +186,14 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                                             <button
                                                 type="button"
                                                 onClick={handlePatchWorkflow}
-                                                className="text-xs flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                className="text-xs flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                             >
                                                 {loading ? "Saving.." : "Save"}
                                             </button>
                                             <button
                                                 type="button"
                                                 onClick={handleDeleteWorkflow}
-                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                             >
                                                 {loading ? "Deleting.." : "Delete"}
                                             </button>
