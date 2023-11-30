@@ -997,9 +997,14 @@ const NewSidebar = ({ children }) => {
                                                     <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
                                                 </div >}
                                             <div className="relative ">
-                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
-
+                                                {state?.role && state.enterprise ?
+                                                    <>
+                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                    </>
+                                                    :
+                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
+                                                }
                                             </div>
 
                                         </li>
@@ -1151,8 +1156,16 @@ const NewSidebar = ({ children }) => {
 
                                         {!collaps && (
                                             <div className="relative ">
-                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                {state?.role && state.enterprise ?
+                                                    <>
+                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                    </>
+                                                    :
+                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
+
+                                                }
+
                                                 {!isOpen && (
                                                     <ul className="hidden group-hover:block absolute w-[290px] text-center left-[130px] bottom-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                         <li className="text-start p-2">
