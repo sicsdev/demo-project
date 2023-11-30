@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Link from "next/link";
@@ -27,15 +27,14 @@ const Page = () => {
   const [currentImage, setCurrentimage] = useState("")
   const [loading, setLoading] = useState(true);
   const [pubDate, setPubdate] = useState("")
-  let slug = params.get("blog")
+  // let slug = params.get("blog")
+  let slug =  params.get("article");
   const findFilters = async () => {
-    let slug = params.get("article");
+
+  
     if (slug) {
       const findData = data.find((x) => x.slug === slug)
-      console.log("findData", findData)
-      console.log("slug", slug)
       const entry = await client.getEntry(findData?.id);
-      console.log("entry.items", entry)
       setPubdate(findData?.publishDate);
       setBlog(entry?.fields?.blogBody);
       setHeading(entry?.fields?.heading)
@@ -51,7 +50,6 @@ const Page = () => {
       content_type: "blogs",
       order: "sys.id",
     });
-    console.log("entry", entry.items);
     setRelated(entry.items)
 
     findTag(entry.items, tag, heading)
@@ -60,14 +58,17 @@ const Page = () => {
     if (blog != "") {
       const findRelated = blogs.filter((x) => x.fields.tag == tag);
       const findAllRelated = findRelated.filter((x) => x.fields.heading !== heading);
-      console.log("find", findAllRelated)
       setTag(findAllRelated);
     }
   }
+
   useEffect(() => {
     findFilters();
-    publishDates();
   }, [slug]);
+
+
+
+
   const options = {
     renderNode: {
       'embedded-asset-block': (node) => {
@@ -107,7 +108,6 @@ const Page = () => {
   };
 
   const scroll = (e) => {
-    console.log("scroll", e.target.innerText);
     const id = e.target.innerText.replace(/\s+/g, '-').toLowerCase();
     // route.push(`/resources/contentful/?id=${id}`)
     const element = document.getElementById(id);
@@ -125,27 +125,6 @@ const Page = () => {
   };
 
 
-const publishDates =()=>{
-  function generateDateArray(startDate, endDate, step) {
-    const dateArray = [];
-    let currentDate = new Date(startDate);
-  
-    while (currentDate <= endDate) {
-      dateArray.push(new Date(currentDate));
-      currentDate.setDate(currentDate.getDate() + step);
-    }
-  
-    return dateArray;
-  }
-  
-  const startDate = new Date('2023-06-01');
-  const endDate = new Date('2023-12-31');
-  const step = 4;
-  
-  const resultArray = generateDateArray(startDate, endDate, step);
-  
-  console.log(resultArray);
-}
 
 
   return (
