@@ -4,6 +4,7 @@ import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Tooltip } from 'react-tooltip'
 
 const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId }) => {
 
@@ -29,6 +30,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     const [inputValue, setInputValue] = useState(descriptionLine)
     const [workflowObject, setWorflowObject] = useState({})
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
+    const [rating, setRating] = useState(item.is_negative)
 
 
     // Handlers
@@ -67,7 +69,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
         toggleDropdown()
     }
 
-    const handleRateNegative = async () => {
+    const handleRateNegative = async (type) => {
         let previousMessage = allMessages[indexOfMessage - 1]
         let contentToSend;
 
@@ -81,11 +83,25 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
             contentToSend = previousMessage.content
         }
 
+        let score; 
+
+        if (type == 'block' && !rating) { score = -1 }
+        if (type == 'reduce' && !rating) { score = -0.1 }
+
+        if (type == 'block' && rating == -0.1) { await handleRateAsPositive(); score = -1 }
+        if (type == 'block' && rating == -1) { await handleRateAsPositive(); setRating(null); await getAllNegativeWorkflows(); return; }
+
+        if (type == 'reduce' && rating == -1) { await handleRateAsPositive(); score = -0.1 }
+        if (type == 'reduce' && rating == -0.1) { await handleRateAsPositive(); setRating(null); await getAllNegativeWorkflows(); return; }
+
+
         await rateWorkflowNegative({
             score: score,
             search: contentToSend,
             workflow: item.information.id
         })
+
+        setRating(score)
 
         await getAllNegativeWorkflows()
 
@@ -117,11 +133,11 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
             {!deleted &&
                 <>
                     <div key={item.information?.id + indexOfMessage} id={item.information?.id + indexOfMessage} className='flex items-center w-full align-middle'>
-                        <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs '} w-full`}>
+                        <div className={`mt-1 border p-2 rounded-md border-gray shadow-xs w-full`}>
 
                             <div className="relative">
 
-                                <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
+                                <div className={`flex pointer`} onClick={toggleDropdown}>
                                     <span className="w-full flex items-center" >
                                         <small id={item.information.id + 'text' + indexOfMessage}>
                                             {item?.information?.name}
@@ -129,11 +145,11 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                                     </span>
 
 
-                                    {!rated && !dropdownOpen &&
+                                    {!dropdownOpen &&
                                         <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                         </svg>}
-                                    {!rated && dropdownOpen &&
+                                    {dropdownOpen &&
                                         <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                         </svg>
@@ -205,22 +221,29 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
 
                     {showingNegativeOptions &&
-                        <div className='flex gap-4 mx-5 mb-4 mt-2'>
+                        <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
                             <button
                                 type="button"
-                                className=" text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className={`${rating == -0.1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                                 onClick={() => handleRateNegative('reduce')}
+                                data-tooltip-id={'tooltipblock'}
+                                data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                             >
-                                Reduce
+                                {rating == -0.1 ? "Reduced" : "Reduce"}
                             </button>
                             <button
                                 type="button"
-                                className="text-black red-black border-black flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className={`${rating == -1 ? "text-white bg-black" : "text-black red-black border-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                                 onClick={() => handleRateNegative('block')}
-
+                                data-tooltip-id={'tooltipblock'}
+                                data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                             >
-                                Block
+                                {rating == -1 ? "Blocked" : "Block"}
+
                             </button>
+
+
+                            <Tooltip id={'tooltipblock'} place="top" type="dark" effect="solid" />
                         </div>
                     }
 

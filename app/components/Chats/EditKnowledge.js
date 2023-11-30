@@ -4,6 +4,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import Swal from 'sweetalert2'
+import { Tooltip } from 'react-tooltip'
 
 const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId }) => {
 
@@ -27,6 +28,8 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
         question: item?.information?.question || '',
         answer: item?.information?.answer || ''
     })
+
+    const [rating, setRating] = useState(item.is_negative)
 
     // Handlers
 
@@ -58,7 +61,6 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             answer: item?.information?.answer || ''
         })
 
-        if (rated) { return }
         isDropdownOpen(!dropdownOpen)
         setShowingNegativeOptions(false)
 
@@ -104,14 +106,26 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
         }
 
 
+        let score;
 
-        let score = type == 'block' ? -1 : -0.1;
+
+        if (type == 'block' && !rating) { score = -1 }
+        if (type == 'reduce' && !rating) { score = -0.1 }
+
+        if (type == 'block' && rating == -0.1) { await handleRateAsPositive(); score = -1 }
+        if (type == 'block' && rating == -1) { await handleRateAsPositive(); setRating(null); await getAllNegativeFaqs(); return; }
+
+        if (type == 'reduce' && rating == -1) { await handleRateAsPositive(); score = -0.1 }
+        if (type == 'reduce' && rating == -0.1) { await handleRateAsPositive(); setRating(null); await getAllNegativeFaqs(); return; }
+
 
         await rateFaqNegative({
             score: score,
             search: contentToSend,
             faq: item.information.id
         })
+
+        setRating(score)
 
         await getAllNegativeFaqs()
 
@@ -150,11 +164,11 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             {thisKnowledge && !deleted &&
 
                 <div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
-                    <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
+                    <div className={`mt-1 border p-2 rounded-md border-gray shadow-xs w-full`}>
 
                         <div className="relative">
 
-                            <div className={`flex ${!rated && 'pointer'}`} onClick={toggleDropdown}>
+                            <div className={`flex pointer`} onClick={toggleDropdown}>
                                 <span className="w-full flex items-center" >
                                     <small id={item.information?.knowledge?.id + item.information.id + 'text'}>
                                         {!(dropdownOpenId == item.information.id) ?
@@ -163,11 +177,11 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                                 </span>
 
 
-                                {!rated && !(dropdownOpenId == item.information.id) &&
+                                {!(dropdownOpenId == item.information.id) &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                                     </svg>}
-                                {!rated && dropdownOpenId == item.information.id &&
+                                {dropdownOpenId == item.information.id &&
                                     <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                                     </svg>
@@ -256,22 +270,29 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             }
             {/* //bg-gradiant-red-button */}
             {showingNegativeOptions &&
-                <div className='flex gap-4 mx-5 mb-4 mt-2'>
+                <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
                     <button
                         type="button"
-                        className=" text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                         onClick={() => handleRateNegative('reduce')}
+                        data-tooltip-id={'tooltipblock'}
+                        data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                     >
-                        Reduce
+                        {rating == -0.1 ? "Reduced" : "Reduce"}
                     </button>
                     <button
                         type="button"
-                        className="text-black red-black border-black flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        className={`${rating == -1 && rating !== -0.1 ? "text-white bg-black" : "text-black red-black border-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                         onClick={() => handleRateNegative('block')}
-
+                        data-tooltip-id={'tooltipblock'}
+                        data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                     >
-                        Block
+                        {rating == -1 ? "Blocked" : "Block"}
+
                     </button>
+
+
+                    <Tooltip id={'tooltipblock'} place="top" type="dark" effect="solid" />
                     {/* <button
                         type="button"
                         className="bg-black text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
