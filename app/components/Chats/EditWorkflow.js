@@ -1,6 +1,6 @@
 import { getKnowledgeData, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge'
 import { deleteNegativeWorkflow, getNegativeWorkflows, rateWorkflowNegative, updateWorkFlowStatus } from '@/app/API/pages/Workflow'
-import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -28,6 +28,9 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     const [dropdownOpen, isDropdownOpen] = useState(false)
     const [inputValue, setInputValue] = useState(descriptionLine)
     const [workflowObject, setWorflowObject] = useState({})
+    const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
+
+
     // Handlers
 
     const getAllNegativeWorkflows = async () => {
@@ -100,6 +103,12 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
         await updateWorkFlowStatus({ description: [newDescription] }, item.information?.id)
         setLoading(false)
         setDeleted(true)
+    }
+
+    const toggleShowNegativeOptions = () => {
+        setDropdownOpenId('')
+        isDropdownOpen(false)
+        setShowingNegativeOptions(!showingNegativeOptions)
     }
 
     return (
@@ -184,16 +193,41 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                         </div>
 
                         <button>
-                            {rated ?
-                                <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                            {showingNegativeOptions ?
+                                <XMarkIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Close' style={{ border: '1px solid gray', borderRadius: '50%' }}></XMarkIcon>
                                 :
-                                <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
-
+                                <MinusIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Report this Workflow as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
                             }
                         </button>
                     </div >
 
-                    {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>}
+
+
+                    {showingNegativeOptions &&
+                        <div className='flex gap-4 mx-5 mb-4 mt-2'>
+                            <button
+                                type="button"
+                                className="bg-gradiant-blue-button text-red border flex items-centerborder justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                            >
+                                Reduce
+                            </button>
+                            <button
+                                type="button"
+                                className="bg-gradiant-red-button text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                            >
+                                Blocked
+                            </button>
+                            <button
+                                type="button"
+                                className="bg-gradiant-black-button text-red  flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                            >
+                                Human Escal
+                            </button>
+                        </div>
+                    }
+
+
+                    {/* {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>} */}
                 </>
             }
         </>

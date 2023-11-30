@@ -1,5 +1,5 @@
 import { deleteNegativeFaq, getKnowledgeData, patchKnowledgeQuestion, rateFaqNegative, getFaqNegative, deleteFaqQuestions } from '@/app/API/pages/Knowledge'
-import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline'
+import { MinusIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -16,6 +16,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     // Local states
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
     const [faqObject, setFAQObject] = useState({})
+    const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
 
     const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -59,6 +60,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
         if (rated) { return }
         isDropdownOpen(!dropdownOpen)
+        setShowingNegativeOptions(false)
 
         if (dropdownOpenId == item.information.id) { setDropdownOpenId(''); return }
         setDropdownOpenId(item.information.id)
@@ -86,9 +88,10 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     }
 
 
-    const handleRateNegative = async () => {
+    const handleRateNegative = async (type) => {
         let previousMessage = allMessages[indexOfMessage - 1]
         let contentToSend;
+
 
         if (previousMessage.content === 'WORKFLOW') {
             let finder = allMessages[indexOfMessage - 2]
@@ -100,7 +103,12 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
             contentToSend = previousMessage.content
         }
 
+
+
+        let score = type == 'block' ? -1 : -0.1;
+
         await rateFaqNegative({
+            score: score,
             search: contentToSend,
             faq: item.information.id
         })
@@ -131,10 +139,16 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     }
 
 
+    const toggleShowNegativeOptions = () => {
+        setDropdownOpenId('')
+        isDropdownOpen(false)
+        setShowingNegativeOptions(!showingNegativeOptions)
+    }
 
     return (
         <>
             {thisKnowledge && !deleted &&
+
                 <div key={indexOfMessage + item.information?.knowledge?.id + item.information.id} id={indexOfMessage + item.information?.knowledge?.id + item.information.id} className='flex items-center w-full align-middle'>
                     <div className={`mt-1 border p-2 rounded-md border-gray ${!rated ? 'hover:text-primary shadow-md' : 'shadow-xs'} w-full`}>
 
@@ -198,21 +212,23 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                                         />
 
                                     </div>
-                                    <div className='flex justify-between'>
-                                        <button
-                                            type="button"
-                                            onClick={handlePatchFaq}
-                                            className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                                        >
-                                            {loading ? "Saving.." : "Save"}
-                                        </button>
+                                    <div className='flex justify-between mx-2'>
                                         <button
                                             type="button"
                                             onClick={handleDeleteFaq}
-                                            className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                            className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                         >
                                             {loading ? "Deleting.." : "Delete"}
                                         </button>
+
+                                        <button
+                                            type="button"
+                                            onClick={handlePatchFaq}
+                                            className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                        >
+                                            {loading ? "Saving.." : "Save"}
+                                        </button>
+
                                     </div>
                                 </div>
 
@@ -220,24 +236,49 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
                         </div>
 
-
                     </div>
 
 
                     <button >
-                        {rated ?
-                            <PlusIcon onClick={handleRateAsPositive} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as positive' style={{ border: '1px solid gray', borderRadius: '50%' }}></PlusIcon>
+                        {showingNegativeOptions ?
+                            <XMarkIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Close' style={{ border: '1px solid gray', borderRadius: '50%' }}></XMarkIcon>
                             :
-                            <MinusIcon onClick={handleRateNegative} className="h-5 w-5 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
+                            <MinusIcon onClick={toggleShowNegativeOptions} className="h-4 w-4 text-black mx-3 pointer" title='Report this FAQ as negative' style={{ border: '1px solid gray', borderRadius: '50%' }}></MinusIcon>
                         }
                     </button>
 
 
+
+
                 </div>
+
 
             }
 
-            {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>}
+            {showingNegativeOptions &&
+                <div className='flex gap-4 mx-5 mb-4 mt-2'>
+                    <button
+                        type="button"
+                        className="bg-gradiant-blue-button bg-sky text-white border flex items-centerborder justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                    >
+                        Reduced
+                    </button>
+                    <button
+                        type="button"
+                        className="bg-gradiant-red-button text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                    >
+                        Blocked
+                    </button>
+                    <button
+                        type="button"
+                        className="bg-black text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                    >
+                        Human Escaled
+                    </button>
+                </div>
+            }
+
+            {/* {rated && <div className="text-xs text-grey flex justify-end" style={{ fontSize: '8px', marginRight: '10%' }}>Rated as negative</div>} */}
 
         </>
     )
