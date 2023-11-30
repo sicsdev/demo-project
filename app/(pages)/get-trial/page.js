@@ -94,7 +94,7 @@ const Trial = () => {
         firstname: formData.first_name,
         lastname: formData.last_name,
         email: formData.email,
-        phone: '1' + formData.phone,
+        phone: formData.phone.replace(/[\s()-]/g, ''),
         company: formData.company_name,
         website: formData.url,
         gclid: gclid,
@@ -128,7 +128,7 @@ const Trial = () => {
       name: formData?.first_name + " " + formData?.last_name,
       phone_prefix: "+1",
       slug_domain: formData?.company_name,
-      phone: '+1' + formData.phone,
+      phone: formData.phone.replace(/[\s()-]/g, ''),
       password: randomUUIDpassword,
       password_confirm: randomUUIDpassword,
     };
@@ -158,7 +158,7 @@ const Trial = () => {
         external_emails: [formData?.email],
         hubspot_contact: payloadForHubspot
       }
-      
+
       await createSlackChannel(payloadForSlack, response.token)
 
 
