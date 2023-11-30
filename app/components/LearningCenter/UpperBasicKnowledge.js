@@ -8,21 +8,57 @@ import { createNewKnowledge, getFaqQuestions } from '@/app/API/pages/Knowledge'
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
-const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
-    const params = useSearchParams()
+const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
+
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
     const [createModal, setCreateModal] = useState(false)
     const [formData, setFormData] = useState({})
     const [createPdfModal, setCreatePdfModal] = useState(false);
     const [createOptions, setCreateOptions] = useState(null)
-    const fileTypes = ["JPG", "PNG", "GIF"];
-    const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
     const [loading, setLoading] = useState(false)
     const [filterhead, setFilterhead] = useState('all');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('')
+    const [skeletonloading, setSkeletonLoading] = useState(true)
+    const [botValue, setBotValue] = useState([]);
+
+
+    // Helpers
+    const state = useSelector((state) => state.botId);
+    const dropdown = useRef(null);
+    const params = useSearchParams()
+    const fileTypes = ["JPG", "PNG", "GIF"];
+    const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
+
+    useEffect(() => {
+        getAllBots()
+        setTimeout(() => {
+            setSkeletonLoading(false);
+        }, 300);
+    }, [])
+
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            if (dropdown.current && !dropdown.current.contains(event.target)) {
+                setShowSourceFilter(false);
+            }
+        };
+        document.addEventListener("click", handleOutsideClick);
+
+
+        const externalSnippet = params.get('createExternalSnippet')
+        const externalContent = params.get('externalContent')
+        if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
+
+
+        return () => {
+            document.removeEventListener("click", handleOutsideClick);
+        };
+    }, []);
+
 
     const handleCreateOptions = (option) => {
         if (option === 'pdf') {
@@ -34,6 +70,9 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
         setCurrentIndex(0)
         setCreateModal(false)
     }
+
+
+
     const getCount = (data, type) => {
         switch (type) {
             case "FILE":
@@ -141,33 +180,33 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
         setFile(file);
     };
 
-    const [skeletonloading, setSkeletonLoading] = useState(true)
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSkeletonLoading(false);
-        }, 300);
-    }, [])
-    const dropdown = useRef(null);
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (dropdown.current && !dropdown.current.contains(event.target)) {
-                console.log("Asdsd")
-                setShowSourceFilter(false);
-            }
-        };
-        document.addEventListener("click", handleOutsideClick);
 
 
-        const externalSnippet = params.get('createExternalSnippet')
-        const externalContent = params.get('externalContent')
-        if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
+    const getAllBots = async () => {
+        const getTitle = state.botData.data.bots.map(
+            (element) => element.chat_title
+        );
+        const widgetCode = state.botData.data.widgets;
+        const mergedArray = widgetCode.map((item, index) => {
+            const title = getTitle[index];
+            return {
+                value: item.id,
+                name: title,
+            };
+        });
 
+        mergedArray.sort((a, b) => a.name.localeCompare(b.name))
+        setBotValue(mergedArray);
 
-        return () => {
-            document.removeEventListener("click", handleOutsideClick);
-        };
-    }, []);
+    }
+
+    const handleFilters = (e) => {
+        setFilters({
+            ...filters,
+            currentBot: e.target.value
+        })
+    }
+
 
     return (
         <>
@@ -217,7 +256,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
 
 
                     <li className={`  ${filterhead === "File" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('FILE')
+                        // getDataWithFilters('FILE')
                         setFilterhead("File")
                         setShowSourceFilter(false)
                         setCurrentTab('file')
@@ -235,7 +274,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }
                     </li>
                     <li className={`  ${filterhead === "Snippet" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('SNIPPET')
+                        // getDataWithFilters('SNIPPET')
                         setFilterhead("Snippet")
                         setShowSourceFilter(false)
                         setCurrentTab('snippet')
@@ -253,10 +292,10 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                         }
                     </li>
                     <li className={`  ${filterhead === "Products" ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
-                        getDataWithFilters('PRODUCT')
+                        // getDataWithFilters('PRODUCT')
                         setFilterhead("Products")
                         setShowSourceFilter(false)
-                        setCurrentTab('products')
+                        setCurrentTab('product')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -271,32 +310,67 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
                     </li>
                 </ul>
             </div>
-            <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
-                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
-                    <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                    {loading ?
-                        <SkeletonLoader count={1} height={35} width={200} />
-                        :
-                        <div className="relative">
-                            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                </svg>
-                            </div>
-                            <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search"
-                                value={search}
-                                onChange={handleChange} />
+            <div className='flex items-center justify-between'>
+
+                <div className='flex items-center gap-2'>
+                    <div className="w-full flex items-center sm:mt-0 justify-between sm:justify-end gap-4">
+                        <div
+                            className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
+                            style={{ rowGap: "4px" }}
+                        >
+                            <button
+                                onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
+                                key={'allbotsfilter'}
+                                className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                            >
+                                {" "}
+                                All
+                            </button>
+
+                            {botValue?.length > 1 &&
+                                botValue?.map((element, key) => (
+                                    <button
+                                        onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
+                                        key={key}
+                                        className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                    >
+                                        {" "}
+                                        {element?.name}
+                                    </button>
+                                ))}
+
+
                         </div>
-                    }
+                    </div>
                 </div>
-                <div>
-                    {loading ?
-                        <SkeletonLoader count={1} height={30} width={80} />
-                        :
-                        <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                            Create
-                        </button>
-                    }
+
+                <div className='flex justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
+                    <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
+                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        {loading ?
+                            <SkeletonLoader count={1} height={35} width={200} />
+                            :
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                                    </svg>
+                                </div>
+                                <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search"
+                                    value={search}
+                                    onChange={handleChange} />
+                            </div>
+                        }
+                    </div>
+                    <div>
+                        {loading ?
+                            <SkeletonLoader count={1} height={30} width={80} />
+                            :
+                            <button onClick={(e) => setCreateModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border border-primary bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                                Create
+                            </button>
+                        }
+                    </div>
                 </div>
 
             </div>
@@ -405,36 +479,7 @@ const UpperBasicKnowledge = ({ questions, setCheck, basicFormData, search, handl
 
             {createModal === true && (
                 <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'} titleStyles={'text-primary'}>
-                    {/* <div className='block sm:flex justify-center items-center gap-4 my-8'>
 
-                        <div onClick={() => {
-                            handleCreateOptions('snippet')
-                            setCreateMode("snippet")
-                        }
-                        } className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
-                            <DocumentTextIcon className='h-10 w-10 text-white bg-red rounded-lg p-2' />
-                            <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Snippet</h3>
-                            <p className='text-xs font-normal'>Plain text content specific for Deflection AI.</p>
-                        </div>
-                        <div onClick={() => handleCreateOptions('pdf')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
-                            <PaperClipIcon className='h-10 w-10 text-white bg-primary rounded-lg p-2' />
-                            <h3 className='text-sm text-black hover:text-primary font-bold py-4'>File Upload</h3>
-                            <p className='text-xs font-normal'>Txt or PDF FAQ or support file.</p>
-                        </div>
-                        <div onClick={() => handleCreateOptions('url')} className='my-2  border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3  h-[180px]'>
-                            <LinkIcon className='h-10 w-10 text-white bg-btn_y_hover rounded-lg p-2' />
-                            <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Public URL Source</h3>
-                            <p className='text-xs font-normal'>Provide a top-level domain and we will fetch all sub-domains</p>
-                        </div>
-                        <div onClick={() => {
-                            handleCreateOptions('snippet')
-                            setCreateMode("product")
-                        }} className='my-2 border border-border bg-white p-5 shadow-[0_0_10px_0px_#00000014] hover:shadow-[0_0_10px_0px_#00000054] rounded-lg cursor-pointer w-full sm:w-1/3 h-[180px]' >
-                            <PuzzlePieceIcon className='h-10 w-10 text-white bg-[#C01A59] rounded-lg p-2' />
-                            <h3 className='text-sm text-black hover:text-primary font-bold py-4'>Product</h3>
-                            <p className='text-xs font-normal'>A product or service that users can purchase directly from Deflection AI.</p>
-                        </div>
-                    </div> */}
                     <div className='block items-center my-3'>
                         <ul className="list-none p-0 m-0 w-100">
                             <li className="w-100 p-2 rounded-md mb-4 cursor-pointer hover:text-primary hover:bg-lowgray">

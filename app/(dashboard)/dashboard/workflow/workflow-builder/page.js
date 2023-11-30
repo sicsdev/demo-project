@@ -32,23 +32,32 @@ const Page = () => {
     const [loading, setLoading] = useState(false)
     const [workflowLoading, setWorkLoading] = useState(false)
     const [template, setTemplate] = useState([])
+    const [skeletonloading, setSkeetonLoading] = useState(true);
 
-    const getAllWorkflowData = async () => {
-        dispatch(fetchWorkflows());
-    }
+
     useEffect(() => {
-        if (tab === 0) {
-            if (!workflowState?.data?.results?.some(e => e.active === true)) {
-                setTab(1)
-            } else {
-                setTab(0)
-            } // If there is no active workflows, setTab to draft section.
-        }
+        setTimeout(() => {
+            setSkeetonLoading(false);
+        }, 300);
+    }, [])
+
+    useEffect(() => {
+        if (!workflowState?.data?.results?.some(e => e.active === true)) {
+            setTab(1)
+        } else {
+            setTab(0)
+        } // If there is no active workflows, setTab to draft section.
+
     }, [workflowState?.data])
 
     useEffect(() => {
         getAllWorkflowData();
     }, [])
+
+    useEffect(() => {
+        allWorkflowTemplates();
+    }, [])
+
 
     const allWorkflowTemplates = async () => {
         const allData = await getAllWorkflowTemplates()
@@ -56,9 +65,9 @@ const Page = () => {
         setTemplate(filterData)
     };
 
-    useEffect(() => {
-        allWorkflowTemplates();
-    }, [])
+    const getAllWorkflowData = async () => {
+        dispatch(fetchWorkflows());
+    }
 
     const createNewWorkFlow = async () => {
         setWorkLoading(true)
@@ -87,12 +96,6 @@ const Page = () => {
         }
     }
 
-    const [skeletonloading, setSkeetonLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setSkeetonLoading(false);
-        }, 300);
-    }, [])
 
     return (
         <>
@@ -142,6 +145,8 @@ const Page = () => {
                                 "Your Workflows"
                             }
                         </h1>
+
+
                         <div className={skeletonloading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
@@ -171,7 +176,7 @@ const Page = () => {
                                         </span>
                                     }
                                 </li>
-{/* 
+                                {/* 
                                 <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -218,6 +223,9 @@ const Page = () => {
 
                             </ul>
                         </div>
+
+
+
 
                         {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
                         {tab === 0 && (

@@ -95,7 +95,7 @@ export const removeTrialFromSlack = async (body) => {
     }
 };
 
-export const setDomainSlug = async () => {
+export const setDomainSlug = async (body) => {
     let config = returnConfig()
     // domain_slug="nextmed" \
 
