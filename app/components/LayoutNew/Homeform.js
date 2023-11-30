@@ -20,7 +20,7 @@ export const Homeform = ({ reff }) => {
   const [employe, setEmploye] = useState({ data: "", error: false })
   const [country, setCountry] = useState({ data: "", error: false })
   const [state, setState] = useState({ data: "", error: false })
-
+const [pop, setPop] = useState(false);
   const handleSubmit = () => {
     if (fullname.data == null) {
       setFullName({ error: true })
@@ -161,6 +161,7 @@ export const Homeform = ({ reff }) => {
     };
     window.dataLayer?.push(payload);
     if (blacklist.includes(business.split("@")[1])) {
+      setPop(true);
       console.log("generic");
       let payload = {
         event: "lead-generic",
@@ -168,7 +169,7 @@ export const Homeform = ({ reff }) => {
       window.dataLayer?.push(payload);
     } else {
       console.log("business");
-
+setPop(false)
       let payload = {
         event: "lead-business",
       };
@@ -190,12 +191,10 @@ export const Homeform = ({ reff }) => {
   return (
     <>
       {show == false ?
-        <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[80px] mb-4 p-5 sm:p-0">
+        <div className="block sm:flex justify-center sm:m-auto sm:text-center sm:mb-[0px] mb-4 p-5 sm:p-0">
 
-          <div ref={reff} className="mt-4 sm:mt-10 relative w-[100%] sm:w-[550px] sm:h-[auto]">
-            <h2 className="block !font-[600] text-2xl md:text-[42px]   text-center my-[1rem] md:mb-8 relative text-heading md:leading-[3rem]">
-              Request Quote
-            </h2>
+          <div ref={reff} className="mt-4 sm:mt-0 relative w-[100%] sm:w-[550px] sm:h-[auto]">
+       
             <div className="w-full mt-4 sm:mt-0">
               <div className="mx-auto sm:w-[85%] mt-8">
                 <div className=" mx-auto text-center">
@@ -228,13 +227,17 @@ export const Homeform = ({ reff }) => {
                           type={"email"}
                           placeholder={"Business Email"}
                           value={business.data}
-                          onChange={(e) => setBusinnes({ data: e.target.value })}
+                          onChange={(e) =>{ setBusinnes({ data: e.target.value }); setPop(false)}}
                           className={
                             "mb-3 border border-input_color w-full block  px-2 py-3 sm:px-3 sm:py-4 bg-white  rounded-2xl text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500"
                           }
                           onBlur={(e) => handleBlurGTM(business.data)}
 
                         />
+                               {pop == true? <>    <div id="tooltip-bottom" role="tooltip" className="mb-3 lg:relative md:unset sm:unset z-10 lg:mr-[16rem] md:mr-[16rem] sm:mr-[16rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+           Please enter a valid work email
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div></> : ""}
 
                         {business.error == true ? <p className='text-[red] text-left'>This field is required</p> : ""}
                       </>
@@ -361,17 +364,14 @@ export const Homeform = ({ reff }) => {
                     <SkeletonLoader count={1} height={50} width={180} />
                   ) : (
                     <button
-                      className={
-                        "inline-block font-semibold  rounded-lg bg-[#fe9327] px-6 pb-2 pt-2 border-2 border-[#fe9327] hover:border-[#000] leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-[#000] text-[16px]"
-                      }
-                      style={{ margin: "0px auto" }}
-                      onClick={() => {
-                        handleSubmit()
-                        handleBlur()
-                      }}
-                    >
-                      Get a Quote
-                    </button>
+                    className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                    onClick={() => {
+                      handleSubmit()
+                      handleBlur()
+                    }}                  >
+                    Submit
+                  </button>
+                 
                   )}
                 </div>
               </div>
