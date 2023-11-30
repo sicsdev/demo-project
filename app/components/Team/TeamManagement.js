@@ -27,7 +27,11 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
           contact: ele.phone_prefix + " " + ele.phone,
         };
       });
-      setTeams(mapData);
+
+
+      // Filter deflection team
+      let filteredData = mapData.filter(member => !(member.email.endsWith('@deflection.ai')))
+      setTeams(filteredData);
     }
 
 
