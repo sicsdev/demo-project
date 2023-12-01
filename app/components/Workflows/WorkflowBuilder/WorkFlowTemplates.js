@@ -47,9 +47,9 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     }, [workflowData, filters])
 
     useEffect(() => {
-        setTimeout(() => {
-            setLoading(false);
-        }, 400);
+        // setTimeout(() => {
+        //     setLoading(false);
+        // }, 400);
         getAllBots()
     }, [])
 
@@ -133,6 +133,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     };
 
     const manageData = async () => {
+        setLoading(true)
         let botFilter = filters.currentBot
         let workflows = await getWorkflowByStatus(status, source, botFilter)
         let result = workflows.results
