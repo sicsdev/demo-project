@@ -624,24 +624,28 @@ const NewSidebar = ({ children }) => {
                                                         </Link>
                                                     ) : (
                                                         ele.locked ? (
-                                                            <div className="p-2 flex items-center justify-center !bg-transparent cursor-not-allowed">
-                                                                <div className="relative">
-                                                                    {ele.icon}
-                                                                    {ele.notification !== 0 && (
-                                                                        <span
-                                                                            style={{ fontSize: "10px" }}
-                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                        >
-                                                                            {ele.notification}
+                                                            <Link
+                                                                href={'/dashboard'}
+                                                                onClick={() => handlerclosemenu(ele.href)}
+                                                                className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                            >
+                                                                    <div className="relative">
+                                                                        {ele.icon}
+                                                                        {ele.notification !== 0 && (
+                                                                            <span
+                                                                                style={{ fontSize: "10px" }}
+                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                            >
+                                                                                {ele.notification}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    {!collaps && (
+                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                            {ele.name}
                                                                         </span>
                                                                     )}
-                                                                </div>
-                                                                {!collaps && (
-                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                        {ele.name}
-                                                                    </span>
-                                                                )}
-                                                            </div>
+                                                            </Link>
                                                         ) : (
                                                             <Link
                                                                 href={ele.href}
