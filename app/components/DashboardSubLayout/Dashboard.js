@@ -160,7 +160,7 @@ const Dashboard = ({ children }) => {
     const getActiveBots = async () => {
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
-
+            console.log(res.results, 'cheeeeeeeeeeeeeeeeeeeeeck')
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 
@@ -170,10 +170,10 @@ const Dashboard = ({ children }) => {
                 localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
 
-            if (testBot?.id) {
-                const userTestBot = JSON.stringify(testBot)
-                localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
-            }
+            // if (testBot?.id) {
+            //     const userTestBot = JSON.stringify(testBot)
+            //     localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
+            // }
         })
 
     }
