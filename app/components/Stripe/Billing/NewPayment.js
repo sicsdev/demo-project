@@ -27,6 +27,7 @@ import Cookies from "js-cookie";
 const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const stripe = useStripe();
     const elements = useElements();
+    const [message, setMessage] = useState(false)
     const [errors, setError] = useState([]);
     const [loading, setLoading] = useState();
     const [cardFilled, setCardFilled] = useState(false);
@@ -63,6 +64,7 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
             const cardElement = elements.getElement(CardElement);
             if (cardElement && cardElement != null) {
                 cardElement.on("change", function (event) {
+                    setMessage(true)
                     if (event.complete) {
                         setCardFilled(true);
                     } else {
@@ -102,24 +104,30 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
             </div>
 
 
-            <div className="my-5 flex justify-end">
-                {cardFilled === true && (
-                    <>
-                        {loading === true ? (
-                            <LoaderButton />
-                        ) : (
-                            <Button
-                                type={"button"}
-                                className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                                onClick={handleSubmit}
-                                disabled={cardFilled === false}
-                            >
-                                Submit
-                            </Button>
-                        )}
-                    </>
-                )}
-            </div>
+
+            {cardFilled === true && (
+                <div className="my-4 flex justify-end">
+                    {loading === true ? (
+                        <LoaderButton />
+                    ) : (
+                        <Button
+                            type={"button"}
+                            className="inline-block rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                            onClick={handleSubmit}
+                            disabled={cardFilled === false}
+                        >
+                            Submit
+                        </Button>
+                    )}
+                </div>
+            )}
+            {message && (
+                <p className="text-heading text-xs text-center mt-2">
+                    Your card will not be charged. You will receive $200 in free credits.
+                </p>
+            )}
+
+
 
             <div>
                 {errors.map((error, i) => (

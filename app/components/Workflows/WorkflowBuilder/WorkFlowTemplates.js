@@ -19,7 +19,7 @@ import WorkflowCard from './WorkflowCard';
 import { useSelector } from 'react-redux';
 
 
-const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow, source }) => {
+const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow, source, setShowActive }) => {
     const [data, setData] = useState([]);
     const [suggestModal, setSuggestModal] = useState(false);
     const [originalData, setOriginalData] = useState([]);
@@ -46,12 +46,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
     }, [workflowData, filters])
 
-    useEffect(() => {
-        // setTimeout(() => {
-        //     setLoading(false);
-        // }, 400);
-        getAllBots()
-    }, [])
+
 
     const [isCopied, setIsCopied] = useState({
         id: null,
@@ -196,7 +191,12 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         })
     }
 
+    useEffect(() => {
+        if (botsState && botsState.botData && botsState.botData.data) {
+            getAllBots()
+        }
 
+    }, [botsState])
 
     return (
         <div>
@@ -210,14 +210,16 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                                 className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
                                 style={{ rowGap: "4px" }}
                             >
-                                <button
-                                    onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
-                                    key={'allbotsfilter'}
-                                    className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
-                                >
-                                    {" "}
-                                    All
-                                </button>
+                                {botValue.length > 1 && (
+                                    <button
+                                        onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
+                                        key={'allbotsfilter'}
+                                        className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                    >
+                                        {" "}
+                                        All
+                                    </button>
+                                )}
 
                                 {botValue?.length > 1 &&
                                     botValue?.map((element, key) => (
@@ -287,7 +289,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                             {data?.map((item, key) =>
 
                                 <>
-                                    <WorkflowCard data={data} loading={loading} item={item} key={key} manageData={manageData} isAuthorizedUser={isAuthorizedUser}></WorkflowCard>
+                                    <WorkflowCard data={data} loading={loading} item={item} key={key} manageData={manageData} isAuthorizedUser={isAuthorizedUser} setShowActive={setShowActive} setTab={setTab}></WorkflowCard>
                                 </>
                             )}
                         </div>
@@ -302,8 +304,8 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                 }
 
                 {data?.length == 0 && !loading &&
-                    <div className='flex justify-center'>
-                        No workflows to show.
+                    <div className='flex  text-sm justify-center'>
+                       No templates available. 
                     </div>
                 }
 

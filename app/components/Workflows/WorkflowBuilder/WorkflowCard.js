@@ -9,7 +9,7 @@ import { useState } from 'react';
 import SkeletonLoader from '../../Skeleton/Skeleton';
 import Image from 'next/image';
 
-const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser }) => {
+const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, setShowActive,setTab }) => {
     const router = useRouter()
 
     const [updateStatusLoader, setUpdateStatusLoader] = useState(false)
@@ -22,6 +22,15 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser }
         setUpdateStatusLoader(true)
         await updateWorkFlowStatus({ active: !wfStatus }, workflowId,)
         await manageData()
+
+        if (wfStatus === true) {
+            if (data.length === 1) {
+                setShowActive(false)
+                setTab(5)
+            }
+        } else {
+            setShowActive(true) 
+        }
         setUpdateStatusLoader(false)
     }
 

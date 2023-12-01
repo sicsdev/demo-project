@@ -70,7 +70,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             content: "Finalize your setup by filling out your business information in your Deflection AI profile.",
             buttonName: "Complete",
             icon: <ShareIcon className='w-5 h-5 ' />,
-            link: '/dashboard/billing/settings',
+            link: '/dashboard/billing/usage',
         },
         {
             title: 'Customize Your New Bot',
@@ -194,7 +194,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             icon: <BanknotesIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
         {
-            href: "/dashboard/billing/settings",
+            href: "/dashboard/billing/usage",
             name: "Billing",
             icon: <BanknotesIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         },
@@ -431,7 +431,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                     {billingState === "demo" && (
                                         <Method />
                                     )}
-                                    {quickStartData1?.map((ele, key) => (
+                                    {quickStartData1.slice(0, billingState === "demo" ? 1 : 10)?.map((ele, key) => (
                                         <>
                                             {user?.enterprise?.country === '' &&
                                                 <>

@@ -237,9 +237,10 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/analytics",
-                    name: <div className="flex justify-between items-center w-full"><span>Logs</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    name: "Logs",
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+
                 }
             ],
         },
@@ -327,9 +328,10 @@ const NewSidebar = ({ children }) => {
                 },
                 {
                     href: "/dashboard/workflow/workflow-builder",
-                    name: "Workflows",
+                    name: <div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
+                    locked: billingState === "demo"
                 },
             ],
         },
@@ -405,10 +407,9 @@ const NewSidebar = ({ children }) => {
             list: [
                 {
                     href: "/dashboard/analytics",
-                    name: <div className="flex justify-between items-center w-full"><span>Logs</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    name: "Logs",
                     icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
-                    locked: billingState === "demo"
 
                 }
             ],
