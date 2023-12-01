@@ -38,7 +38,10 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
         setTimeout(() => {
             setSkeletonLoading(false);
         }, 300);
-    }, [])
+    }, []);
+
+
+    useEffect(()=>{},[state])
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -183,11 +186,11 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
 
     const getAllBots = async () => {
-        const getTitle = state.botData.data.bots.map(
+        const getTitle = state?.botData?.data?.bots.map(
             (element) => element.chat_title
         );
-        const widgetCode = state.botData.data.widgets;
-        const mergedArray = widgetCode.map((item, index) => {
+        const widgetCode = state?.botData?.data?.widgets;
+        const mergedArray = widgetCode?.map((item, index) => {
             const title = getTitle[index];
             return {
                 value: item.id,
@@ -195,7 +198,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             };
         });
 
-        mergedArray.sort((a, b) => a.name.localeCompare(b.name))
+        mergedArray?.sort((a, b) => a.name.localeCompare(b.name))
         setBotValue(mergedArray);
 
     }
