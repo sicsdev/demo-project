@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from 'react';
 
 import {
     CardElement,
@@ -23,15 +23,17 @@ import { errorMessage, successMessage } from "../../Messages/Messages";
 
 import { ToastContainer } from "react-toastify";
 import Cookies from "js-cookie";
+import { useSearchParams } from "next/navigation";
 
 const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const stripe = useStripe();
+    const cardElementRef = useRef();
     const elements = useElements();
+    const searchParams = useSearchParams();
     const [message, setMessage] = useState(false)
     const [errors, setError] = useState([]);
     const [loading, setLoading] = useState();
     const [cardFilled, setCardFilled] = useState(false);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,12 +59,20 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
             setLoading(false);
         }
     };
-
+    if (elements != null) {
+        const cardElement = elements.getElement(CardElement);
+        const paymentVal = searchParams.get("payment")
+        if (paymentVal === "true" && cardElement) {
+            cardElement.focus();
+        }
+    }
     useEffect(() => {
-
+      
         if (elements != null) {
             const cardElement = elements.getElement(CardElement);
+          
             if (cardElement && cardElement != null) {
+
                 cardElement.on("change", function (event) {
                     setMessage(true)
                     if (event.complete) {
@@ -84,7 +94,7 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
                 style={{ borderColor: "#80808080" }}
             >
 
-                <CardElement
+                <CardElement ref={cardElementRef}
                     className="form-control"
                     options={{
                         style: {

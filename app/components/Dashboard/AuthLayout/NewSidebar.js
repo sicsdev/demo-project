@@ -468,15 +468,132 @@ const NewSidebar = ({ children }) => {
                 //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
                 //     isLink: false,
                 // },
-                {
-                    href: "https://docs.usetempo.ai/reference",
-                    name: "API References",
-                    icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
+                // {
+                //     href: "https://docs.usetempo.ai/reference",
+                //     name: "API References",
+                //     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // },
 
             ],
         }
+    ];
+    const SideBarRoutes3 = [
+        {
+            href: "/dashboard",
+            name: "",
+            icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+            list: [
+                {
+                    href: "/dashboard",
+                    name: "Home",
+                    icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
+            ],
+            isLink: false
+        },
+        {
+            // href: "",
+            href: workflowLinkHandler('/dashboard/workflow/integrations'),
+            name: "Integrations",
+            icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/workflow/integrations",
+                    name: "Integrations",
+                    icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/workflow/workflow-builder",
+                    name: <div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                    locked: billingState === "demo"
+                },
+            ],
+        },
+        {
+            href: "/dashboard/basic-knowledge/source",
+            name: "Knowledge Base",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/basic-knowledge/source",
+                    target: "/dashboard/basic-knowledge/source",
+                    name: "Knowledge Base",
+                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                    list: [
+                        {
+                            href: "/dashboard/basic-knowledge/source",
+                            name: "Sources",
+                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
+                        },
+                        // {
+                        //     href: "/dashboard/basic-knowledge/questions",
+                        //     name: "Questions",   
+                        //     icon: <QuestionMarkCircleIcon className="h-5 w-5 text-gray-500" />,
+                        // },
+                    ]
+                },
+                {
+                    href: "/dashboard/knowledge-center",
+                    name: <div className="flex justify-between items-center w-full"><span>Learning Center</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
+                    notification: learningItemsCount,
+                    isLink: false,
+                    locked: billingState === "demo"
+                },
+            ],
+
+        },
+        {
+            name: "Chat",
+            href: "/dashboard/chat-settings",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            list: [
+                {
+                    href: "/dashboard/chat-settings",
+                    name: "Chat",
+                    icon: <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                },
+                {
+                    href: "/dashboard/email-settings",
+                    name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
+                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                    locked: billingState === "demo"
+                },
+                // {
+                //     href: "/dashboard/manage-phones",
+                //     name: "Phone",
+                //     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                //     isLink: false,
+                // }
+            ],
+        },
+        {
+            href: "/dashboard/analytics",
+            name: "Logs",
+            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
+            isLink: false,
+            locked: billingState === "demo",
+            list: [
+                {
+                    href: "/dashboard/analytics",
+                    name: "Logs",
+                    icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+
+                }
+            ],
+        },
     ];
 
     const divRef = useRef(null);
@@ -630,22 +747,22 @@ const NewSidebar = ({ children }) => {
                                                                 onClick={() => handlerclosemenu(ele.href)}
                                                                 className={`p-2 flex items-center justify-center !bg-transparent`}
                                                             >
-                                                                    <div className="relative">
-                                                                        {ele.icon}
-                                                                        {ele.notification !== 0 && (
-                                                                            <span
-                                                                                style={{ fontSize: "10px" }}
-                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                            >
-                                                                                {ele.notification}
-                                                                            </span>
-                                                                        )}
-                                                                    </div>
-                                                                    {!collaps && (
-                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                            {ele.name}
+                                                                <div className="relative">
+                                                                    {ele.icon}
+                                                                    {ele.notification !== 0 && (
+                                                                        <span
+                                                                            style={{ fontSize: "10px" }}
+                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                        >
+                                                                            {ele.notification}
                                                                         </span>
                                                                     )}
+                                                                </div>
+                                                                {!collaps && (
+                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                        {ele.name}
+                                                                    </span>
+                                                                )}
                                                             </Link>
                                                         ) : (
                                                             <Link
@@ -1217,25 +1334,42 @@ const NewSidebar = ({ children }) => {
                                                                 ))}
                                                             </>
                                                             } */}
+                                                        {billingState === "demo" ? <>
+                                                        {SideBarRoutes3.map((element, key) => (
+                                                                <li key={key}>
+                                                                    <Link
+                                                                        href={element.href}
+                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                        onClick={() => setIsOpen(false)}
+                                                                    >
+                                                                        {/* {element.icon} */}
+                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                            {sendNames(element.name)}
+                                                                        </span>
+                                                                    </Link>
+                                                                </li>
+                                                            )
+                                                        )}</> :
 
-                                                        <>
-                                                            {SideBarRoutes2.map((element, key) => (
-                                                                element.name !== 'Channels' && !element.locked && (
-                                                                    <li key={key}>
-                                                                        <Link
-                                                                            href={element.href}
-                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                            onClick={() => setIsOpen(false)}
-                                                                        >
-                                                                            {/* {element.icon} */}
-                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                                {sendNames(element.name)}
-                                                                            </span>
-                                                                        </Link>
-                                                                    </li>
-                                                                )
-                                                            ))}
-                                                        </>
+                                                            <>
+                                                                {SideBarRoutes2.map((element, key) => (
+                                                                    element.name !== 'Channels' && !element.locked && (
+                                                                        <li key={key}>
+                                                                            <Link
+                                                                                href={element.href}
+                                                                                className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                                onClick={() => setIsOpen(false)}
+                                                                            >
+                                                                                {/* {element.icon} */}
+                                                                                <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                    {sendNames(element.name)}
+                                                                                </span>
+                                                                            </Link>
+                                                                        </li>
+                                                                    )
+                                                                ))}
+                                                            </>
+                                                        }
 
                                                         {/* <li >
                                                             <Link
