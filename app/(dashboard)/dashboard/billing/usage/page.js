@@ -495,10 +495,10 @@ const UsageLimit = () => {
                           $
                         </small>
                         <input
-                          style={{ paddingLeft: '25px' }}
+                          style={{ paddingLeft: '20px' }}
                           onChange={handleInputValues}
                           value={formData}
-                          className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400 focus:border-sky disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white border-danger focus:invalid:border-danger z-10"
+                          className="w-1/2 new_input block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400 focus:border-sky disabled:bg-slate-50 disabled:text-slate-500 border-input_color focus:bg-white border-danger focus:invalid:border-danger z-10 focus:!pl-[20px]"
                           placeholder=''
                           id='billing_thresholds'
                           name='billing_thresholds'
