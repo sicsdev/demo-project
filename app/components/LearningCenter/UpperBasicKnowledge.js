@@ -218,7 +218,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         getDataWithFilters('ALL')
                         setFilterhead("all")
                         setShowSourceFilter(false)
-                        setCurrentTab('all')
+                        setCurrentTab('')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />

@@ -210,7 +210,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                                 style={{ rowGap: "4px" }}
                             >
                                 <button
-                                    onClick={(e) => handleFilters({ target: { value: '', name: ''} })}
+                                    onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
                                     key={'allbotsfilter'}
                                     className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                 >
@@ -281,7 +281,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
 
                 {
-                    data?.length > 0 ? (
+                    !loading ? (
                         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 mx-auto items-center my-2' >
                             {data?.map((item, key) =>
 
@@ -300,60 +300,68 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                         </div>
                 }
 
+                {data?.length == 0 && !loading &&
+                    <div className='flex justify-center'>
+                        No workflows to show.
+                    </div>
+                }
+
             </div>
 
-            {suggestModal && (
-                <Modal
-                    title={
-                        <h3 className="text-base !font-bold">Select Emoji</h3>
-                    }
-                    className={"sm:w-[30%] w-[100%]"}
-                    show={suggestModal}
-                    setShow={setSuggestModal}
-                    showCancel={true}
-                    customHideButton={false}
-                    showTopCancleButton={false}
-                    hr={false}
-                >{emojiData.unified ?
-                    <div className="show-emoji text-center my-2">
-                        <h3 className='text-sm'>Your selected Emoji is:</h3>
-                        <div className='flex justify-center'>
-                            <Emoji unified={emojiData.unified} size={40} />
+            {
+                suggestModal && (
+                    <Modal
+                        title={
+                            <h3 className="text-base !font-bold">Select Emoji</h3>
+                        }
+                        className={"sm:w-[30%] w-[100%]"}
+                        show={suggestModal}
+                        setShow={setSuggestModal}
+                        showCancel={true}
+                        customHideButton={false}
+                        showTopCancleButton={false}
+                        hr={false}
+                    >{emojiData.unified ?
+                        <div className="show-emoji text-center my-2">
+                            <h3 className='text-sm'>Your selected Emoji is:</h3>
+                            <div className='flex justify-center'>
+                                <Emoji unified={emojiData.unified} size={40} />
+                            </div>
+                        </div> : null}
+                        <EmojiPicker width={'100%'} onEmojiClick={(e) => {
+                            setEmojiData((prev) => {
+                                return {
+                                    ...prev,
+                                    emoji: e.emoji,
+                                    unified: e.unified
+                                }
+                            })
+                        }} previewConfig={{
+                            showPreview: true
+                        }} />
+                        <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
+                            {" "}
+                            <Button
+                                className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
+                                onClick={() => {
+                                    setSuggestModal((prev) => !prev);
+                                }}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                                disabled={emojiData.emoji === null}
+                                onClick={() => {
+                                    updateEmoji(emojiData.id, emojiData.emoji)
+                                }}
+                            >
+                                Ok
+                            </Button>
                         </div>
-                    </div> : null}
-                    <EmojiPicker width={'100%'} onEmojiClick={(e) => {
-                        setEmojiData((prev) => {
-                            return {
-                                ...prev,
-                                emoji: e.emoji,
-                                unified: e.unified
-                            }
-                        })
-                    }} previewConfig={{
-                        showPreview: true
-                    }} />
-                    <div className={`flex  py-2 rounded-b mt-5 justify-between gap-4`}>
-                        {" "}
-                        <Button
-                            className="inline-block float-left rounded bg-white px-6 pb-2 pt-2 text-xs font-medium leading-normal text-heading border border-border "
-                            onClick={() => {
-                                setSuggestModal((prev) => !prev);
-                            }}
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            className="inline-block rounded border border-primary bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                            disabled={emojiData.emoji === null}
-                            onClick={() => {
-                                updateEmoji(emojiData.id, emojiData.emoji)
-                            }}
-                        >
-                            Ok
-                        </Button>
-                    </div>
-                </Modal>
-            )}
+                    </Modal>
+                )
+            }
         </div >
     )
 }

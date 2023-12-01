@@ -46,7 +46,7 @@ const Source = () => {
             setBasicFormData(prev => {
                 return {
                     ...prev,
-                    selectedBot: botDataArray.filter((x) => x.name !== ''),
+                    selectedBot: botDataArray?.filter((x) => x.name !== ''),
                     data: response,
                     isLoading: false
                 }

@@ -41,7 +41,7 @@ const Page = () => {
             setBasicFormData(prev => {
                 return {
                     ...prev,
-                    selectedBot: botDataArray.filter((x) => x.name !== ''),
+                    selectedBot: botDataArray?.filter((x) => x.name !== ''),
                     knowledgeData: response?.data?.results
                 }
             })
