@@ -39,6 +39,7 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
 
     }
     ] ?? [])
+
     const [allFinalData, setAllFinalData] = useState([...state?.data?.results, {
         name: "Rule",
         functionName: "RULE",
@@ -60,14 +61,13 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
             <ClipboardDocumentListIcon className="h-6 w-6 text-gray-500" />
     }
     ] ?? [])
+
     const [integrationAutomationData, setIntegrationAutomationData] = useState([]);
     const [integrationAutomationFinalData, setIntegrationAutomationFinalData] = useState([]);
     const [innerSide, setInnerSide] = useState({
         id: null,
         value: null
     })
-
-
 
 
     useEffect(() => {
@@ -108,10 +108,12 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
         setIntegrationAutomationFinalData(automationData)
         setBeatLoader(false);
     }
+
     function addDataAtIndex1(stepIndex, get_ids, newData) {
         get_ids.splice(stepIndex, 0, newData);
         return get_ids;
     }
+
 
     const addStepHandler = async (ele) => {
         console.log(ele, "ele")
@@ -169,6 +171,8 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
         );
         setAllData(filteredResults)
     }
+
+
     const handleSearchAutomation = (e) => {
         const { value } = e.target
         setSearch(value)
@@ -177,6 +181,8 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
         );
         setIntegrationAutomationData(filteredResults)
     }
+
+
     const findNameCustom = (name) => {
         const findName = ['Rule', 'Deflection', 'Email'].find((x) => x === name)
         if (findName) {
@@ -184,6 +190,8 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
         }
         return false
     }
+
+
     return (
         <div>
             <div className='block sm:hidden text-right pb-4'>
@@ -295,6 +303,9 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
                                                     <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
                                                         <p className="text-xs">{element.search}</p>
                                                         <div className='flex justify-start gap-4 items-center'>
+                                                            <div title='Score'>
+                                                                {element.score}
+                                                            </div>
                                                             <PencilSquareIcon className="h-5 w-5" onClick={() => {
                                                                 setIsEdit(true)
                                                                 setShowAdd(true)

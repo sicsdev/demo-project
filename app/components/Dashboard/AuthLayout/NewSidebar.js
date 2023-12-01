@@ -624,24 +624,28 @@ const NewSidebar = ({ children }) => {
                                                         </Link>
                                                     ) : (
                                                         ele.locked ? (
-                                                            <div className="p-2 flex items-center justify-center !bg-transparent cursor-not-allowed">
-                                                                <div className="relative">
-                                                                    {ele.icon}
-                                                                    {ele.notification !== 0 && (
-                                                                        <span
-                                                                            style={{ fontSize: "10px" }}
-                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                        >
-                                                                            {ele.notification}
+                                                            <Link
+                                                                href={'/dashboard'}
+                                                                onClick={() => handlerclosemenu(ele.href)}
+                                                                className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                            >
+                                                                    <div className="relative">
+                                                                        {ele.icon}
+                                                                        {ele.notification !== 0 && (
+                                                                            <span
+                                                                                style={{ fontSize: "10px" }}
+                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                            >
+                                                                                {ele.notification}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    {!collaps && (
+                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                            {ele.name}
                                                                         </span>
                                                                     )}
-                                                                </div>
-                                                                {!collaps && (
-                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                        {ele.name}
-                                                                    </span>
-                                                                )}
-                                                            </div>
+                                                            </Link>
                                                         ) : (
                                                             <Link
                                                                 href={ele.href}
@@ -997,9 +1001,14 @@ const NewSidebar = ({ children }) => {
                                                     <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
                                                 </div >}
                                             <div className="relative ">
-                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
-
+                                                {state?.role && state.enterprise ?
+                                                    <>
+                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                    </>
+                                                    :
+                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
+                                                }
                                             </div>
 
                                         </li>
@@ -1151,8 +1160,16 @@ const NewSidebar = ({ children }) => {
 
                                         {!collaps && (
                                             <div className="relative ">
-                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                {state?.role && state.enterprise ?
+                                                    <>
+                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                    </>
+                                                    :
+                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
+
+                                                }
+
                                                 {!isOpen && (
                                                     <ul className="hidden group-hover:block absolute w-[290px] text-center left-[130px] bottom-0 mt-2 py-2 bg-white rounded shadow-lg z-50">
                                                         <li className="text-start p-2">

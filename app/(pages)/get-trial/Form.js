@@ -65,7 +65,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
     if (blacklist.includes(formData?.email.split("@")[1])) {
       setPop(true);
     }
-    else{
+    else {
       setPop(false);
     }
   };
@@ -74,9 +74,10 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
   const handleInputValues = (e) => {
     setPop(false);
     let { value, name } = e.target;
-    // if (name === "phone") {
-    //   value = formatPhoneNumber(value);
-    // }
+    if (name === "phone") {
+      value = formatPhoneNumber(value);
+    }
+    
     if (
       name === "first_name" ||
       name === "last_name" ||
@@ -101,7 +102,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
       };
     });
   };
-  
+
   const handleUrlValue = (e) => {
     const { value } = e.target;
     if (value.includes(" ") || value.includes(".com")) {
@@ -156,8 +157,8 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
     <div className="w-full sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-5">
       <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
         <div>
-        {pop == true? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
-           Please enter a valid work email
+          {pop == true ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[13px]  text-red shadow-sm  tooltip ">
+            Please enter a valid work email
             <div className="tooltip-arrow" data-popper-arrow></div>
           </div></> : ""}
           <TextField
@@ -178,12 +179,12 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
             data-tooltip-target="tooltip-bottom"
             data-tooltip-placement="bottom"
           />
-         
-        
+
+
 
 
         </div>
-        {/* 
+
         <div className='my-2 sm:my-0 relative'>
           <TextField
             type="text"
@@ -200,9 +201,9 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
             placeholder={"Phone"}
             error={""}
           />
-        </div> */}
+        </div>
 
-        <div className='my-2 sm:my-0'>
+        {/* <div className='my-2 sm:my-0'>
 
           <div className='flex items-center inline'>
             <label className={`opacity-90 block text-sm text-heading text-lg`}>
@@ -216,7 +217,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
             <input
               style={{ paddingLeft: '27px' }}
               onChange={handleInputValues}
-              value={formData.phone}
+              value={formData?.phone ?? "+1"}
               className="w-1/2 new_input_phone block border-[0.2px] bg-white  rounded-md shadow-sm placeholder-slate-400  disabled:bg-slate-50 disabled:text-slate-500 border-input_color border-danger invalid:border-danger invalid:text-danger"
               placeholder=''
               id='phone'
@@ -226,7 +227,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
             >
             </input>
           </div>
-        </div>
+        </div> */}
 
       </div>
       <div className="my-2 sm:my-0 grid gap-2 sm:gap-[15px] sm:mt-[12px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">

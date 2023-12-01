@@ -1819,6 +1819,19 @@ body .invite-email input[type="email"]:focus,
   }
 }
 
+.bg-gradiant-red-button {
+  background: radial-gradient(400% 240% at -170% 75%, rgb(204, 0, 0) 10%, rgb(246, 48, 48) 50%, rgb(255, 104, 84) 90%) !important;
+}
+
+.bg-gradient-blue-button {
+  background: radial-gradient(400% 240% at -170% 75%, rgb(0, 0, 204) 10%, rgb(48, 48, 246) 50%, rgb(84, 104, 255) 90%) !important;
+}
+
+.bg-gradient-black-button {
+  background: radial-gradient(400% 240% at -170% 75%, rgb(0, 0, 0) 10%, rgb(64, 64, 64) 50%, rgb(128, 128, 128) 90%) !important;
+}
+
+
 .see:before {
   background: #ff5722;
   width: 0;
@@ -2030,41 +2043,49 @@ line-height: initial;
     top: 25px;
   }
 }
-body
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active{
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+
+body input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
-.StripeElement{
+
+.StripeElement {
   border-radius: 0px !important;
   border: none !important;
 }
-.p-FieldLabel{
-   font-size: 14px !important;
+
+.p-FieldLabel {
+  font-size: 14px !important;
 }
-.Label{
+
+.Label {
   display: none !important;
 }
+
 .capitalize-first-line::first-letter {
   text-transform: capitalize;
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /* Ancho de la scrollbar */
+  width: 8px;
+  /* Ancho de la scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f5f5f5; /* Color de fondo de la pista de la scrollbar */
+  background-color: #f5f5f5;
+  /* Color de fondo de la pista de la scrollbar */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(213, 213, 213); /* Color del pulgar de la scrollbar */
-  border-radius: 6px; /* Bordes redondeados del pulgar */
+  background-color: rgb(213, 213, 213);
+  /* Color del pulgar de la scrollbar */
+  border-radius: 6px;
+  /* Bordes redondeados del pulgar */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #c0c0c0; /* Color del pulgar cuando se pasa el mouse sobre él */
+  background-color: #c0c0c0;
+  /* Color del pulgar cuando se pasa el mouse sobre él */
 }
-

@@ -94,7 +94,7 @@ const Trial = () => {
         firstname: formData.first_name,
         lastname: formData.last_name,
         email: formData.email,
-        phone: '1' + formData.phone,
+        phone: formData.phone.replace(/[\s()-]/g, ''),
         company: formData.company_name,
         website: formData.url,
         gclid: gclid,
@@ -128,7 +128,7 @@ const Trial = () => {
       name: formData?.first_name + " " + formData?.last_name,
       phone_prefix: "+1",
       slug_domain: formData?.company_name,
-      phone: '+1' + formData.phone,
+      phone: formData.phone.replace(/[\s()-]/g, ''),
       password: randomUUIDpassword,
       password_confirm: randomUUIDpassword,
     };
@@ -158,7 +158,7 @@ const Trial = () => {
         external_emails: [formData?.email],
         hubspot_contact: payloadForHubspot
       }
-      
+
       await createSlackChannel(payloadForSlack, response.token)
 
 
@@ -218,10 +218,10 @@ const Trial = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton() || pop}
+          disabled={DisablingButton() || pop || loading}
           onClick={SubmitTheForm}
         >
-          Submit
+          {loading ? "Loading" : "Submit"}
         </button>
       </div>
     </div>

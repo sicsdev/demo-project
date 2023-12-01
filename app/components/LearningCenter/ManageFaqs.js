@@ -628,10 +628,13 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                             <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
                                                 <ul className="text-start py-2 text-sm text-gray-700 ">
                                                     {negativeQuestions.map((element, key) =>
-                                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
+                                                        <li className='p-2 text-justify text-heading my-2  flex justify-between items-center gap-4' key={key}>
                                                             <p className="text-xs">{element.search}</p>
                                                             <div className='flex justify-start gap-4 items-center'>
-                                                                <PencilSquareIcon className="h-5 w-5" onClick={() => {
+                                                                <div title='Score'>
+                                                                    {element.score}
+                                                                </div>
+                                                                <PencilSquareIcon className="h-5 w-5 cursor-pointer " onClick={() => {
                                                                     setIsEdit(true)
                                                                     setSelected((prev) => {
                                                                         return {
@@ -642,7 +645,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                                                         }
                                                                     })
                                                                 }} />
-                                                                <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
+                                                                <TrashIcon className="h-5 w-5 cursor-pointer" onClick={() => { deleteNegativeFaq(element.id) }} />
                                                             </div>
                                                         </li>
                                                     )}

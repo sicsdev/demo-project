@@ -17,7 +17,6 @@ const client = createClient({
 
 const Page = () => {
   const params = useSearchParams()
-  const route = useRouter();
   const [blog, setBlog] = useState(null);
   const [heading, setHeading] = useState(null);
   const [date, setDate] = useState('');
@@ -27,11 +26,8 @@ const Page = () => {
   const [currentImage, setCurrentimage] = useState("")
   const [loading, setLoading] = useState(true);
   const [pubDate, setPubdate] = useState("")
-  // let slug = params.get("blog")
   let slug =  params.get("article");
   const findFilters = async () => {
-
-  
     if (slug) {
       const findData = data.find((x) => x.slug === slug)
       const entry = await client.getEntry(findData?.id);
@@ -44,7 +40,16 @@ const Page = () => {
       getRelatedBlogs(entry?.fields?.tag, entry?.fields?.heading)
       sekeletonData()
     }
-  }
+  };
+  
+  const valuefordates = ()=>{
+let x= null;
+if (x=1){
+  console.log("try me");
+}
+  };
+
+
   const getRelatedBlogs = async (tag, heading) => {
     const entry = await client.getEntries({
       content_type: "blogs",
@@ -123,8 +128,6 @@ const Page = () => {
       return slug?.replace(/\s+/g, "-");
     }
   };
-
-
 
 
   return (
