@@ -41,11 +41,11 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     }, []);
 
     useEffect(() => {
-        if (botsState && botsState.botData && botsState.botData.data) {
+        if (state && state.botData && state.botData.data) {
             getAllBots()
         }
 
-    }, [botsState])
+    }, [state])
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
