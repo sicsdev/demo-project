@@ -77,7 +77,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
     if (name === "phone") {
       value = formatPhoneNumber(value);
     }
-    debugger
+    
     if (
       name === "first_name" ||
       name === "last_name" ||
