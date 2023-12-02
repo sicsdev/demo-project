@@ -42,7 +42,7 @@ import MetaDataInfo from './MetaDataInfo';
 import Method from '../NewPaymentMethod/Method';
 import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchProfile } from '../store/slices/userSlice';
 
 const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) => {
@@ -57,7 +57,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
     const user = useSelector(state => state.user.data)
     const progressScrappingKnowledge = useSelector((state) => state.knowledgeScrapper.loader);
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
-
+    const params = useSearchParams()
 
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
     const [openInputConfigDomain, setOpenInputConfigDomain] = useState(false)
@@ -216,6 +216,11 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
     ];
     const [skeltonLoading, setSkeltonLoading] = useState(true);
     useEffect(() => {
+        const triggerBotParam = params.get('triggerBot')
+        
+        if (triggerBotParam) {
+          sessionStorage.setItem('triggerFirstTimeWorkflow', 'true')
+        }
 
         setTimeout(() => {
             setSkeltonLoading(false);
