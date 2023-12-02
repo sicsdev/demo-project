@@ -5,8 +5,9 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { Tooltip } from 'react-tooltip'
+import { addHumanHandoffWorkflowData } from '@/app/API/pages/HumanHandoff'
 
-const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId }) => {
+const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdownOpenId, setDropdownOpenId, message }) => {
 
     useEffect(() => {
         getThisKnowledge()
@@ -18,6 +19,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
     const [allNegativeFAQS, setAllNegativeFAQS] = useState([])
     const [faqObject, setFAQObject] = useState({})
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
+    const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
 
     const [deleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
@@ -158,6 +160,36 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
         setShowingNegativeOptions(!showingNegativeOptions)
     }
 
+
+
+    const handleForceHandOff = async () => {
+
+        let previousMessage = allMessages[indexOfMessage - 1]
+        let contentToSend;
+
+
+        if (previousMessage.content === 'WORKFLOW') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder?.actions?.options?.WORKFLOW || 'WORKFLOW'
+        } else if (previousMessage.content === 'INFORMATION') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder?.actions?.options?.INFORMATION || 'INFORMATION'
+        } else {
+            contentToSend = previousMessage.content
+        }
+
+
+        if (isHandoff) {
+            deleteHandoff(isHandoff)
+            setisHandoff(false)
+        } else {
+            await addHumanHandoffWorkflowData({ search: contentToSend })
+            setisHandoff(true)
+        }
+    }
+
+
+
     return (
         <>
             {thisKnowledge && !deleted &&
@@ -272,32 +304,36 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
                 <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
                     <button
                         type="button"
-                        className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                        className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                         onClick={() => handleRateNegative('reduce')}
-                        data-tooltip-id={'tooltipblock'}
+                        data-tooltip-id={'tooltip'}
                         data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                     >
                         {rating == -0.1 ? "Reduced" : "Reduce"}
                     </button>
                     <button
                         type="button"
-                        className={`${rating == -1 && rating !== -0.1 ? "text-white bg-black" : "text-black red-black border-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                        className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                         onClick={() => handleRateNegative('block')}
-                        data-tooltip-id={'tooltipblock'}
+                        data-tooltip-id={'tooltip'}
                         data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                     >
                         {rating == -1 ? "Blocked" : "Block"}
 
                     </button>
 
-
-                    <Tooltip id={'tooltipblock'} place="top" type="dark" effect="solid" />
-                    {/* <button
+                    <button
                         type="button"
-                        className="bg-black text-white flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                        className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                        onClick={() => handleForceHandOff()}
+                        data-tooltip-id={'tooltip'}
+                        data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
                     >
-                        Human Escale
-                    </button> */}
+                        {isHandoff ? "Human Escaled" : "Human Escal"}
+                    </button>
+
+                    <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
+
                 </div>
             }
 

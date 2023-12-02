@@ -17,6 +17,7 @@ import TextEditor from '../URL/Richtext';
 import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
+import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
     const [perPage, setPerPage] = useState(10);
@@ -122,55 +123,42 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         const filterData = negativeQuestions.filter((x) => x.id !== id)
         setNagetiveQuestions(filterData)
     }
+
+
+    const cleanTextArea = () => {
+        setSelected((prev) => {
+            return {
+                ...prev,
+                negative_answer: ''
+            }
+        })
+    }
     const addNewNagetiveFaq = async () => {
         setNLoading(true)
+
+        let values = selected.negative_answer.split('\n');
+
         if (isEdit === false) {
-            const response = await addNagetiveQuestionData({ search: selected.negative_answer, faq: selected.id })
-            if (response.status === 200 || response.status === 201) {
-                setIsEdit(false)
-                setNagetiveQuestions((prev) => {
-                    return [
-                        ...prev,
-                        response.data
-                    ]
-                })
-                setSelected((prev) => {
-                    return {
-                        ...prev,
-                        negative_answer: ''
-                    }
-                })
-                setNLoading(false)
-            } else {
-                setSelected((prev) => {
-                    return {
-                        ...prev,
-                        negative_answer: ''
-                    }
-                })
-                setNLoading(false)
-            }
+
+            values.forEach(async (item) => {
+                try {
+                    await addNagetiveQuestionData({ search: item, faq: selected.id, score: 0.1 })
+                } catch (error) {
+                    console.log(error)
+                }
+            })
+
+            cleanTextArea()
         } else {
-            const response = await editNagetiveQuestionData({ search: selected.negative_answer }, selected.negative_id)
-            if (response.status === 200 || response.status === 201) {
-                const filterData = [...negativeQuestions]
-                filterData[selected.index].search = selected.negative_answer
-                setIsEdit(false)
-                setNagetiveQuestions(filterData
-                )
-                setSelected((prev) => {
-                    return {
-                        ...prev,
-                        negative_answer: ''
-                    }
-                })
-
-                setNLoading(false)
-            } else {
-
-                setNLoading(false)
-            }
+            console.log(selected, 'select')
+            await editNagetiveQuestionData({ search: selected.negative_answer }, selected.negative_id)
+            cleanTextArea()
         }
+
+        let response = await getSingleNagetiveQuestionData(selected.id)
+        setNagetiveQuestions(response?.data)
+        setNLoading(false)
+
     }
 
     const handleTextEditorChange = (content) => {
@@ -577,83 +565,98 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                                 </button>
                             </>)}
                         {tab === 1 && (
-                            <>
-                                {negative ?
-                                    <div className="mt-6">
-                                        <SkeletonLoader height={100} width={"100%"} />
-                                        <div className="mt-3">
-                                            <SkeletonLoader height={40} width={"10%"} />
-                                        </div>
+                            <NegativeSearchTermsTab
+                                negative={negative}
+                                showAdd={showAdd}
+                                negativeQuestions={negativeQuestions}
+                                setSelected={setSelected}
+                                addNewNagetiveFaq={addNewNagetiveFaq}
+                                selected={selected}
+                                nLoading={nLoading}
+                                setIsEdit={setIsEdit}
+                                deleteNegativeFaq={deleteNegativeFaq}
+                                getNagetiveQuestions={getNagetiveQuestions}
+                                setNagetiveQuestions={setNagetiveQuestions}
+                            >
 
-                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                            <div className="mt-1 flex items-center justify-between">
-                                                <SkeletonLoader height={15} width={500} />
-                                                <div className="flex items-center justify-between gap-2">
-                                                    <SkeletonLoader height={25} width={25} />
-                                                    <SkeletonLoader height={25} width={25} />
-                                                </div>
-                                            </div>
-                                        </div>
+                            </NegativeSearchTermsTab>
+                            // <>
+                            //     {negative ?
+                            //         <div className="mt-6">
+                            //             <SkeletonLoader height={100} width={"100%"} />
+                            //             <div className="mt-3">
+                            //                 <SkeletonLoader height={40} width={"10%"} />
+                            //             </div>
 
-                                    </div>
-                                    :
-                                    <>
-                                        {showAdd && (
-                                            <div className='my-8'>
-                                                <TextField name="negative_answer"
-                                                    className="py-2 !p-[10px]"
-                                                    type={"text"}
-                                                    id={"negative_answer"}
+                            //             <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                            //                 <div className="mt-1 flex items-center justify-between">
+                            //                     <SkeletonLoader height={15} width={500} />
+                            //                     <div className="flex items-center justify-between gap-2">
+                            //                         <SkeletonLoader height={25} width={25} />
+                            //                         <SkeletonLoader height={25} width={25} />
+                            //                     </div>
+                            //                 </div>
+                            //             </div>
 
-                                                    placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
-                                                    rows={'5'}
-                                                    onChange={(e) => setSelected((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            [e.target.name]: e.target.value
-                                                        }
-                                                    })}
-                                                    value={selected.negative_answer} />
-                                                <button
-                                                    onClick={(e) => addNewNagetiveFaq()}
-                                                    type="button"
-                                                    disabled={selected.negative_answer === "" || !selected.negative_answer || nLoading}
-                                                    className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                                    {nLoading ? 'Loading...' : isEdit ? "Edit" : "Submit"}
-                                                </button>
+                            //         </div>
+                            //         :
+                            //         <>
+                            //             {showAdd && (
+                            //                 <div className='my-8'>
+                            //                     <TextField name="negative_answer"
+                            //                         className="py-2 !p-[10px]"
+                            //                         type={"text"}
+                            //                         id={"negative_answer"}
 
-                                            </div>
-                                        )}
-                                        {negativeQuestions.length > 0 && (
-                                            <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                                <ul className="text-start py-2 text-sm text-gray-700 ">
-                                                    {negativeQuestions.map((element, key) =>
-                                                        <li className='p-2 text-justify text-heading my-2  flex justify-between items-center gap-4' key={key}>
-                                                            <p className="text-xs">{element.search}</p>
-                                                            <div className='flex justify-start gap-4 items-center'>
-                                                                <div title='Score'>
-                                                                    {element.score}
-                                                                </div>
-                                                                <PencilSquareIcon className="h-5 w-5 cursor-pointer " onClick={() => {
-                                                                    setIsEdit(true)
-                                                                    setSelected((prev) => {
-                                                                        return {
-                                                                            ...prev,
-                                                                            negative_answer: element.search,
-                                                                            negative_id: element.id,
-                                                                            index: key
-                                                                        }
-                                                                    })
-                                                                }} />
-                                                                <TrashIcon className="h-5 w-5 cursor-pointer" onClick={() => { deleteNegativeFaq(element.id) }} />
-                                                            </div>
-                                                        </li>
-                                                    )}
-                                                </ul>
-                                            </div>
-                                        )}
-                                    </>}
-                            </>
+                            //                         placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet. Please enter your first search term here to get started." : ""}
+                            //                         rows={'5'}
+                            //                         onChange={(e) => setSelected((prev) => {
+                            //                             return {
+                            //                                 ...prev,
+                            //                                 [e.target.name]: e.target.value
+                            //                             }
+                            //                         })}
+                            //                         value={selected.negative_answer} />
+                            //                     <button
+                            //                         onClick={(e) => addNewNagetiveFaq()}
+                            //                         type="button"
+                            //                         disabled={selected.negative_answer === "" || !selected.negative_answer || nLoading}
+                            //                         className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                            //                         {nLoading ? 'Loading...' : isEdit ? "Edit" : "Submit"}
+                            //                     </button>
+
+                            //                 </div>
+                            //             )}
+                            //             {negativeQuestions.length > 0 && (
+                            //                 <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                            //                     <ul className="text-start py-2 text-sm text-gray-700 ">
+                            //                         {negativeQuestions.map((element, key) =>
+                            //                             <li className='p-2 text-justify text-heading my-2  flex justify-between items-center gap-4' key={key}>
+                            //                                 <p className="text-xs">{element.search}</p>
+                            //                                 <div className='flex justify-start gap-4 items-center'>
+                            //                                     <div title='Score'>
+                            //                                         {element.score}
+                            //                                     </div>
+                            //                                     <PencilSquareIcon className="h-5 w-5 cursor-pointer " onClick={() => {
+                            //                                         setIsEdit(true)
+                            //                                         setSelected((prev) => {
+                            //                                             return {
+                            //                                                 ...prev,
+                            //                                                 negative_answer: element.search,
+                            //                                                 negative_id: element.id,
+                            //                                                 index: key
+                            //                                             }
+                            //                                         })
+                            //                                     }} />
+                            //                                     <TrashIcon className="h-5 w-5 cursor-pointer" onClick={() => { deleteNegativeFaq(element.id) }} />
+                            //                                 </div>
+                            //                             </li>
+                            //                         )}
+                            //                     </ul>
+                            //                 </div>
+                            //             )}
+                            //         </>}
+                            // </>
 
 
                         )}

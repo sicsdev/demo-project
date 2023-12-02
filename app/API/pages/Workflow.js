@@ -112,6 +112,17 @@ export const rateWorkflowNegative = async (body) => {
     }
 };
 
+export const patchWorkflowNegative = async (body, id) => {
+
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/workflows-negative/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
 export const getNegativeWorkflows = async () => {
     let config = returnConfig();
     let currentPage = 1;
