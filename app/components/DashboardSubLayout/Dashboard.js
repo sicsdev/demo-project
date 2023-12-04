@@ -157,6 +157,17 @@ const Dashboard = ({ children }) => {
     const [activeBots, setActiveBots] = useState([])
 
     const getActiveBots = async () => {
+
+        const localStorageKeys = Object.keys(localStorage);
+        for (let i = 0; i < localStorageKeys.length; i++) {
+            const key = localStorageKeys[i];
+            if (key.startsWith("activebots-") || key.startsWith('testbot-')) {
+                localStorage.removeItem(key);
+            }
+        }
+
+        localStorage.removeItem('tempoportallastlogin')
+
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
             console.log(res.results, 'cheeeeeeeeeeeeeeeeeeeeeck')
