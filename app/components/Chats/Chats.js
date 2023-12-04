@@ -823,7 +823,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 {
                                                                     element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
+                                                                        INFO: User filled human escalation form and was transferred.
                                                                     </>
                                                                 }
 
@@ -834,7 +834,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     </>
                                                                 }
 
-                                                                <div className="title-element-left" style={{ display: "none" }}>14:11</div>
+                                                                {/* <div className="title-element-left" style={{ display: "none" }}>14:11</div> */}
                                                             </div>
                                                         )}
 
