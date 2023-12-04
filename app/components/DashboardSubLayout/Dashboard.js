@@ -17,7 +17,7 @@ import TestWidgetLayout from './TestWidgetLayout'
 import { getAllActiveBots } from '@/app/API/pages/Bot'
 import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
-import { editBillingType } from '../store/slices/billingTypeSlice'=
+import { editBillingType } from '../store/slices/billingTypeSlice'
 import { useRouter } from 'next/navigation'
 
 const Dashboard = ({ children }) => {
