@@ -117,7 +117,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
             email: checkoutForm.email,
             phone: '1' + checkoutForm.phone,
             company: checkoutForm2.enterprise.name,
-            website: extractDomainFromEmail(email),
+            website: extractDomainFromEmail(checkoutForm.email),
             gclid: gclid,
             msclkid: msclkid,
             lifecyclestage: "130379889"
