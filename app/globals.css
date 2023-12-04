@@ -2102,3 +2102,22 @@ input:-webkit-autofill:active {
  .home_widgets_box .cm-scroller{
   overflow: visible !important;
 }
+
+
+.schedule::-webkit-scrollbar-thumb {
+  /* background-color: #ff5233; */
+  /* Change this to your desired scrollbar thumb color */
+  border-radius: 10px;
+}
+
+/* Scrollbar track (the background) */
+.schedule::-webkit-scrollbar-track {
+  background-color: transparent !important;
+  /* Change this to your desired scrollbar track color */
+}
+
+/* Optional: Adjust scrollbar width and height */
+.schedule::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}

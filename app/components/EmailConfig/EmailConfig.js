@@ -156,7 +156,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 <span>Email Introduction</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
+                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-125px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       How you want Deflection AI to address customers in your emails.
@@ -182,7 +182,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 <span>Email Sign-Off</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
+                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-108px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       How you want Deflection AI to end conversations to customers in
@@ -208,7 +208,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 <span>Agent Job Title</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
+                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-106px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       An example job description is "Customer Service
@@ -233,7 +233,7 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 Agent Name(s)
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-157px] sm:left-auto lg:left-auto md:left-auto ">
+                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-109px] sm:left-auto lg:left-auto md:left-auto ">
                     {" "}
                     <span className="text-xs font-light">
                       Please add the names you'd like your AI agents to sign off
