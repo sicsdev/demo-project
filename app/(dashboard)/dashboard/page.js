@@ -16,7 +16,7 @@ const Page = () => {
     const userData = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
-    const [loadingScrapper, setLoadingScrapper] = useState(false)
+    const [loadingScrapper, setLoadingScrapper] = useState(true)
     const [finishingScrapping, setFinishingScrapping] = useState(false)
     const [finishedScrapper, setFinishedScrapper] = useState(false)
 
@@ -31,11 +31,11 @@ const Page = () => {
         
         if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
             dispatch(updateScrapperKnowledgeState(null));
-            setLoadingScrapper(false)
+            // setLoadingScrapper(false)
         }
 
         if (userData?.data?.enterprise?.information_filled) {
-            setLoadingScrapper(false)
+            // setLoadingScrapper(false)
         }
 
     }, [])
@@ -54,7 +54,7 @@ const Page = () => {
         };
 
         await setDemoKnowledge(payload);
-        setLoadingScrapper(false);
+        // setLoadingScrapper(false);
         setFinishingScrapping(false)
         setFinishedScrapper(true)
         dispatch(updateScrapperKnowledgeState(null));
@@ -64,7 +64,7 @@ const Page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <TopBar title={`Home`} icon={<UsersIcon className="h-5 w-5 text-primary" />} />
-            <QuickStart loadingScrapper={loadingScrapper} finishingScrapping={finishingScrapping} finishedScrapper={finishedScrapper} />
+            <QuickStart loadingScrapper={loadingScrapper} setloadingScrapper={setLoadingScrapper} finishingScrapping={finishingScrapping} finishedScrapper={finishedScrapper} />
         </div>
     );
 }

@@ -154,7 +154,7 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
                                 id={"negative_answer"}
 
                                 placeholder="Enter or paste your negative search terms, one per line."
-                                rows={'5'}
+                                rows={'2'}
                                 onChange={(e) => setSelected((prev) => {
                                     return {
                                         ...prev,

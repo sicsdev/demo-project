@@ -45,7 +45,7 @@ import { updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeS
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchProfile } from '../store/slices/userSlice';
 
-const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) => {
+const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const [recentlyView, setRecntlyView] = useState(null)
@@ -214,7 +214,6 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
             icon: <CodeBracketIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         }
     ];
-    const [skeltonLoading, setSkeltonLoading] = useState(true);
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
         
@@ -222,9 +221,6 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
           sessionStorage.setItem('triggerFirstTimeWorkflow', 'true')
         }
 
-        setTimeout(() => {
-            setSkeltonLoading(false);
-        }, 3000);
 
     }, []);
 
@@ -327,7 +323,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="text-center text-sm flex justify-center">
-                                    {skeltonLoading ?
+                                    {loadingScrapper ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
                                         :
                                         <div>
@@ -349,7 +345,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="flex justify-center text-sm mb-2">
-                                    {skeltonLoading ?
+                                    {loadingScrapper ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
                                         :
                                         "Please wait while we configure your custom Deflection bot."
@@ -372,13 +368,13 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                     }`}
                             >
                                 <div className="flex items-center  gap-2">
-                                    {skeltonLoading ?
+                                    {loadingScrapper ?
                                         <SkeletonLoader className="mr-2" count={1} height={35} width={120} />
                                         :
                                         <BoltIcon className="text-[#FF822D] w-5" />
                                     }
                                     <p className="text-base font-medium text-[#151D23]">
-                                        {skeltonLoading ?
+                                        {loadingScrapper ?
                                             <SkeletonLoader count={1} height={20} width="80%" />
                                             :
                                             "Quick Start"
@@ -388,7 +384,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
 
                                 {billingState !== "demo" &&
                                     (<div className="flex items-center gap-4 ">
-                                        {skeltonLoading ?
+                                        {loadingScrapper ?
                                             <SkeletonLoader count={1} height={35} width={100} />
                                             :
                                             <button
@@ -464,7 +460,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
 
                                                                         <div className="flex gap-4 items-start items-center">
                                                                             <span>
-                                                                            {skeltonLoading ?
+                                                                            {loadingScrapper ?
                                                                                 <SkeletonLoader count={1} height={35} width={35} />
                                                                                 :
                                                                                 <>
@@ -474,7 +470,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                             </span>
                                                                             <div className="">
                                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                                {skeltonLoading ?
+                                                                                {loadingScrapper ?
                                                                                     <SkeletonLoader count={1} height={30} width={"100%"} />
                                                                                     :
                                                                                     <>
@@ -483,7 +479,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                                 }
                                                                                 </h3>
                                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                                {skeltonLoading ?
+                                                                                {loadingScrapper ?
                                                                                     <SkeletonLoader count={2} height={30} width={"100%"} />
                                                                                     :
                                                                                     <>
@@ -503,7 +499,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                                 className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                                             >
-                                                                            {skeltonLoading ?
+                                                                            {loadingScrapper ?
                                                                                 <SkeletonLoader count={2} height={30} width={120} />
                                                                                 :
                                                                                 <>
@@ -607,7 +603,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                 >
 
                                     <p className="px-6 text-[#151D23] text-sm pb-5">
-                                        {skeltonLoading ?
+                                        {loadingScrapper ?
                                             <SkeletonLoader count={1} height={20} width={100} />
                                             :
                                             "A few essential steps to get you up and running with Deflection AI immediately."
@@ -630,7 +626,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                         <div className="sm:w-[70%] flex gap-2  items-start">
 
                                                             <span>
-                                                                {skeltonLoading ?
+                                                                {loadingScrapper ?
                                                                     <SkeletonLoader count={1} height={30} width={30} />
                                                                     : <>
                                                                         {ele?.icon}
@@ -641,7 +637,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                             <div className="">
 
                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                    {skeltonLoading ?
+                                                                    {loadingScrapper ?
                                                                         <SkeletonLoader count={1} height={30} width={220} />
                                                                         : <>
                                                                             {ele?.title}
@@ -650,7 +646,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                 </h3>
 
                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                    {skeltonLoading ?
+                                                                    {loadingScrapper ?
                                                                         <SkeletonLoader count={2} height={20} width={440} />
                                                                         :
                                                                         <>
@@ -664,7 +660,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                         </div>
 
                                                         <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
-                                                            {skeltonLoading ?
+                                                            {loadingScrapper ?
                                                                 <SkeletonLoader count={1} height={30} width={80} />
                                                                 : <>
                                                                     <Link
@@ -703,7 +699,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                 <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                     <div className='py-4 px-6'>
                         <div className="flex items-center  gap-2">
-                            {skeltonLoading ?
+                            {loadingScrapper ?
                                 <SkeletonLoader count={1} height={30} width={150} />
                                 :
                                 <>
@@ -720,7 +716,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                 <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
                                     {ele?.subheading && (
                                         <p className='text-border  font-semibold text-[12px]'>
-                                            {skeltonLoading ?
+                                            {loadingScrapper ?
                                                 <SkeletonLoader count={1} height={20} width="50%" />
                                                 :
                                                 <>
@@ -730,7 +726,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                         </p>
                                     )}
                                     <p className='mt-2 text-base font-medium text-[#151D23]'>
-                                        {skeltonLoading ?
+                                        {loadingScrapper ?
                                             <SkeletonLoader count={1} height={25} width="70%" />
                                             :
                                             <>
@@ -738,7 +734,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                             </>
                                         }
                                     </p>
-                                    {skeltonLoading ?
+                                    {loadingScrapper ?
                                         <SkeletonLoader count={1} height={35} width={40} />
                                         :
                                         <>
@@ -747,7 +743,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                     }
                                     <Link href={ele.route}>
                                         <div className='mt-2'>
-                                            {skeltonLoading ?
+                                            {loadingScrapper ?
                                                 <SkeletonLoader count={1} height={30} width="50%" />
                                                 :
                                                 <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
@@ -761,7 +757,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                 </div>
             )}
 
-            <ChatBots />
+            <ChatBots setSkeleton={setloadingScrapper} skeleton={loadingScrapper}/>
 
 
 
