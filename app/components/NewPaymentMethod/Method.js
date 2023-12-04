@@ -28,7 +28,7 @@ const Method = () => {
 
     useEffect(() => {
         setTimeout(() => {
-            setSkeltonLoading(true);
+            setSkeltonLoading(false);
         }, 300);
     }, [])
     
