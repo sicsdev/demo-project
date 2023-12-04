@@ -390,12 +390,12 @@ const NewSidebar = ({ children }) => {
                     isLink: false,
                     locked: billingState === "demo"
                 },
-                // {
-                //     href: "/dashboard/manage-phones",
-                //     name: "Phone",
-                //     icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // }
+                {
+                    href: "/dashboard/manage-phones",
+                    name: "Phone",
+                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
+                    isLink: false,
+                }
             ],
         },
         {
@@ -765,28 +765,31 @@ const NewSidebar = ({ children }) => {
                                                                 )}
                                                             </Link>
                                                         ) : (
-                                                            <Link
-                                                                href={ele.href}
-                                                                onClick={() => handlerclosemenu(ele.href)}
-                                                                className={`p-2 flex items-center justify-center !bg-transparent`}
-                                                            >
-                                                                <div className="relative">
-                                                                    {ele.icon}
-                                                                    {ele.notification !== 0 && (
-                                                                        <span
-                                                                            style={{ fontSize: "10px" }}
-                                                                            className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
-                                                                        >
-                                                                            {ele.notification}
+
+
+                                                            ((ele.name == 'Phone' && state.email !== 'admin@tempowidgets.com') ? '' :
+                                                                <Link
+                                                                    href={ele.href}
+                                                                    onClick={() => handlerclosemenu(ele.href)}
+                                                                    className={`p-2 flex items-center justify-center !bg-transparent`}
+                                                                >
+                                                                    <div className="relative">
+                                                                        {ele.icon}
+                                                                        {ele.notification !== 0 && (
+                                                                            <span
+                                                                                style={{ fontSize: "10px" }}
+                                                                                className="bg-[#FF0000] text-white rounded-full px-1 py-0 absolute top-[-5px] left-3"
+                                                                            >
+                                                                                {ele.notification}
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                    {!collaps && (
+                                                                        <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
+                                                                            {ele.name}
                                                                         </span>
                                                                     )}
-                                                                </div>
-                                                                {!collaps && (
-                                                                    <span className="flex justify-between w-full ml-3 whitespace-nowrap text-[13px] font-normal transition-all duration-300 ease-in-out">
-                                                                        {ele.name}
-                                                                    </span>
-                                                                )}
-                                                            </Link>
+                                                                </Link>)
                                                         )
                                                     )
                                                 }
@@ -938,14 +941,13 @@ const NewSidebar = ({ children }) => {
 
                                                 <>
                                                     {SideBarRoutes2.map((element, key) => (
-                                                        element?.name !== "Channels" && (
+                                                        (state.email && element?.name !== "Channels") && (
                                                             <li key={key}>
                                                                 <Link
                                                                     href={element.href}
-                                                                    className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                    className={`flex items-center p-2 text-heading hover:bg-sidebar-hover hover:text-white`}
                                                                     onClick={() => setIsOpen(false)}
                                                                 >
-                                                                    {/* {element.icon} */}
                                                                     <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
                                                                         {sendNames(element.name)}
                                                                     </span>
@@ -954,6 +956,7 @@ const NewSidebar = ({ children }) => {
                                                         )
                                                     ))}
                                                 </>
+
 
                                                 {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
                                                     <>
@@ -1092,7 +1095,9 @@ const NewSidebar = ({ children }) => {
                                         <>
 
                                             {SideBarRoutes2.map((element, key) =>
-                                                sendSideBarDetails(element, key)
+                                                <>
+                                                    {sendSideBarDetails(element, key)}
+                                                </>
                                             )}
                                         </>
 
@@ -1248,7 +1253,9 @@ const NewSidebar = ({ children }) => {
                                     <>
 
                                         {SideBarRoutes2.map((element, key) =>
-                                            sendSideBarDetails(element, key)
+                                            <>
+                                                {sendSideBarDetails(element, key)}
+                                            </>
                                         )}
                                     </>
                                 </ul>
@@ -1335,7 +1342,7 @@ const NewSidebar = ({ children }) => {
                                                             </>
                                                             } */}
                                                         {billingState === "demo" ? <>
-                                                        {SideBarRoutes3.map((element, key) => (
+                                                            {SideBarRoutes3.map((element, key) => (
                                                                 <li key={key}>
                                                                     <Link
                                                                         href={element.href}
@@ -1349,7 +1356,7 @@ const NewSidebar = ({ children }) => {
                                                                     </Link>
                                                                 </li>
                                                             )
-                                                        )}</> :
+                                                            )}</> :
 
                                                             <>
                                                                 {SideBarRoutes2.map((element, key) => (

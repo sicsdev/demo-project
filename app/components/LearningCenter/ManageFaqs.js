@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, getFaqQuestionById, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -18,8 +18,12 @@ import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
+import { useSearchParams } from 'next/navigation';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
+
+    const params = useSearchParams()
+
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -44,6 +48,10 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
     // **
 
+    useEffect(() => {
+        let openedKnowledge = params.get('openKnowledgeId')
+        if (openedKnowledge) { handleAutoOpenKnowledge(openedKnowledge) }
+    }, [])
 
 
     const customStyles = {
@@ -56,6 +64,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 height: "auto"
             },
         }
+    }
+
+    const handleAutoOpenKnowledge = async (id) => {
+        let knowledgeItem = await getFaqQuestionById(id)
+        if (knowledgeItem?.id) {setSelected(knowledgeItem)}
     }
 
 

@@ -157,6 +157,7 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
     const toggleShowNegativeOptions = () => {
         isDropdownOpen(false)
+        setDropdownOpenId(null)
         setShowingNegativeOptions(!showingNegativeOptions)
     }
 
@@ -258,18 +259,22 @@ const EditKnowledge = ({ item, allKnowledge, indexOfMessage, allMessages, dropdo
 
                                     </div>
                                     <div className='flex justify-between mx-2'>
-                                        <button
-                                            type="button"
-                                            onClick={handleDeleteFaq}
-                                            className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                                        >
-                                            {loading ? "Deleting.." : "Delete"}
-                                        </button>
+
+                                        <a href={`/dashboard/basic-knowledge/source?openKnowledgeId=${item.information.id}`} target='_blank'>
+                                            <button
+                                                type="button"
+                                                // onClick={handleDeleteFaq}
+                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                            >
+                                                {loading ? "Edit.." : "Edit"}
+                                            </button>
+                                        </a>
 
                                         <button
                                             type="button"
                                             onClick={handlePatchFaq}
                                             className="flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                            disabled={item?.information?.answer == info.answer}
                                         >
                                             {loading ? "Saving.." : "Save"}
                                         </button>

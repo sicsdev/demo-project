@@ -297,7 +297,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
         let field = parsed[elementData.name]
 
-        return field 
+        return field
     }
 
     return (
@@ -807,35 +807,32 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                             <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
 
                                                                 {
-                                                                    element.content === 'WORKFLOW' &&
+                                                                    (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options?.WORKFLOW || 'WORKFLOW'}
+                                                                        User selected: {messages[key - 1]?.actions?.options[element.content] || 'WORKFLOW'}
                                                                     </>
                                                                 }
 
                                                                 {
-                                                                    element.content === 'INFORMATION' &&
+                                                                    (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options?.INFORMATION || 'INFORMATION'}
+                                                                        User selected: {messages[key - 1]?.actions?.options[element.content] || 'INFORMATION'}
                                                                     </>
                                                                 }
 
                                                                 {
-                                                                    element.content === 'HUMAN-HANDOFF' &&
+                                                                    element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
                                                                         User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
                                                                     </>
                                                                 }
 
-
                                                                 {
-                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' &&
+                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
                                                                     <>
                                                                         {element.content}
                                                                     </>
                                                                 }
-
-
 
                                                                 <div className="title-element-left" style={{ display: "none" }}>14:11</div>
                                                             </div>

@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { Tooltip } from 'react-tooltip'
 
-const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId, message}) => {
+const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId, message }) => {
 
     let descriptions = item?.information?.description[0].split(', ') || ['Add new line']
 
@@ -48,9 +48,8 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     }
 
     const toggleDropdown = () => {
-
+        setShowingNegativeOptions(false)
         setInputValue(item?.information?.description[item.index])
-
         isDropdownOpen(!dropdownOpen)
         if (dropdownOpenId == item.information.id) { setDropdownOpenId(''); return }
         setDropdownOpenId(item.information.id)
@@ -124,6 +123,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
     const toggleShowNegativeOptions = () => {
         isDropdownOpen(false)
+        setDropdownOpenId(null)
         setShowingNegativeOptions(!showingNegativeOptions)
     }
 
@@ -211,22 +211,27 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                                             />
                                         </div>
                                         {/* ))} */}
-                                        <div className='flex justify-between'>
+                                        <div className='flex justify-between mt-1'>
+                                            <a href={`/dashboard/workflow/workflow-builder/get-started?flow=${item.information.id}`} target='_blank'>
+
+                                                <button
+                                                    type="button"
+                                                    // onClick={handleDeleteWorkflow}
+                                                    className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-gray rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-black hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                >
+                                                    {loading ? "Edit.." : "Edit"}
+                                                </button>
+                                            </a>
 
                                             <button
                                                 type="button"
-                                                onClick={handlePatchWorkflow}
+                                                // onClick={handlePatchWorkflow}
                                                 className="text-xs flex items-center justify-center gap-2 focus:ring-4 focus:outline-none font-bold bg-primary rounded-md py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                                disabled={inputValue == item?.information?.description[item.index]}
                                             >
                                                 {loading ? "Saving.." : "Save"}
                                             </button>
-                                            <button
-                                                type="button"
-                                                onClick={handleDeleteWorkflow}
-                                                className="flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none"
-                                            >
-                                                {loading ? "Deleting.." : "Delete"}
-                                            </button>
+
                                         </div>
 
                                     </div>
