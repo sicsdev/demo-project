@@ -17,7 +17,9 @@ import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { EmbedCard } from "./EmbedCard";
-const Embed = ({ form = true, setTotalRecords }) => {
+const Embed = ({ form = true, setTotalRecords,
+  skeleton,
+  setSkeleton }) => {
   const router = useRouter();
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
@@ -52,6 +54,7 @@ const Embed = ({ form = true, setTotalRecords }) => {
         };
       });
       setDetailsData(mergedArray);
+      setSkeleton(false)
       // setTotalRecords(mergedArray)
     }
   }, [state.botData.data]);
@@ -138,9 +141,7 @@ const Embed = ({ form = true, setTotalRecords }) => {
         </>
       ) : (
         <>
-          {state.botData.isLoading === true ? (
-            null
-          ) : (               
+          {state.botData.isLoading === true ? null : (
             <>
               <div className="grid grid-cols-1 sm:pb-3 md:grid-cols-2 lg:grid-cols-2">
                 {detailsData &&
@@ -148,6 +149,8 @@ const Embed = ({ form = true, setTotalRecords }) => {
                     <div className="p-2 sm:pt-0 sm:px-5" key={key}>
                       <EmbedCard
                         key={key}
+                        skeleton={skeleton}
+                        setSkeleton={setSkeleton}
                         element={element}
                         copied={copied}
                         setCopied={setCopied}
@@ -158,7 +161,7 @@ const Embed = ({ form = true, setTotalRecords }) => {
 
               {state.botData.error && (
                 <span className="sm text-danger fixed left-[50%] top-[50%] font-semibold text-center">
-                  {state.botData.error}   
+                  {state.botData.error}
                 </span>
               )}
             </>

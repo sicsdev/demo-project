@@ -171,7 +171,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
                             id={"negative_answer"}
 
                             placeholder="Enter or paste your negative search terms, one per line."
-                            rows={'5'}
+                            rows={'2'}
                             onChange={handleTextAreaInput}
                             value={textAreaValue}
                         />

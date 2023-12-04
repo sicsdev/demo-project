@@ -151,7 +151,7 @@ const List = ({ nav_links, className, setShow }) => {
               backgroundImage: "url(/bg-red.png)",
               backgroundSize: "609px",
               backgroundRepeat: "no-repeat",
-              backgroundPosition: "200% -350px",
+              backgroundPosition: "140% -350px"
             }}
           >
             <div className="max-w-[420px] w-[100%]">

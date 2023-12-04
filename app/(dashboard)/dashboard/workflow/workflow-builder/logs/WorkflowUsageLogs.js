@@ -210,6 +210,7 @@ const WorkflowUsageLogs = () => {
             selector: 'used',
             sortable: false,
             width: "25%",
+
             reorder: true,
             cell: (row) => (
                 <div onClick={() => console.log(row)} className='w-full text-sm flex gap-2 items-center justify-center'>

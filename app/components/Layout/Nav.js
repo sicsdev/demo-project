@@ -100,7 +100,7 @@ const Nav = () => {
                     {element.card.links.length > 0 && (
 
                       <Card
-                        className={`h-[590px] overflow-y-scroll left-0 w-[100%] !pt-[74px] !pl-[110px] animate-fadeIn  hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
+                        className={`h-[auto] overflow-y-hidden left-0 w-[100%] !pt-[74px] !pl-[110px] animate-fadeIn  hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
                           }`}
                       >
 
