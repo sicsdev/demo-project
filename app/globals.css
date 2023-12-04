@@ -2089,3 +2089,12 @@ input:-webkit-autofill:active {
   background-color: #c0c0c0;
   /* Color del pulgar cuando se pasa el mouse sobre él */
 }
+
+.home_widgets_box .cm-content{
+  flex-shrink: unset !important;
+  white-space: unset !important;
+  overflow: visible !important;
+}
+ .home_widgets_box .cm-scroller{
+  overflow: visible !important;
+}

@@ -318,7 +318,6 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
     return (
 
         <>
-
             {integrations && workflow && (
                 <>
 
@@ -328,12 +327,16 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="text-center text-sm flex justify-center">
+                                    {skeltonLoading ?
+                                        <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
+                                        :
                                         <div>
                                             Your automatic data retrieval attempt failed. Please set up manually at
                                             <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
                                                 Learning Center
                                             </span>
                                         </div>
+                                    }
                                     </span>
                                 </div>
                             </div>
@@ -346,7 +349,11 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="flex justify-center text-sm mb-2">
-                                        Please wait while we configure your custom Deflection bot.
+                                    {skeltonLoading ?
+                                        <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
+                                        :
+                                        "Please wait while we configure your custom Deflection bot."
+                                    }
                                     </span>
                                     <ProgressBarComponent finishing={finishingScrapping} finished={finishedScrapper} />
                                     <div className='border-b border-lowgray pt-5'></div>
@@ -456,14 +463,32 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                     <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
 
                                                                         <div className="flex gap-4 items-start items-center">
-                                                                            <span>{ele?.icon}</span>
+                                                                            <span>
+                                                                            {skeltonLoading ?
+                                                                                <SkeletonLoader count={1} height={35} width={35} />
+                                                                                :
+                                                                                <>
+                                                                            {ele?.icon}
+                                                                            </>
+                                                                            }
+                                                                            </span>
                                                                             <div className="">
                                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-
+                                                                                {skeltonLoading ?
+                                                                                    <SkeletonLoader count={1} height={30} width={"100%"} />
+                                                                                    :
+                                                                                    <>
                                                                                     {ele?.title}
+                                                                                    </>
+                                                                                }
                                                                                 </h3>
                                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                                {skeltonLoading ?
+                                                                                    <SkeletonLoader count={2} height={30} width={"100%"} />
+                                                                                    :
+                                                                                    <>
                                                                                     {ele?.content}
+                                                                                    </>}
                                                                                 </p>
                                                                             </div>
 
@@ -478,7 +503,13 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
                                                                                 className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                                             >
+                                                                            {skeltonLoading ?
+                                                                                <SkeletonLoader count={2} height={30} width={120} />
+                                                                                :
+                                                                                <>
                                                                                 {ele?.buttonName}
+                                                                                </>
+                                                                            }
 
                                                                                 <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
 

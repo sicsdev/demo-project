@@ -127,7 +127,7 @@ const Embed = ({ form = true, setTotalRecords }) => {
                         dropCursor: false,
                       }}
                       readOnly={true}
-                      className="border-none"
+                      className="border-none home_widgets_box"
                       // onChange={onChange}
                     />
                   </div>
