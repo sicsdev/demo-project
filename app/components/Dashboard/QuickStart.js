@@ -224,7 +224,7 @@ const QuickStart = ({ loadingScrapper, finishingScrapping, finishedScrapper }) =
 
         setTimeout(() => {
             setSkeltonLoading(false);
-        }, 300);
+        }, 3000);
 
     }, []);
 
