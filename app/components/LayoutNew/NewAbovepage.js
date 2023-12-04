@@ -79,12 +79,12 @@ const NewAbovepage = () => {
             <div className="block sm:flex md:flex lg:flex gap-4  px-3 sm:px-0 items-center mt-8 sm:mb-8 sm:ml-[62px] cursor-pointer">
               <button
                 className={
-                  "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[black] hover:bg-primary dark:focus:ring-yellow-900 "
+                  "mb-4 sm:mb-0 py-[18px] rounded-sm px-2 w-full font-bold sm:w-[200px] focus:ring-yellow-300 text-white bg-[#F5455C] hover:bg-black dark:focus:ring-yellow-900 "
                 }
                 data-cal-link="deflectionai/sales-call"
                 data-cal-config='{"layout":"month_view"}'
               >
-                Schedule Demo
+             Get Started
               </button>{" "}
               <Link href={"/get-trial"}>
                 <button

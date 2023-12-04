@@ -85,9 +85,11 @@ export default function Home() {
         {/* <Help /> */}
         {/* <HomeContent handleClickScroll={handleClickScroll} /> */}
         <Homeintegration handleClickScroll={handleClickScroll} />
-
-        <AutoTabsComp handleClickScroll={handleClickScroll} />
-
+          <div className="static sm:absolute right-0 left-0">
+            <AutoTabsComp handleClickScroll={handleClickScroll} />
+          </div>
+          <div className="hidden sm:block sm:mt-[35rem]">
+          </div>
         {/* <Middlebar />
         <Homeform reff={ref} /> */}
         {/* <HomeComponent /> */}

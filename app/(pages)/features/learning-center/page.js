@@ -12,6 +12,7 @@ import React, { useRef } from 'react'
 import Middlebar from '@/app/components/Info-Screen/Middlebar';
 import SliderNew from '@/app/components/LearningCenter/SliderNew';
 import { Slide } from 'react-toastify';
+import Defencegradeslider from '@/app/components/Products/Defencegradeslider';
 
 const page = () => {
   const ref = useRef(null);
@@ -27,11 +28,15 @@ const page = () => {
       </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
       {/* <SliderNew /> */}
+            {/*
       <Concierge />
+    */}
+    <Defencegradeslider />
+
       <ProductSection7 />
       <Panelcardnew />
-      <Middlebar />
-      {/* <ProductForm reference={ref} /> */}
+       {/* <Middlebar />
+     <ProductForm reference={ref} /> */}
       <HomeComponent />
     </div>
   )
