@@ -5,7 +5,10 @@ const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
 const StripeWrapper = ({ children, options = null }) => {
     const stripeLib = loadStripe(STRIPE_KEY);
     return (
-        <Elements options={options} stripe={stripeLib}>{children}</Elements>
+        <>
+        {options ?  <Elements options={options} stripe={stripeLib}>{children}</Elements>:  <Elements stripe={stripeLib}>{children}</Elements>}
+        </>
+      
     )
 }
 export default StripeWrapper
