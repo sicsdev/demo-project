@@ -93,6 +93,7 @@ const Page = () => {
     const [defaultTitle, setDefaultTitle] = useState('Recommended')
     const firstRender = useRef(true);
     const [tab, setTab] = useState(1)
+    const [loadingChangeAnswer, setLoadingChangeAnswer] = useState(false)
 
     const checkValue = (str) => {
         if (str.length < 2) {
@@ -452,12 +453,14 @@ const Page = () => {
     }
     const SubmitTheForm = () => {
         setUpdateLoader(true)
-
+        setLoadingChangeAnswer(true)
         if (knowledgeId) {
             updateFaq()
         } else {
             updateButtonHandler(workflowView.id)
         }
+
+        setLoadingChangeAnswer(false)
     }
 
     const SubmitTheFormExpand = async () => {
