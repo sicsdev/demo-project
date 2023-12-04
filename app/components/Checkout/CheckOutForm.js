@@ -9,7 +9,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import { createPaymentIntent, submitCheckout } from "@/app/API/pages/Checkout";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
@@ -26,6 +26,7 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
   const stripe = useStripe();
   const elements = useElements();
   const dispatch = useDispatch()
+  const searchParams = useSearchParams();
 
   const [message, setMessage] = useState(null)
 
@@ -107,6 +108,10 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
           token: confirmStatus.paymentIntent.payment_method,
         };
         const response = await subscribeCustomer(bodyForSubscribe, result.token);
+
+
+        const gclid = searchParams.get("gclid");
+        const msclkid = searchParams.get("msclkid");
 
 
         // Create channel in Slack

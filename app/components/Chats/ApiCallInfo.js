@@ -34,7 +34,7 @@ const ApiCallInfo = ({ calls }) => {
                         {calls.map((call, key) => (
                             <div key={key} style={{ minWidth: '150px' }} className='mb-2'>
                                 <div className="cursor-pointer mb-2 flex" onClick={() => setActiveCallIndex(key === activeCallIndex ? null : key)}>
-                                    <span style={{ minWidth: '100px' }} className={`text-white text-xs p-1 px-2 border border-gray rounded-md mb-1 ${call.status == 400 || call.status == 404 ? "bg-red" : "bg-success"}`}>
+                                    <span style={{ minWidth: '100px' }} className={`text-white text-xs p-1 px-2 border border-gray rounded-md mb-1 ${call.response_status == 400 || call.response_status == 404 ? "bg-red" : "bg-success"}`}>
                                         {call.request_method}
                                     </span>
                                     {/* <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
