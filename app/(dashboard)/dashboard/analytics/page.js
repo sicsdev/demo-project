@@ -168,10 +168,13 @@ const Logs = () => {
 
   })
   const getAllBots = async () => {
+    let allBots = await getBotAllData()
+    console.log('allb', allBots)
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
     const widgetCode = state.botData.data.widgets;
+
     const mergedArray = widgetCode.map((item, index) => {
       const title = getTitle[index];
       return {
