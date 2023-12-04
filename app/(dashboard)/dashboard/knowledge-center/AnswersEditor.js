@@ -61,7 +61,7 @@ const AnswersEditor = ({
 
 
     useEffect(() => {
-        subQuestions.length == 0 && setShowRecommendedQuestions(false)
+        subQuestions.length == 0
         workFlowData.reccomodation.length == 0 && setShowRecommendedWorkflows(false)
     }, [subQuestions, workFlowData.reccomodation])
 
@@ -192,7 +192,7 @@ const AnswersEditor = ({
 
                                 </div> :
                                 <>
-                                    {subQuestions.length > 0 && showRecommendedQuestions && (
+                                    {subQuestions.length > 0&& (
                                         <>
                                             <div className={`my-4 rounded-md p-3 px-2`}>
                                                 <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
