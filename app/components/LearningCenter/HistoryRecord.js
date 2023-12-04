@@ -13,7 +13,9 @@ const HistoryRecord = ({ item }) => {
     };
 
     const handleRollback = async () => {
-        if (item?.original_faq?.id && item.id) {
+        console.log('213')
+        console.log(item)
+        if (item.id) {
             await rollBackToVersion(item.id)
             setMarkedAsCurrent(true)
         }
@@ -40,7 +42,8 @@ const HistoryRecord = ({ item }) => {
                 <button
                     disabled={markedAsCurrent || item.is_current}
                     onClick={handleRollback}
-                    className={`${(!markedAsCurrent || !item.is_current) && 'border-primary'} flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 border bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white`}>
+                    className={`${(!markedAsCurrent || !item.is_current) ? 'border-primary' : 'border-gray'} flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white`}>
+
                     {markedAsCurrent || item.is_current ? "Current" : "Rollback"}
                 </button>
             </div>
