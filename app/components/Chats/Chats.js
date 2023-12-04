@@ -287,7 +287,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     return (
         <>
             {botUnique?.id &&
-                <>
+                <div className='pb-5'>
                     <div className='flex justify-content-center'>
                         <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
                     </div>
@@ -833,7 +833,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                             </div>
                         </div>
                     </div >
-                    <div className="flex items-center space-x-2 mt-4 justify-start">
+                    <div className="flex items-center space-x-2 mt-4 justify-start pb-5 my-5">
 
 
                         {
@@ -851,7 +851,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                     </div>
 
-                </>
+                </div>
 
             }
         </>
