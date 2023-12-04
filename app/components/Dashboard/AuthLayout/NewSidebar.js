@@ -767,7 +767,7 @@ const NewSidebar = ({ children }) => {
                                                         ) : (
 
 
-                                                            ((ele.name == 'Phone' && state.email !== 'admin@tempowidgets.com') ? '' :
+                                                            ((ele.name == 'Phone' && state?.email !== 'admin@tempowidgets.com') ? '' :
                                                                 <Link
                                                                     href={ele.href}
                                                                     onClick={() => handlerclosemenu(ele.href)}
@@ -941,7 +941,7 @@ const NewSidebar = ({ children }) => {
 
                                                 <>
                                                     {SideBarRoutes2.map((element, key) => (
-                                                        (state.email && element?.name !== "Channels") && (
+                                                        (state?.email && element?.name !== "Channels") && (
                                                             <li key={key}>
                                                                 <Link
                                                                     href={element.href}

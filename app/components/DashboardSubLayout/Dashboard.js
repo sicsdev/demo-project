@@ -158,19 +158,19 @@ const Dashboard = ({ children }) => {
 
     const getActiveBots = async () => {
 
-        const localStorageKeys = Object.keys(localStorage);
-        for (let i = 0; i < localStorageKeys.length; i++) {
-            const key = localStorageKeys[i];
-            if (key.startsWith("activebots-") || key.startsWith('testbot-')) {
-                localStorage.removeItem(key);
-            }
-        }
 
-        localStorage.removeItem('tempoportallastlogin')
+        // const localStorageKeys = Object.keys(localStorage);
+        // for (let i = 0; i < localStorageKeys.length; i++) {
+        //     const key = localStorageKeys[i];
+        //     if (key.startsWith("activebots-") || key.startsWith('testbot-')) {
+        //         localStorage.removeItem(key);
+        //     }
+        // }
+
+        // localStorage.removeItem('tempoportallastlogin')
 
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
-            console.log(res.results, 'cheeeeeeeeeeeeeeeeeeeeeck')
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 
