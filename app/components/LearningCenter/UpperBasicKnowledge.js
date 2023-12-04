@@ -316,41 +316,42 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     </li>
                 </ul>
             </div>
-            <div className='flex items-center justify-between'>
 
-                <div className='flex items-center gap-2'>
-                    <div className="w-full flex items-center sm:mt-0 justify-between sm:justify-end gap-4">
-                        <div
-                            className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
-                            style={{ rowGap: "4px" }}
-                        >
-                            {botValue.length > 1 && (
+            <div className='flex items-center gap-2'>
+                <div className="w-full flex items-center sm:mt-0gap-4">
+                    <div
+                        className="w-full sm:w-auto flex items-center justify-start sm:justify-start flex-wrap"
+                        style={{ rowGap: "4px" }}
+                    >
+                        {botValue.length > 1 && (
+                            <button
+                                onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
+                                key={'allbotsfilter'}
+                                className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                            >
+                                {" "}
+                                All
+                            </button>
+                        )}
+
+                        {botValue?.length > 1 &&
+                            botValue?.map((element, key) => (
                                 <button
-                                    onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
-                                    key={'allbotsfilter'}
-                                    className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                    onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
+                                    key={key}
+                                    className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                 >
                                     {" "}
-                                    All
+                                    {element?.name}
                                 </button>
-                            )}
-
-                            {botValue?.length > 1 &&
-                                botValue?.map((element, key) => (
-                                    <button
-                                        onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
-                                        key={key}
-                                        className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
-                                    >
-                                        {" "}
-                                        {element?.name}
-                                    </button>
-                                ))}
+                            ))}
 
 
-                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div className='flex items-center justify-end'>
 
                 <div className='sm:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>

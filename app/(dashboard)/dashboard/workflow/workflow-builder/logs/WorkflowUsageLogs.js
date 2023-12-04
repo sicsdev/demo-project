@@ -32,22 +32,37 @@ const WorkflowUsageLogs = () => {
         workflows: ''
     })
 
+
+
+    // Effects
     useEffect(() => {
         getAllLogs()
         getAllWorkflowsName()
     }, [currentPage, elementsPerPage, selectedFilters])
 
+    useEffect(() => {
+        const handleResize = () => { getTableColumns(); };
+        window.addEventListener('resize', handleResize);
+        return () => { window.removeEventListener('resize', handleResize); };
+    }, []);
 
+
+    // Responsive functions
+    const getTableColumns = () => {
+        const isMobile = window.innerWidth < 768
+        if (isMobile) {
+            return tableColumns.filter(column => column.id !== 'details')
+        } else {
+            return tableColumns
+        }
+    }
 
 
     // Main functions
     const getAllWorkflowsName = async () => {
         let all = await getAllWorkflow()
-        if (all?.results) {
-            setWorkflowsNames(all.results.map(e => ({ name: e.name, value: e.id })))
-        }
+        if (all?.results) { setWorkflowsNames(all.results.map(e => ({ name: e.name, value: e.id }))) }
     }
-
 
     const getAllLogs = async (initialPage) => {
         // Extracting selected filters
@@ -190,11 +205,12 @@ const WorkflowUsageLogs = () => {
             )
         },
         {
-            name: <b>Used Last 24hrs</b>,
+            name: <b className='flex justify-center w-full'>Used Last 24hrs</b>,
             id: "used",
             selector: 'used',
             sortable: false,
-            width: "182px",
+            width: "25%",
+
             reorder: true,
             cell: (row) => (
                 <div onClick={() => console.log(row)} className='w-full text-sm flex gap-2 items-center justify-center'>
@@ -221,14 +237,13 @@ const WorkflowUsageLogs = () => {
         },
     ];
 
-
     return (
         <>
 
 
             {/* *********** FILTERS ************/}
             <div className='flex justify-end mx-5'>
-                <div className="flex justify-end items-center gap-2 mb-[15px] w-1/2">
+                <div className="flex justify-end items-center gap-2 mb-[15px]">
 
                     <div className="w-100 mt-4">
                         <div className={`inline`}>
@@ -299,7 +314,7 @@ const WorkflowUsageLogs = () => {
                         highlightOnHover
                         pointerOnHover
                         pagination
-                        columns={tableColumns}
+                        columns={getTableColumns()}
                         noDataComponent={<><p className="text-center text-xs p-3"></p></>}
                         data={allLogs}
                         progressPending={loading}
@@ -313,7 +328,7 @@ const WorkflowUsageLogs = () => {
                         paginationServer
                         onChangeRowsPerPage={(perpage, page) => { handlePerRowsChange(perpage, page) }}
                         onChangePage={(page) => { changePage(page) }}
-                        onRowClicked={(row) => { () => expandRecord(row) }}
+                        onRowClicked={(rowData) => { expandRecord(rowData) }}
                         paginationRowsPerPageOptions={[5, 10, 20, 30]}
                         sortServer
                         customStyles={customStyles}
