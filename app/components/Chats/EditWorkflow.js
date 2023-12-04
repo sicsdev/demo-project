@@ -51,7 +51,6 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
 
         setInputValue(item?.information?.description[item.index])
 
-        if (rated) { return }
         isDropdownOpen(!dropdownOpen)
         if (dropdownOpenId == item.information.id) { setDropdownOpenId(''); return }
         setDropdownOpenId(item.information.id)

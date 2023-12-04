@@ -1453,6 +1453,10 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
+div[data-column-id="used"] {
+  display: flex;
+  justify-content: center;
+}
 
 div[data-column-id="term"] {
   width: 67px;

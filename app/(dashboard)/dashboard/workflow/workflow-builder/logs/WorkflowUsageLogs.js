@@ -190,11 +190,11 @@ const WorkflowUsageLogs = () => {
             )
         },
         {
-            name: <b>Used 24hrs</b>,
+            name: <b>Used Last 24hrs</b>,
             id: "used",
             selector: 'used',
             sortable: false,
-            width: "10%",
+            width: "182px",
             reorder: true,
             cell: (row) => (
                 <div onClick={() => console.log(row)} className='w-full text-sm flex gap-2 items-center justify-center'>

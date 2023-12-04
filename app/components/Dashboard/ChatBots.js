@@ -75,12 +75,6 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
         return false
     }
 
-    const [skeltonLoading, setSkeltonLoading] = useState(true);
-    useEffect(() => {
-        setTimeout(() => {
-            setSkeltonLoading(false);
-        }, 300);
-    }, []);
     const handleInputValues = (event) => {
         const { value, name } = event.target
         setBasicFormData((prev) => {
@@ -109,7 +103,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                             className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
                         >
                             <div className="flex items-start sm:items-center  gap-2">
-                                {skeltonLoading ?
+                                {skeleton ?
                                     <SkeletonLoader count={1} height={30} width={140} />
                                     :
                                     <>
@@ -123,7 +117,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
 
                             </div>
                             <div className="flex items-center gap-4 ">
-                                {skeltonLoading ?
+                                {skeleton ?
                                     <SkeletonLoader count={1} height={30} width={100} />
                                     :
                                     <button
