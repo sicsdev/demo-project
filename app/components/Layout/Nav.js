@@ -98,7 +98,7 @@ const Nav = () => {
                     </a>
 
                     {element.card.links.length > 0 && (
-                      
+
                       <Card
                         className={`h-[590px] overflow-y-scroll left-0 w-[100%] !pt-[74px] !pl-[110px] animate-fadeIn  hidden group-hover:block absolute top-[55px] bg-white ${showmenu ? "desk_headermenupopup" : ""
                           }`}
@@ -175,7 +175,7 @@ const Nav = () => {
         </div>
 
         {show === true && (
-          <div className=" block sm:block md:block lg:hidden  w-full ">
+          <div className=" block sm:block md:block lg:hidden w-full ">
             <Accordian setShow={setShow} nav_links={nav_links} />
           </div>
         )}
