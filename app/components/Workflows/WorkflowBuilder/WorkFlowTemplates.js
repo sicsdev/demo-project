@@ -208,7 +208,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                             <SkeletonLoader count={1} height={35} width={200} />
                             :
                             <div
-                                className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
+                                className="w-full sm:w-auto sm:flex !contents items-center justify-between sm:justify-start flex-wrap"
                                 style={{ rowGap: "0px" }}>
                                 {botValue.length > 1 && (
                                     <button
