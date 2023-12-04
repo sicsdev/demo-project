@@ -276,19 +276,26 @@ const Logs = () => {
   }
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
+
     if (results && Array.isArray(results) && results.length > 0) {
       const values = [
         { name: "Select", value: "all" },
         ...results.map((item) => ({
           name: item.name,
           value: item.id,
+          successfully_used: item.successful_automation_usage_count
         })),
       ];
 
-      let filterDefaultNames = values.filter(val => val.name !== 'Default_name')
+      let filterDefaultNames = values.filter(val => val.name !== 'Default_name');
+
+      // Order array filterDefaultNames + to - by successfully_used
+      filterDefaultNames.sort((a, b) => b.successfully_used - a.successfully_used);
+
       setUserWorkflows(filterDefaultNames);
     }
   };
+
 
   useEffect(() => {
     getAllWorkflows();
