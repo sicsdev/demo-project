@@ -168,10 +168,13 @@ const Logs = () => {
 
   })
   const getAllBots = async () => {
+    let allBots = await getBotAllData()
+    console.log('allb', allBots)
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
     const widgetCode = state.botData.data.widgets;
+
     const mergedArray = widgetCode.map((item, index) => {
       const title = getTitle[index];
       return {
@@ -276,19 +279,26 @@ const Logs = () => {
   }
   const getAllWorkflows = () => {
     const results = workflowState?.data?.results;
+
     if (results && Array.isArray(results) && results.length > 0) {
       const values = [
         { name: "Select", value: "all" },
         ...results.map((item) => ({
           name: item.name,
           value: item.id,
+          successfully_used: item.successful_automation_usage_count
         })),
       ];
 
-      let filterDefaultNames = values.filter(val => val.name !== 'Default_name')
+      let filterDefaultNames = values.filter(val => val.name !== 'Default_name');
+
+      // Order array filterDefaultNames + to - by successfully_used
+      filterDefaultNames.sort((a, b) => b.successfully_used - a.successfully_used);
+
       setUserWorkflows(filterDefaultNames);
     }
   };
+
 
   useEffect(() => {
     getAllWorkflows();
