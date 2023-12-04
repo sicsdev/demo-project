@@ -1,0 +1,40 @@
+.keyword_container {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    cursor: pointer;
+    width: 450px;
+    margin: auto;
+}
+
+.pencil-icon {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.keyword_container:hover .pencil-icon {
+    opacity: 1;
+}
+
+#cell-1-a6eb303f-6bf9-46e5-8447-8f3745782143 {
+    width: 100%
+}
+
+
+.rdt_TableHeadRow:hover .pencil-icon {
+    opacity: 1;
+}
+
+.keyword_container_workflow {
+    display: flex;
+    gap: 3rem;
+    align-items: center;
+    cursor: pointer;
+    /* width: 450px; */
+    margin: auto;
+}
+
+
+.keyword_container_workflow:hover .pencil-icon {
+    opacity: 1;
+}

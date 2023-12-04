@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { useEffect } from 'react'
 import { Tooltip } from 'react-tooltip'
 
-const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId }) => {
+const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdownOpenId, setDropdownOpenId, message}) => {
 
     let descriptions = item?.information?.description[0].split(', ') || ['Add new line']
 
@@ -31,6 +31,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
     const [workflowObject, setWorflowObject] = useState({})
     const [showingNegativeOptions, setShowingNegativeOptions] = useState(false)
     const [rating, setRating] = useState(item.is_negative)
+    const [isHandoff, setisHandoff] = useState(message.is_human_handoff)
 
 
     // Handlers
@@ -83,7 +84,7 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
             contentToSend = previousMessage.content
         }
 
-        let score; 
+        let score;
 
         if (type == 'block' && !rating) { score = -1 }
         if (type == 'reduce' && !rating) { score = -0.1 }
@@ -126,6 +127,36 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
         isDropdownOpen(false)
         setShowingNegativeOptions(!showingNegativeOptions)
     }
+
+
+    const handleForceHandOff = async () => {
+
+        let previousMessage = allMessages[indexOfMessage - 1]
+        let contentToSend;
+
+
+        if (previousMessage.content === 'WORKFLOW') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder?.actions?.options?.WORKFLOW || 'WORKFLOW'
+        } else if (previousMessage.content === 'INFORMATION') {
+            let finder = allMessages[indexOfMessage - 2]
+            contentToSend = finder?.actions?.options?.INFORMATION || 'INFORMATION'
+        } else {
+            contentToSend = previousMessage.content
+        }
+
+
+        if (isHandoff) {
+            deleteHandoff(isHandoff)
+            setisHandoff(false)
+        } else {
+            await addHumanHandoffWorkflowData({ search: contentToSend })
+            setisHandoff(true)
+        }
+    }
+
+
+
 
     return (
         <>
@@ -223,26 +254,34 @@ const EditWorkflow = ({ item, allKnowledge, allMessages, indexOfMessage, dropdow
                         <div className='flex gap-4 mx-5 mb-4 mt-2 justify-end mr-10'>
                             <button
                                 type="button"
-                                className={`${rating == -0.1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border border-red justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                                className={`${rating == -0.1 && rating !== -1 ? "bg-gradiant-red-button text-white" : "text-red border-red"} text-red flex items-centerborder border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300  hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                                 onClick={() => handleRateNegative('reduce')}
-                                data-tooltip-id={'tooltipblock'}
+                                data-tooltip-id={'tooltip'}
                                 data-tooltip-content={`Click to ${rating == -0.1 ? 'increase score' : 'reduce score'}`}
                             >
                                 {rating == -0.1 ? "Reduced" : "Reduce"}
                             </button>
                             <button
                                 type="button"
-                                className={`${rating == -1 ? "text-white bg-black" : "text-black red-black border-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                                className={`${rating == -1 && rating !== -0.1 ? "text-white bg-[#CA0B00] " : "text-[#CA0B00] border-[#CA0B00]"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
                                 onClick={() => handleRateNegative('block')}
-                                data-tooltip-id={'tooltipblock'}
+                                data-tooltip-id={'tooltip'}
                                 data-tooltip-content={`Click to ${rating == -1 ? 'unlock FAQ' : 'block FAQ'}`}
                             >
                                 {rating == -1 ? "Blocked" : "Block"}
 
                             </button>
 
-
-                            <Tooltip id={'tooltipblock'} place="top" type="dark" effect="solid" />
+                            <button
+                                type="button"
+                                className={`${isHandoff ? "bg-black text-white" : "border-black text-black"} flex items-center border justify-center gap-2 focus:outline-none font-bold rounded-md text-xs py-1 px-4 w-auto focus:ring-yellow-300 hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none`}
+                                onClick={() => handleForceHandOff()}
+                                data-tooltip-id={'tooltip'}
+                                data-tooltip-content={isHandoff ? "Click to remove Human Escal" : `Click to force Human Escal`}
+                            >
+                                {isHandoff ? "Human Escaled" : "Human Escal"}
+                            </button>
+                            <Tooltip id={'tooltip'} place="top" type="dark" effect="solid" />
                         </div>
                     }
 

@@ -158,7 +158,7 @@ export const EmbedCard = ({
                 highlightActiveLine: false
               }}
               readOnly={true}
-              className="border-none"
+              className="border-none home_widgets_box"
             // onChange={onChange}
             />
             }
@@ -237,7 +237,7 @@ export const EmbedCard = ({
                     highlightActiveLine: false
                   }}
                   readOnly={true}
-                  className="border-none bg-sky"
+                  className="border-none bg-sky home_widgets_box"
                 // onChange={onChange}
                 />
                 <div className='flex justify-end items-center'>

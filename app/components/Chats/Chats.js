@@ -449,6 +449,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                     element?.knowledge?.length ?
                                                                                         element?.knowledge?.map(item => (
                                                                                             <EditKnowledge
+                                                                                                message={element}
                                                                                                 setDropdownOpenId={setDropdownOpenId}
                                                                                                 dropdownOpenId={dropdownOpenId}
                                                                                                 allMessages={messages}
@@ -463,6 +464,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                         element?.workflows?.length ?
                                                                                             element?.workflows?.map(workflow => (
                                                                                                 <EditWorkflow
+                                                                                                    message={element}
                                                                                                     allMessages={messages}
                                                                                                     indexOfMessage={key}
                                                                                                     item={workflow}
@@ -517,6 +519,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                     element?.knowledge?.length ?
                                                                                         element?.knowledge?.map(item => (
                                                                                             <EditKnowledge
+                                                                                                message={element}
                                                                                                 setDropdownOpenId={setDropdownOpenId}
                                                                                                 dropdownOpenId={dropdownOpenId}
                                                                                                 allMessages={messages}
@@ -601,6 +604,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                 {element?.workflows?.map(workflow => (
                                                                                     <EditWorkflow
+                                                                                        message={element}
                                                                                         allMessages={messages}
                                                                                         indexOfMessage={key}
                                                                                         item={workflow}
@@ -612,6 +616,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                 {element && element?.knowledge.length > 0 && (
                                                                                     <EditKnowledge
+                                                                                        message={element}
                                                                                         allMessages={messages}
                                                                                         indexOfMessage={key}
                                                                                         item={element?.knowledge[0]}
@@ -742,6 +747,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                     {element?.workflows?.map(workflow => (
                                                                                         <EditWorkflow
+                                                                                            message={element}
                                                                                             allMessages={messages}
                                                                                             indexOfMessage={key}
                                                                                             item={workflow}
@@ -753,6 +759,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                                                                                     {element && element?.knowledge.length > 0 && (
                                                                                         <EditKnowledge
+                                                                                            message={element}
                                                                                             allMessages={messages}
                                                                                             indexOfMessage={key}
                                                                                             item={element?.knowledge[0]}

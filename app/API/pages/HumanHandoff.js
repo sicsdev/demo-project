@@ -11,3 +11,13 @@ export const addHumanHandoffWorkflowData = async (body) => {
         return error
     }
 };
+
+export const deleteHandoff = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/human-handoff/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

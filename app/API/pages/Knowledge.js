@@ -129,6 +129,18 @@ export const rateFaqNegative = async (body) => {
     }
 };
 
+
+export const patchFaqNegative = async (body, id) => {
+
+    let config = returnConfig()
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/faqs-negative/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
 export const uploadAttachment = async (body) => {
     let config = returnConfig()
     try {

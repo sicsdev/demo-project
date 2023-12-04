@@ -20,11 +20,10 @@ import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import Method from '../NewPaymentMethod/Method'
 import { useRouter } from 'next/navigation'
-import DemoAccountsBanner from '../Layout/DemoAccountsBanner'
 
 const Dashboard = ({ children }) => {
     const router = useRouter()
-    const routes = ["/dashboard/workflow/workflow-builder", "/dashboard/knowledge-center", "/dashboard/email-settings", "/dashboard/manage-phones", "/dashboard/analytics", "/dashboard/members", "/dashboard/scheduling-settings", "/dashboard/billing/usage"]
+    const routes = ["/dashboard/workflow/workflow-builder", "/dashboard/knowledge-center", "/dashboard/email-settings", "/dashboard/manage-phones", "/dashboard/members", "/dashboard/scheduling-settings", "/dashboard/billing/usage"]
     const dispatch = useDispatch()
     const pathname = usePathname()
 
@@ -160,7 +159,7 @@ const Dashboard = ({ children }) => {
     const getActiveBots = async () => {
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
-
+            console.log(res.results, 'cheeeeeeeeeeeeeeeeeeeeeck')
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 
@@ -170,10 +169,10 @@ const Dashboard = ({ children }) => {
                 localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
 
-            if (testBot?.id) {
-                const userTestBot = JSON.stringify(testBot)
-                localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
-            }
+            // if (testBot?.id) {
+            //     const userTestBot = JSON.stringify(testBot)
+            //     localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
+            // }
         })
 
     }
@@ -217,7 +216,7 @@ const Dashboard = ({ children }) => {
                     // AUTHORIZED PATHS IN DEMO ACCOUNTS
                     pathname !== "/dashboard" &&
                     pathname !== "/dashboard/workflow/integrations" &&
-                    pathname !== "/dashboard/workflow/workflow-builder" &&
+                    pathname !== "/dashboard/analytics" &&
                     pathname !== "/dashboard/basic-knowledge/source" &&
                     pathname !== "/dashboard/chat-settings" &&
                     pathname !== "/reference"

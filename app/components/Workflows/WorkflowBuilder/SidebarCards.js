@@ -13,9 +13,12 @@ import { editAutomationValue } from '../../store/slices/workflowSlice'
 import UpdateWorkflowBasic from './UpdateWorkflowBasic'
 import { useSelector } from 'react-redux'
 import AlternativesAutomations from './AlternativesAutomations'
+import NegativeSearchTermsTab from '../../LearningCenter/NegativeSearchTermsTab/NegativeSearchTermsTab'
+import { getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq'
+import NegativeSearchTermsTab_Workflows from './NegativeSearchTAB/NegativeSearchTermsTab_Workflows'
 
 const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalStepHandler, inputRef, state, setAutomationStepsData, automationStepsData, handleButtonClick, workflowId, stepIndex, setStepIndex, setIndexSelector, getWorkflowData, setMobileCss, singleData, openRulesHandler, setTab, tab,
-    botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters }) => {
+    botValue, alignment = 'items-start', handleInputValue, workflowFormData, handleFileChange, saveWorkFlowHandler, publishLoader, setPublishLoader, setShow, onSelectData, setWorkFlowFormData, setSelected, selected, negativeQuestions, addNewNagetiveFaq, isEdit, setIsEdit, setShowAdd, deleteNegativeFaq, showAdd, nLoading, availableFilters, setNagetiveQuestions }) => {
 
     const userData = useSelector((state) => state?.user?.data)
     const dispatch = useDispatch()
@@ -191,6 +194,10 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
         return false
     }
 
+    const getNagetiveQuestions = async (id) => {
+        const response = await getSingleNagetiveQuestionData(selected.id)
+        setNagetiveQuestions(response?.data)
+    }
 
     return (
         <div>
@@ -255,84 +262,92 @@ const SidebarCards = ({ setShowAlternatives, showAlternatives, addConditionalSte
             }
             {
                 tab === 2 && !showAlternatives?.id && (
+                    <NegativeSearchTermsTab_Workflows
+                        negativeQuestions={negativeQuestions}
+                        setNagetiveQuestions={setNagetiveQuestions}
+                        addNewNagetiveFaq={addNewNagetiveFaq}
+                        singleData={singleData}
+                    >
 
-                    <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
-                        <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
-                            <span className="text-[12px] text-[#555555b5]  block  text-heading font-[600]">Description</span>
+                    </NegativeSearchTermsTab_Workflows>
+                    // <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4'>
+                    //     <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto sm:w-[750px] p-4">
+                    //         <span className="text-[12px] text-[#555555b5]  block  text-heading font-[600]">Description</span>
 
-                            <>
-                                {showAdd && (
-                                    <div className='my-8'>
+                    //         <>
+                    //             {showAdd && (
+                    //                 <div className='my-8'>
 
-                                        <textarea
-                                            name="negative_answer"
-                                            type="text"
-                                            id='negative_answer'
-                                            className="resizable-textarea w-full block py-3 px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
-                                            placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet" : "Enter negative search term"}
-                                            onChange={(e) => setSelected((prev) => {
-                                                return {
-                                                    ...prev,
-                                                    [e.target.name]: e.target.value
-                                                }
-                                            })}
-                                            rows={'3'}
-                                            value={selected?.negative_answer}
-                                        >
+                    //                     <textarea
+                    //                         name="negative_answer"
+                    //                         type="text"
+                    //                         id='negative_answer'
+                    //                         className="resizable-textarea w-full block py-3 px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                    //                         placeholder={negativeQuestions.length === 0 ? "You don't have any negative search terms yet" : "Enter negative search term"}
+                    //                         onChange={(e) => setSelected((prev) => {
+                    //                             return {
+                    //                                 ...prev,
+                    //                                 [e.target.name]: e.target.value
+                    //                             }
+                    //                         })}
+                    //                         rows={'3'}
+                    //                         value={selected?.negative_answer}
+                    //                     >
 
-                                            {/* {selected?.negative_answer} */}
-                                        </textarea> <div
-                                            className={`flex   rounded-b mt-5 justify-end gap-4`}
-                                        >
-                                            <button
-                                                onClick={(e) => addNewNagetiveFaq()}
-                                                type="button"
-                                                disabled={selected?.negative_answer === "" || !selected?.negative_answer || nLoading}
-                                                className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                                                {nLoading ? 'Loading...' : isEdit ? "Edit" : "Add"}
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
-                                {negativeQuestions.length > 0 && (
-                                    <>
-                                        <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
-                                        <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                            <ul className="text-start py-2 text-sm text-gray-700 ">
-                                                {negativeQuestions.map((element, key) =>
-                                                    <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
-                                                        <p className="text-xs">{element.search}</p>
-                                                        <div className='flex justify-start gap-4 items-center'>
-                                                            <div title='Score'>
-                                                                {element.score}
-                                                            </div>
-                                                            <PencilSquareIcon className="h-5 w-5" onClick={() => {
-                                                                setIsEdit(true)
-                                                                setShowAdd(true)
-                                                                setSelected((prev) => {
-                                                                    return {
-                                                                        ...prev,
-                                                                        negative_answer: element.search,
-                                                                        negative_id: element.id,
-                                                                        index: key
-                                                                    }
-                                                                })
-                                                            }} />
-                                                            <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
+                    //                         {/* {selected?.negative_answer} */}
+                    //                     </textarea> <div
+                    //                         className={`flex   rounded-b mt-5 justify-end gap-4`}
+                    //                     >
+                    //                         <button
+                    //                             onClick={(e) => addNewNagetiveFaq()}
+                    //                             type="button"
+                    //                             disabled={selected?.negative_answer === "" || !selected?.negative_answer || nLoading}
+                    //                             className="my-6 flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                    //                             {nLoading ? 'Loading...' : isEdit ? "Edit" : "Add"}
+                    //                         </button>
+                    //                     </div>
+                    //                 </div>
+                    //             )}
+                    //             {negativeQuestions.length > 0 && (
+                    //                 <>
+                    //                     <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
+                    //                     <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
+                    //                         <ul className="text-start py-2 text-sm text-gray-700 ">
+                    //                             {negativeQuestions.map((element, key) =>
+                    //                                 <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
+                    //                                     <p className="text-xs">{element.search}</p>
+                    //                                     <div className='flex justify-start gap-4 items-center'>
+                    //                                         <div title='Score'>
+                    //                                             {element.score}
+                    //                                         </div>
+                    //                                         <PencilSquareIcon className="h-5 w-5" onClick={() => {
+                    //                                             setIsEdit(true)
+                    //                                             setShowAdd(true)
+                    //                                             setSelected((prev) => {
+                    //                                                 return {
+                    //                                                     ...prev,
+                    //                                                     negative_answer: element.search,
+                    //                                                     negative_id: element.id,
+                    //                                                     index: key
+                    //                                                 }
+                    //                                             })
+                    //                                         }} />
+                    //                                         <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
 
-                                                        </div>
-                                                    </li>
-                                                )}
+                    //                                     </div>
+                    //                                 </li>
+                    //                             )}
 
-                                            </ul>
+                    //                         </ul>
 
 
-                                        </div>
-                                    </>
-                                )}
-                            </>
-                        </div>
-                    </div>
+                    //                     </div>
+                    //                 </>
+                    //             )}
+                    //         </>
+                    //     </div>
+                    // </div>
+
                 )
             }
             {

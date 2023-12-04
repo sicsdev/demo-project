@@ -34,14 +34,18 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     const currentStatusSteps = ['first', 'second', 'third', 'fourth'];
 
     useEffect(() => {
-        getAllBots()
+
         setTimeout(() => {
             setSkeletonLoading(false);
         }, 300);
     }, []);
 
+    useEffect(() => {
+        if (state && state.botData && state.botData.data) {
+            getAllBots()
+        }
 
-    useEffect(()=>{},[state])
+    }, [state])
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -221,7 +225,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         getDataWithFilters('ALL')
                         setFilterhead("all")
                         setShowSourceFilter(false)
-                        setCurrentTab('all')
+                        setCurrentTab('')
                     }}>
                         {skeletonloading ?
                             <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
@@ -321,14 +325,16 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                             className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
                             style={{ rowGap: "4px" }}
                         >
-                            <button
-                                onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
-                                key={'allbotsfilter'}
-                                className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
-                            >
-                                {" "}
-                                All
-                            </button>
+                            {botValue.length > 1 && (
+                                <button
+                                    onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
+                                    key={'allbotsfilter'}
+                                    className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                >
+                                    {" "}
+                                    All
+                                </button>
+                            )}
 
                             {botValue?.length > 1 &&
                                 botValue?.map((element, key) => (

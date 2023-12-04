@@ -171,7 +171,7 @@ const Trial = () => {
         }
         dispatch(updateScrapperKnowledgeState(payloadForDemoKnowledge));
         dispatch(editBillingType("demo"));
-        router.push("/dashboard");
+        router.push("/dashboard?triggerBot=true");
         setLoading(false);
       } else {
         setLoading(false);
