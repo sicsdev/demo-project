@@ -45,6 +45,8 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [loading, setLoading] = useState(false)
     const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('Products')
     const [currentOpenedProduct, setCurrentOpenedProduct] = useState(null)
+  const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
+
 
     // **
 
@@ -125,6 +127,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         getQuestionsData(queryParam)
         setUpdateLoader(false)
         setSelected(null)
+        setDeleteWorkflowModal(false);
     }
     const getNagetiveQuestions = async (id) => {
         const response = await getSingleNagetiveQuestionData(id)
@@ -509,7 +512,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     }}
                         deleteButton={true}
                         data={selected}
-                        deleteRecord={(id) => deleteRecord(id)}>
+                        deleteRecord={(id) => deleteRecord(id)} 
+                        setDeleteWorkflowModal={setDeleteWorkflowModal}
+                        deleteWorkflowModal={deleteWorkflowModal}
+                        
+                        >
 
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">

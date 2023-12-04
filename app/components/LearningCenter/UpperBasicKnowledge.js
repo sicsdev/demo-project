@@ -44,7 +44,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
         if (state && state.botData && state.botData.data) {
             getAllBots()
         }
-
     }, [state])
 
     useEffect(() => {
@@ -354,9 +353,9 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
             <div className='flex items-center justify-end'>
 
-                <div className='flex justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
+                <div className='sm:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
-                        <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                        <label htmlFor="search" className="mb-2 sm:text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         {loading ?
                             <SkeletonLoader count={1} height={35} width={200} />
                             :
