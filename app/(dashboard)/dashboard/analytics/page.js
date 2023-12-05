@@ -519,6 +519,7 @@ const Logs = () => {
   };
 
   const handleSort = async (column, sortDirection) => {
+    if(selectedBot !== "Select"){
     setTimeout(async () => {
       let orderBy;
       if (column?.name?.props?.children == "Number of Messages") {
@@ -579,6 +580,7 @@ const Logs = () => {
       }
       // }
     }, 100);
+  }
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
@@ -1118,7 +1120,7 @@ const Logs = () => {
           )}
 
           <>
-            {selectedBot !== 'Select' && (
+            {/* {selectedBot !== 'Select' && ( */}
               <DataTable
                 title={""}
                 fixedHeader
@@ -1166,7 +1168,7 @@ const Logs = () => {
                 conditionalRowStyles={conditionalRowStyles}
 
               />
-            )}
+            {/* )} */}
           </>
           {/* )} */}
         </>
