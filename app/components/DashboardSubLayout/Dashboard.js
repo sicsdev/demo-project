@@ -157,35 +157,22 @@ const Dashboard = ({ children }) => {
 
     const getActiveBots = async () => {
 
-
-        // const localStorageKeys = Object.keys(localStorage);
-        // for (let i = 0; i < localStorageKeys.length; i++) {
-        //     const key = localStorageKeys[i];
-        //     if (key.startsWith("activebots-") || key.startsWith('testbot-')) {
-        //         localStorage.removeItem(key);
-        //     }
-        // }
-
-        // localStorage.removeItem('tempoportallastlogin')
-
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
             const profile = await getUserProfile()
             const testBot = await getTestBot()
+
+            sessionStorage.setItem('userHasKnowledgeUploaded', profile.enterprise.information_filled)
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)
                 localStorage.setItem(`tempoportallastlogin`, profile.email)
                 localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
-
-            // if (testBot?.id) {
-            //     const userTestBot = JSON.stringify(testBot)
-            //     localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
-            // }
         })
 
     }
+
 
     if (!state) {
         if (pathname !== '/dashboard') {
