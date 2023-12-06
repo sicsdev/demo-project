@@ -62,6 +62,7 @@ const List = ({ nav_links, className, setShow }) => {
     }
   }
   const removedSlug = (pathname) => {
+    
     const onlySlashCharAt = pathname.charAt(0);
     return onlySlashCharAt;
   };
