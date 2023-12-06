@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, ShoppingCartIcon, SignalIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -73,6 +73,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             link: '/dashboard/billing/usage',
         },
         {
+            title: 'Upload Email or Ticket History',
+            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
+            buttonName: "Upload",
+            icon: <EnvelopeIcon className='w-5 h-5 ' />,
+            link: "/dashboard/basic-knowledge",
+        },
+        {
             title: 'Customize Your New Bot',
             content: "After creating your new bot, set its display settings and where you want it to show on your website.",
             buttonName: "Customize",
@@ -93,13 +100,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             icon: <CodeBracketSquareIcon className='w-5 h-5 ' />,
             link: '/dashboard/workflow/manage-phones',
         },
-        {
-            title: 'Upload Email or Ticket History',
-            content: "Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.",
-            buttonName: "Upload",
-            icon: <EnvelopeIcon className='w-5 h-5 ' />,
-            link: "/dashboard/basic-knowledge",
-        },
+
 
     ];
     const quickStartData = [
@@ -214,21 +215,17 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             icon: <CodeBracketIcon className='mt-2 p-2 w-10 h-10 text-white font-bold rounded-md  bg-sidebar-hover ' />,
         }
     ];
+
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
-        
         if (triggerBotParam) {
-          sessionStorage.setItem('triggerFirstTimeWorkflow', 'true')
+            sessionStorage.setItem('triggerFirstTimeWorkflow', 'true')
         }
 
-
-    }, []);
-
-    useState(() => {
         if (Cookies.get('visit')) {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
         }
-    })
+    }, []);
 
     useEffect(() => {
         if (members.data === null) {
@@ -236,6 +233,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         }
     }, [members.data]);
 
+    useEffect(() => {
+        if (user) {
+            setIsExpand(user?.show_quick_start)
+        }
+    }, [user])
 
 
     const setHideShow = (value) => {
@@ -280,12 +282,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     }
 
-    useEffect(() => {
-        if (user) {
-            setIsExpand(user?.show_quick_start)
-        }
-    }, [user])
-
     const handleInputDomainValue = (e) => {
         const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
@@ -323,16 +319,16 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="text-center text-sm flex justify-center">
-                                    {loadingScrapper ?
-                                        <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
-                                        :
-                                        <div>
-                                            Your automatic data retrieval attempt failed. Please set up manually at
-                                            <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
-                                                Learning Center
-                                            </span>
-                                        </div>
-                                    }
+                                        {loadingScrapper ?
+                                            <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
+                                            :
+                                            <div>
+                                                Your automatic data retrieval attempt failed. Please set up manually at
+                                                <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
+                                                    Learning Center
+                                                </span>
+                                            </div>
+                                        }
                                     </span>
                                 </div>
                             </div>
@@ -345,11 +341,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="flex justify-center text-sm mb-2">
-                                    {loadingScrapper ?
-                                        <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
-                                        :
-                                        "Please wait while we configure your custom Deflection bot."
-                                    }
+                                        {loadingScrapper ?
+                                            <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
+                                            :
+                                            "Please wait while we configure your custom Deflection bot."
+                                        }
                                     </span>
                                     <ProgressBarComponent finishing={finishingScrapping} finished={finishedScrapper} />
                                     <div className='border-b border-lowgray pt-5'></div>
@@ -439,7 +435,8 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                     {billingState === "demo" && (
                                         <Method />
                                     )}
-                                    {quickStartData1.slice(0, billingState === "demo" ? 1 : 10)?.map((ele, key) => (
+
+                                    {quickStartData1.slice(0, billingState === "demo" ? 2 : 10)?.map((ele, key) => (
                                         <>
                                             {user?.enterprise?.country === '' &&
                                                 <>
@@ -460,31 +457,31 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                                                         <div className="flex gap-4 items-start items-center">
                                                                             <span>
-                                                                            {loadingScrapper ?
-                                                                                <SkeletonLoader count={1} height={35} width={35} />
-                                                                                :
-                                                                                <>
-                                                                            {ele?.icon}
-                                                                            </>
-                                                                            }
+                                                                                {loadingScrapper ?
+                                                                                    <SkeletonLoader count={1} height={35} width={35} />
+                                                                                    :
+                                                                                    <>
+                                                                                        {ele?.icon}
+                                                                                    </>
+                                                                                }
                                                                             </span>
                                                                             <div className="">
                                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                                {loadingScrapper ?
-                                                                                    <SkeletonLoader count={1} height={30} width={"100%"} />
-                                                                                    :
-                                                                                    <>
-                                                                                    {ele?.title}
-                                                                                    </>
-                                                                                }
+                                                                                    {loadingScrapper ?
+                                                                                        <SkeletonLoader count={1} height={30} width={"100%"} />
+                                                                                        :
+                                                                                        <>
+                                                                                            {ele?.title}
+                                                                                        </>
+                                                                                    }
                                                                                 </h3>
                                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                                {loadingScrapper ?
-                                                                                    <SkeletonLoader count={2} height={30} width={"100%"} />
-                                                                                    :
-                                                                                    <>
-                                                                                    {ele?.content}
-                                                                                    </>}
+                                                                                    {loadingScrapper ?
+                                                                                        <SkeletonLoader count={2} height={30} width={"100%"} />
+                                                                                        :
+                                                                                        <>
+                                                                                            {ele?.content}
+                                                                                        </>}
                                                                                 </p>
                                                                             </div>
 
@@ -492,24 +489,30 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                                                         <div className="flex justify-end gap-2">
 
-                                                                            <Link
-
-                                                                                href={ele?.link}
-
-                                                                                className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-
-                                                                            >
-                                                                            {loadingScrapper ?
-                                                                                <SkeletonLoader count={2} height={30} width={120} />
-                                                                                :
+                                                                            {ele.title == "Upload Email or Ticket History" && billingState == 'demo'
+                                                                                ?
                                                                                 <>
-                                                                                {ele?.buttonName}
+                                                                                    <LockClosedIcon className='w-3 h-3'></LockClosedIcon>
                                                                                 </>
-                                                                            }
+                                                                                :
+                                                                                <Link
 
-                                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                                                    href={ele?.link}
 
-                                                                            </Link>
+                                                                                    className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+
+                                                                                >
+                                                                                    {loadingScrapper ?
+                                                                                        <SkeletonLoader count={2} height={30} width={120} />
+                                                                                        :
+                                                                                        <>
+                                                                                            {ele?.buttonName}
+                                                                                        </>
+                                                                                    }
+
+                                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+
+                                                                                </Link>}
 
                                                                         </div>
 
@@ -757,7 +760,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                 </div>
             )}
 
-            <ChatBots setSkeleton={setloadingScrapper} skeleton={loadingScrapper}/>
+            <ChatBots setSkeleton={setloadingScrapper} skeleton={loadingScrapper} />
 
 
 
