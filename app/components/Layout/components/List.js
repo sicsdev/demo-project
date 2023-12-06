@@ -4,10 +4,12 @@ import Link from "next/link";
 import React from "react";
 import { ComputerDesktopIcon, XMarkIcon,BuildingOffice2Icon, ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import { elements } from "chart.js";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 const List = ({ nav_links, className, setShow }) => {
   const { push } = useRouter();
+  const pathname = usePathname();
+
   const data = [
     {
       name: "Chat Automation ",
@@ -41,25 +43,28 @@ const List = ({ nav_links, className, setShow }) => {
   ];
 
   function scrollToIfNotVisible(element) {
-    const rect = element.getBoundingClientRect();
+    const rect = element?.getBoundingClientRect();
     // Eventually an offset corresponding to the height of a fixed navbar for example.
     const offset = 500;
     let scroll = false;
-    if (rect.top < offset) {
+    if (rect?.top < offset) {
       scroll = true;
     }
-    if (rect.top > window.innerHeight) {
+    if (rect?.top > window?.innerHeight) {
       scroll = true;
     }
     if (scroll) {
       window.scrollTo({
-        top: window.scrollY + rect.top - offset,
+        top: window?.scrollY + rect?.top - offset,
         behavior: "smooth",
         // duration:500
       });
     }
   }
-
+  const removedSlug = (pathname) => {
+    const onlySlashCharAt = pathname.charAt(0);
+    return onlySlashCharAt;
+  };
   return (
     <>
       <div className={className}>
@@ -96,16 +101,29 @@ const List = ({ nav_links, className, setShow }) => {
               >
       
 
-               <a href={element.slug}>
-               <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
-                  <div className="w-[100%]">
-                    <h3 className="text-[#000000]  !font-semibold ] flex items-center gap-4 sm:gap-0 justify-between mb-3">
-                      {element.name}
-                    </h3>
-                    <p className="">{element.para}</p>
-                  </div>
-                </div>
-               </a>
+      {pathname == "/" ? (
+                  <a href={removedSlug(pathname) + element.slug}>
+                    <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
+                      <div className="w-[100%]">
+                        <h3 className="text-[#000000]  !font-semibold ] flex items-center gap-4 sm:gap-0 justify-between mb-3">
+                          {element.name}
+                        </h3>
+                        <p className="">{element.para}</p>
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <Link href={removedSlug(pathname) + element.slug}>
+                    <div className="hover:bg-[#d3f4ff] p-2 rounded-lg flex gap-4 justify-between  items-start">
+                      <div className="w-[100%]">
+                        <h3 className="text-[#000000]  !font-semibold ] flex items-center gap-4 sm:gap-0 justify-between mb-3">
+                          {element.name}
+                        </h3>
+                        <p className="">{element.para}</p>
+                      </div>
+                    </div>
+                  </Link>
+                )}
               </div>
             ))}
           </div>
