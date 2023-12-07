@@ -1453,6 +1453,7 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
+
 div[data-column-id="used"] {
   display: flex;
   justify-content: center;
@@ -2094,12 +2095,13 @@ input:-webkit-autofill:active {
   /* Color del pulgar cuando se pasa el mouse sobre él */
 }
 
-.home_widgets_box .cm-content{
+.home_widgets_box .cm-content {
   flex-shrink: unset !important;
   white-space: unset !important;
   overflow: visible !important;
 }
- .home_widgets_box .cm-scroller{
+
+.home_widgets_box .cm-scroller {
   overflow: visible !important;
 }
 
@@ -2120,4 +2122,14 @@ input:-webkit-autofill:active {
 .schedule::-webkit-scrollbar {
   width: 2px;
   height: 2px;
+}
+
+@media screen and (max-width:768px) {
+  .negative-term-search-table .sc-hzhJZQ.gmlwXk {
+    display: block !important;
+  }
+  .negative-term-search-table .keyword_container {
+    gap: 0rem !important;
+    width: 100% !important;
+  }
 }

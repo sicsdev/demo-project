@@ -357,7 +357,6 @@ const Logs = () => {
       setIndexVal(0);
       handlePageChange(selectedBot, 1, queryParam, '10', 'mm');
     }
-
   };
 
   const buildQueryParam = (filters) => {
@@ -519,68 +518,68 @@ const Logs = () => {
   };
 
   const handleSort = async (column, sortDirection) => {
-    if(selectedBot !== "Select"){
-    setTimeout(async () => {
-      let orderBy;
-      if (column?.name?.props?.children == "Number of Messages") {
-        setLoading(true);
+    if (selectedBot !== "Select") {
+      setTimeout(async () => {
+        let orderBy;
+        if (column?.name?.props?.children == "Number of Messages") {
+          setLoading(true);
 
-        orderBy =
-          sortDirection === "asc"
-            ? "-number_of_messages"
-            : "number_of_messages";
-      } else if (column?.name?.props.children === "Created") {
-        setLoading(true);
+          orderBy =
+            sortDirection === "asc"
+              ? "-number_of_messages"
+              : "number_of_messages";
+        } else if (column?.name?.props.children === "Created") {
+          setLoading(true);
 
-        orderBy = sortDirection === "asc" ? "-created" : "created";
-      }
+          orderBy = sortDirection === "asc" ? "-created" : "created";
+        }
 
-      setSelectedFilters((prevFilters) => ({
-        ...prevFilters,
-        ordering: orderBy,
-      }));
+        setSelectedFilters((prevFilters) => ({
+          ...prevFilters,
+          ordering: orderBy,
+        }));
 
-      const queryParam = buildQueryParam({
-        ...selectedFilters,
-        ordering: orderBy, // Update the selected value for the current dropdown
-      });
+        const queryParam = buildQueryParam({
+          ...selectedFilters,
+          ordering: orderBy, // Update the selected value for the current dropdown
+        });
 
-      try {
-        const response = await getPaginateBotConversation(
-          selectedBot,
-          1,
-          queryParam
-        );
-        if (response.status === 200) {
-          let data = response.data;
-          let newdata = data.results;
-          if (newdata.length > 0) {
-            for (let i = 0; i < newdata.length; i++) {
-              newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
-              newdata[i].index = i;
-              newdata[i].created = moment(newdata[i].created).format(
-                "MM-DD-YYYY hh:mm:ss A"
-              );
+        try {
+          const response = await getPaginateBotConversation(
+            selectedBot,
+            1,
+            queryParam
+          );
+          if (response.status === 200) {
+            let data = response.data;
+            let newdata = data.results;
+            if (newdata.length > 0) {
+              for (let i = 0; i < newdata.length; i++) {
+                newdata[i].url = `/dashboard/chats?id=${newdata[i].id}`;
+                newdata[i].index = i;
+                newdata[i].created = moment(newdata[i].created).format(
+                  "MM-DD-YYYY hh:mm:ss A"
+                );
+              }
             }
-          }
-          const getAllIds = newdata.map((ele) => ({ id: ele.id }));
+            const getAllIds = newdata.map((ele) => ({ id: ele.id }));
 
-          // Update state variables with the retrieved data
-          setManageMessages(getAllIds);
-          setTotalRows(data.count);
-          setConversationData(newdata);
-          setLoading(false);
-        } else {
+            // Update state variables with the retrieved data
+            setManageMessages(getAllIds);
+            setTotalRows(data.count);
+            setConversationData(newdata);
+            setLoading(false);
+          } else {
+            setLoading(false);
+          }
+        } catch (error) {
+          // Handle errors here, e.g., log them or update UI accordingly
+          console.error("Error in getPaginateBotConversation:", error);
           setLoading(false);
         }
-      } catch (error) {
-        // Handle errors here, e.g., log them or update UI accordingly
-        console.error("Error in getPaginateBotConversation:", error);
-        setLoading(false);
-      }
-      // }
-    }, 100);
-  }
+        // }
+      }, 100);
+    }
   };
 
   const handlePerRowsChange = async (newPerPage, page) => {
@@ -678,6 +677,19 @@ const Logs = () => {
     } else if (selectedFilters.created__gte !== 'all') {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
+
+      if ((new Date(selectedFilters.created__gte) > new Date(selectedFilters.created__lte)) || (new Date(selectedFilters.created__lte) < new Date(selectedFilters.created__gte))) {
+        console.log("error")
+      
+        setSelectedFilters((prevFilters) => ({
+          ...prevFilters,
+          'created__lte': 'all',
+        }))
+
+      } else {
+        console.log("successfull")
+      }
+
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
 
 
@@ -1102,6 +1114,8 @@ const Logs = () => {
                           id="created__lte"
                           name="created__lte"
                           className="w-full p-[7px] border rounded-[4px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                          min={selectedFilters.created__gte}
+                          disabled={!selectedFilters.created__gte}
                         />
                         <div onClick={() => handleCleanDates("created__lte")}>
                           {selectedFilters?.created__lte !== "all" && (
@@ -1121,53 +1135,53 @@ const Logs = () => {
 
           <>
             {/* {selectedBot !== 'Select' && ( */}
-              <DataTable
-                title={""}
-                fixedHeader
-                highlightOnHover
-                pointerOnHover
-                className="centered-table !h-[60vh]"
-                defaultSortFieldId="year"
-                onRowClicked={(rowData) => {
-                  // router.push(rowData.url);
+            <DataTable
+              title={""}
+              fixedHeader
+              highlightOnHover
+              pointerOnHover
+              className="centered-table !h-[60vh]"
+              defaultSortFieldId="year"
+              onRowClicked={(rowData) => {
+                // router.push(rowData.url);
 
-                  setIndexVal(rowData.index);
-                  getCoversationMessages(rowData.id);
-                  setIdOfOpenConversation(rowData.id);
-                  handleSetViewed(rowData);
-                }}
-                progressPending={searchLoading}
-                progressComponent={
-                  <div className="w-full mt-3 relative">
-                    <SkeletonLoader
-                      count={9}
-                      height={30}
-                      width="100%"
-                      className={"mt-2"}
-                    />
-                  </div>
-                }
-                paginationDefaultPage={pageVal}
-                pagination
-                paginationServer
-                paginationPerPage={perPage}
-                onChangeRowsPerPage={handlePerRowsChange}
-                paginationTotalRows={totalRows}
-                onChangePage={changePage}
-                sortServer
-                onSort={handleSort}
-                noDataComponent={
-                  <>
-                    <p className="text-center text-sm p-3">
-                      No Chat logs found!
-                    </p>
-                  </>
-                }
-                columns={columns}
-                data={conversationData}
-                conditionalRowStyles={conditionalRowStyles}
+                setIndexVal(rowData.index);
+                getCoversationMessages(rowData.id);
+                setIdOfOpenConversation(rowData.id);
+                handleSetViewed(rowData);
+              }}
+              progressPending={searchLoading}
+              progressComponent={
+                <div className="w-full mt-3 relative">
+                  <SkeletonLoader
+                    count={9}
+                    height={30}
+                    width="100%"
+                    className={"mt-2"}
+                  />
+                </div>
+              }
+              paginationDefaultPage={pageVal}
+              pagination
+              paginationServer
+              paginationPerPage={perPage}
+              onChangeRowsPerPage={handlePerRowsChange}
+              paginationTotalRows={totalRows}
+              onChangePage={changePage}
+              sortServer
+              onSort={handleSort}
+              noDataComponent={
+                <>
+                  <p className="text-center text-sm p-3">
+                    No Chat logs found!
+                  </p>
+                </>
+              }
+              columns={columns}
+              data={conversationData}
+              conditionalRowStyles={conditionalRowStyles}
 
-              />
+            />
             {/* )} */}
           </>
           {/* )} */}
