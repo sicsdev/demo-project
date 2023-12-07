@@ -385,13 +385,12 @@ const Customize = ({
     textarea?.setAttribute("rows", "1"); // Set the 'rows' attribute
     const rows = Math.min(
       Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
-      6 // Limit to a maximum of 6 rows
+      20 // Limit to a maximum of 6 rows
     );
 
     textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
   }, [preferences.chat_default_message]);
 
-  console.log("human", preferences.human_handoff_platform);
   return (
     <>
       {/* Modal to manage hide urls */}

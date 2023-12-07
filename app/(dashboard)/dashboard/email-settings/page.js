@@ -28,6 +28,7 @@ const page = () => {
     const [botValue, setBotValue] = useState([]);
     const state = useSelector((state) => state.botId);
     const user = useSelector((state) => state.user.data);
+    console.log("User", user)
     const [selectedBot, setSelectedBot] = useState('Select');
     const [tab, setTab] = useState(0);
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const page = () => {
                 customer_service_email: bot_res?.customer_service_email,
                 agent_email_value: bot_res?.email ? true : false,
                 email_prefix: bot_res.email.split('@')[0],
-                email: bot_res.email || 'support@' + bot_res.enterprise.domain || 'support@' + bot_res.enterprise?.slug_domain 
+                email: bot_res.email || 'support@' + bot_res.enterprise.domain || 'support@' + bot_res.enterprise?.slug_domain
             }
 
             let data = res[0].data;
@@ -328,31 +329,30 @@ const page = () => {
                             </div>
                         </div> :
                         <>
-
-                            <>
-                                <div className="flex items-center justify-between gap-1 px-6 mt-4">
-                                    <TextField
-                                        value={basicFormData?.email}
-                                        name="email"
-                                        className="py-3 mt-1"
-                                        labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}
-                                        title={
-                                            <div className="flex items-center gap-2 w-[150px]">
-                                                <span>Agent Email</span>{" "}
-                                            </div>
-                                        }
-                                        placeholder={"Set Agent Email"}
-                                        onChange={(e) => {
-                                            setBasicFormData((prev) => {
-                                                return { ...prev, email: e.target.value };
-                                            })
-                                        }}
-                                        type={"text"}
-                                        id={"agent_title"}
-                                        disabled={basicFormData?.agent_email_value === true}
-                                        error={""}
-                                    />
-                                    {basicFormData?.agent_email_value === true && (
+                            {user && user?.enterprise?.domain !== '' && (
+                                <>
+                                    <div className="flex items-center justify-between gap-1 px-6 mt-4">
+                                        <TextField
+                                            value={user?.enterprise?.domain}
+                                            name="domain_name"
+                                            className="py-3 mt-1"
+                                            labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}
+                                            title={
+                                                <div className="flex items-center gap-2 w-[150px]">
+                                                    <span>Agent Email</span>{" "}
+                                                </div>
+                                            }
+                                            placeholder={"Set Agent Email"}
+                                            // onChange={(e) => {
+                                            //     setBasicFormData((prev) => {
+                                            //         return { ...prev, email: e.target.value };
+                                            //     })
+                                            // }}
+                                            type={"text"}
+                                            id={"agent_title"}
+                                            disabled={true}
+                                            error={""}
+                                        />
                                         <div className=''>
                                             {isCopy == true ? (
                                                 <>
@@ -363,7 +363,7 @@ const page = () => {
                                                 </>
                                             ) : (
                                                 <CopyToClipboard
-                                                    text={`${basicFormData.email}`}
+                                                    text={`${user?.enterprise?.domain}`}
                                                     onCopy={() => {
                                                         setIsCopy(true);
                                                         setTimeout(() => {
@@ -380,9 +380,9 @@ const page = () => {
                                                 </CopyToClipboard>
                                             )}
                                         </div>
-                                    )}
-                                </div>
-                            </>
+                                    </div>
+                                </>
+                            )}
                             <div className='px-6'>
                                 {user && user?.enterprise?.domain === '' && (
                                     <EmailAgentSetting basicFormData={basicFormData} setBasicFormData={setBasicFormData} />

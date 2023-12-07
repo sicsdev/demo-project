@@ -27,6 +27,16 @@ const HistoryRecord = ({ item }) => {
         if (item.event_type == 'delete') { return 'bg-danger' }
     }
 
+    function renderAnchorTags(text) {
+        // Regular expression to find and extract anchor tag content and URL
+        const regex = /\[([^:]+):([^ ]+)\]/g;
+
+        // Replace the matched patterns with anchor tags
+        const replacedText = text.replace(regex, '&nbsp;<a class="text-primary" href="$2">$1</a>');
+
+        return { __html: replacedText };
+    }
+
     return (
         <div key={item.id} className="mb-5 p-4 bg-white rounded-md shadow-sm">
             <div className="flex items-center justify-between mb-3">
@@ -52,7 +62,9 @@ const HistoryRecord = ({ item }) => {
                     <span className='flex items-center'>{item.icon}</span>
                     <span className='mx-2'>{item.question}</span>
                 </p>
-                <p className="text-gray-800 font-sm mt-1">{item.answer}</p>
+                <div className='history_logs_wrapper'>
+                    <p className="text-gray-800 font-sm mt-1" dangerouslySetInnerHTML={renderAnchorTags(item.answer)} />
+                </div>
             </div>
         </div >
     )

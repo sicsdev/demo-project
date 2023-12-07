@@ -288,6 +288,11 @@ span.hljs-tag {
 }
 
 @media (max-width: 768px) {
+  body .history_logs_wrapper img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
   .img-div-2 {
     width: 120px;
   }
@@ -2132,4 +2137,9 @@ input:-webkit-autofill:active {
     gap: 0rem !important;
     width: 100% !important;
   }
+
+.history_logs_wrapper img {
+  width: 200px !important;
+  height: 200px !important;
+  margin-top: 15px;
 }
