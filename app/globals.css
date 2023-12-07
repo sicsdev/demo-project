@@ -288,6 +288,11 @@ span.hljs-tag {
 }
 
 @media (max-width: 768px) {
+  body .history_logs_wrapper img {
+    width: 100% !important;
+    height: auto !important;
+  }
+
   .img-div-2 {
     width: 120px;
   }
@@ -1453,6 +1458,7 @@ div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
 }
+
 div[data-column-id="used"] {
   display: flex;
   justify-content: center;
@@ -2094,12 +2100,13 @@ input:-webkit-autofill:active {
   /* Color del pulgar cuando se pasa el mouse sobre él */
 }
 
-.home_widgets_box .cm-content{
+.home_widgets_box .cm-content {
   flex-shrink: unset !important;
   white-space: unset !important;
   overflow: visible !important;
 }
- .home_widgets_box .cm-scroller{
+
+.home_widgets_box .cm-scroller {
   overflow: visible !important;
 }
 
@@ -2120,4 +2127,10 @@ input:-webkit-autofill:active {
 .schedule::-webkit-scrollbar {
   width: 2px;
   height: 2px;
+}
+
+.history_logs_wrapper img {
+  width: 200px !important;
+  height: 200px !important;
+  margin-top: 15px;
 }
