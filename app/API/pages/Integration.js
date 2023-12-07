@@ -45,6 +45,7 @@ export const getAllIntegrationTemplates = async () => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/integration-templates/`, config);
+        console.log("alll", response);
         return response.data;
     } catch (error) {
         return error
@@ -73,6 +74,7 @@ export const getPopularIntegrationsTemplate = async () => {
             ]
         }
         const response = await axios.post(`${API_URL}/api/v1/integrations/builwith/popular-integrations/`, body, config);
+        console.log("xyz",response)
         return response;
     } catch (error) {
         return error;

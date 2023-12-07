@@ -64,7 +64,7 @@ export const addNewDomain = async (body) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/integrations/builwith/get_technologies/`, body, config);
-        console.log(response)
+        console.log("abcd",response)
         return response;
     } catch (error) {
         return error
