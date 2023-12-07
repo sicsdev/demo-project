@@ -823,7 +823,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 {
                                                                     element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
-                                                                        INFO: User filled human escalation form and was transferred.
+                                                                        INFO: User filled human escalation form and was transferred{element.human_handoff_type ? ` by ${element.human_handoff_type}.` : '.'}
                                                                     </>
                                                                 }
 
