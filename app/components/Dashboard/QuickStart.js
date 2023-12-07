@@ -347,13 +347,12 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                             "Please wait while we configure your custom Deflection bot."
                                         }
                                     </span>
-                                    <ProgressBarComponent finishing={finishingScrapping} finished={finishedScrapper} />
+                                    <ProgressBarComponent totalLoadingTime={2000} finishing={finishingScrapping} finished={finishedScrapper} />
                                     <div className='border-b border-lowgray pt-5'></div>
                                 </div>
                             </div>
                         </div>
                     }
-
 
 
                     {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
