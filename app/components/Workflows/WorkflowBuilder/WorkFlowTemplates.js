@@ -201,20 +201,20 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     return (
         <div>
             <div className='mt-4'>
-                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
 
-
-                    <div className='flex w-full justify-start items-center gap-2 my-2'>
-                        <div className="w-full flex items-center sm:mt-0 justify-start gap-4">
+                <div className='flex w-full justify-start items-center gap-1 my-2 w-full'>
+                    <div className="w-full flex items-center sm:mt-0 justify-start">
+                        {loading ?
+                            <SkeletonLoader count={1} height={35} width={200} />
+                            :
                             <div
-                                className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
-                                style={{ rowGap: "4px" }}
-                            >
+                                className="w-full sm:w-auto sm:flex !contents items-center justify-between sm:justify-start flex-wrap"
+                                style={{ rowGap: "0px" }}>
                                 {botValue.length > 1 && (
                                     <button
                                         onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
                                         key={'allbotsfilter'}
-                                        className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                        className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} my-1 flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                     >
                                         {" "}
                                         All
@@ -226,7 +226,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                                         <button
                                             onClick={(e) => handleFilters({ target: { value: element.value, name: element.name } })}
                                             key={key}
-                                            className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                            className={`${filters.currentBot == element.value ? "text-white bg-primary" : "bg-white text-[#151D23]"} my-1 flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                                         >
                                             {" "}
                                             {element?.name}
@@ -235,8 +235,13 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
 
                             </div>
-                        </div>
+                        }
                     </div>
+                </div>
+
+                <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white'>
+
+
 
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -305,7 +310,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
 
                 {data?.length == 0 && !loading &&
                     <div className='flex  text-sm justify-center'>
-                       No templates available. 
+                        No templates available.
                     </div>
                 }
 

@@ -284,10 +284,26 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     }
 
 
+    const getValueBasedInNextMessage = (elementData, key) => {
+        console.log(elementData, key)
+        let nextMessage = messages[key + 1]
+
+        let parsed = {}
+        try {
+            parsed = JSON.parse(nextMessage.content)
+        } catch {
+            console.log('')
+        }
+
+        let field = parsed[elementData.name]
+
+        return field
+    }
+
     return (
         <>
             {botUnique?.id &&
-                <>
+                <div className='pb-5'>
                     <div className='flex justify-content-center'>
                         <small className='m-auto' >{conversationDetails?.created && formatDateTime(conversationDetails.created)}</small>
                     </div>
@@ -661,13 +677,13 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                     `${CDN_URL}/v1/assets/img/profileDefault.png`} `} alt="Profile Photo" style={{ width: "35px" }} />
 
                                                                             <div className="tempo-widget-custom-form">
-                                                                                {Object.keys(element.actions).map(key => {
-                                                                                    const elementData = element.actions[key];
-                                                                                    const elementId = `tempo-widget-custom-form-${key}`;
+                                                                                {Object.keys(element.actions).map(obj => {
+                                                                                    const elementData = element.actions[obj];
+                                                                                    const elementId = `tempo-widget-custom-form-${obj}`;
 
                                                                                     return (
                                                                                         <>
-                                                                                            <div key={key}>
+                                                                                            <div key={obj}>
                                                                                                 <label className="tempo-widget-custom-form-label text-black">
                                                                                                     {capitalizeFirstLetter(elementData.name)}
                                                                                                 </label>
@@ -675,16 +691,16 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                 {elementData.type === "select" && (
                                                                                                     <div id={elementId} className="tempo-widget-custom-form-buttons">
                                                                                                         <button
-                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
                                                                                                             data-value="Yes"
-                                                                                                            id={`custom-form-yes-button-${key}`}
+                                                                                                            id={`custom-form-yes-button-${obj}`}
                                                                                                         >
                                                                                                             Yes
                                                                                                         </button>
                                                                                                         <button
-                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                            className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
                                                                                                             data-value="No"
-                                                                                                            id={`custom-form-no-button-${key}`}
+                                                                                                            id={`custom-form-no-button-${obj}`}
                                                                                                         >
                                                                                                             No
                                                                                                         </button>
@@ -695,10 +711,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                     <div id={elementId} className="tempo-widget-custom-form-buttons">
                                                                                                         {elementData.options.map(option => (
                                                                                                             <button
-                                                                                                                key={`${key}_${elementData.name}_${option}`}
-                                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${key}`}
+                                                                                                                key={`${obj}_${elementData.name}_${option}`}
+                                                                                                                className={`tempo-widget-custom-form-button tempo-widget-custom-form-button-${obj}`}
                                                                                                                 data-value={option}
-                                                                                                                id={`${key}_${elementData.name}_${option}`}
+                                                                                                                id={`${obj}_${elementData.name}_${option}`}
                                                                                                             >
                                                                                                                 {option}
                                                                                                             </button>
@@ -712,6 +728,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                                                         id={elementId}
                                                                                                         className={`tempo-widget-custom-form-input chatbotwidgetPlaceHolder type${elementData.name}-${key}`}
                                                                                                         placeholder={elementData.default || capitalizeFirstLetter(elementData.name)}
+                                                                                                        value={getValueBasedInNextMessage(elementData, key) || ''}
                                                                                                         disabled
                                                                                                     />
                                                                                                 )}
@@ -785,42 +802,39 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
 
 
-                                                    {element.sender === 'user' &&
+                                                    {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                         (
                                                             <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
 
                                                                 {
-                                                                    element.content === 'WORKFLOW' &&
+                                                                    (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options?.WORKFLOW || 'WORKFLOW'}
+                                                                        User selected: {messages[key - 1]?.actions?.options[element.content] || 'WORKFLOW'}
                                                                     </>
                                                                 }
 
                                                                 {
-                                                                    element.content === 'INFORMATION' &&
+                                                                    (element.content == 'INFORMATION' || element.content.startsWith('INFORMATION')) &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options?.INFORMATION || 'INFORMATION'}
+                                                                        User selected: {messages[key - 1]?.actions?.options[element.content] || 'INFORMATION'}
                                                                     </>
                                                                 }
 
                                                                 {
-                                                                    element.content === 'HUMAN-HANDOFF' &&
+                                                                    element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
-                                                                        User selected: {messages[key - 1]?.actions?.options["HUMAN-HANDOFF"] || 'HUMAN-HANDOFF'}
+                                                                        INFO: User filled human escalation form and was transferred.
                                                                     </>
                                                                 }
 
-
                                                                 {
-                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' &&
+                                                                    element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
                                                                     <>
                                                                         {element.content}
                                                                     </>
                                                                 }
 
-
-
-                                                                <div className="title-element-left" style={{ display: "none" }}>14:11</div>
+                                                                {/* <div className="title-element-left" style={{ display: "none" }}>14:11</div> */}
                                                             </div>
                                                         )}
 
@@ -833,7 +847,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                             </div>
                         </div>
                     </div >
-                    <div className="flex items-center space-x-2 mt-4 justify-start">
+                    <div className="flex items-center space-x-2 mt-4 justify-start pb-5 my-5">
 
 
                         {
@@ -851,7 +865,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
                     </div>
 
-                </>
+                </div>
 
             }
         </>

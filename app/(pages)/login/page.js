@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Container from "../../components/Container/Container";
 import Button from "../../components/Common/Button/Button";
 import { Input } from "../../components/Common/Input/Input";
@@ -25,7 +25,9 @@ import Cookies from "js-cookie";
 import LoginNav from "@/app/components/Layout/LoginNav";
 import LoginFooter from "@/app/components/Layout/LoginFooter";
 import TextField from "@/app/components/Common/Input/TextField";
+import TextRefField from "@/app/components/Common/Input/TextRefInput";
 const Login = () => {
+  const passwordRef = useRef(null);
   const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -205,6 +207,20 @@ const Login = () => {
       setLoading(false)
     }
   }
+  console.log("passwordRef", passwordRef)
+  const setModeHandler = (e) => {
+    setMode(mode === "link" ? "password" : "link");
+    // if (mode === "link") {
+    //   passwordRef?.current?.focus();
+    // }
+  };
+
+  useEffect(() => {
+    if (mode === 'password') {
+      passwordRef.current.focus();
+    }
+  }, [mode]);
+
   return (
     <>
       <LoginNav />
@@ -264,8 +280,10 @@ const Login = () => {
                 />
               </div>
               {mode === "password" && (
-                <div className='mt-3 '>
-                  <TextField
+                <div className={`mt-3`}>
+                  <TextRefField
+                    ref={passwordRef}
+                    isVisible={true}
                     title={
                       <div className="flex items-center gap-2 w-[150px] text-sm md:text-[14px] sm:text-[14px]">
                         <span>Password</span>{" "}
@@ -292,7 +310,7 @@ const Login = () => {
               <div className="block sm:flex md:flex lg:flex justify-between items-center py-5">
                 <div className="flex justify-start gap-2 items-center mb-5 sm:mb-0" >
                   <Button
-                    className="inline-block  rounded-md  px-2 pb-2 pt-2.5 text-xs  font-medium uppercase leading-normal bg-[black] hover:bg-primary text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] border-0"
+                    className="inline-block  rounded-md  !py-[9px] !px-0 text-xs  font-medium uppercase leading-normal bg-[black] hover:bg-primary text-white hover:text-white  transition duration-150 border ease-in-out hover:bg-neutral-800 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)]   active:bg-neutral-900 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] border-0 p-[9px 0]"
                     style={{ width: '130px' }}
                     disabled={loading || DisablingButton()}
                     onClick={() => {
@@ -332,7 +350,7 @@ const Login = () => {
                   <span
                     className="text-primary tracking-wide text-xs font-normal sm:ml-0 ml-2"
 
-                    onClick={() => setMode(mode === "link" ? "password" : "link")}
+                    onClick={(e) => setModeHandler(e)}
                   >
                     {mode === "link" ? "Enter password instead" : "Send login link"}
                   </span>

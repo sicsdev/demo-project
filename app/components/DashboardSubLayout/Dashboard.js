@@ -18,7 +18,6 @@ import { getAllActiveBots } from '@/app/API/pages/Bot'
 import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
-import Method from '../NewPaymentMethod/Method'
 import { useRouter } from 'next/navigation'
 
 const Dashboard = ({ children }) => {
@@ -157,25 +156,23 @@ const Dashboard = ({ children }) => {
     const [activeBots, setActiveBots] = useState([])
 
     const getActiveBots = async () => {
+
         await getAllActiveBots().then(async (res) => {
             setActiveBots(res.results)
-            console.log(res.results, 'cheeeeeeeeeeeeeeeeeeeeeck')
             const profile = await getUserProfile()
             const testBot = await getTestBot()
+
+            sessionStorage.setItem('userHasKnowledgeUploaded', profile.enterprise.information_filled)
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)
                 localStorage.setItem(`tempoportallastlogin`, profile.email)
                 localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
-
-            // if (testBot?.id) {
-            //     const userTestBot = JSON.stringify(testBot)
-            //     localStorage.setItem(`testbot-${profile?.email}`, userTestBot);
-            // }
         })
 
     }
+
 
     if (!state) {
         if (pathname !== '/dashboard') {

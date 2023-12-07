@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
-import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
+import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, getFaqQuestionById, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
 import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
@@ -18,8 +18,12 @@ import TextField from '../Common/Input/TextField';
 import SnippetManagement from './SnippetManagement';
 import Swal from 'sweetalert2';
 import NegativeSearchTermsTab from './NegativeSearchTermsTab/NegativeSearchTermsTab';
+import { useSearchParams } from 'next/navigation';
 
 const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, currentTab }) => {
+
+    const params = useSearchParams()
+
     const [perPage, setPerPage] = useState(10);
     const [tab, setTab] = useState(0);
     const [selected, setSelected] = useState(null);
@@ -41,9 +45,15 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [loading, setLoading] = useState(false)
     const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('Products')
     const [currentOpenedProduct, setCurrentOpenedProduct] = useState(null)
+  const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
+
 
     // **
 
+    useEffect(() => {
+        let openedKnowledge = params.get('openKnowledgeId')
+        if (openedKnowledge) { handleAutoOpenKnowledge(openedKnowledge) }
+    }, [])
 
 
     const customStyles = {
@@ -56,6 +66,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                 height: "auto"
             },
         }
+    }
+
+    const handleAutoOpenKnowledge = async (id) => {
+        let knowledgeItem = await getFaqQuestionById(id)
+        if (knowledgeItem?.id) {setSelected(knowledgeItem)}
     }
 
 
@@ -112,6 +127,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
         getQuestionsData(queryParam)
         setUpdateLoader(false)
         setSelected(null)
+        setDeleteWorkflowModal(false);
     }
     const getNagetiveQuestions = async (id) => {
         const response = await getSingleNagetiveQuestionData(id)
@@ -496,7 +512,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     }}
                         deleteButton={true}
                         data={selected}
-                        deleteRecord={(id) => deleteRecord(id)}>
+                        deleteRecord={(id) => deleteRecord(id)} 
+                        setDeleteWorkflowModal={setDeleteWorkflowModal}
+                        deleteWorkflowModal={deleteWorkflowModal}
+                        
+                        >
 
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">

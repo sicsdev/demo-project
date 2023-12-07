@@ -17,11 +17,13 @@ const ApiCallInfo = ({ calls }) => {
         setActiveCallIndex(null)
     }
 
+    const someCallFailed = calls.some(call => (call.response_status == 400 || call.response_status == 404 || call.response_status == 500))
     return (
         <>
             <div className='position-relative' style={{ minWidth: '150px' }}>
                 <div className='flex justify-end gap-2 my-2 cursor-pointer ' onClick={handleCloseDropdowns}>
-                    <small className='bg-gray p-1 rounded-md flex hover:bg-[#8d8d8d] hover:text-white flex items-center'>
+                    <small
+                        className={`${someCallFailed ? "bg-red text-white" : "bg-gray text-black"} p-1 rounded-md flex hover:bg-[#8d8d8d] hover:text-white flex items-center`}>
                         <InformationCircleIcon className='w-4 h-4'></InformationCircleIcon>
                         {showCalls ? 'Hide ' : 'Show '} API calls {`(${calls.length})`}
                     </small>
@@ -34,7 +36,8 @@ const ApiCallInfo = ({ calls }) => {
                         {calls.map((call, key) => (
                             <div key={key} style={{ minWidth: '150px' }} className='mb-2'>
                                 <div className="cursor-pointer mb-2 flex" onClick={() => setActiveCallIndex(key === activeCallIndex ? null : key)}>
-                                    <span style={{ minWidth: '100px' }} className={`text-white text-xs p-1 px-2 border border-gray rounded-md mb-1 ${call.status == 400 || call.status == 404 ? "bg-red" : "bg-success"}`}>
+                                    <span style={{ minWidth: '100px' }}
+                                        className={`text-white text-xs p-1 px-2 border border-gray rounded-md mb-1 ${call.response_status == 400 || call.response_status == 404 || call.response_status == 500 ? "bg-red" : "bg-success"}`}>
                                         {call.request_method}
                                     </span>
                                     {/* <svg className="mx-3" xmlns="http://www.w3.org/2000/svg" width="15px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -53,14 +56,14 @@ const ApiCallInfo = ({ calls }) => {
                                         </li>
                                         <li className="bg-gray-100 rounded mt-2 bg-grey">
                                             <strong className="text-gray-900">Payload:{' '}</strong><br />
-                                            <code className='text-[#937293]'>{JSON.stringify(call.request_data, null, 2)}</code>
+                                            <code className=''>{JSON.stringify(call.request_data, null, 2)}</code>
 
                                         </li>
                                         <li className="bg-gray-100 rounded mt-2 bg-grey">
 
                                             <strong className="text-gray-900">Response:{' '}</strong><br />
                                             <code>
-                                                {JSON.stringify(JSON.parse(call.response_text), null, 2)}
+                                                {call.response_text}
                                             </code>
                                         </li>
                                     </ul>

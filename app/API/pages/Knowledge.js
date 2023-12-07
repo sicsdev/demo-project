@@ -83,6 +83,16 @@ export const getFaqQuestions = async (queryParam) => {
     }
 };
 
+export const getFaqQuestionById = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/faqs/${id}`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+
 export const searchFaqQuestions = async (queryParam) => {
     let config = returnConfig()
     try {

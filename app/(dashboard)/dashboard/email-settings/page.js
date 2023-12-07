@@ -291,12 +291,12 @@ const page = () => {
                                     </p>
                                 </div>
                                 <div className="w-full sm:w-3/4 flex items-center mt-3 sm:mt-0 justify-between sm:justify-end gap-4">
-                                    <div className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap" style={{ rowGap: "4px" }} >
+                                    <div className="w-full sm:w-auto flex items-center overflow-x-scroll sm:overflow-x-hidden  schedule justify-between sm:justify-start sm:flex-wrap" style={{ rowGap: "4px" }} >
                                         {botValue?.length > 1 && botValue?.map((element, key) => (
                                             <button
                                                 onClick={(e) => selectBotHandler(element.value)}
                                                 key={key}
-                                                className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                                className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot ? 'text-white bg-primary' : 'bg-white text-[#151D23]'} text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[auto] text-center`}
                                             > {element?.name}
                                             </button>
                                         ))}

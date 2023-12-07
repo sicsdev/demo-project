@@ -9,6 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import '@/app/components/Workflows/WorkflowBuilder\/customStyles.css'
+import { useSearchParams } from 'next/navigation'
 const Source = () => {
     const [basicFormData, setBasicFormData] = useState({})
     const [bots, setBots] = useState([])
@@ -17,6 +18,8 @@ const Source = () => {
     const [check, setCheck] = useState(false)
     const [currentTab, setCurrentTab] = useState('')
 
+    const [autoOpenKnowledgeId, setAutoOpenKnowledgeId] = useState('')
+
     // Filters
     const [filters, setFilters] = useState({
         currentBot: ''
@@ -24,6 +27,28 @@ const Source = () => {
 
     const dispatch = useDispatch()
     const state = useSelector((state) => state.botId);
+    let params = useSearchParams()
+
+    useEffect(() => {
+        getQuestionsData()
+    }, [])
+
+    useEffect(() => {
+        if (state.botData.data?.bots && state.botData.data?.widgets) {
+            getAllBots();
+        } else {
+            dispatch(fetchBot())
+        }
+    }, [state.botData.data]);
+
+
+    useEffect(() => {
+        getDataWithFilters()
+    }, [filters, currentTab])
+
+
+
+
     const getQuestionsData = async (queryParam = 'page=1&page_size=10') => {
         setBasicFormData((prev) => {
             return {
@@ -69,26 +94,7 @@ const Source = () => {
         setBots(mergedArray.filter((x) => x.name !== ''))
     }
 
-    useEffect(() => {
-        getQuestionsData()
-    }, [])
 
-    useEffect(() => {
-        if (state.botData.data?.bots && state.botData.data?.widgets) {
-            getAllBots();
-        } else {
-            dispatch(fetchBot())
-        }
-    }, [state.botData.data]);
-
-
-    useEffect(() => {
-        getDataWithFilters()
-    }, [filters, currentTab])
-
-
-
-    
     const getDataWithFilters = (type) => {
         let query = `page=1&page_size=10${currentTab ? `&knowledge__source=${currentTab}` : ''}${filters?.currentBot ? `&bot__id=${filters.currentBot}` : ''}`
         getQuestionsData(query)

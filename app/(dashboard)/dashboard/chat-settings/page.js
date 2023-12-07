@@ -143,6 +143,7 @@ const page = () => {
           dispatch(fetchBot());
           getBotInfo(selectedBot);
           successMessage("Changes successfully saved!");
+          router.push(`/dashboard`);
         } else {
           setLoading(false);
           errorMessage("Unable to update!");
@@ -154,7 +155,7 @@ const page = () => {
         errorMessage("Unable to update!");
       });
   };
-  console.log("botValue", botValue);
+
   return (
     <div style={{ whiteSpace: "normal" }}>
       <TopBar

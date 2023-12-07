@@ -1,7 +1,11 @@
 import { EllipsisHorizontalIcon, XCircleIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useRef, useState } from "react";
+import DeleteWorkflow from "../KnowledgeBase/DeleteKnowledgeBaseFlow";
+import Modal from "../Common/Modal/Modal";
 
-const SideModal = ({ setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles }) => {
+const SideModal = ({         deleteWorkflowModal,
+  setDeleteWorkflowModal,  setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles }) => {
+ 
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -40,6 +44,8 @@ const SideModal = ({ setShow, children, heading, border = true, deleteButton = f
               <ButtonComponent
                 data={data}
                 deleteRecord={deleteRecord}
+                deleteWorkflowModal={deleteWorkflowModal}
+                setDeleteWorkflowModal={setDeleteWorkflowModal}
               />
             )}
             <div className="flex justify-end gap-2">
@@ -60,8 +66,9 @@ export default SideModal;
 
 
 
-export const ButtonComponent = ({ data, deleteRecord }) => {
-  const [showDelete, setShowDelete] = useState(null);
+export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord,deleteWorkflowModal, setDeleteWorkflowModal }) => {
+  const [showDelete, setShowDelete] = useState();
+
 
   const divRef = useRef(null);
   useEffect(() => {
@@ -84,6 +91,7 @@ export const ButtonComponent = ({ data, deleteRecord }) => {
         ref={divRef}
         onClick={(e) => {
           setShowDelete((prev) => {
+           
             if (prev === data.id) {
               return null;
             } else {
@@ -100,13 +108,21 @@ export const ButtonComponent = ({ data, deleteRecord }) => {
             <button
               type="button"
               className="text-heading text-xs font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-1 px-2 py-2 "
-              onClick={() => deleteRecord(data.id)}
+            onClick={()=> setDeleteWorkflowModal(true) }
+              // onClick={() => deleteRecord(data.id)}
             >
               <XCircleIcon className="w-4 h-4" />
               Delete
             </button>
           </div>
+          
         )}
+        {
+              deleteWorkflowModal &&
+              <Modal title={`Are you sure you want to delete?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                <DeleteWorkflow  deleteID={deleteRecord} data={data}  />
+              </Modal>
+            }
       </div>
     </>
   );

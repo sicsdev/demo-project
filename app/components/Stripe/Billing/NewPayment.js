@@ -59,13 +59,13 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
             setLoading(false);
         }
     };
-    if (elements != null) {
-        const cardElement = elements.getElement(CardElement);
-        const paymentVal = searchParams.get("payment")
-        if (paymentVal === "true" && cardElement) {
-            cardElement.focus();
-        }
-    }
+    // if (elements != null) {
+    //     const cardElement = elements.getElement(CardElement);
+    //     const paymentVal = searchParams.get("payment")
+    //     if (paymentVal === "true" && cardElement) {
+    //         cardElement.focus();
+    //     }
+    // }
     useEffect(() => {
       
         if (elements != null) {
