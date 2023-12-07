@@ -16,29 +16,27 @@ const Page = () => {
     const userData = useSelector((state) => state.user)
     const dispatch = useDispatch()
 
-    const [loadingScrapper, setLoadingScrapper] = useState(true)
+    const [loadingScrapper, setLoadingScrapper] = useState(false)
     const [finishingScrapping, setFinishingScrapping] = useState(false)
     const [finishedScrapper, setFinishedScrapper] = useState(false)
 
     useEffect(() => {
         if (knowledgeScrapperState && knowledgeScrapperState.data && knowledgeScrapperState.loader == 0) {
             setKnowledgeFirstData(knowledgeScrapperState.data.main_webpage, knowledgeScrapperState.data.faqs_webpage)
+            setLoadingScrapper(true)
         }
-    }, [])
 
-
-    useEffect(() => {
-        
         if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
             dispatch(updateScrapperKnowledgeState(null));
-            // setLoadingScrapper(false)
+            setLoadingScrapper(false)
         }
 
         if (userData?.data?.enterprise?.information_filled) {
-            // setLoadingScrapper(false)
+            setLoadingScrapper(false)
         }
 
-    }, [])
+    }, [userData?.data?.enterprise?.information_filled])
+
 
 
     const setKnowledgeFirstData = async (mainPage, faqPage) => {
@@ -46,7 +44,7 @@ const Page = () => {
 
         setTimeout(() => {
             setFinishingScrapping(true);
-        }, 90000);
+        }, 75000);
 
         let payload = {
             main_webpage: mainPage,
@@ -54,7 +52,7 @@ const Page = () => {
         };
 
         await setDemoKnowledge(payload);
-        // setLoadingScrapper(false);
+        setLoadingScrapper(false);
         setFinishingScrapping(false)
         setFinishedScrapper(true)
         dispatch(updateScrapperKnowledgeState(null));
