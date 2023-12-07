@@ -9,7 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { getPaymentHistory } from "@/app/API/pages/Usage";
+import { getBillingByBotID, getPaymentHistory } from "@/app/API/pages/Usage";
 import TextField from "@/app/components/Common/Input/TextField";
 import { updateThresholds } from "@/app/API/pages/EnterpriseService";
 import { logos } from "@/app/components/Forms/ReadOnly/logos_data";
@@ -34,6 +34,8 @@ import { successMessage } from "@/app/components/Messages/Messages";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import BasicDetailsReadOnly from "@/app/components/Forms/ReadOnly/BasicDetails";
+import { capitalizeFirstLetter } from "@/app/components/helper/firstLetterCapital";
+import { getBotAllData } from "@/app/API/pages/Bot";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -81,6 +83,12 @@ const UsageLimit = () => {
   const [logo, setLogo] = useState(null);
   const [userData, setUserData] = useState(null);
   const [tab, setTab] = useState(0)
+  const [allBots, setAllBots] = useState([])
+  const [loadingCharBar, setLoadingCharBar] = useState(false)
+  const [filters, setFilters] = useState({
+    botId: ''
+  })
+
   // states ends
   const parseAddress = (address) => {
     let returned = {};
@@ -127,6 +135,7 @@ const UsageLimit = () => {
     }
     return "";
   };
+
   const SubmitBusinessDetails = async () => {
     setLoading(true);
     let payload = {
@@ -156,6 +165,7 @@ const UsageLimit = () => {
       setLoading(false);
     }
   };
+
   const DisablingButton = () => {
     const requiredKeys = [
       "business_street",
@@ -195,12 +205,24 @@ const UsageLimit = () => {
       // setError(errorMessages.notFound);
     }
   };
+
+  const getAllBots = async () => {
+    let allbots = await getBotAllData()
+    if (allbots?.results) {
+      let botValues = allbots.results.map(bot => ({ name: bot.chat_title, id: bot.id }))
+      setAllBots(botValues)
+    }
+  }
+
   // use effects start 
   useEffect(() => {
     if (state) {
       getPaymentOldData();
     }
-  }, [state]);
+    getAllBots()
+  }, [state, filters]);
+
+
   useEffect(() => {
     if (state) {
       let address = parseAddress(state?.enterprise?.address);
@@ -282,9 +304,67 @@ const UsageLimit = () => {
 
 
   const getPaymentOldData = async () => {
-    console.log(state)
+
+
+    setLoadingCharBar(true)
     setFormData(state?.enterprise.billing_thresholds?.amount_gte);
-    const response = await getPaymentHistory(state?.stripe_data?.stripe_id);
+
+
+
+
+    // Switch between fetch all usage or by bot.
+    let response;
+    if (filters.botId) {
+      response = await getBillingByBotID(filters.botId)
+      console.log(response)
+    } else {
+      response = await getPaymentHistory(state?.stripe_data?.stripe_id);
+      console.log(response)
+    }
+
+
+
+
+    // If there is a bot filter active, we handle the logic to just fetch amounts by bot.
+    if (filters.botId) {
+      const currentDate = new Date();
+      const currentYear = currentDate.getFullYear();
+      const labels = [];
+      for (let month = 0; month <= currentDate.getMonth(); month++) {
+        const date = new Date(currentDate.getFullYear(), month, 1);
+        const monthName = date.toLocaleString("en-US", { month: "long" });
+        labels.push(capitalizeFirstLetter(monthName));
+      }
+      let totalUsage = 0;
+      let amounts = labels.map(month => {
+        let amount = response[currentYear][month];
+        totalUsage += amount;
+        return amount;
+      });
+      setTotalUsage(totalUsage);
+      console.log(amounts);
+      setData({
+        labels: labels,
+        datasets: [
+          {
+            borderWidth: 1,
+            barPercentage: 0.5,
+            categoryPercentage: 0.8,
+            label: "",
+            data: amounts,
+            backgroundColor: "#2563eb",
+          },
+        ],
+      });
+      setLoadingCharBar(false)
+      setLoading(false);
+      return
+    }
+
+
+
+    // If there is no bot filter, keep "all bots" logic.
+
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
@@ -301,8 +381,8 @@ const UsageLimit = () => {
       const labels = [];
       for (let month = 0; month <= currentDate.getMonth(); month++) {
         const date = new Date(currentDate.getFullYear(), month, 1);
-        const monthName = date.toLocaleString("default", { month: "long" });
-        labels.push(monthName);
+        const monthName = date.toLocaleString("en-US", { month: "long" });
+        labels.push(capitalizeFirstLetter(monthName));
       }
 
       let monthData;
@@ -319,8 +399,9 @@ const UsageLimit = () => {
 
       const total = getTotalAmount(monthData);
 
-
       setTotalUsage(total);
+
+      console.log(amounts)
       setData({
         labels,
         datasets: [
@@ -335,6 +416,7 @@ const UsageLimit = () => {
         ],
       });
       setLoading(false);
+      setLoadingCharBar(false)
     }
   };
 
@@ -580,10 +662,48 @@ const UsageLimit = () => {
                           <p className="font-bold text-lg">{curretYear}</p>
                         </div>
                       </div>
+
+                      <div className="w-full flex items-center sm:mt-0 justify-between sm:justify-end gap-4 my-4">
+                        <div
+                          className="w-full sm:w-auto flex items-center justify-between sm:justify-start flex-wrap"
+                          style={{ rowGap: "4px" }}
+                        >
+                          {allBots?.length > 1 &&
+                            allBots?.map((element, key) => (
+                              <button
+                                onClick={(e) => { setFilters({ ...filters, botId: element.id }) }}
+                                key={key}
+                                className={`flex items-center gap-2 justify-center font-semibold ${filters?.botId == element.id
+                                  ? "text-white bg-primary"
+                                  : "bg-white text-[#151D23]"
+                                  } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                              >
+                                {" "}
+                                {element?.name}
+                              </button>
+                            ))}
+                          <button
+                            onClick={(e) => { setFilters({ ...filters, botId: '' }) }}
+                            key={'allbotsbutton'}
+                            className={`flex items-center gap-2 justify-center font-semibold ${!filters?.botId
+                              ? "text-white bg-primary"
+                              : "bg-white text-[#151D23]"
+                              } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                          >
+                            {" "}
+                            All
+                          </button>
+                        </div>
+                      </div>
+
                       <div className=" sm:w-[630px] sm:h-[291px] text-center m-auto">
 
 
-                        <Bar data={data} options={options} />
+                        {loadingCharBar ?
+                          <SkeletonLoader count={1} height={300} width={500}></SkeletonLoader>
+                          :
+                          <Bar data={data} options={options} />
+                        }
                       </div>
                     </div>
                   </div>
