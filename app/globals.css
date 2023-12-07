@@ -2133,13 +2133,16 @@ input:-webkit-autofill:active {
   .negative-term-search-table .sc-hzhJZQ.gmlwXk {
     display: block !important;
   }
+
   .negative-term-search-table .keyword_container {
     gap: 0rem !important;
     width: 100% !important;
   }
+}
 
 .history_logs_wrapper img {
   width: 200px !important;
   height: 200px !important;
   margin-top: 15px;
+  object-fit: contain;
 }
