@@ -10,6 +10,7 @@ import ProductSection7 from '@/app/components/Products/workflow/ProductSection7'
 import React, { useRef } from 'react'
 import Middlebar from '@/app/components/Info-Screen/Middlebar';
 import Chatfeatures from '@/app/components/Chatfeatures/Chatfeatures';
+import Defencegradeslider from '@/app/components/Products/Defencegradeslider';
 
 const page = () => {
   const ref = useRef(null);
@@ -25,11 +26,15 @@ const page = () => {
       </div>
       <ProductSection3 handleClickScroll={handleClickScroll} />
 
+          {/*
       <Concierge />
+    */}
+    <Defencegradeslider />
+
       <ProductSection7 />
       <Panelcardnew />
-      <Middlebar />
-      {/* <ProductForm reference={ref} /> */}
+      {/* <Middlebar />
+      <ProductForm reference={ref} /> */}
       {/* <Chatfeatures /> */}
       <HomeComponent />
     </div>

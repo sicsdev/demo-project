@@ -9,28 +9,28 @@ export const nav_links = [
             links: [
          
                 {
-                    list_heading: "solutions",
+                    list_heading: "Channels",
                     icon: <LightBulbIcon class="h-6 w-6  text-[#4ebe8c]" />,      
                                   data: [
                         {
                 
                             "heading": "Chat Bot",
                             label: "",
-                            link: "/solutions/chatbot",
+                            link: "/channels/chatbot",
                             "para": "Spin up a GPT4 powered bot in minutes to answer common CS needs."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Email",
                             label: "",
-                            link: "/solutions/email",
+                            link: "/channels/email",
                             "para": "Link Deflection AI into your email support to automatically handle more complex email tickets."
                         },
                         {
                             icon: "/menu/6.png",
                             "heading": "Phone",
                             label: "",
-                            link: "/solutions/phone",
+                            link: "/channels/phone",
                             "para": "Link Deflection AI into your email support to automatically handle more complex email tickets."
                         }
                   

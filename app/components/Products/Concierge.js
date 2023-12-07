@@ -16,7 +16,7 @@ useEffect(()=>{
 },[]) 
 const data = [
     {
-      name: "Optimize Task Management & Scheduling   ",
+      name: "Optimize Task Management & Scheduling ",
       para: "Enhance your team's efficiency in task management, project tracking, and scheduling.   ",
       img: ["/monday_logo_icon_168967_1.png", "/integrations/1.svg"],
 
