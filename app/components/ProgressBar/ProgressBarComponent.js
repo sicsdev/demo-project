@@ -24,7 +24,7 @@ const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finish
         let currentProgress = progress;
 
         const interval = setInterval(() => {
-            if (currentProgress < 100) {
+            if (currentProgress < 100 && (currentProgress + increment != 100)) {
                 currentProgress += increment;
                 dispatch(setLoader(currentProgress));
             } else {
