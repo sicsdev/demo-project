@@ -53,8 +53,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             }
         };
         document.addEventListener("click", handleOutsideClick);
-
-
         const externalSnippet = params.get('createExternalSnippet')
         const externalContent = params.get('externalContent')
         if (externalSnippet && externalContent) { handleCreateOptions('snippet'); setExternalTitleForSnippet(externalContent) }
@@ -81,6 +79,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
     const getCount = (data, type) => {
         switch (type) {
+
             case "FILE":
                 return data.filter((x) => x.source === 'file')
             case "EXTERNAL":
@@ -94,7 +93,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
 
 
-    const handleSubmit = async (value) => {
+    const handleSubmit = async (value) => {         
         setLoading(true)
         let payload = {}
         switch (value.type) {
@@ -320,7 +319,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             <div className='flex items-center gap-2'>
                 <div className="w-full flex items-center sm:mt-0gap-4">
                     <div
-                        className="w-full sm:w-auto flex items-center justify-start sm:justify-start flex-wrap"
+                        className="w-full sm:w-auto sm:flex !contents items-center justify-start sm:justify-start flex-wrap"
                         style={{ rowGap: "4px" }}
                     >
                         {botValue.length > 1 && (
@@ -353,7 +352,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
             <div className='flex items-center justify-end'>
 
-                <div className='sm:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
+                <div className='sm:flex md:flex lg:flex grid justify-end sm:justify-end md:justify-end lg:justify-end  gap-4 items-center  bg-white lg:mx-2 my-4'>
                     <div className='flex justify-center sm:justify-end md:justify-end lg:justify-end gap-4 items-center bg-white'>
                         <label htmlFor="search" className="mb-2 sm:text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                         {loading ?

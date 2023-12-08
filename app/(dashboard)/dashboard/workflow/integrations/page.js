@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircleIcon, ShareIcon } from "@heroicons/react/24/outline";
 import {
   getAllIntegration,
@@ -7,7 +7,6 @@ import {
   getIntegrationTemplateByType,
   getPopularIntegrationsTemplate
 } from "@/app/API/pages/Integration";
-import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import { tiles_data } from "@/app/data/integration_tiles.json";
@@ -24,6 +23,7 @@ import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/Int
 import TopBar from "@/app/components/Common/Card/TopBar";
 import axios from "axios";
 import SideModal from "@/app/components/SideModal/SideModal";
+import { addNewDomain } from "@/app/API/pages/EnterpriseService";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -68,6 +68,10 @@ const Page = () => {
 
 
 
+ const newPopular= localStorage.getItem("tempoportallastlogin").split("@")[1];
+
+
+
 
 
 
@@ -80,17 +84,21 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      const popIntegrations = await getPopularIntegrationsTemplate()
+      const popIntegrations = await  addNewDomain({ domain: newPopular })
       let custom_integrations = null
-      if (state && state?.data && state?.data?.results) {
+      if (state && state?.data && state?.data ?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
         console.log("cuaomer", custom_integrations)
       }
 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
-        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.flatMap(entry => Object.values(entry)[0])))
-        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.includes(x.name))
-        const updateArray = filterDataPopular.slice(0, 5).map((item) => ({
+        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry)=>(entry))))
+        console.log("finalIntegrationPopularData",finalIntegrationPopularData);
+        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele=>ele.toLowerCase()===x.name.toLowerCase()))
+        console.log("filterDataPopular",filterDataPopular);
+        console.log("dataTemplates",dataTemplates);
+
+        const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
           logo: item.icon ?? findIconValue(item.name),
           grayscale: false,
