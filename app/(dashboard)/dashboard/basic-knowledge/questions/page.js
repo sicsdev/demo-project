@@ -4,7 +4,6 @@ import { AcademicCapIcon, BookOpenIcon, PencilIcon, PencilSquareIcon, QuestionMa
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import { ToastContainer } from 'react-toastify';
 import { useDispatch, useSelector } from "react-redux";
-import ManageKnowledgeBase from "@/app/components/LearningCenter/ManageKnowledgeBase";
 import { getFaqQuestions, getKnowledgeData } from "@/app/API/pages/Knowledge";
 import { fetchWorkflows } from "@/app/components/store/slices/workflowSlice";
 import TopBar from "@/app/components/Common/Card/TopBar";
