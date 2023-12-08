@@ -111,7 +111,8 @@ const Checkout = () => {
   const [userformErrors, setUserformErrors] = useState([]);
 
   const handleFormValues = (e) => {
-setPop(false);
+    if(e.target.name === "email"){
+setPop(false);}
     let value = e.target.value
 
     setCheckoutForm({

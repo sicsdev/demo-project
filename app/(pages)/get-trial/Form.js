@@ -72,8 +72,11 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
 
 
   const handleInputValues = (e) => {
-    setPop(false);
+  
     let { value, name } = e.target;
+    if (name === "email") {
+setPop(false);
+    }
     if (name === "phone") {
       value = formatPhoneNumber(value);
     }
