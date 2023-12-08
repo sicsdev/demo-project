@@ -47,13 +47,13 @@ const List = ({ nav_links, className, setShow }) => {
     // Eventually an offset corresponding to the height of a fixed navbar for example.
     const offset = 500;
     let scroll = false;
-    if (rect?.top < offset) {
+    if (rect && rect?.top < offset) {
       scroll = true;
     }
-    if (rect?.top > window?.innerHeight) {
+    if (rect && rect?.top > window?.innerHeight) {
       scroll = true;
     }
-    if (scroll) {
+    if (scroll && window) {
       window.scrollTo({
         top: window?.scrollY + rect?.top - offset,
         behavior: "smooth",
