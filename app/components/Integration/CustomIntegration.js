@@ -159,6 +159,8 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
         }
     };
 
+console.log("help",help);
+
 
     const DisablingButton = () => {
         if (Object.keys(customFields).length === 0) {
