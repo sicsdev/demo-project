@@ -12,6 +12,7 @@ import EmailConfig from '@/app/components/EmailConfig/EmailConfig'
 import { errorMessage, successMessage } from '@/app/components/Messages/Messages'
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton'
 import EmailHandle from '@/app/components/VerifyEmail/EmailHaandle'
+import { getPermissionHelper } from '@/app/components/helper/returnPermissions'
 import { fetchBot } from '@/app/components/store/slices/botIdSlice'
 import { AdjustmentsHorizontalIcon, CheckIcon, ClipboardIcon, InboxArrowDownIcon, InboxIcon, QrCodeIcon, WrenchScrewdriverIcon } from '@heroicons/react/24/outline'
 import React, { useEffect, useState } from 'react'
@@ -28,7 +29,6 @@ const page = () => {
     const [botValue, setBotValue] = useState([]);
     const state = useSelector((state) => state.botId);
     const user = useSelector((state) => state.user.data);
-    console.log("User", user)
     const [selectedBot, setSelectedBot] = useState('Select');
     const [tab, setTab] = useState(0);
     const dispatch = useDispatch();
@@ -251,20 +251,22 @@ const page = () => {
                             </span>
                         }
                     </li>
-                    <li className={` ${pageLoading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
-                        {pageLoading ?
-                            <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
-                            :
-                            <span
-                                className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
-                  rounded-lg active  group`}
-                                aria-current="page"
-                            >
-                                DNS Settings
-                            </span>
-                        }
-                    </li>
 
+                    {getPermissionHelper('DNS SETTINGS TAB', user?.role) &&
+                        <li className={` ${pageLoading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                            {pageLoading ?
+                                <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                :
+                                <span
+                                    className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                    aria-current="page"
+                                >
+                                    DNS Settings
+                                </span>
+                            }
+                        </li>
+                    }
 
 
                 </ul>
