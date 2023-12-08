@@ -53,6 +53,7 @@ import SkeletonLoader from "../../Skeleton/Skeleton";
 import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
 import DemoAccountsBanner from "../../Layout/DemoAccountsBanner";
+import { getPermissionHelper } from "../../helper/returnPermissions";
 
 const NewSidebar = ({ children }) => {
     const billingState = useSelector((state) => state.billing)
@@ -137,167 +138,6 @@ const NewSidebar = ({ children }) => {
         }
     }
 
-    const SideBarRoutes = [
-        {
-            href: "/dashboard",
-            name: "",
-            icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-            list: [
-                {
-                    href: "/dashboard",
-                    name: <div className="flex justify-between items-center w-full"><span>Home</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                }
-            ],
-            isLink: false
-        },
-        {
-            // href: "",
-            href: workflowLinkHandler('/dashboard/workflow/integrations'),
-            name: "Workflow Builder",
-            icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/workflow/integrations",
-                    name: "Integrations",
-                    icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/workflow/workflow-builder",
-                    name: <div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-            ],
-        },
-        {
-            href: "/dashboard/knowledge-center",
-            name: "Learning Center",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/basic-knowledge/source",
-                    target: "/dashboard/basic-knowledge/source",
-                    name: "Knowledge Base",
-                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                    list: [
-                        {
-                            href: "/dashboard/basic-knowledge/source",
-                            name: "Sources",
-                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
-                        },
-                    ]
-                },
-                {
-                    href: "/dashboard/knowledge-center",
-                    name: <div className="flex justify-between items-center w-full"><span>Learning Center</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                    notification: learningItemsCount,
-                    isLink: false,
-                },
-            ],
-
-        },
-        {
-            name: "Channels",
-            href: "/dashboard/chat-bots",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/chat-settings",
-                    name: "Chat",
-                    icon: <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/email-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/manage-phones",
-                    name: <div className="flex justify-between items-center w-full"><span>Phone</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                }
-            ],
-        },
-        {
-            href: "/dashboard/analytics",
-            name: "Logs",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/analytics",
-                    name: "Logs",
-                    icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-
-                }
-            ],
-        },
-        {
-            href: "/dashboard/billing/usage",
-            name: "Billing",
-            isLink: false,
-            icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-            list: [
-                {
-                    href: "/dashboard/billing/usage",
-                    name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                // {
-                //     href: "/dashboard/billing/settings",
-                //     name: "Billing",
-                //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
-            ],
-        },
-        {
-            href: "/dashboard/members",
-            name: "Organization Settings",
-            navBarName: "Organization",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/members",
-                    name: <div className="flex justify-between items-center w-full"><span>Team</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/scheduling-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                // {
-                //     href: "/dashboard/verify-email",
-                //     name: "DNS Settings",
-                //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
-                // {
-                //     href: "https://docs.usetempo.ai/reference",
-                //     name: "API References",
-                //     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // }
-            ],
-        }
-    ];
     const SideBarRoutes2 = [
         {
             href: "/dashboard",
@@ -419,14 +259,14 @@ const NewSidebar = ({ children }) => {
             name: "Billing",
             isLink: false,
             icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-            locked: billingState === "demo",
+            locked: billingState === "demo" || !(getPermissionHelper('BILLING SECTION', state?.role)),
             list: [
                 {
                     href: "/dashboard/billing/usage",
                     name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
-                    locked: billingState === "demo"
+                    locked: billingState === "demo" || !(getPermissionHelper('BILLING SECTION', state?.role)),
 
                 },
                 // {
@@ -941,7 +781,8 @@ const NewSidebar = ({ children }) => {
 
                                                 <>
                                                     {SideBarRoutes2.map((element, key) => (
-                                                        (state.email && element?.name !== "Channels") && (
+                                                        (state.email && element?.name !== "Channels") &&
+                                                        (
                                                             <li key={key}>
                                                                 <Link
                                                                     href={element.href}

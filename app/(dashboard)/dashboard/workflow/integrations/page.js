@@ -24,6 +24,7 @@ import TopBar from "@/app/components/Common/Card/TopBar";
 import axios from "axios";
 import SideModal from "@/app/components/SideModal/SideModal";
 import { addNewDomain } from "@/app/API/pages/EnterpriseService";
+import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -68,7 +69,7 @@ const Page = () => {
 
 
 
- const newPopular= localStorage.getItem("tempoportallastlogin").split("@")[1];
+  const newPopular = localStorage.getItem("tempoportallastlogin").split("@")[1];
 
 
 
@@ -84,19 +85,19 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      const popIntegrations = await  addNewDomain({ domain: newPopular })
+      const popIntegrations = await addNewDomain({ domain: newPopular })
       let custom_integrations = null
-      if (state && state?.data && state?.data ?.results) {
+      if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
         console.log("cuaomer", custom_integrations)
       }
 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
-        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry)=>(entry))))
-        console.log("finalIntegrationPopularData",finalIntegrationPopularData);
-        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele=>ele.toLowerCase()===x.name.toLowerCase()))
-        console.log("filterDataPopular",filterDataPopular);
-        console.log("dataTemplates",dataTemplates);
+        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
+        console.log("finalIntegrationPopularData", finalIntegrationPopularData);
+        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
+        console.log("filterDataPopular", filterDataPopular);
+        console.log("dataTemplates", dataTemplates);
 
         const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
@@ -201,19 +202,19 @@ const Page = () => {
               grayscale: false,
               tiles: updateArray
             }, ...sortedData]);
-            setFixeData([
-              {
-                key: "CUSTOM",
-                title: "Custom",
-                grayscale: false,
-                tiles: updateArrayCustom
-              }
-              , {
-                key: "POPULAR",
-                title: "Popular",
-                grayscale: false,
-                tiles: updateArray
-              }, ...sortedData]);  
+          setFixeData([
+            {
+              key: "CUSTOM",
+              title: "Custom",
+              grayscale: false,
+              tiles: updateArrayCustom
+            }
+            , {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray
+            }, ...sortedData]);
         } else {
 
 
@@ -303,9 +304,9 @@ const Page = () => {
       })
       .filter(item => item !== null); // More explicit than .filter(Boolean)
 
-    setIntegrationsTiles(filteredData); 
+    setIntegrationsTiles(filteredData);
 
-      
+
   };
 
   return (
@@ -363,15 +364,19 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <div className=' gap-2 w-full '>
-                <div className='mr-[18px]'>
-                  <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                    Create
-                  </button>
+
+            {getPermissionHelper('CREATE INTEGRATION', userState.role) &&
+              <div>
+                <div className=' gap-2 w-full '>
+                  <div className='mr-[18px]'>
+                    <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                      Create
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
+
           </div>
           <div>
             {integrationData.length > 0 ? (

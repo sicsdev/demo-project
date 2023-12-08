@@ -18,11 +18,12 @@ import TeamManagement from "@/app/components/Team/TeamManagement";
 import SkeletonLoader from "@/app/components/Skeleton/Skeleton";
 import TopBar from "@/app/components/Common/Card/TopBar";
 import SideModal from "@/app/components/SideModal/SideModal";
+import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Page = () => {
   const [teamModal, setTeamModal] = useState(false);
   const state = useSelector((state) => state.members);
-
+  const userState = useSelector((state) => state.user.data)
   const dispatch = useDispatch();
   const getMembersData = () => {
     dispatch(fetchMembers());
@@ -61,13 +62,13 @@ const Page = () => {
             {/* <h3 className="font-bold text-heading text-md flex gap-2 items-center"><UserGroupIcon className='w-5 h-5'></UserGroupIcon> Manage Team</h3> */}
             <div className='flex gap-2 items-center'>
               <UserGroupIcon className='w-5 h-5'></UserGroupIcon><TopBar title={`Manage Team`} />
-              </div>
+            </div>
 
             <p className="text-heading font-normal text-xs mt-2">
               Invite and manage team members to your account.
             </p>
           </div>
-          <div>
+          {getPermissionHelper('INVITE TEAM MEMBER', userState.role) && <div>
             <Button
               type={"button"}
               onClick={(e) => {
@@ -77,7 +78,7 @@ const Page = () => {
             >
               Invite Team Member
             </Button>
-          </div>
+          </div>}
         </div>
       }
 

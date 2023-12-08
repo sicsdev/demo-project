@@ -8,12 +8,14 @@ import { ArrowUturnLeftIcon, ClipboardDocumentListIcon, PuzzlePieceIcon } from '
 import { useState } from 'react';
 import SkeletonLoader from '../../Skeleton/Skeleton';
 import Image from 'next/image';
+import { getPermissionHelper } from '../../helper/returnPermissions';
+import { useSelector } from 'react-redux';
 
-const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, setShowActive,setTab }) => {
+const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, setShowActive, setTab }) => {
     const router = useRouter()
 
     const [updateStatusLoader, setUpdateStatusLoader] = useState(false)
-
+    const userState = useSelector((state) => state.user.data)
     const redirectToLogs = (e) => {
         router.push(`/dashboard/analytics?selectedWorkflow=${e?.id}`)
     }
@@ -29,7 +31,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
                 setTab(5)
             }
         } else {
-            setShowActive(true) 
+            setShowActive(true)
         }
         setUpdateStatusLoader(false)
     }
@@ -81,6 +83,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
             onClick={(e) => {
                 isAuthorizedUser &&
                     e.stopPropagation();
+                console.log(item)
                 router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
             }}
             // style={{
@@ -227,9 +230,10 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
 
                     </p>
                 </div>
-                <div className='absolute w-full bottom-0 flex items-center justify-end'>
-                    <div className=' text-end'>
-                        {/* <p className='text-xs text-[#151d23cc]'>
+                {(item?.workflow_usage == 0 || getPermissionHelper('DEACTIVATE WORKFLOW', userState?.role)) &&
+                    <div className='absolute w-full bottom-0 flex items-center justify-end'>
+                        <div className=' text-end'>
+                            {/* <p className='text-xs text-[#151d23cc]'>
                                                     {loading ?
                                                         <SkeletonLoader count={1} height={30} width={50} />
                                                         : <>
@@ -238,31 +242,31 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
                                                     }
                                                 </p> */}
 
-                        {
-                            updateStatusLoader ?
-                                <>
-                                    <p className='text-xs text-gray'>
-                                        Loading...
-                                    </p>
-                                </>
-                                :
-                                <>
-                                    <p className={`${item.active ? 'text-danger' : 'text-success'}  cursor-pointer hover:font-semibold text-xs`} onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleWorkflowStatus(item.id, item.active)
-                                        // deleteWorkflowHandler(e, item)
-                                    }}>
-                                        {loading ?
-                                            <SkeletonLoader count={1} height={30} width={50} />
-                                            : <>
-                                                {item.active ? 'Deactivate' : 'Activate'}
-                                            </>
-                                        }</p>
-                                </>
-                        }
+                            {
+                                updateStatusLoader ?
+                                    <>
+                                        <p className='text-xs text-gray'>
+                                            Loading...
+                                        </p>
+                                    </>
+                                    :
+                                    <>
+                                        <p className={`${item.active ? 'text-danger' : 'text-success'}  cursor-pointer hover:font-semibold text-xs`} onClick={(e) => {
+                                            e.stopPropagation();
+                                            toggleWorkflowStatus(item.id, item.active)
+                                            // deleteWorkflowHandler(e, item)
+                                        }}>
+                                            {loading ?
+                                                <SkeletonLoader count={1} height={30} width={50} />
+                                                : <>
+                                                    {item.active ? 'Deactivate' : 'Activate'}
+                                                </>
+                                            }</p>
+                                    </>
+                            }
 
-                    </div>
-                </div>
+                        </div>
+                    </div>}
             </div>
 
         </div>
