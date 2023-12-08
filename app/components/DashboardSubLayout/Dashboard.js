@@ -162,7 +162,7 @@ const Dashboard = ({ children }) => {
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 
-            sessionStorage.setItem('userHasKnowledgeUploaded', profile.enterprise.information_filled)
+            sessionStorage.setItem('userHasKnowledgeUploaded', profile?.enterprise?.information_filled)
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)

@@ -22,6 +22,8 @@ const Invite = ({ setTeamModal }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [role, setRole] = useState('COLLABORATOR')
+
   const {
     register,
     handleSubmit,
@@ -34,8 +36,9 @@ const Invite = ({ setTeamModal }) => {
   });
 
   const onSubmit = async (data) => {
+
     setLoading(true);
-    const response = await InviteMembers({ email: data.email });
+    const response = await InviteMembers({ email: data.email, role: role });
     if (response?.status === 201) {
       dispatch(fetchMembers());
       setTeamModal(false);
@@ -48,23 +51,12 @@ const Invite = ({ setTeamModal }) => {
     }
   };
 
-  const [admin, setAdmin] = useState(false);
-  const [collab, setCollab] = useState(true);
-
-  const handlerAdminChecked = () => {
-    setAdmin(true);
-    setCollab(false);
-  };
-  const handlerCollaboratorChecked = () => {
-    setCollab(true);
-    setAdmin(false);
-  };
 
   return (
     <div className="p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="text-start block text-sm font-semibold text-heading  ">
-        Team Member Email <span className="text-[10px]">(required)</span>
+          Team Member Email <span className="text-[10px]">(required)</span>
         </p>
         <TextField
           className={`mt-2 py-3`}
@@ -116,14 +108,17 @@ const Invite = ({ setTeamModal }) => {
           </div>
         </div> */}
 
-        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${admin && ('bg-[#D4F1F4]')}`} onClick={handlerAdminChecked} >
-          <input id="admin" type="radio" checked={admin} value={admin} name="bordered-radio" className="w-4 h-4" />
-          <label for="admin" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Admins will be able to log in and help manage this integration.</label>
+        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${role == 'ADMINISTRATOR' && ('bg-[#D4F1F4]')}`} onClick={() => setRole('ADMINISTRATOR')} >
+          <input id="admin" type="radio" checked={role == 'ADMINISTRATOR'} name="bordered-radio" className="w-4 h-4" />
+          <label for="admin" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Admins can manage billing, DNS records, API's, and all bot settings.</label>
         </div>
-        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${collab && ('bg-[#D4F1F4]')}`} onClick={handlerCollaboratorChecked}>
-          <input checked={collab} id="collab" type="radio" value={collab} name="bordered-radio" className="w-4 h-4 " />
-          <label for="collab" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Collaborators can log in to view performance data, user feedback,
-            and access embed tools, but can't make changes.</label>
+        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${role == 'MEMBER' && ('bg-[#D4F1F4]')}`} onClick={() => setRole('MEMBER')}>
+          <input checked={role == 'MEMBER'} id="member" type="radio" name="bordered-radio" className="w-4 h-4 " />
+          <label for="member" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Members can edit all bot settings, but cannot adjust billing settings, DNS records, or create bots.</label>
+        </div>
+        <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${role == 'COLLABORATOR' && ('bg-[#D4F1F4]')}`} onClick={() => setRole('COLLABORATOR')}>
+          <input checked={role == 'COLLABORATOR'} id="collab" type="radio" name="bordered-radio" className="w-4 h-4 " />
+          <label for="collab" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Collaborators have view only access to all bot settings.</label>
         </div>
 
         {/* <div className="flex flex-row gap-4 mt-2">

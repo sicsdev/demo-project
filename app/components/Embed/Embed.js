@@ -54,7 +54,7 @@ const Embed = ({ form = true, setTotalRecords,
         };
       });
       setDetailsData(mergedArray);
-      setSkeleton(false)
+      // setSkeleton(false)
       // setTotalRecords(mergedArray)
     }
   }, [state.botData.data]);

@@ -55,6 +55,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const billingState = useSelector((state) => state.billing)
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
+    const userLoader = useSelector(state => state.user)
     const progressScrappingKnowledge = useSelector((state) => state.knowledgeScrapper.loader);
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
     const params = useSearchParams()
@@ -62,8 +63,10 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
     const [openInputConfigDomain, setOpenInputConfigDomain] = useState(false)
     const [domainFromEmail, setDomainFromEmail] = useState('')
+    const [loadingData, setLoadingData] = useState(true)
 
     const [isExpand, setIsExpand] = useState(true);
+    
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
@@ -216,6 +219,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         }
     ];
 
+
+    //// Use effects
+
+    // Params and helpers
+
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
         if (triggerBotParam) {
@@ -225,7 +233,17 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (Cookies.get('visit')) {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
         }
+
     }, []);
+
+    // Control loader after load data from redux
+
+    useEffect(() => {
+        if (userLoader.isLoading == false && members.isLoading == false) {
+            setLoadingData(false)
+        }
+
+    }, [members.isLoading, userLoader.isLoading]);
 
     useEffect(() => {
         if (members.data === null) {
@@ -310,7 +328,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     return (
 
         <>
-            {integrations && workflow && (
+            {integrations && workflow && !loadingData && (
                 <>
 
                     {
@@ -319,7 +337,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="text-center text-sm flex justify-center">
-                                        {loadingScrapper ?
+                                        {loadingData ?
                                             <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
                                             :
                                             <div>
@@ -336,7 +354,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                     }
 
 
-                    {loadingScrapper &&
+                    {loadingScrapper && billingState == "demo" &&
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
@@ -355,7 +373,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                     }
 
 
-                    {integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
+                    {!loadingData && integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0 && members?.data?.length > 1 ? null :
 
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div
@@ -363,13 +381,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                     }`}
                             >
                                 <div className="flex items-center  gap-2">
-                                    {loadingScrapper ?
+                                    {loadingData ?
                                         <SkeletonLoader className="mr-2" count={1} height={35} width={120} />
                                         :
                                         <BoltIcon className="text-[#FF822D] w-5" />
                                     }
                                     <p className="text-base font-medium text-[#151D23]">
-                                        {loadingScrapper ?
+                                        {loadingData ?
                                             <SkeletonLoader count={1} height={20} width="80%" />
                                             :
                                             "Quick Start"
@@ -379,7 +397,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {billingState !== "demo" &&
                                     (<div className="flex items-center gap-4 ">
-                                        {loadingScrapper ?
+                                        {loadingData ?
                                             <SkeletonLoader count={1} height={35} width={100} />
                                             :
                                             <button
@@ -421,7 +439,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                 }
 
                             </div>
-                            {user && user?.enterprise?.domain === "" ?
+                            {(!loadingData && user && user?.enterprise?.domain === "") ?
                                 <div
 
                                     className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"
@@ -456,7 +474,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                                                         <div className="flex gap-4 items-start items-center">
                                                                             <span>
-                                                                                {loadingScrapper ?
+                                                                                {loadingData ?
                                                                                     <SkeletonLoader count={1} height={35} width={35} />
                                                                                     :
                                                                                     <>
@@ -466,7 +484,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                                             </span>
                                                                             <div className="">
                                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                                    {loadingScrapper ?
+                                                                                    {loadingData ?
                                                                                         <SkeletonLoader count={1} height={30} width={"100%"} />
                                                                                         :
                                                                                         <>
@@ -475,7 +493,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                                                     }
                                                                                 </h3>
                                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                                    {loadingScrapper ?
+                                                                                    {loadingData ?
                                                                                         <SkeletonLoader count={2} height={30} width={"100%"} />
                                                                                         :
                                                                                         <>
@@ -501,7 +519,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                                                     className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
 
                                                                                 >
-                                                                                    {loadingScrapper ?
+                                                                                    {loadingData ?
                                                                                         <SkeletonLoader count={2} height={30} width={120} />
                                                                                         :
                                                                                         <>
@@ -529,67 +547,76 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                             }
                                         </>))}
 
-                                    <div key={'configDomainC'} className=''>
 
-                                        <div
-                                            className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
-                                            key={'configDomain'}
-                                        >
-
-                                            <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
-                                                <div className="flex w-full gap-4 items-start items-center">
-                                                    <span><EnvelopeOpenIcon className='h-5 w-5'></EnvelopeOpenIcon></span>
+                                    {loadingData ?
+                                        <SkeletonLoader count={1} height={35} width={35} />
+                                        :
+                                        <>
 
 
-                                                    <div className="w-full">
-                                                        {!openInputConfigDomain ?
-                                                            <>
-                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                            <div key={'configDomainC'} className=''>
 
-                                                                    Configure Email Settings
-                                                                </h3>
-                                                                <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                    Enter a subdomain to fully begin using your Smart Inbox.
-                                                                </p>
-                                                            </>
-                                                            :
-                                                            <input onChange={handleInputDomainValue} type="" id="inputDomain" className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                                                                placeholder="Enter full Email"
-                                                            />
-                                                        }
+                                                <div
+                                                    className="cursor-pointer hover:bg-[#151d230a] border-b border-[#F0F0F1] py-3 "
+                                                    key={'configDomain'}
+                                                >
 
+                                                    <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><EnvelopeOpenIcon className='h-5 w-5'></EnvelopeOpenIcon></span>
+
+
+                                                            <div className="w-full">
+                                                                {!openInputConfigDomain ?
+                                                                    <>
+                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                            Configure Email Settings
+                                                                        </h3>
+                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                            Enter a subdomain to fully begin using your Smart Inbox.
+                                                                        </p>
+                                                                    </>
+                                                                    :
+                                                                    <input onChange={handleInputDomainValue} type="" id="inputDomain" className="w-full border rounded-[4px] p-[7px] border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                                                                        placeholder="Enter full Email"
+                                                                    />
+                                                                }
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            {openInputConfigDomain ?
+                                                                <>
+                                                                    <button
+                                                                        onClick={() => handleDomainSlug()}
+                                                                        className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                        disabled={!domainFromEmail}
+                                                                    >
+                                                                        Submit
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                                    </button>
+                                                                </>
+                                                                :
+                                                                <button
+                                                                    onClick={() => setOpenInputConfigDomain(true)}
+                                                                    className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                >
+                                                                    Configure
+                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                                </button>
+                                                            }
+                                                        </div>
 
                                                     </div>
 
                                                 </div>
-                                                <div className="flex justify-end gap-2">
-                                                    {openInputConfigDomain ?
-                                                        <>
-                                                            <button
-                                                                onClick={() => handleDomainSlug()}
-                                                                className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-                                                                disabled={!domainFromEmail}
-                                                            >
-                                                                Submit
-                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                            </button>
-                                                        </>
-                                                        :
-                                                        <button
-                                                            onClick={() => setOpenInputConfigDomain(true)}
-                                                            className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-                                                        >
-                                                            Configure
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </button>
-                                                    }
-                                                </div>
 
                                             </div>
-
-                                        </div>
-
-                                    </div>
+                                        </>
+                                    }
 
                                 </div>
                                 :
@@ -605,7 +632,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                 >
 
                                     <p className="px-6 text-[#151D23] text-sm pb-5">
-                                        {loadingScrapper ?
+                                        {loadingData ?
                                             <SkeletonLoader count={1} height={20} width={100} />
                                             :
                                             "A few essential steps to get you up and running with Deflection AI immediately."
@@ -613,7 +640,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                     </p>
 
-                                    {quickStartData?.map((ele, key) => {
+                                    {!loadingData && quickStartData?.map((ele, key) => {
                                         const shouldHide = setHideShow(key);
                                         if (shouldHide === false) return null;
                                         return <div key={key}>
@@ -628,7 +655,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                         <div className="sm:w-[70%] flex gap-2  items-start">
 
                                                             <span>
-                                                                {loadingScrapper ?
+                                                                {loadingData ?
                                                                     <SkeletonLoader count={1} height={30} width={30} />
                                                                     : <>
                                                                         {ele?.icon}
@@ -639,7 +666,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                             <div className="">
 
                                                                 <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                    {loadingScrapper ?
+                                                                    {loadingData ?
                                                                         <SkeletonLoader count={1} height={30} width={220} />
                                                                         : <>
                                                                             {ele?.title}
@@ -648,7 +675,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                                 </h3>
 
                                                                 <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                    {loadingScrapper ?
+                                                                    {loadingData ?
                                                                         <SkeletonLoader count={2} height={20} width={440} />
                                                                         :
                                                                         <>
@@ -662,7 +689,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                         </div>
 
                                                         <div className="sm:w-[10%] sm:ml-0 ml-[28px] ">
-                                                            {loadingScrapper ?
+                                                            {loadingData ?
                                                                 <SkeletonLoader count={1} height={30} width={80} />
                                                                 : <>
                                                                     <Link
@@ -695,90 +722,90 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             }
                         </div>
                     }
-                </>
-            )}
-            {recentlyView && (
-                <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
-                    <div className='py-4 px-6'>
-                        <div className="flex items-center  gap-2">
-                            {loadingScrapper ?
-                                <SkeletonLoader count={1} height={30} width={150} />
-                                :
-                                <>
-                                    <EyeIcon className="text-[#FF822D] w-5" />
 
-                                    <p className="leading-[0px] text-base font-medium text-[#151D23]">
-                                        Recently Viewed
-                                    </p>
-                                </>
-                            }
-                        </div>
-                        <div className='flex gap-4'>
-                            {recentlyView.map((ele, key) =>
-                                <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
-                                    {ele?.subheading && (
-                                        <p className='text-border  font-semibold text-[12px]'>
-                                            {loadingScrapper ?
-                                                <SkeletonLoader count={1} height={20} width="50%" />
-                                                :
-                                                <>
-                                                    {ele.subheading}
-                                                </>
-                                            }
-                                        </p>
-                                    )}
-                                    <p className='mt-2 text-base font-medium text-[#151D23]'>
-                                        {loadingScrapper ?
-                                            <SkeletonLoader count={1} height={25} width="70%" />
-                                            :
-                                            <>
-                                                {ele.name}
-                                            </>
-                                        }
-                                    </p>
-                                    {loadingScrapper ?
-                                        <SkeletonLoader count={1} height={35} width={40} />
+                    {recentlyView && (
+                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                            <div className='py-4 px-6'>
+                                <div className="flex items-center  gap-2">
+                                    {loadingData ?
+                                        <SkeletonLoader count={1} height={30} width={150} />
                                         :
                                         <>
-                                            {findIcon(ele.route)}
+                                            <EyeIcon className="text-[#FF822D] w-5" />
+
+                                            <p className="leading-[0px] text-base font-medium text-[#151D23]">
+                                                Recently Viewed
+                                            </p>
                                         </>
                                     }
-                                    <Link href={ele.route}>
-                                        <div className='mt-2'>
-                                            {loadingScrapper ?
-                                                <SkeletonLoader count={1} height={30} width="50%" />
-                                                :
-                                                <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
-                                            }
-                                        </div>
-                                    </Link>
                                 </div>
-                            )}
+                                <div className='flex gap-4'>
+                                    {recentlyView.map((ele, key) =>
+                                        <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
+                                            {ele?.subheading && (
+                                                <p className='text-border  font-semibold text-[12px]'>
+                                                    {loadingData ?
+                                                        <SkeletonLoader count={1} height={20} width="50%" />
+                                                        :
+                                                        <>
+                                                            {ele.subheading}
+                                                        </>
+                                                    }
+                                                </p>
+                                            )}
+                                            <p className='mt-2 text-base font-medium text-[#151D23]'>
+                                                {loadingData ?
+                                                    <SkeletonLoader count={1} height={25} width="70%" />
+                                                    :
+                                                    <>
+                                                        {ele.name}
+                                                    </>
+                                                }
+                                            </p>
+                                            {loadingData ?
+                                                <SkeletonLoader count={1} height={35} width={40} />
+                                                :
+                                                <>
+                                                    {findIcon(ele.route)}
+                                                </>
+                                            }
+                                            <Link href={ele.route}>
+                                                <div className='mt-2'>
+                                                    {loadingData ?
+                                                        <SkeletonLoader count={1} height={30} width="50%" />
+                                                        :
+                                                        <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                    }
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
                         </div>
+                    )}
+
+                    <ChatBots setSkeleton={setLoadingData} skeleton={loadingData} />
+
+
+
+                    <Modal title={`How to pass user's data to your widget`}
+                        show={metaDataInfoModal}
+                        setShow={setMetaDataInfoModal}
+                        showCancel={true}
+                        className={"pt-5 lg:w-1/2 m-auto"} >
+                        <MetaDataInfo></MetaDataInfo>
+                    </Modal >
+                    <div className='w-100 flex justify-center mt-5'>
+                        <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
+                            <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
+
+                            Learn how to pass user's data to your widget
+                        </button>
                     </div>
-                </div>
+
+                </>
             )}
-
-            <ChatBots setSkeleton={setloadingScrapper} skeleton={loadingScrapper} />
-
-
-
-            <Modal title={`How to pass user's data to your widget`}
-                show={metaDataInfoModal}
-                setShow={setMetaDataInfoModal}
-                showCancel={true}
-                className={"pt-5 lg:w-1/2 m-auto"} >
-                <MetaDataInfo></MetaDataInfo>
-            </Modal >
-            <div className='w-100 flex justify-center mt-5'>
-                <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
-                    <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
-
-                    Learn how to pass user's data to your widget
-                </button>
-            </div>
-
-
         </>
 
 

@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import { setLoader, updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
 
-const ProgressBarComponent = ({ totalLoadingTime = 3000, timer = 1.1111, finishing, finished }) => {
-    console.log("finishing", finishing)
-    console.log("finished", finished)
+const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finishing, finished }) => {
+
     // const [progress, setProgress] = useState(0);
     const dispatch = useDispatch()
     const progress = useSelector((state) => state.knowledgeScrapper.loader);
@@ -19,13 +18,13 @@ const ProgressBarComponent = ({ totalLoadingTime = 3000, timer = 1.1111, finishi
         const totalTime = totalLoadingTime; // Total duration in milliseconds (1.5 seconds)
         const intervalTime = getRandomInterval(1, 500);
         const steps = totalTime / intervalTime; // Number of necessary steps
-        const increment = 80 / steps; // Increment value to reach 100%        
+        const increment = 5 / steps; // Increment value to reach 100%        
 
 
         let currentProgress = progress;
 
         const interval = setInterval(() => {
-            if (currentProgress < 100) {
+            if (currentProgress < 100 && (currentProgress + increment != 100)) {
                 currentProgress += increment;
                 dispatch(setLoader(currentProgress));
             } else {

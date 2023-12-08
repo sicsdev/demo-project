@@ -12,5 +12,15 @@ export const getPaymentHistory = async (stripe_customer_id) => {
     }
 };
 
+export const getBillingByBotID = async (botId) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/payments/stripe-payments-history/bot/${botId}`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+};
+
 
 

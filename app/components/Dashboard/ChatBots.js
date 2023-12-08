@@ -47,7 +47,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
         if (bot?.status === 201) {
             const enterprise = await createEnterpriseAccount({ slug_domain: state?.enterprise?.domain })
             if (enterprise?.status === 201 || enterprise?.status === 200) {
-                 
+
                 setBasicFormData((prev) => {
                     return {
                         ...prev,
@@ -89,7 +89,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
         <>
             <div className='bg-[#F8F8F8] w-full lg:w-[768px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                 {
-                    skeleton === true ? (
+                    skeleton ? (
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 border-b border-[#F0F0F1]`}>
                             <div className='flex items-center justify-center gap-2'>
                                 <SkeletonLoader count={1} height={40} width={100} />
