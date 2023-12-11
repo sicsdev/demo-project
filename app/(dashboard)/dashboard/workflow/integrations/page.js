@@ -85,6 +85,7 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
+      console.log("dataTemp", dataTemplates)
       const popIntegrations = await addNewDomain({ domain: newPopular })
       let custom_integrations = null
       if (state && state?.data && state?.data?.results) {
