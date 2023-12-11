@@ -45,7 +45,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [loading, setLoading] = useState(false)
     const [externalTitleForSnippet, setExternalTitleForSnippet] = useState('Products')
     const [currentOpenedProduct, setCurrentOpenedProduct] = useState(null)
-  const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
+    const [deleteWorkflowModal, setDeleteWorkflowModal] = useState(false);
 
 
     // **
@@ -70,7 +70,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
     const handleAutoOpenKnowledge = async (id) => {
         let knowledgeItem = await getFaqQuestionById(id)
-        if (knowledgeItem?.id) {setSelected(knowledgeItem)}
+        if (knowledgeItem?.id) { setSelected(knowledgeItem) }
     }
 
 
@@ -289,6 +289,17 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     }
                     <span className="text-xs font-semibold">{row?.knowledge?.source}</span>
                 </div>
+            ),
+        },
+        {
+            name: "Last usage 24hrs.",
+            selector: (row, index) => row.knowledgefaq_usage_last_24_hours,
+            sortable: false,
+            reorder: false,
+            minWidth: "200px",
+            padding: "12px",
+            cell: (row) => (
+                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.knowledgefaq_usage_last_24_hours}</p>
             ),
         },
         {
@@ -512,11 +523,11 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                     }}
                         deleteButton={true}
                         data={selected}
-                        deleteRecord={(id) => deleteRecord(id)} 
+                        deleteRecord={(id) => deleteRecord(id)}
                         setDeleteWorkflowModal={setDeleteWorkflowModal}
                         deleteWorkflowModal={deleteWorkflowModal}
-                        
-                        >
+
+                    >
 
                         <div className={"border-b-2 my-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                             <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">

@@ -56,7 +56,7 @@ const Source = () => {
                 isLoading: true
             }
         })
-        const response = await getFaqQuestions(queryParam)
+        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {
