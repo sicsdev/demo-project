@@ -607,7 +607,7 @@ const NewSidebar = ({ children }) => {
                                                         ) : (
 
 
-                                                            ((ele.name == 'Phone' && state.email !== 'admin@tempowidgets.com') ? '' :
+                                                            ((ele.name == 'Phone' && state?.email !== 'admin@tempowidgets.com') ? '' :
                                                                 <Link
                                                                     href={ele.href}
                                                                     onClick={() => handlerclosemenu(ele.href)}
