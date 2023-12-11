@@ -1,5 +1,4 @@
 export const getPermissionHelper = (type, role) => {
-    console.log(type, role)
 
     switch (type) {
 

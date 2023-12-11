@@ -286,7 +286,7 @@ const Logs = () => {
         ...results.map((item) => ({
           name: item.name,
           value: item.id,
-          successfully_used: item.successful_automation_usage_count
+          successfully_used: item.successful_automation_usage_last_24_hours_count
         })),
       ];
 
@@ -294,7 +294,6 @@ const Logs = () => {
 
       // Order array filterDefaultNames + to - by successfully_used
       filterDefaultNames.sort((a, b) => b.successfully_used - a.successfully_used);
-
       setUserWorkflows(filterDefaultNames);
     }
   };
@@ -678,17 +677,17 @@ const Logs = () => {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
 
-      if ((new Date(selectedFilters.created__gte) > new Date(selectedFilters.created__lte)) || (new Date(selectedFilters.created__lte) < new Date(selectedFilters.created__gte))) {
-        console.log("error")
-      
-        setSelectedFilters((prevFilters) => ({
-          ...prevFilters,
-          'created__lte': 'all',
-        }))
+    if ((new Date(selectedFilters.created__gte) > new Date(selectedFilters.created__lte)) || (new Date(selectedFilters.created__lte) < new Date(selectedFilters.created__gte))) {
+      console.log("error")
 
-      } else {
-        console.log("successfull")
-      }
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        'created__lte': 'all',
+      }))
+
+    } else {
+      console.log("successfull")
+    }
 
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
 
@@ -733,7 +732,6 @@ const Logs = () => {
       },
     },
   ];
-
   return (
     <>
       <div>
@@ -1036,41 +1034,7 @@ const Logs = () => {
                     />
                   </div>
                 )}
-                {/* <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.viewed || ""}
-                  name="viewed"
-                  values={[
-                    { name: "Select", value: "all" },
-                    { name: "Viewed", value: true },
-                    { name: "Not viewed", value: false },
-                  ]}
-                  title={<h3 className="text-sm my-4 font-semibold">Viewed</h3>}
-                  id={"viewed"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.for_review || ""}
-                  name="for_review"
-                  values={[
-                    { name: "Select", value: "all" },
-                    { name: "For review", value: true },
-                  ]}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">For review</h3>
-                  }
-                  id={"for_review"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div> */}
+            
                 <div className="flex justify-between items-center gap-2 mb-[15px]">
                   <div className="w-full mt-4">
                     <div className={`inline`}>
