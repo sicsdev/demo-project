@@ -1,7 +1,7 @@
 import { deleteNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import TextArea from '../../../Common/Input/TextArea';
 import DataTable from 'react-data-table-component';
@@ -14,6 +14,10 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const [textAreaValue, setTextAreaValue] = useState('')
     const [editingId, setEditingId] = useState('')
     const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        getAllNegatives()
+    }, [negativeQuestions])
 
     const columns = [
         {

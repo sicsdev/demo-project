@@ -14,6 +14,11 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
     const [itemsSelected, setItemsSelected] = useState([])
     const [editing, setEditing] = useState(false)
 
+
+    useEffect(() => {
+        getAllNegatives()
+    }, [negativeQuestions])
+
     const columns = [
         {
             name: (itemsSelected.length > 0 ?
@@ -111,7 +116,6 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
             items.push(e.id)
         })
 
-        console.log(items)
         setItemsSelected(items)
     }
 
