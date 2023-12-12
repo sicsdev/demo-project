@@ -38,6 +38,14 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
         setTimeout(() => {
             setSkeletonLoading(false);
         }, 300);
+
+        let defaultTab = params.get('tab')
+        if (defaultTab == 'files') {
+            setFilterhead("File")
+            setShowSourceFilter(false)
+            setCurrentTab('file')
+        }
+        
     }, []);
 
     useEffect(() => {
@@ -93,7 +101,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
 
 
-    const handleSubmit = async (value) => {         
+    const handleSubmit = async (value) => {
         setLoading(true)
         let payload = {}
         switch (value.type) {

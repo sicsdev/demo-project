@@ -60,6 +60,17 @@ export const uploadImage = async (body, id) => {
     }
 };
 
+export const getCustomerFiles = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/bots/${id}/customer-files/`, config);
+        console.log(response)
+        return response;
+    } catch (error) {
+        return error
+    }
+};
+
 export const addNewDomain = async (body) => {
     let config = returnConfig()
     try {

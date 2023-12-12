@@ -20,7 +20,7 @@ import {
     CodeBracketIcon,
 } from "@heroicons/react/24/outline";
 import ChatBots from './ChatBots';
-import { ManageExpand, setDomainSlug } from '@/app/API/pages/EnterpriseService';
+import { ManageExpand, getCustomerFiles, setDomainSlug, uploadImage } from '@/app/API/pages/EnterpriseService';
 import { fetchMembers } from '../store/slices/memberSlice';
 import Modal from '../Common/Modal/Modal';
 import MetaDataInfo from './MetaDataInfo';
@@ -32,6 +32,9 @@ import { fetchProfile } from '../store/slices/userSlice';
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
     const router = useRouter();
+    const params = useSearchParams()
+
+
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
@@ -40,10 +43,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const members = useSelector((state) => state.members);
     const user = useSelector(state => state.user.data)
     const userLoader = useSelector(state => state.user)
+    const botData = useSelector(state => state.botId)
     const progressScrappingKnowledge = useSelector((state) => state.knowledgeScrapper.loader);
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
-    const params = useSearchParams()
 
+    const [showTicketHistory, setShowTicketHistory] = useState(false)
     const [metaDataInfoModal, setMetaDataInfoModal] = useState(false)
     const [openInputConfigDomain, setOpenInputConfigDomain] = useState(false)
     const [domainFromEmail, setDomainFromEmail] = useState('')
@@ -51,7 +55,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [profileComplete, setProfileComplete] = useState(false)
 
     const [isExpand, setIsExpand] = useState(true);
-
 
     const SideBarRoutes = [
         {
@@ -127,11 +130,8 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         }
     ];
 
-
     //// Use effects
-
-    // Params and helpers
-
+    // Params and local storages
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
         if (triggerBotParam) {
@@ -141,61 +141,54 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (Cookies.get('visit')) {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
         }
-
     }, []);
 
     // Control loader after load data from redux
-
     useEffect(() => {
-        if (userLoader.isLoading == false && members.isLoading == false && workflow.isLoading == false && integrations.isLoading == false && billingState !== null) {
+        if (userLoader.isLoading == false && members.isLoading == false && workflow.isLoading == false && integrations.isLoading == false && billingState !== null && botData.botData.isLoading == false) {
             setLoadingData(false)
         }
-        if (integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0]?.automations?.length > 0 && members?.data?.length > 1) {
+        if (integrations?.data?.results?.length > 0 && workflow?.data?.results?.length > 0 && workflow?.data?.results[0]?.automations?.length > 0 && members?.data?.length > 1 && !showTicketHistory) {
             setProfileComplete(true)
         }
 
     }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data]);
 
+
+    // Initializers 
     useEffect(() => {
-        if (members.data === null) {
-            dispatch(fetchMembers());
+        if (members.data === null) { dispatch(fetchMembers()); }
+        if (user) { setIsExpand(user?.show_quick_start) }
+        if (!showTicketHistory) { handleShowTickets() }
+    }, [members.data, user, botData]);
+
+
+
+
+
+
+    // Main functions
+
+
+    const handleShowTickets = async () => {
+        let infoFinder = false;
+
+        if (botData?.botData?.data?.bots) {
+            for (const bot of botData.botData.data.bots) {
+                let botinfo = await getCustomerFiles(bot.id);
+                console.log(botinfo?.data?.results);
+                if (botinfo?.data?.results) {
+                    infoFinder = true;
+                    break; // Stop if we have results, meaning not show ticket upload item. 
+                }
+            }
+
+            if (!infoFinder) {
+                setShowTicketHistory(true); // If we dont find items, we will show the ticket upload item.
+            }
         }
-    }, [members.data]);
-
-    useEffect(() => {
-        if (user) {
-            setIsExpand(user?.show_quick_start)
-        }
-    }, [user])
-
-
-    const setHideShow = (value) => {
-        if (integrations && workflow && members) {
-            if (value === 0) {
-                if (integrations?.data?.results?.length > 0) {
-                    return false
-                }
-            }
-            if (value === 1) {
-                if (workflow?.data?.results?.length > 0 && workflow?.data?.results[0].automations.length > 0) {
-                    return false
-                }
-            }
-            if (value === 2) {
-                if (workflow?.data?.results?.length > 0) {
-                    return false
-                }
-            }
-            if (value === 3) {
-                if (members?.data?.length > 1) {
-                    return false
-                }
-            }
-            return true
-
-        }
-
     }
+
 
     const findIcon = (route) => {
         const findData = SideBarRoutes.find((x) => x?.href === route)
@@ -576,6 +569,30 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                                     </div>
                                                 </div>}
 
+
+
+                                            {/* Upload Email or Ticket History (Only if there is no upload info for any bot) */}
+
+                                            {showTicketHistory &&
+                                                < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
+                                                    <div className="flex w-full gap-4 items-start items-center">
+                                                        <span><EnvelopeOpenIcon className='w-5 h-5 ' /></span>
+                                                        <div className="w-full">
+                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                Upload Email or Ticket History
+                                                            </h3>
+                                                            <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex justify-end gap-2">
+                                                        <Link href='/dashboard/basic-knowledge/source?tab=files' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                            Upload
+                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                        </Link>
+                                                    </div>
+                                                </div>}
 
 
                                         </div>
