@@ -286,17 +286,25 @@ const Logs = () => {
         ...results.map((item) => ({
           name: item.name,
           value: item.id,
-          successfully_used: item.successful_automation_usage_last_24_hours_count
+          successfully_used: item.successful_automation_usage_last_24_hours_count,
+          successfully_used_total: item.successful_automation_usage_count
         })),
       ];
 
       let filterDefaultNames = values.filter(val => val.name !== 'Default_name');
 
-      // Order array filterDefaultNames + to - by successfully_used
-      filterDefaultNames.sort((a, b) => b.successfully_used - a.successfully_used);
+      // Ordenar primero por successfully_used y luego por successfully_used_total en caso de empate
+      filterDefaultNames.sort((a, b) => {
+        if (b.successfully_used - a.successfully_used === 0) {
+          return b.successfully_used_total - a.successfully_used_total;
+        }
+        return b.successfully_used - a.successfully_used;
+      });
+
       setUserWorkflows(filterDefaultNames);
     }
-  };
+  }
+
 
 
   useEffect(() => {
@@ -1034,7 +1042,7 @@ const Logs = () => {
                     />
                   </div>
                 )}
-            
+
                 <div className="flex justify-between items-center gap-2 mb-[15px]">
                   <div className="w-full mt-4">
                     <div className={`inline`}>
@@ -1154,9 +1162,7 @@ const Logs = () => {
           <>
             <div
               className="rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
-              onClick={() => {
-                router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('')
-              }}
+              onClick={() => { router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('') }}
             >
               {" "}
             </div>
