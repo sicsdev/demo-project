@@ -68,7 +68,7 @@ const Page = () => {
               Invite and manage team members to your account.
             </p>
           </div>
-          {getPermissionHelper('INVITE TEAM MEMBER', userState.role) && <div>
+          {getPermissionHelper('INVITE TEAM MEMBER', userState?.role) && <div>
             <Button
               type={"button"}
               onClick={(e) => {

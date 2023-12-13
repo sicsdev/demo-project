@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 
-const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
+const ColorSelector = ({ colorCodes, onChange, selectedColor, label, disabled }) => {
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
+    if (disabled) return
     setShowDropdown(!showDropdown);
     setClickedOutside(false);
   };
@@ -69,7 +70,7 @@ const ColorSelector = ({ colorCodes, onChange, selectedColor, label }) => {
                 ))}
               </div>
             )}
-            
+
           </div>
         )}
       </div>

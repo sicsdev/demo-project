@@ -9,12 +9,16 @@ import FileField from "../Common/Input/FileField";
 import { getAvailableMobileNumbers } from "@/app/API/components/PhoneNumber";
 import Button from "../Common/Button/Button";
 import { ChevronLeftIcon, PhoneIcon } from "@heroicons/react/24/outline";
+import { useSelector } from "react-redux";
+import { getPermissionHelper } from "../helper/returnPermissions";
 
 const EmailAgentSetting = ({
   basicFormData,
   setBasicFormData,
   form = true,
 }) => {
+  const userState = useSelector((state) => state.user.data);
+
   const [errors, setErrors] = useState(null);
   const [email_Prefix, setEmail_Prefix] = useState(
     basicFormData?.email_prefix ?? "{email_Prefix}"
@@ -136,6 +140,8 @@ const EmailAgentSetting = ({
             type={"text"}
             id={"company_name"}
             error={returnErrorMessage("company_name")}
+            disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
+
           />
         </div>
 
@@ -164,6 +170,8 @@ const EmailAgentSetting = ({
             type={"text"}
             id={"custom_email"}
             error={returnErrorMessage("custom_email")}
+            disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
+
           />
         </div>
 

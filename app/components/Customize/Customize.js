@@ -17,6 +17,7 @@ import LoaderButton from "../Common/Button/Loaderbutton";
 import SideModal from "../SideModal/SideModal";
 import { getActiveIntegrations } from "@/app/API/pages/Integration";
 import { EyeIcon } from "@heroicons/react/24/solid";
+import { getPermissionHelper } from "../helper/returnPermissions";
 const Customize = ({
   form = false,
   basicFormData,
@@ -25,6 +26,7 @@ const Customize = ({
   DisablingButton,
   SubmitForm,
 }) => {
+  const userState = useSelector((state) => state.user.data)
   const [botDetails, setBotDetails] = useState({});
   const [bot_id, setBot_id] = useState("");
   const id = useSelector((state) => state.botId.id);
@@ -131,7 +133,7 @@ const Customize = ({
         };
       });
       setBotDetails(res[0].data);
-       ;
+      ;
       setPreferences(res[0].data);
       setBlockedUrls(res[0].data.origins_blocked ?? []);
       let data = res[0].data;
@@ -511,6 +513,7 @@ const Customize = ({
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat title"
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                     />
                   </div>
                 </div>
@@ -530,6 +533,8 @@ const Customize = ({
                       type="text"
                       className="w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter description"
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                     />
                   </div>
                 </div>
@@ -539,12 +544,14 @@ const Customize = ({
                   colorCodes={colorCodes}
                   onChange={handlePrimaryColorChange}
                   label="Primary Color"
+                  disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                 ></ColorSelector>
                 <ColorSelector
                   selectedColor={preferences.secondary_color}
                   colorCodes={colorCodes}
                   onChange={handleSecondaryColorChange}
                   label="Secondary Color"
+                  disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                 ></ColorSelector>
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
@@ -558,6 +565,7 @@ const Customize = ({
                       value={preferences.widget_location}
                       name="widget_location"
                       onChange={handleInputChange}
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                       className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                     >
                       <option value="bottom_right">Bottom Right</option>
@@ -619,6 +627,7 @@ const Customize = ({
                         placeholder="Select logo"
                         name="logo"
                         onChange={handleFileChange}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                       />
                     </label>
                   </div>
@@ -638,6 +647,7 @@ const Customize = ({
                         value={preferences.human_handoff_platform}
                         name="human_handoff_platform"
                         onChange={handleInputChange}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
                         className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400 0 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 border-input_color"
                       >
                         <option value="">Email</option>
@@ -665,6 +675,8 @@ const Customize = ({
                       type="email"
                       className="w-full block px-3 new_input bg-white focus:bg-white  border rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter customer service email"
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                     />
                   </div>
                 </div>
@@ -683,6 +695,8 @@ const Customize = ({
                       className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                       placeholder="Enter chat default message"
                       rows={"1"}
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                     >
                       {preferences.chat_default_message}
                     </textarea>
@@ -738,6 +752,8 @@ const Customize = ({
                         className={` block  px-2 py-2 !font-[500] bg-white focus:bg-white  rounded-md  text-sm  !placeholder-[#C7C6C7]  focus:outline-none border  disabled:bg-slate-50 disabled:text-slate-500 outline-none focus:!border-none  w-full  border-none ring-0 focus-visible:border-none`}
                         id={"chat_suggestions"}
                         name={"chat_suggestions"}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                       />
                     </div>
                   </div>
@@ -758,6 +774,8 @@ const Customize = ({
                         onChange={handleCheckBoxChange}
                         className="sr-only peer"
                         checked={preferences.active === true}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                       />
                       <div
                         className={`w-11 h-6 ${preferences.active === false
@@ -784,6 +802,8 @@ const Customize = ({
                         onChange={handleCheckBoxChange1}
                         className="sr-only peer"
                         checked={preferences.chat_suggestions_show === true}
+                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+
                       />
                       <div
                         className={`w-11 h-6 ${preferences.chat_suggestions_show === false
@@ -808,6 +828,7 @@ const Customize = ({
                         type={"button"}
                         className="inline-block mt-0 rounded bg-primary px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
                         onClick={() => setShowManageHideUrls(true)}
+
                       >
                         Manage URLs
                       </Button>
@@ -817,7 +838,7 @@ const Customize = ({
               </div>
 
 
-      
+
 
               <div className="lg:hidden justify-end items-center px-2 mt-5 pt-5">
                 <div className='border border-b border-lowgray'></div>
@@ -970,7 +991,7 @@ const Customize = ({
                       <Button
                         type={"button"}
                         className="inline-block rounded bg-primary mt-2 px-6 pb-2 pt-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                        disabled={DisablingButton()}
+                        disabled={DisablingButton() || !(getPermissionHelper('EDIT BOT SETTINGS', userState?.role))}
                         onClick={(e) => SubmitForm()}
                       >
                         Save

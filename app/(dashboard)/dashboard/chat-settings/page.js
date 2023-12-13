@@ -23,6 +23,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 const page = () => {
+  const userState = useSelector((state) => state.user.data) 
   const [pageLoading, setPageLoading] = useState(true);
   const [tab, setTab] = useState(0);
   const [pageSubLoading, setSubLoading] = useState(true);

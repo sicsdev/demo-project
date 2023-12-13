@@ -36,6 +36,7 @@ import Button from "@/app/components/Common/Button/Button";
 import { ToastContainer } from "react-toastify";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowledge";
+import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -770,18 +771,23 @@ const Logs = () => {
                   <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
               </div>
-              {
-                exportLoader === true ?
-                  <LoaderButton name={"Exporting"} className={`inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
-                  <Button
-                    type={"button"}
-                    className="inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                    disabled={selectedBot === 'Select'}
-                    onClick={(e) => exportCsvHandler(e)}
-                  >
-                    Export CSV
-                  </Button>
-              }
+
+              {getPermissionHelper('EXPORT LOGS CSV', userState?.role) &&
+                <div>
+                  {
+                    exportLoader === true ?
+                      <LoaderButton name={"Exporting"} className={`inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                      <Button
+                        type={"button"}
+                        className="inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        disabled={selectedBot === 'Select'}
+                        onClick={(e) => exportCsvHandler(e)}
+                      >
+                        Export CSV
+                      </Button>
+                  }
+                </div>}
+                
             </div>
           )}
         </>

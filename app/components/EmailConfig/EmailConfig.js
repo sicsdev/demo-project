@@ -7,8 +7,12 @@ import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import SelectField from "../Common/Input/SelectField";
 import Card from "../Common/Card/Card";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getPermissionHelper } from "../helper/returnPermissions";
 const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
   const [errors, setErrors] = useState([]);
+  const userState = useSelector((state) => state.user.data);
+
   const [tileAgentName, setTileAgentName] = useState([]);
   const [formValues, setFormValues] = useState({
     email_introduction: basicFormData?.email_introduction ?? "",
@@ -222,6 +226,8 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
             type={"text"}
             id={"agent_title"}
             error={returnErrorMessage("agent_title")}
+            disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
+
           />
         </div>
         <div className="my-2">
@@ -259,6 +265,8 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                 className={`new_input block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white`}
                 id={"agent_name"}
                 name={"agent_name"}
+                disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
+
               />
 
               <div style={{ rowGap: "5px" }} className={` ${tileAgentName?.length > 0 ? 'py-1' : ''} flex flex-wrap items-center justify-start gap-1 my-2`}>
@@ -269,9 +277,11 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
                       key={key}
                     >
                       {makeCapital(element.trim())}
+
                       <XMarkIcon
                         className=" h-4 w-4 cursor-pointer "
                         onClick={(e) => {
+                          if (!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)) { return }
                           RemoveFromAgentNameArr(element);
                         }}
                       />

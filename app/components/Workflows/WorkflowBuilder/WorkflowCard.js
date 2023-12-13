@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 
 const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, setShowActive, setTab }) => {
     const router = useRouter()
-
+console.log('itetemmm', item)
     const [updateStatusLoader, setUpdateStatusLoader] = useState(false)
     const userState = useSelector((state) => state.user.data)
     const redirectToLogs = (e) => {
@@ -230,7 +230,7 @@ const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, 
 
                     </p>
                 </div>
-                {(item?.workflow_usage == 0 || getPermissionHelper('DEACTIVATE WORKFLOW', userState?.role)) &&
+                {(item?.workflow_usage_last_24_hours == 0 || getPermissionHelper('DEACTIVATE WORKFLOW', userState?.role)) &&
                     <div className='absolute w-full bottom-0 flex items-center justify-end'>
                         <div className=' text-end'>
                             {/* <p className='text-xs text-[#151d23cc]'>
