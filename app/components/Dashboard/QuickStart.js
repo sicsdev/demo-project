@@ -28,6 +28,7 @@ import Method from '../NewPaymentMethod/Method';
 import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchProfile } from '../store/slices/userSlice';
+import { fetchBot } from '../store/slices/botIdSlice';
 
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
@@ -152,7 +153,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             setProfileComplete(true)
         }
 
-    }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data]);
+    }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data, botData.botData, billingState]);
 
 
     // Initializers 
@@ -186,6 +187,8 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             if (!infoFinder) {
                 setShowTicketHistory(true); // If we dont find items, we will show the ticket upload item.
             }
+        } else {
+            dispatch(fetchBot())
         }
     }
 
