@@ -85,21 +85,15 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      console.log("dataTemp", dataTemplates)
       const popIntegrations = await addNewDomain({ domain: newPopular })
       let custom_integrations = null
       if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
-        console.log("cuaomer", custom_integrations)
       }
 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
         let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
-        console.log("finalIntegrationPopularData", finalIntegrationPopularData);
         const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
-        console.log("filterDataPopular", filterDataPopular);
-        console.log("dataTemplates", dataTemplates);
-
         const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
           logo: item.icon ?? findIconValue(item.name),
