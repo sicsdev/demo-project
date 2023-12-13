@@ -832,9 +832,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                     element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
                                                                         {element.human_handoff_type && element.human_handoff_type == 'email' ? 
-                                                                        `INFO: User filled human escalation form and was transferred by ${element.human_handoff_type}.` 
+                                                                        `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.` 
                                                                         : 
-                                                                        'INFO: User clicked phone option and phone number was shown.'
+                                                                        'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
                                                                         }
                                                                     </>
                                                                 }
