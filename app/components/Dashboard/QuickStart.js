@@ -268,11 +268,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                 <div className='w-full mx-5'>
                                     <span className="flex justify-center text-sm mb-2">
-                                        {loadingScrapper ?
-                                            <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
-                                            :
-                                            "Please wait while we configure your custom Deflection bot."
-                                        }
+                                        Please wait while we configure your custom Deflection bot.
                                     </span>
                                     <ProgressBarComponent totalLoadingTime={2000} finishing={finishingScrapping} finished={finishedScrapper} />
                                     <div className='border-b border-lowgray pt-5'></div>
