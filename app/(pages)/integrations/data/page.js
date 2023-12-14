@@ -37,7 +37,7 @@ const page = () => {
     const getSingleArticle = async () => {
         if (slug) {
             const findData = data.find((x) => x.slug === slug)
-            const entry = await client.getEntry(findData.id);
+            const entry = await client.getEntry(findData?.id);
             console.log("object, entry", entry);
             setArticle(entry?.fields?.integrationBody);
             setHeading(entry?.fields?.heading)

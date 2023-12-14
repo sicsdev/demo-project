@@ -49,7 +49,6 @@ if (x=1){
 }
   };
 
-
   const getRelatedBlogs = async (tag, heading) => {
     const entry = await client.getEntries({
       content_type: "blogs",
