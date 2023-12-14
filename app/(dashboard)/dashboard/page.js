@@ -61,7 +61,6 @@ const Page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`Home`} icon={<UsersIcon className="h-5 w-5 text-primary" />} />
             <QuickStart loadingScrapper={loadingScrapper} setloadingScrapper={setLoadingScrapper} finishingScrapping={finishingScrapping} finishedScrapper={finishedScrapper} />
         </div>
     );

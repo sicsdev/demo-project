@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -29,6 +29,7 @@ import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchProfile } from '../store/slices/userSlice';
 import { fetchBot } from '../store/slices/botIdSlice';
+import TopBar from '../Common/Card/TopBar';
 
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
     const dispatch = useDispatch();
@@ -235,8 +236,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     return (
 
         <>
+            <TopBar loader={loadingData} title={`Home`} icon={<UsersIcon className="h-5 w-5 text-primary" />} />
+
             {!loadingData ? (
                 <>
+
 
                     {
                         billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&

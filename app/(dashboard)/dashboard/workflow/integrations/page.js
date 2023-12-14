@@ -306,7 +306,7 @@ const Page = () => {
 
   return (
     <>
-      <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
+      <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
       {dataLoader === true ? (
         <div>
           <div className='grid grid-cols-[85%,15%] my-2'>
