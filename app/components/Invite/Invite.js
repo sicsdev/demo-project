@@ -23,6 +23,7 @@ const Invite = ({ setTeamModal }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [role, setRole] = useState('COLLABORATOR')
+  const [formValues, setFormValues] = useState({ name: '', phone: '' })
 
   const {
     register,
@@ -31,14 +32,38 @@ const Invite = ({ setTeamModal }) => {
   } = useForm({
     defaultValues: {
       email: "",
+      name: "",
+      phone: ""
     },
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data) => {
 
+  const handleFormValues = (e) => {
+    let value = e.target.value
+
+    if (e.target.name == 'phone') {
+      value = formatPhoneNumber(value)
+    }
+
+    setFormValues({
+      ...formValues,
+      [e.target.name]: value
+    })
+
+  }
+
+  const onSubmit = async (data) => {
+    let phoneRegex = /^\+\d{1,2}\s\(\d{3}\)\s\d{3}-\d{4}$/
+    const phoneNumber = formValues.phone;
+    const isValidPhoneNumber = phoneRegex.test(phoneNumber);
+
+    if (!isValidPhoneNumber) { setError('Invalid phone format.'); return }
+
+    const phoneNumberWithoutPrefix = formValues.phone.slice(2, formValues.phone.length)
+    
     setLoading(true);
-    const response = await InviteMembers({ email: data.email, role: role });
+    const response = await InviteMembers({ email: data.email, phone_prefix: '+1', phone: phoneNumberWithoutPrefix, name: formValues.name, role: role });
     if (response?.status === 201) {
       dispatch(fetchMembers());
       setTeamModal(false);
@@ -52,61 +77,97 @@ const Invite = ({ setTeamModal }) => {
   };
 
 
+  const formatPhoneNumber = (value) => {
+    // Remove all characters except digits
+    let numbersOnly = value.replace(/[^\d]/g, "");
+
+    // Add back the +1 country code
+    numbersOnly =
+      "1" + numbersOnly.substring(numbersOnly.startsWith("1") ? 1 : 0);
+
+    // Apply formatting to match the pattern +1 (XXX) XXX-XXXX
+    if (numbersOnly.length > 1) {
+      // Add parentheses and space after the area code (3 digits)
+      if (numbersOnly.length < 5) {
+        return `+1 (${numbersOnly.slice(1)}`;
+      }
+      // Add a space and hyphen after the next block of 3 digits
+      if (numbersOnly.length < 8) {
+        return `+1 (${numbersOnly.slice(1, 4)}) ${numbersOnly.slice(4)}`;
+      }
+      // Full format
+      return `+1 (${numbersOnly.slice(1, 4)}) ${numbersOnly.slice(
+        4,
+        7
+      )}-${numbersOnly.slice(7, 11)}`;
+    }
+
+    return "+1 ";
+  };
+
+
   return (
     <div className="p-5">
       <form onSubmit={handleSubmit(onSubmit)}>
         <p className="text-start block text-sm font-semibold text-heading  ">
-          Team Member Email <span className="text-[10px]">(required)</span>
+          Team Member Information <span className="text-[10px]">(required)</span>
         </p>
-        <TextField
-          className={`mt-2 py-3`}
-          // labelClass={"text-start block text-sm font-bold text-heading text-[10px]"}
-          // title={"Team Member Email"}
-          register={register("email", {
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "Entered value does not match email format",
-            },
-          })}
-          error={errors.email}
-          placeholder={"Enter Email"}
-          type={"email"}
-          id={"email"}
-        />
+
+        <div className='my-2'>
+          <small>Team member email</small>
+          <TextField
+            className={`py-3`}
+            register={register("email", {
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Entered value does not match email format",
+              },
+            })}
+            error={errors.email}
+            placeholder={"Enter Email"}
+            type={"email"}
+            id={"email"}
+          />
+        </div>
+
+        <div className='my-2'>
+          <small>Team member name</small>
+          <div className='sm:my-0 relative'>
+            <TextField
+              type="text"
+              id="name"
+              name="name"
+              value={formValues?.name ?? "+1"}
+              onChange={handleFormValues}
+              className="py-3 mt-1 outline-none"
+              placeholder={"Member name"}
+              error={""}
+              maxLength={38}
+              required
+            />
+          </div>
+        </div>
+
+        <div className='my-2'>
+          <small>Team member phone</small>
+          <div className='sm:my-0 relative'>
+            <TextField
+              type="text"
+              id="phone"
+              name="phone"
+              value={formValues?.phone ?? "+1"}
+              onChange={handleFormValues}
+              className="py-3 mt-1 outline-none"
+              placeholder={"Phone"}
+              error={""}
+              required
+            />
+          </div>
+        </div>
+
         <p className="text-start block text-sm font-semibold text-heading mt-5">
           Team Member Role
         </p>
-        {/* <div className="flex flex-row items-center gap-4">
-          <div
-            className="block sm:flex items-center justify-center mb-[0.125rem] min-h-[1.5rem] pl-[1.5rem] text-left "
-            value={admin}
-            onClick={handlerAdminChecked}
-          >
-            <input
-              className="relative float-left -ml-[1rem] mr-1 mt-0.5 h-[1rem] w-[1rem] appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-black checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.5rem] checked:after:w-[0.5rem] checked:after:rounded-full checked:after:border-black checked:after:bg-black checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-black checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-black dark:checked:after:border-black dark:checked:after:bg-black dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-black dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
-              type="radio"
-              name="flexRadioDefault"
-              id="Admin"
-              checked
-            />
-            <label
-              className="mt-px text-heading text-sm items-center font-bold pl-[0.15rem] hover:cursor-pointer sm:flex gap-5"
-              for="Admin"
-            >
-              Admin
-              <div>
-                <p
-                  className={`text-xs ${admin ? "" : "text-border"
-                    }`}
-                >
-                  {" "}
-                  Admins will be able to log in and help manage this
-                  integration.
-                </p>
-              </div>
-            </label>
-          </div>
-        </div> */}
 
         <div className={`flex items-center pl-4 border border-border rounded !cursor-pointer my-2 ${role == 'ADMINISTRATOR' && ('bg-[#D4F1F4]')}`} onClick={() => setRole('ADMINISTRATOR')} >
           <input id="admin" type="radio" checked={role == 'ADMINISTRATOR'} name="bordered-radio" className="w-4 h-4" />
@@ -121,37 +182,6 @@ const Invite = ({ setTeamModal }) => {
           <label for="collab" className="w-full py-4 ml-2 text-xs font-medium !cursor-pointer">Collaborators have view only access to all bot settings.</label>
         </div>
 
-        {/* <div className="flex flex-row gap-4 mt-2">
-          <div
-            className="block sm:flex items-center justify-center mb-[0.125rem] min-h-[1.5rem] pl-[1.5rem] text-left "
-            value={admin}
-            onClick={handlerCollaboratorChecked}
-          >
-            <input
-              className="relative float-left -ml-[1rem] mr-1 mt-0.5 h-[1rem] w-[1rem] appearance-none rounded-full border-2 border-solid border-neutral-300 before:pointer-events-none before:absolute before:h-4 before:w-4 before:scale-0 before:rounded-full before:bg-transparent before:opacity-0 before:shadow-[0px_0px_0px_13px_transparent] before:content-[''] after:absolute after:z-[1] after:block after:h-4 after:w-4 after:rounded-full after:content-[''] checked:border-black checked:before:opacity-[0.16] checked:after:absolute checked:after:left-1/2 checked:after:top-1/2 checked:after:h-[0.5rem] checked:after:w-[0.5rem] checked:after:rounded-full checked:after:border-black checked:after:bg-black checked:after:content-[''] checked:after:[transform:translate(-50%,-50%)] hover:cursor-pointer hover:before:opacity-[0.04] hover:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:shadow-none focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[0px_0px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] checked:focus:border-black checked:focus:before:scale-100 checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:border-neutral-600 dark:checked:border-black dark:checked:after:border-black dark:checked:after:bg-black dark:focus:before:shadow-[0px_0px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:border-black dark:checked:focus:before:shadow-[0px_0px_0px_13px_#3b71ca]"
-              type="radio"
-              name="flexRadioDefault"
-              id="Collaborator"
-              checked
-            />
-            <label
-              className="mt-px text-heading text-sm font-bold sm:flex gap-5 pl-[0.15rem] items-center hover:cursor-pointer"
-              for="Collaborator"
-            >
-              Collaborator
-              <div>
-                <p
-                  className={`text-xs ${collab ? "" : "text-border"
-                    }`}
-                >
-                  {" "}
-                  Collaborators can log in to view performance data, user feedback,
-                  and access embed tools, but can't make changes.
-                </p>
-              </div>
-            </label>
-          </div>
-        </div> */}
         {error && (
           <div className='w-100 flex justify-center text-bold'>
             <span className="text-xs text-danger col-span-2 mt-2 text-center font-semibold">

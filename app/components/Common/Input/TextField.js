@@ -18,15 +18,15 @@ const TextField = ({
   onBlur,
   paddingleft,
   tooltipInfo,
+  maxLength,
   ...rest
 }) => {
   return (
     <div className={`inline  ${labelClassName || ""}`}>
       <div className="flex items-center mb-1">
         <label
-          className={`new_input_label block text-sm text-heading ${
-            labelClass || "font-medium"
-          }`}
+          className={`new_input_label block text-sm text-heading ${labelClass || "font-medium"
+            }`}
         >
           {title}
         </label>
@@ -48,14 +48,14 @@ const TextField = ({
         type={type || "text"}
         {...register}
         placeholder={placeholder || ""}
-        className={`${className} ${paddingleft} new_input block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white  ${
-          error &&
+        className={`${className} ${paddingleft} new_input block border-[0.2px]  px-3 bg-white  rounded-md shadow-sm placeholder-slate-400  focus:outline-[0px] focus:border-sky focus:ring-2  disabled:bg-slate-50 disabled:text-slate-500 border-input_color w-full focus:bg-white  ${error &&
           "border-danger invalid:border-danger invalid:text-danger focus:invalid:border-danger focus:invalid:ring-danger focus:ring-danger"
-        }`}
+          }`}
         id={id}
         name={id}
         {...rest}
         onBlur={onBlur}
+        maxlength={maxLength || ''}
       />
       {error && <small className="text-danger text-xs">{error}</small>}
     </div>
