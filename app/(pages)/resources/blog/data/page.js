@@ -55,6 +55,7 @@ if (x=1){
       content_type: "blogs",
       order: "sys.id",
     });
+    console.log(related)
     setRelated(entry.items)
 
     findTag(entry.items, tag, heading)
