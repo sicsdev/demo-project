@@ -60,3 +60,14 @@ export const searchReccomodationWorkflow = async (queryParam) => {
         return error
     }
 };
+
+
+export const addNagetiveWorkflowBulkCreate = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflows-negative/bulk-create/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
