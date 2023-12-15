@@ -204,7 +204,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 300);
+        }, 500);
     }, [])
 
 
@@ -519,6 +519,7 @@ const Page = () => {
             setAnswer(element.answer)
             setSubQuestionLoading(false)
         }
+        setSubQuestionLoading(false)
     }
 
     const handleWorkflow = async (workflow_data) => {
@@ -700,7 +701,7 @@ const Page = () => {
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
+                <TopBar loader={loading} title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
 
                 <div className={false ? " my-2 mb-5        " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2 mb-5"}>
 
@@ -709,7 +710,7 @@ const Page = () => {
                         <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                             setTab(1)
                         }}>
-                            {false ?
+                            {loading ?
                                 <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                 :
                                 <span
@@ -727,7 +728,7 @@ const Page = () => {
 
                             setTab(2)
                         }}>
-                            {false ?
+                            {loading ?
                                 <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                 :
                                 <span

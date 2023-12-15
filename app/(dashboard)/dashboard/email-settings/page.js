@@ -234,7 +234,7 @@ const page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
+            <TopBar loader={pageLoading} title={`Email Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
             <div className={pageLoading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
                 <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
@@ -273,7 +273,7 @@ const page = () => {
             </div>
 
             {tab === 0 && (
-                <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:max-w-[750px]">
+                <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:max-w-[900px]">
                     {
                         pageSubLoading ?
                             <div className={`py-4 block sm:flex justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}>

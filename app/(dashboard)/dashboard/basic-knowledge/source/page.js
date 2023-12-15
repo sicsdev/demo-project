@@ -17,6 +17,7 @@ const Source = () => {
     const [search, setSearch] = useState('')
     const [check, setCheck] = useState(false)
     const [currentTab, setCurrentTab] = useState('')
+    const [contentLoader, setContentLoader] = useState(true)
 
     const [autoOpenKnowledgeId, setAutoOpenKnowledgeId] = useState('')
 
@@ -127,16 +128,18 @@ const Source = () => {
         const queryParam = `page=1&page_size=10&search=` + text;
         getQuestionsData(queryParam)
     };
+
+
     return (
         <>
-            <TopBar title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
+            <TopBar loader={contentLoader} title={`Knowledge Base`} icon={<BookOpenIcon className="h-5 w-5 text-primary" />} />
 
             <>
                 {basicFormData?.data && (
                     <>
 
-                        <UpperBasicKnowledge setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
-                        <ManageFaqs currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
+                        <UpperBasicKnowledge setContentLoader={setContentLoader} setFilters={setFilters} filters={filters} setCurrentTab={setCurrentTab} setCheck={setCheck} questions={basicFormData} basicFormData={basicFormData?.data?.total} search={search} handleChange={handleChange} getDataWithFilters={getDataWithFilters} setBasicFormData={setBasicFormData} getQuestionsData={getQuestionsData} />
+                        <ManageFaqs  currentTab={currentTab} questions={basicFormData} bots={bots} getQuestionsData={getQuestionsData} setBasicFormData={setBasicFormData} />
                     </>
                 )}
             </>

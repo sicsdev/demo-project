@@ -63,6 +63,7 @@ const NewSidebar = ({ children }) => {
     const workflowState = useSelector((state) => state.workflow);
     const stateBots = useSelector((state) => state.botId);
     const [collaps, setCollaps] = useState(false)
+    const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
 
     const dispatch = useDispatch();
     const pathname = usePathname();
@@ -72,6 +73,15 @@ const NewSidebar = ({ children }) => {
     const router = useRouter();
 
     const [skeltonLoading, setSkeltonLoading] = useState(true);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+
+
+    // Effect to keep retrying get logo, max 5 times. Based in state?.enterprise?.logo.
+    const [retryCount, setRetryCount] = useState(0);
+    const userLogo = useSelector(state => state?.enterprise?.logo);
+
     useEffect(() => {
         getLearningCenterCount()
         setTimeout(() => {
@@ -96,8 +106,21 @@ const NewSidebar = ({ children }) => {
             }, [4000]);
         }
     }, [base64Data]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        if (knowledgeScrapperState?.data && retryCount < 10) {
+            setTimeout(() => { fetchLogo() }, 10000);
+        }
+    }, [userLogo, retryCount]);
+
+
+
+    const fetchLogo = () => {
+        if (!userLogo && retryCount < 10) {
+            dispatch(fetchProfile());
+            setRetryCount(retryCount + 1);
+        }
+    };
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
