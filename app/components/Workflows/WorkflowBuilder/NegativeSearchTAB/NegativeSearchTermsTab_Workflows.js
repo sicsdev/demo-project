@@ -14,7 +14,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const [textAreaValue, setTextAreaValue] = useState('')
     const [editingId, setEditingId] = useState('')
     const [loading, setLoading] = useState(false)
-    const [loadingRemove, setLoadingRemove] = useState([])
+    const [loadingRemove, setLoadingRemove] = useState(false)
     const [negativesData, setNegativesData] = useState([])
 
     useEffect(() => {
@@ -156,6 +156,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
         }
 
         setLoading(false)
+        setLoadingRemove(false);
 
     }
 
