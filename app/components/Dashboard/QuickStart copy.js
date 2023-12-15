@@ -66,7 +66,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const [loadingData, setLoadingData] = useState(true)
 
     const [isExpand, setIsExpand] = useState(true);
-    
+
     const quickStartData1 = [
         {
             title: 'Complete Your Profile',
@@ -397,42 +397,57 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {billingState !== "demo" &&
                                     (<div className="flex items-center gap-4 ">
+
                                         {loadingData ?
                                             <SkeletonLoader count={1} height={35} width={100} />
                                             :
-                                            <button
-
-                                                className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
-
-                                                onClick={(e) => ExpandChange()}
-
-                                            >
-
-                                                {isExpand === true ? (
-
-                                                    <>
-
-                                                        <p className="hidden sm:block "> Collapse</p>
-
-                                                        <ChevronUpIcon className="w-5 h-5" />
-
-                                                    </>
-
-                                                ) : (
-
-                                                    <>
-
-                                                        <p className="hidden sm:block"> Expand</p>
+                                            <>
 
 
+                                                <p className="px-6 text-[#151D23] text-sm pb-5">
+                                                    {loadingData ?
+                                                        <SkeletonLoader count={1} height={20} width={100} />
+                                                        :
+                                                        "A few essential steps to get you up and running with Deflection AI immediately."
+                                                    }
 
-                                                        <ChevronDownIcon className="w-5 h-5" />
+                                                </p>
 
-                                                    </>
 
-                                                )}
+                                                <button
 
-                                            </button>
+                                                    className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+
+                                                    onClick={(e) => ExpandChange()}
+
+                                                >
+
+                                                    {isExpand === true ? (
+
+                                                        <>
+
+                                                            <p className="hidden sm:block "> Collapse</p>
+
+                                                            <ChevronUpIcon className="w-5 h-5" />
+
+                                                        </>
+
+                                                    ) : (
+
+                                                        <>
+
+                                                            <p className="hidden sm:block"> Expand</p>
+
+
+
+                                                            <ChevronDownIcon className="w-5 h-5" />
+
+                                                        </>
+
+                                                    )}
+
+                                                </button>
+                                            </>
                                         }
 
                                     </div>)
@@ -630,15 +645,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                     style={{ transition: `all 0.2s ease-out 0s` }}
 
                                 >
-
-                                    <p className="px-6 text-[#151D23] text-sm pb-5">
-                                        {loadingData ?
-                                            <SkeletonLoader count={1} height={20} width={100} />
-                                            :
-                                            "A few essential steps to get you up and running with Deflection AI immediately."
-                                        }
-
-                                    </p>
 
                                     {!loadingData && quickStartData?.map((ele, key) => {
                                         const shouldHide = setHideShow(key);

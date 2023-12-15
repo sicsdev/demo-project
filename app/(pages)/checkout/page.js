@@ -38,25 +38,15 @@ const Checkout = () => {
   const searchParams = useSearchParams();
 
 
-    const gclid = searchParams.get("gclid");
-    const utm_source = searchParams.get("utm_source");
-    const utm_medium = searchParams.get("utm_medium");
-    const utm_term = searchParams.get("utm_term");
-    const matchtype = searchParams.get("matchtype");
-    const utm_campaign = searchParams.get("utm_campaign");
-    const utm_content = searchParams.get("utm_content");
-    const msclkid = searchParams.get("msclkid");
+  const gclid = searchParams.get("gclid");
+  const utm_source = searchParams.get("utm_source");
+  const utm_medium = searchParams.get("utm_medium");
+  const utm_term = searchParams.get("utm_term");
+  const matchtype = searchParams.get("matchtype");
+  const utm_campaign = searchParams.get("utm_campaign");
+  const utm_content = searchParams.get("utm_content");
+  const msclkid = searchParams.get("msclkid");
 
-    console.log("gclid", gclid);
-    console.log("utm_source", utm_source);
-    console.log("utm_medium", utm_medium);
-    console.log("utm_content", utm_content);
-    console.log("utm_term", utm_term);
-    console.log("matchtype", matchtype);
-    console.log("msclkid", msclkid);
-    console.log("utm_campaign", utm_campaign);
-
-  
 
   const [planQuery, setPlanQuery] = useState("");
   const [emailQuery, setEmailQuery] = useState("");
@@ -107,12 +97,13 @@ const Checkout = () => {
     // return () => clearInterval(interval);
   }, []);
 
-  const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1"}); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
+  const [checkoutForm, setCheckoutForm] = useState({ phone_prefix: "+1" }); // phone_prefix: "+1" Hardcoded for testing, need to add to the form later
   const [userformErrors, setUserformErrors] = useState([]);
 
   const handleFormValues = (e) => {
-    if(e.target.name === "email"){
-setPop(false);}
+    if (e.target.name === "email") {
+      setPop(false);
+    }
     let value = e.target.value
 
     setCheckoutForm({
@@ -175,7 +166,7 @@ setPop(false);}
         console.log("got it")
         setPop(true);
       }
-      else{
+      else {
         setPop(false);
       }
 
@@ -185,12 +176,12 @@ setPop(false);}
       if (checkoutForm.phone) payload.phone = '+1' + checkoutForm.phone;
       if (first_name) payload.firstname = first_name;
       if (last_name) payload.lastname = last_name;
-      if(gclid)payload.gclid = gclid;
-      if(msclkid)payload.msclkid = msclkid;
-      if(lifecyclestage)payload.lifecyclestage= "subscriber";
-      if(is_demo)payload.is_demo = "false";
-      if(demo_status)payload.demo_status = "pending";
-      
+      if (gclid) payload.gclid = gclid;
+      if (msclkid) payload.msclkid = msclkid;
+      // if(lifecyclestage)payload.lifecyclestage= "subscriber";
+      // if(is_demo)payload.is_demo = "false";
+      // if(demo_status)payload.demo_status = "pending";
+
       if (hubID) {
         await updateContactInHubspot(payload, hubID)
       } else {
@@ -335,10 +326,10 @@ setPop(false);}
             <div className=" bg-white -lg r py-6 px-4">
               <div className="grid gap-2 sm:mt-[12px] sm:gap-[15px] grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2">
                 <div>
-                {pop == true? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[14px]  text-red shadow-sm  tooltip ">
-           Please enter a valid work email
-            <div className="tooltip-arrow" data-popper-arrow></div>
-          </div></> : ""}
+                  {pop == true ? <>    <div id="tooltip-bottom" role="tooltip" className="absolute z-10 ml-[5rem]  inline-block  text-[14px]  text-red shadow-sm  tooltip ">
+                    Please enter a valid work email
+                    <div className="tooltip-arrow" data-popper-arrow></div>
+                  </div></> : ""}
                   <TextField
                     type={"email"}
                     placeholder={"Email"}
@@ -409,7 +400,7 @@ setPop(false);}
                     error={""}
                   />
                 </div> */}
-                <div className='my-2 sm:my-0'> 
+                <div className='my-2 sm:my-0'>
 
                   <div className='flex items-center inline'>
                     <label className={`opacity-90 block text-sm text-heading text-lg`}>
@@ -417,7 +408,7 @@ setPop(false);}
                     </label>
                   </div>
                   <div className="relative flex items-center mt-1">
-                    <small className="z-50 m-auto text-[#b5b5b5] absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2" style={{fontSize: '14px'}}>
+                    <small className="z-50 m-auto text-[#b5b5b5] absolute inset-y-0 left-0 flex items-center pointer-events-none mx-2" style={{ fontSize: '14px' }}>
                       +1
                     </small>
                     <input
@@ -560,7 +551,7 @@ setPop(false);}
                 <div className="my-3 mb-0 p-3 pb-0">
                   <StripeWrapper options={options}>
                     <CheckOutForm
-                    pop={pop}
+                      pop={pop}
                       checkoutForm={checkoutForm}
                       paymentId={paymentId}
                       boxValid={boxValid}
