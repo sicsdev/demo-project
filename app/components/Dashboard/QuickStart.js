@@ -178,7 +178,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (botData?.botData?.data?.bots) {
             for (const bot of botData.botData.data.bots) {
                 let botinfo = await getCustomerFiles(bot.id);
-                console.log(botinfo?.data?.results);
                 if (botinfo?.data?.results) {
                     infoFinder = true;
                     break; // Stop if we have results, meaning not show ticket upload item. 
@@ -228,7 +227,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     const handleDomainSlug = async () => {
         let fetch = await setDomainSlug({ domain_slug: domainFromEmail })
-        console.log(fetch, '1239')
         dispatch(fetchProfile());
 
     }
