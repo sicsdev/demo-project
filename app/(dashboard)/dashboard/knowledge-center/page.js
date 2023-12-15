@@ -519,6 +519,7 @@ const Page = () => {
             setAnswer(element.answer)
             setSubQuestionLoading(false)
         }
+        setSubQuestionLoading(false)
     }
 
     const handleWorkflow = async (workflow_data) => {
