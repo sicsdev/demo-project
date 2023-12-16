@@ -47,9 +47,9 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
         const payload = {
             token: card_token.token?.id,
         };
-        console.log(payload)
+
         setLoading(false)
-        // return   
+
         const response = await subscribeCustomer(payload, Cookies.get("Token"));
 
         if (response) {

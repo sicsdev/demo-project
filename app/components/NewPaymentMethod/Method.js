@@ -14,16 +14,17 @@ const Method = ({ billingState }) => {
 
     const setBillingValueAfterSubmit = async () => {
 
-        dispatch(editBillingType("normal"))
-
         // Update plan in Slack channel
         let payloadForSlack = { channel_id: userData?.data?.enterprise?.slack_channel_id }
         await removeTrialFromSlack(payloadForSlack)
 
         // Change account type in db
         const response = await createEnterpriseAccount({ billing_type: "normal" })
-        console.log(response)
+
+        dispatch(editBillingType("normal"))
+
     }
+    
     const [skeltonLoading, setSkeltonLoading] = useState(true);
 
     useEffect(() => {
