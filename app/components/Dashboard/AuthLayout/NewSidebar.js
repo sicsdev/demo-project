@@ -107,20 +107,20 @@ const NewSidebar = ({ children }) => {
         }
     }, [base64Data]);
 
-    useEffect(() => {
-        if (knowledgeScrapperState?.data && retryCount < 10) {
-            setTimeout(() => { fetchLogo() }, 10000);
-        }
-    }, [userLogo, retryCount]);
+    // useEffect(() => {
+    //     if (knowledgeScrapperState?.data && retryCount < 10) {
+    //         setTimeout(() => { fetchLogo() }, 10000);
+    //     }
+    // }, [userLogo, retryCount]);
 
 
 
-    const fetchLogo = () => {
-        if (!userLogo && retryCount < 10) {
-            dispatch(fetchProfile());
-            setRetryCount(retryCount + 1);
-        }
-    };
+    // const fetchLogo = () => {
+    //     if (!userLogo && retryCount < 10) {
+    //         dispatch(fetchProfile());
+    //         setRetryCount(retryCount + 1);
+    //     }
+    // };
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
