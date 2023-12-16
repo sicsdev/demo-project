@@ -284,7 +284,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                     {/* we will only show suggested actions for account if the profile is not completed */}
-                    {!loadingData && profileComplete ? null :
+                    {(!loadingData && profileComplete) ? null :
 
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
@@ -331,7 +331,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             {/********* DEMO ACCOUNTS PANEL ************/}
                             {(billingState === "demo") &&
                                 <div className='mt-3'>
-                                    <Method billingState={billingState}></Method>
+                                    <Method></Method>
 
                                     <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
