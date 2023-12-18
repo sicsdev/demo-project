@@ -42,7 +42,8 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const router = useRouter();
     const params = useSearchParams()
     const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
-    let stripePromise = loadStripe(STRIPE_KEY)
+    const [stripePromise, setStripePromise] = useState(null)
+    // let stripePromise = loadStripe(STRIPE_KEY)
 
 
     // Local states
@@ -175,8 +176,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
     useEffect(() => {
+        loadStripe(STRIPE_KEY).then(res => setStripePromise(res))
     }, [])
-    
+
 
 
 
@@ -344,7 +346,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                     <div className='mt-3'>
 
 
-                                        <Method></Method>
+                                        {stripePromise && <Method></Method>}
 
                                         <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 

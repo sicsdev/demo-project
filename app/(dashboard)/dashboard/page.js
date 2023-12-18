@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { setDemoKnowledge } from '@/app/API/pages/get-trial';
 import { updateScrapperKnowledgeState } from '@/app/components/store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
 
 const Page = () => {
 
@@ -57,7 +58,9 @@ const Page = () => {
         setFinishedScrapper(true)
         dispatch(updateScrapperKnowledgeState(null));
     };
-
+    
+    const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
+    let stripePromise = loadStripe(STRIPE_KEY)
 
     return (
         <div style={{ whiteSpace: "normal" }}>

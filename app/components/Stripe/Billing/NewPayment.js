@@ -85,12 +85,9 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
                         style: {
                             base: {
                                 fontSize: "16px",
-                                padding: "1.5vh",
                                 lineHeight: "1.5",
                                 color: "#495057",
-                                borderRadius: "9px",
-                                border: "1px solid #ced4da", // Agregar esta línea para definir un borde
-                                width: "100%",
+                                border: "1px solid #ced4da",
                             },
                         },
                     }}
