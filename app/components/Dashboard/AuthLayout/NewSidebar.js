@@ -60,10 +60,7 @@ const NewSidebar = ({ children }) => {
     const state = useSelector((state) => state.user.data);
     const recommedState = useSelector((state) => state.recommendation);
     const [learningItemsCount, setLearningItemsCount] = useState('')
-    const workflowState = useSelector((state) => state.workflow);
-    const stateBots = useSelector((state) => state.botId);
     const [collaps, setCollaps] = useState(false)
-    const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
 
     const dispatch = useDispatch();
     const pathname = usePathname();
@@ -78,15 +75,30 @@ const NewSidebar = ({ children }) => {
     const [show, setShow] = useState(false);
 
 
-    // Effect to keep retrying get logo, max 5 times. Based in state?.enterprise?.logo.
-    const [retryCount, setRetryCount] = useState(0);
-    const userLogo = useSelector(state => state?.enterprise?.logo);
+    // Selectors
+    const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
+    const userLoader = useSelector(state => state.user)
+    const members = useSelector((state) => state.members);
+    const workflowState = useSelector(state => state.workflow)
+    const integrations = useSelector(state => state.integration)
+    const stateBots = useSelector(state => state.botId)
+
+
+
+    // useEffect to check loaders and delete skeleton after get all required data from api.
+    useEffect(() => {
+        if (
+            userLoader.isLoading == false
+            && members.isLoading == false
+            && workflowState.isLoading == false
+            && integrations.isLoading == false
+            && billingState !== null
+            && stateBots.botData.isLoading == false
+        ) { setSkeltonLoading(false) }
+    }, [userLoader?.isLoading, members?.isLoading, workflowState?.isLoading, integrations?.isLoading, billingState, stateBots?.botData?.isLoading]);
 
     useEffect(() => {
         getLearningCenterCount()
-        setTimeout(() => {
-            setSkeltonLoading(false);
-        }, 5000);
     }, []);
 
     useEffect(() => {
@@ -106,21 +118,6 @@ const NewSidebar = ({ children }) => {
             }, [4000]);
         }
     }, [base64Data]);
-
-    useEffect(() => {
-        if (knowledgeScrapperState?.data && retryCount < 10) {
-            setTimeout(() => { fetchLogo() }, 10000);
-        }
-    }, [userLogo, retryCount]);
-
-
-
-    const fetchLogo = () => {
-        if (!userLogo && retryCount < 10) {
-            dispatch(fetchProfile());
-            setRetryCount(retryCount + 1);
-        }
-    };
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
@@ -979,25 +976,13 @@ const NewSidebar = ({ children }) => {
                                 ) : (
                                     <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" onClick={() => handleToggle()} >
-                                            {state?.enterprise?.logo ?
-                                                <img
-                                                    className="w-8 h-8 rounded-lg"
-                                                    src={state?.enterprise?.logo}
-                                                    alt="user photo"
-                                                /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                    <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
-                                                </div >}
+                                            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                                <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                            </div >
                                             <div className="relative ">
-                                                {state?.role && state.enterprise ?
-                                                    <>
-                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
-                                                    </>
-                                                    :
-                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
-                                                }
+                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
+                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
                                             </div>
-
                                         </li>
 
                                         <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer" onClick={() => setShow(false)}>

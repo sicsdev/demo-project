@@ -55,7 +55,7 @@ const TextField = ({
         name={id}
         {...rest}
         onBlur={onBlur}
-        maxlength={maxLength || ''}
+        maxLength={maxLength || ''}
       />
       {error && <small className="text-danger text-xs">{error}</small>}
     </div>

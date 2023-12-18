@@ -1,5 +1,5 @@
 import { deleteNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
-import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow';
+import { addNagetiveWorkflowBulkCreate, addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
 import React, { useEffect } from 'react'
 import { useState } from 'react';
@@ -14,10 +14,12 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const [textAreaValue, setTextAreaValue] = useState('')
     const [editingId, setEditingId] = useState('')
     const [loading, setLoading] = useState(false)
+    const [loadingRemove, setLoadingRemove] = useState(false)
+    const [negativesData, setNegativesData] = useState([])
 
     useEffect(() => {
         getAllNegatives()
-    }, [negativeQuestions])
+    }, [])
 
     const columns = [
         {
@@ -79,25 +81,28 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const getAllNegatives = async () => {
         const response = await getSingleNagetiveWorkflowData(singleData?.id)
         setNagetiveQuestions(response?.data)
+        setNegativesData(response?.data)
     }
 
     const deleteNegativeKeywords = async (id) => {
+        setLoadingRemove(true);
 
-        // Delete from DB using API
-        itemsSelected.forEach(async (item) => {
-            await deleteNagetiveWorkflowData(item)
-        })
+        let newArray = [...negativeQuestions];
 
+        for (const item of itemsSelected) {
+            try {
+                await deleteNagetiveWorkflowData(item);
+                newArray = newArray.filter(e => e.id !== item);
+            } catch (error) {
+                console.error("Error al eliminar el dato negativo:", error);
+            }
+        }
 
-        // Delete from local state
-        let newArray = negativeQuestions
-        itemsSelected.forEach(async (item) => {
-            newArray = newArray.filter(e => e.id !== item)
-        })
+        setNagetiveQuestions(newArray);
+        setItemsSelected([]);
 
-        setNagetiveQuestions(newArray)
-        setItemsSelected([])
-    }
+        setLoadingRemove(false);
+    };
 
 
     const handleCheckbox = (id) => {
@@ -125,13 +130,19 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const addNewNagetiveFaq = async () => {
         setLoading(true)
 
-
-        let values = textAreaValue.split('\n');
+        // Filter values and delete falsy elements, like empty lines.
+        let values = textAreaValue.split('\n').filter(Boolean);
 
         if (isEdit === false) {
-            values.forEach(async e => {
-                await addNagetiveWorkflowData({ search: e, workflow: singleData.id, score: 0.1 })
-            })
+
+            let payload = {
+                search: values,
+                workflow: singleData.id,
+                score: 0.1
+            }
+
+            await addNagetiveWorkflowBulkCreate(payload)
+
             getAllNegatives()
             setTextAreaValue('')
 
@@ -145,6 +156,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
         }
 
         setLoading(false)
+        setLoadingRemove(false);
 
     }
 
@@ -205,7 +217,11 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
                     {itemsSelected.length > 0 &&
                         <div className='w-full bg-primary p-2 text-white px-4'>
                             <small className='font'>{itemsSelected.length} selected </small>
-                            <small className='font-semibold mx-5 cursor-pointer' onClick={deleteNegativeKeywords}>Remove</small>
+                            <small
+                                className='font-semibold mx-5 cursor-pointer'
+                                onClick={deleteNegativeKeywords}>
+                                {loadingRemove ? "Loading..." : "Remove"}
+                            </small>
                         </div>
                     }
 

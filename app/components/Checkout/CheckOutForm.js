@@ -13,12 +13,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { subscribeCustomer } from "@/app/API/pages/Checkout";
 import Button from "../Common/Button/Button";
 import { createNewGoogleUser } from "@/app/API/pages/Login";
-import { createBot, createCheckoutBot } from "@/app/API/pages/Bot";
+import { createBot, createCheckoutBot, getBase64LogoUsingAUrl, uploadLogoWithToken } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
 import { createSlackChannel, setDemoKnowledge } from "@/app/API/pages/get-trial";
 import { updateScrapperKnowledgeState } from "../store/slices/scrapperKnowledgeSlice";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+import { convertImageToBase64 } from "../helper/imageToBase64";
 
 
 const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, paymentId, pop }) => {
@@ -41,7 +42,6 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
     var domain = parts[1];
     return 'https://' + domain;
   }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -104,6 +104,19 @@ const CheckOutForm = ({ checkoutForm, boxValid, googleAuthInfo, client_secret, p
       const result = googleAuthInfo.googleLogin ? await createNewGoogleUser(googleAuthInfoPayload) : await submitCheckout(checkoutForm2)
 
       if (result.token) {
+
+
+
+        // Extract logo from website and upload it 
+        try {
+          let url = extractDomainFromEmail(checkoutForm.email);
+          const base64Favicon = await getBase64LogoUsingAUrl(url);
+          await uploadLogoWithToken({ logo: base64Favicon }, result.token);
+        } catch (error) {
+          console.error('Error converting logo to base64:', error);
+        }
+
+
         let bodyForSubscribe = {
           token: confirmStatus.paymentIntent.payment_method,
         };

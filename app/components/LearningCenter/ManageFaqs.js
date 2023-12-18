@@ -9,7 +9,7 @@ import moment from 'moment/moment';
 import SideModal from '../SideModal/SideModal';
 import TextArea from '../Common/Input/TextArea';
 import { createNewKnowledge, deleteFaqQuestions, getFaqHistory, getFaqQuestionById, patchKnowledgeQuestion } from '@/app/API/pages/Knowledge';
-import { addNagetiveQuestionData, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
+import { addNagetiveQuestionData, addNegativeBulkCreate, deleteNagetiveQuestionData, editNagetiveQuestionData, getNagetiveQuestionData, getSingleNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
 import { makeCapital } from '../helper/capitalName';
 import { AcademicCapIcon, BriefcaseIcon, DocumentArrowUpIcon, MinusCircleIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Multiselect from 'multiselect-react-dropdown';
@@ -152,24 +152,23 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const addNewNagetiveFaq = async () => {
         setNLoading(true)
 
-        let values = selected.negative_answer.split('\n');
+        // Filter values and delete falsy elements, like empty lines.
+        let values = selected.negative_answer.split('\n').filter(Boolean);
 
         if (isEdit === false) {
 
-            values.forEach(async (item) => {
-                try {
-                   let add = await addNagetiveQuestionData({ search: item, faq: selected.id, score: 0.1 })
-                } catch (error) {
-                    console.log(error)
-                }
-            })
+            let payload = {
+                search: values,
+                faq: selected.id,
+                score: 0.1
+            }
 
+            let bulkCreate = await addNegativeBulkCreate(payload)
+            if (bulkCreate?.data?.length > 0) { setNagetiveQuestions(bulkCreate?.data) }
             cleanTextArea()
-        } else {
-            console.log(selected, 'select')
-            let edit = await editNagetiveQuestionData({ search: selected.negative_answer }, selected.negative_id)
-            console.log(edit, 'edit')
 
+        } else {
+            let edit = await editNagetiveQuestionData({ search: selected.negative_answer }, selected.negative_id)
             cleanTextArea()
         }
 
@@ -190,7 +189,6 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
 
     const handleOpenEditProduct = (product) => {
-        console.log(product, 'handle open edit product')
         setCurrentOpenedProduct(product)
         setCreateOptions('snippet')
         setCreateMode("product")

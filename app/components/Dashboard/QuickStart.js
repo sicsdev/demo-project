@@ -178,7 +178,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (botData?.botData?.data?.bots) {
             for (const bot of botData.botData.data.bots) {
                 let botinfo = await getCustomerFiles(bot.id);
-                console.log(botinfo?.data?.results);
                 if (botinfo?.data?.results) {
                     infoFinder = true;
                     break; // Stop if we have results, meaning not show ticket upload item. 
@@ -228,7 +227,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     const handleDomainSlug = async () => {
         let fetch = await setDomainSlug({ domain_slug: domainFromEmail })
-        console.log(fetch, '1239')
         dispatch(fetchProfile());
 
     }
@@ -286,7 +284,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                     {/* we will only show suggested actions for account if the profile is not completed */}
-                    {!loadingData && profileComplete ? null :
+                    {(!loadingData && profileComplete) ? null :
 
                         <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                             <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
@@ -305,9 +303,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             {billingState == "normal" &&
                                 <div className="flex items-center gap-4 justify-end">
                                     <button
-                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
+                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
                                         onClick={(e) => ExpandChange()}>
-                                        {isExpand === true ? (
+                                        {!isExpand === true ? (
                                             <>
                                                 <p className="hidden sm:block "> Collapse</p>
                                                 <ChevronUpIcon className="w-5 h-5" />
@@ -333,7 +331,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             {/********* DEMO ACCOUNTS PANEL ************/}
                             {(billingState === "demo") &&
                                 <div className='mt-3'>
-                                    <Method billingState={billingState}></Method>
+                                    <Method></Method>
 
                                     <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
