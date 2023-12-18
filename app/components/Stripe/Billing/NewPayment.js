@@ -87,7 +87,6 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
                                 fontSize: "16px",
                                 lineHeight: "1.5",
                                 color: "#495057",
-                                border: "1px solid #ced4da",
                             },
                         },
                     }}
