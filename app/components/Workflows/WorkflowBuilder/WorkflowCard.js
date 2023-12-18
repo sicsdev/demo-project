@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 
 const WorkflowCard = ({ manageData, item, key, loading, data, isAuthorizedUser, setShowActive, setTab }) => {
     const router = useRouter()
-console.log('itetemmm', item)
     const [updateStatusLoader, setUpdateStatusLoader] = useState(false)
     const userState = useSelector((state) => state.user.data)
     const redirectToLogs = (e) => {
@@ -83,7 +82,6 @@ console.log('itetemmm', item)
             onClick={(e) => {
                 isAuthorizedUser &&
                     e.stopPropagation();
-                console.log(item)
                 router.push(`/dashboard/workflow/workflow-builder/get-started/?flow=${item?.id}`)
             }}
             // style={{

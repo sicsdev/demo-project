@@ -53,6 +53,7 @@ const Page = () => {
             setShowLogs(true)
         }
     }
+    
     useEffect(() => {
         getAllLogs()
         if (!workflowState?.data?.results?.some(e => e.active === true)) {
@@ -81,6 +82,7 @@ const Page = () => {
 
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
+
     }
 
     const createNewWorkFlow = async () => {
