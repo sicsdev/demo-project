@@ -170,7 +170,6 @@ const Logs = () => {
   })
   const getAllBots = async () => {
     let allBots = await getBotAllData()
-    console.log('allb', allBots)
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
@@ -432,19 +431,18 @@ const Logs = () => {
       });
       setManageMessages(getAllIds);
       setTotalRows(data.count);
-
       setConversationData(newdata);
       setTimeout(() => {
-
         setSearchLoading(false)
         setLoading(false);
-
       }, 300);
+
+      return getAllIds
+
     } else {
       setLoading(false);
       setSearchLoading(false)
     }
-    
   };
 
   // useEffect(() => {
@@ -743,16 +741,36 @@ const Logs = () => {
     },
   ];
 
-  const handleNextLogButton = async () => {
-    handlePageChange(
+
+  const handleNextLog = async () => {
+    let newPage = await handlePageChange(
+      logState.data.bot,
+      pageVal + 1,
+      logState.data.queryParam || ""
+    );
+
+    setPageVal(pageVal + 1);
+    setIndexVal(0);
+    getCoversationMessages(newPage[0].id);
+    setIdOfOpenConversation(newPage[0].id)
+  }
+
+
+
+  const handlePreviousLog = async () => {
+    let newPage = await handlePageChange(
       logState.data.bot,
       pageVal - 1,
       logState.data.queryParam || ""
     );
+
     setPageVal(pageVal - 1);
     setIndexVal(9);
-    getCoversationMessages(manageMessages[0].id);
+    getCoversationMessages(newPage[newPage.length - 1].id);
+    setIdOfOpenConversation(newPage[newPage.length - 1].id)
+
   }
+
 
   return (
     <>
@@ -1212,7 +1230,7 @@ const Logs = () => {
                         className="text-xs cursor-pointer"
                         onClick={() => {
                           if (indexVal === 0 && pageVal !== 1) {
-                            handleNextLogButton()
+                            handlePreviousLog()
                           } else {
                             getCoversationMessages(
                               manageMessages[indexVal - 1].id
@@ -1239,14 +1257,7 @@ const Logs = () => {
                             manageMessages[indexVal + 1].id
                           );
                         } else {
-                          handlePageChange(
-                            logState.data.bot,
-                            pageVal + 1,
-                            logState.data.queryParam || ""
-                          );
-                          setPageVal(pageVal + 1);
-                          setIndexVal(0);
-                          getCoversationMessages(manageMessages[0].id);
+                          handleNextLog()
                         }
                       }}
                     >
