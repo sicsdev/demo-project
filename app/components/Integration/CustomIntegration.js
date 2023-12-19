@@ -11,12 +11,14 @@ import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
 const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData, checked }) => {
-    console.log(formData)
+    console.log("formData", formData)
+    console.log("integrationFormData", integrationFormData)
+    console.log("Checked", checked);
 
     const [customFields, setCustomFields] = useState(formData ?? {});
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch()
-    console.log("integrationFormData",integrationFormData)
+
     const [payloadData, setPayloadData] = useState({
         name: integrationFormData?.name,
         type: integrationFormData?.type,
@@ -106,9 +108,6 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
 
     const configureIntegrationHandler = async (e) => {
         setLoading(true);
-        // console.log("payloadData", payloadData);
-        // return false;
-        
         try {
             let configureIntegration;
             let message;
@@ -159,7 +158,6 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
         }
     };
 
-console.log("help",help);
 
 
     const DisablingButton = () => {
@@ -181,7 +179,7 @@ console.log("help",help);
                     </p>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <div  className='flex items-center gap-4'>
+                    <div className='flex items-center gap-4'>
                         {integrationFormData?.checked === true && (
 
                             <p
@@ -194,7 +192,7 @@ console.log("help",help);
                         )}
                         {loading ? (
                             <LoaderButton type={"button"}
-                            className="py-2 px-4 w-[155px] justify-center sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full inline-block rounded bg-primary pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] !focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]" />
+                                className="py-2 px-4 w-[155px] justify-center sm:px-10  md:px-10 lg:px-5 sm:py-5 md:py-5 lg:py-3 first-letter:w-full inline-block rounded bg-primary pb-2 pt-2 text-xs font-medium leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] !focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]" />
                         ) : (
                             <Button
                                 type={"button"}
@@ -205,7 +203,7 @@ console.log("help",help);
                                 {integrationFormData?.checked === true ? `Connect ${integrationFormData?.name}` : `Connect ${integrationFormData?.name}`}
                             </Button>
                         )}
-                        
+
                     </div>
                     <div class="cursor-pointer"
                         onClick={() => setIntegrationform(false)}
@@ -246,26 +244,27 @@ console.log("help",help);
                                 :
                                 <form>
                                     {Object.keys(formData).map((key) => (
-                                        formData[key] ? null : (
-                                            <div className='my-2' key={key}>
-                                                <TextField
-                                                    onChange={(e) => handleIntegrationInputChange(e)}
-                                                    value={payloadData?.data[key] || ''}
-                                                    name={key}
-                                                    autoComplete={'off'}
-                                                    labelClass={"font-bold mb-2"}
-                                                    className="py-3 mt-2"
-                                                    title={convertToTitleCase(key)}
-                                                    placeholder={convertToTitleCase(key)}
-                                                    type={"text"}
-                                                    id={key}
-                                                    disabled={formData[key]}
-                                                    handleInputFocus={(e) => handleInputFocus(e, key)}
-                                                    onKeyDown={handleDeleteKeyPress}
-                                                // disabled
-                                                />
-                                            </div>
-                                        )))}
+                                        // formData[key] ? null : (
+                                        <div className='my-2' key={key}>
+                                            <TextField
+                                                onChange={(e) => handleIntegrationInputChange(e)}
+                                                value={payloadData?.data[key] || ''}
+                                                name={key}
+                                                autoComplete={'off'}
+                                                labelClass={"font-bold mb-2"}
+                                                className="py-3 mt-2"
+                                                title={convertToTitleCase(key)}
+                                                placeholder={convertToTitleCase(key)}
+                                                type={"text"}
+                                                id={key}
+                                                disabled={formData[key]}
+                                                handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                onKeyDown={handleDeleteKeyPress}
+                                            // disabled
+                                            />
+                                        </div>
+                                        // )
+                                    ))}
                                 </form>}
 
                         </div>
