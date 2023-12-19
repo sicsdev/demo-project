@@ -104,8 +104,6 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     };
 
     const configureIntegrationHandler = async (e) => {
-        console.log(payloadData)
-        return
         try {
             let configureIntegration;
             let message;
