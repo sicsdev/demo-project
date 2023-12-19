@@ -217,7 +217,7 @@ const Abovepage = () => {
   };
 
   return (
-    <div className=" relative py-8 sm:py-14 sm:mt-[74px]">
+    <div className=" relative py-8 sm:py-14 sm:mt-[74px] sm:p-[0px] p-[1rem]">
       <div className="grid grid-cols-1 md:grid-cols-2 relative">
         <div>
           {loading ? (
@@ -267,7 +267,7 @@ const Abovepage = () => {
             </div>
           )}
         </div>
-        <div className="relative">
+        <div className="relative mt-[2rem] sm:mt-[0px]">
           {loading ? (
             <div className="!m-auto mr-2 border-solid  relative w-[343px] sm:w-[477px] sm:h-[383px] mt-5 sm:mt-0 h-[286px]  shrink-0 items-center justify-center leading-normal">
               <SkeletonLoader className="w-[400px] sm:w-[477px] sm:h-[383px]  h-[206px] " />

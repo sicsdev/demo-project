@@ -416,7 +416,7 @@ const TrialForm = ({ formData, setFormData, pop, setPop }) => {
         />
         <label
           htmlFor="link-checkbox"
-          className="ml-2 text-lg sm:text-[14px] font-medium text-border "
+          className="ml-2 text-[14px] sm:text-[14px]  font-medium text-border "
         >
           I agree with the{" "}
           <a
