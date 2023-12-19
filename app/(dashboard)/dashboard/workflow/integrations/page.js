@@ -383,7 +383,7 @@ const Page = () => {
                 {tiles_data.map((element, key) => (
                   <div className={` mt-6`} key={key}>
                     <h3 className="text-sm font-semibold mt-3">
-                      {element.title}123
+                      {element.title}
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto items-center my-2">
                       {element.tiles?.map((item, key) => (
