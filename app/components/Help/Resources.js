@@ -133,7 +133,7 @@ const Resources = () => {
 
                                             alt="img"
                                             className="w-full h-full bg-contain"
-                                            style={{ objectFit: "contain" }}
+                                            style={{ objectFit: "fill" }}
                                         />
                                     </div>
                                     <div className="p-[12px]">
@@ -203,7 +203,7 @@ const Resources = () => {
 
                                         alt="img"
                                         className="w-full h-full bg-contain"
-                                        style={{ objectFit: "contain" }}
+                                        style={{ objectFit: "fill" }}
                                     />
                                 </div>
                                 <div className="p-[12px]">
