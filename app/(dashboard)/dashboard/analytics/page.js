@@ -444,6 +444,7 @@ const Logs = () => {
       setLoading(false);
       setSearchLoading(false)
     }
+    
   };
 
   // useEffect(() => {
@@ -741,6 +742,18 @@ const Logs = () => {
       },
     },
   ];
+
+  const handleNextLogButton = async () => {
+    handlePageChange(
+      logState.data.bot,
+      pageVal - 1,
+      logState.data.queryParam || ""
+    );
+    setPageVal(pageVal - 1);
+    setIndexVal(9);
+    getCoversationMessages(manageMessages[0].id);
+  }
+
   return (
     <>
       <div>
@@ -1199,14 +1212,7 @@ const Logs = () => {
                         className="text-xs cursor-pointer"
                         onClick={() => {
                           if (indexVal === 0 && pageVal !== 1) {
-                            handlePageChange(
-                              logState.data.bot,
-                              pageVal - 1,
-                              logState.data.queryParam || ""
-                            );
-                            setPageVal(pageVal - 1);
-                            setIndexVal(9);
-                            getCoversationMessages(manageMessages[0].id);
+                            handleNextLogButton()
                           } else {
                             getCoversationMessages(
                               manageMessages[indexVal - 1].id
