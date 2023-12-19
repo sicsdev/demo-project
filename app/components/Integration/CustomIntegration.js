@@ -11,9 +11,6 @@ import { fetchIntegrations } from '../store/slices/integrationSlice';
 import Link from 'next/link';
 
 const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, integrationFormData, fetchData, checked }) => {
-    console.log("formData", formData)
-    console.log("integrationFormData", integrationFormData)
-    console.log("Checked", checked);
 
     const [customFields, setCustomFields] = useState(formData ?? {});
     const [loading, setLoading] = useState(false);
@@ -107,7 +104,8 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
     };
 
     const configureIntegrationHandler = async (e) => {
-        setLoading(true);
+        console.log(payloadData)
+        return
         try {
             let configureIntegration;
             let message;
@@ -224,7 +222,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                         <div className='my-2' key={key}>
                                             <TextField
                                                 onChange={(e) => handleIntegrationInputChange(e)}
-                                                value={payloadData?.data[key] || ''}
+                                                value={payloadData?.data[key]}
                                                 name={key}
                                                 autoComplete={'off'}
                                                 labelClass={"font-bold mb-2"}
@@ -234,7 +232,7 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                                 type={"text"}
                                                 id={key}
                                                 // disabled={formData[key]}
-                                                handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                // handleInputFocus={(e) => handleInputFocus(e, key)}
                                                 onKeyDown={handleDeleteKeyPress}
                                             // disabled
                                             />
@@ -246,9 +244,10 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                     {Object.keys(formData).map((key) => (
                                         // formData[key] ? null : (
                                         <div className='my-2' key={key}>
+                                            {key}
                                             <TextField
                                                 onChange={(e) => handleIntegrationInputChange(e)}
-                                                value={payloadData?.data[key] || ''}
+                                                value={payloadData?.data[key]}
                                                 name={key}
                                                 autoComplete={'off'}
                                                 labelClass={"font-bold mb-2"}
@@ -257,8 +256,8 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                                 placeholder={convertToTitleCase(key)}
                                                 type={"text"}
                                                 id={key}
-                                                disabled={formData[key]}
-                                                handleInputFocus={(e) => handleInputFocus(e, key)}
+                                                // disabled={formData[key]}
+                                                // handleInputFocus={(e) => handleInputFocus(e, key)}
                                                 onKeyDown={handleDeleteKeyPress}
                                             // disabled
                                             />
