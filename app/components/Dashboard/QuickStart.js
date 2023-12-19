@@ -164,6 +164,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             setProfileComplete(true)
         }
 
+
     }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data, botData.botData, billingState]);
 
 
@@ -342,7 +343,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                                 {/********* DEMO ACCOUNTS PANEL ************/}
-                                {(billingState === "demo") &&
+                                {billingState === "demo" &&
                                     <div className='mt-3'>
 
 
@@ -469,10 +470,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {/* *************** PAID ACCOUNTS PANEL **********************/}
 
-                                {(billingState == "normal") &&
+                                {(billingState === "normal") &&
 
                                     <div className='mt-3'>
-                                        <Method />
 
                                         <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
@@ -564,7 +564,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                                 {/* Invite Team Members to Deflection AI (Only if there is no members but you added) */}
 
-                                                {members?.data?.length == 2 &&
+                                                {members?.data?.length < 2 &&
                                                     < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
                                                         <div className="flex w-full gap-4 items-start items-center">
                                                             <span><UserGroupIcon className='w-5 h-5' /></span>
