@@ -86,15 +86,6 @@ export const getWorkflowEmbed = async (id) => {
         return error
     }
 };
-export const createWorkflowTemplate = async (id, body) => {
-    let config = returnConfig()
-    try {
-        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`, body, config);
-        return response;
-    } catch (error) {
-        return error
-    }
-};
 
 export const rateWorkflowNegative = async (body) => {
     let config = returnConfig()
@@ -239,3 +230,25 @@ export const getAutomationTemplates = async () => {
         return error
     }
 }
+
+// Templates
+
+export const createWorkflowTemplate = async () => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/create/`, payload, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+export const createWorkflowUsingTemplate = async (id, body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/${id}/add/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};
