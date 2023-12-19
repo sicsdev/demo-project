@@ -88,7 +88,7 @@ if (x=1){
         return <h2 id={id} className="sm:text-[23px]">{children}</h2>;
       },
       'paragraph': (node, children) => {
-        return <p className="mt-[20px] mb-[20px]">{children}</p>;
+        return <p className="mt-[20px] mb-[20px] text-justify">{children}</p>;
       },
       'table': (node, children) => {
         return <table className="border border-2 border-md rounded w-1/2 divide-y divide-gray-200 mt-4 mb-4">{children}</table>;

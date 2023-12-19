@@ -6,7 +6,7 @@ import React from "react";
 import Link from "next/link";
 const Popularblog = ({ data, getFormatDate ,removeSpacesAndHyphens}) => {
   return (
-    <div className="bg-white px-[16px] sm:py-[64px] py-[34px]">
+    <div className="bg-white px-[16px] sm:py-[64px] ">
       <div className="sm:w-[80%%] ">
         <div className=" mb-[24px] flex items-center font-semibold">
           <div>Most Popular Posts</div>

@@ -5,7 +5,7 @@ import Link from "next/link";
 const AboveBlog = ({ blogData, getFormatDate, removeSpacesAndHyphens }) => {
 
   return (
-    <div className="bg-white px-[16px] sm:py-[64px] py-[34px]">
+    <div className="bg-white px-[16px] sm:py-[64px] ">
       <div className="sm:w-[80%%] max-w-[1080px]">
         <div className=" mb-[24px] flex items-center">
           <img
@@ -38,7 +38,7 @@ const AboveBlog = ({ blogData, getFormatDate, removeSpacesAndHyphens }) => {
               />
             </div>
           </div>
-          <div className="relative sm:h-[351px]">
+          <div className="relative px-3 sm:px-0 sm:h-[351px]">
             <div className="sm:mt-[-98px] sm:mb-11">
               {getFormatDate(blogData?.sys?.createdAt)}
             </div>
