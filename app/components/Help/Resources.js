@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { createClient } from "contentful";
 import Link from 'next/link';
-import { ArrowRightIcon,ArrowDownRightIcon  } from "@heroicons/react/24/outline";
+import { ArrowRightIcon, ArrowDownRightIcon } from "@heroicons/react/24/outline";
 import Image from 'next/image';
 import HomeComponent from '@/app/components/Home/HomeComponent';
 
@@ -11,22 +11,29 @@ const client = createClient({
     accessToken: "FgLM4I4Od3JmUNYOYds-_SamHUOpOZSDR9T-6x_R_uE",
 });
 
+
+const categories = [{
+    id: 1,
+    name: "All Resources"
+}, {
+    id: 2,
+    name: "Articles"
+}, {
+    id: 3,
+    name: "Integrations"
+},]
+
 const Resources = () => {
-    const [All, setAll] = useState({ all: true, article: false, integrations: false });
-    const [showAll, setShowAll] = useState([]);
+    const [All, setAll] = useState("All Resources");
     const [showAllArticles, setShowAllArticles] = useState([]);
     const [showAllIntegrations, setShowAllIntegrations] = useState([]);
     const [delay, setDelay] = useState(false);
-    const[full, setFull] = useState([])
 
     useEffect(() => {
         getAllData();
         getAllIntegrations();
         getAllArticles()
-
     }, [])
-
-
 
     const getAllData = () => {
         client.getContentTypes()
@@ -36,9 +43,7 @@ const Resources = () => {
             }
             )
             .catch(console.error);
-
     }
-    console.log("show", showAllArticles);
 
     const getAllIntegrations = async () => {
         const entry = await client.getEntries({
@@ -52,36 +57,16 @@ const Resources = () => {
         const entry = await client.getEntries({
             content_type: "articles",
             order: "sys.id",
-        });
-        console.log("articles", entry.items)
-        setShowAllArticles(entry.items);
-        
+        });        setShowAllArticles(entry.items);
     }
 
-    const handleAllResources = () => {
+    const handleAllResources = (e) => {
         setDelay(true);
-        setAll({ all: true, article: false, integrations: false });
+        setAll(e.target.innerText)
         setTimeout(() => {
             setDelay(false);
         }, 200);
     }
-
-    const handleArticles = () => {
-        setDelay(true);
-        setAll({ all: false, article: true, integrations: false });
-        setTimeout(() => {
-            setDelay(false);
-        }, 200);
-    }
-    const handleintegrations = () => {
-        setDelay(true);
-        setAll({ all: false, article: false, integrations: true });
-        setTimeout(() => {
-            setDelay(false);
-        }, 200);
-    }
-    
-
 
     const removeSpacesAndHyphens = (slug) => {
         if (slug) {
@@ -92,15 +77,14 @@ const Resources = () => {
     return (
         <div className='mt-[2rem] sm:mt-[4rem]'>
             <div className='flex justify-center mb-[3rem] '>
-                <div className={All.all ? 'cursor-[pointer] border-b-[3px] border-[#f5455c] pb-[8px] px-[22px] text-[14px] sm:text-base ' : 'cursor-[pointer]  pb-[8px] px-[22px] text-[14px] sm:text-base'} onClick={handleAllResources}>All resources</div>
-                <div className={All.article ? 'cursor-[pointer] border-b-[3px] border-[#f5455c]  pb-[8px] px-[22px] text-[14px] sm:text-base' : 'cursor-[pointer]  pb-[8px] px-[22px] text-[14px] sm:text-base'} onClick={handleArticles}>Articles</div>
-                <div className={All.integrations ? 'cursor-[pointer] border-b-[3px] border-[#f5455c]  pb-[8px] px-[22px] text-[14px] sm:text-base' : 'cursor-[pointer]  pb-[8px] px-[22px] text-[14px] sm:text-base'} onClick={handleintegrations}>Integrations</div>
+                {categories?.map((ele, key) =>
+                    <div key={key} className={All === ele.name ? 'cursor-[pointer] border-b-[3px] border-[#f5455c] pb-[8px] px-[22px] text-[14px] sm:text-base ' : 'cursor-[pointer]  pb-[8px] px-[22px] text-[14px] sm:text-base'} onClick={(e) => handleAllResources(e)}>
+                        {ele.name}</div>
+                )}
             </div>
             <div className='mb-[4rem] bg-[#8080804d]'>
-
-                <div class={delay ? "opacity-0 "  : "grid grid-cols-4 gap-8 p-[0px] sm:p-[2rem]"}>
-                    {All.all == true ? <>{showAllArticles?.map((ele, key) =>
-
+                <div class={delay ? "opacity-0 " : "grid grid-cols-4 gap-8 p-[0px] sm:p-[2rem]"}>
+                    {All == "All Resources" ? <>{showAllArticles?.map((ele, key) =>
                         <div className=" shadow-lg   p-5 sm:p-3 bg-[white]" key={key} >
                             <Link
                                 href=
@@ -149,7 +133,7 @@ const Resources = () => {
 
                                             alt="img"
                                             className="w-full h-full bg-contain"
-                                            style={{ objectFit: "cover" }}
+                                            style={{ objectFit: "fill" }}
                                         />
                                     </div>
                                     <div className="p-[12px]">
@@ -169,7 +153,7 @@ const Resources = () => {
                             </div>
                         )}
                     </> : ""}
-                    {All.article == true ? <>{showAllArticles?.map((ele, key) =>
+                    {All === "Articles" ? <>{showAllArticles?.map((ele, key) =>
 
                         <div className=" shadow-lg   p-5 sm:p-3 bg-[white]" key={key} >
                             <Link
@@ -204,7 +188,7 @@ const Resources = () => {
                             </Link>
                         </div>
                     )}</> : ""}
-                    {All.integrations == true ? <>{showAllIntegrations?.map((ele, key) =>
+                    {All === "Integrations" ? <>{showAllIntegrations?.map((ele, key) =>
 
                         <div className=" shadow-lg    bg-[white]" key={key} >
                             <Link
@@ -219,7 +203,7 @@ const Resources = () => {
 
                                         alt="img"
                                         className="w-full h-full bg-contain"
-                                        style={{ objectFit: "cover" }}
+                                        style={{ objectFit: "fill" }}
                                     />
                                 </div>
                                 <div className="p-[12px]">
