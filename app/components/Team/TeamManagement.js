@@ -122,7 +122,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       id: " Role",
       selector: row => row?.role,
       cell: (element) => (
-        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : "Admin"}</p>
+        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : element.role == "COLLABORATOR" ? "Collaborator" : "Admin"}</p>
       ),
       // reorder: true,
       width: isMobile ? "120px" : "200px",
@@ -175,11 +175,13 @@ export default TeamManagement;
 
 
 export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, role }) => {
+
   const data = [
     { name: "Set as Admin", value: "ADMINISTRATOR" },
-    { name: "Set as Member", value: "MEMBER" }
-
+    { name: "Set as Member", value: "MEMBER" },
+    { name: "Set as Collaborator", value: "COLLABORATOR" }
   ]
+
   const divRef = useRef(null);
   useEffect(() => {
     // Function to handle clicks outside the div and dropdown
@@ -206,7 +208,7 @@ export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, 
       <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
       {show === ele?.email && (
         // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
-        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[130px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
+        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
 
           <ul className="py-2 text-xs text-gray-700 ">
             {data.map((element, key) =>

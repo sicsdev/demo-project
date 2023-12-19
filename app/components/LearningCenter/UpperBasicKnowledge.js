@@ -10,7 +10,7 @@ import { fetchBot } from '../store/slices/botIdSlice'
 import { useSearchParams } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
-const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab }) => {
+const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFormData, search, handleChange, setBasicFormData, getDataWithFilters, getQuestionsData, setCurrentTab, setContentLoader }) => {
 
     const [showSourceFilter, setShowSourceFilter] = useState(false)
     const [createMode, setCreateMode] = useState('snippet')
@@ -37,6 +37,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
         setTimeout(() => {
             setSkeletonLoading(false);
+            setContentLoader(false)
         }, 300);
 
         let defaultTab = params.get('tab')

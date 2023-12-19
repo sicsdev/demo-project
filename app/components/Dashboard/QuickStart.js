@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon } from '@heroicons/react/24/outline';
+import { CalendarDaysIcon, ChatBubbleLeftIcon, CheckBadgeIcon, ChevronDownIcon, ChevronUpIcon, DocumentMagnifyingGlassIcon, EnvelopeIcon, EnvelopeOpenIcon, InformationCircleIcon, LockClosedIcon, ShoppingCartIcon, SignalIcon, UsersIcon } from '@heroicons/react/24/outline';
 import { ArrowSmallRightIcon, BoltIcon, EyeIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Cookies from "js-cookie";
@@ -29,13 +29,24 @@ import ProgressBarComponent from '../ProgressBar/ProgressBarComponent';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { fetchProfile } from '../store/slices/userSlice';
 import { fetchBot } from '../store/slices/botIdSlice';
+import TopBar from '../Common/Card/TopBar';
+import StripeWrapper from '../Stripe/Wrapper/StripeWrapper';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { elements } from 'chart.js';
 
 const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, finishedScrapper }) => {
+
+    // Helpers
     const dispatch = useDispatch();
     const router = useRouter();
     const params = useSearchParams()
+    const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
+    const [stripePromise, setStripePromise] = useState(null)
+    // let stripePromise = loadStripe(STRIPE_KEY)
 
 
+    // Local states
     const [recentlyView, setRecntlyView] = useState(null)
     const [hideQuicStart, setHideQuicStart] = useState(false);
     const integrations = useSelector(state => state.integration)
@@ -153,6 +164,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
             setProfileComplete(true)
         }
 
+
     }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data, botData.botData, billingState]);
 
 
@@ -164,6 +176,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     }, [members.data, user, botData]);
 
 
+    useEffect(() => {
+        loadStripe(STRIPE_KEY).then(res => setStripePromise(res))
+    }, [])
 
 
 
@@ -177,7 +192,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (botData?.botData?.data?.bots) {
             for (const bot of botData.botData.data.bots) {
                 let botinfo = await getCustomerFiles(bot.id);
-                console.log(botinfo?.data?.results);
                 if (botinfo?.data?.results) {
                     infoFinder = true;
                     break; // Stop if we have results, meaning not show ticket upload item. 
@@ -227,216 +241,98 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     const handleDomainSlug = async () => {
         let fetch = await setDomainSlug({ domain_slug: domainFromEmail })
-        console.log(fetch, '1239')
         dispatch(fetchProfile());
-
     }
 
+
+
     return (
-
-        <>
-            {!loadingData ? (
-                <>
-
-                    {
-                        billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
-                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                            <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
-                                <div className='w-full mx-5'>
-                                    <span className="text-center text-sm flex justify-center">
-                                        {loadingData ?
-                                            <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
-                                            :
-                                            <div>
-                                                Your automatic data retrieval attempt failed. Please set up manually at
-                                                <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
-                                                    Learning Center
-                                                </span>
-                                            </div>
-                                        }
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    }
+        <Elements stripe={stripePromise}>
+            <>
+                <TopBar loader={loadingData} title={`Home`} icon={<UsersIcon className="h-5 w-5 text-primary" />} />
+                {!loadingData ? (
+                    <>
 
 
-
-
-                    {loadingScrapper && billingState == "demo" &&
-                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                            <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
-                                <div className='w-full mx-5'>
-                                    <span className="flex justify-center text-sm mb-2">
-                                        Please wait while we configure your custom Deflection bot.
-                                    </span>
-                                    <ProgressBarComponent totalLoadingTime={2000} finishing={finishingScrapping} finished={finishedScrapper} />
-                                    <div className='border-b border-lowgray pt-5'></div>
-                                </div>
-                            </div>
-                        </div>
-                    }
-
-
-
-
-
-                    {/* we will only show suggested actions for account if the profile is not completed */}
-                    {!loadingData && profileComplete ? null :
-
-                        <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
-                            <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
-                                <div className="flex items-center  gap-2">
-                                    <BoltIcon className="text-[#FF822D] w-5" />
-                                    <p className="text-base font-medium text-[#151D23]">
-                                        Quick Start
-                                    </p>
-                                </div>
-                            </div>
-
-
-
-                            {/* Only not-demo accounts can collapse and expand suggested actions. */}
-
-                            {billingState == "normal" &&
-                                <div className="flex items-center gap-4 justify-end">
-                                    <button
-                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
-                                        onClick={(e) => ExpandChange()}>
-                                        {isExpand === true ? (
-                                            <>
-                                                <p className="hidden sm:block "> Collapse</p>
-                                                <ChevronUpIcon className="w-5 h-5" />
-                                            </>
-                                        ) : (
-                                            <>
-                                                <p className="hidden sm:block"> Expand</p>
-                                                <ChevronDownIcon className="w-5 h-5" />
-                                            </>
-                                        )}
-                                    </button>
-                                </div>
-                            }
-
-
-
-
-
-
-
-
-
-                            {/********* DEMO ACCOUNTS PANEL ************/}
-                            {(billingState === "demo") &&
-                                <div className='mt-3'>
-                                    <Method billingState={billingState}></Method>
-
-                                    <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
-
-                                        <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
-
-                                            <p className="px-6 text-[#151D23] text-sm pb-5">
-                                                A few essential steps to get you up and running with Deflection AI immediately.
-                                            </p>
-
-                                            {/* Complete your profile  */}
-                                            <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40  py-2 hover:bg-[#151d230a]">
-                                                <div className="flex gap-4 items-start items-center">
-                                                    <span><ShareIcon className='w-5 h-5 ' /> </span>
-                                                    <div className="">
-
-                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                            Complete Your Profile
-                                                        </h3>
-
-                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                            Finalize your setup by filling out your business information in your Deflection AI profile
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex justify-end gap-2">
-                                                    <Link href="/dashboard/billing/usage" className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                        Complete
-                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                    </Link>
-                                                </div>
-                                            </div>
-
-
-
-                                            {/* Upload Email or Ticket History */}
-                                            <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
-                                                <div className="flex gap-4 items-start items-center">
-                                                    <span><EnvelopeIcon className='w-5 h-5 ' /></span>
-                                                    <div className="">
-                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                            Upload Email or Ticket History
-                                                        </h3>
-                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                            Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div className="flex justify-end gap-2">
-                                                    <LockClosedIcon className='w-3 h-3'></LockClosedIcon>
-                                                </div>
-                                            </div>
-
-
-
-                                            {/* Configure Email Settings  (Only of enterprise has no domain configured) */}
-                                            {user && user?.enterprise?.domain === "" &&
-                                                <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
-                                                    <div className="flex gap-4 items-start items-center">
-                                                        <span><EnvelopeOpenIcon className='h-5 w-5'></EnvelopeOpenIcon></span>
-                                                        <div className="w-full">
-                                                            {!openInputConfigDomain ?
-                                                                <>
-                                                                    <h3 className="text-[#151D23] text-xs !font-[500]">
-
-                                                                        Configure Email Settings
-                                                                    </h3>
-                                                                    <p className=" text-xs pt-1 text-[#151d23cc]">
-                                                                        Enter a subdomain to fully begin using your Smart Inbox.
-                                                                    </p>
-                                                                </>
-                                                                :
-                                                                <input onChange={handleInputDomainValue} type="" id="inputDomain" className="w-full border rounded-[4px] px-[7px] py-1 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-                                                                    placeholder="Enter full Email"
-                                                                />
-                                                            }
-                                                        </div>
-
-                                                    </div>
-                                                    <div className="flex justify-end gap-2">
-                                                        {openInputConfigDomain ?
-                                                            <>
-                                                                <button
-                                                                    onClick={() => handleDomainSlug()}
-                                                                    className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-                                                                    disabled={!domainFromEmail}
-                                                                >
-                                                                    Submit
-                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                                </button>
-                                                            </>
-                                                            :
-                                                            <button
-                                                                onClick={() => setOpenInputConfigDomain(true)}
-                                                                className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
-                                                            >
-                                                                Configure
-                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                            </button>
-                                                        }
-                                                    </div>
+                        {
+                            billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
+                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                                <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
+                                    <div className='w-full mx-5'>
+                                        <span className="text-center text-sm flex justify-center">
+                                            {loadingData ?
+                                                <SkeletonLoader className="mr-2" count={1} height={30} width={120} />
+                                                :
+                                                <div>
+                                                    Your automatic data retrieval attempt failed. Please set up manually at
+                                                    <span className='text-primary mx-1 cursor-pointer' onClick={() => router.push('/dashboard/basic-knowledge/source')}>
+                                                        Learning Center
+                                                    </span>
                                                 </div>
                                             }
-
-                                        </div>
+                                        </span>
                                     </div>
                                 </div>
-                            }
+                            </div>
+                        }
+
+
+
+
+                        {loadingScrapper && billingState == "demo" &&
+                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                                <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
+                                    <div className='w-full mx-5'>
+                                        <span className="flex justify-center text-sm mb-2">
+                                            Please wait while we configure your custom Deflection bot.
+                                        </span>
+                                        <ProgressBarComponent totalLoadingTime={2000} finishing={finishingScrapping} finished={finishedScrapper} />
+                                        <div className='border-b border-lowgray pt-5'></div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+
+                        {/* we will only show suggested actions for account if the profile is not completed */}
+                        {(!loadingData && profileComplete) ? null :
+
+                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                                <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
+                                    <div className="flex items-center  gap-2">
+                                        <BoltIcon className="text-[#FF822D] w-5" />
+                                        <p className="text-base font-medium text-[#151D23]">
+                                            Quick Start
+                                        </p>
+                                    </div>
+                                </div>
+
+
+
+                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
+
+                                {billingState == "normal" &&
+                                    <div className="flex items-center gap-4 justify-end">
+                                        <button
+                                            className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
+                                            onClick={(e) => ExpandChange()}>
+                                            {!isExpand === true ? (
+                                                <>
+                                                    <p className="hidden sm:block "> Collapse</p>
+                                                    <ChevronUpIcon className="w-5 h-5" />
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <p className="hidden sm:block"> Expand</p>
+                                                    <ChevronDownIcon className="w-5 h-5" />
+                                                </>
+                                            )}
+                                        </button>
+                                    </div>
+                                }
 
 
 
@@ -446,287 +342,409 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
 
+                                {/********* DEMO ACCOUNTS PANEL ************/}
+                                {billingState === "demo" &&
+                                    <div className='mt-3'>
+
+
+                                        {stripePromise && <Method></Method>}
+
+                                        <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+
+                                            <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
+
+                                                <p className="px-6 text-[#151D23] text-sm pb-5">
+                                                    A few essential steps to get you up and running with Deflection AI immediately.
+                                                </p>
+
+                                                {/* Complete your profile  */}
+                                                <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40  py-2 hover:bg-[#151d230a]">
+                                                    <div className="flex gap-4 items-start items-center">
+                                                        <span><ShareIcon className='w-5 h-5 ' /> </span>
+                                                        <div className="">
+
+                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                Complete Your Profile
+                                                            </h3>
+
+                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                Finalize your setup by filling out your business information in your Deflection AI profile
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex justify-end gap-2">
+                                                        <Link href="/dashboard/billing/usage" className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                            Complete
+                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                        </Link>
+                                                    </div>
+                                                </div>
 
 
 
-
-                            {/* *************** PAID ACCOUNTS PANEL **********************/}
-
-                            {(billingState == "normal") &&
-
-                                <div className='mt-3'>
-                                    <Method />
-
-                                    <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
-
-                                        <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
-
-                                            <p className="px-6 text-[#151D23] text-sm pb-5">
-                                                A few essential steps to get you up and running with Deflection AI immediately.
-                                            </p>
-
-
-                                            {/* Upload FAQ to Knowledge Base (Only if user has no knowledge uploaded) */}
-
-                                            {integrations?.data?.results?.length < 1 &&
+                                                {/* Upload Email or Ticket History */}
                                                 <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
-                                                    <div className="flex w-full gap-4 items-start items-center">
-                                                        <span><BookOpenIcon className='w-5 h-5' /></span>
-                                                        <div className="w-full">
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                Upload FAQ to Knowledge Base
-                                                            </h3>
-                                                            <p className="text-xs pt-1 text-[#151d23cc]">
-                                                                Enhance your customer service by uploading frequently asked questions to Deflection AI's Knowledge Base.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex justify-end gap-2">
-                                                        <Link href="/dashboard/basic-knowledge" className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                            Upload
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            }
-
-
-                                            {/* Connect Your APIs for Automations  (Only if there is no workflows and no automations for them*/}
-
-                                            {workflow?.data?.results?.length == 0 && !(workflow?.data?.results[0]?.automations) &&
-
-                                                < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
-                                                    <div className="flex w-full gap-4 items-start items-center">
-                                                        <span><ShareIcon className='w-5 h-5' /></span>
-                                                        <div className="w-full">
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                Connect Your APIs for Automations
-                                                            </h3>
-                                                            <p className="text-xs pt-1 text-[#151d23cc]">
-                                                                Initiate the process by connecting your existing APIs to generate a library of automations.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex justify-end gap-2">
-                                                        <Link href='/dashboard/workflow/integrations' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                            Connect
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            }
-
-
-
-                                            {/* Create Your First Workflow (only if there is no workflows created, only for joinnextmed accounts*/}
-
-                                            {!workflow?.data?.results && user && (user?.email?.split("@")[1] == 'joinnextmed.com') &&
-
-                                                < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
-                                                    <div className="flex w-full gap-4 items-start items-center">
-                                                        <span><CodeBracketSquareIcon className='w-5 h-5' /></span>
-                                                        <div className="w-full">
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                Create Your First Workflow
-                                                            </h3>
-                                                            <p className="text-xs pt-1 text-[#151d23cc]">
-                                                                Combine automations to create your initial workflow, making your operations more efficient from day one.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex justify-end gap-2">
-                                                        <Link href='/dashboard/workflow/workflow-builder' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                            Create
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            }
-
-
-
-                                            {/* Invite Team Members to Deflection AI (Only if there is no members but you added) */}
-
-                                            {members?.data?.length == 2 &&
-                                                < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
-                                                    <div className="flex w-full gap-4 items-start items-center">
-                                                        <span><UserGroupIcon className='w-5 h-5' /></span>
-                                                        <div className="w-full">
-                                                            <h3 className="text-[#151D23] text-xs !font-[500]">
-                                                                Invite Team Members to Deflection AI
-                                                            </h3>
-                                                            <p className="text-xs pt-1 text-[#151d23cc]">
-                                                                Get your team onboard with Deflection AI to maximize the benefits of automated workflows.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex justify-end gap-2">
-                                                        <Link href='/dashboard/members' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                            Invite
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </Link>
-                                                    </div>
-                                                </div>}
-
-
-
-                                            {/* Upload Email or Ticket History (Only if there is no upload info for any bot) */}
-
-                                            {showTicketHistory &&
-                                                < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
-                                                    <div className="flex w-full gap-4 items-start items-center">
-                                                        <span><EnvelopeOpenIcon className='w-5 h-5 ' /></span>
-                                                        <div className="w-full">
+                                                    <div className="flex gap-4 items-start items-center">
+                                                        <span><EnvelopeIcon className='w-5 h-5 ' /></span>
+                                                        <div className="">
                                                             <h3 className="text-[#151D23] text-xs !font-[500]">
                                                                 Upload Email or Ticket History
                                                             </h3>
-                                                            <p className="text-xs pt-1 text-[#151d23cc]">
+                                                            <p className=" text-xs pt-1 text-[#151d23cc]">
                                                                 Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.
                                                             </p>
                                                         </div>
                                                     </div>
                                                     <div className="flex justify-end gap-2">
-                                                        <Link href='/dashboard/basic-knowledge/source?tab=files' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
-                                                            Upload
-                                                            <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
-                                                        </Link>
+                                                        <LockClosedIcon className='w-3 h-3'></LockClosedIcon>
                                                     </div>
-                                                </div>}
+                                                </div>
 
 
+
+                                                {/* Configure Email Settings  (Only of enterprise has no domain configured) */}
+                                                {user && user?.enterprise?.domain === "" &&
+                                                    <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
+                                                        <div className="flex gap-4 items-start items-center">
+                                                            <span><EnvelopeOpenIcon className='h-5 w-5'></EnvelopeOpenIcon></span>
+                                                            <div className="w-full">
+                                                                {!openInputConfigDomain ?
+                                                                    <>
+                                                                        <h3 className="text-[#151D23] text-xs !font-[500]">
+
+                                                                            Configure Email Settings
+                                                                        </h3>
+                                                                        <p className=" text-xs pt-1 text-[#151d23cc]">
+                                                                            Enter a subdomain to fully begin using your Smart Inbox.
+                                                                        </p>
+                                                                    </>
+                                                                    :
+                                                                    <input onChange={handleInputDomainValue} type="" id="inputDomain" className="w-full border rounded-[4px] px-[7px] py-1 border-[#C7C6C7] focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                                                                        placeholder="Enter full Email"
+                                                                    />
+                                                                }
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            {openInputConfigDomain ?
+                                                                <>
+                                                                    <button
+                                                                        onClick={() => handleDomainSlug()}
+                                                                        className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                        disabled={!domainFromEmail}
+                                                                    >
+                                                                        Submit
+                                                                        <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                                    </button>
+                                                                </>
+                                                                :
+                                                                <button
+                                                                    onClick={() => setOpenInputConfigDomain(true)}
+                                                                    className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80"
+                                                                >
+                                                                    Configure
+                                                                    <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                                </button>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            }
+                                }
 
 
 
 
-                        </div>
-                    }
 
 
 
-                    {/* ***** EXTRA DATA FOR BOTH TYPE OF ACCOUNTS (PAID AND DEMO) *******/}
 
-                    {recentlyView && (
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
-                            <div className='py-4 px-6'>
-                                <div className="flex items-center  gap-2">
-                                    {loadingData ?
-                                        <SkeletonLoader count={1} height={30} width={150} />
-                                        :
-                                        <>
-                                            <EyeIcon className="text-[#FF822D] w-5" />
 
-                                            <p className="leading-[0px] text-base font-medium text-[#151D23]">
-                                                Recently Viewed
-                                            </p>
-                                        </>
-                                    }
-                                </div>
-                                <div className='flex gap-4'>
-                                    {recentlyView.map((ele, key) =>
-                                        <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
-                                            {ele?.subheading && (
-                                                <p className='text-border  font-semibold text-[12px]'>
+
+
+
+
+                                {/* *************** PAID ACCOUNTS PANEL **********************/}
+
+                                {(billingState === "normal") &&
+
+                                    <div className='mt-3'>
+
+                                        <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+
+                                            <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
+
+                                                <p className="px-6 text-[#151D23] text-sm pb-5">
+                                                    A few essential steps to get you up and running with Deflection AI immediately.
+                                                </p>
+
+
+                                                {/* Upload FAQ to Knowledge Base (Only if user has no knowledge uploaded) */}
+
+                                                {integrations?.data?.results?.length < 1 &&
+                                                    <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><BookOpenIcon className='w-5 h-5' /></span>
+                                                            <div className="w-full">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    Upload FAQ to Knowledge Base
+                                                                </h3>
+                                                                <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                    Enhance your customer service by uploading frequently asked questions to Deflection AI's Knowledge Base.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            <Link href="/dashboard/basic-knowledge" className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                                Upload
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+                                                {/* Connect Your APIs for Automations  (Only if there is no workflows and no automations for them*/}
+
+                                                {workflow?.data?.results?.length == 0 && !(workflow?.data?.results[0]?.automations) &&
+
+                                                    < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><ShareIcon className='w-5 h-5' /></span>
+                                                            <div className="w-full">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    Connect Your APIs for Automations
+                                                                </h3>
+                                                                <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                    Initiate the process by connecting your existing APIs to generate a library of automations.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            <Link href='/dashboard/workflow/integrations' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                                Connect
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+
+                                                {/* Create Your First Workflow (only if there is no workflows created, only for joinnextmed accounts*/}
+
+                                                {!workflow?.data?.results && user && (user?.email?.split("@")[1] == 'joinnextmed.com') &&
+
+                                                    < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><CodeBracketSquareIcon className='w-5 h-5' /></span>
+                                                            <div className="w-full">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    Create Your First Workflow
+                                                                </h3>
+                                                                <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                    Combine automations to create your initial workflow, making your operations more efficient from day one.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            <Link href='/dashboard/workflow/workflow-builder' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                                Create
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </Link>
+                                                        </div>
+                                                    </div>
+                                                }
+
+
+
+                                                {/* Invite Team Members to Deflection AI (Only if there is no members but you added) */}
+
+                                                {members?.data?.length < 2 &&
+                                                    < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><UserGroupIcon className='w-5 h-5' /></span>
+                                                            <div className="w-full">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    Invite Team Members to Deflection AI
+                                                                </h3>
+                                                                <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                    Get your team onboard with Deflection AI to maximize the benefits of automated workflows.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            <Link href='/dashboard/members' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                                Invite
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </Link>
+                                                        </div>
+                                                    </div>}
+
+
+
+                                                {/* Upload Email or Ticket History (Only if there is no upload info for any bot) */}
+
+                                                {showTicketHistory &&
+                                                    < div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2 hover:bg-[#151d230a]">
+                                                        <div className="flex w-full gap-4 items-start items-center">
+                                                            <span><EnvelopeOpenIcon className='w-5 h-5 ' /></span>
+                                                            <div className="w-full">
+                                                                <h3 className="text-[#151D23] text-xs !font-[500]">
+                                                                    Upload Email or Ticket History
+                                                                </h3>
+                                                                <p className="text-xs pt-1 text-[#151d23cc]">
+                                                                    Improve your bot's performance by uploading past email or ticket history for more accurate and contextual responses.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex justify-end gap-2">
+                                                            <Link href='/dashboard/basic-knowledge/source?tab=files' className="text-[#007c8f] flex items-center justify-between gap-1 font-semibold text-xs mt-[20px] sm:mt-0 hover:opacity-80">
+                                                                Upload
+                                                                <ArrowSmallRightIcon className="h-4 w-5 font-bold text-[#007c8f]" />
+                                                            </Link>
+                                                        </div>
+                                                    </div>}
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+
+
+                            </div>
+                        }
+
+
+
+                        {/* ***** EXTRA DATA FOR BOTH TYPE OF ACCOUNTS (PAID AND DEMO) *******/}
+
+                        {recentlyView && (
+                            <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                                <div className='py-4 px-6'>
+                                    <div className="flex items-center  gap-2">
+                                        {loadingData ?
+                                            <SkeletonLoader count={1} height={30} width={150} />
+                                            :
+                                            <>
+                                                <EyeIcon className="text-[#FF822D] w-5" />
+
+                                                <p className="leading-[0px] text-base font-medium text-[#151D23]">
+                                                    Recently Viewed
+                                                </p>
+                                            </>
+                                        }
+                                    </div>
+                                    <div className='flex gap-4'>
+                                        {recentlyView.map((ele, key) =>
+                                            <div className={`${key > 1 && 'hidden sm:flex'} sm:w-[200px] flex-col bg-white p-3 border hover:bg-[#151d230a]  shadow-sm hover:border-border  rounded-lg border-[#F0F0F1] mt-5`} key={key}>
+                                                {ele?.subheading && (
+                                                    <p className='text-border  font-semibold text-[12px]'>
+                                                        {loadingData ?
+                                                            <SkeletonLoader count={1} height={20} width="50%" />
+                                                            :
+                                                            <>
+                                                                {ele.subheading}
+                                                            </>
+                                                        }
+                                                    </p>
+                                                )}
+                                                <p className='mt-2 text-base font-medium text-[#151D23]'>
                                                     {loadingData ?
-                                                        <SkeletonLoader count={1} height={20} width="50%" />
+                                                        <SkeletonLoader count={1} height={25} width="70%" />
                                                         :
                                                         <>
-                                                            {ele.subheading}
+                                                            {ele.name}
                                                         </>
                                                     }
                                                 </p>
-                                            )}
-                                            <p className='mt-2 text-base font-medium text-[#151D23]'>
                                                 {loadingData ?
-                                                    <SkeletonLoader count={1} height={25} width="70%" />
+                                                    <SkeletonLoader count={1} height={35} width={40} />
                                                     :
                                                     <>
-                                                        {ele.name}
+                                                        {findIcon(ele.route)}
                                                     </>
                                                 }
-                                            </p>
-                                            {loadingData ?
-                                                <SkeletonLoader count={1} height={35} width={40} />
-                                                :
-                                                <>
-                                                    {findIcon(ele.route)}
-                                                </>
-                                            }
-                                            <Link href={ele.route}>
-                                                <div className='mt-2'>
-                                                    {loadingData ?
-                                                        <SkeletonLoader count={1} height={30} width="50%" />
-                                                        :
-                                                        <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
-                                                    }
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    )}
+                                                <Link href={ele.route}>
+                                                    <div className='mt-2'>
+                                                        {loadingData ?
+                                                            <SkeletonLoader count={1} height={30} width="50%" />
+                                                            :
+                                                            <button className={' border border-border rounded-md bg-sidebarroute text-white py-2 px-6 font-semibold text-xs'}>Manage</button>
+                                                        }
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <ChatBots setSkeleton={setLoadingData} skeleton={loadingData} />
+
+
+                        <Modal title={`How to pass user's data to your widget`}
+                            show={metaDataInfoModal}
+                            setShow={setMetaDataInfoModal}
+                            showCancel={true}
+                            className={"pt-5 lg:w-1/2 m-auto"} >
+                            <MetaDataInfo></MetaDataInfo>
+                        </Modal >
+                        <div className='w-100 flex justify-center mt-5'>
+                            <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
+                                <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
+
+                                Learn how to pass user's data to your widget
+                            </button>
+                        </div>
+
+                    </>
+                )
+
+
+                    :
+
+                    ///////////// SKELETON FOR QUICKSTART
+                    <>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                            <div className='px-5'>
+                                <div className="bg-white'flex-column m-auto rounded-lg mt-5">
+                                    <SkeletonLoader count={1} height={30} width="25%" />
+                                    <div className='flex gap-4 my-3'>
+                                        <SkeletonLoader count={1} height={190} width={220} />
+                                        <SkeletonLoader count={1} height={190} width={220} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    )}
 
-                    <ChatBots setSkeleton={setLoadingData} skeleton={loadingData} />
-
-
-                    <Modal title={`How to pass user's data to your widget`}
-                        show={metaDataInfoModal}
-                        setShow={setMetaDataInfoModal}
-                        showCancel={true}
-                        className={"pt-5 lg:w-1/2 m-auto"} >
-                        <MetaDataInfo></MetaDataInfo>
-                    </Modal >
-                    <div className='w-100 flex justify-center mt-5'>
-                        <button onClick={() => setMetaDataInfoModal(true)} className={'rounded-md text-[#b1b1b1] py-2 px-6 font-semibold flex gap-1 items-center'} style={{ fontSize: '10px' }}>
-                            <InformationCircleIcon className='text-[#b1b1b1] w-4 h-4'></InformationCircleIcon>
-
-                            Learn how to pass user's data to your widget
-                        </button>
-                    </div>
-
-                </>
-            )
-
-
-                :
-
-                ///////////// SKELETON FOR QUICKSTART
-                <>
-                    <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
-                        <div className='px-5'>
-                            <div className="bg-white'flex-column m-auto rounded-lg mt-5">
-                                <SkeletonLoader count={1} height={30} width="25%" />
-                                <div className='flex gap-4 my-3'>
-                                    <SkeletonLoader count={1} height={190} width={220} />
-                                    <SkeletonLoader count={1} height={190} width={220} />
+                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                            <div className='px-5'>
+                                <div className="bg-white'flex-column m-auto rounded-lg mt-5">
+                                    <SkeletonLoader count={1} height={30} width="25%" />
+                                    <SkeletonLoader count={1} height={30} width="25%" />
+                                    <div className='flex gap-4 my-3'>
+                                        <SkeletonLoader count={1} height={190} width={220} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
-                        <div className='px-5'>
-                            <div className="bg-white'flex-column m-auto rounded-lg mt-5">
-                                <SkeletonLoader count={1} height={30} width="25%" />
-                                <SkeletonLoader count={1} height={30} width="25%" />
-                                <div className='flex gap-4 my-3'>
-                                    <SkeletonLoader count={1} height={190} width={220} />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </>
-            }
+                    </>
+                }
 
 
-        </>
+            </>
 
+        </Elements>
 
     )
 }

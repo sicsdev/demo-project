@@ -9,7 +9,8 @@ import Card from "../Common/Card/Card";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getPermissionHelper } from "../helper/returnPermissions";
-const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
+import { CogIcon, EnvelopeOpenIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+const EmailConfig = ({ basicFormData, setBasicFormData, error = null, selectedBot }) => {
   const [errors, setErrors] = useState([]);
   const userState = useSelector((state) => state.user.data);
 
@@ -146,61 +147,17 @@ const EmailConfig = ({ basicFormData, setBasicFormData, error = null }) => {
     }
   };
   return (
-    <div className="container">
-      <div className="grid grid-cols-1">
-        <div className="my-2">
-          <SelectField
-            onChange={handleInputValues}
-            value={formValues.email_introduction}
-            error={returnErrorMessage("email_introduction")}
-            name="email_introduction"
-            values={email_introduction_data}
-            title={
-              <div className="flex items-center gap-2 w-[150px] mb-3">
-                <span>Email Introduction</span>{" "}
-                <div className="group w-[2px] relative">
-                  <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute  w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-125px] sm:left-auto lg:left-auto md:left-auto ">
-                    {" "}
-                    <span className="text-xs font-light">
-                      How you want Deflection AI to address customers in your emails.
-                      You can choose between a variety of greetings.
-                    </span>
-                  </Card>
-                </div>
-              </div>
-            }
-            id={"email_introduction"}
-            className="py-3"
-          />{" "}
+    <div className="container my-3">
+      <div className="grid grid-cols-1 my-3">
+
+        <div className='bg-lowgray px-3 py-2 rounded flex items-center justify-between my-3'>
+          <div className='flex items-center gap-2'>
+            <UserCircleIcon className='h-5 w-5'></UserCircleIcon> Agent Names Configuration
+          </div>
+          <small className='flex items-center text-xs'>Define AI Agent Identities for your {selectedBot} bot. </small>
         </div>
-        <div className="my-2">
-          <SelectField
-            onChange={handleInputValues}
-            value={formValues.email_signOff}
-            error={returnErrorMessage("email_signOff")}
-            name="email_introduction"
-            values={email_sign_off_data}
-            title={
-              <div className="flex items-center gap-2 w-[150px]  mb-3">
-                <span>Email Sign-Off</span>{" "}
-                <div className="group w-[2px] relative">
-                  <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
-                  <Card className="animate-fadeIn bg-white hidden absolute w-[350px] sm:w-[500px] md:w-[500px] lg:w-[500px] z-50 group-hover:block  left-[-108px] sm:left-auto lg:left-auto md:left-auto ">
-                    {" "}
-                    <span className="text-xs font-light">
-                      How you want Deflection AI to end conversations to customers in
-                      your emails. You can choose between a variety of
-                      sign-offs.
-                    </span>
-                  </Card>
-                </div>
-              </div>
-            }
-            id={"email_signOff"}
-            className="py-3"
-          />{" "}
-        </div>
+
+
         <div className="my-2">
           <TextField
             onChange={handleInputValues}

@@ -187,6 +187,28 @@ export const uploadLOgo = async (body) => {
         return error
     }
 };
+
+export const uploadLogoWithToken = async (body, token) => {
+    let config = { headers: { "Content-Type": "application/json", "Authorization": "Token " + token } };
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/accounts/enterprises/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+}
+
+export const getBase64LogoUsingAUrl = async (url) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/accounts/enterprise/get-logo?url=${url}/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}
+
+
 export const modifyIntegration = async (body) => {
     let config = returnConfig()
     try {

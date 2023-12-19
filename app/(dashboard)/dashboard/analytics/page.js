@@ -745,6 +745,7 @@ const Logs = () => {
     <>
       <div>
         <TopBar
+          loading={loading}
           title={` Logs`}
           icon={<QueueListIcon className="h-5 w-5 text-primary" />}
           isBackButton={false}
@@ -787,7 +788,7 @@ const Logs = () => {
                       </Button>
                   }
                 </div>}
-                
+
             </div>
           )}
         </>

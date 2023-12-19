@@ -13,11 +13,12 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
 
     const [itemsSelected, setItemsSelected] = useState([])
     const [editing, setEditing] = useState(false)
-
+    const [loadingRemove, setLoadingRemove] = useState(false)
+    const [negativesData, setNegativesData] = useState([])
 
     useEffect(() => {
-        getAllNegatives()
-    }, [negativeQuestions])
+        getAllNegatives();
+    }, [negativeQuestions]);
 
     const columns = [
         {
@@ -79,21 +80,29 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
     }
 
     const deleteNegativeKeywords = async (id) => {
+        setLoadingRemove(true)
 
-        // Delete from DB using API
-        itemsSelected.forEach(async (item) => {
-            await deleteNagetiveQuestionData(item)
-        })
 
         // Delete from local state
-        let newArray = negativeQuestions
-        itemsSelected.forEach(async (item) => {
-            newArray = newArray.filter(e => e.id !== item)
-        })
+        let newArray = negativeQuestions.filter(e => !itemsSelected.includes(e.id));
+
+        // Delete from DB using API
+        for (const item of itemsSelected) {
+            try {
+                await deleteNagetiveQuestionData(item);
+            } catch (error) {
+                console.error("Error deleting negative terms:", error);
+            }
+        }
 
         // Clean arrays
         setNagetiveQuestions(newArray)
         setItemsSelected([])
+
+        await getAllNegatives()
+
+        setLoadingRemove(false)
+
     }
 
 
@@ -122,7 +131,9 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
 
     const getAllNegatives = async () => {
         const response = await getSingleNagetiveQuestionData(selected.id)
-        setNagetiveQuestions(response?.data)
+        console.log(response)
+        setNegativesData(response.data)
+        // await setNagetiveQuestions(response?.data)
     }
 
     return (
@@ -192,7 +203,10 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
                     {itemsSelected.length > 0 &&
                         <div className='w-full bg-primary p-2 text-white px-4'>
                             <small className='font'>{itemsSelected.length} selected </small>
-                            <small className='font-semibold mx-5 cursor-pointer' onClick={deleteNegativeKeywords}>Remove</small>
+                            <small className='font-semibold mx-5 cursor-pointer'
+                                onClick={deleteNegativeKeywords}>
+                                {loadingRemove ? "Loading..." : "Remove"}
+                            </small>
                         </div>
                     }
 
@@ -209,7 +223,7 @@ const NegativeSearchTermsTab = ({ negative, isEdit, showAdd, setSelected, negati
                         noDataComponent={<><p className="text-center text-xs p-3">Start adding negative search terms.</p></>}
                         paginationPerPage={7}
                         columns={columns}
-                        data={negativeQuestions}
+                        data={negativesData}
                         customStyles={customStyles}
 
                     />

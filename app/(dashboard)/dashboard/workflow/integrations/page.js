@@ -41,7 +41,6 @@ const Page = () => {
   const [skeltonLoading, setSkeltonLoading] = useState(true);
   const [help, setHelp] = useState([])
   const [popularTabs, setPopularTabs] = useState([])
-  console.log("integrations", state)
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
       (x) => x.name.toLowerCase() === name.toLowerCase()
@@ -85,21 +84,15 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      console.log("dataTemp", dataTemplates)
       const popIntegrations = await addNewDomain({ domain: newPopular })
       let custom_integrations = null
       if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
-        console.log("cuaomer", custom_integrations)
       }
 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
         let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
-        console.log("finalIntegrationPopularData", finalIntegrationPopularData);
         const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
-        console.log("filterDataPopular", filterDataPopular);
-        console.log("dataTemplates", dataTemplates);
-
         const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
           logo: item.icon ?? findIconValue(item.name),
@@ -312,7 +305,7 @@ const Page = () => {
 
   return (
     <>
-      <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
+      <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
       {dataLoader === true ? (
         <div>
           <div className='grid grid-cols-[85%,15%] my-2'>

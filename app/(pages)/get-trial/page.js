@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import TrialForm from "./Form";
 import { useSearchParams, useRouter } from "next/navigation";
 import { submitCheckout } from "@/app/API/pages/Checkout";
-import { createBotKnowledge, createCheckoutBot } from "@/app/API/pages/Bot";
+import { createBotKnowledge, createCheckoutBot, getBase64LogoUsingAUrl, uploadLogoWithToken } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { editBillingType } from "@/app/components/store/slices/billingTypeSlice";
@@ -18,13 +18,9 @@ const Trial = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-
   const gclid = searchParams.get("gclid");
-
   const msclkid = searchParams.get("msclkid");
-  console.log("gclid", gclid);
 
-  console.log("msclkid", msclkid);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     billing_type: "demo",
@@ -147,6 +143,17 @@ const Trial = () => {
 
     const response = await submitCheckout(payload);
     if (response?.token) {
+
+      // Extract logo from website and upload it 
+      try {
+        let url = addHttpsToUrl(formData.url);
+        const base64Favicon = await getBase64LogoUsingAUrl(url);
+        await uploadLogoWithToken({ logo: base64Favicon }, response.token);
+      } catch (error) {
+        console.error('Error converting logo to base64:', error);
+      }
+
+
       Cookies.set("Token", response.token);
       const bot = await createCheckoutBot(payload2, response.token);
 
