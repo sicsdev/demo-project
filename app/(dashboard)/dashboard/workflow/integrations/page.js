@@ -41,7 +41,6 @@ const Page = () => {
   const [skeltonLoading, setSkeltonLoading] = useState(true);
   const [help, setHelp] = useState([])
   const [popularTabs, setPopularTabs] = useState([])
-  console.log("integrations", state)
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
       (x) => x.name.toLowerCase() === name.toLowerCase()
