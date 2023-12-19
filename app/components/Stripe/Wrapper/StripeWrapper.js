@@ -10,16 +10,10 @@ const StripeWrapper = ({ children, options = null }) => {
   // );
 
   let stripePromise = loadStripe(STRIPE_KEY)
-  
+
   return (
     <>
-      {options ? (
-        <Elements options={options} stripe={stripePromise}>
-          {children}
-        </Elements>
-      ) : (
-        <Elements stripe={stripePromise}>{children}</Elements>
-      )}
+      <Elements stripe={stripePromise}>{children}</Elements>
     </>
   );
 };

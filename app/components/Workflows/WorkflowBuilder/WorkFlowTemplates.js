@@ -45,7 +45,13 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         manageData()
         setIsAuthorizedUser((userData?.email?.endsWith('@deflection.ai') || userData?.email?.endsWith('@joinnextmed.com') || userData?.email?.endsWith('@usetempo.ai')))
     }, [workflowData, filters])
+    
+    useEffect(() => {
+        if (botsState && botsState.botData && botsState.botData.data) {
+            getAllBots()
+        }
 
+    }, [botsState])
 
 
     const [isCopied, setIsCopied] = useState({
@@ -128,7 +134,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
     };
 
     const manageData = async () => {
-        setLoading(true)
+        // setLoading(true)
         let botFilter = filters.currentBot
         let workflows = await getWorkflowByStatus(status, source, botFilter)
         let result = workflows.results
@@ -191,12 +197,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
         })
     }
 
-    useEffect(() => {
-        if (botsState && botsState.botData && botsState.botData.data) {
-            getAllBots()
-        }
 
-    }, [botsState])
 
     return (
         <div>

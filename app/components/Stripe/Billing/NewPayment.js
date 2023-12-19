@@ -27,7 +27,7 @@ import { useSearchParams } from "next/navigation";
 
 const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const stripe = useStripe();
-    const cardElementRef = useRef();
+    // const cardElementRef = useRef();
     const elements = useElements();
     const searchParams = useSearchParams();
     const [message, setMessage] = useState(false)
@@ -38,39 +38,24 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (!stripe || !elements) {
-            return;
-        }
-        const cardElement = elements.getElement(CardElement);
 
-        let card_token = await stripe.createToken(cardElement);
-        const payload = {
-            token: card_token.token?.id,
-        };
+        if (elements) {
+            const cardElement = elements.getElement(CardElement);
+            let card_token = await stripe.createToken(cardElement);
+            const payload = { token: card_token.token?.id, };
 
-        setLoading(false)
-
-        const response = await subscribeCustomer(payload, Cookies.get("Token"));
-
-        if (response) {
+            const response = await subscribeCustomer(payload, Cookies.get("Token"));
+            if (response) { setBillingValueAfterSubmit() }
             setLoading(false);
-            setBillingValueAfterSubmit()
-        } else {
-            setLoading(false);
+
         }
     };
-    // if (elements != null) {
-    //     const cardElement = elements.getElement(CardElement);
-    //     const paymentVal = searchParams.get("payment")
-    //     if (paymentVal === "true" && cardElement) {
-    //         cardElement.focus();
-    //     }
-    // }
+
     useEffect(() => {
-      
-        if (elements != null) {
+
+        if (elements) {
             const cardElement = elements.getElement(CardElement);
-          
+
             if (cardElement && cardElement != null) {
 
                 cardElement.on("change", function (event) {
@@ -94,18 +79,14 @@ const BillingNew = ({ setBillingValueAfterSubmit }) => {
                 style={{ borderColor: "#80808080" }}
             >
 
-                <CardElement ref={cardElementRef}
+                <CardElement
                     className="form-control"
                     options={{
                         style: {
                             base: {
                                 fontSize: "16px",
-                                padding: "1.5vh",
                                 lineHeight: "1.5",
                                 color: "#495057",
-                                borderRadius: "9px",
-                                border: "1px solid #ced4da", // Agregar esta línea para definir un borde
-                                width: "100%",
                             },
                         },
                     }}
