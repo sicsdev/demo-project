@@ -10,6 +10,8 @@ import { setDemoKnowledge } from '@/app/API/pages/get-trial';
 import { updateScrapperKnowledgeState } from '@/app/components/store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
+import { getUserProfile } from '@/app/API/components/Sidebar';
+import { fetchProfile } from '@/app/components/store/slices/userSlice';
 
 const Page = () => {
 
@@ -28,8 +30,7 @@ const Page = () => {
         }
 
         if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
-            dispatch(updateScrapperKnowledgeState(null));
-            setLoadingScrapper(false)
+            checkIfInformationWasFilled()
         }
 
         if (userData?.data?.enterprise?.information_filled) {
@@ -39,6 +40,29 @@ const Page = () => {
     }, [userData?.data?.enterprise?.information_filled])
 
 
+    const checkIfInformationWasFilled = async () => {
+        let attempts = 0;
+        const maxAttempts = 5;
+        const interval = 7000;
+
+        const tryFetchProfile = async () => {
+            if (attempts < maxAttempts) {
+                let userProfile = await getUserProfile();
+                if (userProfile.enterprise.information_filled) {
+                    dispatch(fetchProfile());
+                    setLoadingScrapper(false);
+                    return;
+                } else {
+                    attempts++;
+                    setTimeout(tryFetchProfile, interval);
+                }
+            } else {
+                setLoadingScrapper(false);
+            }
+        };
+
+        tryFetchProfile();
+    };
 
     const setKnowledgeFirstData = async (mainPage, faqPage) => {
         setLoadingScrapper(true);
@@ -56,11 +80,8 @@ const Page = () => {
         setLoadingScrapper(false);
         setFinishingScrapping(false)
         setFinishedScrapper(true)
-        dispatch(updateScrapperKnowledgeState(null));
+        // dispatch(updateScrapperKnowledgeState(null));
     };
-    
-    const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
-    let stripePromise = loadStripe(STRIPE_KEY)
 
     return (
         <div style={{ whiteSpace: "normal" }}>

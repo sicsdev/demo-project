@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLoader, updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
+import { fetchProfile } from '../store/slices/userSlice';
 
-const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finishing, finished }) => {
+const ProgressBarComponent = ({ totalLoadingTime = 100000, timer = 1.1111, finishing, finished }) => {
 
     // const [progress, setProgress] = useState(0);
     const dispatch = useDispatch()
@@ -29,6 +30,7 @@ const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finish
                 currentProgress += increment;
                 dispatch(setLoader(currentProgress));
             } else {
+                dispatch(fetchProfile())
                 clearInterval(interval);
             }
         }, intervalTime);

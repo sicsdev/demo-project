@@ -818,54 +818,6 @@ const NewSidebar = ({ children }) => {
                                                     ))}
                                                 </>
 
-
-                                                {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
-                                                    <>
-                                                        {SideBarRoutes.map((element, key) => (
-                                                            element?.name !== "Channels" && (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        ))}
-                                                    </> :
-                                                    <>
-                                                        {SideBarRoutes2.map((element, key) => (
-                                                            element?.name !== "Channels" && (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        ))}
-                                                    </>
-                                                } */}
-                                                {/* <li >
-                                                    <Link
-                                                        href={'/dashboard/api-keys'}
-                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                        onClick={() => setIsOpen(false)}
-                                                    >
-                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                            Keys
-                                                        </span>
-                                                    </Link>
-                                                </li> */}
                                                 <hr className="text-border border-gray" />
                                                 <li className="p-2 relative hover:underline flex">
                                                     <input
@@ -1190,22 +1142,27 @@ const NewSidebar = ({ children }) => {
                                                                 ))}
                                                             </>
                                                             } */}
-                                                        {billingState === "demo" ? <>
-                                                            {SideBarRoutes3.map((element, key) => (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        {/* {element.icon} */}
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                            )}</> :
+                                                        {billingState === "demo" &&
+                                                            <>
+                                                                {SideBarRoutes3.map((element, key) => (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                                )}
+                                                            </>
+                                                        }
+
+                                                        {billingState === "normal" &&
 
                                                             <>
                                                                 {SideBarRoutes2.map((element, key) => (
