@@ -172,7 +172,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     // Initializers 
     useEffect(() => {
         if (members.data === null) { dispatch(fetchMembers()); }
-        if (user) { setIsExpand(user?.show_quick_start) }
+        if (user?.show_quick_start) { setIsExpand(true) } else { setIsExpand(false) }
         if (!showTicketHistory) { handleShowTickets() }
     }, [members.data, user, botData]);
 
@@ -321,7 +321,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                         <button
                                             className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
                                             onClick={ExpandChange}>
-                                            {!isExpand === true ? (
+                                            {isExpand === true ? (
                                                 <>
                                                     <p className="hidden sm:block "> Collapse</p>
                                                     <ChevronUpIcon className="w-5 h-5" />
@@ -477,7 +477,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                     <div className='mt-3'>
 
-                                        <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                                        <div className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
                                             <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
 
