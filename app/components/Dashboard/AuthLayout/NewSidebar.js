@@ -108,14 +108,12 @@ const NewSidebar = ({ children }) => {
         // if (state) { setProfileInfo(state) }
     }, [])
 
-    // useEffect(() => {
-    //     if (!state) {
-    //         dispatch(fetchProfile());
-    //         dispatch(fetchIntegrations());
-    //         dispatch(fetchWorkflows());
-    //         dispatch(fetchBot());
-    //     }
-    // }, [state]);
+    useEffect(() => {
+        if (!state) dispatch(fetchProfile());
+        if (!integrations?.data) dispatch(fetchIntegrations());
+        if (!workflowState?.data) dispatch(fetchWorkflows());
+        if (!stateBots?.botData) dispatch(fetchBot());
+    }, [state, integrations?.data, workflowState?.data, stateBots?.botData]);
 
     useEffect(() => {
         if (base64Data.state == true) {
