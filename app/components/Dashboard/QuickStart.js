@@ -182,9 +182,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     }, [])
 
 
-    useEffect(() => {
-        if (!loadingScrapper) { dispatch(fetchProfile()) }
-    }, [loadingScrapper])
+    // useEffect(() => {
+    //     if (!loadingScrapper) { dispatch(fetchProfile()) }
+    // }, [loadingScrapper])
 
     // Main functions
 

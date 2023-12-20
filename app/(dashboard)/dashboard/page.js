@@ -49,8 +49,14 @@ const Page = () => {
             if (attempts < maxAttempts) {
                 let userProfile = await getUserProfile();
                 if (userProfile.enterprise.information_filled) {
+                    setFinishedScrapper(true)
                     dispatch(fetchProfile());
-                    setLoadingScrapper(false);
+                    dispatch(fetchBot())
+                    sessionStorage.setItem('scrappDataHasFinished', 'true')
+
+                    setTimeout(() => {
+                        setLoadingScrapper(false);
+                    }, 3000);
                     return;
                 } else {
                     attempts++;
@@ -61,7 +67,7 @@ const Page = () => {
             }
         };
 
-        tryFetchProfile();
+        await tryFetchProfile();
     };
 
     const setKnowledgeFirstData = async (mainPage, faqPage) => {

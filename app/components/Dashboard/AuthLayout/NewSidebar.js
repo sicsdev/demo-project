@@ -101,14 +101,14 @@ const NewSidebar = ({ children }) => {
         getLearningCenterCount()
     }, []);
 
-    useEffect(() => {
-        if (!state) {
-            dispatch(fetchProfile());
-            dispatch(fetchIntegrations());
-            dispatch(fetchWorkflows());
-            dispatch(fetchBot());
-        }
-    }, [state]);
+    // useEffect(() => {
+    //     if (!state) {
+    //         dispatch(fetchProfile());
+    //         dispatch(fetchIntegrations());
+    //         dispatch(fetchWorkflows());
+    //         dispatch(fetchBot());
+    //     }
+    // }, [state]);
 
     useEffect(() => {
         if (base64Data.state == true) {
@@ -919,7 +919,7 @@ const NewSidebar = ({ children }) => {
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
-                                {skeltonLoading ? (
+                                {!state ? (
                                     <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="w-full rounded-lg">
                                             <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -1064,7 +1064,7 @@ const NewSidebar = ({ children }) => {
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            {skeltonLoading ? (
+                            {!state ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
                                         <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />

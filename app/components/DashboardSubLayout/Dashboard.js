@@ -26,6 +26,11 @@ const Dashboard = ({ children }) => {
     const dispatch = useDispatch()
     const pathname = usePathname()
 
+    let state = useSelector((state) => state.botId.showModal)
+    const userState = useSelector((state) => state.user);
+    const billingState = useSelector((state) => state.billing);
+    const botState = useSelector((state) => state.botId);
+
     useEffect(() => {
 
         const inputs = document.querySelectorAll('input, select, textarea');
@@ -44,10 +49,6 @@ const Dashboard = ({ children }) => {
         }
     }, [])
 
-
-    let state = useSelector((state) => state.botId.showModal)
-    const userState = useSelector((state) => state.user);
-    const billingState = useSelector((state) => state.billing);
     useEffect(() => {
         if (!state) {
             dispatch(fetchBot())
@@ -58,10 +59,15 @@ const Dashboard = ({ children }) => {
             dispatch(fetchIntegrationsTemplates())
         }
 
-        getActiveBots()
+        // getActiveBots()
         // localStorage.setItem(`inTempoPortal`, true);
         // return () => { localStorage.removeItem('inTempoPortal') }
     }, [state]);
+
+    useEffect(() => {
+        getActiveBots()
+    }, [botState.botData.data])
+
 
     const SideBarRoutes = [
 
@@ -158,7 +164,7 @@ const Dashboard = ({ children }) => {
     const getActiveBots = async () => {
 
         await getAllActiveBots().then(async (res) => {
-            setActiveBots(res.results)
+            setActiveBots(res?.results)
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 

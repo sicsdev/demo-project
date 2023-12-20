@@ -16,7 +16,6 @@ const ProgressBarComponent = ({ totalLoadingTime = 100000, timer = 1.1111, finis
     }
 
     useEffect(() => {
-
         const totalTime = totalLoadingTime; // Total duration in milliseconds (1.5 seconds)
         const intervalTime = getRandomInterval(1, 500);
         const steps = totalTime / intervalTime; // Number of necessary steps
@@ -30,7 +29,6 @@ const ProgressBarComponent = ({ totalLoadingTime = 100000, timer = 1.1111, finis
                 currentProgress += increment;
                 dispatch(setLoader(currentProgress));
             } else {
-                dispatch(fetchProfile())
                 clearInterval(interval);
             }
         }, intervalTime);
@@ -40,13 +38,29 @@ const ProgressBarComponent = ({ totalLoadingTime = 100000, timer = 1.1111, finis
         };
     }, []);
 
-
     useEffect(() => {
+        // Code to set the loader bar to 100 and avoid to jump directly to 100 after finish.
         if (finished) {
-            dispatch(setLoader(100));
-        }
+            const rapidIntervalTime = 30; // Shorter time for interval
+            const rapidIncrement = 11; // Bigger increment
 
-    }, [finished, progress])
+            let currentProgress = progress;
+            const rapidInterval = setInterval(() => {
+                if (currentProgress < 100) {
+                    currentProgress += rapidIncrement;
+                    if (currentProgress > 100) currentProgress = 100; // To be sure its never more than 100
+                    dispatch(setLoader(currentProgress));
+                } else {
+                    clearInterval(rapidInterval);
+                }
+            }, rapidIntervalTime);
+
+            return () => {
+                clearInterval(rapidInterval);
+            };
+        }
+    }, [finished, progress, dispatch]);
+
 
     return (
         <div
