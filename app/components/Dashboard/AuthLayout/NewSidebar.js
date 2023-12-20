@@ -86,6 +86,12 @@ const NewSidebar = ({ children }) => {
     const stateBots = useSelector(state => state.botId)
 
 
+    useEffect(() => {
+        if (!state) dispatch(fetchProfile());
+        if (!integrations?.data) dispatch(fetchIntegrations());
+        if (!workflowState?.data) dispatch(fetchWorkflows());
+        if (!stateBots?.botData) dispatch(fetchBot());
+    }, [state, integrations?.data, workflowState?.data, stateBots?.data]);
 
     // useEffect to check loaders and delete skeleton after get all required data from api.
     useEffect(() => {
@@ -107,15 +113,6 @@ const NewSidebar = ({ children }) => {
         getProfileInfo()
         // if (state) { setProfileInfo(state) }
     }, [])
-
-    // useEffect(() => {
-    //     if (!state) {
-    //         dispatch(fetchProfile());
-    //         dispatch(fetchIntegrations());
-    //         dispatch(fetchWorkflows());
-    //         dispatch(fetchBot());
-    //     }
-    // }, [state]);
 
     useEffect(() => {
         if (base64Data.state == true) {
@@ -518,12 +515,11 @@ const NewSidebar = ({ children }) => {
         reader.readAsDataURL(file);
     };
 
-    const excludeMenuArrayList = ['Channels', 'Logs', 'Billing'];
 
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                (excludeMenuArrayList?.includes(element.name) && (stateBots?.botData?.data?.bots?.length == 0 || stateBots?.botData?.data?.bots?.length == undefined)) ? ("") : (
+                (
                     < li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                         }`
                     }>
@@ -732,7 +728,6 @@ const NewSidebar = ({ children }) => {
         <>
 
             <>
-
                 <nav className="sticky top-0 block  sm:hidden md:hidden lg:hiddenfixed z-50 w-full bg-sidebarbg" ref={divSideRef}>
 
 
@@ -923,7 +918,7 @@ const NewSidebar = ({ children }) => {
                                         } */}
                                         <>
 
-                                            {SideBarRoutes2.map((element, key) =>
+                                            {!skeltonLoading && SideBarRoutes2.map((element, key) =>
                                                 <>
                                                     {sendSideBarDetails(element, key)}
                                                 </>
@@ -1069,7 +1064,7 @@ const NewSidebar = ({ children }) => {
                                     } */}
                                     <>
 
-                                        {SideBarRoutes2.map((element, key) =>
+                                        {!skeltonLoading && SideBarRoutes2.map((element, key) =>
                                             <>
                                                 {sendSideBarDetails(element, key)}
                                             </>
