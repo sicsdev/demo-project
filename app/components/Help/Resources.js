@@ -85,7 +85,7 @@ const Resources = () => {
             <div className='mb-[4rem] bg-[#8080804d]'>
                 <div class={delay ? "opacity-0 " : "grid grid-cols-4 gap-8 p-[0px] sm:p-[2rem]"}>
                     {All == "All Resources" ? <>{showAllArticles?.map((ele, key) =>
-                        <div className=" shadow-lg   p-5 sm:p-3 bg-[white]" key={key} >
+                        <div className=" shadow-lg   bg-[white]" key={key} >
                             <Link
                                 href=
                                 {`/resources/article/data?article=${removeSpacesAndHyphens(ele?.fields?.heading?.toLowerCase())}`}
@@ -98,7 +98,7 @@ const Resources = () => {
 
                                         alt="img"
                                         className="w-full h-full bg-contain"
-                                        style={{ objectFit: "cover" }}
+                                        style={{ objectFit: "fill" }}
                                     />
                                 </div>
                                 <div className="p-[12px]">
@@ -126,15 +126,15 @@ const Resources = () => {
                                     {`/integrations/data?article=${removeSpacesAndHyphens(ele.fields.heading.toLowerCase())}`}
                                 >
                                     <div className="flex flex-co relative h-[200px] w-[100%] justify-start items-center js-show-on-scroll">
-                                        <Image
-                                            fill={true}
-                                            src=
-                                            {ele?.fields?.previewImage?.fields?.file?.url == undefined ? "/tempo-preview.png" : ele?.fields?.previewImage?.fields?.file?.url}
+                                    <Image
+                                        fill={true}
+                                        src=
+                                        {ele?.fields?.previewImage?.fields?.file?.url == undefined ? "/tempo-preview.png" : ele?.fields?.previewImage?.fields?.file?.url}
 
-                                            alt="img"
-                                            className="w-full h-full bg-contain"
-                                            style={{ objectFit: "fill" }}
-                                        />
+                                        alt="img"
+                                        className="w-full h-full bg-contain"
+                                        style={{ objectFit: "fill" }}
+                                    />
                                     </div>
                                     <div className="p-[12px]">
                                         <div>
@@ -155,7 +155,7 @@ const Resources = () => {
                     </> : ""}
                     {All === "Articles" ? <>{showAllArticles?.map((ele, key) =>
 
-                        <div className=" shadow-lg   p-5 sm:p-3 bg-[white]" key={key} >
+                        <div className=" shadow-lg   bg-[white]" key={key} >
                             <Link
                                 href=
                                 {`/resources/article/data?article=${removeSpacesAndHyphens(ele?.fields?.heading?.toLowerCase())}`}
@@ -168,7 +168,7 @@ const Resources = () => {
 
                                         alt="img"
                                         className="w-full h-full bg-contain"
-                                        style={{ objectFit: "cover" }}
+                                        style={{ objectFit: "fill" }}
                                     />
                                 </div>
                                 <div className="p-[12px]">
