@@ -6,8 +6,14 @@ import { makeCapital } from '@/app/components/helper/capitalName'
 import { ChevronLeftIcon, EllipsisVerticalIcon } from '@heroicons/react/24/outline'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
+import WorkflowTemplatesSidebar from './Sidebar/WorkflowTemplatesSidebar'
 
 const page = () => {
+
+
+  // Test template url:
+  // http://localhost:3000/dashboard/workflow/workflow-builder/templates-manager?templateId=0402fdac-3bd6-4141-8c42-5ec6f5bcb12c
+
 
   // Helpers
   const params = useSearchParams()
@@ -41,6 +47,11 @@ const page = () => {
 
       {templateData && (
         <>
+
+          {/* SIDEBAR  */}
+
+          <WorkflowTemplatesSidebar></WorkflowTemplatesSidebar>
+
           <div className='block sm:hidden' >
             <p className='font-bold text-sm'>Open Menu</p>
           </div>
@@ -52,19 +63,11 @@ const page = () => {
               {templateData?.icon ? templateData?.icon :
                 <>
                   😊
-                  {/* <div className="relative min-w-[35px] w-[35px] sm:w-[35px] h-[35px] gap-2 rounded-lg">
-                        <Image
-                          fill={"true"}
-                          className="bg-contain mx-auto w-full rounded-lg"
-                          alt="logo.png"
-                          src={'/workflow/reactive-subscription.png'}
-                        />
-                      </div> */}
+
                 </>
               }
               <div className='cursor-pointer w-auto sm:w-[90%] md:w-[90%] lg:w-[90%]' >
                 <h3 className='text-heading font-bold text-sm sm:text-sm1'>{templateData.name === 'Default_name' ? "New Workflow 1" : makeCapital(templateData.name)}</h3>
-                {/* <p className='text-border font-normal text-sm'>{templateData.description}</p> */}
               </div>
             </div>
             <div className='flex justify-between gap-2 items-center'>

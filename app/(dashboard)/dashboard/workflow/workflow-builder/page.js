@@ -123,9 +123,8 @@ const Page = () => {
         }
 
         const response = await createWorkflowTemplate(formData)
-        console.log(response)
         setWorkLoading(false)
-        if (response?.data?.id) router.push('/dashboard/workflow/workflow-builder/templates-manager?template=' + response.data.id)
+        if (response?.data?.id) router.push('/dashboard/workflow/workflow-builder/templates-manager?templateId=' + response.data.id)
     }
 
 
