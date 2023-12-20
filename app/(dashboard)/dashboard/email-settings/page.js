@@ -415,9 +415,9 @@ const page = () => {
                                 )}
 
                                 <div className='px-6 my-2'>
-                                    {user && user?.enterprise?.domain === '' && (
-                                        <EmailAgentSetting selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
-                                    )}
+                                    {/* {user && user?.enterprise?.domain === '' && ( */}
+                                    <EmailAgentSetting selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
+                                    {/* )} */}
                                     <EmailConfig selectedBot={selectedBotName} basicFormData={basicFormData} setBasicFormData={setBasicFormData} />
                                 </div>
 

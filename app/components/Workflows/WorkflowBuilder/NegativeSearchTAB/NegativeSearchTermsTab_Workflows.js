@@ -6,6 +6,7 @@ import { useState } from 'react';
 import TextArea from '../../../Common/Input/TextArea';
 import DataTable from 'react-data-table-component';
 import Dropdown from '@/app/components/LearningCenter/NegativeSearchTermsTab/Dropdown';
+import { Tooltip } from 'react-tooltip'
 
 const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuestions, nLoading = false, singleData }) => {
 
@@ -45,7 +46,9 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
             selector: (row) => row,
             cell: (row) => (
                 <div className='keyword_container_workflow flex gap-3 w-full relative'>
-                    {row.search}
+                    <div className="truncate-multiline">
+                        {row.search}
+                    </div>
                     <Dropdown getAllNegativesWorkflows={getAllNegatives} type={'workflow'} element={row} handleEdit={() => handleEdit(row)}></Dropdown>
                 </div>
             ),
@@ -55,10 +58,22 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
 
         {
             name: "Status",
-            selector: (row) => row.score === -0.1 ? 'Reduced' : row.score === -1 ? 'Blocked' : 'Deprecated',
+            selector: (row) => {
+                const status = row.score === -0.1 ? 'R' : row.score === -1 ? 'B' : 'D';
+                const tooltipContent = status === 'R' ? 'Reduced' : status === 'B' ? 'Blocked' : 'Deprecated';
+                return (
+                    <>
+                        <div data-tooltip-id={`tooltip-${status}`}>
+                            {status}
+                        </div>
+                        <Tooltip id={`tooltip-${status}`} place="bottom" type="dark" effect="solid" content={tooltipContent} />
+                    </>
+                );
+            },
             sortable: true,
             reorder: true,
-        },
+            width: "90px",
+        }
     ];
 
 
@@ -174,7 +189,6 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     return (
         <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4' >
             <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto p-4">
-                {/* <span className="text-[12px] text-[#555555b5]  block  text-heading font-[600]">Description</span> */}
 
                 <>
 
@@ -247,42 +261,6 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
 
                     </div>
 
-                    {/* {negativeQuestions.length > 0 && (
-                        <>
-                            <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
-                            <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                <ul className="text-start py-2 text-sm text-gray-700 ">
-                                    {negativeQuestions.map((element, key) =>
-                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
-                                            <p className="text-xs">{element.search}</p>
-                                            <div className='flex justify-start gap-4 items-center'>
-                                                <div title='Score'>
-                                                    {element.score}
-                                                </div>
-                                                <PencilSquareIcon className="h-5 w-5" onClick={() => {
-                                                    setIsEdit(true)
-                                                    setShowAdd(true)
-                                                    setSelected((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            negative_answer: element.search,
-                                                            negative_id: element.id,
-                                                            index: key
-                                                        }
-                                                    })
-                                                }} />
-                                                <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
-
-                                            </div>
-                                        </li>
-                                    )}
-
-                                </ul>
-
-
-                            </div>
-                        </>
-                    )} */}
                 </>
             </div>
         </div >
