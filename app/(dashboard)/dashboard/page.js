@@ -10,6 +10,9 @@ import { setDemoKnowledge } from '@/app/API/pages/get-trial';
 import { updateScrapperKnowledgeState } from '@/app/components/store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
+import { getUserProfile } from '@/app/API/components/Sidebar';
+import { fetchProfile } from '@/app/components/store/slices/userSlice';
+import { fetchBot } from '@/app/components/store/slices/botIdSlice';
 
 const Page = () => {
 
@@ -22,23 +25,54 @@ const Page = () => {
     const [finishedScrapper, setFinishedScrapper] = useState(false)
 
     useEffect(() => {
+
         if (knowledgeScrapperState && knowledgeScrapperState.data && knowledgeScrapperState.loader == 0) {
             setKnowledgeFirstData(knowledgeScrapperState.data.main_webpage, knowledgeScrapperState.data.faqs_webpage)
             setLoadingScrapper(true)
         }
 
-        if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
-            dispatch(updateScrapperKnowledgeState(null));
-            setLoadingScrapper(false)
+        if (knowledgeScrapperState?.state?.loader?.toFixed() == 50) {
+            checkIfInformationWasFilled()
         }
 
         if (userData?.data?.enterprise?.information_filled) {
             setLoadingScrapper(false)
+            dispatch(fetchBot())
         }
 
-    }, [userData?.data?.enterprise?.information_filled])
+    }, [userData?.data?.enterprise?.information_filled, knowledgeScrapperState?.loader])
 
 
+    const checkIfInformationWasFilled = async () => {
+        let attempts = 0;
+        const maxAttempts = 5;
+        const interval = 7000;
+
+        const tryFetchProfile = async () => {
+            if (attempts < maxAttempts) {
+                let userProfile = await getUserProfile();
+
+                if (userProfile.enterprise.information_filled == true) {
+                    setFinishedScrapper(true)
+                    dispatch(fetchProfile());
+                    dispatch(fetchBot())
+                    sessionStorage.setItem('scrappDataHasFinished', 'true')
+
+                    setTimeout(() => {
+                        setLoadingScrapper(false);
+                    }, 3000);
+                    return;
+                } else {
+                    attempts++;
+                    setTimeout(tryFetchProfile, interval);
+                }
+            } else {
+                setLoadingScrapper(false);
+            }
+        };
+
+        await tryFetchProfile();
+    };
 
     const setKnowledgeFirstData = async (mainPage, faqPage) => {
         setLoadingScrapper(true);
@@ -56,11 +90,8 @@ const Page = () => {
         setLoadingScrapper(false);
         setFinishingScrapping(false)
         setFinishedScrapper(true)
-        dispatch(updateScrapperKnowledgeState(null));
+        // dispatch(updateScrapperKnowledgeState(null));
     };
-    
-    const STRIPE_KEY = process.env.NEXT_PUBLIC_STRIPE_KEY;
-    let stripePromise = loadStripe(STRIPE_KEY)
 
     return (
         <div style={{ whiteSpace: "normal" }}>

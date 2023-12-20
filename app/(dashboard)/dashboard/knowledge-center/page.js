@@ -862,6 +862,7 @@ const Page = () => {
                                 setMode={setMode}
                                 searchFaqs={searchFaqs}
                                 handleWorkflow={handleWorkflow}
+                                setSubQuestionLoading={setSubQuestionLoading}
                             >
 
                             </AnswersEditor>

@@ -51,19 +51,29 @@ const AnswersEditor = ({
     modal,
     searchFaqs,
     setSubQuestions,
-    loadingChangeAnswer
+    loadingChangeAnswer,
+    setSubQuestionLoading
 }) => {
 
     const [copying, setCopying] = useState(null)
     const [tab, setTab] = useState(0);
     const [showRecommendedQuestions, setShowRecommendedQuestions] = useState(true)
     const [showRecommendedWorkflows, setShowRecommendedWorkflows] = useState(true)
-
+    const [recommendations, setRecommendations] = useState([])
 
     useEffect(() => {
         subQuestions.length == 0 && setShowRecommendedQuestions(false)
         workFlowData.reccomodation.length == 0 && setShowRecommendedWorkflows(false)
+        return () => {
+            setShowRecommendedQuestions(true)
+            setShowRecommendedWorkflows(true)
+        }
     }, [subQuestions, workFlowData.reccomodation])
+
+
+    useEffect(() => {
+        if (subQuestions == recommendations) { setRecommendations(subQuestions); setSubQuestionLoading(false) }
+    }, [subQuestions])
 
 
     const filterWorkflowArray = (workflows) => {

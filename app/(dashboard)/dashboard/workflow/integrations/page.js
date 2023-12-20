@@ -359,7 +359,7 @@ const Page = () => {
               </div>
             </div>
 
-            {getPermissionHelper('CREATE INTEGRATION', userState.role) &&
+            {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
               <div>
                 <div className=' gap-2 w-full '>
                   <div className='mr-[18px]'>
