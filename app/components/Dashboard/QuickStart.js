@@ -153,6 +153,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
         if (Cookies.get('visit')) {
             setRecntlyView(JSON.parse(Cookies.get('visit')))
         }
+
     }, []);
 
     // Control loader after load data from redux
@@ -171,7 +172,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     // Initializers 
     useEffect(() => {
         if (members.data === null) { dispatch(fetchMembers()); }
-        if (user) { setIsExpand(user?.show_quick_start) }
+        if (user?.show_quick_start) { setIsExpand(true) } else { setIsExpand(false) }
         if (!showTicketHistory) { handleShowTickets() }
     }, [members.data, user, botData]);
 
@@ -181,7 +182,9 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     }, [])
 
 
-
+    // useEffect(() => {
+    //     if (!loadingScrapper) { dispatch(fetchProfile()) }
+    // }, [loadingScrapper])
 
     // Main functions
 
@@ -218,7 +221,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     const ExpandChange = async () => {
         setIsExpand(!isExpand)
         const response = await ManageExpand({ show_quick_start: !isExpand })
-
     }
 
     const handleInputDomainValue = (e) => {
@@ -314,12 +316,12 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                 {/* Only not-demo accounts can collapse and expand suggested actions. */}
 
-                                {billingState == "normal" &&
+                                {billingState == "normal" && !profileComplete &&
                                     <div className="flex items-center gap-4 justify-end">
                                         <button
                                             className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
-                                            onClick={(e) => ExpandChange()}>
-                                            {!isExpand === true ? (
+                                            onClick={ExpandChange}>
+                                            {isExpand === true ? (
                                                 <>
                                                     <p className="hidden sm:block "> Collapse</p>
                                                     <ChevronUpIcon className="w-5 h-5" />
@@ -343,13 +345,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                                 {/********* DEMO ACCOUNTS PANEL ************/}
-                                {billingState === "demo" &&
+                                {billingState == "demo" &&
                                     <div className='mt-3'>
 
 
                                         {stripePromise && <Method></Method>}
 
-                                        <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                                        <div className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
                                             <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
 
@@ -383,6 +385,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                                                 {/* Upload Email or Ticket History */}
+
                                                 <div className="px-6 lg:flex md:flex sm:block justify-between items-center sm:gap-40 py-2  hover:bg-[#151d230a]">
                                                     <div className="flex gap-4 items-start items-center">
                                                         <span><EnvelopeIcon className='w-5 h-5 ' /></span>
@@ -474,7 +477,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                                     <div className='mt-3'>
 
-                                        <div className={`overflow-hidden ${isExpand === false ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
+                                        <div className={`overflow-hidden ${isExpand === true ? "visible h-auto pt-6" : "invisible h-0"}`} style={{ transition: `all 0.2s ease-out 0s` }}>
 
                                             <div className="cursor-pointer border-b border-[#F0F0F1] py-3 " >
 

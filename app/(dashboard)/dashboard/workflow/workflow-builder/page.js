@@ -53,7 +53,7 @@ const Page = () => {
             setShowLogs(true)
         }
     }
-    
+
     useEffect(() => {
         getAllLogs()
         if (!workflowState?.data?.results?.some(e => e.active === true)) {
@@ -110,6 +110,21 @@ const Page = () => {
                 errorMessage(response.message)
             }
         }
+    }
+
+    const createNewTemplate = async () => {
+        setWorkLoading(true)
+        let formData = {
+            name: "Default_Template_Name",
+            description: [],
+            policy_name: "",
+            policy_description: "",
+            policy_exceptions: ""
+        }
+
+        const response = await createWorkflowTemplate(formData)
+        router.push('/dashboard/workflow/workflow-builder/templates-manager?template=' + response.data.id)
+
     }
 
 
