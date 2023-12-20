@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
+import IntegrationTab from './Tabs/IntegrationTab/IntegrationTab'
 
 const WorkflowTemplatesSidebar = () => {
     const [tab, setTab] = useState(0)
-
-
 
     const handleChangeTab = (tabNumber) => {
         setTab(tabNumber)
@@ -22,6 +21,7 @@ const WorkflowTemplatesSidebar = () => {
                 <div className={`w-full sm:w-72 sm:pr-4 md:pr-4 lg:pr-4`} style={{ minWidth: '350px' }}>
 
 
+                    {/* TAB SELECTOR */}
                     <div className={`w-full  border-b-2 border-border dark:border-gray-700 flex items-center justify-between mt-2 mb-5`}>
                         <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-xs font-[500] text-center  text-[#5b5e69]">
 
@@ -57,6 +57,29 @@ const WorkflowTemplatesSidebar = () => {
 
                         </ul>
                     </div>
+
+
+
+                    {/* TABS */}
+
+                    {tab == 0 &&
+                        <>
+                            <IntegrationTab></IntegrationTab>
+                        </>
+                    }
+
+                    {tab == 1 &&
+                        <>
+                            Settings
+                        </>
+                    }
+
+                    {tab == 2 &&
+                        <>
+                            Negatives
+                        </>
+                    }
+                    {/* TABS CONTENTS */}
 
                 </div>
             </nav>
