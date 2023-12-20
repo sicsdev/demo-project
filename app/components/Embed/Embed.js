@@ -57,7 +57,7 @@ const Embed = ({ form = true, setTotalRecords,
       // setSkeleton(false)
       // setTotalRecords(mergedArray)
     }
-  }, [state.botData.data]);
+  }, [state.botData]);
   const getBotWidgetData = async () => {
     const widget = await getBotWidget(state.id);
     if (widget.data.code) {

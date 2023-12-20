@@ -30,6 +30,10 @@ const Dashboard = ({ children }) => {
     const userState = useSelector((state) => state.user);
     const billingState = useSelector((state) => state.billing);
     const botState = useSelector((state) => state.botId);
+    const recommendationState = useSelector((state) => state.recommendation);
+    const integrationState = useSelector((state) => state.integration);
+    const workflowsState = useSelector((state) => state.workflow);
+    const integrationTemplatesState = useSelector((state) => state.integrationTemplate);
 
     useEffect(() => {
 
@@ -50,19 +54,18 @@ const Dashboard = ({ children }) => {
     }, [])
 
     useEffect(() => {
-        if (!state) {
-            dispatch(fetchBot())
-            dispatch(fetchProfile());
-            dispatch(fetchRecommendation());
-            dispatch(fetchIntegrations());
-            dispatch(fetchWorkflows());
-            dispatch(fetchIntegrationsTemplates())
-        }
+
+        if (!userState?.data) { dispatch(fetchProfile()); }
+        if (!botState?.botData) { dispatch(fetchBot()) }
+        if (!recommendationState?.data) { dispatch(fetchRecommendation()) }
+        if (!integrationState?.data) { dispatch(fetchIntegrations()) }
+        if (!workflowsState?.data) { dispatch(fetchWorkflows()) }
+        if (!integrationTemplatesState?.data) { dispatch(fetchIntegrationsTemplates()) }
 
         // getActiveBots()
         // localStorage.setItem(`inTempoPortal`, true);
         // return () => { localStorage.removeItem('inTempoPortal') }
-    }, [state]);
+    }, [userState, state, botState, recommendationState, integrationState, workflowsState]);
 
     useEffect(() => {
         getActiveBots()

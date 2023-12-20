@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { loadStripe } from '@stripe/stripe-js';
 import { getUserProfile } from '@/app/API/components/Sidebar';
 import { fetchProfile } from '@/app/components/store/slices/userSlice';
+import { fetchBot } from '@/app/components/store/slices/botIdSlice';
 
 const Page = () => {
 
@@ -24,20 +25,22 @@ const Page = () => {
     const [finishedScrapper, setFinishedScrapper] = useState(false)
 
     useEffect(() => {
+
         if (knowledgeScrapperState && knowledgeScrapperState.data && knowledgeScrapperState.loader == 0) {
             setKnowledgeFirstData(knowledgeScrapperState.data.main_webpage, knowledgeScrapperState.data.faqs_webpage)
             setLoadingScrapper(true)
         }
 
-        if (knowledgeScrapperState?.state?.loader?.toFixed() == 100) {
+        if (knowledgeScrapperState?.state?.loader?.toFixed() == 50) {
             checkIfInformationWasFilled()
         }
 
         if (userData?.data?.enterprise?.information_filled) {
             setLoadingScrapper(false)
+            dispatch(fetchBot())
         }
 
-    }, [userData?.data?.enterprise?.information_filled])
+    }, [userData?.data?.enterprise?.information_filled, knowledgeScrapperState?.loader])
 
 
     const checkIfInformationWasFilled = async () => {
@@ -48,7 +51,8 @@ const Page = () => {
         const tryFetchProfile = async () => {
             if (attempts < maxAttempts) {
                 let userProfile = await getUserProfile();
-                if (userProfile.enterprise.information_filled) {
+
+                if (userProfile.enterprise.information_filled == true) {
                     setFinishedScrapper(true)
                     dispatch(fetchProfile());
                     dispatch(fetchBot())

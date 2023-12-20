@@ -54,6 +54,7 @@ import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
 import DemoAccountsBanner from "../../Layout/DemoAccountsBanner";
 import { getPermissionHelper } from "../../helper/returnPermissions";
+import { getUserProfile } from "@/app/API/components/Sidebar";
 
 const NewSidebar = ({ children }) => {
     const billingState = useSelector((state) => state.billing)
@@ -74,6 +75,7 @@ const NewSidebar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [show, setShow] = useState(false);
 
+    const [profileInfo, setProfileInfo] = useState([])
 
     // Selectors
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
@@ -101,6 +103,11 @@ const NewSidebar = ({ children }) => {
         getLearningCenterCount()
     }, []);
 
+    useEffect(() => {
+        getProfileInfo()
+        // if (state) { setProfileInfo(state) }
+    }, [])
+
     // useEffect(() => {
     //     if (!state) {
     //         dispatch(fetchProfile());
@@ -118,6 +125,15 @@ const NewSidebar = ({ children }) => {
             }, [4000]);
         }
     }, [base64Data]);
+
+
+    const getProfileInfo = async () => {
+        let userinfo = await getUserProfile()
+
+        if (userinfo) {
+            setProfileInfo(userinfo)
+        }
+    }
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
@@ -919,7 +935,7 @@ const NewSidebar = ({ children }) => {
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
-                                {!state ? (
+                                {!profileInfo?.enterprise?.logo ? (
                                     <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="w-full rounded-lg">
                                             <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -1064,7 +1080,7 @@ const NewSidebar = ({ children }) => {
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            {!state ? (
+                            {!profileInfo?.enterprise?.logo ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
                                         <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
