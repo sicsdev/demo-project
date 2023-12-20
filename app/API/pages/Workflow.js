@@ -233,7 +233,7 @@ export const getAutomationTemplates = async () => {
 
 // Templates
 
-export const createWorkflowTemplate = async () => {
+export const createWorkflowTemplate = async (payload) => {
     let config = returnConfig()
     try {
         const response = await axios.post(`${API_URL}/api/v1/main/workflow-templates/create/`, payload, config);
@@ -252,3 +252,64 @@ export const createWorkflowUsingTemplate = async (id, body) => {
         return error
     }
 };
+
+export const getWorkflowTemplates = async () => {
+    let config = returnConfig();
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-templates/`, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const listWorkflowTemplates = async () => {
+    let config = returnConfig();
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-templates/list/`, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const retrieveWorkflowTemplate = async (templateId) => {
+    let config = returnConfig();
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-templates/retrieve/${templateId}/`, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const getWorkflowTemplateById = async (id) => {
+    let config = returnConfig();
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/workflow-templates/${id}/`, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const updateWorkflowTemplate = async (id, body) => {
+    let config = returnConfig();
+    try {
+        const response = await axios.put(`${API_URL}/api/v1/main/workflow-templates/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+
+export const partialUpdateWorkflowTemplate = async (id, body) => {
+    let config = returnConfig();
+    try {
+        const response = await axios.patch(`${API_URL}/api/v1/main/workflow-templates/${id}/`, body, config);
+        return response;
+    } catch (error) {
+        return error;
+    }
+};
+

@@ -123,8 +123,9 @@ const Page = () => {
         }
 
         const response = await createWorkflowTemplate(formData)
-        router.push('/dashboard/workflow/workflow-builder/templates-manager?template=' + response.data.id)
-
+        console.log(response)
+        setWorkLoading(false)
+        if (response?.data?.id) router.push('/dashboard/workflow/workflow-builder/templates-manager?template=' + response.data.id)
     }
 
 
@@ -211,10 +212,10 @@ const Page = () => {
 
                         {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
                         {tab === 0 && (
-                            <WorkFlowTemplates setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                            <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
                         {tab === 5 && (
-                            <WorkFlowTemplates setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                            <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
                         {/* {tab === 1 && (
                             // <AutomationTemplates></AutomationTemplates>
@@ -222,9 +223,9 @@ const Page = () => {
 
                         )} */}
 
-                        {tab === 2 && (
-                            <ManageTemplates setTab={setTab} setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
-                        )}
+                        {/* {tab === 2 && (
+                            <ManageTemplates createNewTemplate={createNewTemplate} setTab={setTab} setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
+                        )} */}
                         {tab === 3 && (
                             <WorkflowUsageLogs></WorkflowUsageLogs>
                         )}
