@@ -144,6 +144,11 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
     //// Use effects
     // Params and local storages
+
+    useEffect(() => {
+        dispatch(fetchBot())
+    }, [user?.enterprise?.information_filled])
+
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
         if (triggerBotParam) {
@@ -182,9 +187,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     }, [])
 
 
-    // useEffect(() => {
-    //     if (!loadingScrapper) { dispatch(fetchProfile()) }
-    // }, [loadingScrapper])
 
     // Main functions
 
@@ -288,7 +290,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                         <span className="flex justify-center text-sm mb-2">
                                             Please wait while we configure your custom Deflection bot.
                                         </span>
-                                        <ProgressBarComponent totalLoadingTime={2000} finishing={finishingScrapping} finished={finishedScrapper} />
+                                        <ProgressBarComponent finishing={finishingScrapping} finished={finishedScrapper} />
                                         <div className='border-b border-lowgray pt-5'></div>
                                     </div>
                                 </div>

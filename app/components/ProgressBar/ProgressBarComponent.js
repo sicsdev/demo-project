@@ -5,7 +5,7 @@ import { setLoader, updateScrapperKnowledgeState } from '../store/slices/scrappe
 import { useSelector } from 'react-redux';
 import { fetchProfile } from '../store/slices/userSlice';
 
-const ProgressBarComponent = ({ totalLoadingTime = 100000, timer = 1.1111, finishing, finished }) => {
+const ProgressBarComponent = ({ totalLoadingTime = 2000, timer = 1.1111, finishing, finished }) => {
 
     // const [progress, setProgress] = useState(0);
     const dispatch = useDispatch()
