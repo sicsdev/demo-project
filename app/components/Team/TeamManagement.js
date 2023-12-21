@@ -16,15 +16,26 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
   const [perPage, setPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
+  function addSpaceAfterPrefix(phoneNumber) {
+    // Use a regular expression to add a space after '+1' if it exists
+    return phoneNumber.replace(/(\+1)(\d+)/, '$1 $2');
+  }
+
   useEffect(() => {
     if (state?.data) {
       const mapData = state?.data.map((ele) => {
+        let contact = ele.phone;
+        if (ele.phone_prefix && !ele.phone.includes(ele.phone_prefix)) {
+          contact = ele.phone_prefix + " " + ele.phone;
+        } else {
+          contact = addSpaceAfterPrefix(ele.phone);
+        }
         return {
           logo: ele?.enterprise?.logo,
           email: ele.email,
           name: ele.name,
           role: ele?.role,
-          contact: ele.phone_prefix + " " + ele.phone,
+          contact: contact,
         };
       });
 

@@ -225,7 +225,7 @@ const Trial = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton() || pop || loading}
+          disabled={DisablingButton() || pop || loading || !formData.checked}
           onClick={SubmitTheForm}
         >
           {loading ? "Loading" : "Submit"}
