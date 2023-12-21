@@ -175,8 +175,8 @@ const Dashboard = ({ children }) => {
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)
-                localStorage.setItem(`tempoportallastlogin`, profile.email)
-                localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
+                sessionStorage.setItem(`tempoportallastlogin`, profile.email)
+                sessionStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
         })
 

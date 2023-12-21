@@ -75,7 +75,10 @@ const NewSidebar = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [show, setShow] = useState(false);
 
+
+    // State to store profile info locally
     const [profileInfo, setProfileInfo] = useState([])
+    const [enterpriseInfo, setEnterpriseInfo] = useState(null)
 
     // Selectors
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
@@ -85,13 +88,16 @@ const NewSidebar = ({ children }) => {
     const integrations = useSelector(state => state.integration)
     const stateBots = useSelector(state => state.botId)
 
-
     useEffect(() => {
-        if (!state) dispatch(fetchProfile());
-        if (!integrations?.data) dispatch(fetchIntegrations());
-        if (!workflowState?.data) dispatch(fetchWorkflows());
-        if (!stateBots?.botData) dispatch(fetchBot());
-    }, [state, integrations?.data, workflowState?.data, stateBots?.data]);
+        if (state?.enterprise && !enterpriseInfo) { setEnterpriseInfo(state.enterprise) }
+    }, [state])
+
+    // useEffect(() => {
+    //     if (!state) dispatch(fetchProfile());
+    //     if (!integrations?.data) dispatch(fetchIntegrations());
+    //     if (!workflowState?.data) dispatch(fetchWorkflows());
+    //     if (!stateBots?.botData) dispatch(fetchBot());
+    // }, []);
 
     // useEffect to check loaders and delete skeleton after get all required data from api.
     useEffect(() => {
@@ -110,11 +116,6 @@ const NewSidebar = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        getProfileInfo()
-        // if (state) { setProfileInfo(state) }
-    }, [])
-
-    useEffect(() => {
         if (base64Data.state == true) {
             dispatch(fetchProfile());
             setTimeout(() => {
@@ -124,13 +125,6 @@ const NewSidebar = ({ children }) => {
     }, [base64Data]);
 
 
-    const getProfileInfo = async () => {
-        let userinfo = await getUserProfile()
-
-        if (userinfo) {
-            setProfileInfo(userinfo)
-        }
-    }
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
@@ -930,7 +924,7 @@ const NewSidebar = ({ children }) => {
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
-                                {!profileInfo?.enterprise?.logo ? (
+                                {!enterpriseInfo?.logo ? (
                                     <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="w-full rounded-lg">
                                             <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -940,11 +934,11 @@ const NewSidebar = ({ children }) => {
                                     <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" onClick={() => handleToggle()} >
                                             <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                                <span className="font-medium text-white normal-case"> {enterpriseInfo.name.charAt(0)}</span>
                                             </div >
                                             <div className="relative ">
-                                                <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                <p className="text-[12px] text-normal">{enterpriseInfo.name}</p>
+                                                <p className="text-[12px] text-normal">{state?.role ? makeCapital(state?.role) : 'Administrator'}</p>
                                             </div>
                                         </li>
 
@@ -1075,7 +1069,7 @@ const NewSidebar = ({ children }) => {
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            {!profileInfo?.enterprise?.logo ? (
+                            {!enterpriseInfo?.logo ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
                                         <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -1084,23 +1078,23 @@ const NewSidebar = ({ children }) => {
                             ) : (
                                 <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
-                                        {state?.enterprise?.logo ?
+                                        {enterpriseInfo?.logo ?
                                             <img
                                                 className="w-8 h-8 rounded-lg"
-                                                src={state?.enterprise?.logo}
+                                                src={enterpriseInfo.logo}
                                                 alt="user photo"
                                             /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                                <span className="font-medium text-white normal-case"> {enterpriseInfo?.name.charAt(0)}</span>
                                             </div >}
 
 
 
                                         {!collaps && (
                                             <div className="relative ">
-                                                {state?.role && state.enterprise ?
+                                                { enterpriseInfo ?
                                                     <>
-                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                        <p className="text-[12px] text-normal">{enterpriseInfo?.name}</p>
+                                                        <p className="text-[12px] text-normal">{state?.role ? makeCapital(state?.role) : 'Administrator'}</p>
                                                     </>
                                                     :
                                                     <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
