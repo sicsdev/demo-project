@@ -110,7 +110,7 @@ const page = () => {
 
           {/* SIDEBAR  */}
           <div>
-            <WorkflowTemplatesSidebar></WorkflowTemplatesSidebar>
+            <WorkflowTemplatesSidebar  templateData={templateData} getTemplateInformation={getTemplateInformation} ></WorkflowTemplatesSidebar>
           </div>
 
         </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import IntegrationTab from './Tabs/IntegrationTab/IntegrationTab'
+import SettingsTab from './Tabs/SettingsTab/SettingsTab'
 
 const WorkflowTemplatesSidebar = () => {
     const [tab, setTab] = useState(0)
@@ -45,16 +46,6 @@ const WorkflowTemplatesSidebar = () => {
                                 </span>
                             </li>
 
-                            <li className={`hover:text-black  ${tab === 2 ? "boredractive" : 'boredrinactive '}`} onClick={() => handleChangeTab(2)}>
-                                <span
-                                    className={`flex justify-start gap-2    hover:bg-[#038ff408] cursor-pointer items-center py-2 px-2  
-                  rounded-lg active pl-2 group`}
-                                    aria-current="page"
-                                >
-                                    Negatives
-                                </span>
-                            </li>
-
                         </ul>
                     </div>
 
@@ -70,15 +61,10 @@ const WorkflowTemplatesSidebar = () => {
 
                     {tab == 1 &&
                         <>
-                            Settings
+                            <SettingsTab></SettingsTab>
                         </>
                     }
 
-                    {tab == 2 &&
-                        <>
-                            Negatives
-                        </>
-                    }
                     {/* TABS CONTENTS */}
 
                 </div>
