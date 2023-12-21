@@ -242,7 +242,6 @@ const CustomIntegration = ({ setIntegrationform, help, formData, setFormData, in
                                     {Object.keys(formData).map((key) => (
                                         // formData[key] ? null : (
                                         <div className='my-2' key={key}>
-                                            {key}
                                             <TextField
                                                 onChange={(e) => handleIntegrationInputChange(e)}
                                                 value={payloadData?.data[key]}
