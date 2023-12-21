@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import IntegrationTab from './Tabs/IntegrationTab/IntegrationTab'
 import SettingsTab from './Tabs/SettingsTab/SettingsTab'
 
-const WorkflowTemplatesSidebar = () => {
+
+const WorkflowTemplatesSidebar = ({ templateData }) => {
     const [tab, setTab] = useState(0)
 
     const handleChangeTab = (tabNumber) => {
@@ -61,7 +62,7 @@ const WorkflowTemplatesSidebar = () => {
 
                     {tab == 1 &&
                         <>
-                            <SettingsTab></SettingsTab>
+                            <SettingsTab templateData={templateData}></SettingsTab>
                         </>
                     }
 

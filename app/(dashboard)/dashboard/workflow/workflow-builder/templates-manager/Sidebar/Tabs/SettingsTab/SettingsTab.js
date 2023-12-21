@@ -5,33 +5,43 @@ import { Tooltip } from 'react-tooltip'
 import { InformationCircleIcon } from '@heroicons/react/24/outline'
 import { v4 as uuidv4 } from 'uuid';
 import Pusher from 'pusher-js';
-import { expandDescriptionByStreaming } from '@/app/API/pages/Workflow'
+import { expandDescriptionByStreaming, partialUpdateWorkflowTemplate } from '@/app/API/pages/Workflow'
 import TextField from '@/app/components/Common/Input/TextField'
 import Button from '@/app/components/Common/Button/Button'
+import { useDispatch } from 'react-redux'
+import { fetchIntegrations } from '@/app/components/store/slices/integrationSlice'
+import { successMessage } from '@/app/components/Messages/Messages'
+
 // Local helpers
 const pusher = new Pusher("1fc282a0eb5e42789c23", {
     cluster: "mt1",
 });
 
-
 const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
 
     const textareaRef = useRef(null);
+    const dispatch = useDispatch()
 
     // Local states
     const [description, setDescription] = useState(templateData?.description?.join('\n') ?? '')
     const [newUUI, setNewUUI] = useState('')
     const [pusherStreaming, setPusherStreaming] = useState(false)
-    const [formValues, setFormValues] = useState(templateData)
+    const [formValues, setFormValues] = useState({ name: '', description: '' })
 
     // Loaders
     const [loadingStreaming, setLoadingStreaming] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        setFormValues(templateData)
+    }, [])
 
     useEffect(() => {
         fitTextareaDescriptionHeight();
     }, [description]);
 
     useEffect(() => {
+
         const textarea = document.querySelector('.resizable-textarea');
         textarea?.setAttribute('rows', '3'); // Set the 'rows' attribute
         const rows = Math.min(
@@ -40,7 +50,6 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
         );
 
         textarea?.setAttribute('rows', (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
-
 
         // Related code to streaming recommended description using GPT.
         let newUUID = uuidv4()
@@ -55,51 +64,30 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
                 setPusherStreaming(false)
             }, 2000);
         })
-
     }, [description]);
 
 
 
     // Handlers
 
-
     const fitTextareaDescriptionHeight = () => {
         if (textareaRef.current) {
             textareaRef.current.style.height = 'auto';
             textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
-    };
-
-    const DisablingButton = () => {
-        const requiredKeys = ["name"];
-        return requiredKeys.some(
-            (key) => !workflowFormData[key] || workflowFormData[key].trim() === ""
-        );
-    };
-
-    const handleInputValue1 = (e) => {
-        setDescription(e.target.value)
-        let splitConditions = /[.,\n]/;
-        setWorkFlowFormData((prev) => {
-            return {
-                ...prev,
-                description: e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)
-            }
-        })
-        console.log('e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean)', e.target.value.split(splitConditions).map(s => s.trim()).filter(Boolean))
     }
 
-    const handleInputValue2 = (e) => {
-        setWorkFlowFormData((prev) => {
+    const handleInputValue = (e) => {
+        setFormValues((prev) => {
             return {
                 ...prev,
-                workflow_types: e.target.value
+                [e.target.name]: e.target.value
             }
         })
     }
 
     const onSelectChannelData = (selectedList, selectedItem) => {
-        setWorkFlowFormData((prev) => {
+        setFormValues((prev) => {
             return {
                 ...prev,
                 channels: selectedList
@@ -113,7 +101,7 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
         setPusherStreaming(true)
 
         const response = await expandDescriptionByStreaming({
-            question: workflowFormData.name,
+            question: formValues.name,
             answer: description,
             streaming: true,
             id: `recommendation-${newUUI}`,
@@ -123,15 +111,42 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
     }
 
 
+    const handlePatchWorkflowTemplate = async () => {
+        setLoading(true)
+        let descriptionArray = description.split('\n');
+
+        let payload = {
+            name: formValues.name,
+            description: descriptionArray,
+            bots: formValues.bots,
+            channels: ["chat"],
+        }
+        let patchTemplate = await partialUpdateWorkflowTemplate(templateData.id, payload)
+        console.log(patchTemplate.status)
+        if (patchTemplate.status == 200) { successMessage('Successfully updated!') }
+        dispatch(fetchIntegrations())
+        setLoading(false)
+
+    }
+
+    const onSelectData = (selectedList, selectedItem) => {
+        setFormValues((prev) => {
+            return {
+                ...prev,
+                bots: selectedList
+            }
+        })
+    }
 
     return (
         <div className='mb-8'>
             <div>
+
                 <div className=''>
                     <TextField
                         name='name'
-                        // onChange={handleInputValue}
-                        // value={workflowFormData.name}
+                        onChange={handleInputValue}
+                        value={formValues?.name}
                         className="py-3 w-full mt-1"
                         title={<div className='flex items-center gap-2'><span>Name</span>  </div>}
                         placeholder={"Something short and descriptive"}
@@ -139,6 +154,7 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
                         id={"name"}
                     />
                 </div>
+
                 <div className='mt-5'>
                     <label className={`my-2 new_input_label block text-sm text-heading font-medium`}>
                         <div className='flex items-center gap-2'>
@@ -156,20 +172,21 @@ const UpdateWorkflowBasic = ({ templateData, getTemplateInformation }) => {
                     </label>
 
                     <textarea
-                        // onChange={handleInputValue1}
+                        onChange={(e) => setDescription(e.target.value)}
                         name="description"
                         type="text"
                         id='description'
                         className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
                         placeholder="What is this workflow for?"
                         rows={'3'}
-                        // value={description}
+                        value={description}
                         ref={textareaRef}
                     >
-                        {/* {description} */}
                     </textarea>
                 </div>
-                <div className='flex justify-end'>
+
+
+                {description?.length > 0 && <div className='flex justify-end'>
                     <button
                         onClick={handleExpandDescription}
                         type="button"
@@ -197,42 +214,12 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                             </>
                         ) : "Expand description"}
                     </button>
-                </div>
+                </div>}
             </div>
-            <div className="pt-5 mt-3">
-                <label className="my-2 block text-sm text-gray-700">
-                    <div className="my-2 new_input_label block text-sm text-heading border-b border-gray flex items-center">
-                        <span>Bot Selector</span>
-                        <a data-tooltip-id="bot-selector" data-tooltip-content="Choose the bots in which this workflow will be active">
-                            <InformationCircleIcon className='w-4 h-4 mx-2'></InformationCircleIcon>
-                        </a>
 
-                        <Tooltip id='bot-selector' place="top" type="dark" effect="solid" />
-                    </div>
-                </label>
-                <Multiselect
-                    className="searchWrapper-live rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer"
-                    // options={botValue}
-                    // selectedValues={workflowFormData?.bots ?? []}
-                    // onSelect={(selectedList, selectedItem) => {
-                    //     onSelectData(selectedList, selectedItem);
-                    // }}
-                    // onRemove={(selectedList, selectedItem) => {
-                    //     onSelectData(selectedList, selectedItem);
-                    // }}
-                    // placeholder={botValue.length === workflowFormData?.bots.length ? '' : "Select Bots"}
-                    displayValue="name"
-                    closeOnSelect={true}
-                    showSearchFilter={false}
-                    style={{
-                        chips: {
-                            maxWidth: 'fit-content',
-                            minWidth: '75px'
-                        },
-                    }}
-                />
-            </div>
-            <div className="my-2">
+
+
+            {/* <div className="my-2">
                 <label className="my-2 block text-sm text-gray-700 font-medium">
                     <div className="my-2 new_input_label block text-sm text-heading font-medium border-b border-gray flex items-center">
                         <span>Channels</span>
@@ -246,14 +233,14 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                 <Multiselect
                     className="searchWrapper-live rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 cursor-pointer pb-0 searchBox:hidden"
                     options={[{ name: "Phone", value: "phone" }, { name: "Email", value: "email" }, { name: "Chat", value: "chat" }]}
-                    // selectedValues={workflowFormData?.channels ?? []}
-                    // onSelect={(selectedList, selectedItem) => {
-                    //     onSelectChannelData(selectedList, selectedItem);
-                    // }}
-                    // onRemove={(selectedList, selectedItem) => {
-                    //     onSelectChannelData(selectedList, selectedItem);
-                    // }}
-                    // placeholder={workflowFormData?.channels.length === 2 ? '' : "Select Channel"}
+                    selectedValues={formValues?.channels ?? []}
+                    onSelect={(selectedList, selectedItem) => {
+                        onSelectChannelData(selectedList, selectedItem);
+                    }}
+                    onRemove={(selectedList, selectedItem) => {
+                        onSelectChannelData(selectedList, selectedItem);
+                    }}
+                    placeholder={"Select Channel"}
                     displayValue="name"
                     closeOnSelect={true}
                     style={{
@@ -264,29 +251,17 @@ C22.32,8.481,24.301,9.057,26.013,10.047z">
                     }}
                     showSearchFilter={false}
                 />
-            </div>
-            {/* <div className="my-2">
-                <SelectField
-                    labelClassName="w-full sm:w-1/2"
-                    onChange={handleInputValue2}
-                    selectdiv="mt-3 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 flex gap-5"
-                    value={workflowFormData?.workflow_types}
-                    name="workflow_types"
-                    values={["Image", "Text"]}
-                    title="Type"
-                    id="workflow_types"
-                    className="py-3"
-                    error=""
-                />
             </div> */}
+
+
             <div className="flex mt-3 space-x-4 rounded-b justify-end">
                 <Button
                     type="button"
                     className="inline-block rounded bg-primary px-6 py-2 text-xs font-medium text-white hover:bg-blue-600 focus:bg-blue-600 focus:outline-none focus:ring-0 active:bg-blue-700 transition duration-150 ease-in-out"
-                    // onClick={() => { saveWorkFlowHandler("EDIT") }}
-                    // disabled={DisablingButton()}
+                    onClick={() => { handlePatchWorkflowTemplate() }}
+                    disabled={!description || !formValues.name}
                 >
-                    Save
+                    {loading ? "Saving..." : "Save"}
                 </Button>
             </div>
 

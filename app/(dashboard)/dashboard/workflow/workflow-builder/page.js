@@ -14,11 +14,12 @@ import { useRouter } from 'next/navigation';
 import { BoltIcon, BoltSlashIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { fetchWorkflows } from '@/app/components/store/slices/workflowSlice';
 import { useDispatch } from 'react-redux';
-import ManageTemplates from '@/app/components/Workflows/WorkflowBuilder/ManageTemplates';
+
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 import TopBar from '@/app/components/Common/Card/TopBar';
 import WorkflowUsageLogs from './logs/WorkflowUsageLogs';
 import AutomationTemplates from './automations/AutomationTemplates';
+import GlobalTemplates from './templates-manager/GlobalTemplates/GlobalTemplates';
 
 
 const Page = () => {
@@ -159,7 +160,21 @@ const Page = () => {
                                         }
                                     </li>
                                 )}
-                                <li className={` ${skeletonloading ? "" : tab === 5 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(5) }}>
+                                <li className={` ${skeletonloading ? "" : tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(1) }}>
+                                    {skeletonloading ?
+                                        <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
+                                        :
+                                        <span
+                                            className={`flex  justify-start text-[13px] gap-2 cursor-pointer hover:bg-[#038ff408] px-3  items-center py-2  
+                  rounded-lg active  group`}
+                                            aria-current="page"
+                                        >
+                                            Draft
+                                        </span>
+                                    }
+                                </li>
+
+                                <li className={` ${skeletonloading ? "" : tab === 2 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(2) }}>
                                     {skeletonloading ?
                                         <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                         :
@@ -172,6 +187,8 @@ const Page = () => {
                                         </span>
                                     }
                                 </li>
+
+
                                 {showLogs === true && (
                                     <li className={` ${skeletonloading ? "" : tab === 3 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => { setTab(3) }}>
                                         {skeletonloading ?
@@ -213,7 +230,7 @@ const Page = () => {
                         {tab === 0 && (
                             <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
-                        {tab === 5 && (
+                        {tab === 1 && (
                             <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
                         {/* {tab === 1 && (
@@ -222,9 +239,10 @@ const Page = () => {
 
                         )} */}
 
-                        {/* {tab === 2 && (
-                            <ManageTemplates createNewTemplate={createNewTemplate} setTab={setTab} setTemplate={setTemplate} template={template} fetchData={getAllWorkflowData} fetchTemplates={allWorkflowTemplates} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} />
-                        )} */}
+                        {tab === 2 && (
+                            <GlobalTemplates></GlobalTemplates>
+                        )}
+
                         {tab === 3 && (
                             <WorkflowUsageLogs></WorkflowUsageLogs>
                         )}
