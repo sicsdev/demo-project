@@ -25,8 +25,8 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     if (state?.data) {
       const mapData = state?.data.map((ele) => {
         let contact = ele.phone;
-        if (ele.phone_prefix && !ele.phone.includes(ele.phone_prefix)) {
-          contact = ele.phone_prefix + " " + ele.phone;
+        if (ele.phone_prefix && !ele.phone.includes('+1')) {
+          contact = ele.phone_prefix.includes('+') ? ele.phone_prefix : '+' + ele.phone_prefix + " " + ele.phone;
         } else {
           contact = addSpaceAfterPrefix(ele.phone);
         }
