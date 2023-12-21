@@ -29,6 +29,8 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 const Page = () => {
   const state = useSelector((state) => state.integration);
   const userState = useSelector((state) => state.user.data);
+  const billingState = useSelector((state) => state.billing)
+  console.log("billinggState", billingState);
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([]);
   const [integrationTiles, setIntegrationsTiles] = useState([]);
@@ -435,7 +437,7 @@ const Page = () => {
                     setIntegrationform(false)
                   }
                   }></div>
-                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed ${billingState === 'demo' ? 'pt-[90px] sm:pt-[55px]' : ''} top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
                     <CustomIntegration
                       help={help}
                       fetchData={fetchIntegrations}
@@ -455,7 +457,7 @@ const Page = () => {
 
       {integrationModal ? (
 
-        <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
+        <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} width={`md:w-[800px] ${billingState === 'demo' ? 'top-[60px] sm:top-[30px]' : ''}`} >
           <div className="my-2">
             <ConfigureIntegration
               fetchIntegrations={fetchIntegrations}
