@@ -468,7 +468,7 @@ const UsageLimit = () => {
                   rounded-lg active  group`}
                   aria-current="page"
                 >
-                  Billing
+                  Usage
                 </span>
               }
             </li>
@@ -481,7 +481,7 @@ const UsageLimit = () => {
                   rounded-lg active  group`}
                   aria-current="page"
                 >
-                  Usage
+                  Billing
                 </span>
               }
             </li>
