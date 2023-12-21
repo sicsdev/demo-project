@@ -19,7 +19,7 @@ import WorkflowCard from './WorkflowCard';
 import { useSelector } from 'react-redux';
 
 
-const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow, source, setShowActive, createNewTemplate }) => {
+const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTestBot, setWorkflowToTest, state, workflowLoading, createNewWorkFlow, source, setShowActive }) => {
     const [data, setData] = useState([]);
     const [suggestModal, setSuggestModal] = useState(false);
     const [originalData, setOriginalData] = useState([]);

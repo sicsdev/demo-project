@@ -24,10 +24,10 @@ const IntegrationTab = () => {
 
         if (integrationState?.data?.results) {
             // Filtering data, we dont want CUSTOM integrations or "QuickEmailVerification"
-            
+
             let filterQuickEmailVerification = integrationState?.data?.results.filter(integration => integration.name !== "QuickEmailVerification")
             let filterCustomTypesIntegrations = filterQuickEmailVerification.filter(integration => integration.type !== 'CUSTOM')
-        
+
             setIntegrations(filterCustomTypesIntegrations)
         }
 
@@ -48,8 +48,8 @@ const IntegrationTab = () => {
     const handleAddDeflection = async (automationObject) => {
         // Get Template Object and currents integrations.
         let currentTemplateObject = await getTemplateInformation()
-        let currentIntegrationsArray = currentTemplateObject.automations?.map(integration => integration.id) || []
-
+        let currentIntegrationsArray = currentTemplateObject.automations?.map(integration => integration.automation.id) || []
+        console.log(currentIntegrationsArray)
         let newDeflectionObject = {
             "question": "Deflection",
             "data": {},

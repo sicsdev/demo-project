@@ -113,22 +113,6 @@ const Page = () => {
         }
     }
 
-    const createNewTemplate = async () => {
-        setWorkLoading(true)
-        let formData = {
-            name: "Default_Template_Name",
-            description: [],
-            policy_name: "",
-            policy_description: "",
-            policy_exceptions: ""
-        }
-
-        const response = await createWorkflowTemplate(formData)
-        setWorkLoading(false)
-        if (response?.data?.id) router.push('/dashboard/workflow/workflow-builder/templates-manager?templateId=' + response.data.id)
-    }
-
-
     return (
         <>
             <>
@@ -228,10 +212,10 @@ const Page = () => {
 
                         {/* <Workflows state={state} loading={workflowLoading} createNewWorkFlow={createNewWorkFlow} /> */}
                         {tab === 0 && (
-                            <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                            <WorkFlowTemplates setTab={setTab} status={true} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
                         {tab === 1 && (
-                            <WorkFlowTemplates createNewTemplate={createNewTemplate} setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
+                            <WorkFlowTemplates setTab={setTab} status={false} workflowData={workflowState?.data} fetchData={getAllWorkflowData} state={state} workflowLoading={workflowLoading} createNewWorkFlow={createNewWorkFlow} setShowActive={setShowActive} />
                         )}
                         {/* {tab === 1 && (
                             // <AutomationTemplates></AutomationTemplates>
