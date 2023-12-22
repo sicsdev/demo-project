@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import "../../(dashboard)/dashboard/customize/widgetStyle.css";
 import {
   addBlockedUrl,
+  getAllActivePlatforms,
   getAllBotData,
   removeBlockedUrl,
 } from "@/app/API/pages/Bot";
@@ -37,19 +38,19 @@ const Customize = ({
       setBot_id(id);
     }
   }, [id]);
+
   useEffect(() => {
     if (form === false && basicFormData) {
       setBotDetails(basicFormData);
       setPreferences(basicFormData);
       setBlockedUrls(basicFormData.origins_blocked ?? []);
     }
-
-    getInfoIntegrations();
+    getValuesEscalationPlatformSelect();
   }, [basicFormData]);
 
   const [showManageHideUrls, setShowManageHideUrls] = useState(false);
   const [availableIntegrations, setAvailableIntegrations] = useState([]);
-
+  
   const [preferences, setPreferences] = useState({
     id: "",
     enterprise: {},
@@ -104,21 +105,14 @@ const Customize = ({
   ];
 
   // Primary functions
-  const getInfoIntegrations = async () => {
-    let info = await getActiveIntegrations();
-    const searchTerms = ["zendesk", "freshdesk", "zohodesk", "gorgias"];
 
-    if (info?.results) {
-      const foundIntegrations = info.results
-        .map((item) => item.name.toLowerCase())
-        .filter((name) => searchTerms.includes(name));
+  const getValuesEscalationPlatformSelect = async () => {
+    let results = await getAllActivePlatforms()
+    if (results?.result) { setAvailableIntegrations(results.result) }
+  }
 
-      setAvailableIntegrations(foundIntegrations);
-    }
-  };
   const getBotInfo = (id) => {
     getAllBotData([id]).then((res) => {
-      console.log("getallbotdata", res);
       let bot_res = res[0].data;
       setBasicFormData((prev) => {
         return {
@@ -369,7 +363,6 @@ const Customize = ({
     });
   };
   const makeCapital = (str) => {
-    console.log(str);
     if (str.includes(" ")) {
       return str
         .split(" ")
@@ -633,33 +626,30 @@ const Customize = ({
                   </div>
                 </div>
 
-                {preferences.human_handoff_platform == null ? (
-                  ""
-                ) : (
-                  <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
-                    <div className="flex justify-start w-1/2 items-center">
-                      <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
-                        Escalation platform
-                      </span>
-                    </div>
-                    <div className="flex justify-start w-1/2 items-center">
-                      <select
-                        value={preferences.human_handoff_platform}
-                        name="human_handoff_platform"
-                        onChange={handleInputChange}
-                        disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
-                        className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400 0 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 border-input_color"
-                      >
-                        <option value="">Email</option>
-                        {availableIntegrations.map((name) => (
-                          <option value={name}>
-                            {name.charAt(0).toUpperCase() + name.slice(1)}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
+                <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
+                  <div className="flex justify-start w-1/2 items-center">
+                    <span className="new_input_label block text-sm text-heading font-medium text-gray-700">
+                      Escalation platform
+                    </span>
                   </div>
-                )}
+                  <div className="flex justify-start w-1/2 items-center">
+                    <select
+                      value={preferences.human_handoff_platform}
+                      name="human_handoff_platform"
+                      onChange={handleInputChange}
+                      disabled={!getPermissionHelper('EDIT BOT SETTINGS', userState?.role)}
+                      className="custom-select !mt-0 !h-[37.5px] w-full block px-3 new_input bg-white border rounded-md shadow-sm placeholder-slate-400 0 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 border-input_color"
+                    >
+                      <option value="">Email</option>
+                      {availableIntegrations.map((name) => (
+                        <option value={name}>
+                          {name.charAt(0).toUpperCase() + name.slice(1)}
+                        </option>
+                      ))}|
+                    </select>
+                  </div>
+                </div>
+
 
                 <div className="flex items-center justify-between w-full mt-2 gap-2 px-2 sm:px-0">
                   <div className="flex justify-start w-1/2 items-center">

@@ -68,11 +68,8 @@ const Page = () => {
 
 
 
-  const newPopular = localStorage.getItem("tempoportallastlogin").split("@")[1];
-
-
-
-
+  const tempoPortalLastLogin = sessionStorage.getItem("tempoportallastlogin");
+  let newPopular = tempoPortalLastLogin ? tempoPortalLastLogin.split("@")[1] : ''
 
 
   const dupRemove = (inputArray) => {

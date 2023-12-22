@@ -38,6 +38,9 @@ export const getPermissionHelper = (type, role) => {
         case 'EDIT BOT SETTINGS':
             if (role == 'COLLABORATOR') return false;
 
+        case 'MANAGE TEAM':
+            if (role !== 'ADMINISTRATOR') return false;
+            
         default:
             return true
     }

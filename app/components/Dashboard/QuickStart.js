@@ -145,9 +145,6 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     //// Use effects
     // Params and local storages
 
-    useEffect(() => {
-        dispatch(fetchBot())
-    }, [user?.enterprise?.information_filled])
 
     useEffect(() => {
         const triggerBotParam = params.get('triggerBot')
@@ -174,43 +171,17 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
     }, [members.isLoading, userLoader.isLoading, integrations?.data?.results, workflow?.data?.results, workflow?.data?.results, members?.data, botData.botData, billingState]);
 
 
-    // Initializers 
-    useEffect(() => {
-        if (members.data === null) { dispatch(fetchMembers()); }
-        if (user?.show_quick_start) { setIsExpand(true) } else { setIsExpand(false) }
-        if (!showTicketHistory) { handleShowTickets() }
-    }, [members.data, user, botData]);
-
-
     useEffect(() => {
         loadStripe(STRIPE_KEY).then(res => setStripePromise(res))
     }, [])
 
+    useEffect(() => {
+        if (user?.show_quick_start) { setIsExpand(true) } else { setIsExpand(false) }
+    }, [user])
+    
 
 
     // Main functions
-
-
-    const handleShowTickets = async () => {
-        let infoFinder = false;
-
-        if (botData?.botData?.data?.bots) {
-            for (const bot of botData.botData.data.bots) {
-                let botinfo = await getCustomerFiles(bot.id);
-                if (botinfo?.data?.results) {
-                    infoFinder = true;
-                    break; // Stop if we have results, meaning not show ticket upload item. 
-                }
-            }
-
-            if (!infoFinder) {
-                setShowTicketHistory(true); // If we dont find items, we will show the ticket upload item.
-            }
-        } else {
-            dispatch(fetchBot())
-        }
-    }
-
 
     const findIcon = (route) => {
         const findData = SideBarRoutes.find((x) => x?.href === route)

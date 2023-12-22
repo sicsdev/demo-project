@@ -27,15 +27,6 @@ export default function PageLayout({ children }) {
     const utm_content = searchParams.get("utm_content");
     const msclkid = searchParams.get("msclkid");
 
-    console.log("gclid", gclid);
-    console.log("utm_source", utm_source);
-    console.log("utm_medium", utm_medium);
-    console.log("utm_content", utm_content);
-    console.log("utm_term", utm_term);
-    console.log("matchtype", matchtype);
-    console.log("msclkid", msclkid);
-    console.log("utm_campaign", utm_campaign);
-
     Cookies.set("gclid", gclid, { expires: 90 });
     Cookies.set("msclkid", msclkid, { expires: 90 });
     Cookies.set("utm_source", utm_source, { expires: 90 });
@@ -73,8 +64,6 @@ export default function PageLayout({ children }) {
     setCookie("tracking", cookieValue);
   }
 
-  console.log("cookieValue", getCookie("tracking"));
-
   function setCookie(key, value) {
    return Cookies.set(key, JSON.stringify(value));
   }
@@ -83,7 +72,6 @@ export default function PageLayout({ children }) {
     const cookieValue = Cookies.get(key);
     return cookieValue ? JSON.parse(cookieValue) : {};
   }
-  console.log("pathname", pathname)
 
   const hideComponent = pathname === "/checkout" || pathname === "/get-trial"|| pathname === "/lp/chat-bot" || pathname === "/lp/contact-center" ||  pathname === "/login" || pathname == "/forgot-password";
   
