@@ -25,6 +25,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     const CDN_URL = "https://widget-dev.deflection.ai";
     const router = useRouter()
     const chatLogsRef = useRef(null);
+    const bot = useSelector(state => state.botId.botData.data)
 
 
     // Local states
@@ -39,8 +40,6 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
 
     // Dropdown of sources
     const [dropdownOpenId, setDropdownOpenId] = useState('')
-
-    const bot = useSelector(state => state.botId.botData.data)
 
 
     useEffect(() => {
@@ -132,6 +131,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         await setForReview(idOfOpenConversation, { for_review: e.target.checked })
     }
 
+
     const raiseDisputHandler = async (event) => {
         try {
             setDisputeLoader(true);
@@ -140,7 +140,9 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                 // successMessage("Dispute Created Successfully!");
                 setConversationDetails({ ...conversationDetails, charge_status: 'REFUNDED' })
             } else {
-                errorMessage("Unable to create dispute!");
+                let maxReachedText = "Maximum dispute limit reached. Please contact your sales manager in Slack to request a billing adjustment if you feel you are having an issue"
+                let errorString = disputeResult?.response?.data?.error == "Maximum disputes reached" ? maxReachedText : "Unable to create dispute!"
+                errorMessage(errorString);
             }
             setDisputeLoader(false);
         } catch (error) {
@@ -805,7 +807,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                     {element.sender === 'user' && !(element.content.startsWith('{') && element.content.endsWith('}')) &&
                                                         (
                                                             <div key={'tempoWidgetQuestion' + key} className="chatbotWidget_question" id={`tempoWidgetQuestion${key}`} style={{ backgroundColor: botUnique?.primary_color, color: botUnique?.primary_text_color, opacity: (key === messages?.length - 1 || key === messages?.length - 2) ? "1" : "0.6" }}>
-                                                               
+
                                                                 {
                                                                     (element.content == 'WORKFLOW' || element.content.startsWith('WORKFLOW')) &&
                                                                     <>
@@ -831,10 +833,10 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 {
                                                                     element.content == 'HUMAN-HANDOFF' &&
                                                                     <>
-                                                                        {element.human_handoff_type && element.human_handoff_type == 'email' ? 
-                                                                        `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.` 
-                                                                        : 
-                                                                        'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
+                                                                        {element.human_handoff_type && element.human_handoff_type == 'email' ?
+                                                                            `HUMAN-HANDOFF: User filled human escalation form and was transferred by ${element.human_handoff_type}.`
+                                                                            :
+                                                                            'HUMAN-HANDOFF: User clicked phone option and phone number was shown.'
                                                                         }
                                                                     </>
                                                                 }

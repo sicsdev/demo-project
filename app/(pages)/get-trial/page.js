@@ -73,8 +73,6 @@ const Trial = () => {
 
   };
 
-  console.log("popp", pop);
-
   function addHttpsToUrl(url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       return 'https://' + url;

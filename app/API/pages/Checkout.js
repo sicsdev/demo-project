@@ -28,7 +28,6 @@ export const subscribeCustomer = async (body, token) => {
 export const getBillingDetails = async (id) => {
     let config = returnConfig()
     try {
-        console.log(config)
         const response = await axios.get(`${API_URL}/api/v1/payments/payment-method/?customer_id=${id}`, config);
         return response.data;
     } catch (error) {
@@ -39,7 +38,6 @@ export const getBillingDetails = async (id) => {
 export const getPaymentDetails = async () => {
     let config = returnConfig()
     try {
-        console.log(config)
         const response = await axios.get(`${API_URL}/api/v1/payments/subscriptions/`, config);
         return response.data;
     } catch (error) {
@@ -50,7 +48,6 @@ export const getPaymentDetails = async () => {
 export const createBillingUser = async (data) => {
     let config = returnConfig()
     try {
-        console.log(config)
         const response = await axios.post(`${API_URL}/api/v1/payments/payment-method/update/`, JSON.stringify(data),config);
         return response;
     } catch (error) {

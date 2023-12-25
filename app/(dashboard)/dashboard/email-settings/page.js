@@ -60,8 +60,8 @@ const page = () => {
             let payload = {
                 agent_name: bot_res.agent_name,
                 agent_title: bot_res.email_agent_title,
-                email_introduction: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
-                email_signOff: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
+                email_greeting: bot_res.email_greeting.replace(/\\/g, '').replace(/"/g, '') || "",
+                email_farewell: bot_res.email_farewell.replace(/\\/g, '').replace(/"/g, '') || "",
                 customer_service_email: bot_res?.customer_service_email,
                 agent_email_value: bot_res?.email ? true : false,
                 email_prefix: bot_res.email.split('@')[0],
@@ -133,31 +133,19 @@ const page = () => {
     }
 
 
-    const DisablingButton1 = () => {
-        const checkFormData = (keys) => {
-            return keys.some(key => !basicFormData[key] || basicFormData[key].trim() === '');
-        };
-        const tab0Keys = [
-            'agent_title',
-            'email_introduction',
-            'email_signOff',
-        ];
-        return checkFormData(tab0Keys) || (!basicFormData['agent_name'] || basicFormData['agent_name'].length === 0);
-    }
-
-
     const SubmitForm = async () => {
         // setLoading(true);
         let payload = {}
         payload = {
             agent_name: basicFormData.agent_name,
             email_agent_title: basicFormData.agent_title,
-            email_greeting: basicFormData.email_introduction,
-            email_farewell: basicFormData.email_signOff,
+            email_greeting: basicFormData.email_greeting,
+            email_farewell: basicFormData.email_farewell,
+            email_prefix: basicFormData.email_prefix,
             email: basicFormData.email_prefix || 'support' +
                 "@" +
                 basicFormData.company_name +
-                ".gettempo.ai",
+                ".deflection.ai",
         }
         setBasicFormData((prev) => {
             return {
@@ -166,85 +154,44 @@ const page = () => {
             }
         })
 
+        //E.G: nextmed-tickets-dev.deflection.ai
+
         !payload.logo && delete payload.logo;
         !payload.email && delete payload.email;
-        const response_companyname = await createEnterpriseAccount({
-            domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
-        });
-        if (user && user?.enterprise?.domain === '') {
-            const domains = await enterpriseDomainInitialize({
-                domain: basicFormData.company_name + '.tickets-docker.withtempo.com',
-            });
-        }
+        // const response_companyname = await createEnterpriseAccount({
+        //     domain: basicFormData.company_name + '-tickets-dev.deflection.ai',
+        // });
+        // if (user && user?.enterprise?.domain === '') {
+        //     const domains = await enterpriseDomainInitialize({
+        //         domain: basicFormData.company_name + '-tickets-dev.deflection.ai',
+        //     });
+        // }
 
+        // if (response_companyname.status === 200) {
+        modifyBot(selectedBot, payload)
+            .then(async (res) => {
+                if (res?.status === 200 || res?.status === 201) {
 
-        if (response_companyname.status === 200) {
-            modifyBot(selectedBot, payload)
-                .then(async (res) => {
-                    if (res?.status === 200 || res?.status === 201) {
-
-                        setLoading(false);
-                        dispatch(fetchBot());
-                        getBotInfo(selectedBot)
-                        successMessage("Changes successfully saved!")
-                    } else {
-                        setLoading(false);
-                        errorMessage("Unable to update!");
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
+                    setLoading(false);
+                    dispatch(fetchBot());
+                    getBotInfo(selectedBot)
+                    successMessage("Changes successfully saved!")
+                } else {
                     setLoading(false);
                     errorMessage("Unable to update!");
-                });
-        } else {
-            console.log(err);
-            setLoading(false);
-            errorMessage("Unable to update!");
-        }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(false);
+                errorMessage("Unable to update!");
+            });
+        // } else {
+        //     console.log(err);
+        //     setLoading(false);
+        //     errorMessage("Unable to update!");
+        // }
     }
-    // const SubmitForm1 = async () => {
-    //     setLoading(true);
-    //     let payload = {}
-    //     payload = {
-    //         agent_name: basicFormData.agent_name,
-    //         email_agent_title: basicFormData.agent_title,
-    //         email_greeting: basicFormData.email_introduction,
-    //         email_farewell: basicFormData.email_signOff,
-    //         email: basicFormData.email_prefix || 'support' +
-    //             "@" +
-    //             basicFormData.company_name +
-    //             ".gettempo.ai",
-    //     }
-    //     setBasicFormData((prev) => {
-    //         return {
-    //             ...prev,
-    //             agent_email_value: true
-    //         }
-    //     })
-
-    //     !payload.logo && delete payload.logo;
-    //     !payload.email && delete payload.email;
-    //     modifyBot(selectedBot, payload)
-    //         .then(async (res) => {
-    //             if (res?.status === 200 || res?.status === 201) {
-
-    //                 setLoading(false);
-    //                 dispatch(fetchBot());
-    //                 getBotInfo(selectedBot)
-    //                 successMessage("Changes successfully saved!")
-    //             } else {
-    //                 setLoading(false);
-    //                 errorMessage("Unable to update!");
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //             setLoading(false);
-    //             errorMessage("Unable to update!");
-    //         });
-
-    // }
 
 
     return (
@@ -363,7 +310,7 @@ const page = () => {
                                     <>
                                         <div className="flex items-center justify-between gap-1 px-6 my-3">
                                             <TextField
-                                                value={user?.enterprise?.domain}
+                                                value={basicFormData.email_prefix + "@" + user?.enterprise?.domain}
                                                 name="domain_name"
                                                 className="py-3 mt-1"
                                                 labelClassName={`${basicFormData?.agent_email_value === true ? 'w-[95%]' : 'w-full'}`}

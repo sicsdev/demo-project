@@ -9,12 +9,14 @@ import { isMobile, mobileModel } from "react-device-detect";
 import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { Tooltip } from 'react-tooltip'
+import { getPermissionHelper } from "../helper/returnPermissions";
 
 const TeamManagement = ({ state, removeMember, changeRole }) => {
   const stateM = useSelector((state) => state.user);
   const [teams, setTeams] = useState(state?.data ?? []);
   const [perPage, setPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const userState = useSelector((state) => state.user.data)
 
   function addSpaceAfterPrefix(phoneNumber) {
     // Use a regular expression to add a space after '+1' if it exists
@@ -43,8 +45,14 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       // Filter deflection team
       let filteredData = mapData.filter(member => !(member.email.endsWith('@deflection.ai')))
       setTeams(filteredData);
-    }
 
+      // Remove Action for non-admin members.
+      if (!getPermissionHelper('MANAGE TEAM', userState?.role)) {
+        let newColumns = columns2.filter(column => column.name !== "Action")
+        setColumns2(newColumns)
+      }
+
+    }
 
 
     const handleResize = () => { setIsMobile(window.innerWidth <= 768); };
@@ -64,7 +72,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     return formattedNumber;
   }
 
-  const columns2 = [
+  const [columns2, setColumns2] = useState([
 
     // This logo column will be used for profile photo of the member in future.
     // {
@@ -150,7 +158,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       reorder: true,
       width: "100px",
     },
-  ];
+  ])
 
 
   const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
