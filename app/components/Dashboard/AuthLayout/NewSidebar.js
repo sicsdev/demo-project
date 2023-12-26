@@ -79,7 +79,7 @@ const NewSidebar = ({ children }) => {
     // State to store profile info locally
     const [profileInfo, setProfileInfo] = useState([])
     const [enterpriseInfo, setEnterpriseInfo] = useState(null)
-
+    
     // Selectors
     const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
     const userLoader = useSelector(state => state.user)
@@ -1069,7 +1069,7 @@ const NewSidebar = ({ children }) => {
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            {!enterpriseInfo?.logo ? (
+                            {enterpriseInfo === null && !enterpriseInfo?.logo ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
                                         <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
