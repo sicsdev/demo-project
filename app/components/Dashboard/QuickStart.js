@@ -231,7 +231,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                         {
                             billingState == "demo" && !user?.enterprise?.information_filled && !knowledgeScrapperState?.data &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="text-center text-sm flex justify-center">
@@ -255,7 +255,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
 
                         {loadingScrapper && billingState == "demo" &&
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b bg-[#F8F8F8] border-[#F0F0F1]`}>
                                     <div className='w-full mx-5'>
                                         <span className="flex justify-center text-sm mb-2">
@@ -275,7 +275,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* we will only show suggested actions for account if the profile is not completed */}
                         {(!loadingData && profileComplete) ? null :
 
-                            <div className="bg-white w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
+                            <div className="bg-white w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5">
                                 <div className={`py-4 flex  justify-between  px-6  items-center gap-4 ${isExpand === true ? "border-b border-[#F0F0F1]" : ""}`}>
                                     <div className="flex items-center  gap-2">
                                         <BoltIcon className="text-[#FF822D] w-5" />
@@ -283,13 +283,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                             Quick Start
                                         </p>
                                     </div>
-                                </div>
-
-
-
-                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
-
-                                {billingState == "normal" && !profileComplete &&
+                                    {billingState == "normal" && !profileComplete &&
                                     <div className="flex items-center gap-4 justify-end">
                                         <button
                                             className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg mt-3 "
@@ -308,6 +302,13 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                                         </button>
                                     </div>
                                 }
+                                </div>
+
+
+
+                                {/* Only not-demo accounts can collapse and expand suggested actions. */}
+
+                              
 
 
 
@@ -603,7 +604,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                         {/* ***** EXTRA DATA FOR BOTH TYPE OF ACCOUNTS (PAID AND DEMO) *******/}
 
                         {recentlyView && (
-                            <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+                            <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                                 <div className='py-4 px-6'>
                                     <div className="flex items-center  gap-2">
                                         {loadingData ?
@@ -690,7 +691,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
 
                     ///////////// SKELETON FOR QUICKSTART
                     <>
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />
@@ -702,7 +703,7 @@ const QuickStart = ({ loadingScrapper, setloadingScrapper, finishingScrapping, f
                             </div>
                         </div>
 
-                        <div className='bg-[#F8F8F8] w-full lg:w-[760px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
+                        <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer pb-5'>
                             <div className='px-5'>
                                 <div className="bg-white'flex-column m-auto rounded-lg mt-5">
                                     <SkeletonLoader count={1} height={30} width="25%" />

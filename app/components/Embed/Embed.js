@@ -9,6 +9,10 @@ import Loading from "../Loading/Loading";
 import { useRouter } from "next/navigation";
 import { ClipboardIcon, CheckIcon } from "@heroicons/react/24/outline";
 
+import { PlusIcon } from '@heroicons/react/24/outline';
+import Image from "next/image"
+
+import { AdjustmentsHorizontalIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { xcodeLight } from "@uiw/codemirror-theme-xcode";
 
 import CodeMirror from "@uiw/react-codemirror";
@@ -17,16 +21,17 @@ import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { EmbedCard } from "./EmbedCard";
+import LineChart from "../Dashboard/Chart/LineChart";
 const Embed = ({ form = true, setTotalRecords,
   skeleton,
-  setSkeleton }) => {
+  setSkeleton, }) => {
   const router = useRouter();
   const state = useSelector((state) => state.botId);
   const dispatch = useDispatch();
   const [copied, setCopied] = useState({ key: null, message: null });
   const [markdown, setmarkdown] = useState("");
   const [detailsData, setDetailsData] = useState(null);
-
+  console.log("bot", state)
   useLayoutEffect(() => {
     hljs.highlightAll();
   }, []);
@@ -39,12 +44,32 @@ const Embed = ({ form = true, setTotalRecords,
       dispatch(fetchBot());
     }
   }, []);
+  function combineArrays(main, usage, usedIn) {
+    // Ensure all arrays have the same length
+    if (main.length !== usage.length || main.length !== usedIn.length) {
+      console.error("Arrays are not of the same length.");
+      return;
+    }
+
+    // Combine the arrays
+    const combinedArray = main.map((item, index) => {
+      return {
+        ...item, // Spread the properties of the main array item
+        usage: usage[index], // Add usage array's corresponding item
+        usedIn: usedIn[index] // Add usedIn array's corresponding item
+      };
+    });
+
+    return combinedArray;
+  }
   useEffect(() => {
     if (state.botData.data?.bots && state.botData.data?.widgets) {
       const getTitle = state.botData.data.bots.map(
         (element) => element.chat_title
       );
       const widgetCode = state.botData.data.widgets;
+      const usage = state.botData.data.usage || [];
+      const usedIn = state.botData.data.usedIn || [];
       const mergedArray = widgetCode.map((item, index) => {
         const title = getTitle[index];
         return {
@@ -53,7 +78,9 @@ const Embed = ({ form = true, setTotalRecords,
           title: title,
         };
       });
-      setDetailsData(mergedArray);
+
+      let combineData = combineArrays(widgetCode, usage, usedIn)
+      setDetailsData(combineData);
       // setSkeleton(false)
       // setTotalRecords(mergedArray)
     }
@@ -131,7 +158,7 @@ const Embed = ({ form = true, setTotalRecords,
                       }}
                       readOnly={true}
                       className="border-none home_widgets_box"
-                      // onChange={onChange}
+                    // onChange={onChange}
                     />
                   </div>
                 </div>
