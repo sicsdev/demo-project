@@ -7,13 +7,15 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import Swal from "sweetalert2";
 // import { useRouter } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import Head from "next/head";
 
-
-const NoSSRProviderWrapper = dynamic(() => import('./components/store/Provider'), {
-  ssr: false,
-});
+const NoSSRProviderWrapper = dynamic(
+  () => import("./components/store/Provider"),
+  {
+    ssr: false,
+  }
+);
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
@@ -27,16 +29,17 @@ export const metadata = {
     ogImage: "https://deflection.ai/logo-simple-negative.png",
     ogUrl: "https://deflection.ai/",
   },
-  title: "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
-  description: "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
+  title:
+    "Enhance Support with Chatbot, Email Ticketing, Inbound IVR | Deflection AI",
+  description:
+    "Elevate your customer support with Deflection AI.ai's advanced solutions. Chatbot, Email Ticketing, Inbound IVR, and Outbound Agent capabilities for seamless interactions and improved efficiency",
   icons: {
     icon: "https://deflection.ai/icon-simple.ico",
   },
   openGraph: {
-    images: 'https://www.deflection.ai/logo-basic-negative.png',
+    images: "https://www.deflection.ai/logo-basic-negative.png",
   },
 };
-
 
 export default function RootLayout({ children }) {
   let schema = {
@@ -65,7 +68,7 @@ export default function RootLayout({ children }) {
   // }, [])
 
   function getCookie(name) {
-    const cookies = document.cookie.split(';');
+    const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
       if (cookie.startsWith(`${name}=`)) {
@@ -91,7 +94,7 @@ export default function RootLayout({ children }) {
 
   function handleInactive() {
     localStorage.removeItem("Token");
-    deleteCookie("Token")
+    deleteCookie("Token");
     location.reload();
     console.log("30 min of inactivity. Session closed.");
   }
@@ -113,33 +116,30 @@ export default function RootLayout({ children }) {
     }, 1000);
   }
 
-
   function showWarning() {
     // This function will be executed when there are 5 minutes left before session expiration
     alreadyWarned = true;
 
     Swal.fire({
-      title: 'Warning!',
-      text: 'Your session is about to expire. Do you want to continue?',
-      icon: 'warning',
+      title: "Warning!",
+      text: "Your session is about to expire. Do you want to continue?",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonText: 'Continue',
-      cancelButtonText: 'Log Out',
-      reverseButtons: true
+      confirmButtonText: "Continue",
+      cancelButtonText: "Log Out",
+      reverseButtons: true,
     }).then((result) => {
       if (result.isConfirmed) {
         alreadyWarned = false;
         resetTimer();
       } else {
         localStorage.removeItem("Token");
-        deleteCookie("Token")
+        deleteCookie("Token");
         location.reload();
-        console.log('User chose to log out');
+        console.log("User chose to log out");
       }
     });
   }
-
-
 
   return (
     <html lang="en" className="scroll-smooth ">
@@ -148,16 +148,23 @@ export default function RootLayout({ children }) {
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-touch-fullscreen" content="yes" />
-        <meta name="apple-touch-icon" content="https://deflection.ai/logo-simple-negative.png" />
+        <meta
+          name="apple-touch-icon"
+          content="https://deflection.ai/logo-simple-negative.png"
+        />
 
         <meta property="og:title" content="Deflection AI" />
-        <meta property="og:description" content="Intelligent Automation for Exceptional Customer Service" />
-        <meta property="og:image" content="https://deflection.ai/logo-simple-negative.png" />
+        <meta
+          property="og:description"
+          content="Intelligent Automation for Exceptional Customer Service"
+        />
+        <meta
+          property="og:image"
+          content="https://deflection.ai/logo-simple-negative.png"
+        />
         <meta property="og:url" content="https://deflection.ai/" />
       </Head>
       <head>
-
-
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
@@ -174,26 +181,32 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
           href="https://widget-dev.deflection.ai/v1/assets/css/app.css"
         />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="icon" href="https://deflection.ai/logo-simple-negative.png" />
-
-
-
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <link
+          rel="icon"
+          href="https://deflection.ai/logo-simple-negative.png"
+        />
         {/* <link
           rel="stylesheet"
           href="https://widget-dev.deflection.ai/v1/assets/css/responsive.css"
         /> */}
-
         <link
           rel="stylesheet"
           href="https://widget-dev.deflection.ai/v1/assets/css/optionsbuttons.css"
         />
-
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-
+        <link
+          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
@@ -208,11 +221,8 @@ export default function RootLayout({ children }) {
         `,
           }}
         />
-
-
-
-{/* <!-- Meta Pixel Code --> */}
-<script
+        {/* <!-- Meta Pixel Code --> */}
+        <script
           dangerouslySetInnerHTML={{
             __html: `
             !function(f,b,e,v,n,t,s)
@@ -227,11 +237,8 @@ export default function RootLayout({ children }) {
             fbq('track', 'PageView');
       `,
           }}
-            
-
-        />  
-{/* <!-- End Meta Pixel Code --> */}
-
+        />
+        {/* <!-- End Meta Pixel Code --> */}
         {/* Google tag */}
         <script
           async
@@ -247,11 +254,8 @@ export default function RootLayout({ children }) {
         gtag('config', 'G-HFHNKD99J4');
       `,
           }}
-
         />
         {/* <!-- Google Tag Manager -->  */}
-
-
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -262,11 +266,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-P3BH433');`,
           }}
         />
-
         {/* <!-- End Google Tag Manager --> */}{" "}
       </head>
-
-
 
       <body suppressHydrationWarning={true} className={inter.className}>
         <NoSSRProviderWrapper>

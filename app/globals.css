@@ -2146,3 +2146,12 @@ input:-webkit-autofill:active {
   margin-top: 15px;
   object-fit: contain;
 }
+
+.icon:hover{
+  transform: rotate(45deg);
+ transition-duration: .5s; 
+}
+.icon1:hover{
+  transform: rotate(45deg);
+ transition-duration: .5s; 
+}
