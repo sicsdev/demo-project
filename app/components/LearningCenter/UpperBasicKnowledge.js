@@ -45,7 +45,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             setShowSourceFilter(false)
             setCurrentTab('file')
         }
-        
+
     }, []);
 
     useEffect(() => {
@@ -151,6 +151,10 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 break;
         }
 
+        if (filters.currentBot) {
+            payload['bots'] = [{ 'bot': filters.currentBot, 'active': true }];
+        }
+
         const response = await createNewKnowledge(payload)
         if (response.status === 201) {
             if (value.type === "SNIPPET") {
@@ -177,6 +181,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             setCreateOptions(null)
             setCreatePdfModal(false)
             setFormData({});
+            // getDataWithFilters()
         }
     }
 
@@ -219,7 +224,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             currentBot: e.target.value
         })
     }
-
+    console.log("currentBot", filters)
 
     return (
         <>

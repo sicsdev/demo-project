@@ -13,7 +13,7 @@ const StripeWrapper = ({ children, options = null }) => {
 
   return (
     <>
-      <Elements stripe={stripePromise}>{children}</Elements>
+      <Elements stripe={stripePromise} options={options}>{children} </Elements>
     </>
   );
 };
