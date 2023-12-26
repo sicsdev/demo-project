@@ -4,6 +4,7 @@ import { makeCapital } from '@/app/components/helper/capitalName';
 import { fetchIntegrations } from '@/app/components/store/slices/integrationSlice';
 import { tiles_icons } from '@/app/data/icon_data';
 import { ArrowUturnLeftIcon, ClipboardDocumentListIcon, ClipboardIcon, EnvelopeIcon, PlusIcon, PuzzlePieceIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';

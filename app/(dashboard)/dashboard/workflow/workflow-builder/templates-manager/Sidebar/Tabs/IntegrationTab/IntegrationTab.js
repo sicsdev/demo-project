@@ -24,9 +24,11 @@ const IntegrationTab = () => {
 
         if (integrationState?.data?.results) {
             // Filtering data, we dont want CUSTOM integrations or "QuickEmailVerification"
+            console.log(integrationState?.data?.results, 'integration list')
 
             let filterQuickEmailVerification = integrationState?.data?.results.filter(integration => integration.name !== "QuickEmailVerification")
             let filterCustomTypesIntegrations = filterQuickEmailVerification.filter(integration => integration.type !== 'CUSTOM')
+
 
             setIntegrations(filterCustomTypesIntegrations)
         }
@@ -139,7 +141,7 @@ const IntegrationTab = () => {
                     </li>
 
 
-                    <li className='my-4 cursor-pointer ' key={'Deflection Integration'} >
+                    <li className='my-4 cursor-pointer ' key={'Email Integration2'} >
                         <div className='flex justify-between items-center'>
                             <div className='flex justify-between items-center gap-2'>
                                 <div className="relative w-[20px] h-[20px] rounded-lg m-auto">
