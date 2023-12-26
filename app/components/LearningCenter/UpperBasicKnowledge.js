@@ -25,7 +25,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     const [skeletonloading, setSkeletonLoading] = useState(true)
     const [botValue, setBotValue] = useState([]);
 
-
     // Helpers
     const state = useSelector((state) => state.botId);
     const dropdown = useRef(null);
@@ -177,7 +176,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             setLoading(false)
             setCreateOptions(null)
             setCreatePdfModal(false)
-
+            setFormData({});
         }
     }
 

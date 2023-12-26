@@ -15,7 +15,6 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
-
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
