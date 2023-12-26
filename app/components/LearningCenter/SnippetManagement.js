@@ -15,7 +15,6 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
-
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
@@ -151,6 +150,19 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const handleMouseLeave = () => {
         setShowError(false);
     };
+    console.log("basicFormData1", basicFormData)
+
+    useEffect(() => {
+        console.log("basicFormData2", basicFormData)
+        const textarea = document.querySelector(".resizable-textarea");
+        textarea?.setAttribute("rows", "1"); // Set the 'rows' attribute
+        const rows = Math.min(
+            Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+            20 // Limit to a maximum of 6 rows
+        );
+
+        textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+    }, [basicFormData.title]);
 
     return (
         <>
@@ -211,7 +223,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
                             <div className='flex gap-5 w-100'>
                                 <div className='w-1/2 mt-2'>
-                                    <TextField
+                                    {/* <TextField
                                         onChange={handleInputChange}
                                         value={basicFormData.title}
                                         className="py-3 mt-1 w-full"
@@ -222,8 +234,19 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                         type={"text"}
                                         error={''}
                                         tooltipInfo={"The name of the product"}
+                                    /> */}
 
-                                    />
+                                    <textarea
+                                        onChange={handleInputChange}
+                                        name="title"
+                                        type="text"
+                                        className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                                        placeholder="Enter a Title"
+                                        rows={"1"}
+                                        error={''}
+                                    >
+                                        {basicFormData.title}
+                                    </textarea>
 
                                     {creationMode === 'product' && (
                                         <>

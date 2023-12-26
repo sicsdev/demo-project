@@ -57,7 +57,11 @@ const Source = () => {
                 isLoading: true
             }
         })
-        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours`)
+        let filterQueryParam = ``;
+        if(filters.currentBot) {
+            filterQueryParam = `&bot__id=${filters.currentBot}`;
+        }
+        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours${filterQueryParam}`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {

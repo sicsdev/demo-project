@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import SkeletonLoader from '../Skeleton/Skeleton'
 import { loadStripe } from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
+import Swal from 'sweetalert2'
 
 const Method = ({ billingState }) => {
     const dispatch = useDispatch()
@@ -28,7 +29,24 @@ const Method = ({ billingState }) => {
         await removeTrialFromSlack(payloadForSlack)
         // Change account type in db
         const response = await createEnterpriseAccount({ billing_type: "normal" })
-        dispatch(editBillingType("normal"))
+
+        if (response?.status == 200 || response.status == 201) {
+            dispatch(editBillingType("normal"));
+            Swal.fire({
+                title: 'Account Updated!',
+                text: 'Your payment method has been successfully updated.',
+                icon: 'success',
+                confirmButtonText: 'Got it'
+            });
+        } else {
+            Swal.fire({
+                title: 'Update Failed',
+                text: 'Failed to update the enterprise account. Please try again or contact support.',
+                icon: 'error',
+                confirmButtonText: 'Close'
+            });
+        }
+
     }
 
     return (

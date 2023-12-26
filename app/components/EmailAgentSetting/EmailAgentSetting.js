@@ -36,10 +36,14 @@ const EmailAgentSetting = ({
     friendly_name: basicFormData?.friendly_name ?? "",
     phone_numbers: basicFormData?.phone_numbers ?? null,
     selectedFile: basicFormData?.selectedFile ?? "",
+    email_greeting: basicFormData?.email_greeting ?? "",
+    email_farewell: basicFormData?.email_farewell ?? ""
   });
 
   const handleInputValues = (e) => {
     const { value } = e.target;
+
+    console.log(e.target.value, e.target.name)
     if (value !== " ") {
       // setErrors([])
       setFormValues({ ...formValues, [e.target.name]: value });
@@ -105,7 +109,7 @@ const EmailAgentSetting = ({
             values={email_prefix_data}
             title={
               <div className="flex items-center gap-2 mb-3">
-                <span>Email Prefix</span>{" "}
+                <span>Support Email Username</span>{" "}
                 <div className="group w-[2px] relative">
                   <InformationCircleIcon className=" h-4 w-4 cursor-pointer " />
                   <Card className="animate-fadeIn bg-white hidden absolute w-[500px] z-50 group-hover:block">
@@ -123,7 +127,7 @@ const EmailAgentSetting = ({
           />
         </div>
 
-        <div className="my-2">
+        {/* <div className="my-2"> 
           <TextField
             onChange={handleInputValues}
             value={formValues.company_name}
@@ -151,7 +155,7 @@ const EmailAgentSetting = ({
             disabled={!getPermissionHelper('EDIT EMAIL SETTINGS', userState?.role)}
 
           />
-        </div>
+        </div> */}
 
         {/* <div className="my-2">
           <TextField
@@ -193,9 +197,9 @@ const EmailAgentSetting = ({
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
-            value={formValues.email_introduction}
+            value={basicFormData.email_greeting}
             error={returnErrorMessage("email_introduction")}
-            name="email_introduction"
+            name="email_greeting"
             values={email_introduction_data}
             title={
               <div className="flex items-center gap-2 w-[150px] mb-3">
@@ -212,16 +216,17 @@ const EmailAgentSetting = ({
                 </div>
               </div>
             }
-            id={"email_introduction"}
+            id={"email_greeting"}
             className="py-3"
           />{" "}
         </div>
+
         <div className="my-2">
           <SelectField
             onChange={handleInputValues}
-            value={formValues.email_signOff}
+            value={basicFormData.email_farewell}
             error={returnErrorMessage("email_signOff")}
-            name="email_introduction"
+            name="email_farewell"
             values={email_sign_off_data}
             title={
               <div className="flex items-center gap-2 w-[150px]  mb-3">
@@ -239,10 +244,11 @@ const EmailAgentSetting = ({
                 </div>
               </div>
             }
-            id={"email_signOff"}
+            id={"email_farewell"}
             className="py-3"
           />{" "}
         </div>
+
 
 
 

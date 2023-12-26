@@ -19,6 +19,7 @@ import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import { useRouter } from 'next/navigation'
+import { fetchMembers } from '../store/slices/memberSlice'
 
 const Dashboard = ({ children }) => {
     const router = useRouter()
@@ -34,6 +35,7 @@ const Dashboard = ({ children }) => {
     const integrationState = useSelector((state) => state.integration);
     const workflowsState = useSelector((state) => state.workflow);
     const integrationTemplatesState = useSelector((state) => state.integrationTemplate);
+    const membersState = useSelector((state) => state.members)
 
     useEffect(() => {
 
@@ -61,7 +63,7 @@ const Dashboard = ({ children }) => {
         if (!integrationState?.data) { dispatch(fetchIntegrations()) }
         if (!workflowsState?.data) { dispatch(fetchWorkflows()) }
         if (!integrationTemplatesState?.data) { dispatch(fetchIntegrationsTemplates()) }
-
+        if (!membersState.data) { dispatch(fetchMembers()) }
         // getActiveBots()
         // localStorage.setItem(`inTempoPortal`, true);
         // return () => { localStorage.removeItem('inTempoPortal') }
@@ -71,6 +73,13 @@ const Dashboard = ({ children }) => {
         getActiveBots()
     }, [botState.botData.data])
 
+
+    useEffect(() => {
+        if (!billingState && userState) {
+            findValuesForRoute(userState?.data?.enterprise?.billing_type)
+            dispatch(editBillingType(userState?.data?.enterprise?.billing_type))
+        }
+    }, [userState])
 
     const SideBarRoutes = [
 
@@ -156,14 +165,7 @@ const Dashboard = ({ children }) => {
         return
     }
 
-    useEffect(() => {
-        if (!billingState && userState) {
-            findValuesForRoute(userState?.data?.enterprise?.billing_type)
-            dispatch(editBillingType(userState?.data?.enterprise?.billing_type))
-        }
-    }, [userState])
     const [activeBots, setActiveBots] = useState([])
-
     const getActiveBots = async () => {
 
         await getAllActiveBots().then(async (res) => {
@@ -175,8 +177,8 @@ const Dashboard = ({ children }) => {
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)
-                localStorage.setItem(`tempoportallastlogin`, profile.email)
-                localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
+                sessionStorage.setItem(`tempoportallastlogin`, profile.email)
+                sessionStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
         })
 

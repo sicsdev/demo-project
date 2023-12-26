@@ -260,3 +260,15 @@ export const disputeCharge = async (body, id) => {
         return error
     }
 }
+
+
+export const getAllActivePlatforms = async () => {
+
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/integrations/list-integrations-human-handoff/`, config);
+        return response.data;
+    } catch (error) {
+        return error
+    }
+}
