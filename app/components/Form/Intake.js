@@ -68,6 +68,8 @@ const Intake = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     setShowModal(state);
+    console.log("aaa gaya");
+    console.log("basic", basicFormData)
   }, [state]);
   console.log(basicFormData)
   function displayErrorMessages(errors) {
@@ -272,6 +274,7 @@ const Intake = () => {
     if (createEnterprise?.status === 200) {
       if (basicFormData.recommended_integrations.length === 0 || basicFormData?.prev_customer_service_email !== basicFormData.customer_service_email.split("@")[1]) {
         const domain = await addNewDomain({ domain: basicFormData.customer_service_email.split("@")[1] })
+       
         if (domain.status === 200) {
           setBasicFormData((prev) => {
             return {

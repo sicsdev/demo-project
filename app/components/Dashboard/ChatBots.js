@@ -17,6 +17,7 @@ import TextField from '../Common/Input/TextField';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
+import { getPermissionHelper } from '../helper/returnPermissions';
 
 
 const ChatBots = ({ setSkeleton, skeleton }) => {
@@ -109,7 +110,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                                     <>
                                         <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                         <p className="text-base font-medium text-[#151D23]">
-                                            {totalRecords?.length > 1 ? 'Install Widgets' : 'Install Widget'}
+                                            {totalRecords?.length > 1 ? 'Manage Bots' : 'Manage Bots'}
                                         </p>
                                     </>
 
@@ -120,13 +121,13 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                                 {skeleton ?
                                     <SkeletonLoader count={1} height={30} width={100} />
                                     :
-                                    <button
+                                    (getPermissionHelper('CREATE NEW AGENT', state?.data?.role) && <button
                                         onClick={(e) => { setShowModal(true) }}
                                         className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none hover:bg-primary hover:text-[#ffffff] transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
 
                                     >
-                                        Create New Agent
-                                    </button>
+                                        Add New Bot
+                                    </button>)
                                 }
                             </div>
                         </div>
@@ -136,7 +137,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                 <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
-                    <SideModal setShow={setShowModal} heading={'Create New Agent'} >
+                    <SideModal setShow={setShowModal} heading={'Add New Bot'} >
                         <div className="my-2">
                             <TextField
                                 onChange={handleInputValues}

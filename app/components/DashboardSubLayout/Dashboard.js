@@ -19,12 +19,23 @@ import { getUserProfile } from '@/app/API/components/Sidebar'
 import { getTestBot } from '@/app/API/components/Minibot'
 import { editBillingType } from '../store/slices/billingTypeSlice'
 import { useRouter } from 'next/navigation'
+import { fetchMembers } from '../store/slices/memberSlice'
 
 const Dashboard = ({ children }) => {
     const router = useRouter()
     const routes = ["/dashboard/workflow/workflow-builder", "/dashboard/knowledge-center", "/dashboard/email-settings", "/dashboard/manage-phones", "/dashboard/members", "/dashboard/scheduling-settings", "/dashboard/billing/usage"]
     const dispatch = useDispatch()
     const pathname = usePathname()
+
+    let state = useSelector((state) => state.botId.showModal)
+    const userState = useSelector((state) => state.user);
+    const billingState = useSelector((state) => state.billing);
+    const botState = useSelector((state) => state.botId);
+    const recommendationState = useSelector((state) => state.recommendation);
+    const integrationState = useSelector((state) => state.integration);
+    const workflowsState = useSelector((state) => state.workflow);
+    const integrationTemplatesState = useSelector((state) => state.integrationTemplate);
+    const membersState = useSelector((state) => state.members)
 
     useEffect(() => {
 
@@ -44,24 +55,31 @@ const Dashboard = ({ children }) => {
         }
     }, [])
 
-
-    let state = useSelector((state) => state.botId.showModal)
-    const userState = useSelector((state) => state.user);
-    const billingState = useSelector((state) => state.billing);
     useEffect(() => {
-        if (!state) {
-            dispatch(fetchBot())
-            dispatch(fetchProfile());
-            dispatch(fetchRecommendation());
-            dispatch(fetchIntegrations());
-            dispatch(fetchWorkflows());
-            dispatch(fetchIntegrationsTemplates())
-        }
 
-        getActiveBots()
+        if (!userState?.data) { dispatch(fetchProfile()); }
+        if (!botState?.botData) { dispatch(fetchBot()) }
+        if (!recommendationState?.data) { dispatch(fetchRecommendation()) }
+        if (!integrationState?.data) { dispatch(fetchIntegrations()) }
+        if (!workflowsState?.data) { dispatch(fetchWorkflows()) }
+        if (!integrationTemplatesState?.data) { dispatch(fetchIntegrationsTemplates()) }
+        if (!membersState.data) { dispatch(fetchMembers()) }
+        // getActiveBots()
         // localStorage.setItem(`inTempoPortal`, true);
         // return () => { localStorage.removeItem('inTempoPortal') }
-    }, [state]);
+    }, [userState, state, botState, recommendationState, integrationState, workflowsState]);
+
+    useEffect(() => {
+        getActiveBots()
+    }, [botState.botData.data])
+
+
+    useEffect(() => {
+        if (!billingState && userState) {
+            findValuesForRoute(userState?.data?.enterprise?.billing_type)
+            dispatch(editBillingType(userState?.data?.enterprise?.billing_type))
+        }
+    }, [userState])
 
     const SideBarRoutes = [
 
@@ -147,18 +165,11 @@ const Dashboard = ({ children }) => {
         return
     }
 
-    useEffect(() => {
-        if (!billingState && userState) {
-            findValuesForRoute(userState?.data?.enterprise?.billing_type)
-            dispatch(editBillingType(userState?.data?.enterprise?.billing_type))
-        }
-    }, [userState])
     const [activeBots, setActiveBots] = useState([])
-
     const getActiveBots = async () => {
 
         await getAllActiveBots().then(async (res) => {
-            setActiveBots(res.results)
+            setActiveBots(res?.results)
             const profile = await getUserProfile()
             const testBot = await getTestBot()
 
@@ -166,8 +177,8 @@ const Dashboard = ({ children }) => {
 
             if (profile?.email) {
                 const activeBotsInLocalStorage = JSON.stringify(res.results)
-                localStorage.setItem(`tempoportallastlogin`, profile.email)
-                localStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
+                sessionStorage.setItem(`tempoportallastlogin`, profile.email)
+                sessionStorage.setItem(`activebots-${profile?.email}`, activeBotsInLocalStorage);
             }
         })
 

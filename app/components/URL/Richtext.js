@@ -40,7 +40,7 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
 
   useEffect(() => {
-    
+
     // if (externalContent && externalContent !== oldContent && lastExternalContent !== externalContent) {
     if (externalContent && externalContent !== lastExternalContent) {
 
@@ -83,23 +83,43 @@ const TextEditor = ({ oldContent, editing, handleTextEditorChange, debugMode, ex
 
   function replaceLink(html) {
     if (html) {
-      let pattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
-      let matches = html?.match(pattern);
+      // Reemplazo de enlaces
+      let linkPattern = /<a\s+[^>]*href="([^"]+)"[^>]*>([^<]+)<\/a>/g;
+      let linkMatches = html.match(linkPattern);
 
-      if (matches) {
-        matches.forEach(function (match) {
-          let parts = pattern.exec(match);
-          let url = parts[1];
-          let name = parts[2];
-          let newFormat = '[' + name + ':' + url + ']';
-          html = html.replace(match, newFormat);
+      if (linkMatches) {
+        linkMatches.forEach(function (match) {
+          let parts = linkPattern.exec(match);
+          if (parts) {
+            let url = parts[1];
+            let name = parts[2];
+            let newFormat = '[' + name + ':' + url + ']';
+            html = html.replace(match, newFormat);
+          }
+        });
+      }
+
+      // Reemplazo de imágenes
+      let imgPattern = /<img\s+[^>]*src="([^"]+)"[^>]*>/g;
+      let imgMatches = html.match(imgPattern);
+
+      if (imgMatches) {
+        imgMatches.forEach(function (match) {
+          let imgParts = imgPattern.exec(match);
+          if (imgParts) {
+            let imgUrl = imgParts[1];
+            let imgFormat = '[image: ' + imgUrl + ']';
+            html = html.replace(match, imgFormat);
+          }
         });
       }
     }
 
-    html = html.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll(`\n`, "")
+    html = html.replaceAll("<p>", "").replaceAll("</p>", "").replaceAll(`\n`, "");
     return html;
   }
+
+
 
   // if (html.startsWith("<p>") && html.endsWith("</p>") || html.endsWith(`</p>\n`)) {
   //   html = html.substring(3, html.length - 4);

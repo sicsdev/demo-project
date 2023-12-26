@@ -1453,7 +1453,17 @@ body .rhap_progress-indicator {
 body .rhap_controls-section {
   flex: unset;
 }
-
+div[data-column-id="created"] {
+  display: flex;
+  justify-content: center;
+}div[data-column-id="actions"] {
+  display: flex;
+  justify-content: start;
+}
+div[data-column-id="counting"] {
+  display: flex;
+  justify-content: center;
+}
 div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
@@ -2145,4 +2155,13 @@ input:-webkit-autofill:active {
   height: 200px !important;
   margin-top: 15px;
   object-fit: contain;
+}
+
+.icon:hover{
+  transform: rotate(45deg);
+ transition-duration: .5s; 
+}
+.icon1:hover{
+  transform: rotate(45deg);
+ transition-duration: .5s; 
 }

@@ -455,7 +455,7 @@ const UsageLimit = () => {
   return (
     <>
       <div style={{ whiteSpace: "normal" }}>
-        <TopBar title={`Billing Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
+        <TopBar loader={pageLoading} title={`Billing Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} />
         <div className={pageLoading ? " " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between"}>
           <ul className="flex flex-nowrap items-center overflow-x-auto sm:flex-wrap -mb-px text-sm font-[600] text-center  text-[#5b5e69]">
 
@@ -468,7 +468,7 @@ const UsageLimit = () => {
                   rounded-lg active  group`}
                   aria-current="page"
                 >
-                  Billing
+                  Usage
                 </span>
               }
             </li>
@@ -481,7 +481,7 @@ const UsageLimit = () => {
                   rounded-lg active  group`}
                   aria-current="page"
                 >
-                  Usage
+                  Billing
                 </span>
               }
             </li>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CheckCircleIcon, ShareIcon } from "@heroicons/react/24/outline";
 import {
   getAllIntegration,
@@ -7,7 +7,6 @@ import {
   getIntegrationTemplateByType,
   getPopularIntegrationsTemplate
 } from "@/app/API/pages/Integration";
-import { useEffect } from "react";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
 import { tiles_data } from "@/app/data/integration_tiles.json";
@@ -24,6 +23,8 @@ import IntegrationTemplates from "@/app/components/Workflows/WorkflowBuilder/Int
 import TopBar from "@/app/components/Common/Card/TopBar";
 import axios from "axios";
 import SideModal from "@/app/components/SideModal/SideModal";
+import { addNewDomain } from "@/app/API/pages/EnterpriseService";
+import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 
 const Page = () => {
   const state = useSelector((state) => state.integration);
@@ -40,7 +41,6 @@ const Page = () => {
   const [skeltonLoading, setSkeltonLoading] = useState(true);
   const [help, setHelp] = useState([])
   const [popularTabs, setPopularTabs] = useState([])
-  console.log("integrations", state)
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
       (x) => x.name.toLowerCase() === name.toLowerCase()
@@ -68,7 +68,8 @@ const Page = () => {
 
 
 
-
+  const tempoPortalLastLogin = sessionStorage.getItem("tempoportallastlogin");
+  let newPopular = tempoPortalLastLogin ? tempoPortalLastLogin.split("@")[1] : ''
 
 
   const dupRemove = (inputArray) => {
@@ -80,17 +81,16 @@ const Page = () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      const popIntegrations = await getPopularIntegrationsTemplate()
+      const popIntegrations = await addNewDomain({ domain: newPopular })
       let custom_integrations = null
       if (state && state?.data && state?.data?.results) {
         custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
-        console.log("cuaomer", custom_integrations)
       }
 
       if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
-        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.flatMap(entry => Object.values(entry)[0])))
-        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.includes(x.name))
-        const updateArray = filterDataPopular.slice(0, 5).map((item) => ({
+        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
+        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
+        const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
           logo: item.icon ?? findIconValue(item.name),
           grayscale: false,
@@ -193,19 +193,19 @@ const Page = () => {
               grayscale: false,
               tiles: updateArray
             }, ...sortedData]);
-            setFixeData([
-              {
-                key: "CUSTOM",
-                title: "Custom",
-                grayscale: false,
-                tiles: updateArrayCustom
-              }
-              , {
-                key: "POPULAR",
-                title: "Popular",
-                grayscale: false,
-                tiles: updateArray
-              }, ...sortedData]);  
+          setFixeData([
+            {
+              key: "CUSTOM",
+              title: "Custom",
+              grayscale: false,
+              tiles: updateArrayCustom
+            }
+            , {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray
+            }, ...sortedData]);
         } else {
 
 
@@ -295,14 +295,14 @@ const Page = () => {
       })
       .filter(item => item !== null); // More explicit than .filter(Boolean)
 
-    setIntegrationsTiles(filteredData); 
+    setIntegrationsTiles(filteredData);
 
-      
+
   };
 
   return (
     <>
-      <TopBar title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
+      <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
       {dataLoader === true ? (
         <div>
           <div className='grid grid-cols-[85%,15%] my-2'>
@@ -355,15 +355,19 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            <div>
-              <div className=' gap-2 w-full '>
-                <div className='mr-[18px]'>
-                  <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                    Create
-                  </button>
+
+            {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
+              <div>
+                <div className=' gap-2 w-full '>
+                  <div className='mr-[18px]'>
+                    <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
+                      Create
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            }
+
           </div>
           <div>
             {integrationData.length > 0 ? (

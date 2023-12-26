@@ -94,6 +94,8 @@ const Page = () => {
     const firstRender = useRef(true);
     const [tab, setTab] = useState(1)
     const [loadingChangeAnswer, setLoadingChangeAnswer] = useState(false)
+    const [isMouseOver, setIsMouseOver] = useState("324221d8-2535-4b61-9585-1a71c33cfcdf");
+
 
     const checkValue = (str) => {
         if (str.length < 2) {
@@ -204,7 +206,7 @@ const Page = () => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 300);
+        }, 500);
     }, [])
 
 
@@ -214,7 +216,7 @@ const Page = () => {
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (divRef.current && !divRef.current.contains(event.target)) {
-                setOpenWorkflow(null);
+                // setOpenWorkflow(null);
             }
         };
 
@@ -232,18 +234,21 @@ const Page = () => {
                 // maxHeight: '100%', // override the row height
                 // paddingTop: "10px",
                 // paddingBottom: "10px",
-                height: "auto"
+                height: "auto",
+                
+                
             },
         }
     };
 
     const columns = [
         {
-            name: "Question",
+            name: <p className="font-[600]">Question</p>,
             id: "question",
             selector: 'question',
             sortable: false,
             minWidth: "200px",
+     
             reorder: true,
             cell: (row) => (
                 <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
@@ -261,7 +266,7 @@ const Page = () => {
             )
         },
         {
-            name: "Count",
+            name:<p className="font-[600]">Count</p>,
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
@@ -270,66 +275,105 @@ const Page = () => {
             hide: "sm",
         },
         {
+            name: <p className="font-[600] ">Created</p>,
+            id: "created",
+            selector: 'question',
+            sortable: false,
+            minWidth: "150px",
+            reorder: true,
+            cell: (row) => (
+                <>
+                 {row.id !== isMouseOver && (
+                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal'> {formatISODate(row.created)}</p >
+                   )}  </> )
+        },
+        {
             name: "",
             center: true,
             cell: (row, index) => (
-                <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-                    setWorkflowView(row)
-                    searchMatched({ question: row.question }, false)
-                    getWorkFlowReccomodation(row.question)
-                    setShow(true)
-                    setAnswer('')
-                    setQuestionData([])
-                    setSearchKnowledge('')
-                    setKnowledgeId(null)
-                }}>
-                    {
-                        row?.accepted === false && (
-                            <>
+                <>
+                    {row.id === isMouseOver && (
+                        <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+                            setWorkflowView(row)
+                            searchMatched({ question: row.question }, false)
+                            getWorkFlowReccomodation(row.question)
+                            setShow(true)
+                            setAnswer('')
+                            setQuestionData([])
+                            setSearchKnowledge('')
+                            setKnowledgeId(null)
+                        }}>
+                            {
+                                row?.accepted === false && (
+                                    <>
 
 
-                                <div>
-                                    <button type="button">
-                                        <PlusCircleIcon className="h-6 w-6 text-success " />
-                                    </button>
-                                </div>
-                                <>
-                                    {deleteLoader === row.id ?
-                                        <ColorRing
-                                            height="30"
-                                            width="30"
-                                            color="#4fa94d"
-                                            ariaLabel="tail-spin-loading"
-                                            radius="1"
-                                            wrapperClass="text-center"
-                                            visible={true}
-                                        /> :
                                         <div>
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    deleteButtonHandler(row.id);
-                                                }}
-                                            >
-                                                <XCircleIcon className="h-6 w-6 text-danger " />
+                                            <button type="button">
+                                                <PlusCircleIcon className="h-6 w-6 text-success " />
                                             </button>
                                         </div>
-                                    }
+                                        <>
+                                            {deleteLoader === row.id ?
+                                                <ColorRing
+                                                    height="30"
+                                                    width="30"
+                                                    color="#4fa94d"
+                                                    ariaLabel="tail-spin-loading"
+                                                    radius="1"
+                                                    wrapperClass="text-center"
+                                                    visible={true}
+                                                /> :
+                                                <div>
+                                                    <button
+                                                        type="button"
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            deleteButtonHandler(row.id);
+                                                        }}
+                                                    >
+                                                        <XCircleIcon className="h-6 w-6 text-danger " />
+                                                    </button>
+                                                </div>
+                                            }
 
 
 
-                                </>
-                            </>
-                        )}
+                                        </>
+                                    </>
+                                )}
 
-                </div>
+                        </div>
+                    )}
+                </>
             ),
         },
 
 
 
     ];
+
+
+
+    function formatISODate(isoDate) {
+        // Crear un objeto de fecha a partir de la fecha en formato ISO
+        const date = new Date(isoDate);
+
+        // Opciones para formatear la fecha
+        const options = {
+            weekday: 'long',
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        };
+
+        // Formatear la fecha
+        return date.toLocaleString('en-US', options).replace(',', '');
+    }
+
 
     const handleRecomodationValue = async (page) => {
         setLoading(true)
@@ -519,6 +563,7 @@ const Page = () => {
             setAnswer(element.answer)
             setSubQuestionLoading(false)
         }
+        setSubQuestionLoading(false)
     }
 
     const handleWorkflow = async (workflow_data) => {
@@ -695,12 +740,19 @@ const Page = () => {
     }
 
 
+    const handlemouseOver = (id) => {
+        console.log("mouse", id)
+        setIsMouseOver(id)
+    }
 
+    const handlemouseLeave = (id) => {
+        // setIsMouseOver(null);
+    }
 
     return (
         <>
             <div style={{ whiteSpace: "normal" }}>
-                <TopBar title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
+                <TopBar loader={loading} title={`Learning Center`} icon={<AcademicCapIcon className="h-5 w-5 text-primary" />} />
 
                 <div className={false ? " my-2 mb-5        " : "border-b-2 border-border dark:border-gray-700 flex items-center justify-between my-2 mb-5"}>
 
@@ -709,7 +761,7 @@ const Page = () => {
                         <li className={`  ${tab === 1 ? "boredractive" : 'boredrinactive hover:text-black'}`} onClick={() => {
                             setTab(1)
                         }}>
-                            {false ?
+                            {loading ?
                                 <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                 :
                                 <span
@@ -727,7 +779,7 @@ const Page = () => {
 
                             setTab(2)
                         }}>
-                            {false ?
+                            {loading ?
                                 <SkeletonLoader className="mr-2" count={1} height={30} width={60} />
                                 :
                                 <span
@@ -758,14 +810,14 @@ const Page = () => {
                 {tab == 1 &&
                     <>
                         <div className='flex w-full m-auto justify-center'>
-                            <p className="text-sm p-2 font-semibold m-auto opacity-80" style={{ fontFamily: 'sans-serif' }}>
+                            <p className="text-sm p-2 m-auto opacity-80  text-[#333333]" style={{ fontFamily: 'sans-serif' }}>
                                 Questions your customers have asked that Deflection AI does not know how to answer
                             </p>
                         </div>
 
                         <div className="w-full sm:relative sm:mt-[20px]">
 
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2]'>
+                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[2rem] mb-[0rem]'>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
@@ -787,6 +839,8 @@ const Page = () => {
                                 pointerOnHover
                                 pagination
                                 columns={columns}
+                                onRowMouseEnter={(e) => handlemouseOver(e.id)}
+                                onRowMouseLeave={(e) => handlemouseLeave(e.id)}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
                                 progressPending={loading}
@@ -813,7 +867,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[75vh] !h-[65vh]'
+                                className='sm:!h-[75vh] !h-[65vh] !w-[90%] !m-[auto] overflow-y-hidden'
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}
@@ -861,6 +915,7 @@ const Page = () => {
                                 setMode={setMode}
                                 searchFaqs={searchFaqs}
                                 handleWorkflow={handleWorkflow}
+                                setSubQuestionLoading={setSubQuestionLoading}
                             >
 
                             </AnswersEditor>

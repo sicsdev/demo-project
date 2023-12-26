@@ -73,6 +73,7 @@ export const getPopularIntegrationsTemplate = async () => {
             ]
         }
         const response = await axios.post(`${API_URL}/api/v1/integrations/builwith/popular-integrations/`, body, config);
+        console.log("xyz",response)
         return response;
     } catch (error) {
         return error;

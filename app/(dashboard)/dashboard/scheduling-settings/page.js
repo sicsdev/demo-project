@@ -125,7 +125,7 @@ const page = () => {
 
     return (
         <div style={{ whiteSpace: "normal" }}>
-            <TopBar title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
+            <TopBar loader={pageSubLoading} title={`Scheduling Settings`} icon={<CalendarDaysIcon className="h-5 w-5 text-primary" />} />
             <div className="bg-white w-full  m-auto border rounded-lg border-[#F0F0F1] mt-5 sm:w-[750px]">
 
                 {pageSubLoading ?

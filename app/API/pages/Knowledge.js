@@ -20,7 +20,7 @@ export const searchKnowledgeData = async (query) => {
     } catch (error) {
         return error
     }
-};
+}
 
 export const createNewKnowledge = async (body) => {
     let config = returnConfig()

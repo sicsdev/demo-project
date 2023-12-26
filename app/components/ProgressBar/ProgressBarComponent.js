@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setLoader, updateScrapperKnowledgeState } from '../store/slices/scrapperKnowledgeSlice';
 import { useSelector } from 'react-redux';
+import { fetchProfile } from '../store/slices/userSlice';
 
-const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finishing, finished }) => {
+const ProgressBarComponent = ({ totalLoadingTime = 2000, timer = 1.1111, finishing, finished }) => {
 
     // const [progress, setProgress] = useState(0);
     const dispatch = useDispatch()
@@ -15,7 +16,6 @@ const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finish
     }
 
     useEffect(() => {
-
         const totalTime = totalLoadingTime; // Total duration in milliseconds (1.5 seconds)
         const intervalTime = getRandomInterval(1, 500);
         const steps = totalTime / intervalTime; // Number of necessary steps
@@ -38,13 +38,29 @@ const ProgressBarComponent = ({ totalLoadingTime = 75000, timer = 1.1111, finish
         };
     }, []);
 
-
     useEffect(() => {
+        // Code to set the loader bar to 100 and avoid to jump directly to 100 after finish.
         if (finished) {
-            dispatch(setLoader(100));
-        }
+            const rapidIntervalTime = 30; // Shorter time for interval
+            const rapidIncrement = 11; // Bigger increment
 
-    }, [finished, progress])
+            let currentProgress = progress;
+            const rapidInterval = setInterval(() => {
+                if (currentProgress < 100) {
+                    currentProgress += rapidIncrement;
+                    if (currentProgress > 100) currentProgress = 100; // To be sure its never more than 100
+                    dispatch(setLoader(currentProgress));
+                } else {
+                    clearInterval(rapidInterval);
+                }
+            }, rapidIntervalTime);
+
+            return () => {
+                clearInterval(rapidInterval);
+            };
+        }
+    }, [finished, progress, dispatch]);
+
 
     return (
         <div

@@ -51,19 +51,29 @@ const AnswersEditor = ({
     modal,
     searchFaqs,
     setSubQuestions,
-    loadingChangeAnswer
+    loadingChangeAnswer,
+    setSubQuestionLoading
 }) => {
 
     const [copying, setCopying] = useState(null)
     const [tab, setTab] = useState(0);
     const [showRecommendedQuestions, setShowRecommendedQuestions] = useState(true)
     const [showRecommendedWorkflows, setShowRecommendedWorkflows] = useState(true)
+    const [recommendations, setRecommendations] = useState([])
+
+    useEffect(() => {
+        subQuestions.length == 0 && setShowRecommendedQuestions(false)
+        workFlowData.reccomodation.length == 0 && setShowRecommendedWorkflows(false)
+        return () => {
+            setShowRecommendedQuestions(true)
+            setShowRecommendedWorkflows(true)
+        }
+    }, [subQuestions, workFlowData.reccomodation])
 
 
     useEffect(() => {
-        subQuestions.length == 0
-        workFlowData.reccomodation.length == 0 && setShowRecommendedWorkflows(false)
-    }, [subQuestions, workFlowData.reccomodation])
+        if (subQuestions == recommendations) { setRecommendations(subQuestions); setSubQuestionLoading(false) }
+    }, [subQuestions])
 
 
     const filterWorkflowArray = (workflows) => {
@@ -192,7 +202,7 @@ const AnswersEditor = ({
 
                                 </div> :
                                 <>
-                                    {subQuestions.length > 0&& (
+                                    {subQuestions.length > 0 && showRecommendedQuestions && (
                                         <>
                                             <div className={`my-4 rounded-md p-3 px-2`}>
                                                 <ul className="text-start py-2 text-sm text-gray-700" style={{ maxHeight: '61vh', overflowY: 'scroll' }}>
@@ -316,7 +326,7 @@ const AnswersEditor = ({
                                     }}
                                     value={answer} /> */}
 
-                                {!showRecommendedQuestions &&
+                                {!showRecommendedQuestions && subQuestionLoading == false &&
                                     <>
                                         <div>
                                             <h1 className="text-xs font-semibold mx-1 mb-2 mt-5">Type a New Answer:</h1>

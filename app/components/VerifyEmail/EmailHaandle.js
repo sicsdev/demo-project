@@ -54,6 +54,7 @@ const EmailHandle = () => {
         <>
             <div className='bg-white my-4'>
                 <div style={{ whiteSpace: "normal" }}>
+                
                     {/* <TopBar title={`DNS Settings`} icon={<InboxIcon className="h-5 w-5 text-primary" />} /> */}
                     <CheckEmail data={allDomainsData} user={user} loader={dataLoader} getData={getAllDomains} verifyDomainHnadler={verifyDomainHnadler} verifyLoader={verifyLoader} verifyDomainData={verifyDomainData} />
                 </div>

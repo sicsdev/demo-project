@@ -53,6 +53,7 @@ const Page = () => {
             setShowLogs(true)
         }
     }
+
     useEffect(() => {
         getAllLogs()
         if (!workflowState?.data?.results?.some(e => e.active === true)) {
@@ -81,6 +82,7 @@ const Page = () => {
 
     const getAllWorkflowData = async () => {
         dispatch(fetchWorkflows());
+
     }
 
     const createNewWorkFlow = async () => {
@@ -110,45 +112,24 @@ const Page = () => {
         }
     }
 
+    const createNewTemplate = async () => {
+        setWorkLoading(true)
+        let formData = {
+            name: "Default_Template_Name",
+            description: [],
+            policy_name: "",
+            policy_description: "",
+            policy_exceptions: ""
+        }
+
+        const response = await createWorkflowTemplate(formData)
+        router.push('/dashboard/workflow/workflow-builder/templates-manager?template=' + response.data.id)
+
+    }
+
 
     return (
         <>
-            {/*
-            {state.isLoading === true || loading === true || workflowState?.isLoading === true ?
-                <>
-                    <div style={{ whiteSpace: "normal" }}>
-                        <TopBar title={`Workflows`} icon={<BriefcaseIcon className="h-5 w-5 text-primary" />} />
-                    </div>
-
-                    <div className='my-4'>
-                        <div className='flex justify-between gap-4 items-center'>
-                            <div className='flex justify-between gap-2'>
-                                <div className="relative w-[40px] h-[40px] gap-1 rounded-lg">
-                                    <SkeletonLoader count={1} height={40} />
-                                </div>
-                                <div>
-                                    <SkeletonLoader count={1} height={20} width={80} />
-                                    <SkeletonLoader count={1} height={20} width={80} />
-                                </div>
-                            </div>
-                            <div>
-                                <SkeletonLoader count={1} height={40} width={100} />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 className='my-3  text-heading text-center font-semibold text-sm'>
-                            <SkeletonLoader count={1} height={30} width="30%" className={"text-center"} />
-                        </h3>
-                        <div className="">
-                            <div className="mt-3">
-                                <SkeletonLoader count={10} height={30} className={"mt-2"} />
-                            </div>
-                        </div>
-                    </div>
-                </>
-                : */}
             <>
                 {state?.data?.enterprise && (
                     <>

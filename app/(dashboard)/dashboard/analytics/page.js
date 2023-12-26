@@ -36,6 +36,7 @@ import Button from "@/app/components/Common/Button/Button";
 import { ToastContainer } from "react-toastify";
 import LoaderButton from "@/app/components/Common/Button/Loaderbutton";
 import Answerknowledge from "@/app/components/KnowledgeAnswer/AnswerKnowledge";
+import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 // import Reports from "@/app/components/Reports/Reports";
 
 const Logs = () => {
@@ -169,7 +170,6 @@ const Logs = () => {
   })
   const getAllBots = async () => {
     let allBots = await getBotAllData()
-    console.log('allb', allBots)
     const getTitle = state.botData.data.bots.map(
       (element) => element.chat_title
     );
@@ -286,18 +286,25 @@ const Logs = () => {
         ...results.map((item) => ({
           name: item.name,
           value: item.id,
-          successfully_used: item.successful_automation_usage_count
+          successfully_used: item.successful_automation_usage_last_24_hours_count,
+          successfully_used_total: item.successful_automation_usage_count
         })),
       ];
 
       let filterDefaultNames = values.filter(val => val.name !== 'Default_name');
 
-      // Order array filterDefaultNames + to - by successfully_used
-      filterDefaultNames.sort((a, b) => b.successfully_used - a.successfully_used);
+      // Ordenar primero por successfully_used y luego por successfully_used_total en caso de empate
+      filterDefaultNames.sort((a, b) => {
+        if (b.successfully_used - a.successfully_used === 0) {
+          return b.successfully_used_total - a.successfully_used_total;
+        }
+        return b.successfully_used - a.successfully_used;
+      });
 
       setUserWorkflows(filterDefaultNames);
     }
-  };
+  }
+
 
 
   useEffect(() => {
@@ -424,14 +431,14 @@ const Logs = () => {
       });
       setManageMessages(getAllIds);
       setTotalRows(data.count);
-
       setConversationData(newdata);
       setTimeout(() => {
-
         setSearchLoading(false)
         setLoading(false);
-
       }, 300);
+
+      return getAllIds
+
     } else {
       setLoading(false);
       setSearchLoading(false)
@@ -678,17 +685,17 @@ const Logs = () => {
       getDatatBewtweenTwoDates(selectedFilters.created__gte, selectedFilters.created__lte);
     }
 
-      if ((new Date(selectedFilters.created__gte) > new Date(selectedFilters.created__lte)) || (new Date(selectedFilters.created__lte) < new Date(selectedFilters.created__gte))) {
-        console.log("error")
-      
-        setSelectedFilters((prevFilters) => ({
-          ...prevFilters,
-          'created__lte': 'all',
-        }))
+    if ((new Date(selectedFilters.created__gte) > new Date(selectedFilters.created__lte)) || (new Date(selectedFilters.created__lte) < new Date(selectedFilters.created__gte))) {
+      console.log("error")
 
-      } else {
-        console.log("successfull")
-      }
+      setSelectedFilters((prevFilters) => ({
+        ...prevFilters,
+        'created__lte': 'all',
+      }))
+
+    } else {
+      console.log("successfull")
+    }
 
   }, [selectedFilters.created__gte, selectedFilters.created__lte,])
 
@@ -734,10 +741,42 @@ const Logs = () => {
     },
   ];
 
+
+  const handleNextLog = async () => {
+    let newPage = await handlePageChange(
+      logState.data.bot,
+      pageVal + 1,
+      logState.data.queryParam || ""
+    );
+
+    setPageVal(pageVal + 1);
+    setIndexVal(0);
+    getCoversationMessages(newPage[0].id);
+    setIdOfOpenConversation(newPage[0].id)
+  }
+
+
+
+  const handlePreviousLog = async () => {
+    let newPage = await handlePageChange(
+      logState.data.bot,
+      pageVal - 1,
+      logState.data.queryParam || ""
+    );
+
+    setPageVal(pageVal - 1);
+    setIndexVal(9);
+    getCoversationMessages(newPage[newPage.length - 1].id);
+    setIdOfOpenConversation(newPage[newPage.length - 1].id)
+
+  }
+
+
   return (
     <>
       <div>
         <TopBar
+          loading={loading}
           title={` Logs`}
           icon={<QueueListIcon className="h-5 w-5 text-primary" />}
           isBackButton={false}
@@ -764,18 +803,23 @@ const Logs = () => {
                   <input type="search" id="search" className="border border-input_color w-full block  px-2 py-2 bg-white focus:bg-white  !rounded-md shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50  invalid:border-pink-500  focus:invalid:border-pink-500 focus:invalid:ring-pink-500 pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                 </div>
               </div>
-              {
-                exportLoader === true ?
-                  <LoaderButton name={"Exporting"} className={`inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
-                  <Button
-                    type={"button"}
-                    className="inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
-                    disabled={selectedBot === 'Select'}
-                    onClick={(e) => exportCsvHandler(e)}
-                  >
-                    Export CSV
-                  </Button>
-              }
+
+              {getPermissionHelper('EXPORT LOGS CSV', userState?.role) &&
+                <div>
+                  {
+                    exportLoader === true ?
+                      <LoaderButton name={"Exporting"} className={`inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]`} /> :
+                      <Button
+                        type={"button"}
+                        className="inline-block w-[150px] rounded border border-primary bg-primary px-4 py-[11px] sm:py-2 text-xs font-medium  leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                        disabled={selectedBot === 'Select'}
+                        onClick={(e) => exportCsvHandler(e)}
+                      >
+                        Export CSV
+                      </Button>
+                  }
+                </div>}
+
             </div>
           )}
         </>
@@ -1036,41 +1080,7 @@ const Logs = () => {
                     />
                   </div>
                 )}
-                {/* <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.viewed || ""}
-                  name="viewed"
-                  values={[
-                    { name: "Select", value: "all" },
-                    { name: "Viewed", value: true },
-                    { name: "Not viewed", value: false },
-                  ]}
-                  title={<h3 className="text-sm my-4 font-semibold">Viewed</h3>}
-                  id={"viewed"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div>
-              <div className="mb-4 w-full">
-                <SelectOption
-                  onChange={(e) => filterDataHandler(e)}
-                  value={selectedFilters.for_review || ""}
-                  name="for_review"
-                  values={[
-                    { name: "Select", value: "all" },
-                    { name: "For review", value: true },
-                  ]}
-                  title={
-                    <h3 className="text-sm my-4 font-semibold">For review</h3>
-                  }
-                  id={"for_review"}
-                  className="py-3"
-                  error={""}
-                  showOption={false}
-                />
-              </div> */}
+
                 <div className="flex justify-between items-center gap-2 mb-[15px]">
                   <div className="w-full mt-4">
                     <div className={`inline`}>
@@ -1190,9 +1200,7 @@ const Logs = () => {
           <>
             <div
               className="rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
-              onClick={() => {
-                router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('')
-              }}
+              onClick={() => { router.push('/dashboard/analytics'); setShowChat(false); setIdOfOpenConversation('') }}
             >
               {" "}
             </div>
@@ -1222,14 +1230,7 @@ const Logs = () => {
                         className="text-xs cursor-pointer"
                         onClick={() => {
                           if (indexVal === 0 && pageVal !== 1) {
-                            handlePageChange(
-                              logState.data.bot,
-                              pageVal - 1,
-                              logState.data.queryParam || ""
-                            );
-                            setPageVal(pageVal - 1);
-                            setIndexVal(9);
-                            getCoversationMessages(manageMessages[0].id);
+                            handlePreviousLog()
                           } else {
                             getCoversationMessages(
                               manageMessages[indexVal - 1].id
@@ -1256,14 +1257,7 @@ const Logs = () => {
                             manageMessages[indexVal + 1].id
                           );
                         } else {
-                          handlePageChange(
-                            logState.data.bot,
-                            pageVal + 1,
-                            logState.data.queryParam || ""
-                          );
-                          setPageVal(pageVal + 1);
-                          setIndexVal(0);
-                          getCoversationMessages(manageMessages[0].id);
+                          handleNextLog()
                         }
                       }}
                     >

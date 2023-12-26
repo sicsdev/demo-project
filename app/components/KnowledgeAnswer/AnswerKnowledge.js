@@ -505,6 +505,7 @@ const Answerknowledge = ({ externalQuestionFromLogs,
                         setMode={setMode}
                         searchFaqs={searchFaqs}
                         handleWorkflow={handleWorkflow}
+                        setSubQuestionLoading={setSubQuestionLoading}
                     >
                     </AnswersEditor>
                 </>

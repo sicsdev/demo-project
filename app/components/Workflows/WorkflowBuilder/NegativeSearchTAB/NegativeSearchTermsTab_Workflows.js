@@ -1,11 +1,12 @@
 import { deleteNagetiveQuestionData } from '@/app/API/pages/NagetiveFaq';
-import { addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow';
+import { addNagetiveWorkflowBulkCreate, addNagetiveWorkflowData, deleteNagetiveWorkflowData, editNagetiveWorkflowData, getSingleNagetiveWorkflowData } from '@/app/API/pages/NagetiveWorkflow';
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/outline';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import TextArea from '../../../Common/Input/TextArea';
 import DataTable from 'react-data-table-component';
 import Dropdown from '@/app/components/LearningCenter/NegativeSearchTermsTab/Dropdown';
+import { Tooltip } from 'react-tooltip'
 
 const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuestions, nLoading = false, singleData }) => {
 
@@ -14,6 +15,12 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const [textAreaValue, setTextAreaValue] = useState('')
     const [editingId, setEditingId] = useState('')
     const [loading, setLoading] = useState(false)
+    const [loadingRemove, setLoadingRemove] = useState(false)
+    const [negativesData, setNegativesData] = useState([])
+
+    useEffect(() => {
+        getAllNegatives()
+    }, [])
 
     const columns = [
         {
@@ -39,7 +46,9 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
             selector: (row) => row,
             cell: (row) => (
                 <div className='keyword_container_workflow flex gap-3 w-full relative'>
-                    {row.search}
+                    <div className="truncate-multiline">
+                        {row.search}
+                    </div>
                     <Dropdown getAllNegativesWorkflows={getAllNegatives} type={'workflow'} element={row} handleEdit={() => handleEdit(row)}></Dropdown>
                 </div>
             ),
@@ -49,10 +58,22 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
 
         {
             name: "Status",
-            selector: (row) => row.score === -0.1 ? 'Reduced' : row.score === -1 ? 'Blocked' : 'Deprecated',
+            selector: (row) => {
+                const status = row.score === -0.1 ? 'R' : row.score === -1 ? 'B' : 'D';
+                const tooltipContent = status === 'R' ? 'Reduced' : status === 'B' ? 'Blocked' : 'Deprecated';
+                return (
+                    <>
+                        <div data-tooltip-id={`tooltip-${status}`}>
+                            {status}
+                        </div>
+                        <Tooltip id={`tooltip-${status}`} place="bottom" type="dark" effect="solid" content={tooltipContent} />
+                    </>
+                );
+            },
             sortable: true,
             reorder: true,
-        },
+            width: "90px",
+        }
     ];
 
 
@@ -75,25 +96,28 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const getAllNegatives = async () => {
         const response = await getSingleNagetiveWorkflowData(singleData?.id)
         setNagetiveQuestions(response?.data)
+        setNegativesData(response?.data)
     }
 
     const deleteNegativeKeywords = async (id) => {
+        setLoadingRemove(true);
 
-        // Delete from DB using API
-        itemsSelected.forEach(async (item) => {
-            await deleteNagetiveWorkflowData(item)
-        })
+        let newArray = [...negativeQuestions];
 
+        for (const item of itemsSelected) {
+            try {
+                await deleteNagetiveWorkflowData(item);
+                newArray = newArray.filter(e => e.id !== item);
+            } catch (error) {
+                console.error("Error al eliminar el dato negativo:", error);
+            }
+        }
 
-        // Delete from local state
-        let newArray = negativeQuestions
-        itemsSelected.forEach(async (item) => {
-            newArray = newArray.filter(e => e.id !== item)
-        })
+        setNagetiveQuestions(newArray);
+        setItemsSelected([]);
 
-        setNagetiveQuestions(newArray)
-        setItemsSelected([])
-    }
+        setLoadingRemove(false);
+    };
 
 
     const handleCheckbox = (id) => {
@@ -121,13 +145,19 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     const addNewNagetiveFaq = async () => {
         setLoading(true)
 
-
-        let values = textAreaValue.split('\n');
+        // Filter values and delete falsy elements, like empty lines.
+        let values = textAreaValue.split('\n').filter(Boolean);
 
         if (isEdit === false) {
-            values.forEach(async e => {
-                await addNagetiveWorkflowData({ search: e, workflow: singleData.id, score: 0.1 })
-            })
+
+            let payload = {
+                search: values,
+                workflow: singleData.id,
+                score: 0.1
+            }
+
+            await addNagetiveWorkflowBulkCreate(payload)
+
             getAllNegatives()
             setTextAreaValue('')
 
@@ -141,6 +171,7 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
         }
 
         setLoading(false)
+        setLoadingRemove(false);
 
     }
 
@@ -158,7 +189,6 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
     return (
         <div className='flex md:flex lg:flex justify-between gap-2 items-center my-4' >
             <div className="bg-white  border w-full  rounded-lg border-[#F0F0F1] mx-auto p-4">
-                {/* <span className="text-[12px] text-[#555555b5]  block  text-heading font-[600]">Description</span> */}
 
                 <>
 
@@ -201,7 +231,11 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
                     {itemsSelected.length > 0 &&
                         <div className='w-full bg-primary p-2 text-white px-4'>
                             <small className='font'>{itemsSelected.length} selected </small>
-                            <small className='font-semibold mx-5 cursor-pointer' onClick={deleteNegativeKeywords}>Remove</small>
+                            <small
+                                className='font-semibold mx-5 cursor-pointer'
+                                onClick={deleteNegativeKeywords}>
+                                {loadingRemove ? "Loading..." : "Remove"}
+                            </small>
                         </div>
                     }
 
@@ -227,42 +261,6 @@ const NegativeSearchTermsTab_Workflows = ({ negativeQuestions, setNagetiveQuesti
 
                     </div>
 
-                    {/* {negativeQuestions.length > 0 && (
-                        <>
-                            <h1 className='text-xs font-semibold'>Active Negative Search Terms</h1>
-                            <div className={` bg-[#96b2ed2e] my-4 rounded-md p-3`}>
-                                <ul className="text-start py-2 text-sm text-gray-700 ">
-                                    {negativeQuestions.map((element, key) =>
-                                        <li className='p-2 text-justify text-heading my-2 cursor-pointer flex justify-between items-center gap-4' key={key}>
-                                            <p className="text-xs">{element.search}</p>
-                                            <div className='flex justify-start gap-4 items-center'>
-                                                <div title='Score'>
-                                                    {element.score}
-                                                </div>
-                                                <PencilSquareIcon className="h-5 w-5" onClick={() => {
-                                                    setIsEdit(true)
-                                                    setShowAdd(true)
-                                                    setSelected((prev) => {
-                                                        return {
-                                                            ...prev,
-                                                            negative_answer: element.search,
-                                                            negative_id: element.id,
-                                                            index: key
-                                                        }
-                                                    })
-                                                }} />
-                                                <TrashIcon className="h-5 w-5" onClick={() => { deleteNegativeFaq(element.id) }} />
-
-                                            </div>
-                                        </li>
-                                    )}
-
-                                </ul>
-
-
-                            </div>
-                        </>
-                    )} */}
                 </>
             </div>
         </div >

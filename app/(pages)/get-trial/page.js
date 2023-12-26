@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import TrialForm from "./Form";
 import { useSearchParams, useRouter } from "next/navigation";
 import { submitCheckout } from "@/app/API/pages/Checkout";
-import { createBotKnowledge, createCheckoutBot } from "@/app/API/pages/Bot";
+import { createBotKnowledge, createCheckoutBot, getBase64LogoUsingAUrl, uploadLogoWithToken } from "@/app/API/pages/Bot";
 import Cookies from "js-cookie";
 import { useDispatch } from "react-redux";
 import { editBillingType } from "@/app/components/store/slices/billingTypeSlice";
@@ -18,13 +18,9 @@ const Trial = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-
   const gclid = searchParams.get("gclid");
-
   const msclkid = searchParams.get("msclkid");
-  console.log("gclid", gclid);
 
-  console.log("msclkid", msclkid);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     billing_type: "demo",
@@ -76,8 +72,6 @@ const Trial = () => {
     return isFaqValid || formValues || isEmailValid || isUrlValid;
 
   };
-
-  console.log("popp", pop);
 
   function addHttpsToUrl(url) {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -147,6 +141,17 @@ const Trial = () => {
 
     const response = await submitCheckout(payload);
     if (response?.token) {
+
+      // Extract logo from website and upload it 
+      try {
+        let url = addHttpsToUrl(formData.url);
+        const base64Favicon = await getBase64LogoUsingAUrl(url);
+        await uploadLogoWithToken({ logo: base64Favicon }, response.token);
+      } catch (error) {
+        console.error('Error converting logo to base64:', error);
+      }
+
+
       Cookies.set("Token", response.token);
       const bot = await createCheckoutBot(payload2, response.token);
 
@@ -218,7 +223,7 @@ const Trial = () => {
         </div>
         <button
           className="sm:w-[40%] md:w-[40%] lg:w-[40%] mx-auto my-6 w-full flex items-center justify-center text-sm gap-1 focus:ring-4 focus:outline-none font-bold rounded-sm py-2.5 px-4 focus:ring-yellow-300 bg-[#F5455C]  text-white hover:shadow-[0_8px_9px_-4px_#F5455C] disabled:bg-input_color disabled:shadow-none disabled:text-white"
-          disabled={DisablingButton() || pop || loading}
+          disabled={DisablingButton() || pop || loading || !formData.checked}
           onClick={SubmitTheForm}
         >
           {loading ? "Loading" : "Submit"}

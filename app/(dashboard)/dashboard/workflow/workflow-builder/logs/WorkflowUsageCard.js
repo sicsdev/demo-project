@@ -41,7 +41,7 @@ const WorkflowUsageCard = ({ log, currentExpanded }) => {
                         </h1>
                         <div className='md:flex'>
                             <div className='flex items-center'>
-                                {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' ?
+                                {log.automation_usages[0].response_log.response_status == '400' || log.automation_usages[0].response_log.response_status == '404' || log.automation_usages[0].response_log.response_status == '422'  ?
                                     <>
                                         <XCircleIcon className='w-4 h-4'></XCircleIcon>
                                         <span className='mx-2 text-danger'><b>{log.automation_usages[0].response_log.response_status}</b></span>

@@ -23,6 +23,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
 const page = () => {
+  const userState = useSelector((state) => state.user.data)
   const [pageLoading, setPageLoading] = useState(true);
   const [tab, setTab] = useState(0);
   const [pageSubLoading, setSubLoading] = useState(true);
@@ -68,7 +69,7 @@ const page = () => {
       setTimeout(() => {
         setPageLoading(false);
         setSubLoading(false);
-      },300);
+      }, 300);
     });
   };
 
@@ -159,6 +160,7 @@ const page = () => {
   return (
     <div style={{ whiteSpace: "normal" }}>
       <TopBar
+        loader={pageSubLoading}
         title={`Chat`}
         icon={<ChatBubbleLeftIcon className="h-5 w-5 text-primary" />}
       />
@@ -199,11 +201,10 @@ const page = () => {
                             <button
                               onClick={(e) => selectBotHandler(element.value)}
                               key={key}
-                              className={`flex items-center gap-2 justify-center font-semibold ${
-                                element.value === selectedBot
+                              className={`flex items-center gap-2 justify-center font-semibold ${element.value === selectedBot
                                   ? "text-white bg-primary"
                                   : "bg-white text-[#151D23]"
-                              } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
+                                } text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
                             >
                               {" "}
                               {element?.name}

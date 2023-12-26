@@ -53,14 +53,14 @@ import SkeletonLoader from "../../Skeleton/Skeleton";
 import { fetchBot } from "../../store/slices/botIdSlice";
 import { GetAllRecommendations } from "@/app/API/pages/LearningCenter";
 import DemoAccountsBanner from "../../Layout/DemoAccountsBanner";
+import { getPermissionHelper } from "../../helper/returnPermissions";
+import { getUserProfile } from "@/app/API/components/Sidebar";
 
 const NewSidebar = ({ children }) => {
     const billingState = useSelector((state) => state.billing)
     const state = useSelector((state) => state.user.data);
     const recommedState = useSelector((state) => state.recommendation);
     const [learningItemsCount, setLearningItemsCount] = useState('')
-    const workflowState = useSelector((state) => state.workflow);
-    const stateBots = useSelector((state) => state.botId);
     const [collaps, setCollaps] = useState(false)
 
     const dispatch = useDispatch();
@@ -71,21 +71,49 @@ const NewSidebar = ({ children }) => {
     const router = useRouter();
 
     const [skeltonLoading, setSkeltonLoading] = useState(true);
-    useEffect(() => {
-        getLearningCenterCount()
-        setTimeout(() => {
-            setSkeltonLoading(false);
-        }, 5000);
-    }, []);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [show, setShow] = useState(false);
+
+
+    // State to store profile info locally
+    const [profileInfo, setProfileInfo] = useState([])
+    const [enterpriseInfo, setEnterpriseInfo] = useState(null)
+    
+    // Selectors
+    const knowledgeScrapperState = useSelector((state) => state.knowledgeScrapper);
+    const userLoader = useSelector(state => state.user)
+    const members = useSelector((state) => state.members);
+    const workflowState = useSelector(state => state.workflow)
+    const integrations = useSelector(state => state.integration)
+    const stateBots = useSelector(state => state.botId)
 
     useEffect(() => {
-        if (!state) {
-            dispatch(fetchProfile());
-            dispatch(fetchIntegrations());
-            dispatch(fetchWorkflows());
-            dispatch(fetchBot());
-        }
-    }, [state]);
+        if (state?.enterprise && !enterpriseInfo) { setEnterpriseInfo(state.enterprise) }
+    }, [state])
+
+    // useEffect(() => {
+    //     if (!state) dispatch(fetchProfile());
+    //     if (!integrations?.data) dispatch(fetchIntegrations());
+    //     if (!workflowState?.data) dispatch(fetchWorkflows());
+    //     if (!stateBots?.botData) dispatch(fetchBot());
+    // }, []);
+
+    // useEffect to check loaders and delete skeleton after get all required data from api.
+    useEffect(() => {
+        if (
+            userLoader.isLoading == false
+            && members.isLoading == false
+            && workflowState.isLoading == false
+            && integrations.isLoading == false
+            && billingState !== null
+            && stateBots.botData.isLoading == false
+        ) { setSkeltonLoading(false) }
+    }, [userLoader?.isLoading, members?.isLoading, workflowState?.isLoading, integrations?.isLoading, billingState, stateBots?.botData?.isLoading]);
+
+    useEffect(() => {
+        getLearningCenterCount()
+    }, []);
 
     useEffect(() => {
         if (base64Data.state == true) {
@@ -95,8 +123,8 @@ const NewSidebar = ({ children }) => {
             }, [4000]);
         }
     }, [base64Data]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [show, setShow] = useState(false);
+
+
 
     const getLearningCenterCount = async () => {
         let result = await GetAllRecommendations()
@@ -137,167 +165,6 @@ const NewSidebar = ({ children }) => {
         }
     }
 
-    const SideBarRoutes = [
-        {
-            href: "/dashboard",
-            name: "",
-            icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-            list: [
-                {
-                    href: "/dashboard",
-                    name: <div className="flex justify-between items-center w-full"><span>Home</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <HomeIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                }
-            ],
-            isLink: false
-        },
-        {
-            // href: "",
-            href: workflowLinkHandler('/dashboard/workflow/integrations'),
-            name: "Workflow Builder",
-            icon: <CodeBracketSquareIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/workflow/integrations",
-                    name: "Integrations",
-                    icon: <ShareIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/workflow/workflow-builder",
-                    name: <div className="flex justify-between items-center w-full"><span>Workflows</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <BriefcaseIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-            ],
-        },
-        {
-            href: "/dashboard/knowledge-center",
-            name: "Learning Center",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/basic-knowledge/source",
-                    target: "/dashboard/basic-knowledge/source",
-                    name: "Knowledge Base",
-                    icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                    list: [
-                        {
-                            href: "/dashboard/basic-knowledge/source",
-                            name: "Sources",
-                            icon: <DocumentMagnifyingGlassIcon className="h-5 w-5 text-gray-500" />,
-                        },
-                    ]
-                },
-                {
-                    href: "/dashboard/knowledge-center",
-                    name: <div className="flex justify-between items-center w-full"><span>Learning Center</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <AcademicCapIcon className="h-6 w-6 text-gray-500" />,
-                    notification: learningItemsCount,
-                    isLink: false,
-                },
-            ],
-
-        },
-        {
-            name: "Channels",
-            href: "/dashboard/chat-bots",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/chat-settings",
-                    name: "Chat",
-                    icon: <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/email-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Email</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <EnvelopeIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/manage-phones",
-                    name: <div className="flex justify-between items-center w-full"><span>Phone</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <DevicePhoneMobileIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                }
-            ],
-        },
-        {
-            href: "/dashboard/analytics",
-            name: "Logs",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/analytics",
-                    name: "Logs",
-                    icon: <ChartBarIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-
-                }
-            ],
-        },
-        {
-            href: "/dashboard/billing/usage",
-            name: "Billing",
-            isLink: false,
-            icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-            list: [
-                {
-                    href: "/dashboard/billing/usage",
-                    name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                // {
-                //     href: "/dashboard/billing/settings",
-                //     name: "Billing",
-                //     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
-            ],
-        },
-        {
-            href: "/dashboard/members",
-            name: "Organization Settings",
-            navBarName: "Organization",
-            icon: <BookOpenIcon className="h-6 w-6 text-gray-500" />,
-            isLink: false,
-            list: [
-                {
-                    href: "/dashboard/members",
-                    name: <div className="flex justify-between items-center w-full"><span>Team</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <UserGroupIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                {
-                    href: "/dashboard/scheduling-settings",
-                    name: <div className="flex justify-between items-center w-full"><span>Scheduling</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
-                    icon: <CalendarDaysIcon className="h-6 w-6 text-gray-500" />,
-                    isLink: false,
-                },
-                // {
-                //     href: "/dashboard/verify-email",
-                //     name: "DNS Settings",
-                //     icon: <InboxIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // },
-                // {
-                //     href: "https://docs.usetempo.ai/reference",
-                //     name: "API References",
-                //     icon: <CodeBracketIcon className="h-6 w-6 text-gray-500" />,
-                //     isLink: false,
-                // }
-            ],
-        }
-    ];
     const SideBarRoutes2 = [
         {
             href: "/dashboard",
@@ -419,14 +286,14 @@ const NewSidebar = ({ children }) => {
             name: "Billing",
             isLink: false,
             icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
-            locked: billingState === "demo",
+            locked: billingState === "demo" || !(getPermissionHelper('BILLING SECTION', state?.role)),
             list: [
                 {
                     href: "/dashboard/billing/usage",
                     name: <div className="flex justify-between items-center w-full"><span>Billing</span>{billingState === "demo" ? <LockClosedIcon className="h-3 w-3 text-gray-500" /> : ""}</div>,
                     icon: <BanknotesIcon className="h-6 w-6 text-gray-500" />,
                     isLink: false,
-                    locked: billingState === "demo"
+                    locked: billingState === "demo" || !(getPermissionHelper('BILLING SECTION', state?.role)),
 
                 },
                 // {
@@ -642,12 +509,11 @@ const NewSidebar = ({ children }) => {
         reader.readAsDataURL(file);
     };
 
-    const excludeMenuArrayList = ['Channels', 'Logs', 'Billing'];
 
     const sendSideBarDetails = (element, key) => {
         if (element.list.length > 0) {
             return (
-                (excludeMenuArrayList?.includes(element.name) && (stateBots?.botData?.data?.bots?.length == 0 || stateBots?.botData?.data?.bots?.length == undefined)) ? ("") : (
+                (
                     < li key={key} className={`pt-1 w-full rounded-lg ${pathname === element.href && ""
                         }`
                     }>
@@ -767,7 +633,7 @@ const NewSidebar = ({ children }) => {
                                                         ) : (
 
 
-                                                            ((ele.name == 'Phone' && state.email !== 'admin@tempowidgets.com') ? '' :
+                                                            ((ele.name == 'Phone' && state?.email !== 'admin@tempowidgets.com') ? '' :
                                                                 <Link
                                                                     href={ele.href}
                                                                     onClick={() => handlerclosemenu(ele.href)}
@@ -856,7 +722,6 @@ const NewSidebar = ({ children }) => {
         <>
 
             <>
-
                 <nav className="sticky top-0 block  sm:hidden md:hidden lg:hiddenfixed z-50 w-full bg-sidebarbg" ref={divSideRef}>
 
 
@@ -941,7 +806,8 @@ const NewSidebar = ({ children }) => {
 
                                                 <>
                                                     {SideBarRoutes2.map((element, key) => (
-                                                        (state.email && element?.name !== "Channels") && (
+                                                        (state.email && element?.name !== "Channels") &&
+                                                        (
                                                             <li key={key}>
                                                                 <Link
                                                                     href={element.href}
@@ -957,54 +823,6 @@ const NewSidebar = ({ children }) => {
                                                     ))}
                                                 </>
 
-
-                                                {/* {state && (state?.email?.split("@")[1] === 'joinnextmed.com' || state?.email?.toLowerCase() === 'knowledge@usetempo.ai' || state?.enterprise?.id === "2a712219-7060-49e0-83a5-41cdde333b0d") ?
-                                                    <>
-                                                        {SideBarRoutes.map((element, key) => (
-                                                            element?.name !== "Channels" && (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        ))}
-                                                    </> :
-                                                    <>
-                                                        {SideBarRoutes2.map((element, key) => (
-                                                            element?.name !== "Channels" && (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                        ))}
-                                                    </>
-                                                } */}
-                                                {/* <li >
-                                                    <Link
-                                                        href={'/dashboard/api-keys'}
-                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                        onClick={() => setIsOpen(false)}
-                                                    >
-                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                            Keys
-                                                        </span>
-                                                    </Link>
-                                                </li> */}
                                                 <hr className="text-border border-gray" />
                                                 <li className="p-2 relative hover:underline flex">
                                                     <input
@@ -1094,7 +912,7 @@ const NewSidebar = ({ children }) => {
                                         } */}
                                         <>
 
-                                            {SideBarRoutes2.map((element, key) =>
+                                            {!skeltonLoading && SideBarRoutes2.map((element, key) =>
                                                 <>
                                                     {sendSideBarDetails(element, key)}
                                                 </>
@@ -1106,7 +924,7 @@ const NewSidebar = ({ children }) => {
                                 </>
                             )}
                             <div className={`absolute ${!collaps && ("w-[95%]")} bottom-0  text-sm mb-5`}>
-                                {skeltonLoading ? (
+                                {!enterpriseInfo?.logo ? (
                                     <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="w-full rounded-lg">
                                             <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -1115,25 +933,13 @@ const NewSidebar = ({ children }) => {
                                 ) : (
                                     <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                         <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer" onClick={() => handleToggle()} >
-                                            {state?.enterprise?.logo ?
-                                                <img
-                                                    className="w-8 h-8 rounded-lg"
-                                                    src={state?.enterprise?.logo}
-                                                    alt="user photo"
-                                                /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                    <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
-                                                </div >}
+                                            <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
+                                                <span className="font-medium text-white normal-case"> {enterpriseInfo.name.charAt(0)}</span>
+                                            </div >
                                             <div className="relative ">
-                                                {state?.role && state.enterprise ?
-                                                    <>
-                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
-                                                    </>
-                                                    :
-                                                    <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
-                                                }
+                                                <p className="text-[12px] text-normal">{enterpriseInfo.name}</p>
+                                                <p className="text-[12px] text-normal">{state?.role ? makeCapital(state?.role) : 'Administrator'}</p>
                                             </div>
-
                                         </li>
 
                                         <li className="p-2 hover:bg-sidebar-hover w-full rounded-lg  cursor-pointer" onClick={() => setShow(false)}>
@@ -1252,7 +1058,7 @@ const NewSidebar = ({ children }) => {
                                     } */}
                                     <>
 
-                                        {SideBarRoutes2.map((element, key) =>
+                                        {!skeltonLoading && SideBarRoutes2.map((element, key) =>
                                             <>
                                                 {sendSideBarDetails(element, key)}
                                             </>
@@ -1263,7 +1069,7 @@ const NewSidebar = ({ children }) => {
                         )}
 
                         <div className={`absolute ${!collaps && ("w-[90%]")} bottom-0  text-sm mb-5`}>
-                            {skeltonLoading ? (
+                            {enterpriseInfo === null && !enterpriseInfo?.logo ? (
                                 <ul className="font-medium p-2 relative rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="w-full rounded-lg">
                                         <SkeletonLoader className="mt-3" count={2} height={40} width="100%" baseColor="#232d32" highlightColor="#ff5233" />
@@ -1272,23 +1078,23 @@ const NewSidebar = ({ children }) => {
                             ) : (
                                 <ul className="font-medium p-2 relative  bg-sidebarroute rounded-lg transition-all duration-300 ease-in-out">
                                     <li className="p-2 group hover:bg-sidebarsubroute flex  gap-2 items-center rounded-lg cursor-pointer">
-                                        {state?.enterprise?.logo ?
+                                        {enterpriseInfo?.logo ?
                                             <img
                                                 className="w-8 h-8 rounded-lg"
-                                                src={state?.enterprise?.logo}
+                                                src={enterpriseInfo.logo}
                                                 alt="user photo"
                                             /> : <div className="relative inline-flex items-center justify-center w-10 h-10 overflow-hidden bg-[#E3AC2D] rounded-lg dark:bg-gray-600">
-                                                <span className="font-medium text-white normal-case"> {state?.enterprise?.name.charAt(0)}</span>
+                                                <span className="font-medium text-white normal-case"> {enterpriseInfo?.name.charAt(0)}</span>
                                             </div >}
 
 
 
                                         {!collaps && (
                                             <div className="relative ">
-                                                {state?.role && state.enterprise ?
+                                                { enterpriseInfo ?
                                                     <>
-                                                        <p className="text-[12px] text-normal">{state?.enterprise?.name}</p>
-                                                        <p className="text-[12px] text-normal">{makeCapital(state?.role)}</p>
+                                                        <p className="text-[12px] text-normal">{enterpriseInfo?.name}</p>
+                                                        <p className="text-[12px] text-normal">{state?.role ? makeCapital(state?.role) : 'Administrator'}</p>
                                                     </>
                                                     :
                                                     <SkeletonLoader baseColor="#232d32" highlightColor="#ff5233" count={1} width={100} height={30}></SkeletonLoader>
@@ -1341,22 +1147,27 @@ const NewSidebar = ({ children }) => {
                                                                 ))}
                                                             </>
                                                             } */}
-                                                        {billingState === "demo" ? <>
-                                                            {SideBarRoutes3.map((element, key) => (
-                                                                <li key={key}>
-                                                                    <Link
-                                                                        href={element.href}
-                                                                        className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
-                                                                        onClick={() => setIsOpen(false)}
-                                                                    >
-                                                                        {/* {element.icon} */}
-                                                                        <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
-                                                                            {sendNames(element.name)}
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                            )
-                                                            )}</> :
+                                                        {billingState === "demo" &&
+                                                            <>
+                                                                {SideBarRoutes3.map((element, key) => (
+                                                                    <li key={key}>
+                                                                        <Link
+                                                                            href={element.href}
+                                                                            className={` flex items-center p-2 text-heading  hover:bg-sidebar-hover hover:text-white`}
+                                                                            onClick={() => setIsOpen(false)}
+                                                                        >
+                                                                            {/* {element.icon} */}
+                                                                            <span className="flex justify-between w-full ml-4 whitespace-nowrap text-sm font-normal">
+                                                                                {sendNames(element.name)}
+                                                                            </span>
+                                                                        </Link>
+                                                                    </li>
+                                                                )
+                                                                )}
+                                                            </>
+                                                        }
+
+                                                        {billingState === "normal" &&
 
                                                             <>
                                                                 {SideBarRoutes2.map((element, key) => (

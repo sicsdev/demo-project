@@ -50,3 +50,13 @@ export const deleteNagetiveQuestionData = async (id) => {
         return error
     }
 };
+
+export const addNegativeBulkCreate = async (body) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.post(`${API_URL}/api/v1/main/faqs-negative/bulk-create/`, body, config);
+        return response;
+    } catch (error) {
+        return error
+    }
+};

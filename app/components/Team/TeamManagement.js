@@ -9,22 +9,35 @@ import { isMobile, mobileModel } from "react-device-detect";
 import { EllipsisHorizontalIcon, EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import { Tooltip } from 'react-tooltip'
+import { getPermissionHelper } from "../helper/returnPermissions";
 
 const TeamManagement = ({ state, removeMember, changeRole }) => {
   const stateM = useSelector((state) => state.user);
   const [teams, setTeams] = useState(state?.data ?? []);
   const [perPage, setPerPage] = useState(10);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const userState = useSelector((state) => state.user.data)
+
+  function addSpaceAfterPrefix(phoneNumber) {
+    // Use a regular expression to add a space after '+1' if it exists
+    return phoneNumber.replace(/(\+1)(\d+)/, '$1 $2');
+  }
 
   useEffect(() => {
     if (state?.data) {
       const mapData = state?.data.map((ele) => {
+        let contact = ele.phone;
+        if (ele.phone_prefix && !ele.phone.includes('+1')) {
+          contact = ele.phone_prefix.includes('+') ? ele.phone_prefix : '+' + ele.phone_prefix + " " + ele.phone;
+        } else {
+          contact = addSpaceAfterPrefix(ele.phone);
+        }
         return {
           logo: ele?.enterprise?.logo,
           email: ele.email,
           name: ele.name,
           role: ele?.role,
-          contact: ele.phone_prefix + " " + ele.phone,
+          contact: contact,
         };
       });
 
@@ -32,8 +45,14 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       // Filter deflection team
       let filteredData = mapData.filter(member => !(member.email.endsWith('@deflection.ai')))
       setTeams(filteredData);
-    }
 
+      // Remove Action for non-admin members.
+      if (!getPermissionHelper('MANAGE TEAM', userState?.role)) {
+        let newColumns = columns2.filter(column => column.name !== "Action")
+        setColumns2(newColumns)
+      }
+
+    }
 
 
     const handleResize = () => { setIsMobile(window.innerWidth <= 768); };
@@ -53,7 +72,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
     return formattedNumber;
   }
 
-  const columns2 = [
+  const [columns2, setColumns2] = useState([
 
     // This logo column will be used for profile photo of the member in future.
     // {
@@ -122,7 +141,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       id: " Role",
       selector: row => row?.role,
       cell: (element) => (
-        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : "Admin"}</p>
+        <p className="whitespace-normal text-xs flex items-center" >{element.role == "MEMBER" ? "Member" : element.role == "COLLABORATOR" ? "Collaborator" : "Admin"}</p>
       ),
       // reorder: true,
       width: isMobile ? "120px" : "200px",
@@ -139,7 +158,7 @@ const TeamManagement = ({ state, removeMember, changeRole }) => {
       reorder: true,
       width: "100px",
     },
-  ];
+  ])
 
 
   const data = ["ADMINISTRATOR", "Collaborator", "Remove"]
@@ -175,11 +194,13 @@ export default TeamManagement;
 
 
 export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, role }) => {
+
   const data = [
     { name: "Set as Admin", value: "ADMINISTRATOR" },
-    { name: "Set as Member", value: "MEMBER" }
-
+    { name: "Set as Member", value: "MEMBER" },
+    { name: "Set as Collaborator", value: "COLLABORATOR" }
   ]
+
   const divRef = useRef(null);
   useEffect(() => {
     // Function to handle clicks outside the div and dropdown
@@ -206,7 +227,7 @@ export const ButtonComponent = ({ ele, show, setShow, removeMember, changeRole, 
       <EllipsisHorizontalIcon className="h-6 w-6 font-bold text-heading cursor-pointer" />
       {show === ele?.email && (
         // <div className={`absolute top-[-57px] left-[-201px] sm:left-[-215 px]  z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[200px] border border-border rounded-lg shadow w-auto  `}>
-        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[130px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
+        <div className={`absolute z-10 bg-[#F8F8F8] divide-y divide-gray-100 min-w-[150px] border border-border rounded-lg shadow w-auto left-[-120px] sm:left-0 md:left-0 lg:left-0`}>
 
           <ul className="py-2 text-xs text-gray-700 ">
             {data.map((element, key) =>
