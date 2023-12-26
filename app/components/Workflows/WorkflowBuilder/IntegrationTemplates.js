@@ -4,6 +4,8 @@ import React from 'react'
 
 const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userState }) => {
     const excludedIntegrations = ["Healthie", "GitHub", "Linear", "DataDog", "CircleCI", "Jira", "Asana", "Monday", "Twilio", "Intercom"];
+ 
+
     return (
         <div>
             {integrationTiles.map((element, key) => (
@@ -24,21 +26,22 @@ const IntegrationTemplates = ({ integrationTiles, performIntegrationTask, userSt
                                         }
                                     }}
                                 >
-                                    <div className="flex justify-start gap-1 items-center relative">
-                                        <div className='flex justify-start gap-2 items-center'>
-                                            <div className="relative rounded-lg m-auto">
+                                    <div className=" relative h-[95px]">
+                                        <div className=' gap-2 items-center'>
+                                            <div className="relative rounded-lg">
                                                 <Image
                                                     fill={"true"}
-                                                    className={`${item.grayscale && ("grayscale pointer-events-none")}  mx-auto rounded-lg !static !w-[20px] !h-auto`}
+                                                    className={`${item.grayscale && ("grayscale pointer-events-none")}  rounded-lg !static ${element.key == "CUSTOM" ? "!w-[48px]":"!w-[48px]"  }  !h-auto`}
                                                     alt="logo.png"
-                                                    src={item.logo}
+                                                    src={element.key == "CUSTOM" ? userState.enterprise.logo : item.logo}
                                                 />
                                             </div>
-                                            <h3 className=" font-semibold text-xs text-heading">
+                                        
+                                        </div>
+                                        <h3 className=" !font-semibold mt-8 text-xs text-heading absolute bottom-[0rem]">
                                                 {item.name}
                                             </h3>
-                                        </div>
-                                        {item.checked && (<CheckCircleIcon className="absolute right-[0px] h-5 w-5 text-primary font-semibold " />)}
+                                        {item.checked && (<CheckCircleIcon className="absolute right-[0px] h-5 w-5 text-primary font-semibold top-0 " />)}
                                     </div>
                                 </div>
 
