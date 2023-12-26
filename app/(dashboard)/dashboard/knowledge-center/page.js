@@ -214,7 +214,7 @@ const Page = () => {
     useEffect(() => {
         const handleOutsideClick = (event) => {
             if (divRef.current && !divRef.current.contains(event.target)) {
-                setOpenWorkflow(null);
+                // setOpenWorkflow(null);
             }
         };
 
@@ -268,6 +268,17 @@ const Page = () => {
             width: "100px",
             center: true,
             hide: "sm",
+        },
+        {
+            name: "Created",
+            id: "created",
+            selector: 'question',
+            sortable: false,
+            minWidth: "150px",
+            reorder: true,
+            cell: (row) => (
+                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal'> {formatISODate(row.created)}</p >
+            )
         },
         {
             name: "",
@@ -330,6 +341,26 @@ const Page = () => {
 
 
     ];
+
+    function formatISODate(isoDate) {
+        // Crear un objeto de fecha a partir de la fecha en formato ISO
+        const date = new Date(isoDate);
+
+        // Opciones para formatear la fecha
+        const options = {
+            weekday: 'long',
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        };
+
+        // Formatear la fecha
+        return date.toLocaleString('en-US', options).replace(',', '');
+    }
+
 
     const handleRecomodationValue = async (page) => {
         setLoading(true)

@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import EditKnowledge from './EditKnowledge';
 import EditWorkflow from './EditWorkflow';
 import { getConversationDetails, setForReview } from '@/app/API/pages/Logs';
-import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, AtSymbolIcon, DevicePhoneMobileIcon, InformationCircleIcon, CheckCircleIcon, EnvelopeIcon, DocumentIcon, ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import Button from '../Common/Button/Button';
 import LoaderButton from '../Common/Button/Loaderbutton';
 import { errorMessage, successMessage } from '../Messages/Messages';
@@ -84,6 +84,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
     async function getDetails() {
         if (idOfOpenConversation) {
             let convoDetails = await getConversationDetails(idOfOpenConversation)
+            console.log('convo details', convoDetails.data)
             setConversationDetails(convoDetails.data)
         }
     }
@@ -302,6 +303,24 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
         return field
     }
 
+
+    // This function is to extract subject from first message (email conversation types has the subject within te first message separated by a line break)
+    function extractSubjectBasedInFirstLine() {
+        let text = messages[0].content
+        if (text) {
+            const newlineIndex = text.indexOf('\n');
+            if (newlineIndex !== -1) { return text.substring(0, newlineIndex); }
+            return null;
+        }
+    }
+
+
+    function removeFirstParagraph(text) {
+        const newlineIndex = text.indexOf('\n');
+        if (newlineIndex !== -1) { return text.substring(newlineIndex + 1); }
+        return text;
+    }
+
     return (
         <>
             {botUnique?.id &&
@@ -350,29 +369,44 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                             <div className="chatbot_widget_logs" id="chatbot_widget_logs">
                                 <div className="containerChatBot_entire !bg-transparent !block">
                                     <div className={``}>
-                                        <div className="" id="widget_headerContainer">
-                                            <div className="header_ChatBotWidget">
-                                                <div className="profile_photo_container">
-                                                    <img width="45px" src={`${botUnique?.enterprise?.logo ||
-                                                        `${CDN_URL}/v1/assets/img/profileDefault.png`} `} />
-                                                </div>
-                                                <div className="header_ChatBotWidget-middlebox">
-                                                    <div>
-                                                        <div>
-                                                            <b>{botUnique?.enterprise?.name}</b>
-                                                        </div>
-                                                        <div className="subtitle_div">
-                                                            <span className="subtitle_ChatBotWidget">
-                                                                <span className="ai_icon">AI</span>{" "}
-                                                                {botUnique?.enterprise?.description || "Powered by Deflection AI"}
-                                                            </span>
-                                                        </div>
-
+                                        {conversationDetails.type == 'email' ?
+                                            <div>
+                                                <div className="emailheader_ChatBotWidget">
+                                                    <div className=' flex gap-2 items-center'>
+                                                        <EnvelopeIcon className='h-4 w-4'></EnvelopeIcon> {conversationDetails.customer_email}
                                                     </div>
-                                                    <div className="widgetchatbot_betatag">Beta </div>
+                                                    <div className=' flex gap-2 items-center mx-1'>
+                                                        <ArrowRightIcon className='h-3 w-3'></ArrowRightIcon><small> {extractSubjectBasedInFirstLine()}</small>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            :
+                                            <div className="" id="widget_headerContainer">
+                                                <div className="header_ChatBotWidget">
+                                                    <div className="profile_photo_container">
+                                                        <img width="45px" src={`${botUnique?.enterprise?.logo ||
+                                                            `${CDN_URL}/v1/assets/img/profileDefault.png`} `} />
+                                                    </div>
+                                                    <div className="header_ChatBotWidget-middlebox">
+                                                        <div>
+                                                            <div>
+                                                                <b>{botUnique?.enterprise?.name}</b>
+                                                            </div>
+                                                            <div className="subtitle_div">
+                                                                <span className="subtitle_ChatBotWidget">
+                                                                    <span className="ai_icon">AI</span>{" "}
+                                                                    {botUnique?.enterprise?.description || "Powered by Deflection AI"}
+                                                                </span>
+                                                            </div>
+
+                                                        </div>
+                                                        <div className="widgetchatbot_betatag">Beta </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
+
                                         <div ref={chatLogsRef} id='chatcontentRef' className="chat_content_logs" style={{ maxHeight: isSmallScreen ? '63vh' : '60vh' }}>
 
                                             <div className="answer_with_thumbs_logs">
@@ -844,7 +878,7 @@ const Chat = ({ messages, selectedBot, idOfOpenConversation, setExternalQuestion
                                                                 {
                                                                     element.content !== 'WORKFLOW' && element.content !== 'INFORMATION' && element.content !== "HUMAN-HANDOFF" && element.content !== 'PRODUCTS' && !element.content.startsWith('WORKFLOW') && !element.content.startsWith('INFORMATION') &&
                                                                     <>
-                                                                        {element.content}
+                                                                        {conversationDetails?.type == 'email' && key == 0 ? removeFirstParagraph(element.content) : element.content}
                                                                     </>
                                                                 }
 
