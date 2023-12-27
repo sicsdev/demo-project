@@ -10,7 +10,7 @@ import { ColorRing } from 'react-loader-spinner'
 import { useDispatch } from 'react-redux'
 
 
-const Automations = ({ expandedIntegration, setShowAutomations }) => {
+const Automations = ({ expandedIntegration, setShowAutomations, refreshWorkflowTemplate}) => {
 
     const dispatch = useDispatch()
     const params = useSearchParams()
@@ -59,12 +59,12 @@ const Automations = ({ expandedIntegration, setShowAutomations }) => {
         // Get Template Object and currents integrations.
         let currentTemplateObject = await getTemplateInformation()
         let currentIntegrationsArray = currentTemplateObject.automations?.map(automation => automation.automation.id) || []
-        console.log(automationObject, '12309129392')
         // Patch it with new elemnt.
         let newIntegrationsArray = [...currentIntegrationsArray, automationObject.id]
         let payload = { automations: newIntegrationsArray }
         let patchTemplate = await partialUpdateWorkflowTemplate(currentTemplateObject.id, payload)
         dispatch(fetchIntegrations())
+        refreshWorkflowTemplate()
     }
 
 

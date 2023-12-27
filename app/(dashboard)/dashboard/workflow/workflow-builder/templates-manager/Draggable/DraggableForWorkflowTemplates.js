@@ -15,7 +15,7 @@ const DraggableForWorkflowTemplates = ({ templateData }) => {
 
     useEffect(() => {
         if (templateData?.automations?.length > 0) { setAutomations(templateData.automations) }
-    }, [])
+    }, [templateData])
 
 
     const onDragEnd = async (result) => {
@@ -30,7 +30,6 @@ const DraggableForWorkflowTemplates = ({ templateData }) => {
         let arrayWithOnlyIds = items.map(automation => automation.automation.id)
         let payload = { automations: arrayWithOnlyIds }
         let reOrderItem = await partialUpdateWorkflowTemplate(templateData.id, payload)
-        console.log(reorderedItem)
         setAutomations(items);
     };
 

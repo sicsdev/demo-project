@@ -43,9 +43,9 @@ const page = () => {
     if (template_data?.data) setTemplateData(template_data.data)
   }
 
-  // const refreshWorkflowTemplate = () => {
-  //   getTemplateInformation()
-  // }
+  const refreshWorkflowTemplate = () => {
+    getTemplateInformation()
+  }
 
 
   return (
@@ -110,7 +110,7 @@ const page = () => {
 
           {/* SIDEBAR  */}
           <div>
-            <WorkflowTemplatesSidebar  templateData={templateData} getTemplateInformation={getTemplateInformation} ></WorkflowTemplatesSidebar>
+            <WorkflowTemplatesSidebar refreshWorkflowTemplate={refreshWorkflowTemplate}  templateData={templateData} getTemplateInformation={getTemplateInformation} ></WorkflowTemplatesSidebar>
           </div>
 
         </div>

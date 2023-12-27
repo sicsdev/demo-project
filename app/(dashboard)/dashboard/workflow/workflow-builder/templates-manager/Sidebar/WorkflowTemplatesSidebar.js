@@ -3,7 +3,7 @@ import IntegrationTab from './Tabs/IntegrationTab/IntegrationTab'
 import SettingsTab from './Tabs/SettingsTab/SettingsTab'
 
 
-const WorkflowTemplatesSidebar = ({ templateData }) => {
+const WorkflowTemplatesSidebar = ({ templateData, refreshWorkflowTemplate }) => {
     const [tab, setTab] = useState(0)
 
     const handleChangeTab = (tabNumber) => {
@@ -56,7 +56,7 @@ const WorkflowTemplatesSidebar = ({ templateData }) => {
 
                     {tab == 0 &&
                         <>
-                            <IntegrationTab></IntegrationTab>
+                            <IntegrationTab refreshWorkflowTemplate={refreshWorkflowTemplate}></IntegrationTab>
                         </>
                     }
 

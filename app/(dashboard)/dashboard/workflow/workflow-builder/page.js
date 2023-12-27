@@ -64,7 +64,7 @@ const Page = () => {
             setTab(0)
         } // If there is no active workflows, setTab to draft section.
 
-    }, [workflowState?.data])
+    }, [])
 
     useEffect(() => {
         getAllWorkflowData();

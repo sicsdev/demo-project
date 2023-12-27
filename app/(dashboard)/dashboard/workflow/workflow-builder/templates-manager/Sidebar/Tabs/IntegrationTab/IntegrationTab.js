@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { fetchIntegrations } from '@/app/components/store/slices/integrationSlice'
 import { getAllIntegrationForTemplates } from '@/app/API/pages/Integration'
 
-const IntegrationTab = () => {
+const IntegrationTab = ({refreshWorkflowTemplate}) => {
     // Helpers
     const integrationState = useSelector(state => state.integration)
     const params = useSearchParams()
@@ -169,6 +169,7 @@ const IntegrationTab = () => {
                     <Automations
                         expandedIntegration={expandedIntegration}
                         setShowAutomations={setShowAutomations}
+                        refreshWorkflowTemplate={refreshWorkflowTemplate}
                     >
                     </Automations>
                 </>
