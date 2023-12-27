@@ -58,10 +58,11 @@ const hoverShadowPlugin = {
   
   // You need to register this plugin with Chart.js
   ChartJS.register(hoverShadowPlugin);
-const LineChart = () => {
-    const labels = ["June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const LineChart = ({chartData}) => {
+  console.log("linedata",chartData)
+    const labels = chartData.map(ele=>ele.date) 
 
-    const dataPoints = [0, 0, 0, 0, 12, 0, 10, 60]; // Example data points
+    const dataPoints = chartData.map(ele=>ele.usage) // Example data points
     const options = {
         responsive: true,
         plugins: {
@@ -144,7 +145,7 @@ const LineChart = () => {
     const data = {
         labels: labels,
         datasets: [{
-            label: 'chats',
+            label: 'usage',
             data: dataPoints,
             fill: false,
             borderColor: '#2563EB', // Color of the line
@@ -159,7 +160,7 @@ const LineChart = () => {
     };
 
     return (
-        <div className="">
+        <div className="px-4">
             <Line
                 data={data}
                 options={options}

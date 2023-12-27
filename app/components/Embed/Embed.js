@@ -20,7 +20,7 @@ import { html } from "@codemirror/lang-html";
 import Link from "next/link";
 import SkeletonLoader from "../Skeleton/Skeleton";
 import { SkeletonTheme } from "react-loading-skeleton";
-import { EmbedCard } from "./EmbedCard";
+import { EmbedCard } from "./EmbedCard";  
 import LineChart from "../Dashboard/Chart/LineChart";
 const Embed = ({ form = true, setTotalRecords,
   skeleton,
@@ -45,18 +45,12 @@ const Embed = ({ form = true, setTotalRecords,
     }
   }, []);
   function combineArrays(main, usage, usedIn) {
-    // Ensure all arrays have the same length
-    if (main.length !== usage.length || main.length !== usedIn.length) {
-      console.error("Arrays are not of the same length.");
-      return;
-    }
-
     // Combine the arrays
     const combinedArray = main.map((item, index) => {
       return {
         ...item, // Spread the properties of the main array item
-        usage: usage[index], // Add usage array's corresponding item
-        usedIn: usedIn[index] // Add usedIn array's corresponding item
+        usage:main.length !== usage.length?[]: usage[index], // Add usage array's corresponding item
+        usedIn: main.length !== usedIn.length ? []:usedIn[index] // Add usedIn array's corresponding item
       };
     });
 
@@ -64,7 +58,7 @@ const Embed = ({ form = true, setTotalRecords,
   }
   useEffect(() => {
     if (state.botData.data?.bots && state.botData.data?.widgets) {
-      const getTitle = state.botData.data.bots.map(
+      const getTitle = state.botData.data.bots.map(     
         (element) => element.chat_title
       );
       const widgetCode = state.botData.data.widgets;
@@ -79,7 +73,7 @@ const Embed = ({ form = true, setTotalRecords,
         };
       });
 
-      let combineData = combineArrays(widgetCode, usage, usedIn)
+      let combineData = combineArrays(mergedArray, usage, usedIn)
       setDetailsData(combineData);
       // setSkeleton(false)
       // setTotalRecords(mergedArray)
