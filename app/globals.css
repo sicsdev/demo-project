@@ -2204,7 +2204,6 @@ input#domainName {
 }
 .myDataTable .rdt_Table .rdt_TableRow:last-child {
   border-bottom: 1px solid ;
-  
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
   border-color: #dbe1e8;
@@ -2224,3 +2223,5 @@ input#domainName {
 .myDataTable .rdt_TableHeadRow:first-child {
   border: none;
 }
+
+
