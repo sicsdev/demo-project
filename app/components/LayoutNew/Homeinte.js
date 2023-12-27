@@ -92,7 +92,7 @@ const Homeinte = () => {
         </div>
 
 
-        <div className='flex flex-column justify-center mt-5 relative' style={{ minHeight: '500px', marginTop: '10px' }}>
+        <div className='flex flex-column justify-center mt-5 relative' style={{ minHeight: '400px', marginTop: '10px' }}>
           <div id="chatbot_widget" className={`chatbot_widget shadow shadow-md`} style={{ width: '850px' }}></div>
         </div>
 
