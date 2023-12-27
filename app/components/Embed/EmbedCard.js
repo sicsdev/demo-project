@@ -7,6 +7,8 @@ import {
   EllipsisVerticalIcon,
   QuestionMarkCircleIcon,
   WrenchScrewdriverIcon,
+  PencilIcon,
+  CodeBracketIcon,
 } from "@heroicons/react/24/outline";
 
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -20,6 +22,9 @@ import Link from "next/link";
 import { useRef } from "react";
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
 import LineChart from "../Dashboard/Chart/LineChart";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 
 export const EmbedCard = ({
   element,
@@ -34,7 +39,7 @@ export const EmbedCard = ({
   const [mode, setMode] = useState('chat')
   const [showCode, setShowCode] = useState(element.usedIn.length === 0 ? element.id : null)
   const [dropdown, setDropdown] = useState(null);
-const [toggle,setToggle]=useState(null)
+  const [toggle, setToggle] = useState(null)
   useEffect(() => {
     setCode(element.code);
     addEmbedFlagToCode()
@@ -85,28 +90,30 @@ const [toggle,setToggle]=useState(null)
   }
   return (
     <>
-      <div className={`${showCode === null && ("h-[200px]")} mt-4 shadow-md  bg-white border-2 border-white     hover:border-primary  rounded-lg group`} >
+      <div className={`${showCode === null && ("h-[200px]")} mt-4 shadow-md bg-white border-2 border-white hover:border-primary rounded-lg group overflow-hidden ${hasUsage(element.usage) !== true && 'flex flex-col justify-between'}`} >
         <div className='flex justify-between items-center pt-4 px-4'>
           <p className='font-[600] text-sm text-heading mb-0'>{element.title}</p>
-        <div className="relative" onClick={(e)=>{setToggle(prev=>prev ?null: element.id)}}> 
-         <EllipsisHorizontalIcon className="h-6 w-6 text-heading " />
-         {toggle ===  element.id&&(
-            <div className="z-10  w-48 bg-white rounded-lg shadow absolute right-0">
-              <ul className="py-3 space-y-1 text-sm">
-                <li>
-                  <div className="flex items-center p-2  hover:bg-primary hover:text-white">
-                    <p>Rename</p>
-                  </div>
-                </li>
-                <li>
-                  <div className="flex items-center p-2  hover:bg-primary hover:text-white" onClick={(e)=>{setShowCode(prev=>prev ?null: element.id)}}>
-                    <p>{showCode === element.id ?"Show Usage":"Show HTML"} </p>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          <div className="relative" onClick={(e) => { setToggle(prev => prev ? null : element.id) }}>
+            <EllipsisHorizontalIcon className="h-6 w-6 text-heading hover:bg-[#151d230a] hover:rounded-md" />
+            {toggle === element.id && (
+              <div className="z-10  w-48 bg-white rounded-lg shadow absolute right-0">
+                <ul className="p-[5px] space-y-1 text-sm">
+                  <li>
+                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]">
+                      <PencilIcon className="h-4 w-4" />
+                      <p>Rename</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
+                      <CodeBracketIcon className="h-4 w-4" />
+                      <p>{showCode === element.id ? "Show Usage" : "Show HTML"} </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
             )}
-        </div>
+          </div>
         </div>
         {showCode === null && (
           <>
@@ -115,27 +122,29 @@ const [toggle,setToggle]=useState(null)
                 {hasUsage(element.usage) === true ?
                   <LineChart chartData={element.usage} />
                   :
-                  <div className='w-full h-[100px] relative'>
-                    {/* You will need to adjust the src path to your image */}
-                    <Image
-                      fill={"true"}
-                      className={` bg-contain mx-auto`}
-                      alt="logo.png"
-                      src={"/blank.png"}
-                    />
-                    <div className="absolute bottom-0 left-0 w-full">
-                      {/* Wave SVG or similar decorative element */}
-                      <div className='wave-pattern' aria-hidden='true'>
-                        {/* Inline SVG or an img tag for the wave pattern */}
+                  <Tippy className="chart-animation" content="This bot has no usage this week" interactive={true} interactiveBorder={20} animation={'fade slide-down'} placement={"bottom"}>
+                    <div className='w-full h-[100px] relative'>
+                      {/* You will need to adjust the src path to your image */}
+                      <Image
+                        fill={"true"}
+                        className={` bg-contain mx-auto`}
+                        alt="logo.png"
+                        src={"/blank.png"}
+                      />
+                      <div className="absolute bottom-0 left-0 w-full">
+                        {/* Wave SVG or similar decorative element */}
+                        <div className='wave-pattern' aria-hidden='true'>
+                          {/* Inline SVG or an img tag for the wave pattern */}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Tippy>
                 }
               </>
             )}
           </>)}
 
-        {showCode===element.id && (
+        {showCode === element.id && (
           <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
             <div className="my-2 text-[10px]">
               <div className='my-3'>

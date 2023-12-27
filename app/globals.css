@@ -287,6 +287,17 @@ span.hljs-tag {
   }
 }
 
+@keyframes slide-down {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 768px) {
   body .history_logs_wrapper img {
     width: 100% !important;
@@ -2154,4 +2165,20 @@ input:-webkit-autofill:active {
 .icon1:hover{
   transform: rotate(45deg);
  transition-duration: .5s; 
+}
+
+.tippy-box {
+  background-color: #fff !important;
+  color: #000 !important;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 0px 5px 0px;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+.tippy-arrow:before{
+  color: #fff;
+}
+
+.chart-animation {
+  animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
 }
