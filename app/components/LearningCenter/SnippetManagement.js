@@ -12,7 +12,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     setCreateModal,
     setLoading,
     setCreatePdfModal, creationMode, currentOpenedProduct, handleDeleteFaq }) => {
-
+    const [load, setLoad] = useState("refersh")
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
     // Local states
@@ -175,16 +175,33 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                         </div>
                         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='flex gap-2'>
 
-                            {basicFormData?.id && <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
+                            {basicFormData?.id &&
+                                <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
 
                             <button
-                                onClick={() => handleSubmit({ type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })}
+                                onClick={() => {
+                                    setLoad("new")
+                                    handleSubmit({ mode: "new", type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })
+                                }
+                                }
                                 type="button"
-                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-white rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 border border-primary text-primary hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-0 disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                 disabled={DisablingButton() || loading === true}
 
                             >
-                                {loading ? "Loading..." : "Save and close"}
+                                {loading && load === "new" ? "Loading..." : "Save and add another"}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setLoad("refresh")
+                                    handleSubmit({ mode: "refresh", type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })
+                                }}
+                                type="button"
+                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                disabled={DisablingButton() || loading === true && load === "refresh"}
+
+                            >
+                                {loading && load === "refresh" ? "Loading..." : "Save and close"}
                             </button>
 
                         </div>

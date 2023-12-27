@@ -94,7 +94,7 @@ const Page = () => {
     const firstRender = useRef(true);
     const [tab, setTab] = useState(1)
     const [loadingChangeAnswer, setLoadingChangeAnswer] = useState(false)
-    const [isMouseOver, setIsMouseOver] = useState("324221d8-2535-4b61-9585-1a71c33cfcdf");
+    const [isMouseOver, setIsMouseOver] = useState(null);
 
 
     const checkValue = (str) => {
@@ -248,10 +248,9 @@ const Page = () => {
             selector: 'question',
             sortable: false,
             minWidth: "200px",
-     
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px',width:"60%"  }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -283,71 +282,75 @@ const Page = () => {
             reorder: true,
             cell: (row) => (
                 <>
-                 {row.id !== isMouseOver && (
+        
                 <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal'> {formatISODate(row.created)}</p >
-                   )}  </> )
+                   </> 
+                   
+                   )
         },
-        {
-            name: "",
-            center: true,
-            cell: (row, index) => (
-                <>
-                    {row.id === isMouseOver && (
-                        <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
-                            setWorkflowView(row)
-                            searchMatched({ question: row.question }, false)
-                            getWorkFlowReccomodation(row.question)
-                            setShow(true)
-                            setAnswer('')
-                            setQuestionData([])
-                            setSearchKnowledge('')
-                            setKnowledgeId(null)
-                        }}>
-                            {
-                                row?.accepted === false && (
-                                    <>
+       
+        
+        // {
+        //     name: "",
+        //     center: true,
+        //     cell: (row, index) => (
+        //         <>
+        //             {row.id === isMouseOver && (
+        //                 <div className="flex justify-center items-center gap-4 w-[100%]" onClick={(e) => {
+        //                     setWorkflowView(row)
+        //                     searchMatched({ question: row.question }, false)
+        //                     getWorkFlowReccomodation(row.question)
+        //                     setShow(true)
+        //                     setAnswer('')
+        //                     setQuestionData([])
+        //                     setSearchKnowledge('')
+        //                     setKnowledgeId(null)
+        //                 }}>
+        //                     {
+        //                         row?.accepted === false && (
+        //                             <>
 
 
-                                        <div>
-                                            <button type="button">
-                                                <PlusCircleIcon className="h-6 w-6 text-success " />
-                                            </button>
-                                        </div>
-                                        <>
-                                            {deleteLoader === row.id ?
-                                                <ColorRing
-                                                    height="30"
-                                                    width="30"
-                                                    color="#4fa94d"
-                                                    ariaLabel="tail-spin-loading"
-                                                    radius="1"
-                                                    wrapperClass="text-center"
-                                                    visible={true}
-                                                /> :
-                                                <div>
-                                                    <button
-                                                        type="button"
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            deleteButtonHandler(row.id);
-                                                        }}
-                                                    >
-                                                        <XCircleIcon className="h-6 w-6 text-danger " />
-                                                    </button>
-                                                </div>
-                                            }
+        //                                 <div>
+        //                                     <button type="button">
+        //                                         <PlusCircleIcon className="h-6 w-6 text-success " />
+        //                                     </button>
+        //                                 </div>
+        //                                 <>
+        //                                     {deleteLoader === row.id ?
+        //                                         <ColorRing
+        //                                             height="30"
+        //                                             width="30"
+        //                                             color="#4fa94d"
+        //                                             ariaLabel="tail-spin-loading"
+        //                                             radius="1"
+        //                                             wrapperClass="text-center"
+        //                                             visible={true}
+        //                                         /> :
+        //                                         <div>
+        //                                             <button
+        //                                                 type="button"
+        //                                                 onClick={(e) => {
+        //                                                     e.stopPropagation();
+        //                                                     deleteButtonHandler(row.id);
+        //                                                 }}
+        //                                             >
+        //                                                 <XCircleIcon className="h-6 w-6 text-danger " />
+        //                                             </button>
+        //                                         </div>
+        //                                     }
 
 
 
-                                        </>
-                                    </>
-                                )}
+        //                                 </>
+        //                             </>
+        //                         )}
 
-                        </div>
-                    )}
-                </>
-            ),
-        },
+        //                 </div>
+        //             )}
+        //         </>
+        //     ),
+        // },
 
 
 
@@ -817,7 +820,7 @@ const Page = () => {
 
                         <div className="w-full sm:relative sm:mt-[20px]">
 
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[2rem] mb-[0rem]'>
+                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[1rem] mb-[0px] '>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
@@ -839,8 +842,8 @@ const Page = () => {
                                 pointerOnHover
                                 pagination
                                 columns={columns}
-                                onRowMouseEnter={(e) => handlemouseOver(e.id)}
-                                onRowMouseLeave={(e) => handlemouseLeave(e.id)}
+                                // onRowMouseEnter={(e) => handlemouseOver(e.id)}
+                                // onRowMouseLeave={(e) => handlemouseLeave(e.id)}
                                 noDataComponent={<><p className="text-center text-xs p-3">Questions Deflection AI needs your help answering will show here when they're ready!</p></>}
                                 data={state?.data?.results}
                                 progressPending={loading}
@@ -867,7 +870,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[75vh] !h-[65vh] !w-[90%] !m-[auto] overflow-y-hidden'
+                                className='sm:!h-[vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden  '
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}

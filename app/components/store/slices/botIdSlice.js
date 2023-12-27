@@ -1,4 +1,5 @@
 import { getAllBotData, getAllWidgetData, getBotAllData, getBotWidget } from "@/app/API/pages/Bot";
+import { getBotGraphData, getBotGraphDataUsedIn } from "@/app/API/pages/Usage";
 
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -44,16 +45,23 @@ export const fetchBot = createAsyncThunk('bot_id/fetchBotData', async () => {
     if (response.results.length > 0) {
         const ids = response.results.map(element => element.id)
         const widgets = await getAllWidgetData(ids)  
+        const usage = await getBotGraphData(ids)
+        const usedIn = await getBotGraphDataUsedIn(ids)
+
         const bots = await getAllBotData(ids)  
         return {
             main_bot_data : response,
             widgets : widgets.map(element=>element.data),
             bots : bots.map(element=>element.data),
+            usage:usage.map(element=>element.data),
+            usedIn:usedIn.map(element=>element.data)
         }
     }
     return {
         main_bot_data : response,
         widgets : null,
         bots : null,
+        usage : null,
+        usedIn : null,
     }
 });

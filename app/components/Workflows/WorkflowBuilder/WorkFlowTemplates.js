@@ -211,7 +211,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                             <div
                                 className="w-full sm:w-auto sm:flex !contents items-center justify-between sm:justify-start flex-wrap"
                                 style={{ rowGap: "0px" }}>
-                                {botValue.length > 1 && (
+                                {/* {botValue.length > 1 && (
                                     <button
                                         onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
                                         key={'allbotsfilter'}
@@ -220,7 +220,7 @@ const WorkFlowTemplates = ({ setTab, workflowData, fetchData, status, setShowTes
                                         {" "}
                                         All
                                     </button>
-                                )}
+                                )} */}
 
                                 {botValue?.length > 1 &&
                                     botValue?.map((element, key) => (

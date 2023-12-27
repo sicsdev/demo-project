@@ -287,6 +287,17 @@ span.hljs-tag {
   }
 }
 
+@keyframes slide-down {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @media (max-width: 768px) {
   body .history_logs_wrapper img {
     width: 100% !important;
@@ -1453,17 +1464,7 @@ body .rhap_progress-indicator {
 body .rhap_controls-section {
   flex: unset;
 }
-div[data-column-id="created"] {
-  display: flex;
-  justify-content: center;
-}div[data-column-id="actions"] {
-  display: flex;
-  justify-content: start;
-}
-div[data-column-id="counting"] {
-  display: flex;
-  justify-content: center;
-}
+
 div[data-column-id="Role"] {
   display: flex;
   justify-content: center;
@@ -1472,6 +1473,9 @@ div[data-column-id="Role"] {
 div[data-column-id="used"] {
   display: flex;
   justify-content: center;
+}
+div[data-column-id="question"] {
+  min-width:70%;
 }
 
 div[data-column-id="term"] {
@@ -2164,4 +2168,30 @@ input:-webkit-autofill:active {
 .icon1:hover{
   transform: rotate(45deg);
  transition-duration: .5s; 
+}
+
+.tippy-box {
+  background-color: #fff !important;
+  color: #000 !important;
+  box-shadow: rgba(0, 0, 0, 0.07) 0px 0px 5px 0px;
+  font-size: 12px !important;
+  font-weight: 500;
+}
+
+.tippy-arrow:before{
+  color: #fff;
+}
+
+.chart-animation {
+  animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
+}
+
+.sc-dAbbOL.kdgCYE.rdt_TableBody {
+  border: 1px solid #dbe1e8;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.sc-eqUAAy.gocYik.rdt_TableHeadRow{
+  border-bottom: 0;
 }
