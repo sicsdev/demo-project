@@ -118,7 +118,7 @@ const Homeinte = () => {
         </div> */}
         <div className='flex overflow-x-auto gap-2 md:gap-5 xl:gap-10 justify-center hide-scrollbar mt-5'>
           {embedItems.map(item => (
-            <div className={`flex-col flex justify-center md:flex gap-3 items-center px-3 md:px-5 py-2 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => handleChangeAndStopTimer(item.id)}>
+            <div className={`flex-col flex justify-center md:flex gap-3 items-center px-3 md:px-5 pb-2 pt-3 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => handleChangeAndStopTimer(item.id)}>
               <img className="h-10 w-10 flex justify-center" src={item.imgSrc} alt={item.title} />
               <small className="truncate whitespace-nowrap overflow-hidden"><b>{item.title}</b></small>
             </div>
@@ -127,7 +127,7 @@ const Homeinte = () => {
         </div>
 
 
-        <div className='flex flex-column justify-center mt-5 relative' style={{ minHeight: '400px', marginTop: '10px' }} >
+        <div className='flex flex-column justify-center mt-5 relative' style={{ minHeight: '590px', marginTop: '10px' }} >
           <div id="chatbot_widget" className={`chatbot_widget`} style={{ width: '850px' }} onClick={handleStopCarousel}></div>
         </div>
 
