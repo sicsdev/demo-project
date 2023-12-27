@@ -682,7 +682,7 @@ const UsageLimit = () => {
                                 {element?.name}
                               </button>
                             ))}
-                          <button
+                          {/* <button
                             onClick={(e) => { setFilters({ ...filters, botId: '' }) }}
                             key={'allbotsbutton'}
                             className={`flex items-center gap-2 justify-center font-semibold ${!filters?.botId
@@ -692,7 +692,7 @@ const UsageLimit = () => {
                           >
                             {" "}
                             All
-                          </button>
+                          </button> */}
                         </div>
                       </div>
 

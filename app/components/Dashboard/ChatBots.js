@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 import Button from '@/app/components/Common/Button/Button';
 import CustomerServiceSetupForm from '@/app/components/Forms/CustomerServiceSetupForm';
@@ -18,7 +17,10 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
 import { getPermissionHelper } from '../helper/returnPermissions';
+import LineChart from './Chart/LineChart';
+import Image from "next/image"
 
+import { AdjustmentsHorizontalIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 
 const ChatBots = ({ setSkeleton, skeleton }) => {
     const state = useSelector(state => state.user)
@@ -29,7 +31,6 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
     const [loading, setLoading] = useState(false)
     const [basicFormData, setBasicFormData] = useState({})
     const [totalRecords, setTotalRecords] = useState([]);
-
     const SubmitForm = async () => {
         setLoading(true)
         let payload = {
@@ -88,7 +89,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
 
     return (
         <>
-            <div className='bg-[#F8F8F8] w-full lg:w-[768px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+            <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                 {
                     skeleton ? (
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 border-b border-[#F0F0F1]`}>
@@ -101,40 +102,25 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                         </div>
                     ) : (
                         <div
-                            className={`py-4 flex  justify-between  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
+                            className={`py-4 flex  justify-center  px-6  items-center gap-4 border-b border-[#F0F0F1]`}
                         >
-                            <div className="flex items-start sm:items-center  gap-2">
-                                {skeleton ?
-                                    <SkeletonLoader count={1} height={30} width={140} />
-                                    :
-                                    <>
-                                        <AdjustmentsHorizontalIcon className="text-primary w-5" />
-                                        <p className="text-base font-medium text-[#151D23]">
-                                            {totalRecords?.length > 1 ? 'Manage Bots' : 'Manage Bots'}
-                                        </p>
-                                    </>
+                            {skeleton ?
+                                <SkeletonLoader count={1} height={30} width={140} />
+                                :
+                                <>
+                                    <AdjustmentsHorizontalIcon className="text-primary w-5" />
+                                    <p className="text-base font-medium text-[#151D23]">
+                                        {totalRecords?.length > 1 ? 'Manage Bots' : 'Manage Bot'}
+                                    </p>
+                                </>
 
-                                }
+                            }
 
-                            </div>
-                            <div className="flex items-center gap-4 ">
-                                {skeleton ?
-                                    <SkeletonLoader count={1} height={30} width={100} />
-                                    :
-                                    (getPermissionHelper('CREATE NEW AGENT', state?.data?.role) && <button
-                                        onClick={(e) => { setShowModal(true) }}
-                                        className="flex items-center gap-2 justify-center font-semibold bg-white text-xs px-5 pb-2 pt-2 border-[#F0F0F1] leading-normal text-[#151D23] disabled:shadow-none hover:bg-primary hover:text-[#ffffff] transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg  "
-
-                                    >
-                                        Add New Bot
-                                    </button>)
-                                }
-                            </div>
                         </div>
                     )
                 }
-
-                <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
+              
+                <Embed form={false} skeleton={skeleton} getPermissionHelper={getPermissionHelper} state1={state} setShowModal={setShowModal} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
                     <SideModal setShow={setShowModal} heading={'Add New Bot'} >
