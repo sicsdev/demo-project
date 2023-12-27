@@ -2204,12 +2204,14 @@ input:-webkit-autofill:active {
   
   border-bottom-right-radius: 6px;
   border-bottom-left-radius: 6px;
+  border-color: #dbe1e8;
 
 }
 .myDataTable .rdt_Table .rdt_TableRow:first-child {
   
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
+  border-color: #dbe1e8;
 }
 
 

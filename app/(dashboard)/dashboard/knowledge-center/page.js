@@ -235,8 +235,8 @@ const Page = () => {
                 // paddingTop: "10px",
                 // paddingBottom: "10px",
                 height: "auto",
-                
-                
+
+
             },
         }
     };
@@ -250,7 +250,7 @@ const Page = () => {
             minWidth: "200px",
             reorder: true,
             cell: (row) => (
-                <p style={{ paddingTop: '15px', paddingBottom: '15px',width:"60%"  }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
+                <p style={{ paddingTop: '15px', paddingBottom: '15px', width: "60%" }} data-tag="allowRowEvents" className='whitespace-normal' onClick={() => {
                     setWorkflowView(row)
                     setShow(true)
                     setAnswer('')
@@ -265,7 +265,7 @@ const Page = () => {
             )
         },
         {
-            name:<p className="font-[600]">Count</p>,
+            name: <p className="font-[600]">Count</p>,
             selector: 'number_of_messages',
             sortable: true,
             reorder: true,
@@ -282,14 +282,14 @@ const Page = () => {
             reorder: true,
             cell: (row) => (
                 <>
-        
-                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
-                   </> 
-                   
-                   )
+
+                    <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
+                </>
+
+            )
         },
-       
-        
+
+
         // {
         //     name: "",
         //     center: true,
@@ -824,13 +824,14 @@ const Page = () => {
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
+
+
+                                        <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                             <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                             </svg>
                                         </div>
-
-                                        <input type="search" id="search" className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10" placeholder="Search" value={search} onChange={(e) => { handleChange(e) }} />
                                     </div>
                                 }
                             </div>
@@ -870,7 +871,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[82vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden  myDataTable'
+                                className='sm:!h-[82vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden !overflow-x-hidden  myDataTable'
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}
