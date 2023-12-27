@@ -60,7 +60,7 @@ const Homeinte = () => {
             "Demo chat with common industries:"
           }
         </h1>
-        {/* <div className="grid sm:flex sm:justify-center grid-cols-2 sm:grid-cols-7 text-center gap-2 sm:gap-0">
+        <div className="grid sm:flex sm:justify-center grid-cols-2 sm:grid-cols-7 text-center gap-2 sm:gap-0">
           {images.map((element, key) => (
             <div
               className="relative w-full mx-auto sm:mx-10 mt-6 img-div-2"
@@ -79,8 +79,8 @@ const Homeinte = () => {
               )}
             </div>
           ))}
-        </div> */}
-        <div className='flex gap-16 justify-center'>
+        </div>
+        {/* <div className='flex gap-16 justify-center'>
 
           {embedItems.map(item => (
             <div className={`flex gap-3 items-center px-5 py-2 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => changeEmbedWidgetId(item.id)}>
@@ -89,12 +89,12 @@ const Homeinte = () => {
             </div>
           ))}
 
-        </div>
+        </div> */}
 
-
-        <div className='flex flex-column justify-center mt-5' style={{ minHeight: '500px', marginTop: '50px' }}>
+{/* 
+        <div className='flex flex-column justify-center mt-5 relative' style={{ minHeight: '500px', marginTop: '50px' }}>
           <div id="chatbot_widget" className={`shadow shadow shadow-md`} style={{ width: '850px' }}></div>
-        </div>
+        </div> */}
 
 
       </div>
