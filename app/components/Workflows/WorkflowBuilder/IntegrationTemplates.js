@@ -63,9 +63,9 @@ const IntegrationTemplates = ({
                         />
                       </div>
                     </div>
-                    <div className="  text-xs text-heading ">
-                      <p className="!font-semibold mt-8">{item.name}</p>
-                     <p className="mt-4"> {item.description}
+                    <div className="    ">
+                      <p className="!font-semibold text-heading text-xs mt-8">{item.name}</p>
+                     <p className="mt-4 text-sm"> {item?.description?.slice(0,90)}
                      </p>
                     </div>
                     {item.checked && (

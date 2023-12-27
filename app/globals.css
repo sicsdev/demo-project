@@ -2182,3 +2182,6 @@ input:-webkit-autofill:active {
 .chart-animation {
   animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
 }
+input#domainName {
+  border: 1px solid #d5dbe7 !important;
+}
