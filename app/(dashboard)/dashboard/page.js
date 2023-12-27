@@ -125,7 +125,6 @@ const Page = () => {
     return (
         <div style={{ whiteSpace: "normal" }}>
             <QuickStart loadingScrapper={loadingScrapper} setloadingScrapper={setLoadingScrapper} finishingScrapping={finishingScrapping} finishedScrapper={finishedScrapper} />
-
         </div>
     );
 }
