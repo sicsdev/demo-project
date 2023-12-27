@@ -9,6 +9,8 @@ import {
   WrenchScrewdriverIcon,
   PencilIcon,
   CodeBracketIcon,
+  BanknotesIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
 
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -106,8 +108,13 @@ export const EmbedCard = ({
                   </li>
                   <li>
                     <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
-                      <CodeBracketIcon className="h-4 w-4" />
-                      <p>{showCode === element.id ? "Show Usage" : "Show HTML"} </p>
+                      {showCode === element.id ?
+                        <ChartBarIcon className="h-4 w-4" />
+                        :
+                        <CodeBracketIcon className="h-4 w-4" />
+                      }
+
+                      <p>{showCode === element.id ? "Show Usage" : "Show html"} </p>
                     </div>
                   </li>
                 </ul>
