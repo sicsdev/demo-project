@@ -121,11 +121,11 @@ export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord, deleteWo
 
         )}
         {
-          deleteWorkflowModal &&
-          <Modal title={`Are you sure you want to delete?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
-            <DeleteWorkflow deleteID={deleteRecord} data={data} />
-          </Modal>
-        }
+              deleteWorkflowModal &&
+              <Modal title={`Are you sure you want to delete?`} show={deleteWorkflowModal} setShow={setDeleteWorkflowModal} showCancel={true} className={"w-[100%] sm:w-[50%] md:w-[50%] lg:w-[50%] my-6 mx-auto sm:max-w-[50%] md:max-w-[50%] lg:max-w-[50%]"} >
+                <DeleteWorkflow setShow={setDeleteWorkflowModal} deleteID={deleteRecord} data={data}  />
+              </Modal>
+            }
       </div>
     </>
   );
