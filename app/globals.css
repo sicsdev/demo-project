@@ -2211,3 +2211,11 @@ input:-webkit-autofill:active {
   border-top-right-radius: 6px;
   border-top-left-radius: 6px;
 }
+
+
+.myDataTable .rdt_Table .rdt_thead {
+  border-bottom: none;
+}
+.myDataTable .rdt_TableHeadRow:first-child {
+  border: none;
+}

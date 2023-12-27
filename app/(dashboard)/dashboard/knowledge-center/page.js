@@ -283,7 +283,7 @@ const Page = () => {
             cell: (row) => (
                 <>
         
-                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal'> {formatISODate(row.created)}</p >
+                <p style={{ paddingTop: '15px', paddingBottom: '15px' }} data-tag="allowRowEvents" className='whitespace-normal sm:mr-[0rem] mr-[3rem]'> {formatISODate(row.created)}</p >
                    </> 
                    
                    )
