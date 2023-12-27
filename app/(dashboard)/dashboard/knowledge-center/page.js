@@ -820,7 +820,7 @@ const Page = () => {
 
                         <div className="w-full sm:relative sm:mt-[20px]">
 
-                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[1rem] mb-[0px] '>
+                            <div className='flex justify-end gap-4 items-center mt-2 px-2 pt-2  sm:z-[2] sm:mb-[1rem] mb-[0px] sm:mr-[53px] mr-[0px] '>
                                 <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                                 {loading ? "" :
                                     <div className="relative w-full sm:w-[unset]">
@@ -870,7 +870,7 @@ const Page = () => {
                                     searchMatched({ question: rowData.question }, false)
                                 }}
                                 paginationRowsPerPageOptions={[5, 10, 20, 30]}
-                                className='sm:!h-[vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden  '
+                                className='sm:!h-[82vh] !h-[65vh] !w-[90%] !m-[auto] !overflow-y-hidden  myDataTable'
                                 sortServer
                                 onSort={handleSort}
                                 customStyles={customStyles}

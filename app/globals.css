@@ -2186,12 +2186,28 @@ input:-webkit-autofill:active {
   animation: slide-down 0.5s ease-in-out; /* Apply the custom slide-down animation */
 }
 
-.sc-dAbbOL.kdgCYE.rdt_TableBody {
-  border: 1px solid #dbe1e8;
-  border-radius: 9px;
-  overflow: hidden;
+.myDataTable .rdt_Table.rdt_TableHead {
+  border: none !important;
 }
 
-.sc-eqUAAy.gocYik.rdt_TableHeadRow{
+.myDataTable .rdt_Table.rdt_TableHeadRow {
+  border: none !important;
+}
+
+.myDataTable .rdt_Table .rdt_TableRow {
+  border: 1px solid ;
   border-bottom: 0;
+  border-color: #dbe1e8;
+}
+.myDataTable .rdt_Table .rdt_TableRow:last-child {
+  border-bottom: 1px solid ;
+  
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+
+}
+.myDataTable .rdt_Table .rdt_TableRow:first-child {
+  
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
 }
