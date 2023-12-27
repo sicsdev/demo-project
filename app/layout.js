@@ -216,7 +216,8 @@ export default function RootLayout({ children }) {
           dangerouslySetInnerHTML={{
             __html: `
           ChatBot.Widget({
-            id: "3930c19f-3a84-422c-9b3d-e7210f97b78b",
+            id: "af9497fc-c837-495e-a7f7-cd034bbf8df7",
+            embed: true
           });
         `,
           }}
