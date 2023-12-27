@@ -40,6 +40,7 @@ import AutoTabsComp from "../components/LayoutNew/AutoTabsComp";
 import Exceptions from "../components/LayoutNew/Exceptions";
 import HeadText from "../components/HeadText/HeadText";
 import Help from "../components/Help/Help";
+import Setupchatbot from "../components/Setupchatbot/Setupchatbot";
 
 export default function Home() {
   const reachData = [
@@ -70,6 +71,7 @@ export default function Home() {
   return (
     <>
       <main className="">
+        <Setupchatbot/>
         <Head></Head>
         <NewAbovepage />
         <Homeinte />
