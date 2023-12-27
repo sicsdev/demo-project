@@ -35,7 +35,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
     const [negative, setNagetive] = useState(false)
     const [updateLoader, setUpdateLoader] = useState(false);
 
-
+    console.log("my selection", selected)
     // Local states for the sidebar for product edition.
     const [createMode, setCreateMode] = useState('snippet')
     const [createModal, setCreateModal] = useState(false)
@@ -96,7 +96,15 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
 
     const updateFaq = async () => {
         setUpdateLoader(true)
-        const response = await patchKnowledgeQuestion({ answer: selected.answer }, selected.id)
+        let newPayload = {
+            answer: selected.answer,
+            "bots": selected.selectBots.map((ele) => {
+                return {
+                    "bot": ele.value, "active": true
+                }
+            })
+        }
+        const response = await patchKnowledgeQuestion(newPayload, selected.id)
         if (response.status === 200 || response.status === 201) {
             // dispatch(fetchFaqQuestions('page=1&page_size=10'));
             getQuestionsData()
@@ -260,7 +268,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "200px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.question}</p>
             ),
         },
         {
@@ -272,7 +280,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             hide: "sm",
             // width: "10%",
             cell: (row) => (
-                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected(row) }}>
+                <div className="flex justify-start w-full items-center gap-2" onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>
                     {
                         row?.knowledge?.source === 'snippet' ?
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" aria-hidden="true" className="w-5 h-5" >
@@ -299,7 +307,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "200px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.knowledgefaq_usage_last_24_hours}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.knowledgefaq_usage_last_24_hours}</p>
             ),
         },
         {
@@ -339,7 +347,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
             minWidth: "100px",
             padding: "12px",
             cell: (row) => (
-                <p className='whitespace-normal p-2' onClick={() => { setSelected(row) }}>{row.question}</p>
+                <p className='whitespace-normal p-2' onClick={() => { setSelected({ selectBots: row?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...row }) }}>{row.question}</p>
             ),
         },
         {
@@ -508,7 +516,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected({ selectBots: rowData?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...rowData }) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
@@ -534,7 +542,7 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                         progressComponent={<div className="w-full mt-3 relative"><SkeletonLoader count={9} height={30} width="100%" className={"mt-2"} /></div>}
                         paginationTotalRows={questions?.data?.count}
                         paginationDefaultPage={questions?.data?.page}
-                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected(rowData) }}
+                        onRowClicked={(rowData) => { currentTab == 'products' ? handleOpenEditProduct(rowData) : setSelected({ selectBots: rowData?.bots.map((x) => { return { name: x.bot.chat_title, value: x.bot.id } }), ...rowData }) }}
                         paginationPerPage={perPage}
                         paginationServer
                         onChangeRowsPerPage={handlePerRowsChange}
@@ -619,7 +627,28 @@ const ManageFaqs = ({ questions, bots, getQuestionsData, setBasicFormData, curre
                             </div> */}
 
                                 <TextEditor oldContent={selected.answer} handleTextEditorChange={handleTextEditorChange}></TextEditor>
-
+                                <div className="py-2">
+                                    <Multiselect
+                                        id='custom-multiselect'
+                                        className='custom-multselect'
+                                        options={bots}
+                                        selectedValues={selected?.selectBots ? selected?.selectBots : []}
+                                        onSelect={(selectedList, selectedItem) => {
+                                            setSelected((prev) => {
+                                                return { ...prev, selectBots: selectedList }
+                                            })
+                                        }}
+                                        onRemove={(selectedList, selectedItem) => {
+                                            setSelected((prev) => {
+                                                return { ...prev, selectBots: selectedList }
+                                            })
+                                        }}
+                                        placeholder={"Select Bots"}
+                                    
+                                        displayValue="name"
+                                        closeOnSelect={true}
+                                        showArrow={false}
+                                    /></div>
                                 <button
                                     onClick={(e) => updateFaq()}
                                     type="button"

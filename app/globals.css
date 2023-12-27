@@ -398,6 +398,9 @@ body .searchWrapper {
   background-position: right;
   width: 150px;
 }
+body .custom-multselect .searchWrapper {
+  width: 100%;
+}
 
 body .searchWrapper-live .searchWrapper {
   background-color: #ffffff;
@@ -432,6 +435,24 @@ body .chip {
   padding: 7px 7px;
   text-wrap: wrap;
   white-space: normal;
+}
+body .custom-multselect .searchWrappery .chip {
+  font-size: 10px;
+  line-height: 16px;
+  margin-bottom: 4px;
+  font-weight: 700;
+  margin-right: 0;
+  background-color: #0057ff;
+  word-wrap: break-word;
+  display: flex;
+  justify-content: space-between;
+  width: 70%;
+  padding: 7px 7px;
+  text-wrap: wrap;
+  white-space: normal;
+}
+body .custom-multselect .searchBox {
+left: 90%;
 }
 
 body .highlightOption {
