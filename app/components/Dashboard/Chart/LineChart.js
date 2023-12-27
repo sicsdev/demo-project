@@ -8,6 +8,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import moment from 'moment';
@@ -20,12 +21,14 @@ ChartJS.register({
   Title,
   Tooltip,
   Legend,
+  Filler
 });
 const hoverShadowPlugin = {
   id: 'hoverShadow',
   afterDraw: (chart) => {
     const ctx = chart.ctx;
     const activeElements = chart.getActiveElements();
+
     if (activeElements.length > 0) {
       const activeElement = activeElements[0];
       const datasetIndex = activeElement.datasetIndex;
@@ -51,8 +54,9 @@ const hoverShadowPlugin = {
       // Restore the original state
       ctx.restore();
     }
-  }
+  },
 };
+
 
 // You need to register this plugin with Chart.js
 ChartJS.register(hoverShadowPlugin);
@@ -143,8 +147,9 @@ const LineChart = ({ chartData }) => {
     labels: labels,
     datasets: [{
       label: 'usage',
-      data: dataPoints,
-      fill: false,
+      data: [0,0,0,5,0,0,2],
+      fill: true,
+      backgroundColor: 'rgb(222,236,249, 0.3)',
       borderColor: '#2563EB', // Color of the line
       tension: 0.4, // Smoothness of the line
       borderWidth: 3, // Width of the line
