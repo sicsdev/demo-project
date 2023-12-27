@@ -425,7 +425,7 @@ const CheckEmail = ({
                   />
                 )}
                 <div className="pt-2 lg:relative">
-                  <h2 className="text-md text-[#555] mb-2 flex gap-1 items-center sm:mt-0 ">
+                  <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-0 ">
                     DNS Verification
                   </h2>
                   <div
@@ -478,7 +478,7 @@ const CheckEmail = ({
             </div>
             {user && user?.enterprise?.domain !== "" && (
               <>
-                <h2 className="text-md text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+                <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
                   {/* <CheckBadgeIcon className="h-5 w-5 text-primary font-bold"></CheckBadgeIcon> */}
                   Verification Process
                 </h2>
@@ -489,7 +489,7 @@ const CheckEmail = ({
                   }}
                 >
                   <div className="mb-4">
-                    <h3 className="text-sm font-semibold mb-1">
+                    <h3 className="text-xs font-semibold mb-1">
                       <b>Step 1:</b> Configure DNS Records
                     </h3>
                     <p className="text-xs">
@@ -499,7 +499,7 @@ const CheckEmail = ({
                   </div>
 
                   <div className="mb-4">
-                    <h3 className="text-sm font-semibold mb-1">
+                    <h3 className="text-xs font-semibold mb-1">
                       <b>Step 2:</b> Confirm Records
                     </h3>
                     <p className="text-xs">
@@ -520,7 +520,7 @@ const CheckEmail = ({
                     </p>
                   </div>
                 </div>
-                <h2 className="text-md text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
+                <h2 className="text-[14px] text-[#555] mb-2 flex gap-1 items-center sm:mt-4 ">
                   DNS Server Records
                 </h2>
                 <div
