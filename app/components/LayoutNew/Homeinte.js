@@ -11,9 +11,12 @@ const Homeinte = () => {
   ];
   const [loading, setLoading] = useState(true);
   const [loadingEmbed, setLoadingEmbed] = useState(false)
-  const [currentEmbedSelected, setCurrentEmbedSelected] = useState(sessionStorage.getItem('deflectionEmbedWidgetId'))
+  const [currentEmbedSelected, setCurrentEmbedSelected] = useState('')
 
   useEffect(() => {
+    let defaultId = "af9497fc-c837-495e-a7f7-cd034bbf8df7"
+    sessionStorage.setItem('deflectionEmbedWidgetId', defaultId)
+    setCurrentEmbedSelected(defaultId)
     setTimeout(() => {
       setLoading(false);
     }, 500);
@@ -80,9 +83,9 @@ const Homeinte = () => {
         <div className='flex gap-16 justify-center'>
 
           {embedItems.map(item => (
-            <div className={`flex gap-3 items-center px-5 py-2 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-primary'}`} onClick={() => changeEmbedWidgetId(item.id)}>
-              <img className="h-8 w-8" src={item.imgSrc} alt={item.title} />
-              <small>{item.title}</small>
+            <div className={`flex gap-3 items-center px-5 py-2 cursor-pointer hover:text-primary ${currentEmbedSelected == item.id && 'text-sky border-sky border rounded-md'}`} onClick={() => changeEmbedWidgetId(item.id)}>
+              <img className="h-10 w-10" src={item.imgSrc} alt={item.title} />
+              <small className={``}><b>{item.title}</b></small>
             </div>
           ))}
 
@@ -90,7 +93,7 @@ const Homeinte = () => {
 
 
         <div className='flex flex-column justify-center mt-5' style={{ minHeight: '500px', marginTop: '50px' }}>
-          <div id="chatbot_widget" className={`shadow-xl`} style={{ width: '850px' }}></div>
+          <div id="chatbot_widget" className={`shadow shadow shadow-md`} style={{ width: '850px' }}></div>
         </div>
 
 
