@@ -5,7 +5,7 @@ import {
   getAllIntegration,
   getAllIntegrationTemplates,
   getIntegrationTemplateByType,
-  getPopularIntegrationsTemplate
+  getPopularIntegrationsTemplate,
 } from "@/app/API/pages/Integration";
 import Loading from "@/app/components/Loading/Loading";
 import integrationData from "@/app/data/integration_data.json";
@@ -29,18 +29,22 @@ import { getPermissionHelper } from "@/app/components/helper/returnPermissions";
 const Page = () => {
   const state = useSelector((state) => state.integration);
   const userState = useSelector((state) => state.user.data);
+  console.log("userState", userState)
   const [formData, setFormData] = useState({});
   const [fixData, setFixeData] = useState([]);
   const [integrationTiles, setIntegrationsTiles] = useState([]);
-  const [originalData, setOriginalData] = useState([])
+  const [originalData, setOriginalData] = useState([]);
   const [dataLoader, setDataLoader] = useState(true);
   const [suggestModal, setSuggestModal] = useState(false);
   const [integrationModal, setIntegrationModal] = useState(false);
   const [integrationform, setIntegrationform] = useState(false);
   const [integrationFormData, setIntegrationFormData] = useState({});
   const [skeltonLoading, setSkeltonLoading] = useState(true);
-  const [help, setHelp] = useState([])
-  const [popularTabs, setPopularTabs] = useState([])
+  const [help, setHelp] = useState([]);
+  const [popularTabs, setPopularTabs] = useState([]);
+  const [allIntegration, setAllintegration] = useState(true);
+  const [CheckedTiles, setCheckedTiles] = useState([]);
+
   const findIconValue = (name) => {
     const findIcon = tiles_icons.find(
       (x) => x.name.toLowerCase() === name.toLowerCase()
@@ -66,39 +70,46 @@ const Page = () => {
     return null;
   };
 
-
-
   const tempoPortalLastLogin = sessionStorage.getItem("tempoportallastlogin");
-  let newPopular = tempoPortalLastLogin ? tempoPortalLastLogin.split("@")[1] : ''
-
+  let newPopular = tempoPortalLastLogin
+    ? tempoPortalLastLogin.split("@")[1]
+    : "";
 
   const dupRemove = (inputArray) => {
     return [...new Set(inputArray)];
-  }
-
+  };
 
   const fetchIntegrations = async () => {
     try {
       setDataLoader(true);
       const dataTemplates = await getAllIntegrationTemplates();
-      const popIntegrations = await addNewDomain({ domain: newPopular })
-      let custom_integrations = null
+      const popIntegrations = await addNewDomain({ domain: newPopular });
+      let custom_integrations = null;
       if (state && state?.data && state?.data?.results) {
-        custom_integrations = state?.data?.results.filter((x) => x.type === 'CUSTOM')
+        custom_integrations = state?.data?.results.filter(
+          (x) => x.type === "CUSTOM"
+        );
       }
 
-      if (dataTemplates && dataTemplates?.length > 0 && popIntegrations?.data.length > 0) {
-        let finalIntegrationPopularData = dupRemove(dupRemove(popIntegrations?.data?.map((entry) => (entry))))
-        const filterDataPopular = dataTemplates.filter((x) => finalIntegrationPopularData.find(ele => ele.toLowerCase() === x.name.toLowerCase()))
+      if (
+        dataTemplates &&
+        dataTemplates?.length > 0 &&
+        popIntegrations?.data.length > 0
+      ) {
+        let finalIntegrationPopularData = dupRemove(
+          dupRemove(popIntegrations?.data?.map((entry) => entry))
+        );
+        const filterDataPopular = dataTemplates.filter((x) =>
+          finalIntegrationPopularData.find(
+            (ele) => ele.toLowerCase() === x.name.toLowerCase()
+          )
+        );
         const updateArray = filterDataPopular.map((item) => ({
           name: item.name,
           logo: item.icon ?? findIconValue(item.name),
           grayscale: false,
           checked: sendCheckedOrNo(state.data.results, item.name),
-          integration_data: getDataAttributes(
-            state.data.results,
-            item.name
-          ),
+          integration_data: getDataAttributes(state.data.results, item.name),
           id: item.id,
           type: item.type,
           data:
@@ -107,7 +118,9 @@ const Page = () => {
           // "data": item.data,
           http_auth_scheme: item.http_auth_scheme,
           http_base: item.http_base,
-        }))
+          description:item.description,
+
+        }));
 
         const transformedData = dataTemplates.reduce((result, item) => {
           const categoryIndex = result.findIndex(
@@ -139,6 +152,7 @@ const Page = () => {
             // "data": item.data,
             http_auth_scheme: item.http_auth_scheme,
             http_base: item.http_base,
+            description:item.description
           });
           return result;
         }, []);
@@ -154,85 +168,100 @@ const Page = () => {
             logo: item.icon ?? findIconValue(item.name),
             grayscale: false,
             checked: sendCheckedOrNo(state.data.results, item.name),
-            integration_data: getDataAttributes(
-              state.data.results,
-              item.name
-            ),
+            integration_data: getDataAttributes(state.data.results, item.name),
             id: item.id,
             type: item.type,
+            description:item.description,
+
             data:
               getDataAttributes(state.data.results, item.name)?.data ||
               item?.data,
             // "data": item.data,
             http_auth_scheme: item.http_auth_scheme,
             http_base: item.http_base,
-          }))
+          }));
           setIntegrationsTiles([
             {
               key: "CUSTOM",
               title: "Custom",
               grayscale: false,
-              tiles: updateArrayCustom
-            }
-            , {
+              tiles: updateArrayCustom,
+            },
+            {
               key: "POPULAR",
               title: "Popular",
               grayscale: false,
-              tiles: updateArray
-            }, ...sortedData]);
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
           setOriginalData([
             {
               key: "CUSTOM",
               title: "Custom",
               grayscale: false,
-              tiles: updateArrayCustom
-            }
-            , {
+              tiles: updateArrayCustom,
+            },
+            {
               key: "POPULAR",
               title: "Popular",
               grayscale: false,
-              tiles: updateArray
-            }, ...sortedData]);
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
           setFixeData([
             {
               key: "CUSTOM",
               title: "Custom",
               grayscale: false,
-              tiles: updateArrayCustom
-            }
-            , {
+              tiles: updateArrayCustom,
+            },
+            {
               key: "POPULAR",
               title: "Popular",
               grayscale: false,
-              tiles: updateArray
-            }, ...sortedData]);
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
         } else {
-
-
-          setIntegrationsTiles([{
-            key: "POPULAR",
-            title: "Popular",
-            grayscale: false,
-            tiles: updateArray
-          }, ...sortedData]);
-          setOriginalData([{
-            key: "POPULAR",
-            title: "Popular",
-            grayscale: false,
-            tiles: updateArray
-          }, ...sortedData]);
-          setFixeData([{
-            key: "POPULAR",
-            title: "Popular",
-            grayscale: false,
-            tiles: updateArray
-          }, ...sortedData]);
-          setOriginalData([{
-            key: "POPULAR",
-            title: "Popular",
-            grayscale: false,
-            tiles: updateArray
-          }, ...sortedData]);
+          setIntegrationsTiles([
+            {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
+          setOriginalData([
+            {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
+          setFixeData([
+            {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
+          setOriginalData([
+            {
+              key: "POPULAR",
+              title: "Popular",
+              grayscale: false,
+              tiles: updateArray,
+            },
+            ...sortedData,
+          ]);
         }
       }
 
@@ -248,11 +277,10 @@ const Page = () => {
     }
   }, [state]);
 
-
   const performIntegrationTask = (item, name) => {
     setIntegrationFormData(item);
     setFormData(item.data);
-    setHelp(tiles_icons.find((ele) => ele.name == item.name))
+    setHelp(tiles_icons.find((ele) => ele.name == item.name));
     switch (item?.name) {
       case "Rest API":
         setSuggestModal(true);
@@ -269,18 +297,17 @@ const Page = () => {
 
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIntegrationform(false);
       }
     };
     // Add the event listener when the component mounts
-    document.addEventListener('keydown', handleEscapeKeyPress);
+    document.addEventListener("keydown", handleEscapeKeyPress);
     // Remove the event listener when the component unmounts
     return () => {
-      document.removeEventListener('keydown', handleEscapeKeyPress);
+      document.removeEventListener("keydown", handleEscapeKeyPress);
     };
   }, []);
-
 
   const handleInput = (e) => {
     const inputValue = e.target.value.toLowerCase();
@@ -293,19 +320,34 @@ const Page = () => {
           ? { ...category, tiles: filteredTiles }
           : null;
       })
-      .filter(item => item !== null); // More explicit than .filter(Boolean)
+      .filter((item) => item !== null); // More explicit than .filter(Boolean)
 
     setIntegrationsTiles(filteredData);
-
-
   };
 
+  const getLengthOfChecked = (integrationTiles) => {
+    return integrationTiles.flatMap((ele) =>
+      ele.tiles.filter((element) => element.checked)
+    ).length;
+  };
+  const getCheckedIntegration = (integrationTiles) => {
+  setCheckedTiles(integrationTiles.map((ele) => ({
+    ...ele,
+    tiles: ele.tiles.filter((element) => element.checked),
+  })).filter((ele) => ele.tiles.length > 0))
+  };
+  
+  
   return (
     <>
-      <TopBar loader={dataLoader} title={`Integrations`} icon={<ShareIcon className="h-5 w-5 text-primary" />} />
+      <TopBar
+        loader={dataLoader}
+        title={`Integrations`}
+        icon={<ShareIcon className="h-5 w-5 text-primary" />}
+      />
       {dataLoader === true ? (
         <div>
-          <div className='grid grid-cols-[85%,15%] my-2'>
+          <div className="grid grid-cols-[85%,15%] my-2">
             <div></div>
             <SkeletonLoader height={30} width={"100%"} />
           </div>
@@ -315,8 +357,10 @@ const Page = () => {
                 <h3 className="text-sm font-semibold mt-3">
                   <SkeletonLoader count={1} height={20} width={100} />
                 </h3>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mx-auto items-center my-2
-                ">
+                <div
+                  className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-2 mx-auto items-center my-2
+                "
+                >
                   <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
                   <SkeletonLoader count={1} height={40} width="100%" />
@@ -331,16 +375,75 @@ const Page = () => {
               </div>
             ))}
           </div>
-
         </div>
       ) : (
         <div className="mt-4">
-          <div className="flex items-center justify-between">
+          <div className="flex justify-end">
+            {getPermissionHelper("CREATE INTEGRATION", userState?.role) && (
+              <div>
+                <div className=" gap-2 w-full ">
+                  <div className="mr-[18px]">
+                    <button
+                      onClick={(e) => setIntegrationModal(true)}
+                      type="button"
+                      className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white"
+                    >
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="flex sm:flex-row flex-col sm:mt-0 mt-5 items-center justify-between">
+            <div className="flex  gap-2 items-center border-[#c6cdd4] border-[1px] p-[2px]">
+              <div
+                className={`${
+                  allIntegration ? "bg-[#006cff]" : ""
+                }  p-[12px] rounded-[4px] h-[40px] flex items-center`}
+              >
+                <p
+                  className={` ${
+                    allIntegration ? "text-white " : ""
+                  } cursor-pointer`}
+                  onClick={() => {
+                    setAllintegration(!allIntegration);
+
+                  }}
+                >
+                  All integration
+                </p>
+              </div>
+              <div
+                className={`${
+                  allIntegration == false ? "bg-[#006cff]" : ""
+                }  p-[12px] rounded-[4px] h-[40px] flex items-center`}
+              >
+                <p
+                  className={` ${
+                    allIntegration == false ? "text-white " : ""
+                  } cursor-pointer`}
+                  onClick={() => {
+                    setAllintegration(!allIntegration);
+                    getCheckedIntegration(integrationTiles)
+
+                  }}
+                >
+                  Connected{`(${getLengthOfChecked(integrationTiles)})`}{" "}
+                </p>
+              </div>
+            </div>
             <div>
-              <div className=' items-center p-2'>
-                <label htmlFor="search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div className=" items-center p-2 mt-5 sm:mt-0">
+                <label
+                  htmlFor="search"
+                  className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                >
+                  Search
+                </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+
+                  <div className="absolute inset-y-0 right-[10px] flex items-center pl-3 pointer-events-none">
                     <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                       <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                     </svg>
@@ -349,32 +452,20 @@ const Page = () => {
                     type="search"
                     id={"search_integration"}
                     onChange={handleInput}
-                    className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pl-10"
+                    className="border border-border shadow-none block px-2 bg-white  rounded-md text-lg placeholder-slate-400 text-black  focus:outline-none focus:border-sky focus:ring-2 isabled:bg-slate-50 disabled:text-slate-500 w-full focus:bg-white focus:text-[12px] pr-[25px]"
                     placeholder={"Search"}
                   />
                 </div>
               </div>
             </div>
-
-            {getPermissionHelper('CREATE INTEGRATION', userState?.role) &&
-              <div>
-                <div className=' gap-2 w-full '>
-                  <div className='mr-[18px]'>
-                    <button onClick={(e) => setIntegrationModal(true)} type="button" className="flex items-center justify-center text-xs gap-1 focus:ring-4 focus:outline-none font-bold rounded-md py-2.5 px-4 w-auto focus:ring-yellow-300 bg-primary  text-white hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:shadow-none disabled:text-white">
-                      Create
-                    </button>
-                  </div>
-                </div>
-              </div>
-            }
-
           </div>
+
           <div>
             {integrationData.length > 0 ? (
               <>
                 <IntegrationTemplates
                   performIntegrationTask={performIntegrationTask}
-                  integrationTiles={integrationTiles}
+                  integrationTiles={allIntegration == true ? integrationTiles : CheckedTiles}
                   userState={userState}
                 />
                 {tiles_data.map((element, key) => (
@@ -385,23 +476,24 @@ const Page = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mx-auto items-center my-2">
                       {element.tiles?.map((item, key) => (
                         <div
-                          className={`${item.grayscale && "pointer-events-none"
-                            } border border-border  rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover  p-2`}
+                          className={`${
+                            item.grayscale && "pointer-events-none"
+                          } border border-border  rounded-md cursor-pointer hover:bg-[#ECF6FE] hover:border-primary_hover  p-2`}
                           key={key}
                           onClick={() => {
                             if (element.title.toLowerCase() !== "custom") {
                               performIntegrationTask(item);
                             }
-
                           }}
                         >
                           <div className="flex justify-start gap-1 items-center">
                             <div className=" rounded-lg">
                               <Image
                                 fill={"true"}
-                                className={`${item.grayscale &&
+                                className={`${
+                                  item.grayscale &&
                                   "grayscale pointer-events-none"
-                                  } mx-auto rounded-lg !static !w-[20px] !h-auto`}
+                                } mx-auto rounded-lg !static !w-[20px] !h-auto`}
                                 alt="logo.png"
                                 src={item.logo}
                               />
@@ -420,19 +512,20 @@ const Page = () => {
               <p>No data Found !</p>
             )}
           </div>
-          {!integrationform ? (
-            null
-          ) : (
+          {!integrationform ? null : (
             <div>
               {formData && (
                 <div>
-                  <div className='rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50' onClick={() => {
-
-                    setFormData({})
-                    setIntegrationform(false)
-                  }
-                  }></div>
-                  <div className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}>
+                  <div
+                    className="rightSlideAnimations sm:bg-[#222023A6] md:bg-[#222023A6] lg:bg-[#222023A6]  fixed top-0 right-0 bottom-0 left-0 overflow-auto  flex flex-col z-50"
+                    onClick={() => {
+                      setFormData({});
+                      setIntegrationform(false);
+                    }}
+                  ></div>
+                  <div
+                    className={`integrationspopup mt-[63px] sm:mt-0 md:mt-0 lg:mt-0  z-50 overflow-y-scroll p-5 fixed top-0 right-0 h-full m-auto max-h-[100%] bg-white`}
+                  >
                     <CustomIntegration
                       help={help}
                       fetchData={fetchIntegrations}
@@ -440,7 +533,10 @@ const Page = () => {
                       setFormData={setFormData}
                       setIntegrationform={setIntegrationform}
                       integrationFormData={integrationFormData}
-                      checked={sendCheckedOrNo(state?.data?.results, integrationFormData?.name)}
+                      checked={sendCheckedOrNo(
+                        state?.data?.results,
+                        integrationFormData?.name
+                      )}
                     />
                   </div>
                 </div>
@@ -451,8 +547,7 @@ const Page = () => {
       )}
 
       {integrationModal ? (
-
-        <SideModal setShow={setIntegrationModal} heading={'Manage Integration'} >
+        <SideModal setShow={setIntegrationModal} heading={"Manage Integration"}>
           <div className="my-2">
             <ConfigureIntegration
               fetchIntegrations={fetchIntegrations}
@@ -468,9 +563,7 @@ const Page = () => {
       )}
       {suggestModal && (
         <Modal
-          title={
-            <h3 className="text-base !font-bold">Suggest Resource</h3>
-          }
+          title={<h3 className="text-base !font-bold">Suggest Resource</h3>}
           className={"sm:w-[30%] w-[100%]"}
           show={suggestModal}
           setShow={setSuggestModal}
