@@ -10,6 +10,7 @@ import {
     Legend,
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import moment from 'moment';
 
 ChartJS.register({
     CategoryScale,
@@ -60,8 +61,8 @@ const hoverShadowPlugin = {
   ChartJS.register(hoverShadowPlugin);
 const LineChart = ({chartData}) => {
   console.log("linedata",chartData)
-    const labels = chartData.map(ele=>ele.date) 
-
+    const labels = chartData.map(ele=> moment(ele.date, 'DD/MM/YYYY').format('MM/DD/YYYY') 
+    )
     const dataPoints = chartData.map(ele=>ele.usage) // Example data points
     const options = {
         responsive: true,
