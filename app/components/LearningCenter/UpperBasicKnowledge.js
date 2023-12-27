@@ -192,6 +192,8 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     setCreateOptions('snippet')
                 }, 1500);
             }
+        } else {
+            setLoading(false)
         }
     }
 
@@ -500,7 +502,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     </div> */}
 
             {createModal === true && (
-                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'} titleStyles={'text-primary'}>
+                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'}>
 
                     <div className='block items-center my-3'>
                         <ul className="list-none p-0 m-0 w-100">

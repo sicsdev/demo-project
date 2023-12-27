@@ -35,21 +35,18 @@ const hoverShadowPlugin = {
 
       // Save the current state
       ctx.save();
-
+      ctx.stroke();
       // Apply shadow to the entire canvas context
-      ctx.shadowColor = '#C4DAF0';
-      ctx.shadowBlur = 15;
-      ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 10;
-
+      ctx.shadowColor = 'rgb(0, 108, 255)';
+      ctx.shadowBlur = 10;
       // Redraw the active point with the shadow
       element.draw(ctx);
 
       // Clear the shadow so it doesn't affect other canvas elements
-      ctx.shadowColor = '#C4DAF0';
-      ctx.shadowBlur = 0;
+      ctx.shadowColor = 'green';
+      ctx.shadowBlur = 15;
       ctx.shadowOffsetX = 0;
-      ctx.shadowOffsetY = 0;
+      ctx.shadowOffsetY = 10;
 
       // Restore the original state
       ctx.restore();
@@ -156,7 +153,7 @@ const LineChart = ({ chartData }) => {
       hoverRadius: 7, // Set this smaller than before if needed
       hoverBorderWidth: 2, // Set this smaller than before if needed// Radius of the points
       pointHoverRadius: 7, // Radius of the points when hovered
-      pointHoverBorderColor: 'rgb(124, 181, 236)'
+      pointHoverBorderColor: '#ffffff'
     }]
   };
 
