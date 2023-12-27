@@ -3,9 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import DeleteWorkflow from "../KnowledgeBase/DeleteKnowledgeBaseFlow";
 import Modal from "../Common/Modal/Modal";
 
-const SideModal = ({         deleteWorkflowModal,
-  setDeleteWorkflowModal,  setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles }) => {
- 
+const SideModal = ({ deleteWorkflowModal,
+  setDeleteWorkflowModal, setShow, children, heading, border = true, deleteButton = false, data, deleteRecord, width = 'md:w-[800px]', titleStyles, showSubHeadings = false, subHeadings = `` }) => {
   useEffect(() => {
     const handleEscapeKeyPress = (event) => {
       if (event.key === 'Escape') {
@@ -36,8 +35,12 @@ const SideModal = ({         deleteWorkflowModal,
           className={`flex flex-row gap-2 items-center py-4 ${border && "border-b border-border border-lowgray"
             } dark:bg-gray-800 `}
         >
-          <div className="flex flex-1 mx-2">
-            <h2 className={`text-black-color text-sm !font-semibold opacity-90 ${titleStyles && titleStyles}`} style={{ fontFamily: '' }}>{heading}</h2>
+          <div className="block md:flex flex-1 items-center justify-start gap-3 mx-2">
+            <h2 className={`max-w-[100%] md:max-w-[75%] text-black-color text-sm !font-semibold opacity-90 ${titleStyles && titleStyles}`} style={{ fontFamily: '' }}>{heading}</h2>
+            {showSubHeadings && (
+              subHeadings
+            )}
+
           </div>
           <div className="flex hover:cursor-pointer items-center justify-center gap-2">
             {deleteButton && (
@@ -66,7 +69,7 @@ export default SideModal;
 
 
 
-export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord,deleteWorkflowModal, setDeleteWorkflowModal }) => {
+export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord, deleteWorkflowModal, setDeleteWorkflowModal }) => {
   const [showDelete, setShowDelete] = useState();
 
 
@@ -91,7 +94,7 @@ export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord,deleteWor
         ref={divRef}
         onClick={(e) => {
           setShowDelete((prev) => {
-           
+
             if (prev === data.id) {
               return null;
             } else {
@@ -108,14 +111,14 @@ export const ButtonComponent = ({ data, deleteRecnullord, deleteRecord,deleteWor
             <button
               type="button"
               className="text-heading text-xs font-semibold  border border-border rounded-lg  hover:bg-black hover:text-white flex items-center justify-center gap-1 px-2 py-2 "
-            onClick={()=> setDeleteWorkflowModal(true) }
-              // onClick={() => deleteRecord(data.id)}
+              onClick={() => setDeleteWorkflowModal(true)}
+            // onClick={() => deleteRecord(data.id)}
             >
               <XCircleIcon className="w-4 h-4" />
               Delete
             </button>
           </div>
-          
+
         )}
         {
               deleteWorkflowModal &&
