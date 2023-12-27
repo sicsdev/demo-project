@@ -41,6 +41,7 @@ import Exceptions from "../components/LayoutNew/Exceptions";
 import HeadText from "../components/HeadText/HeadText";
 import Help from "../components/Help/Help";
 
+
 export default function Home() {
   const reachData = [
     {
@@ -70,6 +71,7 @@ export default function Home() {
   return (
     <>
       <main className="">
+
         <Head></Head>
         <NewAbovepage />
         <Homeinte />

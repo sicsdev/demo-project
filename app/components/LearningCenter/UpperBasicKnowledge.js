@@ -25,7 +25,6 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
     const [skeletonloading, setSkeletonLoading] = useState(true)
     const [botValue, setBotValue] = useState([]);
 
-
     // Helpers
     const state = useSelector((state) => state.botId);
     const dropdown = useRef(null);
@@ -46,7 +45,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
             setShowSourceFilter(false)
             setCurrentTab('file')
         }
-        
+
     }, []);
 
     useEffect(() => {
@@ -104,6 +103,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
     const handleSubmit = async (value) => {
         setLoading(true)
+        let mode = "refresh"
         let payload = {}
         switch (value.type) {
             case "SNIPPET":
@@ -113,6 +113,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     active: formData?.snippet_active === true ? true : false,
                     title: formData?.title
                 }
+                mode = value?.mode
                 break;
             case "PRODUCT":
                 payload = {
@@ -131,6 +132,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                 if (formData?.product_file) {
                     payload['image'] = formData.product_file
                 }
+                mode = value?.mode
                 break;
             case "FILE":
                 payload = {
@@ -169,15 +171,29 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
 
             } else if (value.type === 'PRODUCT') {
                 const updatedFormData = { ...questions };
-                updatedFormData.data.total.produc = basicFormData.product + 1;
+                updatedFormData.data.total.product = basicFormData.product + 1;
                 setBasicFormData(updatedFormData);
             }
             getQuestionsData()
-            setCreateModal(false)
             setLoading(false)
+            
+            setCreateModal(false)
             setCreateOptions(null)
             setCreatePdfModal(false)
-
+            setFormData({});
+            if (mode === "new") {
+                setTimeout(() => {
+                    if(value.type === "PRODUCT"){
+                        setCreateMode("product")
+                    }
+                    if(value.type === "SNIPPET"){
+                        setCreateMode("snippet")
+                    }
+                    setCreateOptions('snippet')
+                }, 1500);
+            }
+        } else {
+            setLoading(false)
         }
     }
 
@@ -331,16 +347,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                         className="w-full sm:w-auto sm:flex !contents items-center justify-start sm:justify-start flex-wrap"
                         style={{ rowGap: "4px" }}
                     >
-                        {botValue.length > 1 && (
-                            <button
-                                onClick={(e) => handleFilters({ target: { value: '', name: '' } })}
-                                key={'allbotsfilter'}
-                                className={`${!filters.currentBot ? "text-white bg-primary" : "bg-white text-[#151D23]"} flex items-center gap-2 justify-center font-semibold text-xs px-2 py-2 border-[#F0F0F1] leading-normal disabled:shadow-none transition duration-150 ease-in-out focus:outline-none focus:ring-0 active:bg-success-700 border-[1px] rounded-lg   mr-1 w-[120px] text-center`}
-                            >
-                                {" "}
-                                All
-                            </button>
-                        )}
+                       
 
                         {botValue?.length > 1 &&
                             botValue?.map((element, key) => (
@@ -495,7 +502,7 @@ const UpperBasicKnowledge = ({ filters, setFilters, questions, setCheck, basicFo
                     </div> */}
 
             {createModal === true && (
-                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'} titleStyles={'text-primary'}>
+                <SideModal heading={'Add new content'} setShow={setCreateModal} width={'sm:w-[500px]'}>
 
                     <div className='block items-center my-3'>
                         <ul className="list-none p-0 m-0 w-100">

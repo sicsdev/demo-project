@@ -7,14 +7,26 @@ import {
   EllipsisVerticalIcon,
   QuestionMarkCircleIcon,
   WrenchScrewdriverIcon,
+  PencilIcon,
+  CodeBracketIcon,
+  BanknotesIcon,
+  ChartBarIcon,
 } from "@heroicons/react/24/outline";
 
+import { PlusIcon } from '@heroicons/react/24/outline';
+import Image from "next/image"
+
+import { AdjustmentsHorizontalIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { xcodeLight } from "@uiw/codemirror-theme-xcode";
 import CodeMirror from "@uiw/react-codemirror";
 import { html } from "@codemirror/lang-html";
 import Link from "next/link";
 import { useRef } from "react";
 import SkeletonLoader from '@/app/components/Skeleton/Skeleton';
+import LineChart from "../Dashboard/Chart/LineChart";
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/animations/scale.css';
 
 export const EmbedCard = ({
   element,
@@ -27,9 +39,9 @@ export const EmbedCard = ({
   const [code, setCode] = useState("");
   const [embedCode, setEmbedCode] = useState("")
   const [mode, setMode] = useState('chat')
-
+  const [showCode, setShowCode] = useState(element.usedIn.length === 0 ? element.id : null)
   const [dropdown, setDropdown] = useState(null);
-
+  const [toggle, setToggle] = useState(null)
   useEffect(() => {
     setCode(element.code);
     addEmbedFlagToCode()
@@ -47,7 +59,7 @@ export const EmbedCard = ({
     setEmbedCode(updatedCode);
   }
 
-  const [isEmbedEnabled, setIsEmbedEnabled] = useState(false);
+  const [isEmbedEnabled, setIsEmbedEnabled] = useState(true);
 
   const toggleEmbed = (type) => {
     if (type === 'embed') {
@@ -74,157 +86,91 @@ export const EmbedCard = ({
 
   const tooltipText = `By default, the widget will be rendered in chat mode, but you can also use it integrated directly in your HTML.\n\nTo do this, simply enable this option and add a container with the ID 'chatbot_widget' on your page.\n\nExample:\n<div id='chatbot_widget'></div>\n\nThe chat will be rendered inside that container.`;
 
-
-
+  console.log("element0", element)
+  function hasUsage(array) {
+    return array.some(item => item.usage > 0);
+  }
   return (
     <>
-      <div className="mt-5 border rounded-md border-border  bg-white">
-        <div className="bg-border rounded-t-md py-1 pl-6 justify-between cursor-pointer  w-full border border-border flex text-xs text-white gap-1 items-center">
-          <h3 className="text-xs font-bold text-white my-2">
-          {skeleton ?
-            <SkeletonLoader count={1} height={30} width={100} />
-            :
-            <>
-            {element.title}
-            </>
-          }
-          </h3>
-          <div className=" relative items-start flex flex-row-reverse pr-2">
-            {/* <Link
-              href={`/dashboard/customize?id=${element.id}&name=${element.title}`}
-              className="font-semibold hover:bg-border  hover:text-white block px-4 py-2 text-white "
-            >
-              <button
-                type={"button"} ssName="border-none p-0 m-0 flex gap-1 items-center mx-auto"
-              >
-                <WrenchScrewdriverIcon className="h-5 w-5 text-white" />
-              </button>
-            </Link> */}
-            <div className="flex items-center justify-end my-2 pointer" style={{ cursor: "pointer" }}>
-            {skeleton ?
-              <SkeletonLoader className="mr-2" count={1} height={35} width={60} />
-              :
-              <span
-                className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
-                  }`}
-                onClick={(e) => toggleEmbed('embed')}
-              >
-                Embed
-              </span>
-                }
-              <span className="text-white"></span>
-              {skeleton ?
-                <SkeletonLoader count={1} height={35} width={60} />
-                :
-              <span
-                className={`text-xs px-4 mr-1 flex items-center gap-2 justify-center font-semibold pb-2 pt-2 border-[#F0F0F1]  border-[1px] rounded-lg ${!isEmbedEnabled ? "text-black" : "text-[#333333] opacity-30"
-                  }`}
-                onClick={(e) => toggleEmbed('chat')}
-              >
-                Widget
-              </span>
-                }
-            </div>
+      <div className={`${showCode === null && ("h-[200px]")} mt-4 shadow-md bg-white border-2 border-white hover:border-primary rounded-lg group overflow-hidden ${hasUsage(element.usage) !== true && 'flex flex-col justify-between'}`} >
+        <div className='flex justify-between items-center pt-4 px-4'>
+          <p className='font-[600] text-sm text-heading mb-0'>{element.title}</p>
+          <div className="relative" onClick={(e) => { setToggle(prev => prev ? null : element.id) }}>
+            <EllipsisHorizontalIcon className="h-6 w-6 text-heading hover:bg-[#151d230a] hover:rounded-md" />
+            {toggle === element.id && (
+              <div className="z-10  w-48 bg-white rounded-lg shadow absolute right-0">
+                <ul className="p-[5px] space-y-1 text-sm">
+                  <li>
+                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]">
+                      <PencilIcon className="h-4 w-4" />
+                      <p>Rename</p>
+                    </div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-start gap-2 p-2  hover:bg-[#151d230a] hover:text-primary rounded-[6px]" onClick={(e) => { setShowCode(prev => prev ? null : element.id) }}>
+                      {showCode === element.id ?
+                        <ChartBarIcon className="h-4 w-4" />
+                        :
+                        <CodeBracketIcon className="h-4 w-4" />
+                      }
+
+                      <p>{showCode === element.id ? "Show Usage" : "Show html"} </p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
-        <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
-          <div className="my-2 text-[10px]">
-            <div className='my-3'>
-              <small>
-              {skeleton ?
-                <SkeletonLoader count={1} height={10} width="80%" />
-                :
-              "Add this code to the head section of your website's HTML:"
-              }
-              </small>
-            </div>
-            {skeleton ?
-              <SkeletonLoader count={4} height={10} width="100%" />
-              :
-            <CodeMirror
-              value={isEmbedEnabled ? embedCode.trim() : code.trim()}
-              height="auto"
-              theme={xcodeLight}
-              extensions={[html({ selfClosingTags: true })]}
-              editable={false}
-              basicSetup={{
-                lineNumbers: false,
-                foldGutter: false,
-                dropCursor: false,
-                highlightActiveLine: false
-              }}
-              readOnly={true}
-              className="border-none home_widgets_box"
-            // onChange={onChange}
-            />
-            }
-            <div className='flex justify-between items-center'>
-                  <Link href={`/dashboard/chat-settings?name=${element.title}&id=${element.id}`}>
+        {showCode === null && (
+          <>
+            {element?.usedIn.length > 0 && (
+              <>
+                {hasUsage(element.usage) === true ?
+                  <LineChart chartData={element.usage} />
+                  :
+                  <Tippy className="chart-animation" content="This bot has no usage this week" interactive={true} interactiveBorder={20} animation={'fade slide-down'} placement={"bottom"}>
+                    <div className='w-full h-[100px] relative'>
+                      {/* You will need to adjust the src path to your image */}
+                      <Image
+                        fill={"true"}
+                        className={` bg-contain mx-auto`}
+                        alt="logo.png"
+                        src={"/blank.png"}
+                      />
+                      <div className="absolute bottom-0 left-0 w-full">
+                        {/* Wave SVG or similar decorative element */}
+                        <div className='wave-pattern' aria-hidden='true'>
+                          {/* Inline SVG or an img tag for the wave pattern */}
+                        </div>
+                      </div>
+                    </div>
+                  </Tippy>
+                }
+              </>
+            )}
+          </>)}
+
+        {showCode === element.id && (
+          <div className="px-2 sm:px-5 md:px-5 lg:px-5 ">
+            <div className="my-2 text-[10px]">
+              <div className='my-3'>
+                <small>
                   {skeleton ?
-                    <SkeletonLoader count={1} height={30} width={45} />
+                    <SkeletonLoader count={1} height={10} width="80%" />
                     :
-                    <span className="flex items-center hover:text-white text-sky text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
-                      <small>Edit </small>
-                    </span>
+                    "Add this code to the head section of your website's HTML:"
                   }
-                  </Link>
-
-                  <div className='text-sm  rounded-xl inline-block p-1 px-2  hover:text-white text-sky'>
-                    {copied.message && copied.key === element.id ? (
-                      <>
-                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
-                          <CheckIcon className="h-4 w-4 " />
-                          <small className=''>Copied!</small>
-                        </span>{" "}
-                      </>
-                    ) : (
-                      <CopyToClipboard
-                        text={isEmbedEnabled ? embedCode : code}
-                        onCopy={() => {
-                          setCopied((prev) => {
-                            return {
-                              ...prev,
-                              message: "copied !",
-                              key: element.id,
-                            };
-                          });
-                          setTimeout(() => {
-                            setCopied((prev) => {
-                              return {
-                                ...prev,
-                                message: null,
-                                key: null,
-                              };
-                            });
-                          }, 3000);
-                        }}
-                      >
-                      {skeleton ?
-                        <SkeletonLoader count={1} height={30} width={85} />
-                        :
-                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky sm:mr-[-11px]  bg-skyblue">
-                          <ClipboardIcon className=" h-4 w-4" />
-                          <small className=''>Copy code</small>
-                        </span>
-                      }
-                      </CopyToClipboard>
-                    )}
-                  </div>
-                </div>
-
-
-
-            {isEmbedEnabled &&
-              <div className='mt-5 relative'>
-                <hr className='opacity-10 my-2'></hr>
-                <div className='my-3'>
-                  <small>Add this code to the HTML where you want display the Deflection AI chat:</small>
-                </div>
+                </small>
+              </div>
+              {skeleton ?
+                <SkeletonLoader count={4} height={10} width="100%" />
+                :
                 <CodeMirror
-                  value={`<div id="chatbot_widget"></div>`}
+                  value={isEmbedEnabled ? embedCode.trim() : code.trim()}
                   height="auto"
                   theme={xcodeLight}
-                  extensions={[html({ selfClosingTags: false })]}
+                  extensions={[html({ selfClosingTags: true })]}
                   editable={false}
                   basicSetup={{
                     lineNumbers: false,
@@ -233,61 +179,136 @@ export const EmbedCard = ({
                     highlightActiveLine: false
                   }}
                   readOnly={true}
-                  className="border-none bg-sky home_widgets_box"
+                  className="border-none home_widgets_box"
                 // onChange={onChange}
                 />
-                <div className='flex justify-end items-center'>
-               
+              }
+              <div className='flex justify-between items-center'>
+                <Link href={`/dashboard/chat-settings?name=${element.title}&id=${element.id}`}>
+                  {skeleton ?
+                    <SkeletonLoader count={1} height={30} width={45} />
+                    :
+                    <span className="flex items-center hover:text-white text-sky text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
+                      <small>Edit </small>
+                    </span>
+                  }
+                </Link>
 
-                  <div className='text-sm rounded-xl inline-block p-1 px-2 hover:text-white text-sky sm:mr-[-11px] '>
-                    {copied.message && copied.key === `${element.id}embed` ? (
-                      <>
-                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
-                          <CheckIcon className="h-4 w-4 " />
-                          <small className=''>Copied!</small>
-                        </span>{" "}
-                      </>
-                    ) : (
-                      <CopyToClipboard
-                        text={`<div id="chatbot_widget"></div>`}
-                        onCopy={() => {
+                <div className='text-sm  rounded-xl inline-block p-1 px-2  hover:text-white text-sky'>
+                  {copied.message && copied.key === element.id ? (
+                    <>
+                      <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
+                        <CheckIcon className="h-4 w-4 " />
+                        <small className=''>Copied!</small>
+                      </span>{" "}
+                    </>
+                  ) : (
+                    <CopyToClipboard
+                      text={isEmbedEnabled ? embedCode : code}
+                      onCopy={() => {
+                        setCopied((prev) => {
+                          return {
+                            ...prev,
+                            message: "copied !",
+                            key: element.id,
+                          };
+                        });
+                        setTimeout(() => {
                           setCopied((prev) => {
                             return {
                               ...prev,
-                              message: "copied !",
-                              key: `${element.id}embed`,
+                              message: null,
+                              key: null,
                             };
                           });
-                          setTimeout(() => {
+                        }, 3000);
+                      }}
+                    >
+                      {skeleton ?
+                        <SkeletonLoader count={1} height={30} width={85} />
+                        :
+                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky sm:mr-[-11px]  bg-skyblue">
+                          <ClipboardIcon className=" h-4 w-4" />
+                          <small className=''>Copy code</small>
+                        </span>
+                      }
+                    </CopyToClipboard>
+                  )}
+                </div>
+              </div>
+
+
+
+              {isEmbedEnabled &&
+                <div className='mt-5 relative'>
+                  <hr className='opacity-10 my-2'></hr>
+                  <div className='my-3'>
+                    <small>Add this code to the HTML where you want display the Deflection AI chat:</small>
+                  </div>
+                  <CodeMirror
+                    value={`<div id="chatbot_widget"></div>`}
+                    height="auto"
+                    theme={xcodeLight}
+                    extensions={[html({ selfClosingTags: false })]}
+                    editable={false}
+                    basicSetup={{
+                      lineNumbers: false,
+                      foldGutter: false,
+                      dropCursor: false,
+                      highlightActiveLine: false
+                    }}
+                    readOnly={true}
+                    className="border-none bg-sky home_widgets_box"
+                  // onChange={onChange}
+                  />
+                  <div className='flex justify-end items-center'>
+
+
+                    <div className='text-sm rounded-xl inline-block p-1 px-2 hover:text-white text-sky sm:mr-[-11px] '>
+                      {copied.message && copied.key === `${element.id}embed` ? (
+                        <>
+                          <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
+                            <CheckIcon className="h-4 w-4 " />
+                            <small className=''>Copied!</small>
+                          </span>{" "}
+                        </>
+                      ) : (
+                        <CopyToClipboard
+                          text={`<div id="chatbot_widget"></div>`}
+                          onCopy={() => {
                             setCopied((prev) => {
                               return {
                                 ...prev,
-                                message: null,
-                                key: null,
+                                message: "copied !",
+                                key: `${element.id}embed`,
                               };
                             });
-                          }, 3000);
-                        }}
-                      >
-                        <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
-                          <ClipboardIcon className=" h-4 w-4" />
-                          <small>Copy code</small>
-                        </span>
-                      </CopyToClipboard>
-                    )}
+                            setTimeout(() => {
+                              setCopied((prev) => {
+                                return {
+                                  ...prev,
+                                  message: null,
+                                  key: null,
+                                };
+                              });
+                            }, 3000);
+                          }}
+                        >
+                          <span className="flex items-center text-sm p-1 px-2 rounded-xl hover:bg-sky  bg-skyblue">
+                            <ClipboardIcon className=" h-4 w-4" />
+                            <small>Copy code</small>
+                          </span>
+                        </CopyToClipboard>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-            }
+              }
 
 
+            </div>
           </div>
-        </div>
-        <div
-          className="flex items-center justify-end mx-5 my-2"
-          title={tooltipText}
-        >
-        </div>
-      </div >
+        )}
+      </div>
     </>);
 };

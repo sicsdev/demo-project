@@ -33,24 +33,27 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
                         <div style={{ boxShadow: 'rgba(100, 100, 111, 0.2) 0px 7px 29px 0px' }} className={`relative max-h-[80vh] sm:max-h-none overflow-y-auto my-6 mx-auto ${className}`}>
                             <div ref={divRef} className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                                 {/*header*/}
-                                <div className={`flex items-center justify-between ${hr === true && ("py-3 border-b border-solid border-slate-200")} py-3 px-3 rounded-t`}>
+                                <div className={`flex items-center justify-center relative ${hr === true && ("py-3 border-b border-solid border-[#8a939e] border-slate-200")} py-3 px-3 rounded-t`}>
 
-                                    <span
+                                    {/* <span
                                         className={`flex justify-start cursor-pointer items-center  font-bold rounded-t-lg active `}
                                         aria-current="page"
                                     >
                                         {title}
-                                    </span>
+                                    </span> */}
+                                    <h2 className="text-black-color text-md !font-semibold opacity-90 undefined">
+                                       {title}
+                                    </h2>
                                     {
                                         showTopCancleButton === true && (
                                             customHideButton === true ?
                                                 <Button className="text-border font-normal font-sm" onClick={() => { setShow(false); closeFunction() }}>
-                                                    <XMarkIcon className="h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2" />
+                                                    <XMarkIcon className="h-8 w-8 rounded-lg text-[#707B89] bg-[#fff] hover:text-[#334bfa] p-2" />
                                                 </Button> :
                                                 showCancel && (
-                                                    <div className='flex justify-end gap-2'>
+                                                    <div className='flex justify-end gap-2 absolute right-[8px]'>
                                                         <div className='cursor-pointer' onClick={() => setShow(false)}>
-                                                            <XMarkIcon className='h-8 w-8 rounded-lg text-black bg-[#f1f1f1] hover:bg-[#eef0fc] hover:text-[#334bfa] p-2' />
+                                                            <XMarkIcon className='h-10 w-10 rounded-lg text-[#707B89] bg-[#fff] hover:text-[#334bfa] p-2' />
                                                         </div>
                                                     </div>
                                                 )
@@ -59,9 +62,10 @@ const Modal = ({ title, show, setShow, children, className, showCancel = false, 
 
                                 </div>
                                 {/*body*/}
-                                <div className={`relative ${hr === true ? ("p-3") : "px-3"} flex-auto`}>
+                                <div className={`mt-1 relative ${hr === true ? ("p-6") : "px-3"} flex-auto`}>
                                     {children}
                                 </div>
+                
                             </div>
                         </div>
                     </Card>

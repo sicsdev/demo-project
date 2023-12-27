@@ -12,10 +12,9 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     setCreateModal,
     setLoading,
     setCreatePdfModal, creationMode, currentOpenedProduct, handleDeleteFaq }) => {
-
+    const [load, setLoad] = useState("refersh")
     const [newUUI, setNewUUI] = useState('')
     const [mode, setMode] = useState('normal')
-
     // Local states
     const [content, setContent] = useState(basicFormData?.content ?? '')
     const [tipContent, setTipContent] = useState(true);
@@ -151,6 +150,19 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
     const handleMouseLeave = () => {
         setShowError(false);
     };
+    console.log("basicFormData1", basicFormData)
+
+    useEffect(() => {
+        console.log("basicFormData2", basicFormData)
+        const textarea = document.querySelector(".resizable-textarea");
+        textarea?.setAttribute("rows", "1"); // Set the 'rows' attribute
+        const rows = Math.min(
+            Math.ceil(textarea?.scrollHeight / 20), // 20 is the approximate line height
+            20 // Limit to a maximum of 6 rows
+        );
+
+        textarea?.setAttribute("rows", (rows - 1)?.toString()); // Set the 'rows' attribute with the new value
+    }, [basicFormData.title]);
 
     return (
         <>
@@ -163,16 +175,33 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                         </div>
                         <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className='flex gap-2'>
 
-                            {basicFormData?.id && <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
+                            {basicFormData?.id &&
+                                <button onClick={handleDeleteFaq} className='flex items-center justify-center gap-2 focus:outline-none font-bold bg-red rounded-md text-xs py-2.5 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-danger-600 hover:shadow-red disabled:bg-input_color disabled:text-white disabled:shadow-none'>Delete</button>}
 
                             <button
-                                onClick={() => handleSubmit({ type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })}
+                                onClick={() => {
+                                    setLoad("new")
+                                    handleSubmit({ mode: "new", type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })
+                                }
+                                }
                                 type="button"
-                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-white rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 border border-primary text-primary hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:border-0 disabled:bg-input_color disabled:text-white disabled:shadow-none"
                                 disabled={DisablingButton() || loading === true}
 
                             >
-                                {loading ? "Loading..." : "Save and close"}
+                                {loading && load === "new" ? "Loading..." : "Save and add another"}
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setLoad("refresh")
+                                    handleSubmit({ mode: "refresh", type: creationMode === 'snippet' ? 'SNIPPET' : "PRODUCT" })
+                                }}
+                                type="button"
+                                className="flex items-center justify-center gap-1 focus:ring-4 focus:outline-none font-medium bg-primary rounded-md text-xs py-2 px-4 w-auto focus:ring-yellow-300 text-white hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] disabled:bg-input_color disabled:text-white disabled:shadow-none"
+                                disabled={DisablingButton() || loading === true && load === "refresh"}
+
+                            >
+                                {loading && load === "refresh" ? "Loading..." : "Save and close"}
                             </button>
 
                         </div>
@@ -211,7 +240,7 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
 
                             <div className='flex gap-5 w-100'>
                                 <div className='w-1/2 mt-2'>
-                                    <TextField
+                                    {/* <TextField
                                         onChange={handleInputChange}
                                         value={basicFormData.title}
                                         className="py-3 mt-1 w-full"
@@ -222,8 +251,19 @@ const SnippetManagement = ({ setCreateOptions, basicFormData, setBasicFormData, 
                                         type={"text"}
                                         error={''}
                                         tooltipInfo={"The name of the product"}
+                                    /> */}
 
-                                    />
+                                    <textarea
+                                        onChange={handleInputChange}
+                                        name="title"
+                                        type="text"
+                                        className="resizable-textarea w-full block px-3 new_input bg-white focus:bg-white focus:text-[12px] border rounded-md text-sm shadow-sm placeholder-slate-400  focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-slate-50 disabled:text-slate-500 invalid:border-pink-500 invalid:text-pink-600 focus:invalid:border-pink-500 focus:invalid:ring-pink-500 border-input_color"
+                                        placeholder="Enter a Title"
+                                        rows={"1"}
+                                        error={''}
+                                    >
+                                        {basicFormData.title}
+                                    </textarea>
 
                                     {creationMode === 'product' && (
                                         <>

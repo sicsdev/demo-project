@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import '@/app/components/Workflows/WorkflowBuilder\/customStyles.css'
 import { useSearchParams } from 'next/navigation'
+
 const Source = () => {
     const [basicFormData, setBasicFormData] = useState({})
     const [bots, setBots] = useState([])
@@ -57,7 +58,11 @@ const Source = () => {
                 isLoading: true
             }
         })
-        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours`)
+        let filterQueryParam = ``;
+        if(filters.currentBot) {
+            filterQueryParam = `&bot__id=${filters.currentBot}`;
+        }
+        const response = await getFaqQuestions(`${queryParam}&ordering=-annotated_knowledgefaq_usage_last_24_hours${filterQueryParam}`)
         if (response) {
             const botDataArray = response?.results?.map(entry => {
                 if (entry?.bots?.length === 0) {

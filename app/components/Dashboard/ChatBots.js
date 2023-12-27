@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from 'react'
-import { AdjustmentsHorizontalIcon } from '@heroicons/react/24/outline';
 import Embed from '@/app/components/Embed/Embed';
 import Button from '@/app/components/Common/Button/Button';
 import CustomerServiceSetupForm from '@/app/components/Forms/CustomerServiceSetupForm';
@@ -18,10 +17,15 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { fetchBot } from '../store/slices/botIdSlice';
 import { getPermissionHelper } from '../helper/returnPermissions';
+import LineChart from './Chart/LineChart';
+import Image from "next/image"
 
+import { AdjustmentsHorizontalIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 
 const ChatBots = ({ setSkeleton, skeleton }) => {
     const state = useSelector(state => state.user)
+    const stateBotData = useSelector((state) => state.botId);
+    
     const dispatch = useDispatch()
     const router = useRouter()
     const [showModal, setShowModal] = useState(false)
@@ -29,7 +33,6 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
     const [loading, setLoading] = useState(false)
     const [basicFormData, setBasicFormData] = useState({})
     const [totalRecords, setTotalRecords] = useState([]);
-
     const SubmitForm = async () => {
         setLoading(true)
         let payload = {
@@ -85,10 +88,10 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
             }
         })
     }
-
+    
     return (
         <>
-            <div className='bg-[#F8F8F8] w-full lg:w-[768px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
+            <div className='bg-[#F8F8F8] w-full lg:w-[950px] m-auto border rounded-lg border-[#F0F0F1] mt-5 cursor-pointer'>
                 {
                     skeleton ? (
                         <div className={`py-4 px-6 flex justify-between items-center gap-4 border-b border-[#F0F0F1]`}>
@@ -110,7 +113,7 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                                     <>
                                         <AdjustmentsHorizontalIcon className="text-primary w-5" />
                                         <p className="text-base font-medium text-[#151D23]">
-                                            {totalRecords?.length > 1 ? 'Install Widgets' : 'Install Widget'}
+                                            {stateBotData?.botData.data?.bots?.length > 1 ? 'Manage Bots' : 'Manage Bot'}
                                         </p>
                                     </>
 
@@ -134,10 +137,10 @@ const ChatBots = ({ setSkeleton, skeleton }) => {
                     )
                 }
 
-                <Embed form={false} skeleton={skeleton} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
+                <Embed form={false} skeleton={skeleton} getPermissionHelper={getPermissionHelper} state1={state} setShowModal={setShowModal} setSkeleton={setSkeleton} setTotalRecords={setTotalRecords} />
 
                 {showModal === true ?
-                    <SideModal setShow={setShowModal} heading={'Create New Agent'} >
+                    <SideModal setShow={setShowModal} heading={'Add New Bot'} >
                         <div className="my-2">
                             <TextField
                                 onChange={handleInputValues}

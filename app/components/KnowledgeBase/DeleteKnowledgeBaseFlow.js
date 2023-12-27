@@ -1,12 +1,12 @@
 import React from 'react'
 import Button from '../Common/Button/Button';
 
-const DeleteWorkflow = ({ deleteID, data }) => {
+const DeleteWorkflow = ({ deleteID, data, setShow }) => {
 
     return (
         <div className=''>
-            <p>Deleting this will be permanent and you will not be able to recover it.   </p>
-            <div className='flex justify-between gap-2 items-center mt-5'>
+            <p className='text-[#8a939e]'>Deleting this will be permanent and you will not be able to recover it.</p>
+            <div className='flex gap-2 items-center justify-end mt-6'>
                 {/* {active === true && (
                     <Button
                         type={"button"}
@@ -23,10 +23,19 @@ const DeleteWorkflow = ({ deleteID, data }) => {
                 )} */}
                 <Button
                     type={"button"}
-                    onClick={() => deleteID(data.id)}
-                    className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-3 text-xs  uppercase leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                    className="font-bold rounded bg-#fff px-6 pb-2 pt-2 text-sm text-[#707B89] leading-normal disabled:shadow-none  transition duration-150 ease-in-out border border-solid border-[#8a939e]"
+                    onClick={() => { setShow(false)}}
                 >
-                     Delete WorkFlow 
+                  
+                     Cancel
+
+                </Button>
+                <Button
+                    type={"button"}
+                    onClick={() => deleteID(data.id)}
+                    className="inline-block font-bold rounded bg-primary px-8 pb-2 pt-2.5 text-sm leading-normal text-white disabled:shadow-none  transition duration-150 ease-in-out hover:bg-success-600 hover:shadow-[0_8px_9px_-4px_#0000ff8a] focus:bg-success-600 focus:shadow-[0_8px_9px_-4px_#0000ff8a] focus:outline-none focus:ring-0 active:bg-success-700 active:shadow-[0_8px_9px_-4px_#0000ff8a]"
+                >
+                     Delete Question 
 
                 </Button>
             </div>
