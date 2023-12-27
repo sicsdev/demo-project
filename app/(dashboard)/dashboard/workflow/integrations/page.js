@@ -118,6 +118,8 @@ const Page = () => {
           // "data": item.data,
           http_auth_scheme: item.http_auth_scheme,
           http_base: item.http_base,
+          description:item.description,
+
         }));
 
         const transformedData = dataTemplates.reduce((result, item) => {
@@ -150,6 +152,7 @@ const Page = () => {
             // "data": item.data,
             http_auth_scheme: item.http_auth_scheme,
             http_base: item.http_base,
+            description:item.description
           });
           return result;
         }, []);
@@ -168,6 +171,8 @@ const Page = () => {
             integration_data: getDataAttributes(state.data.results, item.name),
             id: item.id,
             type: item.type,
+            description:item.description,
+
             data:
               getDataAttributes(state.data.results, item.name)?.data ||
               item?.data,
