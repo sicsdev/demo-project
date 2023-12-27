@@ -1,4 +1,4 @@
-import { getIntegrationAutomation } from '@/app/API/pages/Integration'
+import { getAllTemplateAutomationsByIntegrationId, getIntegrationAutomation } from '@/app/API/pages/Integration'
 import { partialUpdateWorkflowTemplate, retrieveWorkflowTemplate } from '@/app/API/pages/Workflow'
 import { fetchIntegrations } from '@/app/components/store/slices/integrationSlice'
 import { tiles_icons } from '@/app/data/icon_data'
@@ -39,7 +39,7 @@ const Automations = ({ expandedIntegration, setShowAutomations }) => {
 
     const handleFindAutomations = async () => {
         setLoading(true)
-        const automationData = await getIntegrationAutomation(expandedIntegration?.id);
+        const automationData = await getAllTemplateAutomationsByIntegrationId(expandedIntegration?.id);
         if (automationData.length > 0) setAutomationsList(automationData)
         setLoading(false)
     }

@@ -73,7 +73,7 @@ export const getPopularIntegrationsTemplate = async () => {
             ]
         }
         const response = await axios.post(`${API_URL}/api/v1/integrations/builwith/popular-integrations/`, body, config);
-        console.log("xyz",response)
+        console.log("xyz", response)
         return response;
     } catch (error) {
         return error;
@@ -156,6 +156,26 @@ export const getActiveIntegrations = async (id) => {
     let config = returnConfig()
     try {
         const response = await axios.get(`${API_URL}/api/v1/main/integrations/`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+
+export const getAllIntegrationForTemplates = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/integration-templates/`, config);
+        return response?.data;
+    } catch (error) {
+        return error
+    }
+};
+
+export const getAllTemplateAutomationsByIntegrationId = async (id) => {
+    let config = returnConfig()
+    try {
+        const response = await axios.get(`${API_URL}/api/v1/main/integration-templates/${id}/automations`, config);
         return response?.data;
     } catch (error) {
         return error

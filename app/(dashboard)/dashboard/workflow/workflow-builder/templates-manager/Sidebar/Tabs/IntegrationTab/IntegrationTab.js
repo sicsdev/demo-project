@@ -8,6 +8,7 @@ import { partialUpdateWorkflowTemplate, retrieveWorkflowTemplate } from '@/app/A
 import { useSearchParams } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { fetchIntegrations } from '@/app/components/store/slices/integrationSlice'
+import { getAllIntegrationForTemplates } from '@/app/API/pages/Integration'
 
 const IntegrationTab = () => {
     // Helpers
@@ -22,20 +23,26 @@ const IntegrationTab = () => {
 
     useEffect(() => {
 
-        if (integrationState?.data?.results) {
-            // Filtering data, we dont want CUSTOM integrations or "QuickEmailVerification"
-            console.log(integrationState?.data?.results, 'integration list')
+        // if (integrationState?.data?.results) {
+        //     // Filtering data, we dont want CUSTOM integrations or "QuickEmailVerification"
+        //     console.log(integrationState?.data?.results, 'integration list')
 
-            let filterQuickEmailVerification = integrationState?.data?.results.filter(integration => integration.name !== "QuickEmailVerification")
-            let filterCustomTypesIntegrations = filterQuickEmailVerification.filter(integration => integration.type !== 'CUSTOM')
+        //     let filterQuickEmailVerification = integrationState?.data?.results.filter(integration => integration.name !== "QuickEmailVerification")
+        //     let filterCustomTypesIntegrations = filterQuickEmailVerification.filter(integration => integration.type !== 'CUSTOM')
 
 
-            setIntegrations(filterCustomTypesIntegrations)
-        }
+        //     setIntegrations(filterCustomTypesIntegrations)
+        // }
 
+        getAllIntegrations()
     }, [integrationState?.data?.results])
 
 
+    const getAllIntegrations = async () => {
+        let allIntegrations = await getAllIntegrationForTemplates()
+        setIntegrations(allIntegrations)
+    }
+    
     const handleFindAutomations = async (element) => {
         setExpandedIntegration(element)
         setShowAutomations(true)
